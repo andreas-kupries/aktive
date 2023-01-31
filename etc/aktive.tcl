@@ -40,7 +40,7 @@ vector double image point uint
 # Accessors - Querying various attributes
 
 operator query::type {
-    image ignore
+    input ignore
     result image-type
 }
 
@@ -50,7 +50,7 @@ operator {
     query::y
     query::ymax
 } {
-    image ignore
+    input ignore
     result int
 }
 
@@ -61,7 +61,7 @@ operator {
     query::pixels
     query::pitch
 } {
-    image ignore
+    input ignore
     result uint
 }
 
@@ -69,7 +69,7 @@ operator {
     query::params
     query::inputs
 } {
-    image ignore
+    input ignore
     result object0
 }
 
@@ -83,7 +83,7 @@ operator thing {
     note Sink. Serializes image to $thing format, into channel
     
     void
-    image ignore
+    input ignore
 
     channel                                dst     Channel the $thing image data is written to
     ${thing}_variant? aktive_${thing}_text variant The $thing format variant to generate
@@ -241,7 +241,7 @@ operator {
 
     op::integrate
 } {
-    image keep
+    input keep
 
     # %% TODO %% specify implementation
 }
@@ -251,7 +251,7 @@ operator {
     op::montage::y
     op::montage::z
 } {
-    image keep-pass ...
+    input keep-pass ...
 
     # %% TODO %% specify implementation
 }
@@ -261,7 +261,7 @@ operator {
     op::flip::y
     op::flip::z
 } {
-    image keep-pass
+    input keep-pass
 
     # %% TODO %% specify implementation
 }
@@ -271,7 +271,7 @@ operator {
     op::swap::xz
     op::swap::yz
 } {
-    image keep-pass-ignore
+    input keep-pass-ignore
 
     # %% TODO %% specify implementation
 }
@@ -287,7 +287,7 @@ operator {
     op::math::outside-co
     op::math::outside-cc
 } {
-    image keep-pass-ignore
+    input keep-pass-ignore
 
     double low   Low boundary
     double high  High boundary
@@ -296,7 +296,7 @@ operator {
 }
 
 operator op::geometry::move-to {
-    image keep-pass-ignore
+    input keep-pass-ignore
 
     int x  New absolute x location of image in the plane
     int y  New absolute y location of image in the plane
@@ -305,7 +305,7 @@ operator op::geometry::move-to {
 }
 
 operator op::geometry::move-by {
-    image keep-pass-ignore
+    input keep-pass-ignore
 
     int dx  Shift for x location of image in the plane
     int dy  Shift for y location of image in the plane
@@ -314,7 +314,7 @@ operator op::geometry::move-by {
 }
 
 operator op::geometry::reshape {
-    image keep-pass-ignore
+    input keep-pass-ignore
 
     uint width   New width of the returned image
     uint height  New height of the returned image
@@ -338,8 +338,8 @@ operator {
     op::math::pow
     op::math::sub
 } {
-    image keep-pass-ignore
-    image keep-pass-ignore
+    input keep-pass-ignore
+    input keep-pass-ignore
 
     # %% TODO %% specify implementation
 }
@@ -347,8 +347,8 @@ operator {
 operator {
     op::pixel::mul
 } {
-    image keep
-    image keep
+    input keep
+    input keep
 
     # %% TODO %% specify implementation
 }
@@ -365,8 +365,8 @@ operator {
     op::math::min
     op::math::mul
 } {
-    image keep-pass-ignore
-    image keep-pass-ignore
+    input keep-pass-ignore
+    input keep-pass-ignore
 
     # %% TODO %% specify implementation
 }
@@ -391,7 +391,7 @@ operator {name op} {
     op::math1::lt      threshold {Indicate pixels less    than     the scalar threshold}
     op::solarize       threshold {Solarize pixels per the threshold}
 } {
-    image keep-pass-ignore
+    input keep-pass-ignore
 
     double $name  {*}$op
 
@@ -429,7 +429,7 @@ operator {
     op::math1::gamma-compress 
     op::math1::gamma-expand   
 } {
-    image keep-pass-ignore
+    input keep-pass-ignore
 
     # %% TODO %% specify implementation
 }
@@ -439,7 +439,7 @@ operator thing {
     op::select::y row
     op::select::z plane
 } {
-    image keep-pass
+    input keep-pass
 
     uint         first  First $thing of input to be in result
     uint? _first last   Last  $thing of input to be in result
@@ -452,7 +452,7 @@ operator {
     op::downsample::y
     op::downsample::z
 } {
-    image keep-pass
+    input keep-pass
 
     uint n  Sampling factor, range 2...
 
@@ -464,7 +464,7 @@ operator {
     op::upsample::y
     op::upsample::z
 } {
-    image keep-pass
+    input keep-pass
 
     uint      n     Sampling factor, range 2...
     double? 0 fill  Pixel fill value
@@ -477,7 +477,7 @@ operator {
     op::upsample::yrep
     op::upsample::zrep
 } {
-    image keep-pass
+    input keep-pass
 
     uint n  Sampling factor, range 2...
 

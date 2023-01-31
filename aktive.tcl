@@ -47,7 +47,7 @@ critcl::subject {vector operations} {matrix operations}
 # # ## ### ##### ######## #############
 ## Implementation.
 
-critcl::tcl 8.5
+critcl::tcl 8.6
 
 ::critcl::debug symbols memory
 #::critcl::config trace on
@@ -63,9 +63,19 @@ critcl::ccode {
 }
 
 # # ## ### ##### ######## #############
-## Meta level - Code generation from high-level specifications
+## Meta level
+## - Generate operator code from high-level spec.
+#
+##   NOTE: The generated code is written to files instead of directly injected
+##   into critcl state.
+#
+##   This makes debugging the generator easier, as its results can be directly
+##   inspected
 
-%% TODO %%
+critcl::source support/dsl.tcl
+dsl generate etc/aktive.tcl generated/
+
+return
 
 # # ## ### ##### ######## #############
 ## Ingest fixed and generated C code.

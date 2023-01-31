@@ -35,15 +35,15 @@ Syntax:
 
 Arguments:
 
-|Name		|Description								|
-|---		|---									|
-|`id`		|DSL name of the type. Used in `vector` and `operator` commands		|
-|`critcl`	|Associated Critcl type name. `-` defaults to `id`			|
-|`c`		|Associated C type name. `-` defaults to `critcl`			|
-|`converter`	|C code fragment to convert a C value of the type into a Tcl_Obj	|
-|		|The fragment has to return a `Tcl_Obj*` value.				|
-|		|The fragment expects to have access to a variable `value` holding	|
-|		|a pointer to the C value to convert					|
+|Name           |Description                                                            |
+|---            |---                                                                    |
+|`id`           |DSL name of the type. Used in `vector` and `operator` commands         |
+|`critcl`       |Associated Critcl type name. `-` defaults to `id`                      |
+|`c`            |Associated C type name. `-` defaults to `critcl`                       |
+|`converter`    |C code fragment to convert a C value of the type into a Tcl_Obj        |
+|               |The fragment has to return a `Tcl_Obj*` value.                         |
+|               |The fragment expects to have access to a variable `value` holding      |
+|               |a pointer to the C value to convert                                    |
 
 ### `vector`
 
@@ -56,9 +56,9 @@ Syntax:
 
 Arguments:
 
-|Name		|Description						|
-|---		|---							|
-|`id`		|DSL name of the type to generate dynamic array code for|
+|Name           |Description                                            |
+|---            |---                                                    |
+|`id`           |DSL name of the type to generate dynamic array code for|
 
 ### `operator`
 
@@ -70,13 +70,13 @@ a single new image, some non-image value, or nothing.
 
 This divides the space of possible operators into 5 regions:
 
-|Region		|Images	|Parameters	     |Result	|Example		|
-|---		|---	|---		     |---	|---			|
-|Generators	|0	|>= 1		     |image	|Read from file		|
-|Transformers	|1	|>= 0		     |image	|Global thresholding	|
-|Compositors	|>= 2	|>= 0		     |image	|montage, interleaving	|
-|Sinks		|1	|>= 0		     |none	|Write to file		|
-|Accessors	|1	|0		     |non-image	|Attributes, statistics	|
+|Region         |Images |Parameters          |Result    |Examples               |
+|---            |---    |---                 |---       |---                    |
+|Generators     |0      |>= 1                |image     |Read from file         |
+|Transformers   |1      |>= 0                |image     |Global thresholding    |
+|Compositors    |>= 2   |>= 0                |image     |Montage, interleaving  |
+|Sinks          |1      |>= 0                |none      |Write to file          |
+|Accessors      |1      |0                   |non-image |Attributes, statistics |
 
 Syntax:
 
@@ -86,12 +86,12 @@ Syntax:
   
 Arguments:
 
-|Name		|Description									|
-|---		|---										|
-|`id`		|Name of the operator, suitable as a Tcl command name				|
-|`ops`		|__Without vars__ `ops` is a plain list of operator ids sharing a fixed spec. __With `N` vars__ `ops` is a list of N+1 sections, one per operator id, sharing a templated spec. The first element of a section is always the operator name. It is followed by N values, one per variable. The `spec` script has access to these variables under the given names	|
-|`vars`		|List of variable names for templating the spec. See `ops` above for details	|
-|`spec`		|Tcl script containing specification commands detailing the operator		|
+|Name           |Description                                                                    |
+|---            |---                                                                            |
+|`id`           |Name of the operator, suitable as a Tcl command name                           |
+|`ops`          |__Without vars__ `ops` is a plain list of operator ids sharing a fixed spec. __With `N` vars__ `ops` is a list of N+1 sections, one per operator id, sharing a templated spec. The first element of a section is always the operator name. It is followed by N values, one per variable. The `spec` script has access to these variables under the given names |
+|`vars`         |List of variable names for templating the spec. See `ops` above for details    |
+|`spec`         |Tcl script containing specification commands detailing the operator            |
 
 Defaults:
 
@@ -101,17 +101,17 @@ Defaults:
 
 #### Specification commands
 
-|Command			|Description						|
-|---				|---							|
-|`note ...`			|Internal notes for maintainers				|
-|				|	  	    					|
-|`result ID`			|Declare non-image return type. See `type` declarations	|
-|`void`				|Declare operator as void, returning nothing		|
-|				|	  	    					|
-|`<type>  NAME ...`		|Declare required named parameter with help text	|
-|`<type>? NAME VALUE ...`	|As above, optional, with default value	    		|
-|`<type>... NAME ...`		|As above, optional to infinity, has to be last		|
-|	    	 		|   	   	       		     	   		|
-|`image RC`			|Declare required input image with ref-counting mode	|
-|`image RC ?`			|As above, optional    		     			|
-|`image RC ...`			|As above, optional to infinity, has to be last		|
+|Command                        |Description                                            |
+|---                            |---                                                    |
+|`note ...`                     |Internal notes for maintainers                         |
+|                               |                                                       |
+|`result ID`                    |Declare non-image return type. See `type` declarations |
+|`void`                         |Declare operator as void, returning nothing            |
+|                               |                                                       |
+|`<type>  NAME ...`             |Declare required named parameter with help text        |
+|`<type>? NAME VALUE ...`       |As above, optional, with default value                 |
+|`<type>... NAME ...`           |As above, optional to infinity, has to be last         |
+|                               |                                                       |
+|`input RC`                     |Declare required input image with ref-counting mode    |
+|`input RC ?`                   |As above, optional                                     |
+|`input RC ...`                 |As above, optional to infinity, has to be last         |
