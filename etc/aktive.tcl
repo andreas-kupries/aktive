@@ -17,24 +17,31 @@
 
 ## # # ## ### ##### ######## ############# #####################
 # Types for parameters and results.
+# Note: Dynamic vector structures match critcl variadics.
 ##
 
+## I. Required by runtime 
+# __ id __________ critcl ___________ C type ____ Conversion ______________________________
+type region        aktive_region      -           {0 /* INTERNAL -- No Tcl_Obj* equivalent */}
+type image         aktive_image       -           {aktive_new_image_obj (*value)}
+type image-type    aktive_image_type* -           {Tcl_NewStringObj ((*value)->name, -1)}
+type uint          aktive_uint        -           {aktive_new_uint_obj (*value)}
+type point         aktive_point       -           {aktive_new_point_obj (value)}
+
+vector region image point uint
+
+## II. Operator support
 # __ id __________ critcl ___________ C type ____ Conversion ______________________________
 type bool          boolean            int         {Tcl_NewIntObj (*value)}
 type channel       -                  Tcl_Channel {Tcl_NewStringObj (Tcl_GetChannelName (*value), -1)}
 type double        -                  -           {Tcl_NewDoubleObj (*value)}
-type image         aktive_image       -           {aktive_new_image_obj (*value)}
-type image-type    aktive_image_type* -           {Tcl_NewStringObj ((*value)->name, -1)}
 type int           -                  -           {Tcl_NewIntObj (*value)}
 type object0       -                  Tcl_Obj*    {*value}
 type pgm_variant   aktive_pgm_variant -           {aktive_pgm_variant_pool (interp, *value)}
-type point         aktive_point       -           {aktive_new_point_obj (value)}
 type ppm_variant   aktive_ppm_variant -           {aktive_ppm_variant_pool (interp, *value)}
 type take-channel  -                  Tcl_Channel {Tcl_NewStringObj (Tcl_GetChannelName (*value), -1)}
-type uint          aktive_uint        -           {aktive_new_uint_obj (*value)}
 
-# Types requiring dynamic vector structures - Match critcl variadics.
-vector double image point uint
+vector double
 
 ## # # ## ### ##### ######## ############# #####################
 # Accessors - Querying various attributes

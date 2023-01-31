@@ -1,5 +1,5 @@
-#ifndef AKTIVE_INTERNAL_KAHAN_H
-#define AKTIVE_INTERNAL_KAHAN_H
+#ifndef AKTIVE_KAHAN_H
+#define AKTIVE_KAHAN_H
 
 #ifndef KAHAN_TEST
 #define KAHAN_TEST 0
@@ -34,4 +34,4 @@ extern void aktive_kahan_add  (kahan* k, double v);
  * fill-column: 78
  * End:
  */
-#endif /* AKTIVE_INTERNAL_KAHAN_H */
+#endif /* AKTIVE_KAHAN_H */
