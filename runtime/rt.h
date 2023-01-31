@@ -4,7 +4,7 @@
 #define AKTIVE_RT_H
 
 /* - - -- --- ----- -------- -------------
- * Runtime function declarations
+ * Runtime API -- Image construction and querying
  */
 
 static aktive_image
@@ -16,6 +16,28 @@ aktive_image_new ( aktive_image_type*   opspec
 static int  aktive_image_unused (aktive_image image);
 static void aktive_image_unref  (aktive_image image);
 static void aktive_image_ref    (aktive_image image);
+
+static int         aktive_image_get_x      (aktive_image image);
+static int         aktive_image_get_xmax   (aktive_image image);
+static int         aktive_image_get_y      (aktive_image image);
+static int         aktive_image_get_ymax   (aktive_image image);
+static aktive_uint aktive_image_get_width  (aktive_image image);
+static aktive_uint aktive_image_get_height (aktive_image image);
+static aktive_uint aktive_image_get_depth  (aktive_image image);
+static aktive_uint aktive_image_get_pitch  (aktive_image image); /* width * depth  */
+static aktive_uint aktive_image_get_pixels (aktive_image image); /* width * height */
+static aktive_uint aktive_image_get_size   (aktive_image image); /* pixels * depth */
+
+static const aktive_image_type* aktive_image_get_type (aktive_image image);
+
+static aktive_uint  aktive_image_get_nsrcs (aktive_image image);
+static aktive_image aktive_image_get_src   (aktive_image image, aktive_uint i);
+
+static aktive_uint aktive_image_get_nparams     (aktive_image image);
+static const char* aktive_image_get_param_name  (aktive_image image, aktive_uint i);
+static const char* aktive_image_get_param_desc  (aktive_image image, aktive_uint i);
+static Tcl_Obj*    aktive_image_get_param_value (aktive_image image, aktive_uint i,
+						 Tcl_Interp* interp);
 
 static aktive_image aktive_image_check (Tcl_Interp* ip, aktive_image src);
 

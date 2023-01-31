@@ -132,6 +132,181 @@ static Tcl_Obj* aktive_new_point_obj(aktive_point* p) {
   return Tcl_NewListObj (2, el);
 }
 
+/* - - -- --- ----- -------- -------------
+ * -- Image accessors
+ *
+ * Notes:
+ *  - `image->opspec` references generated variables
+ *    See `*_opspec` in file `generated/op-funcs.c`
+ *
+ *  - `aktive_param_name` is a generated variable
+ *     See file `generated/param-names.c`
+
+ *  - `aktive_param_desc` is a generated variable
+ *     See file `generated/param-descriptions.c`
+
+ *  - `aktive_type_descriptor` is a generated variable
+ *     See file `generated/type-descriptor.c`
+ */
+
+static int
+aktive_image_get_x (aktive_image image)
+{
+  TRACE_FUNC("((aktive_image) %p)", image);
+  TRACE_RETURN ("(x) %d", image->location.x);
+}
+
+static int
+aktive_image_get_xmax (aktive_image image)
+{
+  TRACE_FUNC("((aktive_image) %p)", image);
+  TRACE_RETURN ("(xmax) %d", image->location.x + image->geometry.width - 1);
+}
+
+static int
+aktive_image_get_y (aktive_image image)
+{
+  TRACE_FUNC("((aktive_image) %p)", image);
+  TRACE_RETURN ("(y) %d", image->location.y);
+}
+
+static int
+aktive_image_get_ymax (aktive_image image)
+{
+  TRACE_FUNC("((aktive_image) %p)", image);
+  TRACE_RETURN ("(ymax) %d", image->location.y + image->geometry.height -1);
+}
+
+static aktive_uint
+aktive_image_get_width (aktive_image image)
+{
+  TRACE_FUNC("((aktive_image) %p)", image);
+  TRACE_RETURN ("(width) %d", image->geometry.width);
+}
+
+static aktive_uint
+aktive_image_get_height (aktive_image image)
+{
+  TRACE_FUNC("((aktive_image) %p)", image);
+  TRACE_RETURN ("(height) %d", image->geometry.height);
+}
+
+static aktive_uint
+aktive_image_get_depth (aktive_image image)
+{
+  TRACE_FUNC("((aktive_image) %p)", image);
+  TRACE_RETURN ("(depth) %d", image->geometry.depth);
+}
+
+static aktive_uint
+aktive_image_get_pixels (aktive_image image)
+{
+  TRACE_FUNC("((aktive_image) %p)", image);
+
+  int pixels = image->geometry.width * image->geometry.height;
+  
+  TRACE_RETURN ("(pixels) %d", pixels);
+}
+
+static aktive_uint
+aktive_image_get_pitch (aktive_image image)
+{
+  TRACE_FUNC("((aktive_image) %p)", image);
+
+  int pitch = image->geometry.width * image->geometry.depth;
+  
+  TRACE_RETURN ("(pitch) %d", pitch);
+}
+
+static aktive_uint
+aktive_image_get_size (aktive_image image)
+{
+  TRACE_FUNC("((aktive_image) %p)", image);
+
+  int size = image->geometry.width * image->geometry.height * image->geometry.depth;
+  
+  TRACE_RETURN ("(size) %d", size);
+}
+
+static const aktive_image_type*
+aktive_image_get_type (aktive_image image)
+{
+  TRACE_FUNC("((aktive_image) %p)", image);
+  TRACE_RETURN ("(type) '%p'", image->opspec);
+}
+
+static aktive_uint
+aktive_image_get_nsrcs (aktive_image image)
+{
+  TRACE_FUNC("((aktive_image) %p)", image);
+  TRACE_RETURN ("(nsrcs) %d", image->srcs.c);
+}
+
+static aktive_image
+aktive_image_get_src (aktive_image image, aktive_uint i)
+{
+  TRACE_FUNC("((aktive_image) %p)", image);
+
+  if (i >= image->srcs.c) {
+    TRACE_RETURN ("(src) %p", 0);
+  }
+  
+  TRACE_RETURN ("(src) '%p'", image->srcs.v [i]);
+}
+
+static aktive_uint
+aktive_image_get_nparams (aktive_image image)
+{
+  TRACE_FUNC("((aktive_image) %p)", image);
+  TRACE_RETURN ("(nparams) %d", image->opspec->n_param);
+}
+
+static const char*
+aktive_image_get_param_name (aktive_image image, aktive_uint i)
+{
+  TRACE_FUNC("((aktive_image) %p)", image);
+
+  if (i >= image->opspec->n_param) {
+    TRACE_RETURN ("(name) %p", 0);
+  }
+
+  const char* name = aktive_param_name [image->opspec->param [i].name];
+  
+  TRACE_RETURN ("(name) '%s'", name);
+}
+
+static const char*
+aktive_image_get_param_desc (aktive_image image, aktive_uint i)
+{
+  TRACE_FUNC("((aktive_image) %p)", image);
+
+  if (i >= image->opspec->n_param) {
+    TRACE_RETURN ("(desc) %p", 0);
+  }
+
+  const char* desc = aktive_param_desc [image->opspec->param [i].desc];
+  /* generated ------^^^^^^^^^^^^^^^^^ */
+
+  TRACE_RETURN ("(desc) '%s'", desc);
+}
+
+static Tcl_Obj*
+aktive_image_get_param_value (aktive_image image, aktive_uint i, Tcl_Interp* interp)
+{
+  TRACE_FUNC("((aktive_image) %p)", image);
+
+  if (i >= image->opspec->n_param) {
+    TRACE_RETURN ("(value) %p", 0);
+  }
+
+  void*              field  = image->param  + image->opspec->param [i].offset;
+  aktive_param_value to_obj = aktive_type_descriptor [image->opspec->param [i].type].to_obj;
+  
+  Tcl_Obj* obj = to_obj (interp, field);
+  
+  TRACE_RETURN ("(value) %p", obj);
+}
+
 /*
  * - - -- --- ----- -------- -------------
  */

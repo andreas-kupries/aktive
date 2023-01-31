@@ -4,7 +4,13 @@
 #define AKTIVE_TYPES_H
 
 /* - - -- --- ----- -------- -------------
- * 2D points for adressing arbitrary pixels in the infinite 2D plane
+ * Unsigned integers
+ */
+
+typedef unsigned int aktive_uint;
+
+/* - - -- --- ----- -------- -------------
+ * 2D points for addressing arbitrary pixels in the infinite 2D plane
  */
 
 typedef struct aktive_point {
@@ -13,10 +19,14 @@ typedef struct aktive_point {
 } aktive_point;
 
 /* - - -- --- ----- -------- -------------
- * Unsigned integers
+ * 3D geometry (width x height x depth = columns, rows, and bands)
  */
 
-typedef unsigned int aktive_uint;
+typedef struct aktive_geometry {
+  aktive_uint width  ; /* Number of image columns */
+  aktive_uint height ; /* Number of image rows    */
+  aktive_uint depth  ; /* Number of image bands   */
+} aktive_geometry;
 
 /* - - -- --- ----- -------- -------------
  * Opaque types for images and rectangular image regions.
@@ -47,7 +57,7 @@ typedef struct aktive_type_spec {
 typedef struct aktive_image_parameter {
   aktive_uint name   ; /* Index into `aktive_param_name` */
   aktive_uint desc   ; /* Index into `aktive_param_desc` */
-  aktive_uint type   ; /* Index into `aktive_op_type` */
+  aktive_uint type   ; /* Index into `aktive_type_descriptor` */
   aktive_uint offset ; /* Offset of field in the parameter structure */
 } aktive_image_parameter;
 

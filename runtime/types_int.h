@@ -12,7 +12,9 @@ typedef struct aktive_image {
   void*                param    ; /* Operation parameters */
   aktive_image_vector  srcs     ; /* Input images, if any */
 
-  // %% TODO %% image geometry
+  aktive_point         location ; /* Location of image in the 2D plane */
+  aktive_geometry      geometry ; /* 3D geometry of the image */
+  
   // %% TODO %% image meta data
   
 } *aktive_image;
@@ -26,10 +28,12 @@ typedef struct aktive_region {
 
   // %% TODO %% region state outside the srcs - These would 
   
-  /* Local copies of image information */
+  /* Local copies of image instance information */
   
   void*                param    ; /* Operation parameters */
   aktive_image_type*   opspec   ; /* Operational hooks, type identification, parameter metadata */
+  aktive_point*        location ; /* Location of image in the 2D plane */
+  aktive_geometry*     geometry ; /* 3D geometry of the image */
   
 } *aktive_region;
 
