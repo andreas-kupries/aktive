@@ -33,13 +33,13 @@ vector region image point uint
 ## II. Operator support
 # __ id __________ critcl ___________ C type ____ Conversion ______________________________
 type bool          boolean            int         {Tcl_NewIntObj (*value)}
-type channel       -                  Tcl_Channel {Tcl_NewStringObj (Tcl_GetChannelName (*value), -1)}
 type double        -                  -           {Tcl_NewDoubleObj (*value)}
 type int           -                  -           {Tcl_NewIntObj (*value)}
 type object0       -                  Tcl_Obj*    {*value}
+type channel       -                  Tcl_Channel {Tcl_NewStringObj (Tcl_GetChannelName (*value), -1)}
+type take-channel  -                  Tcl_Channel {Tcl_NewStringObj (Tcl_GetChannelName (*value), -1)}
 type pgm_variant   aktive_pgm_variant -           {aktive_pgm_variant_pool (interp, *value)}
 type ppm_variant   aktive_ppm_variant -           {aktive_ppm_variant_pool (interp, *value)}
-type take-channel  -                  Tcl_Channel {Tcl_NewStringObj (Tcl_GetChannelName (*value), -1)}
 
 vector double
 

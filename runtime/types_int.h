@@ -20,7 +20,7 @@ typedef struct aktive_image {
 /* - - -- --- ----- -------- -------------
  */
 
-typedef struct aktive_image_region {
+typedef struct aktive_region {
   aktive_image          origin ; /* Image / Operation the region is part of */
   aktive_region_vector  srcs   ; /* Input regions, if any */
 
@@ -31,7 +31,7 @@ typedef struct aktive_image_region {
   void*                param    ; /* Operation parameters */
   aktive_image_type*   opspec   ; /* Operational hooks, type identification, parameter metadata */
   
-} *aktive_image_region;
+} *aktive_region;
 
 /*
  * = = == === ===== ======== ============= =====================

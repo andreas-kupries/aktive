@@ -296,15 +296,16 @@ proc dsl::writer::VectorTypes {} {
     
     foreach type [Vectors] {
 	lassign [Get types $type] ct t
+	set tx  [TypeVector $type]
 
 	set n [Maxlength [list int *$ct]]
 
 	Comment "--- --- --- --- --- --- --- --- ---\n * Vector `$type` ...\n"
 	+ {}
-	+ "typedef struct aktive_${type}_vector \{"
+	+ "typedef struct ${tx} \{"
 	+ "  [PadR $n    int] c ; /* Number of elements               */"
 	+ "  [PadR $n ${ct}*] v ; /* Array of the elements, allocated */"
-	+ "\} aktive_${type}_vector;"
+	+ "\} ${tx};"
 	+ {}
     }
 
@@ -660,7 +661,7 @@ proc dsl::writer::OperatorFunctionForOp {op} {
 	# Pixel fill function needs manual writing
 	
 	+ "static void"
-	+ "[OperatorFillFuncname $op] (aktive_image_region region) \{"
+	+ "[OperatorFillFuncname $op] (aktive_region region) \{"
 	+ [Placeholder ${op}-fill]
 	+ "\}"
 	+ {}

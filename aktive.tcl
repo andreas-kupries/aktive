@@ -5,21 +5,21 @@
 # (c) 2022,2023 Andreas Kupries http://wiki.tcl.tk/andreas%20kupries
 #
 
-# # ## ### ##### ######## #############
+# # ## ### ##### ######## ############# #####################
 ## Requisites
 
 package require critcl 3.1 ;# 3.1   : critcl::source
 #                          ;# 3.0.8 : critcl::at::*
 package require critcl::enum
 
-# # ## ### ##### ######## #############
+# # ## ### ##### ######## ############# #####################
 ## Bail early if the environment is not suitable.
 
 if {![critcl::compiling]} {
     error "Unable to build aktive, no proper compiler found."
 }
 
-# # ## ### ##### ######## #############
+# # ## ### ##### ######## ############# #####################
 ## Administrivia
 
 critcl::license \
@@ -44,7 +44,7 @@ critcl::subject {image transformation} {data structures} {image io}
 critcl::subject {image reading} {image writing} {image composition}
 critcl::subject {vector operations} {matrix operations}
 
-# # ## ### ##### ######## #############
+# # ## ### ##### ######## ############# #####################
 ## Implementation.
 
 critcl::tcl 8.6
@@ -62,7 +62,7 @@ critcl::ccode {
     TRACE_OFF;
 }
 
-# # ## ### ##### ######## #############
+# # ## ### ##### ######## ############# #####################
 ## Meta level
 ## - Generate operator code from high-level spec.
 #
@@ -75,28 +75,72 @@ critcl::ccode {
 critcl::source support/dsl.tcl
 dsl generate etc/aktive.tcl generated/
 
-# # ## ### ##### ######## #############
-## Ingest fixed and generated C code.
+# # ## ### ##### ######## ############# #####################
+## Runtime - Fixed and generated parts
 
-# %% TODO %%
+critcl::cheaders runtime
+critcl::cheaders runtime/*.h
 
-# # ## ### ##### ######## #############
+# Custom argument/result types          #####################
+
+critcl::source  runtime/critcl-types.tcl
+
+# Types    ##### ######## ############# #####################
+
+critcl::include runtime/types.h                 ;# Runtime
+critcl::source  op/types.tcl                    ;# Operator support
+#
+critcl::include generated/vector-types.h        ;# Variadic support
+critcl::include generated/param-types.h         ;# Parameter blocks
+critcl::include generated/param-defines.h       ;# Parameter symbols
+critcl::include generated/type-defines.h        ;# Type symbols
+
+# Function declarations   ############# #####################
+
+critcl::include runtime/rt.h                    ;# Core generic types
+#
+critcl::include generated/vector-funcs.h        ;# Variadic support
+critcl::include generated/param-funcs.h         ;# Parameter block variadic init/finish
+critcl::include generated/type-funcs.h          ;# Type conversions
+critcl::include generated/op-funcs.h            ;# Operators
+
+# Variables      ######## ############# #####################
+
+critcl::include generated/param-names.c         ;# Table of parameter names
+critcl::include generated/param-descriptions.c  ;# Table of parameter descriptions
+critcl::include generated/param-descriptors.c   ;# Parameter block descriptors
+critcl::include generated/type-descriptor.c     ;# Table of type descriptions
+
+# Function implementations              #####################
+
+critcl::include runtime/rt.c                    ;# Core generic API
+#
+critcl::include generated/vector-funcs.c        ;# Variadic support
+critcl::include generated/param-funcs.c         ;# Parameter block variadic init/finish
+critcl::include generated/type-funcs.c          ;# Type conversions
+critcl::include generated/op-funcs.c            ;# Operators
+
+# # ## ### ##### ######## ############# #####################
 ## Assemble Tcl level interface
 
-# %% TODO %%
+critcl::source   generated/glue.tcl             ;# Tcl commands for operators
+critcl::tsources generated/ensemble.tcl         ;# Command hierarchy
+critcl::tsources policy.tcl			;# Command hierarchy, fixed
 
-# # ## ### ##### ######## #############
-## Ready the C pieces. Build binaries now, without deferal.
+# # ## ### ##### ######## ############# #####################
+## Build binaries now, without deferal.
 
 if {![critcl::load]} {
     error "Building and loading aktive failed."
 }
 
-# # ## ### ##### ######## #############
+# # ## ### ##### ######## ############# #####################
 ## Versioning information and exposure
 
 critcl::cconst  aktive::version char* {"0.0"}
 package provide aktive 0.0
+
+# # ## ### ##### ######## ############# #####################
 return
 
 # - -- --- ----- -------- -------------

@@ -22,8 +22,8 @@ typedef unsigned int aktive_uint;
  * Opaque types for images and rectangular image regions.
  */
 
-typedef struct aktive_image        *aktive_image;
-typedef struct aktive_image_region *aktive_image_region;
+typedef struct aktive_image  *aktive_image;
+typedef struct aktive_region *aktive_region;
 
 /* - - -- --- ----- -------- -------------
  * Public types for image operator specifications
@@ -35,7 +35,7 @@ typedef struct aktive_image_region *aktive_image_region;
  * - Hook to compute pixel data for an image region.
  */
 
-typedef void     (*aktive_image_region_fill)  (aktive_image_region region);
+typedef void     (*aktive_image_region_fill)  (aktive_region region);
 typedef void     (*aktive_image_param_init)   (void* param);
 typedef void     (*aktive_image_param_finish) (void* param);
 typedef Tcl_Obj* (*aktive_param_value)        (Tcl_Interp* interp, void* value);
