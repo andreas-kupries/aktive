@@ -72,8 +72,8 @@ proc dsl::reader::Operator {vars ops specification} {
 }
 
 proc dsl::reader::OpStart {op} {
-    if {[Get opname] ne {}} { Abort "Nested operator definition in `$opname`" }
-    if {[Has ops $op]}      { Abort "Duplicate operator definition for `$op`" }
+    if {[Get opname] ne {}} { Abort "Nested operator definition `$op`" }
+    if {[Has ops $op]}      { Abort "Duplicate operator definition" }
 
     Set opname $op
     Set opspec {
@@ -112,16 +112,16 @@ proc dsl::reader::result {type} { ;#puts [info level 0]
 
 proc dsl::reader::input {rc {mode required}} { ;#puts [info level 0]
     if {[Has opspec args] &&
-	[Get opspec args]} { Abort "In [Get opname]: Bad image, infinity set" }
+	[Get opspec args]} { Abort "Rejecting more image arguments, we have a variadic" }
 
     if {$rc ni {
 	keep keep-pass keep-ignore keep-pass-ignore ignore
-    }} { Abort "In [Get opname]: Bad ref-counting mode '$rc'" }
+    }} { Abort "Bad image rc-management mode '$rc'" }
     
     dict set imspec rcmode $rc
     switch -exact -- $mode {
-	required { dict set imspec args 0	              }
-	...      { dict set imspec args 1 ; Set opspec args 1 }
+	required { dict set imspec args 0	                             }
+	...      { dict set imspec args 1 ; Set opspec args 1 ; vector image }
     }
     
     LappendX opspec images $imspec
@@ -136,20 +136,25 @@ proc dsl::reader::input {rc {mode required}} { ;#puts [info level 0]
 proc dsl::reader::Param {type mode dvalue name args} { ;#puts [info level 0]
     # args :: help text
 
-    if {$name eq {}}              { Abort "In [Get opname]: Bad parameter name, empty" }
-    if {[Has opspec param $name]} { Abort "In [Get opname]: Duplicate parameter `$name`" }
+    if {$name eq {}}              { Abort "Bad parameter name, empty" }
+    if {[Has opspec param $name]} { Abort "Duplicate parameter `$name`" }
     if {[Has opspec args] &&
-	[Get opspec args]}        { Abort "In [Get opname]: Bad parameter, infinity set" }
+	[Get opspec args]}        { Abort "Rejecting more parameters, we have a variadic" }
+
+    set isargs [expr {$mode eq "args"}]
+    if {$isargs && [llength [Get opspec images]]} {
+	Abort "Rejecting variadic parameter, we have images"
+    }
 
     dict set argspec name [Pname $name]
     dict set argspec help [Help  [join $args { }]]
     dict set argspec type $type
-    dict set argspec args [expr {$mode eq "args"}]
+    dict set argspec args $isargs
 
     switch -exact -- $mode {
 	required {}
 	optional { dict set argspec default $dvalue }
-	args     { Set opspec args 1 } 
+	args     { Set opspec args 1 ; vector $type } 
     }
 
     Set      opspec param  $name .
@@ -167,7 +172,7 @@ proc dsl::reader::Pname {x} { ;#puts [info level 0]
 }
 
 proc dsl::reader::Help {x} { ;#puts [info level 0]
-    if {$x eq {}} { Abort "In [Get opname]: Empty help" }    
+    if {$x eq {}} { Abort "Empty description" }    
 
     if {[Has help text $x]} { return [Get help text $x] }
 
@@ -272,6 +277,8 @@ proc dsl::reader::Has {args} {
 ##  - args   :: bool
 
 proc dsl::reader::Abort {x} {
+    set opname [Get opname]
+    if {$opname ne {}} { set x "Operation $opname: $x" }
     return -code error $x
 }
 

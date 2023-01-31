@@ -124,12 +124,10 @@ proc dsl::writer::ParamTypes {} {
 proc dsl::writer::ParamTypeForOp {op} {
     # collect information needed for generation
     set sname [ParamStructTypename $op]
-    
-    foreach argspec [OpParams $op] {
-	lappend names  [ParameterText   [dict get $argspec name]]
-	lappend descs  [DescriptionText [dict get $argspec help]]
-	lappend ctypes [ParameterCType $argspec]
-    }
+
+    set names  [lmap argspec [OpParams $op] { ParameterText   [dict get $argspec name] }]
+    set descs  [lmap argspec [OpParams $op] { DescriptionText [dict get $argspec help] }]
+    set ctypes [lmap argspec [OpParams $op] { ParameterCType  $argspec }]
 
     # determine column widths
     set nl [Maxlength $names]
@@ -171,17 +169,15 @@ proc dsl::writer::ParamDescriptorsForOp {op} {
     set dname   [ParamDescriptorVarname $op]
     set sname   [ParamStructTypename $op]
     set nparams [llength [OpParams $op]]
-    
-    foreach argspec [OpParams $op] {
-	set name [ParameterText [dict get $argspec name]]
+
+    set namex [lmap argspec [OpParams $op] { ParameterText [dict get $argspec name] }]
+    set names [lmap name    $namex         { string cat aktive_p_$name }]
+    set descs [lmap argspec [OpParams $op] { dict get $argspec help }]
+    set types [lmap argspec [OpParams $op] {
 	set type [Cname [ParameterType $argspec]]
 	if {[ParameterIsVariadic $argspec]} { append type _vec }
-	
-	lappend namex $name
-	lappend names aktive_p_$name
-	lappend descs [dict get $argspec help]
-	lappend types aktive_t_$type
-    }
+	string cat aktive_t_$type
+    }]
     
     + "/* `$op` - - -- --- ----- -------- ------------- */"
     + "static aktive_image_parameter $dname\[$nparams\] = \{"
@@ -210,8 +206,12 @@ proc dsl::writer::ParamDescriptorsForOp {op} {
 
 # Declarations of Init/Finish functions for operations with a variadic parameter
 proc dsl::writer::ParamSignatures {} {
+
+    set names {}
+    set types {}
+    
     foreach op [Operations] {
-	if {![OpHasParams $op]} continue
+	if {![OpHasParams     $op]} continue
 	if {![OpParamVariadic $op]} continue
 
 	lappend names [ParamInitFuncname   $op]
@@ -239,8 +239,12 @@ proc dsl::writer::ParamSignatures {} {
 
 # Implementation of Init/Finish functions for operations with a variadic parameter
 proc dsl::writer::ParamFunctions {} {
+    set names {}
+    set types {}
+    set codes {}
+    
     foreach op [Operations] {
-	if {![OpHasParams $op]} continue
+	if {![OpHasParams     $op]} continue
 	if {![OpParamVariadic $op]} continue
 
 	lappend names [ParamInitFuncname   $op]
@@ -290,7 +294,7 @@ proc dsl::writer::VectorTypes {} {
     Comment {Structures for types used in variadics}
     + {}
     
-    foreach type [lsort -dict -uniq [Get vectors]] {
+    foreach type [Vectors] {
 	lassign [Get types $type] ct t
 
 	set n [Maxlength [list int *$ct]]
@@ -308,6 +312,9 @@ proc dsl::writer::VectorTypes {} {
 }
 
 proc dsl::writer::VectorSignatures {} {
+    set names {}
+    set types {}
+    
     foreach t [Vectors] {
 	set tx [TypeVector $t]
 
@@ -340,6 +347,10 @@ proc dsl::writer::VectorSignatures {} {
 }
 
 proc dsl::writer::VectorFunctions {} {
+    set names {}
+    set types {}
+    set codes {}
+    
     foreach t [Vectors] {
 	set tx [TypeVector $t]
 	set ct [TypeCritcl $t]
@@ -383,16 +394,21 @@ proc dsl::writer::TypeDefines {} {
     incr num   [llength [Vectors]]
     set  width [string length $num]
 
+    set types {}
+    set ids   {}
+    
     set k -1
     foreach t [Types] {
 	lappend types aktive_t_[Cname $t]
-	lappend ids [incr k]
+	lappend ids   [incr k]
     }
+
     lappend types {}
     lappend ids   {}
+
     foreach t [Vectors] {
 	lappend types aktive_t_[Cname $t]_vec
-	lappend ids [incr k]
+	lappend ids   [incr k]
     }
 
     set tl [Maxlength $types]
@@ -415,12 +431,17 @@ proc dsl::writer::TypeDefines {} {
 }
 
 proc dsl::writer::TypeSignatures {} {
+    set names {}
+    set types {}
+    
     foreach t [Types] {
 	lappend names aktive_t_[Cname $t]_value
 	lappend types [TypeCType $t]
     }
+
     lappend names {}
     lappend types {}
+
     foreach t [Vectors] {
 	lappend names aktive_t_[Cname $t]_vec_value
 	lappend types [TypeVector $t]
@@ -449,6 +470,10 @@ proc dsl::writer::TypeSignatures {} {
 }
 
 proc dsl::writer::TypeFunctions {} {
+    set names {} ; set vnames {}
+    set types {} ; set vtypes {}
+    set conv  {} ; set vconv  {}
+    
     foreach t [Types] {
 	lappend names aktive_t_[Cname $t]_value
 	lappend types [TypeCType $t]
@@ -498,6 +523,10 @@ proc dsl::writer::TypeFunctions {} {
 }
 
 proc dsl::writer::TypeDescriptor {} {
+    set names {}
+    set ids   {}
+    set types {}
+    
     set k -1
     foreach t [Types] {
 	lappend types $t
@@ -551,6 +580,10 @@ proc dsl::writer::TypeDescriptor {} {
 ## Main emitter commands -- Operators
 
 proc dsl::writer::OperatorSignatures {} {
+    set names   {}
+    set sigs    {}
+    set results {}
+    
     foreach op [Operations] {
 	set spec [Get ops $op]
 	set result [dict get $spec result]
@@ -1203,7 +1236,7 @@ proc dsl::writer::Dump {dict indent} {
 # # ## ### ##### ######## #############
 ## Group specific support
 
-proc dsl::writer::Vectors {} { lsort -dict [Get vectors] }
+proc dsl::writer::Vectors {} { lsort -dict -uniq [Get vectors] }
 
 proc dsl::writer::Parameters    {}   { Get pname texts }
 proc dsl::writer::ParameterId   {x}  { Get pname text $x }

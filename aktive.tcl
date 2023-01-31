@@ -75,17 +75,15 @@ critcl::ccode {
 critcl::source support/dsl.tcl
 dsl generate etc/aktive.tcl generated/
 
-return
-
 # # ## ### ##### ######## #############
 ## Ingest fixed and generated C code.
 
-%% TODO %%
+# %% TODO %%
 
 # # ## ### ##### ######## #############
 ## Assemble Tcl level interface
 
-%% TODO %%
+# %% TODO %%
 
 # # ## ### ##### ######## #############
 ## Ready the C pieces. Build binaries now, without deferal.

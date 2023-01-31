@@ -110,8 +110,21 @@ Defaults:
 |                               |                                                       |
 |`<type>  NAME ...`             |Declare required named parameter with help text        |
 |`<type>? NAME VALUE ...`       |As above, optional, with default value                 |
-|`<type>... NAME ...`           |As above, optional to infinity, has to be last         |
+|`<type>... NAME ...`           |As above, variadic, has to be last         		|
 |                               |                                                       |
 |`input RC`                     |Declare required input image with ref-counting mode    |
 |`input RC ?`                   |As above, optional                                     |
-|`input RC ...`                 |As above, optional to infinity, has to be last         |
+|`input RC ...`                 |As above, variadic, has to be last         		|
+
+##### Notes on variadics
+
+Only one parameter and/or input image can be declared variadic.
+
+More than one varidic element is not allowed.
+
+Whichever element, parameter or inpu image is variadic, has to be declared last.
+
+After the declaration of a variadic element no further elements can be declared.
+
+As the generated Tcl glue commands place parameters before input images a variadic parameter implies
+that the specified operator cannot take any image arguments.
