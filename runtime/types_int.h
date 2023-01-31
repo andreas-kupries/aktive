@@ -7,34 +7,34 @@
  */
 
 typedef struct aktive_image {
-  int                  refcount ; /* Number of places holding a reference to the image          */
-  aktive_image_type*   opspec   ; /* Operational hooks, type identification, parameter metadata */
-  void*                param    ; /* Operation parameters */
-  aktive_image_vector  srcs     ; /* Input images, if any */
+    int                  refcount ; /* Number of places holding a reference to the image          */
+    aktive_image_type*   opspec   ; /* Operational hooks, type identification, parameter metadata */
+    void*                param    ; /* Operation parameters, heap-located */
+    aktive_image_vector  srcs     ; /* Input images, if any, heap-located array elements */
+    void*                state    ; /* Custom operator state, if any, heap-located */
+    aktive_point         location ; /* Location of image in the 2D plane */
+    aktive_geometry      geometry ; /* 3D geometry of the image */
 
-  aktive_point         location ; /* Location of image in the 2D plane */
-  aktive_geometry      geometry ; /* 3D geometry of the image */
-  
-  // %% TODO %% image meta data
-  
+    // %% TODO %% image meta data
+
 } *aktive_image;
 
 /* - - -- --- ----- -------- -------------
  */
 
 typedef struct aktive_region {
-  aktive_image          origin ; /* Image / Operation the region is part of */
-  aktive_region_vector  srcs   ; /* Input regions, if any */
+    aktive_image          origin ; /* Image / Operation the region is part of */
+    aktive_region_vector  srcs   ; /* Input regions, if any */
 
-  // %% TODO %% region state outside the srcs - These would 
-  
-  /* Local copies of image instance information */
-  
-  void*                param    ; /* Operation parameters */
-  aktive_image_type*   opspec   ; /* Operational hooks, type identification, parameter metadata */
-  aktive_point*        location ; /* Location of image in the 2D plane */
-  aktive_geometry*     geometry ; /* 3D geometry of the image */
-  
+    // %% TODO %% region state outside the srcs - These would
+
+    /* Local copies of image instance information */
+
+    void*                param    ; /* Operation parameters */
+    aktive_image_type*   opspec   ; /* Operational hooks, type identification, parameter metadata */
+    aktive_point*        location ; /* Location of image in the 2D plane */
+    aktive_geometry*     geometry ; /* 3D geometry of the image */
+
 } *aktive_region;
 
 /*
