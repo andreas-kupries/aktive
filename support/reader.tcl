@@ -71,15 +71,17 @@ proc dsl::reader::OpStart {op} {
     if {[Get opname] ne {}} { Abort "Nested operator definition `$op`" }
     if {[Has ops $op]}      { Abort "Duplicate operator definition" }
 
-    Set opname $op
-    Set opspec {
-	notes  {}
-    	images {}
-	params {}
-	result image
-	rcode  {}
-	args   0
-    }
+    Set opname $op		;# Current operator, lock against nesting
+    Set opspec notes    {}	;# Description
+    Set opspec images   {}	;# Input images
+    Set opspec params   {}	;# Parameters
+    Set opspec result   image	;# Return value
+    Set opspec rcode    {}	;# C code fragment for non-image return (getter)
+    Set opspec statec   {}	;# State constructor, optional
+    Set opspec stater   {}	;# State destructor, optional
+    Set opspec statef   {}	;# State fields, C decl code
+    Set opspec geometry {}	;# Geometry initializer, optional
+    Set opspec args     0	;# Presence of variadic input or parameter
 }
 
 proc dsl::reader::OpFinish {} {
@@ -102,6 +104,16 @@ proc dsl::reader::void   {} { return void }
 proc dsl::reader::return {type {script {}}} { ;#puts [info level 0]
     Set opspec result $type
     Set opspec rcode  $script
+}
+
+proc dsl::reader::geometry {script args} {
+    Set opspec geometry [string map $args $script]
+}
+
+proc dsl::reader::state {fields cons {release {}} args} {
+    Set opspec statec [string map $args $cons]
+    Set opspec stater [string map $args $release]
+    Set opspec statef [string map $args $fields]
 }
 
 proc dsl::reader::input {rc {mode required}} { ;#puts [info level 0]

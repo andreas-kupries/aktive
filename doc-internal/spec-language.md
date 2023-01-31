@@ -115,6 +115,42 @@ Defaults:
 |`input RC`                     |Declare required input image with ref-counting mode    |
 |`input RC ?`                   |As above, optional                                     |
 |`input RC ...`                 |As above, variadic, has to be last, see notes below    |
+|	   			|   	   	     	       	     	       		|
+|`geometry C_CODE ...`		|C code fragment to compute initial location+geometry	|
+|`state FIELDS CONS RELEASE ...`|C code fragments to manage custom operator state	|
+
+#### Notes on state
+
+The command takes an arbitrary even number of arguments after the script, i.e. 0, 2, ...  These
+arguments are used to drive templating, i.e. for each pair KEY VAL all occurences of KEY in the C
+code fragments are replaced with VAL.
+
+The C code fragment for the state fields has to follow the C syntax for the inside of a C structure
+definition.
+
+The constructor C code fragment has access to the argument variables `param` and `srcs`. These
+provide access to the operator's parameters and input images, if any.
+
+The constructor has to return a pointer to the heap-allocated operator state initialized from the arguments
+
+The release C code fragment has access to the argument variable `state`, a pointer to the operator
+state. It has to release all heap-allocated elements of the state. The state itself is released by
+the caller. The code is expected to return nothing.
+
+#### Notes on geometry
+
+The command takes an arbitrary even number of arguments after the script, i.e. 0, 2, ...  These
+arguments are used to drive templating, i.e. for each pair KEY VAL all occurences of KEY in the C
+code fragment are replaced with VAL.
+
+The C code fragment has access to the argument variables `param`, `srcs`, `state`, `loc`, and `geo`.
+
+The last 2 variables are pointers to location and geometry structures to fill. I.e. these are result
+references.
+
+All other variables are inputs, referencing the parameter structure, the input image vector, and the
+custom operator state, respectively, and if any. The last means that all these arguments can be `0`,
+or empty, depending on the operator.
 
 ##### Notes on non-image returns
 

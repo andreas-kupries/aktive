@@ -632,19 +632,66 @@ proc dsl::writer::OperatorFunctionForOp {op} {
     set spec [Get ops $op]
 
     dict with spec {}
-    # notes, images, params, result, rcode
+    # notes, images, params, result, rcode, statec, stater, statef, geometry
     unset notes images params
-    ##                       result, rcode
+    ##                       result, rcode, statec, stater, statef, geometry
 
     if {$result ne "void"} {
 	set result [CprocResultC $spec]
     }
 
-    set n   [FunctionName $op $spec]
+    set fn  [FunctionName          $op $spec]
     set sig [FunctionDeclSignature $op $spec]
+    set sn  [ParamStructTypename   $op]
 
     Comment "- - -- --- ----- -------- ------------- ---------------------\n * Operator \"$op\" ...\n"
     + {}
+
+    ## %% TODO %% move into separate emitter for placement into its own header file, sourcable elsewhere
+    set statetype void
+    if {$statef ne {}} {
+	set statetype [StateStructTypename $op]
+
+	+ "typedef struct $statetype \{"
+	+ [FormatCode $statef]
+	+ ""
+	+ "\} $statetype;"
+	+ {}
+    }
+
+    if {$statec ne {}} {
+	+ "static ${statetype}*"
+	+ "[StateNewFuncname $op] (${sn}* param, aktive_image_vector* srcs) \{"
+	+ [FormatCodeWithReturn $statec]
+	+ "\}"
+	+ {}
+    }
+
+    if {$stater ne {}} {
+	+ "static void"
+	+ "[StateFreeFuncname $op] (${statetype}* state) \{"
+	+ [FormatCode $stater]
+	+ "\}"
+	+ {}
+    }
+
+    if {$geometry ne {}} {
+	set fun [GeometryFuncname $op]
+	set spc [string repeat { } [string length $fun]]
+
+	set n [Maxlength [list *$sn *aktive_image_vector *$statetype *aktive_point *aktive_geometry]]
+
+	+ "static void"
+	+ "$fun ( [PadR $n ${sn}*] param /* Parameters          */"
+	+ "$spc , [PadR $n aktive_image_vector*] srcs  /* Input images        */"
+	+ "$spc , [PadR $n ${statetype}*] state /* Operator state      */"
+	+ "$spc , [PadR $n aktive_point*] loc   /* OUT: image location */"
+	+ "$spc , [PadR $n aktive_geometry*] geo   /* OUT: image geometry */"
+	+ "$spc ) \{"
+	+ [FormatCode $geometry]
+	+ "\}"
+	+ {}
+    }
 
     if {$result ne "aktive_image" ||
 	[FunctionIgnoresImages $spec]} {
@@ -655,23 +702,14 @@ proc dsl::writer::OperatorFunctionForOp {op} {
 	    + {}
 	}
 
-	+ "static $result $n $sig \{"
+	+ "static $result $fn $sig \{"
 
 	if {$rcode eq {}} {
 	    + [Placeholder $op]
 	} else {
 	    # We have a C code fragment implementing the getter
-	    # Engineer a `return` into the last line / C statement.
-
-	    set rcode [split [string trim [textutil::adjust::undent $rcode]] \n]
-	    set rcode [lreverse [lassign [lreverse $rcode] last]]
-	    if {![regexp return $last]} { set last "return $last" }
-	    lappend rcode $last
-	    set rcode [textutil::adjust::indent [join $rcode \n] "  "]
-
-	    + $rcode
+	    + [FormatCodeWithReturn $rcode]
 	}
-
 
 	+ "\}"
 	+ {}
@@ -686,13 +724,35 @@ proc dsl::writer::OperatorFunctionForOp {op} {
 
 	# Main function can be generated, and refers to pixel fill function
 
-	+ "static $result $n $sig \{"
+	+ "static $result $fn $sig \{"
 	+ [FunctionBodyImageConstructor $op $spec]
 	+ "\}"
 	+ {}
     }
 
     Done
+}
+
+proc dsl::writer::FormatCode {code {indent {  }}} {
+    set code [textutil::adjust::undent $code]
+    set code [string trim $code]
+
+    return [textutil::adjust::indent $code $indent]
+}
+
+proc dsl::writer::FormatCodeWithReturn {code {indent {  }}} {
+    # Note: Engineering a `return` into the last line / C statement of the block.
+    set code  [textutil::adjust::undent $code]
+    set code  [string trim $code]
+    set lines [split $code \n]
+    set lines [lreverse [lassign [lreverse $lines] last]]
+
+    if {![regexp return $last]} { set last "return $last" }
+
+    lappend lines $last
+    set code [join $lines \n]
+
+    return [textutil::adjust::indent $code $indent]
 }
 
 proc dsl::writer::Placeholder {key {prefix {  }}} {
@@ -1142,9 +1202,9 @@ proc dsl::writer::FunctionCallSignature {spec} {
 
 proc dsl::writer::FunctionBodyImageConstructor {op spec} {
     dict with spec {}
-    # notes, images, params, result
-    unset notes result
-    # images, params
+    # notes, images, params, result, rcode, statec, stater, geometry
+    unset notes result rcode
+    # images, params,                       statec, stater, geometry
 
     set opspecvar [OperatorSpecVarname $op]
 
@@ -1152,24 +1212,39 @@ proc dsl::writer::FunctionBodyImageConstructor {op spec} {
 
     + {}
     + "  static aktive_image_type $opspecvar = \{"
-    + "      .name     = \"$op\""
-    + "    , .fill     = [OperatorFillFuncname $op]"
+    + "      .name       = \"$op\""
+    + "    , .fill       = [OperatorFillFuncname $op]"
     #        .init
     #        .finish
-    #        .sz_param .
+    #        .sz_param
+    #        .n_param
+    #        .param
+    #        .state_new
+    #        .state_free .
+    #        .geo_setup
 
     if {[llength $params]} {
 	append call ", p"
-	+ "    , .sz_param = sizeof ([ParamStructTypename $op])"
-	+ "    , .n_param  = [llength $params]"
-	+ "    , .param    = [ParamDescriptorVarname $op]"
+	+ "    , .sz_param   = sizeof ([ParamStructTypename $op])"
+	+ "    , .n_param    = [llength $params]"
+	+ "    , .param      = [ParamDescriptorVarname $op]"
 	if {[OpParamVariadic $op]} {
-	    + "    , .init     = (aktive_image_param_init)   [ParamInitFuncname   $op]"
-	    + "    , .finish   = (aktive_image_param_finish) [ParamFinishFuncname $op]"
+	    + "    , .init       = (aktive_image_param_init)   [ParamInitFuncname   $op]"
+	    + "    , .finish     = (aktive_image_param_finish) [ParamFinishFuncname $op]"
 	}
     } else {
-	+ "    , .sz_param = 0"
+	+ "    , .sz_param   = 0"
 	append call ", NULL"	;# No parameters
+    }
+
+    if {$statec ne {}} {
+	    + "    , .state_new  = (aktive_image_state_new)  [StateNewFuncname  $op]"
+    }
+    if {$stater ne {}} {
+	    + "    , .state_free = (aktive_image_state_free) [StateFreeFuncname $op]"
+    }
+    if {$geometry ne {}} {
+	    + "    , .geo_setup  = (aktive_image_geometry)   [GeometryFuncname  $op]"
     }
 
     + "  \};"
@@ -1313,18 +1388,22 @@ proc dsl::writer::Get {args} {
 # # ## ### ##### ######## #############
 ## (Base) names for Structures, Variables, Functions, ...
 
+proc dsl::writer::StateStructTypename    {op} { return "aktive_[Cname $op]_state"        }
 proc dsl::writer::ParamStructTypename    {op} { return "aktive_[Cname $op]_param"        }
 proc dsl::writer::ParamDescriptorVarname {op} { return "aktive_[Cname $op]_descriptor"   }
 proc dsl::writer::ParamInitFuncname      {op} { return "aktive_[Cname $op]_param_init"   }
 proc dsl::writer::ParamFinishFuncname    {op} { return "aktive_[Cname $op]_param_finish" }
 proc dsl::writer::OperatorSpecVarname    {op} { return "aktive_[Cname $op]_opspec"       }
 proc dsl::writer::OperatorFillFuncname   {op} { return "aktive_[Cname $op]_fill"         }
+proc dsl::writer::StateNewFuncname       {op} { return "aktive_[Cname $op]_state_new"    }
+proc dsl::writer::StateFreeFuncname      {op} { return "aktive_[Cname $op]_state_free"   }
+proc dsl::writer::GeometryFuncname       {op} { return "aktive_[Cname $op]_geo_setup"    }
 
 # # ## ### ##### ######## #############
 ## General emitter support
 
 proc dsl::writer::Into {destination textcmd} {
-    puts "  ops generator writing $destination"
+    puts "  ops generator writing   $destination"
     file mkdir [file dirname $destination]
     set    chan [open $destination w]
     puts  $chan [$textcmd]

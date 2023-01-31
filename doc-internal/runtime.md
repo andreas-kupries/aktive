@@ -47,7 +47,7 @@ runtime.
 |aktive_image_destroy   |Internal: Release image and its resources                      |
 |                       |                                                               |
 |aktive_new_uint_obj    |Box aktive_uint                                                |
-|aktive_new_point_obj   |Box aktive_point (2d location)                                 | 
+|aktive_new_point_obj   |Box aktive_point (2d location)                                 |
 
 
 ## Types relevant to the code generator
