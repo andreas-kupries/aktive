@@ -83,7 +83,7 @@ Syntax:
   - `operator ID SPEC`
   - `operator OPS SPEC`
   - `operator VARS OPS SPEC`
-  
+
 Arguments:
 
 |Name           |Description                                                                    |
@@ -105,16 +105,27 @@ Defaults:
 |---                            |---                                                    |
 |`note ...`                     |Internal notes for maintainers                         |
 |                               |                                                       |
-|`result ID`                    |Declare non-image return type. See `type` declarations |
+|`return ID C_CODE`             |Declare non-image return type with a C code fragment providing the value to return. See `type` declarations |
 |`void`                         |Declare operator as void, returning nothing            |
 |                               |                                                       |
 |`<type>  NAME ...`             |Declare required named parameter with help text        |
 |`<type>? NAME VALUE ...`       |As above, optional, with default value                 |
-|`<type>... NAME ...`           |As above, variadic, has to be last         		|
+|`<type>... NAME ...`           |As above, variadic, has to be last, see notes below    |
 |                               |                                                       |
 |`input RC`                     |Declare required input image with ref-counting mode    |
 |`input RC ?`                   |As above, optional                                     |
-|`input RC ...`                 |As above, variadic, has to be last         		|
+|`input RC ...`                 |As above, variadic, has to be last, see notes below    |
+
+##### Notes on non-image returns
+
+The C code fragment specified with `return` has access to the image through the `src` variable.  If
+the last statement in the C code (i.e. the last line) does not contain a `return` then the
+generators adds a `return` in front of that line, under the assumption that the line contains the
+statement or expression computing the value to deliver.
+
+In other words, instead of having to write `return int { return foo(); }`, with its visual
+duplication of the `return` it is possible to write `return int { foo(); }` and the needed `return`
+is added by the generator.
 
 ##### Notes on variadics
 

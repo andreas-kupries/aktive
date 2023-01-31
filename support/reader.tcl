@@ -17,7 +17,7 @@ proc dsl::reader::do {specification} {
     puts "  ops generator reading $specification"
 
     source $specification
-    return $state
+    ::return $state
 }
 
 # # ## ### ##### ######## #############
@@ -29,34 +29,31 @@ proc dsl::reader::type {name critcl ctype conversion} {
     } || [string match {[A-Z]*} $name]} {
 	Abort "Rejected attempt to replace DSL command with user type"
     }
-    
+
     if {[Has types $name]} {
 	Abort "Duplicate definition of type `$name`"
     }
 
     if {$critcl eq "-"} { set critcl $name   }
     if {$ctype  eq "-"} { set ctype  $critcl }
-    
+
     Set types $name [list $critcl $ctype $conversion]
 
     interp alias {} ::dsl::reader::$name      {} ::dsl::reader::Param $name required {}
     interp alias {} ::dsl::reader::${name}... {} ::dsl::reader::Param $name args     {}
     interp alias {} ::dsl::reader::${name}?   {} ::dsl::reader::Param $name optional ;#
-    return
 }
 
 proc dsl::reader::vector {args} { ;#puts [info level 0]
     Lappend vectors {*}$args
-    return
 }
 
 proc dsl::reader::operator {args} { ;#puts [info level 0]
     switch -- [llength $args] {
-	2 { Operator {} {*}$args }
-	3 { Operator    {*}$args }
+	2       { Operator {} {*}$args }
+	3       { Operator    {*}$args }
 	default { Abort "wrong#args for operator" }
     }
-    return
 }
 
 # # ## ### ##### ######## #############
@@ -68,7 +65,6 @@ proc dsl::reader::Operator {vars ops specification} {
 	eval $specification
 	OpFinish
     }
-    return
 }
 
 proc dsl::reader::OpStart {op} {
@@ -81,19 +77,18 @@ proc dsl::reader::OpStart {op} {
     	images {}
 	params {}
 	result image
+	rcode  {}
 	args   0
     }
-    return
 }
 
 proc dsl::reader::OpFinish {} {
     Unset opspec param
     Unset opspec args
-    
+
     Set ops [Get opname] [Get opspec]
     Set opname {}
     Set opspec {}
-    return
 }
 
 # # ## ### ##### ######## #############
@@ -101,13 +96,12 @@ proc dsl::reader::OpFinish {} {
 
 proc dsl::reader::note {args} { ;#puts [info level 0]
     LappendX opspec notes $args
-    return
 }
 
-proc dsl::reader::void   {} { result void }
-proc dsl::reader::result {type} { ;#puts [info level 0]
+proc dsl::reader::void   {} { return void }
+proc dsl::reader::return {type {script {}}} { ;#puts [info level 0]
     Set opspec result $type
-    return
+    Set opspec rcode  $script
 }
 
 proc dsl::reader::input {rc {mode required}} { ;#puts [info level 0]
@@ -117,15 +111,14 @@ proc dsl::reader::input {rc {mode required}} { ;#puts [info level 0]
     if {$rc ni {
 	keep keep-pass keep-ignore keep-pass-ignore ignore
     }} { Abort "Bad image rc-management mode '$rc'" }
-    
+
     dict set imspec rcmode $rc
     switch -exact -- $mode {
 	required { dict set imspec args 0	                             }
 	...      { dict set imspec args 1 ; Set opspec args 1 ; vector image }
     }
-    
+
     LappendX opspec images $imspec
-    return
 }
 
 # parameter commands - See `type` above for setup, and `Param` below for handling.
@@ -154,32 +147,31 @@ proc dsl::reader::Param {type mode dvalue name args} { ;#puts [info level 0]
     switch -exact -- $mode {
 	required {}
 	optional { dict set argspec default $dvalue }
-	args     { Set opspec args 1 ; vector $type } 
+	args     { Set opspec args 1 ; vector $type }
     }
 
     Set      opspec param  $name .
     LappendX opspec params $argspec
-    return
 }
 
 proc dsl::reader::Pname {x} { ;#puts [info level 0]
-    if {[Has pname text $x]} { return [Get pname text $x] }
+    if {[Has pname text $x]} { ::return [Get pname text $x] }
 
     set id [llength [Get pname texts]]
     LappendX pname texts $x
     Set      pname text  $x $id
-    return $id
+    ::return $id
 }
 
 proc dsl::reader::Help {x} { ;#puts [info level 0]
-    if {$x eq {}} { Abort "Empty description" }    
+    if {$x eq {}} { Abort "Empty description" }
 
-    if {[Has help text $x]} { return [Get help text $x] }
+    if {[Has help text $x]} { ::return [Get help text $x] }
 
     set id [llength [Get help texts]]
     LappendX help texts $x
     Set      help text  $x $id
-    return $id
+    ::return $id
 }
 
 # # ## ### ##### ######## #############
@@ -203,26 +195,22 @@ proc dsl::reader::Init {} {
 	    texts {}
 	}
     }
-    return
 }
 
 proc dsl::reader::Set {args} {
     variable state
     set keypath [lreverse [lassign [lreverse $args] value]]
     dict set state {*}$keypath $value
-    return
 }
 
 proc dsl::reader::Unset {args} {
     variable state
     dict unset state {*}$args
-    return
 }
 
 proc dsl::reader::Lappend {key args} {
     variable state
     dict lappend state $key {*}$args
-    return
 }
 
 proc dsl::reader::LappendX {args} {
@@ -231,17 +219,16 @@ proc dsl::reader::LappendX {args} {
     set words [dict get $state {*}$keypath]
     lappend words $value
     dict set state {*}$keypath $words
-    return
 }
 
 proc dsl::reader::Get {args} {
     variable state
-    return [dict get $state {*}$args]
+    dict get $state {*}$args
 }
 
 proc dsl::reader::Has {args} {
     variable state
-    return [dict exists $state {*}$args]
+    dict exists $state {*}$args
 }
 
 # ... ... ... ingestion commands ... ... ... ... ... ...
@@ -279,7 +266,7 @@ proc dsl::reader::Has {args} {
 proc dsl::reader::Abort {x} {
     set opname [Get opname]
     if {$opname ne {}} { set x "Operation $opname: $x" }
-    return -code error $x
+    ::return -code error $x
 }
 
 # # ## ### ##### ######## #############

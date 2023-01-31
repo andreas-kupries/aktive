@@ -1,5 +1,7 @@
 # -*- mode: tcl ; fill-column: 90 -*-
 
+package require textutil::adjust
+
 namespace eval dsl::writer {
     namespace export do
     namespace ensemble create
@@ -28,22 +30,22 @@ proc dsl::writer::Emit {stem} {
     Into ${stem}param-descriptions.c  ParamDescriptions  ;# variable
     Into ${stem}param-types.h         ParamTypes         ;# typedefs
     Into ${stem}param-descriptors.c   ParamDescriptors   ;# variables
-    #		       
+    #
     Into ${stem}vector-types.h        VectorTypes        ;# typedefs
     Into ${stem}vector-funcs.h        VectorSignatures   ;# signatures
     Into ${stem}vector-funcs.c        VectorFunctions    ;# implementations
-    #		       
+    #
     Into ${stem}type-defines.h        TypeDefines        ;# defines - enum
     Into ${stem}type-funcs.h          TypeSignatures     ;# signatures
     Into ${stem}type-funcs.c          TypeFunctions      ;# implementations
     Into ${stem}type-descriptor.c     TypeDescriptor     ;# variable
-    #		       
+    #
     Into ${stem}param-funcs.h         ParamSignatures    ;# signatures
     Into ${stem}param-funcs.c         ParamFunctions     ;# implementations
-    #		       
+    #
     Into ${stem}op-funcs.h            OperatorSignatures ;# signatures
     Into ${stem}op-funcs.c            OperatorFunctions  ;# implementations
-    #		       
+    #
     Into ${stem}glue.tcl              OperatorCprocs     ;# Tcl commands
     Into ${stem}ensemble.tcl          OperatorEnsemble   ;# Command ensemble
     return
@@ -52,7 +54,7 @@ proc dsl::writer::Emit {stem} {
 # # ## ### ##### ######## #############
 ## Main emitter commands -- Parameters
 
-proc dsl::writer::ParamDefines {} {    
+proc dsl::writer::ParamDefines {} {
     set num   [llength [Parameters]]
     set width [string length $num]
     set names [lmap p [Parameters] { string cat aktive_p_$p }]
@@ -112,12 +114,12 @@ proc dsl::writer::ParamTypes {} {
     Comment {-*- c -*-}
     Comment {Parameter block types}
     + {}
-    
+
     foreach op [Operations] {
 	if {![OpHasParams $op]} continue
 	+ [ParamTypeForOp $op]
     }
-    
+
     Done
 }
 
@@ -142,10 +144,10 @@ proc dsl::writer::ParamTypeForOp {op} {
     foreach n $names t $ctypes d $descs {
 	+ "  [PadR $tl $t] [PadR $nl $n] ; /* [PadR $dl $d] */"
     }
-    
+
     + "\} $sname;"
     + {}
-    
+
     Done
 }
 
@@ -160,7 +162,7 @@ proc dsl::writer::ParamDescriptors {} {
 	if {![OpHasParams $op]} continue
 	+ [ParamDescriptorsForOp $op]
     }
-    
+
     Done
 }
 
@@ -178,7 +180,7 @@ proc dsl::writer::ParamDescriptorsForOp {op} {
 	if {[ParameterIsVariadic $argspec]} { append type _vec }
 	string cat aktive_t_$type
     }]
-    
+
     + "/* `$op` - - -- --- ----- -------- ------------- */"
     + "static aktive_image_parameter $dname\[$nparams\] = \{"
 
@@ -186,7 +188,7 @@ proc dsl::writer::ParamDescriptorsForOp {op} {
     set xl [Maxlength $namex]
     set dl [Maxlength $descs]
     set tl [Maxlength $types]
-    
+
     set prefix "  "
     foreach n $names d $descs t $types x $namex {
 	set n [PadR $nl $n]
@@ -194,13 +196,13 @@ proc dsl::writer::ParamDescriptorsForOp {op} {
 	set t [PadR $tl $t]
 	set x [PadR $xl $x]
 	set o "offsetof ($sname, $x)"
-	
+
 	+ "  ${prefix}\{ $n, $d, $t, $o \}"
 	set prefix ", "
     }
     + "\};"
     + {}
-    
+
     Done
 }
 
@@ -209,7 +211,7 @@ proc dsl::writer::ParamSignatures {} {
 
     set names {}
     set types {}
-    
+
     foreach op [Operations] {
 	if {![OpHasParams     $op]} continue
 	if {![OpParamVariadic $op]} continue
@@ -222,7 +224,7 @@ proc dsl::writer::ParamSignatures {} {
 
     set nl [Maxlength $names]
     set tl [Maxlength $types]
-    
+
     Comment {-*- c -*-}
     Comment {Parameter block init/finish declarations}
     + {}
@@ -232,7 +234,7 @@ proc dsl::writer::ParamSignatures {} {
 	set t [PadR $tl $t]
 	+ "static void $n ($t* p);"
     }
-    
+
     + {}
     Done
 }
@@ -242,7 +244,7 @@ proc dsl::writer::ParamFunctions {} {
     set names {}
     set types {}
     set codes {}
-    
+
     foreach op [Operations] {
 	if {![OpHasParams     $op]} continue
 	if {![OpParamVariadic $op]} continue
@@ -257,10 +259,10 @@ proc dsl::writer::ParamFunctions {} {
 	    if {![ParameterIsVariadic $argspec]} continue
 
 	    # Note: Match vector-func-* // Callee
-	    
+
 	    set t [ParameterCType $argspec]
 	    set n [ParameterText [dict get $argspec name]]
-	    
+
 	    lappend heap "${t}_heapify (&p->$n);"
 	    lappend free "${t}_free (&p->$n);"
 	}
@@ -269,7 +271,7 @@ proc dsl::writer::ParamFunctions {} {
 
     set nl [Maxlength $names]
     set tl [Maxlength $types]
-    
+
     Comment {-*- c -*-}
     Comment {Parameter block init/finish functions}
     + {}
@@ -282,7 +284,7 @@ proc dsl::writer::ParamFunctions {} {
 	+ "\}"
 	+ {}
     }
-    
+
     Done
 }
 
@@ -293,7 +295,7 @@ proc dsl::writer::VectorTypes {} {
     Comment {-*- c -*-}
     Comment {Structures for types used in variadics}
     + {}
-    
+
     foreach type [Vectors] {
 	lassign [Get types $type] ct t
 	set tx  [TypeVector $type]
@@ -315,12 +317,12 @@ proc dsl::writer::VectorTypes {} {
 proc dsl::writer::VectorSignatures {} {
     set names {}
     set types {}
-    
+
     foreach t [Vectors] {
 	set tx [TypeVector $t]
 
 	# Note: Match param-func-* // Callers
-	
+
 	lappend names ${tx}_heapify
 	lappend names ${tx}_free
 	lappend names {}
@@ -328,7 +330,7 @@ proc dsl::writer::VectorSignatures {} {
 	lappend types $tx
 	lappend types {}
     }
-    
+
     set nl [Maxlength $names]
     set tl [Maxlength $types]
 
@@ -351,11 +353,11 @@ proc dsl::writer::VectorFunctions {} {
     set names {}
     set types {}
     set codes {}
-    
+
     foreach t [Vectors] {
 	set tx [TypeVector $t]
 	set ct [TypeCritcl $t]
-	
+
 	lappend names ${tx}_heapify
 	lappend names ${tx}_free
 	lappend names {}
@@ -366,11 +368,11 @@ proc dsl::writer::VectorFunctions {} {
 	lappend codes "ckfree ((char*) vec->v);"
 	lappend codes {}
     }
-    
+
     set nl [Maxlength $names]
     set tl [Maxlength $types]
     set cl [Maxlength $codes]
-    
+
     Comment {-*- c -*-}
     Comment {Vector utility functions for types used in variadics}
     + {}
@@ -397,7 +399,7 @@ proc dsl::writer::TypeDefines {} {
 
     set types {}
     set ids   {}
-    
+
     set k -1
     foreach t [Types] {
 	lappend types aktive_t_[Cname $t]
@@ -434,7 +436,7 @@ proc dsl::writer::TypeDefines {} {
 proc dsl::writer::TypeSignatures {} {
     set names {}
     set types {}
-    
+
     foreach t [Types] {
 	lappend names aktive_t_[Cname $t]_value
 	lappend types [TypeCType $t]
@@ -450,7 +452,7 @@ proc dsl::writer::TypeSignatures {} {
 
     set nl [Maxlength $names]
     set tl [Maxlength $types]
-    
+
     Comment {-*- c -*-}
     Comment {Type conversion declarations }
     + {}
@@ -460,7 +462,7 @@ proc dsl::writer::TypeSignatures {} {
 	    + {}
 	    continue
 	}
-	
+
 	set n [PadR $nl $n]
 	set t [PadR $tl $t]
 	+ "static Tcl_Obj* $n (Tcl_Interp* interp, ${t}* value);"
@@ -474,7 +476,7 @@ proc dsl::writer::TypeFunctions {} {
     set names {} ; set vnames {}
     set types {} ; set vtypes {}
     set conv  {} ; set vconv  {}
-    
+
     foreach t [Types] {
 	lappend names aktive_t_[Cname $t]_value
 	lappend types [TypeCType $t]
@@ -490,7 +492,7 @@ proc dsl::writer::TypeFunctions {} {
     set nl [Maxlength $names]
     set tl [Maxlength $types]
     set cl [Maxlength $conv]
-    
+
     Comment {-*- c -*-}
     Comment {Type conversion functions }
     + {}
@@ -502,7 +504,7 @@ proc dsl::writer::TypeFunctions {} {
 	+ "static Tcl_Obj* $n (Tcl_Interp* interp, ${t}* value) \{ return $c; \}"
     }
     + {}
-    
+
     foreach n $vnames t $vtypes c $vconv {
 	+ "static Tcl_Obj* $n (Tcl_Interp* interp, ${t}* value) \{"
 	+ "  Tcl_Obj*  r = NULL;"
@@ -527,7 +529,7 @@ proc dsl::writer::TypeDescriptor {} {
     set names {}
     set ids   {}
     set types {}
-    
+
     set k -1
     foreach t [Types] {
 	lappend types $t
@@ -540,7 +542,7 @@ proc dsl::writer::TypeDescriptor {} {
     lappend types {}
 
     set xl [Maxlength [Vectors]]
-    
+
     foreach t [Vectors] {
 	lappend types "[PadR $xl "$t"] \[\]"
 	lappend names aktive_t_[Cname $t]_vec_value
@@ -563,17 +565,17 @@ proc dsl::writer::TypeDescriptor {} {
 	    + {}
 	    continue
 	}
-	
+
 	set k [PadL $il $k]
 	set n [PadR $nl $n]
 	set t [PadR $tl $t]
-    
+
 	+ "  /* ($k) $t */ ${prefix}\{ (aktive_param_value) $n \}"
 	set prefix ", "
     }
     + "\};"
 
-    + {}    
+    + {}
     Done
 }
 
@@ -584,12 +586,12 @@ proc dsl::writer::OperatorSignatures {} {
     set names   {}
     set sigs    {}
     set results {}
-    
+
     foreach op [Operations] {
 	set spec [Get ops $op]
 	set result [dict get $spec result]
 	if {$result ne "void"} { set result [CprocResultC $spec] }
-	
+
 	lappend names   [FunctionName          $op $spec]
 	lappend sigs    [FunctionDeclSignature $op $spec]
 	lappend results $result
@@ -598,7 +600,7 @@ proc dsl::writer::OperatorSignatures {} {
     set nl [Maxlength $names]
     set sl [Maxlength $sigs]
     set rl [Maxlength $results]
-    
+
     Comment {-*- c -*-}
     Comment {Operator function declarations}
     + {}
@@ -628,11 +630,11 @@ proc dsl::writer::OperatorFunctions {} {
 
 proc dsl::writer::OperatorFunctionForOp {op} {
     set spec [Get ops $op]
-	
+
     dict with spec {}
-    # notes, images, params, result
+    # notes, images, params, result, rcode
     unset notes images params
-    ##                       result
+    ##                       result, rcode
 
     if {$result ne "void"} {
 	set result [CprocResultC $spec]
@@ -640,7 +642,7 @@ proc dsl::writer::OperatorFunctionForOp {op} {
 
     set n   [FunctionName $op $spec]
     set sig [FunctionDeclSignature $op $spec]
-    
+
     Comment "- - -- --- ----- -------- ------------- ---------------------\n * Operator \"$op\" ...\n"
     + {}
 
@@ -654,12 +656,28 @@ proc dsl::writer::OperatorFunctionForOp {op} {
 	}
 
 	+ "static $result $n $sig \{"
-	+ [Placeholder $op]
+
+	if {$rcode eq {}} {
+	    + [Placeholder $op]
+	} else {
+	    # We have a C code fragment implementing the getter
+	    # Engineer a `return` into the last line / C statement.
+
+	    set rcode [split [string trim [textutil::adjust::undent $rcode]] \n]
+	    set rcode [lreverse [lassign [lreverse $rcode] last]]
+	    if {![regexp return $last]} { set last "return $last" }
+	    lappend rcode $last
+	    set rcode [textutil::adjust::indent [join $rcode \n] "  "]
+
+	    + $rcode
+	}
+
+
 	+ "\}"
 	+ {}
     } else {
-	# Pixel fill function needs manual writing
-	
+	# image result -- Pixel fill function needs manual writing
+
 	+ "static void"
 	+ "[OperatorFillFuncname $op] (aktive_region region) \{"
 	+ [Placeholder ${op}-fill]
@@ -667,13 +685,13 @@ proc dsl::writer::OperatorFunctionForOp {op} {
 	+ {}
 
 	# Main function can be generated, and refers to pixel fill function
-	
+
 	+ "static $result $n $sig \{"
 	+ [FunctionBodyImageConstructor $op $spec]
 	+ "\}"
 	+ {}
     }
-    
+
     Done
 }
 
@@ -693,7 +711,7 @@ proc dsl::writer::OperatorCprocs {} {
     foreach op [Operations] {
 	+ [OperatorCprocForOp $op]
     }
-    
+
     Done
 }
 
@@ -705,7 +723,7 @@ proc dsl::writer::OperatorCprocForOp {op} {
     # notes, images, params, result
     unset images params
     # notes                  result
-        
+
     TclComment "--- --- --- --- --- --- --- --- ---\n# Operator `$op` ..."
     foreach n $notes { TclComment "Note: $n" }
     + {}
@@ -729,7 +747,7 @@ proc dsl::writer::OperatorCprocForOp {op} {
     }
 
     + "\}"
-    
+
     + {}
     Done
 }
@@ -755,7 +773,7 @@ proc dsl::writer::CprocArguments {spec} {
 	} else {
 	    set d {}
 	}
-		
+
 	lappend names    $n
 	lappend ctypes   $ct
 	lappend defaults $d
@@ -765,7 +783,7 @@ proc dsl::writer::CprocArguments {spec} {
 
     set id 0
     foreach i $images {
-	set m [dict get $i rcmode]	
+	set m [dict get $i rcmode]
 	set n src$id ; incr id
 	if {$single} { set n src }
 	set v [dict get $i args]
@@ -775,7 +793,7 @@ proc dsl::writer::CprocArguments {spec} {
 	lappend ctypes   aktive_image
 	lappend defaults {}
     }
-    
+
     set nl [Maxlength $names]
     set tl [Maxlength $ctypes]
 
@@ -786,7 +804,7 @@ proc dsl::writer::CprocArguments {spec} {
 	}
 	+ "  [PadR $tl $t] [PadR $nl $n]"
     }
-    
+
     return [join $lines \n]
 }
 
@@ -807,7 +825,7 @@ proc dsl::writer::CprocBodyImages {spec} {
 
     set id 0
     foreach i $images {
-	set m [dict get $i rcmode]	
+	set m [dict get $i rcmode]
 	set n src$id ; incr id
 	if {$single} { set n src }
 	set v [dict get $i args]
@@ -836,7 +854,7 @@ proc dsl::writer::CprocParameterSetup {op spec} {
 	+ "  /* no parameters */"
 	return [join $lines \n]
     }
-    
+
     set sn     [ParamStructTypename $op]
     set fields [lmap argspec $params { ParameterText [dict get $argspec name] }]
     set fl     [Maxlength $fields]
@@ -863,7 +881,7 @@ proc dsl::writer::CprocParameterSetup {op spec} {
 
     + "  \};"
     + {}
-    
+
     return [join $lines \n]
 }
 
@@ -876,10 +894,10 @@ proc dsl::writer::CprocBody {op spec script} {
     set single  [expr {[llength $images] == 1}]
     set ignames {}
     set igtypes {}
-    
+
     set id 0
     foreach i $images {
-	set m [dict get $i rcmode]	
+	set m [dict get $i rcmode]
 	set n src$id ; incr id
 	if {$single} { set n src }
 	set v [dict get $i args]
@@ -923,9 +941,9 @@ proc dsl::writer::CprocBody {op spec script} {
     eval $script
 
     + {}
-    
+
     foreach i $ignames t $igtypes {
-	set im [string map {_ignored {}} $i] 
+	set im [string map {_ignored {}} $i]
 
 	if {$t eq "int"} {
 	    set im [PadR $al ($im)]
@@ -937,12 +955,12 @@ proc dsl::writer::CprocBody {op spec script} {
 	    + "  if (aktive_image_unused $im) { aktive_image_unref $im; }"
 	    continue
 	}
-	    
+
 	# image argument and associated flag are variadic
 	+ "  for (int k = 0; k < $i.c; k++) \{"
 	+ "    if ($i.v\[k] && aktive_image_unused ($im.v\[k])) { aktive_image_unref ($im.v\[k]); }"
 	+ "  \}"
-    }	
+    }
 
     return [join $lines \n]
 }
@@ -975,7 +993,7 @@ proc dsl::writer::FunctionIgnoresImages {spec} {
     unset notes params result
 
     foreach i $images {
-	set m [dict get $i rcmode]	
+	set m [dict get $i rcmode]
 	if {$m in {
 	    keep-ignore keep-pass-ignore
 	}} {
@@ -1019,11 +1037,11 @@ proc dsl::writer::FunctionDeclSignature {op spec} {
     set igtypes {}
 
     foreach i $images {
-	set m [dict get $i rcmode]	
+	set m [dict get $i rcmode]
 	set n src$id ; incr id
 
 	set it aktive_image
-	
+
 	if {$single} { set n src }
 	set v [dict get $i args]
 	if {$v} {
@@ -1068,7 +1086,7 @@ proc dsl::writer::FunctionDeclSignature {op spec} {
 	    set prefix ", "
 	}
     }
-    
+
     return ($sig)
 }
 
@@ -1084,7 +1102,7 @@ proc dsl::writer::FunctionCallSignature {spec} {
     set igtypes {}
 
     foreach i $images {
-	set m [dict get $i rcmode]	
+	set m [dict get $i rcmode]
 	set n src$id ; incr id
 
 	if {$single} { set n src }
@@ -1118,7 +1136,7 @@ proc dsl::writer::FunctionCallSignature {spec} {
 	    set prefix ", "
 	}
     }
-    
+
     return ($sig)
 }
 
@@ -1129,7 +1147,7 @@ proc dsl::writer::FunctionBodyImageConstructor {op spec} {
     # images, params
 
     set opspecvar [OperatorSpecVarname $op]
-    
+
     set call ""
 
     + {}
@@ -1153,7 +1171,7 @@ proc dsl::writer::FunctionBodyImageConstructor {op spec} {
 	+ "    , .sz_param = 0"
 	append call ", NULL"	;# No parameters
     }
-    
+
     + "  \};"
     + {}
 
@@ -1195,8 +1213,8 @@ proc dsl::writer::FunctionBodyImageConstructor {op spec} {
     } else {
 	append call ", NULL"	;# No input images.
     }
-    
-    + "  return aktive_image_new (&$opspecvar$call);"    
+
+    + "  return aktive_image_new (&$opspecvar$call);"
     return [join $lines \n]
 }
 
@@ -1205,7 +1223,7 @@ proc dsl::writer::OperatorEnsemble {} {
 	set op [string map {:: { }} aktive::$op]
 	dict set n {*}$op .
     }
-    
+
     TclComment {-*- tcl -*-}
     TclComment {Glue commands, per operator}
 
