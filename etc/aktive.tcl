@@ -21,12 +21,12 @@
 ##
 
 ## I. Required by runtime 
-# __ id __________ critcl ___________ C type ____ Conversion ______________________________
-type region        aktive_region      -           {0 /* INTERNAL -- No Tcl_Obj* equivalent */}
-type image         aktive_image       -           {aktive_new_image_obj (*value)}
-type image-type    aktive_image_type* -           {Tcl_NewStringObj ((*value)->name, -1)}
-type uint          aktive_uint        -           {aktive_new_uint_obj (*value)}
-type point         aktive_point       -           {aktive_new_point_obj (value)}
+# __ id __________ critcl ___________ C type ___________________ Conversion ______________________________
+type region        aktive_region      -                          {0 /* INTERNAL -- No Tcl_Obj* equivalent */}
+type image         aktive_image       -                          {aktive_new_image_obj (*value)}
+type image-type    aktive_image_type* {const aktive_image_type*} {Tcl_NewStringObj ((*value)->name, -1)}
+type uint          aktive_uint        -                          {aktive_new_uint_obj (*value)}
+type point         aktive_point       -                          {aktive_new_point_obj (value)}
 
 vector region image point uint
 
@@ -48,28 +48,29 @@ vector double
 
 operator query::type {
     input ignore
-    result image-type
+    return image-type { aktive_image_get_type (src); }
 }
 
-operator {
-    query::x
-    query::xmax
-    query::y
-    query::ymax
+operator attribute {
+    query::x    x
+    query::xmax xmax
+    query::y    y
+    query::ymax ymax
 } {
     input ignore
-    result int
+    return int "aktive_image_get_$attribute (src);"
 }
 
-operator {
-    query::width 
-    query::height
-    query::depth 
-    query::pixels
-    query::pitch
+operator attribute {
+    query::width  width
+    query::height height
+    query::depth  depth
+    query::pixels pixels
+    query::pitch  pitch
+    query::size   size
 } {
     input ignore
-    result uint
+    return uint "aktive_image_get_$attribute (src);"
 }
 
 operator {
@@ -77,7 +78,7 @@ operator {
     query::inputs
 } {
     input ignore
-    result object0
+    return object0
 }
 
 ## # # ## ### ##### ######## ############# #####################
@@ -492,4 +493,4 @@ operator {
 }
 
 ## # # ## ### ##### ######## ############# #####################
-return
+::return

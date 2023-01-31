@@ -48,7 +48,7 @@ critcl::resulttype aktive_image_type* {
     if (rv == NULL) { return TCL_ERROR; }
     Tcl_SetObjResult (interp, Tcl_NewStringObj (rv->name, -1));
     return TCL_OK;
-} aktive_image_type*
+} {const aktive_image_type*}
 
 # # ## ### ##### ######## #############
 ## images
