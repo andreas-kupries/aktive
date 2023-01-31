@@ -118,10 +118,12 @@ Defaults:
 
 ##### Notes on non-image returns
 
-The C code fragment specified with `return` has access to the image through the `src` variable.  If
-the last statement in the C code (i.e. the last line) does not contain a `return` then the
-generators adds a `return` in front of that line, under the assumption that the line contains the
-statement or expression computing the value to deliver.
+The C code fragment specified with `return` has access to the relevant `aktive_image` through the
+`src` variable. It further has access to the relevant `Tcl_Interp*` through the `interp` variable.
+
+If the last statement in the C code fragment (i.e. the last line) does not contain a `return` then
+the generator adds a `return` in front of that line, under the assumption that this line contains
+the statement or expression computing the value to deliver.
 
 In other words, instead of having to write `return int { return foo(); }`, with its visual
 duplication of the `return` it is possible to write `return int { foo(); }` and the needed `return`

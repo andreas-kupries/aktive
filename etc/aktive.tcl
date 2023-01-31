@@ -20,7 +20,7 @@
 # Note: Dynamic vector structures match critcl variadics.
 ##
 
-## I. Required by runtime 
+## I. Required by runtime
 # __ id __________ critcl ___________ C type ___________________ Conversion ______________________________
 type region        aktive_region      -                          {0 /* INTERNAL -- No Tcl_Obj* equivalent */}
 type image         aktive_image       -                          {aktive_new_image_obj (*value)}
@@ -73,12 +73,34 @@ operator attribute {
     return uint "aktive_image_get_$attribute (src);"
 }
 
-operator {
-    query::params
-    query::inputs
-} {
+operator query::inputs {
     input ignore
-    return object0
+    return object0 {
+	aktive_uint c = aktive_image_get_nsrcs (src);
+	Tcl_Obj**   v = NALLOC (Tcl_Obj*, c);
+
+	for (aktive_uint i = 0; i < c; i++) {
+	  v [i] = aktive_new_image_obj  (aktive_image_get_src (src, i));
+	}
+	Tcl_Obj* r = Tcl_NewListObj (c, v);
+	ckfree ((char*) v);
+	return r;
+    }
+}
+
+operator query::params {
+    input ignore
+    return object0 {
+	aktive_uint c = aktive_image_get_nparams (src);
+	Tcl_Obj* r    = Tcl_NewDictObj();
+
+	for (aktive_uint i = 0; i < c; i++) {
+	  const char* n = aktive_image_get_param_name (src, i);
+	  Tcl_Obj*    v = aktive_image_get_param_value (src, i, ip);
+	  Tcl_DictObjPut (ip, r, Tcl_NewStringObj (n,-1), v);
+	}
+	return r;
+    }
 }
 
 ## # # ## ### ##### ######## ############# #####################
@@ -89,7 +111,7 @@ operator thing {
     format::ppm::write ppm
 } {
     note Sink. Serializes image to $thing format, into channel
-    
+
     void
     input ignore
 
@@ -104,7 +126,7 @@ operator thing {
 
 operator image::constant {
     note The entire image is set to the value
-    
+
     uint   width   Width of the returned image
     uint   height  Height of the returned image
     uint   depth   Depth of the returned image
@@ -116,8 +138,8 @@ operator image::constant {
 operator image::const::planes {
     note The entire set of pixels is set to the values
     note Depth is len(value)
-    
-    uint      width   Width of the returned image	
+
+    uint      width   Width of the returned image
     uint      height  Height of the returned image
     double... value   Pixel values
 
@@ -129,8 +151,8 @@ operator image::const::matrix {
     note Less than width by height values is extended with zeroes.
     note Excess values are ignored.
     note Depth is fixed at 1.
-    
-    uint      width   Width of the returned image	
+
+    uint      width   Width of the returned image
     uint      height  Height of the returned image
     double... value   Pixel values
 
@@ -141,7 +163,7 @@ operator image::noise::salt {
     note Salt and pepper noise.
     note Pixels are set where the random value passes the threshold
     note The value of set pixels is fixed at 1.0
-    
+
     uint      width      Width of the returned image
     uint      height     Height of the returned image
     uint      depth      Depth of the returned image
@@ -154,7 +176,7 @@ operator image::noise::salt {
 
 operator image::noise::uniform {
     note Pixels are set to a random value drawn from a uniform distribution
-    
+
     uint      width   Width of the returned image
     uint      height  Height of the returned image
     uint      depth   Depth of the returned image
@@ -166,11 +188,11 @@ operator image::noise::uniform {
 
 operator image::noise::gauss {
     note Pixels are set to a random value drawn from a gaussian distribution
-    
+
     uint      width   Width of the returned image
     uint      height  Height of the returned image
     uint      depth   Depth of the returned image
-    double? 0 mean    Noise center value                     
+    double? 0 mean    Noise center value
     double? 1 sigma   Noise spread (sqrt of desired variance)
 
     # %% TODO %% specify implementation
@@ -178,7 +200,7 @@ operator image::noise::gauss {
 
 operator image::noise::seed {
     note Set the seed of the random number generator used by the noise-based image generators
-    
+
     void
     int seed  Seed to set
 
@@ -197,7 +219,7 @@ operator image::gradient {
 
 operator image::sparse::points {
     point... points  Coordinates of the pixels to set in the image
-    
+
     note Generally, the bounding box specifies the geometry, especially also the image origin.q
     note Width is implied by the bounding box of the points
     note Height is implied by the bounding box of the points
@@ -286,10 +308,10 @@ operator {
 
 
 operator {
-    op::math::inside-oo 
-    op::math::inside-oc 
-    op::math::inside-co 
-    op::math::inside-cc 
+    op::math::inside-oo
+    op::math::inside-oc
+    op::math::inside-co
+    op::math::inside-cc
     op::math::outside-oo
     op::math::outside-oc
     op::math::outside-co
@@ -407,35 +429,35 @@ operator {name op} {
 }
 
 operator {
-    op::math1::abs	       
-    op::math1::clamp	       
-    op::math1::wrap	       
-    op::math1::invert	       
-    op::math1::neg	       
-    op::math1::sign	       
+    op::math1::abs
+    op::math1::clamp
+    op::math1::wrap
+    op::math1::invert
+    op::math1::neg
+    op::math1::sign
     op::math1::sign*
-    op::math1::reciproc       
-    op::math1::sqrt	       
-    op::math1::cbrt	       
-    op::math1::exp	       
-    op::math1::exp2	       
-    op::math1::log	       
-    op::math1::log10	       
-    op::math1::log2	       
-    op::math1::cos	       
-    op::math1::sin	       
-    op::math1::tan	       
-    op::math1::cosh	       
-    op::math1::sinh	       
-    op::math1::tanh	       
-    op::math1::acos	       
-    op::math1::asin	       
-    op::math1::atan	       
-    op::math1::acosh	       
-    op::math1::asinh	       
-    op::math1::atanh	       
-    op::math1::gamma-compress 
-    op::math1::gamma-expand   
+    op::math1::reciproc
+    op::math1::sqrt
+    op::math1::cbrt
+    op::math1::exp
+    op::math1::exp2
+    op::math1::log
+    op::math1::log10
+    op::math1::log2
+    op::math1::cos
+    op::math1::sin
+    op::math1::tan
+    op::math1::cosh
+    op::math1::sinh
+    op::math1::tanh
+    op::math1::acos
+    op::math1::asin
+    op::math1::atan
+    op::math1::acosh
+    op::math1::asinh
+    op::math1::atanh
+    op::math1::gamma-compress
+    op::math1::gamma-expand
 } {
     input keep-pass-ignore
 

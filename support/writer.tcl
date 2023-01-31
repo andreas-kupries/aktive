@@ -1069,8 +1069,8 @@ proc dsl::writer::FunctionDeclSignature {op spec} {
 	lappend itypes $it
     }
 
-    set sig ""
-    set prefix ""
+    set sig "Tcl_Interp* ip"
+    set prefix ", "
     if {[llength $params]}  {
 	append sig "${prefix}[ParamStructTypename $op]* p" ; set prefix ", "
     }
@@ -1125,8 +1125,8 @@ proc dsl::writer::FunctionCallSignature {spec} {
 	lappend inames $n
     }
 
-    set sig ""
-    set prefix ""
+    set sig "ip"
+    set prefix ", "
     if {[llength $params]}  { append sig ${prefix}&p                   ; set prefix ", " }
     if {[llength $images]}  { append sig ${prefix}[join $inames  ", "] ; set prefix ", " }
     if {[llength $ignames]} {
