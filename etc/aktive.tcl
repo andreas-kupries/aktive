@@ -132,6 +132,13 @@ operator image::constant {
     uint   depth   Depth of the returned image
     double value   Pixel value
 
+    geometry {
+	/* location is default (0,0) */
+	geo->width  = param->width;
+	geo->height = param->height;
+	geo->depth  = param->depth;
+    }
+
     # %% TODO %% specify implementation
 }
 
@@ -240,13 +247,31 @@ operator image::sparse::deltas {
     # %% TODO %% specify implementation
 }
 
-operator thing {
-    format::pgm::read pgm
-    format::ppm::read ppm
+operator {thing depth} {
+    format::pgm::read pgm 1
+    format::ppm::read ppm 3
 } {
     take-channel src  Channel to read $thing image data from
 
-    # %% TODO %% specify implementation
+    state {
+	aktive_uint width;  /* Image width read from image header */
+	aktive_uint height; /* Image height read from image header */
+	/* maxval ? */
+	/* reader function, dependent on variant */
+    } {
+	// %% TODO %% read image header (param->src)
+	// %% TODO %% use variant tag to choose reader
+	return 0; // TODO implement
+    } ;# nothing to release
+
+    geometry {
+	/* location is default (0,0) */
+	geo->width  = state->width;
+	geo->height = state->height;
+	geo->depth  = @depth@;
+    } @depth@ $depth
+
+    # %% TODO %% specify implementation - read image data - locked
 }
 
 ## # # ## ### ##### ######## ############# #####################
