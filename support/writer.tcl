@@ -60,9 +60,7 @@ proc dsl::writer::ParamDefines {} {
     set names [lmap p [Parameters] { string cat aktive_p_$p }]
     set nl    [Maxlength $names]
 
-    Comment {-*- c -*-}
-    Comment {Defines for parameter symbols}
-    + {}
+    CHeader {Defines for parameter symbols}
 
     foreach p [Parameters] n $names {
 	+ "#define [PadR $nl $n] ([PadL $width [ParameterId $p]])"
@@ -76,9 +74,8 @@ proc dsl::writer::ParamNames {} {
     set num   [llength [Parameters]]
     set width [string length $num]
 
-    Comment {-*- c -*-}
-    Comment {Tables of parameter names}
-    + {}
+    CHeader {Tables of parameter names}
+
     + "const char* aktive_param_name\[$num\] = {"
 
     set prefix "  "
@@ -95,9 +92,8 @@ proc dsl::writer::ParamDescriptions {} {
     set num   [llength [Descriptions]]
     set width [string length $num]
 
-    Comment {-*- c -*-}
-    Comment {Table of parameter descriptions}
-    + {}
+    CHeader {Table of parameter descriptions}
+
     + "const char* aktive_param_desc\[$num\] = {"
 
     set prefix "  "
@@ -111,9 +107,7 @@ proc dsl::writer::ParamDescriptions {} {
 }
 
 proc dsl::writer::ParamTypes {} {
-    Comment {-*- c -*-}
-    Comment {Parameter block types}
-    + {}
+    CHeader {Parameter block types}
 
     foreach op [Operations] {
 	if {![OpHasParams $op]} continue
@@ -152,9 +146,8 @@ proc dsl::writer::ParamTypeForOp {op} {
 }
 
 proc dsl::writer::ParamDescriptors {} {
-    Comment {-*- c -*-}
-    Comment {Parameter block descriptors}
-    + {}
+    CHeader {Parameter block descriptors}
+
     + {#include <stddef.h> /* offsetof */}
     + {}
 
@@ -225,9 +218,7 @@ proc dsl::writer::ParamSignatures {} {
     set nl [Maxlength $names]
     set tl [Maxlength $types]
 
-    Comment {-*- c -*-}
-    Comment {Parameter block init/finish declarations}
-    + {}
+    CHeader {Parameter block init/finish declarations}
 
     foreach n $names t $types {
 	set n [PadR $nl $n]
@@ -272,9 +263,7 @@ proc dsl::writer::ParamFunctions {} {
     set nl [Maxlength $names]
     set tl [Maxlength $types]
 
-    Comment {-*- c -*-}
-    Comment {Parameter block init/finish functions}
-    + {}
+    CHeader {Parameter block init/finish functions}
 
     foreach n $names t $types code $codes {
 	+ "static void $n ($t* p) \{"
@@ -292,9 +281,7 @@ proc dsl::writer::ParamFunctions {} {
 ## Main emitter commands -- Vectors
 
 proc dsl::writer::VectorTypes {} {
-    Comment {-*- c -*-}
-    Comment {Structures for types used in variadics}
-    + {}
+    CHeader {Structures for types used in variadics}
 
     foreach type [Vectors] {
 	lassign [Get types $type] ct t
@@ -341,9 +328,7 @@ proc dsl::writer::VectorSignatures {} {
     set nl [Maxlength $names]
     set tl [Maxlength $types]
 
-    Comment {-*- c -*-}
-    Comment {Vector utility functions for types used in variadics}
-    + {}
+    CHeader {Vector utility functions for types used in variadics}
 
     foreach n $names t $types p $plus {
 	if {$n eq {}} { + {} ; continue }
@@ -388,9 +373,7 @@ proc dsl::writer::VectorFunctions {} {
     set tl [Maxlength $types]
     set cl [Maxlength $codes]
 
-    Comment {-*- c -*-}
-    Comment {Vector utility functions for types used in variadics}
-    + {}
+    CHeader {Vector utility functions for types used in variadics}
 
     foreach n $names t $types p $plus c $codes {
 	if {$n eq {}} { + {} ; continue }
@@ -432,9 +415,7 @@ proc dsl::writer::TypeDefines {} {
     set tl [Maxlength $types]
     set il [Maxlength $ids]
 
-    Comment {-*- c -*-}
-    Comment {Defines for type symbols}
-    + {}
+    CHeader {Defines for type symbols}
 
     foreach t $types k $ids {
 	if {$t eq {}} {
@@ -468,9 +449,7 @@ proc dsl::writer::TypeSignatures {} {
     set nl [Maxlength $names]
     set tl [Maxlength $types]
 
-    Comment {-*- c -*-}
-    Comment {Type conversion declarations }
-    + {}
+    CHeader {Type conversion declarations }
 
     foreach n $names t $types {
 	if {$t eq {}} {
@@ -508,9 +487,7 @@ proc dsl::writer::TypeFunctions {} {
     set tl [Maxlength $types]
     set cl [Maxlength $conv]
 
-    Comment {-*- c -*-}
-    Comment {Type conversion functions }
-    + {}
+    CHeader {Type conversion functions }
 
     foreach n $names t $types c $conv {
 	set n [PadR $nl $n]
@@ -568,9 +545,7 @@ proc dsl::writer::TypeDescriptor {} {
     set tl [Maxlength $types]
     set il [Maxlength $ids]
 
-    Comment {-*- c -*-}
-    Comment {Type descriptor}
-    + {}
+    CHeader {Type descriptor}
 
     incr k
     + "static aktive_type_spec aktive_type_descriptor\[$k] = \{"
@@ -616,9 +591,7 @@ proc dsl::writer::OperatorSignatures {} {
     set sl [Maxlength $sigs]
     set rl [Maxlength $results]
 
-    Comment {-*- c -*-}
-    Comment {Operator function declarations}
-    + {}
+    CHeader {Operator function declarations}
 
     foreach n $names s $sigs r $results {
 	set n [PadR $nl $n]
@@ -632,9 +605,7 @@ proc dsl::writer::OperatorSignatures {} {
 }
 
 proc dsl::writer::OperatorFunctions {} {
-    Comment {-*- c -*-}
-    Comment {operator function implementations}
-    + {}
+    CHeader {operator function implementations}
 
     foreach op [Operations] {
 	+ [OperatorFunctionForOp $op]
@@ -754,8 +725,6 @@ proc dsl::writer::OperatorFunctionForOp {op} {
     } else {
 	# image result -- Pixel fetch function first
 
-puts $op//(($regionm))
-
 	+ "static void"
 	+ "[RegionFetchFuncname $op] ([RegionFetchSig $paramtype $regiontype]) \{"
 
@@ -809,9 +778,7 @@ proc dsl::writer::Placeholder {key {prefix {  }}} {
 }
 
 proc dsl::writer::OperatorCprocs {} {
-    TclComment {-*- tcl -*-}
-    TclComment {Glue commands, per operator}
-    + {}
+    TclHeader {Glue commands, per operator}
 
     foreach op [Operations] {
 	+ [OperatorCprocForOp $op]
@@ -846,9 +813,9 @@ proc dsl::writer::OperatorCprocForOp {op} {
 	+ "  return;"
     } else {
 	+ [CprocBody $op $spec {
-	    + "  [CprocResultC $spec] r = [FunctionCall $op $spec];"
+	    + "  [CprocResultC $spec] _r = [FunctionCall $op $spec];"
 	}]
-	+ "  return r;"
+	+ "  return _r;"
     }
 
     + "\}"
@@ -1177,7 +1144,7 @@ proc dsl::writer::FunctionDeclSignature {op spec} {
     set sig "Tcl_Interp* ip"
     set prefix ", "
     if {[llength $params]}  {
-	append sig "${prefix}[ParamStructTypename $op]* p" ; set prefix ", "
+	append sig "${prefix}[ParamStructTypename $op]* param" ; set prefix ", "
     }
     if {[llength $images]}  {
 	foreach image $inames {
@@ -1268,7 +1235,7 @@ proc dsl::writer::FunctionBodyImageConstructor {op spec} {
     #        .geo_setup
 
     if {[llength $params]} {
-	append call ", p"
+	append call ", param"
 	+ "    , .sz_param     = sizeof ([ParamStructTypename $op])"
 	+ "    , .n_param      = [llength $params]"
 	+ "    , .param        = [ParamDescriptorVarname $op]"
@@ -1342,10 +1309,8 @@ proc dsl::writer::OperatorEnsemble {} {
 	dict set n {*}$op .
     }
 
-    TclComment {-*- tcl -*-}
-    TclComment {Glue commands, per operator}
+    TclHeader {Glue commands, per operator}
 
-    + {}
     + [Dump $n ""]
     + {}
 
@@ -1444,7 +1409,12 @@ proc dsl::writer::RegionSetupFuncname    {op} { return "aktive_[Cname $op]_regio
 proc dsl::writer::RegionFinalFuncname    {op} { return "aktive_[Cname $op]_region_final" }
 
 proc dsl::writer::RegionFetchSig {paramtype regiontype} {
-    return "${paramtype}* param, aktive_region_vector* srcs, ${regiontype}* state, aktive_block* block"
+    append r "${paramtype}* param"
+    append r ", aktive_region_vector* srcs"
+    append r ", ${regiontype}* state"
+    append r ", aktive_rectangle* request"
+    append r ", aktive_block* block"
+    return $r
 }
 
 proc dsl::writer::StateSetupFuncname     {op} { return "aktive_[Cname $op]_setup"        }
@@ -1476,6 +1446,26 @@ proc dsl::writer::+           {x} { upvar 1 lines lines ; lappend lines $x      
 proc dsl::writer::Comment     {x} { upvar 1 lines lines ; lappend lines "/* $x */" ; return }
 proc dsl::writer::TclComment {x} { upvar 1 lines lines ; lappend lines "# $x"     ; return }
 proc dsl::writer::Done        {}  { upvar 1 lines lines ; return -code return [join $lines \n] }
+
+proc dsl::writer::CHeader {text} {
+    global tcl_platform
+    upvar 1 lines lines
+    Comment {-*- c -*-}
+    Comment "-- $text"
+    + {}
+    Comment "Generated [clock format [clock seconds]] -- $tcl_platform(user)@[info hostname]"
+    + {}
+}
+
+proc dsl::writer::TclHeader {text} {
+    global tcl_platform
+    upvar 1 lines lines
+    TclComment {-*- tcl -*-}
+    TclComment "-- $text"
+    TclComment {}
+    TclComment "Generated [clock format [clock seconds]] -- $tcl_platform(user)@[info hostname]"
+    + {}
+}
 
 # # ## ### ##### ######## #############
 return
