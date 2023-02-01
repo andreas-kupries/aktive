@@ -121,6 +121,75 @@ operator thing {
     # %% TODO %% specify implementation
 }
 
+operator format::tcl {
+    note Sink. Serializes image to readable Tcl structures (dict with flat pixel list)
+
+    input ignore
+
+    return object0 {
+	#define K(s) Tcl_NewStringObj((s), -1) /* TODO :: Use enum */
+
+	Tcl_Obj* loc = Tcl_NewDictObj();
+	Tcl_DictObjPut (ip, loc, K ("x"),      Tcl_NewIntObj       (aktive_image_get_x      (src)));
+	Tcl_DictObjPut (ip, loc, K ("y"),      Tcl_NewIntObj       (aktive_image_get_y      (src)));
+
+	Tcl_Obj* geo = Tcl_NewDictObj();
+	Tcl_DictObjPut (ip, geo, K ("width"),  aktive_new_uint_obj (aktive_image_get_width  (src)));
+	Tcl_DictObjPut (ip, geo, K ("height"), aktive_new_uint_obj (aktive_image_get_height (src)));
+	Tcl_DictObjPut (ip, geo, K ("depth"),  aktive_new_uint_obj (aktive_image_get_depth  (src)));
+
+	Tcl_Obj* r = Tcl_NewDictObj();
+
+	Tcl_DictObjPut (ip, r, K ("type"),     K (aktive_image_get_type(src)->name));
+	Tcl_DictObjPut (ip, r, K ("location"), loc);
+	Tcl_DictObjPut (ip, r, K ("geometry"), geo);
+
+	aktive_uint c = aktive_image_get_nparams (src);
+	if (c) {
+	    Tcl_Obj* p = Tcl_NewDictObj();
+
+	    for (aktive_uint i = 0; i < c; i++) {
+		const char* n = aktive_image_get_param_name (src, i);
+		Tcl_Obj*    v = aktive_image_get_param_value (src, i, ip);
+		Tcl_DictObjPut (ip, p, K (n), v);
+	    }
+
+	    Tcl_DictObjPut (ip, r, K("config"), p);
+	}
+
+	aktive_uint sz = aktive_image_get_size (src);
+	if (sz) {
+	    Tcl_Obj* p = Tcl_NewListObj (sz, 0); // 0 => Space is allocated for `sz` elements.
+
+	    // Ask for the entire image in one call
+	    // Note that large images are bad.
+	    // Note also that this does not do any concurrent execution
+	    // %% TODO %% create and use a worker system to for concurrency
+
+	    aktive_rectangle all = {
+		.x      = aktive_image_get_x      (src),
+		.y      = aktive_image_get_y      (src),
+		.width  = aktive_image_get_width  (src),
+		.height = aktive_image_get_height (src)
+	    };
+
+	    aktive_region rg     = aktive_region_new (src);
+	    aktive_block* pixels = aktive_region_fetch_area (rg, &all);
+
+	    for (aktive_uint i = 0; i < sz; i++) {
+		Tcl_Obj* v = Tcl_NewDoubleObj (pixels->pixel [i]);
+		Tcl_ListObjReplace(ip, p, i, 1, 1, &v);
+	    }
+
+	    aktive_region_destroy (rg); // This invalidates pixels too.
+
+	    Tcl_DictObjPut (ip, r, K("pixels"), p);
+	}
+	#undef K
+	return r;
+    }
+}
+
 ## # # ## ### ##### ######## ############# #####################
 # Generators ... The returned image is constructed from the parameters.
 
@@ -139,18 +208,61 @@ operator image::constant {
 	geo->depth  = param->depth;
     }
 
-    # %% TODO %% specify implementation
+    pixels {
+	// %% WRONG % does not intersect requested area with image area.
+	// %% WRONG % will return contant pixel outside of image domain
+	// %% TODO %% perform in the runtime - I.e. call fetch only for
+	// %% TODO %% the sub areas of the requested within the image
+	
+	// param -- value
+	// srcs  -- n/a
+	// state -- n/a
+	// <-> block (used, pixel)
+
+	double      v = param->value;
+	aktive_uint i;
+
+	for (i = 0; i < block->used; i++) { block->pixel [i] = v; }
+    } ;# no state
 }
 
 operator image::const::planes {
-    note The entire set of pixels is set to the values
+    note The entire set of pixels is set to the same series of band values
     note Depth is len(value)
 
     uint      width   Width of the returned image
     uint      height  Height of the returned image
-    double... value   Pixel values
+    double... value   Pixel values for the bands
 
-    # %% TODO %% specify implementation
+    geometry {
+	/* location is default (0,0) */
+	geo->width  = param->width;
+	geo->height = param->height;
+	geo->depth  = param->value.c;
+    }
+
+    pixels {
+	// %% WRONG % does not intersect requested area with image area.
+	// %% WRONG % will return contant pixel outside of image domain
+	// %% TODO %% perform in the runtime - I.e. call fetch only for
+	// %% TODO %% the sub areas of the requested within the image
+
+	// param -- value[]
+	// srcs  -- n/a
+	// state -- n/a
+	// <-> block (depth, used, pixel)
+	//
+	// assert: param.value.c == block.depth
+	// assert: block.used % block.depth == 0
+
+	double*     v = param->value.v;
+	aktive_uint d = param->value.c;
+	aktive_uint i, k;
+
+	for (i = 0, k = 0; i < block->used; i++) {
+	    block->pixel [i] = v [k]; k ++ ; k %= d
+	}
+    } ;# no state
 }
 
 operator image::const::matrix {
@@ -253,16 +365,13 @@ operator {thing depth} {
 } {
     take-channel src  Channel to read $thing image data from
 
-    state {
+    # state: maxval ? variant-dependent actual reader function ?
+    # cons : reader image header (dimensions, variant) - choose reader ?
+
+    state -state {
 	aktive_uint width;  /* Image width read from image header */
 	aktive_uint height; /* Image height read from image header */
-	/* maxval ? */
-	/* reader function, dependent on variant */
-    } {
-	// %% TODO %% read image header (param->src)
-	// %% TODO %% use variant tag to choose reader
-	return 0; // TODO implement
-    } ;# nothing to release
+    } -cons { return 0; } ;# %% TODO %%
 
     geometry {
 	/* location is default (0,0) */
