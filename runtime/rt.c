@@ -3,6 +3,13 @@
 
 #include <types_int.h>
 
+/*
+ * - - -- --- ----- -------- -------------
+ */
+
+#define MIN(a,b) (((a) < (b)) ? (a) : (b))
+#define MAX(a,b) (((a) > (b)) ? (a) : (b))
+
 /* - - -- --- ----- -------- -------------
  * Images - Construction, Destruction
  */
@@ -159,15 +166,15 @@ aktive_region_new (aktive_image image)
 	}
     }
 
-    /* Initialize local pointers to and copies of important structures */
+    /* Initialize local pointers to important structures */
 
     r->param    = image->param;
     r->opspec   = image->opspec;
-#if 0 /* REGION NOT NEEDED */
-    r->location = &image->location;
-    r->geometry = &image->geometry;
-#endif
-    r->pixels.depth = image->geometry.depth;
+
+    /* Note: The width and height values will be later replaced with data from
+     * the area requested to be fetched
+     */
+    aktive_geometry_copy (&r->pixels.geo, &image->geometry);
 
     /* Initialize custom state, if any */
 
@@ -230,16 +237,27 @@ aktive_error_set (Tcl_Interp* interp) {
 
 static Tcl_Obj* aktive_new_uint_obj (aktive_uint x) {
     Tcl_WideInt w = x;
-    return Tcl_NewWideIntObj(w);
+    return Tcl_NewWideIntObj (w);
 }
 
 static Tcl_Obj* aktive_new_point_obj(aktive_point* p) {
     Tcl_Obj* el[2];
 
-    el[0] = Tcl_NewIntObj(p->x);
-    el[1] = Tcl_NewIntObj(p->y);
+    el[0] = Tcl_NewIntObj (p->x);
+    el[1] = Tcl_NewIntObj (p->y);
 
     return Tcl_NewListObj (2, el);
+}
+
+static Tcl_Obj* aktive_new_rectangle_obj(aktive_rectangle* r) {
+    Tcl_Obj* el[4];
+
+    el[0] = Tcl_NewIntObj (r->x);
+    el[1] = Tcl_NewIntObj (r->y);
+    el[2] = Tcl_NewIntObj (r->width);
+    el[3] = Tcl_NewIntObj (r->height);
+
+    return Tcl_NewListObj (4, el);
 }
 
 /* - - -- --- ----- -------- -------------
@@ -313,7 +331,9 @@ aktive_image_get_pixels (aktive_image image)
 {
     TRACE_FUNC("((aktive_image) %p)", image);
 
-    aktive_uint pixels = image->geometry.width * image->geometry.height;
+    aktive_uint pixels =
+	image->geometry.width *
+	image->geometry.height;
 
     TRACE_RETURN ("(pixels) %u", pixels);
 }
@@ -323,7 +343,9 @@ aktive_image_get_pitch (aktive_image image)
 {
     TRACE_FUNC("((aktive_image) %p)", image);
 
-    aktive_uint pitch = image->geometry.width * image->geometry.depth;
+    aktive_uint pitch =
+	image->geometry.width *
+	image->geometry.depth;
 
     TRACE_RETURN ("(pitch) %u", pitch);
 }
@@ -333,7 +355,10 @@ aktive_image_get_size (aktive_image image)
 {
     TRACE_FUNC("((aktive_image) %p)", image);
 
-    aktive_uint size = image->geometry.width * image->geometry.height * image->geometry.depth;
+    aktive_uint size =
+	image->geometry.width  *
+	image->geometry.height *
+	image->geometry.depth;
 
     TRACE_RETURN ("(size) %u", size);
 }
@@ -432,12 +457,19 @@ aktive_region_owner (aktive_region region)
 static aktive_block*
 aktive_region_fetch_area (aktive_region region, aktive_rectangle* area)
 {
-    TRACE_FUNC("((aktive_region) %p '%s' (@ %d,%d : %ux%u))", region, region->opspec->name,
+    TRACE_FUNC("((aktive_region) %p '%s' (@ %d,%d : %ux%u))",
+	       region, region->opspec->name,
 	       area->x, area->y, area->width, area->height);
 
-    /* Allocate area for the pixel data. Possibly reuse if already existing. */
+    /* Update the desired area to fill */
 
-    aktive_uint size = area->width * area->height * region->pixels.depth;
+    aktive_geometry_set_rect (&region->pixels.geo, area);
+
+    /* Initialize or update the pixel memory to be large enough for all the
+     * requested pixels.
+     */
+
+    aktive_uint size = area->width * area->height * region->pixels.geo.depth;
 
     if (!region->pixels.pixel) {
 	region->pixels.pixel    = NALLOC (double, size);
@@ -446,19 +478,266 @@ aktive_region_fetch_area (aktive_region region, aktive_rectangle* area)
 	region->pixels.pixel    = REALLOC (region->pixels.pixel, double, size);
 	region->pixels.capacity = size;
     }
+    region->pixels.used = size;
 
     /* Saved desired area to the block for the fetch callback to see */
 
-    region->pixels.rect = *area;
-    region->pixels.used = size;
-
     /* Compute the pixels */
 
-    region->opspec->region_fetch (region->param, &region->srcs, region->state, &region->pixels);
+    /* %% TODO %% FIX %% intersect requested area with image domain.
+     * %% TODO %% FIX %% invoke callback only for sub areas within the image
+     * %% TODO %% FIX %% fill outside pixels here - default: 0.0f
+     *
+     * %% TODO %% FIX %% note: provide physical dst area for pixel access.
+     */
+
+    region->opspec->region_fetch (region->param, &region->srcs, region->state, area,
+				  &region->pixels);
 
     /* And return them */
 
     TRACE_RETURN ("(aktive_block*) %p", &region->pixels);
+}
+
+/*
+ * - - -- --- ----- -------- -------------
+ * Geometry operations
+ */
+
+static void
+aktive_point_set (aktive_point* dst, int x, int y)
+{
+    TRACE_FUNC("((dst*) %p = %d, %d)", dst, x, y);
+
+    dst->x = x;
+    dst->y = y;
+
+    TRACE_RETURN_VOID;
+}
+
+static void
+aktive_point_set_rect (aktive_point* dst, aktive_rectangle* rect)
+{
+    TRACE_FUNC("((dst*) %p = (rect*) %p %d %d)", dst, rect, rect->x, rect->y);
+
+    dst->x = rect->x;
+    dst->y = rect->y;
+
+    TRACE_RETURN_VOID;
+}
+
+static void
+aktive_point_move (aktive_point* dst, int dx, int dy)
+{
+    TRACE_FUNC("((dst*) %p += %d, %d)", dst, dx, dy);
+
+    dst->x += dx;
+    dst->y += dy;
+
+    TRACE_RETURN_VOID;
+}
+
+static void
+aktive_point_add (aktive_point* dst, aktive_point* delta)
+{
+    TRACE_FUNC("((dst*) %p += (point*) %p %d %d)", dst, delta, delta->x, delta->y);
+
+    dst->x += delta->x;
+    dst->y += delta->y;
+
+    TRACE_RETURN_VOID;
+}
+
+static void
+aktive_geometry_set (aktive_geometry* dst, aktive_uint w, aktive_uint h, aktive_uint d)
+{
+    TRACE_FUNC("((dst*) %p = %u %u %u)", dst, w, h, d);
+
+    dst->width  = w;
+    dst->height = h;
+    dst->depth  = d;
+
+    TRACE_RETURN_VOID;
+}
+
+static void
+aktive_geometry_set_rect (aktive_geometry* dst, aktive_rectangle* rect)
+{
+    TRACE_FUNC("((dst*) %p = (rect*) %p %u %u)", dst, rect, rect->width, rect->height);
+
+    dst->width  = rect->width;
+    dst->height = rect->height;
+
+    TRACE_RETURN_VOID;
+}
+
+static void
+aktive_geometry_copy (aktive_geometry* dst, aktive_geometry* src)
+{
+    TRACE_FUNC("((dst*) %p = (src*) %p)", dst, src);
+    
+    *dst = *src;
+
+    TRACE_RETURN_VOID;
+}
+
+static void
+aktive_rectangle_set (aktive_rectangle* dst, int x,  int y, aktive_uint w, aktive_uint h)
+{
+    TRACE_FUNC("((dst*) %p = %d %d %u %u)", dst, x, y, w, h);
+    
+    dst->x      = x;
+    dst->y      = y;
+    dst->width  = w;
+    dst->height = h;
+
+    TRACE_RETURN_VOID;
+}
+
+static void
+aktive_rectangle_set_rect (aktive_rectangle* dst, aktive_rectangle* src)
+{
+    TRACE_FUNC("((dst*) %p = (src*) %p)", dst, src);
+    
+    *dst = *src;
+
+    TRACE_RETURN_VOID;
+}
+
+static void
+aktive_rectangle_move (aktive_rectangle* dst, int dx, int dy)
+{
+    TRACE_FUNC("((dst*) %p += %d, %d)", dst, dx, dy);
+    
+    dst->x += dx;
+    dst->y += dy;
+
+    TRACE_RETURN_VOID;
+}
+
+static void
+aktive_rectangle_grow (aktive_rectangle* dst, int left, int right, int top, int bottom)
+{
+    TRACE_FUNC("((dst*) %p <-> %d %d %d %d)", dst, left, right, top, bottom);
+    
+    dst->x      -= left;
+    dst->y      -= top;
+    dst->width  += left + right;
+    dst->height += top  + bottom;
+
+    TRACE_RETURN_VOID;
+}
+
+static void
+aktive_rectangle_union (aktive_rectangle* dst, aktive_rectangle* a, aktive_rectangle* b)
+{
+    TRACE_FUNC("((dst*) %p = (rect*) %p + (rect*) %p)", dst, a, b);
+    
+    /*
+     * Compute the bounding box first, as min and max of the individual
+     * boundaries. The upper values are one too high, which is canceled when
+     * computing the dimensions. This is actually the dual of the intersection
+     * calculation.
+     */
+
+    int a_xmax = a->x + a->width;
+    int a_ymax = a->y + a->height;
+    int b_xmax = b->x + b->width;
+    int b_ymax = b->y + b->height;
+
+    int nx    = MIN (b->x,   a->x);
+    int ny    = MIN (b->y,   a->y);
+    int nxmax = MAX (b_xmax, a_xmax);
+    int nymax = MAX (b_ymax, a_ymax);
+
+    dst->x      = nx;
+    dst->y      = ny;
+    dst->width  = nxmax - nx;
+    dst->height = nymax - ny;
+
+    TRACE_RETURN_VOID;
+}
+
+static void
+aktive_rectangle_intersect (aktive_rectangle* dst, aktive_rectangle* a, aktive_rectangle* b)
+{
+    TRACE_FUNC("((dst*) %p = (rect*) %p * (rect*) %p)", dst, a, b);
+
+    /* No intersections in X, nor Y => empty. */
+    if (((a->x + a->width ) <= b->x) || /* A left of B */
+	((b->x + b->width ) <= a->x) || /* B left of A */
+	((a->y + a->height) <= b->y) || /* A above B   */
+	((b->y + b->height) <= a->y)) { /* B above A   */
+	dst->x      = 0;
+	dst->y      = 0;
+	dst->width  = 0;
+	dst->height = 0;
+	return;
+    }
+
+    /* Compute boundaries of the intersection as the max and min of the
+     * individual boundaries, and then compute the dimensions from that
+     * again. The upper values are one too high, which is canceled when
+     * computing the dimensions. This is actually the dual of the union
+     * calculation.
+     */
+
+    int a_xmax = a->x + a->width;
+    int a_ymax = a->y + a->height;
+    int b_xmax = b->x + b->width;
+    int b_ymax = b->y + b->height;
+
+    int nx    = MAX (b->x,   a->x);
+    int ny    = MAX (b->y,   a->y);
+    int nxmax = MIN (b_xmax, a_xmax);
+    int nymax = MIN (b_ymax, a_ymax);
+
+    dst->x      = nx;
+    dst->y      = ny;
+    dst->width  = nxmax - nx;
+    dst->height = nymax - ny;
+
+    TRACE_RETURN_VOID;
+}
+
+static int
+aktive_rectangle_is_equal (aktive_rectangle* a, aktive_rectangle* b)
+{
+    TRACE_FUNC("((rect*) %p == (rect*) %p)", a, b);
+
+    int is_equal = 
+	(a->x      == b->x     ) &&
+	(a->y      == b->y     ) &&
+	(a->width  == b->width ) &&
+	(a->height == b->height)
+	;
+
+    TRACE_RETURN("(bool) %d", is_equal);
+}
+
+static int
+aktive_rectangle_is_subset (aktive_rectangle* a, aktive_rectangle* b)
+{
+    TRACE_FUNC("((rect*) %p <= (rect*) %p)", a, b);
+
+    int is_subset =
+	(a->x               >= b->x              ) &&
+	((a->x + a->width)  <= (b->x + b->width )) &&
+	(a->y               >= b->y              ) &&
+	((a->y + a->height) <= (b->y + b->height))
+	;
+
+    TRACE_RETURN("(bool) %d", is_subset);
+}
+
+static int
+aktive_rectangle_is_empty  (aktive_rectangle* r)
+{
+    TRACE_FUNC("((rect*) %p empty?", r);
+
+    int is_empty = (r->width == 0) || (r->height == 0);
+
+    TRACE_RETURN("(bool) %d", is_empty);
 }
 
 /*

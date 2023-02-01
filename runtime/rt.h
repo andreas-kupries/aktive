@@ -49,8 +49,9 @@ static aktive_image aktive_image_check (Tcl_Interp* ip, aktive_image src);
 static int      aktive_image_from_obj (Tcl_Interp* interp, Tcl_Obj* obj, aktive_image* image);
 static Tcl_Obj* aktive_new_image_obj  (aktive_image image);
 
-static Tcl_Obj* aktive_new_uint_obj  (aktive_uint x);
-static Tcl_Obj* aktive_new_point_obj (aktive_point* p);
+static Tcl_Obj* aktive_new_uint_obj      (aktive_uint x);
+static Tcl_Obj* aktive_new_point_obj     (aktive_point* p);
+static Tcl_Obj* aktive_new_rectangle_obj (aktive_rectangle* r);
 
 static void aktive_error_set (Tcl_Interp* interp);
 
@@ -82,6 +83,35 @@ static aktive_region aktive_region_new        (aktive_image image);
 static void          aktive_region_destroy    (aktive_region region);
 static aktive_image  aktive_region_owner      (aktive_region region);
 static aktive_block* aktive_region_fetch_area (aktive_region region, aktive_rectangle* area);
+
+/* - - -- --- ----- -------- -------------
+ * Runtime API -- Operations on and with locations, geometries, and rectangles
+ */
+
+static void aktive_point_set      (aktive_point* dst, int x,  int y);
+static void aktive_point_set_rect (aktive_point* dst, aktive_rectangle* rect);
+static void aktive_point_move     (aktive_point* dst, int dx, int dy);
+static void aktive_point_add      (aktive_point* dst, aktive_point* delta);
+
+static void aktive_geometry_set       (aktive_geometry* dst, aktive_uint w, aktive_uint h, aktive_uint d);
+static void aktive_geometry_set_rect  (aktive_geometry* dst, aktive_rectangle* rect);
+static void aktive_geometry_copy      (aktive_geometry* dst, aktive_geometry* src);
+// reshape (w,h,d)
+
+
+static void aktive_rectangle_set      (aktive_rectangle* dst, int x,  int y, aktive_uint w, aktive_uint h);
+static void aktive_rectangle_set_rect (aktive_rectangle* dst, aktive_rectangle* src);
+static void aktive_rectangle_move     (aktive_rectangle* dst, int dx, int dy);
+static void aktive_rectangle_grow     (aktive_rectangle* dst, int left, int right, int top, int bottom);
+
+static void aktive_rectangle_union     (aktive_rectangle* dst, aktive_rectangle* a, aktive_rectangle* b);
+static void aktive_rectangle_intersect (aktive_rectangle* dst, aktive_rectangle* a, aktive_rectangle* b);
+
+static int aktive_rectangle_is_equal  (aktive_rectangle* a, aktive_rectangle* b);
+static int aktive_rectangle_is_subset (aktive_rectangle* a, aktive_rectangle* b);
+static int aktive_rectangle_is_empty  (aktive_rectangle* r);
+
+// ?set-ranges (x,xmax,y,ymax)
 
 /*
  * = = == === ===== ======== ============= =====================

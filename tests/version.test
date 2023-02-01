@@ -1,0 +1,31 @@
+# -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
+## (c) 2023 Andreas Kupries
+# # ## ### ##### ######## ############# #####################
+## AKTIVE. Version information
+
+kt check Tcl     8.6
+kt check tcltest 2
+
+# # ## ### ##### ######## ############# #####################
+
+kt local testing aktive
+
+kt source support/util.tcl
+
+# # ## ### ##### ######## ############# #####################
+## Syntax
+
+syntax {
+    version {}
+} aktive
+
+# # ## ### ##### ######## ############# #####################
+##
+
+test aktive-version-2.0 "aktive version, ok" -body {
+    aktive version
+} -result 0.0
+
+# # ## ### ##### ######## ############# #####################
+cleanupTests
+return

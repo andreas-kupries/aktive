@@ -58,12 +58,11 @@ typedef struct aktive_region_vector *aktive_region_vector_ptr;
  */
 
 typedef struct aktive_block {
-    aktive_rectangle  rect     ; /* Image area. Dimensions + depth below inform `pixel` layout */
-    aktive_uint       depth    ; /* Number of bands in the pixel data                          */
-    aktive_region     region   ; /* Region owning and managing the block.                      */
-    double*           pixel    ; /* Pixel data in row-major order (row, column, band)          */
-    aktive_uint       capacity ; /* Allocated size of the pixel data. in elements              */
-    aktive_uint       used     ; /* Used part (width * height * depth)                         */
+    aktive_geometry geo      ; /* Area and bands covered by the `pixel` data */
+    aktive_region   region   ; /* Region owning and managing the block.                      */
+    double*         pixel    ; /* Pixel data in row-major order (row, column, band)          */
+    aktive_uint     capacity ; /* Allocated size of the pixel data. in elements              */
+    aktive_uint     used     ; /* Used part (width * height * depth)                         */
 } aktive_block;
 
 /* - - -- --- ----- -------- -------------
@@ -82,15 +81,28 @@ typedef void     (*aktive_param_init)   (void* param);
 typedef void     (*aktive_param_finish) (void* param);
 typedef Tcl_Obj* (*aktive_param_value)  (Tcl_Interp* interp, void* value);
 
-typedef void*    (*aktive_image_setup)    (void* param, aktive_image_vector_ptr srcs);
-typedef void     (*aktive_image_final)    (void* state);
-typedef void     (*aktive_image_geometry) (void* param, aktive_image_vector_ptr srcs, void* state,
-					   /* => */ aktive_point* loc, aktive_geometry* geo);
+typedef void  (*aktive_image_final)    ( void* state );
+typedef void* (*aktive_image_setup)    ( void*                   param /* Image parameters */
+                                       , aktive_image_vector_ptr srcs  /* Input images     */
+                                       );
+typedef void  (*aktive_image_geometry) ( void*                     param /* Image parameters */
+                                       , aktive_image_vector_ptr   srcs  /* Input images     */
+                                       , void*                     state /* Image state      */
+                                       , /* => */ aktive_point*    loc   /* out: Location    */
+                                       , /* => */ aktive_geometry* geo   /* out: Dimensions  */
+                                       );
 
-typedef void*    (*aktive_region_setup) (void* param, aktive_region_vector_ptr srcs, void* imagestate);
-typedef void     (*aktive_region_final) (void* state);
-typedef void     (*aktive_region_fetch) (void* param, aktive_region_vector_ptr srcs, void* state,
-					 /* => */ aktive_block* block);
+typedef void  (*aktive_region_final) ( void* state );
+typedef void* (*aktive_region_setup) ( void*                    param      /* Image parameters */
+                                     , aktive_region_vector_ptr srcs       /* Input regions    */
+                                     , void*                    imagestate /* Image! state     */
+                                     );
+typedef void  (*aktive_region_fetch) ( void*                    param   /* Image parameters    */
+                                     , aktive_region_vector_ptr srcs    /* Input regions       */
+                                     , void*                    state   /* Region state        */
+                                     , aktive_rectangle*        request /* Area to fill        */
+                                     , /* => */ aktive_block*   block   /* out: Pixels to fill */
+                                     );
 
 typedef struct aktive_type_spec {
     aktive_param_value to_obj ; /**/

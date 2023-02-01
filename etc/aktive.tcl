@@ -27,6 +27,7 @@ type image         aktive_image       -                          {aktive_new_ima
 type image-type    aktive_image_type* {const aktive_image_type*} {Tcl_NewStringObj ((*value)->name, -1)}
 type uint          aktive_uint        -                          {aktive_new_uint_obj (*value)}
 type point         aktive_point       -                          {aktive_new_point_obj (value)}
+type rect          aktive_rectangle   -                          {aktive_new_rectangle_obj (value)}
 
 vector region image point uint
 
@@ -42,6 +43,110 @@ type pgm_variant   aktive_pgm_variant -           {aktive_pgm_variant_pool (inte
 type ppm_variant   aktive_ppm_variant -           {aktive_ppm_variant_pool (interp, *value)}
 
 vector double
+
+## # # ## ### ##### ######## ############# #####################
+# Rectangle operations
+
+operator rectangle::make {
+    int  x  Rectangle location, Column
+    int  y  Rectangle location, Row
+    uint w  Rectangle width
+    uint h  Rectangle height
+
+    return rect {
+	aktive_rectangle r = {
+	    .x     = param->x, .y      = param->y,
+	    .width = param->w, .height = param->h
+	};
+	return r;
+    }
+}
+
+operator rectangle::grow {
+    rect r       Rectangle to modify
+    int  left    Amount to grow the left border, positive to the left
+    int  right   Amount to grow the right border, positive to the right
+    int  top     Amount to grow the top border, positive upward
+    int  bottom  Amount to grow the bottom border, positive downward
+
+    return rect {
+	aktive_rectangle r;
+	r = param->r;
+	aktive_rectangle_grow (&r,
+			       param->left, param->right,
+			       param->top,  param->bottom);
+	return r;
+    }
+}
+
+operator rectangle::move {
+    rect r   Rectangle to modify
+    int  dx  Amount to move left/right, positive to the right
+    int  dy  Amount to move up/down, positive downward
+
+    return rect {
+	aktive_rectangle r;
+	r = param->r;
+	aktive_rectangle_move (&r, param->dx, param->dy);
+	return r;
+    }
+}
+
+operator rectangle::union {
+    rect... r   Rectangles to union
+
+    return rect {
+	if (param->r.c == 0) {
+	    aktive_rectangle zero = { 0, 0, 0, 0};
+	    return zero;
+	}
+
+	aktive_rectangle r;
+	r = param->r.v [0];
+	if (param->r.c > 1) {
+	    for (aktive_uint i = 1; i < param->r.c; i++) { aktive_rectangle_union (&r, &r, &param->r.v [i]); }
+	}
+	return r;
+    }
+}
+
+operator rectangle::intersect {
+    rect... r   Rectangles to intersect
+
+    return rect {
+	if (param->r.c == 0) {
+	    aktive_rectangle zero = { 0, 0, 0, 0};
+	    return zero;
+	}
+
+	aktive_rectangle r;
+	r = param->r.v [0];
+	if (param->r.c > 1) {
+	    for (aktive_uint i = 1; i < param->r.c; i++) { aktive_rectangle_intersect (&r, &r, &param->r.v [i]); }
+	}
+	return r;
+    }
+}
+
+operator rectangle::equal {
+    rect a   First rectangle to compare
+    rect b   Second rectangle to compare
+
+    return int { aktive_rectangle_is_equal (&param->a, &param->b) ; }
+}
+
+operator rectangle::subset {
+    rect a   First rectangle to compare
+    rect b   Second rectangle to compare
+
+    return int { aktive_rectangle_is_subset (&param->a, &param->b) ; }
+}
+
+operator rectangle::empty {
+    rect r   Rectangle to check
+
+    return int { aktive_rectangle_is_empty (&param->r) ; }
+}
 
 ## # # ## ### ##### ######## ############# #####################
 # Accessors - Querying various attributes
@@ -213,7 +318,7 @@ operator image::constant {
 	// %% WRONG % will return contant pixel outside of image domain
 	// %% TODO %% perform in the runtime - I.e. call fetch only for
 	// %% TODO %% the sub areas of the requested within the image
-	
+
 	// param -- value
 	// srcs  -- n/a
 	// state -- n/a
@@ -260,7 +365,7 @@ operator image::const::planes {
 	aktive_uint i, k;
 
 	for (i = 0, k = 0; i < block->used; i++) {
-	    block->pixel [i] = v [k]; k ++ ; k %= d
+	    block->pixel [i] = v [k]; k ++ ; k %= d;
 	}
     } ;# no state
 }

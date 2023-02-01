@@ -1,0 +1,118 @@
+# -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
+## (c) 2023 Andreas Kupries
+# # ## ### ##### ######## ############# #####################
+## AKTIVE. Rectangle operations
+
+kt check Tcl     8.6
+kt check tcltest 2
+
+# # ## ### ##### ######## ############# #####################
+
+kt local testing aktive
+
+kt source support/util.tcl
+
+# # ## ### ##### ######## ############# #####################
+## Syntax
+
+syntax {
+    empty     r
+    equal    {a b}
+    grow     {r left right top bottom}
+    intersect args
+    make     {x y w h}
+    move     {r dx dy}
+    subset   {a b}
+    union     args
+} {aktive rectangle}
+
+# # ## ### ##### ######## ############# #####################
+##
+
+test aktive-rectangle-empty-2.0 "aktive rectangle empty, no" -body {
+    aktive rectangle empty {1 2 3 4}
+} -result 0
+
+test aktive-rectangle-empty-2.1 "aktive rectangle empty, yes" -body {
+    aktive rectangle empty {1 2 0 4}
+} -result 1
+
+test aktive-rectangle-empty-2.2 "aktive rectangle empty, yes" -body {
+    aktive rectangle empty {1 2 3 0}
+} -result 1
+
+# = == === ===== ======== ============= =====================
+
+test aktive-rectangle-equal-2.0 "aktive rectangle equal, no" -body {
+    aktive rectangle equal {1 2 3 4} {2 3 4 5}
+} -result 0
+
+test aktive-rectangle-equal-2.1 "aktive rectangle equal, yes" -body {
+    aktive rectangle equal {1 2 3 4} {1 2 3 4}
+} -result 1
+
+# = == === ===== ======== ============= =====================
+
+test aktive-rectangle-grow-2.0 "aktive rectangle grow" -body {
+    aktive rectangle grow {1 2 3 4} 2 3 4 5
+} -result {-1 -2 8 13}
+
+# = == === ===== ======== ============= =====================
+
+test aktive-rectangle-intersect-2.0 "aktive rectangle intersect" -body {
+    aktive rectangle intersect {1 2 3 4} {2 3 4 5}
+    # 1..3/2..5 intersect 2..5/3..7 = 2..3/3..5
+} -result {2 3 2 3}
+
+test aktive-rectangle-intersect-2.1 "aktive rectangle intersect, same" -body {
+    aktive rectangle intersect {1 2 3 4} {1 2 3 4}
+} -result {1 2 3 4}
+
+test aktive-rectangle-intersect-2.2 "aktive rectangle intersect subset" -body {
+    aktive rectangle intersect {1 2 3 4} {0 1 5 6}
+    # 1..3/2..5 < 0..4/1..6
+} -result {1 2 3 4}
+
+# = == === ===== ======== ============= =====================
+
+test aktive-rectangle-make-2.0 "aktive rectangle make" -body {
+    aktive rectangle make 1 2 3 4
+} -result {1 2 3 4}
+
+# = == === ===== ======== ============= =====================
+
+test aktive-rectangle-move-2.0 "aktive rectangle move" -body {
+    aktive rectangle move {1 2 3 4} 2 3
+} -result {3 5 3 4}
+
+# = == === ===== ======== ============= =====================
+
+test aktive-rectangle-subset-2.0 "aktive rectangle subset, no" -body {
+    aktive rectangle subset {1 2 3 4} {2 3 4 5}
+} -result 0
+
+test aktive-rectangle-subset-2.1 "aktive rectangle subset, yes, same" -body {
+    aktive rectangle subset {1 2 3 4} {1 2 3 4}
+} -result 1
+
+test aktive-rectangle-subset-2.2 "aktive rectangle subset, yes, entire" -body {
+    aktive rectangle subset {1 2 3 4} {0 1 5 6}
+    # 1..3/2..5 < 0..4/1..6
+} -result 1
+
+# subset checks: matched borders left, right, top, bottom
+
+# = == === ===== ======== ============= =====================
+
+test aktive-rectangle-union-2.0 "aktive rectangle union" -body {
+    aktive rectangle union {1 2 3 4} {2 3 4 5}
+    # 1..3/2..5 union 2..5/3..7 = 1..5/2..7
+} -result {1 2 5 6}
+
+test aktive-rectangle-union-2.1 "aktive rectangle union, same" -body {
+    aktive rectangle union {1 2 3 4} {1 2 3 4}
+} -result {1 2 3 4}
+
+# # ## ### ##### ######## ############# #####################
+cleanupTests
+return

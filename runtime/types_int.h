@@ -32,10 +32,6 @@ typedef struct aktive_region {
 
     void*                param    ; /* Operation parameters */
     aktive_image_type*   opspec   ; /* Operational hooks, type identification, parameter metadata */
-#if 0 /* REGION NOT NEEDED */
-    aktive_point*        location ; /* Location of image in the 2D plane */
-    aktive_geometry*     geometry ; /* 3D geometry of the image */
-#endif
 } *aktive_region;
 
 /*
