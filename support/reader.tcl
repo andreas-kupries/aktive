@@ -75,11 +75,19 @@ proc dsl::reader::OpStart {op} {
     Set opspec notes    {}	;# Description
     Set opspec images   {}	;# Input images
     Set opspec params   {}	;# Parameters
+
     Set opspec result   image	;# Return value
     Set opspec rcode    {}	;# C code fragment for non-image return (getter)
+
     Set opspec statec   {}	;# State constructor, optional
     Set opspec stater   {}	;# State destructor, optional
     Set opspec statef   {}	;# State fields, C decl code
+
+    Set opspec regionc  {}	;# Region state constructor, optional
+    Set opspec regionr  {}	;# Region state destructor, optional
+    Set opspec regionf  {}	;# Region state fields, C decl code
+    Set opspec regionm  {}	;# Region pixel (M)aker - I.e. fetch pixels
+
     Set opspec geometry {}	;# Geometry initializer, optional
     Set opspec args     0	;# Presence of variadic input or parameter
 }
@@ -110,10 +118,55 @@ proc dsl::reader::geometry {script args} {
     Set opspec geometry [string map $args $script]
 }
 
-proc dsl::reader::state {fields cons {release {}} args} {
-    Set opspec statec [string map $args $cons]
-    Set opspec stater [string map $args $release]
-    Set opspec statef [string map $args $fields]
+proc dsl::reader::state {args} {
+    lassign {} fields cons release
+    while {[string match -* [set o [lindex $args 0]]]} {
+	switch -exact -- $o {
+	    --       { set args [lassign $args _] ; break }
+	    -state   { set args [lassign $args _ fields]  }
+	    -cons    { set args [lassign $args _ cons]    }
+	    -release { set args [lassign $args _ release] }
+	    default  { Abort "Bad option '$o', expected -state, -cons, -release, or --" }
+	}
+    }
+    # Remainder of args is key/value map for templating.
+
+    if {($fields ne {}) && ($cons eq {})} { Abort "Constructor required when fields specified" }
+
+    State $fields $cons $release $args
+}
+
+proc dsl::reader::State {fields cons release map} { ;# puts [info level 0]
+    Set opspec statec [string map $map $cons]
+    Set opspec stater [string map $map $release]
+    Set opspec statef [string map $map $fields]
+}
+
+proc ::dsl::reader::pixels {args} { ;# puts [info level 0]
+    lassign {} fields cons release
+    while {[string match -* [set o [lindex $args 0]]]} {
+	switch -exact -- $o {
+	    --       { set args [lassign $args _] ; break }
+	    -state   { set args [lassign $args _ fields]  }
+	    -cons    { set args [lassign $args _ cons]    }
+	    -release { set args [lassign $args _ release] }
+	    default  { Abort "Bad option '$o', expected -state, -cons, -release, or --" }
+	}
+    }
+    # Remainder of args is fetch and key/value map for templating.
+
+    if {($fields ne {}) && ($cons eq {})} { Abort "Constructor required when fields specified" }
+    if {![llength $args]} { Abort "fetch specification missing" }
+    set args [lassign $args fetch]
+
+    Pixels $fields $cons $release $fetch $args
+}
+
+proc ::dsl::reader::Pixels {fields cons release fetch map} { ;#puts [info level 0]
+    Set opspec regionc [string map $map $cons]
+    Set opspec regionr [string map $map $release]
+    Set opspec regionf [string map $map $fields]
+    Set opspec regionm [string map $map $fetch]
 }
 
 proc dsl::reader::input {rc {mode required}} { ;#puts [info level 0]

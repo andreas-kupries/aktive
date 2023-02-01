@@ -317,18 +317,25 @@ proc dsl::writer::VectorTypes {} {
 proc dsl::writer::VectorSignatures {} {
     set names {}
     set types {}
+    set plus  {}
 
     foreach t [Vectors] {
 	set tx [TypeVector $t]
 
 	# Note: Match param-func-* // Callers
 
+	lappend names ${tx}_new
 	lappend names ${tx}_heapify
 	lappend names ${tx}_free
 	lappend names {}
 	lappend types $tx
 	lappend types $tx
+	lappend types $tx
 	lappend types {}
+	lappend plus  ", aktive_uint n"
+	lappend plus  {}
+	lappend plus  {}
+	lappend plus  {}
     }
 
     set nl [Maxlength $names]
@@ -338,11 +345,11 @@ proc dsl::writer::VectorSignatures {} {
     Comment {Vector utility functions for types used in variadics}
     + {}
 
-    foreach n $names t $types {
+    foreach n $names t $types p $plus {
 	if {$n eq {}} { + {} ; continue }
 	set n [PadR $nl $n]
 	set t [PadR $tl $t]
-	+ "static void $n (${t}* vec);"
+	+ "static void $n (${t}* vec$p);"
     }
 
     + {}
@@ -352,18 +359,26 @@ proc dsl::writer::VectorSignatures {} {
 proc dsl::writer::VectorFunctions {} {
     set names {}
     set types {}
+    set plus  {}
     set codes {}
 
     foreach t [Vectors] {
 	set tx [TypeVector $t]
 	set ct [TypeCritcl $t]
 
+	lappend names ${tx}_new
 	lappend names ${tx}_heapify
 	lappend names ${tx}_free
 	lappend names {}
 	lappend types $tx
 	lappend types $tx
+	lappend types $tx
 	lappend types {}
+	lappend plus  ", aktive_uint n"
+	lappend plus  {}
+	lappend plus  {}
+	lappend plus  {}
+	lappend codes "vec->c = n; vec->v = memset (NALLOC ($ct, n), 0, n * sizeof($ct));"
 	lappend codes "vec->v = memcpy (NALLOC ($ct, vec->c), vec->v, vec->c * sizeof($ct));"
 	lappend codes "ckfree ((char*) vec->v);"
 	lappend codes {}
@@ -377,12 +392,12 @@ proc dsl::writer::VectorFunctions {} {
     Comment {Vector utility functions for types used in variadics}
     + {}
 
-    foreach n $names t $types c $codes {
+    foreach n $names t $types p $plus c $codes {
 	if {$n eq {}} { + {} ; continue }
 	set n [PadR $nl $n]
 	set t [PadR $tl $t]
 	set c [PadR $cl $c]
-	+ "static void $n (${t}* vec) \{ $c \}"
+	+ "static void $n (${t}* vec$p) \{ $c \}"
     }
 
     + {}
@@ -633,7 +648,7 @@ proc dsl::writer::OperatorFunctionForOp {op} {
 
     dict with spec {}
     # notes, images, params, result, rcode, statec, stater, statef, geometry
-    unset notes images params
+    unset notes images
     ##                       result, rcode, statec, stater, statef, geometry
 
     if {$result ne "void"} {
@@ -642,26 +657,48 @@ proc dsl::writer::OperatorFunctionForOp {op} {
 
     set fn  [FunctionName          $op $spec]
     set sig [FunctionDeclSignature $op $spec]
-    set sn  [ParamStructTypename   $op]
+
+    set paramtype  void ; if {[llength $params]} { set paramtype  [ParamStructTypename $op] }
+    set statetype  void ; if {$statef  ne {}}    { set statetype  [StateStructTypename $op] }
+    set regiontype void ; if {$regionf ne {}}    { set regiontype [RegionStateTypename $op] }
 
     Comment "- - -- --- ----- -------- ------------- ---------------------\n * Operator \"$op\" ...\n"
     + {}
 
     ## %% TODO %% move into separate emitter for placement into its own header file, sourcable elsewhere
-    set statetype void
     if {$statef ne {}} {
-	set statetype [StateStructTypename $op]
-
 	+ "typedef struct $statetype \{"
 	+ [FormatCode $statef]
-	+ ""
 	+ "\} $statetype;"
+	+ {}
+    }
+
+    if {$regionf ne {}} {
+	+ "typedef struct $regiontype \{"
+	+ [FormatCode $regionf]
+	+ "\} $regiontype;"
+	+ {}
+    }
+
+    if {$regionc ne {}} {
+	+ "static ${regiontype}*"
+	+ "[RegionSetupFuncname $op] (${paramtype}* param, aktive_image_vector* srcs, ${statetype}* state) \{"
+	+ [FormatCodeWithReturn $regionc]
+	+ "\}"
+	+ {}
+    }
+
+    if {$regionr ne {}} {
+	+ "static void"
+	+ "[RegionFinalFuncname $op] (${regiontype}* region) \{"
+	+ [FormatCode $regionr]
+	+ "\}"
 	+ {}
     }
 
     if {$statec ne {}} {
 	+ "static ${statetype}*"
-	+ "[StateNewFuncname $op] (${sn}* param, aktive_image_vector* srcs) \{"
+	+ "[StateSetupFuncname $op] (${paramtype}* param, aktive_image_vector* srcs) \{"
 	+ [FormatCodeWithReturn $statec]
 	+ "\}"
 	+ {}
@@ -669,7 +706,7 @@ proc dsl::writer::OperatorFunctionForOp {op} {
 
     if {$stater ne {}} {
 	+ "static void"
-	+ "[StateFreeFuncname $op] (${statetype}* state) \{"
+	+ "[StateFinalFuncname $op] (${statetype}* state) \{"
 	+ [FormatCode $stater]
 	+ "\}"
 	+ {}
@@ -679,10 +716,11 @@ proc dsl::writer::OperatorFunctionForOp {op} {
 	set fun [GeometryFuncname $op]
 	set spc [string repeat { } [string length $fun]]
 
-	set n [Maxlength [list *$sn *aktive_image_vector *$statetype *aktive_point *aktive_geometry]]
+	set  n [Maxlength [list $statetype $paramtype aktive_image_vector aktive_point aktive_geometry]]
+	incr n ;# Account for `*`
 
 	+ "static void"
-	+ "$fun ( [PadR $n ${sn}*] param /* Parameters          */"
+	+ "$fun ( [PadR $n ${paramtype}*] param /* Parameters          */"
 	+ "$spc , [PadR $n aktive_image_vector*] srcs  /* Input images        */"
 	+ "$spc , [PadR $n ${statetype}*] state /* Operator state      */"
 	+ "$spc , [PadR $n aktive_point*] loc   /* OUT: image location */"
@@ -698,7 +736,7 @@ proc dsl::writer::OperatorFunctionForOp {op} {
 	# Main implementation and pixel filler need manual writing
 
 	if {$result eq "aktive_image"} {
-	    + [Placeholder ${op}-fill {}]
+	    + [Placeholder ${op}-fetch {}]
 	    + {}
 	}
 
@@ -714,11 +752,18 @@ proc dsl::writer::OperatorFunctionForOp {op} {
 	+ "\}"
 	+ {}
     } else {
-	# image result -- Pixel fill function needs manual writing
+	# image result -- Pixel fetch function first
+
+puts $op//(($regionm))
 
 	+ "static void"
-	+ "[OperatorFillFuncname $op] (aktive_region region) \{"
-	+ [Placeholder ${op}-fill]
+	+ "[RegionFetchFuncname $op] ([RegionFetchSig $paramtype $regiontype]) \{"
+
+	if {$regionm ne {}} {
+	    + [FormatCode $regionm]
+	} else {
+	    + [Placeholder ${op}-fetch]
+	}
 	+ "\}"
 	+ {}
 
@@ -1212,40 +1257,38 @@ proc dsl::writer::FunctionBodyImageConstructor {op spec} {
 
     + {}
     + "  static aktive_image_type $opspecvar = \{"
-    + "      .name       = \"$op\""
-    + "    , .fill       = [OperatorFillFuncname $op]"
-    #        .init
-    #        .finish
+    + "      .name         = \"$op\""
+    #        .param_init
+    #        .param_finish .
     #        .sz_param
     #        .n_param
     #        .param
-    #        .state_new
-    #        .state_free .
+    #        .setup
+    #        .final
     #        .geo_setup
 
     if {[llength $params]} {
 	append call ", p"
-	+ "    , .sz_param   = sizeof ([ParamStructTypename $op])"
-	+ "    , .n_param    = [llength $params]"
-	+ "    , .param      = [ParamDescriptorVarname $op]"
+	+ "    , .sz_param     = sizeof ([ParamStructTypename $op])"
+	+ "    , .n_param      = [llength $params]"
+	+ "    , .param        = [ParamDescriptorVarname $op]"
 	if {[OpParamVariadic $op]} {
-	    + "    , .init       = (aktive_image_param_init)   [ParamInitFuncname   $op]"
-	    + "    , .finish     = (aktive_image_param_finish) [ParamFinishFuncname $op]"
+	    + "    , .param_init   = (aktive_param_init)   [ParamInitFuncname   $op]"
+	    + "    , .param_finish = (aktive_param_finish) [ParamFinishFuncname $op]"
 	}
     } else {
 	+ "    , .sz_param   = 0"
 	append call ", NULL"	;# No parameters
     }
 
-    if {$statec ne {}} {
-	    + "    , .state_new  = (aktive_image_state_new)  [StateNewFuncname  $op]"
-    }
-    if {$stater ne {}} {
-	    + "    , .state_free = (aktive_image_state_free) [StateFreeFuncname $op]"
-    }
-    if {$geometry ne {}} {
-	    + "    , .geo_setup  = (aktive_image_geometry)   [GeometryFuncname  $op]"
-    }
+    if {$statec   ne {}} { + "    , .setup        = (aktive_image_setup)      [StateSetupFuncname $op]" }
+    if {$stater   ne {}} { + "    , .final        = (aktive_image_final)      [StateFinalFuncname $op]" }
+    if {$geometry ne {}} { + "    , .geo_setup    = (aktive_image_geometry)   [GeometryFuncname   $op]" }
+
+    + "    , .region_fetch = (aktive_region_fetch)     [RegionFetchFuncname $op]"
+
+    if {$regionc ne {}}  { + "    , .region_setup = (aktive_region_setup)     [RegionSetupFuncname $op]" }
+    if {$regionr ne {}}  { + "    , .region_final = (aktive_region_final)     [RegionFinalFuncname $op]" }
 
     + "  \};"
     + {}
@@ -1394,9 +1437,19 @@ proc dsl::writer::ParamDescriptorVarname {op} { return "aktive_[Cname $op]_descr
 proc dsl::writer::ParamInitFuncname      {op} { return "aktive_[Cname $op]_param_init"   }
 proc dsl::writer::ParamFinishFuncname    {op} { return "aktive_[Cname $op]_param_finish" }
 proc dsl::writer::OperatorSpecVarname    {op} { return "aktive_[Cname $op]_opspec"       }
-proc dsl::writer::OperatorFillFuncname   {op} { return "aktive_[Cname $op]_fill"         }
-proc dsl::writer::StateNewFuncname       {op} { return "aktive_[Cname $op]_state_new"    }
-proc dsl::writer::StateFreeFuncname      {op} { return "aktive_[Cname $op]_state_free"   }
+
+proc dsl::writer::RegionStateTypename    {op} { return "aktive_[Cname $op]_region_state" }
+proc dsl::writer::RegionFetchFuncname    {op} { return "aktive_[Cname $op]_region_fetch" }
+proc dsl::writer::RegionSetupFuncname    {op} { return "aktive_[Cname $op]_region_setup" }
+proc dsl::writer::RegionFinalFuncname    {op} { return "aktive_[Cname $op]_region_final" }
+
+proc dsl::writer::RegionFetchSig {paramtype regiontype} {
+    return "${paramtype}* param, aktive_region_vector* srcs, ${regiontype}* state, aktive_block* block"
+}
+
+proc dsl::writer::StateSetupFuncname     {op} { return "aktive_[Cname $op]_setup"        }
+proc dsl::writer::StateFinalFuncname     {op} { return "aktive_[Cname $op]_final"        }
+
 proc dsl::writer::GeometryFuncname       {op} { return "aktive_[Cname $op]_geo_setup"    }
 
 # # ## ### ##### ######## #############
