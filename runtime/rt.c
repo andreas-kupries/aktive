@@ -4,7 +4,7 @@
 #include <types_int.h>
 
 /* - - -- --- ----- -------- -------------
- * Construction, destruction
+ * Images - Construction, Destruction
  */
 
 static aktive_image
@@ -29,13 +29,13 @@ aktive_image_new (aktive_image_type*   opspec,
     if (param) {
 	void* p = NALLOC (char, opspec->sz_param);
 	memcpy (p, param, opspec->sz_param);
-	if (opspec->init) { opspec->init (p); }
+	if (opspec->param_init) { opspec->param_init (p); }
 	r->param = p;
     }
 
     /* Initialize custom state, if any */
 
-    if (opspec->state_new) { r->state = opspec->state_new (r->param, &r->srcs); }
+    if (opspec->setup) { r->state = opspec->setup (r->param, &r->srcs); }
 
     /* Initialize location and geometry */
 
@@ -61,14 +61,14 @@ aktive_image_destroy (aktive_image image) {
     /* Release custom state, if any, and necessary */
 
     if (image->state) {
-	if (image->opspec->state_free) { image->opspec->state_free (image->state); }
+	if (image->opspec->final) { image->opspec->final (image->state); }
 	ckfree ((char*) image->state);
     }
 
     /* Release parameters, if any, and necessary */
 
     if (image->param) {
-	if (image->opspec->finish) { image->opspec->finish (image->param); }
+	if (image->opspec->param_finish) { image->opspec->param_finish (image->param); }
 	ckfree ((char*) image->param);
     }
 
@@ -87,7 +87,7 @@ aktive_image_destroy (aktive_image image) {
 }
 
 /* - - -- --- ----- -------- -------------
- * Lifecycle management, including destruction
+ * Images - Lifecycle management, including destruction
  */
 
 static aktive_image
@@ -131,6 +131,89 @@ aktive_image_unref (aktive_image image) {
  */
 
 #include <objtype_image.c>
+
+/* - - -- --- ----- -------- -------------
+ * Regions -- Construction, Destruction
+ */
+
+static aktive_region
+aktive_region_new (aktive_image image)
+{
+    TRACE_FUNC("((image) %p '%s'", image, image->opspec->name);
+
+    /* Create new and clean image structure ... */
+
+    aktive_region r = ALLOC(struct aktive_region);
+    memset (r, 0, sizeof(struct aktive_region));
+
+    /* Reference origin */
+
+    r->origin = image; aktive_image_ref (image);
+
+    /* Generate regions representing the inputs, if any */
+
+    if (image->srcs.c) {
+	aktive_region_vector_new (&r->srcs, image->srcs.c);
+	for (unsigned int i = 0; i < r->srcs.c; i++) {
+	    r->srcs.v [i] = aktive_region_new (image->srcs.v [i]);
+	}
+    }
+
+    /* Initialize local pointers to and copies of important structures */
+
+    r->param    = image->param;
+    r->opspec   = image->opspec;
+#if 0 /* REGION NOT NEEDED */
+    r->location = &image->location;
+    r->geometry = &image->geometry;
+#endif
+    r->pixels.depth = image->geometry.depth;
+
+    /* Initialize custom state, if any */
+
+    if (image->opspec->region_setup) {
+	r->state = image->opspec->region_setup (r->param,
+						&r->srcs,
+						image->state);
+    }
+
+    /* Done and return */
+    TRACE_RETURN("(aktive_region) %p", r);
+}
+
+static void
+aktive_region_destroy (aktive_region region)
+{
+    TRACE_FUNC("((region) %p '%s'", region, region->opspec->name);
+
+    /* Release custom state, if any, and necessary */
+
+    if (region->state) {
+	if (region->opspec->region_final) { region->opspec->final (region->state); }
+	ckfree ((char*) region->state);
+    }
+
+    /* Release inputs, if any */
+
+    aktive_region_vector_free (&region->srcs);
+
+    /* Release owner */
+
+    aktive_image_unref (region->origin);
+
+    /* Release pixel data from the internal block, if any */
+
+    if (region->pixels.pixel) { ckfree ((char*) region->pixels.pixel); }
+
+    /* Nothing to do for the remaining fields. These are only pointers to
+     * image structures not owned by the region
+     */
+
+    /* Release main structure */
+    ckfree ((char*) region);
+
+    TRACE_RETURN_VOID;
+}
 
 /* - - -- --- ----- -------- -------------
  * Error management
@@ -332,6 +415,50 @@ aktive_image_get_param_value (aktive_image image, aktive_uint i, Tcl_Interp* int
     Tcl_Obj* obj = to_obj (interp, field);
 
     TRACE_RETURN ("(value) %p", obj);
+}
+
+/*
+ * - - -- --- ----- -------- -------------
+ * -- Region accessors
+ */
+
+static aktive_image
+aktive_region_owner (aktive_region region)
+{
+    TRACE_FUNC("((aktive_region) %p '%s')", region, region->opspec->name);
+    TRACE_RETURN ("(aktive_image) %p", region->origin);
+}
+
+static aktive_block*
+aktive_region_fetch_area (aktive_region region, aktive_rectangle* area)
+{
+    TRACE_FUNC("((aktive_region) %p '%s' (@ %d,%d : %ux%u))", region, region->opspec->name,
+	       area->x, area->y, area->width, area->height);
+
+    /* Allocate area for the pixel data. Possibly reuse if already existing. */
+
+    aktive_uint size = area->width * area->height * region->pixels.depth;
+
+    if (!region->pixels.pixel) {
+	region->pixels.pixel    = NALLOC (double, size);
+	region->pixels.capacity = size;
+    } else if (region->pixels.capacity < size) {
+	region->pixels.pixel    = REALLOC (region->pixels.pixel, double, size);
+	region->pixels.capacity = size;
+    }
+
+    /* Saved desired area to the block for the fetch callback to see */
+
+    region->pixels.rect = *area;
+    region->pixels.used = size;
+
+    /* Compute the pixels */
+
+    region->opspec->region_fetch (region->param, &region->srcs, region->state, &region->pixels);
+
+    /* And return them */
+
+    TRACE_RETURN ("(aktive_block*) %p", &region->pixels);
 }
 
 /*

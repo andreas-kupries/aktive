@@ -4,7 +4,12 @@
 #define AKTIVE_RT_H
 
 /* - - -- --- ----- -------- -------------
- * Runtime API -- Image construction and querying
+ * Runtime API -- Image management (construction, querying)
+ *
+ * Images form a forest of DAGs of operations, with generators as data sources
+ * and others declaring the desired transformations on the data. This forest
+ * is process global and passive. It holds descriptions, but no actual data,
+ * and does only the minimal processing needed to initialize any image.
  */
 
 static aktive_image
@@ -48,6 +53,35 @@ static Tcl_Obj* aktive_new_uint_obj  (aktive_uint x);
 static Tcl_Obj* aktive_new_point_obj (aktive_point* p);
 
 static void aktive_error_set (Tcl_Interp* interp);
+
+/* - - -- --- ----- -------- -------------
+ * Runtime API -- Region management (construction, querying)
+ *
+ * Regions are the active element. Internally regions form a forest of DAGs
+ * parallel to the forest of images. Processing happens when a region is asked
+ * to fetch the pixels for an area, cascading down to the DAG from the queried
+ * region to input regions until reaching the regions attached to the data
+ * sources.
+ *
+ * Note that each image may have multiple regions referencing it. The data of
+ * all regions for an image is generally completely separate. This enables the
+ * use of threads to concurrently compute pixel data for multiple regions of
+ * an image, without locking.
+ *
+ * There will be exception to this though. Mainly in file-based data sources,
+ * where the underlying access libraries do not support concurrent access. The
+ * format itself may force some kind of sequential reading as well.
+ *
+ * ATTENTION: The `aktive_block*` results out of a fetch are owned and managed
+ * by the region. The region is responsible for allocation and release of the
+ * structure and its contents. Any returned block will be valid only until the
+ * next fetch operation on the same region.
+ */
+
+static aktive_region aktive_region_new        (aktive_image image);
+static void          aktive_region_destroy    (aktive_region region);
+static aktive_image  aktive_region_owner      (aktive_region region);
+static aktive_block* aktive_region_fetch_area (aktive_region region, aktive_rectangle* area);
 
 /*
  * = = == === ===== ======== ============= =====================
