@@ -22,19 +22,19 @@
 
 ## I. Required by runtime
 # __ id __________ critcl ___________ C type ___________________ Conversion ______________________________
-type region        aktive_region      -                          {0 /* INTERNAL -- No Tcl_Obj* equivalent */}
-type image         aktive_image       -                          {aktive_new_image_obj (*value)}
-type image-type    aktive_image_type* {const aktive_image_type*} {Tcl_NewStringObj ((*value)->name, -1)}
-type uint          aktive_uint        -                          {aktive_new_uint_obj (*value)}
 type point         aktive_point       -                          {aktive_new_point_obj (value)}
 type rect          aktive_rectangle   -                          {aktive_new_rectangle_obj (value)}
+type image-type    aktive_image_type* {const aktive_image_type*} {Tcl_NewStringObj ((*value)->name, -1)}
+type image         aktive_image       -                          {aktive_new_image_obj (*value)}
+type region        aktive_region      -                          {0 /* INTERNAL -- No Tcl_Obj* equivalent */}
+type uint          aktive_uint        -                          {aktive_new_uint_obj (*value)}
+type double        -                  -                          {Tcl_NewDoubleObj (*value)}
 
-vector region image point uint
+vector region image point uint double
 
 ## II. Operator support
 # __ id __________ critcl ___________ C type ____ Conversion ______________________________
 type bool          boolean            int         {Tcl_NewIntObj (*value)}
-type double        -                  -           {Tcl_NewDoubleObj (*value)}
 type int           -                  -           {Tcl_NewIntObj (*value)}
 type object0       -                  Tcl_Obj*    {*value}
 type channel       -                  Tcl_Channel {Tcl_NewStringObj (Tcl_GetChannelName (*value), -1)}
@@ -42,12 +42,30 @@ type take-channel  -                  Tcl_Channel {Tcl_NewStringObj (Tcl_GetChan
 type pgm_variant   aktive_pgm_variant -           {aktive_pgm_variant_pool (interp, *value)}
 type ppm_variant   aktive_ppm_variant -           {aktive_ppm_variant_pool (interp, *value)}
 
-vector double
-
 ## # # ## ### ##### ######## ############# #####################
 
 ## # # ## ### ##### ######## ############# #####################
 # Rectangle operations
+
+operator rectangle::zones {
+    rect domain  Rectangle to modify
+    rect request Rectangle to modify
+
+    return object0 {
+	aktive_uint c;
+	aktive_rectangle v[5];
+
+	aktive_rectangle_outzones (&param->domain, &param->request, &c, v);
+
+	Tcl_Obj* r = Tcl_NewListObj (c, 0);
+
+	for (aktive_uint i = 0; i < c; i++) {
+	    Tcl_Obj* vo = aktive_new_rectangle_obj (&v[i]);
+	    Tcl_ListObjReplace(ip, r, i, 1, 1, &vo);
+	}
+	return r;
+    }
+}
 
 operator rectangle::make {
     int  x  Rectangle location, Column
@@ -252,22 +270,14 @@ operator image::constant {
 	aktive_geometry_set (geo, param->width, param->height, param->depth);
     }
     pixels {
-	// %% WRONG % does not intersect requested area with image area.
-	// %% WRONG % will return contant pixel outside of image domain
-	// %% TODO %% perform in the runtime - I.e. call fetch only for
-	// %% TODO %% the sub areas of the requested within the image
-
 	// param   -- value
 	// srcs    -- n/a
 	// state   -- n/a
-	// request -- ignored // ERROR //
-	// <-> block (used, pixel)
+	// request -- ignore
+	// physreq -- area in block to fill
+	// block   -- pixel storage
 
-	double v = param->value;
-
-	for (aktive_uint i = 0;
-	     i < block->used;
-	     i++) { block->pixel [i] = v; }
+	aktive_blit_fill (block, physreq, param->value);
     } ;# no state
 }
 
@@ -285,28 +295,17 @@ operator image::const::planes {
 	aktive_geometry_set (geo, param->width, param->height, param->value.c);
     }
     pixels {
-	// %% WRONG % does not intersect requested area with image area.
-	// %% WRONG % will return contant pixel outside of image domain
-	// %% TODO %% perform in the runtime - I.e. call fetch only for
-	// %% TODO %% the sub areas of the requested within the image
-
-	// param   -- value[]
+	// param   -- value
 	// srcs    -- n/a
 	// state   -- n/a
-	// request -- ignored
-	// <-> block (depth, used, pixel)
+	// request -- ignore
+	// physreq -- area in block to fill
+	// block   -- pixel storage
 	//
-	// assert: param.value.c == block.depth
+	// assert: param.value.c == block.geo.depth
 	// assert: block.used % block.depth == 0
 
-	double*     v = param->value.v;
-	aktive_uint d = param->value.c;
-
-	for (aktive_uint i = 0, k = 0;
-	     i < block->used;
-	     i++) {
-	    block->pixel [i] = v [k]; k ++ ; k %= d;
-	}
+	aktive_blit_fill_bands (block, physreq, &param->value);
     } ;# no state
 }
 
@@ -501,13 +500,30 @@ operator op::view {
 			     aktive_image_get_depth (srcs->v [0]));
     }
     pixels {
-	// param, srcs(.c == 1 .v), state n/a, request, <-> block
-	// pass area through unchanged
-	aktive_block* pixels = aktive_region_fetch_area (srcs->v [0], request);
-	// assert: pixels.used == block.used
-	// assert: pixels.geom == block.geo
+	// param   -- view
+	// srcs    -- #1 [0]
+	// state   -- n/a
+	// request -- passed down to input
+	// physreq -- area in block to fill
+	// block   -- pixel storage
+	//
+	// pass-through operation ...
+	// - Requested area passes unchanged to input ...
+	// - Returned pixels pass unchanged to caller ...
+	//
+	// TODO :: proper pixel blit because area here may be a subset of full area,
+	//      :: whereas the returned pixels are the fully requested set
+	//
+	// CONSIDER :: A reworked fetch API enabling zero copy full pass-through
+	//          :: (full area, requested area, pixel memory)
+	//          :: Maybe move aktive_block out of region ? Caller-owned ?
+	//          :: ops not passing through => block is standard region state ?!
 
-	memcpy (block->pixel, pixels->pixel, pixels->used * sizeof(double));
+	// assert: result.used == block.used
+	// assert: result.geo  == block.geo
+
+	aktive_blit_copy0 (block, physreq,
+			   aktive_region_fetch_area (srcs->v [0], request));
     }
 }
 

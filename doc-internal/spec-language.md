@@ -288,4 +288,15 @@ The fragment has access to the following variables:
 |srcs	     |aktive_region_vector	|Input regions. May be empty   	      			|
 |state	     |(region-state-struct)*	|Operator region state. May be `0`			|
 |request     |aktive_rectangle*		|Area to compute the pixels for				|
-|block	     |aktive_block*		|IO argument with overall area, pixel memory, etc.	|
+|physreq     |aktive_rectangle*		|Same area, translated for the pixel memory		|
+|block	     |aktive_block*		|IO argument holding pixel memory, dimensions, etc.	|
+
+Note that the requested area is provided in two forms.
+
+The data held by the `request` variable is in the main coordinate system images are in, the full 2D
+plane.
+
+The pixel memory however has its own physical coordinate system, always rooted at (0,0).
+
+The `physreq` variable holds the `request` translated into this coordinate system, for direct use
+with the `aktive_blit_*` API functions.

@@ -101,6 +101,7 @@ typedef void  (*aktive_region_fetch) ( void*                    param   /* Image
                                      , aktive_region_vector_ptr srcs    /* Input regions       */
                                      , void*                    state   /* Region state        */
                                      , aktive_rectangle*        request /* Area to fill        */
+				     , aktive_rectangle*        physreq /* Same, for pixels    */
                                      , /* => */ aktive_block*   block   /* out: Pixels to fill */
                                      );
 

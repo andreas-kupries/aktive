@@ -98,12 +98,13 @@ static void aktive_geometry_set_rect  (aktive_geometry* dst, aktive_rectangle* r
 static void aktive_geometry_copy      (aktive_geometry* dst, aktive_geometry* src);
 // reshape (w,h,d)
 
+static void aktive_rectangle_copy         (aktive_rectangle* dst, aktive_rectangle* src);
+static void aktive_rectangle_set          (aktive_rectangle* dst, int x, int y, aktive_uint w, aktive_uint h);
+static void aktive_rectangle_set_geometry (aktive_rectangle* dst, aktive_geometry* src);
+static void aktive_rectangle_set_location (aktive_rectangle* dst, aktive_point* src);
 
-static void aktive_rectangle_copy     (aktive_rectangle* dst, aktive_rectangle* src);
-static void aktive_rectangle_set      (aktive_rectangle* dst, int x,  int y, aktive_uint w, aktive_uint h);
-static void aktive_rectangle_set_rect (aktive_rectangle* dst, aktive_rectangle* src);
-static void aktive_rectangle_move     (aktive_rectangle* dst, int dx, int dy);
-static void aktive_rectangle_grow     (aktive_rectangle* dst, int left, int right, int top, int bottom);
+static void aktive_rectangle_move         (aktive_rectangle* dst, int dx, int dy);
+static void aktive_rectangle_grow         (aktive_rectangle* dst, int left, int right, int top, int bottom);
 
 static void aktive_rectangle_union     (aktive_rectangle* dst, aktive_rectangle* a, aktive_rectangle* b);
 static void aktive_rectangle_intersect (aktive_rectangle* dst, aktive_rectangle* a, aktive_rectangle* b);
@@ -112,7 +113,27 @@ static int aktive_rectangle_is_equal  (aktive_rectangle* a, aktive_rectangle* b)
 static int aktive_rectangle_is_subset (aktive_rectangle* a, aktive_rectangle* b);
 static int aktive_rectangle_is_empty  (aktive_rectangle* r);
 
-// ?set-ranges (x,xmax,y,ymax)
+// Compute intersection of request with domain, and the zones of request outside of the domain.
+// The array `v` has to have enough space for 5 results (intersection + at most 4 zones.
+// The intersection is always stored in v[0].
+static void aktive_rectangle_outzones  (aktive_rectangle* domain, aktive_rectangle* request,
+					aktive_uint* c, aktive_rectangle* v);
+
+/* - - -- --- ----- -------- -------------
+ * Runtime API -- Blitter ops for pixels blocks
+ */
+
+static void aktive_blit_clear_all  (aktive_block* block);
+static void aktive_blit_clear      (aktive_block* block, aktive_rectangle* area);
+static void aktive_blit_fill       (aktive_block* block, aktive_rectangle* area, double v);
+static void aktive_blit_fill_bands (aktive_block* block, aktive_rectangle* area,
+				    aktive_double_vector* bands);
+
+static void aktive_blit_copy (aktive_block* dst, aktive_rectangle* dstarea,
+			      aktive_block* src, aktive_point*     srcloc);
+
+static void aktive_blit_copy0 (aktive_block* dst, aktive_rectangle* dstarea,
+			       aktive_block* src);
 
 /*
  * - - -- --- ----- -------- -------------
@@ -122,7 +143,8 @@ static int aktive_rectangle_is_empty  (aktive_rectangle* r);
  * - - -- --- ----- -------- -------------
  */
 
-static void __aktive_block_dump (aktive_block* block);
+static void __aktive_block_dump (char* prefix, aktive_block* block);
+static void __aktive_rectangle_dump (char* prefix, aktive_rectangle* r);
 
 /*
  * = = == === ===== ======== ============= =====================

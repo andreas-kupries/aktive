@@ -1422,6 +1422,7 @@ proc dsl::writer::RegionFetchSig {paramtype regiontype} {
     append r ", aktive_region_vector* srcs"
     append r ", ${regiontype}* state"
     append r ", aktive_rectangle* request"
+    append r ", aktive_rectangle* physreq"
     append r ", aktive_block* block"
     return $r
 }
@@ -1453,7 +1454,7 @@ proc dsl::writer::Cname {name} { return [string map {* _ :: _ - _ / _} $name] }
 
 proc dsl::writer::+           {x} { upvar 1 lines lines ; lappend lines $x         ; return }
 proc dsl::writer::Comment     {x} { upvar 1 lines lines ; lappend lines "/* $x */" ; return }
-proc dsl::writer::TclComment {x} { upvar 1 lines lines ; lappend lines "# $x"     ; return }
+proc dsl::writer::TclComment  {x} { upvar 1 lines lines ; lappend lines "# $x"     ; return }
 proc dsl::writer::Done        {}  { upvar 1 lines lines ; return -code return [join $lines \n] }
 
 proc dsl::writer::CHeader {text} {

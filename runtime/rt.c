@@ -28,7 +28,11 @@ aktive_image_new (aktive_image_type*   opspec,
 
     /* Initialize input images, if any */
 
-    if (srcs) { r->srcs = *srcs; aktive_image_vector_heapify (&r->srcs); }
+    if (srcs) {
+	r->srcs = *srcs;
+	aktive_image_vector_heapify (&r->srcs);
+	for (aktive_uint i = 0; i++; i < r->srcs.c) { aktive_image_ref (r->srcs.v [i]); }
+    }
 
     /* Initialize parameters, if any */
 
@@ -44,12 +48,13 @@ aktive_image_new (aktive_image_type*   opspec,
 
     if (opspec->setup) { r->state = opspec->setup (r->param, &r->srcs); }
 
-    /* Initialize location and geometry */
+    /* Initialize location, geometry, and domain */
 
-    if (opspec->geo_setup) {
-	opspec->geo_setup (r->param, &r->srcs, r->state, &r->location, &r->geometry);
-    }
+    opspec->geo_setup (r->param, &r->srcs, r->state, &r->location, &r->geometry);
 
+    aktive_rectangle_set_location (&r->domain, &r->location);
+    aktive_rectangle_set_geometry (&r->domain, &r->geometry);
+    
     /* Initialize type information and reference management */
 
     r->opspec   = opspec;
@@ -84,6 +89,7 @@ aktive_image_destroy (aktive_image image) {
     /* Release inputs, if any */
 
     aktive_image_vector_free (&image->srcs);
+    for (aktive_uint i = 0; i++; i < image->srcs.c) { aktive_image_unref (image->srcs.v [i]); }
 
     /* Nothing to do for location and geometry */
 
@@ -457,21 +463,34 @@ aktive_region_owner (aktive_region region)
 }
 
 static aktive_block*
-aktive_region_fetch_area (aktive_region region, aktive_rectangle* area)
-{
+aktive_region_fetch_area (aktive_region region, aktive_rectangle* request)
+{    
     TRACE_FUNC("((aktive_region) %p '%s' (@ %d,%d : %ux%u))",
 	       region, region->opspec->name,
-	       area->x, area->y, area->width, area->height);
+	       request->x, request->y, request->width, request->height);
 
-    /* Update the desired area to fill */
+    // region
+    //   pixels
+    //	   geo	- block dimensions
+    //   origin
+    //     domain	area covered by the image
+    // request		area to get pixels for
 
-    aktive_geometry_set_rect (&region->pixels.geo, area);
+    //    fprintf(stderr,"FETCH %p (%s)\n", region, region->opspec->name);fflush (stderr);
+    //    __aktive_rectangle_dump ("\trequest", request);
+    //    __aktive_rectangle_dump ("\tdomain ", &region->origin->domain);
 
-    /* Initialize or update the pixel memory to be large enough for all the
-     * requested pixels.
+    /* Initialize or update the pixel block with the dimensions of the
+     * requested area, and ensure that the pixel memory is large enough to
+     * hald all the requested pixels.
      */
 
-    aktive_uint size = area->width * area->height * region->pixels.geo.depth;
+    /* Update the desired request to fill */
+
+    aktive_geometry_set_rect (&region->pixels.geo, request);
+
+    aktive_uint size = request->width * request->height * region->pixels.geo.depth;
+    region->pixels.used = size;
 
     if (!region->pixels.pixel) {
 	region->pixels.pixel    = NALLOC (double, size);
@@ -479,26 +498,82 @@ aktive_region_fetch_area (aktive_region region, aktive_rectangle* area)
     } else if (region->pixels.capacity < size) {
 	region->pixels.pixel    = REALLOC (region->pixels.pixel, double, size);
 	region->pixels.capacity = size;
-    }
-    region->pixels.used = size;
+    } // else: have enough space already, do nothing
+    //// future: maybe realloc down if used <= 1/2*capacity
 
-    /* Saved desired area to the block for the fetch callback to see */
-
-    /* Compute the pixels */
-
-    /* %% TODO %% FIX %% intersect requested area with image domain.
-     * %% TODO %% FIX %% invoke callback only for sub areas within the image
-     * %% TODO %% FIX %% fill outside pixels here - default: 0.0f
+    /* Computing the pixels is done in multiple phases:
      *
-     * %% TODO %% FIX %% note: provide physical dst area for pixel access.
+     * 1. Split the request into subareas inside and outside of the image domain.
+     * 2. Clear the areas outside the domain.
+     * 3. Invoke the fetch callback for the area inside the domain.
+     *
+     * Special cases are:
+     * a. Request is a subset of the image's domain.
+     * b. Request is fully outside of the image's domain.
+     *
+     * Coordinate systems
+     *  domain, request are in the 2D plane with arbitrary location.
+     *  pixel however is physical, rooted in (0,0).
+     *
+     * For blitting virtual locations have to be translated to physical.
+     * As request.location maps to (0,0)
+     * the translation is -(request.location).
      */
 
-    region->opspec->region_fetch (region->param, &region->srcs, region->state, area,
-				  &region->pixels);
+    aktive_rectangle domain; aktive_rectangle_copy (&domain, &region->origin->domain);
+    
+    if (aktive_rectangle_is_subset (&domain, request)) {
+	// fprintf(stderr,"SUBSET\n");fflush (stderr);
+    
+	// Special case (a). The entire request has to be served by the fetcher.
+	aktive_rectangle phys = { 0, 0, request->width, request->height };
 
+	// __aktive_rectangle_dump ("\t- full req ", request);
+	// __aktive_rectangle_dump ("\t- full preq", &phys);
+
+	region->opspec->region_fetch (region->param, &region->srcs,
+				      region->state, request, &phys,
+				      &region->pixels);
+	goto done;
+    }
+
+    /* Compute the inside and outside zones. The intersection, i.e. the inside
+     * part, is always stored in zv[0].
+     */
+
+    aktive_rectangle zv [5];
+    aktive_uint      zc;
+    aktive_rectangle_outzones (&domain, request, &zc, zv);
+
+    if (zc == 0) {
+	// fprintf(stderr,"OUTSIDE\n");fflush (stderr);
+	
+	// Special case (b). No data comes from the image itself.
+	aktive_blit_clear_all (&region->pixels);
+	goto done;
+    }
+
+    // fprintf(stderr,"IN PIECES\n");fflush (stderr);
+    
+    /* Clear the outside zones, if any */
+    for (aktive_uint i = 1; i < zc; i++) { aktive_blit_clear (&region->pixels, &zv [i]); }
+    
+    // The overlap is the only remaining part to handle, and this is done by
+    // the fetcher.
+
+    aktive_rectangle phys;
+    aktive_rectangle_copy (&phys, &zv [0]);
+    aktive_rectangle_move (&phys, -request->x, -request->y);
+
+    // __aktive_rectangle_dump ("\t- inside req ", &zv[0]);
+    // __aktive_rectangle_dump ("\t- inside preq", &phys);
+    
+    region->opspec->region_fetch (region->param, &region->srcs, region->state,
+				  &zv [0], &phys, &region->pixels);
+ done:
     /* And return them */
 
-    __aktive_block_dump (&region->pixels);
+    // __aktive_block_dump (region->opspec->name, &region->pixels);
     
     TRACE_RETURN ("(aktive_block*) %p", &region->pixels);
 }
@@ -609,11 +684,23 @@ aktive_rectangle_set (aktive_rectangle* dst, int x,  int y, aktive_uint w, aktiv
 }
 
 static void
-aktive_rectangle_set_rect (aktive_rectangle* dst, aktive_rectangle* src)
+aktive_rectangle_set_geometry (aktive_rectangle* dst, aktive_geometry* src)
 {
     TRACE_FUNC("((dst*) %p = (src*) %p)", dst, src);
     
-    *dst = *src;
+    dst->width  = src->width;
+    dst->height = src->height;
+
+    TRACE_RETURN_VOID;
+}
+
+static void
+aktive_rectangle_set_location (aktive_rectangle* dst, aktive_point* src)
+{
+    TRACE_FUNC("((dst*) %p = (src*) %p)", dst, src);
+    
+    dst->x = src->x;
+    dst->y = src->y;
 
     TRACE_RETURN_VOID;
 }
@@ -677,11 +764,14 @@ aktive_rectangle_intersect (aktive_rectangle* dst, aktive_rectangle* a, aktive_r
 {
     TRACE_FUNC("((dst*) %p = (rect*) %p * (rect*) %p)", dst, a, b);
 
-    /* No intersections in X, nor Y => empty. */
-    if (((a->x + a->width ) <= b->x) || /* A left of B */
-	((b->x + b->width ) <= a->x) || /* B left of A */
-	((a->y + a->height) <= b->y) || /* A above B   */
-	((b->y + b->height) <= a->y)) { /* B above A   */
+    /* No intersections in X, nor Y => empty.
+     * Beware uint/int mix
+     */
+    if (((a->x + (int) a->width ) <= b->x) || /* A left of B */
+	((b->x + (int) b->width ) <= a->x) || /* B left of A */
+	((a->y + (int) a->height) <= b->y) || /* A above B   */
+	((b->y + (int) b->height) <= a->y)) { /* B above A   */
+	
 	dst->x      = 0;
 	dst->y      = 0;
 	dst->width  = 0;
@@ -754,6 +844,247 @@ aktive_rectangle_is_empty  (aktive_rectangle* r)
     TRACE_RETURN("(bool) %d", is_empty);
 }
 
+static void
+aktive_rectangle_outzones (aktive_rectangle* domain, aktive_rectangle* request,
+			   aktive_uint* c, aktive_rectangle* v)
+{
+    *c = 0;
+
+    aktive_rectangle_intersect (&v[0], domain, request);
+
+    // __aktive_rectangle_dump ("\t- intersection", &v[0]);
+	
+    if (aktive_rectangle_is_empty (&v[0])) {
+	// fprintf(stderr,"\tNO intersection\n");fflush (stderr);	
+	return;
+    }
+
+    aktive_uint count = 1;
+    
+    /* General case. Request has inside and outside parts (*). These parts can
+     * reside above, below, left, or right of the image, in all
+     * combinations. The following code handles the above and below strips
+     * first, and then looks at the left/right blocks at the some height as
+     * the image.
+     *
+     * (*) We already know that it is not fully outside, nor fully inside
+     *     (See caller), so partial overlap is the only thing left.
+     *
+     * ASCII diagram
+     *
+     *            0      d.x-r.x *-r.x   r.w
+     *            |      |       |       |
+     *       0 -- A----------------------+ -- r.y
+     *            |        top           |
+     * d.y-r.y -- C------+-------D-------+ -- d.y
+     *            | left | image | right |
+     *   *-r.y -- B------+-------+-------+ -- d.y+d.h
+     *            |        bottom        |
+     *     r.h -- +----------------------+ -- r.y+r.h
+     *            |      |       |       |
+     *            r.x    d.x     d.x+d.w r.x+r.w
+     *
+     * Note, the zone setup integrates the aforementioned translation.
+     * In other words, while the intersection is in the virtual coordinate system,
+     * the zones are 0-based physical coordinates!
+     *
+     * HADJ is the height adjustment needed for left/right when the top/bottom
+     * stripes do not exist.
+     *
+     * TP is the similar adjustment of the left/right y-coordinate.
+     */
+
+    int top    = domain->y - request->y;
+    int bottom = request->height - domain->height - top;
+    int left   = domain->x - request->x;
+    int right  = request->width - domain->width - left;
+
+#if 0
+    fprintf (stdout, "D %3d %3d %3u %3u\n", domain->x,  domain->y,  domain->width,  domain->height);
+    fprintf (stdout, "R %3d %3d %3u %3u\n", request->x, request->y, request->width, request->height);
+    fprintf (stdout, "top    %d\n", top);
+    fprintf (stdout, "bottom %d\n", bottom);
+    fprintf (stdout, "left   %d\n", left);
+    fprintf (stdout, "right  %d\n", right);
+    fflush  (stdout);
+#endif
+
+#define ARS  aktive_rectangle_set
+#define DST  &v[count]
+#define NXT  count ++
+#define HADJ (((top    < 0) ? top    : 0) + ((bottom < 0) ? bottom : 0))
+#define TP    ((top    > 0) ? top    : 0)
+#define DH   domain->height
+#define DW   domain->width
+#define RW   request->width
+    
+    if (top    > 0) { /* A */ ARS (DST, 0,         0,        RW,    top       ); NXT; }
+    if (bottom > 0) { /* B */ ARS (DST, 0,         top + DH, RW,    bottom    ); NXT; }
+    if (left   > 0) { /* C */ ARS (DST, 0,         TP,       left,  DH + HADJ ); NXT; }
+    if (right  > 0) { /* D */ ARS (DST, left + DW, TP,       right, DH + HADJ ); NXT; }
+
+#undef ARS
+#undef DST
+#undef NXT
+#undef HADJ
+#undef TP
+#undef DH
+#undef DW
+#undef RW
+
+    *c = count;
+}
+
+/* - - -- --- ----- -------- -------------
+ * Runtime API -- Blitter ops for pixels blocks
+ */
+
+static void
+aktive_blit_clear_all (aktive_block* block) {
+    memset (block->pixel, 0, block->used * sizeof (double));
+    // Note: The value 0b'00000000 represents (double) 0.0.
+}
+
+static void
+aktive_blit_clear (aktive_block* block, aktive_rectangle* area)
+{
+    // dst  = (0, 0, dw, dh)
+    // area = (x, y, w, h) < dst [== can be handled, hower clear_all should be more efficient]
+    //
+    // Note: The `area` is in the same (physical) coordinate system as the block.
+    //
+    // Compute row start  [double*],
+    //         row stride [#double],
+    // and     row size   [byte]     (accounts for bands)
+
+    aktive_uint w = block->geo.width;
+    aktive_uint d = block->geo.depth;
+
+    aktive_uint stride = d * w ; /* pitch */
+    aktive_uint width  = d * area->width * sizeof (double);
+    double*     start  = block->pixel + area->y * stride + area->x * d;
+
+    for (aktive_uint row = 0;
+	 row < area->height;
+	 row++, start += stride) {
+	memset (start, 0, width);
+    }
+}
+
+static void
+aktive_blit_fill (aktive_block* block, aktive_rectangle* area, double v)
+{
+    // block area = (0, 0, w, h)
+    // clear area = (x, y, w', h') < (0, 0, w, h)	[Not <=, not equal]
+    //
+    // Note: The `area` is in the same (physical) coordinate system as the block.
+    //
+    // Compute row start  [double*],
+    //         row stride [#double],
+    // and     row size   [byte]     (accounts for bands)
+
+    aktive_uint w = block->geo.width;
+    aktive_uint d = block->geo.depth;
+
+    aktive_uint stride = d * w ; /* pitch */
+    aktive_uint width  = d * area->width;
+    double*     start  = block->pixel + area->y * stride + area->x * d;
+
+    for (aktive_uint row = 0;
+	 row < area->height;
+	 row++, start += stride) {
+
+	// blit single line
+	double* cell = start;
+	for (aktive_uint col = 0; col < width; col ++, cell++) { *cell = v; }
+    }
+}
+
+static void
+aktive_blit_fill_bands (aktive_block* block, aktive_rectangle* area, aktive_double_vector* bands)
+{
+    // block area = (0, 0, w, h)
+    // clear area = (x, y, w', h') < (0, 0, w, h)	[Not <=, not equal]
+    //
+    // Note: The `area` is in the same (physical) coordinate system as the block.
+    //
+    // Compute row start  [double*],
+    //         row stride [#double],
+    // and     row size   [byte]     (accounts for bands)
+
+    aktive_uint w = block->geo.width;
+    aktive_uint d = block->geo.depth; // assert: == bands.c
+
+    aktive_uint stride = d * w ; /* pitch */
+    aktive_uint width  = d * area->width;
+    double*     start  = block->pixel + area->y * stride + area->x * d;
+
+    for (aktive_uint row = 0;
+	 row < area->height;
+	 row++, start += stride) {
+
+	// blit single line
+	double* cell = start;
+	for (aktive_uint col = 0; col < width; col += d, cell += d) {
+	    memcpy (cell, bands->v, d * sizeof(double));
+	}
+    }
+}
+
+static void
+aktive_blit_copy (aktive_block* dst, aktive_rectangle* dstarea,
+		  aktive_block* src, aktive_point*     srcloc)
+{
+    // assert : dst.geo.depth == src.geo.depth / dd == sd (*)
+
+    // dst  = (0, 0, dw, dh)
+    // src  = (0, 0, sw, hh)
+    // area = (x, y, w, h) < src, < dst
+
+    aktive_uint dw = dst->geo.width;
+    aktive_uint sw = src->geo.width;
+    aktive_uint sd = dst->geo.depth;
+    
+    aktive_uint stride = sd * sw;				// (*)
+    aktive_uint width  = sd * dstarea->width * sizeof (double);	// (*)
+
+    double*     dstart  = dst->pixel + dstarea->y * stride + dstarea->x * sd; // (*)
+    double*     sstart  = src->pixel + srcloc->y  * stride + srcloc->x  * sd;
+
+    for (aktive_uint row = 0;
+	 row < dstarea->height;
+	 row++, sstart += stride, dstart += stride) {
+	memcpy (dstart, sstart, width); 
+    }
+}
+
+static void
+aktive_blit_copy0 (aktive_block* dst, aktive_rectangle* dstarea,
+		   aktive_block* src)
+{
+    // assert : dst.geo.depth == src.geo.depth / dd == sd (*)
+
+    // dst  = (0, 0, dw, dh)
+    // src  = (0, 0, sw, hh)
+    // area = (x, y, w, h) < src, < dst
+
+    aktive_uint dw = dst->geo.width;
+    aktive_uint sw = src->geo.width;
+    aktive_uint sd = dst->geo.depth;
+    
+    aktive_uint stride = sd * sw;				// (*)
+    aktive_uint width  = sd * dstarea->width * sizeof (double);	// (*)
+
+    double*     dstart  = dst->pixel + dstarea->y * stride + dstarea->x * sd; // (*)
+    double*     sstart  = src->pixel; // (0,0)
+
+    for (aktive_uint row = 0;
+	 row < dstarea->height;
+	 row++, sstart += stride, dstart += stride) {
+	memcpy (dstart, sstart, width); 
+    }
+}
+
 /*
  * - - -- --- ----- -------- -------------
  *
@@ -761,13 +1092,24 @@ aktive_rectangle_is_empty  (aktive_rectangle* r)
  *
  * - - -- --- ----- -------- -------------
  */
-
-static void
-__aktive_block_dump (aktive_block* block) {
 #define CHAN stderr
 
-    fprintf (CHAN, "%p = block {\n", block);
-    fprintf (CHAN, "\tgeo      = { %u x %u x %u}\n",
+static void
+__aktive_rectangle_dump (char* prefix, aktive_rectangle* r) {
+    fprintf (CHAN, "%s %p = rectangle {", prefix, r);
+
+    fprintf (CHAN, " @ %d", r->x);
+    fprintf (CHAN, ", %d",  r->y);
+    fprintf (CHAN, ": %u",  r->width);
+    fprintf (CHAN, " x %u", r->height);
+    fprintf (CHAN, " }\n");
+    fflush  (CHAN);
+}
+
+static void
+__aktive_block_dump (char* prefix, aktive_block* block) {
+    fprintf (CHAN, "%s %p = block {\n", prefix, block);
+    fprintf (CHAN, "\tgeo      = { %u x %u x %u }\n",
 	     block->geo.width, block->geo.height, block->geo.depth);
     fprintf (CHAN, "\tregion   = %p\n", block->region);
     fprintf (CHAN, "\tcapacity = %d\n", block->capacity);
