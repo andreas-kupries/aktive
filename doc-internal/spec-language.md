@@ -24,6 +24,16 @@ number of (non-image) parameters, and the kind of their result, if any.
 
 ## Main command details
 
+### `nyi`
+
+A prefix command for easy disabling of an entire block, like `operator`.
+
+The name stands for `Not Implemented Yet`.
+
+Syntax:
+
+  - `nyi (words of the disabled command...)`
+
 ### `type`
 
 The command declares a type for use by the generator, with references to associated C and Critcl
@@ -104,68 +114,22 @@ Defaults:
 |Command                        |Description                                            |
 |---                            |---                                                    |
 |`note ...`                     |Internal notes for maintainers                         |
-|                               |                                                       |
-|`return ID C_CODE`             |Declare non-image return type with a C code fragment providing the value to return. See `type` declarations |
-|`void`                         |Declare operator as void, returning nothing            |
-|                               |                                                       |
+|||
+|`return ID RETURN_CODE ...`    |Declare non-image return type with a C code fragment providing the value to return. See `type` declarations |
+|`void ACTION_CODE ...`         |Declare operator as void, returning nothing. The C code fragment contains the actions to perform|
+|||
 |`<type>  NAME ...`             |Declare required named parameter with help text        |
 |`<type>? NAME VALUE ...`       |As above, optional, with default value                 |
 |`<type>... NAME ...`           |As above, variadic, has to be last, see notes below    |
-|                               |                                                       |
+|||
 |`input RC`                     |Declare required input image with ref-counting mode    |
-|`input RC ?`                   |As above, optional                                     |
-|`input RC ...`                 |As above, variadic, has to be last, see notes below    |
-|	   			|   	   	     	       	     	       		|
-|`geometry C_CODE ...`		|C code fragment to compute initial location+geometry	|
-|`state FIELDS CONS RELEASE ...`|C code fragments to manage custom operator state	|
+|`input... RC`                  |As above, variadic, has to be last, see notes below    |
+|||
+|`geometry GEO_CODE ...`		|C code fragment to compute initial location+geometry	|
+|`pixels ?-state RFIELDS? ?-cons RCONS? ?-release RRELEASE? FETCH ...`|C code fragments to manage custom region state, and pixel fetch|
+|`state ?-state FIELDS? ?-cons CONS? ?-release RELEASE? ...`|C code fragments to manage custom operator state|
 
-#### Notes on state
-
-The command takes an arbitrary even number of arguments after the script, i.e. 0, 2, ...  These
-arguments are used to drive templating, i.e. for each pair KEY VAL all occurences of KEY in the C
-code fragments are replaced with VAL.
-
-The C code fragment for the state fields has to follow the C syntax for the inside of a C structure
-definition.
-
-The constructor C code fragment has access to the argument variables `param` and `srcs`. These
-provide access to the operator's parameters and input images, if any.
-
-The constructor has to return a pointer to the heap-allocated operator state initialized from the arguments
-
-The release C code fragment has access to the argument variable `state`, a pointer to the operator
-state. It has to release all heap-allocated elements of the state. The state itself is released by
-the caller. The code is expected to return nothing.
-
-#### Notes on geometry
-
-The command takes an arbitrary even number of arguments after the script, i.e. 0, 2, ...  These
-arguments are used to drive templating, i.e. for each pair KEY VAL all occurences of KEY in the C
-code fragment are replaced with VAL.
-
-The C code fragment has access to the argument variables `param`, `srcs`, `state`, `loc`, and `geo`.
-
-The last 2 variables are pointers to location and geometry structures to fill. I.e. these are result
-references.
-
-All other variables are inputs, referencing the parameter structure, the input image vector, and the
-custom operator state, respectively, and if any. The last means that all these arguments can be `0`,
-or empty, depending on the operator.
-
-##### Notes on non-image returns
-
-The C code fragment specified with `return` has access to the relevant `aktive_image` through the
-`src` variable. It further has access to the relevant `Tcl_Interp*` through the `interp` variable.
-
-If the last statement in the C code fragment (i.e. the last line) does not contain a `return` then
-the generator adds a `return` in front of that line, under the assumption that this line contains
-the statement or expression computing the value to deliver.
-
-In other words, instead of having to write `return int { return foo(); }`, with its visual
-duplication of the `return` it is possible to write `return int { foo(); }` and the needed `return`
-is added by the generator.
-
-##### Notes on variadics
+##### Variadics
 
 Only one parameter and/or input image can be declared variadic.
 
@@ -177,3 +141,151 @@ After the declaration of a variadic element no further elements can be declared.
 
 As the generated Tcl glue commands place parameters before input images a variadic parameter implies
 that the specified operator cannot take any image arguments.
+
+##### Code fragments
+
+Which of the commands `geometry`, `state`, and `pixels` are required or forbidden depends on the
+operator result.
+
+Operators returning void or a non-image must not specify the aforementioned commands. Their actions
+are specified as part of the `void` and `return` commands which declare them as such.
+
+Operators returning an image have to specify the `geometry` and `pixels` commands. The `state`
+command is optional, as well as the region state options of the `pixels` command.
+
+All the commands providing C code fragments take an arbitrary, but even number of additional
+arguments, as a means of driving code templating. The generator replaces all occurences of the key
+in each KEY/VALUE pair with the corresponding value.
+
+###### `FIELDS`, `RFIELDS`
+
+The most simple of C code fragments, it is expected to follow the C syntax for the fields of a C
+structure, for immediate insertion into a `struct { ...}` declaration.
+
+###### `RETURN_CODE`
+
+This C code fragment is called by an operator to compute its non-image result value from the
+parameters and input images, if any. It has to follow the C syntax for a C function body, for
+insertion into such.
+
+__Attention__: If the last statement in the fragment (i.e. the last line) does not contain a
+`return` statement then the generator adds a `return` in front of the content of that line, under
+the assumption that this line contains the statement or expression computing the value to deliver.
+
+In other words, instead of having to write `return int { return foo(); }`, with its visual
+duplication of the `return` it is possible to write `return int { foo(); }` and the needed `return`
+statement is added by the generator.
+
+The fragment has access to the following variables:
+
+|Name	     |Type			|Content					|
+|---	     |---			|---						|
+|ip	     |Tcl_Interp*		|Interpreter receiving the result		|
+|src	     |aktive_image		|Input image. Optional 	   			|
+|src<N>	     |aktive_image      	|Input images, if multiple, in fixed number	|
+|	     |				|`N` counts from 0 up	       	     		|
+|srcs	     |aktive_image_vector	|Input images, if multiple, variable number	|
+|param	     |(param-struct)*		|Operator parameter structure. Optional		|
+
+###### `ACTION_CODE`
+
+See previous section about the `RETURN_CODE`.
+
+The only difference is that here no `return` command is auto-inserted.
+
+###### `GEO_CODE`
+
+This C code fragment is called by an operator returning an image to compute the geometry and
+location of that image purely from parameters, input images, and operator-specific state, if any. It
+has to follow the C syntax for a C function body, for insertion into such.
+
+The fragment has access to the following variables:
+
+|Name	     |Type			|Content					|
+|---	     |---			|---						|
+|param	     |(param-struct)*		|Operator parameter structure. May be `0`	|
+|srcs	     |aktive_image_vector	|Input images. May be empty    	      		|
+|state	     |(image-state-struct)*	|Operator image state. May be `0`		|
+|loc	     |aktive_point*		|Place to write the computed location to	|
+|geom	     |aktive_geometry*		|Place to write the computed geometry to	|
+
+###### `CONS`
+
+This C code fragment is called by an operator returning an image to allocate and initialize a custom
+state structure from parameters, and input images, if any. It has to follow the C syntax for a C
+function body, for insertion into such.
+
+It has to return a pointer to the new state.
+
+The `FIELDS` fragment provides the structure fields. If not specified the result is taken as
+`void*`.
+
+__Attention__: If the last statement in the fragment (i.e. the last line) does not contain a
+`return` statement then the generator adds a `return` in front of the content of that line, under
+the assumption that this line contains the statement or expression computing the state value to
+deliver.
+
+The fragment has access to the following variables:
+
+|Name	     |Type			|Content					|
+|---	     |---			|---						|
+|param	     |(param-struct)*		|Operator parameter structure. May be `0`	|
+|srcs	     |aktive_image_vector	|Input images. May be empty    	      		|
+
+###### `RELEASE`
+
+This C code fragment is called by an operator returning an image to release any heap-allocated
+fields of the custom state structure. It has to follow the C syntax for a C function body, for
+insertion into such.
+
+The `FIELDS` fragment provides the structure fields. If not specified the state is taken as
+`void*` and the fragment has to cast as needed.
+
+The fragment has access to the following variables:
+
+|Name	     |Type			|Content		|
+|---	     |---			|---			|
+|state       |(image-state-struct)*	|Operator image state	|
+
+###### `RCONS`
+
+See `CONS`. This is for the construction of operator-specific region (i.e. processing)
+state. Whereas `CONS` is for static image state.
+
+The fragment has access to the same variables as `CONS`, plus an additional variable:
+
+|Name	     |Type			|Content					|
+|---	     |---			|---						|
+|imagestate  |(image-state-struct)*	|Operator image state. May be `0`		|
+
+###### `RRELEASE`
+
+This C code fragment is called by an operator returning an image to release any heap-allocated
+fields of the custom region state structure. It has to follow the C syntax for a C function body,
+for insertion into such.
+
+The `RFIELDS` fragment provides the structure fields. If not specified the state is taken as `void*`
+and the fragment has to cast as needed.
+
+The fragment has access to the following variables:
+
+|Name	     |Type			|Content		|
+|---	     |---			|---			|
+|state       |(region-state-struct)*	|Operator region state	|
+
+
+###### `FETCH`
+
+This C code fragment is called by an operator returning an image to compute the pixels for the
+requested area of the image from parameters, input regions, and operator-specific region state, if
+any. It has to follow the C syntax for a C function body, for insertion into such.
+
+The fragment has access to the following variables:
+
+|Name	     |Type			|Content						|
+|---	     |---			|---							|
+|param	     |(param-struct)*		|Operator parameter structure. May be `0`		|
+|srcs	     |aktive_region_vector	|Input regions. May be empty   	      			|
+|state	     |(region-state-struct)*	|Operator region state. May be `0`			|
+|request     |aktive_rectangle*		|Area to compute the pixels for				|
+|block	     |aktive_block*		|IO argument with overall area, pixel memory, etc.	|

@@ -56,6 +56,10 @@ proc dsl::reader::operator {args} { ;#puts [info level 0]
     }
 }
 
+proc dsl::reader::nyi {args} { ;#puts [info level 0]
+    # Disable a command
+}
+
 # # ## ### ##### ######## #############
 ## DSL support - Operator handling
 
@@ -77,7 +81,7 @@ proc dsl::reader::OpStart {op} {
     Set opspec params   {}	;# Parameters
 
     Set opspec result   image	;# Return value
-    Set opspec rcode    {}	;# C code fragment for non-image return (getter)
+    Set opspec rcode    {}	;# C code fragment for non-image return (getter, doer)
 
     Set opspec statec   {}	;# State constructor, optional
     Set opspec stater   {}	;# State destructor, optional
@@ -93,6 +97,39 @@ proc dsl::reader::OpStart {op} {
 }
 
 proc dsl::reader::OpFinish {} {
+    # Cross check operator specification for missing code fragments.
+    if {[Get opspec result] eq "image"} {
+	# Image result
+
+	if {[Get opspec regionm]  eq {}} { Abort "Returns image, has no pixel fetch"	}
+	if {[Get opspec geometry] eq {}} { Abort "Returns image, has no geometry setup"	}
+	# Note: state, region state optional
+	#
+	if {[Get opspec rcode] ne {}} { Abort "Returns image, yet has result code" }
+    } else {
+	# Non-image result, possibly void.
+	# Input images cannot be kept. RC mode has to be `ignore`
+
+	foreach imspec [Get opspec images] {
+	    set rc [dict get $imspec rcmode]
+	    if {$rc eq "ignore"} continue
+	    Abort "No image returned, yet attempting to keep input"
+	}
+
+	if {[Get opspec regionm]  ne {}} { Abort "No image returned, yet pixel fetch"	 }
+	if {[Get opspec regionf]  ne {}} { Abort "No image returned, yet region state"	 }
+	if {[Get opspec regionc]  ne {}} { Abort "No image returned, yet region state"	 }
+	if {[Get opspec regionr]  ne {}} { Abort "No image returned, yet region state"	 }
+	#
+	if {[Get opspec geometry] ne {}} { Abort "No image returned, yet geometry setup" }
+	#
+	if {[Get opspec statef] ne {}} { Abort "No image returned, yet state setup" }
+	if {[Get opspec statec] ne {}} { Abort "No image returned, yet state setup" }
+	if {[Get opspec stater] ne {}} { Abort "No image returned, yet state setup" }
+	#
+	if {[Get opspec rcode] eq {}} { Abort "No image returned, has no result code" }
+    }
+
     Unset opspec param
     Unset opspec args
 
@@ -108,10 +145,10 @@ proc dsl::reader::note {args} { ;#puts [info level 0]
     LappendX opspec notes $args
 }
 
-proc dsl::reader::void   {} { return void }
-proc dsl::reader::return {type {script {}}} { ;#puts [info level 0]
+proc dsl::reader::void   {script args} { return void $script {*}$args }
+proc dsl::reader::return {type script args} { ;#puts [info level 0]
     Set opspec result $type
-    Set opspec rcode  $script
+    Set opspec rcode  [string map $args $script]
 }
 
 proc dsl::reader::geometry {script args} {
@@ -169,7 +206,10 @@ proc ::dsl::reader::Pixels {fields cons release fetch map} { ;#puts [info level 
     Set opspec regionm [string map $map $fetch]
 }
 
-proc dsl::reader::input {rc {mode required}} { ;#puts [info level 0]
+proc dsl::reader::input... {rc} { Input $rc ...      }
+proc dsl::reader::input    {rc} { Input $rc required }
+
+proc dsl::reader::Input {rc {mode required}} { ;#puts [info level 0]
     if {[Has opspec args] &&
 	[Get opspec args]} { Abort "Rejecting more image arguments, we have a variadic" }
 

@@ -715,6 +715,9 @@ proc dsl::writer::OperatorFunctionForOp {op} {
 
 	if {$rcode eq {}} {
 	    + [Placeholder $op]
+	} elseif {$result eq "void"} {
+	    # We have a C code fragment implementing the doer
+	    + [FormatCode $rcode]
 	} else {
 	    # We have a C code fragment implementing the getter
 	    + [FormatCodeWithReturn $rcode]
@@ -963,9 +966,10 @@ proc dsl::writer::CprocBody {op spec script} {
     unset notes params result
     #        images
 
-    set single  [expr {[llength $images] == 1}]
-    set ignames {}
-    set igtypes {}
+    set single     [expr {[llength $images] == 1}]
+    set ignames    {}
+    set igtypes    {}
+    set igvariadic {}
 
     set id 0
     foreach i $images {
@@ -974,6 +978,8 @@ proc dsl::writer::CprocBody {op spec script} {
 	if {$single} { set n src }
 	set v [dict get $i args]
 	if {$v} { set n args }
+
+	lappend igvariadic $v
 
 	if {$m in {
 	    keep-ignore keep-pass-ignore
@@ -1014,18 +1020,21 @@ proc dsl::writer::CprocBody {op spec script} {
 
     + {}
 
-    foreach i $ignames t $igtypes {
+    foreach i $ignames t $igtypes v $igvariadic {
 	set im [string map {_ignored {}} $i]
 
-	if {$t eq "int"} {
-	    set im [PadR $al ($im)]
-	    + "  if ([PadR $nl $i] && aktive_image_unused $im) { aktive_image_unref $im; }"
-	    continue
-	}
-	if {$t eq {}} {
-	    set im [PadR $al ($im)]
-	    + "  if (aktive_image_unused $im) { aktive_image_unref $im; }"
-	    continue
+	if {!$v} {
+	    if {$t eq "int"} {
+		set im [PadR $al ($im)]
+		+ "  if ([PadR $nl $i] && aktive_image_unused $im) { aktive_image_unref $im; }"
+		continue
+	    }
+	    if {$t eq {}} {
+		set im [PadR $al ($im)]
+		+ "  if (aktive_image_unused $im) { aktive_image_unref $im; }"
+		continue
+	    }
+	    error XXXX
 	}
 
 	# image argument and associated flag are variadic
@@ -1117,7 +1126,7 @@ proc dsl::writer::FunctionDeclSignature {op spec} {
 	if {$single} { set n src }
 	set v [dict get $i args]
 	if {$v} {
-	    set n  args
+	    set n  srcs
 	    set it aktive_image_vector*
 	}
 
