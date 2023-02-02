@@ -80,6 +80,7 @@ dsl generate etc/aktive.tcl generated/
 
 critcl::cheaders runtime
 critcl::cheaders runtime/*.h
+critcl::cheaders op/*.h
 
 # Custom argument/result types          #####################
 
@@ -114,6 +115,7 @@ critcl::include generated/type-descriptor.c     ;# Table of type descriptions
 # Function implementations              #####################
 
 critcl::include runtime/rt.c                    ;# Core generic API
+critcl::include op/op.c                         ;# Operator support
 #
 critcl::include generated/vector-funcs.c        ;# Variadic support
 critcl::include generated/param-funcs.c         ;# Parameter block variadic init/finish
