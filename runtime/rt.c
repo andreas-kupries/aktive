@@ -176,6 +176,8 @@ aktive_region_new (aktive_image image)
      */
     aktive_geometry_copy (&r->pixels.geo, &image->geometry);
 
+    r->pixels.region = r;
+
     /* Initialize custom state, if any */
 
     if (image->opspec->region_setup) {
@@ -496,6 +498,8 @@ aktive_region_fetch_area (aktive_region region, aktive_rectangle* area)
 
     /* And return them */
 
+    __aktive_block_dump (&region->pixels);
+    
     TRACE_RETURN ("(aktive_block*) %p", &region->pixels);
 }
 
@@ -573,6 +577,16 @@ aktive_geometry_set_rect (aktive_geometry* dst, aktive_rectangle* rect)
 
 static void
 aktive_geometry_copy (aktive_geometry* dst, aktive_geometry* src)
+{
+    TRACE_FUNC("((dst*) %p = (src*) %p)", dst, src);
+    
+    *dst = *src;
+
+    TRACE_RETURN_VOID;
+}
+
+static void
+aktive_rectangle_copy (aktive_rectangle* dst, aktive_rectangle* src)
 {
     TRACE_FUNC("((dst*) %p = (src*) %p)", dst, src);
     
@@ -738,6 +752,47 @@ aktive_rectangle_is_empty  (aktive_rectangle* r)
     int is_empty = (r->width == 0) || (r->height == 0);
 
     TRACE_RETURN("(bool) %d", is_empty);
+}
+
+/*
+ * - - -- --- ----- -------- -------------
+ *
+ * debug support -- -------- -------------
+ *
+ * - - -- --- ----- -------- -------------
+ */
+
+static void
+__aktive_block_dump (aktive_block* block) {
+#define CHAN stderr
+
+    fprintf (CHAN, "%p = block {\n", block);
+    fprintf (CHAN, "\tgeo      = { %u x %u x %u}\n",
+	     block->geo.width, block->geo.height, block->geo.depth);
+    fprintf (CHAN, "\tregion   = %p\n", block->region);
+    fprintf (CHAN, "\tcapacity = %d\n", block->capacity);
+    fprintf (CHAN, "\tused     = %d\n", block->used);
+    fprintf (CHAN, "\tpixels   = {");
+
+    if (block->used) {
+	fprintf (CHAN, "\n\t\t");
+	for (aktive_uint i = 0 ; i < block->used; i++) {
+	    if (i) {
+		if (i % (block->geo.width * block->geo.depth) == 0) {
+		    fprintf (CHAN, "\n\t\t");
+		} else if (i % block->geo.depth == 0) {
+		    fprintf (CHAN, " /");
+		}
+	    }
+
+	    fprintf (CHAN, " %f", block->pixel [i]);
+
+	}
+	fprintf (CHAN, "\n\t");
+    }
+    fprintf (CHAN, "}\n");
+    fprintf (CHAN, "}\n");
+    fflush  (CHAN);
 }
 
 /*

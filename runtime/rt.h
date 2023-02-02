@@ -99,6 +99,7 @@ static void aktive_geometry_copy      (aktive_geometry* dst, aktive_geometry* sr
 // reshape (w,h,d)
 
 
+static void aktive_rectangle_copy     (aktive_rectangle* dst, aktive_rectangle* src);
 static void aktive_rectangle_set      (aktive_rectangle* dst, int x,  int y, aktive_uint w, aktive_uint h);
 static void aktive_rectangle_set_rect (aktive_rectangle* dst, aktive_rectangle* src);
 static void aktive_rectangle_move     (aktive_rectangle* dst, int dx, int dy);
@@ -112,6 +113,16 @@ static int aktive_rectangle_is_subset (aktive_rectangle* a, aktive_rectangle* b)
 static int aktive_rectangle_is_empty  (aktive_rectangle* r);
 
 // ?set-ranges (x,xmax,y,ymax)
+
+/*
+ * - - -- --- ----- -------- -------------
+ *
+ * debug support -- -------- -------------
+ *
+ * - - -- --- ----- -------- -------------
+ */
+
+static void __aktive_block_dump (aktive_block* block);
 
 /*
  * = = == === ===== ======== ============= =====================
