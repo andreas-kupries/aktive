@@ -21,6 +21,7 @@ proc show {i} {
     puts "\}"
     puts ""
     puts "raw (([aktive format tcl $i]))"
+    puts "raw (([aktive format tcl [aktive op view {80 80 2 2} $i]]))" ;# outside! zeros expected
     puts ""
 }
 
