@@ -45,6 +45,8 @@ type ppm_variant   aktive_ppm_variant -           {aktive_ppm_variant_pool (inte
 vector double
 
 ## # # ## ### ##### ######## ############# #####################
+
+## # # ## ### ##### ######## ############# #####################
 # Rectangle operations
 
 operator rectangle::make {
@@ -211,14 +213,14 @@ operator query::params {
 ## # # ## ### ##### ######## ############# #####################
 # Sinks ... Writing an image to somewhere else
 
-operator thing {
+nyi operator thing {
     format::pgm::write pgm
     format::ppm::write ppm
 } {
     note Sink. Serializes image to $thing format, into channel
 
-    void
     input ignore
+    void
 
     channel                                dst     Channel the $thing image data is written to
     ${thing}_variant? aktive_${thing}_text variant The $thing format variant to generate
@@ -231,68 +233,7 @@ operator format::tcl {
 
     input ignore
 
-    return object0 {
-	#define K(s) Tcl_NewStringObj((s), -1) /* TODO :: Use enum */
-
-	Tcl_Obj* loc = Tcl_NewDictObj();
-	Tcl_DictObjPut (ip, loc, K ("x"),      Tcl_NewIntObj       (aktive_image_get_x      (src)));
-	Tcl_DictObjPut (ip, loc, K ("y"),      Tcl_NewIntObj       (aktive_image_get_y      (src)));
-
-	Tcl_Obj* geo = Tcl_NewDictObj();
-	Tcl_DictObjPut (ip, geo, K ("width"),  aktive_new_uint_obj (aktive_image_get_width  (src)));
-	Tcl_DictObjPut (ip, geo, K ("height"), aktive_new_uint_obj (aktive_image_get_height (src)));
-	Tcl_DictObjPut (ip, geo, K ("depth"),  aktive_new_uint_obj (aktive_image_get_depth  (src)));
-
-	Tcl_Obj* r = Tcl_NewDictObj();
-
-	Tcl_DictObjPut (ip, r, K ("type"),     K (aktive_image_get_type(src)->name));
-	Tcl_DictObjPut (ip, r, K ("location"), loc);
-	Tcl_DictObjPut (ip, r, K ("geometry"), geo);
-
-	aktive_uint c = aktive_image_get_nparams (src);
-	if (c) {
-	    Tcl_Obj* p = Tcl_NewDictObj();
-
-	    for (aktive_uint i = 0; i < c; i++) {
-		const char* n = aktive_image_get_param_name (src, i);
-		Tcl_Obj*    v = aktive_image_get_param_value (src, i, ip);
-		Tcl_DictObjPut (ip, p, K (n), v);
-	    }
-
-	    Tcl_DictObjPut (ip, r, K("config"), p);
-	}
-
-	aktive_uint sz = aktive_image_get_size (src);
-	if (sz) {
-	    Tcl_Obj* p = Tcl_NewListObj (sz, 0); // 0 => Space is allocated for `sz` elements.
-
-	    // Ask for the entire image in one call
-	    // Note that large images are bad.
-	    // Note also that this does not do any concurrent execution
-	    // %% TODO %% create and use a worker system to for concurrency
-
-	    aktive_rectangle all = {
-		.x      = aktive_image_get_x      (src),
-		.y      = aktive_image_get_y      (src),
-		.width  = aktive_image_get_width  (src),
-		.height = aktive_image_get_height (src)
-	    };
-
-	    aktive_region rg     = aktive_region_new (src);
-	    aktive_block* pixels = aktive_region_fetch_area (rg, &all);
-
-	    for (aktive_uint i = 0; i < sz; i++) {
-		Tcl_Obj* v = Tcl_NewDoubleObj (pixels->pixel [i]);
-		Tcl_ListObjReplace(ip, p, i, 1, 1, &v);
-	    }
-
-	    aktive_region_destroy (rg); // This invalidates pixels too.
-
-	    Tcl_DictObjPut (ip, r, K("pixels"), p);
-	}
-	#undef K
-	return r;
-    }
+    return object0 { aktive_op_astcl (ip, src); }
 }
 
 ## # # ## ### ##### ######## ############# #####################
@@ -307,27 +248,26 @@ operator image::constant {
     double value   Pixel value
 
     geometry {
-	/* location is default (0,0) */
-	geo->width  = param->width;
-	geo->height = param->height;
-	geo->depth  = param->depth;
+	// location is kept at default (0,0)
+	aktive_geometry_set (geo, param->width, param->height, param->depth);
     }
-
     pixels {
 	// %% WRONG % does not intersect requested area with image area.
 	// %% WRONG % will return contant pixel outside of image domain
 	// %% TODO %% perform in the runtime - I.e. call fetch only for
 	// %% TODO %% the sub areas of the requested within the image
 
-	// param -- value
-	// srcs  -- n/a
-	// state -- n/a
+	// param   -- value
+	// srcs    -- n/a
+	// state   -- n/a
+	// request -- ignored // ERROR //
 	// <-> block (used, pixel)
 
-	double      v = param->value;
-	aktive_uint i;
+	double v = param->value;
 
-	for (i = 0; i < block->used; i++) { block->pixel [i] = v; }
+	for (aktive_uint i = 0;
+	     i < block->used;
+	     i++) { block->pixel [i] = v; }
     } ;# no state
 }
 
@@ -337,24 +277,23 @@ operator image::const::planes {
 
     uint      width   Width of the returned image
     uint      height  Height of the returned image
-    double... value   Pixel values for the bands
+    double... value   Pixel band values
 
     geometry {
-	/* location is default (0,0) */
-	geo->width  = param->width;
-	geo->height = param->height;
-	geo->depth  = param->value.c;
+	// location is default (0,0)
+	// depth is number of band values
+	aktive_geometry_set (geo, param->width, param->height, param->value.c);
     }
-
     pixels {
 	// %% WRONG % does not intersect requested area with image area.
 	// %% WRONG % will return contant pixel outside of image domain
 	// %% TODO %% perform in the runtime - I.e. call fetch only for
 	// %% TODO %% the sub areas of the requested within the image
 
-	// param -- value[]
-	// srcs  -- n/a
-	// state -- n/a
+	// param   -- value[]
+	// srcs    -- n/a
+	// state   -- n/a
+	// request -- ignored
 	// <-> block (depth, used, pixel)
 	//
 	// assert: param.value.c == block.depth
@@ -362,15 +301,16 @@ operator image::const::planes {
 
 	double*     v = param->value.v;
 	aktive_uint d = param->value.c;
-	aktive_uint i, k;
 
-	for (i = 0, k = 0; i < block->used; i++) {
+	for (aktive_uint i = 0, k = 0;
+	     i < block->used;
+	     i++) {
 	    block->pixel [i] = v [k]; k ++ ; k %= d;
 	}
     } ;# no state
 }
 
-operator image::const::matrix {
+nyi operator image::const::matrix {
     note Explictly specified image through pixel values
     note Less than width by height values is extended with zeroes.
     note Excess values are ignored.
@@ -383,7 +323,7 @@ operator image::const::matrix {
     # %% TODO %% specify implementation
 }
 
-operator image::noise::salt {
+nyi operator image::noise::salt {
     note Salt and pepper noise.
     note Pixels are set where the random value passes the threshold
     note The value of set pixels is fixed at 1.0
@@ -398,7 +338,7 @@ operator image::noise::salt {
     # %% TODO %% specify implementation
 }
 
-operator image::noise::uniform {
+nyi operator image::noise::uniform {
     note Pixels are set to a random value drawn from a uniform distribution
 
     uint      width   Width of the returned image
@@ -410,7 +350,7 @@ operator image::noise::uniform {
     # %% TODO %% specify implementation
 }
 
-operator image::noise::gauss {
+nyi operator image::noise::gauss {
     note Pixels are set to a random value drawn from a gaussian distribution
 
     uint      width   Width of the returned image
@@ -422,16 +362,16 @@ operator image::noise::gauss {
     # %% TODO %% specify implementation
 }
 
-operator image::noise::seed {
+nyi operator image::noise::seed {
     note Set the seed of the random number generator used by the noise-based image generators
 
-    void
     int seed  Seed to set
-
-    # %% TODO %% specify implementation
+    void {
+	// %% TODO %% specify implementation
+    }
 }
 
-operator image::gradient {
+nyi operator image::gradient {
     uint   width   Width of the returned image
     uint   height  Height of the returned image
     uint   depth   Depth of the returned image
@@ -441,7 +381,7 @@ operator image::gradient {
     # %% TODO %% specify implementation
 }
 
-operator image::sparse::points {
+nyi operator image::sparse::points {
     point... points  Coordinates of the pixels to set in the image
 
     note Generally, the bounding box specifies the geometry, especially also the image origin.q
@@ -453,7 +393,7 @@ operator image::sparse::points {
     # %% TODO %% specify implementation
 }
 
-operator image::sparse::deltas {
+nyi operator image::sparse::deltas {
     uint    width   Width of the returned image
     uint    height  Height of the returned image
     uint... delta   Linear distances between points to set
@@ -464,7 +404,7 @@ operator image::sparse::deltas {
     # %% TODO %% specify implementation
 }
 
-operator {thing depth} {
+nyi operator {thing depth} {
     format::pgm::read pgm 1
     format::ppm::read ppm 3
 } {
@@ -479,11 +419,10 @@ operator {thing depth} {
     } -cons { return 0; } ;# %% TODO %%
 
     geometry {
-	/* location is default (0,0) */
-	geo->width  = state->width;
-	geo->height = state->height;
-	geo->depth  = @depth@;
+	// location is kept at default (0,0)
+	aktive_geometry_set (geo, state->width, state->height, @depth@);
     } @depth@ $depth
+    pixels { 0 }
 
     # %% TODO %% specify implementation - read image data - locked
 }
@@ -492,7 +431,7 @@ operator {thing depth} {
 # Transformers ... The returned image is constructed from the input image, and
 # possibly some parameters.
 
-operator {
+nyi operator {
     op::cmath::conjugate
     op::cmath::cos
     op::cmath::div
@@ -515,17 +454,17 @@ operator {
     # %% TODO %% specify implementation
 }
 
-operator {
+nyi operator {
     op::montage::x
     op::montage::y
     op::montage::z
 } {
-    input keep-pass ...
+    input... keep-pass
 
     # %% TODO %% specify implementation
 }
 
-operator {
+nyi operator {
     op::flip::x
     op::flip::y
     op::flip::z
@@ -535,7 +474,7 @@ operator {
     # %% TODO %% specify implementation
 }
 
-operator {
+nyi operator {
     op::swap::xy
     op::swap::xz
     op::swap::yz
@@ -545,8 +484,34 @@ operator {
     # %% TODO %% specify implementation
 }
 
+operator op::view {
+    note Look at some area of an image.
+    note The requested area may fall anywhere regarding the input image's domain.
+    note Same, insude (subset), outside, partially overlapping, etc.
 
-operator {
+    input keep
+    rect view  The specific area to view in the plane
+
+    geometry {
+	// taking depth from input
+	aktive_point_set    (loc, param->view.x, param->view.y);
+	aktive_geometry_set (geo,
+			     param->view.width,
+			     param->view.height,
+			     aktive_image_get_depth (srcs->v [0]));
+    }
+    pixels {
+	// param, srcs(.c == 1 .v), state n/a, request, <-> block
+	// pass area through unchanged
+	aktive_block* pixels = aktive_region_fetch_area (srcs->v [0], request);
+	// assert: pixels.used == block.used
+	// assert: pixels.geom == block.geo
+
+	memcpy (block->pixel, pixels->pixel, pixels->used * sizeof(double));
+    }
+}
+
+nyi operator {
     op::math::inside-oo
     op::math::inside-oc
     op::math::inside-co
@@ -564,7 +529,7 @@ operator {
     # %% TODO %% specify implementation
 }
 
-operator op::geometry::move-to {
+nyi operator op::geometry::move-to {
     input keep-pass-ignore
 
     int x  New absolute x location of image in the plane
@@ -573,7 +538,7 @@ operator op::geometry::move-to {
     # %% TODO %% specify implementation
 }
 
-operator op::geometry::move-by {
+nyi operator op::geometry::move-by {
     input keep-pass-ignore
 
     int dx  Shift for x location of image in the plane
@@ -582,7 +547,7 @@ operator op::geometry::move-by {
     # %% TODO %% specify implementation
 }
 
-operator op::geometry::reshape {
+nyi operator op::geometry::reshape {
     input keep-pass-ignore
 
     uint width   New width of the returned image
@@ -595,7 +560,7 @@ operator op::geometry::reshape {
 ## # # ## ### ##### ######## ############# #####################
 # Compositors ... The returned image is contructed from the input
 
-operator {
+nyi operator {
     op::math::atan2
     op::math::div
     op::math::ge
@@ -613,7 +578,7 @@ operator {
     # %% TODO %% specify implementation
 }
 
-operator {
+nyi operator {
     op::pixel::mul
 } {
     input keep
@@ -628,7 +593,7 @@ operator {
 #
 # example: color conversions.
 
-operator {
+nyi operator {
     op::math::add
     op::math::max
     op::math::min
@@ -640,7 +605,7 @@ operator {
     # %% TODO %% specify implementation
 }
 
-operator {name op} {
+nyi operator {name op} {
     op::math1::shift   offset    {Add      scalar offset}
     op::math1::unshift offset    {Subtract scalar offset}
     op::math1::scale   factor    {Multiply by scalar factor}
@@ -667,7 +632,7 @@ operator {name op} {
     # %% TODO %% specify implementation
 }
 
-operator {
+nyi operator {
     op::math1::abs
     op::math1::clamp
     op::math1::wrap
@@ -703,7 +668,7 @@ operator {
     # %% TODO %% specify implementation
 }
 
-operator thing {
+nyi operator thing {
     op::select::x column
     op::select::y row
     op::select::z plane
@@ -716,7 +681,7 @@ operator thing {
     # %% TODO %% specify implementation
 }
 
-operator {
+nyi operator {
     op::downsample::x
     op::downsample::y
     op::downsample::z
@@ -728,7 +693,7 @@ operator {
     # %% TODO %% specify implementation
 }
 
-operator {
+nyi operator {
     op::upsample::x
     op::upsample::y
     op::upsample::z
@@ -741,7 +706,7 @@ operator {
     # %% TODO %% specify implementation
 }
 
-operator {
+nyi operator {
     op::upsample::xrep
     op::upsample::yrep
     op::upsample::zrep
