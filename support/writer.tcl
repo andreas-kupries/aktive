@@ -169,7 +169,7 @@ proc dsl::writer::ParamSignatures {} {
     foreach n $names t $types {
 	set n [PadR $nl $n]
 	set t [PadR $tl $t]
-	+ "static void $n ($t* p);"
+	+ "extern void $n ($t* p);"
     }
 
     + {}
@@ -214,7 +214,7 @@ proc dsl::writer::ParamFunctions {} {
     CHeader {Parameter block init/finish functions}
 
     foreach n $names t $types code $codes {
-	+ "static void $n ($t* p) \{"
+	+ "extern void $n ($t* p) \{"
 	foreach c $code {
 	    + "  $c"
 	}
@@ -287,7 +287,7 @@ proc dsl::writer::VectorSignatures {} {
 	if {$n eq {}} { + {} ; continue }
 	set n [PadR $nl $n]
 	set t [PadR $tl $t]
-	+ "static void $n (${t}* vec$p);"
+	+ "extern void $n (${t}* vec$p);"
     }
 
     + {}
@@ -335,7 +335,7 @@ proc dsl::writer::VectorFunctions {} {
 	set n [PadR $nl $n]
 	set t [PadR $tl $t]
 	set c [PadR $cl $c]
-	+ "static void $n (${t}* vec$p) \{ $c \}"
+	+ "extern void $n (${t}* vec$p) \{ $c \}"
     }
 
     + {}
@@ -377,7 +377,7 @@ proc dsl::writer::TypeSignatures {} {
 
 	set n [PadR $nl $n]
 	set t [PadR $tl $t]
-	+ "static Tcl_Obj* $n (Tcl_Interp* interp, ${t}* value);"
+	+ "extern Tcl_Obj* $n (Tcl_Interp* interp, ${t}* value);"
     }
 
     + {}
@@ -413,12 +413,12 @@ proc dsl::writer::TypeFunctions {} {
 	set n [PadR $nl $n]
 	set t [PadR $tl $t]
 	set c [PadR $cl $c]
-	+ "static Tcl_Obj* $n (Tcl_Interp* interp, ${t}* value) \{ return $c; \}"
+	+ "extern Tcl_Obj* $n (Tcl_Interp* interp, ${t}* value) \{ return $c; \}"
     }
     + {}
 
     foreach n $vnames t $vtypes c $vconv {
-	+ "static Tcl_Obj* $n (Tcl_Interp* interp, ${t}* value) \{"
+	+ "extern Tcl_Obj* $n (Tcl_Interp* interp, ${t}* value) \{"
 	+ "  Tcl_Obj*  r = NULL;"
 	+ "  Tcl_Obj** v = NALLOC (Tcl_Obj*, value->c);"
 	+ "  for (int k = 0; k < value->c; k++) \{"
@@ -467,7 +467,7 @@ proc dsl::writer::OperatorSignatures {} {
 	set n [PadR $nl $n]
 	set s [PadR $sl $s]
 	set r [PadR $rl $r]
-	+ "static $r $n $s;"
+	+ "extern $r $n $s;"
     }
 
     + {}
@@ -583,7 +583,7 @@ proc dsl::writer::OperatorFunctionForOp {op} {
 	    + {}
 	}
 
-	+ "static $result $fn $sig \{"
+	+ "extern $result $fn $sig \{"
 
 	if {$rcode eq {}} {
 	    + [Placeholder $op]
@@ -613,7 +613,7 @@ proc dsl::writer::OperatorFunctionForOp {op} {
 
 	# Main function can be generated, and refers to pixel fill function
 
-	+ "static $result $fn $sig \{"
+	+ "extern $result $fn $sig \{"
 	+ [FunctionBodyImageConstructor $op $spec]
 	+ "\}"
 	+ {}

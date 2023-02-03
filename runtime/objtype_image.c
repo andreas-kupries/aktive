@@ -1,6 +1,20 @@
 /* -*- c -*-
  */
 
+#include <tcl.h>
+#include <critcl_alloc.h>
+#include <critcl_assert.h>
+#include <critcl_trace.h>
+
+#include <rt.h>
+#include <types_int.h>
+
+TRACE_OFF;
+
+/*
+ * - - -- --- ----- -------- -------------
+ */
+
 static void FreeImage     (Tcl_Obj* obj);
 static void DupImage      (Tcl_Obj* obj, Tcl_Obj* dst);
 static int  ImageFromAny  (Tcl_Interp* interp, Tcl_Obj* obj);
@@ -17,7 +31,7 @@ static Tcl_ObjType aktive_image_objtype = {
  * - - -- --- ----- -------- -------------
  */
 
-static Tcl_Obj*
+extern Tcl_Obj*
 aktive_new_image_obj (aktive_image src) {
     TRACE_FUNC ("((aktive_image) %p '%s' ~ rc %d)", src, src->opspec->name, src->refcount);
 
@@ -34,7 +48,7 @@ aktive_new_image_obj (aktive_image src) {
     TRACE_RETURN ("(Tcl_Obj*) %p", obj);
 }
 
-static int
+extern int
 aktive_image_from_obj (Tcl_Interp* interp, Tcl_Obj* obj, aktive_image* dst) {
     TRACE_FUNC ("((Tcl_Interp*) %p, (Tcl_Obj*) %p, (aktive_image*) %p)", interp, obj, dst);
 

@@ -77,52 +77,40 @@ dsl generate runtime etc/runtime.tcl rtgen/
 dsl generate aktive  etc/aktive.tcl  generated/
 
 # # ## ### ##### ######## ############# #####################
-## Runtime - Fixed and generated parts
+## Core Runtime
 
+critcl::source   runtime/critcl-types.tcl
 critcl::cheaders runtime
 critcl::cheaders runtime/*.h
+critcl::csources runtime/*.c
+
+##
+# # ## ### ##### ######## ############# #####################
+# Base operator set - Generated
+
+critcl::include  runtime/rt.h
 critcl::cheaders op/*.h
-
-# Custom argument/result types          #####################
-
-critcl::source  runtime/critcl-types.tcl
 
 # Types    ##### ######## ############# #####################
 
-critcl::include runtime/types.h                 ;# Runtime
 critcl::source  op/types.tcl                    ;# Operator support
-#
-critcl::include rtgen/vector-types.h        ;# Variadic support
-
 critcl::include generated/vector-types.h        ;# Variadic support
 critcl::include generated/param-types.h         ;# Parameter blocks
 
-# Function declarations   ############# #####################
-
-critcl::include runtime/rt.h                    ;# Core generic types
-#
-
-critcl::include rtgen/vector-funcs.h        ;# Variadic support
-critcl::include rtgen/type-funcs.h          ;# Type conversions
+# Function declarations # ############# #####################
 
 critcl::include generated/vector-funcs.h        ;# Variadic support
 critcl::include generated/param-funcs.h         ;# Parameter block variadic init/finish
 critcl::include generated/type-funcs.h          ;# Type conversions
 critcl::include generated/op-funcs.h            ;# Operators
 
-# Variables      ######## ############# #####################
+# Variables #### ######## ############# #####################
 
 critcl::include generated/param-descriptors.c   ;# Parameter block descriptors
 
-# Function implementations              #####################
+# Function implementations ############ #####################
 
-critcl::include runtime/rt.c                    ;# Core generic API
 critcl::include op/op.c                         ;# Operator support
-#
-
-critcl::include rtgen/vector-funcs.c        ;# Variadic support
-critcl::include rtgen/type-funcs.c          ;# Type conversions
-
 critcl::include generated/vector-funcs.c        ;# Variadic support
 critcl::include generated/param-funcs.c         ;# Parameter block variadic init/finish
 critcl::include generated/type-funcs.c          ;# Type conversions

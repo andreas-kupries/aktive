@@ -133,6 +133,15 @@ typedef struct aktive_image_type {
 } aktive_image_type;
 
 /*
+ * - - -- --- ----- -------- -------------
+ * Generated API types
+ */
+
+#include <rtgen/vector-types.h>
+#include <rtgen/vector-funcs.h>
+#include <rtgen/type-funcs.h>
+
+/*
  * = = == === ===== ======== ============= =====================
  * Local Variables:
  * mode: c
