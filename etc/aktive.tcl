@@ -48,8 +48,8 @@ type ppm_variant   aktive_ppm_variant -           {aktive_ppm_variant_pool (inte
 # Rectangle operations
 
 operator rectangle::zones {
-    rect domain  Rectangle to modify
-    rect request Rectangle to modify
+    rect domain  Area covered by image pixels
+    rect request Area to get the pixels for
 
     return object0 {
 	aktive_uint c;
