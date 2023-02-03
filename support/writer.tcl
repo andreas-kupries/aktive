@@ -50,6 +50,8 @@ proc dsl::writer::Emit {stem} {
 ## Main emitter commands -- Parameters
 
 proc dsl::writer::ParamTypes {} {
+    if {![llength [Operations]]} return
+
     CHeader {Parameter block types}
 
     foreach op [Operations] {
@@ -89,6 +91,8 @@ proc dsl::writer::ParamTypeForOp {op} {
 }
 
 proc dsl::writer::ParamDescriptors {} {
+    if {![llength [Operations]]} return
+
     CHeader {Parameter block descriptors}
 
     + {#include <stddef.h> /* offsetof */}
@@ -142,6 +146,7 @@ proc dsl::writer::ParamDescriptorsForOp {op} {
 
 # Declarations of Init/Finish functions for operations with a variadic parameter
 proc dsl::writer::ParamSignatures {} {
+    if {![llength [Operations]]} return
 
     set names {}
     set types {}
@@ -173,6 +178,8 @@ proc dsl::writer::ParamSignatures {} {
 
 # Implementation of Init/Finish functions for operations with a variadic parameter
 proc dsl::writer::ParamFunctions {} {
+    if {![llength [Operations]]} return
+
     set names {}
     set types {}
     set codes {}
@@ -222,6 +229,8 @@ proc dsl::writer::ParamFunctions {} {
 ## Main emitter commands -- Vectors
 
 proc dsl::writer::VectorTypes {} {
+    if {![llength [Vectors]]} return
+
     CHeader {Structures for types used in variadics}
 
     foreach type [Vectors] {
@@ -244,6 +253,8 @@ proc dsl::writer::VectorTypes {} {
 }
 
 proc dsl::writer::VectorSignatures {} {
+    if {![llength [Vectors]]} return
+
     set names {}
     set types {}
     set plus  {}
@@ -284,6 +295,8 @@ proc dsl::writer::VectorSignatures {} {
 }
 
 proc dsl::writer::VectorFunctions {} {
+    if {![llength [Vectors]]} return
+
     set names {}
     set types {}
     set plus  {}
@@ -333,6 +346,8 @@ proc dsl::writer::VectorFunctions {} {
 ## Main emitter commands -- Types
 
 proc dsl::writer::TypeSignatures {} {
+    if {![llength [Types]] && ![llength [Vectors]]} return
+
     set names {}
     set types {}
 
@@ -370,6 +385,8 @@ proc dsl::writer::TypeSignatures {} {
 }
 
 proc dsl::writer::TypeFunctions {} {
+    if {![llength [Types]] && ![llength [Vectors]]} return
+
     set names {} ; set vnames {}
     set types {} ; set vtypes {}
     set conv  {} ; set vconv  {}
@@ -424,6 +441,8 @@ proc dsl::writer::TypeFunctions {} {
 ## Main emitter commands -- Operators
 
 proc dsl::writer::OperatorSignatures {} {
+    if {![llength [Operations]]} return
+
     set names   {}
     set sigs    {}
     set results {}
@@ -456,6 +475,8 @@ proc dsl::writer::OperatorSignatures {} {
 }
 
 proc dsl::writer::OperatorFunctions {} {
+    if {![llength [Operations]]} return
+
     CHeader {operator function implementations}
 
     foreach op [Operations] {
@@ -632,6 +653,8 @@ proc dsl::writer::Placeholder {key {prefix {  }}} {
 }
 
 proc dsl::writer::OperatorCprocs {} {
+    if {![llength [Operations]]} return
+
     TclHeader {Glue commands, per operator}
 
     foreach op [Operations] {
@@ -1157,6 +1180,8 @@ proc dsl::writer::FunctionBodyImageConstructor {op spec} {
 }
 
 proc dsl::writer::OperatorEnsemble {} {
+    if {![llength [Operations]]} return
+
     foreach op [Operations] {
 	set op [string map {:: { }} aktive::$op]
 	dict set n {*}$op .
@@ -1191,7 +1216,17 @@ proc dsl::writer::Dump {dict indent} {
 # # ## ### ##### ######## #############
 ## Group specific support
 
-proc dsl::writer::Vectors {} { lsort -dict [dict keys [Get vectors]] }
+proc dsl::writer::Vectors {} {
+    # Exclude imported vector types from code generation.
+    if {![Has vcached]} {
+	dict for {v imported} [Get vectors] {
+	    if {$imported} continue
+	    lappend vs $v
+	}
+	Set vcached [lsort -dict $vs]
+    }
+    return [Get vcached]
+}
 
 proc dsl::writer::ParameterIsVariadic {argspec} { dict get $argspec args }
 proc dsl::writer::ParameterType       {argspec} { dict get $argspec type }
@@ -1222,7 +1257,18 @@ proc dsl::writer::OpParamVariadic {op} {
     return 0
 }
 
-proc dsl::writer::Types {} { lsort -dict [dict keys [Get types]] }
+proc dsl::writer::Types {} {
+    # Exclude imported types from code generation.
+    if {![Has tcached]} {
+	dict for {t spec} [Get types] {
+	    if {[dict get $spec imported]} continue
+	    lappend ts $t
+	}
+	Set tcached [lsort -dict $ts]
+    }
+    return [Get tcached]
+    #return [lsort -dict [dict keys [Get types]]]
+}
 
 # type: 0/critt 1/ctype 2/conv
 proc dsl::writer::TypeCritcl {t} { Get types $t critcl     }
@@ -1239,9 +1285,20 @@ proc dsl::writer::TypeVector {t} { ;# note similarities to ParameterCType
 # # ## ### ##### ######## #############
 ## State access
 
+proc dsl::writer::Set {args} {
+    variable state
+    set keypath [lreverse [lassign [lreverse $args] value]]
+    dict set state {*}$keypath $value
+}
+
 proc dsl::writer::Get {args} {
     variable state
     return [dict get $state {*}$args]
+}
+
+proc dsl::writer::Has {args} {
+    variable state
+    dict exists $state {*}$args
 }
 
 # # ## ### ##### ######## #############

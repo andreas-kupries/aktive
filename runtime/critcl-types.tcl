@@ -81,11 +81,11 @@ critcl::resulttype aktive_rectangle {
 # # ## ### ##### ######## #############
 ## image types
 
-critcl::resulttype aktive_image_type* {
+critcl::resulttype aktive_image_type_ptr {
     if (rv == NULL) { return TCL_ERROR; }
     Tcl_SetObjResult (interp, Tcl_NewStringObj (rv->name, -1));
     return TCL_OK;
-} {const aktive_image_type*}
+} aktive_image_type_ptr
 
 # # ## ### ##### ######## #############
 ## images

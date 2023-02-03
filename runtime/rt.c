@@ -362,7 +362,7 @@ aktive_image_get_size (aktive_image image)
     TRACE_RETURN ("(size) %u", size);
 }
 
-static const aktive_image_type*
+static aktive_image_type_ptr
 aktive_image_get_type (aktive_image image)
 {
     TRACE_FUNC("((aktive_image) %p)", image);

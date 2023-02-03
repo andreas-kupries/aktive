@@ -33,7 +33,7 @@ static aktive_uint aktive_image_get_pitch  (aktive_image image); /* width * dept
 static aktive_uint aktive_image_get_pixels (aktive_image image); /* width * height */
 static aktive_uint aktive_image_get_size   (aktive_image image); /* pixels * depth */
 
-static const aktive_image_type* aktive_image_get_type (aktive_image image);
+static aktive_image_type_ptr aktive_image_get_type (aktive_image image);
 
 static aktive_uint  aktive_image_get_nsrcs (aktive_image image);
 static aktive_image aktive_image_get_src   (aktive_image image, aktive_uint i);

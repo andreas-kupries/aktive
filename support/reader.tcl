@@ -74,7 +74,10 @@ variable importing
 
 proc dsl::reader::vector {args} { ;#puts [info level 0]
     variable importing
-    foreach v $args { Set vectors $v $importing }
+    foreach v $args {
+	if {[Has vectors $v]} continue
+	Set vectors $v $importing
+    }
 }
 
 proc dsl::reader::operator {args} { ;#puts [info level 0]
@@ -298,7 +301,6 @@ proc dsl::reader::Init {package} {
     variable state {
 	types   {}
 	vectors {}
-	vcached 0
 	ops     {}
 	opname  {}
 	opspec  {}

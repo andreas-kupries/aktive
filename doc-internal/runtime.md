@@ -54,7 +54,6 @@ runtime.
 
 |Kind    |Name                          |Description                                    |
 |---     |---                           |---                                            |
-|struct  |aktive_type_spec              |(User) type descriptor                         |
 |struct  |active_image_parameter        |Parameter descriptor                           |
 |struct  |active_image_type             |Operator descriptor                            |
 |        |                              |                                               |

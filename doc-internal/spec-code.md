@@ -4,16 +4,7 @@
 
 Per declared user type the generator emits
 
-  - A C define, i.e. a symbol, mapping the type to an integer number.
-
-  - A description structure for the type, of runtime type `aktive_type_spec` containing
-
-      - A pointer to a function converting a value of the user type into its equivalent `Tcl_Obj*`.
-
-  - The above description structures are collected in a single C array variable
-    `aktive_type_descriptor`. This array is indexed by the type symbols.
-
-  - A function declaration for the converter function mentioned above.
+  - A function declaration for the type's converter function.
 
   - An implementation for this function. The implementation wraps the C code fragment provided to
     the type in its DSL declaration command.
@@ -38,33 +29,12 @@ elements reside in the heap. The pre-existing structure may have its elements an
 ...). Because of this the process is also called `heapification` and the functions use the suffix
 `_heapify` in their names.
 
-## Parameters
-
-The code generator collects and deduplicates the names of all parameters used by operators. Using
-the resulting list it emits per unique parameter
-
-  - A C define, i.e. a symbol, mapping the parameter to an integer number.
-
-  - The parameter name as string
-
-  - The above strings are collected in a single C array variable `aktive_param_name`. This is
-    indexed by the parameter symbols.
-
-The code generator collects and deduplicates the descriptions given to all parameters used by
-operators. Using the resulting list it emits per unique description
-
-  - The description as string
-
-  - The above strings are collected in a single C array variable `aktive_param_desc`.
-
-  - Note, no symbols are defined
-
 ## Operators
 
 Per operator returning an __image result__ and __no input images requiring ignore signaling__ the
 code generator emits
 
-  - A function declaration for a C level constructor function (Name suffix `_new`_). This function
+  - A function declaration for a C level constructor function (Name suffix `_new`). This function
     takes a parameter structure, the input image arguments, and returns the declared
     result. Parameter structure and images are optional, i.e. appear if and only if the operator has
     parameters and/or input images.
@@ -105,7 +75,6 @@ generator emits:
   - A function declaration as above.
 
   - A placeholder implementation.
-
 
 Per operator returning a __non-image result__ the code generator emits
 

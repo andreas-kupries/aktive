@@ -43,8 +43,9 @@ typedef struct aktive_geometry {
  * Opaque types for images and rectangular image regions.
  */
 
-typedef struct aktive_image  *aktive_image;
-typedef struct aktive_region *aktive_region;
+typedef struct aktive_image_type* aktive_image_type_ptr;
+typedef struct aktive_image*      aktive_image;
+typedef struct aktive_region*     aktive_region;
 
 /* Forward declaration for pointers to image and region vectors. The actual
  * structures are defined through the dynamically generated part of the runtime.

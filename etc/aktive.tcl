@@ -20,17 +20,21 @@
 # Note: Dynamic vector structures match critcl variadics.
 ##
 
+if 0 {
 ## I. Required by runtime
 # __ id __________ critcl ___________ C type ___________________ Conversion ______________________________
 type point         aktive_point       -                          {aktive_new_point_obj (value)}
 type rect          aktive_rectangle   -                          {aktive_new_rectangle_obj (value)}
-type image-type    aktive_image_type* {const aktive_image_type*} {Tcl_NewStringObj ((*value)->name, -1)}
+type image-type    aktive_image_type_ptr - {Tcl_NewStringObj ((*value)->name, -1)}
 type image         aktive_image       -                          {aktive_new_image_obj (*value)}
 type region        aktive_region      -                          {0 /* INTERNAL -- No Tcl_Obj* equivalent */}
 type uint          aktive_uint        -                          {aktive_new_uint_obj (*value)}
 type double        -                  -                          {Tcl_NewDoubleObj (*value)}
 
 vector region image point uint double
+}
+
+import runtime.tcl
 
 ## II. Operator support
 # __ id __________ critcl ___________ C type ____ Conversion ______________________________

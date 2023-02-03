@@ -9,7 +9,7 @@ operations, or to modify an existing operation, or both.
 
 ## Overview
 
-The main commands are `type`, `vector`, and `operator`.
+The main commands are `import`, `type`, `vector`, and `operator`.
 They declare
 
   - The types used in the API between C and Tcl
@@ -33,6 +33,15 @@ The name stands for `Not Implemented Yet`.
 Syntax:
 
   - `nyi (words of the disabled command...)`
+
+### `import`
+
+The command reads the definitions from the referenced file for use in operator parameters and
+results. Imported types and vector types are excluded from code generation.
+
+Syntax
+
+  - `import PATH`
 
 ### `type`
 
