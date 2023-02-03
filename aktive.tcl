@@ -54,6 +54,9 @@ critcl::tcl 8.6
 #::critcl::config lines off
 
 package require critcl::cutil
+
+critcl::config keepsrc
+
 critcl::cutil::assertions on
 critcl::cutil::tracer     on
 critcl::cutil::alloc

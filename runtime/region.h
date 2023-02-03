@@ -34,22 +34,48 @@
 
 /*
  * - - -- --- ----- -------- -------------
+ *
+ * -- The info structure provides limited access to the information managed by
+ *    a region. The runtime maintains additional information for itself it
+ *    will not provide access to.
  */
 
-typedef void  (*aktive_region_final) ( void* state );
+typedef struct aktive_region_info {
+    // READ ONLY information coming from the image
+    
+    void*                param  ; // Operation parameters 
+    void*                istate ; // Image state, if any, operator dependent
 
-typedef void* (*aktive_region_setup) ( void*                    param      // Image parameters 
-                                     , aktive_region_vector_ptr srcs       // Input regions    
-                                     , void*                    imagestate // Image! state     
-                                     );
+    // RW information
+    
+    aktive_region_vector srcs   ; // Input regions, if any 
+    void*                state  ; // Custom region state 
+} aktive_region_info;
 
-typedef void  (*aktive_region_fetch) ( void*                    param   // Image parameters    
-                                     , aktive_region_vector_ptr srcs    // Input regions       
-                                     , void*                    state   // Region state        
-                                     , aktive_rectangle*        request // Area to fill        
-				     , aktive_rectangle*        physreq // Same, for pixels    
-                                     , /* => */ aktive_block*   block   // out: Pixels to fill 
-                                     );
+/*
+ * - - -- --- ----- -------- -------------
+ * -- Region callbacks
+ *
+ * Initialization - param, istate, and srcs are already initialized
+ * Finalization   - other fields are already destroyed
+ * Pixel fetch    -
+ */
+
+typedef void (*aktive_region_setup) (aktive_region_info* info);
+typedef void (*aktive_region_final) (void* state);
+
+typedef void (*aktive_region_fetch) ( aktive_region_info* info    // Region owning the request
+                                    , aktive_rectangle*   request // Area requested from image
+				    , aktive_rectangle*   dst     // Area in `block` to write to
+                                    , aktive_block*       block   // Block to write to.
+                                    );
+
+/*
+ * - - -- --- ----- -------- -------------
+ * -- Shorthands for use in the callbacks
+ */
+
+#define SRCS (info->srcs)
 
 /*
  * - - -- --- ----- -------- -------------
@@ -58,7 +84,7 @@ typedef void  (*aktive_region_fetch) ( void*                    param   // Image
 extern aktive_region aktive_region_new        (aktive_image image);
 extern void          aktive_region_destroy    (aktive_region region);
 extern aktive_image  aktive_region_owner      (aktive_region region);
-extern aktive_block* aktive_region_fetch_area (aktive_region region, aktive_rectangle* area);
+extern aktive_block* aktive_region_fetch_area (aktive_region region, aktive_rectangle* request);
 
 /*
  * - - -- --- ----- -------- -------------

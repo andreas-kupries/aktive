@@ -491,8 +491,8 @@ proc dsl::writer::OperatorFunctionForOp {op} {
 
     dict with spec {}
     # notes, images, params, result, rcode, statec, stater, statef, geometry
-    unset notes images
-    ##                       result, rcode, statec, stater, statef, geometry
+    unset notes
+    ##       images          result, rcode, statec, stater, statef, geometry
 
     if {$result ne "void"} {
 	set result [CprocResultC $spec]
@@ -504,6 +504,8 @@ proc dsl::writer::OperatorFunctionForOp {op} {
     set paramtype  void ; if {[llength $params]} { set paramtype  [ParamStructTypename $op] }
     set statetype  void ; if {$statef  ne {}}    { set statetype  [StateStructTypename $op] }
     set regiontype void ; if {$regionf ne {}}    { set regiontype [RegionStateTypename $op] }
+
+    set hasimages [llength $images]
 
     Comment "- - -- --- ----- -------- ------------- ---------------------\n * Operator \"$op\" ...\n"
     + {}
@@ -524,16 +526,37 @@ proc dsl::writer::OperatorFunctionForOp {op} {
     }
 
     if {$regionc ne {}} {
-	+ "static ${regiontype}*"
-	+ "[RegionSetupFuncname $op] (${paramtype}* param, aktive_image_vector* srcs, ${statetype}* state) \{"
-	+ [FormatCodeWithReturn $regionc]
+	+ "static void"
+	+ "[RegionSetupFuncname $op] (aktive_region_info* info) \{"
+
+	# Enhance fragment with code providing the info data in properly typed form.
+	set types {}
+	if {$hasimages} { lappend types [list aktive_region_vector] }
+	set pt 0 ; if {$paramtype  ne "void"} { incr pt ; lappend types *$paramtype  }
+	set rt 0 ; if {$regiontype ne "void"} { incr rt ; lappend types *$regiontype }
+	set st 0 ; if {$statetype  ne "void"} { incr st ; lappend types *$statetype  }
+	set tl [Maxlength $types] ; set tlx $tl ; incr tlx 2
+
+	if {$pt}        { + "  [PadR $tl ${paramtype}*] param  = [PadR $tlx (${paramtype}*)] info->param;" }
+	if {$st}        { + "  [PadR $tl ${statetype}*] istate = [PadR $tlx (${statetype}*)] info->istate;" }
+	if {$hasimages} { + "  [PadR $tl aktive_region_vector] srcs   = [PadR $tlx ""] info->srcs;" }
+	if {$rt}        {
+	    # region state type is known. allocate it.
+	    + "  [PadR $tl ${regiontype}*] state  = [PadR $tlx (${regiontype}*)] ALLOC ($regiontype);"
+	    + "  info->state = state;"
+	} else {
+	    + "#define state (info->state)"
+	}
+
+	+ [FormatCode $regionc]
+	if {!$rt} { + "undef state" }
 	+ "\}"
 	+ {}
     }
 
     if {$regionr ne {}} {
 	+ "static void"
-	+ "[RegionFinalFuncname $op] (${regiontype}* region) \{"
+	+ "[RegionFinalFuncname $op] (${regiontype}* state) \{"
 	+ [FormatCode $regionr]
 	+ "\}"
 	+ {}
@@ -601,9 +624,22 @@ proc dsl::writer::OperatorFunctionForOp {op} {
 	# image result -- Pixel fetch function first
 
 	+ "static void"
-	+ "[RegionFetchFuncname $op] ([RegionFetchSig $paramtype $regiontype]) \{"
+	+ "[RegionFetchFuncname $op] ([RegionFetchSig]) \{"
 
 	if {$regionm ne {}} {
+	    # Enhance fragment with code providing the info data in properly typed form.
+	    set types {}
+	    if {$hasimages} { lappend types [list aktive_region_vector] }
+	    set pt 0 ; if {$paramtype  ne "void"} { incr pt ; lappend types *$paramtype  }
+	    set rt 0 ; if {$regiontype ne "void"} { incr rt ; lappend types *$regiontype }
+	    set st 0 ; if {$statetype  ne "void"} { incr st ; lappend types *$statetype  }
+	    set tl [Maxlength $types] ; set tlx $tl ; incr tlx 2
+
+	    if {$pt}        { + "  [PadR $tl ${paramtype}*] param  = [PadR $tlx (${paramtype}*)] info->param;" }
+	    if {$rt}        { + "  [PadR $tl ${regiontype}*] state  = [PadR $tlx (${regiontype}*)] info->state;" }
+	    if {$st}        { + "  [PadR $tl ${statetype}*] istate = [PadR $tlx (${statetype}*)] info->istate;" }
+	    if {$hasimages} { + "  [PadR $tl aktive_region_vector] srcs   = [PadR $tlx ""] info->srcs;" }
+
 	    + [FormatCode $regionm]
 	} else {
 	    + [Placeholder ${op}-fetch]
@@ -1319,12 +1355,10 @@ proc dsl::writer::RegionFetchFuncname    {op} { return "aktive_[Cname $op]_regio
 proc dsl::writer::RegionSetupFuncname    {op} { return "aktive_[Cname $op]_region_setup" }
 proc dsl::writer::RegionFinalFuncname    {op} { return "aktive_[Cname $op]_region_final" }
 
-proc dsl::writer::RegionFetchSig {paramtype regiontype} {
-    append r "${paramtype}* param"
-    append r ", aktive_region_vector* srcs"
-    append r ", ${regiontype}* state"
+proc dsl::writer::RegionFetchSig {} {
+    append r   "aktive_region_info* info"
     append r ", aktive_rectangle* request"
-    append r ", aktive_rectangle* physreq"
+    append r ", aktive_rectangle* dst"
     append r ", aktive_block* block"
     return $r
 }

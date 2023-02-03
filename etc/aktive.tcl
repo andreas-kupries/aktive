@@ -274,15 +274,8 @@ operator image::constant {
 	aktive_geometry_set (geo, param->width, param->height, param->depth);
     }
     pixels {
-	// param   -- value
-	// srcs    -- n/a
-	// state   -- n/a
-	// request -- ignore
-	// physreq -- area in block to fill
-	// block   -- pixel storage
-
-	aktive_blit_fill (block, physreq, param->value);
-    } ;# no state
+	aktive_blit_fill (block, dst, param->value);
+    }
 }
 
 operator image::const::planes {
@@ -299,18 +292,10 @@ operator image::const::planes {
 	aktive_geometry_set (geo, param->width, param->height, param->value.c);
     }
     pixels {
-	// param   -- value
-	// srcs    -- n/a
-	// state   -- n/a
-	// request -- ignore
-	// physreq -- area in block to fill
-	// block   -- pixel storage
-	//
 	// assert: param.value.c == block.geo.depth
 	// assert: block.used % block.depth == 0
-
-	aktive_blit_fill_bands (block, physreq, &param->value);
-    } ;# no state
+	aktive_blit_fill_bands (block, dst, &param->value);
+    }
 }
 
 nyi operator image::const::matrix {
@@ -504,30 +489,19 @@ operator op::view {
 			     aktive_image_get_depth (srcs->v [0]));
     }
     pixels {
-	// param   -- view
-	// srcs    -- #1 [0]
-	// state   -- n/a
-	// request -- passed down to input
-	// physreq -- area in block to fill
-	// block   -- pixel storage
-	//
 	// pass-through operation ...
 	// - Requested area passes unchanged to input ...
 	// - Returned pixels pass unchanged to caller ...
-	//
-	// TODO :: proper pixel blit because area here may be a subset of full area,
-	//      :: whereas the returned pixels are the fully requested set
 	//
 	// CONSIDER :: A reworked fetch API enabling zero copy full pass-through
 	//          :: (full area, requested area, pixel memory)
 	//          :: Maybe move aktive_block out of region ? Caller-owned ?
 	//          :: ops not passing through => block is standard region state ?!
-
+	//
 	// assert: result.used == block.used
 	// assert: result.geo  == block.geo
 
-	aktive_blit_copy0 (block, physreq,
-			   aktive_region_fetch_area (srcs->v [0], request));
+	aktive_blit_copy0 (block, dst, aktive_region_fetch_area (srcs.v[0], request));
     }
 }
 

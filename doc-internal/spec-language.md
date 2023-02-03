@@ -134,7 +134,7 @@ Defaults:
 |`input RC`                     |Declare required input image with ref-counting mode    |
 |`input... RC`                  |As above, variadic, has to be last, see notes below    |
 |||
-|`geometry GEO_CODE ...`		|C code fragment to compute initial location+geometry	|
+|`geometry GEO_CODE ...`                |C code fragment to compute initial location+geometry   |
 |`pixels ?-state RFIELDS? ?-cons RCONS? ?-release RRELEASE? FETCH ...`|C code fragments to manage custom region state, and pixel fetch|
 |`state ?-state FIELDS? ?-cons CONS? ?-release RELEASE? ...`|C code fragments to manage custom operator state|
 
@@ -187,14 +187,14 @@ statement is added by the generator.
 
 The fragment has access to the following variables:
 
-|Name	     |Type			|Content					|
-|---	     |---			|---						|
-|ip	     |Tcl_Interp*		|Interpreter receiving the result		|
-|src	     |aktive_image		|Input image. Optional 	   			|
-|src<N>	     |aktive_image      	|Input images, if multiple, in fixed number	|
-|	     |				|`N` counts from 0 up	       	     		|
-|srcs	     |aktive_image_vector	|Input images, if multiple, variable number	|
-|param	     |(param-struct)*		|Operator parameter structure. Optional		|
+|Name        |Type                      |Content                                        |
+|---         |---                       |---                                            |
+|ip          |Tcl_Interp*               |Interpreter receiving the result               |
+|src         |aktive_image              |Input image. Optional                          |
+|src<N>      |aktive_image              |Input images, if multiple, in fixed number     |
+|            |                          |`N` counts from 0 up                           |
+|srcs        |aktive_image_vector       |Input images, if multiple, variable number     |
+|param       |(param-struct)*           |Operator parameter structure. Optional         |
 
 ###### `ACTION_CODE`
 
@@ -210,13 +210,13 @@ has to follow the C syntax for a C function body, for insertion into such.
 
 The fragment has access to the following variables:
 
-|Name	     |Type			|Content					|
-|---	     |---			|---						|
-|param	     |(param-struct)*		|Operator parameter structure. May be `0`	|
-|srcs	     |aktive_image_vector	|Input images. May be empty    	      		|
-|state	     |(image-state-struct)*	|Operator image state. May be `0`		|
-|loc	     |aktive_point*		|Place to write the computed location to	|
-|geom	     |aktive_geometry*		|Place to write the computed geometry to	|
+|Name        |Type                      |Content                                        |
+|---         |---                       |---                                            |
+|param       |(param-struct)*           |Operator parameter structure. May be `0`       |
+|srcs        |aktive_image_vector       |Input images. May be empty                     |
+|state       |(image-state-struct)*     |Operator image state. May be `0`               |
+|loc         |aktive_point*             |Place to write the computed location to        |
+|geom        |aktive_geometry*          |Place to write the computed geometry to        |
 
 ###### `CONS`
 
@@ -236,10 +236,10 @@ deliver.
 
 The fragment has access to the following variables:
 
-|Name	     |Type			|Content					|
-|---	     |---			|---						|
-|param	     |(param-struct)*		|Operator parameter structure. May be `0`	|
-|srcs	     |aktive_image_vector	|Input images. May be empty    	      		|
+|Name        |Type                      |Content                                        |
+|---         |---                       |---                                            |
+|param       |(param-struct)*           |Operator parameter structure. May be `0`       |
+|srcs        |aktive_image_vector       |Input images. May be empty                     |
 
 ###### `RELEASE`
 
@@ -252,20 +252,22 @@ The `FIELDS` fragment provides the structure fields. If not specified the state 
 
 The fragment has access to the following variables:
 
-|Name	     |Type			|Content		|
-|---	     |---			|---			|
-|state       |(image-state-struct)*	|Operator image state	|
+|Name        |Type                      |Content                |
+|---         |---                       |---                    |
+|state       |(image-state-struct)*     |Operator image state   |
 
 ###### `RCONS`
 
 See `CONS`. This is for the construction of operator-specific region (i.e. processing)
 state. Whereas `CONS` is for static image state.
 
-The fragment has access to the same variables as `CONS`, plus an additional variable:
+The fragment has access to the following variables:
 
-|Name	     |Type			|Content					|
-|---	     |---			|---						|
-|imagestate  |(image-state-struct)*	|Operator image state. May be `0`		|
+|Name        |Type                      |Content                                        |
+|---         |---                       |---                                            |
+|param       |(param-struct)*           |Operator parameter structure. May be `0`       |
+|srcs        |aktive_image_vector       |Input images. May be empty                     |
+|imagestate  |(image-state-struct)*     |Operator image state. May be `0`               |
 
 ###### `RRELEASE`
 
@@ -278,9 +280,9 @@ and the fragment has to cast as needed.
 
 The fragment has access to the following variables:
 
-|Name	     |Type			|Content		|
-|---	     |---			|---			|
-|state       |(region-state-struct)*	|Operator region state	|
+|Name        |Type                      |Content                |
+|---         |---                       |---                    |
+|state       |(region-state-struct)*    |Operator region state  |
 
 
 ###### `FETCH`
@@ -291,21 +293,15 @@ any. It has to follow the C syntax for a C function body, for insertion into suc
 
 The fragment has access to the following variables:
 
-|Name	     |Type			|Content						|
-|---	     |---			|---							|
-|param	     |(param-struct)*		|Operator parameter structure. May be `0`		|
-|srcs	     |aktive_region_vector	|Input regions. May be empty   	      			|
-|state	     |(region-state-struct)*	|Operator region state. May be `0`			|
-|request     |aktive_rectangle*		|Area to compute the pixels for				|
-|physreq     |aktive_rectangle*		|Same area, translated for the pixel memory		|
-|block	     |aktive_block*		|IO argument holding pixel memory, dimensions, etc.	|
+|Name        |Type                      |Content                                        |
+|---         |---                       |---                                            |
+|param       |(param-struct)*           |Operator parameter structure, if any           |
+|srcs        |aktive_region_vector      |Input regions. If any.                         |
+|state       |(region-state-struct)*    |Operator region state. If any.                 |
+|istate      |(image-state-struct)*     |Operator state. If any.                        |
+|request     |aktive_rectangle*         |Area to compute the pixels for                 |
+|dst         |aktive_rectangle*         |Destination areay for the pixels in block      |
+|block       |aktive_block*             |Pixel storage                                  |
 
-Note that the requested area is provided in two forms.
-
-The data held by the `request` variable is in the main coordinate system images are in, the full 2D
-plane.
-
-The pixel memory however has its own physical coordinate system, always rooted at (0,0).
-
-The `physreq` variable holds the `request` translated into this coordinate system, for direct use
-with the `aktive_blit_*` API functions.
+The `request` is the image area to get pixels for. This is possibly passed to inputs.
+The `dst` is the storage area the pixels are to be written (blitted) to.

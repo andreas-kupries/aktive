@@ -23,46 +23,44 @@ aktive_region_new (aktive_image image)
 {
     TRACE_FUNC("((image) %p '%s'", image, image->opspec->name);
 
-    /* Create new and clean image structure ... */
+    // Create new and clean image structure ... 
 
-    aktive_region r = ALLOC(struct aktive_region);
-    memset (r, 0, sizeof(struct aktive_region));
+    aktive_region region = ALLOC(struct aktive_region);
+    memset (region, 0, sizeof(struct aktive_region));
 
-    /* Reference origin */
+    // Reference origin 
 
-    r->origin = image; aktive_image_ref (image);
+    region->origin = image; aktive_image_ref (image);
 
-    /* Generate regions representing the inputs, if any */
+    // Generate regions representing the inputs, if any 
 
     if (image->srcs.c) {
-	aktive_region_vector_new (&r->srcs, image->srcs.c);
-	for (unsigned int i = 0; i < r->srcs.c; i++) {
-	    r->srcs.v [i] = aktive_region_new (image->srcs.v [i]);
+	aktive_region_vector_new (&region->public.srcs, image->srcs.c);
+	for (unsigned int i = 0; i < region->public.srcs.c; i++) {
+	    region->public.srcs.v [i] = aktive_region_new (image->srcs.v [i]);
 	}
     }
 
-    /* Initialize local pointers to important structures */
+    // Initialize local pointers to important structures 
 
-    r->param    = image->param;
-    r->opspec   = image->opspec;
+    region->public.param = image->param;
+    region->opspec       = image->opspec;
 
     /* Note: The width and height values will be later replaced with data from
      * the area requested to be fetched
      */
-    aktive_geometry_copy (&r->pixels.geo, &image->geometry);
+    aktive_geometry_copy (&region->pixels.geo, &image->geometry);
+    region->pixels.region = region;
 
-    r->pixels.region = r;
-
-    /* Initialize custom state, if any */
+    // Initialize region state, if any 
+    region->public.istate = image->state;
 
     if (image->opspec->region_setup) {
-	r->state = image->opspec->region_setup (r->param,
-						&r->srcs,
-						image->state);
+	image->opspec->region_setup (&region->public);
     }
 
-    /* Done and return */
-    TRACE_RETURN("(aktive_region) %p", r);
+    // Done and return 
+    TRACE_RETURN("(aktive_region) %p", region);
 }
 
 extern void
@@ -70,22 +68,15 @@ aktive_region_destroy (aktive_region region)
 {
     TRACE_FUNC("((region) %p '%s'", region, region->opspec->name);
 
-    /* Release custom state, if any, and necessary */
+    // Release inputs, if any 
 
-    if (region->state) {
-	if (region->opspec->region_final) { region->opspec->final (region->state); }
-	ckfree ((char*) region->state);
-    }
+    aktive_region_vector_free (&region->public.srcs);
 
-    /* Release inputs, if any */
-
-    aktive_region_vector_free (&region->srcs);
-
-    /* Release owner */
+    // Release owner 
 
     aktive_image_unref (region->origin);
 
-    /* Release pixel data from the internal block, if any */
+    // Release pixel data from the internal block, if any 
 
     if (region->pixels.pixel) { ckfree ((char*) region->pixels.pixel); }
 
@@ -93,7 +84,14 @@ aktive_region_destroy (aktive_region region)
      * image structures not owned by the region
      */
 
-    /* Release main structure */
+    // Release custom state, if any, and necessary 
+
+    if (region->public.state) {
+	if (region->opspec->region_final) { region->opspec->final (region->public.state); }
+	ckfree ((char*) region->public.state);
+    }
+
+    // Release main structure 
     ckfree ((char*) region);
 
     TRACE_RETURN_VOID;
@@ -117,13 +115,6 @@ aktive_region_fetch_area (aktive_region region, aktive_rectangle* request)
 	       region, region->opspec->name,
 	       request->x, request->y, request->width, request->height);
 
-    // region
-    //   pixels
-    //	   geo	- block dimensions
-    //   origin
-    //     domain	area covered by the image
-    // request		area to get pixels for
-
     //    fprintf(stderr,"FETCH %p (%s)\n", region, region->opspec->name);fflush (stderr);
     //    __aktive_rectangle_dump ("\trequest", request);
     //    __aktive_rectangle_dump ("\tdomain ", &region->origin->domain);
@@ -133,8 +124,10 @@ aktive_region_fetch_area (aktive_region region, aktive_rectangle* request)
      * hald all the requested pixels.
      */
 
-    /* Update the desired request to fill */
+    // Update the desired request to fill 
 
+    // TODO ... blit api ...
+    
     aktive_geometry_set_rect (&region->pixels.geo, request);
 
     aktive_uint size = request->width * request->height * region->pixels.geo.depth;
@@ -174,14 +167,12 @@ aktive_region_fetch_area (aktive_region region, aktive_rectangle* request)
 	// fprintf(stderr,"SUBSET\n");fflush (stderr);
     
 	// Special case (a). The entire request has to be served by the fetcher.
-	aktive_rectangle phys = { 0, 0, request->width, request->height };
+	aktive_rectangle dst = { 0, 0, request->width, request->height };
 
 	// __aktive_rectangle_dump ("\t- full req ", request);
 	// __aktive_rectangle_dump ("\t- full preq", &phys);
 
-	region->opspec->region_fetch (region->param, &region->srcs,
-				      region->state, request, &phys,
-				      &region->pixels);
+	region->opspec->region_fetch (&region->public, request, &dst, &region->pixels);
 	goto done;
     }
 
@@ -203,26 +194,23 @@ aktive_region_fetch_area (aktive_region region, aktive_rectangle* request)
 
     // fprintf(stderr,"IN PIECES\n");fflush (stderr);
     
-    /* Clear the outside zones, if any */
+    // Clear the outside zones, if any 
     for (aktive_uint i = 1; i < zc; i++) { aktive_blit_clear (&region->pixels, &zv [i]); }
     
     // The overlap is the only remaining part to handle, and this is done by
     // the fetcher.
 
-    aktive_rectangle phys;
-    aktive_rectangle_copy (&phys, &zv [0]);
-    aktive_rectangle_move (&phys, -request->x, -request->y);
+    aktive_rectangle dst;
+    aktive_rectangle_copy (&dst, &zv [0]);
+    aktive_rectangle_move (&dst, -request->x, -request->y);
 
     // __aktive_rectangle_dump ("\t- inside req ", &zv[0]);
-    // __aktive_rectangle_dump ("\t- inside preq", &phys);
-    
-    region->opspec->region_fetch (region->param, &region->srcs, region->state,
-				  &zv [0], &phys, &region->pixels);
- done:
-    /* And return them */
+    // __aktive_rectangle_dump ("\t- inside preq", &dst);
 
+    region->opspec->region_fetch (&region->public, &zv[0], &dst, &region->pixels);
+ done:
     // __aktive_block_dump (region->opspec->name, &region->pixels);
-    
+    // And return them 
     TRACE_RETURN ("(aktive_block*) %p", &region->pixels);
 }
 
