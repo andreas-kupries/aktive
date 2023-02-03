@@ -87,7 +87,7 @@ aktive_region_destroy (aktive_region region)
     // Release custom state, if any, and necessary 
 
     if (region->public.state) {
-	if (region->opspec->region_final) { region->opspec->final (region->public.state); }
+	if (region->opspec->region_final) { region->opspec->region_final (region->public.state); }
 	ckfree ((char*) region->public.state);
     }
 
