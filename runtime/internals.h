@@ -1,9 +1,10 @@
 /* -*- c -*-
  */
-#ifndef AKTIVE_TYPES_INT_H
-#define AKTIVE_TYPES_INT_H
+#ifndef AKTIVE_INTERNALS_H
+#define AKTIVE_INTERNALS_H
 
-/* - - -- --- ----- -------- -------------
+/*
+ * - - -- --- ----- -------- -------------
  */
 
 typedef struct aktive_image {
@@ -22,7 +23,8 @@ typedef struct aktive_image {
 
 } *aktive_image;
 
-/* - - -- --- ----- -------- -------------
+/*
+ * - - -- --- ----- -------- -------------
  */
 
 typedef struct aktive_region {
@@ -45,4 +47,4 @@ typedef struct aktive_region {
  * fill-column: 78
  * End:
  */
-#endif /* AKTIVE_TYPES_INT_H */
+#endif /* AKTIVE_INTERNALS_H */

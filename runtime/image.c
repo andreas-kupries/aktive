@@ -10,7 +10,7 @@
 #include <critcl_trace.h>
 
 #include <rt.h>
-#include <types_int.h>
+#include <internals.h>
 
 TRACE_OFF;
 

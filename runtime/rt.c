@@ -10,7 +10,8 @@
 #include <critcl_trace.h>
 
 #include <rt.h>
-#include <types_int.h>
+#include <internals.h>
+
 #include <rtgen/vector-funcs.c>
 #include <rtgen/type-funcs.c>
 
@@ -20,7 +21,8 @@ TRACE_OFF;
  * - - -- --- ----- -------- -------------
  */
 
-/* - - -- --- ----- -------- -------------
+/*
+ * - - -- --- ----- -------- -------------
  * Error management
  */
 
@@ -29,16 +31,24 @@ aktive_error_set (Tcl_Interp* interp) {
     // TODO: store collected errors into interpreter
 }
 
-/* - - -- --- ----- -------- -------------
+/*
+ * - - -- --- ----- -------- -------------
  * Type support
  */
 
-extern Tcl_Obj* aktive_new_uint_obj (aktive_uint x) {
+extern Tcl_Obj*
+aktive_new_uint_obj (aktive_uint x) {
     Tcl_WideInt w = x;
     return Tcl_NewWideIntObj (w);
 }
 
-extern Tcl_Obj* aktive_new_point_obj(aktive_point* p) {
+/*
+ * - - -- --- ----- -------- -------------
+ * Geometry operations
+ */
+
+extern Tcl_Obj*
+aktive_new_point_obj(aktive_point* p) {
     Tcl_Obj* el[2];
 
     el[0] = Tcl_NewIntObj (p->x);
@@ -46,11 +56,6 @@ extern Tcl_Obj* aktive_new_point_obj(aktive_point* p) {
 
     return Tcl_NewListObj (2, el);
 }
-
-/*
- * - - -- --- ----- -------- -------------
- * Geometry operations
- */
 
 extern void
 aktive_point_set (aktive_point* dst, int x, int y)
