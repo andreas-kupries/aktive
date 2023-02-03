@@ -1,2 +1,2 @@
 BUILD-*
-generated/ensemble.tcl generated/glue.tcl generated/op-funcs.c generated/op-funcs.h generated/param-defines.h generated/param-descriptions.c generated/param-descriptors.c generated/param-funcs.c generated/param-funcs.h generated/param-names.c generated/param-types.h generated/type-defines.h generated/type-descriptor.c generated/type-funcs.c generated/type-funcs.h generated/vector-funcs.c generated/vector-funcs.h generated/vector-types.h
+generated*/*

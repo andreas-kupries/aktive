@@ -105,15 +105,11 @@ typedef void  (*aktive_region_fetch) ( void*                    param   /* Image
                                      , /* => */ aktive_block*   block   /* out: Pixels to fill */
                                      );
 
-typedef struct aktive_type_spec {
-    aktive_param_value to_obj ; /**/
-} aktive_type_spec;
-
 typedef struct aktive_image_parameter {
-    aktive_uint name   ; /* Index into `aktive_param_name` */
-    aktive_uint desc   ; /* Index into `aktive_param_desc` */
-    aktive_uint type   ; /* Index into `aktive_type_descriptor` */
-    aktive_uint offset ; /* Offset of field in the parameter structure */
+    const char*        name   ; /* Index into `aktive_param_name` */
+    const char*        desc   ; /* Index into `aktive_param_desc` */
+    aktive_param_value to_obj ; /* Index into `aktive_type_descriptor` */
+    aktive_uint        offset ; /* Offset of field in the parameter structure */
 } aktive_image_parameter;
 
 typedef struct aktive_image_type {

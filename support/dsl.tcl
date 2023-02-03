@@ -5,8 +5,8 @@ namespace eval ::dsl {
     namespace ensemble create
 }
 
-proc ::dsl::generate {in out} {
-    writer do $out [reader do $in]
+proc ::dsl::generate {pkg in out} {
+    writer do $out [reader do $pkg $in]
 }
 
 apply {{selfdir} {

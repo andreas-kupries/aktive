@@ -73,7 +73,7 @@ critcl::ccode {
 ##   inspected
 
 critcl::source support/dsl.tcl
-dsl generate etc/aktive.tcl generated/
+dsl generate aktive etc/aktive.tcl generated/
 
 # # ## ### ##### ######## ############# #####################
 ## Runtime - Fixed and generated parts
@@ -93,8 +93,6 @@ critcl::source  op/types.tcl                    ;# Operator support
 #
 critcl::include generated/vector-types.h        ;# Variadic support
 critcl::include generated/param-types.h         ;# Parameter blocks
-critcl::include generated/param-defines.h       ;# Parameter symbols
-critcl::include generated/type-defines.h        ;# Type symbols
 
 # Function declarations   ############# #####################
 
@@ -107,10 +105,7 @@ critcl::include generated/op-funcs.h            ;# Operators
 
 # Variables      ######## ############# #####################
 
-critcl::include generated/param-names.c         ;# Table of parameter names
-critcl::include generated/param-descriptions.c  ;# Table of parameter descriptions
 critcl::include generated/param-descriptors.c   ;# Parameter block descriptors
-critcl::include generated/type-descriptor.c     ;# Table of type descriptions
 
 # Function implementations              #####################
 

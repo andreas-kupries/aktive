@@ -274,15 +274,6 @@ static Tcl_Obj* aktive_new_rectangle_obj(aktive_rectangle* r) {
  * Notes:
  *  - `image->opspec` references generated variables
  *    See `*_opspec` in file `generated/op-funcs.c`
- *
- *  - `aktive_param_name` is a generated variable
- *     See file `generated/param-names.c`
-
- *  - `aktive_param_desc` is a generated variable
- *     See file `generated/param-descriptions.c`
-
- *  - `aktive_type_descriptor` is a generated variable
- *     See file `generated/type-descriptor.c`
  */
 
 static int
@@ -413,7 +404,7 @@ aktive_image_get_param_name (aktive_image image, aktive_uint i)
 	TRACE_RETURN ("(name) %p", 0);
     }
 
-    const char* name = aktive_param_name [image->opspec->param [i].name];
+    const char* name = image->opspec->param [i].name;
 
     TRACE_RETURN ("(name) '%s'", name);
 }
@@ -427,9 +418,8 @@ aktive_image_get_param_desc (aktive_image image, aktive_uint i)
 	TRACE_RETURN ("(desc) %p", 0);
     }
 
-    const char* desc = aktive_param_desc [image->opspec->param [i].desc];
-    /* generated ------^^^^^^^^^^^^^^^^^ */
-
+    const char* desc = image->opspec->param [i].desc;
+    
     TRACE_RETURN ("(desc) '%s'", desc);
 }
 
@@ -443,7 +433,7 @@ aktive_image_get_param_value (aktive_image image, aktive_uint i, Tcl_Interp* int
     }
 
     void*              field  = image->param  + image->opspec->param [i].offset;
-    aktive_param_value to_obj = aktive_type_descriptor [image->opspec->param [i].type].to_obj;
+    aktive_param_value to_obj = image->opspec->param [i].to_obj;
 
     Tcl_Obj* obj = to_obj (interp, field);
 

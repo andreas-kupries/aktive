@@ -10,9 +10,15 @@ namespace eval dsl::reader {
 
 # # ## ### ##### ######## #############
 
-proc dsl::reader::do {specification} {
+proc dsl::reader::do {package specification} {
     variable state
-    Init
+    variable readdir
+    variable importing
+
+    Init $package
+
+    set readdir   [file dirname [file normalize $specification]]
+    set importing 0
 
     puts "  ops generator reading $specification"
 
@@ -23,7 +29,26 @@ proc dsl::reader::do {specification} {
 # # ## ### ##### ######## #############
 ## DSL commands
 
+proc dsl::reader::import {path} {
+    variable readdir
+    variable importing
+
+    incr importing
+    puts "  ops generator [string repeat {  } $importing] importing $path"
+
+    set path    [file normalize [file join $readdir $path]]
+    set saved   $readdir
+    set readdir [file dirname $path]
+
+    source $path
+    incr importing -1
+
+    set readdir $saved
+}
+
 proc dsl::reader::type {name critcl ctype conversion} {
+variable importing
+
     if {$name in {
 	type vector operator note void result input
     } || [string match {[A-Z]*} $name]} {
@@ -37,7 +62,10 @@ proc dsl::reader::type {name critcl ctype conversion} {
     if {$critcl eq "-"} { set critcl $name   }
     if {$ctype  eq "-"} { set ctype  $critcl }
 
-    Set types $name [list $critcl $ctype $conversion]
+    Set types $name imported   $importing
+    Set types $name critcl     $critcl
+    Set types $name ctype      $ctype
+    Set types $name conversion $conversion
 
     interp alias {} ::dsl::reader::$name      {} ::dsl::reader::Param $name required {}
     interp alias {} ::dsl::reader::${name}... {} ::dsl::reader::Param $name args     {}
@@ -45,7 +73,8 @@ proc dsl::reader::type {name critcl ctype conversion} {
 }
 
 proc dsl::reader::vector {args} { ;#puts [info level 0]
-    Lappend vectors {*}$args
+    variable importing
+    foreach v $args { Set vectors $v $importing }
 }
 
 proc dsl::reader::operator {args} { ;#puts [info level 0]
@@ -244,8 +273,11 @@ proc dsl::reader::Param {type mode dvalue name args} { ;#puts [info level 0]
 	Abort "Rejecting variadic parameter, we have images"
     }
 
-    dict set argspec name [Pname $name]
-    dict set argspec help [Help  [join $args { }]]
+    set desc [join $args { }]
+        if {$desc eq {}} { Abort "Empty description" }
+
+    dict set argspec name $name
+    dict set argspec desc $desc
     dict set argspec type $type
     dict set argspec args $isargs
 
@@ -259,47 +291,21 @@ proc dsl::reader::Param {type mode dvalue name args} { ;#puts [info level 0]
     LappendX opspec params $argspec
 }
 
-proc dsl::reader::Pname {x} { ;#puts [info level 0]
-    if {[Has pname text $x]} { ::return [Get pname text $x] }
-
-    set id [llength [Get pname texts]]
-    LappendX pname texts $x
-    Set      pname text  $x $id
-    ::return $id
-}
-
-proc dsl::reader::Help {x} { ;#puts [info level 0]
-    if {$x eq {}} { Abort "Empty description" }
-
-    if {[Has help text $x]} { ::return [Get help text $x] }
-
-    set id [llength [Get help texts]]
-    LappendX help texts $x
-    Set      help text  $x $id
-    ::return $id
-}
-
 # # ## ### ##### ######## #############
 ## State management (changing, querying)
 
-proc dsl::reader::Init {} {
+proc dsl::reader::Init {package} {
     variable state {
 	types   {}
+	vectors {}
+	vcached 0
 	ops     {}
 	opname  {}
 	opspec  {}
 	argspec {}
 	imspec  {}
-	kind    {}
-	help    {
-	    text  {}
-	    texts {}
-	}
-	pname   {
-	    text  {}
-	    texts {}
-	}
     }
+    dict set state package $package
 }
 
 proc dsl::reader::Set {args} {
@@ -338,31 +344,33 @@ proc dsl::reader::Has {args} {
 
 # ... ... ... ingestion commands ... ... ... ... ... ...
 ## Data
-##  - types   :: dict (typename -> list (critcl ctype))
+##  - name
+##  - types   :: dict (typename -> typespec)
+##  - vectors :: dict (typename -> imported)
 ##  - ops     :: dict (opname -> opspec)
-##  - opname  :: string
-##  - opspec  :: dict (key -> value)
-##  - help    :: list (string)
-##  - pname   :: list (string)
+##  - opname  :: string               [Only during collection]
+##  - opspec  :: dict (key -> value)  [Only during collection]
 ##
-## During collection
-##  - help    :: dict (text -> id, text -> list (string))
-##  - pname   :: dict (text -> id, text -> list (string))
+## typespec keys
+##  - imported
+##  - critcl
+##  - ctype
+##  - conversion
 ##
 ## opspec keys
-##  - notes  :: list (string)
+##  - args   :: bool
 ##  - images :: list (imspec)
+##  - notes  :: list (string)
+##  - param  :: dict (string -> '.') [Only during collection]
 ##  - params :: list (argspec)
 ##  - result :: string
-##  - args   :: bool
-##  - param  :: dict (string -> '.') [During collection only]
 ##
 ## argspec keys
-##  - name    :: id
-##  - type    :: string
 ##  - args    :: bool
 ##  - default :: string, optional
-##  - help    :: id
+##  - desc    :: string
+##  - name    :: string
+##  - type    :: string
 ##
 ## imspec keys
 ##  - rcmode :: string
