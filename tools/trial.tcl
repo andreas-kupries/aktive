@@ -18,6 +18,10 @@ proc show {i} {
     puts "  pi [aktive query pitch  $i] (w*d)"
     puts "  px [aktive query pixels $i] (w*h)"
     puts "  sz [aktive query size   $i] (w*h*d)"
+    puts ""
+    puts "  location [aktive query location $i]"
+    puts "  domain   [aktive query domain   $i]"
+    puts "  geometry [aktive query geometry $i]"
     puts "\}"
     puts ""
     puts "raw (([aktive format tcl $i]))"
@@ -28,5 +32,14 @@ proc show {i} {
 
 show [aktive image constant     4 6 1  0.5]
 show [aktive image const planes 4 6    0 0.5 1]
+show [aktive image const matrix 8 8 \
+	  .5 .5 .5 .5 .5 .5 .5 .5 \
+	  .5 .5 .5  1  1 .5 .5 .5 \
+	  .5 .5 .5  1  1 .5 .5 .5 \
+	  .5  1  1  1  1  1  1 .5 \
+	  .5  1  1  1  1  1  1 .5 \
+	  .5 .5 .5  1  1 .5 .5 .5 \
+	  .5 .5 .5  1  1 .5 .5 .5 \
+	  .5 .5 .5 .5 .5 .5 .5 .5]
 
 exit

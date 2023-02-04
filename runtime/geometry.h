@@ -80,6 +80,8 @@ extern void aktive_rectangle_copy          (aktive_rectangle* dst, aktive_rectan
 extern void aktive_rectangle_set_point     (aktive_rectangle* dst, aktive_point*     src);
 extern void aktive_rectangle_from_geometry (aktive_rectangle* dst, aktive_geometry*  src);
 
+#define aktive_rectangle_as_point(src)     ((aktive_point*) (src))
+
 extern int aktive_rectangle_is_equal  (aktive_rectangle* a, aktive_rectangle* b);
 extern int aktive_rectangle_is_subset (aktive_rectangle* a, aktive_rectangle* b);
 extern int aktive_rectangle_is_empty  (aktive_rectangle* r);
