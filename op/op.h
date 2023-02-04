@@ -1,7 +1,11 @@
 /* -*- c -*-
+ *
+ * -- Direct operator support - formatting image as Tcl structure
  */
 #ifndef AKTIVE_OP_H
 #define AKTIVE_OP_H
+
+#include <rt.h>
 
 /* - - -- --- ----- -------- -------------
  * Helper functions for the individual operators
@@ -11,7 +15,6 @@
 static Tcl_Obj* aktive_op_astcl    (Tcl_Interp* ip, aktive_image src);
 static Tcl_Obj* aktive_op_params   (Tcl_Interp* ip, aktive_image src);
 static Tcl_Obj* aktive_op_pixels   (Tcl_Interp* ip, aktive_image src);
-static Tcl_Obj* aktive_op_location (Tcl_Interp* ip, aktive_image src);
 static Tcl_Obj* aktive_op_geometry (Tcl_Interp* ip, aktive_image src);
 
 /*

@@ -37,8 +37,7 @@ critcl::argtype aktive_point {
     if (Tcl_GetIntFromObj (interp, v[0], &x) != TCL_OK) { return TCL_ERROR; }
     if (Tcl_GetIntFromObj (interp, v[1], &y) != TCL_OK) { return TCL_ERROR; }
 
-    (@A).x = x;
-    (@A).y = y;
+    aktive_point_set (&@A, x, y);
 } aktive_point aktive_point
 
 critcl::resulttype aktive_point {
@@ -67,10 +66,7 @@ critcl::argtype aktive_rectangle {
     if (Tcl_GetIntFromObj (interp, v[2], &w) != TCL_OK) { return TCL_ERROR; }
     if (Tcl_GetIntFromObj (interp, v[3], &h) != TCL_OK) { return TCL_ERROR; }
 
-    (@A).x      = x;
-    (@A).y      = y;
-    (@A).width  = w;
-    (@A).height = h;
+    aktive_rectangle_set (&@A, x, y, w, h);
 } aktive_rectangle aktive_rectangle
 
 critcl::resulttype aktive_rectangle {
@@ -101,12 +97,6 @@ critcl::argtype aktive_geometry {
     if (Tcl_GetIntFromObj (interp, v[3], &d) != TCL_OK) { return TCL_ERROR; }
 
     aktive_geometry_set (&@A, x, y, w, h, d);
-
-//    (@A).x      = x;
-  //  (@A).y      = y;
-    //(@A).width  = w;
-//    (@A).height = h;
-  //  (@A).depth  = d;
 } aktive_geometry aktive_geometry
 
 critcl::resulttype aktive_geometry {
