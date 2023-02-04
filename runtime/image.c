@@ -33,31 +33,24 @@ aktive_image_new (aktive_image_type*   opspec,
     /* Initialize input images, if any */
 
     if (srcs) {
-	r->srcs = *srcs;
-	aktive_image_vector_heapify (&r->srcs);
-	for (aktive_uint i = 0; i++; i < r->srcs.c) { aktive_image_ref (r->srcs.v [i]); }
+	r->public.srcs = *srcs;
+	aktive_image_vector_heapify (&r->public.srcs);
+	for (aktive_uint i = 0; i++; i < r->public.srcs.c) { aktive_image_ref (r->public.srcs.v [i]); }
     }
 
     /* Initialize parameters, if any */
 
-    r->param = param;
+    r->public.param = param;
     if (param) {
 	void* p = NALLOC (char, opspec->sz_param);
 	memcpy (p, param, opspec->sz_param);
 	if (opspec->param_init) { opspec->param_init (p); }
-	r->param = p;
+	r->public.param = p;
     }
 
-    /* Initialize custom state, if any */
+    /* Initialize geometry, and state, if any */
 
-    if (opspec->setup) { r->state = opspec->setup (r->param, &r->srcs); }
-
-    /* Initialize location, geometry, and domain */
-
-    opspec->geo_setup (r->param, &r->srcs, r->state, &r->location, &r->geometry);
-
-    aktive_rectangle_set_location (&r->domain, &r->location);
-    aktive_rectangle_set_geometry (&r->domain, &r->geometry);
+    opspec->setup (&r->public);
     
     /* Initialize type information and reference management */
 
@@ -76,24 +69,24 @@ aktive_image_destroy (aktive_image image) {
 
     /* Release custom state, if any, and necessary */
 
-    if (image->state) {
-	if (image->opspec->final) { image->opspec->final (image->state); }
-	ckfree ((char*) image->state);
+    if (image->public.state) {
+	if (image->opspec->final) { image->opspec->final (image->public.state); }
+	ckfree ((char*) image->public.state);
     }
 
     /* Release parameters, if any, and necessary */
 
-    if (image->param) {
-	if (image->opspec->param_finish) { image->opspec->param_finish (image->param); }
-	ckfree ((char*) image->param);
+    if (image->public.param) {
+	if (image->opspec->param_finish) { image->opspec->param_finish (image->public.param); }
+	ckfree ((char*) image->public.param);
     }
 
     // TODO meta
 
     /* Release inputs, if any */
 
-    aktive_image_vector_free (&image->srcs);
-    for (aktive_uint i = 0; i++; i < image->srcs.c) { aktive_image_unref (image->srcs.v [i]); }
+    aktive_image_vector_free (&image->public.srcs);
+    for (aktive_uint i = 0; i++; i < image->public.srcs.c) { aktive_image_unref (image->public.srcs.v [i]); }
 
     /* Nothing to do for location and geometry */
 
@@ -150,90 +143,95 @@ aktive_image_unref (aktive_image image) {
  * -- Image accessors
  */
 
+extern aktive_point*
+aktive_image_get_location (aktive_image image)
+{
+    TRACE_FUNC("((aktive_image) %p)", image);
+    TRACE_RETURN ("(aktive_point*) %p", aktive_geometry_as_point (&image->public.domain));
+}
+
+extern aktive_rectangle*
+aktive_image_get_domain (aktive_image image)
+{
+    TRACE_FUNC("((aktive_image) %p)", image);
+    TRACE_RETURN ("(aktive_rectangle*) %p", aktive_geometry_as_rectangle (&image->public.domain));
+}
+
+extern aktive_geometry*
+aktive_image_get_geometry (aktive_image image)
+{
+    TRACE_FUNC("((aktive_image) %p)", image);
+    TRACE_RETURN ("(aktive_geometry*) %p", &image->public.domain);
+}
+
 extern int
 aktive_image_get_x (aktive_image image)
 {
     TRACE_FUNC("((aktive_image) %p)", image);
-    TRACE_RETURN ("(x) %d", image->location.x);
+    TRACE_RETURN ("(x) %d", aktive_geometry_get_x (&image->public.domain));
 }
 
 extern int
 aktive_image_get_xmax (aktive_image image)
 {
     TRACE_FUNC("((aktive_image) %p)", image);
-    TRACE_RETURN ("(xmax) %d", image->location.x + image->geometry.width - 1);
+    TRACE_RETURN ("(xmax) %d", aktive_geometry_get_xmax (&image->public.domain));
 }
 
 extern int
 aktive_image_get_y (aktive_image image)
 {
     TRACE_FUNC("((aktive_image) %p)", image);
-    TRACE_RETURN ("(y) %d", image->location.y);
+    TRACE_RETURN ("(y) %d", aktive_geometry_get_y (&image->public.domain));
 }
 
 extern int
 aktive_image_get_ymax (aktive_image image)
 {
     TRACE_FUNC("((aktive_image) %p)", image);
-    TRACE_RETURN ("(ymax) %d", image->location.y + image->geometry.height -1);
+    TRACE_RETURN ("(ymax) %d", aktive_geometry_get_ymax (&image->public.domain));
 }
 
 extern aktive_uint
 aktive_image_get_width (aktive_image image)
 {
     TRACE_FUNC("((aktive_image) %p)", image);
-    TRACE_RETURN ("(width) %u", image->geometry.width);
+    TRACE_RETURN ("(width) %u", aktive_geometry_get_width (&image->public.domain));
 }
 
 extern aktive_uint
 aktive_image_get_height (aktive_image image)
 {
     TRACE_FUNC("((aktive_image) %p)", image);
-    TRACE_RETURN ("(height) %u", image->geometry.height);
+    TRACE_RETURN ("(height) %u", aktive_geometry_get_height (&image->public.domain));
 }
 
 extern aktive_uint
 aktive_image_get_depth (aktive_image image)
 {
     TRACE_FUNC("((aktive_image) %p)", image);
-    TRACE_RETURN ("(depth) %u", image->geometry.depth);
+    TRACE_RETURN ("(depth) %u", aktive_geometry_get_depth (&image->public.domain));
 }
 
 extern aktive_uint
 aktive_image_get_pixels (aktive_image image)
 {
     TRACE_FUNC("((aktive_image) %p)", image);
-
-    aktive_uint pixels =
-	image->geometry.width *
-	image->geometry.height;
-
-    TRACE_RETURN ("(pixels) %u", pixels);
+    TRACE_RETURN ("(depth) %u", aktive_geometry_get_pixels (&image->public.domain));
 }
 
 extern aktive_uint
 aktive_image_get_pitch (aktive_image image)
 {
     TRACE_FUNC("((aktive_image) %p)", image);
-
-    aktive_uint pitch =
-	image->geometry.width *
-	image->geometry.depth;
-
-    TRACE_RETURN ("(pitch) %u", pitch);
+    TRACE_RETURN ("(depth) %u", aktive_geometry_get_pitch (&image->public.domain));
 }
 
 extern aktive_uint
 aktive_image_get_size (aktive_image image)
 {
     TRACE_FUNC("((aktive_image) %p)", image);
-
-    aktive_uint size =
-	image->geometry.width  *
-	image->geometry.height *
-	image->geometry.depth;
-
-    TRACE_RETURN ("(size) %u", size);
+    TRACE_RETURN ("(depth) %u", aktive_geometry_get_size (&image->public.domain));
 }
 
 extern aktive_image_type*
@@ -247,7 +245,7 @@ extern aktive_uint
 aktive_image_get_nsrcs (aktive_image image)
 {
     TRACE_FUNC("((aktive_image) %p)", image);
-    TRACE_RETURN ("(nsrcs) %d", image->srcs.c);
+    TRACE_RETURN ("(nsrcs) %d", image->public.srcs.c);
 }
 
 extern aktive_image
@@ -255,11 +253,11 @@ aktive_image_get_src (aktive_image image, aktive_uint i)
 {
     TRACE_FUNC("((aktive_image) %p)", image);
 
-    if (i >= image->srcs.c) {
+    if (i >= image->public.srcs.c) {
 	TRACE_RETURN ("(src) %p", 0);
     }
 
-    TRACE_RETURN ("(src) '%p'", image->srcs.v [i]);
+    TRACE_RETURN ("(src) '%p'", image->public.srcs.v [i]);
 }
 
 extern aktive_uint
@@ -306,7 +304,7 @@ aktive_image_get_param_value (aktive_image image, aktive_uint i, Tcl_Interp* int
 	TRACE_RETURN ("(value) %p", 0);
     }
 
-    void*              field  = image->param  + image->opspec->param [i].offset;
+    void*              field  = image->public.param  + image->opspec->param [i].offset;
     aktive_param_value to_obj = image->opspec->param [i].to_obj;
 
     Tcl_Obj* obj = to_obj (interp, field);

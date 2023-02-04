@@ -135,8 +135,8 @@ Defaults:
 |`input... RC`                  |As above, variadic, has to be last, see notes below    |
 |||
 |`geometry GEO_CODE ...`                |C code fragment to compute initial location+geometry   |
-|`pixels ?-state RFIELDS? ?-cons RCONS? ?-release RRELEASE? FETCH ...`|C code fragments to manage custom region state, and pixel fetch|
-|`state ?-state FIELDS? ?-cons CONS? ?-release RELEASE? ...`|C code fragments to manage custom operator state|
+|`pixels ?-fields RFIELDS? ?-setup RSETUP? ?-cleanup RCLEANUP? FETCH ...`|C code fragments to manage custom region state, and pixel fetch|
+|`state ?-fields FIELDS? ?-setup SETUP? ?-cleanup CLEANUP? ...`|C code fragments to manage custom operator state|
 
 ##### Variadics
 
@@ -153,14 +153,25 @@ that the specified operator cannot take any image arguments.
 
 ##### Code fragments
 
-Which of the commands `geometry`, `state`, and `pixels` are required or forbidden depends on the
-operator result.
+Which of the commands `state`, and `pixels` are required or forbidden depends on the operator
+result.
 
 Operators returning void or a non-image must not specify the aforementioned commands. Their actions
 are specified as part of the `void` and `return` commands which declare them as such.
 
-Operators returning an image have to specify the `geometry` and `pixels` commands. The `state`
-command is optional, as well as the region state options of the `pixels` command.
+Operators returning an image have to specify the `state` and `pixels` commands.
+
+The image `state -setup` is required and has to initialize the image geometry.
+
+It may initialize the image's operator state. If `-fields` were provided the state structure will be
+pre-allocated. Without `-fields` the setup code is wholly responsible. The `-cleanup` code is needed
+if and only if the state structure has heap-allocated members. Note that the runtime assumes that
+the state information is heap allocated, and it will release it on image destruction, if not
+NULL. You __cannot__ store non-pointer data directly into the state field. Except when a crash is
+desired.
+
+The region state setup, cleanup, and fields provided through the `pixel` command are wholly
+optional. When specified the behaviour of the system is the same as for the image state.
 
 All the commands providing C code fragments take an arbitrary, but even number of additional
 arguments, as a means of driving code templating. The generator replaces all occurences of the key
@@ -202,23 +213,7 @@ See previous section about the `RETURN_CODE`.
 
 The only difference is that here no `return` command is auto-inserted.
 
-###### `GEO_CODE`
-
-This C code fragment is called by an operator returning an image to compute the geometry and
-location of that image purely from parameters, input images, and operator-specific state, if any. It
-has to follow the C syntax for a C function body, for insertion into such.
-
-The fragment has access to the following variables:
-
-|Name        |Type                      |Content                                        |
-|---         |---                       |---                                            |
-|param       |(param-struct)*           |Operator parameter structure. May be `0`       |
-|srcs        |aktive_image_vector       |Input images. May be empty                     |
-|state       |(image-state-struct)*     |Operator image state. May be `0`               |
-|loc         |aktive_point*             |Place to write the computed location to        |
-|geom        |aktive_geometry*          |Place to write the computed geometry to        |
-
-###### `CONS`
+###### `SETUP`
 
 This C code fragment is called by an operator returning an image to allocate and initialize a custom
 state structure from parameters, and input images, if any. It has to follow the C syntax for a C
@@ -239,11 +234,13 @@ The fragment has access to the following variables:
 |Name        |Type                      |Content                                        |
 |---         |---                       |---                                            |
 |param       |(param-struct)*           |Operator parameter structure. May be `0`       |
-|srcs        |aktive_image_vector       |Input images. May be empty                     |
+|srcs        |aktive_image_vector*      |Input images. May be empty                     |
+|domain	     |aktive_geometry*		|Operator geometry to initialize    		|
+|state       |(image-state-struct)*     |Operator image state to optionally initialize	|
 
-###### `RELEASE`
+###### `CLEANUP`
 
-This C code fragment is called by an operator returning an image to release any heap-allocated
+This C code fragment is called by an operator returning an image to cleanup any heap-allocated
 fields of the custom state structure. It has to follow the C syntax for a C function body, for
 insertion into such.
 
@@ -256,22 +253,25 @@ The fragment has access to the following variables:
 |---         |---                       |---                    |
 |state       |(image-state-struct)*     |Operator image state   |
 
-###### `RCONS`
+###### `RSETUP`
 
-See `CONS`. This is for the construction of operator-specific region (i.e. processing)
-state. Whereas `CONS` is for static image state.
+See `SETUP`. This is for the construction of operator-specific region (i.e. processing)
+state. Whereas `SETUP` is for static image state.
 
 The fragment has access to the following variables:
 
 |Name        |Type                      |Content                                        |
 |---         |---                       |---                                            |
 |param       |(param-struct)*           |Operator parameter structure. May be `0`       |
-|srcs        |aktive_image_vector       |Input images. May be empty                     |
+|srcs        |aktive_image_vector*      |Input images. May be empty                     |
 |imagestate  |(image-state-struct)*     |Operator image state. May be `0`               |
+|state       |(region-state-struct)*	|Region state to fill. 	      			|
 
-###### `RRELEASE`
+The `state` is pre-allocated when the type is known, i.e. when `RFIELDS` were provided.
 
-This C code fragment is called by an operator returning an image to release any heap-allocated
+###### `RCLEANUP`
+
+This C code fragment is called by an operator returning an image to cleanup any heap-allocated
 fields of the custom region state structure. It has to follow the C syntax for a C function body,
 for insertion into such.
 
@@ -296,7 +296,7 @@ The fragment has access to the following variables:
 |Name        |Type                      |Content                                        |
 |---         |---                       |---                                            |
 |param       |(param-struct)*           |Operator parameter structure, if any           |
-|srcs        |aktive_region_vector      |Input regions. If any.                         |
+|srcs        |aktive_region_vector*     |Input regions. If any.                         |
 |state       |(region-state-struct)*    |Operator region state. If any.                 |
 |istate      |(image-state-struct)*     |Operator state. If any.                        |
 |request     |aktive_rectangle*         |Area to compute the pixels for                 |

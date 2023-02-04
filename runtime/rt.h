@@ -7,8 +7,8 @@
  * - - -- --- ----- -------- -------------
  */
 
-#include <rectangle.h>
-#include <block.h>
+#include <geometry.h>
+#include <blit.h>
 #include <region.h>
 #include <image.h>
 #include <rtgen/vector-funcs.h>

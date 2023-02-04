@@ -8,6 +8,23 @@
 
 /*
  * - - -- --- ----- -------- -------------
+ *
+ * -- The info structure provides image callbacks with limited access to the
+ *    information managed by the runtime for an image. The runtime maintains
+ *    additional information for itself it will not provide access to.
+ *
+ *    ALL information is READ ONLY.
+ */
+
+typedef struct aktive_image_info {
+    void*                param  ; // Operation parameters, heap located
+    aktive_image_vector  srcs   ; // Input images, if any, heap-located array
+    aktive_geometry      domain ; // 2D/3D domain (2D location, 3D dimensions)
+    void*                state  ; // Image state, if any, operator dependent
+} aktive_image_info;
+
+/*
+ * - - -- --- ----- -------- -------------
  */
 
 typedef void     (*aktive_param_init)   (void* param);
@@ -23,18 +40,14 @@ typedef struct aktive_image_parameter {
 
 /*
  * - - -- --- ----- -------- -------------
+ * Initialization          - param and srcs are already initialized - initialize state and geometry
+ * Finalization            - other fields are already destroyed     - destroy state fields
+ *
+ * NOTE: We can perform geometry initialization in the main setup. 
  */
 
-typedef void  (*aktive_image_final)    ( void* state );
-typedef void* (*aktive_image_setup)    ( void*                   param // Image parameters 
-                                       , aktive_image_vector_ptr srcs  // Input images     
-                                       );
-typedef void  (*aktive_image_geometry) ( void*                     param // Image parameters 
-                                       , aktive_image_vector_ptr   srcs  // Input images     
-                                       , void*                     state // Image state      
-                                       , /* => */ aktive_point*    loc   // out: Location    
-                                       , /* => */ aktive_geometry* geo   // out: Dimensions  
-                                       );
+typedef void* (*aktive_image_setup)    (aktive_image_info* info);
+typedef void  (*aktive_image_final)    (void* state);
 
 typedef struct aktive_image_type {
     char*                   name         ; // Identification                    
@@ -45,13 +58,11 @@ typedef struct aktive_image_type {
     aktive_param_init       param_init   ; // Parameter initialization hook     
     aktive_param_finish     param_finish ; // Parameter finishing hook          
 
-    aktive_image_setup      setup        ; // Create  custom image state        
-    aktive_image_final      final        ; // Release custom image state        
+    aktive_image_setup      setup        ; // Create  operator-specific image state        
+    aktive_image_final      final        ; // Release operator-specific image state        
 
-    aktive_image_geometry   geo_setup    ; // Initialize location and geometry  
-
-    aktive_region_setup     region_setup ; // Create  custom region state       
-    aktive_region_final     region_final ; // Release custom region state       
+    aktive_region_setup     region_setup ; // Create  operator-specific region state       
+    aktive_region_final     region_final ; // Release operator-specific region state       
     aktive_region_fetch     region_fetch ; // Get pixels for area of the region 
 } aktive_image_type;
 
@@ -68,6 +79,10 @@ aktive_image_new ( aktive_image_type*   opspec
 extern int  aktive_image_unused (aktive_image image);
 extern void aktive_image_unref  (aktive_image image);
 extern void aktive_image_ref    (aktive_image image);
+
+extern aktive_point*     aktive_image_get_location (aktive_image image);
+extern aktive_rectangle* aktive_image_get_domain   (aktive_image image);
+extern aktive_geometry*  aktive_image_get_geometry (aktive_image image);
 
 extern int         aktive_image_get_x      (aktive_image image);
 extern int         aktive_image_get_xmax   (aktive_image image);

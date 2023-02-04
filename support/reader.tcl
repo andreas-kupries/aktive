@@ -115,16 +115,15 @@ proc dsl::reader::OpStart {op} {
     Set opspec result   image	;# Return value
     Set opspec rcode    {}	;# C code fragment for non-image return (getter, doer)
 
-    Set opspec statec   {}	;# State constructor, optional
-    Set opspec stater   {}	;# State destructor, optional
-    Set opspec statef   {}	;# State fields, C decl code
+    Set opspec state/setup   {}	;# State constructor - Geometry initialization at least
+    Set opspec state/cleanup {}	;# State destructor, optional
+    Set opspec state/fields  {}	;# State fields, C decl code, optional
 
-    Set opspec regionc  {}	;# Region state constructor, optional
-    Set opspec regionr  {}	;# Region state destructor, optional
-    Set opspec regionf  {}	;# Region state fields, C decl code
-    Set opspec regionm  {}	;# Region pixel (M)aker - I.e. fetch pixels
+    Set opspec region/setup   {} ;# Region state constructor, optional
+    Set opspec region/cleanup {} ;# Region state destructor, optional
+    Set opspec region/fields  {} ;# Region state fields, C decl code, optional
+    Set opspec region/fetch   {} ;# Region pixel fetcher
 
-    Set opspec geometry {}	;# Geometry initializer, optional
     Set opspec args     0	;# Presence of variadic input or parameter
 }
 
@@ -133,8 +132,8 @@ proc dsl::reader::OpFinish {} {
     if {[Get opspec result] eq "image"} {
 	# Image result
 
-	if {[Get opspec regionm]  eq {}} { Abort "Returns image, has no pixel fetch"	}
-	if {[Get opspec geometry] eq {}} { Abort "Returns image, has no geometry setup"	}
+	if {[Get opspec region/fetch] eq {}} { Abort "Returns image, has no pixel fetch"	  }
+	if {[Get opspec state/setup]  eq {}} { Abort "Returns image, has no state/geometry setup" }
 	# Note: state, region state optional
 	#
 	if {[Get opspec rcode] ne {}} { Abort "Returns image, yet has result code" }
@@ -148,16 +147,14 @@ proc dsl::reader::OpFinish {} {
 	    Abort "No image returned, yet attempting to keep input"
 	}
 
-	if {[Get opspec regionm]  ne {}} { Abort "No image returned, yet pixel fetch"	 }
-	if {[Get opspec regionf]  ne {}} { Abort "No image returned, yet region state"	 }
-	if {[Get opspec regionc]  ne {}} { Abort "No image returned, yet region state"	 }
-	if {[Get opspec regionr]  ne {}} { Abort "No image returned, yet region state"	 }
+	if {[Get opspec region/fetch]   ne {}} { Abort "No image returned, yet pixel fetch"	 }
+	if {[Get opspec region/fields]  ne {}} { Abort "No image returned, yet region state"	 }
+	if {[Get opspec region/setup]   ne {}} { Abort "No image returned, yet region state"	 }
+	if {[Get opspec region/cleanup] ne {}} { Abort "No image returned, yet region state"	 }
 	#
-	if {[Get opspec geometry] ne {}} { Abort "No image returned, yet geometry setup" }
-	#
-	if {[Get opspec statef] ne {}} { Abort "No image returned, yet state setup" }
-	if {[Get opspec statec] ne {}} { Abort "No image returned, yet state setup" }
-	if {[Get opspec stater] ne {}} { Abort "No image returned, yet state setup" }
+	if {[Get opspec state/fields]  ne {}} { Abort "No image returned, yet state fields"  }
+	if {[Get opspec state/setup]   ne {}} { Abort "No image returned, yet state setup"   }
+	if {[Get opspec state/cleanup] ne {}} { Abort "No image returned, yet state cleanup" }
 	#
 	if {[Get opspec rcode] eq {}} { Abort "No image returned, has no result code" }
     }
@@ -188,54 +185,54 @@ proc dsl::reader::geometry {script args} {
 }
 
 proc dsl::reader::state {args} {
-    lassign {} fields cons release
+    lassign {} fields setup cleanup
     while {[string match -* [set o [lindex $args 0]]]} {
 	switch -exact -- $o {
 	    --       { set args [lassign $args _] ; break }
-	    -state   { set args [lassign $args _ fields]  }
-	    -cons    { set args [lassign $args _ cons]    }
-	    -release { set args [lassign $args _ release] }
-	    default  { Abort "Bad option '$o', expected -state, -cons, -release, or --" }
+	    -fields  { set args [lassign $args _ fields]  }
+	    -setup   { set args [lassign $args _ setup]    }
+	    -cleanup { set args [lassign $args _ cleanup] }
+	    default  { Abort "Bad option '$o', expected -fields, -setup, -cleanup, or --" }
 	}
     }
     # Remainder of args is key/value map for templating.
 
-    if {($fields ne {}) && ($cons eq {})} { Abort "Constructor required when fields specified" }
+    if {($fields ne {}) && ($setup eq {})} { Abort "Setup required when fields specified" }
 
-    State $fields $cons $release $args
+    State $fields $setup $cleanup $args
 }
 
-proc dsl::reader::State {fields cons release map} { ;# puts [info level 0]
-    Set opspec statec [string map $map $cons]
-    Set opspec stater [string map $map $release]
-    Set opspec statef [string map $map $fields]
+proc dsl::reader::State {fields setup cleanup map} { ;# puts [info level 0]
+    Set opspec state/setup   [string map $map $setup]
+    Set opspec state/cleanup [string map $map $cleanup]
+    Set opspec state/fields  [string map $map $fields]
 }
 
 proc ::dsl::reader::pixels {args} { ;# puts [info level 0]
-    lassign {} fields cons release
+    lassign {} fields setup cleanup
     while {[string match -* [set o [lindex $args 0]]]} {
 	switch -exact -- $o {
 	    --       { set args [lassign $args _] ; break }
 	    -state   { set args [lassign $args _ fields]  }
-	    -cons    { set args [lassign $args _ cons]    }
-	    -release { set args [lassign $args _ release] }
-	    default  { Abort "Bad option '$o', expected -state, -cons, -release, or --" }
+	    -setup   { set args [lassign $args _ setup]   }
+	    -cleanup { set args [lassign $args _ cleanup] }
+	    default  { Abort "Bad option '$o', expected -state, -setup, -cleanup, or --" }
 	}
     }
     # Remainder of args is fetch and key/value map for templating.
 
-    if {($fields ne {}) && ($cons eq {})} { Abort "Constructor required when fields specified" }
-    if {![llength $args]} { Abort "fetch specification missing" }
+    if {($fields ne {}) && ($setup eq {})} { Abort "Setup required when fields specified" }
+    if {![llength $args]} { Abort "Fetch specification missing, required" }
     set args [lassign $args fetch]
 
-    Pixels $fields $cons $release $fetch $args
+    Pixels $fields $setup $cleanup $fetch $args
 }
 
-proc ::dsl::reader::Pixels {fields cons release fetch map} { ;#puts [info level 0]
-    Set opspec regionc [string map $map $cons]
-    Set opspec regionr [string map $map $release]
-    Set opspec regionf [string map $map $fields]
-    Set opspec regionm [string map $map $fetch]
+proc ::dsl::reader::Pixels {fields setup cleanup fetch map} { ;#puts [info level 0]
+    Set opspec region/setup   [string map $map $setup]
+    Set opspec region/cleanup [string map $map $cleanup]
+    Set opspec region/fields  [string map $map $fields]
+    Set opspec region/fetch   [string map $map $fetch]
 }
 
 proc dsl::reader::input... {rc} { Input $rc ...      }
@@ -366,6 +363,13 @@ proc dsl::reader::Has {args} {
 ##  - param  :: dict (string -> '.') [Only during collection]
 ##  - params :: list (argspec)
 ##  - result :: string
+##  - state/setup
+##  - state/cleanup
+##  - state/fields
+##  - region/setup
+##  - region/cleanup
+##  - region/fields
+##  - region/fetch
 ##
 ## argspec keys
 ##  - args    :: bool

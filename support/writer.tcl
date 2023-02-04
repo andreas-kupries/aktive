@@ -240,7 +240,8 @@ proc dsl::writer::VectorTypes {} {
 
 	set n [Maxlength [list int *$ct]]
 
-	Comment "--- --- --- --- --- --- --- --- ---\n * Vector `$type` ...\n"
+	Comment "--- --- --- --- --- --- --- --- ---"
+	Comment "Vector `$type` ..."
 	+ {}
 	+ "typedef struct ${tx} \{"
 	+ "  [PadR $n    int] c ; /* Number of elements               */"
@@ -501,37 +502,38 @@ proc dsl::writer::OperatorFunctionForOp {op} {
     set fn  [FunctionName          $op $spec]
     set sig [FunctionDeclSignature $op $spec]
 
-    set paramtype  void ; if {[llength $params]} { set paramtype  [ParamStructTypename $op] }
-    set statetype  void ; if {$statef  ne {}}    { set statetype  [StateStructTypename $op] }
-    set regiontype void ; if {$regionf ne {}}    { set regiontype [RegionStateTypename $op] }
+    set paramtype  void ; if {[llength $params]}      { set paramtype  [ParamStructTypename $op] }
+    set statetype  void ; if {${state/fields}  ne {}} { set statetype  [StateStructTypename $op] }
+    set regiontype void ; if {${region/fields} ne {}} { set regiontype [RegionStateTypename $op] }
 
     set hasimages [llength $images]
 
-    Comment "- - -- --- ----- -------- ------------- ---------------------\n * Operator \"$op\" ...\n"
+    Comment "- - -- --- ----- -------- ------------- ---------------------"
+    Comment "Operator \"$op\" ..."
     + {}
 
     ## %% TODO %% move into separate emitter for placement into its own header file, sourcable elsewhere
-    if {$statef ne {}} {
+    if {${state/fields} ne {}} {
 	+ "typedef struct $statetype \{"
-	+ [FormatCode $statef]
+	+ [FormatCode ${state/fields}]
 	+ "\} $statetype;"
 	+ {}
     }
 
-    if {$regionf ne {}} {
+    if {${region/fields} ne {}} {
 	+ "typedef struct $regiontype \{"
-	+ [FormatCode $regionf]
+	+ [FormatCode ${region/fields}]
 	+ "\} $regiontype;"
 	+ {}
     }
 
-    if {$regionc ne {}} {
+    if {${region/setup} ne {}} {
 	+ "static void"
 	+ "[RegionSetupFuncname $op] (aktive_region_info* info) \{"
 
 	# Enhance fragment with code providing the info data in properly typed form.
 	set types {}
-	if {$hasimages} { lappend types [list aktive_region_vector] }
+	if {$hasimages}                       {           lappend types aktive_region_vector* }
 	set pt 0 ; if {$paramtype  ne "void"} { incr pt ; lappend types *$paramtype  }
 	set rt 0 ; if {$regiontype ne "void"} { incr rt ; lappend types *$regiontype }
 	set st 0 ; if {$statetype  ne "void"} { incr st ; lappend types *$statetype  }
@@ -539,7 +541,7 @@ proc dsl::writer::OperatorFunctionForOp {op} {
 
 	if {$pt}        { + "  [PadR $tl ${paramtype}*] param  = [PadR $tlx (${paramtype}*)] info->param;" }
 	if {$st}        { + "  [PadR $tl ${statetype}*] istate = [PadR $tlx (${statetype}*)] info->istate;" }
-	if {$hasimages} { + "  [PadR $tl aktive_region_vector] srcs   = [PadR $tlx ""] info->srcs;" }
+	if {$hasimages} { + "  [PadR $tl aktive_region_vector*] srcs   = [PadR $tlx ""] &info->srcs;" }
 	if {$rt}        {
 	    # region state type is known. allocate it.
 	    + "  [PadR $tl ${regiontype}*] state  = [PadR $tlx (${regiontype}*)] ALLOC ($regiontype);"
@@ -548,51 +550,67 @@ proc dsl::writer::OperatorFunctionForOp {op} {
 	    + "#define state (info->state)"
 	}
 
-	+ [FormatCode $regionc]
-	if {!$rt} { + "undef state" }
+	Comment {- - -- --- ----- -------- ------------- ---------------------} {  }
+	+ {}
+	+ [FormatCode ${region/setup}]
+	+ {}
+	Comment {- - -- --- ----- -------- ------------- ---------------------} {  }
+	if {!$rt} { + "#undef state" }
 	+ "\}"
 	+ {}
     }
 
-    if {$regionr ne {}} {
+    if {${region/cleanup} ne {}} {
 	+ "static void"
 	+ "[RegionFinalFuncname $op] (${regiontype}* state) \{"
-	+ [FormatCode $regionr]
+	Comment {- - -- --- ----- -------- ------------- ---------------------} {  }
+	+ {}
+	+ [FormatCode ${region/cleanup}]
+	+ {}
+	Comment {- - -- --- ----- -------- ------------- ---------------------} {  }
 	+ "\}"
 	+ {}
     }
 
-    if {$statec ne {}} {
-	+ "static ${statetype}*"
-	+ "[StateSetupFuncname $op] (${paramtype}* param, aktive_image_vector* srcs) \{"
-	+ [FormatCodeWithReturn $statec]
+    if {${state/setup} ne {}} {
+	+ "static void"
+	+ "[StateSetupFuncname $op] (aktive_image_info* info) \{"
+
+	# Enhance fragment with code providing the info data in properly typed form.
+	set types [list aktive_geometry*]
+	if {$hasimages}                       {           lappend types aktive_image_vector* }
+	set pt 0 ; if {$paramtype  ne "void"} { incr pt ; lappend types *$paramtype  }
+	set st 0 ; if {$statetype  ne "void"} { incr st ; lappend types *$statetype  }
+	set tl [Maxlength $types] ; set tlx $tl ; incr tlx 2
+
+	if {$pt}        { + "  [PadR $tl ${paramtype}*] param  = [PadR $tlx (${paramtype}*)] info->param;" }
+	if {$hasimages} { + "  [PadR $tl aktive_image_vector*] srcs   = [PadR $tlx ""] &info->srcs;" }
+	+ "  [PadR $tl aktive_geometry*] domain = [PadR $tlx ""] &info->domain;"
+	if {$st}        {
+	    # state type is known. allocate it.
+	    + "  [PadR $tl ${statetype}*] state  = [PadR $tlx (${statetype}*)] ALLOC ($statetype);"
+	    + "  info->state = state;"
+	} else {
+	    + "#define state  (info->state)"
+	}
+	Comment {- - -- --- ----- -------- ------------- ---------------------} {  }
+	+ {}
+	+ [FormatCode ${state/setup}]
+	+ {}
+	Comment {- - -- --- ----- -------- ------------- ---------------------} {  }
+	if {!$st} { + "#undef state" }
 	+ "\}"
 	+ {}
     }
 
-    if {$stater ne {}} {
+    if {${state/cleanup} ne {}} {
 	+ "static void"
 	+ "[StateFinalFuncname $op] (${statetype}* state) \{"
-	+ [FormatCode $stater]
-	+ "\}"
+	Comment {- - -- --- ----- -------- ------------- ---------------------} {  }
 	+ {}
-    }
-
-    if {$geometry ne {}} {
-	set fun [GeometryFuncname $op]
-	set spc [string repeat { } [string length $fun]]
-
-	set  n [Maxlength [list $statetype $paramtype aktive_image_vector aktive_point aktive_geometry]]
-	incr n ;# Account for `*`
-
-	+ "static void"
-	+ "$fun ( [PadR $n ${paramtype}*] param /* Parameters          */"
-	+ "$spc , [PadR $n aktive_image_vector*] srcs  /* Input images        */"
-	+ "$spc , [PadR $n ${statetype}*] state /* Operator state      */"
-	+ "$spc , [PadR $n aktive_point*] loc   /* OUT: image location */"
-	+ "$spc , [PadR $n aktive_geometry*] geo   /* OUT: image geometry */"
-	+ "$spc ) \{"
-	+ [FormatCode $geometry]
+	+ [FormatCode ${state/cleanup}]
+	+ {}
+	Comment {- - -- --- ----- -------- ------------- ---------------------} {  }
 	+ "\}"
 	+ {}
     }
@@ -622,14 +640,20 @@ proc dsl::writer::OperatorFunctionForOp {op} {
 	+ {}
     } else {
 	# image result -- Pixel fetch function first
+	set fun [RegionFetchFuncname $op]
+	set spc [string repeat { } [string length $fun]]
 
 	+ "static void"
-	+ "[RegionFetchFuncname $op] ([RegionFetchSig]) \{"
+	+ "$fun ( aktive_region_info* info    // Parameters, inputs, state, image state"
+	+ "$spc , aktive_rectangle*   request // Area caller wants the pixels for"
+	+ "$spc , aktive_rectangle*   dst     // Area of `block` to blit the pixels into"
+	+ "$spc , aktive_block*       block   // Pixel storage"
+	+ "$spc ) \{"
 
-	if {$regionm ne {}} {
+	if {${region/fetch} ne {}} {
 	    # Enhance fragment with code providing the info data in properly typed form.
 	    set types {}
-	    if {$hasimages} { lappend types [list aktive_region_vector] }
+	    if {$hasimages}                       {           lappend types *aktive_region_vector }
 	    set pt 0 ; if {$paramtype  ne "void"} { incr pt ; lappend types *$paramtype  }
 	    set rt 0 ; if {$regiontype ne "void"} { incr rt ; lappend types *$regiontype }
 	    set st 0 ; if {$statetype  ne "void"} { incr st ; lappend types *$statetype  }
@@ -638,9 +662,12 @@ proc dsl::writer::OperatorFunctionForOp {op} {
 	    if {$pt}        { + "  [PadR $tl ${paramtype}*] param  = [PadR $tlx (${paramtype}*)] info->param;" }
 	    if {$rt}        { + "  [PadR $tl ${regiontype}*] state  = [PadR $tlx (${regiontype}*)] info->state;" }
 	    if {$st}        { + "  [PadR $tl ${statetype}*] istate = [PadR $tlx (${statetype}*)] info->istate;" }
-	    if {$hasimages} { + "  [PadR $tl aktive_region_vector] srcs   = [PadR $tlx ""] info->srcs;" }
-
-	    + [FormatCode $regionm]
+	    if {$hasimages} { + "  [PadR $tl aktive_region_vector*] srcs   = [PadR $tlx ""] &info->srcs;" }
+	    Comment {- - -- --- ----- -------- ------------- ---------------------} {  }
+	    + {}
+	    + [FormatCode ${region/fetch}]
+	    + {}
+	    Comment {- - -- --- ----- -------- ------------- ---------------------} {  }
 	} else {
 	    + [Placeholder ${op}-fetch]
 	}
@@ -649,7 +676,8 @@ proc dsl::writer::OperatorFunctionForOp {op} {
 
 	# Main function can be generated, and refers to pixel fill function
 
-	+ "extern $result $fn $sig \{"
+	+ "extern $result"
+	+ "$fn $sig \{"
 	+ [FunctionBodyImageConstructor $op $spec]
 	+ "\}"
 	+ {}
@@ -709,7 +737,8 @@ proc dsl::writer::OperatorCprocForOp {op} {
     unset images params
     # notes                  result
 
-    TclComment "--- --- --- --- --- --- --- --- ---\n# Operator `$op` ..."
+    TclComment "--- --- --- --- --- --- --- --- ---"
+    TclComment "Operator `$op` ..."
     foreach n $notes { TclComment "Note: $n" }
     + {}
 
@@ -1160,14 +1189,13 @@ proc dsl::writer::FunctionBodyImageConstructor {op spec} {
 	append call ", NULL"	;# No parameters
     }
 
-    if {$statec   ne {}} { + "    , .setup        = (aktive_image_setup)      [StateSetupFuncname $op]" }
-    if {$stater   ne {}} { + "    , .final        = (aktive_image_final)      [StateFinalFuncname $op]" }
-    if {$geometry ne {}} { + "    , .geo_setup    = (aktive_image_geometry)   [GeometryFuncname   $op]" }
+    if {${state/setup}   ne {}} { + "    , .setup        = (aktive_image_setup)      [StateSetupFuncname $op]" }
+    if {${state/cleanup} ne {}} { + "    , .final        = (aktive_image_final)      [StateFinalFuncname $op]" }
 
     + "    , .region_fetch = (aktive_region_fetch)     [RegionFetchFuncname $op]"
 
-    if {$regionc ne {}}  { + "    , .region_setup = (aktive_region_setup)     [RegionSetupFuncname $op]" }
-    if {$regionr ne {}}  { + "    , .region_final = (aktive_region_final)     [RegionFinalFuncname $op]" }
+    if {${region/setup}   ne {}} { + "    , .region_setup = (aktive_region_setup)     [RegionSetupFuncname $op]" }
+    if {${region/cleanup} ne {}} { + "    , .region_final = (aktive_region_final)     [RegionFinalFuncname $op]" }
 
     + "  \};"
     + {}
@@ -1355,18 +1383,8 @@ proc dsl::writer::RegionFetchFuncname    {op} { return "aktive_[Cname $op]_regio
 proc dsl::writer::RegionSetupFuncname    {op} { return "aktive_[Cname $op]_region_setup" }
 proc dsl::writer::RegionFinalFuncname    {op} { return "aktive_[Cname $op]_region_final" }
 
-proc dsl::writer::RegionFetchSig {} {
-    append r   "aktive_region_info* info"
-    append r ", aktive_rectangle* request"
-    append r ", aktive_rectangle* dst"
-    append r ", aktive_block* block"
-    return $r
-}
-
 proc dsl::writer::StateSetupFuncname     {op} { return "aktive_[Cname $op]_setup"        }
 proc dsl::writer::StateFinalFuncname     {op} { return "aktive_[Cname $op]_final"        }
-
-proc dsl::writer::GeometryFuncname       {op} { return "aktive_[Cname $op]_geo_setup"    }
 
 # # ## ### ##### ######## #############
 ## General emitter support
@@ -1391,9 +1409,9 @@ proc dsl::writer::PadR  {n w}  { return [format %-${n}s $w] }
 proc dsl::writer::PadL  {n w}  { return [format %${n}s  $w] }
 proc dsl::writer::Cname {name} { return [string map {* _ :: _ - _ / _} $name] }
 
-proc dsl::writer::+           {x} { upvar 1 lines lines ; lappend lines $x         ; return }
-proc dsl::writer::Comment     {x} { upvar 1 lines lines ; lappend lines "/* $x */" ; return }
-proc dsl::writer::TclComment  {x} { upvar 1 lines lines ; lappend lines "# $x"     ; return }
+proc dsl::writer::+           {x} { upvar 1 lines lines ; lappend lines $x      ; return }
+proc dsl::writer::Comment     {x {indent {}}} { upvar 1 lines lines ; lappend lines "$indent// $x" ; return }
+proc dsl::writer::TclComment  {x {indent {}}} { upvar 1 lines lines ; lappend lines "$indent# $x"  ; return }
 proc dsl::writer::Done        {}  { upvar 1 lines lines ; return -code return [join $lines \n] }
 
 proc dsl::writer::CHeader {text} {
@@ -1401,7 +1419,7 @@ proc dsl::writer::CHeader {text} {
     upvar 1 lines lines
     Comment {-*- c -*-}
     Comment "-- $text"
-    + {}
+    Comment {}
     Comment "Generated [clock format [clock seconds]] -- $tcl_platform(user)@[info hostname]"
     + {}
 }

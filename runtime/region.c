@@ -34,26 +34,26 @@ aktive_region_new (aktive_image image)
 
     // Generate regions representing the inputs, if any 
 
-    if (image->srcs.c) {
-	aktive_region_vector_new (&region->public.srcs, image->srcs.c);
+    if (image->public.srcs.c) {
+	aktive_region_vector_new (&region->public.srcs, image->public.srcs.c);
 	for (unsigned int i = 0; i < region->public.srcs.c; i++) {
-	    region->public.srcs.v [i] = aktive_region_new (image->srcs.v [i]);
+	    region->public.srcs.v [i] = aktive_region_new (image->public.srcs.v [i]);
 	}
     }
 
     // Initialize local pointers to important structures 
 
-    region->public.param = image->param;
+    region->public.param = image->public.param;
     region->opspec       = image->opspec;
 
     /* Note: The width and height values will be later replaced with data from
      * the area requested to be fetched
      */
-    aktive_geometry_copy (&region->pixels.geo, &image->geometry);
+    aktive_geometry_copy (&region->pixels.domain, &image->public.domain);
     region->pixels.region = region;
 
     // Initialize region state, if any 
-    region->public.istate = image->state;
+    region->public.istate = image->public.state;
 
     if (image->opspec->region_setup) {
 	image->opspec->region_setup (&region->public);
@@ -124,23 +124,9 @@ aktive_region_fetch_area (aktive_region region, aktive_rectangle* request)
      * hald all the requested pixels.
      */
 
-    // Update the desired request to fill 
+    // Update the desired request to fill
 
-    // TODO ... blit api ...
-    
-    aktive_geometry_set_rect (&region->pixels.geo, request);
-
-    aktive_uint size = request->width * request->height * region->pixels.geo.depth;
-    region->pixels.used = size;
-
-    if (!region->pixels.pixel) {
-	region->pixels.pixel    = NALLOC (double, size);
-	region->pixels.capacity = size;
-    } else if (region->pixels.capacity < size) {
-	region->pixels.pixel    = REALLOC (region->pixels.pixel, double, size);
-	region->pixels.capacity = size;
-    } // else: have enough space already, do nothing
-    //// future: maybe realloc down if used <= 1/2*capacity
+    aktive_blit_setup (&region->pixels, request);
 
     /* Computing the pixels is done in multiple phases:
      *
@@ -161,13 +147,14 @@ aktive_region_fetch_area (aktive_region region, aktive_rectangle* request)
      * the translation is -(request.location).
      */
 
-    aktive_rectangle domain; aktive_rectangle_copy (&domain, &region->origin->domain);
+    aktive_rectangle domain;
+    aktive_rectangle_from_geometry (&domain, &region->origin->public.domain);
     
     if (aktive_rectangle_is_subset (&domain, request)) {
 	// fprintf(stderr,"SUBSET\n");fflush (stderr);
     
 	// Special case (a). The entire request has to be served by the fetcher.
-	aktive_rectangle dst = { 0, 0, request->width, request->height };
+	aktive_rectangle_def (dst, 0, 0, request->width, request->height);
 
 	// __aktive_rectangle_dump ("\t- full req ", request);
 	// __aktive_rectangle_dump ("\t- full preq", &phys);
@@ -200,8 +187,7 @@ aktive_region_fetch_area (aktive_region region, aktive_rectangle* request)
     // The overlap is the only remaining part to handle, and this is done by
     // the fetcher.
 
-    aktive_rectangle dst;
-    aktive_rectangle_copy (&dst, &zv [0]);
+    aktive_rectangle dst = zv[0];
     aktive_rectangle_move (&dst, -request->x, -request->y);
 
     // __aktive_rectangle_dump ("\t- inside req ", &zv[0]);

@@ -30,35 +30,38 @@
  * - - -- --- ----- -------- -------------
  */
 
-#include <block.h>
+#include <blit.h>
 
 /*
  * - - -- --- ----- -------- -------------
  *
- * -- The info structure provides limited access to the information managed by
- *    a region. The runtime maintains additional information for itself it
- *    will not provide access to.
+ * -- The info structure provides region callbacks limited access to the
+ *    information managed by the runtime for a region. The runtime maintains
+ *    additional information for itself it will not provide access to.
+ *
+ *    The image derived information is READ ONLY. Only the region state can be
+ *    written to.
  */
 
 typedef struct aktive_region_info {
     // READ ONLY information coming from the image
     
     void*                param  ; // Operation parameters 
+    aktive_region_vector srcs   ; // Input regions, if any 
     void*                istate ; // Image state, if any, operator dependent
 
     // RW information
     
-    aktive_region_vector srcs   ; // Input regions, if any 
-    void*                state  ; // Custom region state 
+    void*                state  ; // Region region state, if any, operator dependent
 } aktive_region_info;
 
 /*
  * - - -- --- ----- -------- -------------
  * -- Region callbacks
  *
- * Initialization - param, istate, and srcs are already initialized
- * Finalization   - other fields are already destroyed
- * Pixel fetch    -
+ * Initialization - param, istate, and srcs are already initialized - Initialize state fields
+ * Finalization   - other fields are already destroyed              - Destroy state fields
+ * Pixel fetch    - all fields contain sensible information (if present for the operator)
  */
 
 typedef void (*aktive_region_setup) (aktive_region_info* info);

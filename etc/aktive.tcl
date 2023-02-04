@@ -20,20 +20,6 @@
 # Note: Dynamic vector structures match critcl variadics.
 ##
 
-if 0 {
-## I. Required by runtime
-# __ id __________ critcl ___________ C type ___________________ Conversion ______________________________
-type point         aktive_point       -                          {aktive_new_point_obj (value)}
-type rect          aktive_rectangle   -                          {aktive_new_rectangle_obj (value)}
-type image-type    aktive_image_type_ptr - {Tcl_NewStringObj ((*value)->name, -1)}
-type image         aktive_image       -                          {aktive_new_image_obj (*value)}
-type region        aktive_region      -                          {0 /* INTERNAL -- No Tcl_Obj* equivalent */}
-type uint          aktive_uint        -                          {aktive_new_uint_obj (*value)}
-type double        -                  -                          {Tcl_NewDoubleObj (*value)}
-
-vector region image point uint double
-}
-
 import runtime.tcl
 
 ## II. Operator support
@@ -78,10 +64,7 @@ operator rectangle::make {
     uint h  Rectangle height
 
     return rect {
-	aktive_rectangle r = {
-	    .x     = param->x, .y      = param->y,
-	    .width = param->w, .height = param->h
-	};
+	aktive_rectangle_def (r, param->x, param->y, param->w, param->h);
 	return r;
     }
 }
@@ -121,7 +104,7 @@ operator rectangle::union {
 
     return rect {
 	if (param->r.c == 0) {
-	    aktive_rectangle zero = { 0, 0, 0, 0};
+	    aktive_rectangle_def (zero, 0, 0, 0, 0);
 	    return zero;
 	}
 
@@ -139,7 +122,7 @@ operator rectangle::intersect {
 
     return rect {
 	if (param->r.c == 0) {
-	    aktive_rectangle zero = { 0, 0, 0, 0};
+	    aktive_rectangle_def (zero, 0, 0, 0, 0);
 	    return zero;
 	}
 
@@ -178,6 +161,21 @@ operator rectangle::empty {
 operator query::type {
     input ignore
     return image-type { aktive_image_get_type (src); }
+}
+
+operator query::location {
+    input ignore
+    return point { *aktive_image_get_location (src); }
+}
+
+operator query::domain {
+    input ignore
+    return rect { *aktive_image_get_domain (src); }
+}
+
+operator query::geometry {
+    input ignore
+    return geometry { *aktive_image_get_geometry (src); }
 }
 
 operator attribute {
@@ -269,13 +267,14 @@ operator image::constant {
     uint   depth   Depth of the returned image
     double value   Pixel value
 
-    geometry {
-	// location is kept at default (0,0)
-	aktive_geometry_set (geo, param->width, param->height, param->depth);
+    state -setup {
+	aktive_geometry_set (domain, 0, 0, param->width, param->height, param->depth);
     }
     pixels {
 	aktive_blit_fill (block, dst, param->value);
     }
+
+    state -fields { int foo; } -setup { state->foo = 33; } -cleanup { /**/ }
 }
 
 operator image::const::planes {
@@ -286,10 +285,9 @@ operator image::const::planes {
     uint      height  Height of the returned image
     double... value   Pixel band values
 
-    geometry {
-	// location is default (0,0)
+    state -setup {
 	// depth is number of band values
-	aktive_geometry_set (geo, param->width, param->height, param->value.c);
+	aktive_geometry_set (domain, 0, 0, param->width, param->height, param->value.c);
     }
     pixels {
 	// assert: param.value.c == block.geo.depth
@@ -372,7 +370,7 @@ nyi operator image::gradient {
 nyi operator image::sparse::points {
     point... points  Coordinates of the pixels to set in the image
 
-    note Generally, the bounding box specifies the geometry, especially also the image origin.q
+    note Generally, the bounding box specifies the geometry, especially also the image origin
     note Width is implied by the bounding box of the points
     note Height is implied by the bounding box of the points
     note Depth is fixed at 1
@@ -401,16 +399,15 @@ nyi operator {thing depth} {
     # state: maxval ? variant-dependent actual reader function ?
     # cons : reader image header (dimensions, variant) - choose reader ?
 
-    state -state {
-	aktive_uint width;  /* Image width read from image header */
-	aktive_uint height; /* Image height read from image header */
-    } -cons { return 0; } ;# %% TODO %%
-
-    geometry {
-	// location is kept at default (0,0)
-	aktive_geometry_set (geo, state->width, state->height, @depth@);
+    state -fields {
+	aktive_uint w;
+	aktive_uint h;
+    } -setup {
+	// %% TODO %% // state :: PPM/PGM header
+	aktive_geometry_set (domain, 0,0, state->w, state->h, @depth@);
     } @depth@ $depth
-    pixels { 0 }
+
+    pixels { /**/ }
 
     # %% TODO %% specify implementation - read image data - locked
 }
@@ -480,13 +477,13 @@ operator op::view {
     input keep
     rect view  The specific area to view in the plane
 
-    geometry {
-	// taking depth from input
-	aktive_point_set    (loc, param->view.x, param->view.y);
-	aktive_geometry_set (geo,
+    state -setup {
+	aktive_geometry_set (domain,
+			     param->view.x,
+			     param->view.y,
 			     param->view.width,
 			     param->view.height,
-			     aktive_image_get_depth (srcs->v [0]));
+			     aktive_image_get_depth (srcs->v[0]));
     }
     pixels {
 	// pass-through operation ...
@@ -501,7 +498,7 @@ operator op::view {
 	// assert: result.used == block.used
 	// assert: result.geo  == block.geo
 
-	aktive_blit_copy0 (block, dst, aktive_region_fetch_area (srcs.v[0], request));
+	aktive_blit_copy0 (block, dst, aktive_region_fetch_area (srcs->v[0], request));
     }
 }
 

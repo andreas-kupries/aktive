@@ -9,9 +9,38 @@
 #include <critcl_assert.h>
 #include <critcl_trace.h>
 
-#include <rt.h>
+#include <geometry.h>
+#include <blit.h>
 
 TRACE_OFF;
+
+/*
+ * - - -- --- ----- -------- -------------
+ */
+
+extern void
+aktive_blit_setup (aktive_block* block, aktive_rectangle* request)
+{
+    aktive_geometry_set_rectangle (&block->domain, request);
+
+    aktive_uint size =
+	request->width * request->height * block->domain.depth;
+
+    block->used = size;
+
+    if (!block->pixel) {
+	// No memory present, create
+	
+	block->pixel    = NALLOC (double, size);
+	block->capacity = size;
+    } else if (block->capacity < size) {
+	// Memory present without enough capacity, size up
+	block->pixel    = REALLOC (block->pixel, double, size);
+	block->capacity = size;
+    } // else: have enough space already, do nothing
+
+    //// future: maybe size down if used <= 1/2 * capacity
+}
 
 /*
  * - - -- --- ----- -------- -------------
@@ -35,8 +64,8 @@ aktive_blit_clear (aktive_block* block, aktive_rectangle* area)
     //         row stride [#double],
     // and     row size   [byte]     (accounts for bands)
 
-    aktive_uint w = block->geo.width;
-    aktive_uint d = block->geo.depth;
+    aktive_uint w = block->domain.width;
+    aktive_uint d = block->domain.depth;
 
     aktive_uint stride = d * w ; /* pitch */
     aktive_uint width  = d * area->width * sizeof (double);
@@ -61,8 +90,8 @@ aktive_blit_fill (aktive_block* block, aktive_rectangle* area, double v)
     //         row stride [#double],
     // and     row size   [byte]     (accounts for bands)
 
-    aktive_uint w = block->geo.width;
-    aktive_uint d = block->geo.depth;
+    aktive_uint w = block->domain.width;
+    aktive_uint d = block->domain.depth;
 
     aktive_uint stride = d * w ; /* pitch */
     aktive_uint width  = d * area->width;
@@ -90,8 +119,8 @@ aktive_blit_fill_bands (aktive_block* block, aktive_rectangle* area, aktive_doub
     //         row stride [#double],
     // and     row size   [byte]     (accounts for bands)
 
-    aktive_uint w = block->geo.width;
-    aktive_uint d = block->geo.depth; // assert: == bands.c
+    aktive_uint w = block->domain.width;
+    aktive_uint d = block->domain.depth; // assert: == bands.c
 
     aktive_uint stride = d * w ; /* pitch */
     aktive_uint width  = d * area->width;
@@ -113,15 +142,15 @@ extern void
 aktive_blit_copy (aktive_block* dst, aktive_rectangle* dstarea,
 		  aktive_block* src, aktive_point*     srcloc)
 {
-    // assert : dst.geo.depth == src.geo.depth / dd == sd (*)
+    // assert : dst.domain.depth == src.domain.depth / dd == sd (*)
 
     // dst  = (0, 0, dw, dh)
     // src  = (0, 0, sw, hh)
     // area = (x, y, w, h) < src, < dst
 
-    aktive_uint dw = dst->geo.width;
-    aktive_uint sw = src->geo.width;
-    aktive_uint sd = dst->geo.depth;
+    aktive_uint dw = dst->domain.width;
+    aktive_uint sw = src->domain.width;
+    aktive_uint sd = dst->domain.depth;
     
     aktive_uint stride = sd * sw;				// (*)
     aktive_uint width  = sd * dstarea->width * sizeof (double);	// (*)
@@ -140,15 +169,15 @@ extern void
 aktive_blit_copy0 (aktive_block* dst, aktive_rectangle* dstarea,
 		   aktive_block* src)
 {
-    // assert : dst.geo.depth == src.geo.depth / dd == sd (*)
+    // assert : dst.domain.depth == src.domain.depth / dd == sd (*)
 
     // dst  = (0, 0, dw, dh)
     // src  = (0, 0, sw, hh)
     // area = (x, y, w, h) < src, < dst
 
-    aktive_uint dw = dst->geo.width;
-    aktive_uint sw = src->geo.width;
-    aktive_uint sd = dst->geo.depth;
+    aktive_uint dw = dst->domain.width;
+    aktive_uint sw = src->domain.width;
+    aktive_uint sd = dst->domain.depth;
     
     aktive_uint stride = sd * sw;				// (*)
     aktive_uint width  = sd * dstarea->width * sizeof (double);	// (*)
@@ -175,8 +204,9 @@ aktive_blit_copy0 (aktive_block* dst, aktive_rectangle* dstarea,
 extern void
 __aktive_block_dump (char* prefix, aktive_block* block) {
     fprintf (CHAN, "%s %p = block {\n", prefix, block);
-    fprintf (CHAN, "\tgeo      = { %u x %u x %u }\n",
-	     block->geo.width, block->geo.height, block->geo.depth);
+    fprintf (CHAN, "\tdomain   = { %d, %d : %u x %u x %u }\n",
+	     block->domain.x, block->domain.y,
+	     block->domain.width, block->domain.height, block->domain.depth);
     fprintf (CHAN, "\tregion   = %p\n", block->region);
     fprintf (CHAN, "\tcapacity = %d\n", block->capacity);
     fprintf (CHAN, "\tused     = %d\n", block->used);
@@ -186,9 +216,9 @@ __aktive_block_dump (char* prefix, aktive_block* block) {
 	fprintf (CHAN, "\n\t\t");
 	for (aktive_uint i = 0 ; i < block->used; i++) {
 	    if (i) {
-		if (i % (block->geo.width * block->geo.depth) == 0) {
+		if (i % (block->domain.width * block->domain.depth) == 0) {
 		    fprintf (CHAN, "\n\t\t");
-		} else if (i % block->geo.depth == 0) {
+		} else if (i % block->domain.depth == 0) {
 		    fprintf (CHAN, " /");
 		}
 	    }

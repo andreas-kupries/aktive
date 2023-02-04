@@ -3,8 +3,8 @@
  *
  * -- Runtime API -- Pixel blocks, types and methods
  */
-#ifndef AKTIVE_BLOCK_H
-#define AKTIVE_BLOCK_H
+#ifndef AKTIVE_BLIT_H
+#define AKTIVE_BLIT_H
 
 /*
  * - - -- --- ----- -------- -------------
@@ -15,15 +15,26 @@
 
 /*
  * - - -- --- ----- -------- -------------
+ *
+ * NOTE
+ *
+ *  - `aktive_block` is a proper extension of `aktive_geometry`, see
+ *    `geometry.h`.
  */
 
 typedef struct aktive_block {
-    aktive_geometry geo      ; // Area and bands covered by the `pixel` data 
     aktive_region   region   ; // Region owning and managing the block.                      
+    aktive_geometry domain   ; // Area and bands covered by the `pixel` data 
     double*         pixel    ; // Pixel data in row-major order (row, column, band)          
     aktive_uint     capacity ; // Allocated size of the pixel data. in elements              
     aktive_uint     used     ; // Used part (width * height * depth)                         
 } aktive_block;
+
+/*
+ * - - -- --- ----- -------- -------------
+ */
+
+extern void aktive_blit_setup (aktive_block* block, aktive_rectangle* request);
 
 /*
  * - - -- --- ----- -------- -------------
@@ -63,4 +74,4 @@ extern void __aktive_block_dump (char* prefix, aktive_block* block);
  * fill-column: 78
  * End:
  */
-#endif /* AKTIVE_BLOCK_H */
+#endif /* AKTIVE_BLIT_H */

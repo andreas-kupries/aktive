@@ -1,4 +1,7 @@
 /* -*- c -*-
+ *
+ * - - -- --- ----- -------- -------------
+ * -- Rectangle methods
  */
 
 #include <tcl.h>
@@ -6,7 +9,7 @@
 #include <critcl_assert.h>
 #include <critcl_trace.h>
 
-#include <rt.h>
+#include <geometry.h>
 
 TRACE_OFF;
 
@@ -37,23 +40,9 @@ extern Tcl_Obj* aktive_new_rectangle_obj(aktive_rectangle* r) {
  */
 
 extern void
-aktive_rectangle_copy (aktive_rectangle* dst, aktive_rectangle* src)
+aktive_rectangle_set (aktive_rectangle* dst, int x, int y, aktive_uint w, aktive_uint h)
 {
-    TRACE_FUNC("((dst*) %p = (src*) %p)", dst, src);
-    
-    *dst = *src;
-
-    TRACE_RETURN_VOID;
-}
-
-/*
- * - - -- --- ----- -------- -------------
- */
-
-extern void
-aktive_rectangle_set (aktive_rectangle* dst, int x,  int y, aktive_uint w, aktive_uint h)
-{
-    TRACE_FUNC("((dst*) %p = %d %d %u %u)", dst, x, y, w, h);
+    TRACE_FUNC("((dst*) %p = %d %d : %u %u)", dst, x, y, w, h);
     
     dst->x      = x;
     dst->y      = y;
@@ -64,42 +53,92 @@ aktive_rectangle_set (aktive_rectangle* dst, int x,  int y, aktive_uint w, aktiv
 }
 
 extern void
-aktive_rectangle_set_geometry (aktive_rectangle* dst, aktive_geometry* src)
+aktive_rectangle_copy (aktive_rectangle* dst, aktive_rectangle* src)
 {
     TRACE_FUNC("((dst*) %p = (src*) %p)", dst, src);
     
-    dst->width  = src->width;
-    dst->height = src->height;
+    *dst = *src;
 
     TRACE_RETURN_VOID;
 }
 
 extern void
-aktive_rectangle_set_location (aktive_rectangle* dst, aktive_point* src)
+aktive_rectangle_set_point (aktive_rectangle* dst, aktive_point* src)
 {
-    TRACE_FUNC("((dst*) %p = (src*) %p)", dst, src);
-    
-    dst->x = src->x;
-    dst->y = src->y;
-
-    TRACE_RETURN_VOID;
+    aktive_point_copy ((aktive_point*) dst, src);
 }
+
+extern void
+aktive_rectangle_from_geometry (aktive_rectangle* dst, aktive_geometry* src)
+{
+    aktive_rectangle_copy (dst, (aktive_rectangle*) src);
+}
+
+/*
+ * - - -- --- ----- -------- -------------
+ */
+
+extern int
+aktive_rectangle_is_equal (aktive_rectangle* a, aktive_rectangle* b)
+{
+    TRACE_FUNC("((rect*) %p == (rect*) %p)", a, b);
+
+    int is_equal = 
+	(a->x      == b->x     ) &&
+	(a->y      == b->y     ) &&
+	(a->width  == b->width ) &&
+	(a->height == b->height)
+	;
+
+    TRACE_RETURN("(bool) %d", is_equal);
+}
+
+extern int
+aktive_rectangle_is_subset (aktive_rectangle* a, aktive_rectangle* b)
+{
+    TRACE_FUNC("((rect*) %p <= (rect*) %p)", a, b);
+
+    int is_subset =
+	(a->x               >= b->x              ) &&
+	((a->x + a->width)  <= (b->x + b->width )) &&
+	(a->y               >= b->y              ) &&
+	((a->y + a->height) <= (b->y + b->height))
+	;
+
+    TRACE_RETURN("(bool) %d", is_subset);
+}
+
+extern int
+aktive_rectangle_is_empty  (aktive_rectangle* r)
+{
+    TRACE_FUNC("((rect*) %p empty?", r);
+
+    int is_empty = (r->width == 0) || (r->height == 0);
+
+    TRACE_RETURN("(bool) %d", is_empty);
+}
+
+/*
+ * - - -- --- ----- -------- -------------
+ */
 
 extern void
 aktive_rectangle_move (aktive_rectangle* dst, int dx, int dy)
 {
-    TRACE_FUNC("((dst*) %p += %d, %d)", dst, dx, dy);
-    
-    dst->x += dx;
-    dst->y += dy;
+    aktive_point_move ((aktive_point*) dst, dx, dy);
+}
 
-    TRACE_RETURN_VOID;
+extern void
+aktive_rectangle_add (aktive_rectangle* dst, aktive_point* delta)
+{
+    aktive_point_add ((aktive_point*) dst, delta);
 }
 
 extern void
 aktive_rectangle_grow (aktive_rectangle* dst, int left, int right, int top, int bottom)
 {
-    TRACE_FUNC("((dst*) %p <-> %d %d %d %d)", dst, left, right, top, bottom);
+    TRACE_FUNC("((dst*) %p <-%d %d-> ^%d v%d)",
+	       dst, left, right, top, bottom);
     
     dst->x      -= left;
     dst->y      -= top;
@@ -108,6 +147,10 @@ aktive_rectangle_grow (aktive_rectangle* dst, int left, int right, int top, int 
 
     TRACE_RETURN_VOID;
 }
+
+/*
+ * - - -- --- ----- -------- -------------
+ */
 
 extern void
 aktive_rectangle_union (aktive_rectangle* dst, aktive_rectangle* a, aktive_rectangle* b)
@@ -184,45 +227,9 @@ aktive_rectangle_intersect (aktive_rectangle* dst, aktive_rectangle* a, aktive_r
     TRACE_RETURN_VOID;
 }
 
-extern int
-aktive_rectangle_is_equal (aktive_rectangle* a, aktive_rectangle* b)
-{
-    TRACE_FUNC("((rect*) %p == (rect*) %p)", a, b);
-
-    int is_equal = 
-	(a->x      == b->x     ) &&
-	(a->y      == b->y     ) &&
-	(a->width  == b->width ) &&
-	(a->height == b->height)
-	;
-
-    TRACE_RETURN("(bool) %d", is_equal);
-}
-
-extern int
-aktive_rectangle_is_subset (aktive_rectangle* a, aktive_rectangle* b)
-{
-    TRACE_FUNC("((rect*) %p <= (rect*) %p)", a, b);
-
-    int is_subset =
-	(a->x               >= b->x              ) &&
-	((a->x + a->width)  <= (b->x + b->width )) &&
-	(a->y               >= b->y              ) &&
-	((a->y + a->height) <= (b->y + b->height))
-	;
-
-    TRACE_RETURN("(bool) %d", is_subset);
-}
-
-extern int
-aktive_rectangle_is_empty  (aktive_rectangle* r)
-{
-    TRACE_FUNC("((rect*) %p empty?", r);
-
-    int is_empty = (r->width == 0) || (r->height == 0);
-
-    TRACE_RETURN("(bool) %d", is_empty);
-}
+/*
+ * - - -- --- ----- -------- -------------
+ */
 
 extern void
 aktive_rectangle_outzones (aktive_rectangle* domain, aktive_rectangle* request,

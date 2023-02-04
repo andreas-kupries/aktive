@@ -79,6 +79,42 @@ critcl::resulttype aktive_rectangle {
 } aktive_rectangle
 
 # # ## ### ##### ######## #############
+## 2d/3d geometry
+
+critcl::argtype aktive_geometry {
+    int       c;
+    Tcl_Obj** v;
+
+    if (Tcl_ListObjGetElements (interp, @@, &c, (Tcl_Obj***) &v) != TCL_OK) {
+	return TCL_ERROR;
+    }
+    if (c != 5) {
+	Tcl_SetResult (interp, "Bad #elements for geometry", TCL_STATIC);
+	return TCL_ERROR;
+    }
+
+    int x, y, w, h, d;
+    if (Tcl_GetIntFromObj (interp, v[0], &x) != TCL_OK) { return TCL_ERROR; }
+    if (Tcl_GetIntFromObj (interp, v[1], &y) != TCL_OK) { return TCL_ERROR; }
+    if (Tcl_GetIntFromObj (interp, v[2], &w) != TCL_OK) { return TCL_ERROR; }
+    if (Tcl_GetIntFromObj (interp, v[3], &h) != TCL_OK) { return TCL_ERROR; }
+    if (Tcl_GetIntFromObj (interp, v[3], &d) != TCL_OK) { return TCL_ERROR; }
+
+    aktive_geometry_set (&@A, x, y, w, h, d);
+
+//    (@A).x      = x;
+  //  (@A).y      = y;
+    //(@A).width  = w;
+//    (@A).height = h;
+  //  (@A).depth  = d;
+} aktive_geometry aktive_geometry
+
+critcl::resulttype aktive_geometry {
+    Tcl_SetObjResult (interp, aktive_new_geometry_obj(&rv));
+    return TCL_OK;
+} aktive_geometry
+
+# # ## ### ##### ######## #############
 ## image types
 
 critcl::resulttype aktive_image_type_ptr {
