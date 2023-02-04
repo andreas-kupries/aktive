@@ -273,8 +273,6 @@ operator image::constant {
     pixels {
 	aktive_blit_fill (block, dst, param->value);
     }
-
-    state -fields { int foo; } -setup { state->foo = 33; } -cleanup { /**/ }
 }
 
 operator image::const::planes {
