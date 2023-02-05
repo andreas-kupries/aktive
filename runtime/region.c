@@ -70,7 +70,12 @@ aktive_region_destroy (aktive_region region)
 
     // Release inputs, if any 
 
-    aktive_region_vector_free (&region->public.srcs);
+    if (region->public.srcs.c) {
+	for (unsigned int i = 0; i < region->public.srcs.c; i++) {
+	    aktive_region_destroy (region->public.srcs.v [i]);
+	}
+	aktive_region_vector_free (&region->public.srcs);
+    }
 
     // Release owner 
 
