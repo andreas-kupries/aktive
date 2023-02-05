@@ -530,6 +530,7 @@ proc dsl::writer::OperatorFunctionForOp {op} {
     if {${region/setup} ne {}} {
 	+ "static void"
 	+ "[RegionSetupFuncname $op] (aktive_region_info* info) \{"
+	+ "  TRACE_FUNC(\"((aktive_region_info*) %p)\", info);"
 
 	# Enhance fragment with code providing the info data in properly typed form.
 	set types {}
@@ -556,6 +557,7 @@ proc dsl::writer::OperatorFunctionForOp {op} {
 	+ {}
 	Comment {- - -- --- ----- -------- ------------- ---------------------} {  }
 	if {!$rt} { + "#undef state" }
+	+ "  TRACE_RETURN_VOID;"
 	+ "\}"
 	+ {}
     }
@@ -563,11 +565,13 @@ proc dsl::writer::OperatorFunctionForOp {op} {
     if {${region/cleanup} ne {}} {
 	+ "static void"
 	+ "[RegionFinalFuncname $op] (${regiontype}* state) \{"
+	+ "  TRACE_FUNC(\"(($regiontype*) %p)\", state);"
 	Comment {- - -- --- ----- -------- ------------- ---------------------} {  }
 	+ {}
 	+ [FormatCode ${region/cleanup}]
 	+ {}
 	Comment {- - -- --- ----- -------- ------------- ---------------------} {  }
+	+ "  TRACE_RETURN_VOID;"
 	+ "\}"
 	+ {}
     }
@@ -575,6 +579,7 @@ proc dsl::writer::OperatorFunctionForOp {op} {
     if {${state/setup} ne {}} {
 	+ "static void"
 	+ "[StateSetupFuncname $op] (aktive_image_info* info) \{"
+	+ "  TRACE_FUNC(\"((aktive_image_info*) %p)\", info);"
 
 	# Enhance fragment with code providing the info data in properly typed form.
 	set types [list aktive_geometry*]
@@ -599,6 +604,7 @@ proc dsl::writer::OperatorFunctionForOp {op} {
 	+ {}
 	Comment {- - -- --- ----- -------- ------------- ---------------------} {  }
 	if {!$st} { + "#undef state" }
+	+ "  TRACE_RETURN_VOID;"
 	+ "\}"
 	+ {}
     }
@@ -606,6 +612,7 @@ proc dsl::writer::OperatorFunctionForOp {op} {
     if {${state/cleanup} ne {}} {
 	+ "static void"
 	+ "[StateFinalFuncname $op] (${statetype}* state) \{"
+	+ "  TRACE_FUNC(\"(($statetype*) %p)\", state);"
 	Comment {- - -- --- ----- -------- ------------- ---------------------} {  }
 	+ {}
 	+ [FormatCode ${state/cleanup}]
@@ -649,6 +656,7 @@ proc dsl::writer::OperatorFunctionForOp {op} {
 	+ "$spc , aktive_rectangle*   dst     // Area of `block` to blit the pixels into"
 	+ "$spc , aktive_block*       block   // Pixel storage"
 	+ "$spc ) \{"
+	+ "  TRACE_FUNC(\"((aktive_region_info*) %p)\", info);"
 
 	if {${region/fetch} ne {}} {
 	    # Enhance fragment with code providing the info data in properly typed form.
@@ -671,6 +679,7 @@ proc dsl::writer::OperatorFunctionForOp {op} {
 	} else {
 	    + [Placeholder ${op}-fetch]
 	}
+	+ "  TRACE_RETURN_VOID;"
 	+ "\}"
 	+ {}
 
@@ -1163,6 +1172,7 @@ proc dsl::writer::FunctionBodyImageConstructor {op spec} {
 
     set call ""
 
+    + "  TRACE_FUNC(\"\", 0);"
     + {}
     + "  static aktive_image_type $opspecvar = \{"
     + "      .name         = \"$op\""
@@ -1239,7 +1249,8 @@ proc dsl::writer::FunctionBodyImageConstructor {op spec} {
 	append call ", NULL"	;# No input images.
     }
 
-    + "  return aktive_image_new (&$opspecvar$call);"
+    + "  aktive_image r = aktive_image_new (&$opspecvar$call);"
+    + "  TRACE_RETURN (\"(aktive_image) %p\", r);"
     return [join $lines \n]
 }
 
