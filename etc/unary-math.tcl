@@ -55,23 +55,78 @@ operator function {
 }
 
 ## # # ## ### ##### ######## ############# #####################
+## Unary with one parameter
 
-nyi operator {
-    op::math::inside-oo
-    op::math::inside-oc
-    op::math::inside-co
-    op::math::inside-cc
-    op::math::outside-oo
-    op::math::outside-oc
-    op::math::outside-co
-    op::math::outside-cc
+operator {function name description} {
+    op::math1::shift   aktive_shift  offset    {Add      scalar offset}
+    op::math1::unshift aktive_nshift offset    {Subtract scalar offset}
+    op::math1::scale   aktive_scale  factor    {Multiply by scalar factor}
+    op::math1::unscale aktive_rscale factor    {Divide   by scalar factor}
+    op::math1::moda    fmod          modulus   {Remainder by scalar modulus}
+    op::math1::modb    aktive_fmod   numerator {Remainder by scalar numerator}
+    op::math1::pow     pow           exponent  {Power by scalar exponent}
+    op::math1::expx    aktive_pow    base      {Power by scalar base}
+    op::math1::hypot   hypot         y         {Hypot to scalar y}
+    op::math1::max     fmax          min       {Limit to greater or equal a scalar min}
+    op::math1::min     fmin          max       {Limit to less    or equal a scalar max}
+    op::math1::atan2a  atan2         x         {Atan by scalar x}
+    op::math1::atan2b  aktive_atan   y         {Atan by scalar y}
+    op::math1::ge      aktive_ge     threshold {Indicate pixels greater or equal the scalar threshold}
+    op::math1::le      aktive_le     threshold {Indicate pixels less    or equal the scalar threshold}
+    op::math1::gt      aktive_gt     threshold {Indicate pixels greater than     the scalar threshold}
+    op::math1::lt      aktive_lt     threshold {Indicate pixels less    than     the scalar threshold}
+    op::solarize       aktive_sol    threshold {Solarize pixels per the threshold}
 } {
+    note Performs the unary operation $function with parameter $name
+    note The resulting image has the same geometry as the input.
+
     input keep ;#-pass-ignore
 
-    double low   Low boundary
-    double high  High boundary
+    double $name  {*}$description
 
-    # %% TODO %% specify implementation
+    state -setup {
+	aktive_geometry_copy (domain, aktive_image_get_geometry (srcs->v[0]));
+    }
+    pixels {
+	aktive_blit_unary1 (block, dst, @@, param->PA, aktive_region_fetch_area (srcs->v[0], request));
+    } @@ $function PA $name
+
+    # TODO :: consider generation of the blit implementation through the DSL.
+    # TODO :: would allow macro for ops, inlined, more compiler optimizations?
+    # TODO :: defered for now until benchmarks prove it necessary - do threading first
+}
+
+## # # ## ### ##### ######## ############# #####################
+## Unary with two parameters
+
+operator {function lowkind highkind mode} {
+    op::math::inside-oo  aktive_inside_oo  open   open   inside
+    op::math::inside-oc	 aktive_inside_oc  open   closed inside
+    op::math::inside-co	 aktive_inside_co  closed open   inside
+    op::math::inside-cc	 aktive_inside_cc  closed closed inside
+
+    op::math::outside-oo aktive_outside_oo open   open   outside
+    op::math::outside-oc aktive_outside_oc open   closed outside
+    op::math::outside-co aktive_outside_co closed open   outside
+    op::math::outside-cc aktive_outside_cc closed closed outside
+} {
+    note Performs a double sided thresholding against the $lowkind/$highkind
+    note interval given by the two bounaries. Values $mode the interval
+    note are indicated in the result.
+    note The resulting image has the same geometry as the input.
+
+    input keep ;#-pass-ignore
+
+    double low   Lower $lowkind boundary
+    double high  Upper $highkind boundary
+
+    state -setup {
+	aktive_geometry_copy (domain, aktive_image_get_geometry (srcs->v[0]));
+    }
+    pixels {
+	aktive_blit_unary2 (block, dst, @@, param->low, param->high,
+			    aktive_region_fetch_area (srcs->v[0], request));
+    } @@ $function
 }
 
 ## # # ## ### ##### ######## ############# #####################

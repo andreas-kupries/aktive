@@ -155,6 +155,36 @@ aktive_gamma_expand (double x) {
  * - - -- --- ----- -------- -------------
  */
 
+static double aktive_shift  (double x, double offset)    { return x + offset; }
+static double aktive_nshift (double x, double offset)    { return x - offset; }
+static double aktive_scale  (double x, double factor)    { return x * factor; }
+static double aktive_rscale (double x, double factor)    { return x / factor; }
+static double aktive_fmod   (double x, double numerator) { return fmod (numerator, x); }
+static double aktive_pow    (double x, double base)      { return pow (base, x); }
+static double aktive_atan   (double x, double y)         { return atan2 (y, x); }
+static double aktive_ge     (double x, double threshold) { return (x >= threshold) ? 1 : 0; }
+static double aktive_le     (double x, double threshold) { return (x <= threshold) ? 1 : 0; }
+static double aktive_gt     (double x, double threshold) { return (x >  threshold) ? 1 : 0; }
+static double aktive_lt     (double x, double threshold) { return (x <  threshold) ? 1 : 0; }
+static double aktive_sol    (double x, double threshold) { return (x <= threshold) ? x : 1-x; }
+
+/*
+ * - - -- --- ----- -------- -------------
+ */
+
+static double aktive_inside_oo  (double x, double low, double high) { return (low <  x) && (x <  high) ? 1 : 0; }
+static double aktive_inside_oc  (double x, double low, double high) { return (low <  x) && (x <= high) ? 1 : 0; }
+static double aktive_inside_co  (double x, double low, double high) { return (low <= x) && (x <  high) ? 1 : 0; }
+static double aktive_inside_cc  (double x, double low, double high) { return (low <= x) && (x <= high) ? 1 : 0; }
+static double aktive_outside_oo (double x, double low, double high) { return (low <  x) && (x <  high) ? 0 : 1; }
+static double aktive_outside_oc (double x, double low, double high) { return (low <  x) && (x <= high) ? 0 : 1; }
+static double aktive_outside_co (double x, double low, double high) { return (low <= x) && (x <  high) ? 0 : 1; }
+static double aktive_outside_cc (double x, double low, double high) { return (low <= x) && (x <= high) ? 0 : 1; }
+
+/*
+ * - - -- --- ----- -------- -------------
+ */
+
 /*
  * = = == === ===== ======== ============= =====================
  * Local Variables:

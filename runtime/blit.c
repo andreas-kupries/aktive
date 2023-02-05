@@ -302,6 +302,109 @@ aktive_blit_unary0 (aktive_block* dst, aktive_rectangle* dstarea,
     TRACE_RETURN_VOID;
 }
 
+extern void
+aktive_blit_unary1 (aktive_block* dst, aktive_rectangle* dstarea,
+		    aktive_unary_transform1 op, double a, aktive_block* src)
+{
+    TRACE_FUNC("((block*) %p (%d of %d @ %p)", dst, dst->used, dst->capacity, dst->pixel);
+    
+    // assert : dst.domain.depth == src.domain.depth / dd == sd (*)
+
+    // dst  = (0, 0, dw, dh)
+    // src  = (0, 0, sw, hh)
+    // area = (x, y, w, h) < src, < dst
+
+    aktive_uint dw = dst->domain.width;
+    aktive_uint sw = src->domain.width;
+    aktive_uint sd = dst->domain.depth;
+    
+    aktive_uint stride = sd * sw;	// (*)
+    aktive_uint width  = sd * dw;	// (*)
+
+    TRACE ("- width %d, stride %d", width, stride);
+    
+    double*     dstart  = dst->pixel + dstarea->y * stride + dstarea->x * sd; // (*)
+    double*     sstart  = src->pixel; // (0,0)
+
+    ASSERT (sstart - src->pixel < src->used, "pixel source out of bounds"); 
+    ASSERT (dstart - dst->pixel < dst->used, "pixel destin out of bounds");
+    
+    for (aktive_uint row = 0;
+	 row < dstarea->height;
+	 row++, sstart += stride, dstart += stride) {
+
+	// blit line with data transformation
+	double* dpos = dstart;
+	double* spos = sstart;
+
+	for(aktive_uint k = 0;
+	    k < width;
+	    k++, dpos++, spos++) {
+
+	    TRACE ("cell (y%d %d (x%d z%d)) - src:%u dst:%u", row, k, k/sd, k % sd,
+		   spos - src->pixel, dpos - dst->pixel);
+	    ASSERT (spos - src->pixel <= src->used, "pixel read out of bounds"); 
+	    ASSERT (dpos - dst->pixel <= dst->used, "pixel write out of bounds");
+	    
+	    *dpos = op (*spos, a);
+	}
+    }
+
+    TRACE_RETURN_VOID;
+}
+
+extern void
+aktive_blit_unary2 (aktive_block* dst, aktive_rectangle* dstarea,
+		    aktive_unary_transform2 op, double a, double b,
+		    aktive_block* src)
+{
+    TRACE_FUNC("((block*) %p (%d of %d @ %p)", dst, dst->used, dst->capacity, dst->pixel);
+    
+    // assert : dst.domain.depth == src.domain.depth / dd == sd (*)
+
+    // dst  = (0, 0, dw, dh)
+    // src  = (0, 0, sw, hh)
+    // area = (x, y, w, h) < src, < dst
+
+    aktive_uint dw = dst->domain.width;
+    aktive_uint sw = src->domain.width;
+    aktive_uint sd = dst->domain.depth;
+    
+    aktive_uint stride = sd * sw;	// (*)
+    aktive_uint width  = sd * dw;	// (*)
+
+    TRACE ("- width %d, stride %d", width, stride);
+    
+    double*     dstart  = dst->pixel + dstarea->y * stride + dstarea->x * sd; // (*)
+    double*     sstart  = src->pixel; // (0,0)
+
+    ASSERT (sstart - src->pixel < src->used, "pixel source out of bounds"); 
+    ASSERT (dstart - dst->pixel < dst->used, "pixel destin out of bounds");
+    
+    for (aktive_uint row = 0;
+	 row < dstarea->height;
+	 row++, sstart += stride, dstart += stride) {
+
+	// blit line with data transformation
+	double* dpos = dstart;
+	double* spos = sstart;
+
+	for(aktive_uint k = 0;
+	    k < width;
+	    k++, dpos++, spos++) {
+
+	    TRACE ("cell (y%d %d (x%d z%d)) - src:%u dst:%u", row, k, k/sd, k % sd,
+		   spos - src->pixel, dpos - dst->pixel);
+	    ASSERT (spos - src->pixel <= src->used, "pixel read out of bounds"); 
+	    ASSERT (dpos - dst->pixel <= dst->used, "pixel write out of bounds");
+	    
+	    *dpos = op (*spos, a, b);
+	}
+    }
+
+    TRACE_RETURN_VOID;
+}
+
 /*
  * - - -- --- ----- -------- -------------
  */

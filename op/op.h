@@ -33,6 +33,29 @@ static double aktive_sign           (double x);
 static double aktive_signb          (double x);
 static double aktive_wrap           (double x);
 
+static double aktive_shift  (double x, double offset);
+static double aktive_nshift (double x, double offset);
+static double aktive_scale  (double x, double factor);
+static double aktive_rscale (double x, double factor);
+static double aktive_fmod   (double x, double numerator);
+static double aktive_pow    (double x, double base);
+static double aktive_atan   (double x, double y);
+static double aktive_ge     (double x, double threshold);
+static double aktive_le     (double x, double threshold);
+static double aktive_gt     (double x, double threshold);
+static double aktive_lt     (double x, double threshold);
+static double aktive_sol    (double x, double threshold);
+
+static double aktive_inside_oo  (double x, double low, double high);
+static double aktive_inside_oc  (double x, double low, double high);
+static double aktive_inside_co  (double x, double low, double high);
+static double aktive_inside_cc  (double x, double low, double high);
+
+static double aktive_outside_oo (double x, double low, double high);
+static double aktive_outside_oc (double x, double low, double high);
+static double aktive_outside_co (double x, double low, double high);
+static double aktive_outside_cc (double x, double low, double high);
+
 /*
  * = = == === ===== ======== ============= =====================
  * Local Variables:

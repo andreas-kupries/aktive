@@ -1,0 +1,93 @@
+# -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
+## (c) 2023 Andreas Kupries
+# # ## ### ##### ######## ############# #####################
+## AKTIVE. Unary transformers with a single parameter
+
+kt check Tcl     8.6
+kt check tcltest 2
+
+# # ## ### ##### ######## ############# #####################
+
+kt local testing aktive
+
+kt source support/util.tcl
+
+# # ## ### ##### ######## ############# #####################
+## Syntax
+
+syntax {
+    shift   {offset src}
+    unshift {offset src}
+    scale   {factor src}
+    unscale {factor src}
+    moda    {modulus src}
+    modb    {numerator src}
+    pow     {exponent src}
+    expx    {base src}
+    hypot   {y src}
+    max     {min src}
+    min     {max src}
+    atan2a  {x src}
+    atan2b  {y src}
+    ge      {threshold src}
+    le      {threshold src}
+    gt      {threshold src}
+    lt      {threshold src}
+} {aktive op math1}
+
+syntax {
+    solarize {threshold src}
+} {aktive op}
+
+# # ## ### ##### ######## ############# #####################
+##
+
+foreach {k fun steps first last param pname expected} {
+    0    {math1 shift}    7 -3 3 2.0 offset    {-1 0 1 2 3 4 5}
+    1    {math1 unshift}  7 -3 3 2.0 offset    {-5 -4 -3 -2 -1 0 1}
+    2    {math1 scale}    7 -3 3 2.0 factor    {-6 -4 -2 0 2 4 6}
+    3    {math1 unscale}  7 -3 3 2.0 factor    {-1.5 -1 -0.5 0 0.5 1 1.5}
+    4    {math1 moda}     7 -3 3 2.0 modulus   {-1 -0 -1 0 1 0 1}
+    5    {math1 modb}     7  1 7 2.0 numerator {0 0 2 2 2 2 2}
+    6    {math1 pow}      7 -3 3 2.0 exponent  {9 4 1 0 1 4 9}
+    7    {math1 expx}     7 -3 3 2.0 base      {0.125 0.25 0.5 1 2 4 8}
+    8    {math1 hypot}    7 -3 3 2.0 y         {3.60555 2.82843 2.23607 2 2.23607 2.82843 3.60555}
+    9    {math1 max}      7 -3 3 2.0 min       {2 2 2 2 2 2 3}
+    10   {math1 min}      7 -3 3 2.0 max       {-3 -2 -1 0 1 2 2}
+    11   {math1 atan2a}   . . . . . {}
+    12   {math1 atan2b}   . . . . . {}
+    13   {math1 ge}       7 -3 3 2.0 threshold {0 0 0 0 0 1 1}
+    14   {math1 le}       7 -3 3 2.0 threshold {1 1 1 1 1 1 0}
+    15   {math1 gt}       7 -3 3 2.0 threshold {0 0 0 0 0 0 1}
+    16   {math1 lt}       7 -3 3 2.0 threshold {1 1 1 1 1 0 0}
+    17   solarize         7 -3 3 1.5 threshold {-3 -2 -1 0 1 -1 -2}
+} {
+    if {$steps eq "."} continue ;# skip undefined parts
+
+    # puts   "\nXX $fun ........................................................................"
+    # puts   "XX INPUT [dict get [astcl aktive image gradient $steps 1 1 $first $last] pixels]"
+    # puts   "XX RESLT [dict get [astcl aktive op math1 $fun [aktive image gradient $steps 1 1 $first $last]] pixels]"
+    # puts   "XX EXP.. $expected\n"
+
+    unset -nocomplain map
+    lappend map /fun   [join $fun ::]
+    lappend map /ex    $expected
+    lappend map /param $param
+    lappend map /steps $steps
+    lappend map /pname $pname
+
+    test aktive-op-[join ${fun} -]-2.0 "aktive $fun (\[$first $last]/$steps)" -body {
+	astcl aktive op {*}$fun $param [aktive image gradient $steps 1 1 $first $last]
+    } -match image -result [string map $map {
+	type   op::/fun
+	config {/pname /param}
+	domain {x 0 y 0 width /steps height 1 depth 1}
+	pixels {/ex}
+    }]
+
+    unset map
+}
+
+# # ## ### ##### ######## ############# #####################
+cleanupTests
+return

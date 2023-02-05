@@ -1,7 +1,7 @@
 # -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
 ## (c) 2023 Andreas Kupries
 # # ## ### ##### ######## ############# #####################
-## AKTIVE. Unary transformers
+## AKTIVE. Unary transformers with no parameters
 
 kt check Tcl     8.6
 kt check tcltest 2
@@ -90,13 +90,20 @@ foreach {k fun steps first last expected} {
     # puts   "XX RESLT [dict get [astcl aktive op math1 $fun [aktive image gradient $steps 1 1 $first $last]] pixels]"
     # puts   "XX EXP.. $expected\n"
 
-    test aktive-op-math1-${fun}-2.0 "aktive math1 $fun ($first $last)" -body {
+    unset -nocomplain map
+    lappend map /fun   $fun
+    lappend map /ex    $expected
+    lappend map /steps $steps
+
+    test aktive-op-math1-${fun}-2.0 "aktive math1 $fun (\[$first $last]/$steps)" -body {
 	astcl aktive op math1 $fun [aktive image gradient $steps 1 1 $first $last]
-    } -match image -result [string map [list :steps $steps :fun $fun :ex $expected] {
-	type   op::math1:::fun
-	domain {x 0 y 0 width :steps height 1 depth 1}
-	pixels {:ex}
+    } -match image -result [string map $map {
+	type   op::math1::/fun
+	domain {x 0 y 0 width /steps height 1 depth 1}
+	pixels {/ex}
     }]
+
+    unset map
 }
 
 # # ## ### ##### ######## ############# #####################

@@ -30,7 +30,9 @@ typedef struct aktive_block {
     aktive_uint     used     ; // Used part (width * height * depth)                         
 } aktive_block;
 
-typedef double (*aktive_unary_transform) (double x);
+typedef double (*aktive_unary_transform)  (double x);
+typedef double (*aktive_unary_transform1) (double x, double a);
+typedef double (*aktive_unary_transform2) (double x, double a, double b);
 
 /*
  * - - -- --- ----- -------- -------------
@@ -59,6 +61,13 @@ extern void aktive_blit_copy0 (aktive_block* dst, aktive_rectangle* dstarea,
 
 extern void aktive_blit_unary0 (aktive_block* dst, aktive_rectangle* dstarea,
 				aktive_unary_transform op, aktive_block* src);
+
+extern void aktive_blit_unary1 (aktive_block* dst, aktive_rectangle* dstarea,
+				aktive_unary_transform1 op, double a, aktive_block* src);
+
+extern void aktive_blit_unary2 (aktive_block* dst, aktive_rectangle* dstarea,
+				aktive_unary_transform2 op, double a, double b,
+				aktive_block* src);
 
 // This function assumes depth == 1. If depth > 1 caller has to manipulate the
 // point's x coordinate to reach the desired cell (band in the column)

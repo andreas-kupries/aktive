@@ -242,33 +242,6 @@ nyi operator {
     # %% TODO %% specify implementation
 }
 
-nyi operator {name op} {
-    op::math1::shift   offset    {Add      scalar offset}
-    op::math1::unshift offset    {Subtract scalar offset}
-    op::math1::scale   factor    {Multiply by scalar factor}
-    op::math1::unscale factor    {Divide   by scalar factor}
-    op::math1::moda    modulus   {Remainder by scalar modulus}
-    op::math1::modb    numerator {Remainder by scalar numerator}
-    op::math1::pow     exponent  {Power by scalar exponent}
-    op::math1::expx    base      {Power by scalar base}
-    op::math1::hypot   y         {Hypot to scalar y}
-    op::math1::max     y         {Limit to greater or equal a scalar min}
-    op::math1::min     y         {Limit to less    or equal a scalar max}
-    op::math1::atan2a  x         {Atan by scalar x}
-    op::math1::atan2b  y         {Atan by scalar y}
-    op::math1::ge      threshold {Indicate pixels greater or equal the scalar threshold}
-    op::math1::le      threshold {Indicate pixels less    or equal the scalar threshold}
-    op::math1::gt      threshold {Indicate pixels greater than     the scalar threshold}
-    op::math1::lt      threshold {Indicate pixels less    than     the scalar threshold}
-    op::solarize       threshold {Solarize pixels per the threshold}
-} {
-    input keep-pass-ignore
-
-    double $name  {*}$op
-
-    # %% TODO %% specify implementation
-}
-
 nyi operator thing {
     op::select::x column
     op::select::y row
