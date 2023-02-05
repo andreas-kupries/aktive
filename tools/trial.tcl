@@ -30,16 +30,22 @@ proc show {i} {
     puts ""
 }
 
-show [aktive image constant     4 6 1  0.5]
-show [aktive image const planes 4 6    0 0.5 1]
+show [aktive image constant     4 6 1  1]
+show [aktive image const bands  4 6    1 2 3]
 show [aktive image const matrix 8 8 \
-	  .5 .5 .5 .5 .5 .5 .5 .5 \
-	  .5 .5 .5  1  1 .5 .5 .5 \
-	  .5 .5 .5  1  1 .5 .5 .5 \
-	  .5  1  1  1  1  1  1 .5 \
-	  .5  1  1  1  1  1  1 .5 \
-	  .5 .5 .5  1  1 .5 .5 .5 \
-	  .5 .5 .5  1  1 .5 .5 .5 \
-	  .5 .5 .5 .5 .5 .5 .5 .5]
+	  1 1 1 1 1 1 1 1 \
+	  1 1 1 2 2 1 1 1 \
+	  1 1 1 2 2 1 1 1 \
+	  1 2 2 2 2 2 2 1 \
+	  1 2 2 2 2 2 2 1 \
+	  1 1 1 2 2 1 1 1 \
+	  1 1 1 2 2 1 1 1 \
+	  1 1 1 1 1 1 1 1]
+
+show [aktive image const sparse points \
+	  {0 0} \
+	  {6 3} \
+	  {5 5} \
+	  {4 2}]
 
 exit

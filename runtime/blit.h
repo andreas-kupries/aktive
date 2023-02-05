@@ -34,16 +34,16 @@ typedef struct aktive_block {
  * - - -- --- ----- -------- -------------
  */
 
-extern void aktive_blit_setup (aktive_block* block, aktive_rectangle* request);
+extern void aktive_blit_setup (aktive_block* dst, aktive_rectangle* request);
 
 /*
  * - - -- --- ----- -------- -------------
  */
 
-extern void aktive_blit_clear_all  (aktive_block* block);
-extern void aktive_blit_clear      (aktive_block* block, aktive_rectangle* area);
-extern void aktive_blit_fill       (aktive_block* block, aktive_rectangle* area, double v);
-extern void aktive_blit_fill_bands (aktive_block* block, aktive_rectangle* area,
+extern void aktive_blit_clear_all  (aktive_block* dst);
+extern void aktive_blit_clear      (aktive_block* dst, aktive_rectangle* area);
+extern void aktive_blit_fill       (aktive_block* dst, aktive_rectangle* area, double v);
+extern void aktive_blit_fill_bands (aktive_block* dst, aktive_rectangle* area,
 				    aktive_double_vector* bands);
 
 extern void aktive_blit_copy (aktive_block* dst, aktive_rectangle* dstarea,
@@ -51,6 +51,10 @@ extern void aktive_blit_copy (aktive_block* dst, aktive_rectangle* dstarea,
 
 extern void aktive_blit_copy0 (aktive_block* dst, aktive_rectangle* dstarea,
 			       aktive_block* src);
+
+// This function assumes depth == 1. If depth > 1 caller has to manipulate the
+// point's x coordinate to reach the desired cell (band in the column)
+extern void aktive_blit_set (aktive_block* dst, aktive_point* location, double v);
 
 /*
  * - - -- --- ----- -------- -------------
@@ -60,7 +64,7 @@ extern void aktive_blit_copy0 (aktive_block* dst, aktive_rectangle* dstarea,
  * - - -- --- ----- -------- -------------
  */
 
-extern void __aktive_block_dump (char* prefix, aktive_block* block);
+extern void __aktive_block_dump (char* prefix, aktive_block* src);
 
 /*
  * - - -- --- ----- -------- -------------

@@ -1,14 +1,9 @@
 # -*- tcl -*-
-## (c) 2021 Andreas Kupries
+## (c) 2021,2023 Andreas Kupries
 # # ## ### ##### ######## ############# #####################
 ## Test Utility Commands
 
-#kt source support/util-paths.tcl
-#kt source support/util-files.tcl
-#kt source support/util-database.tcl
-#kt source support/util-strings.tcl
-#kt source support/util-setup.tcl
-#kt source support/util-chunks.tcl
+kt source support/image.tcl
 
 # # ## ### ##### ######## ############# #####################
 ## Automated wrong#args checking based on command name and argument

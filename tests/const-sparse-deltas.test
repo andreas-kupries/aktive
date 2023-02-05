@@ -1,0 +1,56 @@
+# -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
+## (c) 2023 Andreas Kupries
+# # ## ### ##### ######## ############# #####################
+## AKTIVE. Const Sparse Deltas images
+
+kt check Tcl     8.6
+kt check tcltest 2
+
+# # ## ### ##### ######## ############# #####################
+
+kt local testing aktive
+
+kt source support/util.tcl
+
+# # ## ### ##### ######## ############# #####################
+## Syntax -- args issue
+
+if 0 {syntax {
+    deltas {args}
+} {aktive image const sparse}}
+
+# # ## ### ##### ######## ############# #####################
+##
+
+test aktive-image-const-sparse-deltas-2.0 "aktive image const sparse deltas" -body {
+    astcl aktive image const sparse deltas 7   0 20 5 15
+    #      0 20  5 15
+    # ->   0 20 25 40
+    # x %7 0  6  4  5
+    # y /7 0  2  3  5
+} -match image -result {
+    type   image::const::sparse::deltas
+    config {
+	width 7
+	delta {0 20 5 15}
+    }
+    domain {
+	x 0
+	y 0
+	width 7
+	height 6
+	depth 1
+    }
+    pixels {
+	1 0 0 0 0 0 0
+	0 0 0 0 0 0 0
+	0 0 0 0 0 0 1
+	0 0 0 0 1 0 0
+	0 0 0 0 0 0 0
+	0 0 0 0 0 1 0
+    }
+}
+
+# # ## ### ##### ######## ############# #####################
+cleanupTests
+return

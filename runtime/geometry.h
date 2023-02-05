@@ -65,6 +65,8 @@ extern void aktive_point_from_geometry (aktive_point* dst, aktive_geometry*  src
 extern void aktive_point_move     (aktive_point* dst, int dx, int dy);
 extern void aktive_point_add      (aktive_point* dst, aktive_point* delta);
 
+extern void aktive_point_union (aktive_rectangle* dst, aktive_uint c, aktive_point* v);
+
 /*
  * - - -- --- ----- -------- -------------
  */
@@ -85,6 +87,7 @@ extern void aktive_rectangle_from_geometry (aktive_rectangle* dst, aktive_geomet
 extern int aktive_rectangle_is_equal  (aktive_rectangle* a, aktive_rectangle* b);
 extern int aktive_rectangle_is_subset (aktive_rectangle* a, aktive_rectangle* b);
 extern int aktive_rectangle_is_empty  (aktive_rectangle* r);
+extern int aktive_rectangle_contains  (aktive_rectangle* r, aktive_point* p);
 
 extern void aktive_rectangle_move         (aktive_rectangle* dst, int dx, int dy);
 extern void aktive_rectangle_add          (aktive_rectangle* dst, aktive_point* delta);

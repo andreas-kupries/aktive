@@ -1283,6 +1283,7 @@ proc dsl::writer::Dump {dict indent} {
 proc dsl::writer::Vectors {} {
     # Exclude imported vector types from code generation.
     if {![Has vcached]} {
+	set vs {}
 	dict for {v imported} [Get vectors] {
 	    if {$imported} continue
 	    lappend vs $v
@@ -1324,6 +1325,7 @@ proc dsl::writer::OpParamVariadic {op} {
 proc dsl::writer::Types {} {
     # Exclude imported types from code generation.
     if {![Has tcached]} {
+	set ts {}
 	dict for {t spec} [Get types] {
 	    if {[dict get $spec imported]} continue
 	    lappend ts $t

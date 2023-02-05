@@ -19,24 +19,24 @@ TRACE_OFF;
  */
 
 extern void
-aktive_blit_setup (aktive_block* block, aktive_rectangle* request)
+aktive_blit_setup (aktive_block* dst, aktive_rectangle* request)
 {
-    aktive_geometry_set_rectangle (&block->domain, request);
+    aktive_geometry_set_rectangle (&dst->domain, request);
 
     aktive_uint size =
-	request->width * request->height * block->domain.depth;
+	request->width * request->height * dst->domain.depth;
 
-    block->used = size;
+    dst->used = size;
 
-    if (!block->pixel) {
+    if (!dst->pixel) {
 	// No memory present, create
 	
-	block->pixel    = NALLOC (double, size);
-	block->capacity = size;
-    } else if (block->capacity < size) {
+	dst->pixel    = NALLOC (double, size);
+	dst->capacity = size;
+    } else if (dst->capacity < size) {
 	// Memory present without enough capacity, size up
-	block->pixel    = REALLOC (block->pixel, double, size);
-	block->capacity = size;
+	dst->pixel    = REALLOC (dst->pixel, double, size);
+	dst->capacity = size;
     } // else: have enough space already, do nothing
 
     //// future: maybe size down if used <= 1/2 * capacity
@@ -47,13 +47,13 @@ aktive_blit_setup (aktive_block* block, aktive_rectangle* request)
  */
 
 extern void
-aktive_blit_clear_all (aktive_block* block) {
-    memset (block->pixel, 0, block->used * sizeof (double));
+aktive_blit_clear_all (aktive_block* dst) {
+    memset (dst->pixel, 0, dst->used * sizeof (double));
     // Note: The value 0b'00000000 represents (double) 0.0.
 }
 
 extern void
-aktive_blit_clear (aktive_block* block, aktive_rectangle* area)
+aktive_blit_clear (aktive_block* dst, aktive_rectangle* area)
 {
     // dst  = (0, 0, dw, dh)
     // area = (x, y, w, h) < dst [== can be handled, hower clear_all should be more efficient]
@@ -64,12 +64,12 @@ aktive_blit_clear (aktive_block* block, aktive_rectangle* area)
     //         row stride [#double],
     // and     row size   [byte]     (accounts for bands)
 
-    aktive_uint w = block->domain.width;
-    aktive_uint d = block->domain.depth;
+    aktive_uint w = dst->domain.width;
+    aktive_uint d = dst->domain.depth;
 
     aktive_uint stride = d * w ; /* pitch */
     aktive_uint width  = d * area->width * sizeof (double);
-    double*     start  = block->pixel + area->y * stride + area->x * d;
+    double*     start  = dst->pixel + area->y * stride + area->x * d;
 
     for (aktive_uint row = 0;
 	 row < area->height;
@@ -79,7 +79,7 @@ aktive_blit_clear (aktive_block* block, aktive_rectangle* area)
 }
 
 extern void
-aktive_blit_fill (aktive_block* block, aktive_rectangle* area, double v)
+aktive_blit_fill (aktive_block* dst, aktive_rectangle* area, double v)
 {
     // block area = (0, 0, w, h)
     // clear area = (x, y, w', h') < (0, 0, w, h)	[Not <=, not equal]
@@ -90,12 +90,12 @@ aktive_blit_fill (aktive_block* block, aktive_rectangle* area, double v)
     //         row stride [#double],
     // and     row size   [byte]     (accounts for bands)
 
-    aktive_uint w = block->domain.width;
-    aktive_uint d = block->domain.depth;
+    aktive_uint w = dst->domain.width;
+    aktive_uint d = dst->domain.depth;
 
     aktive_uint stride = d * w ; /* pitch */
     aktive_uint width  = d * area->width;
-    double*     start  = block->pixel + area->y * stride + area->x * d;
+    double*     start  = dst->pixel + area->y * stride + area->x * d;
 
     for (aktive_uint row = 0;
 	 row < area->height;
@@ -108,7 +108,7 @@ aktive_blit_fill (aktive_block* block, aktive_rectangle* area, double v)
 }
 
 extern void
-aktive_blit_fill_bands (aktive_block* block, aktive_rectangle* area, aktive_double_vector* bands)
+aktive_blit_fill_bands (aktive_block* dst, aktive_rectangle* area, aktive_double_vector* bands)
 {
     // block area = (0, 0, w, h)
     // clear area = (x, y, w', h') < (0, 0, w, h)	[Not <=, not equal]
@@ -119,12 +119,12 @@ aktive_blit_fill_bands (aktive_block* block, aktive_rectangle* area, aktive_doub
     //         row stride [#double],
     // and     row size   [byte]     (accounts for bands)
 
-    aktive_uint w = block->domain.width;
-    aktive_uint d = block->domain.depth; // assert: == bands.c
+    aktive_uint w = dst->domain.width;
+    aktive_uint d = dst->domain.depth; // assert: == bands.c
 
     aktive_uint stride = d * w ; /* pitch */
     aktive_uint width  = d * area->width;
-    double*     start  = block->pixel + area->y * stride + area->x * d;
+    double*     start  = dst->pixel + area->y * stride + area->x * d;
 
     for (aktive_uint row = 0;
 	 row < area->height;
@@ -194,6 +194,16 @@ aktive_blit_copy0 (aktive_block* dst, aktive_rectangle* dstarea,
 
 /*
  * - - -- --- ----- -------- -------------
+ */
+
+extern void
+aktive_blit_set (aktive_block* dst, aktive_point* location, double v)
+{
+    dst->pixel [location->y * dst->domain.width + location->x] = v;
+}
+
+/*
+ * - - -- --- ----- -------- -------------
  *
  * debug support -- -------- -------------
  *
@@ -202,28 +212,28 @@ aktive_blit_copy0 (aktive_block* dst, aktive_rectangle* dstarea,
 #define CHAN stderr
 
 extern void
-__aktive_block_dump (char* prefix, aktive_block* block) {
-    fprintf (CHAN, "%s %p = block {\n", prefix, block);
+__aktive_block_dump (char* prefix, aktive_block* src) {
+    fprintf (CHAN, "%s %p = block {\n", prefix, src);
     fprintf (CHAN, "\tdomain   = { %d, %d : %u x %u x %u }\n",
-	     block->domain.x, block->domain.y,
-	     block->domain.width, block->domain.height, block->domain.depth);
-    fprintf (CHAN, "\tregion   = %p\n", block->region);
-    fprintf (CHAN, "\tcapacity = %d\n", block->capacity);
-    fprintf (CHAN, "\tused     = %d\n", block->used);
+	     src->domain.x, src->domain.y,
+	     src->domain.width, src->domain.height, src->domain.depth);
+    fprintf (CHAN, "\tregion   = %p\n", src->region);
+    fprintf (CHAN, "\tcapacity = %d\n", src->capacity);
+    fprintf (CHAN, "\tused     = %d\n", src->used);
     fprintf (CHAN, "\tpixels   = {");
 
-    if (block->used) {
+    if (src->used) {
 	fprintf (CHAN, "\n\t\t");
-	for (aktive_uint i = 0 ; i < block->used; i++) {
+	for (aktive_uint i = 0 ; i < src->used; i++) {
 	    if (i) {
-		if (i % (block->domain.width * block->domain.depth) == 0) {
+		if (i % (src->domain.width * src->domain.depth) == 0) {
 		    fprintf (CHAN, "\n\t\t");
-		} else if (i % block->domain.depth == 0) {
+		} else if (i % src->domain.depth == 0) {
 		    fprintf (CHAN, " /");
 		}
 	    }
 
-	    fprintf (CHAN, " %f", block->pixel [i]);
+	    fprintf (CHAN, " %f", src->pixel [i]);
 
 	}
 	fprintf (CHAN, "\n\t");

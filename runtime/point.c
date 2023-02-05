@@ -17,6 +17,13 @@ TRACE_OFF;
  * - - -- --- ----- -------- -------------
  */
 
+#define MIN(a,b) (((a) < (b)) ? (a) : (b))
+#define MAX(a,b) (((a) > (b)) ? (a) : (b))
+
+/*
+ * - - -- --- ----- -------- -------------
+ */
+
 extern Tcl_Obj*
 aktive_new_point_obj(aktive_point* p) {
     Tcl_Obj* el[2];
@@ -88,6 +95,36 @@ aktive_point_add (aktive_point* dst, aktive_point* delta)
     dst->y += delta->y;
 
     TRACE_RETURN_VOID;
+}
+
+/*
+ * - - -- --- ----- -------- -------------
+ */
+
+extern void
+aktive_point_union (aktive_rectangle* dst, aktive_uint c, aktive_point* v)
+{
+    if (c == 0) {
+	aktive_rectangle_set (dst, 0, 0, 0, 0);
+	return;
+    } else if (c == 1) {
+	aktive_rectangle_set (dst, v[0].x, v[0].y, 1, 1);
+	return;
+    }
+    
+    int x, xmax, y, ymax;
+
+    x = xmax = v[0].x;
+    y = ymax = v[0].y;
+
+    for (aktive_uint i = 1; i < c; i++) {
+	x    = MIN (x,    v[i].x);	
+	xmax = MAX (xmax, v[i].x);	
+	y    = MIN (y,    v[i].y);	
+	ymax = MAX (ymax, v[i].y);	
+    }
+    
+    aktive_rectangle_set (dst, x, y, xmax - x + 1, ymax - y + 1);
 }
 
 /*

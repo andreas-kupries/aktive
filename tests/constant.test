@@ -1,0 +1,52 @@
+# -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
+## (c) 2023 Andreas Kupries
+# # ## ### ##### ######## ############# #####################
+## AKTIVE. Constant images
+
+kt check Tcl     8.6
+kt check tcltest 2
+
+# # ## ### ##### ######## ############# #####################
+
+kt local testing aktive
+
+kt source support/util.tcl
+
+# # ## ### ##### ######## ############# #####################
+## Syntax
+
+syntax {
+    constant {width height depth value}
+} {aktive image}
+
+# # ## ### ##### ######## ############# #####################
+##
+
+test aktive-image-constant-2.0 "aktive image constant" -body {
+    astcl aktive image constant 3 4 2 5
+} -match image -result {
+    type   image::constant
+    config {
+	width 3
+	height 4
+	depth 2
+	value 5.0
+    }
+    domain {
+	x 0
+	y 0
+	width 3
+	height 4
+	depth 2
+    }
+    pixels {
+	5 5  5 5  5 5
+	5 5  5 5  5 5
+	5 5  5 5  5 5
+	5 5  5 5  5 5
+    }
+}
+
+# # ## ### ##### ######## ############# #####################
+cleanupTests
+return

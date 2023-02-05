@@ -97,12 +97,12 @@ critcl::cheaders op/*.h
 # Types    ##### ######## ############# #####################
 
 critcl::source  op/types.tcl                    ;# Operator support
-critcl::include generated/vector-types.h        ;# Variadic support
+#critcl::include generated/vector-types.h        ;# Variadic support
 critcl::include generated/param-types.h         ;# Parameter blocks
 
 # Function declarations # ############# #####################
 
-critcl::include generated/vector-funcs.h        ;# Variadic support
+#critcl::include generated/vector-funcs.h        ;# Variadic support
 critcl::include generated/param-funcs.h         ;# Parameter block variadic init/finish
 critcl::include generated/type-funcs.h          ;# Type conversions
 critcl::include generated/op-funcs.h            ;# Operators
@@ -114,7 +114,7 @@ critcl::include generated/param-descriptors.c   ;# Parameter block descriptors
 # Function implementations ############ #####################
 
 critcl::include op/op.c                         ;# Operator support
-critcl::include generated/vector-funcs.c        ;# Variadic support
+#critcl::include generated/vector-funcs.c        ;# Variadic support
 critcl::include generated/param-funcs.c         ;# Parameter block variadic init/finish
 critcl::include generated/type-funcs.c          ;# Type conversions
 critcl::include generated/op-funcs.c            ;# Operators

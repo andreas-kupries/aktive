@@ -118,6 +118,20 @@ aktive_rectangle_is_empty  (aktive_rectangle* r)
     TRACE_RETURN("(bool) %d", is_empty);
 }
 
+extern int
+aktive_rectangle_contains (aktive_rectangle* r, aktive_point* p)
+{
+    TRACE_FUNC("((rect*) %p contain? ((point*)) %p", r, p);
+
+    int outside =
+	(p->x < r->x)               ||
+	(p->y < r->y)               ||
+	(p->x >= (r->x + r->width)) ||
+	(p->y >= (r->y + r->height));
+
+    TRACE_RETURN("(bool) %d", !outside);
+}
+
 /*
  * - - -- --- ----- -------- -------------
  */

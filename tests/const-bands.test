@@ -1,0 +1,49 @@
+# -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
+## (c) 2023 Andreas Kupries
+# # ## ### ##### ######## ############# #####################
+## AKTIVE. Const bands images
+
+kt check Tcl     8.6
+kt check tcltest 2
+
+# # ## ### ##### ######## ############# #####################
+
+kt local testing aktive
+
+kt source support/util.tcl
+
+# # ## ### ##### ######## ############# #####################
+## Syntax -- args issue
+
+if 0 {syntax {
+    bands {width height args}
+} {aktive image const}}
+
+# # ## ### ##### ######## ############# #####################
+##
+
+test aktive-image-const-bands-2.0 "aktive image const bands" -body {
+    astcl aktive image const bands 4 2  1 2 3
+} -match image -result {
+    type   image::const::bands
+    config {
+	width 4
+	height 2
+	value {1.0 2.0 3.0}
+    }
+    domain {
+	x 0
+	y 0
+	width 4
+	height 2
+	depth 3
+    }
+    pixels {
+	1 2 3  1 2 3  1 2 3  1 2 3
+	1 2 3  1 2 3  1 2 3  1 2 3
+    }
+}
+
+# # ## ### ##### ######## ############# #####################
+cleanupTests
+return

@@ -14,7 +14,7 @@ type region        aktive_region         -         {0 /* INTERNAL -- No Tcl_Obj*
 type uint          aktive_uint           -         {aktive_new_uint_obj (*value)}
 type double        -                     -         {Tcl_NewDoubleObj (*value)}
 
-vector region image point uint double
+vector region image point rect uint double
 
 ## # # ## ### ##### ######## ############# #####################
 ::return
