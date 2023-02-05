@@ -21,6 +21,9 @@ TRACE_OFF;
 extern void
 aktive_blit_setup (aktive_block* dst, aktive_rectangle* request)
 {
+    TRACE_FUNC("((block*) %p, (rect*) %p = {%d %d : %u %u})",
+	       dst, request, request->x, request->y, request->width, request->height);
+    
     aktive_geometry_set_rectangle (&dst->domain, request);
 
     aktive_uint size =
@@ -30,24 +33,33 @@ aktive_blit_setup (aktive_block* dst, aktive_rectangle* request)
 
     if (!dst->pixel) {
 	// No memory present, create
+	TRACE ("Initialize to %d", size);
 	
 	dst->pixel    = NALLOC (double, size);
 	dst->capacity = size;
     } else if (dst->capacity < size) {
+	TRACE ("Extend to %d", size);
+	
 	// Memory present without enough capacity, size up
 	dst->pixel    = REALLOC (dst->pixel, double, size);
 	dst->capacity = size;
     } // else: have enough space already, do nothing
-
     //// future: maybe size down if used <= 1/2 * capacity
+
+    TRACE ("Using %d of %d", dst->used, dst->capacity);
+    TRACE_RETURN_VOID;
 }
 
 extern void
 aktive_blit_close (aktive_block* dst)
 {
+    TRACE_FUNC("((block*) %p (%d of %d @ %p)", dst, dst->used, dst->capacity, dst->pixel);
+    
     if (dst->pixel) { ckfree ((char*) dst->pixel); }
     dst->used     = 0;
     dst->capacity = 0;
+
+    TRACE_RETURN_VOID;
 }
 /*
  * - - -- --- ----- -------- -------------
@@ -67,13 +79,18 @@ aktive_blit_index (aktive_block* src, int x, int y, int z)
 
 extern void
 aktive_blit_clear_all (aktive_block* dst) {
+    TRACE_FUNC("((block*) %p (%d of %d @ %p)", dst, dst->used, dst->capacity, dst->pixel);
+    
     memset (dst->pixel, 0, dst->used * sizeof (double));
     // Note: The value 0b'00000000 represents (double) 0.0.
+    TRACE_RETURN_VOID;
 }
 
 extern void
 aktive_blit_clear (aktive_block* dst, aktive_rectangle* area)
 {
+    TRACE_FUNC("((block*) %p (%d of %d @ %p)", dst, dst->used, dst->capacity, dst->pixel);
+    
     // dst  = (0, 0, dw, dh)
     // area = (x, y, w, h) < dst [== can be handled, hower clear_all should be more efficient]
     //
@@ -95,11 +112,15 @@ aktive_blit_clear (aktive_block* dst, aktive_rectangle* area)
 	 row++, start += stride) {
 	memset (start, 0, width);
     }
+
+    TRACE_RETURN_VOID;
 }
 
 extern void
 aktive_blit_fill (aktive_block* dst, aktive_rectangle* area, double v)
 {
+    TRACE_FUNC("((block*) %p (%d of %d @ %p)", dst, dst->used, dst->capacity, dst->pixel);
+    
     // block area = (0, 0, w, h)
     // clear area = (x, y, w', h') < (0, 0, w, h)	[Not <=, not equal]
     //
@@ -124,11 +145,15 @@ aktive_blit_fill (aktive_block* dst, aktive_rectangle* area, double v)
 	double* cell = start;
 	for (aktive_uint col = 0; col < width; col ++, cell++) { *cell = v; }
     }
+
+    TRACE_RETURN_VOID;
 }
 
 extern void
 aktive_blit_fill_bands (aktive_block* dst, aktive_rectangle* area, aktive_double_vector* bands)
 {
+    TRACE_FUNC("((block*) %p (%d of %d @ %p)", dst, dst->used, dst->capacity, dst->pixel);
+    
     // block area = (0, 0, w, h)
     // clear area = (x, y, w', h') < (0, 0, w, h)	[Not <=, not equal]
     //
@@ -160,7 +185,10 @@ aktive_blit_fill_bands (aktive_block* dst, aktive_rectangle* area, aktive_double
 extern void
 aktive_blit_copy (aktive_block* dst, aktive_rectangle* dstarea,
 		  aktive_block* src, aktive_point*     srcloc)
+
 {
+    TRACE_FUNC("((block*) %p (%d of %d @ %p)", dst, dst->used, dst->capacity, dst->pixel);
+     
     // assert : dst.domain.depth == src.domain.depth / dd == sd (*)
 
     // dst  = (0, 0, dw, dh)
@@ -182,12 +210,16 @@ aktive_blit_copy (aktive_block* dst, aktive_rectangle* dstarea,
 	 row++, sstart += stride, dstart += stride) {
 	memcpy (dstart, sstart, width); 
     }
+
+    TRACE_RETURN_VOID;
 }
 
 extern void
 aktive_blit_copy0 (aktive_block* dst, aktive_rectangle* dstarea,
 		   aktive_block* src)
 {
+    TRACE_FUNC("((block*) %p (%d of %d @ %p)", dst, dst->used, dst->capacity, dst->pixel);
+    
     // assert : dst.domain.depth == src.domain.depth / dd == sd (*)
 
     // dst  = (0, 0, dw, dh)
@@ -209,6 +241,65 @@ aktive_blit_copy0 (aktive_block* dst, aktive_rectangle* dstarea,
 	 row++, sstart += stride, dstart += stride) {
 	memcpy (dstart, sstart, width); 
     }
+
+    TRACE_RETURN_VOID;
+}
+
+/*
+ * - - -- --- ----- -------- -------------
+ * NOTE: This function should/could be generated from the DSL, with inlined `op`.
+ *       Where `op` could be a macro.
+ */
+
+extern void
+aktive_blit_unary0 (aktive_block* dst, aktive_rectangle* dstarea,
+		    aktive_unary_transform op, aktive_block* src)
+{
+    TRACE_FUNC("((block*) %p (%d of %d @ %p)", dst, dst->used, dst->capacity, dst->pixel);
+    
+    // assert : dst.domain.depth == src.domain.depth / dd == sd (*)
+
+    // dst  = (0, 0, dw, dh)
+    // src  = (0, 0, sw, hh)
+    // area = (x, y, w, h) < src, < dst
+
+    aktive_uint dw = dst->domain.width;
+    aktive_uint sw = src->domain.width;
+    aktive_uint sd = dst->domain.depth;
+    
+    aktive_uint stride = sd * sw;	// (*)
+    aktive_uint width  = sd * dw;	// (*)
+
+    TRACE ("- width %d, stride %d", width, stride);
+    
+    double*     dstart  = dst->pixel + dstarea->y * stride + dstarea->x * sd; // (*)
+    double*     sstart  = src->pixel; // (0,0)
+
+    ASSERT (sstart - src->pixel < src->used, "pixel source out of bounds"); 
+    ASSERT (dstart - dst->pixel < dst->used, "pixel destin out of bounds");
+    
+    for (aktive_uint row = 0;
+	 row < dstarea->height;
+	 row++, sstart += stride, dstart += stride) {
+
+	// blit line with data transformation
+	double* dpos = dstart;
+	double* spos = sstart;
+
+	for(aktive_uint k = 0;
+	    k < width;
+	    k++, dpos++, spos++) {
+
+	    TRACE ("cell (y%d %d (x%d z%d)) - src:%u dst:%u", row, k, k/sd, k % sd,
+		   spos - src->pixel, dpos - dst->pixel);
+	    ASSERT (spos - src->pixel <= src->used, "pixel read out of bounds"); 
+	    ASSERT (dpos - dst->pixel <= dst->used, "pixel write out of bounds");
+	    
+	    *dpos = op (*spos);
+	}
+    }
+
+    TRACE_RETURN_VOID;
 }
 
 /*

@@ -38,6 +38,7 @@ import point.tcl
 import rectangle.tcl
 import getter.tcl
 import generator.tcl
+import transformer.tcl
 import sink.tcl
 
 ## # # ## ### ##### ######## ############# #####################
@@ -136,29 +137,6 @@ nyi operator {thing depth} {
 # possibly some parameters.
 
 nyi operator {
-    op::cmath::conjugate
-    op::cmath::cos
-    op::cmath::div
-    op::cmath::exp
-    op::cmath::log
-    op::cmath::log10
-    op::cmath::magnitude
-    op::cmath::mul
-    op::cmath::sin
-    op::cmath::sqmagnitude
-    op::cmath::sqrt
-    op::cmath::tan
-    op::cmath::tocartesian
-    op::cmath::topolar
-
-    op::integrate
-} {
-    input keep
-
-    # %% TODO %% specify implementation
-}
-
-nyi operator {
     op::montage::x
     op::montage::y
     op::montage::z
@@ -184,57 +162,6 @@ nyi operator {
     op::swap::yz
 } {
     input keep-pass-ignore
-
-    # %% TODO %% specify implementation
-}
-
-operator op::view {
-    note Look at some area of an image.
-    note The requested area may fall anywhere regarding the input image's domain.
-    note Same, insude (subset), outside, partially overlapping, etc.
-
-    input keep
-    rect view  The specific area to view in the plane
-
-    state -setup {
-	aktive_geometry_set (domain,
-			     param->view.x,
-			     param->view.y,
-			     param->view.width,
-			     param->view.height,
-			     aktive_image_get_depth (srcs->v[0]));
-    }
-    pixels {
-	// pass-through operation ...
-	// - Requested area passes unchanged to input ...
-	// - Returned pixels pass unchanged to caller ...
-	//
-	// CONSIDER :: A reworked fetch API enabling zero copy full pass-through
-	//          :: (full area, requested area, pixel memory)
-	//          :: Maybe move aktive_block out of region ? Caller-owned ?
-	//          :: ops not passing through => block is standard region state ?!
-	//
-	// assert: result.used == block.used
-	// assert: result.geo  == block.geo
-
-	aktive_blit_copy0 (block, dst, aktive_region_fetch_area (srcs->v[0], request));
-    }
-}
-
-nyi operator {
-    op::math::inside-oo
-    op::math::inside-oc
-    op::math::inside-co
-    op::math::inside-cc
-    op::math::outside-oo
-    op::math::outside-oc
-    op::math::outside-co
-    op::math::outside-cc
-} {
-    input keep-pass-ignore
-
-    double low   Low boundary
-    double high  High boundary
 
     # %% TODO %% specify implementation
 }
@@ -338,42 +265,6 @@ nyi operator {name op} {
     input keep-pass-ignore
 
     double $name  {*}$op
-
-    # %% TODO %% specify implementation
-}
-
-nyi operator {
-    op::math1::abs
-    op::math1::clamp
-    op::math1::wrap
-    op::math1::invert
-    op::math1::neg
-    op::math1::sign
-    op::math1::sign*
-    op::math1::reciproc
-    op::math1::sqrt
-    op::math1::cbrt
-    op::math1::exp
-    op::math1::exp2
-    op::math1::log
-    op::math1::log10
-    op::math1::log2
-    op::math1::cos
-    op::math1::sin
-    op::math1::tan
-    op::math1::cosh
-    op::math1::sinh
-    op::math1::tanh
-    op::math1::acos
-    op::math1::asin
-    op::math1::atan
-    op::math1::acosh
-    op::math1::asinh
-    op::math1::atanh
-    op::math1::gamma-compress
-    op::math1::gamma-expand
-} {
-    input keep-pass-ignore
 
     # %% TODO %% specify implementation
 }

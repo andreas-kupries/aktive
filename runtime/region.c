@@ -67,7 +67,7 @@ extern void
 aktive_region_destroy (aktive_region region)
 {
     TRACE_FUNC("((region) %p '%s'", region, region->opspec->name);
-
+    
     // Release inputs, if any 
 
     if (region->public.srcs.c) {
@@ -83,7 +83,7 @@ aktive_region_destroy (aktive_region region)
 
     // Release pixel data from the internal block, if any 
 
-    if (region->pixels.pixel) { ckfree ((char*) region->pixels.pixel); }
+    aktive_blit_close (&region->pixels);
 
     /* Nothing to do for the remaining fields. These are only pointers to
      * image structures not owned by the region

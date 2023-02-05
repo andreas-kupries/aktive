@@ -106,7 +106,6 @@ operator image::const::sparse::points {
 	aktive_geometry_set_rectangle (domain, &bb);
 	domain->depth = 1;
     }
-
     pixels {
 	// First clear the destination area, then iterate over the points and set all
 	// falling into the area
@@ -153,7 +152,6 @@ operator image::const::sparse::deltas {
     } -cleanup {
 	aktive_point_vector_free (&state->points);
     }
-
     pixels {
 	// First clear the destination area, then iterate over the points and set all
 	// falling into the area
@@ -183,8 +181,6 @@ operator image::gradient {
 	state->delta = (param->last - param->first)
 		     / (double) (aktive_geometry_get_size (domain) - 1);
     }
-
-
     pixels {
 	aktive_uint pitch    = aktive_geometry_get_pitch (&block->domain);
 	aktive_uint srcstart = aktive_blit_index (block, request->y, 0, 0);

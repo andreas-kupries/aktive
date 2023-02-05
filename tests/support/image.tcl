@@ -43,12 +43,13 @@ proc matchDict {expected actual} {
 
 # Both values have to the in image Tcl representation
 proc matchImage {expected actual} {
+    set ekeys [lsort -dict [dict keys $expected]]
     set akeys [lsort -dict [dict keys $actual]]
-    if {$akeys ne {config domain pixels type}} {
-	#puts "image keys ($akeys)"
+
+    if {$ekeys ne $akeys} {
+	#puts "image keys ($ekeys) != ($akeys)"
 	return 0
     }
-
     foreach key $akeys {
 	set evalue [dict get $expected $key]
 	set avalue [dict get $actual   $key]
