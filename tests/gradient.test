@@ -1,0 +1,53 @@
+# -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
+## (c) 2023 Andreas Kupries
+# # ## ### ##### ######## ############# #####################
+## AKTIVE. Gradient images
+
+kt check Tcl     8.6
+kt check tcltest 2
+
+# # ## ### ##### ######## ############# #####################
+
+kt local testing aktive
+
+kt source support/util.tcl
+
+# # ## ### ##### ######## ############# #####################
+## Syntax
+
+syntax {
+    gradient {width height depth first last}
+} {aktive image}
+
+# # ## ### ##### ######## ############# #####################
+##
+
+test aktive-image-gradient-2.0 "aktive image gradient" -body {
+    astcl aktive image gradient 3 4 2  1 12.5
+} -match image -result {
+    type   image::gradient
+    config {
+	width 3
+	height 4
+	depth 2
+	first 1.0
+	last 12.5
+    }
+    domain {
+	x 0
+	y 0
+	width 3
+	height 4
+	depth 2
+    }
+    pixels {
+	 1  1.5  2  2.5  3  3.5
+	 4  4.5  5  5.5  6  6.5
+	 7  7.5  8  8.5  9  9.5
+	10 10.5 11 11.5 12 12.5
+    }
+}
+
+# # ## ### ##### ######## ############# #####################
+cleanupTests
+return

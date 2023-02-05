@@ -42,6 +42,25 @@ aktive_blit_setup (aktive_block* dst, aktive_rectangle* request)
     //// future: maybe size down if used <= 1/2 * capacity
 }
 
+extern void
+aktive_blit_close (aktive_block* dst)
+{
+    if (dst->pixel) { ckfree ((char*) dst->pixel); }
+    dst->used     = 0;
+    dst->capacity = 0;
+}
+/*
+ * - - -- --- ----- -------- -------------
+ */
+
+extern aktive_uint
+aktive_blit_index (aktive_block* src, int x, int y, int z)
+{
+    aktive_uint stride = aktive_geometry_get_pitch (&src->domain);
+
+    return y * stride + x * src->domain.depth + z;
+}
+    
 /*
  * - - -- --- ----- -------- -------------
  */

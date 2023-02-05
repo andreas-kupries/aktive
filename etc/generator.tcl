@@ -168,14 +168,36 @@ operator image::const::sparse::deltas {
 
 ## # # ## ### ##### ######## ############# #####################
 
-nyi operator image::gradient {
+operator image::gradient {
     uint   width   Width of the returned image
     uint   height  Height of the returned image
     uint   depth   Depth of the returned image
     double first   First value
     double last    Last value
 
-    # %% TODO %% specify implementation
+    state -fields {
+	double delta;
+    } -setup {
+	aktive_geometry_set (domain, 0, 0, param->width, param->height, param->depth);
+
+	state->delta = (param->last - param->first)
+		     / (double) (aktive_geometry_get_size (domain) - 1);
+    }
+
+
+    pixels {
+	aktive_uint pitch    = aktive_geometry_get_pitch (&block->domain);
+	aktive_uint srcstart = aktive_blit_index (block, request->y, 0, 0);
+
+	aktive_uint dstpos = aktive_blit_index (block, 0, 0, 0);
+	for (aktive_uint row = 0; row < request->height; row++, srcstart += pitch) {
+   	    aktive_uint srcpos = srcstart;
+	    for (aktive_uint col = 0; col < pitch ; col++, dstpos ++, srcpos++) {
+		double value = param->first + srcpos * istate->delta;
+		block->pixel [dstpos] = value; // inlined blit set, we already have the coordinates
+	    }
+	}
+    }
 }
 
 ## # # ## ### ##### ######## ############# #####################

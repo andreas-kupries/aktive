@@ -35,6 +35,9 @@ typedef struct aktive_block {
  */
 
 extern void aktive_blit_setup (aktive_block* dst, aktive_rectangle* request);
+extern void aktive_blit_close (aktive_block* dst);
+
+extern aktive_uint aktive_blit_index (aktive_block* src, int x, int y, int z);
 
 /*
  * - - -- --- ----- -------- -------------
