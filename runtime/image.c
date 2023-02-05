@@ -35,7 +35,7 @@ aktive_image_new (aktive_image_type*   opspec,
     if (srcs) {
 	r->public.srcs = *srcs;
 	aktive_image_vector_heapify (&r->public.srcs);
-	for (aktive_uint i = 0; i++; i < r->public.srcs.c) { aktive_image_ref (r->public.srcs.v [i]); }
+	for (aktive_uint i = 0; i < r->public.srcs.c; i++) { aktive_image_ref (r->public.srcs.v [i]); }
     }
 
     /* Initialize parameters, if any */
@@ -65,7 +65,7 @@ aktive_image_new (aktive_image_type*   opspec,
 
 extern void
 aktive_image_destroy (aktive_image image) {
-    TRACE_FUNC("((aktive_image) %p)", image);
+    TRACE_FUNC("((aktive_image) %p '%s'/%d)", image, image->opspec->name, image->refcount);
 
     /* Release custom state, if any, and necessary */
 
@@ -86,7 +86,7 @@ aktive_image_destroy (aktive_image image) {
     /* Release inputs, if any */
 
     aktive_image_vector_free (&image->public.srcs);
-    for (aktive_uint i = 0; i++; i < image->public.srcs.c) { aktive_image_unref (image->public.srcs.v [i]); }
+    for (aktive_uint i = 0; i < image->public.srcs.c; i++) { aktive_image_unref (image->public.srcs.v [i]); }
 
     /* Nothing to do for location and geometry */
 
@@ -103,19 +103,22 @@ aktive_image_destroy (aktive_image image) {
 
 extern aktive_image
 aktive_image_check (Tcl_Interp* ip, aktive_image src) {
+    TRACE_FUNC("((aktive_image) %p '%s')", src, src ? src->opspec->name : 0);
+
     if (!src) { aktive_error_set (ip); }
-    return src;
+
+    TRACE_RETURN ("(aktive_image) %p", src);
 }
 
 extern int
 aktive_image_unused (aktive_image image) {
-    TRACE_FUNC("((aktive_image) %p)", image);
-    TRACE_RETURN ("(used) %d", image->refcount <= 0);
+    TRACE_FUNC("((aktive_image) %p '%s'/%d)", image, image->opspec->name, image->refcount);
+    TRACE_RETURN ("(unused) %d", image->refcount <= 0);
 }
 
 extern void
 aktive_image_ref (aktive_image image) {
-    TRACE_FUNC("((aktive_image) %p)", image);
+    TRACE_FUNC("((aktive_image) %p @ '%s'/%d)", image, image->opspec->name, image->refcount);
 
     image->refcount ++;
 
@@ -124,7 +127,7 @@ aktive_image_ref (aktive_image image) {
 
 extern void
 aktive_image_unref (aktive_image image) {
-    TRACE_FUNC("((aktive_image) %p)", image);
+    TRACE_FUNC("((aktive_image) %p '%s'/%d)", image, image->opspec->name, image->refcount);
 
     if (image->refcount > 1) {
 	image->refcount --;
@@ -146,112 +149,112 @@ aktive_image_unref (aktive_image image) {
 extern aktive_point*
 aktive_image_get_location (aktive_image image)
 {
-    TRACE_FUNC("((aktive_image) %p)", image);
+    TRACE_FUNC("((aktive_image) %p '%s'/%d)", image, image->opspec->name, image->refcount);
     TRACE_RETURN ("(aktive_point*) %p", aktive_geometry_as_point (&image->public.domain));
 }
 
 extern aktive_rectangle*
 aktive_image_get_domain (aktive_image image)
 {
-    TRACE_FUNC("((aktive_image) %p)", image);
+    TRACE_FUNC("((aktive_image) %p '%s'/%d)", image, image->opspec->name, image->refcount);
     TRACE_RETURN ("(aktive_rectangle*) %p", aktive_geometry_as_rectangle (&image->public.domain));
 }
 
 extern aktive_geometry*
 aktive_image_get_geometry (aktive_image image)
 {
-    TRACE_FUNC("((aktive_image) %p)", image);
+    TRACE_FUNC("((aktive_image) %p '%s'/%d)", image, image->opspec->name, image->refcount);
     TRACE_RETURN ("(aktive_geometry*) %p", &image->public.domain);
 }
 
 extern int
 aktive_image_get_x (aktive_image image)
 {
-    TRACE_FUNC("((aktive_image) %p)", image);
+    TRACE_FUNC("((aktive_image) %p '%s'/%d)", image, image->opspec->name, image->refcount);
     TRACE_RETURN ("(x) %d", aktive_geometry_get_x (&image->public.domain));
 }
 
 extern int
 aktive_image_get_xmax (aktive_image image)
 {
-    TRACE_FUNC("((aktive_image) %p)", image);
+    TRACE_FUNC("((aktive_image) %p '%s'/%d)", image, image->opspec->name, image->refcount);
     TRACE_RETURN ("(xmax) %d", aktive_geometry_get_xmax (&image->public.domain));
 }
 
 extern int
 aktive_image_get_y (aktive_image image)
 {
-    TRACE_FUNC("((aktive_image) %p)", image);
+    TRACE_FUNC("((aktive_image) %p '%s'/%d)", image, image->opspec->name, image->refcount);
     TRACE_RETURN ("(y) %d", aktive_geometry_get_y (&image->public.domain));
 }
 
 extern int
 aktive_image_get_ymax (aktive_image image)
 {
-    TRACE_FUNC("((aktive_image) %p)", image);
+    TRACE_FUNC("((aktive_image) %p '%s'/%d)", image, image->opspec->name, image->refcount);
     TRACE_RETURN ("(ymax) %d", aktive_geometry_get_ymax (&image->public.domain));
 }
 
 extern aktive_uint
 aktive_image_get_width (aktive_image image)
 {
-    TRACE_FUNC("((aktive_image) %p)", image);
+    TRACE_FUNC("((aktive_image) %p '%s'/%d)", image, image->opspec->name, image->refcount);
     TRACE_RETURN ("(width) %u", aktive_geometry_get_width (&image->public.domain));
 }
 
 extern aktive_uint
 aktive_image_get_height (aktive_image image)
 {
-    TRACE_FUNC("((aktive_image) %p)", image);
+    TRACE_FUNC("((aktive_image) %p '%s'/%d)", image, image->opspec->name, image->refcount);
     TRACE_RETURN ("(height) %u", aktive_geometry_get_height (&image->public.domain));
 }
 
 extern aktive_uint
 aktive_image_get_depth (aktive_image image)
 {
-    TRACE_FUNC("((aktive_image) %p)", image);
+    TRACE_FUNC("((aktive_image) %p '%s'/%d)", image, image->opspec->name, image->refcount);
     TRACE_RETURN ("(depth) %u", aktive_geometry_get_depth (&image->public.domain));
 }
 
 extern aktive_uint
 aktive_image_get_pixels (aktive_image image)
 {
-    TRACE_FUNC("((aktive_image) %p)", image);
-    TRACE_RETURN ("(depth) %u", aktive_geometry_get_pixels (&image->public.domain));
+    TRACE_FUNC("((aktive_image) %p '%s'/%d)", image, image->opspec->name, image->refcount);
+    TRACE_RETURN ("(pixels) %u", aktive_geometry_get_pixels (&image->public.domain));
 }
 
 extern aktive_uint
 aktive_image_get_pitch (aktive_image image)
 {
-    TRACE_FUNC("((aktive_image) %p)", image);
-    TRACE_RETURN ("(depth) %u", aktive_geometry_get_pitch (&image->public.domain));
+    TRACE_FUNC("((aktive_image) %p '%s'/%d)", image, image->opspec->name, image->refcount);
+    TRACE_RETURN ("(pitch) %u", aktive_geometry_get_pitch (&image->public.domain));
 }
 
 extern aktive_uint
 aktive_image_get_size (aktive_image image)
 {
-    TRACE_FUNC("((aktive_image) %p)", image);
-    TRACE_RETURN ("(depth) %u", aktive_geometry_get_size (&image->public.domain));
+    TRACE_FUNC("((aktive_image) %p '%s'/%d)", image, image->opspec->name, image->refcount);
+    TRACE_RETURN ("(size) %u", aktive_geometry_get_size (&image->public.domain));
 }
 
 extern aktive_image_type*
 aktive_image_get_type (aktive_image image)
 {
-    TRACE_FUNC("((aktive_image) %p)", image);
+    TRACE_FUNC("((aktive_image) %p '%s'/%d)", image, image->opspec->name, image->refcount);
     TRACE_RETURN ("(type) '%p'", image->opspec);
 }
 
 extern aktive_uint
 aktive_image_get_nsrcs (aktive_image image)
 {
-    TRACE_FUNC("((aktive_image) %p)", image);
+    TRACE_FUNC("((aktive_image) %p '%s'/%d)", image, image->opspec->name, image->refcount);
     TRACE_RETURN ("(nsrcs) %d", image->public.srcs.c);
 }
 
 extern aktive_image
 aktive_image_get_src (aktive_image image, aktive_uint i)
 {
-    TRACE_FUNC("((aktive_image) %p)", image);
+    TRACE_FUNC("((aktive_image) %p '%s'/%d)", image, image->opspec->name, image->refcount);
 
     if (i >= image->public.srcs.c) {
 	TRACE_RETURN ("(src) %p", 0);
@@ -263,14 +266,14 @@ aktive_image_get_src (aktive_image image, aktive_uint i)
 extern aktive_uint
 aktive_image_get_nparams (aktive_image image)
 {
-    TRACE_FUNC("((aktive_image) %p)", image);
+    TRACE_FUNC("((aktive_image) %p '%s'/%d)", image, image->opspec->name, image->refcount);
     TRACE_RETURN ("(nparams) %d", image->opspec->n_param);
 }
 
 extern const char*
 aktive_image_get_param_name (aktive_image image, aktive_uint i)
 {
-    TRACE_FUNC("((aktive_image) %p)", image);
+    TRACE_FUNC("((aktive_image) %p '%s'/%d)", image, image->opspec->name, image->refcount);
 
     if (i >= image->opspec->n_param) {
 	TRACE_RETURN ("(name) %p", 0);
@@ -284,7 +287,7 @@ aktive_image_get_param_name (aktive_image image, aktive_uint i)
 extern const char*
 aktive_image_get_param_desc (aktive_image image, aktive_uint i)
 {
-    TRACE_FUNC("((aktive_image) %p)", image);
+    TRACE_FUNC("((aktive_image) %p '%s'/%d)", image, image->opspec->name, image->refcount);
 
     if (i >= image->opspec->n_param) {
 	TRACE_RETURN ("(desc) %p", 0);
@@ -298,7 +301,7 @@ aktive_image_get_param_desc (aktive_image image, aktive_uint i)
 extern Tcl_Obj*
 aktive_image_get_param_value (aktive_image image, aktive_uint i, Tcl_Interp* interp)
 {
-    TRACE_FUNC("((aktive_image) %p)", image);
+    TRACE_FUNC("((aktive_image) %p '%s'/%d)", image, image->opspec->name, image->refcount);
 
     if (i >= image->opspec->n_param) {
 	TRACE_RETURN ("(value) %p", 0);
