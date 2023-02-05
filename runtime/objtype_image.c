@@ -23,8 +23,8 @@ static Tcl_ObjType aktive_image_objtype = {
     "aktive::image",
     FreeImage,
     DupImage,
-    0,			/* Images have NO string representation */
-    ImageFromAny	/* Ditto: Always reports an error       */
+    0,              // Images have NO string representation
+    ImageFromAny    // Ditto: Always reports an error
 };
 
 /*
@@ -73,7 +73,7 @@ FreeImage (Tcl_Obj* obj)
 {
     aktive_image a = (aktive_image) obj->internalRep.twoPtrValue.ptr1;
 
-    TRACE_FUNC ("((Tcl_Obj*) %p obj ~ %d image/rc)", obj, a->refcount);
+    TRACE_FUNC ("((Tcl_Obj*) %p obj ~ image %p '%s' @ %d)", obj, a, a->opspec->name, a->refcount);
 
     aktive_image_unref (a);
 
@@ -105,4 +105,13 @@ ImageFromAny (Tcl_Interp* interp, Tcl_Obj* obj)
 
 /*
  * - - -- --- ----- -------- -------------
+ */
+
+/*
+ * = = == === ===== ======== ============= =====================
+ * Local Variables:
+ * mode: c
+ * c-basic-offset: 4
+ * fill-column: 78
+ * End:
  */
