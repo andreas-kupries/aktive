@@ -43,8 +43,9 @@ aktive_region_new (aktive_image image)
 
     // Initialize local pointers to important structures 
 
-    region->public.param = image->public.param;
-    region->opspec       = image->opspec;
+    region->public.domain = &image->public.domain;
+    region->public.param  = image->public.param;
+    region->opspec        = image->opspec;
 
     /* Note: The width and height values will be later replaced with data from
      * the area requested to be fetched
@@ -116,23 +117,26 @@ aktive_region_owner (aktive_region region)
 extern aktive_block*
 aktive_region_fetch_area (aktive_region region, aktive_rectangle* request)
 {    
-    TRACE_FUNC("((aktive_region) %p '%s' (@ %d,%d : %ux%u))",
+    TRACE_FUNC("((aktive_region) %p '%s' requested (@ %d,%d : %ux%u))",
 	       region, region->opspec->name,
 	       request->x, request->y, request->width, request->height);
 
-    //    fprintf(stderr,"FETCH %p (%s)\n", region, region->opspec->name);fflush (stderr);
-    //    __aktive_rectangle_dump ("\trequest", request);
-    //    __aktive_rectangle_dump ("\tdomain ", &region->origin->domain);
-
-    /* Initialize or update the pixel block with the dimensions of the
-     * requested area, and ensure that the pixel memory is large enough to
-     * hald all the requested pixels.
-     */
-
-    // Update the desired request to fill
+    // Update the storage per the request to match dimension and have enough
+    // space
 
     aktive_blit_setup (&region->pixels, request);
 
+#define ID region->origin->public.domain
+#define RD request
+#define BL region->pixels.domain
+    TRACE( ".......  x   y   | w   h   d   | pit )", 0);
+    TRACE( "image   (%3d %3d | %3d %3d %3d | %3d )", ID.x, ID.y, ID.width, ID.height, ID.depth, ID.width*ID.depth);
+    TRACE( "request (%3d %3d | %3d %3d     |     )", RD->x, RD->y, RD->width, RD->height);
+    TRACE( "block   (%3d %3d | %3d %3d %3d | %3d )", BL.x, BL.y, BL.width, BL.height, BL.depth, BL.width*BL.depth);
+#undef ID
+#undef RD
+#undef BL
+    
     /* Computing the pixels is done in multiple phases:
      *
      * 1. Split the request into subareas inside and outside of the image domain.
@@ -156,14 +160,10 @@ aktive_region_fetch_area (aktive_region region, aktive_rectangle* request)
     aktive_rectangle_from_geometry (&domain, &region->origin->public.domain);
     
     if (aktive_rectangle_is_subset (&domain, request)) {
-	// fprintf(stderr,"SUBSET\n");fflush (stderr);
-    
 	// Special case (a). The entire request has to be served by the fetcher.
 	aktive_rectangle_def (dst, 0, 0, request->width, request->height);
-
-	// __aktive_rectangle_dump ("\t- full req ", request);
-	// __aktive_rectangle_dump ("\t- full preq", &phys);
-
+	TRACE( "dst     (%3d %3d | %3d %3d     |     )", dst.x, dst.y, dst.width, dst.height);
+	
 	region->opspec->region_fetch (&region->public, request, &dst, &region->pixels);
 	goto done;
     }
@@ -195,9 +195,11 @@ aktive_region_fetch_area (aktive_region region, aktive_rectangle* request)
     aktive_rectangle dst = zv[0];
     aktive_rectangle_move (&dst, -request->x, -request->y);
 
-    // __aktive_rectangle_dump ("\t- inside req ", &zv[0]);
-    // __aktive_rectangle_dump ("\t- inside preq", &dst);
-
+#define RD zv[0]
+    TRACE( "section (%3d %3d | %3d %3d     |     )", RD.x, RD.y, RD.width, RD.height);
+    TRACE( "dst     (%3d %3d | %3d %3d     |     )", dst.x, dst.y, dst.width, dst.height);
+#undef RD
+    
     region->opspec->region_fetch (&region->public, &zv[0], &dst, &region->pixels);
  done:
     // __aktive_block_dump (region->opspec->name, &region->pixels);
