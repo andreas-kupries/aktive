@@ -24,8 +24,9 @@ aktive_blit_setup (aktive_block* dst, aktive_rectangle* request)
     TRACE_FUNC("((block*) %p, (rect*) %p = {%d %d : %u %u})",
 	       dst, request, request->x, request->y, request->width, request->height);
     
-    aktive_geometry_set_rectangle (&dst->domain, request);
-
+    aktive_geometry_set_rectangle     (&dst->domain, request);
+    aktive_point_set ((aktive_point*) &dst->domain, 0, 0);
+    
     aktive_uint size =
 	request->width * request->height * dst->domain.depth;
 
@@ -401,6 +402,50 @@ aktive_blit_unary2 (aktive_block* dst, aktive_rectangle* dstarea,
 	    *dpos = op (*spos, a, b);
 	}
     }
+
+    TRACE_RETURN_VOID;
+}
+
+extern void
+aktive_blit_copy0_bands (aktive_block* dst, aktive_rectangle* dstarea,
+			 aktive_block* src, aktive_uint first, aktive_uint last)
+{
+    TRACE_FUNC("((block*) %p (%d of %d @ %p)", dst, dst->used, dst->capacity, dst->pixel);
+
+#define SRC src->domain
+#define DST dst->domain
+#define DAR dstarea
+    TRACE ("...  x   y   | w   h   d   | pit )", 0);
+    TRACE ("src (%3d %3d | %3d %3d %3d | %3d )", SRC.x, SRC.y, SRC.width, SRC.height, SRC.depth, SRC.width * SRC.depth);
+    TRACE ("dst (%3d %3d | %3d %3d %3d | %3d )", DST.x, DST.y, DST.width, DST.height, DST.depth, DST.width * DST.depth);
+    TRACE ("dar (%3d %3d | %3d %3d     |     )", DAR->x, DAR->y, DAR->width, DAR->height);
+    TRACE ("bands %d..%d", first, last);
+
+    // assert : dst.domain.depth <= src.domain.depth -- dst gets a subset of src bands
+
+    aktive_uint dstpos, dsty, dstx, dstz;
+    aktive_uint srcpos, srcy, srcx, srcz;
+    aktive_uint row, col;
+
+    // Unoptimized loop nest to copy the selected bands
+    TRACE ("sy  sx  sz  | in  | dy  dx  dz  | out |", 0);
+    
+    for (srcy = SRC.y, dsty = DST.y, row = 0; row < DST.height; srcy++, dsty++, row++) {
+	for (srcx = SRC.x, dstx = DST.x, col = 0; col < DST.width; srcx++, dstx++, col++) {
+	    for (srcz = first, dstz = 0; dstz < DST.depth ; srcz++, dstz++) {
+
+		srcpos = srcy * SRC.width * SRC.depth + srcx * SRC.depth + srcz;
+		dstpos = dsty * DST.width * DST.depth + dstx * DST.depth + dstz;
+
+		double value = src->pixel [srcpos];
+
+		TRACE ("%3d %3d %3d | %3d | %3d %3d %3d | %3d | %.2f",
+		       srcy, srcx, srcz, srcpos, dsty, dstx, dstz, dstpos, value);
+		    
+		dst->pixel [dstpos] = value; // inlined blit set, we already have the coordinates
+	    }
+	}
+    }    
 
     TRACE_RETURN_VOID;
 }
