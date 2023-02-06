@@ -19,10 +19,10 @@ TRACE_OFF;
  */
 
 extern aktive_image
-aktive_image_new (aktive_image_type*   opspec,
-		  void*                param ,
-		  aktive_image_vector* srcs  ) {
-
+aktive_image_new ( aktive_image_type*   opspec
+                 , void*                param
+                 , aktive_image_vector* srcs
+                 ) {
     TRACE_FUNC("((opspec) %p '%s', (param) %p, (srcs) %p)", opspec, opspec->name, param, srcs);
 
     /* Create new and clean image structure ... */
@@ -35,7 +35,8 @@ aktive_image_new (aktive_image_type*   opspec,
     if (srcs) {
 	r->public.srcs = *srcs;
 	aktive_image_vector_heapify (&r->public.srcs);
-	for (aktive_uint i = 0; i < r->public.srcs.c; i++) { aktive_image_ref (r->public.srcs.v [i]); }
+	for (aktive_uint i = 0; i < r->public.srcs.c; i++) {
+	    aktive_image_ref (r->public.srcs.v [i]); }
     }
 
     /* Initialize parameters, if any */
@@ -50,7 +51,24 @@ aktive_image_new (aktive_image_type*   opspec,
 
     /* Initialize geometry, and state, if any */
 
-    opspec->setup (&r->public);
+    int ok = opspec->setup (&r->public);
+
+    if (!ok) {
+	// Inlined pieces of aktive_image_destroy
+	// Note, this assumes that the callback saved an error message via
+	// `aktive_fail/f` for the caller of `aktive_image_new` to pick up.
+	
+	for (aktive_uint i = 0; i < r->public.srcs.c; i++) {
+	    aktive_image_unref (r->public.srcs.v [i]); }
+	aktive_image_vector_free (&r->public.srcs);
+
+	if (r->public.param) {
+	    if (opspec->param_finish) { opspec->param_finish (r->public.param); }
+	    ckfree ((char*) r->public.param);
+	}
+
+	TRACE_RETURN("(aktive_image) %p", 0);
+    }
     
     /* Initialize type information and reference management */
 
@@ -85,8 +103,9 @@ aktive_image_destroy (aktive_image image) {
 
     /* Release inputs, if any */
 
+    for (aktive_uint i = 0; i < image->public.srcs.c; i++) {
+	aktive_image_unref (image->public.srcs.v [i]); }
     aktive_image_vector_free (&image->public.srcs);
-    for (aktive_uint i = 0; i < image->public.srcs.c; i++) { aktive_image_unref (image->public.srcs.v [i]); }
 
     /* Nothing to do for location and geometry */
 

@@ -577,7 +577,7 @@ proc dsl::writer::OperatorFunctionForOp {op} {
     }
 
     if {${state/setup} ne {}} {
-	+ "static void"
+	+ "static int"
 	+ "[StateSetupFuncname $op] (aktive_image_info* info) \{"
 	+ "  TRACE_FUNC(\"((aktive_image_info*) %p)\", info);"
 
@@ -604,7 +604,7 @@ proc dsl::writer::OperatorFunctionForOp {op} {
 	+ {}
 	Comment {- - -- --- ----- -------- ------------- ---------------------} {  }
 	if {!$st} { + "#undef state" }
-	+ "  TRACE_RETURN_VOID;"
+	+ "  TRACE_RETURN (\"(ok) %d\", 1);"
 	+ "\}"
 	+ {}
     }
@@ -660,17 +660,18 @@ proc dsl::writer::OperatorFunctionForOp {op} {
 
 	if {${region/fetch} ne {}} {
 	    # Enhance fragment with code providing the info data in properly typed form.
-	    set types {}
+	    set types aktive_geometry*
 	    if {$hasimages}                       {           lappend types *aktive_region_vector }
 	    set pt 0 ; if {$paramtype  ne "void"} { incr pt ; lappend types *$paramtype  }
 	    set rt 0 ; if {$regiontype ne "void"} { incr rt ; lappend types *$regiontype }
 	    set st 0 ; if {$statetype  ne "void"} { incr st ; lappend types *$statetype  }
 	    set tl [Maxlength $types] ; set tlx $tl ; incr tlx 2
 
-	    if {$pt}        { + "  [PadR $tl ${paramtype}*] param  = [PadR $tlx (${paramtype}*)] info->param;" }
-	    if {$rt}        { + "  [PadR $tl ${regiontype}*] state  = [PadR $tlx (${regiontype}*)] info->state;" }
-	    if {$st}        { + "  [PadR $tl ${statetype}*] istate = [PadR $tlx (${statetype}*)] info->istate;" }
-	    if {$hasimages} { + "  [PadR $tl aktive_region_vector*] srcs   = [PadR $tlx ""] &info->srcs;" }
+	    if {$pt}        { + "  [PadR $tl ${paramtype}*] param   = [PadR $tlx (${paramtype}*)] info->param;" }
+	    if {$rt}        { + "  [PadR $tl ${regiontype}*] state   = [PadR $tlx (${regiontype}*)] info->state;" }
+	    if {$st}        { + "  [PadR $tl ${statetype}*] istate  = [PadR $tlx (${statetype}*)] info->istate;" }
+	    if {$hasimages} { + "  [PadR $tl aktive_region_vector*] srcs    = [PadR $tlx ""] &info->srcs;" }
+	    +                   "  [PadR $tl aktive_geometry*] idomain = [PadR $tlx ""] info->domain;"
 	    Comment {- - -- --- ----- -------- ------------- ---------------------} {  }
 	    + {}
 	    + [FormatCode ${region/fetch}]

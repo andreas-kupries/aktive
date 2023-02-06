@@ -46,8 +46,8 @@ typedef struct aktive_image_parameter {
  * NOTE: We can perform geometry initialization in the main setup. 
  */
 
-typedef void* (*aktive_image_setup)    (aktive_image_info* info);
-typedef void  (*aktive_image_final)    (void* state);
+typedef int  (*aktive_image_setup) (aktive_image_info* info);
+typedef void (*aktive_image_final) (void* state);
 
 typedef struct aktive_image_type {
     char*                   name         ; // Identification                    
