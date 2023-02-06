@@ -46,8 +46,8 @@ operator function {
 	aktive_geometry_copy (domain, aktive_image_get_geometry (srcs->v[0]));
     }
     pixels {
-	aktive_blit_unary0 (block, dst, @@, aktive_region_fetch_area (srcs->v[0], request));
-    } @@ $function
+	aktive_blit_unary0 (block, dst, @@function@@, aktive_region_fetch_area (srcs->v[0], request));
+    }
 
     # TODO :: consider generation of the blit implementation through the DSL.
     # TODO :: would allow macro for ops, inlined, more compiler optimizations?
@@ -88,8 +88,8 @@ operator {function name description} {
 	aktive_geometry_copy (domain, aktive_image_get_geometry (srcs->v[0]));
     }
     pixels {
-	aktive_blit_unary1 (block, dst, @@, param->PA, aktive_region_fetch_area (srcs->v[0], request));
-    } @@ $function PA $name
+	aktive_blit_unary1 (block, dst, @@function@@, param->@@name@@, aktive_region_fetch_area (srcs->v[0], request));
+    }
 
     # TODO :: consider generation of the blit implementation through the DSL.
     # TODO :: would allow macro for ops, inlined, more compiler optimizations?
@@ -124,9 +124,9 @@ operator {function lowkind highkind mode} {
 	aktive_geometry_copy (domain, aktive_image_get_geometry (srcs->v[0]));
     }
     pixels {
-	aktive_blit_unary2 (block, dst, @@, param->low, param->high,
+	aktive_blit_unary2 (block, dst, @@function@@, param->low, param->high,
 			    aktive_region_fetch_area (srcs->v[0], request));
-    } @@ $function
+    }
 }
 
 ## # # ## ### ##### ######## ############# #####################
