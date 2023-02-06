@@ -182,17 +182,38 @@ operator image::gradient {
 		     / (double) (aktive_geometry_get_size (domain) - 1);
     }
     pixels {
-	aktive_uint pitch    = aktive_geometry_get_pitch (&block->domain);
-	aktive_uint srcstart = aktive_blit_index (block, request->y, 0, 0);
+	// idomain	image geometry
+	// request	image area to get the pixels of
+	// block.domain storage geometry (ignoring location)
+	// dst		storage area to write the pixels to
+	//
+	// r.width      == dst.width  <= idomain.width  (Note: < possible)
+	// r.height     == dst.height <= idomain.height (Note: < possible)
+	// domain.depth == idomain.depth
 
-	aktive_uint dstpos = aktive_blit_index (block, 0, 0, 0);
-	for (aktive_uint row = 0; row < request->height; row++, srcstart += pitch) {
-   	    aktive_uint srcpos = srcstart;
-	    for (aktive_uint col = 0; col < pitch ; col++, dstpos ++, srcpos++) {
-		double value = param->first + srcpos * istate->delta;
-		block->pixel [dstpos] = value; // inlined blit set, we already have the coordinates
+	aktive_uint dstpos, dsty, dstx, dstz;
+	aktive_uint srcpos, srcy, srcx, srcz;
+	aktive_uint row, col;
+
+	// Unoptimized loop nest to compute virtual pixel data and write to storage
+	TRACE ("sy  sx  sz  | in  | dy  dx  dz  | out |", 0);
+
+	for (srcy = request->y, dsty = dst->y, row = 0; row < request->height; srcy++, dsty++, row++) {
+	    for (srcx = request->x, dstx = dst->x, col = 0; col < request->width; srcx++, dstx++, col++) {
+		for (srcz = dstz = 0; srcz < idomain->depth; srcz++, dstz++) {
+		    srcpos = srcy * idomain->width      * idomain->depth      + srcx * idomain->depth      + srcz;
+		    dstpos = dsty * block->domain.width * block->domain.depth + dstx * block->domain.depth + dstz;
+
+		    double value = param->first + srcpos * istate->delta;
+
+		    TRACE ("%3d %3d %3d | %3d | %3d %3d %3d | %3d | %.2f",
+			   srcy, srcx, srcz, srcpos, dsty, dstx, dstz, dstpos, value);
+
+		    block->pixel [dstpos] = value; // inlined blit set, we already have the coordinates
+		}
 	    }
 	}
+	return;
     }
 }
 
