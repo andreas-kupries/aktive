@@ -124,6 +124,8 @@ Defaults:
 |---                            |---                                                    |
 |`note ...`                     |Internal notes for maintainers                         |
 |||
+|`def NAME CODE`		|Declare named code blocks for inclusion into others via `@@NAME@@`|
+|||
 |`return ID RETURN_CODE ...`    |Declare non-image return type with a C code fragment providing the value to return. See `type` declarations |
 |`void ACTION_CODE ...`         |Declare operator as void, returning nothing. The C code fragment contains the actions to perform|
 |||
@@ -174,8 +176,18 @@ The region state setup, cleanup, and fields provided through the `pixel` command
 optional. When specified the behaviour of the system is the same as for the image state.
 
 All the commands providing C code fragments take an arbitrary, but even number of additional
-arguments, as a means of driving code templating. The generator replaces all occurences of the key
+arguments, as a means of last-minute templating. The generator replaces all occurences of the key
 in each KEY/VALUE pair with the corresponding value.
+
+The basic templating is done by means of named code blocks created via `def`. Each such code block
+`foo` can be inserted into any other code block defined after it by means of the placeholder
+`@@foo@@`.
+
+Note that for an operator specification using variables each variable is also available as a code
+block of the same name.
+
+When using both code blocks and last-minute templating the code blocks are inserted first, before
+the keys from the last-minute templating.
 
 ###### `FIELDS`, `RFIELDS`
 

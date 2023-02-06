@@ -98,6 +98,8 @@ proc dsl::reader::nyi {args} { ;#puts [info level 0]
 proc dsl::reader::Operator {vars ops specification} {
     foreach [list __op {*}$vars] $ops {
 	OpStart $__op
+	foreach v $vars { def $v [set $v] }
+
 	eval $specification
 	OpFinish
     }
@@ -125,6 +127,7 @@ proc dsl::reader::OpStart {op} {
     Set opspec region/fetch   {} ;# Region pixel fetcher
 
     Set opspec args     0	;# Presence of variadic input or parameter
+    Set opspec blocks   {}	;# Shared text blocks
 }
 
 proc dsl::reader::OpFinish {} {
@@ -177,11 +180,11 @@ proc dsl::reader::note {args} { ;#puts [info level 0]
 proc dsl::reader::void   {script args} { return void $script {*}$args }
 proc dsl::reader::return {type script args} { ;#puts [info level 0]
     Set opspec result $type
-    Set opspec rcode  [string map $args $script]
+    Set opspec rcode  [TemplateCode $script $args]
 }
 
-proc dsl::reader::geometry {script args} {
-    Set opspec geometry [string map $args $script]
+proc dsl::reader::def {name script args} {
+    Set opspec blocks $name [TemplateCode $script $args]
 }
 
 proc dsl::reader::state {args} {
@@ -203,9 +206,9 @@ proc dsl::reader::state {args} {
 }
 
 proc dsl::reader::State {fields setup cleanup map} { ;# puts [info level 0]
-    Set opspec state/setup   [string map $map $setup]
-    Set opspec state/cleanup [string map $map $cleanup]
-    Set opspec state/fields  [string map $map $fields]
+    Set opspec state/setup   [TemplateCode $setup   $map]
+    Set opspec state/cleanup [TemplateCode $cleanup $map]
+    Set opspec state/fields  [TemplateCode $fields  $map]
 }
 
 proc ::dsl::reader::pixels {args} { ;# puts [info level 0]
@@ -229,10 +232,10 @@ proc ::dsl::reader::pixels {args} { ;# puts [info level 0]
 }
 
 proc ::dsl::reader::Pixels {fields setup cleanup fetch map} { ;#puts [info level 0]
-    Set opspec region/setup   [string map $map $setup]
-    Set opspec region/cleanup [string map $map $cleanup]
-    Set opspec region/fields  [string map $map $fields]
-    Set opspec region/fetch   [string map $map $fetch]
+    Set opspec region/setup   [TemplateCode $setup   $map]
+    Set opspec region/cleanup [TemplateCode $cleanup $map]
+    Set opspec region/fields  [TemplateCode $fields  $map]
+    Set opspec region/fetch   [TemplateCode $fetch   $map]
 }
 
 proc dsl::reader::input... {rc} { Input $rc ...      }
@@ -289,6 +292,27 @@ proc dsl::reader::Param {type mode dvalue name args} { ;#puts [info level 0]
 
     Set      opspec param  $name .
     LappendX opspec params $argspec
+}
+
+# # ## ### ##### ######## #############
+
+proc dsl::reader::TemplateCode {code map} {
+    set bmap {}
+    set blocks [Get opspec blocks]
+    foreach key [lsort -dict [dict keys $blocks]] {
+	lappend bmap @@${key}@@ [dict get $blocks $key]
+    }
+
+    set code [FormatCode $code]
+    set code [string map $bmap $code]
+    set code [string map $map  $code]
+    ::return $code
+}
+
+proc dsl::reader::FormatCode {code} {
+    set code [textutil::adjust::undent $code]
+    set code [string trim $code]
+    ::return $code
 }
 
 # # ## ### ##### ######## #############
