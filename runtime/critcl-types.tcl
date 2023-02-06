@@ -121,6 +121,7 @@ critcl::argtype aktive_image {
 } aktive_image aktive_image
 
 critcl::resulttype aktive_image {
+    // This assumes that the work function has set an error message into the interp
     if (rv == NULL) { return TCL_ERROR; }
     Tcl_SetObjResult (interp, aktive_new_image_obj(rv));
     return TCL_OK;
