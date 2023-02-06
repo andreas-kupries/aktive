@@ -39,6 +39,7 @@ import rectangle.tcl
 import getter.tcl
 import generator.tcl
 import transformer.tcl
+#import composer.tcl
 import sink.tcl
 
 ## # # ## ### ##### ######## ############# #####################
@@ -238,19 +239,6 @@ nyi operator {
 } {
     input keep-pass-ignore
     input keep-pass-ignore
-
-    # %% TODO %% specify implementation
-}
-
-nyi operator thing {
-    op::select::x column
-    op::select::y row
-    op::select::z plane
-} {
-    input keep-pass
-
-    uint         first  First $thing of input to be in result
-    uint? _first last   Last  $thing of input to be in result
 
     # %% TODO %% specify implementation
 }
