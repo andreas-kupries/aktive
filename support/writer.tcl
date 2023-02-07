@@ -1297,6 +1297,33 @@ proc dsl::writer::OperatorOverlaysForOp {op} {
     + "proc aktive::$op \{[ProcArguments $spec]\} \{"
 
     # translate the overlays
+    set hastype 0
+    foreach hint [dict get $spec overlays] {
+        TclComment "- $hint" {    }
+    }
+    foreach hint [dict get $spec overlays] {
+	set details [lassign $hint hint]
+	# Note: all current hints assume a single input image, in variable `src`
+	##
+	# See `policy.tcl` for the definitions of the `aktive opt *` commands.
+	# Note:
+	# - The `constant` action internally uses a hardwired matcher
+	#   `input image::constant`, and has the actual action integrated.
+
+	switch -exact -- $hint {
+	    constant {
+		lassign $details tclfunc
+		if {!$hastype} { + "    aktive opt type" ; incr hastype	}
+		+ "    aktive opt fold/constant $tclfunc"
+	    }
+	    input {
+		set action [lassign $details type]
+		if {$type eq "@self"} { set type $op }
+		if {!$hastype} { + "    aktive opt type" ; incr hastype	}
+		+ "    aktive opt $action $type"
+	    }
+	}
+    }
 
     + "    I[namespace tail $op] [ProcCallWords $spec]"
     + "\}"
