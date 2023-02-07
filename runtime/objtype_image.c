@@ -18,12 +18,13 @@ TRACE_OFF;
 static void FreeImage     (Tcl_Obj* obj);
 static void DupImage      (Tcl_Obj* obj, Tcl_Obj* dst);
 static int  ImageFromAny  (Tcl_Interp* interp, Tcl_Obj* obj);
+static void StringImage   (Tcl_Obj* obj);
 
 static Tcl_ObjType aktive_image_objtype = {
     "aktive::image",
     FreeImage,
     DupImage,
-    0,              // Images have NO string representation
+    StringImage,     // Images have NO string representation
     ImageFromAny    // Ditto: Always reports an error
 };
 
@@ -93,6 +94,17 @@ DupImage (Tcl_Obj* obj, Tcl_Obj* dst)
 
     dst->typePtr = &aktive_image_objtype;
 
+    TRACE_RETURN_VOID;
+}
+
+static void
+StringImage (Tcl_Obj* obj)
+{
+    TRACE_FUNC ("((Tcl_Obj*) %p)", obj);
+
+    STRDUP (obj->bytes, "<aktive::image>");
+    obj->length = strlen (obj->bytes);
+    
     TRACE_RETURN_VOID;
 }
 
