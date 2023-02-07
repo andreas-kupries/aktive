@@ -102,6 +102,18 @@ extern void aktive_rectangle_intersect (aktive_rectangle* dst, aktive_rectangle*
 extern void aktive_rectangle_outzones  (aktive_rectangle* domain, aktive_rectangle* request,
 					aktive_uint* c, aktive_rectangle* v);
 
+/*       x y z w h d  - z, d drop, d from outside
+ * xy - (y x 0 h w d)   (y x h w)
+ * xz - (0 y x d h w)	(0 y d h)
+ * yz - (x 0 y w d h)	(x 0 w d)
+ */
+
+#define __SW(src,a,b) { aktive_uint tmp ; tmp = src->a ; src->a = src->b ; src->b = tmp; }
+
+#define aktive_rectangle_swap_xy(src, d) { __SW (src, x, y); __SW (src, width,  height); }
+#define aktive_rectangle_swap_xz(src, d) { src->x = 0;       src->width  = d; }
+#define aktive_rectangle_swap_yz(src, d) { src->y = 0;       src->height = d; }
+
 /*
  * - - -- --- ----- -------- -------------
  *
@@ -141,7 +153,15 @@ extern aktive_uint aktive_geometry_get_size   (aktive_geometry* src);
 #define aktive_geometry_as_point(src)     ((aktive_point*)     (src))
 #define aktive_geometry_as_rectangle(src) ((aktive_rectangle*) (src))
 
-// reshape (w,h,d)
+/*       x y z w h d  - z drop
+ * xy - (y x 0 h w d)   (y x h w d)
+ * xz - (0 y x d h w)	(0 y d h w)
+ * yz - (x 0 y w d h)	(x 0 w d h)
+ */
+
+#define aktive_geometry_swap_xy(src) { __SW (src, x, y); __SW (src, width,  height); }
+#define aktive_geometry_swap_xz(src) { src->x = 0;       __SW (src, width,  depth);  }
+#define aktive_geometry_swap_yz(src) { src->y = 0;       __SW (src, height, depth);  }
 
 /*
  * - - -- --- ----- -------- -------------

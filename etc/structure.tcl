@@ -9,7 +9,7 @@
 ## Note that this code does NOT check if the selection encompasses the entirety of the input.  It
 ## does optimize the pixel fetch behaviour (switching to pass through)
 ##
-## Note however that nothing prevents the writing of a Tcl level wrapper which detetcs this
+## Note however that nothing prevents the writing of a Tcl level wrapper which detects this
 ## condition and then passes the input through instead of creating the transformer.
 ##
 ## Having this kind of DAG optimization through eliding superfluous operators in the policy level
@@ -94,6 +94,98 @@ operator {thing coordinate dimension} {
 	    }
 	}
     }
+}
+
+## # # ## ### ##### ######## ############# #####################
+
+operator coordinate {
+    op::flip::x x
+    op::flip::y y
+    op::flip::z z
+} {
+    input keep ;#-pass
+
+    # Set up the loop configuration.
+    # Default is regular scan for all axes.
+    # After that the flipped axis is configured for reverse scan.
+
+    set xnext ++ ; set xinit SRC.x
+    set ynext ++ ; set yinit SRC.y
+    set znext ++ ; set zinit 0
+
+    switch -exact -- $coordinate {
+	x { set xnext -- ; set xinit "(SRC.x + SRC.width  - 1)" }
+	y { set ynext -- ; set yinit "(SRC.y + SRC.height - 1)" }
+	z { set znext -- ; set zinit "(SRC.depth - 1)"          }
+    }
+
+    state -setup {
+	// The geometry and location are unchanged. Only the internal arrangement of the
+	// pixels in memory changes.
+	aktive_geometry_copy (domain, aktive_image_get_geometry (srcs->v[0]));
+    }
+    pixels {
+	aktive_block* src = aktive_region_fetch_area (srcs->v[0], request);
+
+	// The @@coordinate@@ axis is scanned in reverse order.
+	@@blitcore@@
+    }   XSRC  srcx   YSRC  srcy   ZSRC  srcz   \
+	XINIT $xinit YINIT $yinit ZINIT $zinit \
+	XNEXT $xnext YNEXT $ynext ZNEXT $znext
+}
+
+## # # ## ### ##### ######## ############# #####################
+
+operator {coorda coordb coordc} {
+    op::swap::xy x y z
+    op::swap::xz x z y
+    op::swap::yz y z x
+} {
+    input keep ;#-pass
+
+    # A swap is a mirror along a diagonal. This exchanges two axes.
+    # The location is mirrored as well. Mostly.
+    # As the `z` location is fixed to `0`, swaps involving it do not
+    # fully fit into that setup
+
+    # Set up the loop configuration.
+    switch -exact -- $coorda$coordb {
+	xy {
+	    lassign {srcy SRC.y ++} xsrc xinit xnext
+	    lassign {srcx SRC.x ++} ysrc yinit ynext
+	    lassign {srcz 0     ++} zsrc zinit znext
+	}
+	xz {
+	    lassign {srcy SRC.y ++} ysrc yinit ynext
+	    lassign {srcx SRC.x ++} zsrc zinit znext
+	    lassign {srcz 0     ++} xsrc xinit xnext
+	}
+	yz {
+	    lassign {srcy SRC.y ++} zsrc zinit znext
+	    lassign {srcx SRC.x ++} xsrc xinit xnext
+	    lassign {srcz 0     ++} ysrc yinit ynext
+	}
+    }
+
+    state -setup {
+	// The locations and dimensions for the swapped axes (@@coorda@@, @@coordb@@) are exchanged.
+
+	aktive_geometry_copy (domain, aktive_image_get_geometry (srcs->v[0]));
+	aktive_geometry_swap_@@coorda@@@@coordb@@ (domain);
+    }
+    pixels {
+	// Rewrite request
+	aktive_rectangle_swap_@@coorda@@@@coordb@@ (request, idomain->depth);
+
+	aktive_block* src = aktive_region_fetch_area (srcs->v[0], request);
+
+	// The        dst @@coorda@@-axis is fed from the src @@coordb@@-axis
+	// Vice versa dst @@coordb@@-axis is fed from the src @@coorda@@-axis
+	// The last axis  @@coordc@@ maps as-is
+	@@blitcore@@
+    }   XSRC  $xsrc  YSRC  $ysrc  ZSRC  $zsrc  \
+	XINIT $xinit YINIT $yinit ZINIT $zinit \
+	XNEXT $xnext YNEXT $ynext ZNEXT $znext
 }
 
 ##

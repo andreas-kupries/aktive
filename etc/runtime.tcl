@@ -17,4 +17,9 @@ type double        -                     -         {Tcl_NewDoubleObj (*value)}
 vector region image point rect uint double
 
 ## # # ## ### ##### ######## ############# #####################
+### Generally useful blocks of code
+
+import blitter.tcl
+
+## # # ## ### ##### ######## ############# #####################
 ::return

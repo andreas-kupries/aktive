@@ -10,15 +10,17 @@ proc show {i} {
     puts "[aktive query type $i] \{"
     puts "  pa ([aktive query params $i])"
     foreach x [aktive query inputs $i] {
-	puts "  in ([aktive format tcl $x])"
+	set x [aktive format tcl $x]
+	dict unset x pixels
+	puts "  in ($x)"
     }
     flush stdout
     puts "  x  [aktive query x      $i]..[aktive query xmax   $i]"
     puts "  y  [aktive query y      $i]..[aktive query ymax   $i]"
     puts "  w  [aktive query width  $i]"
     puts "  h  [aktive query height $i]"
-    puts "  d  [aktive query depth  $i]"
-    puts "  pi [aktive query pitch  $i] (w*d)"
+    puts "  d  [set d  [aktive query depth  $i]]"
+    puts "  pi [set pi [aktive query pitch  $i]] (w*d)"
     puts "  px [aktive query pixels $i] (w*h)"
     puts "  sz [aktive query size   $i] (w*h*d)"
     puts ""
@@ -26,11 +28,28 @@ proc show {i} {
     puts "  domain   [aktive query domain   $i]"
     puts "  geometry [aktive query geometry $i]"
     puts ""
-    puts "  raw (([aktive format tcl $i]))"
+    set t [aktive format tcl $i]
+    #puts "  raw (($t))"
+    flush stdout
+
+    puts -nonewline "\n\t= "
+    set i 0
+    foreach v [dict get $t pixels] {
+	if {$i} {
+	    if {($i % $pi) == 0} {
+		puts -nonewline "\n\t= "
+	    } elseif {($i % $d) == 0} {
+		puts -nonewline " ="
+	    }
+	}
+	puts -nonewline " [format %6.2f $v]"
+	incr i
+    }
+    puts ""
     flush stdout
     puts "\}"
     puts ""
-        #puts "raw (([aktive format tcl [aktive op view {80 80 2 2} $i]]))" ;# outside! zeros expected
+    #puts "raw (([aktive format tcl [aktive op view {80 80 2 2} $i]]))" ;# outside! zeros expected
     #puts "raw (([aktive format tcl [aktive op view {-2 2 8 2} $i]]))"  ;# partial
     puts ""
 }
@@ -55,9 +74,13 @@ set g [aktive image gradient 3 4 2  1 12.5]
 #show [aktive op view {-2 2 8 2} $g]
 #show [aktive op view {2 -2 2 8} $g]
 
-show [aktive op select z 1 $g]
+show $g
+show [aktive op swap yz $g]
+#show [aktive op flip y [aktive op flip z [aktive op flip x $g]]]
 
 exit
+
+show [aktive op flip z $g]
 
 show [aktive op select z 1 $g]
 show [aktive op select y 1 $g]

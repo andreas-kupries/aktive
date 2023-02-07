@@ -1,0 +1,76 @@
+# -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
+## (c) 2023 Andreas Kupries
+# # ## ### ##### ######## ############# #####################
+## AKTIVE. Flipping (reversing) of rows, columns, bands
+
+kt check Tcl     8.6
+kt check tcltest 2
+
+# # ## ### ##### ######## ############# #####################
+
+kt local testing aktive
+
+kt source support/util.tcl
+
+# # ## ### ##### ######## ############# #####################
+## Syntax
+
+syntax {
+    x src
+    y src
+    z src
+} {aktive op flip}
+
+# # ## ### ##### ######## ############# #####################
+##
+# input/gradient 3x4x2
+##
+##       0 ....   1......   2...... - 3 columns
+##     --------  --------  --------
+#	 1  1.5    2  2.5    3  3.5  0
+#	 4  4.5    5  5.5    6  6.5  1
+#	 7  7.5    8  8.5    9  9.5  2
+#	10 10.5   11 11.5   12 12.5  3
+##     --- ----  --- ----  --- ----  \ 4 rows
+##      0. 1...   0. 1...   0. 1... - 2 bands
+#
+# Fliping columns, rows, or bands
+
+foreach {k op expected} {
+    0 x {
+	=  3.00  3.50 =  2.00  2.50 =  1.00  1.50
+	=  6.00  6.50 =  5.00  5.50 =  4.00  4.50
+	=  9.00  9.50 =  8.00  8.50 =  7.00  7.50
+	= 12.00 12.50 = 11.00 11.50 = 10.00 10.50
+    }
+    1 y {
+	= 10.00 10.50 = 11.00 11.50 = 12.00 12.50
+	=  7.00  7.50 =  8.00  8.50 =  9.00  9.50
+	=  4.00  4.50 =  5.00  5.50 =  6.00  6.50
+	=  1.00  1.50 =  2.00  2.50 =  3.00  3.50
+    }
+    2 z {
+	=  1.50  1.00 =  2.50  2.00 =  3.50  3.00
+	=  4.50  4.00 =  5.50  5.00 =  6.50  6.00
+	=  7.50  7.00 =  8.50  8.00 =  9.50  9.00
+	= 10.50 10.00 = 11.50 11.00 = 12.50 12.00
+    }
+} {
+    unset -nocomplain map
+    lappend map /fun    $op
+    lappend map /pixels $expected
+
+    test aktive-op-flip-${op}-2.0 "aktive op flip $op" -body {
+	astcl aktive op flip $op [aktive image gradient 3 4 2  1 12.5]
+    } -match image -result [string map $map {
+	type   op::flip::/fun
+	domain {x 0 y 0 width 3 height 4 depth 2}
+	pixels {/pixels}
+    }]
+
+    unset map
+}
+
+# # ## ### ##### ######## ############# #####################
+cleanupTests
+return
