@@ -122,7 +122,8 @@ critcl::include generated/op-funcs.c            ;# Operators
 # # ## ### ##### ######## ############# #####################
 ## Assemble Tcl level interface
 
-critcl::source   generated/glue.tcl             ;# Tcl commands for operators
+critcl::source   generated/glue.tcl             ;# Tcl-level operator construction
+critcl::tsources generated/overlay.tcl		;# Peep-hole optimizer overlays
 critcl::tsources generated/ensemble.tcl         ;# Command hierarchy
 critcl::tsources policy.tcl			;# Command hierarchy, fixed
 

@@ -113,6 +113,7 @@ proc dsl::reader::OpStart {op} {
     Set opspec notes    {}	;# Description
     Set opspec images   {}	;# Input images
     Set opspec params   {}	;# Parameters
+    Set opspec overlays {}	;# Policy overlays
 
     Set opspec result   image	;# Return value
     Set opspec rcode    {}	;# C code fragment for non-image return (getter, doer)
@@ -242,6 +243,10 @@ proc ::dsl::reader::Pixels {fields setup cleanup fetch map} { ;#puts [info level
     Set opspec region/fetch   [TemplateCode $fetch   $map]
 }
 
+proc dsl::reader::overlay {args} {
+    LappendX opspec overlays $args
+}
+
 proc dsl::reader::input... {rc} { Input $rc ...      }
 proc dsl::reader::input    {rc} { Input $rc required }
 
@@ -301,35 +306,43 @@ proc dsl::reader::Param {type mode dvalue name args} { ;#puts [info level 0]
 # # ## ### ##### ######## #############
 
 proc dsl::reader::TemplateCode {code map} {
-
     set code [FormatCode $code]
 
-    set     blocks    [Get blocks]
-    lappend blocks {*}[Get opspec blocks]
+    # Operator blocks first - May contain references to global blocks
 
+    set blocks [Get opspec blocks]
     foreach key [lsort -dict [dict keys $blocks]] {
-	set needle @@${key}@@
-	if {![string match *${needle}* $code]} continue
-
-	set replacement [dict get $blocks $key]
-
-	# Block present.
-	# Multi-line expansion expansion needed and supported ?
-
-	set pattern "\n(\S*)$needle"
-	if {![string match *\n* $replacement] ||
-	    ![regexp -- $pattern $code -> prefix]
-	} {
-	    set code [string map [list $needle $replacement] $code]
-	    continue
-	}
-
-	set replacement [textutil::adjust::indent $replacement $prefix  1]
-	set code [string map [list $needle $replacement] $code]
+	set code [TemplateBlock $code $key [dict get $blocks $key]]
     }
 
-    set code [string map $map  $code]
+    # Global blocks
+
+    set blocks [Get blocks]
+    foreach key [lsort -dict [dict keys $blocks]] {
+	set code [TemplateBlock $code $key [dict get $blocks $key]]
+    }
+
+    # Last minute things
+
+    set code [string map $map $code]
     ::return $code
+}
+
+proc dsl::reader::TemplateBlock {code key replacement} {
+    set needle @@${key}@@
+
+    if {![string match *${needle}* $code]} { ::return $code }
+    # Block present.
+
+    set pattern "\n(\S*)$needle"
+    if {[string match *\n* $replacement] &&
+	[regexp -- $pattern $code -> prefix]
+    } {
+	# Multi-line expansion expansion is needed and supported
+	set replacement [textutil::adjust::indent $replacement $prefix 1]
+    }
+
+    string map [list $needle $replacement] $code
 }
 
 proc dsl::reader::FormatCode {code} {
@@ -394,6 +407,7 @@ proc dsl::reader::Has {args} {
 ##  - name
 ##  - types   :: dict (typename -> typespec)
 ##  - vectors :: dict (typename -> imported)
+##  - blocks  :: dict (name -> c-code-fragment)
 ##  - ops     :: dict (opname -> opspec)
 ##  - opname  :: string               [Only during collection]
 ##  - opspec  :: dict (key -> value)  [Only during collection]
@@ -405,12 +419,14 @@ proc dsl::reader::Has {args} {
 ##  - conversion
 ##
 ## opspec keys
-##  - args   :: bool
-##  - images :: list (imspec)
-##  - notes  :: list (string)
-##  - param  :: dict (string -> '.') [Only during collection]
-##  - params :: list (argspec)
-##  - result :: string
+##  - blocks   :: dict (name -> c-code-fragment)
+##  - overlays :: list (overspec)
+##  - args     :: bool
+##  - images   :: list (imspec)
+##  - notes    :: list (string)
+##  - param    :: dict (string -> '.') [Only during collection]
+##  - params   :: list (argspec)
+##  - result   :: string
 ##  - state/setup
 ##  - state/cleanup
 ##  - state/fields
@@ -429,6 +445,20 @@ proc dsl::reader::Has {args} {
 ## imspec keys
 ##  - rcmode :: string
 ##  - args   :: bool
+##
+## # # ## ### ##### ######## #############
+##
+## overspec
+##   /1/ input overlay-type overlay-action... :: run action if input is of given type
+##   /2/ constant MATH-FUNC                   :: return constant, mathfunc applied to input param value
+##
+## overlay-type
+##   @self
+##   operator-name
+##
+## overlay-action
+##   pass            :: return input as construction result
+##   pass-grandchild :: return input of input as construction result
 
 proc dsl::reader::Abort {x} {
     set opname [Get opname]

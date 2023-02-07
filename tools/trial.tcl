@@ -55,6 +55,8 @@ proc show {i} {
 }
 
 set g [aktive image gradient 3 4 2  1 12.5]
+set c [aktive image constant 3 4 2 -6]
+
 # input/gradient 3x4x2
 ##
 ##       0 ....   1......   2...... - 3 columns
@@ -74,9 +76,13 @@ set g [aktive image gradient 3 4 2  1 12.5]
 #show [aktive op view {-2 2 8 2} $g]
 #show [aktive op view {2 -2 2 8} $g]
 
-show $g
-show [aktive op swap yz $g]
+#show $g
+#show [aktive op swap yz $g]
 #show [aktive op flip y [aktive op flip z [aktive op flip x $g]]]
+
+show $c
+show [aktive op math1 abs $c]
+show [aktive op math1 abs [aktive op math1 abs $g]]
 
 exit
 

@@ -42,6 +42,7 @@ proc dsl::writer::Emit {stem} {
     Into ${stem}op-funcs.c            OperatorFunctions  ;# implementations
     #
     Into ${stem}glue.tcl              OperatorCprocs     ;# Tcl commands
+    Into ${stem}overlay.tcl           OperatorOverlays   ;# Constructor wrappers
     Into ${stem}ensemble.tcl          OperatorEnsemble   ;# Command ensemble
     return
 }
@@ -750,9 +751,20 @@ proc dsl::writer::OperatorCprocForOp {op} {
     TclComment "--- --- --- --- --- --- --- --- ---"
     TclComment "Operator `$op` ..."
     foreach n $notes { TclComment "Note: $n" }
-    + {}
 
-    + "critcl::cproc aktive::$op \{"
+    set cmd $op
+    if {[OpHasOverlays $op]} {
+	TclComment {}
+	TclComment "Note: This constructor has a Tcl overlay performing"
+	TclComment "Note: construction time peep-hole optimizations"
+
+	set stem [namespace qualifiers $op]
+	set base [namespace tail $op]
+	set cmd ${stem}::I$base
+    }
+
+    + {}
+    + "critcl::cproc aktive::$cmd \{"
     + [CprocArguments $spec]
     + "\} [CprocResult $spec] \{"
     + [CprocBodyImages $spec]
@@ -809,7 +821,6 @@ proc dsl::writer::CprocArguments {spec} {
 
     set id 0
     foreach i $images {
-	set m [dict get $i rcmode]
 	set n src$id ; incr id
 	if {$single} { set n src }
 	set v [dict get $i args]
@@ -1255,6 +1266,80 @@ proc dsl::writer::FunctionBodyImageConstructor {op spec} {
     return [join $lines \n]
 }
 
+
+proc dsl::writer::OperatorOverlays {} {
+    if {![llength [Operations]]} return
+
+    set overlays 0
+    foreach op [Operations] {
+	if {![OpHasOverlays $op]} continue
+	incr overlays
+    }
+    if {!$overlays} return
+
+    TclHeader {Overlay commands, per operator}
+
+    foreach op [Operations] {
+	if {![OpHasOverlays $op]} continue
+	+ [OperatorOverlaysForOp $op]
+    }
+
+    Done
+}
+
+proc dsl::writer::OperatorOverlaysForOp {op} {
+    set spec [Get ops $op]
+
+    TclComment "--- --- --- --- --- --- --- --- ---"
+    TclComment "Operator `$op` ..."
+    + {}
+
+    + "proc aktive::$op \{[ProcArguments $spec]\} \{"
+
+    # translate the overlays
+
+    + "    I[namespace tail $op] [ProcCallWords $spec]"
+    + "\}"
+
+    + {}
+    Done
+}
+
+proc dsl::writer::ProcArguments {spec} {
+    join [ProcArgumentNames $spec] { }
+}
+
+proc dsl::writer::ProcCallWords {spec} {
+    join [lmap n [ProcArgumentNames $spec] {
+	string cat "\$$n"
+    }] { }
+}
+
+proc dsl::writer::ProcArgumentNames {spec} {
+    dict with spec {}
+    # notes, images, params, result
+
+    set names {}
+
+    foreach argspec $params {
+	lappend names  [dict get $argspec name]
+    }
+
+    set single [expr {[llength $images] == 1}]
+
+    set id 0
+    foreach i $images {
+	set n src$id ; incr id
+	if {$single} { set n src }
+
+	set v [dict get $i args]
+	if {$v} { set n args }
+
+	lappend names $n
+    }
+    return $names
+}
+
 proc dsl::writer::OperatorEnsemble {} {
     if {![llength [Operations]]} return
 
@@ -1323,9 +1408,11 @@ proc dsl::writer::ParameterCType      {argspec} {
     return $ctype
 }
 
-proc dsl::writer::Operations  {}   { lsort -dict [dict keys [Get ops]] }
-proc dsl::writer::OpHasParams {op} { llength [OpParams $op] }
-proc dsl::writer::OpParams    {op} { Get ops $op params }
+proc dsl::writer::Operations    {}   { lsort -dict [dict keys [Get ops]] }
+proc dsl::writer::OpHasParams   {op} { llength [OpParams $op] }
+proc dsl::writer::OpParams      {op} { Get ops $op params }
+proc dsl::writer::OpHasOverlays {op} { llength [OpOverlays $op] }
+proc dsl::writer::OpOverlays    {op} { Get ops $op overlays }
 
 proc dsl::writer::OpParamVariadic {op} {
     foreach argspec [Get ops $op params] {
