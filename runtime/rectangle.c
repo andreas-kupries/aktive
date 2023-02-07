@@ -249,6 +249,8 @@ extern void
 aktive_rectangle_outzones (aktive_rectangle* domain, aktive_rectangle* request,
 			   aktive_uint* c, aktive_rectangle* v)
 {
+    TRACE_FUNC("((domain*) %p ~ (request*) %p ~ *c %p $v %p", domain, request, c, v);
+
     *c = 0;
 
     aktive_rectangle_intersect (&v[0], domain, request);
@@ -300,15 +302,12 @@ aktive_rectangle_outzones (aktive_rectangle* domain, aktive_rectangle* request,
     int left   = domain->x - request->x;
     int right  = request->width - domain->width - left;
 
-#if 0
-    fprintf (stdout, "D %3d %3d %3u %3u\n", domain->x,  domain->y,  domain->width,  domain->height);
-    fprintf (stdout, "R %3d %3d %3u %3u\n", request->x, request->y, request->width, request->height);
-    fprintf (stdout, "top    %d\n", top);
-    fprintf (stdout, "bottom %d\n", bottom);
-    fprintf (stdout, "left   %d\n", left);
-    fprintf (stdout, "right  %d\n", right);
-    fflush  (stdout);
-#endif
+    TRACE ("D %3d %3d %3u %3u\n", domain->x,  domain->y,  domain->width,  domain->height);
+    TRACE ("R %3d %3d %3u %3u\n", request->x, request->y, request->width, request->height);
+    TRACE ("top    %d\n", top);
+    TRACE ("bottom %d\n", bottom);
+    TRACE ("left   %d\n", left);
+    TRACE ("right  %d\n", right);
 
 #define ARS  aktive_rectangle_set
 #define DST  &v[count]
@@ -334,6 +333,8 @@ aktive_rectangle_outzones (aktive_rectangle* domain, aktive_rectangle* request,
 #undef RW
 
     *c = count;
+
+    TRACE_RETURN_VOID;
 }
 
 /*
