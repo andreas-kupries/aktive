@@ -19,7 +19,7 @@ namespace eval aktive {
 ## calls to these commands.
 
 namespace eval aktive::opt {
-    namespace export type fold/constant pass pass-grandchild
+    namespace export type fold/constant pass pass/child
     namespace ensemble create
 }
 
@@ -44,11 +44,11 @@ proc aktive::opt::pass {match} {
     return -code return $src
 }
 
-proc aktive::opt::pass-grandchild {match} {
+proc aktive::opt::pass/child {match} {
     upvar 1 __type type src src
     if {$type ne $match} return
-    set gchild [lindex [aktive query inputs] 0]
-    return -code return $gchild
+    set child [lindex [aktive query inputs] 0]
+    return -code return $child
 }
 
 # # ## ### ##### ######## ############# #####################

@@ -51,11 +51,11 @@ operator {function mathfunc class} {
     if {$mathfunc ne "-"} { overlay constant $mathfunc }
     switch -exact -- $class {
 	idempotent { overlay input @self pass }
-	cancel     { overlay input @self pass-grandchild }
+	cancel     { overlay input @self pass/child }
 	-/-        {}
 	default {
 	    # value is complementary type canceling self
-	    overlay input $class pass-grandchild
+	    overlay input $class pass/child
 	}
     }
 
