@@ -156,9 +156,9 @@ aktive_gamma_expand (double x) {
  */
 
 static double aktive_shift  (double x, double offset)    { return x + offset; }
-static double aktive_nshift (double x, double offset)    { return x - offset; }
+static double aktive_nshift (double x, double offset)    { return offset - x; }
 static double aktive_scale  (double x, double factor)    { return x * factor; }
-static double aktive_rscale (double x, double factor)    { return x / factor; }
+static double aktive_rscale (double x, double factor)    { return factor / x; }
 static double aktive_fmod   (double x, double numerator) { return fmod (numerator, x); }
 static double aktive_pow    (double x, double base)      { return pow (base, x); }
 static double aktive_atan   (double x, double y)         { return atan2 (y, x); }
