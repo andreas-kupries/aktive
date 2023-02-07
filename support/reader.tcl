@@ -184,7 +184,11 @@ proc dsl::reader::return {type script args} { ;#puts [info level 0]
 }
 
 proc dsl::reader::def {name script args} {
-    Set opspec blocks $name [TemplateCode $script $args]
+    if {[Get opname] eq {}} {
+	Set blocks $name [TemplateCode $script $args]
+    } else {
+	Set opspec blocks $name [TemplateCode $script $args]
+    }
 }
 
 proc dsl::reader::state {args} {
@@ -297,14 +301,33 @@ proc dsl::reader::Param {type mode dvalue name args} { ;#puts [info level 0]
 # # ## ### ##### ######## #############
 
 proc dsl::reader::TemplateCode {code map} {
-    set bmap {}
-    set blocks [Get opspec blocks]
-    foreach key [lsort -dict [dict keys $blocks]] {
-	lappend bmap @@${key}@@ [dict get $blocks $key]
-    }
 
     set code [FormatCode $code]
-    set code [string map $bmap $code]
+
+    set     blocks    [Get blocks]
+    lappend blocks {*}[Get opspec blocks]
+
+    foreach key [lsort -dict [dict keys $blocks]] {
+	set needle @@${key}@@
+	if {![string match *${needle}* $code]} continue
+
+	set replacement [dict get $blocks $key]
+
+	# Block present.
+	# Multi-line expansion expansion needed and supported ?
+
+	set pattern "\n(\S*)$needle"
+	if {![string match *\n* $replacement] ||
+	    ![regexp -- $pattern $code -> prefix]
+	} {
+	    set code [string map [list $needle $replacement] $code]
+	    continue
+	}
+
+	set replacement [textutil::adjust::indent $replacement $prefix  1]
+	set code [string map [list $needle $replacement] $code]
+    }
+
     set code [string map $map  $code]
     ::return $code
 }
@@ -322,9 +345,10 @@ proc dsl::reader::Init {package} {
     variable state {
 	types   {}
 	vectors {}
+	blocks  {}
 	ops     {}
 	opname  {}
-	opspec  {}
+	opspec  {blocks {}}
 	argspec {}
 	imspec  {}
     }
