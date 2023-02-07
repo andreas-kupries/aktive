@@ -39,8 +39,8 @@ test aktive-image-const-bands-2.0 "aktive image const bands" -body {
 	depth 3
     }
     pixels {
-	1 2 3  1 2 3  1 2 3  1 2 3
-	1 2 3  1 2 3  1 2 3  1 2 3
+	= 1 2 3 = 1 2 3 = 1 2 3 = 1 2 3 =
+	= 1 2 3 = 1 2 3 = 1 2 3 = 1 2 3 =
     }
 }
 

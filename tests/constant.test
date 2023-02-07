@@ -40,10 +40,10 @@ test aktive-image-constant-2.0 "aktive image constant" -body {
 	depth 2
     }
     pixels {
-	5 5  5 5  5 5
-	5 5  5 5  5 5
-	5 5  5 5  5 5
-	5 5  5 5  5 5
+	= 5 5 = 5 5 = 5 5 =
+	= 5 5 = 5 5 = 5 5 =
+	= 5 5 = 5 5 = 5 5 =
+	= 5 5 = 5 5 = 5 5 =
     }
 }
 

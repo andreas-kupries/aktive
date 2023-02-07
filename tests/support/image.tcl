@@ -67,6 +67,11 @@ proc matchImage {expected actual} {
 		}
 	    }
 	    pixels {
+		# strip non numeric elements used to highlight structue (band separation, ...).
+		# only used in the expected value, nicer to be symmetric.
+		set evalue [lmap v $evalue { if {![string is double $v]} continue ; set v }]
+		set avalue [lmap v $avalue { if {![string is double $v]} continue ; set v }]
+
 		if {![matchNdigits 4 $evalue $avalue]} {
 		    #puts "image pixels"
 		    return 0
