@@ -34,7 +34,7 @@ syntax {
 ##      0. 1...   0. 1...   0. 1... - 2 bands
 
 test aktive-image-gradient-2.0 "aktive image gradient" -body {
-    astcl aktive image gradient 3 4 2  1 12.5
+    astcl grad
 } -match image -result {
     type   image::gradient
     config {
@@ -59,8 +59,8 @@ test aktive-image-gradient-2.0 "aktive image gradient" -body {
     }
 }
 
-test aktive-image-gradient-2.1 "aktive image gradient, slice" -body {
-    astcl aktive op view {-2 2 8 2} [aktive image gradient 3 4 2  1 12.5]
+test aktive-image-gradient-2.1 "aktive image gradient, off view" -body {
+    astcl aktive op view {-2 2 8 2} [grad]
 } -match image -result {
     type   op::view
     config {
@@ -79,8 +79,8 @@ test aktive-image-gradient-2.1 "aktive image gradient, slice" -body {
     }
 }
 
-test aktive-image-gradient-2.2 "aktive image gradient, slice" -body {
-    astcl aktive op view {2 -2 2 8} [aktive image gradient 3 4 2  1 12.5]
+test aktive-image-gradient-2.2 "aktive image gradient, off view" -body {
+    astcl aktive op view {2 -2 2 8} [grad]
 } -match image -result {
     type   op::view
     config {
@@ -104,6 +104,10 @@ test aktive-image-gradient-2.2 "aktive image gradient, slice" -body {
 	=  0  0   = 0 0 =
     }
 }
+
+test aktive-image-gradient-2.3 "aktive image gradient, dag" -body {
+    dag [grad]
+} -result image::gradient
 
 # # ## ### ##### ######## ############# #####################
 cleanupTests

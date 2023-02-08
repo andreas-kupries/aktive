@@ -23,9 +23,7 @@ if 0 {syntax {
 ##
 
 test aktive-image-const-matrix-2.0 "aktive image const matrix" -body {
-    astcl aktive image const matrix 4 2  \
-	1 2 3 4 \
-	5 6 7 8
+    astcl matrix
 } -match image -result {
     type   image::const::matrix
     config {
@@ -45,6 +43,10 @@ test aktive-image-const-matrix-2.0 "aktive image const matrix" -body {
 	5 6 7 8
     }
 }
+
+test aktive-image-const-matrix-2.1 "aktive image const matrix, dag" -body {
+    dag [matrix]
+} -result image::const::matrix
 
 # # ## ### ##### ######## ############# #####################
 cleanupTests

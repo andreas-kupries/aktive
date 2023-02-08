@@ -23,7 +23,7 @@ syntax {
 ##
 
 test aktive-image-constant-2.0 "aktive image constant" -body {
-    astcl aktive image constant 3 4 2 5
+    astcl flat 5
 } -match image -result {
     type   image::constant
     config {
@@ -46,6 +46,10 @@ test aktive-image-constant-2.0 "aktive image constant" -body {
 	= 5 5 = 5 5 = 5 5 =
     }
 }
+
+test aktive-image-constant-2.1 "aktive image constant, dag" -body {
+    dag [flat 5]
+} -result image::constant
 
 # # ## ### ##### ######## ############# #####################
 cleanupTests

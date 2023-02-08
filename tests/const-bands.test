@@ -23,7 +23,7 @@ if 0 {syntax {
 ##
 
 test aktive-image-const-bands-2.0 "aktive image const bands" -body {
-    astcl aktive image const bands 4 2  1 2 3
+    astcl bands
 } -match image -result {
     type   image::const::bands
     config {
@@ -43,6 +43,10 @@ test aktive-image-const-bands-2.0 "aktive image const bands" -body {
 	= 1 2 3 = 1 2 3 = 1 2 3 = 1 2 3 =
     }
 }
+
+test aktive-image-const-bands-2.1 "aktive image const bands, dag" -body {
+    dag [bands]
+} -result image::const::bands
 
 # # ## ### ##### ######## ############# #####################
 cleanupTests
