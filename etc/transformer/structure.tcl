@@ -1,20 +1,9 @@
 ## -*- mode: tcl ; fill-column: 90 -*-
-# # # ## ### ##### ######## ############# #####################
-## Image transformer - Single input image, possibly parameters
-##
-## Structural changes
+# # ## ### ##### ######## ############# #####################
+## Transformers -- Structural changes (data re-arrangements)
 
-## # # ## ### ##### ######## ############# #####################
-
-## Note that this code does NOT check if the selection encompasses the entirety of the input.  It
-## does optimize the pixel fetch behaviour (switching to pass through)
-##
-## Note however that nothing prevents the writing of a Tcl level wrapper which detects this
-## condition and then passes the input through instead of creating the transformer.
-##
-## Having this kind of DAG optimization through eliding superfluous operators in the policy level
-## should actually make the refcount management much easier (default mode `keep`, and the various
-## pass/ignore combinations become irrelevant)
+# # ## ### ##### ######## ############# #####################
+## Select a range of rows, columns, bands
 
 operator {thing coordinate dimension} {
     op::select::x column x width
@@ -27,10 +16,13 @@ operator {thing coordinate dimension} {
     note The 2D location of the first cell of the input going into the
     note result is the location of the result.
 
-    input keep ;#-pass
+    input keep
 
     uint         first  Input's first $thing to be placed into the result
     uint? _first last   Input's last $thing to be placed into the result
+
+    # TODO :: overlay hints (first == 0 && last == range-1 => identity, pass/input)
+    # TODO :: overlay hints (const input => create const of reduced dimensions)
 
     # The /thing/ values are relative to the image /dimension/, rooted at 0.
     # They are not 2D plane coordinates !!
@@ -96,7 +88,9 @@ operator {thing coordinate dimension} {
     }
 }
 
-## # # ## ### ##### ######## ############# #####################
+##
+# # ## ### ##### ######## ############# #####################
+## Mirror the image along one of the coordinate axes
 
 operator coordinate {
     op::flip::x x
@@ -104,6 +98,8 @@ operator coordinate {
     op::flip::z z
 } {
     input keep ;#-pass
+
+    overlay   input @self   is input/child	;# flips are self-complementary
 
     # Set up the loop configuration.
     # Default is regular scan for all axes.
@@ -134,7 +130,9 @@ operator coordinate {
 	XNEXT $xnext YNEXT $ynext ZNEXT $znext
 }
 
-## # # ## ### ##### ######## ############# #####################
+##
+# # ## ### ##### ######## ############# #####################
+## Exchange two axes with each other
 
 operator {coorda coordb coordc} {
     op::swap::xy x y z
@@ -142,6 +140,8 @@ operator {coorda coordb coordc} {
     op::swap::yz y z x
 } {
     input keep ;#-pass
+
+    overlay   input @self   is input/child	;# swaps are self-complementary
 
     # A swap is a mirror along a diagonal. This exchanges two axes.
     # The location is mirrored as well. Mostly.
@@ -189,5 +189,49 @@ operator {coorda coordb coordc} {
 }
 
 ##
-## # # ## ### ##### ######## ############# #####################
+# # ## ### ##### ######## ############# #####################
+## Compress/stretch along one of the coordinate axes.
+#
+# BEWARE: The compression is a simple decimation. The user is responsible for running a
+#         convolution beforehand to avoid/reduce aliasing artifacts.
+
+nyi operator {
+    op::downsample::x
+    op::downsample::y
+    op::downsample::z
+} {
+    input keep-pass
+
+    uint n  Sampling factor, range 2...
+
+    # %% TODO %% specify implementation
+}
+
+nyi operator {
+    op::upsample::x
+    op::upsample::y
+    op::upsample::z
+} {
+    input keep-pass
+
+    uint      n     Sampling factor, range 2...
+    double? 0 fill  Pixel fill value
+
+    # %% TODO %% specify implementation
+}
+
+nyi operator {
+    op::upsample::xrep
+    op::upsample::yrep
+    op::upsample::zrep
+} {
+    input keep-pass
+
+    uint n  Sampling factor, range 2...
+
+    # %% TODO %% specify implementation
+}
+
+##
+# # ## ### ##### ######## ############# #####################
 ::return

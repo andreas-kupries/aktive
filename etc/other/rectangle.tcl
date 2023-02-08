@@ -1,9 +1,9 @@
 ## -*- mode: tcl ; fill-column: 90 -*-
-# # # ## ### ##### ######## ############# #####################
+# # ## ### ##### ######## ############# #####################
 ## Rectangle operations
 ## -- Fitting completely non-image functionality into the framework
 
-## # # ## ### ##### ######## ############# #####################
+# # ## ### ##### ######## ############# #####################
 
 operator rectangle::make {
     int  x  Rectangle location, Column
@@ -47,7 +47,7 @@ operator rectangle::move {
     }
 }
 
-## # # ## ### ##### ######## ############# #####################
+# # ## ### ##### ######## ############# #####################
 
 operator rectangle::equal {
     rect a   First rectangle to compare
@@ -69,7 +69,7 @@ operator rectangle::empty {
     return int { aktive_rectangle_is_empty (&param->r) ; }
 }
 
-## # # ## ### ##### ######## ############# #####################
+# # ## ### ##### ######## ############# #####################
 
 operator rectangle::union {
     rect... r   Rectangles to union
@@ -107,7 +107,7 @@ operator rectangle::intersect {
     }
 }
 
-## # # ## ### ##### ######## ############# #####################
+# # ## ### ##### ######## ############# #####################
 
 operator rectangle::zones {
     rect domain  Area covered by image pixels
@@ -130,5 +130,5 @@ operator rectangle::zones {
 }
 
 ##
-## # # ## ### ##### ######## ############# #####################
+# # ## ### ##### ######## ############# #####################
 ::return

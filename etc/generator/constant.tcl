@@ -1,8 +1,6 @@
 ## -*- mode: tcl ; fill-column: 90 -*-
-# # # ## ### ##### ######## ############# #####################
-## Image generators -- Images created only from parameters
-
-## # # ## ### ##### ######## ############# #####################
+# # ## ### ##### ######## ############# #####################
+## Generators -- Various virtual constant fields
 
 operator image::constant {
     note The entire image is set to the value
@@ -217,8 +215,6 @@ operator image::gradient {
     }
 }
 
-## # # ## ### ##### ######## ############# #####################
-
 ##
-## # # ## ### ##### ######## ############# #####################
+# # ## ### ##### ######## ############# #####################
 ::return

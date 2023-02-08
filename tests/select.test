@@ -59,7 +59,7 @@ foreach {k op thing domain expected} {
     lappend map /pixels $expected
 
     test aktive-op-select-${op}-2.0 "aktive op select $op" -body {
-	astcl aktive op select $op 1 [aktive image gradient 3 4 2  1 12.5]
+	astcl aktive op select $op 1 [grad]
     } -match image -result [string map $map {
 	type   op::select::/fun
 	config {first 1 last 1}
@@ -67,18 +67,25 @@ foreach {k op thing domain expected} {
 	pixels {/pixels}
     }]
 
+    test aktive-op-select-${op}-2.1 "aktive op select $op, dag" -body {
+	dag [aktive op select $op 1 [grad]]
+    } -match image -result [string map $map {op::select::/fun image::gradient}]
+
+    # TODO :: select elision when identity.
+    # TODO :: ?? shift select parameter checks into overlay
+
     unset map
 
     test aktive-op-select-${op}-3.0 "aktive op select $op, first > range" -body {
-	aktive op select $op 5 6 [aktive image constant 4 4 4 0]
-    } -returnCodes error -result "First $thing >= 4"
+	aktive op select $op 5 6 [flat 0]
+    } -returnCodes error -match glob -result "First $thing >= *"
 
     test aktive-op-select-${op}-3.1 "aktive op select $op, last > range" -body {
-	aktive op select $op 3 6 [aktive image constant 4 4 4 0]
-    } -returnCodes error -result "Last $thing >= 4"
+	aktive op select $op 1 6 [flat 0]
+    } -returnCodes error -match glob -result "Last $thing >= *"
 
     test aktive-op-select-${op}-3.2 "aktive op select $op, first > last" -body {
-	aktive op select $op 2 1 [aktive image constant 4 4 4 0]
+	aktive op select $op 1 0 [flat 0]
     } -returnCodes error -result "First $thing is after last"
 }
 

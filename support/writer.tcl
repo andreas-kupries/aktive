@@ -750,7 +750,7 @@ proc dsl::writer::OperatorCprocForOp {op} {
 
     TclComment "--- --- --- --- --- --- --- --- ---"
     TclComment "Operator `$op` ..."
-    foreach n $notes { TclComment "Note: $n" }
+    foreach n $notes { TclComment "Note: [join $n { }]" }
 
     set cmd $op
     if {[OpHasOverlays $op]} {
@@ -1297,7 +1297,6 @@ proc dsl::writer::OperatorOverlaysForOp {op} {
     + "proc aktive::$op \{[ProcArguments $spec]\} \{"
 
     # translate the overlays
-    set hastype 0
     foreach hint [dict get $spec overlays] {
         TclComment "- $hint" {    }
     }
@@ -1306,21 +1305,26 @@ proc dsl::writer::OperatorOverlaysForOp {op} {
 	# Note: all current hints assume a single input image, in variable `src`
 	##
 	# See `policy.tcl` for the definitions of the `aktive opt *` commands.
-	# Note:
-	# - The `constant` action internally uses a hardwired matcher
-	#   `input image::constant`, and has the actual action integrated.
 
 	switch -exact -- $hint {
+	    param {
+		set action [lassign $details name relation value]
+		set relation [dict get {
+		    == eq != ne
+		    <  lt <= le
+		    >  gt >= ge
+		} $relation]
+		+ "    aktive opt do param.$relation $name $value $action"
+	    }
 	    constant {
-		lassign $details tclfunc
-		if {!$hastype} { + "    aktive opt type" ; incr hastype	}
-		+ "    aktive opt fold/constant $tclfunc"
+		set params [lassign $details tclfunc]
+		set arity  [llength $params]
+		+ [string trimright "    aktive opt do isconst is fold/constant/$arity $tclfunc $params"]
 	    }
 	    input {
 		set action [lassign $details type]
 		if {$type eq "@self"} { set type $op }
-		if {!$hastype} { + "    aktive opt type" ; incr hastype	}
-		+ "    aktive opt $action $type"
+		+ "    aktive opt do istype $type $action"
 	    }
 	}
     }

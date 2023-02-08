@@ -6,7 +6,8 @@
 customMatch image matchImage
 
 # Force image Tcl representation
-proc astcl {args} { aktive format tcl [{*}$args] }
+proc astcl  {args} { astcl/ [{*}$args] }
+proc astcl/ {i}    { aktive format tcl $i }
 
 proc dag {i} {
     lappend r [aktive query type $i]

@@ -103,8 +103,51 @@ foreach {k fun steps first last expected} {
 	pixels {/ex}
     }]
 
+    test aktive-op-math1-${fun}-2.1 "aktive math1 $fun, dag" -body {
+	dag [aktive op math1 $fun [grad]]
+    } -result [string map $map {op::math1::/fun image::gradient}]
+
+    # Const folding is done for most, but not all.
+    if {$fun ni {
+	acosh asinh atanh gamma-compress gamma-expand
+    }} {
+	test aktive-op-math1-${fun}-2.2 "aktive math1 $fun, const folding, dag" -body {
+	    dag [aktive op math1 $fun [flat 1]]
+	} -result image::constant
+    }
+
+    # Chain reduction for idempotent operations
+    if {$fun in {
+	abs clamp wrap sign sign*
+    }} {
+	test aktive-op-math1-${fun}-2.3 "aktive math1 $fun, idempotent, dag" -body {
+	    dag [aktive op math1 $fun [aktive op math1 $fun [grad]]]
+	} -result [string map $map {op::math1::/fun image::gradient}]
+    }
+
+    # Chain reduction for complementary operations
+    if {$fun in {
+	invert neg gamma-expand gamma-compress
+    }} {
+	set cfun [dict get {
+	    invert          invert
+	    neg		    neg
+	    gamma-expand    gamma-compress
+	    gamma-compress  gamma-expand
+	} $fun]
+
+	test aktive-op-math1-${fun}-2.4 "aktive math1 $fun, complement $cfun, dag" -body {
+	    dag [aktive op math1 $cfun [aktive op math1 $fun [grad]]]
+	} -result image::gradient
+
+	# Note: The inverse order test is covered by the test for the other op
+	#       If not self complementary
+    }
+
     unset map
 }
+
+
 
 # # ## ### ##### ######## ############# #####################
 cleanupTests

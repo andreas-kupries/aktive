@@ -1,8 +1,10 @@
 # -*- mode: tcl ; fill-column: 90 -*-
-
-## # # ## ### ##### ######## ############# #####################
-## Types for parameters and results required by the runtime.
+# # ## ### ##### ######## ############# #####################
+## Core runtime definitions
 ## Separately processed.
+
+# # ## ### ##### ######## ############# #####################
+## Types for parameters and results
 
 # __ id __________ critcl ___________    C type __ Conversion ______________________________
 type point         aktive_point          -         {aktive_new_point_obj (value)}
@@ -16,10 +18,11 @@ type double        -                     -         {Tcl_NewDoubleObj (*value)}
 
 vector region image point rect uint double
 
-## # # ## ### ##### ######## ############# #####################
-### Generally useful blocks of code
+# # ## ### ##### ######## ############# #####################
+## Generally useful blocks of code
 
-import blitter.tcl
+import runtime/blitter.tcl
 
-## # # ## ### ##### ######## ############# #####################
+##
+# # ## ### ##### ######## ############# #####################
 ::return

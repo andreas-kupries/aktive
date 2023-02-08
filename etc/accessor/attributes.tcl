@@ -1,6 +1,6 @@
 ## -*- mode: tcl ; fill-column: 90 -*-
-# # # ## ### ##### ######## ############# #####################
-## Image attribute getters
+# # ## ### ##### ######## ############# #####################
+## Getters -- Retrieving image attributes
 
 operator query::type {
     input ignore
@@ -29,6 +29,7 @@ operator attribute {
     query::ymax ymax
 } {
     input ignore
+
     return int "aktive_image_get_$attribute (src);"
 }
 
@@ -41,11 +42,13 @@ operator attribute {
     query::size   size
 } {
     input ignore
+
     return uint "aktive_image_get_$attribute (src);"
 }
 
 operator query::inputs {
     input ignore
+
     return object0 {
 	aktive_uint c = aktive_image_get_nsrcs (src);
 	Tcl_Obj**   v = NALLOC (Tcl_Obj*, c);
@@ -61,6 +64,7 @@ operator query::inputs {
 
 operator query::params {
     input ignore
+
     return object0 {
 	aktive_uint c = aktive_image_get_nparams (src);
 	Tcl_Obj* r    = Tcl_NewDictObj();
@@ -75,5 +79,5 @@ operator query::params {
 }
 
 ##
-## # # ## ### ##### ######## ############# #####################
+# # ## ### ##### ######## ############# #####################
 ::return

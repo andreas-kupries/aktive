@@ -58,6 +58,14 @@ foreach {k fun expected} {
 	pixels {/ex}
     }]
 
+    test aktive-op-math-${fun}-2.1 "aktive math $fun, dag" -body {
+	dag [aktive op math $fun -1 1 [aktive image gradient 7 1 1 -3 3]]
+    } -result [string map $map {op::math::/fun image::gradient}]
+
+    test aktive-op-math-${fun}-2.2 "aktive math $fun, const folding, dag" -body {
+	dag [aktive op math $fun -1 1 [flat 4]]
+    } -result image::constant
+
     unset map
 }
 

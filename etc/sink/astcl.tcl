@@ -1,8 +1,6 @@
 ## -*- mode: tcl ; fill-column: 90 -*-
-# # # ## ### ##### ######## ############# #####################
-## Image sinks
-
-## # # ## ### ##### ######## ############# #####################
+# # ## ### ##### ######## ############# #####################
+## Sink -- Tcl structures, materialized
 
 operator format::tcl {
     # As written technically a getter, as the operator has a return value
@@ -15,5 +13,5 @@ operator format::tcl {
 }
 
 ##
-## # # ## ### ##### ######## ############# #####################
+# # ## ### ##### ######## ############# #####################
 ::return

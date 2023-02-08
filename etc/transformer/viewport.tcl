@@ -1,8 +1,6 @@
 ## -*- mode: tcl ; fill-column: 90 -*-
 # # # ## ### ##### ######## ############# #####################
-## Image transformer - Single input image, possibly parameters
-
-## # # ## ### ##### ######## ############# #####################
+## Transformer -- Change viewport into the image plane
 
 operator op::view {
     note Look at some area of an image.
@@ -37,11 +35,6 @@ operator op::view {
     }
 }
 
-## # # ## ### ##### ######## ############# #####################
-
-import unary-math.tcl
-import structure.tcl
-
 ##
-## # # ## ### ##### ######## ############# #####################
+# # ## ### ##### ######## ############# #####################
 ::return

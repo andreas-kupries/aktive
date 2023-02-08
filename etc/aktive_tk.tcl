@@ -1,5 +1,6 @@
-# -*- mode: tcl ; fill-column: 90 -*-
-## # # ## ### ##### ######## ############# #####################
+## -*- mode: tcl ; fill-column: 90 -*-
+# # ## ### ##### ######## ############# #####################
+## Tk side package -- Reading from and writing to Tk photo images
 
 type photo aktive_photo Tk_PhotoHandle
 

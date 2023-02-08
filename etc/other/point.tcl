@@ -1,9 +1,7 @@
 ## -*- mode: tcl ; fill-column: 90 -*-
-# # # ## ### ##### ######## ############# #####################
+# # ## ### ##### ######## ############# #####################
 ## Point operations
 ## -- Fitting completely non-image functionality into the framework
-
-## # # ## ### ##### ######## ############# #####################
 
 operator point::make {
     int x  Point location, Column
@@ -40,8 +38,6 @@ operator point::move {
     }
 }
 
-## # # ## ### ##### ######## ############# #####################
-
 operator point::box {
     point... points  Points to find the bounding box for
 
@@ -53,5 +49,5 @@ operator point::box {
 }
 
 ##
-## # # ## ### ##### ######## ############# #####################
+# # ## ### ##### ######## ############# #####################
 ::return

@@ -61,12 +61,20 @@ foreach {k op expected} {
     lappend map /pixels $expected
 
     test aktive-op-flip-${op}-2.0 "aktive op flip $op" -body {
-	astcl aktive op flip $op [aktive image gradient 3 4 2  1 12.5]
+	astcl aktive op flip $op [grad]
     } -match image -result [string map $map {
 	type   op::flip::/fun
 	domain {x 0 y 0 width 3 height 4 depth 2}
 	pixels {/pixels}
     }]
+
+    test aktive-op-flip-${op}-2.1 "aktive op flip $op, dag" -body {
+	dag [aktive op flip $op [grad]]
+    } -result [string map $map {op::flip::/fun image::gradient}]
+
+    test aktive-op-flip-${op}-2.2 "aktive op flip $op, self-complementary, chain reduction" -body {
+	dag [aktive op flip $op [aktive op flip $op [grad]]]
+    } -result image::gradient
 
     unset map
 }
