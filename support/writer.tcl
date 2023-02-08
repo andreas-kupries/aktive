@@ -1521,11 +1521,11 @@ proc dsl::writer::Into {destination textcmd} {
     set text [$textcmd]
     if {$text eq {}} return
 
-    puts "  ops generator writing   $destination"
+    puts "Writing [blue $destination]"
     file mkdir [file dirname $destination]
     set    chan [open $destination w]
-    puts  $chan $text
-    close $chan
+    ::puts $chan $text
+    close  $chan
     return
 }
 
@@ -1560,6 +1560,20 @@ proc dsl::writer::TclHeader {text} {
     TclComment {}
     TclComment "Generated [clock format [clock seconds]] -- $tcl_platform(user)@[info hostname]"
     + {}
+}
+
+# # ## ### ##### ######## #############
+## Messaging
+
+proc dsl::writer::blue {message} {
+    return \033\[34m$message\033\[0m
+}
+
+proc dsl::writer::puts {message} {
+    #variable importing
+    set indent "" ;#"[string repeat {  } $importing]"
+
+    ::puts "  - $indent$message"
 }
 
 # # ## ### ##### ######## #############

@@ -20,7 +20,7 @@ proc dsl::reader::do {package specification} {
     set readdir   [file dirname [file normalize $specification]]
     set importing 0
 
-    puts "  ops generator reading $specification"
+    puts "Reading [blue $specification]"
 
     source $specification
     ::return $state
@@ -34,7 +34,7 @@ proc dsl::reader::import {path} {
     variable importing
 
     incr importing
-    puts "  ops generator [string repeat {  } $importing] importing $path"
+    puts "Importing [blue $path]"
 
     set path    [file normalize [file join $readdir $path]]
     set saved   $readdir
@@ -90,6 +90,24 @@ proc dsl::reader::operator {args} { ;#puts [info level 0]
 
 proc dsl::reader::nyi {args} { ;#puts [info level 0]
     # Disable a command
+    set cmd [lindex $args 0]
+    if {$cmd eq "operator"} {
+	switch -- [llength $args] {
+	    4 {
+		lassign $args _ vars values _
+		foreach [list __op {*}$vars] $values {
+		    puts "  Skipped $cmd [cyan $__op]"
+		}
+	    }
+	    3 {
+		foreach name [lindex $args 1] {
+		    puts "  Skipped $cmd [cyan $name]"
+		}
+	    }
+	}
+    } else {
+	puts "  Skipped [lrange $args 0 1]"
+    }
 }
 
 # # ## ### ##### ######## #############
@@ -304,6 +322,25 @@ proc dsl::reader::Param {type mode dvalue name args} { ;#puts [info level 0]
 }
 
 # # ## ### ##### ######## #############
+## Messaging
+
+proc dsl::reader::blue {message} {
+    string cat \033\[34m$message\033\[0m
+}
+
+proc dsl::reader::cyan {message} {
+    string cat \033\[36m$message\033\[0m
+}
+
+proc dsl::reader::puts {message} {
+    variable importing
+    set indent [string repeat {  } $importing]
+
+    ::puts "  - $indent$message"
+}
+
+# # ## ### ##### ######## #############
+## Templating
 
 proc dsl::reader::TemplateCode {code map} {
     set code [FormatCode $code]

@@ -6,6 +6,9 @@ namespace eval ::dsl {
 }
 
 proc ::dsl::generate {pkg in out} {
+    puts ""
+    puts "  Ops processing \[$pkg\]"
+
     writer do $out [reader do $pkg $in]
 }
 
