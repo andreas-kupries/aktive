@@ -8,6 +8,12 @@ customMatch image matchImage
 # Force image Tcl representation
 proc astcl {args} { aktive format tcl [{*}$args] }
 
+proc dag {i} {
+    lappend r [aktive query type $i]
+    foreach c [aktive query inputs $i] { lappend r [dag $c] }
+    return $r
+}
+
 # Match two lists of numbers to N digits fractional precision
 # Assume n > 0
 proc matchNdigits {n expected actual} {

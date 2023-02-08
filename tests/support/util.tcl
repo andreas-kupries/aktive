@@ -4,6 +4,7 @@
 ## Test Utility Commands
 
 kt source support/image.tcl
+kt source support/builtin.tcl
 
 # # ## ### ##### ######## ############# #####################
 ## Automated wrong#args checking based on command name and argument
