@@ -68,8 +68,8 @@ foreach {k op thing domain expected} {
     }]
 
     test aktive-op-select-${op}-2.1 "aktive op select $op, dag" -body {
-	dag [aktive op select $op 1 [grad]]
-    } -match image -result [string map $map {op::select::/fun image::gradient}]
+	dag aktive op select $op 1 [grad]
+    } -match glob -result [string map $map {op::select::/fun * {image::gradient *}}]
 
     # TODO :: select elision when identity.
     # TODO :: ?? shift select parameter checks into overlay

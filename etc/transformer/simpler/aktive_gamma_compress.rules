@@ -1,0 +1,7 @@
+## -*- mode: tcl ; fill-column: 90 -*-
+# # ## ### ##### ######## ############# #####################
+## aktive_gamma_compress -- op math1  gamma-compress
+#
+## Complementary to gamma-expand
+
+simplify for   src/type op::math1::gamma-expand   returns src/child

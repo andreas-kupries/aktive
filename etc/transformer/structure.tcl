@@ -21,8 +21,8 @@ operator {thing coordinate dimension} {
     uint         first  Input's first $thing to be placed into the result
     uint? _first last   Input's last $thing to be placed into the result
 
-    # TODO :: overlay hints (first == 0 && last == range-1 => identity, pass/input)
-    # TODO :: overlay hints (const input => create const of reduced dimensions)
+    # TODO :: simplify hints (first == 0 && last == range-1 => identity, pass/input)
+    # TODO :: simplify hints (const input => create const of reduced dimensions)
 
     # The /thing/ values are relative to the image /dimension/, rooted at 0.
     # They are not 2D plane coordinates !!
@@ -99,7 +99,8 @@ operator coordinate {
 } {
     input keep ;#-pass
 
-    overlay   input @self   is input/child	;# flips are self-complementary
+    # flips are self-complementary
+    simplify for   src/type @self   returns src/child
 
     # Set up the loop configuration.
     # Default is regular scan for all axes.
@@ -141,7 +142,8 @@ operator {coorda coordb coordc} {
 } {
     input keep ;#-pass
 
-    overlay   input @self   is input/child	;# swaps are self-complementary
+    # swaps are self-complementary
+    simplify for   src/type @self   returns src/child
 
     # A swap is a mirror along a diagonal. This exchanges two axes.
     # The location is mirrored as well. Mostly.

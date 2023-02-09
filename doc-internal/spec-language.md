@@ -9,7 +9,7 @@ operations, or to modify an existing operation, or both.
 
 ## Overview
 
-The main commands are `import`, `type`, `vector`, and `operator`.
+The main commands are `import`, `import?`, `type`, `vector`, `def`, and `operator`.
 They declare
 
   - The types used in the API between C and Tcl
@@ -42,6 +42,11 @@ results. Imported types and vector types are excluded from code generation.
 Syntax
 
   - `import PATH`
+
+### `import?`
+
+The same syntax as for `import` this command is a conditional import. It does nothing when the
+requested path does not exist, or is not file.
 
 ### `type`
 

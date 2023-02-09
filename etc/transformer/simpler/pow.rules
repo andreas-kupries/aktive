@@ -1,0 +1,24 @@
+## -*- mode: tcl ; fill-column: 90 -*-
+# # ## ### ##### ######## ############# #####################
+## active_pow -- op math1 pow :: I ^ exponent
+
+## [x] <=> I[i] == x, for all pixels i IOW I is constant with value x
+#
+## (a) 0^x == nan for x < 0	- general const folding
+## (b) 0^x == 0   for x > 0
+## (c) 0^0 == 1  (for x = 0)	- general const folding
+## (d) x^0 == 1   for all x
+## (e) x^1 == x   for all x
+
+simplify for  param exponent >  0  src/const 0  returns src		;# <b> [0] ^ x = [0] = I, x > 0
+simplify for  param exponent == 0  src/const 1  returns src		;# <d> [1] ^ 0 = [1] = I	   
+simplify for  param exponent == 0               returns const 1		;# <d> I   ^ 0 = [1]	   
+simplify for  param exponent == 1               returns src		;# <e> I   ^ 1       = I
+
+# subsumed in the general const folding
+#simplify for  param exponent <  0  src/const 0  returns const Inf	;# <a> [0] ^ x = [inf],   x < 0
+#simplify for  param exponent == 0  src/const 0  returns const 1	;# <c> [0] ^ 0 = [1]	   
+
+# TODO pow, pow
+# TODO pow, cbrt
+# TODO pow, sqrt

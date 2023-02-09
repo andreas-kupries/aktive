@@ -22,7 +22,11 @@ syntax {
 # # ## ### ##### ######## ############# #####################
 ##
 
-test aktive-image-constant-2.0 "aktive image constant" -body {
+test aktive-image-constant-2.0 "aktive image constant, dag" -body {
+    dag flat 5
+} -match glob -result {image::constant * {width 3 height 4 depth 2 value 5.0}}
+
+test aktive-image-constant-2.1 "aktive image constant" -body {
     astcl flat 5
 } -match image -result {
     type   image::constant
@@ -47,9 +51,35 @@ test aktive-image-constant-2.0 "aktive image constant" -body {
     }
 }
 
-test aktive-image-constant-2.1 "aktive image constant, dag" -body {
-    dag [flat 5]
-} -result image::constant
+if 0 {
+    # Tcl inf(inity) works -- NaN does not
+    # The result is still no comparable
+
+    test aktive-image-constant-2.2 "aktive image constant, infinity" -body {
+	astcl flat inf
+    } -match image -result {
+	type   image::constant
+	config {
+	    width 3
+	    height 4
+	    depth 2
+	    value Inf
+	}
+	domain {
+	    x 0
+	    y 0
+	    width 3
+	    height 4
+	    depth 2
+	}
+	pixels {
+	    = inf inf = inf inf = inf inf =
+	    = inf inf = inf inf = inf inf =
+	    = inf inf = inf inf = inf inf =
+	    = inf inf = inf inf = inf inf =
+	}
+    }
+}
 
 # # ## ### ##### ######## ############# #####################
 cleanupTests

@@ -33,35 +33,31 @@ syntax {
     le             {threshold src}
     gt             {threshold src}
     lt             {threshold src}
+    solarize       {threshold src}
 } {aktive op math1}
 
-syntax {
-    solarize {threshold src}
-} {aktive op}
-
 # # ## ### ##### ######## ############# #####################
-## TODO :: unary ops on constant images -> optimized
-## TODO :: optimization for chains of idempotent, canceling and complementary ops
+## Basic testing (result sampling, basic const-folding simplification)
 
-foreach {k fun steps first last param pname expected} {
-    0    {math1 shift}           7 -3 3 2.0 offset    {-1 0 1 2 3 4 5}
-    1    {math1 neg-shift}       7 -3 3 2.0 offset    {5 4 3 2 1 0 -1}
-    2    {math1 scale}           7 -3 3 2.0 factor    {-6 -4 -2 0 2 4 6}
-    3    {math1 reciproc-scale}  4 -3 3 2.0 factor    {-0.66667 -2 2 0.66667}
-    4    {math1 mod}             7 -3 3 2.0 modulus   {-1 -0 -1 0 1 0 1}
-    5    {math1 modb}            7  1 7 2.0 numerator {0 0 2 2 2 2 2}
-    6    {math1 pow}             7 -3 3 2.0 exponent  {9 4 1 0 1 4 9}
-    7    {math1 expx}            7 -3 3 2.0 base      {0.125 0.25 0.5 1 2 4 8}
-    8    {math1 hypot}           7 -3 3 2.0 y         {3.60555 2.82843 2.23607 2 2.23607 2.82843 3.60555}
-    9    {math1 max}             7 -3 3 2.0 min       {2 2 2 2 2 2 3}
-    10   {math1 min}             7 -3 3 2.0 max       {-3 -2 -1 0 1 2 2}
-    11   {math1 atan2}           . . . . . {}
-    12   {math1 atan2b}          . . . . . {}
-    13   {math1 ge}              7 -3 3 2.0 threshold {0 0 0 0 0 1 1}
-    14   {math1 le}              7 -3 3 2.0 threshold {1 1 1 1 1 1 0}
-    15   {math1 gt}              7 -3 3 2.0 threshold {0 0 0 0 0 0 1}
-    16   {math1 lt}              7 -3 3 2.0 threshold {1 1 1 1 1 0 0}
-    17   solarize                7 -3 3 1.5 threshold {-3 -2 -1 0 1 -1 -2}
+foreach {fun steps first last param pname expected} {
+    shift           7 -3 3 2.0 offset    {-1 0 1 2 3 4 5}
+    neg-shift       7 -3 3 2.0 offset    {5 4 3 2 1 0 -1}
+    scale           7 -3 3 2.0 factor    {-6 -4 -2 0 2 4 6}
+    reciproc-scale  4 -3 3 2.0 factor    {-0.66667 -2 2 0.66667}
+    mod             7 -3 3 2.0 modulus   {-1 -0 -1 0 1 0 1}
+    modb            7  1 7 2.0 numerator {0 0 2 2 2 2 2}
+    pow             7 -3 3 2.0 exponent  {9 4 1 0 1 4 9}
+    expx            7 -3 3 2.0 base      {0.125 0.25 0.5 1 2 4 8}
+    hypot           7 -3 3 2.0 y         {3.60555 2.82843 2.23607 2 2.23607 2.82843 3.60555}
+    max             7 -3 3 2.0 min       {2 2 2 2 2 2 3}
+    min             7 -3 3 2.0 max       {-3 -2 -1 0 1 2 2}
+    atan2           7 -3 3 2.0 x         {-0.98279 -0.7854 -0.46365 0 0.46365 0.7854 0.98279}
+    atan2b          7 -3 3 2.0 y         {2.55359 2.35619 2.03444 1.57080 1.10715 0.78540 0.58800}
+    ge              7 -3 3 2.0 threshold {0 0 0 0 0 1 1}
+    le              7 -3 3 2.0 threshold {1 1 1 1 1 1 0}
+    gt              7 -3 3 2.0 threshold {0 0 0 0 0 0 1}
+    lt              7 -3 3 2.0 threshold {1 1 1 1 1 0 0}
+    solarize        7 -3 3 1.5 threshold {-3 -2 -1 0 1 -1 -2}
 } {
     if {$steps eq "."} continue ;# skip undefined parts
 
@@ -71,30 +67,113 @@ foreach {k fun steps first last param pname expected} {
     # puts   "XX EXP.. $expected\n"
 
     unset -nocomplain map
-    lappend map /fun   [join $fun ::]
+    lappend map /fun   $fun
     lappend map /ex    $expected
     lappend map /param $param
     lappend map /steps $steps
     lappend map /pname $pname
 
-    test aktive-op-[join ${fun} -]-2.0 "aktive $fun (\[$first $last]/$steps)" -body {
-	astcl aktive op {*}$fun $param [aktive image gradient $steps 1 1 $first $last]
+    test aktive-op-math1-${fun}-2.0 "aktive op math1 $fun (\[$first $last]/$steps)" -body {
+	astcl aktive op math1 {*}$fun $param [aktive image gradient $steps 1 1 $first $last]
     } -match image -result [string map $map {
-	type   op::/fun
+	type   op::math1::/fun
 	config {/pname /param}
 	domain {x 0 y 0 width /steps height 1 depth 1}
 	pixels {/ex}
     }]
 
-    test aktive-op-[join ${fun} -]-2.1 "aktive $fun, dag" -body {
-	dag [aktive op {*}$fun $param [aktive image gradient $steps 1 1 $first $last]]
-    } -result [string map $map {op::/fun image::gradient}]
+    test aktive-op-math1-${fun}-2.1 "aktive op math1 $fun, dag" -body {
+	dag aktive op math1 {*}$fun $param [aktive image gradient $steps 1 1 $first $last]
+    } -match glob -result "op::math1::$fun * {*} {image::gradient *}"
 
-    test aktive-op-[join ${fun} -]-2.2 "aktive $fun, const folding, dag" -body {
-	dag [aktive op {*}$fun $param [flat 5]]
-    } -result image::constant
+    test aktive-op-math1-${fun}-2.2 "aktive op math1 $fun, const folding, dag" -body {
+	dag aktive op math1 {*}$fun $param [flat 5]
+    } -match glob -result {image::constant *}
 
     unset map
+}
+
+# # ## ### ##### ######## ############# #####################
+## Simplifier rules for passing the input
+
+foreach {fun param inconst} {
+    expx           1 1.0
+    pow            0 1.0
+    pow            1 0.0
+    reciproc-scale 1 1.0
+    scale          0 0.0
+} {
+    set in [flat $inconst]
+    set id [aktive query id $in]
+
+    test aktive-op-math1-${fun}-3.0-${param}-$inconst "aktive op math1 $fun, pass through simplifications" -body {
+	dag aktive op math1 {*}$fun $param $in
+    } -match glob -result "image::constant $id {* value $inconst}"
+}
+
+foreach {fun param} {
+    pow   1
+    scale 1
+    shift 0
+} {
+    set in [grad]
+    set id [aktive query id $in]
+
+    test aktive-op-math1-${fun}-4.0 "aktive op math1 $fun, pass through simplifications" -body {
+	dag aktive op math1 {*}$fun $param $in
+    } -match glob -result "image::gradient $id *"
+}
+
+# # ## ### ##### ######## ############# #####################
+## More simplifications without pass through
+
+foreach {k param inconst} {
+    0 0 0
+    1 1 0
+} {
+    test aktive-op-math1-reciproc-scale-5.$k "aktive op math1 reciproc-scale, simplifications" -body {
+	dag aktive op math1 reciproc-scale $param [flat $inconst]
+    } -match glob -result "image::constant * {* value Inf}"
+}
+
+test aktive-op-math1-expx-5.2 "aktive op math1 expx, simplifications" -body {
+    dag aktive op math1 expx 22 [flat 0]
+} -match glob -result "image::constant * {* value 1.0}"
+
+foreach {k fun param rfun} {
+    0 neg-shift      0 neg
+    1 neg-shift      1 invert
+    2 reciproc-scale 1 reciproc
+} {
+    test aktive-op-math1-${fun}-6.$k "aktive op math1 $fun, simplifications" -body {
+	dag aktive op math1 $fun $param [grad]
+    } -match glob -result "op::math1::$rfun *"
+}
+
+foreach {fun param rconst} {
+    scale 0 0.0
+    pow   0 1.0
+} {
+    test aktive-op-math1-${fun}-7.0 "aktive op math1 $fun, simplifications" -body {
+	dag aktive op math1 $fun $param [grad]
+    } -match glob -result "image::constant * {* value $rconst}"
+}
+
+# # ## ### ##### ######## ############# #####################
+## Subsuming commands chains
+## For the rules see `Chains:` in
+## - etc/transformer/simpler/aktive_scale.rules
+## - etc/transformer/simpler/aktive_rscale.rules
+
+foreach {funb pb funa pa rfun pr rpname} {
+    scale           5 scale           2 scale          10.0 factor
+    scale           5 reciproc-scale  2 reciproc-scale 10.0 factor
+    reciproc-scale 10 scale           2 reciproc-scale  5.0 factor
+    reciproc-scale 10 reciproc-scale  2 scale           5.0 factor
+} {
+    test aktive-op-math1-${funb}-chain-${funa}-8.0 "aktive op math1 $funb/$funa, chain simplifications" -body {
+	dag aktive op math1 $funb $pb [aktive op math1 $funa $pa [grad]]
+    } -match glob -result "op::math1::$rfun * {$rpname $pr} *"
 }
 
 # # ## ### ##### ######## ############# #####################

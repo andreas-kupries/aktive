@@ -1,0 +1,5 @@
+## -*- mode: tcl ; fill-column: 90 -*-
+# # ## ### ##### ######## ############# #####################
+## function has fix point at 0
+
+simplify for   src/const 0   returns src

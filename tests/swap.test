@@ -69,18 +69,17 @@ foreach {k op w h d expected} {
     }]
 
     test aktive-op-swap-${op}-2.1 "aktive op swap $op, dag" -body {
-	dag [aktive op swap $op [grad]]
-    } -result [string map $map {op::swap::/fun image::gradient}]
+	dag aktive op swap $op [grad]
+    } -match glob -result [string map $map {op::swap::/fun * {} {image::gradient *}}]
 
     test aktive-op-swap-${op}-2.2 "aktive op swap $op, self-complementary, chain reduction" -body {
-	dag [aktive op swap $op [aktive op swap $op [grad]]]
-    } -result image::gradient
+	dag aktive op swap $op [aktive op swap $op [grad]]
+    } -match glob -result {image::gradient *}
 
     unset map
 }
 
 # TODO :: check with sources translated off the main diagonal
-
 
 # # ## ### ##### ######## ############# #####################
 cleanupTests

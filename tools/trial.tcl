@@ -73,6 +73,10 @@ set c [aktive image constant 3 4 2 -6]
 #  12 13 14 15 16 17
 #  18 19 29 21 22 23
 
+show [aktive image constant     4 6 1  NaN]
+
+exit
+
 #show [aktive op view {-2 2 8 2} $g]
 #show [aktive op view {2 -2 2 8} $g]
 

@@ -1,0 +1,5 @@
+## -*- mode: tcl ; fill-column: 90 -*-
+# # ## ### ##### ######## ############# #####################
+## idempotent operations can be ignored when already at the top
+
+simplify for   src/type @self   returns src

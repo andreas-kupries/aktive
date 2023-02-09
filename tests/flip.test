@@ -69,12 +69,12 @@ foreach {k op expected} {
     }]
 
     test aktive-op-flip-${op}-2.1 "aktive op flip $op, dag" -body {
-	dag [aktive op flip $op [grad]]
-    } -result [string map $map {op::flip::/fun image::gradient}]
+	dag aktive op flip $op [grad]
+    } -match glob -result [string map $map {op::flip::/fun * {} {image::gradient *}}]
 
     test aktive-op-flip-${op}-2.2 "aktive op flip $op, self-complementary, chain reduction" -body {
-	dag [aktive op flip $op [aktive op flip $op [grad]]]
-    } -result image::gradient
+	dag aktive op flip $op [aktive op flip $op [grad]]
+    } -match glob -result {image::gradient *}
 
     unset map
 }

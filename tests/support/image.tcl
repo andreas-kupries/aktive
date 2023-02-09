@@ -9,9 +9,12 @@ customMatch image matchImage
 proc astcl  {args} { astcl/ [{*}$args] }
 proc astcl/ {i}    { aktive format tcl $i }
 
-proc dag {i} {
-    lappend r [aktive query type $i]
-    foreach c [aktive query inputs $i] { lappend r [dag $c] }
+proc dag  {args} { dag/ [{*}$args] }
+proc dag/ {i} {
+    lappend r [aktive query type   $i]
+    lappend r [aktive query id     $i]
+    lappend r [aktive query params $i]
+    foreach c [aktive query inputs $i] { lappend r [dag/ $c] }
     return $r
 }
 

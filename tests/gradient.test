@@ -106,8 +106,8 @@ test aktive-image-gradient-2.2 "aktive image gradient, off view" -body {
 }
 
 test aktive-image-gradient-2.3 "aktive image gradient, dag" -body {
-    dag [grad]
-} -result image::gradient
+    dag grad
+} -match glob -result {image::gradient * {width 3 height 4 depth 2 first 1.0 last 12.5}}
 
 # # ## ### ##### ######## ############# #####################
 cleanupTests

@@ -24,6 +24,7 @@ import runtime.tcl
 # __ id __________ critcl ___________ C type ____ Conversion ______________________________
 type bool          boolean            int         {Tcl_NewIntObj (*value)}
 type int           -                  -           {Tcl_NewIntObj (*value)}
+type wide          wideint            Tcl_WideInt {Tcl_NewWideIntObj (*value)}
 type object0       -                  Tcl_Obj*    {*value}
 type channel       -                  Tcl_Channel {Tcl_NewStringObj (Tcl_GetChannelName (*value), -1)}
 type take-channel  -                  Tcl_Channel {Tcl_NewStringObj (Tcl_GetChannelName (*value), -1)}

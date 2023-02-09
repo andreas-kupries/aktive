@@ -45,8 +45,8 @@ test aktive-image-const-bands-2.0 "aktive image const bands" -body {
 }
 
 test aktive-image-const-bands-2.1 "aktive image const bands, dag" -body {
-    dag [bands]
-} -result image::const::bands
+    dag bands
+} -match glob -result {image::const::bands * {width 4 height 2 value {1.0 2.0 3.0}}}
 
 # # ## ### ##### ######## ############# #####################
 cleanupTests

@@ -1,0 +1,7 @@
+## -*- mode: tcl ; fill-column: 90 -*-
+# # ## ### ##### ######## ############# #####################
+## aktive_invert -- op math1 invert :: 1 - I
+#
+# 1 - [0.5] = [0.5] = I
+
+simplify for   src/const 0.5   returns src

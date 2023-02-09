@@ -1,0 +1,17 @@
+## -*- mode: tcl ; fill-column: 90 -*-
+# # ## ### ##### ######## ############# #####################
+## pow -- op math1 expx :: base ^ I
+##
+## [x] <=> I[i] == x, for all pixels i IOW I is constant with value x
+#
+## (a) 0^x == nan for x < 0
+## (b) 0^x == 0   for x > 0
+## (c) 0^0 == 1  (for x = 0)
+## (d) x^0 == 1   for all x
+## (e) x^1 == x   for all x
+#
+## a, b not applicable
+
+simplify for   param base == 1  src/const 1   returns src     ;#  1^[1] = [1] = I /e special		      
+simplify for                    src/const 0   returns const 1 ;#  x^[0] = [1]	/c, d		      
+#                                                                 x^[1] = [x]     /e general

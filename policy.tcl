@@ -8,7 +8,7 @@
 ## Fixed command, not generated
 
 namespace eval aktive {
-    namespace export version opt ;# latter for optimizer support below
+    namespace export version simplify
     namespace ensemble create
 }
 
@@ -18,98 +18,167 @@ namespace eval aktive {
 ## See dsl writer `OperatorOverlaysForOp` for the code emitting
 ## calls to these commands.
 
-namespace eval aktive::opt {
+namespace eval aktive::simplify {
     namespace export \
-	do istype isconst param.eq param.lt param.gt \
-	is input input/child const unary0 \
-	fold/constant/0 fold/constant/1 fold/constant/2 \
+	do src/type src/const param/eq param/lt param/gt \
+	\
+	src/value self/value src/pop calc \
+	\
+	/src /src/child /const /unary0 /unary1 /unary2 \
+	/fold/constant/0 /fold/constant/1 /fold/constant/2 \
 
     namespace ensemble create
 }
 
-proc aktive::opt::do {args} {
-    # Start chain and collect state
-    lassign [uplevel 1 [list aktive opt {*}$args]] ok result
+# # ## ### ##### ######## ############# #####################
+## framework - start chain, abort chain
+
+proc aktive::simplify::do {args} {
+    variable ok 1
+    set replacement [uplevel 1 [list aktive simplify {*}$args]]
     if {!$ok} return
-    return -code return $result
+
+    # Simplifier was triggered successfully
+    # For coverage enable the next command, run the testsuite and compare against the
+    # generated/wraplist.txt
+    #puts "SIMPL [lindex [info level -1] 0] $args"
+    return -code return $replacement
 }
 
-proc aktive::opt::is {args} {
-    # success, invoke action generating replacement result
-    list 1 [uplevel 1 [list aktive opt {*}$args]]
+proc aktive::simplify::fail {} {
+    variable ok 0
+    return -code return
 }
 
-proc aktive::opt::isconst {args} {
+# # ## ### ##### ######## ############# #####################
+## predicates
+
+proc aktive::simplify::src/type {match args} {
     upvar 1 __type type src src
+
     if {![info exists type]} { set type [aktive query type $src] }
-    if {$type ne "image::constant"} { return {0 {}} }
-    return [uplevel 1 [list aktive opt {*}$args]]
+    if {$type ne $match} fail
+
+    uplevel 1 [list aktive simplify {*}$args]
 }
 
-proc aktive::opt::istype {match args} {
-    upvar 1 __type type src src
-    if {![info exists type]} { set type [aktive query type $src] }
-    if {$type ne $match} { return {0 {}} }
-    return [uplevel 1 [list aktive opt {*}$args]]
+proc aktive::simplify::src/const {value args} {
+    upvar 1 src src
+    set v [dict get [aktive query params $src] value]
+    if {$v != $value} fail
+
+    uplevel 1 [list aktive simplify {*}$args]
 }
 
-proc aktive::opt::param.eq {name value args} {
+proc aktive::simplify::param/eq {name value args} {
     upvar 1 $name param
-    if {$param != $value} { return {0 {}} }
-    return [uplevel 1 [list aktive opt {*}$args]]
+    if {$param != $value} fail
+
+    uplevel 1 [list aktive simplify {*}$args]
 }
 
-proc aktive::opt::param.lt {name value args} {
+proc aktive::simplify::param/lt {name value args} {
     upvar 1 $name param
-    if {$param >= $value} { return {0 {}} }
-    return [uplevel 1 [list aktive opt {*}$args]]
+    if {$param >= $value} fail
+
+    uplevel 1 [list aktive simplify {*}$args]
 }
 
-proc aktive::opt::param.gt {name value args} {
+proc aktive::simplify::param/gt {name value args} {
     upvar 1 $name param
-    if {$param <= $value} { return {0 {}} }
-    return [uplevel 1 [list aktive opt {*}$args]]
+    if {$param <= $value} fail
+
+    uplevel 1 [list aktive simplify {*}$args]
 }
 
-proc aktive::opt::fold/constant/0 {fun} {
+# # ## ### ##### ######## ############# #####################
+## non-image actions
+
+proc aktive::simplify::self/value {varsrc vardst args} {
+    upvar $varsrc src $vardst dst
+    set dst $src
+    uplevel 1 [list aktive simplify {*}$args]
+}
+
+proc aktive::simplify::src/value {param vardst args} {
+    upvar src src $vardst dst
+    set dst [dict get [aktive query params $src] $param]
+    uplevel 1 [list aktive simplify {*}$args]
+}
+
+proc aktive::simplify::calc {vardst expr args} {
+    upvar 1 $vardst dst
+    set dst [uplevel 1 [list expr $expr]]
+    uplevel 1 [list aktive simplify {*}$args]
+}
+
+proc aktive::simplify::src/pop {args} {
+    upvar 1 src src
+    set src [/src/child]
+    uplevel 1 [list aktive simplify {*}$args]
+}
+
+# # ## ### ##### ######## ############# #####################
+## image actions, chain terminations
+
+proc aktive::simplify::/fold/constant/0 {fun} {
     upvar 1 src src
     set v [dict get [aktive query params $src] value]
     set v [tcl::mathfunc::$fun $v]
-    const $v
+    /const $v
 }
 
-proc aktive::opt::fold/constant/1 {fun a} {
+proc aktive::simplify::/fold/constant/1 {fun a} {
     upvar 1 src src $a param
     set v [dict get [aktive query params $src] value]
     set v [tcl::mathfunc::$fun $v $param]
-    const $v
+    /const $v
 }
 
-proc aktive::opt::fold/constant/2 {fun a b} {
+proc aktive::simplify::/fold/constant/2 {fun a b} {
     upvar 1 src src $a pa $b pb
     set v [dict get [aktive query params $src] value]
     set v [tcl::mathfunc::$fun $v $pa $pb]
-    const $v
+    /const $v
 }
 
-proc aktive::opt::const {v} {
+proc aktive::simplify::/const {v} {
     upvar 1 src src
     set g [lrange [aktive query geometry $src] 2 end]
     aktive image constant {*}$g $v
 }
 
-proc aktive::opt::unary0 {op} {
+# Note: This may optimize further, based on op and src
+proc aktive::simplify::/unary0 {op} {
     upvar 1 src src
-    # Note: This may optimize further, based on op and src
-    aktive math1 $op $src
+    set r [aktive op math1 $op $src]
+    # Restore success of this simplifier in the face of op's simplifier failing
+    variable ok 1
+    return $r
 }
 
-proc aktive::opt::input {} {
+proc aktive::simplify::/unary1 {op param} {
+    upvar 1 src src $param p
+    set r [aktive op math1 $op $p $src]
+    # Restore success of this simplifier in the face of op's simplifier failing
+    variable ok 1
+    return $r
+}
+
+proc aktive::simplify::/unary2 {op pavar pbvar} {
+    upvar 1 src src $pavar pa $pbvar pb
+    set r [aktive op math1 $op $pa $pb $src]
+    # Restore success of this simplifier in the face of op's simplifier failing
+    variable ok 1
+    return $r
+}
+
+proc aktive::simplify::/src {} {
     upvar 1 src src
     return $src
 }
 
-proc aktive::opt::input/child {} {
+proc aktive::simplify::/src/child {} {
     upvar 1 src src
     return [lindex [aktive query inputs $src] 0]
 }

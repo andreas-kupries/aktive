@@ -43,6 +43,7 @@ proc dsl::writer::Emit {stem} {
     #
     Into ${stem}glue.tcl              OperatorCprocs     ;# Tcl commands
     Into ${stem}overlay.tcl           OperatorOverlays   ;# Constructor wrappers
+    Into ${stem}wraplist.txt          OperatorWrapRecord ;# List of wrap elements
     Into ${stem}ensemble.tcl          OperatorEnsemble   ;# Command ensemble
     return
 }
@@ -755,7 +756,7 @@ proc dsl::writer::OperatorCprocForOp {op} {
     set cmd $op
     if {[OpHasOverlays $op]} {
 	TclComment {}
-	TclComment "Note: This constructor has a Tcl overlay performing"
+	TclComment "Note: This constructor has a Tcl wrapper performing"
 	TclComment "Note: construction time peep-hole optimizations"
 
 	set stem [namespace qualifiers $op]
@@ -1270,17 +1271,15 @@ proc dsl::writer::FunctionBodyImageConstructor {op spec} {
 proc dsl::writer::OperatorOverlays {} {
     if {![llength [Operations]]} return
 
-    set overlays 0
-    foreach op [Operations] {
+    set ops [lmap op [Operations] {
 	if {![OpHasOverlays $op]} continue
-	incr overlays
-    }
-    if {!$overlays} return
+	set op
+    }]
+    if {![llength $ops]} return
 
     TclHeader {Overlay commands, per operator}
 
-    foreach op [Operations] {
-	if {![OpHasOverlays $op]} continue
+    foreach op $ops {
 	+ [OperatorOverlaysForOp $op]
     }
 
@@ -1289,44 +1288,25 @@ proc dsl::writer::OperatorOverlays {} {
 
 proc dsl::writer::OperatorOverlaysForOp {op} {
     set spec [Get ops $op]
+    dict with spec {}
+    # notes, images, params, result, overlays
 
     TclComment "--- --- --- --- --- --- --- --- ---"
     TclComment "Operator `$op` ..."
+    foreach n $notes { TclComment "Note: [join $n { }]" }
     + {}
 
     + "proc aktive::$op \{[ProcArguments $spec]\} \{"
 
     # translate the overlays
-    foreach hint [dict get $spec overlays] {
-        TclComment "- $hint" {    }
+    lappend hmap {for }     "for   "
+    lappend hmap { returns} "\treturns"
+    foreach hint $overlays {
+        TclComment "- [string map $hmap $hint]" {    }
     }
     foreach hint [dict get $spec overlays] {
-	set details [lassign $hint hint]
-	# Note: all current hints assume a single input image, in variable `src`
-	##
-	# See `policy.tcl` for the definitions of the `aktive opt *` commands.
-
-	switch -exact -- $hint {
-	    param {
-		set action [lassign $details name relation value]
-		set relation [dict get {
-		    == eq != ne
-		    <  lt <= le
-		    >  gt >= ge
-		} $relation]
-		+ "    aktive opt do param.$relation $name $value $action"
-	    }
-	    constant {
-		set params [lassign $details tclfunc]
-		set arity  [llength $params]
-		+ [string trimright "    aktive opt do isconst is fold/constant/$arity $tclfunc $params"]
-	    }
-	    input {
-		set action [lassign $details type]
-		if {$type eq "@self"} { set type $op }
-		+ "    aktive opt do istype $type $action"
-	    }
-	}
+	#::puts ////////////////////////////////////////////////
+	+ "    aktive simplify do [TranslateHint {*}$hint]"
     }
 
     + "    I[namespace tail $op] [ProcCallWords $spec]"
@@ -1334,6 +1314,55 @@ proc dsl::writer::OperatorOverlaysForOp {op} {
 
     + {}
     Done
+}
+
+proc dsl::writer::TranslateHint {cmd args} {
+    #::puts [info level 0]
+    upvar 1 op op
+    switch -exact -- $cmd {
+	for      -
+	returns  { return "\t[TranslateHint {*}$args]" }
+	src/type {
+	    set action [lassign $args type]
+	    if {$type eq "@self"} { set type $op }
+	    return "src/type $type [TranslateHint {*}$action]"
+	}
+	param {
+	    set action [lassign $args name relation value]
+	    set relation [dict get {
+		== eq != ne
+		<  lt <= le
+		>  gt >= ge
+	    } $relation]
+	    return "param/$relation $name $value [TranslateHint {*}$action]"
+	}
+	src/const {
+	    set action [lassign $args value]
+	    return "src/type image::constant src/const $value [TranslateHint {*}$action]"
+	}
+	constant {
+	    set params [lassign $args tclfunc]
+	    set arity  [llength $params]
+	    return "src/type image::constant /fold/constant/$arity $tclfunc $params"
+	}
+	src/pop { return "$cmd [TranslateHint {*}$args]" }
+	src/value  -
+	self/value {
+	    set action [lassign $args a b]
+	    return "$cmd $a $b [TranslateHint {*}$action]"
+	}
+	calc {
+	    set action [lassign $args var expr]
+	    return "calc $var {$expr} [TranslateHint {*}$action]"
+	}
+	src       -
+	src/child -
+	unary0    -
+	unary1    -
+	unary2    -
+	const     { return [string trimright "/$cmd $args"] }
+    }
+    return -code error "Unknown simplifier command (($cmd) $args)"
 }
 
 proc dsl::writer::ProcArguments {spec} {
@@ -1370,6 +1399,30 @@ proc dsl::writer::ProcArgumentNames {spec} {
     }
     return $names
 }
+
+
+proc dsl::writer::OperatorWrapRecord {} {
+    if {![llength [Operations]]} return
+
+    set ops [lmap op [Operations] {
+	if {![OpHasOverlays $op]} continue
+	set op
+    }]
+    if {![llength $ops]} return
+
+    set ol [Maxlength $ops]
+
+    foreach op $ops {
+	set spec [Get ops $op]
+	set overlays [lsort -dict [dict get $spec overlays]]
+	foreach hint $overlays {
+	    + "SIMPL ::aktive::$op[TranslateHint {*}$hint]"
+	}
+    }
+
+    Done
+}
+
 
 proc dsl::writer::OperatorEnsemble {} {
     if {![llength [Operations]]} return

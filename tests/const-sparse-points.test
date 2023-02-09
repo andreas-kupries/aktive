@@ -47,8 +47,8 @@ test aktive-image-const-sparse-points-2.0 "aktive image const sparse points" -bo
 }
 
 test aktive-image-const-sparse-points-2.1 "aktive image const sparse points, dag" -body {
-    dag [aktive image const sparse points {0 0} {4 3} {5 5} {6 2}]
-} -result image::const::sparse::points
+    dag aktive image const sparse points {0 0} {4 3} {5 5} {6 2}
+} -match glob -result {image::const::sparse::points * {points {{0 0} {4 3} {5 5} {6 2}}}}
 
 # # ## ### ##### ######## ############# #####################
 cleanupTests

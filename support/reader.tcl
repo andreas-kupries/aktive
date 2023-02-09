@@ -29,18 +29,37 @@ proc dsl::reader::do {package specification} {
 # # ## ### ##### ######## #############
 ## DSL commands
 
+proc dsl::reader::import? {path} {
+    set fullpath [ImportPath $path]
+    if {![file exists $fullpath]} {
+	puts "    Skip import missing [cyan $path]"
+    } elseif {![file isfile $fullpath]} {
+	puts "    Skip import nonfile [cyan $path]"
+    } else {
+	Import $path $fullpath
+    }
+}
+
 proc dsl::reader::import {path} {
+    Import $path [ImportPath $path]
+}
+
+proc dsl::reader::ImportPath {path} {
+    variable readdir
+    file normalize [file join $readdir $path]
+}
+
+proc dsl::reader::Import {path fullpath} {
     variable readdir
     variable importing
 
     incr importing
     puts "Importing [blue $path]"
 
-    set path    [file normalize [file join $readdir $path]]
     set saved   $readdir
-    set readdir [file dirname $path]
+    set readdir [file dirname $fullpath]
 
-    source $path
+    source $fullpath
     incr importing -1
 
     set readdir $saved
@@ -131,7 +150,7 @@ proc dsl::reader::OpStart {op} {
     Set opspec notes    {}	;# Description
     Set opspec images   {}	;# Input images
     Set opspec params   {}	;# Parameters
-    Set opspec overlays {}	;# Policy overlays
+    Set opspec overlays {}	;# Policy overlays - checks and simplifications
 
     Set opspec result   image	;# Return value
     Set opspec rcode    {}	;# C code fragment for non-image return (getter, doer)
@@ -261,7 +280,7 @@ proc ::dsl::reader::Pixels {fields setup cleanup fetch map} { ;#puts [info level
     Set opspec region/fetch   [TemplateCode $fetch   $map]
 }
 
-proc dsl::reader::overlay {args} {
+proc dsl::reader::simplify {args} {
     LappendX opspec overlays $args
 }
 

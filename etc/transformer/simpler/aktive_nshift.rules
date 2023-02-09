@@ -1,0 +1,9 @@
+## -*- mode: tcl ; fill-column: 90 -*-
+# # ## ### ##### ######## ############# #####################
+## aktive_nshift -- op math1 neg-shift :: offset - I
+#
+## 0 - I = -I
+## 1 - I = as such, invert
+
+simplify for   param offset == 0   returns unary0 neg
+simplify for   param offset == 1   returns unary0 invert

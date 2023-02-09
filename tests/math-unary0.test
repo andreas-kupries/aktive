@@ -95,7 +95,7 @@ foreach {k fun steps first last expected} {
     lappend map /ex    $expected
     lappend map /steps $steps
 
-    test aktive-op-math1-${fun}-2.0 "aktive math1 $fun (\[$first $last]/$steps)" -body {
+    test aktive-op-math1-${fun}-2.0 "aktive op math1 $fun (\[$first $last]/$steps)" -body {
 	astcl aktive op math1 $fun [aktive image gradient $steps 1 1 $first $last]
     } -match image -result [string map $map {
 	type   op::math1::/fun
@@ -103,26 +103,34 @@ foreach {k fun steps first last expected} {
 	pixels {/ex}
     }]
 
-    test aktive-op-math1-${fun}-2.1 "aktive math1 $fun, dag" -body {
-	dag [aktive op math1 $fun [grad]]
-    } -result [string map $map {op::math1::/fun image::gradient}]
+    test aktive-op-math1-${fun}-2.1 "aktive op math1 $fun, dag" -body {
+	dag aktive op math1 $fun [grad]
+    } -match glob -result [string map $map {op::math1::/fun * {} {image::gradient *}}]
 
     # Const folding is done for most, but not all.
     if {$fun ni {
 	acosh asinh atanh gamma-compress gamma-expand
     }} {
-	test aktive-op-math1-${fun}-2.2 "aktive math1 $fun, const folding, dag" -body {
-	    dag [aktive op math1 $fun [flat 1]]
-	} -result image::constant
+	set inconst 1
+	# For `reciproc` the normal constant `1` is a special case handled before the general const
+	# folding we wish to trigger here.
+	if {$fun eq "reciproc"} { set inconst 2 }
+
+	test aktive-op-math1-${fun}-2.2 "aktive op math1 $fun, const folding, dag" -body {
+	    dag aktive op math1 $fun [flat $inconst]
+	} -match glob -result {image::constant *}
     }
 
     # Chain reduction for idempotent operations
     if {$fun in {
 	abs clamp wrap sign sign*
     }} {
-	test aktive-op-math1-${fun}-2.3 "aktive math1 $fun, idempotent, dag" -body {
-	    dag [aktive op math1 $fun [aktive op math1 $fun [grad]]]
-	} -result [string map $map {op::math1::/fun image::gradient}]
+	set fr [aktive op math1 $fun [grad]]
+	set id [aktive query id $fr]
+
+	test aktive-op-math1-${fun}-2.3 "aktive op math1 $fun, idempotent, dag" -body {
+	    dag aktive op math1 $fun $fr
+	} -match glob -result "op::math1::$fun $id {} {image::gradient *}"
     }
 
     # Chain reduction for complementary operations
@@ -136,9 +144,9 @@ foreach {k fun steps first last expected} {
 	    gamma-compress  gamma-expand
 	} $fun]
 
-	test aktive-op-math1-${fun}-2.4 "aktive math1 $fun, complement $cfun, dag" -body {
-	    dag [aktive op math1 $cfun [aktive op math1 $fun [grad]]]
-	} -result image::gradient
+	test aktive-op-math1-${fun}-2.4 "aktive op math1 $fun, complement $cfun, dag" -body {
+	    dag aktive op math1 $cfun [aktive op math1 $fun [grad]]
+	} -match glob -result {image::gradient *}
 
 	# Note: The inverse order test is covered by the test for the other op
 	#       If not self complementary
@@ -147,7 +155,37 @@ foreach {k fun steps first last expected} {
     unset map
 }
 
+# # ## ### ##### ######## ############# #####################
+## Fix points passing the input through
 
+foreach {k fun fixpoint} {
+    0    asin        0.0
+    1    atan        0.0
+    2    cbrt        0.0
+    3    invert      0.5
+    4    neg         0.0
+    5    reciproc    1.0
+    6    sign        0.0
+    7    sinh        0.0
+    8    sin         0.0
+    9    sqrt        0.0
+    10   tanh        0.0
+    11   tan         0.0
+} {
+    set in [flat $fixpoint]
+    set id [aktive query id $in]
+
+    test aktive-op-math1-${fun}-3.0 "aktive op math1 $fun, fixpoint pass through" -body {
+	dag aktive op math1 {*}$fun $in
+    } -match glob -result "image::constant $id {* value $fixpoint}"
+}
+
+# # ## ### ##### ######## ############# #####################
+## More simplifications
+
+test aktive-op-math1-reciproc-4.0 "aktive op math1 reciproc, inverting, cancelling" -body {
+    dag aktive op math1 reciproc [aktive op math1 reciproc [grad]]
+} -match glob -result "image::gradient *"
 
 # # ## ### ##### ######## ############# #####################
 cleanupTests

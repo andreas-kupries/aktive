@@ -1,0 +1,5 @@
+## -*- mode: tcl ; fill-column: 90 -*-
+# # ## ### ##### ######## ############# #####################
+## inverting operations cancel themselves
+
+simplify for   src/type @self   returns src/child

@@ -52,8 +52,8 @@ test aktive-image-const-sparse-deltas-2.0 "aktive image const sparse deltas" -bo
 }
 
 test aktive-image-const-sparse-deltas-2.1 "aktive image const sparse deltas, dag" -body {
-    dag [aktive image const sparse deltas 7   0 20 5 15]
-} -result image::const::sparse::deltas
+    dag aktive image const sparse deltas 7   0 20 5 15
+} -match glob -result {image::const::sparse::deltas * {width 7 delta {0 20 5 15}}}
 
 # # ## ### ##### ######## ############# #####################
 cleanupTests

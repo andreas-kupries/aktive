@@ -1,0 +1,7 @@
+## -*- mode: tcl ; fill-column: 90 -*-
+# # ## ### ##### ######## ############# #####################
+## aktive_shift -- op math1 shift :: I + offset
+#
+## I + 0 == I
+
+simplify for   param offset == 0   returns src
