@@ -2,6 +2,17 @@
 # # ## ### ##### ######## ############# #####################
 ## Getters -- Retrieving image attributes
 
+operator query::id {
+    # This is special. It provides an identification of the image, i.e. a value unique to
+    # it. This enables equality comparisons, and nothing else.
+    #
+    # WARE this is the integerized memory address of the thing, with some whitening to
+    # make it not as obvious.
+    input ignore
+    return wide { return 0x25d94395245495a2 ^ (long int) src ; }
+    #                      0123456789012345
+}
+
 operator query::type {
     input ignore
     return image-type { aktive_image_get_type (src); }
