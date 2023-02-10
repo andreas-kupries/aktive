@@ -19,6 +19,22 @@ simplify for  param exponent == 1               returns src		;# <e> I   ^ 1     
 #simplify for  param exponent <  0  src/const 0  returns const Inf	;# <a> [0] ^ x = [inf],   x < 0
 #simplify for  param exponent == 0  src/const 0  returns const 1	;# <c> [0] ^ 0 = [1]	   
 
-# TODO pow, pow
-# TODO pow, cbrt
-# TODO pow, sqrt
+# Chains: pow (pow (I, a), b) = (I^a)^b = I^(a*b) = pow (I, a*b)
+# Chains: cbrt = pow (I, 1/3)
+# Chains: sqrt = pow (I, 1/2)
+
+simplify for   src/type @self   \
+    src/value  exponent __a \
+    calc __ab {$exponent * $__a}  \
+    src/pop \
+    returns op math1 pow : __ab
+
+simplify for   src/type op::math1::sqrt   \
+    calc __ab {$exponent / 2.}  \
+    src/pop \
+    returns op math1 pow : __ab
+
+simplify for   src/type op::math1::cbrt   \
+    calc __ab {$exponent / 3.}  \
+    src/pop \
+    returns op math1 pow : __ab

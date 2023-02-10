@@ -102,6 +102,7 @@ foreach {fun param inconst} {
     pow            1 0.0
     reciproc-scale 1 1.0
     scale          0 0.0
+    hypot          0 0.0
 } {
     set in [flat $inconst]
     set id [aktive query id $in]
@@ -109,6 +110,8 @@ foreach {fun param inconst} {
     test aktive-op-math1-${fun}-3.0-${param}-$inconst "aktive op math1 $fun, pass through simplifications" -body {
 	dag aktive op math1 {*}$fun $param $in
     } -match glob -result "image::constant $id {* value $inconst}"
+
+    unset in id
 }
 
 foreach {fun param} {
@@ -122,6 +125,8 @@ foreach {fun param} {
     test aktive-op-math1-${fun}-4.0 "aktive op math1 $fun, pass through simplifications" -body {
 	dag aktive op math1 {*}$fun $param $in
     } -match glob -result "image::gradient $id *"
+
+    unset in id
 }
 
 # # ## ### ##### ######## ############# #####################
@@ -139,6 +144,14 @@ foreach {k param inconst} {
 test aktive-op-math1-expx-5.2 "aktive op math1 expx, simplifications" -body {
     dag aktive op math1 expx 22 [flat 0]
 } -match glob -result "image::constant * {* value 1.0}"
+
+test aktive-op-math1-hypot-5.2.0 "aktive op math1 hypot, simplifications" -body {
+    dag aktive op math1 hypot 0 [grad]
+} -match glob -result "op::math1::abs * {} {image::gradient *}"
+
+test aktive-op-math1-hypot-5.2.1 "aktive op math1 hypot, simplifications" -body {
+    dag aktive op math1 hypot -5 [flat 0]
+} -match glob -result "image::constant * {* value 5.0}"
 
 foreach {k fun param rfun} {
     0 neg-shift      0 neg
@@ -160,20 +173,42 @@ foreach {fun param rconst} {
 }
 
 # # ## ### ##### ######## ############# #####################
-## Subsuming commands chains
+## Chain reductions
+#
 ## For the rules see `Chains:` in
-## - etc/transformer/simpler/aktive_scale.rules
+#
+## - etc/transformer/simpler/aktive_nshift.rules
 ## - etc/transformer/simpler/aktive_rscale.rules
+## - etc/transformer/simpler/aktive_scale.rules
+## - etc/transformer/simpler/aktive_shift.rules
+## - etc/transformer/simpler/cbrt.rules
+## - etc/transformer/simpler/pow.rules
+## - etc/transformer/simpler/sqrt.rules
 
-foreach {funb pb funa pa rfun pr rpname} {
-    scale           5 scale           2 scale          10.0 factor
-    scale           5 reciproc-scale  2 reciproc-scale 10.0 factor
-    reciproc-scale 10 scale           2 reciproc-scale  5.0 factor
-    reciproc-scale 10 reciproc-scale  2 scale           5.0 factor
+foreach {funb      pb funa           pa   xxx   rfun           rdetail} {
+    cbrt           {} cbrt           {}   -->   pow            {exponent 0.1111*}
+    cbrt           {} pow             6   -->   pow            {exponent 2.0}
+    cbrt           {} sqrt           {}   -->   pow            {exponent 0.1666*}
+    neg-shift      10 neg-shift       8   -->   shift          {offset 2.0}
+    neg-shift      10 shift           8   -->   neg-shift      {offset 2.0}
+    pow             2 pow             3   -->   pow            {exponent 6.0}
+    pow             6 cbrt           {}   -->   pow            {exponent 2.0}
+    pow             6 sqrt           {}   -->   pow            {exponent 3.0}
+    reciproc-scale 10 reciproc-scale  2   -->   scale          {factor 5.0}
+    reciproc-scale 10 scale           2   -->   reciproc-scale {factor 5.0}
+    scale           5 reciproc-scale  2   -->   reciproc-scale {factor 10.0}
+    scale           5 scale           2   -->   scale          {factor 10.0}
+    shift          10 neg-shift       5   -->   neg-shift      {offset 15.0}
+    shift          10 shift           5   -->   shift          {offset 15.0}
+    sqrt           {} cbrt           {}   -->   pow            {exponent 0.1666*}
+    sqrt           {} pow             6   -->   pow            {exponent 3.0}
+    sqrt           {} sqrt           {}   -->   pow            {exponent 0.25}
+    ceil           {} floor          {}   -->   floor          {}
+    floor          {} ceil           {}   -->   ceil           {}
 } {
     test aktive-op-math1-${funb}-chain-${funa}-8.0 "aktive op math1 $funb/$funa, chain simplifications" -body {
-	dag aktive op math1 $funb $pb [aktive op math1 $funa $pa [grad]]
-    } -match glob -result "op::math1::$rfun * {$rpname $pr} *"
+	dag aktive op math1 $funb {*}$pb [aktive op math1 $funa {*}$pa [grad]]
+    } -match glob -result "*::$rfun * {$rdetail} *"
 }
 
 # # ## ### ##### ######## ############# #####################

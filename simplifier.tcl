@@ -5,26 +5,22 @@
 # (c) 2023 Andreas Kupries http://wiki.tcl.tk/andreas%20kupries
 
 # # ## ### ##### ######## ############# #####################
-## Fixed command, not generated
-
-namespace eval aktive {
-    namespace export version simplify
-    namespace ensemble create
-}
-
-# # ## ### ##### ######## ############# #####################
 ## Peep-hole optimization support - Reserved namespace `opt`
 #
 ## See dsl writer `OperatorOverlaysForOp` for the code emitting
 ## calls to these commands.
 
+namespace eval aktive {
+    namespace export simplify
+    namespace ensemble create
+}
 namespace eval aktive::simplify {
     namespace export \
-	do src/type src/const param/eq param/lt param/gt \
+	do src/type src/const param/eq param/lt param/gt iff \
 	\
-	src/value self/value src/pop calc \
+	src/value src/attr src/pop calc \
 	\
-	/src /src/child /const /unary0 /unary1 /unary2 \
+	/src /src/child /const /constv /op /unary0 /unary1 /unary2 \
 	/fold/constant/0 /fold/constant/1 /fold/constant/2 \
 
     namespace ensemble create
@@ -91,18 +87,24 @@ proc aktive::simplify::param/gt {name value args} {
     uplevel 1 [list aktive simplify {*}$args]
 }
 
-# # ## ### ##### ######## ############# #####################
-## non-image actions
-
-proc aktive::simplify::self/value {varsrc vardst args} {
-    upvar $varsrc src $vardst dst
-    set dst $src
+proc aktive::simplify::iff {expr args} {
+    set ok [uplevel 1 [list expr $expr]]
+    if {!$ok} fail
     uplevel 1 [list aktive simplify {*}$args]
 }
+
+# # ## ### ##### ######## ############# #####################
+## non-image actions
 
 proc aktive::simplify::src/value {param vardst args} {
     upvar src src $vardst dst
     set dst [dict get [aktive query params $src] $param]
+    uplevel 1 [list aktive simplify {*}$args]
+}
+
+proc aktive::simplify::src/attr {attr vardst args} {
+    upvar src src $vardst dst
+    set dst [aktive query $attr $src]
     uplevel 1 [list aktive simplify {*}$args]
 }
 
@@ -148,29 +150,43 @@ proc aktive::simplify::/const {v} {
     aktive image constant {*}$g $v
 }
 
+proc aktive::simplify::/constv {var} {
+    upvar 1 src src $var v
+    set g [lrange [aktive query geometry $src] 2 end]
+    aktive image constant {*}$g $v
+}
+
+proc aktive::simplify::/op {args} {
+    upvar 1 src src
+    set cmd {aktive op}
+    set parmode 0
+    foreach w $args {
+	if {$parmode} { upvar 1 $w param ; lappend cmd $param; continue }
+	if {$w eq ":"} { incr parmode ; continue }
+	lappend cmd $w
+    }
+    lappend cmd $src
+    set r [{*}$cmd]
+    # Restore success of this simplifier. A simplifier invoked through the cmd may have
+    # failed, changing the the shared state.
+    variable ok 1
+    return $r
+}
+
 # Note: This may optimize further, based on op and src
 proc aktive::simplify::/unary0 {op} {
     upvar 1 src src
-    set r [aktive op math1 $op $src]
-    # Restore success of this simplifier in the face of op's simplifier failing
-    variable ok 1
-    return $r
+    /op math1 $op
 }
 
 proc aktive::simplify::/unary1 {op param} {
     upvar 1 src src $param p
-    set r [aktive op math1 $op $p $src]
-    # Restore success of this simplifier in the face of op's simplifier failing
-    variable ok 1
-    return $r
+    /op math1 $op : p
 }
 
 proc aktive::simplify::/unary2 {op pavar pbvar} {
     upvar 1 src src $pavar pa $pbvar pb
-    set r [aktive op math1 $op $pa $pb $src]
-    # Restore success of this simplifier in the face of op's simplifier failing
-    variable ok 1
-    return $r
+    /op math1 $op pa pb
 }
 
 proc aktive::simplify::/src {} {
@@ -184,22 +200,38 @@ proc aktive::simplify::/src/child {} {
 }
 
 # # ## ### ##### ######## ############# #####################
+## Continued simplifier support
 ## Math functions for pre-application of operations to constant inputs.
 #
 ## See `op/op.c` for the C level runtime equivalents
 ## See `fold/constant` for where they are applied.
 
-proc ::tcl::mathfunc::aktive_clamp      x { expr {$x < 0 ? 0 : ($x > 1 ? 1 : $x)} }
-proc ::tcl::mathfunc::aktive_wrap       x { expr {$x > 1 ? fmod($x, 1) : ($x < 0 ? (1 + fmod($x - 1, 1)) : $x)} }
-proc ::tcl::mathfunc::aktive_invert     x { expr {1 - $x} }
-proc ::tcl::mathfunc::aktive_neg        x { expr {- $x} }
-proc ::tcl::mathfunc::aktive_sign       x { expr {$x < 0 ? 0 : ($x > 0 ? 1 : 0)} }
-proc ::tcl::mathfunc::aktive_signb      x { expr {$x < 0 ? -1 : 1} }
-proc ::tcl::mathfunc::aktive_reciprocal x { expr {1.0 / $x} }
-proc ::tcl::mathfunc::aktive_cbrt       x { expr { pow ($x, 1./3.) } }
-proc ::tcl::mathfunc::aktive_exp2       x { expr { pow ( 2, $x) } }
-proc ::tcl::mathfunc::aktive_exp10      x { expr { pow (10, $x) } }
-proc ::tcl::mathfunc::aktive_log2       x { expr { log($x) / log(2) } }
+proc ::aktive::simplify::def {name args expr} {
+    # Skip our definition if a builtin is found
+    if {[llength [info commands ::tcl::mathfunc::$name]]} return
+    proc ::tcl::mathfunc::$name $args [list expr $expr]
+}
+
+aktive::simplify::def aktive_clamp      x { ($x < 0) ? 0 : (($x > 1) ? 1 : $x)}
+aktive::simplify::def aktive_invert     x { 1 - $x}
+aktive::simplify::def aktive_neg        x { - $x}
+aktive::simplify::def aktive_reciprocal x { 1.0 / $x}
+aktive::simplify::def aktive_wrap       x { ($x > 1) ? fmod($x, 1) : (($x < 0) ? (1 + fmod($x - 1, 1)) : $x)}
+
+aktive::simplify::def exp10             x { pow (10, $x) }
+
+# Consider creating critcl::cproc's for these, calling directly on the C library.
+# See the op/op.c support
+
+aktive::simplify::def cbrt              x { pow ($x, 1./3.) }
+aktive::simplify::def exp2              x { pow ( 2, $x) }
+aktive::simplify::def log2              x { log ($x) / log (2) }
+aktive::simplify::def sign              x { ($x < 0) ? 0 : (($x > 0) ? 1 : 0)}
+aktive::simplify::def signb             x { ($x < 0) ? -1 : 1}
+# https://en.wikipedia.org/wiki/Inverse_hyperbolic_functions#Definitions_in_terms_of_logarithms
+aktive::simplify::def acosh             x { log ($x + sqrt ($x*$x - 1)) }	;# [1, +inf]
+aktive::simplify::def asinh             x { log ($x + sqrt ($x*$x + 1)) }	;# [-inf,inf]
+aktive::simplify::def atanh             x { log ((1+$x) / (1-$x)) / 2. }	;# (-1,1)
 
 # # ## ### ##### ######## ############# #####################
 ## Math functions for pre-application of operations to constant inputs.
@@ -207,18 +239,18 @@ proc ::tcl::mathfunc::aktive_log2       x { expr { log($x) / log(2) } }
 #
 ## See `op/op.c` for the C level runtime equivalents
 
-proc ::tcl::mathfunc::aktive_shift  {i x} { expr { $i + $x                } }
-proc ::tcl::mathfunc::aktive_nshift {i x} { expr { $x - $i                } }
-proc ::tcl::mathfunc::aktive_scale  {i x} { expr { $i * $x                } }
-proc ::tcl::mathfunc::aktive_rscale {i x} { expr { $x / $i                } }
-proc ::tcl::mathfunc::aktive_fmod   {i x} { expr { fmod ($x, $i)          } }
-proc ::tcl::mathfunc::aktive_pow    {i x} { expr { pow ($x, $i)           } }
-proc ::tcl::mathfunc::aktive_atan   {i x} { expr { atan2 ($x, $i)         } }
-proc ::tcl::mathfunc::aktive_ge     {i x} { expr { $i >= $x ? 1 : 0       } }
-proc ::tcl::mathfunc::aktive_le     {i x} { expr { $i <= $x ? 1 : 0       } }
-proc ::tcl::mathfunc::aktive_gt     {i x} { expr { $i >  $x ? 1 : 0       } }
-proc ::tcl::mathfunc::aktive_lt     {i x} { expr { $i <  $x ? 1 : 0       } }
-proc ::tcl::mathfunc::aktive_sol    {i x} { expr { $i <= $x ? $i : 1 - $i } }
+aktive::simplify::def aktive_shift  {i x} { $i + $x                }
+aktive::simplify::def aktive_nshift {i x} { $x - $i                }
+aktive::simplify::def aktive_scale  {i x} { $i * $x                }
+aktive::simplify::def aktive_rscale {i x} { $x / $i                }
+aktive::simplify::def aktive_fmod   {i x} { fmod  ($x, $i)         }
+aktive::simplify::def aktive_pow    {i x} { pow   ($x, $i)         }
+aktive::simplify::def aktive_atan   {i x} { atan2 ($x, $i)         }
+aktive::simplify::def aktive_ge     {i x} { $i >= $x ? 1 : 0       }
+aktive::simplify::def aktive_le     {i x} { $i <= $x ? 1 : 0       }
+aktive::simplify::def aktive_gt     {i x} { $i >  $x ? 1 : 0       }
+aktive::simplify::def aktive_lt     {i x} { $i <  $x ? 1 : 0       }
+aktive::simplify::def aktive_sol    {i x} { $i <= $x ? $i : 1 - $i }
 
 # # ## ### ##### ######## ############# #####################
 ## Math functions for pre-application of operations to constant inputs.
@@ -226,14 +258,14 @@ proc ::tcl::mathfunc::aktive_sol    {i x} { expr { $i <= $x ? $i : 1 - $i } }
 #
 ## See `op/op.c` for the C level runtime equivalents
 
-proc ::tcl::mathfunc::aktive_inside_oo  {x low high} { expr { ($low <  $x) && ($x <  $high) ? 1 : 0 } }
-proc ::tcl::mathfunc::aktive_inside_oc  {x low high} { expr { ($low <  $x) && ($x <= $high) ? 1 : 0 } }
-proc ::tcl::mathfunc::aktive_inside_co  {x low high} { expr { ($low <= $x) && ($x <  $high) ? 1 : 0 } }
-proc ::tcl::mathfunc::aktive_inside_cc  {x low high} { expr { ($low <= $x) && ($x <= $high) ? 1 : 0 } }
-proc ::tcl::mathfunc::aktive_outside_oo {x low high} { expr { ($low <  $x) && ($x <  $high) ? 0 : 1 } }
-proc ::tcl::mathfunc::aktive_outside_oc {x low high} { expr { ($low <  $x) && ($x <= $high) ? 0 : 1 } }
-proc ::tcl::mathfunc::aktive_outside_co {x low high} { expr { ($low <= $x) && ($x <  $high) ? 0 : 1 } }
-proc ::tcl::mathfunc::aktive_outside_cc {x low high} { expr { ($low <= $x) && ($x <= $high) ? 0 : 1 } }
+aktive::simplify::def aktive_inside_oo  {x low high} { ($low <  $x) && ($x <  $high) ? 1 : 0 }
+aktive::simplify::def aktive_inside_oc  {x low high} { ($low <  $x) && ($x <= $high) ? 1 : 0 }
+aktive::simplify::def aktive_inside_co  {x low high} { ($low <= $x) && ($x <  $high) ? 1 : 0 }
+aktive::simplify::def aktive_inside_cc  {x low high} { ($low <= $x) && ($x <= $high) ? 1 : 0 }
+aktive::simplify::def aktive_outside_oo {x low high} { ($low <  $x) && ($x <  $high) ? 0 : 1 }
+aktive::simplify::def aktive_outside_oc {x low high} { ($low <  $x) && ($x <= $high) ? 0 : 1 }
+aktive::simplify::def aktive_outside_co {x low high} { ($low <= $x) && ($x <  $high) ? 0 : 1 }
+aktive::simplify::def aktive_outside_cc {x low high} { ($low <= $x) && ($x <= $high) ? 0 : 1 }
 
 # # ## ### ##### ######## ############# #####################
 return

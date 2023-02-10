@@ -1,0 +1,10 @@
+## -*- mode: tcl ; fill-column: 90 -*-
+# # ## ### ##### ######## ############# #####################
+## ceil -- op math1 max :: ceil (I)
+
+## ceil (ceil (I)) = ceil (I)  :: handled by idempotent.rules
+## ceil (floor (I)) = floor (I) = src
+
+## Ref https://en.wikipedia.org/wiki/Floor_and_flooring_functions#Relations_among_the_functions
+
+simplify for   src/type op::math1::floor   returns src

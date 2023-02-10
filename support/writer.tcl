@@ -1336,6 +1336,10 @@ proc dsl::writer::TranslateHint {cmd args} {
 	    } $relation]
 	    return "param/$relation $name $value [TranslateHint {*}$action]"
 	}
+	if {
+	    set action [lassign $args expr]
+	    return "iff [list $expr] [TranslateHint {*}$action]"
+	}
 	src/const {
 	    set action [lassign $args value]
 	    return "src/type image::constant src/const $value [TranslateHint {*}$action]"
@@ -1345,21 +1349,20 @@ proc dsl::writer::TranslateHint {cmd args} {
 	    set arity  [llength $params]
 	    return "src/type image::constant /fold/constant/$arity $tclfunc $params"
 	}
-	src/pop { return "$cmd [TranslateHint {*}$args]" }
-	src/value  -
-	self/value {
+	src/pop   { return "$cmd [TranslateHint {*}$args]" }
+	src/attr  -
+	src/value {
 	    set action [lassign $args a b]
 	    return "$cmd $a $b [TranslateHint {*}$action]"
 	}
 	calc {
 	    set action [lassign $args var expr]
-	    return "calc $var {$expr} [TranslateHint {*}$action]"
+	    return "calc $var [list $expr] [TranslateHint {*}$action]"
 	}
 	src       -
 	src/child -
-	unary0    -
-	unary1    -
-	unary2    -
+	op        -
+	constv    -
 	const     { return [string trimright "/$cmd $args"] }
     }
     return -code error "Unknown simplifier command (($cmd) $args)"

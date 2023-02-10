@@ -17,14 +17,16 @@ kt source support/util.tcl
 
 syntax {
     abs            src
+    ceil           src
     clamp          src
-    wrap           src
+    floor          src
     invert         src
     neg            src
+    reciproc       src
     sign           src
     sign*          src
-    reciproc       src
     sqrt           src
+    wrap           src
     cbrt           src
     exp            src
     exp2           src
@@ -51,44 +53,50 @@ syntax {
 # # ## ### ##### ######## ############# #####################
 ##
 
-foreach {k fun steps first last expected} {
-    0    abs            7 -3   3   {3 2 1 0 1 2 3}
-    1    clamp          7 -3   3   {0 0 0 0 1 1 1}
-    2    wrap           7 -1.5 1.5 {0.5 1 0.5 0 0.5 1 0.5}
-    3    invert         7 -1.5 1.5 {2.5 2 1.5 1 0.5 0 -0.5}
-    4    neg            7 -3   3   {3 2 1 0 -1 -2 -3}
-    5    sign           7 -5   5   {-1 -1 -1 0 1 1 1}
-    6    sign*          7 -5   5   {-1 -1 -1 1 1 1 1}
-    7    reciproc       6 -1.5 1.5 {-0.6667 -1.1111 -3.3333 3.3333 1.1111 0.6667}
-    9    sqrt           5  0   4   {0 1 1.41421 1.73205 2}
-    10   cbrt           5  0   4   {0 1 1.25992 1.44225 1.58740}
-    11   exp            5 -4   4   {0.01832 0.13534 1 7.38906 54.59815}
-    12   exp2           5 -4   4   {0.0625 0.25 1 4 16}
-    13   exp10          5 -4   4   {0.0001 0.01 1 100 10000}
-    14   log            4  0.5 2   {-0.69315 0 0.405465 0.69315}
-    15   log2           4  0.5 2   {-1 0 0.58496 1}
-    16   log10          4  0.5 2   {-0.30103 0 0.17609 0.30103}
-    17   cos            7 -5   5   {0.28366 -0.98167 -0.09572 1 -0.09572 -0.98167 0.28366}
-    18   sin            7 -5   5   {0.95892 0.19057 -0.99541 0 0.99541 -0.19057 -0.95892}
-    19   tan            6 -1.5 1.5 {-14.10142 -1.26016 -0.30934 0.30934 1.26016 14.10142}
-    20   cosh           7 -5   5   {74.20995 14.03365 2.74168 1 2.74168 14.03365 74.20995}
-    21   sinh           7 -5   5   {-74.20321 -13.99798 -2.55281 0.0 2.55281 13.99798 74.20321}
-    22   tanh           7 -5   5   {-0.99991 -0.99746 -0.93111 0 0.93111 0.99746 0.99991}
-    23   acos           5 -1   1   {3.141592653589793 2.0944 1.5708 1.0472 0}
-    24   asin           5 -1   1   {-1.5708 -0.5236 0 0.5236 1.5708}
-    25   atan           5 -2   2   {-1.10715 -0.7854 0 0.7854 1.10715}
-    26   acosh          5  1   4   {0 1.15881 1.5668 1.84725 2.06344}
-    27   asinh          5 -2   2   {-1.44364 -0.88137 0 0.88137 1.44364}
-    28   atanh          7 -0.75 0.75 {-0.972955 -0.54931 -0.25541 0 0.25541 0.54931 0.972955}
-    29   gamma-compress 11 0 1 {0 0.34919 0.48453 0.58383 0.66518 0.73536 0.79774 0.85431 0.90633 0.95469 1}
-    30   gamma-expand   11 0 1 {0 0.00774 0.01548 0.02322 0.03096 0.21404 0.31855 0.44799 0.60383 0.78741 1}
+foreach {fun steps first last expected} {
+    floor          7 -1.4 1.6 {-2 -1 -1 0 0 1 1}
+    ceil           7 -1.4 1.6 {-1  0  0 1 1 2 2}
+    abs            7 -3   3   {3 2 1 0 1 2 3}
+    clamp          7 -3   3   {0 0 0 0 1 1 1}
+    wrap           7 -1.5 1.5 {0.5 1 0.5 0 0.5 1 0.5}
+    invert         7 -1.5 1.5 {2.5 2 1.5 1 0.5 0 -0.5}
+    neg            7 -3   3   {3 2 1 0 -1 -2 -3}
+    sign           7 -5   5   {-1 -1 -1 0 1 1 1}
+    sign*          7 -5   5   {-1 -1 -1 1 1 1 1}
+    reciproc       6 -1.5 1.5 {-0.6667 -1.1111 -3.3333 3.3333 1.1111 0.6667}
+    sqrt           5  0   4   {0 1 1.41421 1.73205 2}
+    cbrt           5  0   4   {0 1 1.25992 1.44225 1.58740}
+    exp            5 -4   4   {0.01832 0.13534 1 7.38906 54.59815}
+    exp2           5 -4   4   {0.0625 0.25 1 4 16}
+    exp10          5 -4   4   {0.0001 0.01 1 100 10000}
+    log            4  0.5 2   {-0.69315 0 0.405465 0.69315}
+    log2           4  0.5 2   {-1 0 0.58496 1}
+    log10          4  0.5 2   {-0.30103 0 0.17609 0.30103}
+    cos            7 -5   5   {0.28366 -0.98167 -0.09572 1 -0.09572 -0.98167 0.28366}
+    sin            7 -5   5   {0.95892 0.19057 -0.99541 0 0.99541 -0.19057 -0.95892}
+    tan            6 -1.5 1.5 {-14.10142 -1.26016 -0.30934 0.30934 1.26016 14.10142}
+    cosh           7 -5   5   {74.20995 14.03365 2.74168 1 2.74168 14.03365 74.20995}
+    sinh           7 -5   5   {-74.20321 -13.99798 -2.55281 0.0 2.55281 13.99798 74.20321}
+    tanh           7 -5   5   {-0.99991 -0.99746 -0.93111 0 0.93111 0.99746 0.99991}
+    acos           5 -1   1   {3.141592653589793 2.0944 1.5708 1.0472 0}
+    asin           5 -1   1   {-1.5708 -0.5236 0 0.5236 1.5708}
+    atan           5 -2   2   {-1.10715 -0.7854 0 0.7854 1.10715}
+    acosh          5  1   4   {0 1.15881 1.5668 1.84725 2.06344}
+    asinh          5 -2   2   {-1.44364 -0.88137 0 0.88137 1.44364}
+    atanh          7 -0.75 0.75 {-0.972955 -0.54931 -0.25541 0 0.25541 0.54931 0.972955}
+    gamma-compress 11 0 1 {0 0.34919 0.48453 0.58383 0.66518 0.73536 0.79774 0.85431 0.90633 0.95469 1}
+    gamma-expand   11 0 1 {0 0.00774 0.01548 0.02322 0.03096 0.21404 0.31855 0.44799 0.60383 0.78741 1}
 } {
     if {$steps eq "."} continue ;# skip undefined parts
 
-    # puts   "\nXX $fun ........................................................................"
-    # puts   "XX INPUT [dict get [astcl aktive image gradient $steps 1 1 $first $last] pixels]"
-    # puts   "XX RESLT [dict get [astcl aktive op math1 $fun [aktive image gradient $steps 1 1 $first $last]] pixels]"
-    # puts   "XX EXP.. $expected\n"
+    # functions to debug ...
+    if {$fun in {
+    }} {
+	puts   "\nXX $fun ........................................................................"
+	puts   "XX INPUT [dict get [astcl aktive image gradient $steps 1 1 $first $last] pixels]"
+	puts   "XX RESLT [dict get [astcl aktive op math1 $fun [aktive image gradient $steps 1 1 $first $last]] pixels]"
+	puts   "XX EXP.. $expected\n"
+    }
 
     unset -nocomplain map
     lappend map /fun   $fun
@@ -109,12 +117,13 @@ foreach {k fun steps first last expected} {
 
     # Const folding is done for most, but not all.
     if {$fun ni {
-	acosh asinh atanh gamma-compress gamma-expand
+	gamma-compress gamma-expand
     }} {
+	#	acosh asinh atanh
 	set inconst 1
-	# For `reciproc` the normal constant `1` is a special case handled before the general const
-	# folding we wish to trigger here.
-	if {$fun eq "reciproc"} { set inconst 2 }
+	# For some functions the `1` is either a special case handled before general const folding,
+	# or not in the function's domain. For these we select a different suitable value
+	catch { set inconst [dict get { reciproc 2 acosh 2 atanh 0.5 } $fun] }
 
 	test aktive-op-math1-${fun}-2.2 "aktive op math1 $fun, const folding, dag" -body {
 	    dag aktive op math1 $fun [flat $inconst]
@@ -123,7 +132,7 @@ foreach {k fun steps first last expected} {
 
     # Chain reduction for idempotent operations
     if {$fun in {
-	abs clamp wrap sign sign*
+	abs ceil clamp floor sign sign* wrap
     }} {
 	set fr [aktive op math1 $fun [grad]]
 	set id [aktive query id $fr]
@@ -131,6 +140,8 @@ foreach {k fun steps first last expected} {
 	test aktive-op-math1-${fun}-2.3 "aktive op math1 $fun, idempotent, dag" -body {
 	    dag aktive op math1 $fun $fr
 	} -match glob -result "op::math1::$fun $id {} {image::gradient *}"
+
+	unset fr id
     }
 
     # Chain reduction for complementary operations
@@ -178,6 +189,8 @@ foreach {k fun fixpoint} {
     test aktive-op-math1-${fun}-3.0 "aktive op math1 $fun, fixpoint pass through" -body {
 	dag aktive op math1 {*}$fun $in
     } -match glob -result "image::constant $id {* value $fixpoint}"
+
+    unset in id
 }
 
 # # ## ### ##### ######## ############# #####################

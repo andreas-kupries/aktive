@@ -1,0 +1,23 @@
+## -*- mode: tcl ; fill-column: 90 -*-
+# # ## ### ##### ######## ############# #####################
+## active_pow -- op math1 cbrt :: cube-root (I) ==  I ^(1/3)
+
+# Chains: cbrt (cbrt (I))  = pow (pow (I, 1/3), 1/3) = pow (I, 1/9)
+# Chains: cbrt (sqrt (I))  = pow (pow (I, 1/2), 1/3) = pow (I, 1/6)
+# Chains: cbrt (pow (I, a) = pow (pow (I, a), 1/3)   = pow (I, a/3)
+
+simplify for   src/type @self   \
+    calc __ab {1./9.}  \
+    src/pop \
+    returns op math1 pow : __ab
+
+simplify for   src/type op::math1::sqrt   \
+    calc __ab {1./6.}  \
+    src/pop \
+    returns op math1 pow : __ab
+
+simplify for   src/type op::math1::pow   \
+    src/value  exponent __a \
+    calc __ab {$__a / 3.}  \
+    src/pop \
+    returns op math1 pow : __ab

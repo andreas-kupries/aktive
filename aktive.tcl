@@ -124,8 +124,11 @@ critcl::include generated/op-funcs.c            ;# Operators
 
 critcl::source   generated/glue.tcl             ;# Tcl-level operator construction
 critcl::tsources generated/overlay.tcl		;# Peep-hole optimizer overlays
-critcl::tsources generated/ensemble.tcl         ;# Command hierarchy
-critcl::tsources policy.tcl			;# Command hierarchy, fixed
+critcl::tsources generated/ensemble.tcl         ;# Command hierarchy for preceding
+#                                               ;# Pure Tcl commands
+critcl::tsources version.tcl			;# - Version info
+critcl::tsources simplifier.tcl			;# - Simplifier runtime used in overlays.tcl
+critcl::tsources op/ops.tcl                     ;# - Operators built in Tcl
 
 # # ## ### ##### ######## ############# #####################
 ## Build binaries now, without deferal.

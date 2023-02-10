@@ -18,10 +18,17 @@ operator {thing coordinate dimension} {
 
     input keep
 
-    uint         first  Input's first $thing to be placed into the result
-    uint? _first last   Input's last $thing to be placed into the result
+    uint first  Input's first $thing to be placed into the result
+    uint last   Input's last $thing to be placed into the result
+    # As an image follows and we simplify (see below) we cannot make `last` optional.
+    # The simplification is done in a Tcl level wrapper, and proc do not support
+    # optional arguments in the middle of the set. (critcl::cproc does).
 
-    # TODO :: simplify hints (first == 0 && last == range-1 => identity, pass/input)
+    simplify for  \
+	if {$first == 0} \
+	src/attr $dimension __range if {$last == ($__range - 1)} \
+	returns src
+
     # TODO :: simplify hints (const input => create const of reduced dimensions)
 
     # The /thing/ values are relative to the image /dimension/, rooted at 0.
@@ -41,6 +48,7 @@ operator {thing coordinate dimension} {
     def common-setup {
 	aktive_uint range = aktive_image_get_@@dimension@@ (srcs->v[0]);
 
+	// could be moved into the cons wrapper created for simplification
 	if (param->first >= range)       aktive_failf ("First @@thing@@ >= %d", range);
 	if (param->last  >= range)       aktive_failf ("Last @@thing@@ >= %d",  range);
 	if (param->first >  param->last) aktive_fail  ("First @@thing@@ is after last");

@@ -1,0 +1,82 @@
+# -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
+## (c) 2023 Andreas Kupries
+# # ## ### ##### ######## ############# #####################
+## AKTIVE. Translation in the plane.
+
+kt check Tcl     8.6
+kt check tcltest 2
+
+# # ## ### ##### ######## ############# #####################
+
+kt local testing aktive
+
+kt source support/util.tcl
+
+# # ## ### ##### ######## ############# #####################
+## Syntax
+
+syntax {
+    by {dx dy src}
+    to {x y src}
+} {aktive op translate}
+
+# # ## ### ##### ######## ############# #####################
+##
+# input/gradient 3x4x2
+##
+##       0 ....   1......   2...... - 3 columns
+##     --------  --------  --------
+#	 1  1.5    2  2.5    3  3.5  0
+#	 4  4.5    5  5.5    6  6.5  1
+#	 7  7.5    8  8.5    9  9.5  2
+#	10 10.5   11 11.5   12 12.5  3
+##     --- ----  --- ----  --- ----  \ 4 rows
+##      0. 1...   0. 1...   0. 1... - 2 bands
+
+
+set pos 5
+
+foreach {op config} {
+    to {x @ y @}
+    by {dx @ dy @}
+} {
+    set in [grad]
+
+    set      expected [astcl/ $in]
+    dict set expected type   op::translate::$op
+    dict set expected config [string map [list @ $pos] $config]
+    dict set expected domain x $pos
+    dict set expected domain y $pos
+
+    test aktive-op-translate-${op}-2.0 "aktive op translate $op" -body {
+	astcl aktive op translate $op $pos $pos [grad]
+    } -match image -result $expected
+
+    test aktive-op-translate-${op}-2.1 "aktive op translate $op, dag" -body {
+	dag aktive op translate $op 1 1 [grad]
+    } -match glob -result "op::translate::$op * {image::gradient *}"
+
+    test aktive-op-translate-${op}-2.2 "aktive op translate $op, pass through, dag" -body {
+	dag aktive op translate $op 0 0 $in
+    } -match glob -result "image::gradient [aktive query id $in] *"
+
+    unset in expected
+}
+
+# # ## ### ##### ######## ############# #####################
+## Chain reductions
+
+foreach {funb      pb funa           pa   xxx   rfun           rdetail} {
+    to          {5 5} to          {6 6}   -->   to             {x 5 y 5}
+    by          {3 3} by          {2 2}   -->   by             {dx 5 dy 5}
+    to          {5 5} by          {6 6}   -->   to             {x 5 y 5}
+    by          {2 2} to          {5 5}   -->   to             {x 7 y 7}
+} {
+    test aktive-op-translate-${funb}-chain-${funa}-8.0 "aktive op translate $funb/$funa, chain simplifications" -body {
+	dag aktive op translate $funb {*}$pb [aktive op translate $funa {*}$pa [grad]]
+    } -match glob -result "*::$rfun * {$rdetail} {image::gradient *}"
+}
+
+# # ## ### ##### ######## ############# #####################
+cleanupTests
+return

@@ -14,7 +14,7 @@
 simplify for  param factor == 0   src/const 0   returns const Inf
 simplify for  param factor == 1   src/const 1   returns src
 simplify for  param factor == 1   src/const 0   returns const Inf
-simplify for  param factor == 1                 returns unary0 reciproc
+simplify for  param factor == 1                 returns op math1 reciproc
 
 # Chains: rscale(b, rscale (a, I)) = b / (a / I) = (b/a) * I = scale (b/a, I)
 
@@ -22,7 +22,7 @@ simplify for   src/type @self   \
     src/value  factor __a \
     calc __ab {$factor / $__a}  \
     src/pop \
-    returns unary1 scale __ab
+    returns op math1 scale : __ab
 
 # Chains: rscale(b, scale (a, I)) = b / (a * I) = (b/a) / I = rscale (b/a, I)
 
@@ -30,4 +30,4 @@ simplify for   src/type op::math1::scale   \
     src/value  factor __a \
     calc __ab {$factor / $__a}  \
     src/pop \
-    returns unary1 reciproc-scale __ab
+    returns op math1 reciproc-scale : __ab

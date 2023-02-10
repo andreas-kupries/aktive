@@ -1,0 +1,11 @@
+## -*- mode: tcl ; fill-column: 90 -*-
+# # ## ### ##### ######## ############# #####################
+## hypot -- op math1 hypot :: hypot (I, y) = sqrt (I^2 + y^2)
+
+## hypot ([0], 0) = [0]          = I
+## hypot (I, 0)   = sqrt (I^2)   = abs (I)
+## hypot ([0], y) = [sqrt (y^2)] = [abs (y)] [constant]
+
+simplify for   param y == 0  src/const 0                            returns src
+simplify for   param y == 0                                         returns op math1 abs
+simplify for                 src/const 0   calc __abs { abs($y) }   returns constv __abs

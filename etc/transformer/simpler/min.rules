@@ -1,0 +1,18 @@
+## -*- mode: tcl ; fill-column: 90 -*-
+# # ## ### ##### ######## ############# #####################
+## fmin -- op math1 min :: min (I, x)
+
+# min (min (I, a), a) = min (I, a)	idempotent, pass through
+
+simplify for   src/type @self   \
+    src/value  exponent __a 	\
+    if {$max == $__a)}  \
+    returns src
+
+## Chain: min (min (I, a), b) = min (I, min(a,b))
+
+simplify for   src/type @self   \
+    src/value  exponent __a 	\
+    calc __ab {min ($min, $__a)}  \
+    src/pop \
+    returns op math1 min : __ab

@@ -1,0 +1,18 @@
+## -*- mode: tcl ; fill-column: 90 -*-
+# # ## ### ##### ######## ############# #####################
+## fmax -- op math1 max :: max (I, x)
+
+# max (max (I, a), a) = max (I, a)	idempotent, pass through
+
+simplify for   src/type @self   \
+    src/value  exponent __a 	\
+    if {$min == $__a)}  \
+    returns src
+
+## Chain: max (max (I, a), b) = max (I, max(a,b))
+
+simplify for   src/type @self   \
+    src/value  exponent __a 	\
+    calc __ab {max ($min, $__a)}  \
+    src/pop \
+    returns op math1 max : __ab

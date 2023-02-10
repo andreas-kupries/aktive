@@ -14,35 +14,37 @@
 
 operator {                    function              mathfunc     dexpr classes} {
     op::math1::abs            fabs                  abs          {}    idempotent
-    op::math1::clamp          aktive_clamp          <<           {}    idempotent
-    op::math1::wrap           aktive_wrap           <<           {}    idempotent
-    op::math1::invert         aktive_invert         <<           "1-I" inverting
-    op::math1::neg            aktive_neg            <<           "-I"  {inverting fixpoint0}
-    op::math1::sign           aktive_sign           <<           {}    {idempotent fixpoint0}
-    op::math1::sign*          aktive_signb          <<           {}    idempotent
-    op::math1::reciproc       aktive_reciprocal     <<           "1/I" {inverting fixpoint1}
-    op::math1::sqrt           sqrt                  <<           {}    fixpoint0
-    op::math1::cbrt           cbrt                  aktive_cbrt  {}    fixpoint0
-    op::math1::exp            exp                   <<           {}    {}
-    op::math1::exp2           exp2                  aktive_exp2  {}    {}
-    op::math1::exp10          aktive_exp10          aktive_exp10 {}    {}
-    op::math1::log            log                   <<           {}    {}
-    op::math1::log2           log2                  aktive_log2  {}    {}
-    op::math1::log10          log10                 <<           {}    {}
-    op::math1::cos            cos                   <<           {}    {}
-    op::math1::sin            sin                   <<           {}    fixpoint0
-    op::math1::tan            tan                   <<           {}    fixpoint0
-    op::math1::cosh           cosh                  <<           {}    {}
-    op::math1::sinh           sinh                  <<           {}    fixpoint0
-    op::math1::tanh           tanh                  <<           {}    fixpoint0
     op::math1::acos           acos                  <<           {}    {}
+    op::math1::acosh          acosh                 <<           {}    {}
     op::math1::asin           asin                  <<           {}    fixpoint0
+    op::math1::asinh          asinh                 <<           {}    {}
     op::math1::atan           atan                  <<           {}    fixpoint0
-    op::math1::acosh          acosh                 -            {}    {}
-    op::math1::asinh          asinh                 -            {}    {}
-    op::math1::atanh          atanh                 -            {}    {}
+    op::math1::atanh          atanh                 <<           {}    {}
+    op::math1::cbrt           cbrt                  <<           {}    fixpoint0
+    op::math1::ceil           ceil                  <<           {}    idempotent
+    op::math1::clamp          aktive_clamp          <<           {}    idempotent
+    op::math1::cos            cos                   <<           {}    {}
+    op::math1::cosh           cosh                  <<           {}    {}
+    op::math1::exp            exp                   <<           {}    {}
+    op::math1::exp10          aktive_exp10          exp10        {}    {}
+    op::math1::exp2           exp2                  <<           {}    {}
+    op::math1::floor          floor                 <<           {}    idempotent
     op::math1::gamma-compress aktive_gamma_compress -            {}    {}
     op::math1::gamma-expand   aktive_gamma_expand   -            {}    {}
+    op::math1::invert         aktive_invert         <<           "1-I" inverting
+    op::math1::log            log                   <<           {}    {}
+    op::math1::log10          log10                 <<           {}    {}
+    op::math1::log2           log2                  <<           {}    {}
+    op::math1::neg            aktive_neg            <<           "-I"  {inverting fixpoint0}
+    op::math1::reciproc       aktive_reciprocal     <<           "1/I" {inverting fixpoint1}
+    op::math1::sign           aktive_sign           sign         {}    {idempotent fixpoint0}
+    op::math1::sign*          aktive_signb          signb        {}    idempotent
+    op::math1::sin            sin                   <<           {}    fixpoint0
+    op::math1::sinh           sinh                  <<           {}    fixpoint0
+    op::math1::sqrt           sqrt                  <<           {}    fixpoint0
+    op::math1::tan            tan                   <<           {}    fixpoint0
+    op::math1::tanh           tanh                  <<           {}    fixpoint0
+    op::math1::wrap           aktive_wrap           <<           {}    idempotent
 } {
     if {$dexpr eq {}} { set dexpr [namespace tail $__op] }
     if {![string match *I* $dexpr]} { append dexpr (I) }
@@ -107,6 +109,15 @@ operator {                    function      mathfunc flip dexpr      pname     p
 } {
     # For non-commutative functions we have a separate operation reversing the argument order internally
     # See modb, atan2b, expx
+
+    # Note: `atan2`, `atan2b` - No simplification rules - While it is possible the
+    # relevant parameter and image values are extremes (+/- inf), and in some cases
+    # distinguish +/-0. Tcl does not, at script level. Let it be.
+
+    # `mod`, `modb` - No rules - Only special parameter 1, for fmod (I,1) = frac (I),
+    # except there is no `frac` in C. Regarding chaining - No trivial rule on how to
+    # combine the moduli a and b ... The hain is __not commutative__ in a and b, thus the
+    # combiner cannot be either.
 
     # Compute the varying elements of the description
 
