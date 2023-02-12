@@ -103,13 +103,13 @@ aktive_op_geometry (Tcl_Interp* ip, aktive_image src) {
  * - - -- --- ----- -------- -------------
  */
 
+static double aktive_clamp      (double x) { return (x < 0) ? 0 : (x > 1) ? 1 : x; }
 static double aktive_invert     (double x) { return 1 - x; }
 static double aktive_neg        (double x) { return -x; }
 static double aktive_reciprocal (double x) { return 1.0/x; }
-static double aktive_clamp      (double x) { return (x < 0) ? 0 : (x > 1) ? 1 : x; }
-static double aktive_wrap       (double x) { return (x > 1) ? fmod(x, 1) : (x < 0) ? (1 + fmod(x - 1, 1)) : x; }
 static double aktive_sign       (double x) { return (x < 0) ? -1 : (x > 0) ? 1 : 0; }
 static double aktive_signb      (double x) { return (x < 0) ? -1 : 1; }
+static double aktive_wrap       (double x) { return (x > 1) ? fmod(x, 1) : (x < 0) ? (1 + fmod(x - 1, 1)) : x; }
 
 // apparently `exp10` is a GNU thing, whereas exp2 is not, nor is log10
 static double aktive_exp10      (double x) { return pow (10, x); }

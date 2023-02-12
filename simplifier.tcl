@@ -203,69 +203,28 @@ proc aktive::simplify::/src/child {} {
 ## Continued simplifier support
 ## Math functions for pre-application of operations to constant inputs.
 #
-## See `op/op.c` for the C level runtime equivalents
-## See `fold/constant` for where they are applied.
+## See `op/op.c` for the C level runtime equivalents and `op/math.tcl` for the exposure to
+## Tcl. Here the decision is made which of these have to be moved into `tcl::mathfunc`.
+##
+## See `/fold/constant/*` above for where they are applied.
 
-proc ::aktive::simplify::def {name args expr} {
-    # Skip our definition if a builtin is found
-    if {[llength [info commands ::tcl::mathfunc::$name]]} return
-    proc ::tcl::mathfunc::$name $args [list expr $expr]
+foreach fun {
+    acosh             aktive_outside_co  aktive_inside_oc  aktive_sol
+    aktive_atan       aktive_outside_oc  aktive_inside_oo  aktive_sol
+    aktive_atan       aktive_outside_oo  aktive_invert     aktive_wrap
+    aktive_clamp      aktive_pow         aktive_ge         asinh
+    aktive_fmod       aktive_pow         aktive_gt         atanh
+    aktive_fmod       aktive_reciprocal  aktive_le         cbrt
+    aktive_ge         aktive_rscale      aktive_lt         exp10
+    aktive_ge         aktive_rscale      aktive_neg        exp2
+    aktive_ge         aktive_scale       aktive_nshift     log2
+    aktive_ge         aktive_scale       aktive_nshift     sign
+    aktive_inside_cc  aktive_shift       aktive_outside_cc signb
+    aktive_inside_co  aktive_shift
+} {
+    if {[llength [info commands ::tcl::mathfunc::$fun]]} continue
+    rename ::aktive::mathfunc::$fun ::tcl::mathfunc::$fun
 }
-
-aktive::simplify::def aktive_clamp      x { ($x < 0) ? 0 : (($x > 1) ? 1 : $x)}
-aktive::simplify::def aktive_invert     x { 1 - $x}
-aktive::simplify::def aktive_neg        x { - $x}
-aktive::simplify::def aktive_reciprocal x { 1.0 / $x}
-aktive::simplify::def aktive_wrap       x { ($x > 1) ? fmod($x, 1) : (($x < 0) ? (1 + fmod($x - 1, 1)) : $x)}
-
-aktive::simplify::def exp10             x { pow (10, $x) }
-
-# Consider creating critcl::cproc's for these, calling directly on the C library.
-# See the op/op.c support
-
-aktive::simplify::def cbrt              x { pow ($x, 1./3.) }
-aktive::simplify::def exp2              x { pow ( 2, $x) }
-aktive::simplify::def log2              x { log ($x) / log (2) }
-aktive::simplify::def sign              x { ($x < 0) ? 0 : (($x > 0) ? 1 : 0)}
-aktive::simplify::def signb             x { ($x < 0) ? -1 : 1}
-# https://en.wikipedia.org/wiki/Inverse_hyperbolic_functions#Definitions_in_terms_of_logarithms
-aktive::simplify::def acosh             x { log ($x + sqrt ($x*$x - 1)) }	;# [1, +inf]
-aktive::simplify::def asinh             x { log ($x + sqrt ($x*$x + 1)) }	;# [-inf,inf]
-aktive::simplify::def atanh             x { log ((1+$x) / (1-$x)) / 2. }	;# (-1,1)
-
-# # ## ### ##### ######## ############# #####################
-## Math functions for pre-application of operations to constant inputs.
-## i == image; x == function parameter
-#
-## See `op/op.c` for the C level runtime equivalents
-
-aktive::simplify::def aktive_shift  {i x} { $i + $x                }
-aktive::simplify::def aktive_nshift {i x} { $x - $i                }
-aktive::simplify::def aktive_scale  {i x} { $i * $x                }
-aktive::simplify::def aktive_rscale {i x} { $x / $i                }
-aktive::simplify::def aktive_fmod   {i x} { fmod  ($x, $i)         }
-aktive::simplify::def aktive_pow    {i x} { pow   ($x, $i)         }
-aktive::simplify::def aktive_atan   {i x} { atan2 ($x, $i)         }
-aktive::simplify::def aktive_ge     {i x} { $i >= $x ? 1 : 0       }
-aktive::simplify::def aktive_le     {i x} { $i <= $x ? 1 : 0       }
-aktive::simplify::def aktive_gt     {i x} { $i >  $x ? 1 : 0       }
-aktive::simplify::def aktive_lt     {i x} { $i <  $x ? 1 : 0       }
-aktive::simplify::def aktive_sol    {i x} { $i <= $x ? $i : 1 - $i }
-
-# # ## ### ##### ######## ############# #####################
-## Math functions for pre-application of operations to constant inputs.
-## i == image; low, high == function parameters
-#
-## See `op/op.c` for the C level runtime equivalents
-
-aktive::simplify::def aktive_inside_oo  {x low high} { ($low <  $x) && ($x <  $high) ? 1 : 0 }
-aktive::simplify::def aktive_inside_oc  {x low high} { ($low <  $x) && ($x <= $high) ? 1 : 0 }
-aktive::simplify::def aktive_inside_co  {x low high} { ($low <= $x) && ($x <  $high) ? 1 : 0 }
-aktive::simplify::def aktive_inside_cc  {x low high} { ($low <= $x) && ($x <= $high) ? 1 : 0 }
-aktive::simplify::def aktive_outside_oo {x low high} { ($low <  $x) && ($x <  $high) ? 0 : 1 }
-aktive::simplify::def aktive_outside_oc {x low high} { ($low <  $x) && ($x <= $high) ? 0 : 1 }
-aktive::simplify::def aktive_outside_co {x low high} { ($low <= $x) && ($x <  $high) ? 0 : 1 }
-aktive::simplify::def aktive_outside_cc {x low high} { ($low <= $x) && ($x <= $high) ? 0 : 1 }
 
 # # ## ### ##### ######## ############# #####################
 return

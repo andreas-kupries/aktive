@@ -114,6 +114,7 @@ critcl::include generated/param-descriptors.c   ;# Parameter block descriptors
 # Function implementations ############ #####################
 
 critcl::include op/op.c                         ;# Operator support
+critcl::source  op/math.tcl                     ;# Extended math function support
 #critcl::include generated/vector-funcs.c        ;# Variadic support
 critcl::include generated/param-funcs.c         ;# Parameter block variadic init/finish
 critcl::include generated/type-funcs.c          ;# Type conversions
