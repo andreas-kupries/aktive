@@ -25,6 +25,8 @@ proc dsl::writer::Clear {stem} {
 }
 
 proc dsl::writer::Emit {stem} {
+    Into ${stem}operators.txt         Operators          ;# List of operators
+    #
     Into ${stem}param-types.h         ParamTypes         ;# typedefs
     Into ${stem}param-descriptors.c   ParamDescriptors   ;# variables
     #
@@ -442,6 +444,19 @@ proc dsl::writer::TypeFunctions {} {
 
 # # ## ### ##### ######## #############
 ## Main emitter commands -- Operators
+
+proc dsl::writer::Operators {} {
+    if {![llength [Operations]]} return
+
+    set names [lmap op [Operations] { set op }]
+    set nl [Maxlength $names]
+
+    foreach op $names {
+	set notes [lindex [dict get [Get ops $op] notes] 0]
+	+ "[PadR $nl $op] :: $notes"
+    }
+    Done
+}
 
 proc dsl::writer::OperatorSignatures {} {
     if {![llength [Operations]]} return

@@ -4,6 +4,8 @@
 ## -- Fitting completely non-image functionality into the framework
 
 operator point::make {
+    note Construct a 2D point from x- and y-coordinates
+
     int x  Point location, Column
     int y  Point location, Row
 
@@ -14,6 +16,8 @@ operator point::make {
 }
 
 operator point::add {
+    note Translate a 2D point by a specific amount given as 2D vector
+
     point r      Point to modify
     point delta  Point to add
 
@@ -26,6 +30,8 @@ operator point::add {
 }
 
 operator point::move {
+    note Translate a 2D point by a specific amount given as separate x- and y-deltas
+
     point r   Point to modify
     int   dx  Amount to move left/right, positive to the right
     int   dy  Amount to move up/down, positive downward
@@ -39,6 +45,8 @@ operator point::move {
 }
 
 operator point::box {
+    note Compute minimum axis-aligned 2D rectangle enclosing the set of 2D points
+
     point... points  Points to find the bounding box for
 
     return rect {

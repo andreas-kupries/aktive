@@ -6,6 +6,8 @@
 # # ## ### ##### ######## ############# #####################
 
 operator rectangle::make {
+    note Construct a 2D rectangle from x- and y-coordinates and width/height dimensions
+
     int  x  Rectangle location, Column
     int  y  Rectangle location, Row
     uint w  Rectangle width
@@ -18,6 +20,8 @@ operator rectangle::make {
 }
 
 operator rectangle::grow {
+    note Modify 2D rectangle by moving its 4 borders by a specififc amount
+
     rect r       Rectangle to modify
     int  left    Amount to grow the left border, positive to the left
     int  right   Amount to grow the right border, positive to the right
@@ -35,6 +39,8 @@ operator rectangle::grow {
 }
 
 operator rectangle::move {
+    note Translate a 2D rectangle by a specific amount given as separate x- and y-deltas
+
     rect r   Rectangle to modify
     int  dx  Amount to move left/right, positive to the right
     int  dy  Amount to move up/down, positive downward
@@ -50,6 +56,8 @@ operator rectangle::move {
 # # ## ### ##### ######## ############# #####################
 
 operator rectangle::equal {
+    note Test two 2D rectangles for equality (location and dimensions)
+
     rect a   First rectangle to compare
     rect b   Second rectangle to compare
 
@@ -57,6 +65,8 @@ operator rectangle::equal {
 }
 
 operator rectangle::subset {
+    note Test if the first 2D rectangle is a subset of the second.
+
     rect a   First rectangle to compare
     rect b   Second rectangle to compare
 
@@ -64,6 +74,8 @@ operator rectangle::subset {
 }
 
 operator rectangle::empty {
+    note Test a 2D rectangle for emptiness
+
     rect r   Rectangle to check
 
     return int { aktive_rectangle_is_empty (&param->r) ; }
@@ -72,6 +84,8 @@ operator rectangle::empty {
 # # ## ### ##### ######## ############# #####################
 
 operator rectangle::union {
+    note Compute the minimum axis-aligned 2D rectangle encompassing all input rectangles
+
     rect... r   Rectangles to union
 
     return rect {
@@ -90,6 +104,8 @@ operator rectangle::union {
 }
 
 operator rectangle::intersect {
+    note Compute the maximum axis-aligned 2D rectangle shared by all input rectangles
+
     rect... r   Rectangles to intersect
 
     return rect {
@@ -110,6 +126,8 @@ operator rectangle::intersect {
 # # ## ### ##### ######## ############# #####################
 
 operator rectangle::zones {
+    note Compute a set of 2D rectangles describing the relation of the request to the domain.
+
     rect domain  Area covered by image pixels
     rect request Area to get the pixels for
 

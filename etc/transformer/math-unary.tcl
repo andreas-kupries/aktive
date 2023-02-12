@@ -49,7 +49,7 @@ operator {                    function              mathfunc     dexpr classes} 
     if {$dexpr eq {}} { set dexpr [namespace tail $__op] }
     if {![string match *I* $dexpr]} { append dexpr (I) }
 
-    note Performs the unary function '$dexpr' on all pixels of the image.
+    note Transformer. Performs the unary function '$dexpr' on all pixels of the image.
     note The resulting image has the same geometry as the input.
 
     input keep
@@ -125,7 +125,8 @@ operator {                    function      mathfunc flip dexpr      pname     p
     if {![string match *@* $dexpr]} { append dexpr (I,@) }
     set dexpr [string map [list @ $pname] $dexpr]
 
-    note Performs the binary function '$dexpr' on all pixels of the image.
+    note Transformer. Performs the binary function '$dexpr' on all pixels of the image.
+
     if {$flip} {
 	note The image is the first argument of the command, even if not of the function
     } else {
@@ -173,7 +174,7 @@ operator {function lowkind highkind mode} {
     op::math::outside-co aktive_outside_co closed open   outside
     op::math::outside-cc aktive_outside_cc closed closed outside
 } {
-    note Performs a double sided thresholding against the $lowkind/$highkind interval given by the two boundaries.
+    note Transformer. Performs a double sided thresholding against the $lowkind/$highkind interval given by the two boundaries.
     note Values $mode the interval are indicated in the result.
     note The resulting image has the same geometry as the input.
 

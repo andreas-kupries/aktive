@@ -3,6 +3,8 @@
 ## Getters -- Retrieving image attributes
 
 operator query::id {
+    note Accessor. Return implementation-specific image identity
+
     # This is special. It provides an identification of the image, i.e. a value unique to
     # it. This enables equality comparisons, and nothing else.
     #
@@ -14,21 +16,29 @@ operator query::id {
 }
 
 operator query::type {
+    note Accessor. Return image type
+
     input ignore
     return image-type { aktive_image_get_type (src); }
 }
 
 operator query::location {
+    note Accessor. Return 2D image location, a 2D point
+
     input ignore
     return point { *aktive_image_get_location (src); }
 }
 
 operator query::domain {
+    note Accessor. Return image geometry, a 2D rectangle
+
     input ignore
     return rect { *aktive_image_get_domain (src); }
 }
 
 operator query::geometry {
+    note Accessor. Return image geometry, a 2D rectangle, plus depth.
+
     input ignore
     return geometry { *aktive_image_get_geometry (src); }
 }
@@ -39,6 +49,8 @@ operator attribute {
     query::y    y
     query::ymax ymax
 } {
+    note Accessor. Return image $attribute location
+
     input ignore
 
     return int "aktive_image_get_$attribute (src);"
@@ -52,12 +64,16 @@ operator attribute {
     query::pitch  pitch
     query::size   size
 } {
+    note Accessor. Return image $attribute
+
     input ignore
 
     return uint "aktive_image_get_$attribute (src);"
 }
 
 operator query::inputs {
+    note Accessor. Return list of input images, if any
+
     input ignore
 
     return object0 {
@@ -74,6 +90,8 @@ operator query::inputs {
 }
 
 operator query::params {
+    note Accessor. Return dictionary of image parameters, if any.
+
     input ignore
 
     return object0 {

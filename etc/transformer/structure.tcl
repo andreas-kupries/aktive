@@ -10,7 +10,8 @@ operator {thing coordinate dimension} {
     op::select::y row    y height
     op::select::z band   z depth
 } {
-    note Choose and return a contiguous subset of the input's ${thing}s.
+    note Transformer. Structure. Returns image containing a contiguous subset of the input's ${thing}s.
+
     note The result has a properly reduced $dimension.
     note The other two dimension are unchanged.
     note The 2D location of the first cell of the input going into the
@@ -105,7 +106,9 @@ operator coordinate {
     op::flip::y y
     op::flip::z z
 } {
-    input keep ;#-pass
+    note Transformer. Structure. Mirrors the input along the ${coordinate}-axis.
+
+    input keep
 
     # flips are self-complementary
     simplify for   src/type @self   returns src/child
@@ -148,7 +151,9 @@ operator {coorda coordb coordc} {
     op::swap::xz x z y
     op::swap::yz y z x
 } {
-    input keep ;#-pass
+    note Transformer. Structure. Exchanges the ${coorda}- and ${coordb}-axes of the input.
+
+    input keep
 
     # swaps are self-complementary
     simplify for   src/type @self   returns src/child
@@ -210,7 +215,7 @@ nyi operator {
     op::downsample::y
     op::downsample::z
 } {
-    input keep-pass
+    input keep
 
     uint n  Sampling factor, range 2...
 
@@ -235,7 +240,7 @@ nyi operator {
     op::upsample::yrep
     op::upsample::zrep
 } {
-    input keep-pass
+    input keep
 
     uint n  Sampling factor, range 2...
 

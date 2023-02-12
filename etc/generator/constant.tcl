@@ -3,7 +3,7 @@
 ## Generators -- Various virtual constant fields
 
 operator image::constant {
-    note The entire image is set to the value
+    note Generator. Returns an image having the same value everywhere.
 
     uint   width   Width of the returned image
     uint   height  Height of the returned image
@@ -19,7 +19,7 @@ operator image::constant {
 }
 
 operator image::const::bands {
-    note The entire set of pixels is set to the same series of band values
+    note Generator. Returns an image having the same band values at all pixels.
     note Depth is len(value)
 
     uint      width   Width of the returned image
@@ -38,8 +38,9 @@ operator image::const::bands {
 }
 
 operator image::const::matrix {
-    note Explictly specified image through pixel values
-    note Less than width by height values is extended with zeroes.
+    note Generator. Returns a depth 1 image holding the specified pixel values.
+
+    note Less than width by height values are extended with zeroes.
     note Excess values are ignored.
     note Depth is fixed at 1.
 
@@ -88,6 +89,9 @@ operator image::const::matrix {
 ## # # ## ### ##### ######## ############# #####################
 
 operator image::const::sparse::points {
+
+    note Generator. Returns depth 1 image with pixels set to 1 at exactly the specified points.
+
     point... points  Coordinates of the pixels to set in the image
 
     note Generally, the bounding box specifies the geometry, especially also the image origin
@@ -117,14 +121,17 @@ operator image::const::sparse::points {
 }
 
 operator image::const::sparse::deltas {
+
+    note Generator. Returns a depth 1 image with pixels set to 1 at exactly the specified points.
+    note The height is infered from the points
+
     uint    width   Width of the returned image. This is needed for the index/point conversion
     uint... delta   Linear distances between points to set
 
-    note Depth is fixed at 1
-    note The height is infered from the points
-    note Pixel value is fixed at 1.0
     note The first delta is relative to index 0
     note Converts the deltas internally to points and then operates like sparse::points
+    note Depth is fixed at 1
+    note Pixel value is fixed at 1.0
 
     state -fields {
 	aktive_point_vector points; // Points computed from the deltas
@@ -165,6 +172,8 @@ operator image::const::sparse::deltas {
 ## # # ## ### ##### ######## ############# #####################
 
 operator image::gradient {
+    note Generator. Returns image containing a linear gradient through all cells
+
     uint   width   Width of the returned image
     uint   height  Height of the returned image
     uint   depth   Depth of the returned image
