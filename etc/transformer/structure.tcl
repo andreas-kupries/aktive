@@ -210,16 +210,73 @@ operator {coorda coordb coordc} {
 # BEWARE: The compression is a simple decimation. The user is responsible for running a
 #         convolution beforehand to avoid/reduce aliasing artifacts.
 
-nyi operator {
-    op::downsample::x
-    op::downsample::y
-    op::downsample::z
+operator {coordinate dimension} {
+    op::downsample::x  x width
+    op::downsample::y  y height
+    op::downsample::z  z depth
 } {
+    note Transformer. Structure. \
+	Return input decimated along the ${coordinate}-axis \
+	according to the sampling factor (>= 1).
+
     input keep
 
     uint n  Sampling factor, range 2...
 
-    # %% TODO %% specify implementation
+    # Factor 1 decimation is no decimation at all
+    simplify for  if {$n == 1}  returns src
+
+    # Chains: decimation factors multiply
+    simplify for  src/type @self \
+	src/value n __n \
+	calc __n {$__n * $n} \
+	src/pop \
+	returns op downsample $coordinate : __n
+
+    set xnext ++ ; set xinit SRC.x
+    set ynext ++ ; set yinit SRC.y
+    set znext ++ ; set zinit 0
+
+    switch -exact -- $coordinate {
+	x { set xnext "+= param->n" }
+	y { set ynext "+= param->n" }
+	z { set znext "+= param->n" }
+    }
+
+    set expansion [dict get {
+	x {
+	    // Rewrite request along x to get enough from the source
+	    request->x     *= param->n;
+	    request->width *= param->n;
+	}
+	y {
+	    // Rewrite request along y to get enough from the source
+	    request->y      *= param->n;
+	    request->height *= param->n;
+	}
+	z {
+	    // Nothing to rewrite for z, depth
+	}
+    } $coordinate]
+
+    state -setup {
+	// could be moved into the cons wrapper created for simplification
+	if (param->n == 0) aktive_fail ("Rejecting undefined decimation by 0");
+
+	aktive_geometry_copy (domain, aktive_image_get_geometry (srcs->v[0]));
+	// Modify dimension according to parameter
+	domain->@@dimension@@ = (domain->@@dimension@@ / param->n) + (0 != (domain->@@dimension@@ % param->n));
+    }
+    pixels {
+	%%expansion%%
+	aktive_block* src = aktive_region_fetch_area (srcs->v[0], request);
+
+	// The source @@coordinate@@ axis is scanned n times faster than the destination
+	@@blitcore@@
+    }   XSRC  srcx   YSRC  srcy   ZSRC  srcz   \
+	XINIT $xinit YINIT $yinit ZINIT $zinit \
+	XNEXT $xnext YNEXT $ynext ZNEXT $znext \
+	%%expansion%% $expansion
 }
 
 nyi operator {

@@ -1,0 +1,96 @@
+# -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
+## (c) 2023 Andreas Kupries
+# # ## ### ##### ######## ############# #####################
+## AKTIVE. Downsampling (decimating) rows, columns, bands
+
+kt check Tcl     8.6
+kt check tcltest 2
+
+# # ## ### ##### ######## ############# #####################
+
+kt local testing aktive
+
+kt source support/util.tcl
+
+# # ## ### ##### ######## ############# #####################
+## Syntax
+
+syntax {
+    x {n src}
+    y {n src}
+    z {n src}
+} {aktive op downsample}
+
+# # ## ### ##### ######## ############# #####################
+##
+# input/gradient 3x4x2
+##
+##       0 ....   1......   2...... - 3 columns
+##     --------  --------  --------
+#	 1  1.5    2  2.5    3  3.5  0
+#	 4  4.5    5  5.5    6  6.5  1
+#	 7  7.5    8  8.5    9  9.5  2
+#	10 10.5   11 11.5   12 12.5  3
+##     --- ----  --- ----  --- ----  \ 4 rows
+##      0. 1...   0. 1...   0. 1... - 2 bands
+#
+# Downsampleing columns, rows, or bands
+
+foreach {op w h d expected} {
+    x 2 4 2 {
+	=  1  1.5 =  3  3.5 =
+	=  4  4.5 =  6  6.5 =
+	=  7  7.5 =  9  9.5 =
+	= 10 10.5 = 12 12.5 =
+    }
+    y 3 2 2 {
+	=  1  1.5 =  2  2.5 =  3  3.5 =
+	=  7  7.5 =  8  8.5 =  9  9.5 =
+    }
+    z 3 4 1 {
+	=  1 =  2 =  3 =
+	=  4 =  5 =  6 =
+	=  7 =  8 =  9 =
+	= 10 = 11 = 12 =
+    }
+} {
+    unset -nocomplain map
+    lappend map /fun    $op
+    lappend map /pixels $expected
+    lappend map /w      $w
+    lappend map /h      $h
+    lappend map /d      $d
+
+    test aktive-op-downsample-${op}-2.0 "aktive op downsample $op 2x" -body {
+	astcl aktive op downsample $op 2 [grad]
+    } -match image -result [string map $map {
+	type   op::downsample::/fun
+	domain {x 0 y 0 width /w height /h depth /d}
+	config {n 2}
+	pixels {/pixels}
+    }]
+
+    test aktive-op-downsample-${op}-2.1 "aktive op downsample $op, dag" -body {
+	dag aktive op downsample $op 2 [grad]
+    } -match glob -result "op::downsample::$op * {n 2} {image::gradient *}"
+
+    set in [grad]
+    set id [aktive query id $in]
+
+    test aktive-op-downsample-${op}-2.2 "aktive op downsample $op, 1x is identity" -body {
+	dag aktive op downsample $op 1 $in
+    } -match glob -result "image::gradient $id *"
+
+    unset map in id
+
+    # Not testing chain reduction for z here, not enough bands in the standard gradient input
+    if {$op eq "z"} continue
+
+    test aktive-op-downsample-${op}-2.3 "aktive op downsample $op, chain reduction, multiplies" -body {
+	dag aktive op downsample $op 3 [aktive op downsample $op 2 [grad]]
+    } -match glob -result "op::downsample::$op * {n 6} {image::gradient *}"
+}
+
+# # ## ### ##### ######## ############# #####################
+cleanupTests
+return

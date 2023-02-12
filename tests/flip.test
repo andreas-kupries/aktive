@@ -72,11 +72,14 @@ foreach {k op expected} {
 	dag aktive op flip $op [grad]
     } -match glob -result [string map $map {op::flip::/fun * {} {image::gradient *}}]
 
-    test aktive-op-flip-${op}-2.2 "aktive op flip $op, self-complementary, chain reduction" -body {
-	dag aktive op flip $op [aktive op flip $op [grad]]
-    } -match glob -result {image::gradient *}
+    set in [grad]
+    set id [aktive query id $in]
 
-    unset map
+    test aktive-op-flip-${op}-2.2 "aktive op flip $op, self-complementary, chain reduction" -body {
+	dag aktive op flip $op [aktive op flip $op $in]
+    } -match glob -result "image::gradient $id *"
+
+    unset map in id
 }
 
 # # ## ### ##### ######## ############# #####################

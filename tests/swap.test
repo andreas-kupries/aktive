@@ -72,11 +72,14 @@ foreach {k op w h d expected} {
 	dag aktive op swap $op [grad]
     } -match glob -result [string map $map {op::swap::/fun * {} {image::gradient *}}]
 
-    test aktive-op-swap-${op}-2.2 "aktive op swap $op, self-complementary, chain reduction" -body {
-	dag aktive op swap $op [aktive op swap $op [grad]]
-    } -match glob -result {image::gradient *}
+    set in [grad]
+    set id [aktive query id $in]
 
-    unset map
+    test aktive-op-swap-${op}-2.2 "aktive op swap $op, self-complementary, chain reduction" -body {
+	dag aktive op swap $op [aktive op swap $op $in]
+    } -match glob -result "image::gradient $id *"
+
+    unset map in id
 }
 
 # TODO :: check with sources translated off the main diagonal
