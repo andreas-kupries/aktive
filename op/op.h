@@ -56,6 +56,11 @@ static double aktive_outside_oc (double x, double low, double high);
 static double aktive_outside_co (double x, double low, double high);
 static double aktive_outside_cc (double x, double low, double high);
 
+#define __aktive_add(a,b) ((a) + (b))
+#define __aktive_div(a,b) ((a) / (b))
+#define __aktive_mul(a,b) ((a) * (b))
+#define __aktive_sub(a,b) ((a) - (b))
+
 /*
  * = = == === ===== ======== ============= =====================
  * Local Variables:

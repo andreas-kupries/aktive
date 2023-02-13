@@ -8,6 +8,17 @@
 ## Operators implemented in Tcl, on top of the C-based builtins
 
 # # ## ### ##### ######## ############# #####################
+## Extended math
+
+namespace eval aktive::math {
+    namespace export difference screen
+    namespace ensemble create
+}
+
+proc aktive::math::difference {a b} { return [aktive math1 abs [sub $a $b]] }
+proc aktive::math::screen     {a b} { return [sub [add $a $b] [mul $a $b]] }
+
+# # ## ### ##### ######## ############# #####################
 ## Split into rows, columns, or bands
 
 namespace eval aktive::op {
@@ -70,8 +81,8 @@ namespace eval aktive::op {
     namespace ensemble create
 }
 
-proc aktive::op::transpose  {src} { aktive op swap xy $src }
-proc aktive::op::transverse {src} { aktive op flip x [aktive op flip y [aktive op swap xy $src]] }
+proc aktive::op::transpose  {src} { swap xy $src }
+proc aktive::op::transverse {src} { flip x [flip y [swap xy $src]] }
 
 # # ## ### ##### ######## ############# #####################
 return

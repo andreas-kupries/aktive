@@ -452,7 +452,7 @@ proc dsl::writer::Operators {} {
     set nl [Maxlength $names]
 
     foreach op $names {
-	set notes [lindex [dict get [Get ops $op] notes] 0]
+	set notes [join [lindex [dict get [Get ops $op] notes] 0] { }]
 	+ "[PadR $nl $op] :: $notes"
     }
     Done
