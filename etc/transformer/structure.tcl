@@ -217,11 +217,11 @@ operator {coordinate dimension} {
 } {
     note Transformer. Structure. \
 	Return input decimated along the ${coordinate}-axis \
-	according to the sampling factor (>= 1).
+	according to the decimation factor (>= 1).
 
     input keep
 
-    uint n  Sampling factor, range 2...
+    uint n  Decimation factor, range 2...
 
     # Factor 1 decimation is no decimation at all
     simplify for  if {$n == 1}  returns src
@@ -232,6 +232,16 @@ operator {coordinate dimension} {
 	calc __n {$__n * $n} \
 	src/pop \
 	returns op downsample $coordinate : __n
+
+    # Chains: decimation of a stretch with the same factor is identity
+    # The reverse is __not__ true (unrecoverable information loss in the decimation)
+    simplify for  src/type op::upsample::$coordinate \
+	src/value n __n \
+	if {$__n == $n}	src/pop   returns src
+
+    simplify for  src/type op::upsample::${coordinate}rep \
+	src/value n __n \
+	if {$__n == $n}	src/pop   returns src
 
     set xnext ++ ; set xinit SRC.x
     set ynext ++ ; set yinit SRC.y
@@ -265,7 +275,8 @@ operator {coordinate dimension} {
 
 	aktive_geometry_copy (domain, aktive_image_get_geometry (srcs->v[0]));
 	// Modify dimension according to parameter
-	domain->@@dimension@@ = (domain->@@dimension@@ / param->n) + (0 != (domain->@@dimension@@ % param->n));
+	domain->@@dimension@@ = (domain->@@dimension@@ / param->n) +
+		(0 != (domain->@@dimension@@ % param->n));
     }
     pixels {
 	%%expansion%%
@@ -279,17 +290,118 @@ operator {coordinate dimension} {
 	%%expansion%% $expansion
 }
 
-nyi operator {
-    op::upsample::x
-    op::upsample::y
-    op::upsample::z
+operator {coordinate dimension} {
+    op::upsample::x  x width
+    op::upsample::y  y height
+    op::upsample::z  z depth
 } {
-    input keep-pass
+    note Transformer. Structure. \
+	Returns input stretched along the ${coordinate}-axis \
+	according to the stretching factor (>= 1).
 
-    uint      n     Sampling factor, range 2...
-    double? 0 fill  Pixel fill value
+    note The gaps are set to the specified fill value.
 
-    # %% TODO %% specify implementation
+    input keep
+
+    uint   n     Stretch factor, range 2...
+    double fill  Pixel fill value
+
+    # Factor 1 stretching is no stretch at all
+    simplify for  if {$n == 1}  returns src
+
+    # Chains: stretch factors multiply, however if and only if the fill values match
+    simplify for  src/type @self \
+	src/value fill __fill \
+	if {$__fill == $fill} \
+	src/value n __n \
+	calc __n {$__n * $n} \
+	src/pop \
+	returns op upsample $coordinate : __n __fill
+
+    # Chains: stretching a decimation is __not__ identity. Stretching cannot recover the
+    # information lost in the decimation.
+
+    state -setup {
+	// could be moved into the cons wrapper created for simplification
+	if (param->n == 0) aktive_fail ("Rejecting undefined stretching by 0");
+
+	aktive_geometry_copy (domain, aktive_image_get_geometry (srcs->v[0]));
+	// Modify dimension according to parameter
+	domain->@@dimension@@ *= param->n;
+    }
+
+    # DST - example: x, factor 5
+    #
+    # 0         1         2         3         4
+    # 0123456789012345678901234567890123456789
+    # S....S....S....S....S....S....S....S....
+    # 0    1    2    3    4    5    6    7
+    #        |--------|
+    # 01234567
+    #   ||
+    #
+    # Request :: (x7, w10)   = (x7, xmax16)
+    # Source  :: (x2, xmax3) = (x2, w2)
+    # Actual DST.x = 10 = 7 + ((5 - 7%5) %5)
+    #
+    # The actual dst x is shifted to align to the stretch grid in the destination.
+    #
+    # X % 5 | Correction ((5 - x%5) %5)
+    # ----- + -------------------------
+    # 0     | 0            5        0
+    # 1     | 4            4        4
+    # 2     | 3            3        3
+    # 3     | 2            2        2
+    # 4     | 1            1        1
+    # ----- + -------------------------
+
+    set xnext ++ ; set xinit DST.x	;# relative phase important!
+    set ynext ++ ; set yinit DST.y	;# relative phase important!
+    set znext ++ ; set zinit 0
+
+    switch -exact -- $coordinate {
+	x { set xnext "+= param->n" ; set xinit "(DST.x + ((param->n - (DST.x % param->n)) % param->n))" }
+	y { set ynext "+= param->n" ; set yinit "(DST.y + ((param->n - (DST.y % param->n)) % param->n))" }
+	z { set znext "+= param->n" ; set zinit "0" }
+    } ;#                                         0 + ((param->n - (    0 % param->n)) % param->n)
+    #                                            0 + ((param->n - (    0           )) % param->n)
+    #                                            0 + ( param->n                       % param->n)
+    #                                            0 + ( 0                                        )
+    #                                            0
+
+    set shrink [dict get {
+	x {
+	    // Rewrite request along x to get enough from the source
+	    request->x     /= param->n;
+	    request->width /= param->n;
+	}
+	y {
+	    // Rewrite request along y to get enough from the source
+	    request->y      /= param->n;
+	    request->height /= param->n;
+	}
+	z {
+	    // Nothing to rewrite for z, depth
+	}
+    } $coordinate]
+
+
+    pixels {
+	%%shrink%%
+	aktive_block* src = aktive_region_fetch_area (srcs->v[0], request);
+
+	// Blank the region with the fill value first. That way the next operation
+	// is able to write to just the needed parts of the destination without
+	// having to care about gaps.
+	aktive_blit_fill (block, dst, param->fill);
+
+	// The destination @@coordinate@@ axis is scanned n times faster than the source.
+	// The destination location is snapped forward to the grid.
+	@@blitcore/dst@@
+    }   XDST  dstx   YDST  dsty   ZDST  dstz   \
+	XINIT $xinit YINIT $yinit ZINIT $zinit \
+	XNEXT $xnext YNEXT $ynext ZNEXT $znext \
+	%%shrink%% $shrink
 }
 
 nyi operator {
@@ -297,9 +409,64 @@ nyi operator {
     op::upsample::yrep
     op::upsample::zrep
 } {
+    note Transformer. Structure. \
+	Returns input stretched along the ${coordinate}-axis \
+	according to the stretching factor (>= 1), replicating input.
+
     input keep
 
-    uint n  Sampling factor, range 2...
+    uint n  Stretch factor, range 2...
+
+    # Factor 1 stretching is no stretch at all
+    simplify for  if {$n == 1}  returns src
+
+    # Chains: stretch factors multiply
+    simplify for  src/type @self \
+	src/value n __n \
+	calc __n {$__n * $n} \
+	src/pop \
+	returns op upsample ${coordinate}rep : __n
+
+    state -setup {
+	// could be moved into the cons wrapper created for simplification
+	if (param->n == 0) aktive_fail ("Rejecting undefined stretching by 0");
+
+	aktive_geometry_copy (domain, aktive_image_get_geometry (srcs->v[0]));
+	// Modify dimension according to parameter
+	domain->@@dimension@@ *= domain->@@dimension@@ / param->n;
+    }
+
+    # The gridding here is more complex because we have fill the gaps ourselves -- regular
+    # steps in the destination instead of skip step, with associated no step in source --
+    # The partial sequence at the start, when the request is not aligned to the grid,
+    # looks to be particular bothersome.
+
+    # DST - example: x, factor 5
+    #
+    # 0         1         2         3         4
+    # 0123456789012345678901234567890123456789
+    # S....S....S....S....S....S....S....S....
+    # 0    111112222233   4    5    6    7
+    #        |--------|
+    # 01234567
+    #  |-|
+    #
+    # Request :: (x7, w10)   = (x7, xmax16)
+    # Source  :: (x1, xmax3) = (x1, w3)
+    # Actual DST.x = 10 = 7 - 7%5
+    # Initial phase  2=7%2 per row (whatever is stretched)
+    #
+    # The actual dst x is shifted to align to the stretch grid in the destination.
+    #
+    # X % 5 | Correction ((5 - x%5) %5)
+    # ----- + -------------------------
+    # 0     | 0            5        0
+    # 1     | 4            4        4
+    # 2     | 3            3        3
+    # 3     | 2            2        2
+    # 4     | 1            1        1
+    # ----- + -------------------------
+
 
     # %% TODO %% specify implementation
 }

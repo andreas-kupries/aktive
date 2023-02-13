@@ -55,7 +55,7 @@ proc show {i} {
 }
 
 set g [aktive image gradient 3 4 2  1 12.5]
-set c [aktive image constant 3 4 2 -6]
+#set c [aktive image constant 3 4 2 -6]
 
 # input/gradient 3x4x2
 ##
@@ -73,7 +73,15 @@ set c [aktive image constant 3 4 2 -6]
 #  12 13 14 15 16 17
 #  18 19 29 21 22 23
 
-show [aktive image constant     4 6 1  NaN]
+set op x
+show [aktive op upsample $op 2 0 $g]
+exit
+
+show [aktive op upsample $op 3 0 [aktive op upsample $op 2 0 $g]]
+set op y
+show [aktive op upsample $op 3 0 [aktive op upsample $op 2 0 $g]]
+set op z
+show [aktive op upsample $op 3 0 [aktive op upsample $op 2 0 $g]]
 
 exit
 
@@ -83,6 +91,7 @@ exit
 #show $g
 #show [aktive op swap yz $g]
 #show [aktive op flip y [aktive op flip z [aktive op flip x $g]]]
+#show [aktive image constant     4 6 1  NaN]
 
 show $c
 show [aktive op math1 abs $c]
