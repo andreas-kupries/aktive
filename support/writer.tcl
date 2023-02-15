@@ -25,6 +25,7 @@ proc dsl::writer::Clear {stem} {
 }
 
 proc dsl::writer::Emit {stem} {
+    Into ${stem}todo.txt              Todo               ;# List of skipped operators (`nyi`)
     Into ${stem}operators.txt         Operators          ;# List of operators
     #
     Into ${stem}param-types.h         ParamTypes         ;# typedefs
@@ -43,7 +44,8 @@ proc dsl::writer::Emit {stem} {
     Into ${stem}op-funcs.h            OperatorSignatures ;# signatures
     Into ${stem}op-funcs.c            OperatorFunctions  ;# implementations
     #
-    Into ${stem}glue.tcl              OperatorCprocs     ;# Tcl commands
+    Into ${stem}glue.tcl              OperatorCprocs     ;# Tcl commands for C
+    Into ${stem}ops.tcl               OperatorTclProcs   ;# Tcl commands
     Into ${stem}overlay.tcl           OperatorOverlays   ;# Constructor wrappers
     Into ${stem}wraplist.txt          OperatorWrapRecord ;# List of wrap elements
     Into ${stem}ensemble.tcl          OperatorEnsemble   ;# Command ensemble
@@ -445,15 +447,32 @@ proc dsl::writer::TypeFunctions {} {
 # # ## ### ##### ######## #############
 ## Main emitter commands -- Operators
 
-proc dsl::writer::Operators {} {
-    if {![llength [Operations]]} return
+proc dsl::writer::Todo {} {
+    if {![llength [Get todos]]} return
 
-    set names [lmap op [Operations] { set op }]
+    foreach todo [lsort -dict [Get todos]] {
+	+ $todo
+    }
+    Done
+}
+
+proc dsl::writer::Operators {} {
+    if {![llength [Operations]] &&
+	![llength [TclOperations]]
+    } return
+
+    set names [lmap op [Operations] { dict set c $op . ; set op }]
+    foreach op [TclOperations] { lappend names $op }
+
     set nl [Maxlength $names]
 
-    foreach op $names {
-	set notes [join [lindex [dict get [Get ops $op] notes] 0] { }]
-	+ "[PadR $nl $op] :: $notes"
+    foreach op [lsort -dict $names] {
+	if {[dict exists $c $op]} {
+	    set notes [join [lindex [dict get [Get ops $op] notes] 0] { }]
+	    + "[PadR $nl $op] :: (C)   :: $notes"
+	} else {
+	    + "[PadR $nl $op] :: (Tcl)"
+	}
     }
     Done
 }
@@ -1249,7 +1268,7 @@ proc dsl::writer::FunctionBodyImageConstructor {op spec} {
 
 	if {([llength $images] == 1) && [dict get [lindex $images 0] args]} {
 	    # case 2
-	    append call ", args"
+	    append call ", srcs"
 	} else {
 	    # case 1
 	    set arity [llength $images]
@@ -1370,6 +1389,10 @@ proc dsl::writer::TranslateHint {cmd args} {
 	    set action [lassign $args a b]
 	    return "$cmd $a $b [TranslateHint {*}$action]"
 	}
+	input/count {
+	    set action [lassign $args var]
+	    return "$cmd $var [TranslateHint {*}$action]"
+	}
 	calc {
 	    set action [lassign $args var expr]
 	    return "calc $var [list $expr] [TranslateHint {*}$action]"
@@ -1441,14 +1464,34 @@ proc dsl::writer::OperatorWrapRecord {} {
     Done
 }
 
+proc dsl::writer::OperatorTclProcs {} {
+    if {![llength [TclOperations]]} return
+
+    TclHeader {Operators purely implemented in Tcl}
+
+    foreach op [TclOperations] {
+	set spec [TclOpSpec $op]
+	dict with spec {}
+	# args, body
+
+	TclComment "--- --- --- --- --- --- --- --- ---"
+	TclComment "Operator `$op` ..."
+
+	+ {}
+	+ [list proc aktive::$op $args $body]
+	+ {}
+    }
+
+    Done
+}
 
 proc dsl::writer::OperatorEnsemble {} {
-    if {![llength [Operations]]} return
+    if {![llength [Operations]] &&
+	![llength [TclOperations]]
+    } return
 
-    foreach op [Operations] {
-	set op [string map {:: { }} aktive::$op]
-	dict set n {*}$op .
-    }
+    foreach op [Operations]    { dict set n {*}[string map {:: { }} aktive::$op] . }
+    foreach op [TclOperations] { dict set n {*}[string map {:: { }} aktive::$op] . }
 
     TclHeader {Ensemble setup}
 
@@ -1509,6 +1552,9 @@ proc dsl::writer::ParameterCType      {argspec} {
     }
     return $ctype
 }
+
+proc dsl::writer::TclOperations {}   { lsort -dict [dict keys [Get tops]] }
+proc dsl::writer::TclOpSpec     {op} { Get tops $op }
 
 proc dsl::writer::Operations    {}   { lsort -dict [dict keys [Get ops]] }
 proc dsl::writer::OpHasParams   {op} { llength [OpParams $op] }

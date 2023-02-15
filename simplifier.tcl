@@ -18,7 +18,7 @@ namespace eval aktive::simplify {
     namespace export \
 	do src/type src/const param/eq param/lt param/gt iff \
 	\
-	src/value src/attr src/pop calc \
+	input/count src/value src/attr src/pop calc \
 	\
 	/src /src/child /const /constv /op /unary0 /unary1 /unary2 \
 	/fold/constant/0 /fold/constant/1 /fold/constant/2 \
@@ -96,14 +96,20 @@ proc aktive::simplify::iff {expr args} {
 # # ## ### ##### ######## ############# #####################
 ## non-image actions
 
+proc aktive::simplify::input/count {varname args} {
+    upvar 1 $varname dst
+    set dst [llength $args]
+    uplevel 1 [list aktive simplify {*}$args]
+}
+
 proc aktive::simplify::src/value {param vardst args} {
-    upvar src src $vardst dst
+    upvar 1 src src $vardst dst
     set dst [dict get [aktive query params $src] $param]
     uplevel 1 [list aktive simplify {*}$args]
 }
 
 proc aktive::simplify::src/attr {attr vardst args} {
-    upvar src src $vardst dst
+    upvar 1 src src $vardst dst
     set dst [aktive query $attr $src]
     uplevel 1 [list aktive simplify {*}$args]
 }

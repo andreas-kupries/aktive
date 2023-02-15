@@ -23,6 +23,11 @@ proc dsl::reader::do {package specification} {
     puts "Reading [blue $specification]"
 
     source $specification
+
+    if {[llength [Get todos]]} {
+	puts "[cyan "Skipped definitions"]: [red [llength [Get todos]]] noted in [blue todo.txt]"
+    }
+
     ::return $state
 }
 
@@ -99,6 +104,12 @@ proc dsl::reader::vector {args} { ;#puts [info level 0]
     }
 }
 
+proc dsl::reader::tcl-operator {name args body} { ;#puts [info level 0]
+    # A wrapper of `proc` to make things visible to the generator
+    Set tops $name args $args
+    Set tops $name body $body
+}
+
 proc dsl::reader::operator {args} { ;#puts [info level 0]
     switch -- [llength $args] {
 	2       { Operator {} {*}$args }
@@ -115,12 +126,14 @@ proc dsl::reader::nyi {args} { ;#puts [info level 0]
 	    4 {
 		lassign $args _ vars values _
 		foreach [list __op {*}$vars] $values {
-		    puts "  Skipped $cmd [cyan $__op]"
+		    #puts "  Skipped $cmd [cyan $__op]"
+		    Lappend todos $__op
 		}
 	    }
 	    3 {
 		foreach name [lindex $args 1] {
-		    puts "  Skipped $cmd [cyan $name]"
+		    #puts "  Skipped $cmd [cyan $name]"
+		    Lappend todos $name
 		}
 	    }
 	}
@@ -343,6 +356,10 @@ proc dsl::reader::Param {type mode dvalue name args} { ;#puts [info level 0]
 # # ## ### ##### ######## #############
 ## Messaging
 
+proc dsl::reader::red {message} {
+    string cat \033\[31m$message\033\[0m
+}
+
 proc dsl::reader::blue {message} {
     string cat \033\[34m$message\033\[0m
 }
@@ -412,14 +429,16 @@ proc dsl::reader::FormatCode {code} {
 
 proc dsl::reader::Init {package} {
     variable state {
+	argspec {}
+	blocks  {}
+	imspec  {}
+	opname  {}
+	ops     {}
+	opspec  {blocks {}}
+	todos   {}
+	tops    {}
 	types   {}
 	vectors {}
-	blocks  {}
-	ops     {}
-	opname  {}
-	opspec  {blocks {}}
-	argspec {}
-	imspec  {}
     }
     dict set state package $package
 }
@@ -461,18 +480,24 @@ proc dsl::reader::Has {args} {
 # ... ... ... ingestion commands ... ... ... ... ... ...
 ## Data
 ##  - name
+##  - todos   :: list (string)
 ##  - types   :: dict (typename -> typespec)
 ##  - vectors :: dict (typename -> imported)
 ##  - blocks  :: dict (name -> c-code-fragment)
 ##  - ops     :: dict (opname -> opspec)
+##  - tops    :: dict (opname -> topspec)
 ##  - opname  :: string               [Only during collection]
 ##  - opspec  :: dict (key -> value)  [Only during collection]
 ##
 ## typespec keys
-##  - imported
-##  - critcl
-##  - ctype
-##  - conversion
+##  - imported   :: bool
+##  - critcl     :: string
+##  - ctype      :: string
+##  - conversion :: string
+##
+## topspec keys
+##  - args :: list (string)
+##  - body :: string
 ##
 ## opspec keys
 ##  - blocks   :: dict (name -> c-code-fragment)
