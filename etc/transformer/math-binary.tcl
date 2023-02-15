@@ -3,6 +3,17 @@
 ## Image transformer - Binary math (pixel wise)
 
 # # ## ### ##### ######## ############# #####################
+## Highlevel operations implemented on top of the C core
+
+tcl-operator op::math::difference {a b} {
+    return [aktive math1 abs [sub $a $b]]
+}
+
+tcl-operator op::math::screen {a b} {
+    return [sub [add $a $b] [mul $a $b]]
+}
+
+# # ## ### ##### ######## ############# #####################
 ## Binary without parameters
 
 operator {cfunction dexpr} {

@@ -250,6 +250,12 @@ operator {coorda coordb coordc} {
 #
 # BEWARE: The compression is a simple decimation. The user is responsible for running a
 #         convolution beforehand to avoid/reduce aliasing artifacts.
+#
+## TODO OPTIMIZATION :: do not query input for full rectangle - ask just for desired points
+##                   :: -- because most of the input data is thrown away --
+##                   :: NOTE - placement of decimation into runtime functions
+##                   :: i.e. ...fetch_decimated ... complicates inputs, making them
+##                   :: aware of decimation, i.e. load is on them.
 
 operator {coordinate dimension} {
     op::downsample::x  x width
