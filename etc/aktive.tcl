@@ -31,6 +31,8 @@ type take-channel  -                  Tcl_Channel {Tcl_NewStringObj (Tcl_GetChan
 type pgm_variant   aktive_pgm_variant -           {aktive_pgm_variant_pool (interp, *value)}
 type ppm_variant   aktive_ppm_variant -           {aktive_ppm_variant_pool (interp, *value)}
 
+vector int
+
 # # ## ### ##### ######## ############# #####################
 
 import other/point.tcl

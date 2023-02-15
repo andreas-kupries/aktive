@@ -36,17 +36,17 @@ syntax {
 #
 # Selecting column, row, or band 1
 
-foreach {k op dim thing domain expected} {
-    0 x width column {x 1 y 0 width 1 height 4 depth 2} {
+foreach {op dim thing domain expected} {
+    x width column {x 1 y 0 width 1 height 4 depth 2} {
 	2  2.5
 	5  5.5
 	8  8.5
 	11 11.5
     }
-    1 y height row {x 0 y 1 width 3 height 1 depth 2} {
+    y height row {x 0 y 1 width 3 height 1 depth 2} {
 	4 4.5 = 5 5.5 = 6 6.5
     }
-    2 z depth band {x 0 y 0 width 3 height 4 depth 1} {
+    z depth band {x 0 y 0 width 3 height 4 depth 1} {
 	=  1.5 =  2.5 =  3.5 =
 	=  4.5 =  5.5 =  6.5 =
 	=  7.5 =  8.5 =  9.5 =

@@ -1,0 +1,62 @@
+# -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
+## (c) 2023 Andreas Kupries
+# # ## ### ##### ######## ############# #####################
+## AKTIVE. Rotating by multiples of 90 degrees (90, 180, 270)
+
+kt check Tcl     8.6
+kt check tcltest 2
+
+# # ## ### ##### ######## ############# #####################
+
+kt local testing aktive
+
+kt source support/util.tcl
+
+# # ## ### ##### ######## ############# #####################
+## Syntax
+
+syntax {
+    cw   src
+    ccw  src
+    half src
+} {aktive op rotate}
+
+# # ## ### ##### ######## ############# #####################
+##
+# input/gradient 3x4x2
+##
+##       0 ....   1......   2...... - 3 columns
+##     --------  --------  --------
+#	 1  1.5    2  2.5    3  3.5  0
+#	 4  4.5    5  5.5    6  6.5  1
+#	 7  7.5    8  8.5    9  9.5  2
+#	10 10.5   11 11.5   12 12.5  3
+##     --- ----  --- ----  --- ----  \ 4 rows
+##      0. 1...   0. 1...   0. 1... - 2 bands
+
+foreach {op expected} {
+    cw {
+	= 10 10.5 = 7 7.5 = 4 4.5 = 1 1.5 =
+	= 11 11.5 = 8 8.5 = 5 5.5 = 2 2.5 =
+	= 12 12.5 = 9 9.5 = 6 6.5 = 3 3.5 =
+    }
+    ccw {
+	= 3 3.5 = 6 6.5 = 9 9.5 = 12 12.5 =
+	= 2 2.5 = 5 5.5 = 8 8.5 = 11 11.5 =
+	= 1 1.5 = 4 4.5 = 7 7.5 = 10 10.5 =
+    }
+    half {
+	= 12 12.5 = 11 11.5 = 10 10.5 =
+	=  9  9.5 =  8  8.5 =  7  7.5 =
+	=  6  6.5 =  5  5.5 =  4  4.5 =
+	=  3  3.5 =  2  2.5 =  1  1.5 =
+    }
+} {
+    test aktive-op-rotate-${op}-2.0 "aktive op rotate $op" -body {
+	dict get [astcl aktive op rotate $op [grad]] pixels
+    } -match pixels -result $expected
+}
+
+# # ## ### ##### ######## ############# #####################
+cleanupTests
+return

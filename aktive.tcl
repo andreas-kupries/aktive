@@ -97,12 +97,12 @@ critcl::cheaders op/*.h
 # Types    ##### ######## ############# #####################
 
 critcl::source  op/types.tcl                    ;# Operator support
-#critcl::include generated/vector-types.h        ;# Variadic support
+critcl::include generated/vector-types.h        ;# Variadic support
 critcl::include generated/param-types.h         ;# Parameter blocks
 
 # Function declarations # ############# #####################
 
-#critcl::include generated/vector-funcs.h        ;# Variadic support
+critcl::include generated/vector-funcs.h        ;# Variadic support
 critcl::include generated/param-funcs.h         ;# Parameter block variadic init/finish
 critcl::include generated/type-funcs.h          ;# Type conversions
 critcl::include generated/op-funcs.h            ;# Operators
@@ -115,7 +115,7 @@ critcl::include generated/param-descriptors.c   ;# Parameter block descriptors
 
 critcl::include op/op.c                         ;# Operator support
 critcl::source  op/math.tcl                     ;# Extended math function support
-#critcl::include generated/vector-funcs.c        ;# Variadic support
+critcl::include generated/vector-funcs.c        ;# Variadic support
 critcl::include generated/param-funcs.c         ;# Parameter block variadic init/finish
 critcl::include generated/type-funcs.c          ;# Type conversions
 critcl::include generated/op-funcs.c            ;# Operators
@@ -127,9 +127,9 @@ critcl::source   generated/glue.tcl             ;# Tcl-level operator constructi
 critcl::tsources generated/overlay.tcl		;# Peep-hole optimizer overlays
 critcl::tsources generated/ensemble.tcl         ;# Command hierarchy for preceding
 #                                               ;# Pure Tcl commands
-critcl::tsources version.tcl			;# - Version info
-critcl::tsources simplifier.tcl			;# - Simplifier runtime used in overlays.tcl
-critcl::tsources op/ops.tcl                     ;# - Operators built in Tcl
+critcl::tsources generated/ops.tcl              ;# - Operators built in Tcl
+critcl::tsources version.tcl			;# - Version info command
+critcl::tsources simplifier.tcl			;# - Simplifier runtime used by overlay.tcl
 
 # # ## ### ##### ######## ############# #####################
 ## Build binaries now, without deferal.

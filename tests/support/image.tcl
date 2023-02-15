@@ -3,7 +3,9 @@
 # # ## ### ##### ######## ############# #####################
 ## Test Utility Commands -- Image Matching
 
-customMatch image matchImage
+customMatch image   matchImage
+customMatch listpix matchPixelLists
+customMatch pixels  matchPixels
 
 # Force image Tcl representation
 proc astcl  {args} { astcl/ [{*}$args] }
@@ -24,7 +26,7 @@ proc matchNdigits {n expected actual} {
     set x 1e-$n
     foreach a $actual e $expected {
         if {abs($e-$a) > $x} {
-	    #puts MF|$e|$a|[expr {abs($e-$a)}]|$x|
+	    #puts MISMATCH-FP$n|$e|$a|[expr {abs($e-$a)}]|$x|
 	    return 0
         }
     }
@@ -77,12 +79,7 @@ proc matchImage {expected actual} {
 		}
 	    }
 	    pixels {
-		# strip non numeric elements used to highlight structue (band separation, ...).
-		# only used in the expected value, nicer to be symmetric.
-		set evalue [lmap v $evalue { if {![string is double $v]} continue ; set v }]
-		set avalue [lmap v $avalue { if {![string is double $v]} continue ; set v }]
-
-		if {![matchNdigits 4 $evalue $avalue]} {
+		if {![matchPixels $evalue $avalue]} {
 		    #puts "image pixels"
 		    return 0
 		}
@@ -91,4 +88,31 @@ proc matchImage {expected actual} {
     }
 
     return 1
+}
+
+proc matchPixelLists {expected actual} {
+    if {[llength $expected] != [llength $actual]} { return 0 }
+
+    foreach evalue $expected avalue $actual {
+	if {![matchPixels $evalue $avalue]} { return 0 }
+    }
+
+    return 1
+}
+
+proc matchPixels {expected actual} {
+    # strip non numeric elements used to highlight structue (band separation, ...).
+    # only used in the expected value, nicer to be symmetric.
+
+    set expected [lmap v $expected { if {![string is double $v]} continue ; set v }]
+    set actual   [lmap v $actual   { if {![string is double $v]} continue ; set v }]
+
+    if {[llength $expected] != [llength $actual]} {
+	# puts XXXXX\t/[llength $expected]/ne/[llength $actual]/
+	return 0
+    }
+
+    set ok [matchNdigits 4 $expected $actual]
+    #if {!$ok} { puts XXXXX\t/digits }
+    return $ok
 }
