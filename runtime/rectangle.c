@@ -39,45 +39,6 @@ extern Tcl_Obj* aktive_new_rectangle_obj(aktive_rectangle* r) {
  * - - -- --- ----- -------- -------------
  */
 
-extern void
-aktive_rectangle_set (aktive_rectangle* dst, int x, int y, aktive_uint w, aktive_uint h)
-{
-    TRACE_FUNC("((dst*) %p = %d %d : %u %u)", dst, x, y, w, h);
-    
-    dst->x      = x;
-    dst->y      = y;
-    dst->width  = w;
-    dst->height = h;
-
-    TRACE_RETURN_VOID;
-}
-
-extern void
-aktive_rectangle_copy (aktive_rectangle* dst, aktive_rectangle* src)
-{
-    TRACE_FUNC("((dst*) %p = (src*) %p)", dst, src);
-    
-    *dst = *src;
-
-    TRACE_RETURN_VOID;
-}
-
-extern void
-aktive_rectangle_set_point (aktive_rectangle* dst, aktive_point* src)
-{
-    aktive_point_copy ((aktive_point*) dst, src);
-}
-
-extern void
-aktive_rectangle_from_geometry (aktive_rectangle* dst, aktive_geometry* src)
-{
-    aktive_rectangle_copy (dst, (aktive_rectangle*) src);
-}
-
-/*
- * - - -- --- ----- -------- -------------
- */
-
 extern int
 aktive_rectangle_is_equal (aktive_rectangle* a, aktive_rectangle* b)
 {
