@@ -8,6 +8,10 @@ proc grad  {}  { aktive image gradient 3 4 2  1 12.5 }
 proc bands {}  { aktive image const bands 4 2  1 2 3 }
 proc matrix {} { aktive image const matrix 4 2  1 2 3 4  5 6 7 8 }
 
+proc gradx {} { aktive image gradient 20 1 1  0 19 }
+proc grady {} { aktive image gradient 1 20 1  0 19 }
+proc gradx {} { aktive image gradient 1 1 20  0 19 }
+
 # input/gradient 3x4x2
 ##
 ##       0 ....   1......   2...... --- 3 columns
