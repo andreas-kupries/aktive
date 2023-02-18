@@ -68,10 +68,6 @@ operator {                    function              mathfunc     dexpr classes} 
     pixels {
 	aktive_blit_unary0 (block, dst, @@function@@, aktive_region_fetch_area (srcs->v[0], request));
     }
-
-    # TODO :: consider generation of the blit implementation through the DSL.   -- note /blitcore/ block --
-    # TODO :: would allow macro for ops, inlined, more compiler optimizations?
-    # TODO :: defered for now until benchmarks prove it necessary - do threading first
 }
 
 ##
@@ -153,10 +149,6 @@ operator {                    function      mathfunc flip dexpr      pname     p
     pixels {
 	aktive_blit_unary1 (block, dst, @@function@@, param->@@pname@@, aktive_region_fetch_area (srcs->v[0], request));
     }
-
-    # TODO :: consider generation of the blit implementation through the DSL.   -- note /blitcore/ block --
-    # TODO :: would allow macro for ops, inlined, more compiler optimizations?
-    # TODO :: defered for now until benchmarks prove it necessary - do threading first
 }
 
 ##
@@ -164,17 +156,20 @@ operator {                    function      mathfunc flip dexpr      pname     p
 ## Unary with two parameters
 
 operator {function lowkind highkind mode} {
-    op::math::inside-oo  aktive_inside_oo  open   open   inside
-    op::math::inside-oc	 aktive_inside_oc  open   closed inside
-    op::math::inside-co	 aktive_inside_co  closed open   inside
-    op::math::inside-cc	 aktive_inside_cc  closed closed inside
+    op::math::inside-oo   aktive_inside_oo  open   open   inside
+    op::math::inside-oc	  aktive_inside_oc  open   closed inside
+    op::math::inside-co	  aktive_inside_co  closed open   inside
+    op::math::inside-cc	  aktive_inside_cc  closed closed inside
 
-    op::math::outside-oo aktive_outside_oo open   open   outside
-    op::math::outside-oc aktive_outside_oc open   closed outside
-    op::math::outside-co aktive_outside_co closed open   outside
-    op::math::outside-cc aktive_outside_cc closed closed outside
+    op::math::outside-oo  aktive_outside_oo open   open   outside
+    op::math::outside-oc  aktive_outside_oc open   closed outside
+    op::math::outside-co  aktive_outside_co closed open   outside
+    op::math::outside-cc  aktive_outside_cc closed closed outside
 } {
-    note Transformer. Performs a double sided thresholding against the $lowkind/$highkind interval given by the two boundaries.
+    note Transformer. \
+	Performs a double sided thresholding against the \
+	$lowkind/$highkind interval given by the two boundaries.
+
     note Values $mode the interval are indicated in the result.
     note The resulting image has the same geometry as the input.
 
@@ -185,8 +180,8 @@ operator {function lowkind highkind mode} {
 
     simplify for   constant $function low high
 
-    # TODO Chain reduction is possible -- new operator takes in the information from the
-    # TODO input, and stacks on the input/child, ignoring the input.
+    # TODO *side-* Chain reduction is possible -- new operator takes in the information
+    # TODO from the input, and stacks on the input/child, ignoring the input.
 
     state -setup {
 	aktive_geometry_copy (domain, aktive_image_get_geometry (srcs->v[0]));
@@ -195,10 +190,6 @@ operator {function lowkind highkind mode} {
 	aktive_blit_unary2 (block, dst, @@function@@, param->low, param->high,
 			    aktive_region_fetch_area (srcs->v[0], request));
     }
-
-    # TODO :: consider generation of the blit implementation through the DSL.   -- note /blitcore/ block --
-    # TODO :: would allow macro for ops, inlined, more compiler optimizations?
-    # TODO :: defered for now until benchmarks prove it necessary - do threading first
 }
 
 ##

@@ -154,19 +154,38 @@ operator coordinate {
     # flips are self-complementary
     simplify for   src/type @self   returns src/child
 
-    # Set up the loop configuration.
-    # Default is regular scan for all axes.
-    # After that the flipped axis is configured for reverse scan.
-
-    set xnext ++ ; set xinit SRC.x
-    set ynext ++ ; set yinit SRC.y
-    set znext ++ ; set zinit 0
-
-    switch -exact -- $coordinate {
-	x { set xnext -- ; set xinit "(SRC.x + SRC.width  - 1)" }
-	y { set ynext -- ; set yinit "(SRC.y + SRC.height - 1)" }
-	z { set znext -- ; set zinit "(SRC.depth - 1)"          }
+    # base blitter setup
+    set blitspec {
+	{DH {y 0 1 up} {y 0 1 up}}
+	{DW {x 0 1 up} {x 0 1 up}}
+	{DD {z 0 1 up} {z 0 1 up}}
     }
+    # ... invert specific axis
+    switch -exact -- $coordinate {
+	y { lset blitspec 0 2 3 down }
+	x { lset blitspec 1 2 3 down }
+	z { lset blitspec 2 2 3 down }
+    }
+    # ... generate code
+    blit flipper $blitspec copy
+
+    def rewrite [dict get {
+	x {
+	    // Flip the request before passing it on.
+	    int newx = idomain->width - 1 - aktive_rectangle_get_xmax (request);
+	    TRACE ("flip x %d --> (%d-1-%d) %d", request->x, idomain->width, aktive_rectangle_get_xmax (request), newx);
+	    request->x = newx;
+	}
+	y {
+	    // Flip the request before passing it on.
+	    int newy = idomain->height - 1 - aktive_rectangle_get_ymax (request);
+	    TRACE ("flip y %d --> (%d-1-%d) %d", request->y, idomain->width, aktive_rectangle_get_ymax (request), newy);
+	    request->y = newy;
+	}
+	z {
+	    // Nothing to flip, depth requests are never partial
+	}
+    } $coordinate]
 
     state -setup {
 	// The geometry and location are unchanged. Only the internal arrangement of the
@@ -174,13 +193,12 @@ operator coordinate {
 	aktive_geometry_copy (domain, aktive_image_get_geometry (srcs->v[0]));
     }
     pixels {
+	@@rewrite@@
 	aktive_block* src = aktive_region_fetch_area (srcs->v[0], request);
 
 	// The @@coordinate@@ axis is scanned in reverse order.
-	@@blitcore@@
-    }   XSRC  srcx   YSRC  srcy   ZSRC  srcz   \
-	XINIT $xinit YINIT $yinit ZINIT $zinit \
-	XNEXT $xnext YNEXT $ynext ZNEXT $znext
+	@@flipper@@
+    }
 }
 
 ##
@@ -204,24 +222,20 @@ operator {coorda coordb coordc} {
     # As the `z` location is fixed to `0`, swaps involving it do not
     # fully fit into that setup
 
-    # Set up the loop configuration.
-    switch -exact -- $coorda$coordb {
-	xy {
-	    lassign {srcy SRC.y ++} xsrc xinit xnext
-	    lassign {srcx SRC.x ++} ysrc yinit ynext
-	    lassign {srcz 0     ++} zsrc zinit znext
-	}
-	xz {
-	    lassign {srcy SRC.y ++} ysrc yinit ynext
-	    lassign {srcx SRC.x ++} zsrc zinit znext
-	    lassign {srcz 0     ++} xsrc xinit xnext
-	}
-	yz {
-	    lassign {srcy SRC.y ++} zsrc zinit znext
-	    lassign {srcx SRC.x ++} xsrc xinit xnext
-	    lassign {srcz 0     ++} ysrc yinit ynext
-	}
+    # base blitter setup
+    set blitspec {
+	{DH {y 0 1 up} {y 0 1 up}}
+	{DW {x 0 1 up} {x 0 1 up}}
+	{DD {z 0 1 up} {z 0 1 up}}
     }
+    # ... swap two axes
+    switch -exact -- $coorda$coordb {
+	xy { lset blitspec 0 2 0 x ; lset blitspec 1 2 0 y }
+	xz { lset blitspec 1 2 0 z ; lset blitspec 2 2 0 x }
+	yz { lset blitspec 0 2 0 z ; lset blitspec 2 2 0 y }
+    }
+    # ... generate code
+    blit swapper $blitspec copy
 
     state -setup {
 	// The locations and dimensions for the swapped axes (@@coorda@@, @@coordb@@) are exchanged.
@@ -237,11 +251,9 @@ operator {coorda coordb coordc} {
 
 	// The        dst @@coorda@@-axis is fed from the src @@coordb@@-axis
 	// Vice versa dst @@coordb@@-axis is fed from the src @@coorda@@-axis
-	// The last axis  @@coordc@@ maps as-is
-	@@blitcore@@
-    }   XSRC  $xsrc  YSRC  $ysrc  ZSRC  $zsrc  \
-	XINIT $xinit YINIT $yinit ZINIT $zinit \
-	XNEXT $xnext YNEXT $ynext ZNEXT $znext
+	// The @@coordc@@-axis maps as-is
+	@@swapper@@
+    }
 }
 
 ##
@@ -290,26 +302,31 @@ operator {coordinate dimension} {
 	src/value n __n \
 	if {$__n == $n}	src/pop   returns src
 
-    set xnext ++ ; set xinit SRC.x
-    set ynext ++ ; set yinit SRC.y
-    set znext ++ ; set zinit 0
-
-    switch -exact -- $coordinate {
-	x { set xnext "+= param->n" }
-	y { set ynext "+= param->n" }
-	z { set znext "+= param->n" }
+    # base blitter setup
+    set blitspec {
+	{DH {y 0 1 up} {y 0 1 up}}
+	{DW {x 0 1 up} {x 0 1 up}}
+	{DD {z 0 1 up} {z 0 1 up}}
     }
+    # ... stretch specific source axis
+    switch -exact -- $coordinate {
+	y { lset blitspec 0 2 2 n }
+	x { lset blitspec 1 2 2 n }
+	z { lset blitspec 2 2 2 n }
+    }
+    # ... generate code
+    blit subsampler $blitspec copy
 
-    set expansion [dict get {
+    def expansion [dict get {
 	x {
-	    // Rewrite request along x to get enough from the source
-	    request->x     *= param->n;
-	    request->width *= param->n;
+	    // Rewrite request along X to get enough data from the source
+	    request->x     *= n;
+	    request->width *= n;
 	}
 	y {
-	    // Rewrite request along y to get enough from the source
-	    request->y      *= param->n;
-	    request->height *= param->n;
+	    // Rewrite request along Y to get enough data from the source
+	    request->y      *= n;
+	    request->height *= n;
 	}
 	z {
 	    // Nothing to rewrite for z, depth
@@ -325,16 +342,17 @@ operator {coordinate dimension} {
 	domain->@@dimension@@ = (domain->@@dimension@@ / param->n) +
 		(0 != (domain->@@dimension@@ % param->n));
     }
+    # NOTE: At higher sampling factors it becomes more sensible to fetch individual points
+    # from the source, as an ever higher percentage of the generated data will be thrown
+    # away here. And if the input is expensive efficiency will be a botch.
     pixels {
-	%%expansion%%
+	aktive_uint n = param->n;
+	@@expansion@@
 	aktive_block* src = aktive_region_fetch_area (srcs->v[0], request);
 
-	// The source @@coordinate@@ axis is scanned n times faster than the destination
-	@@blitcore@@
-    }   XSRC  srcx   YSRC  srcy   ZSRC  srcz   \
-	XINIT $xinit YINIT $yinit ZINIT $zinit \
-	XNEXT $xnext YNEXT $ynext ZNEXT $znext \
-	%%expansion%% $expansion
+	// The source @@coordinate@@ axis is scanned N times faster than the destination
+	@@subsampler@@
+    }
 }
 
 operator {coordinate dimension} {
@@ -377,84 +395,107 @@ operator {coordinate dimension} {
 	domain->@@dimension@@ *= param->n;
     }
 
-    # DST - example: x, factor 5
     #
-    # 0         1         2         3         4
-    # 0123456789012345678901234567890123456789
-    # S....S....S....S....S....S....S....S....
-    # 0    1    2    3    4    5    6    7
-    #        |--------|
-    # 01234567
-    #   ||
+    # SRC 0     1     2     3     4     5     6		(gradient 7 1 1 0 6)
+    # DST 0 . . 1 . . 2 . . 3 . . 4 . . 5 . . 6 . .	(upsample x 3 .)
+    #     = = = = = = = = = = = = = = = = = = = = =
+    #     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0
+    #                         1                   2
+    #               |=========|
+    #               . 2 . . 3 .				(select x 5 10)
+    #               0 1 2 3 4 5
     #
-    # Request :: (x7, w10)   = (x7, xmax16)
-    # Source  :: (x2, xmax3) = (x2, w2)
-    # Actual DST.x = 10 = 7 + ((5 - 7%5) %5)
+    # select   request: 5..10 = 5,6
+    # upsample request: 5..10 = 5,6
+    # gradient request: 2..3  = 2,1 (grid to 6 (+1 = (-5 % 3) [1] = ((5 - (5 % 3)) % 3) [2])
+    # note: different %-semantics for Tcl [1] and C [2].
     #
     # The actual dst x is shifted to align to the stretch grid in the destination.
     #
-    # X % 5 | Correction ((5 - x%5) %5)
-    # ----- + -------------------------
-    # 0     | 0            5        0
-    # 1     | 4            4        4
-    # 2     | 3            3        3
-    # 3     | 2            2        2
-    # 4     | 1            1        1
-    # ----- + -------------------------
+    # X % 5 | Correction -x  % 5 == (5 - x%5) % 5
+    # ----- + ------------------ -- -------------
+    # 0     | 0           0  0
+    # 1     | 4          -1  4
+    # 2     | 3          -2  3
+    # 3     | 2          -3  2
+    # 4     | 1          -4  1
+    # ----- + -------------------
 
-    set xnext ++ ; set xinit DST.x	;# relative phase important!
-    set ynext ++ ; set yinit DST.y	;# relative phase important!
-    set znext ++ ; set zinit 0
+    if 0 {
+	foreach x {0 1 2 3 4 5 6 7 8 9} z {0 4 3 2 1 0 4 3 2 1} {
+	    puts $x\t$z\t[expr {(-$x) % 5}]\t[expr {(5 - (($x) % 5)) % 5}]
+	}
+    }
 
+    # base blitter setup
+    set blitspec {
+	{DH {y 0 1 up} {y 0 1 up}}
+	{DW {x 0 1 up} {x 0 1 up}}
+	{DD {z 0 1 up} {z 0 1 up}}
+    }
+    # ... stretch specific destination axis using source dimension, lock start to grid
     switch -exact -- $coordinate {
-	x { set xnext "+= param->n" ; set xinit "(DST.x + ((param->n - (DST.x % param->n)) % param->n))" }
-	y { set ynext "+= param->n" ; set yinit "(DST.y + ((param->n - (DST.y % param->n)) % param->n))" }
-	z { set znext "+= param->n" ; set zinit "0" }
-    } ;#                                         0 + ((param->n - (    0 % param->n)) % param->n)
-    #                                            0 + ((param->n - (    0           )) % param->n)
-    #                                            0 + ( param->n                       % param->n)
-    #                                            0 + ( 0                                        )
-    #                                            0
+	y { lset blitspec 0 0 SH ; lset blitspec 0 1 2 n ; lset blitspec 0 1 1 grid }
+	x { lset blitspec 1 0 SW ; lset blitspec 1 1 2 n ; lset blitspec 1 1 1 grid }
+	z { lset blitspec 2 0 SD ; lset blitspec 2 1 2 n }
+    }
+    # ... generate code
+    blit upsampler $blitspec copy
 
-    set shrink [dict get {
+    def shrink [dict get {
 	x {
-	    // Rewrite request along x to get enough from the source
-	    request->x     /= param->n;
-	    request->width /= param->n;
+	    // Note: C-semantics for `%`. Tcl semantics yield `(-i)%n`.
+	    #define CORR(i,n)  (((n) - ((i) % (n))) % (n))
+	    // Shift correction to snap request into the sample grid
+	    int grid = CORR (request->x, n);
+	    #undef CORR
+	    TRACE ("Correction: %d (%d in %d)", grid, request->x, n);
+
+	    // Rewrite request to the input coordinates and dimensions
+	    request->x      = (request->x + grid) / n;
+	    request->width /= n;
+
+	    // Note: grid is the starting point in the destination area (rooted at 0).
 	}
 	y {
-	    // Rewrite request along y to get enough from the source
-	    request->y      /= param->n;
-	    request->height /= param->n;
+	    // Note: C-semantics for `%`. Tcl semantics yield `(-i)%n`.
+	    #define CORR(i,n)  (((n) - ((i) % (n))) % (n))
+	    // Shift correction to snap request into the sample grid
+	    int grid = CORR (request->y, n);
+	    #undef CORR
+	    TRACE ("Correction: %d (%d in %d)", grid, request->y, n);
+
+	    // Rewrite request to the input coordinates and dimensions
+	    request->y       = (request->y + grid) / n;
+	    request->height /= n;
+
+	    // Note: grid is the starting point in the destination area (rooted at 0).
 	}
 	z {
 	    // Nothing to rewrite for z, depth
 	}
     } $coordinate]
 
-
     pixels {
-	%%shrink%%
+	aktive_uint n = param->n;
+
+	@@shrink@@
 	aktive_block* src = aktive_region_fetch_area (srcs->v[0], request);
 
-	// Blank the region with the fill value first. That way the next operation
-	// is able to write to just the needed parts of the destination without
-	// having to care about gaps.
+	// Blank the region with the fill value first. This way the coming blitter
+	// does not have to concern itself with the gaps, just the values to set.
 	aktive_blit_fill (block, dst, param->fill);
 
-	// The destination @@coordinate@@ axis is scanned n times faster than the source.
+	// The destination @@coordinate@@ axis is scanned N times faster than the source.
 	// The destination location is snapped forward to the grid.
-	@@blitcore/dst@@
-    }   XDST  dstx   YDST  dsty   ZDST  dstz   \
-	XINIT $xinit YINIT $yinit ZINIT $zinit \
-	XNEXT $xnext YNEXT $ynext ZNEXT $znext \
-	%%shrink%% $shrink
+	@@upsampler@@
+    }
 }
 
-nyi operator {
-    op::upsample::xrep
-    op::upsample::yrep
-    op::upsample::zrep
+operator {coordinate dimension} {
+    op::upsample::xrep  x width
+    op::upsample::yrep  y height
+    op::upsample::zrep  z depth
 } {
     note Transformer. Structure. \
 	Returns input stretched along the ${coordinate}-axis \
@@ -480,42 +521,82 @@ nyi operator {
 
 	aktive_geometry_copy (domain, aktive_image_get_geometry (srcs->v[0]));
 	// Modify dimension according to parameter
-	domain->@@dimension@@ *= domain->@@dimension@@ / param->n;
+	domain->@@dimension@@ *= param->n;
     }
 
-    # The gridding here is more complex because we have fill the gaps ourselves -- regular
-    # steps in the destination instead of skip step, with associated no step in source --
-    # The partial sequence at the start, when the request is not aligned to the grid,
-    # looks to be particular bothersome.
-
+    # The gridding here is more complex because we have fill the gaps ourselves. We cannot
+    # fast-step in dst, under control of src. Instead we have to step normal in dst, and
+    # step fractionally in the source. IOW step the source once for every N steps in the
+    # dst. The modulo of the start value in the interval N provides the initial fraction
+    # (called the `phase` below).
+    ##
     # DST - example: x, factor 5
     #
     # 0         1         2         3         4
     # 0123456789012345678901234567890123456789
     # S....S....S....S....S....S....S....S....
-    # 0    111112222233   4    5    6    7
+    # 0    1111122222333334    5    6    7
     #        |--------|
     # 01234567
     #  |-|
     #
-    # Request :: (x7, w10)   = (x7, xmax16)
-    # Source  :: (x1, xmax3) = (x1, w3)
-    # Actual DST.x = 10 = 7 - 7%5
-    # Initial phase  2=7%2 per row (whatever is stretched)
-    #
-    # The actual dst x is shifted to align to the stretch grid in the destination.
-    #
-    # X % 5 | Correction ((5 - x%5) %5)
-    # ----- + -------------------------
-    # 0     | 0            5        0
-    # 1     | 4            4        4
-    # 2     | 3            3        3
-    # 3     | 2            2        2
-    # 4     | 1            1        1
-    # ----- + -------------------------
+    # Request: 7,10 = 7..16
+    # /5:      1,3  = 1..3
+    # Phase:   2           (7%5)
+    # NOTE: Input range is +1 wider than a plain /N results in.
 
+    # base blitter setup
+    set blitspec {
+	{DH {y 0 1 up} {y 0 1 up}}
+	{DW {x 0 1 up} {x 0 1 up}}
+	{DD {z 0 1 up} {z 0 1 up}}
+    }
+    # ... fractionalize source of specific axis
+    switch -exact -- $coordinate {
+	y { lset blitspec 0 2 2 1/n }
+	x { lset blitspec 1 2 2 1/n }
+	z { lset blitspec 2 2 2 1/n }
+    }
+    # ... generate code
+    blit upsampler $blitspec copy
 
-    # %% TODO %% specify implementation
+    def phasor [dict get {
+	x {
+	    #define PHASE1 phase
+	    aktive_uint phase = request->x % n;
+
+	    TRACE ("Phase: %d (%d in %d)", phase, request->x, n);
+
+	    // Rewrite request along X to get enough from the source
+	    request->x     /= n;
+	    request->width /= n; request->width ++;
+	}
+	y {
+	    #define PHASE0 phase
+	    aktive_uint phase = request->y % n;
+
+	    TRACE ("Phase: %d (%d in %d)", phase, request->y, n);
+
+	    // Rewrite request along Y to get enough from the source
+	    request->y      /= n;
+	    request->height /= n; request->height ++;
+	}
+	z {
+	    #define PHASE2 0
+	}
+    } $coordinate]
+
+    pixels {
+	aktive_uint n = param->n;
+
+	@@phasor@@
+	aktive_block* src = aktive_region_fetch_area (srcs->v[0], request);
+
+	// The source @@coordinate@@ axis is scanned N times slower
+	// than the source via fractional stepping.
+	// The destination location is snapped backward to the grid.
+	@@upsampler@@
+    }
 }
 
 ##

@@ -117,6 +117,9 @@ operator {cfunction dexpr} {
 		}
 	    }
 	}
+	#undef SRCA
+	#undef SRCB
+	#undef DST
     }
 }
 

@@ -1,0 +1,103 @@
+# -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
+## (c) 2023 Andreas Kupries
+# # ## ### ##### ######## ############# #####################
+## AKTIVE. Replicated upsampling (stretching) rows, columns, bands
+
+kt check Tcl     8.6
+kt check tcltest 2
+
+# # ## ### ##### ######## ############# #####################
+
+kt local testing aktive
+
+kt source support/util.tcl
+
+# # ## ### ##### ######## ############# #####################
+## Syntax
+
+syntax {
+    xrep {n src}
+    yrep {n src}
+    zrep {n src}
+} {aktive op upsample}
+
+# # ## ### ##### ######## ############# #####################
+##
+# input/gradient 3x4x2
+##
+##       0 ....   1......   2...... - 3 columns
+##     --------  --------  --------
+#	 1  1.5    2  2.5    3  3.5  0
+#	 4  4.5    5  5.5    6  6.5  1
+#	 7  7.5    8  8.5    9  9.5  2
+#	10 10.5   11 11.5   12 12.5  3
+##     --- ----  --- ----  --- ----  \ 4 rows
+##      0. 1...   0. 1...   0. 1... - 2 bands
+#
+# Upsampling columns, rows, or bands
+
+foreach {op w h d expected} {
+    x 6 4 2 {
+	=  1  1.5 =  1  1.5 =  2  2.5 =  2  2.5 =  3  3.5 =  3  3.5 =
+	=  4  4.5 =  4  4.5 =  5  5.5 =  5  5.5 =  6  6.5 =  6  6.5 =
+	=  7  7.5 =  7  7.5 =  8  8.5 =  8  8.5 =  9  9.5 =  9  9.5 =
+	= 10 10.5 = 10 10.5 = 11 11.5 = 11 11.5 = 12 12.5 = 12 12.5 =
+    }
+    y 3 8 2 {
+	=  1  1.5 =  2  2.5 =  3  3.5 =
+	=  1  1.5 =  2  2.5 =  3  3.5 =
+	=  4  4.5 =  5  5.5 =  6  6.5 =
+	=  4  4.5 =  5  5.5 =  6  6.5 =
+	=  7  7.5 =  8  8.5 =  9  9.5 =
+	=  7  7.5 =  8  8.5 =  9  9.5 =
+	= 10 10.5 = 11 11.5 = 12 12.5 =
+	= 10 10.5 = 11 11.5 = 12 12.5 =
+    }
+    z 3 4 4 {
+	=  1  1  1.5  1.5 =  2  2  2.5  2.5 =  3  3  3.5  3.5 =
+	=  4  4  4.5  4.5 =  5  5  5.5  5.5 =  6  6  6.5  6.5 =
+	=  7  7  7.5  7.5 =  8  8  8.5  8.5 =  9  9  9.5  9.5 =
+	= 10 10 10.5 10.5 = 11 11 11.5 11.5 = 12 12 12.5 12.5 =
+    }
+} {
+    unset -nocomplain map
+    lappend map /fun    ${op}rep
+    lappend map /pixels $expected
+    lappend map /w      $w
+    lappend map /h      $h
+    lappend map /d      $d
+
+    test aktive-op-upsample-${op}rep-2.0 "aktive op upsample ${op}rep 2x" -body {
+	astcl aktive op upsample ${op}rep 2 [grad]
+    } -match image -result [string map $map {
+	type   op::upsample::/fun
+	domain {x 0 y 0 width /w height /h depth /d}
+	config {n 2}
+	pixels {/pixels}
+    }]
+
+    test aktive-op-upsample-${op}rep-2.1 "aktive op upsample ${op}rep, dag" -body {
+	dag aktive op upsample ${op}rep 2 [grad]
+    } -match glob -result "op::upsample::${op}rep * {n 2} {image::gradient *}"
+
+    set in [grad]
+    set id [aktive query id $in]
+
+    test aktive-op-upsample-${op}rep-2.2 "aktive op upsample ${op}rep, 1x is identity" -body {
+	dag aktive op upsample ${op}rep 1 $in
+    } -match glob -result "image::gradient $id *"
+
+    unset map in id
+
+    test aktive-op-upsample-${op}rep-2.3 "aktive op upsample ${op}rep, chain reduction, factors multiply" -body {
+	dag aktive op upsample ${op}rep 3 [aktive op upsample ${op}rep 2 [grad]]
+    } -match glob -result "op::upsample::${op}rep * {n 6} {image::gradient *}"
+
+    test aktive-op-upsample-${op}-2.4 "aktive op upsample ${op}rep, partial view" -body {
+	dict get [astcl aktive op select $op 5 10 [aktive op upsample ${op}rep 3 [grad$op]]] pixels
+    } -match pixels -result {1 2 2 2 3 3}
+}
+
+# # ## ### ##### ######## ############# #####################
+cleanupTests
+return

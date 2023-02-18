@@ -95,7 +95,9 @@ foreach {op w h d expected} {
 	dag aktive op upsample $op 3 0 [aktive op upsample $op 2 0 [grad]]
     } -match glob -result "op::upsample::$op * {n 6 fill 0.0} {image::gradient *}"
 
-    # TODO access offset from the sampling grid - check the alignment process
+    test aktive-op-upsample-${op}-2.4 "aktive op upsample $op, partial view" -body {
+	dict get [astcl aktive op select $op 5 10 [aktive op upsample $op 3 0 [grad$op]]] pixels
+    } -match pixels -result {0 2 0 0 3 0}
 }
 
 # # ## ### ##### ######## ############# #####################

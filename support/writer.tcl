@@ -686,13 +686,16 @@ proc dsl::writer::OperatorFunctionForOp {op} {
 	set fun [RegionFetchFuncname $op]
 	set spc [string repeat { } [string length $fun]]
 
-	+ "static void"
-	+ "$fun ( aktive_region_info* info    // Parameters, inputs, state, image state"
-	+ "$spc , aktive_rectangle*   request // Area caller wants the pixels for"
-	+ "$spc , aktive_rectangle*   dst     // Area of `block` to blit the pixels into"
-	+ "$spc , aktive_block*       block   // Pixel storage"
-	+ "$spc ) \{"
-	+ "  TRACE_FUNC(\"((aktive_region_info*) %p), for (@ %d,%d : %ux%u))\", info, request->x, request->y, request->width, request->height);"
+        + "static void"
+        + "$fun ( aktive_region_info* info    // Parameters, inputs, state, image state"
+        + "$spc , aktive_rectangle*   request // Area caller wants the pixels for"
+        + "$spc , aktive_rectangle*   dst     // Area of `block` to blit the pixels into"
+        + "$spc , aktive_block*       block   // Pixel storage"
+        + "$spc ) \{"
+        + "  TRACE_FUNC(\"((aktive_region_info*) %p), for (@ %d..%d,%d..%d : %ux%u))\", "
+        + "                info, request->x, aktive_rectangle_get_xmax (request),"
+        + "                      request->y, aktive_rectangle_get_ymax (request),"
+        + "                      request->width, request->height);"
 
 	if {${region/fetch} ne {}} {
 	    # Enhance fragment with code providing the info data in properly typed form.
@@ -708,6 +711,24 @@ proc dsl::writer::OperatorFunctionForOp {op} {
 	    if {$st}        { + "  [PadR $tl ${statetype}*] istate  = [PadR $tlx (${statetype}*)] info->istate;" }
 	    if {$hasimages} { + "  [PadR $tl aktive_region_vector*] srcs    = [PadR $tlx ""] &info->srcs;" }
 	    +                   "  [PadR $tl aktive_geometry*] idomain = [PadR $tlx ""] info->domain;"
+
+	    # Show parameter values going into the fetch.
+	    set pnames [lmap p $params { dict get $p name }]
+	    set pnl    [Maxlength $pnames]
+	    set tmap  {
+		uint   u
+		double f
+		int    d
+	    }
+	    set ptypes [lmap p $params {
+		# The types here have to include all the parameter types used in etc/aktive.tcl and sourced.
+		set t [dict get $p type]
+		expr {[dict exists $tmap $t] ? [dict get $tmap $t] : "%binary"}
+	    }]
+	    foreach p $pnames t $ptypes {
+		+ "  TRACE (\"P ([PadR $pnl $p]) = %$t\", param->$p);"
+	    }
+
 	    Comment {- - -- --- ----- -------- ------------- ---------------------} {  }
 	    + {}
 	    + [FormatCode ${region/fetch}]

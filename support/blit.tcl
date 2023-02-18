@@ -70,14 +70,36 @@ proc dsl::blit::EmitFunction {function} {
     F/$cmd {*}$args
     return
 }
-proc dsl::blit::F/copy  {}       { + "*dstvalue = srcvalue;" }
-proc dsl::blit::F/zero  {}       { + "*dstvalue = 0;" }
-proc dsl::blit::F/const {v}      { + "*dstvalue = $v;" }
+proc dsl::blit::F/copy {} {
+    + "TRACE (\"blit copy %f\", srcvalue);"
+    + "*dstvalue = srcvalue;"
+}
+
+proc dsl::blit::F/zero {} {
+    + "TRACE (\"blit set zero\", 0);"
+    + "*dstvalue = 0;"
+}
+
+proc dsl::blit::F/const {v} {
+    + "TRACE (\"blit set %f\", $v);"
+    + "*dstvalue = $v;"
+}
+
 proc dsl::blit::F/apply {op args} {
     append call "$op (srcvalue"
     foreach a $args { append call ", $a" }
-    append call ");"
-    + "*dstvalue = $call"
+    append call ")"
+
+    append fmt "$op (%f"
+    foreach a $args { append fmt ", %f" }
+    append fmt ")"
+
+    append values "srcvalue"
+    foreach a $args { append values ", $a" }
+
+    + "double result = ${call};"
+    + "TRACE (\"blit set %f = $fmt\", result, $values);"
+    + "*dstvalue = result;"
 }
 
 # # ## ### ##### ######## #############
@@ -107,7 +129,7 @@ proc dsl::blit::EmitAxes {k axes} {
 }
 
 proc dsl::blit::EmitAxeTrace {k axes} {
-    set fmt    "$k geo"
+    set fmt    "blit $k geo"
     set values {}
 
     set p [string map {dst D src S} $k]
@@ -163,7 +185,7 @@ proc dsl::blit::EmitCellAccess {axes} {
 
 proc dsl::blit::EmitCellTrace {k axes} {
 
-    set fmt "\"$k"
+    set fmt "\"blit $k"
     set sep " | "
     if {[dict exists $axes y]} { append fmt ${sep}%3d } ;# y
     if {[dict exists $axes x]} { append fmt ${sep}%3d } ;# x
@@ -277,6 +299,8 @@ proc dsl::blit::BlockPhase {block} {
     if {![string match 1/* $delta]} return
 
     + "aktive_uint [F phase[L]] = PHASE[L];"
+    + "TRACE (\".... phase[L] start %d\", phase[L]);"
+
     ArgMark PHASE[L];
 }
 
@@ -295,8 +319,8 @@ proc dsl::blit::BlockIncrement {var block} {
     if {[string match 1/* $delta]} {
 	set delta [string range $delta 2 end]
 	<<< ;# ensure proper level for phase variable
-	set    increment "if (!phase[L]) { ${var} $modifier ; }"
-	append increment " ; phase[L]++ ; phase[L] %= ${delta}"
+	append increment "phase[L]++ ; phase[L] %= ${delta} ; "
+	append increment "if (!phase[L]) { TRACE (\".... phase[L] done\", 0); ${var} $modifier ; }"
 	>>>
 	return $increment
     }

@@ -117,9 +117,11 @@ aktive_region_owner (aktive_region region)
 extern aktive_block*
 aktive_region_fetch_area (aktive_region region, aktive_rectangle* request)
 {    
-    TRACE_FUNC("((aktive_region) %p '%s' requested (@ %d,%d : %ux%u))",
+    TRACE_FUNC("((aktive_region) %p '%s' requested (@ %d..%d,%d..%d : %ux%u))",
 	       region, region->opspec->name,
-	       request->x, request->y, request->width, request->height);
+	       request->x, aktive_geometry_get_xmax (request),
+	       request->y, aktive_geometry_get_ymax (request),
+	       request->width, request->height);
 
     // Update the storage per the request to match dimension and have enough
     // space
@@ -129,10 +131,13 @@ aktive_region_fetch_area (aktive_region region, aktive_rectangle* request)
 #define ID region->origin->public.domain
 #define RD request
 #define BL region->pixels.domain
-    TRACE( ".......  x   y   | w   h   d   | pit )", 0);
-    TRACE( "image   (%3d %3d | %3d %3d %3d | %3d )", ID.x, ID.y, ID.width, ID.height, ID.depth, ID.width*ID.depth);
-    TRACE( "request (%3d %3d | %3d %3d     |     )", RD->x, RD->y, RD->width, RD->height);
-    TRACE( "block   (%3d %3d | %3d %3d %3d | %3d )", BL.x, BL.y, BL.width, BL.height, BL.depth, BL.width*BL.depth);
+#define MX(r) ((r).x+(r).width-1)
+#define MY(r) ((r).y+(r).height-1)
+#define PI(r) ((r).width*(r).depth)
+    TRACE( ".......  x     xmax  y     ymax | w   h   d   | pit )", 0);
+    TRACE( "image   (%3d .. %3d  %3d .. %3d | %3d %3d %3d | %3d )", ID.x,  MX(ID), ID.y,  MY(ID), ID.width,  ID.height, ID.depth, PI(ID));
+    TRACE( "request (%3d .. %3d  %3d .. %3d | %3d %3d     |     )", RD->x, MX(*RD), RD->y, MY(*RD), RD->width, RD->height);
+    TRACE( "block   (%3d .. %3d  %3d .. %3d | %3d %3d %3d | %3d )", BL.x,  MX(BL), BL.y,  MY(BL), BL.width,  BL.height, BL.depth, PI(BL));
 #undef ID
 #undef RD
 #undef BL
@@ -162,8 +167,8 @@ aktive_region_fetch_area (aktive_region region, aktive_rectangle* request)
     if (aktive_rectangle_is_subset (&domain, request)) {
 	// Special case (a). The entire request has to be served by the fetcher.
 	aktive_rectangle_def (dst, 0, 0, request->width, request->height);
-	TRACE( "dst     (%3d %3d | %3d %3d     |     )", dst.x, dst.y, dst.width, dst.height);
-	
+	TRACE ( "dst     (%3d .. %3d  %3d .. %3d | %3d %3d     |     )", dst.x, MX(dst), dst.y, MY(dst), dst.width, dst.height);
+	TRACE ( "fetch all", 0);
 	region->opspec->region_fetch (&region->public, request, &dst, &region->pixels);
 	goto done;
     }
@@ -177,15 +182,12 @@ aktive_region_fetch_area (aktive_region region, aktive_rectangle* request)
     aktive_rectangle_outzones (&domain, request, &zc, zv);
 
     if (zc == 0) {
-	// fprintf(stderr,"OUTSIDE\n");fflush (stderr);
-	
 	// Special case (b). No data comes from the image itself.
+	TRACE ( "fetch nothing", 0);
 	aktive_blit_clear_all (&region->pixels);
 	goto done;
     }
 
-    // fprintf(stderr,"IN PIECES\n");fflush (stderr);
-    
     // Clear the outside zones, if any 
     for (aktive_uint i = 1; i < zc; i++) { aktive_blit_clear (&region->pixels, &zv [i]); }
     
@@ -196,9 +198,13 @@ aktive_region_fetch_area (aktive_region region, aktive_rectangle* request)
     aktive_rectangle_move (&dst, -request->x, -request->y);
 
 #define RD zv[0]
-    TRACE( "section (%3d %3d | %3d %3d     |     )", RD.x, RD.y, RD.width, RD.height);
-    TRACE( "dst     (%3d %3d | %3d %3d     |     )", dst.x, dst.y, dst.width, dst.height);
+    TRACE ( "section (%3d .. %3d  %3d .. %3d | %3d %3d     |     )", RD.x,  MX(RD),  RD.y,  MY(RD),  RD.width,  RD.height);
+    TRACE ( "dst     (%3d .. %3d  %3d .. %3d | %3d %3d     |     )", dst.x, MX(dst), dst.y, MY(dst), dst.width, dst.height);
+    TRACE ( "fetch overlap", 0);
 #undef RD
+#undef MX
+#undef MY
+#undef PI
     
     region->opspec->region_fetch (&region->public, &zv[0], &dst, &region->pixels);
  done:

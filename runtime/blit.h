@@ -72,6 +72,10 @@ extern void aktive_blit_unary2 (aktive_block* dst, aktive_rectangle* dstarea,
 extern void aktive_blit_copy0_bands (aktive_block* dst, aktive_rectangle* dstarea,
 				     aktive_block* src, aktive_uint first, aktive_uint last);
 
+extern void aktive_blit_copy0_bands_to (aktive_block* dst, aktive_rectangle* dstarea,
+					aktive_block* src, aktive_uint first);
+//                                                     in destination -^ :: all src bands are taken
+
 // This function assumes depth == 1. If depth > 1 caller has to manipulate the
 // point's x coordinate to reach the desired cell (band in the column)
 // A single cell is set to the specified value.

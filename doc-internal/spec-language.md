@@ -130,6 +130,7 @@ Defaults:
 |`note ...`                     |Internal notes for maintainers                         |
 |||
 |`def NAME CODE`		|Declare named code blocks for inclusion into others via `@@NAME@@`|
+|`blit name SCANS FUNC`		|Declare named code block to hold the specified blitter	|
 |||
 |`return ID RETURN_CODE ...`    |Declare non-image return type with a C code fragment providing the value to return. See `type` declarations |
 |`void ACTION_CODE ...`         |Declare operator as void, returning nothing. The C code fragment contains the actions to perform|
@@ -322,3 +323,7 @@ The fragment has access to the following variables:
 
 The `request` is the image area to get pixels for. This is possibly passed to inputs.
 The `dst` is the storage area the pixels are to be written (blitted) to.
+
+##### Blitter
+
+See the [blitter notes](blitter-nodes.md) for the details of scan and function specification.

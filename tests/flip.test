@@ -80,6 +80,10 @@ foreach {k op expected} {
     } -match glob -result "image::gradient $id *"
 
     unset map in id
+
+    test aktive-op-flip-${op}-2.3 "aktive op flip $op, partial view" -body {
+	dict get [astcl aktive op select $op 5 10 [aktive op flip $op [grad$op]]] pixels
+    } -match pixels -result {14 13 12 11 10 9}
 }
 
 # # ## ### ##### ######## ############# #####################

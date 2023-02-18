@@ -21,8 +21,6 @@ vector region image point rect uint double
 # # ## ### ##### ######## ############# #####################
 ## Generally useful blocks of code
 
-import runtime/blitter.tcl
-
 ##
 # # ## ### ##### ######## ############# #####################
 ::return

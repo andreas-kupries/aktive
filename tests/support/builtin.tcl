@@ -10,7 +10,7 @@ proc matrix {} { aktive image const matrix 4 2  1 2 3 4  5 6 7 8 }
 
 proc gradx {} { aktive image gradient 20 1 1  0 19 }
 proc grady {} { aktive image gradient 1 20 1  0 19 }
-proc gradx {} { aktive image gradient 1 1 20  0 19 }
+proc gradz {} { aktive image gradient 1 1 20  0 19 }
 
 # input/gradient 3x4x2
 ##

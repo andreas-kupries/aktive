@@ -76,6 +76,8 @@ critcl::ccode {
 ##   inspected
 
 critcl::source support/dsl.tcl
+critcl::source etc/runtime/blitter.tcl
+
 dsl generate runtime etc/runtime.tcl rtgen/
 dsl generate aktive  etc/aktive.tcl  generated/
 

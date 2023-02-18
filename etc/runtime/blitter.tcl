@@ -1,115 +1,66 @@
 ## -*- mode: tcl ; fill-column: 90 -*-
 # # ## ### ##### ######## ############# #####################
-##
-## Unoptimized loop nest for rectangle copies (blit)
-## Configurable via
-##
-##  XSRC, XINIT, XNEXT
-##  YSRC, YINIT, YNEXT
-##  ZSRC, ZINIT, ZNEXT
-##
-## to rearrange the copied data in some way (flip, swap, sample, ...)
-## The elements configure the handling of the __source__ position
+## Blitter definitions used in and exposed by the runtime as common functions
 
-def blitcore {
-    #define SRC  src->domain
-    #define DST  block->domain
+# aktive_blit_copy -- Use when properly optimized
+dsl blit into generated/blit/copy0.c {
+    {AH {y AY 1 up} {y SY 1 up}}
+    {AW {x AX 1 up} {x SX 1 up}}
+    {DD {z 0  1 up} {z 0  1 up}}
+} copy
 
-    aktive_uint sdepth = SRC.depth;
-    aktive_uint ddepth = DST.depth;
+# aktive_blit_copy0 -- Use when properly optimized
+dsl blit into generated/blit/copy.c {
+    {AH {y AY 1 up} {y 0 1 up}}
+    {AW {x AX 1 up} {x 0 1 up}}
+    {DD {z 0  1 up} {z 0 1 up}}
+} copy
 
-    aktive_uint spitch = SRC.width * sdepth;
-    aktive_uint dpitch = DST.width * ddepth;
+# aktive_blit_clear_all -- Use when properly optimized
+dsl blit into generated/blit/clearall.c {
+    {DH {y 0 1 up}}
+    {DW {x 0 1 up}}
+    {DD {z 0 1 up}}
+} zero
 
-    TRACE ("s depth %d pitch %d | d depth %d pitch %d", sdepth, spitch, ddepth, dpitch);
-    TRACE ("sy  sx  sz  | in  | dy  dx  dz  | out | capS %d | capD %d", src->used, block->used);
+# aktive_blit_clear -- Use when properly optimized
+dsl blit into generated/blit/clear.c {
+    {AH {y AY 1 up}}
+    {AW {x AX 1 up}}
+    {DD {z 0  1 up}}
+} zero
 
-    aktive_uint dsty, dstx, dstz;
-    aktive_uint srcy, srcx, srcz;
-    aktive_uint row, col, band;
+# aktive_blit_fill
+dsl blit into generated/blit/fill.c {
+    {AH {y AY 1 up}}
+    {AW {x AX 1 up}}
+    {DD {z 0  1 up}}
+} {const v}
 
-    for (row = 0, dsty = DST.y, YSRC = YINIT;
-         row < DST.height;
-         row ++ , dsty ++     , YSRC YNEXT) {
-        for (col = 0, dstx = DST.x, XSRC = XINIT;
-             col < DST.width;
-             col ++ , dstx ++     , XSRC XNEXT) {
-            for (band = 0, dstz = 0, ZSRC = ZINIT;
-                 band < DST.depth;
-                 band ++, dstz ++, ZSRC ZNEXT) {
+# aktive_blit_unary0
+dsl blit into generated/blit/unary0.c {
+    {AH {y AY 1 up} {y 0 1 up}}
+    {AW {x AX 1 up} {x 0 1 up}}
+    {DD {z 0  1 up} {z 0 1 up}}
+} {apply op}
 
-                aktive_uint srcpos = srcy * spitch + srcx * sdepth + srcz;
-                aktive_uint dstpos = dsty * dpitch + dstx * ddepth + dstz;
+# aktive_blit_unary1
+dsl blit into generated/blit/unary1.c {
+    {AH {y AY 1 up} {y 0 1 up}}
+    {AW {x AX 1 up} {x 0 1 up}}
+    {DD {z 0  1 up} {z 0 1 up}}
+} {apply op a}
 
-                double value = src->pixel [srcpos];
+# aktive_blit_unary2
+dsl blit into generated/blit/unary2.c {
+    {AH {y AY 1 up} {y 0 1 up}}
+    {AW {x AX 1 up} {x 0 1 up}}
+    {DD {z 0  1 up} {z 0 1 up}}
+} {apply op a b}
 
-                TRACE ("%3d %3d %3d | %3d | %3d %3d %3d | %3d | %.2f",
-                       srcy, srcx, srcz, srcpos, dsty, dstx, dstz, dstpos, value);
-
-		ASSERT (srcpos < src->used,   "pixel source out of bounds");
-		ASSERT (dstpos < block->used, "pixel destin out of bounds");
-
-                block->pixel [dstpos] = value;
-            }
-        }
-    }
-}
-
-# # ## ### ##### ######## ############# #####################
-##
-## Unoptimized loop nest for rectangle copies (blit)
-## Configurable via
-##
-##  XDST, XINIT, XNEXT
-##  YDST, YINIT, YNEXT
-##  ZDST, ZINIT, ZNEXT
-##
-## to rearrange the copied data in some way (flip, swap, sample, ...)
-## The elements configure the handling of the __destination__ position
-
-def blitcore/dst {
-    #define SRC  src->domain
-    #define DST  block->domain
-
-    aktive_uint sdepth = SRC.depth;
-    aktive_uint ddepth = DST.depth;
-
-    aktive_uint spitch = SRC.width * sdepth;
-    aktive_uint dpitch = DST.width * ddepth;
-
-    TRACE ("spitch %d dpitch %d", spitch, dpitch);
-    TRACE ("sy  sx  sz  | in  | dy  dx  dz  | out | capS %d | capD %d", src->used, block->used);
-
-    aktive_uint dsty, dstx, dstz;
-    aktive_uint srcy, srcx, srcz;
-    aktive_uint row, col, band;
-
-    for (row = 0, YDST = YINIT, srcy = SRC.y;
-         row < SRC.height;
-         row ++ , YDST YNEXT     , srcy ++) {
-        for (col = 0, XDST = XINIT, srcx = SRC.x;
-             col < SRC.width;
-             col ++ , XDST XNEXT     , srcx ++) {
-            for (band = 0, ZDST = ZINIT, srcz = 0;
-                 band < SRC.depth;
-                 band ++, ZDST ZNEXT, srcz ++) {
-
-                aktive_uint srcpos = srcy * spitch + srcx * sdepth + srcz;
-                aktive_uint dstpos = dsty * dpitch + dstx * ddepth + dstz;
-
-                double value = src->pixel [srcpos];
-
-                TRACE ("%3d %3d %3d | %3d | %3d %3d %3d | %3d | %.2f",
-                       srcy, srcx, srcz, srcpos, dsty, dstx, dstz, dstpos, value);
-
-		ASSERT (srcpos < src->used,   "pixel source out of bounds");
-		ASSERT (dstpos < block->used, "pixel destin out of bounds");
-
-                block->pixel [dstpos] = value;
-            }
-        }
-    }
-}
+# aktive_blit_fill_bands
+# aktive_blit_copy0_bands
+# aktive_blit_copy0_bands_to
 
 ##
 # # ## ### ##### ######## ############# #####################
