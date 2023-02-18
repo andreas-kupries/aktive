@@ -234,6 +234,10 @@ proc dsl::reader::return {type script args} { ;#puts [info level 0]
     Set opspec rcode  [TemplateCode $script $args]
 }
 
+proc dsl::reader::blit {name scans function} {
+    def $name [dsl blit gen $name $scans $function]
+}
+
 proc dsl::reader::def {name script args} {
     if {[Get opname] eq {}} {
 	Set blocks $name [TemplateCode $script $args]

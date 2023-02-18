@@ -566,7 +566,7 @@ proc dsl::writer::OperatorFunctionForOp {op} {
     if {${region/setup} ne {}} {
 	+ "static void"
 	+ "[RegionSetupFuncname $op] (aktive_region_info* info) \{"
-	+ "  TRACE_FUNC(\"((aktive_region_info*) %p)\", info);"
+	+ "  TRACE_FUNC(\"((aktive_region_info*) %p\", info);"
 
 	# Enhance fragment with code providing the info data in properly typed form.
 	set types {}
@@ -692,7 +692,7 @@ proc dsl::writer::OperatorFunctionForOp {op} {
 	+ "$spc , aktive_rectangle*   dst     // Area of `block` to blit the pixels into"
 	+ "$spc , aktive_block*       block   // Pixel storage"
 	+ "$spc ) \{"
-	+ "  TRACE_FUNC(\"((aktive_region_info*) %p)\", info);"
+	+ "  TRACE_FUNC(\"((aktive_region_info*) %p), for (@ %d,%d : %ux%u))\", info, request->x, request->y, request->width, request->height);"
 
 	if {${region/fetch} ne {}} {
 	    # Enhance fragment with code providing the info data in properly typed form.
