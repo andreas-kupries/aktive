@@ -42,21 +42,46 @@ dsl blit into generated/blit/unary0.c {
     {AH {y AY 1 up} {y 0 1 up}}
     {AW {x AX 1 up} {x 0 1 up}}
     {DD {z 0  1 up} {z 0 1 up}}
-} {apply op}
+} {apply1 op}
 
 # aktive_blit_unary1
 dsl blit into generated/blit/unary1.c {
     {AH {y AY 1 up} {y 0 1 up}}
     {AW {x AX 1 up} {x 0 1 up}}
     {DD {z 0  1 up} {z 0 1 up}}
-} {apply op a}
+} {apply1 op a}
 
 # aktive_blit_unary2
 dsl blit into generated/blit/unary2.c {
     {AH {y AY 1 up} {y 0 1 up}}
     {AW {x AX 1 up} {x 0 1 up}}
     {DD {z 0  1 up} {z 0 1 up}}
-} {apply op a b}
+} {apply1 op a b}
+
+# aktive_blit_binary
+dsl blit into generated/blit/binary.c {
+    {AH {y AY 1 up} {y 0 1 up} {y 0 1 up}}
+    {AW {x AX 1 up} {x 0 1 up} {x 0 1 up}}
+    {DD {z 0  1 up} {z 0 1 up} {z 0 1 up}}
+} {apply2 op}
+
+# aktive_blit_cunary
+dsl blit into generated/blit/complex_unary.c {
+    {AH {y AY 1 up} {y 0 1 up}}
+    {AW {x AX 1 up} {x 0 1 up}}
+} {complex-apply-unary op}
+
+# aktive_blit_cbinary
+dsl blit into generated/blit/complex_binary.c {
+    {AH {y AY 1 up} {y 0 1 up} {y 0 1 up}}
+    {AW {x AX 1 up} {x 0 1 up} {x 0 1 up}}
+} {complex-apply-binary op}
+
+# aktive_blit_creduce
+dsl blit into generated/blit/complex_reduce.c {
+    {AH {y AY 1 up} {y 0 1 up}}
+    {AW {x AX 1 up} {x 0 1 up}}
+} {complex-apply-reduce op}
 
 # aktive_blit_fill_bands
 # aktive_blit_copy0_bands

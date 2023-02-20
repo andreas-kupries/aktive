@@ -153,6 +153,7 @@ aktive_gamma_expand (double x) {
 
 /*
  * - - -- --- ----- -------- -------------
+ * TODO research :: C builtin math operators available as functions ?
  */
 
 static double aktive_shift  (double x, double offset)    { return x + offset; }
@@ -180,6 +181,42 @@ static double aktive_outside_oo (double x, double low, double high) { return (lo
 static double aktive_outside_oc (double x, double low, double high) { return (low <  x) && (x <= high) ? 0 : 1; }
 static double aktive_outside_co (double x, double low, double high) { return (low <= x) && (x <  high) ? 0 : 1; }
 static double aktive_outside_cc (double x, double low, double high) { return (low <= x) && (x <= high) ? 0 : 1; }
+
+/*
+ * - - -- --- ----- -------- -------------
+ * TODO research :: C builtin math operators available as functions ?
+ */
+
+static double aktive_add (double x, double y) { return x + y; }
+static double aktive_div (double x, double y) { return x / y; }
+static double aktive_mul (double x, double y) { return x * y; }
+static double aktive_sub (double x, double y) { return x - y; }
+
+/*
+ * - - -- --- ----- -------- -------------
+ */
+
+static double complex aktive_cmath_div (double complex a, double complex b) { return a / b; }
+static double complex aktive_cmath_mul (double complex a, double complex b) { return a * b; }
+static double complex aktive_cmath_add (double complex a, double complex b) { return a + b; }
+static double complex aktive_cmath_sub (double complex a, double complex b) { return a - b; }
+
+static double complex aktive_cmath_neg        (double complex a) { return -a; }
+static double complex aktive_cmath_log2       (double complex a) { return clog (a) / log(2);  }
+static double complex aktive_cmath_log10      (double complex a) { return clog (a) / log(10); }
+static double complex aktive_cmath_cbrt       (double complex a) { return cpow (a, 1./3.); }
+static double complex aktive_cmath_exp10      (double complex a) { return cpow (10, a); }
+static double complex aktive_cmath_exp2       (double complex a) { return cpow (2, a); }
+static double complex aktive_cmath_reciprocal (double complex a) { return 1 / a; }
+static double complex aktive_cmath_polar      (double complex a) { return CMPLX (cabs (a), carg (a)); }
+static double complex aktive_cmath_cartesian  (double complex a) { return CMPLX (creal(a) * cos(cimag (a)),
+										 creal(a) * sin(cimag (a))); }
+static double aktive_cmath_sqabs (double complex a)
+{
+    double r = creal (a);
+    double i = cimag (a);
+    return r*r + i*i;
+}
 
 /*
  * - - -- --- ----- -------- -------------

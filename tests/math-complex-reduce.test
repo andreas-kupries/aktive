@@ -1,0 +1,88 @@
+# -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
+return
+## (c) 2023 Andreas Kupries
+# # ## ### ##### ######## ############# #####################
+## AKTIVE. Complex transformers - Reductions to scalar
+
+kt check Tcl     8.6
+kt check tcltest 2
+
+# # ## ### ##### ######## ############# #####################
+
+kt local testing aktive
+
+kt source support/util.tcl
+
+# # ## ### ##### ######## ############# #####################
+## Syntax
+
+syntax {
+    real      src
+    imaginary src
+    abs       src
+    sqabs     src
+    carg      src
+} {aktive op cmath}
+
+# # ## ### ##### ######## ############# #####################
+##
+
+foreach {op expected} {
+    real      {}
+    imaginary {}
+    abs       {}
+    sqabs     {}
+    carg      {}
+} {
+    # functions to debug ...
+    if {![llength $expected] || ($op in {})} {
+	puts   "\nXX $op ........................................................................"
+	puts   "XX INPUT [dict get [astcl/ [gradx]] pixels]"
+	puts   "XX INPUT [dict get [astcl/ [aktive op flip x [gradx]]] pixels]"
+	puts   "XX RESLT [dict get [astcl/ [aktive op math $op [gradx] [aktive op flip x [gradx]]]] pixels]"
+	puts   "XX EXP.. $expected\n"
+    }
+
+    test aktive-op-math-${op}-2.0 "aktive op math $op, core" -body {
+	set x [astcl aktive op math $op [gradx] [aktive op flip x [gradx]]]
+	dict unset x pixels
+	set x
+    } -cleanup {
+	unset x
+    } -result "type op::math::$op domain {x 0 y 0 width 20 height 1 depth 1}"
+
+    test aktive-op-math-${op}-2.1 "aktive op math $op, pixels" -body {
+	dict get [astcl aktive op select x 0 18 [aktive op math $op [gradx] [aktive op flip x [gradx]]]] pixels
+    } -match pixels -result $expected
+
+    test aktive-op-math-${op}-2.2 "aktive op math $op, dag" -body {
+	dag aktive op math $op [gradx] [aktive op flip x [gradx]]
+    } -match glob -result "op::math::$op * {} {image::gradient *} {*}"
+}
+
+# # ## ### ##### ######## ############# #####################
+## Highlevel ops - Just check results
+
+foreach {op expected} {
+    difference {19 17 15 13 11 9 7 5 3 1 1 3 5 7 9 11 13 15 17 19}
+    screen     {19 1 -15 -29 -41 -51 -59 -65 -69 -71 -71 -69 -65 -59 -51 -41 -29 -15 1 19}
+} {
+    # functions to debug ...
+    if {![llength $expected] || ($op in {})} {
+	puts   "\nXX $op ........................................................................"
+	puts   "XX INPUT [dict get [astcl/ [gradx]] pixels]"
+	puts   "XX INPUT [dict get [astcl/ [aktive op flip x [gradx]]] pixels]"
+	puts   "XX RESLT [dict get [astcl/ [aktive op math $op [gradx] [aktive op flip x [gradx]]]] pixels]"
+	puts   "XX EXP.. $expected\n"
+    }
+
+    test aktive-op-math-${op}-2.1 "aktive op math $op, pixels" -body {
+	#dict get [astcl aktive op select x 0 18 [aktive op math $op [gradx] [aktive op flip x [gradx]]]] pixels
+	dict get [astcl aktive op math $op [gradx] [aktive op flip x [gradx]]] pixels
+    } -match pixels -result $expected
+}
+
+##
+# # ## ### ##### ######## ############# #####################
+cleanupTests
+return

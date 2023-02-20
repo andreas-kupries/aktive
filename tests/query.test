@@ -1,0 +1,70 @@
+# -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
+## (c) 2023 Andreas Kupries
+# # ## ### ##### ######## ############# #####################
+## AKTIVE. Attribute queries
+
+kt check Tcl     8.6
+kt check tcltest 2
+
+# # ## ### ##### ######## ############# #####################
+
+kt local testing aktive
+
+kt source support/util.tcl
+
+# # ## ### ##### ######## ############# #####################
+## Syntax
+
+syntax {
+    depth    src
+    domain   src
+    geometry src
+    height   src
+    id       src
+    inputs   src
+    location src
+    params   src
+    pitch    src
+    pixels   src
+    size     src
+    type     src
+    width    src
+    x        src
+    xmax     src
+    y        src
+    ymax     src
+} {aktive query}
+
+# # ## ### ##### ######## ############# #####################
+##
+
+foreach {op value} {
+    depth    2
+    domain   {0 0 3 4}
+    geometry {0 0 3 4 2}
+    height   4
+    inputs   {}
+    location {0 0}
+    params   {width 3 height 4 depth 2 first 1.0 last 12.5}
+    pitch    6
+    pixels   12
+    size     24
+    type     image::gradient
+    width    3
+    x        0
+    xmax     2
+    y        0
+    ymax     3
+} {
+    test aktive-query-${op}-2.0 "aktive query $op" -body {
+	check aktive query $op [grad]
+    } -result $value
+}
+
+test aktive-query-id-2.0 "aktive query id, bignum" -body {
+    string is entier [check aktive query id [grad]]
+} -result 1
+
+# # ## ### ##### ######## ############# #####################
+cleanupTests
+return

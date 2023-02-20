@@ -2,6 +2,8 @@
 ##
 # TODO :: optimizations for zero/copy - memset/memcpy -- clear_all, clear
 # TODO :: blit specific assertions
+# TODO :: loop unroll (depth/z, 1..4 normally expected)
+# TODO :: function inline - this is more in the usage
 # TODO ::
 
 package require textutil::adjust
@@ -45,7 +47,7 @@ proc dsl::blit::gen {name scans function} {
 
     foreach scan $scans { EmitLoopSetup $scan ; >>> }
 
-    EmitCellAccess $axes
+    EmitCellAccess $axes [Pointers $function]
     EmitFunction   $function
 
     set rscans [lreverse $scans]
@@ -63,6 +65,11 @@ proc dsl::blit::gen {name scans function} {
 }
 
 # # ## ### ##### ######## #############
+
+proc dsl::blit::Pointers {function} {
+    if {[string match complex-* $function]} { return 1 }
+    return 0;
+}
 
 proc dsl::blit::EmitFunction {function} {
     Comment [string trimright "$function"]
@@ -85,7 +92,7 @@ proc dsl::blit::F/const {v} {
     + "*dstvalue = $v;"
 }
 
-proc dsl::blit::F/apply {op args} {
+proc dsl::blit::F/apply1 {op args} {
     append call "$op (srcvalue"
     foreach a $args { append call ", $a" }
     append call ")"
@@ -100,6 +107,35 @@ proc dsl::blit::F/apply {op args} {
     + "double result = ${call};"
     + "TRACE (\"blit set %f = $fmt\", result, $values);"
     + "*dstvalue = result;"
+}
+
+proc dsl::blit::F/apply2 {op} {
+    + "double result = $op (src0value, src1value);"
+    + "TRACE (\"blit set %f = $op (%f, %f)\", result, src0value, src1value);"
+    + "*dstvalue = result;"
+}
+
+proc dsl::blit::F/complex-apply-reduce {op} {
+    + "TRACE (\"blit complexR $op (%f+i*%f)\", srcvalue\[0], srcvalue\[1]);"
+    + "double complex srccvalue = CMPLX (srcvalue\[0], srcvalue\[1]);"
+    + "*dstvalue                = $op (srccvalue);"
+}
+
+proc dsl::blit::F/complex-apply-unary {op} {
+    + "TRACE (\"blit complex1 $op (%f+i*%f)\", srcvalue\[0], srcvalue\[1]);"
+    + "double complex srccvalue = CMPLX (srcvalue\[0], srcvalue\[1]);"
+    + "double complex result    = $op (srccvalue);"
+    + "dstvalue\[0]              = creal (result);"
+    + "dstvalue\[1]              = cimag (result);"
+}
+
+proc dsl::blit::F/complex-apply-binary {op} {
+    + "TRACE (\"blit complex2 = $op (%f, %f)\", src0value\[0], src0value\[1], src1value\[0], src1value\[1]);"
+    + "double complex src0cvalue = CMPLX (src0value\[0], src0value\[1]);"
+    + "double complex src1cvalue = CMPLX (src1value\[0], src1value\[1]);"
+    + "double complex result     = $op (src0cvalue, src1cvalue);"
+    + "dstvalue\[0]               = creal (result);"
+    + "dstvalue\[1]               = cimag (result);"
 }
 
 # # ## ### ##### ######## #############
@@ -124,12 +160,12 @@ proc dsl::blit::EmitAxisSupport {axes} {
 
 proc dsl::blit::EmitAxes {k axes} {
     upvar 1 sep sep
-    if {[dict exists $axes y]} { + "aktive_uint ${k}pitch  = [Pitch $k];"  ; incr sep }
-    if {[dict exists $axes x]} { + "aktive_uint ${k}stride = [Stride $k];" ; incr sep }
+    if {[dict exists $axes y]} { + "aktive_uint [F ${k}pitch] = [Pitch $k];"  ; incr sep }
+    if {[dict exists $axes x]} { + "aktive_uint [F ${k}stride] = [Stride $k];" ; incr sep }
 }
 
 proc dsl::blit::EmitAxeTrace {k axes} {
-    set fmt    "blit $k geo"
+    set fmt    "blit [T $k] geo"
     set values {}
 
     set p [string map {dst D src S} $k]
@@ -148,7 +184,7 @@ proc dsl::blit::EmitAxeTrace {k axes} {
     + "TRACE (\"$fmt\", [join $values {, }]);"
 }
 
-proc dsl::blit::EmitCellAccess {axes} {
+proc dsl::blit::EmitCellAccess {axes pointers} {
     # Compute linearized positions
     foreach k [lsort -dict [dict keys $axes]] {
 	set ax [dict get $axes $k]
@@ -159,21 +195,25 @@ proc dsl::blit::EmitCellAccess {axes} {
     # Trace
     foreach k [lsort -dict [dict keys $axes]] {
 	set ax [dict get $axes $k]
-	+ "TRACE ([EmitCellTrace $k $ax], [F ${k}pos], [P $k]CAP);"
+	+ "TRACE ([EmitCellTrace $k $ax], ${k}pos, [P $k]CAP);"
     }
     + {}
 
     # Protect against out-of-bounds positions.
     foreach k [lsort -dict [dict keys $axes]] {
 	ArgMark [P $k]CAP
-	+ "ASSERT_VA ([F ${k}pos] < [P $k]CAP, \"$k out of bounds\", \"%d / %d\", [F ${k}pos], [P $k]CAP)"
+	+ "ASSERT_VA ([F ${k}pos] < [F [P $k]CAP], \"$k out of bounds\", \"%d / %d\", ${k}pos, [P $k]CAP)"
     }
     + {}
 
     # Read source values, if any -- May crash on out of bounds, or not
     foreach k [lsort -dict [dict keys $axes]] {
 	if {$k eq "dst"} continue
-	+ "double       [F ${k}value] = [P $k] \[${k}pos];"
+	if {$pointers} {
+	    + "double*      [F ${k}value] = [P $k] + ${k}pos;"
+	} else {
+	    + "double       [F ${k}value] = [P $k] \[${k}pos];"
+	}
 	ArgMark [P $k]
     }
 
@@ -185,7 +225,7 @@ proc dsl::blit::EmitCellAccess {axes} {
 
 proc dsl::blit::EmitCellTrace {k axes} {
 
-    set fmt "\"blit $k"
+    set fmt "\"blit [T $k]"
     set sep " | "
     if {[dict exists $axes y]} { append fmt ${sep}%3d } ;# y
     if {[dict exists $axes x]} { append fmt ${sep}%3d } ;# x
@@ -374,7 +414,8 @@ proc dsl::blit::EmitCompletion {} {
 # # ## ### ##### ######## #############
 
 proc dsl::blit::P {kind} { string map {dst DST src SRC} $kind }
-proc dsl::blit::F {x}    { format %-7s $x }
+proc dsl::blit::F {x}    { format %-10s $x }
+proc dsl::blit::T {x}    { format %-4s $x }
 
 proc dsl::blit::Collect {scans} {
     set axes {}
@@ -402,7 +443,7 @@ proc dsl::blit::Kinds {blocks} {
 	# Multiple sources
 	set p dst
 	set counter 0
-	return [lmap __ $blocks { set r $p ; set p src[incr counter] ; set r }]
+	return [lmap __ $blocks { set r $p ; set p src$counter ; incr counter ; set r }]
     } else {
 	set p dst
 	return [lmap __ $blocks { set r $p ; set p src ; set r }]
@@ -442,20 +483,24 @@ proc dsl::blit::Arguments {} {
 	DST     {block->pixel		{Destination pixel memory}}
 	DSTCAP  {block->used		{Destination capacity}}
 	DW      {block->domain.width	{Destination block width}}
-	SD      {src->domain.depth	{Source block depth}}
-	SH      {src->domain.height	{Source block height}}
-	SRC     {src->pixel		{Source pixel memory}}
-	SRC0    {src0->pixel		{Source 0 pixel memory}}
-	SRC0CAP {src0->used		{Source 0 capacity}}
-	SRC1    {src1->pixel		{Source 1 pixel memory}}
-	SRC1CAP {src1->used		{Source 1 capacity}}
-	SRC2    {src2->pixel		{Source 2 pixel memory}}
-	SRC2CAP {src2->used		{Source 2 capacity}}
-	SRCCAP  {src->used		{Source capacity}}
-	SW      {src->domain.width      {Source block width}}
 	PHASE0  {{}                     {Initial phase for fractional stepping}}
 	PHASE1  {{}                     {Initial phase for fractional stepping}}
 	PHASE2  {{}                     {Initial phase for fractional stepping}}
+	S0D     {srca->domain.depth	{Source 1 depth}}
+	S0H     {srca->domain.height	{Source 1 height}}
+	S0W     {srca->domain.width     {Source 1 width}}
+	S1D     {srcb->domain.depth	{Source 2 depth}}
+	S1H     {srcb->domain.height	{Source 2 height}}
+	S1W     {srcb->domain.width     {Source 2 width}}
+	SD      {src->domain.depth	{Source block depth}}
+	SH      {src->domain.height	{Source block height}}
+	SRC     {src->pixel		{Source pixel memory}}
+	SRC0    {srca->pixel		{Source 1 pixel memory}}
+	SRC0CAP {srca->used		{Source 1 capacity}}
+	SRC1    {srcb->pixel		{Source 2 pixel memory}}
+	SRC1CAP {srcb->used		{Source 2 capacity}}
+	SRCCAP  {src->used		{Source capacity}}
+	SW      {src->domain.width      {Source block width}}
     }
 }
 

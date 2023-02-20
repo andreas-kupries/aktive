@@ -3,6 +3,7 @@
 # # ## ### ##### ######## ############# #####################
 ## Test Utility Commands
 
+kt source support/match.tcl
 kt source support/image.tcl
 kt source support/builtin.tcl
 

@@ -26,33 +26,33 @@ syntax {
 ##
 
 test aktive-point-make-2.0 "aktive point make" -body {
-    aktive point make 1 2
+    check aktive point make 1 2
 } -result {1 2}
 
 # = == === ===== ======== ============= =====================
 
 test aktive-point-move-2.0 "aktive point move" -body {
-    aktive point move {1 2} 2 3
+    check aktive point move {1 2} 2 3
 } -result {3 5}
 
 # = == === ===== ======== ============= =====================
 
 test aktive-point-add-2.0 "aktive point add" -body {
-    aktive point add {1 2} {2 3}
+    check aktive point add {1 2} {2 3}
 } -result {3 5}
 
 # = == === ===== ======== ============= =====================
 
 test aktive-point-box-2.0 "aktive point box, none" -body {
-    aktive point box
+    check aktive point box
 } -result {0 0 0 0}
 
 test aktive-point-box-2.1 "aktive point box, single" -body {
-    aktive point box {1 2}
+    check aktive point box {1 2}
 } -result {1 2 1 1}
 
 test aktive-point-box-2.2 "aktive point box, many" -body {
-    aktive point box {0 0} {4 3} {5 5} {6 2}
+    check aktive point box {0 0} {4 3} {5 5} {6 2}
     # 0...6 -> 7, 0..5 -> 6
 } -result {0 0 7 6}
 

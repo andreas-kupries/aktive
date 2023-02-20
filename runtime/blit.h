@@ -10,6 +10,7 @@
  * - - -- --- ----- -------- -------------
  */
 
+#include <complex.h>
 #include <geometry.h>
 #include <rtgen/vector-types.h>
 
@@ -30,9 +31,14 @@ typedef struct aktive_block {
     aktive_uint     used     ; // Used part (width * height * depth)                         
 } aktive_block;
 
-typedef double (*aktive_unary_transform)  (double x);
-typedef double (*aktive_unary_transform1) (double x, double a);
-typedef double (*aktive_unary_transform2) (double x, double a, double b);
+typedef double (*aktive_unary_transform)   (double x);
+typedef double (*aktive_unary_transform1)  (double x, double a);
+typedef double (*aktive_unary_transform2)  (double x, double a, double b);
+typedef double (*aktive_binary_transform)  (double x, double y);
+
+typedef double         (*aktive_cunary_reduce)     (double complex x);
+typedef double complex (*aktive_cunary_transform)  (double complex x);
+typedef double complex (*aktive_cbinary_transform) (double complex x, double complex y);
 
 /*
  * - - -- --- ----- -------- -------------
@@ -68,6 +74,24 @@ extern void aktive_blit_unary1 (aktive_block* dst, aktive_rectangle* dstarea,
 extern void aktive_blit_unary2 (aktive_block* dst, aktive_rectangle* dstarea,
 				aktive_unary_transform2 op, double a, double b,
 				aktive_block* src);
+
+extern void aktive_blit_binary (aktive_block*           dst,
+				aktive_rectangle*       dstarea,
+				aktive_binary_transform op,
+				aktive_block*           srca,
+				aktive_block*           srcb);
+
+extern void aktive_blit_cunary (aktive_block* dst, aktive_rectangle* dstarea,
+				aktive_cunary_transform op, aktive_block* src);
+
+extern void aktive_blit_cbinary (aktive_block*            dst,
+				 aktive_rectangle*        dstarea,
+				 aktive_cbinary_transform op,
+				 aktive_block*            srca,
+				 aktive_block*            srcb);
+
+extern void aktive_blit_creduce (aktive_block* dst, aktive_rectangle* dstarea,
+				 aktive_cunary_reduce op, aktive_block* src);
 
 extern void aktive_blit_copy0_bands (aktive_block* dst, aktive_rectangle* dstarea,
 				     aktive_block* src, aktive_uint first, aktive_uint last);

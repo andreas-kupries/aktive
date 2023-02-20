@@ -23,11 +23,11 @@ syntax {
 ##
 
 test aktive-image-constant-2.0 "aktive image constant, dag" -body {
-    dag flat 5
+    dag aktive image constant 3 4 2 5
 } -match glob -result {image::constant * {width 3 height 4 depth 2 value 5.0}}
 
 test aktive-image-constant-2.1 "aktive image constant" -body {
-    astcl flat 5
+    astcl aktive image constant 3 4 2 5
 } -match image -result {
     type   image::constant
     config {

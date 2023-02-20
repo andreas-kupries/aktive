@@ -7,6 +7,7 @@
 
 #include <rt.h>
 #include <math.h>
+#include <complex.h>
 
 /* - - -- --- ----- -------- -------------
  * Helper functions for the individual operators
@@ -56,10 +57,27 @@ static double aktive_outside_oc (double x, double low, double high);
 static double aktive_outside_co (double x, double low, double high);
 static double aktive_outside_cc (double x, double low, double high);
 
-#define __aktive_add(a,b) ((a) + (b))
-#define __aktive_div(a,b) ((a) / (b))
-#define __aktive_mul(a,b) ((a) * (b))
-#define __aktive_sub(a,b) ((a) - (b))
+static double aktive_add (double x, double y);
+static double aktive_div (double x, double y);
+static double aktive_mul (double x, double y);
+static double aktive_sub (double x, double y);
+
+static double complex aktive_cmath_add (double complex a, double complex b);
+static double complex aktive_cmath_div (double complex a, double complex b);
+static double complex aktive_cmath_mul (double complex a, double complex b);
+static double complex aktive_cmath_sub (double complex a, double complex b);
+
+static double complex aktive_cmath_cartesian  (double complex a);
+static double complex aktive_cmath_cbrt       (double complex a);
+static double complex aktive_cmath_exp10      (double complex a);
+static double complex aktive_cmath_exp2       (double complex a);
+static double complex aktive_cmath_log10      (double complex a);
+static double complex aktive_cmath_log2       (double complex a);
+static double complex aktive_cmath_neg        (double complex a);
+static double complex aktive_cmath_polar      (double complex a);
+static double complex aktive_cmath_reciprocal (double complex a);
+
+static double aktive_cmath_sqabs   (double complex a);
 
 /*
  * = = == === ===== ======== ============= =====================

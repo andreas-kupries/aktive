@@ -5,14 +5,14 @@
 # # ## ### ##### ######## ############# #####################
 ## Unary without parameters
 
-## function	C function to use in the operator
+## cfunction	C function to use in the operator
 ## mathfunc	Equivalent Tcl mathfunc to use when short-circuiting at construction
 ##		The value `<<` signals identity with `function`.
 ##              The value `-` signals that it does not exist. Prevents short-circuiting
 ## dexpr	Display expression. If not set operator tail name is used
 ## class	General class of behaviour, with attached simplifiction rules
 
-operator {                    function              mathfunc     dexpr classes} {
+operator {                    cfunction             mathfunc     dexpr classes} {
     op::math1::abs            fabs                  abs          {}    idempotent
     op::math1::acos           acos                  <<           {}    {}
     op::math1::acosh          acosh                 <<           {}    {}
@@ -49,24 +49,26 @@ operator {                    function              mathfunc     dexpr classes} 
     if {$dexpr eq {}} { set dexpr [namespace tail $__op] }
     if {![string match *I* $dexpr]} { append dexpr (I) }
 
-    note Transformer. Performs the unary function '$dexpr' on all pixels of the image.
+    note Transformer. \
+	Performs the unary function '$dexpr' on all pixels of the image.
+
     note The resulting image has the same geometry as the input.
 
     input keep
 
     # Simplifications: class and function rules, if any, then general const-folding, if supported.
 
-    foreach class $classes { import? simpler/$class.rules }
-    import? simpler/$function.rules
+    foreach class $classes { import? ../simpler/$class.rules }
+    import? ../simpler/$cfunction.rules
 
-    if {$mathfunc eq "<<"} { set mathfunc $function }
+    if {$mathfunc eq "<<"} { set mathfunc $cfunction}
     if {$mathfunc ne "-"} { simplify for   constant $mathfunc }
 
     state -setup {
 	aktive_geometry_copy (domain, aktive_image_get_geometry (srcs->v[0]));
     }
     pixels {
-	aktive_blit_unary0 (block, dst, @@function@@, aktive_region_fetch_area (srcs->v[0], request));
+	aktive_blit_unary0 (block, dst, @@cfunction@@, aktive_region_fetch_area (srcs->v[0], request));
     }
 }
 
@@ -140,7 +142,7 @@ operator {                    function      mathfunc flip dexpr      pname     p
 
     if {$mathfunc eq "<<"} { set mathfunc $function }
 
-    import?  simpler/${function}.rules
+    import?  ../simpler/${function}.rules
     simplify for   constant $mathfunc $pname
 
     state -setup {

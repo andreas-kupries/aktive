@@ -1,7 +1,7 @@
 # -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
 ## (c) 2023 Andreas Kupries
 # # ## ### ##### ######## ############# #####################
-## AKTIVE. Version information
+## AKTIVE. Tcl representation.
 
 kt check Tcl     8.6
 kt check tcltest 2
@@ -16,15 +16,37 @@ kt source support/util.tcl
 ## Syntax
 
 syntax {
-    version {}
-} aktive
+    tcl src
+} {aktive format}
 
 # # ## ### ##### ######## ############# #####################
 ##
 
-test aktive-version-2.0 "aktive version, ok" -body {
-    check aktive version
-} -result 0.0
+test aktive-image-gradient-2.0 "aktive format tcl" -body {
+    check aktive format tcl [grad]
+} -match image -result {
+    type   image::gradient
+    config {
+	width 3
+	height 4
+	depth 2
+	first 1.0
+	last 12.5
+    }
+    domain {
+	x 0
+	y 0
+	width 3
+	height 4
+	depth 2
+    }
+    pixels {
+	=  1  1.5 =  2  2.5 =  3  3.5 =
+	=  4  4.5 =  5  5.5 =  6  6.5 =
+	=  7  7.5 =  8  8.5 =  9  9.5 =
+	= 10 10.5 = 11 11.5 = 12 12.5 =
+    }
+}
 
 # # ## ### ##### ######## ############# #####################
 cleanupTests

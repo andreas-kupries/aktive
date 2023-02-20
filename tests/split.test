@@ -69,7 +69,7 @@ foreach {op expected} {
     }
 } {
     test aktive-op-split-${op}-2.0 "aktive op split $op" -body {
-	lmap i [aktive op split $op [grad]] { dict get [astcl/ $i] pixels }
+	lmap i [check aktive op split $op [grad]] { dict get [astcl/ $i] pixels }
     } -match listpix -result $expected
 }
 

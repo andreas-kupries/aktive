@@ -34,7 +34,7 @@ syntax {
 ##      0. 1...   0. 1...   0. 1... - 2 bands
 
 test aktive-image-gradient-2.0 "aktive image gradient" -body {
-    astcl grad
+    astcl aktive image gradient 3 4 2  1 12.5
 } -match image -result {
     type   image::gradient
     config {

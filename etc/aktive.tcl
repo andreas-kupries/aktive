@@ -43,11 +43,23 @@ import generator/ppm-pgm.tcl
 import generator/random.tcl
 
 import transformer/location.tcl
-import transformer/math-binary.tcl
-import transformer/math-complex.tcl
-import transformer/math-unary.tcl
-import transformer/structure.tcl
 import transformer/viewport.tcl
+
+import transformer/math/binary.tcl
+import transformer/math/unary.tcl
+
+import transformer/math/complex/binary.tcl
+import transformer/math/complex/reduce.tcl
+import transformer/math/complex/unary.tcl
+
+import transformer/structure/combinations.tcl
+import transformer/structure/flip.tcl
+import transformer/structure/select.tcl
+import transformer/structure/swap.tcl
+
+import transformer/structure/resample/down.tcl
+import transformer/structure/resample/up-replicated.tcl
+import transformer/structure/resample/up.tcl
 
 import composer/montage.tcl
 
@@ -72,6 +84,8 @@ nyi operator op::geometry::reshape {
 nyi operator {
     op::pixel::mul
 } {
+    # VIPS :: recomb - recombine
+
     # op::pixel::mul - vector matrix multiplication - vector is pixel, image depth long.
     #                  matrix is image, depth fixed 1, width equal to image depth, asserted
     #                  result image has depth equal to matrix height

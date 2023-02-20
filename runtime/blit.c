@@ -85,9 +85,9 @@ aktive_blit_clear_all (aktive_block* dst) {
 #if 0 // TODO :: switch when optimized properly
 #define DD     (dst->domain.depth)
 #define DH     (dst->domain.height)
-#define DW     (dst->domain.width)
 #define DST    (dst->pixel)
 #define DSTCAP (dst->used)
+#define DW     (dst->domain.width)
 #include <generated/blit/clearall.c>
 #else    
     memset (dst->pixel, 0, dst->used * sizeof (double));
@@ -102,15 +102,15 @@ aktive_blit_clear (aktive_block* dst, aktive_rectangle* area)
     TRACE_FUNC("((block*) %p (%d of %d @ %p)", dst, dst->used, dst->capacity, dst->pixel);
     
 #if 0 // TODO :: switch when optimized properly
-#define DD     (dst->domain.depth)
-#define DH     (dst->domain.height)
-#define DW     (dst->domain.width)
-#define DST    (dst->pixel)
-#define DSTCAP (dst->used)
+#define AH     (area->height)
+#define AW     (area->width)
 #define AX     (area->x)
 #define AY     (area->y)
-#define AW     (area->width)
-#define AH     (area->height)
+#define DD     (dst->domain.depth)
+#define DH     (dst->domain.height)
+#define DST    (dst->pixel)
+#define DSTCAP (dst->used)
+#define DW     (dst->domain.width)
 #include <generated/blit/clear.c>
 #else    
     // dst  = (0, 0, dw, dh)
@@ -143,15 +143,15 @@ aktive_blit_fill (aktive_block* dst, aktive_rectangle* area, double v)
 {
     TRACE_FUNC("((block*) %p (%d of %d @ %p)", dst, dst->used, dst->capacity, dst->pixel);
 
-#define DD     (dst->domain.depth)
-#define DH     (dst->domain.height)
-#define DW     (dst->domain.width)
-#define DST    (dst->pixel)
-#define DSTCAP (dst->used)
+#define AH     (area->height)
+#define AW     (area->width)
 #define AX     (area->x)
 #define AY     (area->y)
-#define AW     (area->width)
-#define AH     (area->height)
+#define DD     (dst->domain.depth)
+#define DH     (dst->domain.height)
+#define DST    (dst->pixel)
+#define DSTCAP (dst->used)
+#define DW     (dst->domain.width)
 #include <generated/blit/fill.c>
 
     TRACE_RETURN_VOID;
@@ -198,20 +198,20 @@ aktive_blit_copy (aktive_block* dst, aktive_rectangle* dstarea,
     TRACE_FUNC("((block*) %p (%d of %d @ %p)", dst, dst->used, dst->capacity, dst->pixel);
 
 #if 0 // TODO :: switch when optimized
-#define DD     (dst->domain.depth)
-#define DH     (dst->domain.height)
-#define DW     (dst->domain.width)
-#define DST    (dst->pixel)
-#define DSTCAP (dst->used)
-#define SD     (src->domain.depth)
-#define SH     (src->domain.height)
-#define SW     (src->domain.width)
-#define SRC    (src->pixel)
-#define SRCCAP (src->used)
+#define AH     (dstarea->height)
+#define AW     (dstarea->width)
 #define AX     (dstarea->x)
 #define AY     (dstarea->y)
-#define AW     (dstarea->width)
-#define AH     (dstarea->height)
+#define DD     (dst->domain.depth)
+#define DH     (dst->domain.height)
+#define DST    (dst->pixel)
+#define DSTCAP (dst->used)
+#define DW     (dst->domain.width)
+#define SD     (src->domain.depth)
+#define SH     (src->domain.height)
+#define SRC    (src->pixel)
+#define SRCCAP (src->used)
+#define SW     (src->domain.width)
 #define SX     (srcloc->x)
 #define SY     (srcloc->y)
 #include <generated/blit/copy.c>
@@ -248,20 +248,20 @@ aktive_blit_copy0 (aktive_block* dst, aktive_rectangle* dstarea,
     TRACE_FUNC("((block*) %p (%d of %d @ %p)", dst, dst->used, dst->capacity, dst->pixel);
 
 #if 0 // TODO :: switch when optimized
-#define DD     (dst->domain.depth)
-#define DH     (dst->domain.height)
-#define DW     (dst->domain.width)
-#define DST    (dst->pixel)
-#define DSTCAP (dst->used)
-#define SD     (src->domain.depth)
-#define SH     (src->domain.height)
-#define SW     (src->domain.width)
-#define SRC    (src->pixel)
-#define SRCCAP (src->used)
+#define AH     (dstarea->height)
+#define AW     (dstarea->width)
 #define AX     (dstarea->x)
 #define AY     (dstarea->y)
-#define AW     (dstarea->width)
-#define AH     (dstarea->height)
+#define DD     (dst->domain.depth)
+#define DH     (dst->domain.height)
+#define DST    (dst->pixel)
+#define DSTCAP (dst->used)
+#define DW     (dst->domain.width)
+#define SD     (src->domain.depth)
+#define SH     (src->domain.height)
+#define SRC    (src->pixel)
+#define SRCCAP (src->used)
+#define SW     (src->domain.width)
 #include <generated/blit/copy0.c>
 #else    
     // assert : dst.domain.depth == src.domain.depth / dd == sd (*)
@@ -302,20 +302,20 @@ aktive_blit_unary0 (aktive_block* dst, aktive_rectangle* dstarea,
 {
     TRACE_FUNC("((block*) %p (%d of %d @ %p)", dst, dst->used, dst->capacity, dst->pixel);
 
-#define DD     (dst->domain.depth)
-#define DH     (dst->domain.height)
-#define DW     (dst->domain.width)
-#define DST    (dst->pixel)
-#define DSTCAP (dst->used)
-#define SD     (src->domain.depth)
-#define SH     (src->domain.height)
-#define SW     (src->domain.width)
-#define SRC    (src->pixel)
-#define SRCCAP (src->used)
+#define AH     (dstarea->height)
+#define AW     (dstarea->width)
 #define AX     (dstarea->x)
 #define AY     (dstarea->y)
-#define AW     (dstarea->width)
-#define AH     (dstarea->height)
+#define DD     (dst->domain.depth)
+#define DH     (dst->domain.height)
+#define DST    (dst->pixel)
+#define DSTCAP (dst->used)
+#define DW     (dst->domain.width)
+#define SD     (src->domain.depth)
+#define SH     (src->domain.height)
+#define SRC    (src->pixel)
+#define SRCCAP (src->used)
+#define SW     (src->domain.width)
 #include <generated/blit/unary0.c>
 
     TRACE_RETURN_VOID;
@@ -327,20 +327,20 @@ aktive_blit_unary1 (aktive_block* dst, aktive_rectangle* dstarea,
 {
     TRACE_FUNC("((block*) %p (%d of %d @ %p)", dst, dst->used, dst->capacity, dst->pixel);
     
-#define DD     (dst->domain.depth)
-#define DH     (dst->domain.height)
-#define DW     (dst->domain.width)
-#define DST    (dst->pixel)
-#define DSTCAP (dst->used)
-#define SD     (src->domain.depth)
-#define SH     (src->domain.height)
-#define SW     (src->domain.width)
-#define SRC    (src->pixel)
-#define SRCCAP (src->used)
+#define AH     (dstarea->height)
+#define AW     (dstarea->width)
 #define AX     (dstarea->x)
 #define AY     (dstarea->y)
-#define AW     (dstarea->width)
-#define AH     (dstarea->height)
+#define DD     (dst->domain.depth)
+#define DH     (dst->domain.height)
+#define DST    (dst->pixel)
+#define DSTCAP (dst->used)
+#define DW     (dst->domain.width)
+#define SD     (src->domain.depth)
+#define SH     (src->domain.height)
+#define SRC    (src->pixel)
+#define SRCCAP (src->used)
+#define SW     (src->domain.width)
 #include <generated/blit/unary1.c>
 
     TRACE_RETURN_VOID;
@@ -353,21 +353,103 @@ aktive_blit_unary2 (aktive_block* dst, aktive_rectangle* dstarea,
 {
     TRACE_FUNC("((block*) %p (%d of %d @ %p)", dst, dst->used, dst->capacity, dst->pixel);
     
-#define DD     (dst->domain.depth)
-#define DH     (dst->domain.height)
-#define DW     (dst->domain.width)
-#define DST    (dst->pixel)
-#define DSTCAP (dst->used)
-#define SD     (src->domain.depth)
-#define SH     (src->domain.height)
-#define SW     (src->domain.width)
-#define SRC    (src->pixel)
-#define SRCCAP (src->used)
+#define AH     (dstarea->height)
+#define AW     (dstarea->width)
 #define AX     (dstarea->x)
 #define AY     (dstarea->y)
-#define AW     (dstarea->width)
-#define AH     (dstarea->height)
+#define DD     (dst->domain.depth)
+#define DH     (dst->domain.height)
+#define DST    (dst->pixel)
+#define DSTCAP (dst->used)
+#define DW     (dst->domain.width)
+#define SD     (src->domain.depth)
+#define SH     (src->domain.height)
+#define SRC    (src->pixel)
+#define SRCCAP (src->used)
+#define SW     (src->domain.width)
 #include <generated/blit/unary2.c>
+
+    TRACE_RETURN_VOID;
+}
+
+extern void
+aktive_blit_binary (aktive_block* dst, aktive_rectangle* dstarea,
+		    aktive_binary_transform op,
+		    aktive_block* srca, aktive_block* srcb)
+{
+    TRACE_FUNC("((block*) %p (%d of %d @ %p)", dst, dst->used, dst->capacity, dst->pixel);
+
+#define AH      (dstarea->height)
+#define AW      (dstarea->width)
+#define AX      (dstarea->x)
+#define AY      (dstarea->y)
+#define DD      (dst->domain.depth)
+#define DH      (dst->domain.height)
+#define DST     (dst->pixel)
+#define DSTCAP  (dst->used)
+#define DW      (dst->domain.width)
+#include <generated/blit/binary.c>
+
+    TRACE_RETURN_VOID;
+}
+
+extern void
+aktive_blit_cunary (aktive_block* dst, aktive_rectangle* dstarea,
+		    aktive_cunary_transform op, aktive_block* src)
+{
+    TRACE_FUNC("((block*) %p (%d of %d @ %p)", dst, dst->used, dst->capacity, dst->pixel);
+
+#define AH     (dstarea->height)
+#define AW     (dstarea->width)
+#define AX     (dstarea->x)
+#define AY     (dstarea->y)
+#define DD     (dst->domain.depth)
+#define DH     (dst->domain.height)
+#define DST    (dst->pixel)
+#define DSTCAP (dst->used)
+#define DW     (dst->domain.width)
+#include <generated/blit/complex_unary.c>
+
+    TRACE_RETURN_VOID;
+}
+
+extern void
+aktive_blit_cbinary (aktive_block* dst, aktive_rectangle* dstarea,
+		     aktive_cbinary_transform op,
+		     aktive_block* srca, aktive_block* srcb)
+{
+    TRACE_FUNC("((block*) %p (%d of %d @ %p)", dst, dst->used, dst->capacity, dst->pixel);
+
+#define AH      (dstarea->height)
+#define AW      (dstarea->width)
+#define AX      (dstarea->x)
+#define AY      (dstarea->y)
+#define DD      (dst->domain.depth)
+#define DH      (dst->domain.height)
+#define DST     (dst->pixel)
+#define DSTCAP  (dst->used)
+#define DW      (dst->domain.width)
+#include <generated/blit/complex_binary.c>
+
+    TRACE_RETURN_VOID;
+}
+
+extern void
+aktive_blit_creduce (aktive_block* dst, aktive_rectangle* dstarea,
+		    aktive_cunary_reduce op, aktive_block* src)
+{
+    TRACE_FUNC("((block*) %p (%d of %d @ %p)", dst, dst->used, dst->capacity, dst->pixel);
+
+#define AH     (dstarea->height)
+#define AW     (dstarea->width)
+#define AX     (dstarea->x)
+#define AY     (dstarea->y)
+#define DD     (dst->domain.depth)
+#define DH     (dst->domain.height)
+#define DST    (dst->pixel)
+#define DSTCAP (dst->used)
+#define DW     (dst->domain.width)
+#include <generated/blit/complex_reduce.c>
 
     TRACE_RETURN_VOID;
 }
