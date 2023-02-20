@@ -184,22 +184,22 @@ proc dsl::reader::OpStart {op} {
 proc dsl::reader::OpFinish {} {
     # Cross check operator specification for missing code fragments.
     if {[Get opspec result] eq "image"} {
-	# Image result
+	# Image result.
+	# Input images, if any, are kept.
 
 	if {[Get opspec region/fetch] eq {}} { Abort "Returns image, has no pixel fetch"	  }
 	if {[Get opspec state/setup]  eq {}} { Abort "Returns image, has no state/geometry setup" }
 	# Note: state, region state optional
 	#
 	if {[Get opspec rcode] ne {}} { Abort "Returns image, yet has result code" }
+
+	# Set rc mode of inputs to `keep`.
+	Set opspec images [lmap imspec [Get opspec images] {
+	    dict set imspec rcmode keep ; set imspec
+	}]
     } else {
 	# Non-image result, possibly void.
-	# Input images cannot be kept. RC mode has to be `ignore`
-
-	foreach imspec [Get opspec images] {
-	    set rc [dict get $imspec rcmode]
-	    if {$rc eq "ignore"} continue
-	    Abort "No image returned, yet attempting to keep input"
-	}
+	# Input images are not kept.
 
 	if {[Get opspec region/fetch]   ne {}} { Abort "No image returned, yet pixel fetch"	 }
 	if {[Get opspec region/fields]  ne {}} { Abort "No image returned, yet region state"	 }
@@ -211,6 +211,11 @@ proc dsl::reader::OpFinish {} {
 	if {[Get opspec state/cleanup] ne {}} { Abort "No image returned, yet state cleanup" }
 	#
 	if {[Get opspec rcode] eq {}} { Abort "No image returned, has no result code" }
+
+	# Set rc mode of inputs to `ignore`.
+	Set opspec images [lmap imspec [Get opspec images] {
+	    dict set imspec rcmode ignore ; set imspec
+	}]
     }
 
     Unset opspec param
@@ -301,18 +306,13 @@ proc dsl::reader::simplify {args} {
     LappendX opspec overlays $args
 }
 
-proc dsl::reader::input... {rc} { Input $rc ...      }
-proc dsl::reader::input    {rc} { Input $rc required }
+proc dsl::reader::input... {rc} { Input ...      }
+proc dsl::reader::input    {rc} { Input required }
 
-proc dsl::reader::Input {rc {mode required}} { ;#puts [info level 0]
+proc dsl::reader::Input {{mode required}} { ;#puts [info level 0]
     if {[Has opspec args] &&
 	[Get opspec args]} { Abort "Rejecting more image arguments, we have a variadic" }
 
-    if {$rc ni {
-	keep keep-pass keep-ignore keep-pass-ignore ignore
-    }} { Abort "Bad image rc-management mode '$rc'" }
-
-    dict set imspec rcmode $rc
     switch -exact -- $mode {
 	required { dict set imspec args 0	                             }
 	...      { dict set imspec args 1 ; Set opspec args 1 ; vector image }

@@ -658,8 +658,7 @@ proc dsl::writer::OperatorFunctionForOp {op} {
 	+ {}
     }
 
-    if {$result ne "aktive_image" ||
-	[FunctionIgnoresImages $spec]} {
+    if {$result ne "aktive_image"} {
 	# Main implementation and pixel filler need manual writing
 
 	if {$result eq "aktive_image"} {
@@ -1000,16 +999,6 @@ proc dsl::writer::CprocBody {op spec script} {
 	lappend igvariadic $v
 
 	if {$m in {
-	    keep-ignore keep-pass-ignore
-	}} {
-	    lappend ignames ${n}_ignored
-	    if {$v} {
-		set t aktive_int_vector
-	    } else {
-		set t int
-	    }
-	    lappend igtypes $t
-	} elseif {$m in {
 	    ignore
 	}} {
 	    lappend ignames $n
@@ -1077,26 +1066,6 @@ proc dsl::writer::CprocResultC {spec} {
     return [TypeCType $result]
 }
 
-proc dsl::writer::FunctionIgnoresImages {spec} {
-    dict with spec {}
-    # notes, images, params, result
-    unset notes params result
-
-    foreach i $images {
-	set m [dict get $i rcmode]
-	if {$m in {
-	    keep-ignore keep-pass-ignore
-	}} {
-	    return 1
-	} elseif {$m in {
-	    ignore
-	}} {
-	    continue
-	}
-    }
-    return 0
-}
-
 proc dsl::writer::FunctionCall {op spec} {
     append func [FunctionName $op $spec] " " [FunctionCallSignature $spec]
     if {[dict get $spec result] eq "image"} {
@@ -1140,16 +1109,6 @@ proc dsl::writer::FunctionDeclSignature {op spec} {
 	}
 
 	if {$m in {
-	    keep-ignore keep-pass-ignore
-	}} {
-	    lappend ignames ${n}_ignored
-	    if {$v} {
-		set t aktive_int_vector
-	    } else {
-		set t int
-	    }
-	    lappend igtypes $t
-	} elseif {$m in {
 	    ignore
 	}} {
 	    lappend ignames $n
@@ -1202,11 +1161,6 @@ proc dsl::writer::FunctionCallSignature {spec} {
 	if {$v} { set n "(aktive_image_vector*) &args" }
 
 	if {$m in {
-	    keep-ignore keep-pass-ignore
-	}} {
-	    lappend ignames ${n}_ignored
-	    lappend igtypes .
-	} elseif {$m in {
 	    ignore
 	}} {
 	    lappend ignames $n
