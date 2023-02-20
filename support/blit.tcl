@@ -47,7 +47,7 @@ proc dsl::blit::gen {name scans function} {
 
     foreach scan $scans { EmitLoopSetup $scan ; >>> }
 
-    EmitCellAccess $axes [Pointers $function]
+    EmitCellAccess $axes
     EmitFunction   $function
 
     set rscans [lreverse $scans]
@@ -66,11 +66,6 @@ proc dsl::blit::gen {name scans function} {
 
 # # ## ### ##### ######## #############
 
-proc dsl::blit::Pointers {function} {
-    if {[string match complex-* $function]} { return 1 }
-    return 0;
-}
-
 proc dsl::blit::EmitFunction {function} {
     Comment [string trimright "$function"]
     set args [lassign $function cmd]
@@ -79,7 +74,7 @@ proc dsl::blit::EmitFunction {function} {
 }
 proc dsl::blit::F/copy {} {
     + "TRACE (\"blit copy %f\", srcvalue);"
-    + "*dstvalue = srcvalue;"
+    + "*dstvalue = *srcvalue;"
 }
 
 proc dsl::blit::F/zero {} {
@@ -93,7 +88,7 @@ proc dsl::blit::F/const {v} {
 }
 
 proc dsl::blit::F/apply1 {op args} {
-    append call "$op (srcvalue"
+    append call "$op (*srcvalue"
     foreach a $args { append call ", $a" }
     append call ")"
 
@@ -101,7 +96,7 @@ proc dsl::blit::F/apply1 {op args} {
     foreach a $args { append fmt ", %f" }
     append fmt ")"
 
-    append values "srcvalue"
+    append values "*srcvalue"
     foreach a $args { append values ", $a" }
 
     + "double result = ${call};"
@@ -110,8 +105,8 @@ proc dsl::blit::F/apply1 {op args} {
 }
 
 proc dsl::blit::F/apply2 {op} {
-    + "double result = $op (src0value, src1value);"
-    + "TRACE (\"blit set %f = $op (%f, %f)\", result, src0value, src1value);"
+    + "double result = $op (*src0value, *src1value);"
+    + "TRACE (\"blit set %f = $op (%f, %f)\", result, *src0value, *src1value);"
     + "*dstvalue = result;"
 }
 
@@ -184,7 +179,7 @@ proc dsl::blit::EmitAxeTrace {k axes} {
     + "TRACE (\"$fmt\", [join $values {, }]);"
 }
 
-proc dsl::blit::EmitCellAccess {axes pointers} {
+proc dsl::blit::EmitCellAccess {axes} {
     # Compute linearized positions
     foreach k [lsort -dict [dict keys $axes]] {
 	set ax [dict get $axes $k]
@@ -206,21 +201,14 @@ proc dsl::blit::EmitCellAccess {axes pointers} {
     }
     + {}
 
-    # Read source values, if any -- May crash on out of bounds, or not
+    # Pointers to dst and source values, if any
     foreach k [lsort -dict [dict keys $axes]] {
-	if {$k eq "dst"} continue
-	if {$pointers} {
-	    + "double*      [F ${k}value] = [P $k] + ${k}pos;"
-	} else {
-	    + "double       [F ${k}value] = [P $k] \[${k}pos];"
-	}
+	+ "double*      [F ${k}value] = [P $k] + ${k}pos;"
 	ArgMark [P $k]
     }
 
-    # Destination lvalue
-    + "double*      [F dstvalue] = DST + dstpos;"
-    ArgMark DST
     + {}
+    return
 }
 
 proc dsl::blit::EmitCellTrace {k axes} {
