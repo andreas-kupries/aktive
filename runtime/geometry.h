@@ -15,6 +15,18 @@
 
 /*
  * - - -- --- ----- -------- -------------
+ */
+
+#define TRACE_POINT(p)     TRACE (#p " @(%d,%d)",                  (p)->x, (p)->y)
+#define TRACE_RECTANGLE(r) TRACE (#r " @(%d..%d,%d..%d %ux%u)",    (r)->x, (r)->x+(r)->width-1, (r)->y, (r)->y+(r)->height-1, (r)->width, (r)->height)
+#define TRACE_GEOMETRY(g)  TRACE (#g " @(%d..%d,%d..%d %ux%ux%u)", (g)->x, (g)->x+(g)->width-1, (g)->y, (g)->y+(g)->height-1, (g)->width, (g)->height, (g)->depth)
+
+#define TRACE_POINT_M(m,p)     TRACE (m " @(%d,%d)",                  (p)->x, (p)->y)
+#define TRACE_RECTANGLE_M(m,r) TRACE (m " @(%d..%d,%d..%d %ux%u)",    (r)->x, (r)->x+(r)->width-1, (r)->y, (r)->y+(r)->height-1, (r)->width, (r)->height)
+#define TRACE_GEOMETRY_M(m,g)  TRACE (m " @(%d..%d,%d..%d %ux%ux%u)", (g)->x, (g)->x+(g)->width-1, (g)->y, (g)->y+(g)->height-1, (g)->width, (g)->height, (g)->depth)
+
+/*
+ * - - -- --- ----- -------- -------------
  * -- Points	 :: 2D location
  * -- Rectangles :: 2D area   (location + dimensions)
  * -- Geometries :: 3D volume (dimensions)
@@ -89,6 +101,9 @@ extern Tcl_Obj* aktive_new_rectangle_obj (aktive_rectangle* r);
 #define aktive_rectangle_def(varname,xv,yv,wv,hv) \
     aktive_rectangle varname = { .x = (xv), .y = (yv), .width = (wv), .height = (hv) }
 
+#define aktive_rectangle_def_as(varname,src) \
+    aktive_rectangle_def(varname, (src)->x, (src)->y, (src)->width, (src)->height)
+
 /*
  * - - -- --- ----- -------- -------------
  * extern void aktive_rectangle_set           (aktive_rectangle* dst, int x, int y, aktive_uint w, aktive_uint h);
@@ -100,6 +115,12 @@ extern Tcl_Obj* aktive_new_rectangle_obj (aktive_rectangle* r);
  * extern int  aktive_rectangle_get_y         (aktive_rectangle* src);
  * extern int  aktive_rectangle_get_ymax      (aktive_rectangle* src);
  */
+
+#define aktive_rectangle_sub(dst,delta) aktive_rectangle_move(dst, - (delta)->x, - (delta)->y)
+
+extern void aktive_rectangle_move         (aktive_rectangle* dst, int dx, int dy);
+extern void aktive_rectangle_add          (aktive_rectangle* dst, aktive_point* delta);
+extern void aktive_rectangle_grow         (aktive_rectangle* dst, int left, int right, int top, int bottom);
 
 #define aktive_rectangle_set(dst, xv, yv, wv, hv) { (dst)->x = (xv) ; (dst)->y = (yv) ; (dst)->width = (wv) ; (dst)->height = (hv) ; }
 #define aktive_rectangle_copy(dst, src)           aktive_rectangle_set(dst, (src)->x, (src)->y, (src)->width, (src)->height)
@@ -116,10 +137,6 @@ extern int aktive_rectangle_is_equal  (aktive_rectangle* a, aktive_rectangle* b)
 extern int aktive_rectangle_is_subset (aktive_rectangle* a, aktive_rectangle* b);
 extern int aktive_rectangle_is_empty  (aktive_rectangle* r);
 extern int aktive_rectangle_contains  (aktive_rectangle* r, aktive_point* p);
-
-extern void aktive_rectangle_move         (aktive_rectangle* dst, int dx, int dy);
-extern void aktive_rectangle_add          (aktive_rectangle* dst, aktive_point* delta);
-extern void aktive_rectangle_grow         (aktive_rectangle* dst, int left, int right, int top, int bottom);
 
 extern void aktive_rectangle_union     (aktive_rectangle* dst, aktive_rectangle* a, aktive_rectangle* b);
 extern void aktive_rectangle_intersect (aktive_rectangle* dst, aktive_rectangle* a, aktive_rectangle* b);

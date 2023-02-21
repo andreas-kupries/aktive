@@ -208,7 +208,7 @@ aktive_region_fetch_area (aktive_region region, aktive_rectangle* request)
     
     region->opspec->region_fetch (&region->public, &zv[0], &dst, &region->pixels);
  done:
-    // __aktive_block_dump (region->opspec->name, &region->pixels);
+    TRACE_DO (__aktive_block_dump (region->opspec->name, &region->pixels));
     // And return them 
     TRACE_RETURN ("(aktive_block*) %p", &region->pixels);
 }
