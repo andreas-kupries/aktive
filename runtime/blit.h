@@ -55,6 +55,10 @@ extern aktive_uint aktive_blit_index (aktive_block* src, int x, int y, int z);
 
 extern void aktive_blit_clear_all  (aktive_block* dst);
 extern void aktive_blit_clear      (aktive_block* dst, aktive_rectangle* area);
+
+extern void aktive_blit_clear_bands_from (aktive_block* dst, aktive_rectangle* area,
+					  aktive_uint first, aktive_uint n);
+
 extern void aktive_blit_fill       (aktive_block* dst, aktive_rectangle* area, double v);
 extern void aktive_blit_fill_bands (aktive_block* dst, aktive_rectangle* area,
 				    aktive_double_vector* bands);
