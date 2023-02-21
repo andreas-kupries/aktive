@@ -36,39 +36,27 @@ syntax {
 #
 # Downsampleing columns, rows, or bands
 
-foreach {op w h d expected} {
-    x 2 4 2 {
+foreach {op domain expected} {
+    x {2 4 2} {
 	=  1  1.5 =  3  3.5 =
 	=  4  4.5 =  6  6.5 =
 	=  7  7.5 =  9  9.5 =
 	= 10 10.5 = 12 12.5 =
     }
-    y 3 2 2 {
+    y {3 2 2} {
 	=  1  1.5 =  2  2.5 =  3  3.5 =
 	=  7  7.5 =  8  8.5 =  9  9.5 =
     }
-    z 3 4 1 {
+    z {3 4 1} {
 	=  1 =  2 =  3 =
 	=  4 =  5 =  6 =
 	=  7 =  8 =  9 =
 	= 10 = 11 = 12 =
     }
 } {
-    unset -nocomplain map
-    lappend map /fun    $op
-    lappend map /pixels $expected
-    lappend map /w      $w
-    lappend map /h      $h
-    lappend map /d      $d
-
     test aktive-op-downsample-${op}-2.0 "aktive op downsample $op 2x" -body {
 	astcl aktive op downsample $op 2 [grad]
-    } -match image -result [string map $map {
-	type   op::downsample::/fun
-	domain {x 0 y 0 width /w height /h depth /d}
-	config {n 2}
-	pixels {/pixels}
-    }]
+    } -match image -result [makei op::downsample::$op 0 0 {*}$domain {n 2} $expected]
 
     test aktive-op-downsample-${op}-2.1 "aktive op downsample $op, dag" -body {
 	dag aktive op downsample $op 2 [grad]
@@ -81,7 +69,7 @@ foreach {op w h d expected} {
 	dag aktive op downsample $op 1 $in
     } -match glob -result "image::gradient $id *"
 
-    unset map in id
+    unset in id
 
     # Not testing chain reduction for z here, not enough bands in the standard gradient input
     if {$op eq "z"} continue

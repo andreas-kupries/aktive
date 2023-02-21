@@ -38,14 +38,14 @@ syntax {
 #
 # Upsampling columns, rows, or bands
 
-foreach {op w h d expected} {
-    x 6 4 2 {
+foreach {op domain expected} {
+    x {6 4 2} {
 	=  1  1.5 = 0 0 =  2  2.5 = 0 0 =  3  3.5 = 0 0 =
 	=  4  4.5 = 0 0 =  5  5.5 = 0 0 =  6  6.5 = 0 0 =
 	=  7  7.5 = 0 0 =  8  8.5 = 0 0 =  9  9.5 = 0 0 =
 	= 10 10.5 = 0 0 = 11 11.5 = 0 0 = 12 12.5 = 0 0 =
     }
-    y 3 8 2 {
+    y {3 8 2} {
 	=  1  1.5 =  2  2.5 =  3  3.5 =
 	=  0  0   =  0  0   =  0  0   =
 	=  4  4.5 =  5  5.5 =  6  6.5 =
@@ -55,28 +55,16 @@ foreach {op w h d expected} {
 	= 10 10.5 = 11 11.5 = 12 12.5 =
 	=  0  0   =  0  0   =  0  0   =
     }
-    z 3 4 4 {
+    z {3 4 4} {
 	=  1 0  1.5 0 =  2 0  2.5 0 =  3 0  3.5 0 =
 	=  4 0  4.5 0 =  5 0  5.5 0 =  6 0  6.5 0 =
 	=  7 0  7.5 0 =  8 0  8.5 0 =  9 0  9.5 0 =
 	= 10 0 10.5 0 = 11 0 11.5 0 = 12 0 12.5 0 =
     }
 } {
-    unset -nocomplain map
-    lappend map /fun    $op
-    lappend map /pixels $expected
-    lappend map /w      $w
-    lappend map /h      $h
-    lappend map /d      $d
-
     test aktive-op-upsample-${op}-2.0 "aktive op upsample $op 2x" -body {
 	astcl aktive op upsample $op 2 0 [grad]
-    } -match image -result [string map $map {
-	type   op::upsample::/fun
-	domain {x 0 y 0 width /w height /h depth /d}
-	config {n 2 fill 0.0}
-	pixels {/pixels}
-    }]
+    } -match image -result [makei op::upsample::$op 0 0 {*}$domain {n 2 fill 0.0} $expected]
 
     test aktive-op-upsample-${op}-2.1 "aktive op upsample $op, dag" -body {
 	dag aktive op upsample $op 2 0 [grad]
@@ -89,7 +77,7 @@ foreach {op w h d expected} {
 	dag aktive op upsample $op 1 0 $in
     } -match glob -result "image::gradient $id *"
 
-    unset map in id
+    unset in id
 
     test aktive-op-upsample-${op}-2.3 "aktive op upsample $op, chain reduction, factors multiply, for same fill" -body {
 	dag aktive op upsample $op 3 0 [aktive op upsample $op 2 0 [grad]]

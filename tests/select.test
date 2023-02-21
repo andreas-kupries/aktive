@@ -37,54 +37,39 @@ syntax {
 # Selecting column, row, or band 1
 
 foreach {op dim thing domain expected} {
-    x width column {x 1 y 0 width 1 height 4 depth 2} {
+    x width column {1 0 1 4 2} {
 	2  2.5
 	5  5.5
 	8  8.5
 	11 11.5
     }
-    y height row {x 0 y 1 width 3 height 1 depth 2} {
+    y height row {0 1 3 1 2} {
 	4 4.5 = 5 5.5 = 6 6.5
     }
-    z depth band {x 0 y 0 width 3 height 4 depth 1} {
+    z depth band {0 0 3 4 1} {
 	=  1.5 =  2.5 =  3.5 =
 	=  4.5 =  5.5 =  6.5 =
 	=  7.5 =  8.5 =  9.5 =
 	= 10.5 = 11.5 = 12.5 =
     }
 } {
-    unset -nocomplain map
-    lappend map /fun    $op
-    lappend map /domain $domain
-    lappend map /pixels $expected
-
     test aktive-op-select-${op}-2.0 "aktive op select $op" -body {
 	astcl aktive op select $op 1 1 [grad]
-    } -match image -result [string map $map {
-	type   op::select::/fun
-	config {first 1 last 1}
-	domain {/domain}
-	pixels {/pixels}
-    }]
+    } -match image -result [makei op::select::$op {*}$domain {first 1 last 1} $expected]
 
     test aktive-op-select-${op}-2.1 "aktive op select $op, dag" -body {
 	dag aktive op select $op 1 1 [grad]
-    } -match glob -result [string map $map {op::select::/fun * {image::gradient *}}]
-
-    test aktive-op-select-${op}-2.2 "aktive op select $op, dag" -body {
-	dag aktive op select $op 1 1 [grad]
-    } -match glob -result [string map $map {op::select::/fun * {image::gradient *}}]
+    } -match glob -result "op::select::$op * {image::gradient *}"
 
     set in    [grad]
     set id    [aktive query id $in]
     set range [aktive query $dim $in] ; incr range -1
 
-    test aktive-op-select-${op}-2.3 "aktive op select $op, pass through dag" -body {
+    test aktive-op-select-${op}-2.2 "aktive op select $op, pass through dag" -body {
 	dag aktive op select $op 0 $range $in
     } -match glob -result "image::gradient $id *"
 
     unset in range
-    unset map
 
     test aktive-op-select-${op}-3.0 "aktive op select $op, first > range" -body {
 	aktive op select $op 5 6 [flat 0]

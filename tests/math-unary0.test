@@ -98,22 +98,13 @@ foreach {fun steps first last expected} {
 	puts   "XX EXP.. $expected\n"
     }
 
-    unset -nocomplain map
-    lappend map /fun   $fun
-    lappend map /ex    $expected
-    lappend map /steps $steps
-
     test aktive-op-math1-${fun}-2.0 "aktive op math1 $fun (\[$first $last]/$steps)" -body {
 	astcl aktive op math1 $fun [aktive image gradient $steps 1 1 $first $last]
-    } -match image -result [string map $map {
-	type   op::math1::/fun
-	domain {x 0 y 0 width /steps height 1 depth 1}
-	pixels {/ex}
-    }]
+    } -match image -result [makei op::math1::$fun 0 0 $steps 1 1 {} $expected]
 
     test aktive-op-math1-${fun}-2.1 "aktive op math1 $fun, dag" -body {
 	dag aktive op math1 $fun [grad]
-    } -match glob -result [string map $map {op::math1::/fun * {} {image::gradient *}}]
+    } -match glob -result "op::math1::$fun * {} {image::gradient *}"
 
     # Const folding is done for most, but not all.
     if {$fun ni {
@@ -162,8 +153,6 @@ foreach {fun steps first last expected} {
 	# Note: The inverse order test is covered by the test for the other op
 	#       If not self complementary
     }
-
-    unset map
 }
 
 # # ## ### ##### ######## ############# #####################

@@ -45,18 +45,9 @@ foreach {k fun expected} {
     # puts   "XX RESLT [dict get [astcl aktive op math1 $fun [aktive image gradient $steps 1 1 $first $last]] pixels]"
     # puts   "XX EXP.. $expected\n"
 
-    unset -nocomplain map
-    lappend map /fun   $fun
-    lappend map /ex    $expected
-
     test aktive-op-math-${fun}-2.0 "aktive math $fun" -body {
 	astcl aktive op math $fun -1 1 [aktive image gradient 7 1 1 -3 3]
-    } -match image -result [string map $map {
-	type   op::math::/fun
-	config {low -1.0 high 1.0}
-	domain {x 0 y 0 width 7 height 1 depth 1}
-	pixels {/ex}
-    }]
+    } -match image -result [makei op::math::$fun 0 0 7 1 1 {low -1.0 high 1.0} $expected]
 
     test aktive-op-math-${fun}-2.1 "aktive math $fun, dag" -body {
 	dag aktive op math $fun -1 1 [aktive image gradient 7 1 1 -3 3]
@@ -65,8 +56,6 @@ foreach {k fun expected} {
     test aktive-op-math-${fun}-2.2 "aktive math $fun, const folding, dag" -body {
 	dag aktive op math $fun -1 1 [flat 4]
     } -match glob -result {image::constant *}
-
-    unset map
 }
 
 # # ## ### ##### ######## ############# #####################

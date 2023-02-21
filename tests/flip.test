@@ -56,21 +56,13 @@ foreach {k op expected} {
 	= 10.50 10.00 = 11.50 11.00 = 12.50 12.00
     }
 } {
-    unset -nocomplain map
-    lappend map /fun    $op
-    lappend map /pixels $expected
-
     test aktive-op-flip-${op}-2.0 "aktive op flip $op" -body {
 	astcl aktive op flip $op [grad]
-    } -match image -result [string map $map {
-	type   op::flip::/fun
-	domain {x 0 y 0 width 3 height 4 depth 2}
-	pixels {/pixels}
-    }]
+    } -match image -result [makei op::flip::$op 0 0 3 4 2 {} $expected]
 
     test aktive-op-flip-${op}-2.1 "aktive op flip $op, dag" -body {
 	dag aktive op flip $op [grad]
-    } -match glob -result [string map $map {op::flip::/fun * {} {image::gradient *}}]
+    } -match glob -result "op::flip::$op * {} {image::gradient *}"
 
     set in [grad]
     set id [aktive query id $in]
@@ -79,7 +71,7 @@ foreach {k op expected} {
 	dag aktive op flip $op [aktive op flip $op $in]
     } -match glob -result "image::gradient $id *"
 
-    unset map in id
+    unset in id
 
     test aktive-op-flip-${op}-2.3 "aktive op flip $op, partial view" -body {
 	dict get [astcl aktive op select $op 5 10 [aktive op flip $op [grad$op]]] pixels

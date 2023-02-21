@@ -41,6 +41,22 @@ proc dag/ {i} {
     return $r
 }
 
+# Construct image in tcl representation for comparisons
+proc makei {op x y w h d config pixels} {
+    dict set domain x      $x
+    dict set domain y      $y
+    dict set domain width  $w
+    dict set domain height $h
+    dict set domain depth  $d
+
+    dict set i type   $op
+    dict set i domain $domain
+    if {$config ne {}} { dict set i config $config }
+    dict set i pixels $pixels
+
+    return $i
+}
+
 ##
 # # ## ### ##### ######## ############# #####################
 return
