@@ -1,0 +1,66 @@
+# -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
+## (c) 2023 Andreas Kupries
+# # ## ### ##### ######## ############# #####################
+## AKTIVE. Image montage (adjoin rows, columns, bands)
+
+kt check Tcl     8.6
+kt check tcltest 2
+
+# # ## ### ##### ######## ############# #####################
+
+kt local testing aktive
+
+kt source support/util.tcl
+
+# # ## ### ##### ######## ############# #####################
+## Syntax
+
+syntax {
+    x {src0 src1}
+    y {src0 src1}
+    z {src0 src1}
+} {aktive op montage}
+
+# # ## ### ##### ######## ############# #####################
+
+set a [aktive op select x 0 4 [gradx]]
+set b [aktive op select y 0 4 [grady]]
+
+foreach {op w h d expected} {
+    x 6 5 1 {
+	= 0 1 2 3 4 0 =
+	= 0 0 0 0 0 1 =
+	= 0 0 0 0 0 2 =
+	= 0 0 0 0 0 3 =
+	= 0 0 0 0 0 4 =
+    }
+    y 5 6 1 {
+	= 0 1 2 3 4 =
+	= 0 0 0 0 0 =
+	= 1 0 0 0 0 =
+	= 2 0 0 0 0 =
+	= 3 0 0 0 0 =
+	= 4 0 0 0 0 =
+    }
+    z 5 5 2 {
+	= 0 0 = 1 0 = 2 0 = 3 0 = 4 0 =
+	= 0 1 = 0 0 = 0 0 = 0 0 = 0 0 =
+	= 0 2 = 0 0 = 0 0 = 0 0 = 0 0 =
+	= 0 3 = 0 0 = 0 0 = 0 0 = 0 0 =
+	= 0 4 = 0 0 = 0 0 = 0 0 = 0 0 =
+    }
+} {
+    test aktive-op-montage-${op}-2.0 "aktive op montage $op" -body {
+	astcl aktive op montage $op $a $b
+    } -match image -result [makei op::montage::$op 0 0 $w $h $d {} $expected]
+
+    test aktive-op-montage-${op}-2.1 "aktive op montage $op, dag" -body {
+	dag aktive op montage $op $a $b
+    } -match glob -result "op::montage::$op * {} {*} {*}"
+}
+
+unset a
+unset b
+# # ## ### ##### ######## ############# #####################
+cleanupTests
+return

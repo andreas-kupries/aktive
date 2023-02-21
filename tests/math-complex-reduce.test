@@ -1,5 +1,4 @@
 # -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
-return
 ## (c) 2023 Andreas Kupries
 # # ## ### ##### ######## ############# #####################
 ## AKTIVE. Complex transformers - Reductions to scalar
@@ -21,67 +20,66 @@ syntax {
     imaginary src
     abs       src
     sqabs     src
-    carg      src
+    arg       src
 } {aktive op cmath}
 
 # # ## ### ##### ######## ############# #####################
 ##
 
+set real      [gradx]
+set imaginary [aktive op flip x $real]
+set a         [aktive op montage z $real $imaginary]
+
 foreach {op expected} {
-    real      {}
-    imaginary {}
-    abs       {}
-    sqabs     {}
-    carg      {}
+    abs       {
+	19 18.0278 17.1172 16.2788 15.5242 14.8661 14.3178 13.8924 13.6015 13.4536
+	13.4536 13.6015 13.8924 14.3178 14.8661 15.5242 16.2788 17.1172 18.0278 19
+    }
+    sqabs {
+	361 325 293 265 241 221 205 193 185 181
+	181 185 193 205 221 241 265 293 325 361
+    }
+    arg {
+	1.5708 1.5153 1.45369 1.3854 1.3102 1.2278 1.1384 1.0427 0.9420 0.83798
+	0.7328 0.6288 0.5281 0.4324 0.3430 0.2606 0.1854 0.1171 0.0555 0
+    }
 } {
     # functions to debug ...
     if {![llength $expected] || ($op in {})} {
 	puts   "\nXX $op ........................................................................"
-	puts   "XX INPUT [dict get [astcl/ [gradx]] pixels]"
-	puts   "XX INPUT [dict get [astcl/ [aktive op flip x [gradx]]] pixels]"
-	puts   "XX RESLT [dict get [astcl/ [aktive op math $op [gradx] [aktive op flip x [gradx]]]] pixels]"
+	puts   "XX INPUT [dict get [astcl/ $a] pixels]"
+	puts   "XX RESLT [dict get [astcl/ [aktive op cmath $op $a]] pixels]"
 	puts   "XX EXP.. $expected\n"
     }
 
-    test aktive-op-math-${op}-2.0 "aktive op math $op, core" -body {
-	set x [astcl aktive op math $op [gradx] [aktive op flip x [gradx]]]
-	dict unset x pixels
-	set x
-    } -cleanup {
-	unset x
-    } -result "type op::math::$op domain {x 0 y 0 width 20 height 1 depth 1}"
-
-    test aktive-op-math-${op}-2.1 "aktive op math $op, pixels" -body {
-	dict get [astcl aktive op select x 0 18 [aktive op math $op [gradx] [aktive op flip x [gradx]]]] pixels
-    } -match pixels -result $expected
-
-    test aktive-op-math-${op}-2.2 "aktive op math $op, dag" -body {
-	dag aktive op math $op [gradx] [aktive op flip x [gradx]]
-    } -match glob -result "op::math::$op * {} {image::gradient *} {*}"
+    test aktive-op-cmath-${op}-2.0 "aktive op cmath $op" -body {
+	astcl aktive op cmath $op $a
+    } -match image -result [makei op::cmath::$op 0 0 20 1 1 {} $expected]
 }
 
-# # ## ### ##### ######## ############# #####################
-## Highlevel ops - Just check results
-
-foreach {op expected} {
-    difference {19 17 15 13 11 9 7 5 3 1 1 3 5 7 9 11 13 15 17 19}
-    screen     {19 1 -15 -29 -41 -51 -59 -65 -69 -71 -71 -69 -65 -59 -51 -41 -29 -15 1 19}
+foreach op {
+    real
+    imaginary
 } {
     # functions to debug ...
     if {![llength $expected] || ($op in {})} {
 	puts   "\nXX $op ........................................................................"
-	puts   "XX INPUT [dict get [astcl/ [gradx]] pixels]"
-	puts   "XX INPUT [dict get [astcl/ [aktive op flip x [gradx]]] pixels]"
-	puts   "XX RESLT [dict get [astcl/ [aktive op math $op [gradx] [aktive op flip x [gradx]]]] pixels]"
+	puts   "XX INPUT [dict get [astcl/ $a] pixels]"
+	puts   "XX RESLT [dict get [astcl/ [aktive op cmath $op $a]] pixels]"
 	puts   "XX EXP.. $expected\n"
     }
 
-    test aktive-op-math-${op}-2.1 "aktive op math $op, pixels" -body {
-	#dict get [astcl aktive op select x 0 18 [aktive op math $op [gradx] [aktive op flip x [gradx]]]] pixels
-	dict get [astcl aktive op math $op [gradx] [aktive op flip x [gradx]]] pixels
-    } -match pixels -result $expected
+    test aktive-op-cmath-${op}-2.0 "aktive op cmath $op, core" -body {
+	astcl aktive op cmath $op $a
+    } -match glob -result "type op::select::z domain {*} *"
+
+    test aktive-op-cmath-${op}-2.1 "aktive op cmath $op, pixels" -body {
+	dict get [astcl aktive op cmath $op $a] pixels
+    } -match pixels -result [dict get [astcl/ [set $op]] pixels]
+    # note: op names match the variable names holding the bands
 }
 
+unset real imaginary a
 ##
 # # ## ### ##### ######## ############# #####################
 cleanupTests
