@@ -220,7 +220,6 @@ operator image::gradient {
 		}
 	    }
 	}
-	return;
     }
 }
 
