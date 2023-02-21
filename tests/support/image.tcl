@@ -3,6 +3,8 @@
 # # ## ### ##### ######## ############# #####################
 ## Test Utility Commands -- Image Matching
 
+proc 4f {xs} { lmap x $xs { format %.4f $x }}
+
 # Run image operation. Record operation (coverage)
 
 proc check {args} {

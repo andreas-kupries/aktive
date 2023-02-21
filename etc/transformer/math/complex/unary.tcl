@@ -24,14 +24,13 @@ operator {cfunction dexpr} {
     op::cmath::log2         aktive_cmath_log2       {}
     op::cmath::neg          aktive_cmath_neg        -I
     op::cmath::reciproc     aktive_cmath_reciprocal 1/I
-    op::cmath::sin	    csin                    {}
+    op::cmath::sin          csin                    {}
     op::cmath::sinh         csinh                   {}
-    op::cmath::sqrt	    csqrt                   {}
-    op::cmath::tan	    ctan                    {}
+    op::cmath::sqrt         csqrt                   {}
+    op::cmath::tan          ctan                    {}
     op::cmath::tanh         ctanh                   {}
     op::cmath::tocartesian  aktive_cmath_cartesian  {}
     op::cmath::topolar      aktive_cmath_polar      {}
-
 } {
     if {$dexpr eq {}} { set dexpr [namespace tail $__op] }
     if {![string match *I* $dexpr]} { append dexpr (I) }

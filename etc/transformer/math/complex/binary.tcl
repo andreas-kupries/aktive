@@ -6,11 +6,11 @@
 ## Inputs have to have exactly 2 bands.
 
 operator {cfunction dexpr} {
-    op::cmath::add	    aktive_cmath_add {A + B}
-    op::cmath::div          aktive_cmath_div {A / B}
-    op::cmath::mul	    aktive_cmath_mul {A * B}
-    op::cmath::sub	    aktive_cmath_sub {A - B}
-    op::cmath::pow	    cpow             pow
+    op::cmath::add    aktive_cmath_add {A + B}
+    op::cmath::div    aktive_cmath_div {A / B}
+    op::cmath::mul    aktive_cmath_mul {A * B}
+    op::cmath::sub    aktive_cmath_sub {A - B}
+    op::cmath::pow    cpow	       pow
 } {
     if {$dexpr eq {}} { set dexpr [namespace tail $__op] }
     if {![string match *A* $dexpr]} { append dexpr "(A, B)" }
