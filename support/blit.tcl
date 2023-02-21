@@ -45,10 +45,16 @@ proc dsl::blit::gen {name scans function} {
 
     EmitAxisSupport $axes
 
+    set id 0
+    foreach scan $scans { EmitLoopRange $scan $id ; incr id }
+
+    EmitCellIntro $axes
+
     foreach scan $scans { EmitLoopSetup $scan ; >>> }
 
     EmitCellAccess $axes
     EmitFunction   $function
+    + "TRACE_CLOSER;"	;# starting in EmitCellAccess
 
     set rscans [lreverse $scans]
     foreach scan $rscans { EmitLoopCompletion $scan }
@@ -73,17 +79,17 @@ proc dsl::blit::EmitFunction {function} {
     return
 }
 proc dsl::blit::F/copy {} {
-    + "TRACE (\"blit copy %f\", srcvalue);"
+    + "TRACE_ADD (\" :: copy %f\", *srcvalue);"
     + "*dstvalue = *srcvalue;"
 }
 
 proc dsl::blit::F/zero {} {
-    + "TRACE (\"blit set zero\", 0);"
+    + "TRACE_ADD (\" :: zero\", 0);"
     + "*dstvalue = 0;"
 }
 
 proc dsl::blit::F/const {v} {
-    + "TRACE (\"blit set %f\", $v);"
+    + "TRACE_ADD (\" :: set %f\", $v);"
     + "*dstvalue = $v;"
 }
 
@@ -100,24 +106,24 @@ proc dsl::blit::F/apply1 {op args} {
     foreach a $args { append values ", $a" }
 
     + "double result = ${call};"
-    + "TRACE (\"blit set %f = $fmt\", result, $values);"
+    + "TRACE_ADD (\" :: set %f = $fmt\", result, $values);"
     + "*dstvalue = result;"
 }
 
 proc dsl::blit::F/apply2 {op} {
     + "double result = $op (*src0value, *src1value);"
-    + "TRACE (\"blit set %f = $op (%f, %f)\", result, *src0value, *src1value);"
+    + "TRACE_ADD (\" :: set %f = $op (%f, %f)\", result, *src0value, *src1value);"
     + "*dstvalue = result;"
 }
 
 proc dsl::blit::F/complex-apply-reduce {op} {
-    + "TRACE (\"blit complexR $op (%f+i*%f)\", srcvalue\[0], srcvalue\[1]);"
+    + "TRACE_ADD (\" :: complexR $op (%f+i*%f)\", srcvalue\[0], srcvalue\[1]);"
     + "double complex srccvalue = CMPLX (srcvalue\[0], srcvalue\[1]);"
     + "*dstvalue                = $op (srccvalue);"
 }
 
 proc dsl::blit::F/complex-apply-unary {op} {
-    + "TRACE (\"blit complex1 $op (%f+i*%f)\", srcvalue\[0], srcvalue\[1]);"
+    + "TRACE_ADD (\" :: complex1 $op (%f+i*%f)\", srcvalue\[0], srcvalue\[1]);"
     + "double complex srccvalue = CMPLX (srcvalue\[0], srcvalue\[1]);"
     + "double complex result    = $op (srccvalue);"
     + "dstvalue\[0]              = creal (result);"
@@ -125,7 +131,7 @@ proc dsl::blit::F/complex-apply-unary {op} {
 }
 
 proc dsl::blit::F/complex-apply-binary {op} {
-    + "TRACE (\"blit complex2 = $op (%f, %f)\", src0value\[0], src0value\[1], src1value\[0], src1value\[1]);"
+    + "TRACE_ADD (\" :: complex2 = $op (%f, %f)\", src0value\[0], src0value\[1], src1value\[0], src1value\[1]);"
     + "double complex src0cvalue = CMPLX (src0value\[0], src0value\[1]);"
     + "double complex src1cvalue = CMPLX (src1value\[0], src1value\[1]);"
     + "double complex result     = $op (src0cvalue, src1cvalue);"
@@ -145,6 +151,7 @@ proc dsl::blit::EmitAxisSupport {axes} {
     if {!$sep} return
     + {}
 
+    + "TRACE (\"blit [T geo] | W.. | H.. | D.. | Pit | Str |\", 0);"
     foreach k [lsort -dict [dict keys $axes]] {
 	set ax [dict get $axes $k]
 	EmitAxeTrace $k $ax
@@ -160,23 +167,40 @@ proc dsl::blit::EmitAxes {k axes} {
 }
 
 proc dsl::blit::EmitAxeTrace {k axes} {
-    set fmt    "blit [T $k] geo"
+    set fmt    "blit [T $k]"
     set values {}
 
     set p [string map {dst D src S} $k]
 
-    append fmt " |W %3d |H %3d |D %3d"
+    append fmt " | %3d | %3d | %3d"
     lappend values ${p}W ${p}H ${p}D
     ArgMark ${p}W
     ArgMark ${p}H
     ArgMark ${p}D
 
-    if {[dict exists $axes y]} { append fmt " |P %3d" }
-    if {[dict exists $axes x]} { append fmt " |S %3d" }
+    if {[dict exists $axes y]} { append fmt " | %3d" }
+    if {[dict exists $axes x]} { append fmt " | %3d" }
+    append fmt " |"
     if {[dict exists $axes y]} { lappend values ${k}pitch  }
     if {[dict exists $axes x]} { lappend values ${k}stride }
 
     + "TRACE (\"$fmt\", [join $values {, }]);"
+}
+
+proc dsl::blit::EmitCellIntro {axes} {
+    Comment {blit table header ...}
+    + "TRACE_HEADER (1); TRACE_ADD(\"blit @\", 0);"
+    foreach k [lsort -dict [dict keys $axes]] {
+	set ax [dict get $axes $k]
+	+ "TRACE_ADD (\" | [T $k]\", 0);"
+	foreach a {y x z} {
+	    if {![dict exists $ax $a]} continue
+	    + "TRACE_ADD (\" | ${a}..\", 0);"
+	}
+	+ "TRACE_ADD (\" | pos/cap\", 0);"
+    }
+    + "TRACE_CLOSER;"
+    + {}
 }
 
 proc dsl::blit::EmitCellAccess {axes} {
@@ -187,17 +211,12 @@ proc dsl::blit::EmitCellAccess {axes} {
     }
     + {}
 
-    # Trace
+    # Trace, including protection against out of bounds
+    Comment {blit table rows ...}
+    + "TRACE_HEADER (1); TRACE_ADD(\"blit @\", 0);"
     foreach k [lsort -dict [dict keys $axes]] {
 	set ax [dict get $axes $k]
-	+ "TRACE ([EmitCellTrace $k $ax], ${k}pos, [P $k]CAP);"
-    }
-    + {}
-
-    # Protect against out-of-bounds positions.
-    foreach k [lsort -dict [dict keys $axes]] {
-	ArgMark [P $k]CAP
-	+ "ASSERT_VA ([F ${k}pos] < [F [P $k]CAP], \"$k out of bounds\", \"%d / %d\", ${k}pos, [P $k]CAP)"
+	EmitCellTrace $k $ax
     }
     + {}
 
@@ -212,25 +231,18 @@ proc dsl::blit::EmitCellAccess {axes} {
 }
 
 proc dsl::blit::EmitCellTrace {k axes} {
+    ArgMark [P $k]CAP
 
-    set fmt "\"blit [T $k]"
-    set sep " | "
-    if {[dict exists $axes y]} { append fmt ${sep}%3d } ;# y
-    if {[dict exists $axes x]} { append fmt ${sep}%3d } ;# x
-    if {[dict exists $axes z]} { append fmt ${sep}%3d } ;# z
-    #if {[dict exists $axes y]} { append fmt ${sep}%3d } ;# pitch
-    #if {[dict exists $axes x]} { append fmt ${sep}%3d } ;# stride
+    + "TRACE_ADD (\" | [T $k]\", 0);"
+    foreach a {y x z} {
+	if {![dict exists $axes $a]} continue
+	+ "TRACE_ADD (\" | %3d\", $k$a);"
+    }
+    + "TRACE_ADD (\" | %3d/%3d\", ${k}pos, [P $k]CAP);"
 
-    if {[dict exists $axes y]} { lappend values ${k}y } ;# y
-    if {[dict exists $axes x]} { lappend values ${k}x } ;# x
-    if {[dict exists $axes z]} { lappend values ${k}z } ;# z
-    #if {[dict exists $axes y]} { lappend values ${k}pitch  } ;# pitch
-    #if {[dict exists $axes x]} { lappend values ${k}stride } ;# stride
+    # Protection against out of bounds access. Close tracing and abort.
 
-    append fmt "$sep\[%3d\] < %3d\", "
-    #                 ^pos    ^cap
-
-    return $fmt[join $values {, }]
+    + "if (${k}pos >= [P $k]CAP) { TRACE_CLOSER; ASSERT_VA (0, \"$k out of bounds\", \"%d / %d\", ${k}pos, [P $k]CAP); }"
 }
 
 proc dsl::blit::EmitCellPosition {k axes} {
@@ -245,6 +257,21 @@ proc dsl::blit::EmitCellPosition {k axes} {
 
 # # ## ### ##### ######## #############
 
+proc dsl::blit::EmitLoopRange {scan id} {
+
+    set blocks [lassign $scan range]
+
+    if {[IsArg $range]} { ArgMark $range }
+
+    # Range counter, separate from the position trackers
+    + "aktive_uint [F range${id}n] = ${range};"
+    + "aktive_uint range${id};"
+
+    set axis [lindex $blocks 0 0]
+    + "TRACE (\"blit $axis range: %u\", range${id}n);"
+    + {}
+}
+
 proc dsl::blit::EmitLoopSetup {scan} {
     # scan  :: list (range block...)
     # block :: axis minvalue delta direction
@@ -252,12 +279,6 @@ proc dsl::blit::EmitLoopSetup {scan} {
 
     set blocks [lassign $scan range]
     set kinds  [Kinds $blocks]
-
-    if {[IsArg $range]} { ArgMark $range }
-
-    # Range counter, separate from the position trackers
-    + "aktive_uint [F range[L]n] = ${range};"
-    + "aktive_uint range[L];"
 
     # Position trackers, one per block in the scan, definition and initialization
     foreach block $blocks kind $kinds {

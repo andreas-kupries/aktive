@@ -639,6 +639,7 @@ proc dsl::writer::OperatorFunctionForOp {op} {
 	+ [FormatCode ${state/setup}]
 	+ {}
 	Comment {- - -- --- ----- -------- ------------- ---------------------} {  }
+	+ "  TRACE_GEOMETRY (domain);"
 	if {!$st} { + "#undef state" }
 	+ "  TRACE_RETURN (\"(ok) %d\", 1);"
 	+ "\}"
@@ -691,10 +692,9 @@ proc dsl::writer::OperatorFunctionForOp {op} {
         + "$spc , aktive_rectangle*   dst     // Area of `block` to blit the pixels into"
         + "$spc , aktive_block*       block   // Pixel storage"
         + "$spc ) \{"
-        + "  TRACE_FUNC(\"((aktive_region_info*) %p), for (@ %d..%d,%d..%d : %ux%u))\", "
-        + "                info, request->x, aktive_rectangle_get_xmax (request),"
-        + "                      request->y, aktive_rectangle_get_ymax (request),"
-        + "                      request->width, request->height);"
+        + "  TRACE_FUNC(\"((aktive_region_info*) %p)\", info);"
+	+ "  TRACE_RECTANGLE_M (\"request\", request);"
+	+ "  TRACE_RECTANGLE_M (\"dst....\", dst);"
 
 	if {${region/fetch} ne {}} {
 	    # Enhance fragment with code providing the info data in properly typed form.
@@ -710,6 +710,7 @@ proc dsl::writer::OperatorFunctionForOp {op} {
 	    if {$st}        { + "  [PadR $tl ${statetype}*] istate  = [PadR $tlx (${statetype}*)] info->istate;" }
 	    if {$hasimages} { + "  [PadR $tl aktive_region_vector*] srcs    = [PadR $tlx ""] &info->srcs;" }
 	    +                   "  [PadR $tl aktive_geometry*] idomain = [PadR $tlx ""] info->domain;"
+	    +                   "  TRACE_GEOMETRY_M  (\"idomain\", idomain);"
 
 	    # Show parameter values going into the fetch.
 	    set pnames [lmap p $params { dict get $p name }]
@@ -725,7 +726,7 @@ proc dsl::writer::OperatorFunctionForOp {op} {
 		expr {[dict exists $tmap $t] ? [dict get $tmap $t] : "%binary"}
 	    }]
 	    foreach p $pnames t $ptypes {
-		+ "  TRACE (\"P ([PadR $pnl $p]) = %$t\", param->$p);"
+		+ "  TRACE (\"param \[[PadR $pnl $p]] = %$t\", param->$p);"
 	    }
 
 	    Comment {- - -- --- ----- -------- ------------- ---------------------} {  }
