@@ -69,6 +69,14 @@ foreach {op domain expected} {
 	dag aktive op downsample $op 1 $in
     } -match glob -result "image::gradient $id *"
 
+    test aktive-op-downsample-${op}-2.3 "aktive op downsample $op, upsample $op, same factor, identity" -body {
+	dag aktive op downsample $op 5 [aktive op upsample $op 5 0 $in]
+    } -match glob -result "image::gradient $id *"
+
+    test aktive-op-downsample-${op}-2.4 "aktive op downsample $op, upsample ${op}rep, same factor, identity" -body {
+	dag aktive op downsample $op 5 [aktive op upsample ${op}rep 5 $in]
+    } -match glob -result "image::gradient $id *"
+
     unset in id
 
     # Not testing chain reduction for z here, not enough bands in the standard gradient input
