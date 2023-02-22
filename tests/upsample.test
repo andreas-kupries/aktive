@@ -86,6 +86,33 @@ foreach {op domain expected} {
     test aktive-op-upsample-${op}-2.4 "aktive op upsample $op, partial view" -body {
 	dict get [astcl aktive op select $op 5 10 [aktive op upsample $op 3 0 [grad$op]]] pixels
     } -match pixels -result {0 2 0 0 3 0}
+
+    ##
+    # - -- --- ----- -------- ------------- ---------------------
+    ## Slice and check in all directions
+
+    lassign $domain w h d
+
+    for {set row 0} {$row < $h} {incr row} {
+	test aktive-op-upsample-${op}-2.5.r$row "aktive op upsample $op, row slice" -body {
+	    dict get [astcl aktive op select y $row $row [aktive op upsample $op 2 0 [grad]]] pixels
+	} -match pixels -result [slice-row $row $w $h $d $expected]
+    }
+
+    for {set col 0} {$col < $w} {incr col} {
+	test aktive-op-upsample-${op}-2.5.c$col "aktive op upsample $op, column slice" -body {
+	    dict get [astcl aktive op select x $col $col [aktive op upsample $op 2 0 [grad]]] pixels
+	} -match pixels -result [slice-col $col $w $h $d $expected]
+    }
+
+    for {set band 0} {$band < $d} {incr band} {
+	test aktive-op-upsample-${op}-2.5.b$band "aktive op upsample $op, band slice" -body {
+	    dict get [astcl aktive op select z $band $band [aktive op upsample $op 2 0 [grad]]] pixels
+	} -match pixels -result [slice-band $band $w $h $d $expected]
+    }
+
+    # - -- --- ----- -------- ------------- ---------------------
+    unset w h d row col band
 }
 
 # # ## ### ##### ######## ############# #####################

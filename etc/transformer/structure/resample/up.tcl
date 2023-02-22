@@ -93,49 +93,47 @@ operator {coordinate dimension} {
     # ... generate code
     blit upsampler $blitspec copy
 
+    def shrinkcore {
+	// Note: C-semantics for `%`. Tcl semantics yield `(-i)%n`.
+	#define CORR(i,n)  (((n) - ((i) % (n))) % (n))
+	// Shift correction to snap request into the sample grid
+	int grid = CORR (request->@@coordinate@@, n);
+	#undef CORR
+	TRACE ("Correction: %d (%d in %d)", grid, request->@@coordinate@@, n);
+
+	// Rewrite request to the input coordinates and dimensions
+	request->@@coordinate@@ = (request->@@coordinate@@ + grid) / n;
+	if (request->@@dimension@@ < n) {
+	    // The correction puts the input block outside of the requested range
+	    // This means that the caller asked for gap data. This data is already
+	    // in the result, as `aktive_blit_fill` was called above.
+	    if (grid >= request->@@dimension@@) {
+		TRACE_RETURN_VOID;
+	    }
+	    request->@@dimension@@ = 1;
+	} else {
+	    request->@@dimension@@ /= n;
+	}
+
+	TRACE_RECTANGLE_M ("rewritten", request);
+
+	// Note: grid is the starting point in the destination area (rooted at 0).
+    }
+
     def shrink [dict get {
-	x {
-	    // Note: C-semantics for `%`. Tcl semantics yield `(-i)%n`.
-	    #define CORR(i,n)  (((n) - ((i) % (n))) % (n))
-	    // Shift correction to snap request into the sample grid
-	    int grid = CORR (request->x, n);
-	    #undef CORR
-	    TRACE ("Correction: %d (%d in %d)", grid, request->x, n);
-
-	    // Rewrite request to the input coordinates and dimensions
-	    request->x      = (request->x + grid) / n;
-	    request->width /= n;
-
-	    // Note: grid is the starting point in the destination area (rooted at 0).
-	}
-	y {
-	    // Note: C-semantics for `%`. Tcl semantics yield `(-i)%n`.
-	    #define CORR(i,n)  (((n) - ((i) % (n))) % (n))
-	    // Shift correction to snap request into the sample grid
-	    int grid = CORR (request->y, n);
-	    #undef CORR
-	    TRACE ("Correction: %d (%d in %d)", grid, request->y, n);
-
-	    // Rewrite request to the input coordinates and dimensions
-	    request->y       = (request->y + grid) / n;
-	    request->height /= n;
-
-	    // Note: grid is the starting point in the destination area (rooted at 0).
-	}
-	z {
-	    // Nothing to rewrite for z, depth
-	}
+	x { @@shrinkcore@@ }
+	y { @@shrinkcore@@ }
+	z { // Nothing to rewrite for z, depth }
     } $coordinate]
 
     pixels {
-	aktive_uint n = param->n;
-
-	@@shrink@@
-	aktive_block* src = aktive_region_fetch_area (srcs->v[0], request);
-
 	// Blank the region with the fill value first. This way the coming blitter
 	// does not have to concern itself with the gaps, just the values to set.
 	aktive_blit_fill (block, dst, param->fill);
+
+	aktive_uint n = param->n;
+	@@shrink@@
+	aktive_block* src = aktive_region_fetch_area (srcs->v[0], request);
 
 	// The destination @@coordinate@@ axis is scanned N times faster than the source.
 	// The destination location is snapped forward to the grid.
