@@ -69,6 +69,9 @@ extern Tcl_Obj* aktive_new_point_obj (aktive_point* p);
 #define aktive_point_def(varname,xv,yv) \
     aktive_point varname = { .x = (xv), .y = (yv) }
 
+#define aktive_point_def_as(varname,src) \
+    aktive_point_def(varname, (src)->x, (src)->y)
+
 /*
  * - - -- --- ----- -------- -------------
  * extern void aktive_point_set           (aktive_point* dst, int x,  int y);

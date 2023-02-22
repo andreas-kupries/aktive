@@ -46,7 +46,7 @@ aktive_error_set (Tcl_Interp* interp) {
 
     TRACE ("report '%s'", Tcl_GetString (tsdPtr->error));
     
-    Tcl_SetErrorCode (interp, interp, "AKTIVE", NULL);
+    Tcl_SetErrorCode (interp, interp, "AKTIVE", "ERROR", NULL);
     Tcl_SetObjResult (interp, tsdPtr->error);
     Tcl_DecrRefCount (tsdPtr->error);
     tsdPtr->error = 0;

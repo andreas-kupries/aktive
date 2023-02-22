@@ -538,7 +538,15 @@ aktive_blit_copy0_bands_to (aktive_block* dst, aktive_rectangle* dstarea,
 extern void
 aktive_blit_set (aktive_block* dst, aktive_point* location, double v)
 {
-    dst->pixel [location->y * dst->domain.width + location->x] = v;
+    TRACE_FUNC("((block*) %p (%d of %d @ %p)", dst, dst->used, dst->capacity, dst->pixel);
+    TRACE_POINT(location);
+    
+    aktive_uint pos = location->y * dst->domain.width + location->x;
+    
+    ASSERT_VA (pos < dst->used, "pos out of range", "%d >= %d", pos, dst->used)
+    
+    dst->pixel [pos] = v;
+    TRACE_RETURN_VOID;
 }
 
 /*
