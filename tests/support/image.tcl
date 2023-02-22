@@ -8,7 +8,7 @@ proc 4f {xs} { lmap x $xs { format %.4f $x }}
 # Run image operation. Record operation (coverage)
 
 proc check {args} {
-    if 0 {if {[lindex $args 0] eq "aktive"} {
+    if {[info exists ::suite-command-coverage]} {if {[lindex $args 0] eq "aktive"} {
 	set ws [lmap w $args { skiparg $w ; set w }]
 	puts "AKTIVE [join $ws ::]"
     }}

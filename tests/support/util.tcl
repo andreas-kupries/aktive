@@ -7,6 +7,8 @@ kt source support/match.tcl
 kt source support/image.tcl
 kt source support/builtin.tcl
 
+catch { kt source support/config.tcl }
+
 # # ## ### ##### ######## ############# #####################
 ## Automated wrong#args checking based on command name and argument
 ## list, with light annotations. Handles `args` and optional arguments

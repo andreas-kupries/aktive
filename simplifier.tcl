@@ -5,6 +5,20 @@
 # (c) 2023 Andreas Kupries http://wiki.tcl.tk/andreas%20kupries
 
 # # ## ### ##### ######## ############# #####################
+
+package require debug           ;# Tcllib
+package require debug::caller   ;# ditto
+
+debug level  aktive/simplifier
+debug prefix aktive/simplifier {<[pid]> | }
+
+debug level  aktive/simplifier/cover
+debug prefix aktive/simplifier/cover {}
+
+#debug on     aktive/simplifier
+#debug on     aktive/simplifier/cover
+
+# # ## ### ##### ######## ############# #####################
 ## Peep-hole optimization support - Reserved namespace `opt`
 #
 ## See dsl writer `OperatorOverlaysForOp` for the code emitting
@@ -30,6 +44,8 @@ namespace eval aktive::simplify {
 ## framework - start chain, abort chain
 
 proc aktive::simplify::do {args} {
+    debug.aktive/simplifier {}
+
     variable ok 1
     set replacement [uplevel 1 [list aktive simplify {*}$args]]
     if {!$ok} return
@@ -37,11 +53,14 @@ proc aktive::simplify::do {args} {
     # Simplifier was triggered successfully
     # For coverage enable the next command, run the testsuite and compare against the
     # generated/wraplist.txt
-    #puts "SIMPL [lindex [info level -1] 0] $args"
+
+    debug.aktive/simplifier/cover {@@ [lindex [info level -1] 0] $args @@}
     return -code return $replacement
 }
 
 proc aktive::simplify::fail {} {
+    debug.aktive/simplifier {[debug caller]}
+
     variable ok 0
     return -code return
 }
@@ -50,6 +69,8 @@ proc aktive::simplify::fail {} {
 ## predicates
 
 proc aktive::simplify::src/type {match args} {
+    debug.aktive/simplifier {src/type == $match}
+
     upvar 1 __type type src src
 
     if {![info exists type]} { set type [aktive query type $src] }
@@ -59,6 +80,8 @@ proc aktive::simplify::src/type {match args} {
 }
 
 proc aktive::simplify::src/const {value args} {
+    debug.aktive/simplifier {src/const == $value}
+
     upvar 1 src src
     set v [dict get [aktive query params $src] value]
     if {$v != $value} fail
@@ -67,6 +90,8 @@ proc aktive::simplify::src/const {value args} {
 }
 
 proc aktive::simplify::param/eq {name value args} {
+    debug.aktive/simplifier {param $name eq $value}
+
     upvar 1 $name param
     if {$param != $value} fail
 
@@ -74,6 +99,8 @@ proc aktive::simplify::param/eq {name value args} {
 }
 
 proc aktive::simplify::param/lt {name value args} {
+    debug.aktive/simplifier {param $name lt $value}
+
     upvar 1 $name param
     if {$param >= $value} fail
 
@@ -81,6 +108,8 @@ proc aktive::simplify::param/lt {name value args} {
 }
 
 proc aktive::simplify::param/gt {name value args} {
+    debug.aktive/simplifier {param $name gt $value}
+
     upvar 1 $name param
     if {$param <= $value} fail
 
@@ -88,6 +117,8 @@ proc aktive::simplify::param/gt {name value args} {
 }
 
 proc aktive::simplify::iff {expr args} {
+    debug.aktive/simplifier {if ($expr)}
+
     set ok [uplevel 1 [list expr $expr]]
     if {!$ok} fail
     uplevel 1 [list aktive simplify {*}$args]
@@ -97,30 +128,46 @@ proc aktive::simplify::iff {expr args} {
 ## non-image actions
 
 proc aktive::simplify::input/count {varname args} {
+    debug.aktive/simplifier {input/count -> $varname}
+
     upvar 1 $varname dst
     set dst [llength $args]
     uplevel 1 [list aktive simplify {*}$args]
 }
 
 proc aktive::simplify::src/value {param vardst args} {
+    debug.aktive/simplifier {src/value $param -> $vardst}
+
     upvar 1 src src $vardst dst
     set dst [dict get [aktive query params $src] $param]
+
+    debug.aktive/simplifier {src/value $param -> $vardst = ($dst)}
     uplevel 1 [list aktive simplify {*}$args]
 }
 
 proc aktive::simplify::src/attr {attr vardst args} {
+    debug.aktive/simplifier {src/attr $param -> $vardst}
+
     upvar 1 src src $vardst dst
     set dst [aktive query $attr $src]
+
+    debug.aktive/simplifier {src/attr $param -> $vardst = ($dst)}
     uplevel 1 [list aktive simplify {*}$args]
 }
 
 proc aktive::simplify::calc {vardst expr args} {
+    debug.aktive/simplifier {calc ($expr) -> $vardst}
+
     upvar 1 $vardst dst
     set dst [uplevel 1 [list expr $expr]]
+
+    debug.aktive/simplifier {calc ($expr) -> $vardst = ($dst)}
     uplevel 1 [list aktive simplify {*}$args]
 }
 
 proc aktive::simplify::src/pop {args} {
+    debug.aktive/simplifier {src/pop}
+
     upvar 1 src src
     set src [/src/child]
     uplevel 1 [list aktive simplify {*}$args]
@@ -130,6 +177,8 @@ proc aktive::simplify::src/pop {args} {
 ## image actions, chain terminations
 
 proc aktive::simplify::/fold/constant/0 {fun} {
+    debug.aktive/simplifier {[debug caller]}
+
     upvar 1 src src
     set v [dict get [aktive query params $src] value]
     set v [tcl::mathfunc::$fun $v]
@@ -137,6 +186,8 @@ proc aktive::simplify::/fold/constant/0 {fun} {
 }
 
 proc aktive::simplify::/fold/constant/1 {fun a} {
+    debug.aktive/simplifier {[debug caller]}
+
     upvar 1 src src $a param
     set v [dict get [aktive query params $src] value]
     set v [tcl::mathfunc::$fun $v $param]
@@ -144,6 +195,8 @@ proc aktive::simplify::/fold/constant/1 {fun a} {
 }
 
 proc aktive::simplify::/fold/constant/2 {fun a b} {
+    debug.aktive/simplifier {[debug caller]}
+
     upvar 1 src src $a pa $b pb
     set v [dict get [aktive query params $src] value]
     set v [tcl::mathfunc::$fun $v $pa $pb]
@@ -151,18 +204,24 @@ proc aktive::simplify::/fold/constant/2 {fun a b} {
 }
 
 proc aktive::simplify::/const {v} {
+    debug.aktive/simplifier {[debug caller]}
+
     upvar 1 src src
     set g [lrange [aktive query geometry $src] 2 end]
     aktive image constant {*}$g $v
 }
 
 proc aktive::simplify::/constv {var} {
+    debug.aktive/simplifier {[debug caller]}
+
     upvar 1 src src $var v
     set g [lrange [aktive query geometry $src] 2 end]
     aktive image constant {*}$g $v
 }
 
 proc aktive::simplify::/op {args} {
+    debug.aktive/simplifier {[debug caller]}
+
     upvar 1 src src
     set cmd {aktive op}
     set parmode 0
@@ -172,6 +231,9 @@ proc aktive::simplify::/op {args} {
 	lappend cmd $w
     }
     lappend cmd $src
+
+    debug.aktive/simplifier {[debug caller] -- $cmd}
+
     set r [{*}$cmd]
     # Restore success of this simplifier. A simplifier invoked through the cmd may have
     # failed, changing the the shared state.
@@ -181,26 +243,36 @@ proc aktive::simplify::/op {args} {
 
 # Note: This may optimize further, based on op and src
 proc aktive::simplify::/unary0 {op} {
+    debug.aktive/simplifier {[debug caller]}
+
     upvar 1 src src
     /op math1 $op
 }
 
 proc aktive::simplify::/unary1 {op param} {
+    debug.aktive/simplifier {[debug caller]}
+
     upvar 1 src src $param p
     /op math1 $op : p
 }
 
 proc aktive::simplify::/unary2 {op pavar pbvar} {
+    debug.aktive/simplifier {[debug caller]}
+
     upvar 1 src src $pavar pa $pbvar pb
     /op math1 $op pa pb
 }
 
 proc aktive::simplify::/src {} {
+    debug.aktive/simplifier {[debug caller]}
+
     upvar 1 src src
     return $src
 }
 
 proc aktive::simplify::/src/child {} {
+    debug.aktive/simplifier {[debug caller]}
+
     upvar 1 src src
     return [lindex [aktive query inputs $src] 0]
 }

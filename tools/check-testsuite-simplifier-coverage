@@ -1,0 +1,31 @@
+#!/bin/bash
+
+echo > tests/support/config.tcl 'debug on aktive/simplifier/cover'
+trun
+rm     tests/support/config.tcl
+
+grep /cover ../Logs/test.stderr \
+    | sed -e 's/^.*@@ \(.*\) @@.*$/\1/' \
+    | sort \
+  > generated/wraptriggered.txt
+
+cat generated/wraplist.txt \
+    | sort \
+  > generated/wraplist.txt.sort
+
+diff -w \
+     generated/wraplist.txt.sort \
+     generated/wraptriggered.txt \
+     > generated/wrap-delta.txt
+
+grep '< ' generated/wrap-delta.txt \
+    | sed -e 's/< /	/' \
+  > generated/wrapmissing.txt
+
+echo
+wc -l generated/wrap*
+echo
+echo Simplifiers not triggered/covered by the test suite
+echo
+cat generated/wrapmissing.txt
+echo

@@ -1,0 +1,33 @@
+#!/bin/bash
+
+echo > tests/support/config.tcl 'set ::suite-command-coverage on'
+trun
+rm     tests/support/config.tcl
+
+grep ^AKTIVE ../Logs/test.rawlog \
+    | sed -e 's/^AKTIVE //' \
+    | sort \
+    | uniq \
+  > generated/ops-covered.txt
+
+cat generated/ops-covered.txt \
+    | sort \
+  > generated/ops-covered.txt.sort
+
+cat generated/operators.txt \
+    | sed -e 's/  *::.*$//' -e 's/^/aktive::/' \
+    | sort \
+  > generated/ops-defined.txt.sort
+
+diff -w generated/ops-defined.txt.sort generated/ops-covered.txt.sort \
+    | grep '< aktive' \
+    | sed -e 's/< /	/' \
+   > generated/ops-untested.txt
+
+echo
+wc -l generated/ops*
+echo
+echo Commands with no tests in the suite
+echo
+cat generated/ops-untested.txt
+echo
