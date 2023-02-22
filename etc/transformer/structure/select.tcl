@@ -30,6 +30,21 @@ operator {thing coordinate dimension} {
 	src/attr $dimension __range if {$last == ($__range - 1)} \
 	returns src
 
+    # |---------------|
+    #   |a-------b|
+    #      |c--d|
+    # => a+c .. b-d+1
+
+    # Chained selects can be reduced to a single select combining the borders.
+    simplify for \
+	src/type @self \
+	src/value first __f \
+	src/value last  __l \
+	calc __f {$__f + $first} \
+	calc __l {$__l - $last + 1} \
+	src/pop \
+	returns op select $coordinate : __f __l
+
     # TODO :: simplify hints (const input => create const of reduced dimensions)
 
     # The /thing/ values are relative to the image /dimension/, rooted at 0.
