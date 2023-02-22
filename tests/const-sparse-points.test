@@ -22,33 +22,48 @@ if 0 {syntax {
 # # ## ### ##### ######## ############# #####################
 ##
 
-test aktive-image-const-sparse-points-2.0 "aktive image const sparse points" -body {
-    astcl aktive image const sparse points {0 0} {4 3} {5 5} {6 2}
-} -match image -result {
-    type   image::const::sparse::points
-    config {
-	points {{0 0} {4 3} {5 5} {6 2}}
-    }
-    domain {
-	x 0
-	y 0
-	width 7
-	height 6
-	depth 1
-    }
-    pixels {
-	1 0 0 0 0 0 0
-	0 0 0 0 0 0 0
-	0 0 0 0 0 0 1
-	0 0 0 0 1 0 0
-	0 0 0 0 0 0 0
-	0 0 0 0 0 1 0
-    }
+set points {{0 0} {4 3} {5 5} {6 2}}
+set expected {
+    1 0 0 0 0 0 0
+    0 0 0 0 0 0 0
+    0 0 0 0 0 0 1
+    0 0 0 0 1 0 0
+    0 0 0 0 0 0 0
+    0 0 0 0 0 1 0
 }
 
+test aktive-image-const-sparse-points-2.0 "aktive image const sparse points" -body {
+    astcl aktive image const sparse points {*}$points
+} -match image -result [makei image::const::sparse::points \
+			    0 0 7 6 1 [list points $points] \
+			    $expected]
+
 test aktive-image-const-sparse-points-2.1 "aktive image const sparse points, dag" -body {
-    dag aktive image const sparse points {0 0} {4 3} {5 5} {6 2}
-} -match glob -result {image::const::sparse::points * {points {{0 0} {4 3} {5 5} {6 2}}}}
+    dag aktive image const sparse points {*}$points
+} -match glob -result "image::const::sparse::points * {points {$points}}"
+
+# - -- --- ----- -------- ------------- ---------------------
+## Slice and check in all directions
+
+lassign {7 6 1} w h d
+
+for {set row 0} {$row < $h} {incr row} {
+    test aktive-image-const-sparse-points-2.2.r$row "aktive image const sparse points, row slice" -body {
+	dict get [astcl aktive op select y $row $row [aktive image const sparse points {*}$points]] pixels
+    } -match pixels -result [slice-row $row $w $h $d $expected]
+}
+
+for {set col 0} {$col < $w} {incr col} {
+    test aktive-image-const-sparse-points-2.2.c$col "aktive image const sparse points, column slice" -body {
+	dict get [astcl aktive op select x $col $col [aktive image const sparse points {*}$points]] pixels
+    } -match pixels -result [slice-col $col $w $h $d $expected]
+}
+
+for {set band 0} {$band < $d} {incr band} {
+    test aktive-image-const-sparse-points-2.2.b$band "aktive image const sparse points, band slice" -body {
+	dict get [astcl aktive op select z $band $band [aktive image const sparse points {*}$points]] pixels
+    } -match pixels -result [slice-band $band $w $h $d $expected]
+}
 
 # # ## ### ##### ######## ############# #####################
 cleanupTests

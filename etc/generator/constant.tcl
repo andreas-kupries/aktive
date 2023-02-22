@@ -110,12 +110,24 @@ operator image::const::sparse::points {
     }
     pixels {
 	// First clear the destination area, then iterate over the points and set all
-	// falling into the area
+	// which are contained in the request.
 
 	aktive_blit_clear (block, dst);
+
+	aktive_point* base = aktive_rectangle_as_point (request);
+
 	for (aktive_uint i = 0; i < param->points.c; i++) {
-	    if (!aktive_rectangle_contains (request, &param->points.v[i])) continue;
-	    aktive_blit_set (block, &param->points.v[i], 1.0);
+	    #define P param->points.v[i]
+	    TRACE ("check [%d] @(%d,%d)", i, P.x, P.x);
+	    if (!aktive_rectangle_contains (request, &P)) continue;
+
+	    // P is in the image domain. Translate it into the request/dst/block domain
+	    aktive_point_def_as (rdst, &P);
+	    aktive_point_sub (&rdst, base);
+
+	    TRACE ("set", 0);
+	    aktive_blit_set (block, &rdst, 1.0);
+	    #undef P
         }
     }
 }
@@ -159,12 +171,24 @@ operator image::const::sparse::deltas {
     }
     pixels {
 	// First clear the destination area, then iterate over the points and set all
-	// falling into the area
+	// which are contained in the request.
 
 	aktive_blit_clear (block, dst);
+
+	aktive_point* base = aktive_rectangle_as_point (request);
+
 	for (aktive_uint i = 0; i < istate->points.c; i++) {
-	    if (!aktive_rectangle_contains (request, &istate->points.v[i])) continue;
-	    aktive_blit_set (block, &istate->points.v[i], 1.0);
+	    #define P istate->points.v[i]
+	    TRACE ("check [%d] @(%d,%d)", i, P.x, P.x);
+	    if (!aktive_rectangle_contains (request, &P)) continue;
+
+	    // P is in the image domain. Translate it into the request/dst/block domain
+	    aktive_point_def_as (rdst, &P);
+	    aktive_point_sub (&rdst, base);
+
+	    TRACE ("set", 0);
+	    aktive_blit_set (block, &rdst, 1.0);
+	    #undef P
         }
     }
 }
