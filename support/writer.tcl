@@ -1433,7 +1433,7 @@ proc dsl::writer::OperatorWrapRecord {} {
 	set spec [Get ops $op]
 	set overlays [lsort -dict [dict get $spec overlays]]
 	foreach hint $overlays {
-	    + "SIMPL ::aktive::$op[TranslateHint {*}$hint]"
+	    + "::aktive::$op[TranslateHint {*}$hint]"
 	}
     }
 
