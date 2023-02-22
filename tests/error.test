@@ -1,0 +1,35 @@
+# -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
+## (c) 2023 Andreas Kupries
+# # ## ### ##### ######## ############# #####################
+## AKTIVE. Error constructor - Tcl (See `aktive_error_set` for C)
+
+kt check Tcl     8.6
+kt check tcltest 2
+
+# # ## ### ##### ######## ############# #####################
+
+kt local testing aktive
+
+kt source support/util.tcl
+
+# # ## ### ##### ######## ############# #####################
+## Syntax
+
+syntax {
+    error {m args}
+} aktive
+
+# # ## ### ##### ######## ############# #####################
+##
+
+test aktive-error-2.0 "aktive error, ok" -body {
+    check aktive error X
+} -returnCodes error -errorCode {AKTIVE ERROR} -result X
+
+test aktive-error-2.1 "aktive error, extended error code" -body {
+    check aktive error X FOO
+} -returnCodes error -errorCode {AKTIVE ERROR FOO} -result X
+
+# # ## ### ##### ######## ############# #####################
+cleanupTests
+return

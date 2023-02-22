@@ -71,6 +71,10 @@ import accessor/attributes.tcl
 # # ## ### ##### ######## ############# #####################
 ## Unsorted
 
+tcl-operator error {m args} {
+    return -code error -errorcode [linsert $args 0 AKTIVE ERROR] $m
+}
+
 nyi operator op::geometry::reshape {
     input keep-pass-ignore
 
