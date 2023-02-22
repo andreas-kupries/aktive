@@ -12,7 +12,7 @@ operator {coorda coordb coordc} {
 } {
     note Transformer. Structure. Exchanges the ${coorda}- and ${coordb}-axes of the input.
 
-    input keep
+    input
 
     # swaps are self-complementary
 

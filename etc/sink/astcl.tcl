@@ -7,7 +7,7 @@ operator format::tcl {
 
     note Sink. Serializes image to readable Tcl structures (dict with flat pixel list)
 
-    input ignore
+    input
 
     return object0 { aktive_op_astcl (ip, src); }
 }

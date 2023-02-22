@@ -76,7 +76,7 @@ operator {cfunction dexpr} {
 
     note The resulting image has the same geometry as the input.
 
-    input keep
+    input
 
     state -setup {
 	aktive_image     src  = srcs->v[0];

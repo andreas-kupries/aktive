@@ -7,7 +7,7 @@ operator op::view {
     note The requested area may fall anywhere regarding the input image's domain.
     note Same, insude (subset), outside, partially overlapping, etc.
 
-    input keep
+    input
     rect view  The specific area to view in the plane
 
     state -setup {

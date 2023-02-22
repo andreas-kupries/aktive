@@ -14,7 +14,7 @@ operator {coordinate dimension} {
 	Returns input stretched along the ${coordinate}-axis \
 	according to the stretching factor (>= 1), replicating input.
 
-    input keep
+    input
 
     uint n  Stretch factor, range 2...
 

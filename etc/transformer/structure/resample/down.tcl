@@ -31,7 +31,7 @@ operator {coordinate dimension} {
 	Return input decimated along the ${coordinate}-axis \
 	according to the decimation factor (>= 1).
 
-    input keep
+    input
 
     uint n  Decimation factor, range 2...
 

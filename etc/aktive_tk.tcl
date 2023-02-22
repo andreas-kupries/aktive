@@ -8,7 +8,7 @@ type photo aktive_photo Tk_PhotoHandle
 # Image sinks ... Writing an image to somewhere else
 
 operator image::tk::set {
-    input ignore
+    input
 
     photo photo  Tk photo to write the image to
 }

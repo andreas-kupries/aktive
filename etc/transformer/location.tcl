@@ -7,7 +7,7 @@
 operator op::translate::to {
     note Transformer. Returns an image translationally shifted along the x- and y-axes to a specific location
 
-    input keep
+    input
 
     int x  New absolute x location of image in the plane
     int y  New absolute y location of image in the plane
@@ -59,7 +59,7 @@ operator op::translate::to {
 operator op::translate::by {
     note Transformer. Returns an image translationally shifted along the x- and y-axes by a specific amount
 
-    input keep
+    input
 
     int dx  Shift amount for x location of image in the plane, positive to the right, negative left
     int dy  Shift amount for y location of image in the plane, positive downward, negative upward

@@ -76,7 +76,7 @@ tcl-operator error {m args} {
 }
 
 nyi operator op::geometry::reshape {
-    input keep-pass-ignore
+    input
 
     uint width   New width of the returned image
     uint height  New height of the returned image
@@ -96,8 +96,8 @@ nyi operator {
     #
     # example: color conversions.
 
-    input keep
-    input keep
+    input
+    input
 
     # %% TODO %% specify implementation
 }

@@ -54,7 +54,7 @@ operator {                    cfunction             mathfunc     dexpr classes} 
 
     note The resulting image has the same geometry as the input.
 
-    input keep
+    input
 
     # Simplifications: class and function rules, if any, then general const-folding, if supported.
 
@@ -134,7 +134,7 @@ operator {                    function      mathfunc flip dexpr      pname     p
 
     # Arguments
 
-    input keep
+    input
     double $pname  {*}$pdescription
 
     # Simplification rules. Special rules first for specific impae/parameter combinations,
@@ -175,7 +175,7 @@ operator {function lowkind highkind mode} {
     note Values $mode the interval are indicated in the result.
     note The resulting image has the same geometry as the input.
 
-    input keep
+    input
 
     double low   Lower $lowkind boundary
     double high  Upper $highkind boundary

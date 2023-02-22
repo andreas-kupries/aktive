@@ -8,7 +8,7 @@ nyi operator thing {
 } {
     note Sink. Serializes image to $thing format, into channel
 
-    input ignore
+    input
     void
 
     channel                                dst     Channel the $thing image data is written to

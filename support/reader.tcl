@@ -306,10 +306,10 @@ proc dsl::reader::simplify {args} {
     LappendX opspec overlays $args
 }
 
-proc dsl::reader::input... {{rc {}}} { Input ...      }
-proc dsl::reader::input    {{rc {}}} { Input required }
+proc dsl::reader::input... {} { Input ...      }
+proc dsl::reader::input    {} { Input required }
 
-proc dsl::reader::Input {{mode required}} { ;#puts [info level 0]
+proc dsl::reader::Input {mode} { ;#puts [info level 0]
     if {[Has opspec args] &&
 	[Get opspec args]} { Abort "Rejecting more image arguments, we have a variadic" }
 

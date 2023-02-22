@@ -12,7 +12,7 @@ operator coordinate {
 } {
     note Transformer. Structure. Mirrors the input along the ${coordinate}-axis.
 
-    input keep
+    input
 
     # flips are self-complementary
     simplify for   src/type @self   returns src/child

@@ -43,8 +43,8 @@ operator {cfunction dexpr} {
 
     note The result geometry is the intersection of the inputs.
 
-    input keep
-    input keep
+    input
+    input
 
     state -setup {
 	#define MIN(a,b) ((a) < (b) ? (a) : (b))

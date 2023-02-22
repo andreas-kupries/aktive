@@ -10,7 +10,7 @@ operator query::id {
     #
     # WARE this is the integerized memory address of the thing, with some whitening to
     # make it not as obvious.
-    input ignore
+    input
     return wide { return 0x25d94395245495a2 ^ (long int) src ; }
     #                      0123456789012345
 }
@@ -18,28 +18,28 @@ operator query::id {
 operator query::type {
     note Accessor. Return image type
 
-    input ignore
+    input
     return image-type { aktive_image_get_type (src); }
 }
 
 operator query::location {
     note Accessor. Return 2D image location, a 2D point
 
-    input ignore
+    input
     return point { *aktive_image_get_location (src); }
 }
 
 operator query::domain {
     note Accessor. Return image geometry, a 2D rectangle
 
-    input ignore
+    input
     return rect { *aktive_image_get_domain (src); }
 }
 
 operator query::geometry {
     note Accessor. Return image geometry, a 2D rectangle, plus depth.
 
-    input ignore
+    input
     return geometry { *aktive_image_get_geometry (src); }
 }
 
@@ -51,7 +51,7 @@ operator attribute {
 } {
     note Accessor. Return image $attribute location
 
-    input ignore
+    input
 
     return int "aktive_image_get_$attribute (src);"
 }
@@ -66,7 +66,7 @@ operator attribute {
 } {
     note Accessor. Return image $attribute
 
-    input ignore
+    input
 
     return uint "aktive_image_get_$attribute (src);"
 }
@@ -74,7 +74,7 @@ operator attribute {
 operator query::inputs {
     note Accessor. Return list of input images, if any
 
-    input ignore
+    input
 
     return object0 {
 	aktive_uint c = aktive_image_get_nsrcs (src);
@@ -92,7 +92,7 @@ operator query::inputs {
 operator query::params {
     note Accessor. Return dictionary of image parameters, if any.
 
-    input ignore
+    input
 
     return object0 {
 	aktive_uint c = aktive_image_get_nparams (src);

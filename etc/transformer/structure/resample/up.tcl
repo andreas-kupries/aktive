@@ -17,7 +17,7 @@ operator {coordinate dimension} {
 
     note The gaps are set to the specified fill value.
 
-    input keep
+    input
 
     uint   n     Stretch factor, range 2...
     double fill  Pixel fill value

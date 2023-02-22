@@ -31,7 +31,7 @@ operator {cfunction dexpr} {
 
     note The result geometry is the same as the input, except for depth, which becomes 1.
 
-    input keep
+    input
 
     state -setup {
 	aktive_image     src  = srcs->v[0];

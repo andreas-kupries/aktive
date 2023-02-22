@@ -1,4 +1,11 @@
+#!/home/aku/opt/ActiveTcl/bin/tclsh
+
 package require aktive
+
+proc grad  {}  { aktive image gradient 3 4 2  1 12.5 }
+proc gradx {} { aktive image gradient 20 1 1  0 19 }
+proc grady {} { aktive image gradient 1 20 1  0 19 }
+proc gradz {} { aktive image gradient 1 1 20  0 19 }
 
 puts ""
 puts loaded:\t[join [info loaded] \nloaded:\t]
@@ -9,25 +16,23 @@ puts ""
 proc show {i} {
     puts "[aktive query type $i] \{"
     puts "  pa ([aktive query params $i])"
-    foreach x [aktive query inputs $i] {
+    if 0 {foreach x [aktive query inputs $i] {
 	set x [aktive format tcl $x]
 	dict unset x pixels
 	puts "  in ($x)"
-    }
+    }}
     flush stdout
-    puts "  x  [aktive query x      $i]..[aktive query xmax   $i]"
-    puts "  y  [aktive query y      $i]..[aktive query ymax   $i]"
-    puts "  w  [aktive query width  $i]"
-    puts "  h  [aktive query height $i]"
-    puts "  d  [set d  [aktive query depth  $i]]"
-    puts "  pi [set pi [aktive query pitch  $i]] (w*d)"
-    puts "  px [aktive query pixels $i] (w*h)"
-    puts "  sz [aktive query size   $i] (w*h*d)"
-    puts ""
-    puts "  location [aktive query location $i]"
-    puts "  domain   [aktive query domain   $i]"
-    puts "  geometry [aktive query geometry $i]"
-    puts ""
+    puts "  x,y [aktive query x $i]..[aktive query xmax $i],[aktive query y $i]..[aktive query ymax $i]"
+    puts "  whd [set w [aktive query width  $i]] x [set h [aktive query height $i]] x [set d [aktive query depth  $i]]"
+    set pi [aktive query pitch  $i]
+#    puts "  pi  [set pi [aktive query pitch  $i]] (w*d)"
+#    puts "  px  [aktive query pixels $i] (w*h)"
+#    puts "  sz  [aktive query size   $i] (w*h*d)"
+#    puts ""
+#    puts "  location [aktive query location $i]"
+#    puts "  domain   [aktive query domain   $i]"
+#    puts "  geometry [aktive query geometry $i]"
+#    puts ""
     set t [aktive format tcl $i]
     #puts "  raw (($t))"
     flush stdout
@@ -51,39 +56,81 @@ proc show {i} {
     puts ""
     #puts "raw (([aktive format tcl [aktive op view {80 80 2 2} $i]]))" ;# outside! zeros expected
     #puts "raw (([aktive format tcl [aktive op view {-2 2 8 2} $i]]))"  ;# partial
-    puts ""
+    #puts ""
 }
 
-set g [aktive image gradient 3 4 2  1 12.5]
-#set c [aktive image constant 3 4 2 -6]
+set g [aktive op upsample x 3 0 [grad]]
+set g [aktive op select y 0 0 $g]
 
-# input/gradient 3x4x2
-##
-##       0 ....   1......   2...... - 3 columns
-##     --------  --------  --------
-#	 1  1.5    2  2.5    3  3.5  0
-#	 4  4.5    5  5.5    6  6.5  1
-#	 7  7.5    8  8.5    9  9.5  2
-#	10 10.5   11 11.5   12 12.5  3
-##     --- ----  --- ----  --- ----  \ 4 rows
-##      0. 1...   0. 1...   0. 1... - 2 bands
-#
-#   0  1  2  3  4  5
-#   6  7  8  9 10 11
-#  12 13 14 15 16 17
-#  18 19 29 21 22 23
+show $g
 
-set op x
-show [aktive op upsample $op 2 0 $g]
+if 0 {foreach col [aktive op split x $g] {
+    puts [dict get [aktive format tcl $col] pixels]
+}}
+
+
+#set g [aktive image const sparse deltas 7   0 20 5 15]
+#set g [aktive image const sparse points {0 0} {4 3} {5 5} {6 2}]
+
 exit
+
+
+set a [aktive op select x 0 4 [gradx]]
+set b [aktive op select y 0 4 [grady]]
+
+show $a
+show $b
+
+set g [aktive op montage x $a $b]
+
+#set g [aktive op select x 5 10 $g]
+set g [aktive image gradient 7 1 1  0 6]
+set g [aktive op upsample x 3 0 $g]
+
+#
+# 0     1     2     3     4     5     6     gradient	7
+# 0 . . 1 . . 2 . . 3 . . 4 . . 5 . . 6 . . upsample 3	/21
+# = = = = = = = = = = = = = = = = = = = = =
+# 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0
+#                     1                   2
+#           |=========|                     select 5 10
+#           . 2 . . 3 .
+#           0 1 2 3 4 5
+#           1 2 2 2 3 3
+# = = = = = = = = = = = = = = = = = = = = =
+# 0 1 2 0 1 2 0 1 2 0 1 2 0 1 2 0 1 2 0 1 2 phase
+# 0 2 1 0 2 1 0 2 1 0 2 1 0 2 1 0 2 1 0 2 1 forward correction
+#
+# i = index
+# p = phase
+# c = correction
+#
+# i  p  c == (3-(i%3))%3 (C semantics. Tcl: (-i)%3)
+# -  -  -
+# 0  0  0
+# 1  1  2
+# 2  2  1
+# 3  0  0
+# 4  1  2
+# 5  2  1
+# 6  0  0
+# 7  1  2
+# -  -  -
+#
+
+#set g [aktive op flip x $g]
+
+show [aktive op select z 1 1 $g]
+show [aktive op select z 0 0 $g]
+
+#set op x
+#show [aktive op upsample $op 2 0 $g]
 
 show [aktive op upsample $op 3 0 [aktive op upsample $op 2 0 $g]]
 set op y
 show [aktive op upsample $op 3 0 [aktive op upsample $op 2 0 $g]]
 set op z
 show [aktive op upsample $op 3 0 [aktive op upsample $op 2 0 $g]]
-
-exit
 
 #show [aktive op view {-2 2 8 2} $g]
 #show [aktive op view {2 -2 2 8} $g]
@@ -126,3 +173,29 @@ show [aktive image const sparse points \
 	  {4 2}]
 
 exit
+
+
+proc c {i n} { expr { ($n - ($i % $n)) % $n } }
+
+proc t {n} {
+    puts ""
+    puts "$n ..............."
+    foreach k {
+	0 1 2 3 4 5 6 7 8 9
+    } {
+	puts \t$k\t[c $k $n]
+    }
+}
+
+t 7
+t 3
+t 5
+t 2
+
+exit
+if 0 {
+	    for (int k = 0;k < 10; k++) fprintf (stderr, "ZZZZ %3d -- %3d %3d %3d\n",
+						k, CORR(k,2), CORR(k,3), CORR(k,5));
+	    fflush (stderr);
+}
+

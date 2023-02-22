@@ -17,7 +17,7 @@ operator {thing coordinate dimension} {
     note The 2D location of the first cell of the input going into the
     note result is the location of the result.
 
-    input keep
+    input
 
     uint first  Input's first $thing to be placed into the result
     uint last   Input's last $thing to be placed into the result
