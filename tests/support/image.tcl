@@ -59,6 +59,62 @@ proc makei {op x y w h d config pixels} {
     return $i
 }
 
+proc slice-row {row w h d pixels} {
+    set pixels [lmap v $pixels { if {![string is double $v]} continue ; set v }]
+
+    set w [expr {$w * $d}]
+    while {[llength $pixels]} {
+	lappend rows [lrange   $pixels 0 ${w}-1]
+	set pixels   [lreplace $pixels 0 ${w}-1]
+    }
+    return [lindex $rows $row]
+}
+
+proc slice-col {col w h d pixels} {
+    set pixels [lmap v $pixels { if {![string is double $v]} continue ; set v }]
+
+    set w [expr {$w * $d}]
+    while {[llength $pixels]} {
+	lappend rows [lrange   $pixels 0 ${w}-1]
+	set pixels   [lreplace $pixels 0 ${w}-1]
+    }
+
+    set col [expr {$col*$d}]
+    set next $col ; incr next $d ; incr next -1
+
+    return [concat {*}[lmap r $rows {
+	lrange $r $col $next
+    }]]
+}
+
+proc slice-band {band w h d pixels} {
+    set pixels [lmap v $pixels { if {![string is double $v]} continue ; set v }]
+
+    set w [expr {$w * $d}]
+    while {[llength $pixels]} {
+	lappend rows [lrange   $pixels 0 ${w}-1]
+	set pixels   [lreplace $pixels 0 ${w}-1]
+    }
+
+    set rows [lmap r $rows {
+	set cols {}
+	while {[llength $r]} {
+	    lappend cols [lrange   $r 0 ${d}-1]
+	    set r        [lreplace $r 0 ${d}-1]
+	}
+	set cols
+    }]
+
+    set res {}
+    foreach cs $rows {
+	foreach c $cs {
+	    lappend res [lindex $c $band]
+	}
+    }
+
+    return $res
+}
+
 ##
 # # ## ### ##### ######## ############# #####################
 return
