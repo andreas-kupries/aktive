@@ -5,6 +5,42 @@
 ## A pairs of bands is treated as one complex numbered band
 ## Inputs have to have exactly 2 bands.
 
+# # ## ### ##### ######## ############# #####################
+## Constructing complex-valued images
+
+tcl-operator op::cmath::as-real {src} {
+    lassign [aktive query geometry $src] _ _ w h d
+    if {$d != 1} {
+	aktive error "Unable to use image with multiple bands for complex result" \
+	    CAST COMPLEX MULTI-BAND
+    }
+
+    return [aktive op montage z $src [aktive image constant $w $h 1 0]]
+}
+
+tcl-operator op::cmath::as-imaginary {src} {
+    lassign [aktive query geometry $src] _ _ w h d
+    if {$d != 1} {
+	aktive error "Unable to use image with multiple bands for complex result" \
+	    CAST COMPLEX MULTI-BAND
+    }
+
+    return [aktive op montage z [aktive image constant $w $h 1 0] $src]
+}
+
+tcl-operator op::cmath::cons {re im} {
+    if {([aktive query depth $re] != 1) ||
+	([aktive query depth $im] != 1)} {
+	aktive error "Unable to use image with multiple bands for complex result" \
+	    CAST COMPLEX MULTI-BAND
+    }
+
+    return [aktive op montage z $re $im]
+}
+
+# # ## ### ##### ######## ############# #####################
+##
+
 operator {cfunction dexpr} {
     op::cmath::acos         cacos                   {}
     op::cmath::acosh        cacosh                  {}
@@ -55,13 +91,6 @@ operator {cfunction dexpr} {
 	aktive_blit_cunary (block, dst, @@cfunction@@,
 			    aktive_region_fetch_area (srcs->v[0], request));
     }
-}
-
-nyi operator {function dexpr} {
-    op::cmath::magnitude    aktive_cmath_abs       abs
-    op::cmath::sqmagnitude  aktive_cmath_sqabs     abs^2
-} {
-    # TODO :: result is 1-band image from the 2-band complex input
 }
 
 ##
