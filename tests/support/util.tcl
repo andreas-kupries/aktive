@@ -3,11 +3,11 @@
 # # ## ### ##### ######## ############# #####################
 ## Test Utility Commands
 
-kt source support/match.tcl
 kt source support/image.tcl
 kt source support/builtin.tcl
-
-catch { kt source support/config.tcl }
+kt source support/paths.tcl
+kt source support/files.tcl
+kt source support/match.tcl
 
 # # ## ### ##### ######## ############# #####################
 ## Automated wrong#args checking based on command name and argument
@@ -155,6 +155,10 @@ if 0 {proc syntax {spec cv av kv pv script} {
     uplevel 1 [list unset $cv $kv $pv $av]
     return
 }}
+
+# # ## ### ##### ######## ############# #####################
+
+catch { kt source support/config.tcl }
 
 # # ## ### ##### ######## ############# #####################
 return

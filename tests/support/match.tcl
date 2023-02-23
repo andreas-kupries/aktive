@@ -6,6 +6,7 @@
 customMatch image   matchImage
 customMatch listpix matchPixelLists
 customMatch pixels  matchPixels
+customMatch content matchFileContent
 
 # # ## ### ##### ######## ############# #####################
 ##
@@ -105,6 +106,10 @@ proc matchPixels {expected actual} {
     set ok [matchNdigits 4 $expected $actual]
     #if {!$ok} { puts XXXXX\t/digits }
     return $ok
+}
+
+proc matchFileContent {expected actual} {
+    string equal [cat $expected] [cat $actual]
 }
 
 ##
