@@ -108,7 +108,7 @@ aktive_writer_to_bytearray (Tcl_Obj* ba, char* buf, int n)
 
     (void)  Tcl_GetByteArrayFromObj (ba, &length);
     bytes = Tcl_SetByteArrayLength  (ba, length + n);
-    memcpy (bytes + n, buf, n);    
+    memcpy (bytes + length, buf, n);    
 }
 
 /*
