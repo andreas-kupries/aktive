@@ -16,17 +16,25 @@ kt source support/util.tcl
 ## Syntax
 
 syntax {
-    {byte 2chan}  {dst src}
-    {etext 2chan} {dst src}
-    {short 2chan} {dst src}
-    {text 2chan}  {dst src}
+    {byte 2chan}    {dst src}
+    {byte 2string}   src
+    {etext 2chan}   {dst src}
+    {etext 2string}  src
+    {short 2chan}   {dst src}
+    {short 2string}  src
+    {text 2chan}    {dst src}
+    {text 2string}   src
 } {aktive format as ppm}
 
 syntax {
-    {byte 2chan}  {dst src}
-    {etext 2chan} {dst src}
-    {short 2chan} {dst src}
-    {text 2chan}  {dst src}
+    {byte 2chan}    {dst src}
+    {byte 2string}   src
+    {etext 2chan}   {dst src}
+    {etext 2string}  src
+    {short 2chan}   {dst src}
+    {short 2string}  src
+    {text 2chan}    {dst src}
+    {text 2string}   src
 } {aktive format as pgm}
 
 # # ## ### ##### ######## ############# #####################
@@ -43,6 +51,8 @@ proc colorbox {} {
     aktive op montage z $r [aktive op montage z $g $b]
 }
 
+# # ## ### ##### ######## ############# #####################
+
 foreach {format cons} {
     pgm graybox
     ppm colorbox
@@ -50,7 +60,7 @@ foreach {format cons} {
     foreach variant {
 	text etext byte short
     } {
-	test aktive-format-as-${format}-${variant}-2.0 "aktive format as $format $variant" -body {
+	test aktive-format-as-${format}-${variant}-2chan-2.0 "aktive format as $format $variant 2chan" -body {
 	    save-to test.$variant.$format aktive format as $format $variant 2chan [$cons]
 	} -cleanup {
 	    removeFile test.$variant.$format
@@ -58,8 +68,21 @@ foreach {format cons} {
     }
 }
 
+foreach {format cons} {
+    pgm graybox
+    ppm colorbox
+} {
+    foreach variant {
+	text etext byte short
+    } {
+	test aktive-format-as-${format}-${variant}-2string-2.0 "aktive format as $format $variant 2string" -body {
+	    aktive format as $format $variant 2string [$cons]
+	} -match content/string -result [R format-$variant.$format]
+    }
+}
+
+# # ## ### ##### ######## ############# #####################
 rename graybox  {}
 rename colorbox {}
-# # ## ### ##### ######## ############# #####################
 cleanupTests
 return

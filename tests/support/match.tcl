@@ -3,10 +3,11 @@
 # # ## ### ##### ######## ############# #####################
 ## Test Utility Commands -- Image Matching
 
-customMatch image   matchImage
-customMatch listpix matchPixelLists
-customMatch pixels  matchPixels
-customMatch content matchFileContent
+customMatch image          matchImage
+customMatch listpix        matchPixelLists
+customMatch pixels         matchPixels
+customMatch content        matchFileContent
+customMatch content/string matchFileContentString
 
 # # ## ### ##### ######## ############# #####################
 ##
@@ -110,6 +111,10 @@ proc matchPixels {expected actual} {
 
 proc matchFileContent {expected actual} {
     string equal [cat $expected] [cat $actual]
+}
+
+proc matchFileContentString {expected actual} {
+    string equal [cat $expected] $actual
 }
 
 ##

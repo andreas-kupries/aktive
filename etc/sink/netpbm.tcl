@@ -44,32 +44,60 @@
 #
 
 operator {bands type maxval} {
-    format::as::pgm::text::2chan   1 2   255
-    format::as::pgm::etext::2chan  1 2 65535
-    format::as::pgm::byte::2chan   1 5   255
-    format::as::pgm::short::2chan  1 5 65535
+    format::as::pgm::text::2chan    1 2	  255
+    format::as::pgm::etext::2chan   1 2 65535
+    format::as::pgm::byte::2chan    1 5	  255
+    format::as::pgm::short::2chan   1 5 65535
 
-    format::as::ppm::text::2chan   3 3   255
-    format::as::ppm::etext::2chan  3 3 65535
-    format::as::ppm::byte::2chan   3 6   255
-    format::as::ppm::short::2chan  3 6 65535
+    format::as::ppm::text::2chan    3 3	  255
+    format::as::ppm::etext::2chan   3 3 65535
+    format::as::ppm::byte::2chan    3 6	  255
+    format::as::ppm::short::2chan   3 6 65535
+
+    format::as::pgm::text::2string  1 2	  255
+    format::as::pgm::etext::2string 1 2 65535
+    format::as::pgm::byte::2string  1 5	  255
+    format::as::pgm::short::2string 1 5 65535
+
+    format::as::ppm::text::2string  3 3	  255
+    format::as::ppm::etext::2string 3 3 65535
+    format::as::ppm::byte::2string  3 6	  255
+    format::as::ppm::short::2string 3 6 65535
 } {
-    def thing   [set thing   [lindex [split $__op :] 4]]
+    def thing	[set thing   [lindex [split $__op :] 4]]
     def variant [set variant [lindex [split $__op :] 6]]
+    def dst	[set dst     [dict get {
+	2chan channel
+	2string string
+    } [lindex [split $__op :] 8]]]
 
     note Sink. \
-	Serializes image into the channel, using [string toupper $thing]'s $variant format.
-    # TODO channel/string when string is added
+	Serializes image into the $dst, using [string toupper $thing]'s $variant format.
 
     input
 
-    channel dst	Channel the $thing $variant image data is written to
+    if {$dst eq "channel"} {
+	channel dst	Channel the $thing $variant image data is written to
+    }
+
+    def write-result-setup [dict get {
+	channel { aktive_write_channel (&dst, param->dst, 1); }
+	string	{
+	    Tcl_Obj* ba = Tcl_NewByteArrayObj (0,0);
+	    aktive_write_bytearray (&dst, ba);
+	}
+    } $dst]
+
+    def write-result-return [dict get {
+	channel {}
+	string	{ TRACE_RETURN ("(Tcl_Obj*) %p", ba); }
+    } $dst]
 
     def write-begin {
 	TRACE ("@@thing@@ starting", 0);
 
 	aktive_geometry* g  = aktive_image_get_geometry (src);
-	aktive_uint      sz = aktive_geometry_get_size (g);
+	aktive_uint	 sz = aktive_geometry_get_size (g);
 
 	if (g->depth != @@bands@@) {
 	    TRACE ("band mismatch, have %d, wanted %d", g->depth, @@bands@@);
@@ -78,7 +106,7 @@ operator {bands type maxval} {
 	}
 
 	aktive_writer dst;
-	aktive_write_channel (&dst, param->dst, 1);
+	@@write-result-setup@@
 
 	char   buf [40];
 	aktive_uint n = sprintf (buf, "P@@type@@ %d %d @@maxval@@ ", g->width, g->height);
@@ -133,15 +161,19 @@ operator {bands type maxval} {
 		   wr, sz);
 	TRACE ("flush", 0);
 	aktive_write_done (&dst);
+	@@write-result-return@@
     }
 
-    void {
+    {*}[dict get {
+	channel void
+	string	{return object0}
+    } $dst] {
 	@@write-begin@@
 
 	TRACE ("scan prep", 0);
 
 	aktive_rectangle* domain = aktive_image_get_domain (src);
-	aktive_region     rg     = aktive_region_new (src);
+	aktive_region	  rg	 = aktive_region_new (src);
 
 	// Scan image by rows, add the pixels of each retrieved row to the result list.
 
@@ -158,7 +190,7 @@ operator {bands type maxval} {
 	    aktive_block* pixels = aktive_region_fetch_area (rg, &scan);
 
 	    #define ITER  for (aktive_uint j = 0; j < pixels->used; j++)
-	    #define VAL   pixels->pixel [j]
+	    #define VAL	  pixels->pixel [j]
 	    @@write-row@@
 	    #undef ITER
 	    #undef VAL
