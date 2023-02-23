@@ -77,15 +77,15 @@ operator {bands type maxval} {
 			  g->depth);
 	}
 
+	aktive_writer dst;
+	aktive_write_channel (&dst, param->dst, 1);
+
 	char   buf [40];
 	aktive_uint n = sprintf (buf, "P@@type@@ %d %d @@maxval@@ ", g->width, g->height);
 	ASSERT (n < 40, "header overflowed internal string buffer");
 	TRACE ("header to write (%s)", buf);
 
-	Tcl_SetChannelOption (ip, param->dst, "-encoding",    "binary");
-	Tcl_SetChannelOption (ip, param->dst, "-translation", "binary");
-
-	Tcl_Write (param->dst, buf, n);
+	aktive_write_to (&dst, buf, n);
 
 	aktive_uint wr = 0;
 	aktive_uint lc = n;	// text, etext only - TODO conditional
@@ -95,42 +95,33 @@ operator {bands type maxval} {
     def write-row [dict get {
 	text {
 	    ITER {
-		aktive_uint vq = aktive_quantize_uint8 (VAL);
-		char buf [20];
-		aktive_uint n = sprintf (buf, "%d ", vq);
-		ASSERT (n < 20, "value overflowed internal string buffer");
-		Tcl_Write (param->dst, buf, n);
-		lc += n; if (lc >= MAXCOL) { lc = 0; Tcl_Write (param->dst, "\n", 1); }
+		aktive_uint n = aktive_write_uint_text (&dst, aktive_quantize_uint8 (VAL));
+		lc += n;
+		int term = 32;
+		if (lc >= MAXCOL) { lc = 0; term = 10; } else { lc ++; }
+		aktive_write_uint8 (&dst, term);
 		wr ++;
 	    }
 	}
 	etext {
 	    ITER {
-		aktive_uint vq = aktive_quantize_uint16 (VAL);
-		char buf [20];
-		aktive_uint n = sprintf (buf, "%d ", vq);
-		ASSERT (n < 20, "value overflowed internal string buffer");
-		Tcl_Write (param->dst, buf, n);
-		lc += n; if (lc >= MAXCOL) { lc = 0; Tcl_Write (param->dst, "\n", 1); }
+		aktive_uint n = aktive_write_uint_text (&dst, aktive_quantize_uint16 (VAL));
+		lc += n;
+		int term = 32;
+		if (lc >= MAXCOL) { lc = 0; term = 10; } else { lc ++; }
+		aktive_write_uint8 (&dst, term);
 		wr ++;
 	    }
 	}
 	byte {
 	    ITER {
-		aktive_uint vq = aktive_quantize_uint8 (VAL);
-		char buf [1];
-		buf [0] = vq;
-		Tcl_Write (param->dst, buf, 1);
+		aktive_write_uint8 (&dst, aktive_quantize_uint8 (VAL));
 		wr ++;
 	    }
 	}
 	short {
 	    ITER {
-		aktive_uint vq = aktive_quantize_uint16 (VAL);
-		char buf [2];
-		buf [0] = MSB (vq);
-		buf [1] = LSB (vq);
-		Tcl_Write (param->dst, buf, 2);
+		aktive_write_uint16be (&dst, aktive_quantize_uint16 (VAL));
 		wr ++;
 	    }
 	}
@@ -141,7 +132,7 @@ operator {bands type maxval} {
 		   "wrote %d != required %d",
 		   wr, sz);
 	TRACE ("flush", 0);
-	Tcl_Flush (param->dst);
+	aktive_write_done (&dst);
     }
 
     void {

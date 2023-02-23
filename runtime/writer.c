@@ -48,7 +48,15 @@ aktive_write_bytearray (aktive_writer* writer, Tcl_Obj* ba)
 extern void
 aktive_write_to (aktive_writer* writer, char* buf, int n)
 {
+    ASSERT (buf,   "buffer missing");
+    ASSERT (n > 0, "empty buffer");
     writer->writer (writer->state, buf, n);
+}
+
+extern void
+aktive_write_done (aktive_writer* writer)
+{
+    writer->writer (writer->state, 0, 0);
 }
 
 extern void
@@ -86,12 +94,15 @@ aktive_write_uint_text (aktive_writer* writer, int v)
 static void
 aktive_writer_to_channel (Tcl_Channel chan, char* buf, int n)
 {
+    if (!buf || !n) { Tcl_Flush (chan); return; }
     Tcl_Write (chan, buf, n);
 }
 
 static void
 aktive_writer_to_bytearray (Tcl_Obj* ba, char* buf, int n)
 {
+    if (!buf || !n) return;
+    
     int            length;
     unsigned char* bytes;
 

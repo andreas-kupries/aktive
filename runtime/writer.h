@@ -46,6 +46,8 @@ extern void aktive_write_channel   (aktive_writer* writer, Tcl_Channel chan, int
 extern void aktive_write_bytearray (aktive_writer* writer, Tcl_Obj* ba);
 
 extern void aktive_write_to          (aktive_writer* writer, char* buf, int n);
+extern void aktive_write_done        (aktive_writer* writer);
+
 extern void aktive_write_uint8       (aktive_writer* writer, int v);
 extern void aktive_write_uint16be    (aktive_writer* writer, int v);
 extern int  aktive_write_uint_text   (aktive_writer* writer, int v);
