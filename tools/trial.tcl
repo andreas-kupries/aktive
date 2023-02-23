@@ -2,7 +2,7 @@
 
 package require aktive
 
-proc grad  {}  { aktive image gradient 3 4 2  1 12.5 }
+proc grad  {} { aktive image gradient 3 4 2  1 12.5 }
 proc gradx {} { aktive image gradient 20 1 1  0 19 }
 proc grady {} { aktive image gradient 1 20 1  0 19 }
 proc gradz {} { aktive image gradient 1 1 20  0 19 }
@@ -17,7 +17,7 @@ proc show {i} {
     puts "[aktive query type $i] \{"
     puts "  pa ([aktive query params $i])"
     if 0 {foreach x [aktive query inputs $i] {
-	set x [aktive format tcl $x]
+	set x [aktive format as tcl $x]
 	dict unset x pixels
 	puts "  in ($x)"
     }}
@@ -33,7 +33,7 @@ proc show {i} {
 #    puts "  domain   [aktive query domain   $i]"
 #    puts "  geometry [aktive query geometry $i]"
 #    puts ""
-    set t [aktive format tcl $i]
+    set t [aktive format as tcl $i]
     #puts "  raw (($t))"
     flush stdout
 
@@ -54,13 +54,75 @@ proc show {i} {
     flush stdout
     puts "\}"
     puts ""
-    #puts "raw (([aktive format tcl [aktive op view {80 80 2 2} $i]]))" ;# outside! zeros expected
-    #puts "raw (([aktive format tcl [aktive op view {-2 2 8 2} $i]]))"  ;# partial
+    #puts "raw (([aktive format as tcl [aktive op view {80 80 2 2} $i]]))" ;# outside! zeros expected
+    #puts "raw (([aktive format as tcl [aktive op view {-2 2 8 2} $i]]))"  ;# partial
     #puts ""
 }
 
+
+
+proc graybox {} {
+    aktive image gradient 256 256 1 0 1
+}
+
+proc colorbox {} {
+    set r [graybox]
+    set g [aktive op rotate cw   $r]
+    set b [aktive op rotate half $r]
+    aktive op montage z $r [aktive op montage z $g $b]
+
+    #aktive image gradient 8 8 3 0 1
+}
+
+
+#set g  [aktive image gradient 256 1 1 0 1]
+#set g  [aktive image gradient 8 8 1 0 1]
+#set g [aktive op math1 gamma-compress $g]
+
+#set r [aktive op flip x $g]
+#set b [aktive op rotate cw $g]
+
+#set gc [aktive op math1 gamma-compress $g]
+#set ge [aktive op math1 gamma-expand $g]
+
+#set g [aktive op montage y $g [aktive op montage y $gc $ge]]
+#set g [aktive op montage z $g [aktive op montage z $gc $ge]]
+#set g [aktive op montage z $r [aktive op montage z $g $b]]
+
+#set g [aktive op select z 0 0 $g]
+#set g [aktive op math1 scale 0.08 $g]
+
+set g [colorbox]
+#set g [aktive op upsample xrep 16 $g]
+#set g [aktive op upsample yrep 16 $g]
+
+set h [graybox]
+set k [aktive op rotate cw   $h]
+set m [aktive op rotate half $h]
+set h [aktive op montage y [aktive op montage x $h $k] $m]
+
+#show $g
+#exit
+
+proc to {path g args} {
+    set dst [open $path w]
+    uplevel 1 [linsert $args end 2chan $dst $g]
+    close $dst
+}
+
+puts [time {to x-text.ppm  $g aktive format as ppm text } 1]
+puts [time {to x-etext.ppm $g aktive format as ppm etext} 1]
+puts [time {to x-byte.ppm  $g aktive format as ppm byte } 1]
+puts [time {to x-short.ppm $g aktive format as ppm short} 1]
+
+puts [time {to x-text.pgm  $h aktive format as pgm text } 1]
+puts [time {to x-etext.pgm $h aktive format as pgm etext} 1]
+puts [time {to x-byte.pgm  $h aktive format as pgm byte } 1]
+puts [time {to x-short.pgm $h aktive format as pgm short} 1]
+
+exit
+
 set g [aktive op upsample x 3 0 [grad]]
-set g [aktive op select y 0 0 $g]
 
 show $g
 

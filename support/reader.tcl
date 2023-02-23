@@ -402,6 +402,13 @@ proc dsl::reader::TemplateCode {code map} {
     # Last minute things
 
     set code [string map $map $code]
+
+    # Check for use of internal functionality
+
+    if {[string match *aktive_void_fail* $code]} {
+	Abort "User code rejected due to forbidden use of internal `aktive_void_fail*` facilities."
+    }
+
     ::return $code
 }
 

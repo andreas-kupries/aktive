@@ -2,7 +2,7 @@
 # # ## ### ##### ######## ############# #####################
 ## Sink -- Tcl structures, materialized
 
-operator format::tcl {
+operator format::as::tcl {
     # As written technically a getter, as the operator has a return value
 
     note Sink. Serializes image to readable Tcl structures (dict with flat pixel list)

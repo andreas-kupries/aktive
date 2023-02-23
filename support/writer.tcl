@@ -667,17 +667,31 @@ proc dsl::writer::OperatorFunctionForOp {op} {
 	    + {}
 	}
 
-	+ "extern $result $fn $sig \{"
+	+ "extern $result"
+	+ "$fn $sig \{"
+	+ "  TRACE_FUNC(\"((Tcl_Interp*) %p)\", ip);"
+	ParamTracing $params
+	# TODO src, ... if present
+
+	Comment {- - -- --- ----- -------- ------------- ---------------------} {  }
+	+ {}
 
 	if {$rcode eq {}} {
 	    + [Placeholder $op]
 	} elseif {$result eq "void"} {
 	    # We have a C code fragment implementing the doer
-	    + [FormatCode $rcode]
+	    + [string map {
+		aktive_fail aktive_void_fail
+	    } [FormatCode $rcode]]
+	    + "  TRACE_RETURN_VOID;"
 	} else {
-	    # We have a C code fragment implementing the getter
+	    # We have a C code fragment implementing the getter.
+	    # Hide fail/vfail difference from user.
 	    + [FormatCodeWithReturn $rcode]
 	}
+
+	+ {}
+	Comment {- - -- --- ----- -------- ------------- ---------------------} {  }
 
 	+ "\}"
 	+ {}
@@ -713,21 +727,7 @@ proc dsl::writer::OperatorFunctionForOp {op} {
 	    +                   "  TRACE_GEOMETRY_M  (\"idomain\", idomain);"
 
 	    # Show parameter values going into the fetch.
-	    set pnames [lmap p $params { dict get $p name }]
-	    set pnl    [Maxlength $pnames]
-	    set tmap  {
-		uint   u
-		double f
-		int    d
-	    }
-	    set ptypes [lmap p $params {
-		# The types here have to include all the parameter types used in etc/aktive.tcl and sourced.
-		set t [dict get $p type]
-		expr {[dict exists $tmap $t] ? [dict get $tmap $t] : "%binary"}
-	    }]
-	    foreach p $pnames t $ptypes {
-		+ "  TRACE (\"param \[[PadR $pnl $p]] = %$t\", param->$p);"
-	    }
+	    ParamTracing $params
 
 	    Comment {- - -- --- ----- -------- ------------- ---------------------} {  }
 	    + {}
@@ -753,6 +753,30 @@ proc dsl::writer::OperatorFunctionForOp {op} {
     Done
 }
 
+proc dsl::writer::ParamTracing {params} {
+    upvar 1 lines lines
+
+    set pnames [lmap p $params { dict get $p name }]
+    set pnl    [Maxlength $pnames]
+    # Match to type specs in aktive.tcl, runtime.tcl ==> get from reader
+    set tmap  {
+	uint    u	channel      p
+	double  f	take-channel p
+	int     d
+	bool    d
+	object0 p
+    }
+    set ptypes [lmap p $params {
+	# The types here have to include all the parameter types used in etc/aktive.tcl and sourced.
+	set t [dict get $p type]
+	expr {[dict exists $tmap $t] ? [dict get $tmap $t] : "%binary"}
+    }]
+
+    foreach p $pnames t $ptypes {
+	+ "  TRACE (\"param \[[PadR $pnl $p]] = %$t\", param->$p);"
+    }
+}
+
 proc dsl::writer::FormatCode {code {indent {  }}} {
     set code [textutil::adjust::undent $code]
     set code [string trim $code]
@@ -767,7 +791,12 @@ proc dsl::writer::FormatCodeWithReturn {code {indent {  }}} {
     set lines [split $code \n]
     set lines [lreverse [lassign [lreverse $lines] last]]
 
-    if {![regexp return $last]} { set last "return $last" }
+    if {![regexp return $last]} {
+	set last "TRACE_RETURN (\"\", [string trimright $last ";"]);"
+    } else {
+	regexp {return (.*);} $last -> expr
+	set last "TRACE_RETURN (\"\", $expr);"
+    }
 
     lappend lines $last
     set code [join $lines \n]
@@ -830,7 +859,8 @@ proc dsl::writer::OperatorCprocForOp {op} {
 	+ [CprocBody $op $spec {
 	    + "  [FunctionCall $op $spec];"
 	}]
-	+ "  return;"
+	+ "  if (aktive_error_raised ()) { aktive_error_set (ip); return TCL_ERROR; }"
+	+ "  return TCL_OK;"
     } else {
 	+ [CprocBody $op $spec {
 	    + "  [CprocResultC $spec] _r = [FunctionCall $op $spec];"
@@ -1057,7 +1087,7 @@ proc dsl::writer::CprocBody {op spec script} {
 proc dsl::writer::CprocResult {spec} {
     dict with spec {}
     # notes, images, params, result
-    if {$result eq "void"} { return $result }
+    if {$result eq "void"} { return "ok" }
     return [TypeCritcl $result]
 }
 

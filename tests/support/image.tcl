@@ -27,10 +27,19 @@ proc numbers {w} {
     return 1
 }
 
+# Save to file
+proc save-to {path args} {
+    set path [td]/$path
+    set chan [open $path w]
+    uplevel 1 [linsert [linsert $args end-1 $chan] 0 check]
+    close $chan
+    return $path
+}
+
 # Get image Tcl representation
 
 proc astcl  {args} { astcl/ [check {*}$args] }
-proc astcl/ {i}    { aktive format tcl $i }
+proc astcl/ {i}    { aktive format as tcl $i }
 
 # Get image input graph
 

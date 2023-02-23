@@ -1,0 +1,65 @@
+# -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
+## (c) 2023 Andreas Kupries
+# # ## ### ##### ######## ############# #####################
+## AKTIVE. Tcl representation.
+
+kt check Tcl     8.6
+kt check tcltest 2
+
+# # ## ### ##### ######## ############# #####################
+
+kt local testing aktive
+
+kt source support/util.tcl
+
+# # ## ### ##### ######## ############# #####################
+## Syntax
+
+syntax {
+    {byte 2chan}  {dst src}
+    {etext 2chan} {dst src}
+    {short 2chan} {dst src}
+    {text 2chan}  {dst src}
+} {aktive format as ppm}
+
+syntax {
+    {byte 2chan}  {dst src}
+    {etext 2chan} {dst src}
+    {short 2chan} {dst src}
+    {text 2chan}  {dst src}
+} {aktive format as pgm}
+
+# # ## ### ##### ######## ############# #####################
+##
+
+proc graybox {} {
+    aktive image gradient 8 8 1 0 1
+}
+
+proc colorbox {} {
+    set r [graybox]
+    set g [aktive op rotate cw   $r]
+    set b [aktive op rotate half $r]
+    aktive op montage z $r [aktive op montage z $g $b]
+}
+
+foreach {format cons} {
+    pgm graybox
+    ppm colorbox
+} {
+    foreach variant {
+	text etext byte short
+    } {
+	test aktive-format-as-${format}-${variant}-2.0 "aktive format as $format $variant" -body {
+	    save-to test.$variant.$format aktive format as $format $variant 2chan [$cons]
+	} -cleanup {
+	    removeFile test.$variant.$format
+	} -match content -result [R format-$variant.$format]
+    }
+}
+
+rename graybox  {}
+rename colorbox {}
+# # ## ### ##### ######## ############# #####################
+cleanupTests
+return

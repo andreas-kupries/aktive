@@ -36,6 +36,15 @@ static Tcl_ThreadDataKey rtDataKey;
  * Error management
  */
 
+extern int
+aktive_error_raised (void) {
+    TRACE_FUNC("()", 0);
+
+    ThreadSpecificData *tsdPtr = TCL_TSD_INIT(&rtDataKey);
+
+    TRACE_RETURN ("raised (%d)", !!tsdPtr->error);
+}
+
 extern void
 aktive_error_set (Tcl_Interp* interp) {
     TRACE_FUNC("((Tcl_Interp*) %p)", interp);

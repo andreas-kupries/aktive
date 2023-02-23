@@ -64,7 +64,7 @@ import transformer/structure/resample/up.tcl
 import composer/montage.tcl
 
 import sink/astcl.tcl
-import sink/ppm-pgm.tcl
+import sink/netpbm.tcl
 
 import accessor/attributes.tcl
 

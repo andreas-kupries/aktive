@@ -17,13 +17,13 @@ kt source support/util.tcl
 
 syntax {
     tcl src
-} {aktive format}
+} {aktive format as}
 
 # # ## ### ##### ######## ############# #####################
 ##
 
-test aktive-image-gradient-2.0 "aktive format tcl" -body {
-    check aktive format tcl [grad]
+test aktive-format-as-tcl-2.0 "aktive format tcl" -body {
+    check aktive format as tcl [grad]
 } -match image -result {
     type   image::gradient
     config {
