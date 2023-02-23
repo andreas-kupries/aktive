@@ -791,7 +791,9 @@ proc dsl::writer::FormatCodeWithReturn {code {indent {  }}} {
     set lines [split $code \n]
     set lines [lreverse [lassign [lreverse $lines] last]]
 
-    if {![regexp return $last]} {
+    if {[regexp TRACE_RETURN $last]} {
+	# do nothing
+    } elseif {![regexp return $last]} {
 	set last "TRACE_RETURN (\"\", [string trimright $last ";"]);"
     } else {
 	regexp {return (.*);} $last -> expr
