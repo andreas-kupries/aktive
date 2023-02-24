@@ -1,7 +1,7 @@
 /* -*- c -*-
  * - - -- --- ----- -------- -------------
  *
- * -- Runtime API -- Pixel blocks, types and methods
+ * -- Runtime API -- Images, types and methods
  */
 #ifndef AKTIVE_IMAGE_H
 #define AKTIVE_IMAGE_H
@@ -40,8 +40,8 @@ typedef struct aktive_image_parameter {
 
 /*
  * - - -- --- ----- -------- -------------
- * Initialization          - param and srcs are already initialized - initialize state and geometry
- * Finalization            - other fields are already destroyed     - destroy state fields
+ * Initialization - param and srcs are already initialized - initialize state and geometry
+ * Finalization   - other fields are already destroyed     - destroy state fields
  *
  * NOTE: We can perform geometry initialization in the main setup. 
  */
