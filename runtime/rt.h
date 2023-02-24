@@ -12,6 +12,7 @@
 #include <region.h>
 #include <image.h>
 #include <writer.h>
+#include <sink.h>
 #include <rtgen/vector-funcs.h>
 #include <rtgen/type-funcs.h>
 
