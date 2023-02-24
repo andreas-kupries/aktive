@@ -1,6 +1,48 @@
 /* -*- c -*-
  *
- * -- Direct operator support - Netpbm support
+ * -- Direct operator support - NETPBM support
+ *
+ * PGM - Portable Grey Map      1-band grey image
+ * PPM - Portable Pixel Map     3-band RGB  image
+ *
+ * References:
+ *
+ *  - http://en.wikipedia.org/wiki/Netpbm_format
+ *
+ *  - http://wiki.tcl.tk/4530
+ *
+ * Format Description/Specification Recap
+ *
+ *  - PPM data represents a byte- or short-quantized RGB image (i.e. it has 3 bands). It
+ *    consists of a minimal header followed by a list of integer triples. The integer
+ *    values can be coded in binary (bytes or shorts), or as ASCII decimal numbers
+ *    (unsigned, >= 0 always). The header indicates the coding in use.
+ *
+ *  - PGM data represents a byte- or short-quantized gray image (i.e. it has 1 band). The
+ *    header is identical to PPM, except in the type indicator up front. The possible
+ *    encodings for the integer values is the same.
+ *
+ *  - The header is always plain text. It consists of type indicator, image width and
+ *    height, and the possible maximal integer value, in this order. The `maximal value` is
+ *    a scaling factor in the range 1 to 65535. Values <= 255 indicate bytes for binary
+ *    coding, otherwise shorts.
+ *
+ *  - The format supports *-based single-line comments in the header H which may start
+ *    __anywhere__ in H. IOW even in the middle of a number.
+ *
+ *    This writer does not generate any comments - TODO FUTURE :: use for meta data
+ *
+ *    The formats writing encoding the pixel values as text support *-based single-line
+ *    comments in the pixel data section as well.
+ *
+ *  - With this parsing the header can be done in a state machine supporting a single level
+ *    of stack/context.
+ *
+ *  - Whitespace (Space, TAB, VT, CR, LF) is used to terminate all values in the header.
+ *    Whitespace is also used to terminate text encoded pixel values. Binary coded pixel
+ *    values on the other hand are __not__ terminated at all.
+ *
+ *  - Binary coded data is written in __big endian__ order.
  */
 
 #include <netpbm.h>
@@ -32,7 +74,7 @@ typedef struct aktive_netpbm_control {
  * - - -- --- ----- -------- -------------
  */
 
-static aktive_netpbm_control* netpbm_header (aktive_image src, aktive_netpbm_control* info);
+static aktive_netpbm_control* netpbm_header (aktive_netpbm_control* info, aktive_image src);
 static void                   netpbm_final  (aktive_netpbm_control* info);
 
 static void netpbm_text  (aktive_netpbm_control* info, aktive_block* src);
@@ -117,10 +159,10 @@ aktive_netpbm_sink (aktive_writer* writer,
  */
 
 static aktive_netpbm_control*
-netpbm_header (aktive_image src, aktive_netpbm_control* info)
+netpbm_header (aktive_netpbm_control* info, aktive_image src)
 {
-    TRACE_FUNC ("((aktive_image) %p '%s', (aktive_netpbm_control*) %p '%s')",
-		src, aktive_image_get_type (src)->name, info, info->sink->name);
+    TRACE_FUNC ("((aktive_netpbm_control*) %p '%s', (aktive_image) %p '%s')",
+		info, info->sink->name, src, aktive_image_get_type (src)->name);
     
     char             buf [40];
     aktive_geometry* g = aktive_image_get_geometry (src);

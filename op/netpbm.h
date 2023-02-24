@@ -1,6 +1,6 @@
 /* -*- c -*-
  *
- * -- Direct operator support - Netpbm support
+ * -- Direct operator support - NETPBM support
  */
 #ifndef AKTIVE_NETPBM_H
 #define AKTIVE_NETPBM_H
@@ -9,11 +9,24 @@
 #include <sink.h>
 
 /* - - -- --- ----- -------- -------------
- * Provision of a netpbm sink
+ * Provision of a NETPBM sink
  *
- * (Ad *) The `variant` information encodes primary and secondary format information,
- *        i.e. PPM vs PGM, and text vs binary encoding. The `maxvalue` then further
- *        differentiates by providing scaling/size information.
+ * Currently support PPM and PGM formats in text and binary sub types, and
+ * byte/short scaling in each sub type, for a total of 8 related formats.
+ *
+ * | variant | maxval | format | coding | scaling |
+ * |---      |---     |---     |---     |---      |
+ * | 2       | <= 255 | PGM    | text   | byte    |
+ * | 2       | > 255  | PGM    | text   | short   |
+ * | 5       | <= 255 | PGM    | binary | byte    |
+ * | 5       | > 255  | PGM    | binary | short   |
+ * |---      |---     |---     |---     |---      |
+ * | 3       | <= 255 | PPM    | text   | byte    |
+ * | 3       | > 255  | PPM    | text   | short   |
+ * | 6       | <= 255 | PPM    | binary | byte    |
+ * | 6       | > 255  | PPM    | binary | short   |
+ *
+ * Note: maxval has to be less than 65536.
  */
 
 static aktive_sink*

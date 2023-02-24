@@ -2,46 +2,7 @@
 # # ## ### ##### ######## ############# #####################
 ## Sinks -- Netpbm PPM, PGM formats
 #
-## Portable Grey Map	1-band grey values
-## Portable Pixel Map	3-band RGB values
-#
-# References:
-# - http://en.wikipedia.org/wiki/Netpbm_format
-# - http://wiki.tcl.tk/4530
-#
-# Format Description/Specification Recap
-#
-#  - PPM data represents a byte- or short-quantized RGB image (i.e. it has 3 bands). It
-#    consists of a minimal header followed by a list of integer triples. The integer
-#    values can be coded in binary (bytes or shorts), or as ASCII decimal numbers
-#    (unsigned, >= 0 always). The header indicates the coding in use.
-#
-#  - PGM data represents a byte- or short-quantized gray image (i.e. it has 1 band). The
-#    header is identical to PPM, except in the type indicator up front. The possible
-#    encodings for the integer values is the same.
-#
-#  - The header is always plain text. It consists of type indicator, image width and
-#    height, and the possible maximal integer value, in this order. The `maximal value` is
-#    a scaling factor in the range 1 to 65535. Values <= 255 indicate bytes for binary
-#    coding, otherwise shorts.
-#
-#  - The format supports #-based single-line comments in the header H which may start
-#    __anywhere__ in H. IOW even in the middle of a number.
-#
-#    This writer does not generate any comments - TODO FUTURE :: use for meta data
-#
-#    The formats writing encoding the pixel values as text support #-based single-line
-#    comments in the pixel data section as well.
-#
-#  - With this parsing the header can be done in a state machine supporting a single level
-#    of stack/context.
-#
-#  - Whitespace (Space, TAB, VT, CR, LF) is used to terminate all values in the header.
-#    Whitespace is also used to terminate text encoded pixel values. Binary coded pixel
-#    values on the other hand are __not__ terminated at all.
-#
-#  - Binary coded data is written in __big endian__ order.
-#
+# See op/netpbm.c for the format specification.
 
 operator {bands type maxval} {
     format::as::pgm::text::2chan    1 2	  255

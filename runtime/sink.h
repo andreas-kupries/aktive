@@ -20,7 +20,7 @@
  * Finalization   - destroy sink state, final update of user data (sink result)
  */
 
-typedef void* (*aktive_sink_setup)   (aktive_image src, void* userstate);
+typedef void* (*aktive_sink_setup)   (void* state, aktive_image src);
 typedef void  (*aktive_sink_process) (void* state, aktive_block* src);
 typedef void  (*aktive_sink_final)   (void* state);
 

@@ -18,7 +18,7 @@ aktive_sink_run (aktive_sink* sink,
     TRACE_FUNC ("((aktive_sink*) %p '%s', (aktive_image) src)",
 		sink, sink->name, src);
     
-    void* state = sink->setup (src, sink->state);
+    void* state = sink->setup (sink->state, src);
 
     // Caller is expected to have made any checks which would make the sink fail
     ASSERT (state, "sink failed to create state");
