@@ -77,7 +77,8 @@ operator {bands type maxval} {
     input
 
     if {$dst eq "channel"} {
-	channel dst	Channel the $thing $variant image data is written to
+	channel dst \
+	    Channel the $thing $variant image data is written to
     }
 
     def write-result-setup [dict get {
@@ -93,114 +94,28 @@ operator {bands type maxval} {
 	string	{ TRACE_RETURN ("(Tcl_Obj*) %p", ba); }
     } $dst]
 
-    def write-begin {
-	TRACE ("@@thing@@ starting", 0);
-
-	aktive_geometry* g  = aktive_image_get_geometry (src);
-	aktive_uint	 sz = aktive_geometry_get_size (g);
-
-	if (g->depth != @@bands@@) {
-	    TRACE ("band mismatch, have %d, wanted %d", g->depth, @@bands@@);
-	    aktive_failf ("@@thing@@ does not support images with %d bands, expects @@bands@@",
-			  g->depth);
-	}
-
-	aktive_writer dst;
-	@@write-result-setup@@
-
-	char   buf [40];
-	aktive_uint n = sprintf (buf, "P@@type@@ %d %d @@maxval@@ ", g->width, g->height);
-	ASSERT (n < 40, "header overflowed internal string buffer");
-	TRACE ("header to write (%s)", buf);
-
-	aktive_write_to (&dst, buf, n);
-
-	aktive_uint wr = 0;
-	aktive_uint lc = n;	// text, etext only - TODO conditional
-	#define MAXCOL 70	//
-    }
-
-    def write-row [dict get {
-	text {
-	    ITER {
-		aktive_uint n = aktive_write_uint_text (&dst, aktive_quantize_uint8 (VAL));
-		lc += n;
-		int term = 32;
-		if (lc >= MAXCOL) { lc = 0; term = 10; } else { lc ++; }
-		aktive_write_uint8 (&dst, term);
-		wr ++;
-	    }
-	}
-	etext {
-	    ITER {
-		aktive_uint n = aktive_write_uint_text (&dst, aktive_quantize_uint16 (VAL));
-		lc += n;
-		int term = 32;
-		if (lc >= MAXCOL) { lc = 0; term = 10; } else { lc ++; }
-		aktive_write_uint8 (&dst, term);
-		wr ++;
-	    }
-	}
-	byte {
-	    ITER {
-		aktive_write_uint8 (&dst, aktive_quantize_uint8 (VAL));
-		wr ++;
-	    }
-	}
-	short {
-	    ITER {
-		aktive_write_uint16be (&dst, aktive_quantize_uint16 (VAL));
-		wr ++;
-	    }
-	}
-    } $variant]
-
-    def write-complete {
-	ASSERT_VA (wr == sz, "@@thing@@ @@variant@@ write mismatch",
-		   "wrote %d != required %d",
-		   wr, sz);
-	TRACE ("flush", 0);
-	aktive_write_done (&dst);
-	@@write-result-return@@
-    }
-
     {*}[dict get {
 	channel void
 	string	{return object0}
     } $dst] {
-	@@write-begin@@
+	TRACE ("@@thing@@ starting", 0);
 
-	TRACE ("scan prep", 0);
-
-	aktive_rectangle* domain = aktive_image_get_domain (src);
-	aktive_region	  rg	 = aktive_region_new (src);
-
-	// Scan image by rows, add the pixels of each retrieved row to the result list.
-
-	TRACE_RECTANGLE (domain);
-
-	aktive_rectangle_def_as (scan, domain);
-	aktive_uint height = scan.height;
-	scan.height = 1;
-
-	for (aktive_uint k = 0, i=0; k < height; k ++) {
-	    TRACE ("row %d", k);
-	    TRACE_RECTANGLE(&scan);
-
-	    aktive_block* pixels = aktive_region_fetch_area (rg, &scan);
-
-	    #define ITER  for (aktive_uint j = 0; j < pixels->used; j++)
-	    #define VAL	  pixels->pixel [j]
-	    @@write-row@@
-	    #undef ITER
-	    #undef VAL
-
-	    aktive_rectangle_move (&scan, 0, 1);
+	aktive_uint depth = aktive_image_get_depth (src);
+	if (depth != @@bands@@) {
+	    TRACE ("band mismatch, have %d, wanted %d", depth, @@bands@@);
+	    aktive_failf ("@@thing@@ does not support images with %d bands, expects @@bands@@",
+			  depth);
 	}
 
-	aktive_region_destroy (rg); // Note that this invalidates `pixels` too.
+	aktive_writer dst;
 
-	@@write-complete@@
+	@@write-result-setup@@
+
+	TRACE ("create and execute sink", 0);
+	aktive_sink_run (aktive_netpbm_sink (&dst, '@@type@@', @@maxval@@), src);
+	// Note: The sink self-destroys in its state finalization.
+
+	@@write-result-return@@
     }
 }
 
