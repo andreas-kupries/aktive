@@ -4,6 +4,7 @@
 #include <math.h>
 #include <string.h>
 #include <writer.h>
+#include <swap.h>
 #include <critcl_assert.h>
 #include <critcl_trace.h>
 
@@ -176,9 +177,14 @@ aktive_write_append_float64be (aktive_writer* writer, double v)
 {
     TRACE_FUNC ("((writer*) %p, value %f)", writer, v);
 
-    // Cast the double into a Tcl_WideInt which is then written.
-    
-    aktive_write_append_uint64be (writer, *((Tcl_WideInt*) &v));
+    union {
+	double        v;
+	unsigned char buf [sizeof(double)];
+    } cast;
+
+    cast.v = v;
+    SWAP64 (cast.v);
+    aktive_write_append (writer, cast.buf, sizeof(double));
 
     TRACE_RETURN_VOID;
 }
