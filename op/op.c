@@ -42,6 +42,9 @@ aktive_op_astcl (Tcl_Interp* ip, aktive_image src) {
     Tcl_Obj* pixels = aktive_op_pixels (ip, src);
     if (pixels) {
 	Tcl_DictObjPut (ip, r, K("pixels"), pixels);
+    } else if (aktive_error_raised()) {
+	Tcl_DecrRefCount (r);
+	TRACE_RETURN ("(Tcl_Obj*) %p", 0);
     }
 
     TRACE_RETURN ("(Tcl_Obj*) %p", r);
@@ -74,15 +77,15 @@ aktive_op_pixels (Tcl_Interp* ip, aktive_image src) {
     
     aktive_uint sz = aktive_image_get_size (src);
 
-    if (!sz) {
-	TRACE_RETURN ("(Tcl_Obj*) %p", 0);
-    }
+    if (!sz) { TRACE_RETURN ("(Tcl_Obj*) %p", 0); }
 
     Tcl_Obj* p = Tcl_NewListObj (sz, 0); // 0 => Space is allocated for `sz` elements.
     
     aktive_rectangle* domain = aktive_image_get_domain (src);
     aktive_region     rg     = aktive_region_new (src);
 
+    if (!rg) { TRACE_RETURN ("(Tcl_Obj*) %p", 0); }
+    
     // Scan image by rows, add the pixels of each retrieved row to the result list.
     
     aktive_rectangle_def_as (scan, domain);

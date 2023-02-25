@@ -589,7 +589,7 @@ proc dsl::writer::OperatorFunctionForOp {op} {
 
 	Comment {- - -- --- ----- -------- ------------- ---------------------} {  }
 	+ {}
-	+ [FormatCode ${region/setup}]
+	+ [VoidCode [FormatCode ${region/setup}]]
 	+ {}
 	Comment {- - -- --- ----- -------- ------------- ---------------------} {  }
 	if {!$rt} { + "#undef state" }
@@ -680,9 +680,7 @@ proc dsl::writer::OperatorFunctionForOp {op} {
 	    + [Placeholder $op]
 	} elseif {$result eq "void"} {
 	    # We have a C code fragment implementing the doer
-	    + [string map {
-		aktive_fail aktive_void_fail
-	    } [FormatCode $rcode]]
+	    + [VoidCode [FormatCode $rcode]]
 	    + "  TRACE_RETURN_VOID;"
 	} else {
 	    # We have a C code fragment implementing the getter.
@@ -777,6 +775,10 @@ proc dsl::writer::ParamTracing {params} {
     }
 }
 
+proc dsl::writer::VoidCode {code} {
+    return [string map {aktive_fail aktive_void_fail} $code]
+}
+
 proc dsl::writer::FormatCode {code {indent {  }}} {
     set code [textutil::adjust::undent $code]
     set code [string trim $code]
@@ -867,6 +869,9 @@ proc dsl::writer::OperatorCprocForOp {op} {
 	+ [CprocBody $op $spec {
 	    + "  [CprocResultC $spec] _r = [FunctionCall $op $spec];"
 	}]
+	if {$result in { object0 }} {
+	    + "  if (aktive_error_raised () || !_r) { if (_r) Tcl_DecrRefCount (_r); aktive_error_set (ip); return 0; }"
+	}
 	+ "  return _r;"
     }
 

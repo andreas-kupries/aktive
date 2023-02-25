@@ -20,14 +20,16 @@ aktive_sink_run (aktive_sink* sink,
     
     void* state = sink->setup (sink->state, src);
 
-    // Caller is expected to have made any checks which would make the sink fail
-    ASSERT (state, "sink failed to create state");
+    // Some errors may appear only very late.
+    if (!state) { TRACE_RETURN_VOID; }
     
     // Scan image by rows      -- TODO FUTURE -- ask image for prefered method
     // Scan image sequentially -- TODO FUTURE -- spread over multiple threads
 
     aktive_region rg = aktive_region_new (src);
-	
+
+    if (!rg) { TRACE_RETURN_VOID; }
+    
     aktive_rectangle_def_as (scan, aktive_image_get_domain (src));
     scan.height = 1;
     aktive_uint height = aktive_image_get_height (src);

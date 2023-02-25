@@ -60,6 +60,11 @@ aktive_region_new (aktive_image image)
 	image->opspec->region_setup (&region->public);
     }
 
+    if (aktive_error_raised ()) {
+	aktive_region_destroy (region);
+	TRACE_RETURN("(aktive_region) %p", 0);
+    }
+    
     // Done and return 
     TRACE_RETURN("(aktive_region) %p", region);
 }
