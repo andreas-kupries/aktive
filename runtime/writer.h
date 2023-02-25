@@ -52,7 +52,7 @@ extern void aktive_write_append_uint8       (aktive_writer* writer, aktive_uint 
 extern void aktive_write_append_uint16be    (aktive_writer* writer, aktive_uint   v);
 extern void aktive_write_append_uint32be    (aktive_writer* writer, aktive_uint   v);
 extern void aktive_write_append_uint64be    (aktive_writer* writer, unsigned long v);
-extern int  aktive_write_append_uint_text   (aktive_writer* writer, int v);
+extern int  aktive_write_append_uint_text   (aktive_writer* writer, aktive_uint   v);
 
 extern void aktive_write_append_float64be   (aktive_writer* writer, double v);
 
