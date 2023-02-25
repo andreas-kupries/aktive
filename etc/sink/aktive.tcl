@@ -4,53 +4,30 @@
 #
 # See op/aktive.c for the format specification.
 
+tcl-operator format::as::aktive::2string {src} {
+    aktive::2string $src 2chan
+}
+
 operator {
     format::as::aktive::2chan
-    format::as::aktive::2string
 } {
-    def dst	[set dst     [dict get {
-	2chan channel
-	2string string
-    } [lindex [split $__op :] 6]]]
-
     note Sink. \
-	Serializes image into the $dst, using the AKTIVE raw format.
+	Serializes image into the channel, using the AKTIVE raw format.
 
     input
 
-    if {$dst eq "channel"} {
-	channel dst \
-	    Channel the image data is written to
-    }
+    channel dst \
+	Channel the image data is written to
 
-    def write-result-setup [dict get {
-	channel { aktive_write_channel (&dst, param->dst, 1); }
-	string	{
-	    Tcl_Obj* ba = Tcl_NewByteArrayObj (0,0);
-	    aktive_write_bytearray (&dst, ba);
-	}
-    } $dst]
-
-    def write-result-return [dict get {
-	channel {}
-	string	{ TRACE_RETURN ("(Tcl_Obj*) %p", ba); }
-    } $dst]
-
-    {*}[dict get {
-	channel void
-	string	{return object0}
-    } $dst] {
+    void {
 	TRACE ("AKTIVE starting", 0);
 
 	aktive_writer dst;
-
-	@@write-result-setup@@
+	aktive_write_channel (&dst, param->dst, 1);
 
 	TRACE ("create and execute sink", 0);
 	aktive_sink_run (aktive_aktive_sink (&dst), src);
 	// Note: The sink self-destroys in its state finalization.
-
-	@@write-result-return@@
     }
 }
 
