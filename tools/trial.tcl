@@ -2,16 +2,29 @@
 
 package require aktive
 
+proc to {path g args} {
+    set dst [open $path w]
+    uplevel 1 [linsert $args end 2chan $dst $g]
+    close $dst
+}
+
 proc grad  {} { aktive image gradient 3 4 2  1 12.5 }
 proc gradx {} { aktive image gradient 20 1 1  0 19 }
 proc grady {} { aktive image gradient 1 20 1  0 19 }
 proc gradz {} { aktive image gradient 1 1 20  0 19 }
 
-puts ""
-puts loaded:\t[join [info loaded] \nloaded:\t]
-puts ""
-puts "have aktive v[aktive version]"
-puts ""
+proc graybox {} {
+    aktive image gradient 256 256 1 0 1
+}
+
+proc colorbox {} {
+    set r [graybox]
+    set g [aktive op rotate cw   $r]
+    set b [aktive op rotate half $r]
+    aktive op montage z $r [aktive op montage z $g $b]
+
+    #aktive image gradient 8 8 3 0 1
+}
 
 proc show {i} {
     puts "[aktive query type $i] \{"
@@ -47,7 +60,7 @@ proc show {i} {
 		puts -nonewline " ="
 	    }
 	}
-	puts -nonewline " [format %6.2f $v]"
+	puts -nonewline " [format %6.4f $v]"
 	incr i
     }
     puts ""
@@ -59,21 +72,30 @@ proc show {i} {
     #puts ""
 }
 
+puts ""
+puts loaded:\t[join [info loaded] \nloaded:\t]
+puts ""
+puts "have aktive v[aktive version]"
+puts ""
 
+set g [aktive read from aktive tests/assets/results/format-colorbox.aktive]
+show $g
 
-proc graybox {} {
-    aktive image gradient 256 256 1 0 1
-}
+exit
 
-proc colorbox {} {
-    set r [graybox]
-    set g [aktive op rotate cw   $r]
-    set b [aktive op rotate half $r]
-    aktive op montage z $r [aktive op montage z $g $b]
+file copy -force \
+    tests/assets/results/format-graybox.aktive \
+    foo
 
-    #aktive image gradient 8 8 3 0 1
-}
+set g [aktive read from aktive foo]
 
+file delete foo
+
+show $g
+
+#set g [aktive read from aktive bogus]
+
+#to x.ppm $g aktive format as ppm text
 
 #set g  [aktive image gradient 256 1 1 0 1]
 #set g  [aktive image gradient 8 8 1 0 1]
@@ -103,12 +125,6 @@ set h [aktive op montage y [aktive op montage x $h $k] $m]
 
 #show $g
 #exit
-
-proc to {path g args} {
-    set dst [open $path w]
-    uplevel 1 [linsert $args end 2chan $dst $g]
-    close $dst
-}
 
 puts [time {to x-text.ppm  $g aktive format as ppm text } 1]
 puts [time {to x-etext.ppm $g aktive format as ppm etext} 1]
