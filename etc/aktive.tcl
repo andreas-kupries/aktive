@@ -28,8 +28,8 @@ type wide          wideint            Tcl_WideInt {Tcl_NewWideIntObj (*value)}
 type object0       -                  Tcl_Obj*    {*value}
 type channel       -                  Tcl_Channel {Tcl_NewStringObj (Tcl_GetChannelName (*value), -1)}
 type take-channel  -                  Tcl_Channel {Tcl_NewStringObj (Tcl_GetChannelName (*value), -1)}
-type pgm_variant   aktive_pgm_variant -           {aktive_pgm_variant_pool (interp, *value)}
-type ppm_variant   aktive_ppm_variant -           {aktive_ppm_variant_pool (interp, *value)}
+#type pgm_variant   aktive_pgm_variant -           {aktive_pgm_variant_pool (interp, *value)}
+#type ppm_variant   aktive_ppm_variant -           {aktive_ppm_variant_pool (interp, *value)}
 
 vector int
 

@@ -7,7 +7,7 @@
 # # ## ### ##### ######## #############
 ## Enum for P*M format variants
 
-critcl::enum::def aktive_pgm_variant {
+if 0 {critcl::enum::def aktive_pgm_variant {
     aktive_pgm_text	     text
     aktive_pgm_text_extended etext
     aktive_pgm_byte	     byte
@@ -19,6 +19,6 @@ critcl::enum::def aktive_ppm_variant {
     aktive_ppm_text_extended etext
     aktive_ppm_byte	     byte
     aktive_ppm_short         short
-}
+}}
 
 # # ## ### ##### ######## #############
