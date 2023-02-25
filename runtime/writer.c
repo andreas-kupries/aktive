@@ -13,6 +13,13 @@ TRACE_OFF;
  * - - -- --- ----- -------- -------------
  */
 
+#define MSB(x) (((x) >> 8) & 0xFF)
+#define LSB(x) (( x      ) & 0xFF)
+
+/*
+ * - - -- --- ----- -------- -------------
+ */
+
 // replicated from op.h -- move to runtime
 static double aktive_clamp (double x) { return (x < 0) ? 0 : (x > 1) ? 1 : x; }
 
@@ -132,7 +139,7 @@ aktive_write_append_uint32be (aktive_writer* writer, aktive_uint v)
 }
 
 extern void
-aktive_write_append_uint64be (aktive_writer* writer, long unsigned v)
+aktive_write_append_uint64be (aktive_writer* writer, Tcl_WideInt v)
 {
     TRACE_FUNC ("((writer*) %p, value %ld)", writer, v);
     
@@ -168,8 +175,10 @@ extern void
 aktive_write_append_float64be (aktive_writer* writer, double v)
 {
     TRACE_FUNC ("((writer*) %p, value %f)", writer, v);
+
+    // Cast the double into a Tcl_WideInt which is then written.
     
-    aktive_write_append_uint64be (writer, *((unsigned long*) &v));
+    aktive_write_append_uint64be (writer, *((Tcl_WideInt*) &v));
 
     TRACE_RETURN_VOID;
 }
