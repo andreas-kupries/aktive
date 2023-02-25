@@ -63,8 +63,9 @@ import transformer/structure/resample/up.tcl
 
 import composer/montage.tcl
 
-import sink/astcl.tcl
-import sink/netpbm.tcl
+import sink/astcl.tcl	;# Tcl representation
+import sink/netpbm.tcl	;# NETPBM basics (PGM, PPM)
+import sink/aktive.tcl	;# AKTIVE raw format
 
 import accessor/attributes.tcl
 

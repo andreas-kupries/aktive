@@ -1,0 +1,48 @@
+# -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
+## (c) 2023 Andreas Kupries
+# # ## ### ##### ######## ############# #####################
+## AKTIVE. Writing AKTIVE
+
+kt check Tcl     8.6
+kt check tcltest 2
+
+# # ## ### ##### ######## ############# #####################
+
+kt local testing aktive
+
+kt source support/util.tcl
+
+# # ## ### ##### ######## ############# #####################
+## Syntax
+
+syntax {
+    2chan    {dst src}
+    2string   src
+} {aktive format as aktive}
+
+# # ## ### ##### ######## ############# #####################
+##
+
+foreach {k cons} {
+    0 graybox
+    1 colorbox
+} {
+    test aktive-format-as-aktive-2chan-2.$k "aktive format as aktive 2chan, $cons" -body {
+	save-to test.$cons.aktive aktive format as aktive 2chan [$cons]
+    } -cleanup {
+	removeFile test.$cons.aktive
+    } -match content -result [R format-$cons.aktive]
+}
+
+foreach {k cons} {
+    0 graybox
+    1 colorbox
+} {
+    test aktive-format-as-aktive-2string-2.$k "aktive format as aktive 2string" -body {
+	aktive format as aktive 2string [$cons]
+    } -match content/string -result [R format-$cons.aktive]
+}
+
+# # ## ### ##### ######## ############# #####################
+cleanupTests
+return

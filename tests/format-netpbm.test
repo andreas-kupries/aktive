@@ -1,7 +1,7 @@
 # -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
 ## (c) 2023 Andreas Kupries
 # # ## ### ##### ######## ############# #####################
-## AKTIVE. Tcl representation.
+## AKTIVE. Writing NETPBM
 
 kt check Tcl     8.6
 kt check tcltest 2
@@ -40,19 +40,6 @@ syntax {
 # # ## ### ##### ######## ############# #####################
 ##
 
-proc graybox {} {
-    aktive image gradient 8 8 1 0 1
-}
-
-proc colorbox {} {
-    set r [graybox]
-    set g [aktive op rotate cw   $r]
-    set b [aktive op rotate half $r]
-    aktive op montage z $r [aktive op montage z $g $b]
-}
-
-# # ## ### ##### ######## ############# #####################
-
 foreach {format cons} {
     pgm graybox
     ppm colorbox
@@ -82,7 +69,5 @@ foreach {format cons} {
 }
 
 # # ## ### ##### ######## ############# #####################
-rename graybox  {}
-rename colorbox {}
 cleanupTests
 return

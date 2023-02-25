@@ -12,6 +12,17 @@ proc gradx {} { aktive image gradient 20 1 1  0 19 }
 proc grady {} { aktive image gradient 1 20 1  0 19 }
 proc gradz {} { aktive image gradient 1 1 20  0 19 }
 
+proc graybox {} {
+    aktive image gradient 8 8 1 0 1
+}
+
+proc colorbox {} {
+    set r [graybox]
+    set g [aktive op rotate cw   $r]
+    set b [aktive op rotate half $r]
+    aktive op montage z $r [aktive op montage z $g $b]
+}
+
 # input/gradient 3x4x2
 ##
 ##       0 ....   1......   2...... --- 3 columns
