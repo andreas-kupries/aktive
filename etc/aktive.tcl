@@ -40,6 +40,7 @@ import other/point.tcl
 import other/rectangle.tcl
 
 import generator/constant.tcl
+import generator/gradient.tcl
 import generator/ppm-pgm.tcl
 import generator/random.tcl
 import generator/aktive.tcl

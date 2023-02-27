@@ -193,60 +193,6 @@ operator image::const::sparse::deltas {
     }
 }
 
-## # # ## ### ##### ######## ############# #####################
-
-operator image::gradient {
-    note Generator. Returns image containing a linear gradient through all cells
-
-    uint   width   Width of the returned image
-    uint   height  Height of the returned image
-    uint   depth   Depth of the returned image
-    double first   First value
-    double last    Last value
-
-    state -fields {
-	double delta;
-    } -setup {
-	aktive_geometry_set (domain, 0, 0, param->width, param->height, param->depth);
-
-	state->delta = (param->last - param->first)
-		     / (double) (aktive_geometry_get_size (domain) - 1);
-    }
-    pixels {
-	// idomain	image geometry
-	// request	image area to get the pixels of
-	// block.domain storage geometry (ignoring location)
-	// dst		storage area to write the pixels to
-	//
-	// r.width      == dst.width  <= idomain.width  (Note: < possible)
-	// r.height     == dst.height <= idomain.height (Note: < possible)
-	// domain.depth == idomain.depth
-
-	aktive_uint dstpos, dsty, dstx, dstz;
-	aktive_uint srcpos, srcy, srcx, srcz;
-	aktive_uint row, col;
-
-	// Unoptimized loop nest to compute virtual pixel data and write to storage
-	TRACE ("sy  sx  sz  | in  | dy  dx  dz  | out |", 0);
-
-	for (srcy = request->y, dsty = dst->y, row = 0; row < request->height; srcy++, dsty++, row++) {
-	    for (srcx = request->x, dstx = dst->x, col = 0; col < request->width; srcx++, dstx++, col++) {
-		for (srcz = dstz = 0; srcz < idomain->depth; srcz++, dstz++) {
-		    srcpos = srcy * idomain->width      * idomain->depth      + srcx * idomain->depth      + srcz;
-		    dstpos = dsty * block->domain.width * block->domain.depth + dstx * block->domain.depth + dstz;
-
-		    double value = param->first + srcpos * istate->delta;
-
-		    TRACE ("%3d %3d %3d | %3d | %3d %3d %3d | %3d | %.2f",
-			   srcy, srcx, srcz, srcpos, dsty, dstx, dstz, dstpos, value);
-
-		    block->pixel [dstpos] = value; // inlined blit set, we already have the coordinates
-		}
-	    }
-	}
-    }
-}
-
 ##
 # # ## ### ##### ######## ############# #####################
 ::return

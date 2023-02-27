@@ -1,11 +1,14 @@
 ## -*- mode: tcl ; fill-column: 90 -*-
 # # ## ### ##### ######## ############# #####################
-## Generators -- Reading from somewhere
+## Generators -- File Reader - AKTIVE format
 
 # # ## ### ##### ######## ############# #####################
 ## PPM, PGM format
 
 operator read::from::aktive {
+
+    note Generator. \
+	File Reader. Native AKTIVE format.
 
     object path \
 	Path to file holding the AKTIVE image data to read
