@@ -52,7 +52,11 @@ proc dsl::blit::gen {name scans function} {
 
     foreach scan $scans { EmitLoopSetup $scan ; >>> }
 
-    EmitCellAccess $axes
+    set f [lindex $function 0]
+    set virtual [expr {$f in {pos point}}]
+    set nopos   [string equal $f point]
+
+    EmitCellAccess $axes $virtual $nopos
     EmitFunction   $function
     + "TRACE_CLOSER;"	;# starting in EmitCellAccess
 
@@ -91,6 +95,18 @@ proc dsl::blit::F/zero {} {
 proc dsl::blit::F/const {v} {
     + "TRACE_ADD (\" :: set %f\", $v);"
     + "*dstvalue = $v;"
+}
+
+proc dsl::blit::F/point {cexpr} {
+    set expr [string map {z srcz x srcx y srcy} $cexpr]
+    + "TRACE_ADD (\" :: %f = \[$cexpr](%f %f %f)\", $expr, srcy, srcx, srcz);"
+    + "*dstvalue = $expr;"
+}
+
+proc dsl::blit::F/pos {cexpr} {
+    set expr [string map {@ srcpos} $cexpr]
+    + "TRACE_ADD (\" :: %f = \[$cexpr](%f)\", $expr, srcpos);"
+    + "*dstvalue = $expr;"
 }
 
 proc dsl::blit::F/apply1 {op args} {
@@ -203,9 +219,10 @@ proc dsl::blit::EmitCellIntro {axes} {
     + {}
 }
 
-proc dsl::blit::EmitCellAccess {axes} {
+proc dsl::blit::EmitCellAccess {axes virtual nopos} {
     # Compute linearized positions
     foreach k [lsort -dict [dict keys $axes]] {
+	if {[string match src* $k] && $nopos} continue
 	set ax [dict get $axes $k]
 	+ "aktive_uint [F ${k}pos]   = [EmitCellPosition $k $ax];"
     }
@@ -216,12 +233,13 @@ proc dsl::blit::EmitCellAccess {axes} {
     + "TRACE_HEADER (1); TRACE_ADD(\"blit @\", 0);"
     foreach k [lsort -dict [dict keys $axes]] {
 	set ax [dict get $axes $k]
-	EmitCellTrace $k $ax
+	EmitCellTrace $k $ax $virtual $nopos
     }
     + {}
 
     # Pointers to dst and source values, if any
     foreach k [lsort -dict [dict keys $axes]] {
+	if {[string match src* $k] && ($nopos||$virtual)} continue
 	+ "double*      [F ${k}value] = [P $k] + ${k}pos;"
 	ArgMark [P $k]
     }
@@ -230,18 +248,33 @@ proc dsl::blit::EmitCellAccess {axes} {
     return
 }
 
-proc dsl::blit::EmitCellTrace {k axes} {
-    ArgMark [P $k]CAP
+proc dsl::blit::EmitCellTrace {k axes virtual nopos} {
 
     + "TRACE_ADD (\" | [T $k]\", 0);"
     foreach a {y x z} {
 	if {![dict exists $axes $a]} continue
 	+ "TRACE_ADD (\" | %3d\", $k$a);"
     }
-    + "TRACE_ADD (\" | %3d/%3d\", ${k}pos, [P $k]CAP);"
+
+    if {![string match src* $k]} {
+	# dst
+	ArgMark [P $k]CAP
+	+ "TRACE_ADD (\" | %3d/%3d\", ${k}pos, [P $k]CAP);"
+    } elseif {!$nopos} {
+	# src, pos requested
+	if {$virtual} {
+	    # src, virtual, pos, no cap
+	    + "TRACE_ADD (\" | %3d\", ${k}pos);"
+	} else {
+	    # src, physical, pos and cap
+	    ArgMark [P $k]CAP
+	    + "TRACE_ADD (\" | %3d/%3d\", ${k}pos, [P $k]CAP);"
+	}
+    } ;# src, no pos virtual, nothing
 
     # Protection against out of bounds access. Close tracing and abort.
 
+    if {[string match src* $k] && ($nopos||$virtual)} return;
     + "if (${k}pos >= [P $k]CAP) { TRACE_CLOSER; ASSERT_VA (0, \"$k out of bounds\", \"%d / %d\", ${k}pos, [P $k]CAP); }"
 }
 
