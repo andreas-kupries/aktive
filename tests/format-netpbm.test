@@ -63,7 +63,7 @@ foreach {format cons} {
 	text etext byte short
     } {
 	test aktive-format-as-${format}-${variant}-2string-2.0 "aktive format as $format $variant 2string" -body {
-	    aktive format as $format $variant 2string [$cons]
+	    check aktive format as $format $variant 2string [$cons]
 	} -match content/string -result [R format-$variant.$format]
     }
 }

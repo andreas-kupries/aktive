@@ -16,8 +16,12 @@ proc check {args} {
 }
 
 proc skiparg {w} {
-    if {$w eq "<aktive::image>"} { return -code continue }
-    if {[numbers $w]}            { return -code continue }
+    if {$w eq "<aktive::image>"}    { return -code continue }
+    if {$w eq "X"}                  { return -code continue }
+    if {$w eq "FOO"}                { return -code continue }
+    if {[string match file*    $w]} { return -code continue }
+    if {[string match *assets* $w]} { return -code continue }
+    if {[numbers $w]}               { return -code continue }
     return
 }
 

@@ -53,12 +53,21 @@ tcl-operator op::transverse   {src} { flip x [flip y [swap xy $src]] }
 # # ## ### ##### ######## ############# #####################
 
 tcl-operator op::crop {left right top bottom src} {
-    set g [aktive query geometry $src]
-    dict with g {}
-    # x y width height depth
+    lassign [aktive query geometry $src] x y w h d
 
-    set bottom [expr {$height - 1 - $bottom}]
-    set right  [expr {$width  - 1 - $right}]
+    if {($left   < 0) ||
+	($right  < 0) ||
+	($top    < 0) ||
+	($bottom < 0)} {
+	aktive error "Unable to extend image with crop" CROP
+    }
+    if {(($top  + $bottom) >= $h) ||
+	(($left + $right)  >= $w)} {
+	aktive error "Unable to crop to empty image" CROP
+    }
+
+    set bottom [expr {$h - 1 - $bottom}]
+    set right  [expr {$w - 1 - $right}]
 
     # TODO: optimization
     # - 1 - if the src is a select x or (or y) choose the matching orientation as the

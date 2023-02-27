@@ -39,7 +39,7 @@ foreach {k cons} {
     1 colorbox
 } {
     test aktive-format-as-aktive-2string-2.$k "aktive format as aktive 2string" -body {
-	aktive format as aktive 2string [$cons]
+	check aktive format as aktive 2string [$cons]
     } -match content/string -result [R format-$cons.aktive]
 }
 

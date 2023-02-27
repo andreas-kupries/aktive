@@ -1,0 +1,63 @@
+# -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
+## (c) 2023 Andreas Kupries
+# # ## ### ##### ######## ############# #####################
+## AKTIVE. Cropping (Selection by another name)
+
+kt check Tcl     8.6
+kt check tcltest 2
+
+# # ## ### ##### ######## ############# #####################
+
+kt local testing aktive
+
+kt source support/util.tcl
+
+# # ## ### ##### ######## ############# #####################
+## Syntax
+
+syntax {
+    crop {left right top bottom src}
+} {aktive op}
+
+# # ## ### ##### ######## ############# #####################
+## Cropping - The changes are relative to the border, and always inward.
+## I.e. it is not possible use `crop` as a means of extending the image.
+
+test aktive-op-crop-2.0 "aktive op crop, nothing" -body {
+    astcl aktive op crop 0 0 0 0 [graybox]
+} -match glob -result "type image::gradient *"
+
+test aktive-op-crop-2.1 "aktive op crop, nothing" -body {
+    astcl aktive op crop 2 2 2 2 [graybox]
+} -match image -result [makei op::select::y 2 2 4 4 1 {first 2 last 5} {
+    = 0.2857 = 0.3016 = 0.3175 = 0.3333
+    = 0.4127 = 0.4286 = 0.4444 = 0.4603
+    = 0.5397 = 0.5556 = 0.5714 = 0.5873
+    = 0.6667 = 0.6825 = 0.6984 = 0.7143
+}]
+
+foreach {k crop} {
+    0 {-2 2 2 2}
+    1 {2 -2 2 2}
+    2 {2 2 -2 2}
+    3 {2 2 2 -2}
+} {
+    test aktive-op-crop-3.$k "aktive op crop, extension" -body {
+	astcl aktive op crop {*}$crop [graybox]
+    } -returnCodes error -errorCode {AKTIVE ERROR CROP} -result "Unable to extend image with crop"
+}
+
+foreach {k crop} {
+    0 {6 2 2 2}
+    1 {2 6 2 2}
+    2 {2 2 6 2}
+    3 {2 2 2 6}
+} {
+    test aktive-op-crop-4.$k "aktive op crop, empty" -body {
+	astcl aktive op crop {*}$crop [graybox]
+    } -returnCodes error -errorCode {AKTIVE ERROR CROP} -result "Unable to crop to empty image"
+}
+
+# # ## ### ##### ######## ############# #####################
+cleanupTests
+return
