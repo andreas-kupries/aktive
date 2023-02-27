@@ -3,6 +3,7 @@
 package require aktive
 
 proc to {path g args} {
+    puts "writing to $path"
     set dst [open $path w]
     uplevel 1 [linsert $args end 2chan $dst $g]
     close $dst
@@ -14,7 +15,8 @@ proc grady {} { aktive image gradient 1 20 1  0 19 }
 proc gradz {} { aktive image gradient 1 1 20  0 19 }
 
 proc graybox {} {
-    aktive image gradient 256 256 1 0 1
+#    aktive image gradient 256 256 1 0 1
+    aktive image gradient 8 8 1 0 1
 }
 
 proc colorbox {} {
@@ -77,6 +79,24 @@ puts loaded:\t[join [info loaded] \nloaded:\t]
 puts ""
 puts "have aktive v[aktive version]"
 puts ""
+
+#show [aktive image eye   3 4 0.5]
+#show [aktive image zone  3 4]
+show [aktive image grey  3 4]
+#show [aktive image sines 3 4 0.5 0.6]
+
+exit
+
+to trial.pgm [aktive image sines 256 256 0.5 0.6]
+    aktive format as pgm byte
+
+#set g [graybox]
+#show $g
+
+#show [aktive op crop 126 126 126 126 $g]
+#show [aktive op crop 2 2 2 2 $g]
+
+exit
 
 set g [aktive read from aktive tests/assets/results/format-colorbox.aktive]
 show $g

@@ -39,11 +39,17 @@ vector int
 import other/point.tcl
 import other/rectangle.tcl
 
-import generator/constant.tcl
-import generator/gradient.tcl
-import generator/ppm-pgm.tcl
-import generator/random.tcl
-import generator/aktive.tcl
+import generator/reader/aktive.tcl
+import generator/reader/netpbm.tcl
+
+import generator/virtual/constant.tcl
+import generator/virtual/eye.tcl
+import generator/virtual/gradient.tcl
+import generator/virtual/grey.tcl
+import generator/virtual/indexed.tcl
+import generator/virtual/random.tcl
+import generator/virtual/sines.tcl
+import generator/virtual/zone.tcl
 
 import transformer/location.tcl
 import transformer/viewport.tcl

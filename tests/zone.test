@@ -1,0 +1,102 @@
+# -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
+## (c) 2023 Andreas Kupries
+# # ## ### ##### ######## ############# #####################
+## AKTIVE. Zone plate test pattern
+
+kt check Tcl     8.6
+kt check tcltest 2
+
+# # ## ### ##### ######## ############# #####################
+
+kt local testing aktive
+
+kt source support/util.tcl
+
+# # ## ### ##### ######## ############# #####################
+## Syntax
+
+syntax {
+    zone {width height}
+} {aktive image}
+
+# # ## ### ##### ######## ############# #####################
+##
+
+test aktive-image-zone-2.0 "aktive image zone" -body {
+    astcl aktive image zone 3 4
+} -match image -result {
+    type   image::zone
+    config {
+	width 3
+	height 4
+    }
+    domain {
+	x 0
+	y 0
+	width 3
+	height 4
+	depth 1
+    }
+    pixels {
+	=  0.9659 = -0.2588 = -0.2588
+	= -0.9659 =  0.2588 =  0.2588
+	= -0.7071 =  0.9659 =  0.9659
+	= -0.9659 =  0.2588 =  0.2588
+    }
+}
+
+test aktive-image-zone-2.1 "aktive image zone, off view" -body {
+    astcl aktive op view {-2 2 8 2} [aktive image zone 3 4]
+} -match image -result {
+    type   op::view
+    config {
+	view {-2 2 8 2}
+    }
+    domain {
+	x -2
+	y 2
+	width 8
+	height 2
+	depth 1
+    }
+    pixels {
+	= 0 = 0 =   -0.7071 =  0.9659 =  0.9659  = 0 = 0 = 0 =
+	= 0 = 0 =   -0.9659 =  0.2588 =  0.2588  = 0 = 0 = 0 =
+    }
+}
+
+test aktive-image-zone-2.2 "aktive image zone, off view" -body {
+    astcl aktive op view {2 -2 2 8} [aktive image zone 3 4]
+} -match image -result {
+    type   op::view
+    config {
+	view {2 -2 2 8}
+    }
+    domain {
+	x 2
+	y -2
+	width 2
+	height 8
+	depth 1
+    }
+    pixels {
+	= 0  = 0 =
+	= 0  = 0 =
+
+	= -0.2588  = 0 =
+	=  0.2588  = 0 =
+	=  0.9659  = 0 =
+	=  0.2588  = 0 =
+
+	= 0  = 0 =
+	= 0  = 0 =
+    }
+}
+
+test aktive-image-zone-2.3 "aktive image zone, dag" -body {
+    dag aktive image zone 3 4
+} -match glob -result {image::zone * {width 3 height 4}}
+
+# # ## ### ##### ######## ############# #####################
+cleanupTests
+return
