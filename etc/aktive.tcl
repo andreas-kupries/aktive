@@ -49,6 +49,7 @@ import generator/virtual/grey.tcl
 import generator/virtual/indexed.tcl
 import generator/virtual/random.tcl
 import generator/virtual/sines.tcl
+import generator/virtual/sparse.tcl
 import generator/virtual/zone.tcl
 
 import transformer/location.tcl
