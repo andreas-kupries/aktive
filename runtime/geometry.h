@@ -84,9 +84,9 @@ extern Tcl_Obj* aktive_new_point_obj (aktive_point* p);
  */
 
 #define aktive_point_set(dst,xv,yv)         { (dst)->x = (xv) ; (dst)->y = (yv); }
-#define aktive_point_copy(dst,src)          aktive_point_set(dst, (src)->x, (src)->y)
-#define aktive_point_from_rect(dst,src)     aktive_point_copy(dst,src)
-#define aktive_point_from_geometry(dst,src) aktive_point_copy(dst,src)
+#define aktive_point_copy(dst,src)          aktive_point_set (dst, (src)->x, (src)->y)
+#define aktive_point_from_rect(dst,src)     aktive_point_copy (dst, src)
+#define aktive_point_from_geometry(dst,src) aktive_point_copy (dst, src)
 #define aktive_point_move(dst,dx,dy)        { (dst)->x += (dx) ; (dst)->y += (dy) ; }
 #define aktive_point_add(dst,delta)         aktive_point_move(dst, (delta)->x, (delta)->y)
 #define aktive_point_sub(dst,delta)         aktive_point_move(dst, - (delta)->x, - (delta)->y)
@@ -126,9 +126,9 @@ extern void aktive_rectangle_add          (aktive_rectangle* dst, aktive_point* 
 extern void aktive_rectangle_grow         (aktive_rectangle* dst, int left, int right, int top, int bottom);
 
 #define aktive_rectangle_set(dst, xv, yv, wv, hv) { (dst)->x = (xv) ; (dst)->y = (yv) ; (dst)->width = (wv) ; (dst)->height = (hv) ; }
-#define aktive_rectangle_copy(dst, src)           aktive_rectangle_set(dst, (src)->x, (src)->y, (src)->width, (src)->height)
-#define aktive_rectangle_set_point(dst, src)      aktive_point_copy(dst, src)
-#define aktive_rectangle_from_geometry(dst, src)  aktive_rectangle_copy(dst, src)
+#define aktive_rectangle_copy(dst, src)           aktive_rectangle_set  (dst, (src)->x, (src)->y, (src)->width, (src)->height)
+#define aktive_rectangle_set_point(dst, src)      aktive_point_copy     (dst, src)
+#define aktive_rectangle_from_geometry(dst, src)  aktive_rectangle_copy (dst, src)
 #define aktive_rectangle_get_x(src)               ((src)->x)
 #define aktive_rectangle_get_xmax(src)            ((src)->x + (src)->width - 1)
 #define aktive_rectangle_get_y(src)               ((src)->y)
@@ -156,11 +156,11 @@ extern void aktive_rectangle_outzones  (aktive_rectangle* domain, aktive_rectang
  * yz - (x 0 y w d h)	(x 0 w d)
  */
 
-#define __SW(src,a,b) { aktive_uint tmp ; tmp = src->a ; src->a = src->b ; src->b = tmp; }
+#define __SW(src,a,b) { aktive_uint tmp ; tmp = (src)->a ; (src)->a = (src)->b ; (src)->b = tmp; }
 
 #define aktive_rectangle_swap_xy(src, d) { __SW (src, x, y); __SW (src, width,  height); }
-#define aktive_rectangle_swap_xz(src, d) { src->x = 0;       src->width  = d; }
-#define aktive_rectangle_swap_yz(src, d) { src->y = 0;       src->height = d; }
+#define aktive_rectangle_swap_xz(src, d) { (src)->x = 0; (src)->width  = d; }
+#define aktive_rectangle_swap_yz(src, d) { (src)->y = 0; (src)->height = d; }
 
 /*
  * - - -- --- ----- -------- -------------

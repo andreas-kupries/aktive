@@ -5,10 +5,10 @@
 # # ## ### ##### ######## ############# #####################
 ## Mirror the image along one of the coordinate axes
 
-operator coordinate {
-    op::flip::x x
-    op::flip::y y
-    op::flip::z z
+operator {coordinate dimension} {
+    op::flip::x  x width
+    op::flip::y  y height
+    op::flip::z  z depth
 } {
     note Transformer. Structure. Mirrors the input along the ${coordinate}-axis.
 
@@ -32,22 +32,18 @@ operator coordinate {
     # ... generate code
     blit flipper $blitspec copy
 
+    def flip-rewrite-core {
+	// Flip the request before passing it on.
+	int new = idomain->@@dimension@@ - 1 - aktive_rectangle_get_@@coordinate@@max (request);
+	TRACE ("flip @@coordinate@@ %d --> %d = (%d-1-%d)", request->@@coordinate@@, new,
+	       idomain->@@dimension@@, aktive_rectangle_get_@@coordinate@@max (request));
+	subrequest.@@coordinate@@ = new;
+    }
+
     def rewrite [dict get {
-	x {
-	    // Flip the request before passing it on.
-	    int newx = idomain->width - 1 - aktive_rectangle_get_xmax (request);
-	    TRACE ("flip x %d --> (%d-1-%d) %d", request->x, idomain->width, aktive_rectangle_get_xmax (request), newx);
-	    request->x = newx;
-	}
-	y {
-	    // Flip the request before passing it on.
-	    int newy = idomain->height - 1 - aktive_rectangle_get_ymax (request);
-	    TRACE ("flip y %d --> (%d-1-%d) %d", request->y, idomain->width, aktive_rectangle_get_ymax (request), newy);
-	    request->y = newy;
-	}
-	z {
-	    // Nothing to flip, depth requests are never partial
-	}
+	x { @@flip-rewrite-core@@ }
+	y { @@flip-rewrite-core@@ }
+	z { // Nothing to flip, depth requests are never partial }
     } $coordinate]
 
     state -setup {
@@ -56,8 +52,9 @@ operator coordinate {
 	aktive_geometry_copy (domain, aktive_image_get_geometry (srcs->v[0]));
     }
     pixels {
+	aktive_rectangle_def_as (subrequest, request);
 	@@rewrite@@
-	aktive_block* src = aktive_region_fetch_area (srcs->v[0], request);
+	aktive_block* src = aktive_region_fetch_area (srcs->v[0], &subrequest);
 
 	// The @@coordinate@@ axis is scanned in reverse order.
 	@@flipper@@

@@ -70,20 +70,16 @@ operator {coordinate dimension} {
     # ... generate code
     blit subsampler $blitspec copy
 
+    def expansion-rewrite-core {
+	// Rewrite request along the @@coordinate@@-axis to get enough data from the source
+	subrequest.@@coordinate@@ *= n;
+	subrequest.@@dimension@@ *= n;
+    }
+
     def expansion [dict get {
-	x {
-	    // Rewrite request along X to get enough data from the source
-	    request->x     *= n;
-	    request->width *= n;
-	}
-	y {
-	    // Rewrite request along Y to get enough data from the source
-	    request->y      *= n;
-	    request->height *= n;
-	}
-	z {
-	    // Nothing to rewrite for z, depth
-	}
+	x { @@expansion-rewrite-core@@ }
+	y { @@expansion-rewrite-core@@ }
+	z { // Nothing to rewrite for z, depth }
     } $coordinate]
 
     state -setup {
@@ -100,8 +96,9 @@ operator {coordinate dimension} {
     # away here. And if the input is expensive efficiency will be a botch.
     pixels {
 	aktive_uint n = param->n;
+	aktive_rectangle_def_as (subrequest, request);
 	@@expansion@@
-	aktive_block* src = aktive_region_fetch_area (srcs->v[0], request);
+	aktive_block* src = aktive_region_fetch_area (srcs->v[0], &subrequest);
 
 	// The source @@coordinate@@ axis is scanned N times faster than the destination
 	@@subsampler@@

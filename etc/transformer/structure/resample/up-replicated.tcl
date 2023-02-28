@@ -73,26 +73,25 @@ operator {coordinate dimension} {
     # ... generate code
     blit upsampler $blitspec copy
 
+    def phasor-core {
+	aktive_uint phase = subrequest.@@coordinate@@ % n;
+
+	TRACE ("Phase: %d (%d in %d)", phase, subrequest.@@coordinate@@, n);
+
+	// Rewrite request along the @coordinate@@-axis to get enough from the source
+	subrequest.@@coordinate@@ /= n;
+	subrequest.@@dimension@@ /= n;
+	subrequest.@@dimension@@ ++;
+    }
+
     def phasor [dict get {
 	x {
 	    #define PHASE1 phase
-	    aktive_uint phase = request->x % n;
-
-	    TRACE ("Phase: %d (%d in %d)", phase, request->x, n);
-
-	    // Rewrite request along X to get enough from the source
-	    request->x     /= n;
-	    request->width /= n; request->width ++;
+	    @@phasor-core@@
 	}
 	y {
 	    #define PHASE0 phase
-	    aktive_uint phase = request->y % n;
-
-	    TRACE ("Phase: %d (%d in %d)", phase, request->y, n);
-
-	    // Rewrite request along Y to get enough from the source
-	    request->y      /= n;
-	    request->height /= n; request->height ++;
+	    @@phasor-core@@
 	}
 	z {
 	    #define PHASE2 0
@@ -101,9 +100,9 @@ operator {coordinate dimension} {
 
     pixels {
 	aktive_uint n = param->n;
-
+	aktive_rectangle_def_as (subrequest, request);
 	@@phasor@@
-	aktive_block* src = aktive_region_fetch_area (srcs->v[0], request);
+	aktive_block* src = aktive_region_fetch_area (srcs->v[0], &subrequest);
 
 	// The source @@coordinate@@ axis is scanned N times slower
 	// than the source via fractional stepping.

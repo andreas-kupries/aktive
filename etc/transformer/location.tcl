@@ -50,8 +50,10 @@ operator op::translate::to {
 	// rewrite request for passing to input, translate to the origin location
 	// fetch data, and save to local store
 
-	aktive_rectangle_add (request, &istate->delta);
-	aktive_block* src = aktive_region_fetch_area (srcs->v[0], request);
+	aktive_rectangle_def_as (subrequest, request);
+	aktive_rectangle_add    (&subrequest, &istate->delta);
+
+	aktive_block* src = aktive_region_fetch_area (srcs->v[0], &subrequest);
 	aktive_blit_copy0 (block, dst, src);
     }
 }
@@ -98,8 +100,10 @@ operator op::translate::by {
 	// rewrite request for passing to input, translate to the origin location
 	// fetch data, and save to local store
 
-	aktive_rectangle_add (request, &istate->delta);
-	aktive_block* src = aktive_region_fetch_area (srcs->v[0], request);
+	aktive_rectangle_def_as (subrequest, request);
+	aktive_rectangle_add    (&subrequest, &istate->delta);
+
+	aktive_block* src = aktive_region_fetch_area (srcs->v[0], &subrequest);
 	aktive_blit_copy0 (block, dst, src);
     }
 }

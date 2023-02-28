@@ -169,11 +169,11 @@ aktive_region_fetch_area (aktive_region region, aktive_rectangle* request)
     aktive_rectangle domain;
     aktive_rectangle_from_geometry (&domain, &region->origin->public.domain);
     
-    if (aktive_rectangle_is_subset (&domain, request)) {
+    if (aktive_rectangle_is_subset (request, &domain)) {
 	// Special case (a). The entire request has to be served by the fetcher.
 	aktive_rectangle_def (dst, 0, 0, request->width, request->height);
 	TRACE ( "dst     (%3d .. %3d  %3d .. %3d | %3d %3d     |     )", dst.x, MX(dst), dst.y, MY(dst), dst.width, dst.height);
-	TRACE ( "fetch all", 0);
+	TRACE ( "fetch all (request <= domain)", 0);
 	region->opspec->region_fetch (&region->public, request, &dst, &region->pixels);
 	goto done;
     }

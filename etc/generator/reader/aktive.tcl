@@ -100,15 +100,21 @@ operator read::from::aktive {
 	aktive_uint srcpos, srcy, srcx;
 	aktive_uint row, col, band;
 
+	aktive_uint sy = request->y - state->y;
+	aktive_uint sx = request->x - state->x;
+
 	// Unoptimized loop nest to read pixel data and write to storage
 	TRACE ("dy  dx  dz  | out | @@@ | val", 0);
 
-	#define ITER_ROW  for (srcy = request->y - state->y, dsty = dst->y, row  = 0; row  < request->height; srcy ++, dsty ++, row ++)
-	#define ITER_COL  for (srcx = request->x - state->x, dstx = dst->x, col  = 0; col  < request->width;  srcx ++, dstx ++, col ++)
-	#define ITER_BAND for (                              dstz = 0,      band = 0; band < idomain->depth;           dstz ++, band ++)
+	#define ITER_ROW  for (srcy = sy, dsty = dst->y, row  = 0; row  < request->height; srcy ++, dsty ++, row ++)
+	#define ITER_COL  for (srcx = sx, dstx = dst->x, col  = 0; col  < request->width;  srcx ++, dstx ++, col ++)
+	#define ITER_BAND for (           dstz = 0,      band = 0; band < idomain->depth;           dstz ++, band ++)
 
 	ITER_ROW {
-	    Tcl_Seek (state->data, state->pix + sizeof(double) * (srcy * pitch + srcx * stride), SEEK_SET);
+	    Tcl_WideInt rowat = state->pix + sizeof(double) * (srcy * pitch + sx * stride);
+	    TRACE ("%3d %3d     |     | %3d | off %d %d %d", srcy, sx, rowat, state->pix, pitch, stride);
+
+	    Tcl_Seek (state->data, rowat, SEEK_SET);
 	    ITER_COL {
 		ITER_BAND {
 		    dstpos = dsty * pitch + dstx * stride + dstz;

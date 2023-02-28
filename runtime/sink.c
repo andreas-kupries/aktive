@@ -36,6 +36,8 @@ aktive_sink_run (aktive_sink* sink,
     
     aktive_rectangle_def_as (scan, aktive_image_get_domain (src));
 #if MODE == ROWS
+    TRACE ("fetching pixels by rows", 0);
+    
     scan.height = 1;
     aktive_uint height = aktive_image_get_height (src);
     aktive_uint row;

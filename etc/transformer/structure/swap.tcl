@@ -61,13 +61,14 @@ operator {coorda coordb coordc} {
 	aktive_geometry_swap_@@coorda@@@@coordb@@ (domain);
     }
     pixels {
+	aktive_rectangle_def_as (subrequest, request);
 	@@bandselect@@
 	// Rewrite request
-	aktive_rectangle_swap_@@coorda@@@@coordb@@ (request, idomain->depth);
+	aktive_rectangle_swap_@@coorda@@@@coordb@@ (&subrequest, idomain->depth);
 
-	TRACE_RECTANGLE_M ("rewritten", request);
+	TRACE_RECTANGLE_M ("rewritten", &subrequest);
 
-	aktive_block* src = aktive_region_fetch_area (srcs->v[0], request);
+	aktive_block* src = aktive_region_fetch_area (srcs->v[0], &subrequest);
 
 	// The        dst @@coorda@@-axis is fed from the src @@coordb@@-axis
 	// Vice versa dst @@coordb@@-axis is fed from the src @@coorda@@-axis

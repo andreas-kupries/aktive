@@ -97,22 +97,22 @@ operator {coordinate dimension} {
 	// Note: C-semantics for `%`. Tcl semantics yield `(-i)%n`.
 	#define CORR(i,n)  (((n) - ((i) % (n))) % (n))
 	// Shift correction to snap request into the sample grid
-	int grid = CORR (request->@@coordinate@@, n);
+	int grid = CORR (subrequest.@@coordinate@@, n);
 	#undef CORR
-	TRACE ("Correction: %d (%d in %d)", grid, request->@@coordinate@@, n);
+	TRACE ("Correction: %d (%d in %d)", grid, subrequest.@@coordinate@@, n);
 
 	// Rewrite request to the input coordinates and dimensions
-	request->@@coordinate@@ = (request->@@coordinate@@ + grid) / n;
-	if (request->@@dimension@@ < n) {
+	subrequest.@@coordinate@@ = (subrequest.@@coordinate@@ + grid) / n;
+	if (subrequest.@@dimension@@ < n) {
 	    // The correction puts the input block outside of the requested range
 	    // This means that the caller asked for gap data. This data is already
 	    // in the result, as `aktive_blit_fill` was called above.
-	    if (grid >= request->@@dimension@@) {
+	    if (grid >= subrequest.@@dimension@@) {
 		TRACE_RETURN_VOID;
 	    }
-	    request->@@dimension@@ = 1;
+	    subrequest.@@dimension@@ = 1;
 	} else {
-	    request->@@dimension@@ /= n;
+	    subrequest.@@dimension@@ /= n;
 	}
 
 	TRACE_RECTANGLE_M ("rewritten", request);
@@ -132,8 +132,9 @@ operator {coordinate dimension} {
 	aktive_blit_fill (block, dst, param->fill);
 
 	aktive_uint n = param->n;
+	aktive_rectangle_def_as (subrequest, request);
 	@@shrink@@
-	aktive_block* src = aktive_region_fetch_area (srcs->v[0], request);
+	aktive_block* src = aktive_region_fetch_area (srcs->v[0], &subrequest);
 
 	// The destination @@coordinate@@ axis is scanned N times faster than the source.
 	// The destination location is snapped forward to the grid.
