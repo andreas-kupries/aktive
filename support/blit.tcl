@@ -77,7 +77,7 @@ proc dsl::blit::gen {name scans function} {
 # # ## ### ##### ######## #############
 
 proc dsl::blit::EmitFunction {function} {
-    Comment [string trimright "$function"]
+    Comment [lmap w $function { string trim $w }]
     set args [lassign $function cmd]
     F/$cmd {*}$args
     return
@@ -98,15 +98,19 @@ proc dsl::blit::F/const {v} {
 }
 
 proc dsl::blit::F/point {cexpr} {
-    set expr [string map {z srcz x srcx y srcy} $cexpr]
-    + "TRACE_ADD (\" :: %f = \[$cexpr](%f %f %f)\", $expr, srcy, srcx, srcz);"
-    + "*dstvalue = $expr;"
+    set cexpr [string trim $cexpr]
+    set dexpr [string map {z srcz x srcx y srcy} $cexpr]
+    + "double value = $dexpr;"
+    + "TRACE_ADD (\" :: %f = \[$cexpr](%f %f %f)\", value, srcy, srcx, srcz);"
+    + "*dstvalue = value;"
 }
 
 proc dsl::blit::F/pos {cexpr} {
-    set expr [string map {@ srcpos} $cexpr]
-    + "TRACE_ADD (\" :: %f = \[$cexpr](%f)\", $expr, srcpos);"
-    + "*dstvalue = $expr;"
+    set cexpr [string trim $cexpr]
+    set dexpr [string map {@ srcpos} $cexpr]
+    + "double value = $dexpr;"
+    + "TRACE_ADD (\" :: %f = \[$cexpr](%f)\", value, srcpos);"
+    + "*dstvalue = value;"
 }
 
 proc dsl::blit::F/apply1 {op args} {
@@ -427,7 +431,7 @@ proc dsl::blit::EmitIntro {name scans function} {
 
     Comment "Specification:"
     foreach scan $scans { Comment "- scan $scan" }
-    Comment "= $function"
+    Comment "= [lmap w $function { string trim $w }]"
     + {}
 
     set has 0
