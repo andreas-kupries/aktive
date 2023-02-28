@@ -9,7 +9,10 @@ operator format::as::tcl {
 
     input
 
-    return object0 { aktive_op_astcl (ip, src); }
+    return object0 {
+	Tcl_Obj* r = aktive_op_astcl (ip, src);
+	return r;
+    }
 }
 
 ##
