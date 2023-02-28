@@ -14,6 +14,7 @@
 #include <writer.h>
 #include <reader.h>
 #include <sink.h>
+#include <fnv.h>
 #include <rtgen/vector-funcs.h>
 #include <rtgen/type-funcs.h>
 
