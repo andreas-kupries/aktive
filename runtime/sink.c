@@ -5,11 +5,11 @@
 #include <critcl_assert.h>
 #include <critcl_trace.h>
 
-TRACE_ON;
+TRACE_OFF;
 
 #define ALL  1
 #define ROWS 2
-#define MODE ALL
+#define MODE ROWS
 
 /*
  * - - -- --- ----- -------- -------------
