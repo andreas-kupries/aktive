@@ -14,6 +14,13 @@
 
 /*
  * - - -- --- ----- -------- -------------
+ */
+
+#include <base.h>
+#include <blit.h>
+
+/*
+ * - - -- --- ----- -------- -------------
  *
  * Initialization - Create sink state based on image and user data
  * Processing     - Process pixels, update sink state, and/or user data

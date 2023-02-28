@@ -5,7 +5,11 @@
 #include <critcl_assert.h>
 #include <critcl_trace.h>
 
-TRACE_OFF;
+TRACE_ON;
+
+#define ALL  1
+#define ROWS 2
+#define MODE ALL
 
 /*
  * - - -- --- ----- -------- -------------
@@ -31,6 +35,7 @@ aktive_sink_run (aktive_sink* sink,
     if (!rg) { TRACE_RETURN_VOID; }
     
     aktive_rectangle_def_as (scan, aktive_image_get_domain (src));
+#if MODE == ROWS
     scan.height = 1;
     aktive_uint height = aktive_image_get_height (src);
     aktive_uint row;
@@ -46,6 +51,14 @@ aktive_sink_run (aktive_sink* sink,
 
 	aktive_rectangle_move (&scan, 0, 1);
     }
+#elif MODE == ALL
+    TRACE ("fetching all pixels", 0);
+    
+    aktive_block* pixels = aktive_region_fetch_area (rg, &scan);
+
+    TRACE ("processing all pixels", 0);
+    sink->process (state, pixels);    
+#endif
 
     sink->final (state);
 
