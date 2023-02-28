@@ -23,9 +23,11 @@ proc colorbox {} {
     set r [graybox]
     set g [aktive op rotate cw   $r]
     set b [aktive op rotate half $r]
-    aktive op montage z $r [aktive op montage z $g $b]
+    rgb $r $g $b
+}
 
-    #aktive image gradient 8 8 3 0 1
+proc rgb {r g b} {
+    aktive op montage z $r [aktive op montage z $g $b]
 }
 
 proc show {i} {
@@ -74,18 +76,58 @@ proc show {i} {
     #puts ""
 }
 
+proc showbase {i} {
+    puts "[aktive query type $i] \{"
+    puts "  pa ([aktive query params $i])"
+    flush stdout
+    puts "  x,y [aktive query x $i]..[aktive query xmax $i],[aktive query y $i]..[aktive query ymax $i]"
+    puts "  whd [set w [aktive query width  $i]] x [set h [aktive query height $i]] x [set d [aktive query depth  $i]]"
+    flush stdout
+}
+
 puts ""
 puts loaded:\t[join [info loaded] \nloaded:\t]
 puts ""
 puts "have aktive v[aktive version]"
 puts ""
 
-#show [aktive image eye   3 4 0.5]
-#show [aktive image zone  3 4]
-show [aktive image grey  3 4]
-#show [aktive image sines 3 4 0.5 0.6]
+set r [aktive image sines 256 256 0.3 0.4]
+set g [aktive image sines 256 256 2 0.5]
+set b [aktive image sines 256 256 1 3]
+set x [rgb $r $g $b]
+
+#set x [colorbox]
+set x [aktive op embed white 64 64 32 32 $x]
+#set x [aktive op embed black 10 10 50 5 $x]
+set x [aktive op translate to -64 -32 $x]
+
+to trial.ppm $x aktive format as ppm byte
+showbase $x
 
 exit
+
+
+to trial.ppm [aktive image noise salt 256 256 3 0.01] \
+    aktive format as ppm byte
+
+
+if 0 {to trial.ppm [aktive op math1 shift 0.5 \
+		  [aktive op math1 scale 0.5 \
+		       [aktive image noise gauss 256 256 3]]] \
+	  aktive format as ppm byte}
+
+
+set g [aktive image noise salt 10 10 1 0.8]
+show $g
+show $g
+set g [aktive image noise salt 10 10 1 0.8]
+show $g
+
+
+#show [aktive image eye   3 4 0.5]
+#show [aktive image zone  3 4]
+#show [aktive image grey  3 4]
+#show [aktive image sines 3 4 0.5 0.6]
 
 to trial.pgm [aktive image sines 256 256 0.5 0.6]
     aktive format as pgm byte

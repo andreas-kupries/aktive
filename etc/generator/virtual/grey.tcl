@@ -24,7 +24,9 @@ operator image::grey {
 	{RH {y DY 1 up} {y SY 1 up}}
 	{RW {x DX 1 up} {x SX 1 up}}
 	{DD {z 0 1 up} {z 0  1 up}}
-    } {point { ((double) x) / istate->w}}
+    } {point {
+	((double) x) / istate->w
+    }}
 
     pixels {
 	#define DX (dst->x)

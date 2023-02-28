@@ -43,14 +43,18 @@ import generator/reader/aktive.tcl
 import generator/reader/netpbm.tcl
 
 import generator/virtual/constant.tcl
-import generator/virtual/eye.tcl
 import generator/virtual/gradient.tcl
 import generator/virtual/grey.tcl
 import generator/virtual/indexed.tcl
-import generator/virtual/random.tcl
-import generator/virtual/sines.tcl
 import generator/virtual/sparse.tcl
-import generator/virtual/zone.tcl
+
+import generator/virtual/noise/gauss.tcl
+import generator/virtual/noise/salt.tcl
+import generator/virtual/noise/uniform.tcl
+
+import generator/virtual/pattern/eye.tcl
+import generator/virtual/pattern/sines.tcl
+import generator/virtual/pattern/zone.tcl
 
 import transformer/location.tcl
 import transformer/viewport.tcl
@@ -62,10 +66,13 @@ import transformer/math/complex/binary.tcl
 import transformer/math/complex/reduce.tcl
 import transformer/math/complex/unary.tcl
 
-import transformer/structure/combinations.tcl
+import transformer/structure/crop.tcl
 import transformer/structure/flip.tcl
+import transformer/structure/rotate.tcl
 import transformer/structure/select.tcl
+import transformer/structure/split.tcl
 import transformer/structure/swap.tcl
+import transformer/structure/transpose.tcl
 
 import transformer/structure/resample/down.tcl
 import transformer/structure/resample/up-replicated.tcl

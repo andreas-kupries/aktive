@@ -5,6 +5,7 @@
 # # ## ### ##### ######## #############
 
 critcl::include math.h
+critcl::include stdlib.h	;# rand
 
 foreach {fun cfun} {
     acosh             -
