@@ -25,7 +25,9 @@ proc gradx {} { aktive image gradient 20 1 1  0 19 }
 proc grady {} { aktive image gradient 1 20 1  0 19 }
 proc gradz {} { aktive image gradient 1 1 20  0 19 }
 proc graybox  {} { aktive image gradient 8 8 1 0 1 }
+proc graybig  {} { aktive image gradient 256 256 1 0 1 }
 proc colorbox {} { set r [graybox] ; rgb $r [aktive op rotate cw $r] [aktive op rotate half $r] }
+proc colorbig {} { set r [graybig] ; rgb $r [aktive op rotate cw $r] [aktive op rotate half $r] }
 
 proc showbasic {i} {
     puts "[aktive query type $i] \{"
