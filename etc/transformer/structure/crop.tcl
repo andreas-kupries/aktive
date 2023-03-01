@@ -10,12 +10,18 @@
 tcl-operator op::crop {left right top bottom src} {
     lassign [aktive query geometry $src] x y w h d
 
+    if {($left   == 0) &&
+	($right  == 0) &&
+	($top    == 0) &&
+	($bottom == 0)} { return $src }
+
     if {($left   < 0) ||
 	($right  < 0) ||
 	($top    < 0) ||
 	($bottom < 0)} {
 	aktive error "Unable to extend image with crop" CROP
     }
+
     if {(($top  + $bottom) >= $h) ||
 	(($left + $right)  >= $w)} {
 	aktive error "Unable to crop to empty image" CROP
