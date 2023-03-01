@@ -19,7 +19,7 @@ debug prefix aktive/simplifier/cover {}
 #debug on     aktive/simplifier/cover
 
 # # ## ### ##### ######## ############# #####################
-## Peep-hole optimization support - Reserved namespace `opt`
+## Peep-hole optimization support - Reserved namespace `simplify`
 #
 ## See dsl writer `OperatorOverlaysForOp` for the code emitting
 ## calls to these commands.
