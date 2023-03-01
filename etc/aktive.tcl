@@ -74,6 +74,12 @@ import transformer/structure/split.tcl
 import transformer/structure/swap.tcl
 import transformer/structure/transpose.tcl
 
+import transformer/structure/embed/black.tcl
+import transformer/structure/embed/copy.tcl
+import transformer/structure/embed/mirror.tcl
+import transformer/structure/embed/tile.tcl
+import transformer/structure/embed/white.tcl
+
 import transformer/structure/resample/down.tcl
 import transformer/structure/resample/up-replicated.tcl
 import transformer/structure/resample/up.tcl

@@ -1,0 +1,177 @@
+# -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
+## (c) 2023 Andreas Kupries
+# # ## ### ##### ######## ############# #####################
+## AKTIVE. Image montage (adjoin rows, columns, bands)
+
+kt check Tcl     8.6
+kt check tcltest 2
+
+# # ## ### ##### ######## ############# #####################
+
+kt local testing aktive
+
+kt source support/util.tcl
+
+# # ## ### ##### ######## ############# #####################
+## Syntax
+
+syntax {
+    black  {left right top bottom src}
+    copy   {left right top bottom src}
+    mirror {left right top bottom src}
+    tile   {left right top bottom src}
+    white  {left right top bottom src}
+} {aktive op embed}
+
+# # ## ### ##### ######## ############# #####################
+
+set base [aktive op select x 0 4 [gradx]]	;# = 0 1 2 3 4 =
+
+# TODO: bad argument rejection
+
+# case 0 -- optimization - src pass through
+foreach {k border results} {
+    0 {0 0 0 0} {
+	black  {op::select::x 0 0 5 1 1 {first 0 last 4}} {= 0 1 2 3 4 =}
+	copy   {op::select::x 0 0 5 1 1 {first 0 last 4}} {= 0 1 2 3 4 =}
+	mirror {op::select::x 0 0 5 1 1 {first 0 last 4}} {= 0 1 2 3 4 =}
+	tile   {op::select::x 0 0 5 1 1 {first 0 last 4}} {= 0 1 2 3 4 =}
+	white  {op::select::x 0 0 5 1 1 {first 0 last 4}} {= 0 1 2 3 4 =}
+    }
+    1 {2 2 2 2} {
+	black  {op::view -2 -2 9 5 1 {view {-2 -2 9 5}}} {
+	    = 0 0 = 0 0 0 0 0 = 0 0 =
+	    = 0 0 = 0 0 0 0 0 = 0 0 =
+	    = 0 0 = 0 1 2 3 4 = 0 0 =
+	    = 0 0 = 0 0 0 0 0 = 0 0 =
+	    = 0 0 = 0 0 0 0 0 = 0 0 =
+	}
+	copy   {op::translate::to -2 -2 9 5 1 {x -2 y -2}} {
+	    = 0 0 = 0 1 2 3 4 = 4 4 =
+	    = 0 0 = 0 1 2 3 4 = 4 4 =
+	    = 0 0 = 0 1 2 3 4 = 4 4 =
+	    = 0 0 = 0 1 2 3 4 = 4 4 =
+	    = 0 0 = 0 1 2 3 4 = 4 4 =
+	}
+	mirror {op::translate::to -2 -2 9 5 1 {x -2 y -2}} {
+	    = 1 0 = 0 1 2 3 4 = 4 3 =
+	    = 1 0 = 0 1 2 3 4 = 4 3 =
+	    = 1 0 = 0 1 2 3 4 = 4 3 =
+	    = 1 0 = 0 1 2 3 4 = 4 3 =
+	    = 1 0 = 0 1 2 3 4 = 4 3 =
+	}
+	tile   {op::translate::to -2 -2 9 5 1 {x -2 y -2}} {
+	    = 3 4 = 0 1 2 3 4 = 0 1 =
+	    = 3 4 = 0 1 2 3 4 = 0 1 =
+	    = 3 4 = 0 1 2 3 4 = 0 1 =
+	    = 3 4 = 0 1 2 3 4 = 0 1 =
+	    = 3 4 = 0 1 2 3 4 = 0 1 =
+	}
+	white  {op::translate::to -2 -2 9 5 1 {x -2 y -2}} {
+	    = 1 1 = 1 1 1 1 1 = 1 1 =
+	    = 1 1 = 1 1 1 1 1 = 1 1 =
+	    = 1 1 = 0 1 2 3 4 = 1 1 =
+	    = 1 1 = 1 1 1 1 1 = 1 1 =
+	    = 1 1 = 1 1 1 1 1 = 1 1 =
+	}
+    }
+    2 {2 0 0 0} {
+	black  {op::view -2 0 7 1 1 {view {-2 0 7 1}}} {
+	    = 0 0 = 0 1 2 3 4 =
+	}
+	copy   {op::translate::to -2 0 7 1 1 {x -2 y 0}} {
+	    = 0 0 = 0 1 2 3 4 =
+	}
+	mirror {op::translate::to -2 0 7 1 1 {x -2 y 0}} {
+	    = 1 0 = 0 1 2 3 4 =
+	}
+	tile   {op::translate::to -2 0 7 1 1 {x -2 y 0}} {
+	    = 3 4 = 0 1 2 3 4 =
+	}
+	white  {op::translate::to -2 0 7 1 1 {x -2 y 0}} {
+	    = 1 1 = 0 1 2 3 4 =
+	}
+    }
+    3 {0 2 0 0} {
+	black  {op::view 0 0 7 1 1 {view {0 0 7 1}}} {
+	    = 0 1 2 3 4 = 0 0 =
+	}
+	copy   {op::montage::x-core 0 0 7 1 1 {}} {
+	    = 0 1 2 3 4 = 4 4 =
+	}
+	mirror {op::select::x 0 0 7 1 1 {first 0 last 6}} {
+	    = 0 1 2 3 4 = 4 3 =
+	}
+	tile   {op::select::x 0 0 7 1 1 {first 0 last 6}} {
+	    = 0 1 2 3 4 = 0 1 =
+	}
+	white  {op::montage::x-core 0 0 7 1 1 {}} {
+	    = 0 1 2 3 4 = 1 1 =
+	}
+    }
+    4 {0 0 2 0} {
+	black  {op::view 0 -2 5 3 1 {view {0 -2 5 3}}} {
+	    = 0 0 0 0 0 =
+	    = 0 0 0 0 0 =
+	    = 0 1 2 3 4 =
+	}
+	copy   {op::translate::to 0 -2 5 3 1 {x 0 y -2}} {
+	    = 0 1 2 3 4 =
+	    = 0 1 2 3 4 =
+	    = 0 1 2 3 4 =
+	}
+	mirror {op::translate::to 0 -2 5 3 1 {x 0 y -2}} {
+	    = 0 1 2 3 4 =
+	    = 0 1 2 3 4 =
+	    = 0 1 2 3 4 =
+	}
+	tile   {op::translate::to 0 -2 5 3 1 {x 0 y -2}} {
+	    = 0 1 2 3 4 =
+	    = 0 1 2 3 4 =
+	    = 0 1 2 3 4 =
+	}
+	white  {op::translate::to 0 -2 5 3 1 {x 0 y -2}} {
+	    = 1 1 1 1 1 =
+	    = 1 1 1 1 1 =
+	    = 0 1 2 3 4 =
+	}
+    }
+    5 {0 0 0 2} {
+	black  {op::view 0 0 5 3 1 {view {0 0 5 3}}} {
+	    = 0 1 2 3 4 =
+	    = 0 0 0 0 0 =
+	    = 0 0 0 0 0 =
+	}
+	copy   {op::montage::y-core 0 0 5 3 1 {}} {
+	    = 0 1 2 3 4 =
+	    = 0 1 2 3 4 =
+	    = 0 1 2 3 4 =
+	}
+	mirror {op::montage::y-core 0 0 5 3 1 {}} {
+	    = 0 1 2 3 4 =
+	    = 0 1 2 3 4 =
+	    = 0 1 2 3 4 =
+	}
+	tile   {op::montage::y-core 0 0 5 3 1 {}} {
+	    = 0 1 2 3 4 =
+	    = 0 1 2 3 4 =
+	    = 0 1 2 3 4 =
+	}
+	white  {op::montage::y-core 0 0 5 3 1 {}} {
+	    = 0 1 2 3 4 =
+	    = 1 1 1 1 1 =
+	    = 1 1 1 1 1 =
+	}
+    }
+} {
+    foreach {op domain expected} $results {
+	test aktive-op-embed-${op}-2.$k "aktive op embed $op, $border" -body {
+	    astcl aktive op embed $op {*}$border $base
+	} -match image -result [makei {*}$domain $expected]
+    }
+}
+
+unset base
+# # ## ### ##### ######## ############# #####################
+cleanupTests
+return

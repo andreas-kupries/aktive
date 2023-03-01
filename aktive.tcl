@@ -136,6 +136,7 @@ critcl::tsources generated/ops.tcl              ;# - Operators built in Tcl
 critcl::tsources version.tcl			;# - Version info command
 critcl::tsources simplifier.tcl			;# - Simplifier runtime used by overlay.tcl
 critcl::tsources op/2string.tcl			;# Support for "write to string".
+critcl::tsources op/embed.tcl			;# embed argument validation
 
 # # ## ### ##### ######## ############# #####################
 ## Build binaries now, without deferal.
