@@ -16,9 +16,15 @@ kt source support/util.tcl
 ## Syntax
 
 syntax {
-    x {src0 src1}
-    y {src0 src1}
-    z {src0 src1}
+    x       args
+    x-core {src0 src1}
+    x-rep  {n src}
+    y       args
+    y-core {src0 src1}
+    y-rep  {n src}
+    z       args
+    z-core {src0 src1}
+    z-rep  {n src}
 } {aktive op montage}
 
 # # ## ### ##### ######## ############# #####################
@@ -52,11 +58,36 @@ foreach {op w h d expected} {
 } {
     test aktive-op-montage-${op}-2.0 "aktive op montage $op" -body {
 	astcl aktive op montage $op $a $b
-    } -match image -result [makei op::montage::$op 0 0 $w $h $d {} $expected]
+    } -match image -result [makei op::montage::${op}-core 0 0 $w $h $d {} $expected]
 
     test aktive-op-montage-${op}-2.1 "aktive op montage $op, dag" -body {
 	dag aktive op montage $op $a $b
-    } -match glob -result "op::montage::$op * {} {*} {*}"
+    } -match glob -result "op::montage::${op}-core * {} {*} {*}"
+
+    test aktive-op-montage-${op}-core-2.0 "aktive op montage ${op}-core" -body {
+	astcl aktive op montage ${op}-core $a $b
+    } -match image -result [makei op::montage::${op}-core 0 0 $w $h $d {} $expected]
+
+    test aktive-op-montage-${op}-core-2.1 "aktive op montage ${op}-core, dag" -body {
+	dag aktive op montage ${op}-core $a $b
+    } -match glob -result "op::montage::${op}-core * {} {*} {*}"
+}
+
+foreach {op w h d expected} {
+    x 10 1 1 {
+	= 0 1 2 3 4 = 0 1 2 3 4 =
+    }
+    y 5 2 1 {
+	= 0 1 2 3 4 =
+	= 0 1 2 3 4 =
+    }
+    z 5 1 2 {
+	= 0 0 1 1 2 2 3 3 4 4 =
+    }
+} {
+    test aktive-op-montage-${op}-rep-2.0 "aktive op montage ${op}-rep" -body {
+	astcl aktive op montage ${op}-rep 2 $a
+    } -match image -result [makei op::montage::${op}-core 0 0 $w $h $d {} $expected]
 }
 
 unset a

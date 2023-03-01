@@ -5,10 +5,42 @@
 # # ## ### ##### ######## ############# #####################
 ## Merge images along one of the coordinate axes
 
+foreach coordinate {
+    x y z
+} {
+    # Replicated montage of a single image.
+
+    tcl-operator op::montage::${coordinate}-rep {n src} \
+	[string map [list @@ $coordinate] {
+	    # I. Base list of images to montage
+	    set copies {}
+	    while {$n} { lappend copies $src ; incr n -1 }
+	    # II. Multi-montage
+	    return [@@ {*}$copies]
+	}]
+
+    # Multi-image montage on top of the binary core
+
+    tcl-operator op::montage::${coordinate} {args} \
+	[string map [list @@ $coordinate] {
+	    # II. Tree reduction of the base list until a single image is left.
+	    while {[llength $args] >= 2} {
+		set odd [expr {[llength $args] % 2 == 1}]
+		if {$odd} {
+		    set pass [lindex $args end]
+		    set args [lrange $args 0 end-1]
+		}
+		set args [lmap {a b} $args { aktive op montage @@-core $a $b }]
+		if {$odd} { lappend args $pass }
+	    }
+	    return [lindex $args 0]
+	}]
+}
+
 operator {coordinate dimension layout dima dimb} {
-    op::montage::x  x width  {left to right} height depth
-    op::montage::y  y height {top to bottom} width  depth
-    op::montage::z  z depth  {front to back} width  height
+    op::montage::x-core  x width  {left to right} height depth
+    op::montage::y-core  y height {top to bottom} width  depth
+    op::montage::z-core  z depth  {front to back} width  height
 } {
     input
     input
