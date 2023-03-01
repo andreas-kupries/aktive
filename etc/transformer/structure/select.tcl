@@ -39,9 +39,8 @@ operator {thing coordinate dimension} {
     simplify for \
 	src/type @self \
 	src/value first __f \
-	src/value last  __l \
+	calc __l {$__f + $last} \
 	calc __f {$__f + $first} \
-	calc __l {$__l - $last + 1} \
 	src/pop \
 	returns op select $coordinate : __f __l
 
@@ -67,7 +66,9 @@ operator {thing coordinate dimension} {
 	// could be moved into the cons wrapper created for simplification
 	if (param->first >= range)       aktive_failf ("First @@thing@@ >= %d", range);
 	if (param->last  >= range)       aktive_failf ("Last @@thing@@ >= %d",  range);
-	if (param->first >  param->last) aktive_fail  ("First @@thing@@ is after last");
+	if (param->first >  param->last) \
+	    aktive_failf ("First @@thing@@ %d is after last %d",
+			  param->first, param->last);
 
 	aktive_geometry_copy (domain, aktive_image_get_geometry (srcs->v[0]));
 

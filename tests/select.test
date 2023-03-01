@@ -87,7 +87,7 @@ foreach {op dim thing domain expected} {
 
     test aktive-op-select-${op}-3.2 "aktive op select $op, first > last" -body {
 	aktive op select $op 1 0 [flat 0]
-    } -returnCodes error -result "First $thing is after last"
+    } -returnCodes error -result "First $thing 1 is after last 0"
 }
 
 # # ## ### ##### ######## ############# #####################
