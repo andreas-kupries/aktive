@@ -19,6 +19,9 @@ proc to {path g args} {
     close $dst
 }
 
+proc ppm {path src} { to $path $src aktive format as ppm byte }
+proc pgm {path src} { to $path $src aktive format as pgm byte }
+
 proc rgb {r g b} { aktive op montage z $r [aktive op montage z $g $b] }
 proc grad  {} { aktive image gradient 3 4 2  1 12.5 }
 proc gradx {} { aktive image gradient 20 1 1  0 19 }
@@ -28,6 +31,7 @@ proc graybox  {} { aktive image gradient 8 8 1 0 1 }
 proc graybig  {} { aktive image gradient 256 256 1 0 1 }
 proc colorbox {} { set r [graybox] ; rgb $r [aktive op rotate cw $r] [aktive op rotate half $r] }
 proc colorbig {} { set r [graybig] ; rgb $r [aktive op rotate cw $r] [aktive op rotate half $r] }
+proc sines {} { rgb [aktive image sines 256 256 0.3 0.4] [aktive image sines 256 256 2 0.5] [aktive image sines 256 256 1 3] }
 
 proc showbasic {i} {
     puts "[aktive query type $i] \{"
