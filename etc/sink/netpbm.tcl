@@ -17,9 +17,10 @@ tcl-operator {
     def thing	[set thing   [lindex [split $__op :] 4]]
     def variant [set variant [lindex [split $__op :] 6]]
 
-    note Sink. \
-	Serializes image, using [string toupper $thing]'s $variant format, \
-	and returns the resulting byte array.
+    section sink writer
+
+    note Returns byte array containing the image serialized \
+	with [string toupper $thing]'s $variant format.
 
     arguments src
     body { aktive::2string $src 2chan }
@@ -39,8 +40,10 @@ operator {bands type maxval} {
     def thing	[set thing   [lindex [split $__op :] 4]]
     def variant [set variant [lindex [split $__op :] 6]]
 
-    note Sink. \
-	Serializes image into the channel, using [string toupper $thing]'s $variant format.
+    section sink writer
+
+    note Writes image to the DST channel, serialized \
+	with [string toupper $thing]'s $variant format.
 
     input
 

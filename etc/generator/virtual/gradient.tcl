@@ -3,8 +3,9 @@
 ## Generators -- Virtual image - Computed pixels - Gradient across entire volume
 
 operator image::gradient {
-    note Generator. \
-	Virtual Image. Provides a linear gradient through all cells
+    section generator virtual
+
+    note Returns image containing a linear gradient through all cells.
 
     uint   width   Width of the returned image
     uint   height  Height of the returned image

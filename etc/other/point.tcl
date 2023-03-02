@@ -4,6 +4,8 @@
 ## -- Fitting completely non-image functionality into the framework
 
 operator point::make {
+    section miscellaneous geometry
+
     note Construct a 2D point from x- and y-coordinates
 
     int x  Point location, Column
@@ -16,6 +18,8 @@ operator point::make {
 }
 
 operator point::add {
+    section miscellaneous geometry
+
     note Translate a 2D point by a specific amount given as 2D vector
 
     point r      Point to modify
@@ -30,6 +34,8 @@ operator point::add {
 }
 
 operator point::move {
+    section miscellaneous geometry
+
     note Translate a 2D point by a specific amount given as separate x- and y-deltas
 
     point r   Point to modify
@@ -45,6 +51,8 @@ operator point::move {
 }
 
 operator point::box {
+    section miscellaneous geometry
+
     note Compute minimum axis-aligned 2D rectangle enclosing the set of 2D points
 
     point... points  Points to find the bounding box for

@@ -12,8 +12,9 @@ tcl-operator {band part} {
     op::cmath::real       0 real
     op::cmath::imaginary  1 imaginary
 } {
-    note Transformer. \
-	Returns the $part part of the complex-valued image as single-band image.
+    section transform math complex reduce
+
+    note Returns single-band image containing the $part part of the complex-valued input.
 
     arguments src
     body { aktive op select z @@band@@ @@band@@ $src }
@@ -27,15 +28,16 @@ operator {cfunction dexpr} {
     op::cmath::sqabs  aktive_cmath_sqabs     abs^2
     op::cmath::arg    carg                   phase-angle
 } {
+    section transform math complex reduce
+
     # NOTE: abs and arg are the magnitude and phase angle of the polar representation of
     # complex numbers.
 
     if {$dexpr eq {}} { set dexpr [namespace tail $__op] }
     if {![string match *I* $dexpr]} { append dexpr "(I)" }
 
-    note Transformer. \
-	Performs the complex unary reduction function '$dexpr' on all pixels \
-	of the input.
+    note Returns single-band image with the complex unary reduction \
+	function '$dexpr' applied to all pixels	of the complex-valued input.
 
     note The result geometry is the same as the input, except for depth, which becomes 1.
 

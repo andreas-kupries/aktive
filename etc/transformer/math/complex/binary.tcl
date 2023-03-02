@@ -12,12 +12,13 @@ operator {cfunction dexpr} {
     op::cmath::sub    aktive_cmath_sub {A - B}
     op::cmath::pow    cpow	       pow
 } {
+    section transform math complex binary
+
     if {$dexpr eq {}} { set dexpr [namespace tail $__op] }
     if {![string match *A* $dexpr]} { append dexpr "(A, B)" }
 
-    note Transformer. \
-	Performs the complex binary function '$dexpr' on all shared pixels \
-	of the inputs.
+    note Returns complex-valued image with the complex-valued binary \
+	operation '$dexpr' applied to all shared pixels of the two inputs.
 
     note The result geometry is the intersection of the inputs.
 

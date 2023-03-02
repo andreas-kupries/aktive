@@ -6,7 +6,9 @@
 ## Highlevel operations implemented on top of the C core
 
 tcl-operator op::math::difference {
-    note Transformer. Math.
+    section transform math binary
+
+    note Returns image holding the absolute difference of the inputs.
 
     arguments a b
     body {
@@ -15,7 +17,10 @@ tcl-operator op::math::difference {
 }
 
 tcl-operator op::math::screen {
-    note Transformer. Math.
+    section transform math binary
+
+    note Returns image holding the `screen` of the inputs
+    # TODO :: what is this operation exactly ?
 
     arguments a b
     body {
@@ -45,13 +50,14 @@ operator {cfunction dexpr} {
     op::math::pow     pow           {}
     op::math::sub     aktive_sub    {A - B}
 } {
+    section transform math binary
+
     set fun [namespace tail $__op]
     if {$dexpr eq {}} { set dexpr $fun }
     if {![string match *A* $dexpr]} { append dexpr "(A, B)" }
 
-    note Transformer. \
-	Performs the binary operation '$dexpr' on all shared pixels \
-	of the inputs.
+    note Returns image with the binary operation '$dexpr' applied to \
+	all shared pixels of the two inputs.
 
     note The result geometry is the intersection of the inputs.
 

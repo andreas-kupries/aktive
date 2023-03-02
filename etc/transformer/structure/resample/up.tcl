@@ -11,11 +11,11 @@ operator {coordinate dimension} {
     op::upsample::y  y height
     op::upsample::z  z depth
 } {
-    note Transformer. Structure. \
-	Returns input stretched along the ${coordinate}-axis \
-	according to the stretching factor (>= 1).
+    section transform structure
 
-    note The gaps are set to the specified fill value.
+    note Returns image where the input is stretched along the ${coordinate}-axis \
+	according to the stretching factor (>= 1), and the gaps set to the \
+	specified fill value.
 
     input
 

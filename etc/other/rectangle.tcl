@@ -6,6 +6,8 @@
 # # ## ### ##### ######## ############# #####################
 
 operator rectangle::make {
+    section miscellaneous geometry
+
     note Construct a 2D rectangle from x- and y-coordinates and width/height dimensions
 
     int  x  Rectangle location, Column
@@ -20,6 +22,8 @@ operator rectangle::make {
 }
 
 operator rectangle::grow {
+    section miscellaneous geometry
+
     note Modify 2D rectangle by moving its 4 borders by a specififc amount
 
     rect r       Rectangle to modify
@@ -39,6 +43,8 @@ operator rectangle::grow {
 }
 
 operator rectangle::move {
+    section miscellaneous geometry
+
     note Translate a 2D rectangle by a specific amount given as separate x- and y-deltas
 
     rect r   Rectangle to modify
@@ -56,6 +62,8 @@ operator rectangle::move {
 # # ## ### ##### ######## ############# #####################
 
 operator rectangle::equal {
+    section miscellaneous geometry
+
     note Test two 2D rectangles for equality (location and dimensions)
 
     rect a   First rectangle to compare
@@ -65,6 +73,8 @@ operator rectangle::equal {
 }
 
 operator rectangle::subset {
+    section miscellaneous geometry
+
     note Test if the first 2D rectangle is a subset of the second.
 
     rect a   First rectangle to compare
@@ -74,6 +84,8 @@ operator rectangle::subset {
 }
 
 operator rectangle::empty {
+    section miscellaneous geometry
+
     note Test a 2D rectangle for emptiness
 
     rect r   Rectangle to check
@@ -84,6 +96,8 @@ operator rectangle::empty {
 # # ## ### ##### ######## ############# #####################
 
 operator rectangle::union {
+    section miscellaneous geometry
+
     note Compute the minimum axis-aligned 2D rectangle encompassing all input rectangles
 
     rect... r   Rectangles to union
@@ -104,6 +118,8 @@ operator rectangle::union {
 }
 
 operator rectangle::intersect {
+    section miscellaneous geometry
+
     note Compute the maximum axis-aligned 2D rectangle shared by all input rectangles
 
     rect... r   Rectangles to intersect
@@ -126,6 +142,8 @@ operator rectangle::intersect {
 # # ## ### ##### ######## ############# #####################
 
 operator rectangle::zones {
+    section miscellaneous geometry
+
     note Compute a set of 2D rectangles describing the relation of the request to the domain.
 
     rect domain  Area covered by image pixels

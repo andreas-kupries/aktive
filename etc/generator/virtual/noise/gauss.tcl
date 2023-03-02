@@ -3,8 +3,9 @@
 ## Generators -- Virtual Image - Gaussian noise
 
 operator image::noise::gauss {
-    note Generator. \
-	Virtual image. Pixels are set to a random value drawn \
+    section generator virtual
+
+    note Returns image where pixels are set to random values drawn \
 	from a gaussian distribution with mean 0 and sigma 1 over {[-1..1]}
 
     uint      width   Width of the returned image

@@ -3,7 +3,9 @@
 ## Getters -- Retrieving image attributes
 
 operator query::id {
-    note Accessor. Return implementation-specific image identity
+    section accessor
+
+    note Returns implementation-specific image identity
 
     # This is special. It provides an identification of the image, i.e. a value unique to
     # it. This enables equality comparisons, and nothing else.
@@ -16,28 +18,36 @@ operator query::id {
 }
 
 operator query::type {
-    note Accessor. Return image type
+    section accessor
+
+    note Returns image type
 
     input
     return image-type { aktive_image_get_type (src); }
 }
 
 operator query::location {
-    note Accessor. Return 2D image location, a 2D point
+    section accessor
+
+    note Returns 2D image location, a 2D point
 
     input
     return point { *aktive_image_get_location (src); }
 }
 
 operator query::domain {
-    note Accessor. Return image geometry, a 2D rectangle
+    section accessor
+
+    note Returns image geometry, a 2D rectangle
 
     input
     return rect { *aktive_image_get_domain (src); }
 }
 
 operator query::geometry {
-    note Accessor. Return image geometry, a 2D rectangle, plus depth.
+    section accessor
+
+    note Returns image geometry, a 2D rectangle, plus depth.
 
     input
     return geometry { *aktive_image_get_geometry (src); }
@@ -49,7 +59,9 @@ operator attribute {
     query::y    y
     query::ymax ymax
 } {
-    note Accessor. Return image $attribute location
+    section accessor
+
+    note Returns image $attribute location
 
     input
 
@@ -64,7 +76,9 @@ operator attribute {
     query::pitch  pitch
     query::size   size
 } {
-    note Accessor. Return image $attribute
+    section accessor
+
+    note Returns image $attribute
 
     input
 
@@ -72,7 +86,9 @@ operator attribute {
 }
 
 operator query::inputs {
-    note Accessor. Return list of input images, if any
+    section accessor
+
+    note Returns list of input images, if any
 
     input
 
@@ -90,7 +106,9 @@ operator query::inputs {
 }
 
 operator query::params {
-    note Accessor. Return dictionary of image parameters, if any.
+    section accessor
+
+    note Returns dictionary of image parameters, if any.
 
     input
 

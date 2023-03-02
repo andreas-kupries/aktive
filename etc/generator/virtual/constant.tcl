@@ -3,8 +3,9 @@
 ## Generators -- Various virtual images
 
 operator image::constant {
-    note Generator. \
-	Virtual image. Returns an image having the same value everywhere.
+    section generator virtual
+
+    note Returns image which has the same VALUE everywhere.
 
     uint   width   Width of the returned image
     uint   height  Height of the returned image
@@ -20,8 +21,9 @@ operator image::constant {
 }
 
 operator image::const::bands {
-    note Generator. \
-	Virtual image. Returns an image having the same band values at all pixels.
+    section generator virtual
+
+    note Returns image having the same band VALUEs at all pixels.
 
     note Depth is len(value)
 
@@ -41,8 +43,9 @@ operator image::const::bands {
 }
 
 operator image::const::matrix {
-    note Generator. \
-	In-memory image. Returns a depth 1 image holding the specified pixel values.
+    section generator virtual
+
+    note Returns single-band image with the pixel VALUEs.
 
     note Less than width by height values are extended with zeroes.
     note Excess values are ignored.

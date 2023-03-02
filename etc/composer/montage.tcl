@@ -14,8 +14,9 @@ tcl-operator {coordinate layout} {
     op::montage::y-rep  y {top to bottom}
     op::montage::z-rep  z {front to back}
 } {
-    note Composer. \
-	Returns image with input joined $layout with itself N times \
+    section composer
+
+    note Returns image with input joined $layout with itself N times \
 	along the ${coordinate}-axis.
 
     arguments n src
@@ -33,8 +34,9 @@ tcl-operator {coordinate layout} {
     op::montage::y  y {top to bottom}
     op::montage::z  z {front to back}
 } {
-    note Composer. \
-	Returns image with all inputs joined $layout along the ${coordinate}-axis.
+    section composer
+
+    note Returns image with all inputs joined $layout along the ${coordinate}-axis.
 
     arguments args
     body {
@@ -57,11 +59,9 @@ operator {coordinate dimension layout dima dimb} {
     op::montage::y-core  y height {top to bottom} width  depth
     op::montage::z-core  z depth  {front to back} width  height
 } {
-    input
-    input
+    section composer
 
-    note Composer. \
-	Returns image with the 2 inputs joined $layout along the ${coordinate}-axis.
+    note Returns image with the 2 inputs joined $layout along the ${coordinate}-axis.
 
     note The location of the first image becomes the location of the result.
     note The other location is ignored.
@@ -70,6 +70,9 @@ operator {coordinate dimension layout dima dimb} {
 
     note The other dimensions use the maximum of the same over the inputs.
     note In the result the uncovered parts are zero (black)-filled.
+
+    input
+    input
 
     def xadjust [dict get {
 	x {g0->x + g0->width}

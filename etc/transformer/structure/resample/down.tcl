@@ -27,8 +27,9 @@ operator {coordinate dimension} {
     op::downsample::y  y height
     op::downsample::z  z depth
 } {
-    note Transformer. Structure. \
-	Return input decimated along the ${coordinate}-axis \
+    section transform structure
+
+    note Returns image with the input decimated along the ${coordinate}-axis \
 	according to the decimation factor (>= 1).
 
     input

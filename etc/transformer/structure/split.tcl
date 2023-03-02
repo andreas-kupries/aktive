@@ -12,8 +12,9 @@ tcl-operator {coordinate dimension thing} {
     op::split::y  y height row
     op::split::z  z depth  band
 } {
-    note Transformer. Structure. \
-	Split the input into a list of ${thing}s.
+    section transform structure
+
+    note Returns list containing each $thing of the input as separate image.
 
     arguments src
     body {

@@ -3,8 +3,9 @@
 ## Generators -- Virtual Image - Zone plate
 
 operator image::zone {
-    note Generator. \
-	Virtual image. Zone plate
+    section generator virtual
+
+    note Returns image containing a zone plate test pattern.
 
     uint   width   Width of the returned image
     uint   height  Height of the returned image

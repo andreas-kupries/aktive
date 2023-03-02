@@ -5,7 +5,10 @@
 operator format::as::tcl {
     # As written technically a getter, as the operator has a return value
 
-    note Sink. Serializes image to readable Tcl structures (dict with flat pixel list)
+    section sink writer
+
+    note Returns string containing the image serialized \
+	into readable Tcl structures. Dictionary with flat pixel list.
 
     input
 

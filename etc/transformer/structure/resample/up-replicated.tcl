@@ -10,9 +10,11 @@ operator {coordinate dimension} {
     op::upsample::yrep  y height
     op::upsample::zrep  z depth
 } {
-    note Transformer. Structure. \
-	Returns input stretched along the ${coordinate}-axis \
-	according to the stretching factor (>= 1), replicating input.
+    section transform structure
+
+    note Returns image where the input is stretched along the ${coordinate}-axis \
+	according to the stretching factor (>= 1), and the gaps are filled by \
+	replicating the preceding non-gap pixel.
 
     input
 

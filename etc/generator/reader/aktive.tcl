@@ -7,8 +7,9 @@
 
 operator read::from::aktive {
 
-    note Generator. \
-	File Reader. Native AKTIVE format.
+    section generator reader
+
+    note Construct image from file content in the native AKTIVE format.
 
     object path \
 	Path to file holding the AKTIVE image data to read

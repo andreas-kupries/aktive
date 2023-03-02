@@ -9,6 +9,10 @@ nyi operator {thing depth} {
     format::pgm::read pgm 1
     format::ppm::read ppm 3
 } {
+    note generator reader
+
+    note Construct image from file content in a variant of $things's format.
+
     take-channel src  Channel to read $thing image data from
 
     # state: maxval ? variant-dependent actual reader function ?

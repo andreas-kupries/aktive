@@ -8,9 +8,11 @@
 ## - Cropping
 
 tcl-operator op::crop {
-    note Transformer. Structure. \
-	Returns rectangular area of input, specified by the amount \
-	of rows and columns to remove from the four borders.
+    section transform structure
+
+    note Returns image containing a rectangular subset of input, \
+	specified by the amount of rows and columns to remove \
+	from the four borders.
 
     arguments left right top bottom src
     body {

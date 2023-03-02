@@ -7,8 +7,9 @@
 ## See op/embed.tcl for the supporting commands (Check, ...)
 
 tcl-operator op::embed::black {
-    note Transformer. Structure. \
-	Embed input into a larger image using a black border.
+    section transform structure
+
+    note Returns image embedding the input into a black border.
 
     arguments left right top bottom src
     body {

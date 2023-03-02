@@ -3,8 +3,9 @@
 ## Generators -- Virtual Image - Pixels proclaim their location
 
 operator image::indexed {
-    note Generator. \
-	Virtual image. Returns 2-band image with pixels proclaiming their own position
+    section generator virtual
+
+    note Returns 2-band image where the pixels proclaiming their own position
 
     uint   width   Width of the returned image
     uint   height  Height of the returned image

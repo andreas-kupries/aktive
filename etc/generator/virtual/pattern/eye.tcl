@@ -3,8 +3,9 @@
 ## Generators -- Virtual Image - Test pattern
 
 operator image::eye {
-    note Generator. \
-	Virtual image. Test pattern with increasing spatial frequency \
+    section generator virtual
+
+    note Returns image containing a test pattern with increasing spatial frequency \
 	from left to right, and increasing amplitude (i.e. black to white) \
 	from top to bottom.
 

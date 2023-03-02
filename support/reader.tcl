@@ -173,6 +173,7 @@ proc dsl::reader::TclOpStart {op} {
     Set opmode Tcl		;# Allow only generic and Tcl specification commands
     Set opname $op		;# Current operator, lock against nesting
     Set opspec notes    {}	;# Description
+    Set opspec section  {}	;# Command category
     Set opspec args	{}	;# Arguments
     Set opspec body     {}	;# Body
     Set opspec blocks   {}	;# Shared text blocks
@@ -207,6 +208,7 @@ proc dsl::reader::OpStart {op} {
     Set opmode C		;# Allow only generic and C specification commands
     Set opname $op		;# Current operator, lock against nesting
     Set opspec notes    {}	;# Description
+    Set opspec section  {}	;# Command category
     Set opspec images   {}	;# Input images
     Set opspec params   {}	;# Parameters
     Set opspec overlays {}	;# Policy overlays - checks and simplifications
@@ -279,6 +281,11 @@ proc dsl::reader::OpFinish {} {
 proc dsl::reader::note {args} { ;#puts [info level 0]
     OkModes C Tcl
     LappendX opspec notes $args
+}
+
+proc dsl::reader::section {args} { ;#puts [info level 0]
+    OkModes C Tcl
+    Set opspec section $args
 }
 
 # # ## ### ##### ######## #############
@@ -587,8 +594,10 @@ proc dsl::reader::Has {args} {
 ##  - conversion :: string
 ##
 ## topspec keys
-##  - args :: list (string)
-##  - body :: string
+##  - args     :: list (string)
+##  - body     :: string
+##  - notes    :: list (string)
+##  - section  :: list (string)
 ##
 ## opspec keys
 ##  - blocks   :: dict (name -> c-code-fragment)
@@ -596,6 +605,7 @@ proc dsl::reader::Has {args} {
 ##  - args     :: bool
 ##  - images   :: list (imspec)
 ##  - notes    :: list (string)
+##  - section  :: list (string)
 ##  - param    :: dict (string -> '.') [Only during collection]
 ##  - params   :: list (argspec)
 ##  - result   :: string

@@ -7,8 +7,9 @@
 ## See op/embed.tcl for the supporting commands (Check, ...)
 
 tcl-operator op::embed::white {
-    note Transformer. Structure. \
-	Embed input into a larger image using a white border.
+    section transform structure
+
+    note Returns image embedding the input into a white border.
 
     arguments left right top bottom src
     body {

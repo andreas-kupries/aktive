@@ -16,9 +16,11 @@ tcl-operator {coordinate dimension thing} {
     op::wrap::y  y height row
     op::wrap::z  z depth  band
 } {
-    note Transformer. Structure. \
-	Shift the pixels along the @@coordinate@@ axis so that \
-	the N'th $thing becomes the origin on that axis.
+    section transform structure
+
+    note Returns image with the pixels of the input shifted along \
+	the @@coordinate@@ axis so that the N'th $thing becomes \
+	the origin on that axis.
 
     arguments n src
     body {
@@ -37,8 +39,10 @@ tcl-operator {coordinate dimension thing} {
     op::center-origin::y  y height row
     op::center-origin::z  z depth  band
 } {
-    note Transformer. Structure. \
-	Shift the center $thing to the origin of the @@coordinate@@ axis.
+    section transform structure
+
+    note Returns image where the center $thing of the input is shifted to \
+	the origin of the @@coordinate@@ axis.
 
     arguments src
     body {

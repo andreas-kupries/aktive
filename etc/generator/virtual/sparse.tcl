@@ -3,10 +3,10 @@
 ## Generators -- Virtual image from set of points or deltas.
 
 operator image::const::sparse::points {
+    section generator virtual
 
-    note Generator. \
-	Virtual image. Returns depth 1 image with pixels set to 1 \
-	at exactly the specified points.
+    note Returns single-band image where pixels are set to white at exactly the \
+	specified POINTS.
 
     point... points  Coordinates of the pixels to set in the image
 
@@ -49,18 +49,21 @@ operator image::const::sparse::points {
 }
 
 operator image::const::sparse::deltas {
+    section generator virtual
 
-    note Generator. \
-	Virtual image. Returns a depth 1 image with pixels set to 1 \
-	at exactly the specified points.
+    note Returns single-band depth image where pixels are set to white at exactly the \
+	specified points. Different to `sparse points` the points are specified as \
+	linear distances from the origin.
 
     note The height is infered from the points
 
-    uint    width   Width of the returned image. This is needed for the index/point conversion
+    uint    width   Width of the returned image. This is needed for the conversion \
+	of the linear indices to (x,y) coordinates.
+
     uint... delta   Linear distances between points to set
 
     note The first delta is relative to index 0
-    note Converts the deltas internally to points and then operates like sparse::points
+    note Converts the deltas internally to points and then operates like `sparse points`
     note Depth is fixed at 1
     note Pixel value is fixed at 1.0
 

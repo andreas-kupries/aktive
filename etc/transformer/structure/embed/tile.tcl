@@ -7,8 +7,10 @@
 ## See op/embed.tcl for the supporting commands (Check, ...)
 
 tcl-operator op::embed::tile {
-    note Transformer. Structure. \
-	Embed input into a larger image using the replicated image as border.
+    section transform structure
+
+    note Returns image embedding the input into a border \
+	made from the replicated input.
 
     arguments left right top bottom src
     body {

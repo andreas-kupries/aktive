@@ -10,7 +10,9 @@ operator {coordinate dimension} {
     op::flip::y  y height
     op::flip::z  z depth
 } {
-    note Transformer. Structure. Mirrors the input along the ${coordinate}-axis.
+    section transform structure
+
+    note Returns image which mirrors the input along the ${coordinate}-axis.
 
     input
 

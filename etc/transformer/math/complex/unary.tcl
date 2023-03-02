@@ -12,8 +12,9 @@ tcl-operator band {
     op::cmath::as-real       real
     op::cmath::as-imaginary  imaginary
 } {
-    note Transformer. \
-	Construct complex-valued image from single-band input. \
+    section transform math complex unary
+
+    note Returns complex-valued image constructed from the single-band input. \
 	Input becomes the @@band@@ part.
 
     def filler { [aktive image constant $w $h 1 0] }
@@ -34,8 +35,9 @@ tcl-operator band {
 }
 
 tcl-operator op::cmath::cons {
-    note Transformer. \
-	Construct complex-valued image from 2 single-band inputs. \
+    section transform math complex binary
+
+    note Returns complex-valued image constructed from the 2 single-band inputs. \
 	First input becomes the real part, second the imaginary.
 
     arguments re im
@@ -80,11 +82,13 @@ operator {cfunction dexpr} {
     op::cmath::tocartesian  aktive_cmath_cartesian  {}
     op::cmath::topolar      aktive_cmath_polar      {}
 } {
+    section transform math complex unary
+
     if {$dexpr eq {}} { set dexpr [namespace tail $__op] }
     if {![string match *I* $dexpr]} { append dexpr (I) }
 
-    note Transformer. \
-	Performs the complex unary function '$dexpr' on all pixels of the image.
+    note Returns complex-valued image with the complex-valued unary \
+	function '$dexpr' applied to all pixels of the image.
 
     note The resulting image has the same geometry as the input.
 

@@ -97,8 +97,9 @@ import accessor/attributes.tcl
 ## Unsorted
 
 tcl-operator error {
-    note Miscellaneous. \
-	Throw error with message and error code.
+    section miscellaneous
+
+    note Throw error with message and error code.
 
     arguments m args
     body { return -code error -errorcode [linsert $args 0 AKTIVE ERROR] $m }

@@ -473,8 +473,9 @@ proc dsl::writer::Operators {} {
 	    1 {{(C)  } ops}
 	    0 {{(Tcl)} tops}
 	} $isc] kind src
-	set notes [join [lindex [dict get [Get $src $op] notes] 0] { }]
-	+ "[PadR $nl $op] :: $kind :: $notes"
+	set notes   [join [lindex [Get $src $op notes] 0] { }]
+	set section [join [Get $src $op section] /]
+	+ "[PadR $nl $op] :: $kind $section :: $notes"
     }
     Done
 }
@@ -496,10 +497,13 @@ proc dsl::writer::Undocumented {} {
 	    1 {{(C)  } ops}
 	    0 {{(Tcl)} tops}
 	} $isc] kind src
-	set notes [join [lindex [dict get [Get $src $op] notes] 0] { }]
-
-	if {$notes ne {}} continue
-	+ "[PadR $nl $op] :: $kind"
+	set notes   [join [lindex [Get $src $op notes] 0] { }]
+	set section [join [Get $src $op section] /]
+	if {($notes ne {}) && ($section ne {})} continue
+	if {$notes   eq {}} { append miss "; no note"    }
+	if {$section eq {}} { append miss "; no section" }
+	+ "[PadR $nl $op] :: $kind$miss"
+	unset miss
 	incr undocumented
     }
 

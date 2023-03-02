@@ -10,7 +10,9 @@ operator {coorda coordb coordc} {
     op::swap::xz x z y
     op::swap::yz y z x
 } {
-    note Transformer. Structure. Exchanges the ${coorda}- and ${coordb}-axes of the input.
+    section transform structure
+
+    note Returns image with the ${coorda}- and ${coordb}-axes of the input exchanged.
 
     input
 

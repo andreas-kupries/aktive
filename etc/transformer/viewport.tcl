@@ -3,9 +3,13 @@
 ## Transformer -- Change viewport into the image plane
 
 operator op::view {
-    note Look at some area of an image.
-    note The requested area may fall anywhere regarding the input image's domain.
-    note Same, insude (subset), outside, partially overlapping, etc.
+    section transform
+
+    note Returns image arbitrarily offset and shaped compared to the input domain. \
+	In other words, an arbitrary view (port) into the input.
+
+    note Beware, the requested area may fall __anywhere__ with respect to the \
+	input's domain. Same, inside (subset), outside, partially overlapping, etc.
 
     input
     rect view  The specific area to view in the plane

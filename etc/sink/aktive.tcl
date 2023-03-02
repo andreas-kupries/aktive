@@ -7,8 +7,10 @@
 tcl-operator {
     format::as::aktive::2string
 } {
-    note Sink. \
-	Serializes image, using the AKTIVE raw format, and returns the resulting byte array.
+    section sink writer
+
+    note Returns byte array containing the image serialized \
+	with the AKTIVE raw format.
 
     arguments src
     body { aktive::2string $src 2chan }
@@ -17,8 +19,10 @@ tcl-operator {
 operator {
     format::as::aktive::2chan
 } {
-    note Sink. \
-	Serializes image into the channel, using the AKTIVE raw format.
+    section sink writer
+
+    note Writes image to the DST channel, serialized \
+	with the AKTIVE raw format.
 
     input
 

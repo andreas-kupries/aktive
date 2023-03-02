@@ -5,9 +5,9 @@
 # # ## ### ##### ######## ############# #####################
 
 operator image::noise::salt {
+    section generator virtual
 
-    note Generator. \
-	Virtual image. Salt and pepper noise.
+    note Returns image containing salt and pepper noise.
 
     note Pixels are set where the uniformly distributed random value passes the threshold
     note The value of set pixels is fixed at 1.0

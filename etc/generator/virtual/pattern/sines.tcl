@@ -3,8 +3,9 @@
 ## Generators -- Virtual Image -
 
 operator image::sines {
-    note Generator. \
-	Virtual image. Sine wave in two dimensions.
+    section generator virtual
+
+    note Returns image containing a sine wave in two dimensions.
 
     note The ratio between horizontal and vertical frequencies \
 	determines the angle of the composite wave relative to \

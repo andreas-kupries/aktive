@@ -3,8 +3,9 @@
 ## Generators -- Virtual Image - Left to right gradient, black to white
 
 operator image::grey {
-    note Generator. \
-	Virtual image. Left to right gradient, black to white
+    section generator virtual
+
+    note Returns image containing a left to right black to white gradient.
 
     uint   width   Width of the returned image
     uint   height  Height of the returned image

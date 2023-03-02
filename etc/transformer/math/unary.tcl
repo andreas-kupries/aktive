@@ -46,11 +46,12 @@ operator {                    cfunction             mathfunc     dexpr classes} 
     op::math1::tanh           tanh                  <<           {}    fixpoint0
     op::math1::wrap           aktive_wrap           <<           {}    idempotent
 } {
+    section transform math unary
+
     if {$dexpr eq {}} { set dexpr [namespace tail $__op] }
     if {![string match *I* $dexpr]} { append dexpr (I) }
 
-    note Transformer. \
-	Performs the unary function '$dexpr' on all pixels of the image.
+    note Returns image with the unary function '$dexpr' applied to all pixels of the input.
 
     note The resulting image has the same geometry as the input.
 
@@ -107,6 +108,8 @@ operator {                    function      mathfunc flip dexpr      pname     p
     op::math1::ne             aktive_ne     <<       0    "I != @"   threshold {Indicate pixels different from the scalar threshold}
     op::math1::solarize       aktive_sol    <<       0    solarize   threshold {Solarize pixels per the threshold}
 } {
+    section transform math unary
+
     # For non-commutative functions we have a separate operation reversing the argument order internally
     # See modb, atan2b, expx
 
@@ -125,7 +128,8 @@ operator {                    function      mathfunc flip dexpr      pname     p
     if {![string match *@* $dexpr]} { append dexpr (I,@) }
     set dexpr [string map [list @ $pname] $dexpr]
 
-    note Transformer. Performs the binary function '$dexpr' on all pixels of the image.
+    note Returns image with the parameterized unary function '$dexpr' applied to all \
+	pixels of the input.
 
     if {$flip} {
 	note The image is the first argument of the command, even if not of the function
@@ -170,6 +174,12 @@ operator {function lowkind highkind mode} {
     op::math::outside-co  aktive_outside_co closed open   outside
     op::math::outside-cc  aktive_outside_cc closed closed outside
 } {
+    section transform math unary
+
+    note Returns image with the double sided thresholding against the \
+	$lowkind/$highkind interval given by the two boundaries applied \
+	to all pixels of the input.
+
     note Transformer. \
 	Performs a double sided thresholding against the \
 	$lowkind/$highkind interval given by the two boundaries.

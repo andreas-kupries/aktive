@@ -5,7 +5,9 @@
 # # ## ### ##### ######## ############# #####################
 
 operator op::translate::to {
-    note Transformer. Returns an image translationally shifted along the x- and y-axes to a specific location
+    section transform location
+
+    note Returns image translationally shifted along the x- and y-axes to a specific location
 
     input
 
@@ -59,7 +61,9 @@ operator op::translate::to {
 }
 
 operator op::translate::by {
-    note Transformer. Returns an image translationally shifted along the x- and y-axes by a specific amount
+    section transform location
+
+    note Returns image translationally shifted along the x- and y-axes by a specific amount
 
     input
 
