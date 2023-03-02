@@ -16,23 +16,25 @@ kt source support/util.tcl
 ## Syntax
 
 syntax {
-    shift          {offset src}
-    neg-shift      {offset src}
-    scale          {factor src}
-    reciproc-scale {factor src}
-    mod            {modulus src}
-    modb           {numerator src}
-    pow            {exponent src}
-    expx           {base src}
-    hypot          {y src}
-    max            {min src}
-    min            {max src}
     atan2          {x src}
     atan2b         {y src}
+    eq             {threshold src}
+    expx           {base src}
     ge             {threshold src}
-    le             {threshold src}
     gt             {threshold src}
+    hypot          {y src}
+    le             {threshold src}
     lt             {threshold src}
+    max            {min src}
+    min            {max src}
+    mod            {modulus src}
+    modb           {numerator src}
+    ne             {threshold src}
+    neg-shift      {offset src}
+    pow            {exponent src}
+    reciproc-scale {factor src}
+    scale          {factor src}
+    shift          {offset src}
     solarize       {threshold src}
 } {aktive op math1}
 
@@ -40,23 +42,25 @@ syntax {
 ## Basic testing (result sampling, basic const-folding simplification)
 
 foreach {fun steps first last param pname expected} {
-    shift           7 -3 3 2.0 offset    {-1 0 1 2 3 4 5}
-    neg-shift       7 -3 3 2.0 offset    {5 4 3 2 1 0 -1}
-    scale           7 -3 3 2.0 factor    {-6 -4 -2 0 2 4 6}
-    reciproc-scale  4 -3 3 2.0 factor    {-0.66667 -2 2 0.66667}
-    mod             7 -3 3 2.0 modulus   {-1 -0 -1 0 1 0 1}
-    modb            7  1 7 2.0 numerator {0 0 2 2 2 2 2}
-    pow             7 -3 3 2.0 exponent  {9 4 1 0 1 4 9}
-    expx            7 -3 3 2.0 base      {0.125 0.25 0.5 1 2 4 8}
-    hypot           7 -3 3 2.0 y         {3.60555 2.82843 2.23607 2 2.23607 2.82843 3.60555}
-    max             7 -3 3 2.0 min       {2 2 2 2 2 2 3}
-    min             7 -3 3 2.0 max       {-3 -2 -1 0 1 2 2}
     atan2           7 -3 3 2.0 x         {-0.98279 -0.7854 -0.46365 0 0.46365 0.7854 0.98279}
     atan2b          7 -3 3 2.0 y         {2.55359 2.35619 2.03444 1.57080 1.10715 0.78540 0.58800}
+    eq              7 -3 3 2.0 threshold {0 0 0 0 0 1 0}
+    expx            7 -3 3 2.0 base      {0.125 0.25 0.5 1 2 4 8}
     ge              7 -3 3 2.0 threshold {0 0 0 0 0 1 1}
-    le              7 -3 3 2.0 threshold {1 1 1 1 1 1 0}
     gt              7 -3 3 2.0 threshold {0 0 0 0 0 0 1}
+    hypot           7 -3 3 2.0 y         {3.60555 2.82843 2.23607 2 2.23607 2.82843 3.60555}
+    le              7 -3 3 2.0 threshold {1 1 1 1 1 1 0}
     lt              7 -3 3 2.0 threshold {1 1 1 1 1 0 0}
+    max             7 -3 3 2.0 min       {2 2 2 2 2 2 3}
+    min             7 -3 3 2.0 max       {-3 -2 -1 0 1 2 2}
+    mod             7 -3 3 2.0 modulus   {-1 -0 -1 0 1 0 1}
+    modb            7  1 7 2.0 numerator {0 0 2 2 2 2 2}
+    ne              7 -3 3 2.0 threshold {1 1 1 1 1 0 1}
+    neg-shift       7 -3 3 2.0 offset    {5 4 3 2 1 0 -1}
+    pow             7 -3 3 2.0 exponent  {9 4 1 0 1 4 9}
+    reciproc-scale  4 -3 3 2.0 factor    {-0.66667 -2 2 0.66667}
+    scale           7 -3 3 2.0 factor    {-6 -4 -2 0 2 4 6}
+    shift           7 -3 3 2.0 offset    {-1 0 1 2 3 4 5}
     solarize        7 -3 3 1.5 threshold {-3 -2 -1 0 1 -1 -2}
 } {
     if {$steps eq "."} continue ;# skip undefined parts

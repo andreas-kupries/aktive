@@ -148,6 +148,9 @@ static double aktive_exp10      (double x) { return pow (10, x); }
 /* sRGB specification
  * - gamma transfer functions
  *   https://en.wikipedia.org/wiki/SRGB#The_sRGB_transfer_function_(%22gamma%22)
+ *
+ * compress :: (scRGB) linear light -> sRGB
+ * expand   :: sRGB -> linear light (scRGB)
  */
 
 #define GAMMA  (2.4)
@@ -194,11 +197,14 @@ static double aktive_rscale (double x, double factor)    { return factor / x; }
 static double aktive_fmod   (double x, double numerator) { return fmod (numerator, x); }
 static double aktive_pow    (double x, double base)      { return pow (base, x); }
 static double aktive_atan   (double x, double y)         { return atan2 (y, x); }
-static double aktive_ge     (double x, double threshold) { return (x >= threshold) ? 1 : 0; }
-static double aktive_le     (double x, double threshold) { return (x <= threshold) ? 1 : 0; }
-static double aktive_gt     (double x, double threshold) { return (x >  threshold) ? 1 : 0; }
-static double aktive_lt     (double x, double threshold) { return (x <  threshold) ? 1 : 0; }
 static double aktive_sol    (double x, double threshold) { return (x <= threshold) ? x : 1-x; }
+
+static double aktive_eq     (double x, double threshold) { return (x == threshold) ? 1 : 0; }
+static double aktive_ge     (double x, double threshold) { return (x >= threshold) ? 1 : 0; }
+static double aktive_gt     (double x, double threshold) { return (x >  threshold) ? 1 : 0; }
+static double aktive_le     (double x, double threshold) { return (x <= threshold) ? 1 : 0; }
+static double aktive_lt     (double x, double threshold) { return (x <  threshold) ? 1 : 0; }
+static double aktive_ne     (double x, double threshold) { return (x != threshold) ? 1 : 0; }
 
 /*
  * - - -- --- ----- -------- -------------

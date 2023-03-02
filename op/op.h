@@ -41,11 +41,14 @@ static double aktive_rscale (double x, double factor);
 static double aktive_fmod   (double x, double numerator);
 static double aktive_pow    (double x, double base);
 static double aktive_atan   (double x, double y);
-static double aktive_ge     (double x, double threshold);
-static double aktive_le     (double x, double threshold);
-static double aktive_gt     (double x, double threshold);
-static double aktive_lt     (double x, double threshold);
 static double aktive_sol    (double x, double threshold);
+
+static double aktive_eq     (double x, double threshold);
+static double aktive_ge     (double x, double threshold);
+static double aktive_gt     (double x, double threshold);
+static double aktive_le     (double x, double threshold);
+static double aktive_lt     (double x, double threshold);
+static double aktive_ne     (double x, double threshold);
 
 static double aktive_inside_oo  (double x, double low, double high);
 static double aktive_inside_oc  (double x, double low, double high);

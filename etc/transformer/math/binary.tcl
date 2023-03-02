@@ -21,6 +21,7 @@ operator {cfunction dexpr} {
     op::math::add     aktive_add    {A + B}
     op::math::atan2   atan2         {}
     op::math::div     aktive_div    {A / B}
+    op::math::eq      aktive_eq     {A == B}
     op::math::ge      aktive_ge     {A >= B}
     op::math::gt      aktive_gt     {A > B}
     op::math::hypot   hypot         {}
@@ -30,6 +31,7 @@ operator {cfunction dexpr} {
     op::math::min     fmin          min
     op::math::mod     fmod          {A % B}
     op::math::mul     aktive_mul    {A * B}
+    op::math::ne      aktive_ne     {A != B}
     op::math::pow     pow           {}
     op::math::sub     aktive_sub    {A - B}
 } {

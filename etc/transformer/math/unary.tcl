@@ -99,10 +99,12 @@ operator {                    function      mathfunc flip dexpr      pname     p
     op::math1::min            fmin          min      0    {}         max       {Limit to less    or equal a scalar max}
     op::math1::atan2          atan2         <<       0    atan2      x         {Atan by scalar x}
     op::math1::atan2b         aktive_atan   <<        1   atan2(@,I) y         {Atan by scalar y}
-    op::math1::ge             aktive_ge     <<       0    "I >= @"   threshold {Indicate pixels greater or equal the scalar threshold}
-    op::math1::le             aktive_le     <<       0    "I <= @"   threshold {Indicate pixels less or equal the scalar threshold}
+    op::math1::eq             aktive_eq     <<       0    "I == @"   threshold {Indicate pixels equal to the scalar threshold}
+    op::math1::ge             aktive_ge     <<       0    "I >= @"   threshold {Indicate pixels greater or equal to the scalar threshold}
     op::math1::gt             aktive_gt     <<       0    "I > @"    threshold {Indicate pixels greater than the scalar threshold}
+    op::math1::le             aktive_le     <<       0    "I <= @"   threshold {Indicate pixels less or equal to the scalar threshold}
     op::math1::lt             aktive_lt     <<       0    "I < @"    threshold {Indicate pixels less than the scalar threshold}
+    op::math1::ne             aktive_ne     <<       0    "I != @"   threshold {Indicate pixels different from the scalar threshold}
     op::math1::solarize       aktive_sol    <<       0    solarize   threshold {Solarize pixels per the threshold}
 } {
     # For non-commutative functions we have a separate operation reversing the argument order internally
@@ -112,9 +114,9 @@ operator {                    function      mathfunc flip dexpr      pname     p
     # relevant parameter and image values are extremes (+/- inf), and in some cases
     # distinguish +/-0. Tcl does not, at script level. Let it be.
 
-    # `mod`, `modb` - No rules - Only special parameter 1, for fmod (I,1) = frac (I),
+    # `mod`, `modb` - No rules - The only special parameter is `1`, for `fmod (I,1) = frac (I)`,
     # except there is no `frac` in C. Regarding chaining - No trivial rule on how to
-    # combine the moduli a and b ... The hain is __not commutative__ in a and b, thus the
+    # combine the moduli a and b ... The chain is __not commutative__ in a and b, thus the
     # combiner cannot be either.
 
     # Compute the varying elements of the description

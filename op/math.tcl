@@ -32,16 +32,18 @@ foreach {fun cfun} {
 foreach {fun cfun} {
     aktive_atan       -
     aktive_fmod       -
-    aktive_ge         -
-    aktive_gt         -
-    aktive_le         -
-    aktive_lt         -
     aktive_nshift     -
     aktive_pow        -
     aktive_rscale     -
     aktive_scale      -
     aktive_shift      -
     aktive_sol        -
+    aktive_eq         -
+    aktive_ge         -
+    aktive_gt         -
+    aktive_le         -
+    aktive_lt         -
+    aktive_ne         -
 } {
     if {$cfun eq "-"} { set cfun $fun }
     critcl::cproc ::aktive::mathfunc::$fun {
