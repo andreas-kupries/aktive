@@ -3,6 +3,8 @@
 ## Transformers -- Structural changes (data re-arrangements)
 ##
 ## Image embedding - white border
+#
+## See op/embed.tcl for the supporting commands (Check, ...)
 
 tcl-operator op::embed::white {left right top bottom src} {
     Check

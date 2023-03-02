@@ -3,6 +3,8 @@
 ## Transformers -- Structural changes (data re-arrangements)
 ##
 ## Image embedding - repeat mirrored tiles
+#
+## See op/embed.tcl for the supporting commands (Check, ...)
 
 tcl-operator op::embed::mirror {left right top bottom src} {
     Check

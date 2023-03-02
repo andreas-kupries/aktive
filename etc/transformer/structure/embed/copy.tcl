@@ -3,6 +3,8 @@
 ## Transformers -- Structural changes (data re-arrangements)
 ##
 ## Image embedding - extend (copy) the nearest edge
+#
+## See op/embed.tcl for the supporting commands (Check, ...)
 
 tcl-operator op::embed::copy {left right top bottom src} {
     Check
