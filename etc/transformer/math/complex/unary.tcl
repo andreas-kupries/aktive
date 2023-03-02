@@ -8,34 +8,46 @@
 # # ## ### ##### ######## ############# #####################
 ## Constructing complex-valued images
 
-tcl-operator op::cmath::as-real {src} {
-    lassign [aktive query geometry $src] _ _ w h d
-    if {$d != 1} {
-	aktive error "Unable to use image with multiple bands for complex result" \
-	    CAST COMPLEX MULTI-BAND
-    }
+tcl-operator band {
+    op::cmath::as-real       real
+    op::cmath::as-imaginary  imaginary
+} {
+    note Transformer. \
+	Construct complex-valued image from single-band input. \
+	Input becomes the @@band@@ part.
 
-    return [aktive op montage z $src [aktive image constant $w $h 1 0]]
+    def filler { [aktive image constant $w $h 1 0] }
+    def montage [dict get {
+	real      { $src @@filler@@ }
+	imaginary { @@filler@@ $src }
+    } $band]
+
+    arguments src
+    body {
+	lassign [aktive query geometry $src] _ _ w h d
+	if {$d != 1} {
+	    aktive error "Unable to use image with multiple bands for complex result" \
+		CAST COMPLEX MULTI-BAND
+	}
+	return [aktive op montage z @@montage@@]
+    }
 }
 
-tcl-operator op::cmath::as-imaginary {src} {
-    lassign [aktive query geometry $src] _ _ w h d
-    if {$d != 1} {
-	aktive error "Unable to use image with multiple bands for complex result" \
-	    CAST COMPLEX MULTI-BAND
+tcl-operator op::cmath::cons {
+    note Transformer. \
+	Construct complex-valued image from 2 single-band inputs. \
+	First input becomes the real part, second the imaginary.
+
+    arguments re im
+    body {
+	if {([aktive query depth $re] != 1) ||
+	    ([aktive query depth $im] != 1)} {
+	    aktive error "Unable to use image with multiple bands for complex result" \
+		CAST COMPLEX MULTI-BAND
+	}
+
+	return [aktive op montage z $re $im]
     }
-
-    return [aktive op montage z [aktive image constant $w $h 1 0] $src]
-}
-
-tcl-operator op::cmath::cons {re im} {
-    if {([aktive query depth $re] != 1) ||
-	([aktive query depth $im] != 1)} {
-	aktive error "Unable to use image with multiple bands for complex result" \
-	    CAST COMPLEX MULTI-BAND
-    }
-
-    return [aktive op montage z $re $im]
 }
 
 # # ## ### ##### ######## ############# #####################

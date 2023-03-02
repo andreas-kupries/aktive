@@ -4,37 +4,52 @@
 
 # # ## ### ##### ######## ############# #####################
 ## Merge images along one of the coordinate axes
+#
+## - Replicated montage of a single image.
+## - Multi-image montage on top of the binary core
+## - Montage core, 2 images
 
-foreach coordinate {
-    x y z
+tcl-operator {coordinate layout} {
+    op::montage::x-rep  x {left to right}
+    op::montage::y-rep  y {top to bottom}
+    op::montage::z-rep  z {front to back}
 } {
-    # Replicated montage of a single image.
+    note Composer. \
+	Returns image with input joined $layout with itself N times \
+	along the ${coordinate}-axis.
 
-    tcl-operator op::montage::${coordinate}-rep {n src} \
-	[string map [list @@ $coordinate] {
-	    # I. Base list of images to montage
-	    set copies {}
-	    while {$n} { lappend copies $src ; incr n -1 }
-	    # II. Multi-montage
-	    return [@@ {*}$copies]
-	}]
+    arguments n src
+    body {
+	# I. Base list of images to montage
+	set copies {}
+	while {$n} { lappend copies $src ; incr n -1 }
+	# II. Multi-montage
+	return [@@coordinate@@ {*}$copies]
+    }
+}
 
-    # Multi-image montage on top of the binary core
+tcl-operator {coordinate layout} {
+    op::montage::x  x {left to right}
+    op::montage::y  y {top to bottom}
+    op::montage::z  z {front to back}
+} {
+    note Composer. \
+	Returns image with all inputs joined $layout along the ${coordinate}-axis.
 
-    tcl-operator op::montage::${coordinate} {args} \
-	[string map [list @@ $coordinate] {
-	    # II. Tree reduction of the base list until a single image is left.
-	    while {[llength $args] >= 2} {
-		set odd [expr {[llength $args] % 2 == 1}]
-		if {$odd} {
-		    set pass [lindex $args end]
-		    set args [lrange $args 0 end-1]
-		}
-		set args [lmap {a b} $args { aktive op montage @@-core $a $b }]
-		if {$odd} { lappend args $pass }
+    arguments args
+    body {
+	# Tree reduction of the image list until a single image is left.
+	while {[llength $args] >= 2} {
+	    set odd [expr {[llength $args] % 2 == 1}]
+	    if {$odd} {
+		set pass [lindex $args end]
+		set args [lrange $args 0 end-1]
 	    }
-	    return [lindex $args 0]
-	}]
+	    set args [lmap {a b} $args { @@coordinate@@-core $a $b }]
+	    if {$odd} { lappend args $pass }
+	}
+	return [lindex $args 0]
+    }
 }
 
 operator {coordinate dimension layout dima dimb} {
@@ -46,7 +61,7 @@ operator {coordinate dimension layout dima dimb} {
     input
 
     note Composer. \
-	Returns image with inputs joined $layout along the ${coordinate}-axis.
+	Returns image with the 2 inputs joined $layout along the ${coordinate}-axis.
 
     note The location of the first image becomes the location of the result.
     note The other location is ignored.

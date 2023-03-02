@@ -8,8 +8,16 @@
 # # ## ### ##### ######## ############# #####################
 ## The projections do not require any kind of math
 
-tcl-operator op::cmath::real      {src} { aktive op select z 0 0 $src }
-tcl-operator op::cmath::imaginary {src} { aktive op select z 1 1 $src }
+tcl-operator {band part} {
+    op::cmath::real       0 real
+    op::cmath::imaginary  1 imaginary
+} {
+    note Transformer. \
+	Returns the $part part of the complex-valued image as single-band image.
+
+    arguments src
+    body { aktive op select z @@band@@ @@band@@ $src }
+}
 
 # # ## ### ##### ######## ############# #####################
 ##

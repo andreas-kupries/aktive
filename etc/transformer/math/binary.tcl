@@ -5,13 +5,23 @@
 # # ## ### ##### ######## ############# #####################
 ## Highlevel operations implemented on top of the C core
 
-tcl-operator op::math::difference {a b} {
-    return [aktive op math1 abs [sub $a $b]]
+tcl-operator op::math::difference {
+    note Transformer. Math.
+
+    arguments a b
+    body {
+	return [aktive op math1 abs [sub $a $b]]
+    }
 }
 
-tcl-operator op::math::screen {a b} {
-    # (a+b)-ab = a-ab+b = a(1-b)+b
-    return [sub [add $a $b] [mul $a $b]]
+tcl-operator op::math::screen {
+    note Transformer. Math.
+
+    arguments a b
+    body {
+	# (a+b)-ab = a-ab+b = a(1-b)+b
+	return [sub [add $a $b] [mul $a $b]]
+    }
 }
 
 # # ## ### ##### ######## ############# #####################

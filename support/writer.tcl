@@ -27,6 +27,7 @@ proc dsl::writer::Clear {stem} {
 proc dsl::writer::Emit {stem} {
     Into ${stem}todo.txt              Todo               ;# List of skipped operators (`nyi`)
     Into ${stem}operators.txt         Operators          ;# List of operators
+    Into ${stem}undocumented.txt      Undocumented       ;# List of undocumented operators
     #
     Into ${stem}param-types.h         ParamTypes         ;# typedefs
     Into ${stem}param-descriptors.c   ParamDescriptors   ;# variables
@@ -467,14 +468,46 @@ proc dsl::writer::Operators {} {
     set nl [Maxlength $names]
 
     foreach op [lsort -dict $names] {
-	if {[dict exists $c $op]} {
-	    set notes [join [lindex [dict get [Get ops $op] notes] 0] { }]
-	    + "[PadR $nl $op] :: (C)   :: $notes"
-	} else {
-	    + "[PadR $nl $op] :: (Tcl)"
-	}
+	set isc [dict exists $c $op]
+	lassign [dict get {
+	    1 {{(C)  } ops}
+	    0 {{(Tcl)} tops}
+	} $isc] kind src
+	set notes [join [lindex [dict get [Get $src $op] notes] 0] { }]
+	+ "[PadR $nl $op] :: $kind :: $notes"
     }
     Done
+}
+
+proc dsl::writer::Undocumented {} {
+    if {![llength [Operations]] &&
+	![llength [TclOperations]]
+    } return
+
+    set names [lmap op [Operations] { dict set c $op . ; set op }]
+    foreach op [TclOperations] { lappend names $op }
+
+    set nl [Maxlength $names]
+    set undocumented 0
+
+    foreach op [lsort -dict $names] {
+	set isc [dict exists $c $op]
+	lassign [dict get {
+	    1 {{(C)  } ops}
+	    0 {{(Tcl)} tops}
+	} $isc] kind src
+	set notes [join [lindex [dict get [Get $src $op] notes] 0] { }]
+
+	if {$notes ne {}} continue
+	+ "[PadR $nl $op] :: $kind"
+	incr undocumented
+    }
+
+    if {$undocumented} {
+	puts "Undocumented operators: [red $undocumented]"
+	Done
+    }
+    return
 }
 
 proc dsl::writer::OperatorSignatures {} {
@@ -1698,6 +1731,10 @@ proc dsl::writer::TclHeader {text} {
 
 # # ## ### ##### ######## #############
 ## Messaging
+
+proc dsl::writer::red {message} {
+    string cat \033\[31m$message\033\[0m
+}
 
 proc dsl::writer::blue {message} {
     return \033\[34m$message\033\[0m

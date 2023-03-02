@@ -6,34 +6,40 @@
 #
 ## See op/embed.tcl for the supporting commands (Check, ...)
 
-tcl-operator op::embed::tile {left right top bottom src} {
-    Check
+tcl-operator op::embed::tile {
+    note Transformer. Structure. \
+	Embed input into a larger image using the replicated image as border.
 
-    lassign [aktive query geometry $src] x y w h d
+    arguments left right top bottom src
+    body {
+	Check
 
-    incr x -$left
-    incr y -$top
+	lassign [aktive query geometry $src] x y w h d
 
-    # This here cannot be done by means of op::view. We have to places copies of the
-    # source around it to get the desired effect
+	incr x -$left
+	incr y -$top
 
-    lassign [Count $left   $w] lpart left
-    lassign [Count $right  $w] rpart right
-    lassign [Count $top    $h] tpart top
-    lassign [Count $bottom $h] bpart bottom
+	# This here cannot be done by means of op::view. We have to places copies of the
+	# source around it to get the desired effect
 
-    incr left $right	;# total horizontal tiles around src
-    incr top  $bottom	;# total vertical tiles around src
+	lassign [Count $left   $w] lpart left
+	lassign [Count $right  $w] rpart right
+	lassign [Count $top    $h] tpart top
+	lassign [Count $bottom $h] bpart bottom
 
-    if {$left} { incr left ; set src [aktive op montage x-rep $left $src] }
-    if {$top}  { incr top  ; set src [aktive op montage y-rep $top  $src] }
+	incr left $right	;# total horizontal tiles around src
+	incr top  $bottom	;# total vertical tiles around src
 
-    # Now handle any partial tiling by cropping to the actual area.
+	if {$left} { incr left ; set src [aktive op montage x-rep $left $src] }
+	if {$top}  { incr top  ; set src [aktive op montage y-rep $top  $src] }
 
-    set src [Crop $lpart $rpart $tpart $bpart $w $h $src]
+	# Now handle any partial tiling by cropping to the actual area.
 
-    # And at last shift the result to the proper location. This may be a nop.
-    return [aktive op translate to $x $y $src]
+	set src [Crop $lpart $rpart $tpart $bpart $w $h $src]
+
+	# And at last shift the result to the proper location. This may be a nop.
+	return [aktive op translate to $x $y $src]
+    }
 }
 
 ##

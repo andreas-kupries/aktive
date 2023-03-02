@@ -4,17 +4,25 @@
 #
 # See op/netpbm.c for the format specification.
 
-foreach op {
-    format::as::pgm::text
-    format::as::pgm::etext
-    format::as::pgm::byte
-    format::as::pgm::short
-    format::as::ppm::text
-    format::as::ppm::etext
-    format::as::ppm::byte
-    format::as::ppm::short
+tcl-operator {
+    format::as::pgm::text::2string
+    format::as::pgm::etext::2string
+    format::as::pgm::byte::2string
+    format::as::pgm::short::2string
+    format::as::ppm::text::2string
+    format::as::ppm::etext::2string
+    format::as::ppm::byte::2string
+    format::as::ppm::short::2string
 } {
-    tcl-operator ${op}::2string {src} { aktive::2string $src 2chan }
+    def thing	[set thing   [lindex [split $__op :] 4]]
+    def variant [set variant [lindex [split $__op :] 6]]
+
+    note Sink. \
+	Serializes image, using [string toupper $thing]'s $variant format, \
+	and returns the resulting byte array.
+
+    arguments src
+    body { aktive::2string $src 2chan }
 }
 
 operator {bands type maxval} {

@@ -71,7 +71,8 @@ proc dsl::reader::Import {path fullpath} {
 }
 
 proc dsl::reader::type {name critcl ctype conversion} {
-variable importing
+    OkModes {}
+    variable importing
 
     if {$name in {
 	type vector operator note void result input
@@ -97,6 +98,7 @@ variable importing
 }
 
 proc dsl::reader::vector {args} { ;#puts [info level 0]
+    OkModes {} C
     variable importing
     foreach v $args {
 	if {[Has vectors $v]} continue
@@ -104,13 +106,21 @@ proc dsl::reader::vector {args} { ;#puts [info level 0]
     }
 }
 
-proc dsl::reader::tcl-operator {name args body} { ;#puts [info level 0]
-    # A wrapper of `proc` to make things visible to the generator
-    Set tops $name args $args
-    Set tops $name body $body
+proc dsl::reader::tcl-operator {args} { ;#puts [info level 0]
+    OkModes {}
+    # 2 :: tcl-operator      NAMES SPEC
+    # 3 :: tcl-operator VARS NAMES SPEC
+    switch -- [llength $args] {
+	2       { TclOperator {} {*}$args }
+	3       { TclOperator    {*}$args }
+	default { Abort "wrong#args for operator" }
+    }
 }
 
 proc dsl::reader::operator {args} { ;#puts [info level 0]
+    OkModes {}
+    # 2 :: operator      NAMES SPEC
+    # 3 :: operator VARS NAMES SPEC
     switch -- [llength $args] {
 	2       { Operator {} {*}$args }
 	3       { Operator    {*}$args }
@@ -119,6 +129,7 @@ proc dsl::reader::operator {args} { ;#puts [info level 0]
 }
 
 proc dsl::reader::nyi {args} { ;#puts [info level 0]
+    OkModes {}
     # Disable a command
     set cmd [lindex $args 0]
     if {$cmd eq "operator"} {
@@ -143,7 +154,41 @@ proc dsl::reader::nyi {args} { ;#puts [info level 0]
 }
 
 # # ## ### ##### ######## #############
-## DSL support - Operator handling
+## DSL support - (Tcl)Operator handling
+
+proc dsl::reader::TclOperator {vars ops specification} {
+    foreach [list __op {*}$vars] $ops {
+	TclOpStart $__op
+	foreach v $vars { def $v [set $v] }
+
+	eval $specification
+	TclOpFinish
+    }
+}
+
+proc dsl::reader::TclOpStart {op} {
+    if {[Get opname] ne {}} { Abort "Nested operator definition `$op`" }
+    if {[Has ops $op]}      { Abort "Duplicate operator definition" }
+
+    Set opmode Tcl		;# Allow only generic and Tcl specification commands
+    Set opname $op		;# Current operator, lock against nesting
+    Set opspec notes    {}	;# Description
+    Set opspec args	{}	;# Arguments
+    Set opspec body     {}	;# Body
+    Set opspec blocks   {}	;# Shared text blocks
+}
+
+proc dsl::reader::TclOpFinish {} {
+    # Cross check tcl-operator specification for missing code fragments.
+
+    if {[Get opspec args] eq {}} { Abort "Operator has no body" }
+    #if {[Get opspec body] eq {}} { Abort "Operator has no arguments" }
+
+    Set tops [Get opname] [Get opspec]
+    Set opname {}
+    Set opspec {}
+    Set opmode {}
+}
 
 proc dsl::reader::Operator {vars ops specification} {
     foreach [list __op {*}$vars] $ops {
@@ -159,6 +204,7 @@ proc dsl::reader::OpStart {op} {
     if {[Get opname] ne {}} { Abort "Nested operator definition `$op`" }
     if {[Has ops $op]}      { Abort "Duplicate operator definition" }
 
+    Set opmode C		;# Allow only generic and C specification commands
     Set opname $op		;# Current operator, lock against nesting
     Set opspec notes    {}	;# Description
     Set opspec images   {}	;# Input images
@@ -224,26 +270,47 @@ proc dsl::reader::OpFinish {} {
     Set ops [Get opname] [Get opspec]
     Set opname {}
     Set opspec {}
+    Set opmode {}
 }
 
 # # ## ### ##### ######## #############
-## DSL support - operator details
+## DSL support - general operator details
 
 proc dsl::reader::note {args} { ;#puts [info level 0]
+    OkModes C Tcl
     LappendX opspec notes $args
 }
 
+# # ## ### ##### ######## #############
+## DSL support - Tcl operator details
+
+proc dsl::reader::arguments {args} {
+    OkModes Tcl
+    Set opspec args $args
+}
+
+proc dsl::reader::body {script args} {
+    OkModes Tcl
+    Set opspec body [TemplateCode $script $args]
+}
+
+# # ## ### ##### ######## #############
+## DSL support - C operator details
+
 proc dsl::reader::void   {script args} { return void $script {*}$args }
 proc dsl::reader::return {type script args} { ;#puts [info level 0]
+    OkModes C
     Set opspec result $type
     Set opspec rcode  [TemplateCode $script $args]
 }
 
 proc dsl::reader::blit {name scans function} {
+    OkModes C
     def $name [dsl blit gen $name $scans $function]
 }
 
 proc dsl::reader::def {name script args} {
+    OkModes C Tcl
     if {[Get opname] eq {}} {
 	Set blocks $name [TemplateCode $script $args]
     } else {
@@ -252,6 +319,7 @@ proc dsl::reader::def {name script args} {
 }
 
 proc dsl::reader::state {args} {
+    OkModes C
     lassign {} fields setup cleanup
     while {[string match -* [set o [lindex $args 0]]]} {
 	switch -exact -- $o {
@@ -276,6 +344,7 @@ proc dsl::reader::State {fields setup cleanup map} { ;# puts [info level 0]
 }
 
 proc ::dsl::reader::pixels {args} { ;# puts [info level 0]
+    OkModes C
     lassign {} fields setup cleanup
     while {[string match -* [set o [lindex $args 0]]]} {
 	switch -exact -- $o {
@@ -303,6 +372,7 @@ proc ::dsl::reader::Pixels {fields setup cleanup fetch map} { ;#puts [info level
 }
 
 proc dsl::reader::simplify {args} {
+    OkModes C
     LappendX opspec overlays $args
 }
 
@@ -310,6 +380,7 @@ proc dsl::reader::input... {} { Input ...      }
 proc dsl::reader::input    {} { Input required }
 
 proc dsl::reader::Input {mode} { ;#puts [info level 0]
+    OkModes C
     if {[Has opspec args] &&
 	[Get opspec args]} { Abort "Rejecting more image arguments, we have a variadic" }
 
@@ -327,6 +398,7 @@ proc dsl::reader::Input {mode} { ;#puts [info level 0]
 ## DSL support - Parameter handling
 
 proc dsl::reader::Param {type mode dvalue name args} { ;#puts [info level 0]
+    OkModes C
     # args :: help text
 
     if {$name eq {}}              { Abort "Bad parameter name, empty" }
@@ -435,6 +507,12 @@ proc dsl::reader::FormatCode {code} {
     ::return $code
 }
 
+proc dsl::reader::OkModes {args} {
+    if {[Get opmode] ni $args} {
+	Abort "Command '[lindex [info level -1] 0]' not allowed for mode [Get opmode]"
+    }
+}
+
 # # ## ### ##### ######## #############
 ## State management (changing, querying)
 
@@ -443,6 +521,7 @@ proc dsl::reader::Init {package} {
 	argspec {}
 	blocks  {}
 	imspec  {}
+	opmode  {}
 	opname  {}
 	ops     {}
 	opspec  {blocks {}}
@@ -498,6 +577,7 @@ proc dsl::reader::Has {args} {
 ##  - ops     :: dict (opname -> opspec)
 ##  - tops    :: dict (opname -> topspec)
 ##  - opname  :: string               [Only during collection]
+##  - opmode  :: string               [Only during collection]
 ##  - opspec  :: dict (key -> value)  [Only during collection]
 ##
 ## typespec keys
@@ -554,7 +634,7 @@ proc dsl::reader::Has {args} {
 
 proc dsl::reader::Abort {x} {
     set opname [Get opname]
-    if {$opname ne {}} { set x "Operation $opname: $x" }
+    if {$opname ne {}} { set x "[Get opmode] Operation $opname: $x" }
     ::return -code error $x
 }
 

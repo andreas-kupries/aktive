@@ -7,8 +7,22 @@
 #
 ## - Transpose / transverse
 
-tcl-operator op::transpose    {src} { swap xy $src }
-tcl-operator op::transverse   {src} { flip x [flip y [swap xy $src]] }
+tcl-operator op::transpose  {
+    note Transformer. Structure. \
+	Mirror the image along the main diagonal. \
+	An alias of `swap xy`.
+
+    arguments src
+    body { swap xy $src }
+}
+
+tcl-operator op::transverse {
+    note Transformer. Structure. \
+	Mirror the image along the secondary diagonal.
+
+    arguments src
+    body { flip x [flip y [swap xy $src]] }
+}
 
 ##
 # # ## ### ##### ######## ############# #####################

@@ -4,8 +4,14 @@
 #
 # See op/aktive.c for the format specification.
 
-tcl-operator format::as::aktive::2string {src} {
-    aktive::2string $src 2chan
+tcl-operator {
+    format::as::aktive::2string
+} {
+    note Sink. \
+	Serializes image, using the AKTIVE raw format, and returns the resulting byte array.
+
+    arguments src
+    body { aktive::2string $src 2chan }
 }
 
 operator {

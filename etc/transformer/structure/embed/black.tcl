@@ -6,20 +6,27 @@
 #
 ## See op/embed.tcl for the supporting commands (Check, ...)
 
-tcl-operator op::embed::black {left right top bottom src} {
-    Check
+tcl-operator op::embed::black {
+    note Transformer. Structure. \
+	Embed input into a larger image using a black border.
 
-    lassign [aktive query geometry $src] x y w h d
+    arguments left right top bottom src
+    body {
+	Check
 
-    incr x -$left
-    incr y -$top
-    incr w  $left ; incr w  $right
-    incr h  $top  ; incr h $bottom
+	lassign [aktive query geometry $src] x y w h d
 
-    # This works because the region core processing automatically returns black when an
-    # area outside of the image's domain is requested.
+	incr x -$left
+	incr y -$top
+	incr w  $left ; incr w  $right
+	incr h  $top  ; incr h $bottom
 
-    return [aktive op view [list $x $y $w $h] $src]
+	# This works because the region core processing automatically
+	# returns black when an area outside of the image's domain is
+	# requested.
+
+	return [aktive op view [list $x $y $w $h] $src]
+    }
 }
 
 ##

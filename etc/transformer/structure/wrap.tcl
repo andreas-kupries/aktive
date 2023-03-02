@@ -11,15 +11,17 @@
 ##
 ## - Derived: Place the origin of the axis at the image center.
 
-foreach {coordinate dimension} {
-    x width
-    y height
-    z depth
+tcl-operator {coordinate dimension thing} {
+    op::wrap::x  x width  column
+    op::wrap::y  y height row
+    op::wrap::z  z depth  band
 } {
-    lappend map @@coordinate@@ $coordinate
-    lappend map @@dimension@@  $dimension
+    note Transformer. Structure. \
+	Shift the pixels along the @@coordinate@@ axis so that \
+	the N'th $thing becomes the origin on that axis.
 
-    tcl-operator op::wrap::$coordinate {n src} [string map $map {
+    arguments n src
+    body {
 	lassign [aktive query geometry $src] x y width height depth
 	set n1  [expr {$n - 1}]
 	set r1  [expr {$@@dimension@@ - 1}]
@@ -27,14 +29,23 @@ foreach {coordinate dimension} {
 		    [aktive op montage @@coordinate@@-core \
 			 [aktive op select @@coordinate@@ $n $r1 $src] \
 			 [aktive op select @@coordinate@@ 0  $n1 $src]]]
-    }]
+    }
+}
 
-    tcl-operator op::center-origin::$coordinate {src} [string map $map {
-	set center [expr {[aktive query @@dimension@@ $src] >> 1}]
-	aktive op wrap @@coordinate@@ $center $src
-    }]
+tcl-operator {coordinate dimension thing} {
+    op::center-origin::x  x width  column
+    op::center-origin::y  y height row
+    op::center-origin::z  z depth  band
+} {
+    note Transformer. Structure. \
+	Shift the center $thing to the origin of the @@coordinate@@ axis.
 
-    unset map
+    arguments src
+    body {
+	aktive op wrap @@coordinate@@ \
+	    [expr {[aktive query @@dimension@@ $src] >> 1}] \
+	    $src
+    }
 }
 
 ##

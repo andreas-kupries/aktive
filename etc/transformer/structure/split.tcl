@@ -7,31 +7,23 @@
 #
 ## - Split into rows, columns, or bands
 
-tcl-operator op::split::x {src} {
-    set end [aktive query width $src]
-    set r {}
-    for {set k 0} {$k < $end} {incr k} {
-	lappend r [aktive op select x $k $k $src]
-    }
-    return $r
-}
+tcl-operator {coordinate dimension thing} {
+    op::split::x  x width  column
+    op::split::y  y height row
+    op::split::z  z depth  band
+} {
+    note Transformer. Structure. \
+	Split the input into a list of ${thing}s.
 
-tcl-operator op::split::y {src} {
-    set end [aktive query height $src]
-    set r {}
-    for {set k 0} {$k < $end} {incr k} {
-	lappend r [aktive op select y $k $k $src]
+    arguments src
+    body {
+	set end [aktive query @@dimension@@ $src]
+	set r {}
+	for {set k 0} {$k < $end} {incr k} {
+	    lappend r [aktive op select @@coordinate@@ $k $k $src]
+	}
+	return $r
     }
-    return $r
-}
-
-tcl-operator op::split::z {src} {
-    set end [aktive query depth $src]
-    set r {}
-    for {set k 0} {$k < $end} {incr k} {
-	lappend r [aktive op select z $k $k $src]
-    }
-    return $r
 }
 
 ##

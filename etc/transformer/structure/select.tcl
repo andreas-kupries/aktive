@@ -10,7 +10,8 @@ operator {thing coordinate dimension} {
     op::select::y row    y height
     op::select::z band   z depth
 } {
-    note Transformer. Structure. Returns image containing a contiguous subset of the input's ${thing}s.
+    note Transformer. Structure. \
+	Returns image containing a contiguous subset of the input's ${thing}s.
 
     note The result has a properly reduced $dimension.
     note The other two dimension are unchanged.
