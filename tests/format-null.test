@@ -1,0 +1,36 @@
+# -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
+## (c) 2023 Andreas Kupries
+# # ## ### ##### ######## ############# #####################
+## AKTIVE. Writing NULL
+
+kt check Tcl     8.6
+kt check tcltest 2
+
+# # ## ### ##### ######## ############# #####################
+
+kt local testing aktive
+
+kt source support/util.tcl
+
+# # ## ### ##### ######## ############# #####################
+## Syntax
+
+syntax {
+    2string   src
+} {aktive format as null}
+
+# # ## ### ##### ######## ############# #####################
+##
+
+foreach {k cons} {
+    0 graybox
+    1 colorbox
+} {
+    test aktive-format-as-null-2string-2.$k "aktive format as null 2string" -body {
+	check aktive format as null 2string [$cons]
+    } -result {}
+}
+
+# # ## ### ##### ######## ############# #####################
+cleanupTests
+return
