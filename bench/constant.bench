@@ -1,0 +1,79 @@
+# -*- tcl -*- tcl.tk//DSL tclbench//EN// Tcl Benchmark File
+#
+# This file contains a number of benchmarks for AKTIVE commands.
+#
+# (c) 2023 Andreas Kupries <andreas_kupries@users.sourceforge.net>
+##
+# ### ### ### ######### ######### ######### ###########################
+## Setting up the environment ...
+## We need at least version 8.6 for the package and thus the benchmarks.
+
+if {![package vsatisfies [package provide Tcl] 8.6]} return
+
+lappend auto_path [glob -type d ../.kettle_bench_install_*/lib/aktive*]
+
+package forget aktive
+catch {namespace delete ::aktive}
+package require aktive
+
+# ### ### ### ######### ######### ######### ###########################
+## Benchmarks.
+
+foreach n {1 10 100 1000 10000 100000} {
+
+    # image is single row
+    
+    bench -desc "image constant - $n" -pre {
+	set i [aktive image constant $n 1 1  0]
+    } -post {
+	unset i
+    } -body {
+	aktive format as null 2string $i
+    }
+
+    bench -desc "image const bands - $n" -pre {
+	set i [aktive image const bands $n 1  4 3 2 1 ]
+    } -post {
+	unset i
+    } -body {
+	aktive format as null 2string $i
+    }
+
+    bench -desc "image const matrix - $n" -pre {
+	set i [aktive image const matrix $n 1 {*}[lrepeat $n 0]]
+    } -post {
+	unset i
+    } -body {
+	aktive format as null 2string $i
+    }
+
+    # image is single column -> many rows - sink currently row-sequential!
+
+    bench -desc "image constant/v - $n" -pre {
+	set i [aktive image constant 1 $n 1  0]
+    } -post {
+	unset i
+    } -body {
+	aktive format as null 2string $i
+    }
+
+    bench -desc "image const bands/v - $n" -pre {
+	set i [aktive image const bands 1 $n  4 3 2 1 ]
+    } -post {
+	unset i
+    } -body {
+	aktive format as null 2string $i
+    }
+
+    bench -desc "image const matrix/v - $n" -pre {
+	set i [aktive image const matrix 1 $n {*}[lrepeat $n 0]]
+    } -post {
+	unset i
+    } -body {
+	aktive format as null 2string $i
+    }
+}
+
+# ### ### ### ######### ######### ######### ###########################
+## Complete
+return
