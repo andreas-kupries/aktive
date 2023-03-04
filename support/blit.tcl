@@ -279,7 +279,7 @@ proc dsl::blit::EmitCellTrace {k axes virtual nopos} {
     # Protection against out of bounds access. Close tracing and abort.
 
     if {[string match src* $k] && ($nopos||$virtual)} return;
-    + "if (${k}pos >= [P $k]CAP) { TRACE_CLOSER; ASSERT_VA (0, \"$k out of bounds\", \"%d / %d\", ${k}pos, [P $k]CAP); }"
+    + "if (${k}pos >= [P $k]CAP) { TRACE_CLOSER; TRACE(\"ASSERT\", 0); ASSERT_VA (0, \"$k out of bounds\", \"%d / %d\", ${k}pos, [P $k]CAP); }"
 }
 
 proc dsl::blit::EmitCellPosition {k axes} {

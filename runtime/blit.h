@@ -24,11 +24,11 @@
  */
 
 typedef struct aktive_block {
-    aktive_region   region   ; // Region owning and managing the block.                      
-    aktive_geometry domain   ; // Area and bands covered by the `pixel` data 
-    double*         pixel    ; // Pixel data in row-major order (row, column, band)          
-    aktive_uint     capacity ; // Allocated size of the pixel data. in elements              
-    aktive_uint     used     ; // Used part (width * height * depth)                         
+    aktive_region   region   ; // Region owning and managing the block. NULL for independent blocks.
+    aktive_geometry domain   ; // Area and bands covered by the `pixel` data
+    double*         pixel    ; // Pixel data in row-major order (row, column, band)
+    aktive_uint     capacity ; // Allocated size of the pixel data. in elements
+    aktive_uint     used     ; // Used part (width * height * depth)
 } aktive_block;
 
 typedef double (*aktive_unary_transform)   (double x);
