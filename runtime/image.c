@@ -132,14 +132,21 @@ aktive_image_check (Tcl_Interp* ip, aktive_image src) {
 extern int
 aktive_image_unused (aktive_image image) {
     TRACE_FUNC("((aktive_image) %p '%s'/%d)", image, image->opspec->name, image->refcount);
-    TRACE_RETURN ("(unused) %d", image->refcount <= 0);
+
+    Tcl_MutexLock (&image->rclock);
+    int rc = image->refcount;
+    Tcl_MutexUnlock (&image->rclock);
+
+    TRACE_RETURN ("(unused) %d", rc <= 0);
 }
 
 extern void
 aktive_image_ref (aktive_image image) {
     TRACE_FUNC("((aktive_image) %p @ '%s'/%d)", image, image->opspec->name, image->refcount);
 
+    Tcl_MutexLock (&image->rclock);
     image->refcount ++;
+    Tcl_MutexUnlock (&image->rclock);
 
     TRACE_RETURN_VOID;
 }
@@ -148,13 +155,17 @@ extern void
 aktive_image_unref (aktive_image image) {
     TRACE_FUNC("((aktive_image) %p '%s'/%d)", image, image->opspec->name, image->refcount);
 
+    Tcl_MutexLock (&image->rclock);
     if (image->refcount > 1) {
 	image->refcount --;
 
 	TRACE ("refcount = %d", image->refcount);
+	Tcl_MutexUnlock (&image->rclock);
+
 	TRACE_RETURN_VOID;
     }
 
+    Tcl_MutexUnlock (&image->rclock);
     aktive_image_destroy (image);
 
     TRACE_RETURN_VOID;

@@ -3,6 +3,8 @@
 #ifndef AKTIVE_INTERNALS_H
 #define AKTIVE_INTERNALS_H
 
+#include <tcl.h>
+
 /*
  * - - -- --- ----- -------- -------------
  */
@@ -10,6 +12,7 @@
 typedef struct aktive_image {
     // Private management information
 
+    Tcl_Mutex            rclock   ; // Serialize access to ref count, happens from multiple threads.
     int                  refcount ; // Number of places holding a reference to the image          
     aktive_image_type*   opspec   ; // Operational hooks, type identification, parameter metadata 
 
