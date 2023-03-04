@@ -89,6 +89,7 @@ extern aktive_region aktive_region_new        (aktive_image image);
 extern void          aktive_region_destroy    (aktive_region region);
 extern aktive_image  aktive_region_owner      (aktive_region region);
 extern aktive_block* aktive_region_fetch_area (aktive_region region, aktive_rectangle* request);
+extern void          aktive_region_export     (aktive_region region, aktive_block* dst);
 
 /*
  * - - -- --- ----- -------- -------------

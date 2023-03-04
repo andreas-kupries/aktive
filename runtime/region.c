@@ -112,6 +112,19 @@ aktive_region_destroy (aktive_region region)
  * - - -- --- ----- -------- -------------
  */
 
+extern void
+aktive_region_export (aktive_region region, aktive_block* dst)
+{
+    // Shift pixel data into destination, and squash unwanted backlink.
+    *dst = region->pixels;
+    dst->region = 0;
+
+    // Squash the old references
+    region->pixels.pixel    = 0;
+    region->pixels.capacity = 0;
+    region->pixels.used     = 0;
+}
+
 extern aktive_image
 aktive_region_owner (aktive_region region)
 {
