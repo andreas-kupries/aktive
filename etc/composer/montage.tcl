@@ -205,6 +205,9 @@ operator {coordinate dimension layout dima dimb} {
 		// Translate intersection from result geometry to input
 		aktive_rectangle_sub (&section, &istate->delta);
 
+		TRACE_POINT(&istate->delta);
+		TRACE_RECTANGLE_M ("geo[1] section'delt", &section);
+
 		aktive_block* src = aktive_region_fetch_area (srcs->v[1], &section);
 
 		aktive_blit_copy0 (block, &dstm, src);
