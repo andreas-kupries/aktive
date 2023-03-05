@@ -43,10 +43,23 @@ proc showbasic {i} {
     flush stdout
 }
 
-proc dag {i {indent {}}} {
-    puts "$indent[aktive query id $i]  [aktive query type $i]"
-    append indent {  }
-    foreach x [aktive query inputs $i] { dag $x $indent }
+proc dag {i} { set count 0 ; set have {} ; dagc $i }
+proc dagc {i {indent {}}} {
+    upvar 1 have have count count
+    set id [aktive query id $i]
+    if {[dict exists $have $id]} { puts "      :: ${indent}---> [dict get $have $id]" ; return }
+    incr count ; set me $count
+    dict set have $id $count
+
+
+    puts "[format %5d $count] :: $indent$id  [aktive query type $i]"
+    set children [aktive query inputs $i]
+    if {![llength $children]} {
+	puts "      :: ${indent}***"
+	return
+    }
+    foreach x $children { dagc $x "$indent  " }
+    puts "      :: ${indent}\\-- $me"
 }
 
 proc show {i} {
