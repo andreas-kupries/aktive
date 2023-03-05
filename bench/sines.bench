@@ -19,24 +19,6 @@ package require aktive
 # ### ### ### ######### ######### ######### ###########################
 ## Benchmarks.
 
-foreach n {1 10 100 1000 10000 100000} {
-    bench -desc "image eye - $n" -pre {
-	set i [aktive image eye $n 1 0.1]
-    } -post {
-	unset i
-    } -body {
-	aktive format as null 2string $i
-    }
-
-    bench -desc "image eye/v - $n" -pre {
-	set i [aktive image eye 1 $n 0.1]
-    } -post {
-	unset i
-    } -body {
-	aktive format as null 2string $i
-    }
-}
-
 foreach n {1 10 100 1000 10000} {
     bench -desc "image sines - [expr {10*$n}]" -pre {
 	set i [aktive image sines $n 10 2 2]
@@ -45,25 +27,11 @@ foreach n {1 10 100 1000 10000} {
     } -body {
 	aktive format as null 2string $i
     }
+}
 
-    bench -desc "image zone - [expr {10*$n}]" -pre {
-	set i [aktive image zone $n 10]
-    } -post {
-	unset i
-    } -body {
-	aktive format as null 2string $i
-    }
-
+foreach n {1 10 100 1000 10000} {
     bench -desc "image sines/v - [expr {10*$n}]" -pre {
 	set i [aktive image sines 10 $n 2 2]
-    } -post {
-	unset i
-    } -body {
-	aktive format as null 2string $i
-    }
-
-    bench -desc "image zone/v - [expr {10*$n}]" -pre {
-	set i [aktive image zone 10 $n]
     } -post {
 	unset i
     } -body {

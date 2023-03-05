@@ -19,9 +19,9 @@ package require aktive
 # ### ### ### ######### ######### ######### ###########################
 ## Benchmarks.
 
-foreach n {1 10 100 1000 10000 100000} {
-    bench -desc "image indexed - $n" -pre {
-	set i [aktive image indexed $n 1]
+foreach n {1 10 100 1000 10000} {
+    bench -desc "image zone - [expr {10*$n}]" -pre {
+	set i [aktive image zone $n 10]
     } -post {
 	unset i
     } -body {
@@ -29,9 +29,9 @@ foreach n {1 10 100 1000 10000 100000} {
     }
 }
 
-foreach n {1 10 100 1000 10000 100000} {
-    bench -desc "image indexed/v - $n" -pre {
-	set i [aktive image indexed 1 $n]
+foreach n {1 10 100 1000 10000} {
+    bench -desc "image zone/v - [expr {10*$n}]" -pre {
+	set i [aktive image zone 10 $n]
     } -post {
 	unset i
     } -body {

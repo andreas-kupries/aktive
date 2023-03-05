@@ -27,26 +27,11 @@ foreach n {1 10 100 1000 10000 100000} {
     } -body {
 	aktive format as null 2string $i
     }
+}
 
-    bench -desc "image grey - $n" -pre {
-	set i [aktive image grey $n 1]
-    } -post {
-	unset i
-    } -body {
-	aktive format as null 2string $i
-    }
-
-
+foreach n {1 10 100 1000 10000 100000} {
     bench -desc "image gradient/v - $n" -pre {
 	set i [aktive image gradient 1 $n 1  1 $n]
-    } -post {
-	unset i
-    } -body {
-	aktive format as null 2string $i
-    }
-
-    bench -desc "image grey/v - $n" -pre {
-	set i [aktive image grey 1 $n]
     } -post {
 	unset i
     } -body {

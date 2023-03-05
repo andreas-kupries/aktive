@@ -20,22 +20,6 @@ package require aktive
 ## Benchmarks.
 
 foreach n {1 10 100 1000 10000 100000} {
-    bench -desc "image noise gauss - $n" -pre {
-	set i [aktive image noise gauss $n 1 1]
-    } -post {
-	unset i
-    } -body {
-	aktive format as null 2string $i
-    }
-
-    bench -desc "image noise uniform - $n" -pre {
-	set i [aktive image noise uniform $n 1 1]
-    } -post {
-	unset i
-    } -body {
-	aktive format as null 2string $i
-    }
-
     bench -desc "image noise salt - $n" -pre {
 	set i [aktive image noise salt $n 1 1 0.1]
     } -post {
@@ -43,25 +27,9 @@ foreach n {1 10 100 1000 10000 100000} {
     } -body {
 	aktive format as null 2string $i
     }
+}
 
-
-
-    bench -desc "image noise gauss/v - $n" -pre {
-	set i [aktive image noise gauss 1 $n 1]
-    } -post {
-	unset i
-    } -body {
-	aktive format as null 2string $i
-    }
-
-    bench -desc "image noise uniform/v - $n" -pre {
-	set i [aktive image noise uniform 1 $n 1]
-    } -post {
-	unset i
-    } -body {
-	aktive format as null 2string $i
-    }
-
+foreach n {1 10 100 1000 10000 100000} {
     bench -desc "image noise salt/v - $n" -pre {
 	set i [aktive image noise salt 1 $n 1 0.1]
     } -post {

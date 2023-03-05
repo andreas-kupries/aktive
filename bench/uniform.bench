@@ -20,8 +20,8 @@ package require aktive
 ## Benchmarks.
 
 foreach n {1 10 100 1000 10000 100000} {
-    bench -desc "image indexed - $n" -pre {
-	set i [aktive image indexed $n 1]
+    bench -desc "image noise uniform - $n" -pre {
+	set i [aktive image noise uniform $n 1 1]
     } -post {
 	unset i
     } -body {
@@ -30,8 +30,8 @@ foreach n {1 10 100 1000 10000 100000} {
 }
 
 foreach n {1 10 100 1000 10000 100000} {
-    bench -desc "image indexed/v - $n" -pre {
-	set i [aktive image indexed 1 $n]
+    bench -desc "image noise uniform/v - $n" -pre {
+	set i [aktive image noise uniform 1 $n 1]
     } -post {
 	unset i
     } -body {

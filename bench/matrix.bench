@@ -20,8 +20,8 @@ package require aktive
 ## Benchmarks.
 
 foreach n {1 10 100 1000 10000 100000} {
-    bench -desc "image indexed - $n" -pre {
-	set i [aktive image indexed $n 1]
+    bench -desc "image const matrix - $n" -pre {
+	set i [aktive image const matrix $n 1 {*}[lrepeat $n 0]]
     } -post {
 	unset i
     } -body {
@@ -30,8 +30,8 @@ foreach n {1 10 100 1000 10000 100000} {
 }
 
 foreach n {1 10 100 1000 10000 100000} {
-    bench -desc "image indexed/v - $n" -pre {
-	set i [aktive image indexed 1 $n]
+    bench -desc "image const matrix/v - $n" -pre {
+	set i [aktive image const matrix 1 $n {*}[lrepeat $n 0]]
     } -post {
 	unset i
     } -body {
