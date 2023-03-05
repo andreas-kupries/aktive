@@ -19,8 +19,9 @@ proc to {path g args} {
     close $dst
 }
 
-proc ppm {path src} { to $path $src aktive format as ppm byte }
-proc pgm {path src} { to $path $src aktive format as pgm byte }
+proc null {src} { aktive format as null 2string $src }
+proc ppm  {path src} { to $path $src aktive format as ppm byte }
+proc pgm  {path src} { to $path $src aktive format as pgm byte }
 
 proc rgb {r g b} { aktive op montage z $r [aktive op montage z $g $b] }
 proc grad  {} { aktive image gradient 3 4 2  1 12.5 }
@@ -40,6 +41,12 @@ proc showbasic {i} {
     puts "  whd [set w [aktive query width  $i]] x [set h [aktive query height $i]] x [set d [aktive query depth  $i]]"
     puts "\}"
     flush stdout
+}
+
+proc dag {i {indent {}}} {
+    puts "$indent[aktive query id $i]  [aktive query type $i]"
+    append indent {  }
+    foreach x [aktive query inputs $i] { dag $x $indent }
 }
 
 proc show {i} {
