@@ -2,25 +2,14 @@
  *
  * -- Direct operator support - formatting image as Tcl structure
  */
-#ifndef AKTIVE_OP_H
-#define AKTIVE_OP_H
+#ifndef AKTIVE_MATH_H
+#define AKTIVE_MATH_H
 
-#include <rt.h>
 #include <math.h>
 #include <complex.h>
 
-/* - - -- --- ----- -------- -------------
- * Helper functions for the individual operators
- * Shared code, and large blocks
- */
-
-extern Tcl_Obj* aktive_op_astcl    (Tcl_Interp* ip, aktive_image src);
-extern Tcl_Obj* aktive_op_params   (Tcl_Interp* ip, aktive_image src);
-extern Tcl_Obj* aktive_op_pixels   (Tcl_Interp* ip, aktive_image src);
-extern Tcl_Obj* aktive_op_geometry (Tcl_Interp* ip, aktive_image src);
-
-/* - - -- --- ----- -------- -------------
- * Math
+/*
+ * - - -- --- ----- -------- -------------
  */
 
 extern double aktive_clamp          (double x);
@@ -90,4 +79,4 @@ extern double aktive_cmath_sqabs   (double complex a);
  * fill-column: 78
  * End:
  */
-#endif /* AKTIVE_OP_H */
+#endif /* AKTIVE_MATH_H */

@@ -96,6 +96,7 @@ critcl::csources runtime/*.c
 
 critcl::include  runtime/rt.h
 critcl::cheaders op/*.h
+critcl::csources op/*.c
 
 # Types    ##### ######## ############# #####################
 
@@ -117,8 +118,9 @@ critcl::include generated/param-descriptors.c   ;# Parameter block descriptors
 # Function implementations ############ #####################
 
 critcl::include op/aktive.h
+critcl::include op/astcl.h
+critcl::include op/amath.h
 critcl::include op/netpbm.h
-critcl::include op/op.h
 critcl::include op/null.h
 
 critcl::source  op/math.tcl                     ;# Extended math function support
@@ -131,6 +133,7 @@ critcl::include generated/op-funcs.c            ;# Operators
 ## Assemble Tcl level interface
 
 critcl::source   generated/glue.tcl             ;# Tcl-level operator construction
+#
 critcl::tsources generated/overlay.tcl		;# Peep-hole optimizer overlays
 critcl::tsources generated/ensemble.tcl         ;# Command hierarchy for preceding
 #                                               ;# Pure Tcl commands
@@ -140,10 +143,7 @@ critcl::tsources simplifier.tcl			;# - Simplifier runtime used by overlay.tcl
 critcl::tsources op/2string.tcl			;# Support for "write to string".
 critcl::tsources op/embed.tcl			;# embed argument validation
 
-critcl::csources op/aktive.c                    ;# Operator support
-critcl::csources op/netpbm.c                    ;# Operator support
-critcl::csources op/op.c                        ;# Operator support
-critcl::csources op/null.c                      ;# Operator support
+critcl::csources op/math.c
 
 # # ## ### ##### ######## ############# #####################
 ## Build binaries now, without deferal.

@@ -1,8 +1,8 @@
 ## -*- mode: tcl ; fill-column: 90 -*-
 # # ## ### ##### ######## ############# #####################
 ## Sinks -- NULL format - IOW the equivalent of /dev/null
-#
-# See op/null.c for the supporting code
+
+# critcl::csources ../../op/null.c	;# C-level support code
 
 operator sequential {
     format::as::null::2string    0

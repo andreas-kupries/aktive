@@ -1,8 +1,8 @@
 ## -*- mode: tcl ; fill-column: 90 -*-
 # # ## ### ##### ######## ############# #####################
 ## Sinks -- AKTIVE format
-#
-# See op/aktive.c for the format specification.
+
+# critcl::csources ../../op/aktive.c	;# C-level support code
 
 tcl-operator {
     format::as::aktive::2string

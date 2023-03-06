@@ -1,8 +1,8 @@
 ## -*- mode: tcl ; fill-column: 90 -*-
 # # ## ### ##### ######## ############# #####################
 ## Sinks -- Netpbm PPM, PGM formats
-#
-# See op/netpbm.c for the format specification.
+
+# critcl::csources ../../op/netpbm.c	;# C-level support code
 
 tcl-operator {
     format::as::pgm::text::2string

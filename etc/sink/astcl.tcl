@@ -2,6 +2,8 @@
 # # ## ### ##### ######## ############# #####################
 ## Sink -- Tcl structures, materialized
 
+# critcl::csources ../../op/astcl.c	;# C-level support code
+
 operator format::as::tcl {
     # As written technically a getter, as the operator has a return value
 
