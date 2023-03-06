@@ -174,7 +174,8 @@ aktive_rectangle_intersect (aktive_rectangle* dst, aktive_rectangle* a, aktive_r
 	dst->y      = 0;
 	dst->width  = 0;
 	dst->height = 0;
-	return;
+
+	TRACE_RETURN_VOID;
     }
 
     /* Compute boundaries of the intersection as the max and min of the
@@ -220,7 +221,7 @@ aktive_rectangle_outzones (aktive_rectangle* domain, aktive_rectangle* request,
 	
     if (aktive_rectangle_is_empty (&v[0])) {
 	// fprintf(stderr,"\tNO intersection\n");fflush (stderr);	
-	return;
+	TRACE_RETURN_VOID;
     }
 
     aktive_uint count = 1;

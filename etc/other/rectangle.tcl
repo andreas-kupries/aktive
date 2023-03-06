@@ -105,7 +105,7 @@ operator rectangle::union {
     return rect {
 	if (param->r.c == 0) {
 	    aktive_rectangle_def (zero, 0, 0, 0, 0);
-	    return zero;
+	    TRACE_RETURN ("(zero)", zero);
 	}
 
 	aktive_rectangle r;
@@ -127,7 +127,7 @@ operator rectangle::intersect {
     return rect {
 	if (param->r.c == 0) {
 	    aktive_rectangle_def (zero, 0, 0, 0, 0);
-	    return zero;
+	    TRACE_RETURN ("(zero)", zero);
 	}
 
 	aktive_rectangle r;
