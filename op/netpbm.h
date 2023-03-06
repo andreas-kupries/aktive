@@ -29,7 +29,7 @@
  * Note: maxval has to be less than 65536.
  */
 
-static aktive_sink*
+extern aktive_sink*
 aktive_netpbm_sink (aktive_writer* writer,
 		    unsigned char  variant,
 		    aktive_uint    maxvalue);

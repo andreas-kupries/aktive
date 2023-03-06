@@ -23,10 +23,11 @@
  * |40+metac+8*n|	|		|	|			|
  */
 
-#include <aktive.h>
+#include <rt.h>
 #include <critcl_alloc.h>
 #include <critcl_assert.h>
 #include <critcl_trace.h>
+#include <aktive.h>
 
 #define MAGIC   "AKTIVE"
 #define MAGIC2  "AKTIVE_D"
@@ -58,7 +59,7 @@ static void                   aktive_final  (aktive_aktive_control* info);
  * - - -- --- ----- -------- -------------
  */
 
-static aktive_sink*
+extern aktive_sink*
 aktive_aktive_sink (aktive_writer* writer)
 {
     TRACE_FUNC ("((writer*) %p)", writer);
@@ -71,11 +72,12 @@ aktive_aktive_sink (aktive_writer* writer)
     info->size     = 0;
     info->written  = 0;
 
-    sink->name    = "aktive";
-    sink->setup   = (aktive_sink_setup)   aktive_header;
-    sink->final   = (aktive_sink_final)   aktive_final;
-    sink->process = (aktive_sink_process) aktive_pixels;
-    sink->state   = info;
+    sink->name       = "aktive";
+    sink->setup      = (aktive_sink_setup)   aktive_header;
+    sink->final      = (aktive_sink_final)   aktive_final;
+    sink->process    = (aktive_sink_process) aktive_pixels;
+    sink->sequential = 1; // TODO :: see if we can avoid this
+    sink->state      = info;
     
     TRACE_RETURN ("(aktive_sink*) %p", sink);
 }

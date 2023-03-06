@@ -45,10 +45,11 @@
  *  - Binary coded data is written in __big endian__ order.
  */
 
-#include <netpbm.h>
+#include <rt.h>
 #include <critcl_alloc.h>
 #include <critcl_assert.h>
 #include <critcl_trace.h>
+#include <netpbm.h>
 
 #define MAXCOL 70
 
@@ -120,7 +121,7 @@ static aktive_sink_process process[] = {
  * - - -- --- ----- -------- -------------
  */
 
-static aktive_sink*
+extern aktive_sink*
 aktive_netpbm_sink (aktive_writer* writer,
 		    unsigned char  variant,
 		    aktive_uint    maxvalue)
@@ -145,11 +146,12 @@ aktive_netpbm_sink (aktive_writer* writer,
 
     int extended = (maxvalue > 255);
 
-    sink->name    = (char*) format [vindex];
-    sink->setup   = (aktive_sink_setup) netpbm_header;
-    sink->final   = (aktive_sink_final) netpbm_final;
-    sink->process = process [(vindex << 1) + extended];
-    sink->state   = info;
+    sink->name       = (char*) format [vindex];
+    sink->setup      = (aktive_sink_setup) netpbm_header;
+    sink->final      = (aktive_sink_final) netpbm_final;
+    sink->process    = process [(vindex << 1) + extended];
+    sink->sequential = 1; // TODO :: see if we can avoid this for the binary formats
+    sink->state      = info;
     
     TRACE_RETURN ("(aktive_sink*) %p", sink);
 }

@@ -12,7 +12,7 @@
  * Provision of an AKTIVE sink
  */
 
-static aktive_sink*
+extern aktive_sink*
 aktive_aktive_sink (aktive_writer* writer);
 
 /*

@@ -12,8 +12,7 @@
  * Provision of an NULL sink
  */
 
-static aktive_sink*
-aktive_null_sink (void);
+extern aktive_sink* aktive_null_sink (aktive_uint sequential);
 
 /*
  * = = == === ===== ======== ============= =====================

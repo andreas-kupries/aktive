@@ -1,11 +1,15 @@
 /* -*- c -*-
  *
  * -- Direct operator support - NULL format support, aka /dev/null
+ */
 
-#include <aktive.h>
+#include <rt.h>
 #include <critcl_alloc.h>
 #include <critcl_assert.h>
 #include <critcl_trace.h>
+#include <null.h>
+
+TRACE_ON;
 
 /*
  * - - -- --- ----- -------- -------------
@@ -32,8 +36,8 @@ static void                 null_final  (aktive_null_control* info);
  * - - -- --- ----- -------- -------------
  */
 
-static aktive_sink*
-aktive_null_sink (void)
+extern aktive_sink*
+aktive_null_sink (aktive_uint sequential)
 {
     TRACE_FUNC ("()", 0);
   
@@ -44,11 +48,12 @@ aktive_null_sink (void)
     info->size     = 0;
     info->written  = 0;
 
-    sink->name    = "null";
-    sink->setup   = (aktive_sink_setup)   null_header;
-    sink->final   = (aktive_sink_final)   null_final;
-    sink->process = (aktive_sink_process) null_pixels;
-    sink->state   = info;
+    sink->name       = "null";
+    sink->setup      = (aktive_sink_setup)   null_header;
+    sink->final      = (aktive_sink_final)   null_final;
+    sink->process    = (aktive_sink_process) null_pixels;
+    sink->sequential = sequential;
+    sink->state      = info;
     
     TRACE_RETURN ("(aktive_sink*) %p", sink);
 }

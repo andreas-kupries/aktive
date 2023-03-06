@@ -58,7 +58,7 @@ package require critcl::cutil
 critcl::config keepsrc
 
 critcl::cutil::assertions on
-critcl::cutil::tracer     on
+critcl::cutil::tracer     off
 critcl::cutil::alloc
 
 critcl::ccode {
@@ -116,10 +116,11 @@ critcl::include generated/param-descriptors.c   ;# Parameter block descriptors
 
 # Function implementations ############ #####################
 
-critcl::include op/aktive.c                     ;# Operator support
-critcl::include op/netpbm.c                     ;# Operator support
-critcl::include op/null.c                       ;# Operator support
-critcl::include op/op.c                         ;# Operator support
+critcl::include op/aktive.h
+critcl::include op/netpbm.h
+critcl::include op/op.h
+critcl::include op/null.h
+
 critcl::source  op/math.tcl                     ;# Extended math function support
 critcl::include generated/vector-funcs.c        ;# Variadic support
 critcl::include generated/param-funcs.c         ;# Parameter block variadic init/finish
@@ -138,6 +139,11 @@ critcl::tsources version.tcl			;# - Version info command
 critcl::tsources simplifier.tcl			;# - Simplifier runtime used by overlay.tcl
 critcl::tsources op/2string.tcl			;# Support for "write to string".
 critcl::tsources op/embed.tcl			;# embed argument validation
+
+critcl::csources op/aktive.c                    ;# Operator support
+critcl::csources op/netpbm.c                    ;# Operator support
+critcl::csources op/op.c                        ;# Operator support
+critcl::csources op/null.c                      ;# Operator support
 
 # # ## ### ##### ######## ############# #####################
 ## Build binaries now, without deferal.
