@@ -115,6 +115,8 @@ aktive_region_destroy (aktive_region region)
 extern void
 aktive_region_export (aktive_region region, aktive_block* dst)
 {
+    TRACE_FUNC("((aktive_region) %p '%s')", region, region->opspec->name);
+    
     // Shift pixel data into destination, and squash unwanted backlink.
     *dst = region->pixels;
     dst->region = 0;
@@ -123,6 +125,8 @@ aktive_region_export (aktive_region region, aktive_block* dst)
     region->pixels.pixel    = 0;
     region->pixels.capacity = 0;
     region->pixels.used     = 0;
+
+    TRACE_RETURN_VOID;
 }
 
 extern aktive_image
