@@ -34,11 +34,30 @@ operator {coordinate dimension} {
     # ... generate code
     blit flipper $blitspec copy
 
+    #            min                                                           v-max
+    # domain:    |------------------------------.------------------------------|
+    # request:                               |--.-----------------|        n-1^
+    # rewritten:              |-----------------.--|              ^rmax .......|
+    #
+    #            min' = min + (max (domain) - max(request))
+    #
+    # max (domain)  = min  + n - 1
+    # max (request) = rmin + rn -1
+    #
+    #                 = min + min + n - 1 - rmin -rn + 1
+    #                 = 2min - rmin + n - rn
+    #
+
     def flip-rewrite-core {
 	// Flip the request before passing it on.
-	int new = idomain->@@dimension@@ - 1 - aktive_rectangle_get_@@coordinate@@max (request);
-	TRACE ("flip @@coordinate@@ %d --> %d = (%d-1-%d)", request->@@coordinate@@, new,
-	       idomain->@@dimension@@, aktive_rectangle_get_@@coordinate@@max (request));
+	int new = idomain->@@coordinate@@ + \
+	    (aktive_rectangle_get_@@coordinate@@max (idomain) - \
+	     aktive_rectangle_get_@@coordinate@@max (request));
+	TRACE ("flip @@coordinate@@ %d --> %d = (%d+(%d-%d))",
+	       request->@@coordinate@@, new,
+	       idomain->@@coordinate@@,
+	       aktive_rectangle_get_@@coordinate@@max (idomain),
+	       aktive_rectangle_get_@@coordinate@@max (request));
 	subrequest.@@coordinate@@ = new;
     }
 
@@ -56,6 +75,7 @@ operator {coordinate dimension} {
     pixels {
 	aktive_rectangle_def_as (subrequest, request);
 	@@rewrite@@
+	TRACE_RECTANGLE_M("querych", &subrequest);
 	aktive_block* src = aktive_region_fetch_area (srcs->v[0], &subrequest);
 
 	// The @@coordinate@@ axis is scanned in reverse order.
