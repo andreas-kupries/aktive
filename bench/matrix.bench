@@ -8,13 +8,12 @@
 ## Setting up the environment ...
 ## We need at least version 8.6 for the package and thus the benchmarks.
 
-if {![package vsatisfies [package provide Tcl] 8.6]} return
+kb::check   Tcl 8.6
+kb::require support   debug
+kb::local   benchmark aktive
 
-lappend auto_path [glob -type d ../.kettle_bench_install_*/lib/aktive*]
-
-package forget aktive
-catch {namespace delete ::aktive}
-package require aktive
+kb::source defaults.tcl
+catch { kb::source config.tcl }
 
 # ### ### ### ######### ######### ######### ###########################
 ## Benchmarks.
@@ -25,9 +24,11 @@ foreach n {1 10 100 1000 10000 100000} {
     } -post {
 	unset i
     } -body {
-	aktive format as null 2string $i
+	aktive format as $nuller 2string $i
     }
 }
+
+if {!$vertical} return
 
 foreach n {1 10 100 1000 10000 100000} {
     bench -desc "image const matrix/v - $n" -pre {
@@ -35,7 +36,7 @@ foreach n {1 10 100 1000 10000 100000} {
     } -post {
 	unset i
     } -body {
-	aktive format as null 2string $i
+	aktive format as $nuller 2string $i
     }
 }
 
