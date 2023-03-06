@@ -33,6 +33,8 @@
 #define MAGIC2  "AKTIVE_D"
 #define VERSION "00"
 
+TRACE_OFF;
+
 /*
  * - - -- --- ----- -------- -------------
  */
