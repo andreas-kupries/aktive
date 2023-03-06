@@ -19,9 +19,15 @@ proc to {path g args} {
     close $dst
 }
 
-proc null {src} { aktive format as null 2string $src }
-proc ppm  {path src} { to $path $src aktive format as ppm byte }
-proc pgm  {path src} { to $path $src aktive format as pgm byte }
+proc null     {src} { aktive format as null   2string $src }
+proc nulls    {src} { aktive format as null-s 2string $src }
+proc ppm {path src} { to $path $src aktive format as ppm byte }
+proc pgm {path src} { to $path $src aktive format as pgm byte }
+proc akt {path src} { to $path $src aktive format as aktive }
+
+proc ppms {src} { aktive format as ppm text 2string $src }
+proc pgms {src} { aktive format as pgm text 2string $src }
+proc akts {src} { aktive format as aktive   2string $src }
 
 proc rgb {r g b} { aktive op montage z $r [aktive op montage z $g $b] }
 proc grad  {} { aktive image gradient 3 4 2  1 12.5 }
