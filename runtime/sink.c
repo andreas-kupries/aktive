@@ -89,6 +89,7 @@ aktive_sink_run (aktive_sink* sink,
 		      (aktive_batch_make)     sink_maker,
 		      (aktive_batch_work)     sink_worker,
 		      (aktive_batch_complete) sink_completer,
+		      sink->sequential,
 		      &batch);
 
 #elif MODE == ROWS

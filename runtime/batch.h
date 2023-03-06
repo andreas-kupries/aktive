@@ -17,9 +17,13 @@
  * completer. All execute concurrently. The run ends when the completer has
  * seen and handled the last task made by the generator.
  *
- * Note: The batch processor provides worker results to the completer in the
- *       order the associated tasks were created in. It internally delays
- *       results created early, i.e. out of order, as needed.
+ * Note: In __sequential__ mode the batch processor ensures that the completer
+ *       sees worker results in the same order as the associated tasks were
+ *       created in. It internally delays results created early, i.e. out of
+ *       order, as needed.
+ *
+ *       When sequential is not asked for the completer sees the results in
+ *       arbitrary order, as the workers generate them.
  *
  * A batch processor returns when all its tasks have been done and completed.
  */
@@ -52,6 +56,7 @@ extern void aktive_batch_run ( const  char*          name
 	   		     , aktive_batch_make     maker
 	   		     , aktive_batch_work     worker
 	   		     , aktive_batch_complete completer
+			     , aktive_uint           sequential
 	   		     , void*                 state);
 
 /*

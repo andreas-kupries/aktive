@@ -32,11 +32,12 @@ typedef void  (*aktive_sink_process) (void* state, aktive_block* src);
 typedef void  (*aktive_sink_final)   (void* state);
 
 typedef struct aktive_sink {
-    char*               name    ; // Identification
-    aktive_sink_setup   setup   ; // Sink initialization
-    aktive_sink_process process ; // Sink pixel processing
-    aktive_sink_final   final   ; // Sink finalization
-    void*               state   ; // User state
+    char*               name       ; // Identification
+    aktive_sink_setup   setup      ; // Sink initialization
+    aktive_sink_process process    ; // Sink pixel processing
+    aktive_sink_final   final      ; // Sink finalization
+    aktive_uint         sequential ; // True if `process` has to be called in-order
+    void*               state      ; // User state
 } aktive_sink;
 
 /*
