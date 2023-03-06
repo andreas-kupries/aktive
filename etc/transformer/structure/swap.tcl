@@ -5,14 +5,16 @@
 # # ## ### ##### ######## ############# #####################
 ## Exchange two axes with each other
 
-operator {coorda coordb coordc} {
-    op::swap::xy x y z
-    op::swap::xz x z y
-    op::swap::yz y z x
+operator {coorda coordb coordc dima dimb dimc} {
+    op::swap::xy x y z   width  height depth
+    op::swap::xz x z y   width  depth  height
+    op::swap::yz y z x   height depth  width
 } {
     section transform structure
 
     note Returns image with the ${coorda}- and ${coordb}-axes of the input exchanged.
+
+    note The location of the image is not changed.
 
     input
 
@@ -20,11 +22,9 @@ operator {coorda coordb coordc} {
 
     simplify for   src/type @self   returns src/child
 
-    # A swap is a mirror along a diagonal. This exchanges two axes.
-    # The location is mirrored as well. Mostly.
-
-    # As the `z` location is fixed to `0`, swaps involving it do not
-    # fully fit into that setup. In more detail:
+    # A swap is a mirror along a diagonal. This exchanges two axes.  The location is left
+    # unchanged. This makes the implementation more consistent when the swap involves the
+    # z-axis. Changing the location with z involved are degenerative cases.
 
     # - `xz` :: A requested column-block becomes a band-block in the source.
     # - `yz` :: A requested row-block becomes a band-block in the source.
@@ -33,7 +33,7 @@ operator {coorda coordb coordc} {
     #           blitter is then responsible for pulling out only the desired bands to
     #           become columns, or rows.
     #
-    #           See `bandselect`, `first`.
+    #           See block `swap-rewrite` below.
 
     # base blitter setup
     set blitspec {
@@ -41,32 +41,58 @@ operator {coorda coordb coordc} {
 	{DW {x 0 1 up} {x 0 1 up}}
 	{DD {z 0 1 up} {z 0 1 up}}
     }
+    #    0  1          2
+    #        0 1 2 3    0 1 2 3
+    #             axis -^ ^- first
+
     # ... swap two axes
     switch -exact -- $coorda$coordb {
 	xy { lset blitspec 0 2 0 x ; lset blitspec 1 2 0 y }
 	xz { lset blitspec 1 2 0 z ; lset blitspec 2 2 0 x ; lset blitspec 1 2 1 first }
 	yz { lset blitspec 0 2 0 z ; lset blitspec 2 2 0 y ; lset blitspec 0 2 1 first }
     }
+    #                                ^- axis ----------^     ^- first ---------^
     # ... generate code
     blit swapper $blitspec copy
 
-    def bandselect [dict get {
-	xy {}
-	xz { aktive_uint first = request->x; TRACE("first %d", first); }
-	yz { aktive_uint first = request->y; TRACE("first %d", first); }
+    def swap-rewrite [dict get {
+	xy {
+	    // Full exchange width/height
+	    AKTIVE_SWIVEL (&subrequest, width, height);
+	    // Recode the request location into the unswapped coordinate system
+	    subrequest.y = idomain->y + (request->x - idomain->x);
+	    subrequest.x = idomain->x + (request->y - idomain->y);
+	}
+	xz {
+	    // Partial exchange width/depth
+	    subrequest.width  = idomain->depth;
+	    // Recode the request location into the unswapped coordinate system
+	    subrequest.x      = idomain->x; // idomain->x + (request->z - idomain->z)
+	    //                                               0          - 0
+	    aktive_uint first = 0 + (request->x - idomain->x); TRACE("first %d", first);
+	}
+	yz {
+	    // Partial exchange height/depth
+	    subrequest.height = idomain->depth;
+	    // Recode the request location into the unswapped coordinate system
+	    subrequest.y      = idomain->y; // idomain->y + (request->z - idomain->z)
+	    //                                               0          - 0
+	    aktive_uint first = 0 + (request->y - idomain->y); TRACE("first %d", first);
+	}
     } $coorda$coordb]
 
     state -setup {
-	// The locations and dimensions for the swapped axes (@@coorda@@, @@coordb@@) are exchanged.
+	// The dimensions for the swapped axes (@@coorda@@, @@coordb@@) are exchanged.
+	// The location does not change.
 
 	aktive_geometry_copy (domain, aktive_image_get_geometry (srcs->v[0]));
-	aktive_geometry_swap_@@coorda@@@@coordb@@ (domain);
+
+	AKTIVE_SWIVEL (domain, @@dima@@, @@dimb@@);
     }
     pixels {
 	aktive_rectangle_def_as (subrequest, request);
-	@@bandselect@@
 	// Rewrite request
-	aktive_rectangle_swap_@@coorda@@@@coordb@@ (&subrequest, idomain->depth);
+	@@swap-rewrite@@
 
 	TRACE_RECTANGLE_M ("rewritten", &subrequest);
 
