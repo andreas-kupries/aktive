@@ -4,4 +4,4 @@
 #
 ## Complementary to gamma-expand
 
-simplify for   src/type op::math1::gamma-expand   returns src/child
+simplify for   src/type op::math1::gamma::expand   returns src/child

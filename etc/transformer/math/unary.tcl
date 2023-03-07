@@ -12,39 +12,39 @@
 ## dexpr	Display expression. If not set operator tail name is used
 ## class	General class of behaviour, with attached simplifiction rules
 
-operator {                    cfunction             mathfunc     dexpr classes} {
-    op::math1::abs            fabs                  abs          {}    idempotent
-    op::math1::acos           acos                  <<           {}    {}
-    op::math1::acosh          acosh                 <<           {}    {}
-    op::math1::asin           asin                  <<           {}    fixpoint0
-    op::math1::asinh          asinh                 <<           {}    {}
-    op::math1::atan           atan                  <<           {}    fixpoint0
-    op::math1::atanh          atanh                 <<           {}    {}
-    op::math1::cbrt           cbrt                  <<           {}    fixpoint0
-    op::math1::ceil           ceil                  <<           {}    idempotent
-    op::math1::clamp          aktive_clamp          <<           {}    idempotent
-    op::math1::cos            cos                   <<           {}    {}
-    op::math1::cosh           cosh                  <<           {}    {}
-    op::math1::exp            exp                   <<           {}    {}
-    op::math1::exp10          aktive_exp10          exp10        {}    {}
-    op::math1::exp2           exp2                  <<           {}    {}
-    op::math1::floor          floor                 <<           {}    idempotent
-    op::math1::gamma-compress aktive_gamma_compress -            {}    {}
-    op::math1::gamma-expand   aktive_gamma_expand   -            {}    {}
-    op::math1::invert         aktive_invert         <<           "1-I" inverting
-    op::math1::log            log                   <<           {}    {}
-    op::math1::log10          log10                 <<           {}    {}
-    op::math1::log2           log2                  <<           {}    {}
-    op::math1::neg            aktive_neg            <<           "-I"  {inverting fixpoint0}
-    op::math1::reciproc       aktive_reciprocal     <<           "1/I" {inverting fixpoint1}
-    op::math1::sign           aktive_sign           sign         {}    {idempotent fixpoint0}
-    op::math1::sign*          aktive_signb          signb        {}    idempotent
-    op::math1::sin            sin                   <<           {}    fixpoint0
-    op::math1::sinh           sinh                  <<           {}    fixpoint0
-    op::math1::sqrt           sqrt                  <<           {}    fixpoint0
-    op::math1::tan            tan                   <<           {}    fixpoint0
-    op::math1::tanh           tanh                  <<           {}    fixpoint0
-    op::math1::wrap           aktive_wrap           <<           {}    idempotent
+operator {                     cfunction             mathfunc     dexpr classes} {
+    op::math1::abs             fabs                  abs          {}    idempotent
+    op::math1::acos            acos                  <<           {}    {}
+    op::math1::acosh           acosh                 <<           {}    {}
+    op::math1::asin            asin                  <<           {}    fixpoint0
+    op::math1::asinh           asinh                 <<           {}    {}
+    op::math1::atan            atan                  <<           {}    fixpoint0
+    op::math1::atanh           atanh                 <<           {}    {}
+    op::math1::cbrt            cbrt                  <<           {}    fixpoint0
+    op::math1::ceil            ceil                  <<           {}    idempotent
+    op::math1::clamp           aktive_clamp          <<           {}    idempotent
+    op::math1::cos             cos                   <<           {}    {}
+    op::math1::cosh            cosh                  <<           {}    {}
+    op::math1::exp             exp                   <<           {}    {}
+    op::math1::exp10           aktive_exp10          exp10        {}    {}
+    op::math1::exp2            exp2                  <<           {}    {}
+    op::math1::floor           floor                 <<           {}    idempotent
+    op::math1::gamma::compress aktive_gamma_compress -            {}    {}
+    op::math1::gamma::expand   aktive_gamma_expand   -            {}    {}
+    op::math1::invert          aktive_invert         <<           "1-I" inverting
+    op::math1::log             log                   <<           {}    {}
+    op::math1::log10           log10                 <<           {}    {}
+    op::math1::log2            log2                  <<           {}    {}
+    op::math1::neg             aktive_neg            <<           "-I"  {inverting fixpoint0}
+    op::math1::reciproc        aktive_reciprocal     <<           "1/I" {inverting fixpoint1}
+    op::math1::sign            aktive_sign           sign         {}    {idempotent fixpoint0}
+    op::math1::sign*           aktive_signb          signb        {}    idempotent
+    op::math1::sin             sin                   <<           {}    fixpoint0
+    op::math1::sinh            sinh                  <<           {}    fixpoint0
+    op::math1::sqrt            sqrt                  <<           {}    fixpoint0
+    op::math1::tan             tan                   <<           {}    fixpoint0
+    op::math1::tanh            tanh                  <<           {}    fixpoint0
+    op::math1::wrap            aktive_wrap           <<           {}    idempotent
 } {
     section transform math unary
 
