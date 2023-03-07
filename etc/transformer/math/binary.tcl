@@ -65,8 +65,6 @@ operator {cfunction dexpr} {
     input
 
     state -setup {
-	#define MIN(a,b) ((a) < (b) ? (a) : (b))
-
 	aktive_geometry* a = aktive_image_get_geometry (srcs->v[0]);
 	aktive_geometry* b = aktive_image_get_geometry (srcs->v[1]);
 
@@ -75,7 +73,6 @@ operator {cfunction dexpr} {
 				    aktive_geometry_as_rectangle (b));
 
 	domain->depth = MIN (a->depth, b->depth);
-	#undef MIN
     }
 
     pixels {

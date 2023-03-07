@@ -19,16 +19,12 @@ operator image::eye {
     } -setup {
 	aktive_geometry_set (domain, 0, 0, param->width, param->height, 1);
 
-	#define MAX(a,b) ((a) > (b) ? (a) : (b))
-	// MAX to prevent divisions by zero.
-
-	aktive_uint maxx = MAX (param->width, 1);
+	// MAX prevents divisions by zero.
+	aktive_uint maxx = MAX (param->width,  1);
 	aktive_uint maxy = MAX (param->height, 1);
 
 	state->c = param->factor * M_PI / (2. * maxx);
 	state->h = maxy * maxy;
-
-	#undef MAX
     }
 
     blit eye {

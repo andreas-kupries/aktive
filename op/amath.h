@@ -12,6 +12,13 @@
  * - - -- --- ----- -------- -------------
  */
 
+#define MAX(a,b) ((a) > (b) ? (a) : (b))
+#define MIN(a,b) ((a) < (b) ? (a) : (b))
+
+/*
+ * - - -- --- ----- -------- -------------
+ */
+
 extern double aktive_clamp          (double x);
 extern double aktive_exp10          (double x);
 extern double aktive_gamma_compress (double x);

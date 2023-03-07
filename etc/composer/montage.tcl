@@ -131,11 +131,9 @@ operator {coordinate dimension layout dima dimb} {
 	@@setup@@
 
 	aktive_geometry_copy (domain, g0);
-	#define MAX(a,b) ((a) > (b) ? (a) : (b))
 	domain->@@dimension@@ += g1->@@dimension@@;
 	domain->@@dima@@ = MAX (domain->@@dima@@, g1->@@dima@@);
 	domain->@@dimb@@ = MAX (domain->@@dimb@@, g1->@@dimb@@);
-	#undef MAX
     }
 
     if {$coordinate in {x y}} {
