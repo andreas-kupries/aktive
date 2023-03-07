@@ -77,11 +77,25 @@ proc dsl::blit::gen {name scans function} {
 # # ## ### ##### ######## #############
 
 proc dsl::blit::EmitFunction {function} {
-    Comment [lmap w $function { string trim $w }]
+    switch -exact -- [lindex $function 0] {
+	raw {
+	    Comment [lrange $function 0 1] ;# cmd + label
+	}
+	default {
+	    lappend map "\n" " "
+	    Comment [lmap w $function { string map $map [string trim $w] }]
+	}
+    }
     set args [lassign $function cmd]
     F/$cmd {*}$args
     return
 }
+
+proc dsl::blit::F/raw {label code} {
+    + "TRACE_ADD (\" :: raw code - $label\", 0);"
+    + $code
+}
+
 proc dsl::blit::F/copy {} {
     + "TRACE_ADD (\" :: copy %f\", *srcvalue);"
     + "*dstvalue = *srcvalue;"
@@ -431,7 +445,8 @@ proc dsl::blit::EmitIntro {name scans function} {
 
     Comment "Specification:"
     foreach scan $scans { Comment "- scan $scan" }
-    Comment "= [lmap w $function { string trim $w }]"
+    lappend map "\n" " "
+    Comment "= [join [lmap w $function { string map $map [string trim $w] }] { }]"
     + {}
 
     set has 0
