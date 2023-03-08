@@ -30,12 +30,15 @@ operator {coordinate dimension} {
 	src/pop \
 	returns op upsample ${coordinate}rep : __n
 
-    state -setup {
+    state -fields {
+	aktive_uint max; // original max
+    } -setup {
 	// could be moved into the cons wrapper created for simplification
 	if (param->n == 0) aktive_fail ("Rejecting undefined stretching by 0");
 
 	aktive_geometry_copy (domain, aktive_image_get_geometry (srcs->v[0]));
 	// Modify dimension according to parameter
+	state->max = aktive_geometry_get_@@coordinate@@max (domain);
 	domain->@@dimension@@ *= param->n;
     }
 
@@ -84,6 +87,10 @@ operator {coordinate dimension} {
 	subrequest.@@coordinate@@ /= n;
 	subrequest.@@dimension@@ /= n;
 	subrequest.@@dimension@@ ++;
+
+	// And prevent overshooting the upper border of the input
+	int excess = aktive_rectangle_get_@@coordinate@@max (&subrequest) - istate->max;
+	if (excess > 0) { subrequest.@@dimension@@ -= excess; }
     }
 
     def phasor [dict get {

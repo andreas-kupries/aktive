@@ -31,7 +31,7 @@ tcl-operator op::rotate::half {
     note Returns image rotating the input 180 degrees (counter) clockwise.
 
     arguments src
-    body { aktive op flip x [aktive op flip  y $src] }
+    body { aktive op flip x [aktive op flip y $src] }
 }
 
 ##
