@@ -7,7 +7,7 @@ package require aktive
 puts ""
 puts loaded:\t[join [info loaded] \nloaded:\t]
 puts ""
-puts "have aktive v[aktive version]"
+puts "have aktive v[aktive version] / cpu count [aktive processors]"
 puts ""
 
 # ------------------------------------------------------------------------------
@@ -19,11 +19,13 @@ proc to {path g args} {
     close $dst
 }
 
-proc null     {src} { aktive format as null   2string $src }
-proc nulls    {src} { aktive format as null-s 2string $src }
-proc ppm {path src} { to $path $src aktive format as ppm byte }
-proc pgm {path src} { to $path $src aktive format as pgm byte }
-proc akt {path src} { to $path $src aktive format as aktive }
+proc null      {src} { aktive format as null   2string $src }
+proc nulls     {src} { aktive format as null-s 2string $src }
+proc ppm  {path src} { to $path $src aktive format as ppm byte }
+proc pgm  {path src} { to $path $src aktive format as pgm byte }
+proc ppmt {path src} { to $path $src aktive format as ppm text }
+proc pgmt {path src} { to $path $src aktive format as pgm text }
+proc akt  {path src} { to $path $src aktive format as aktive }
 
 proc ppms {src} { aktive format as ppm text 2string $src }
 proc pgms {src} { aktive format as pgm text 2string $src }
@@ -39,6 +41,48 @@ proc graybig  {} { aktive image gradient 256 256 1 0 1 }
 proc colorbox {} { set r [graybox] ; rgb $r [aktive op rotate cw $r] [aktive op rotate half $r] }
 proc colorbig {} { set r [graybig] ; rgb $r [aktive op rotate cw $r] [aktive op rotate half $r] }
 proc sines {} { rgb [aktive image sines 256 256 0.3 0.4] [aktive image sines 256 256 2 0.5] [aktive image sines 256 256 1 3] }
+
+proc webcolors {} {
+    # Rewrite uint8 rgb tuples into separate columns, and rescale to interval [0,1]
+    foreach {r g b} {
+        0   0   0    0   0   51   0   0   102  0   0   153  0   0   204  0   0   255  0   51  0    0   51  51
+        0   51  102  0   51  153  0   51  204  0   51  255  0   102 0    0   102 51   0   102 102  0   102 153
+        0   102 204  0   102 255  0   153 0    0   153 51   0   153 102  0   153 153  0   153 204  0   153 255
+        0   204 0    0   204 51   0   204 102  0   204 153  0   204 204  0   204 255  0   255 0    0   255 51
+        0   255 102  0   255 153  0   255 204  0   255 255  51  0   0    51  0   51   51  0   102  51  0   153
+        51  0   204  51  0   255  51  51  0    51  51  51   51  51  102  51  51  153  51  51  204  51  51  255
+        51  102 0    51  102 51   51  102 102  51  102 153  51  102 204  51  102 255  51  153 0    51  153 51
+        51  153 102  51  153 153  51  153 204  51  153 255  51  204 0    51  204 51   51  204 102  51  204 153
+        51  204 204  51  204 255  51  255 0    51  255 51   51  255 102  51  255 153  51  255 204  51  255 255
+        102 0   0    102 0   51   102 0   102  102 0   153  102 0   204  102 0   255  102 51  0    102 51  51
+        102 51  102  102 51  153  102 51  204  102 51  255  102 102 0    102 102 51   102 102 102  102 102 153
+        102 102 204  102 102 255  102 153 0    102 153 51   102 153 102  102 153 153  102 153 204  102 153 255
+        102 204 0    102 204 51   102 204 102  102 204 153  102 204 204  102 204 255  102 255 0    102 255 51
+        102 255 102  102 255 153  102 255 204  102 255 255  153 0   0    153 0   51   153 0   102  153 0   153
+        153 0   204  153 0   255  153 51  0    153 51  51   153 51  102  153 51  153  153 51  204  153 51  255
+        153 102 0    153 102 51   153 102 102  153 102 153  153 102 204  153 102 255  153 153 0    153 153 51
+        153 153 102  153 153 153  153 153 204  153 153 255  153 204 0    153 204 51   153 204 102  153 204 153
+        153 204 204  153 204 255  153 255 0    153 255 51   153 255 102  153 255 153  153 255 204  153 255 255
+        204 0   0    204 0   51   204 0   102  204 0   153  204 0   204  204 0   255  204 51  0    204 51  51
+        204 51  102  204 51  153  204 51  204  204 51  255  204 102 0    204 102 51   204 102 102  204 102 153
+        204 102 204  204 102 255  204 153 0    204 153 51   204 153 102  204 153 153  204 153 204  204 153 255
+        204 204 0    204 204 51   204 204 102  204 204 153  204 204 204  204 204 255  204 255 0    204 255 51
+        204 255 102  204 255 153  204 255 204  204 255 255  255 0   0    255 0   51   255 0   102  255 0   153
+        255 0   204  255 0   255  255 51  0    255 51  51   255 51  102  255 51  153  255 51  204  255 51  255
+        255 102 0    255 102 51   255 102 102  255 102 153  255 102 204  255 102 255  255 153 0    255 153 51
+        255 153 102  255 153 153  255 153 204  255 153 255  255 204 0    255 204 51   255 204 102  255 204 153
+        255 204 204  255 204 255  255 255 0    255 255 51   255 255 102  255 255 153  255 255 204  255 255 255
+    } {
+        lappend rs [expr {$r/255.}] ; lappend gs [expr {$g/255.}] ; lappend bs [expr {$b/255.}]
+    }
+    set w [llength $rs] ;# assert :: w == 216 == 12*18
+    # Construct image planes and aggregate into single color image
+    aktive op montage z \
+	[aktive image const matrix 12 18 {*}$rs] \
+	[aktive op montage z \
+	     [aktive image const matrix 12 18 {*}$gs] \
+	     [aktive image const matrix 12 18 {*}$bs]]
+}
 
 proc showbasic {i} {
     puts "[aktive query type $i] \{"
@@ -96,7 +140,7 @@ proc show {i} {
 		puts -nonewline " ="
 	    }
 	}
-	puts -nonewline " [format %6.4f $v]"
+	puts -nonewline " [format %8.4f $v]"
 	incr i
     }
     puts ""

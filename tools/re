@@ -1,2 +1,5 @@
 #!/bin/bash
+find . -follow -name "core*" -exec rm "{}" \;
+rm -f *.trace
+
 ./build.tcl uninstall install
