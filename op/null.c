@@ -9,7 +9,7 @@
 #include <critcl_trace.h>
 #include <null.h>
 
-TRACE_ON;
+TRACE_OFF;
 
 /*
  * - - -- --- ----- -------- -------------
