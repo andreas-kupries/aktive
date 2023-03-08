@@ -148,17 +148,19 @@ critcl::tsources op/embed.tcl			;# embed argument validation
 critcl::csources op/math.c
 
 # # ## ### ##### ######## ############# #####################
+## Versioning information and exposure, processor count
+
+critcl::cconst  aktive::version    char* {"0.0"}
+critcl::cconst  aktive::processors int aktive_processors()
+
+package provide aktive 0.0
+
+# # ## ### ##### ######## ############# #####################
 ## Build binaries now, without deferal.
 
 if {![critcl::load]} {
     error "Building and loading aktive failed."
 }
-
-# # ## ### ##### ######## ############# #####################
-## Versioning information and exposure
-
-critcl::cconst  aktive::version char* {"0.0"}
-package provide aktive 0.0
 
 # # ## ### ##### ######## ############# #####################
 return

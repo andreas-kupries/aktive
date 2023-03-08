@@ -26,6 +26,7 @@
 #include <base.h>
 #include <batch.h>
 #include <queue.h>
+#include <nproc.h>
 
 TRACE_OFF;
 
@@ -117,13 +118,6 @@ static void                 task_completer (aktive_batch processor);
 static void  result_enter (aktive_batch processor, void* result, aktive_uint id);
 static void* result_get   (aktive_batch processor);
 
-const aktive_uint wcount = AKTIVE_THREADS;
-
-/*
- * - - -- --- ----- -------- -------------
- * TODO :: move wcount into separate unit, access by function, query machine
- */
-
 /*
  * - - -- --- ----- -------- -------------
  */
@@ -139,6 +133,7 @@ aktive_batch_run ( const  char*          name
     TRACE_FUNC ("((char*) '%s')", name);
     
     Tcl_ThreadId id;
+    aktive_uint  wcount = aktive_processors ();
     
     aktive_batch processor = ALLOC (struct aktive_batch);
     memset (processor, 0, sizeof(struct aktive_batch));

@@ -8,7 +8,7 @@
 ## Fixed command, not generated
 
 namespace eval aktive {
-    namespace export version
+    namespace export version processors
     namespace ensemble create
 }
 

@@ -16,6 +16,7 @@
 #include <sink.h>
 #include <fnv.h>
 #include <matrix.h>
+#include <nproc.h>
 #include <rtgen/vector-funcs.h>
 #include <rtgen/type-funcs.h>
 
