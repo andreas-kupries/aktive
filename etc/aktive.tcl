@@ -56,6 +56,7 @@ import generator/virtual/pattern/eye.tcl
 import generator/virtual/pattern/sines.tcl
 import generator/virtual/pattern/zone.tcl
 
+import transformer/identity.tcl
 import transformer/location.tcl
 import transformer/viewport.tcl
 
@@ -65,6 +66,9 @@ import transformer/math/unary.tcl
 import transformer/math/complex/binary.tcl
 import transformer/math/complex/reduce.tcl
 import transformer/math/complex/unary.tcl
+
+import transformer/statistics/by-columns.tcl
+import transformer/statistics/by-rows.tcl
 
 import transformer/structure/crop.tcl
 import transformer/structure/flip.tcl
@@ -115,24 +119,6 @@ nyi operator op::geometry::reshape {
 
     # %% TODO %% specify implementation
 }
-
-nyi operator {
-    op::pixel::mul
-} {
-    # VIPS :: recomb - recombine
-
-    # op::pixel::mul - vector matrix multiplication - vector is pixel, image depth long.
-    #                  matrix is image, depth fixed 1, width equal to image depth, asserted
-    #                  result image has depth equal to matrix height
-    #
-    # example: color conversions.
-
-    input
-    input
-
-    # %% TODO %% specify implementation
-}
-
 
 # # ## ### ##### ######## ############# #####################
 ::return

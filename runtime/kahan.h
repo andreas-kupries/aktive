@@ -8,8 +8,12 @@
 /*
  * = = == === ===== ======== ============= =====================
  * Structures and methods to encapsulate Kahan (aka compensated) summation.
+ * The implemented algorithm uses the Neumaier enhancement.
  *
- * Ref: https://en.wikipedia.org/wiki/Kahan_summation_algorithm
+ * Ref:
+ *  - https://en.wikipedia.org/wiki/Kahan_summation_algorithm#Further_enhancements
+ *  - https://www.mat.univie.ac.at/~neum/scan/01.pdf
+ *    (local copy: doc-internal/references/neumaier.pdf)
  */
 
 typedef struct kahan {
@@ -25,6 +29,8 @@ typedef struct kahan {
 
 extern void aktive_kahan_init (kahan* k);
 extern void aktive_kahan_add  (kahan* k, double v);
+
+#define aktive_kahan_final(k) ((k)->sum + (k)->correction)
 
 /*
  * = = == === ===== ======== ============= =====================

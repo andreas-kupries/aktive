@@ -123,6 +123,7 @@ critcl::include op/astcl.h
 critcl::include op/color.h
 critcl::include op/netpbm.h
 critcl::include op/null.h
+critcl::include op/reduce.h
 critcl::include op/whitepoint.h
 
 critcl::source  op/math.tcl                     ;# Extended math function support

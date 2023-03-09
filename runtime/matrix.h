@@ -3,8 +3,8 @@
  *
  * -- Matrix utility functions.
  */
-#ifndef AKTIVE_PIXEL_H
-#define AKTIVE_PIXEL_H
+#ifndef AKTIVE_MATRIX_H
+#define AKTIVE_MATRIX_H
 
 /*
  * - - -- --- ----- -------- -------------
@@ -27,4 +27,4 @@ extern void   aktive_matrix_mul (double* z, double* vec, double* mat, aktive_uin
  * fill-column: 78
  * End:
  */
-#endif /* AKTIVE_PIXEL_H */
+#endif /* AKTIVE_MATRIX_H */

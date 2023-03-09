@@ -1,0 +1,43 @@
+# -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
+## (c) 2023 Andreas Kupries
+# # ## ### ##### ######## ############# #####################
+
+## AKTIVE. Identity transform.
+
+## Mainly useful for round-trip testing as means of disabling simplifications by intercalating it
+## between complementary operations.
+
+kt check Tcl     8.6
+kt check tcltest 2
+
+# # ## ### ##### ######## ############# #####################
+
+kt local testing aktive
+
+kt source support/util.tcl
+
+# # ## ### ##### ######## ############# #####################
+## Syntax
+
+syntax {
+    pass src
+} {aktive op}
+
+# # ## ### ##### ######## ############# #####################
+
+test aktive-op-pass-2.0 "aktive op pass" -body {
+    astcl aktive op pass [grad]
+} -match image -result [makei op::pass 0 0 3 4 2 {} {
+    =  1.00  1.50 =  2.00  2.50 =  3.00  3.50
+    =  4.00  4.50 =  5.00  5.50 =  6.00  6.50
+    =  7.00  7.50 =  8.00  8.50 =  9.00  9.50
+    = 10.00 10.50 = 11.00 11.50 = 12.00 12.50
+}]
+
+test aktive-op-pass-2.1 "aktive op pass, dag" -body {
+    dag aktive op pass [grad]
+} -match glob -result "op::pass * {} {image::gradient *}"
+
+# # ## ### ##### ######## ############# #####################
+cleanupTests
+return

@@ -48,29 +48,16 @@ aktive_kahan_add  (kahan* k, double v)
 		k, k->sum, -k->correction, v);
 #endif
 
-    /* Single step of basic compensated summation.
+    /* Single step of Kahan compensated summation with Neumaier enhancement.
      */
 
-    double vprime = v - k->correction;
-    /* First time correction = 0. Add (*) the lost low-order parts of the
-     * previous element to the current in an attempt to bring them in now.
-     *
-     * (*) It is `add` despite the `-` above, because the correction term
-     *     contains the negative of the lost parts, see (x).
-     */
-
-    double presum = k->sum + vprime;
-    /* Big `sum`, small `vprime` causes the low-order digits of vprime to be
-     * lost
-     */
-
-    k->correction = (presum - k->sum) - vprime;
-    /* (presum-sum) cancels the high-order part of vprime; subtracting vprime
-     * then recovers its (x) negative low-order parts as correction for the next
-     * element.
-     */
-
-    k->sum = presum;
+    double t = k->sum + v;
+    if (fabs (k->sum) > fabs (v)) {
+	k->correction += (k->sum - t) + v;	// low order digits of v were lost
+    } else {
+	k->correction + (v - t) + k->sum;	// low order digits of sum were lost
+    }
+    k->sum = t;
 
     /* ATTENTION: Algebraically, `correction` should always be zero. Beware
      * overly-aggressive optimizing compilers!
