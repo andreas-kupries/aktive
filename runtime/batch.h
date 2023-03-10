@@ -35,8 +35,10 @@
  *
  * - create   :: return one task per call, until all tasks are created
  *            :: return NULL when there are no tasks anymore.
- * - work     :: Take and process task, return a result
- * - complete :: Take and process result
+ * - work     :: Take and process task, return a result.
+ *            :: A NULL task indicates a last call for cleanup, etc.
+ * - complete :: Take and process result. A NULL result indicates a last
+ *            :: call for cleanup, etc.
  *
  * All have access to the user-specified state. Create and complete can work
  * concurrently without locking if they modify different parts of that

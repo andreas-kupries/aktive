@@ -289,6 +289,7 @@ task_completer (aktive_batch processor)
 
     TRACE ("// ...............................................", 0);
     TRACE ("results eof, done", 0);
+    processor->completer (processor->state, 0);
 
     TRACE_RETURN_VOID;
 }

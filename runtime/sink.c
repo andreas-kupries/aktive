@@ -190,7 +190,9 @@ static void
 sink_completer (sink_batch_state* state, aktive_block* result)
 {
     TRACE_FUNC("((sink_batch_state*) %p, (task) %p, (active_block*) %p)", state, result);
-	
+
+    if (!result) TRACE_RETURN_VOID;
+    
     state->sink->process (state->state, result);
 
     aktive_blit_close (result);
