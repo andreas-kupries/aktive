@@ -31,6 +31,14 @@ aktive_kahan_init (kahan* k)
 }
 
 void
+aktive_kahan_add_kahan  (kahan* k, kahan* v) {
+    // note: with the neumaier variant I wonder if I can add sum and
+    // correction separately, i.e. like a 2d vector    
+    aktive_kahan_add  (k, v->correction);
+    aktive_kahan_add  (k, v->sum);
+}
+
+void
 aktive_kahan_add  (kahan* k, double v)
 {
 #if KAHAN_TEST

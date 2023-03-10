@@ -27,8 +27,9 @@ typedef struct kahan {
 #endif
 } kahan;
 
-extern void aktive_kahan_init (kahan* k);
-extern void aktive_kahan_add  (kahan* k, double v);
+extern void aktive_kahan_init      (kahan* k);
+extern void aktive_kahan_add       (kahan* k, double v);
+extern void aktive_kahan_add_kahan (kahan* k, kahan* v);
 
 #define aktive_kahan_final(k) ((k)->sum + (k)->correction)
 
