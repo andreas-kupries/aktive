@@ -3,6 +3,7 @@
 # # ## ### ##### ######## ############# #####################
 ## Test Utility Commands -- Image Matching
 
+customMatch double4        match4
 customMatch image          matchImage
 customMatch listpix        matchPixelLists
 customMatch pixels         matchPixels
@@ -115,6 +116,10 @@ proc matchFileContent {expected actual} {
 
 proc matchFileContentString {expected actual} {
     string equal [cat $expected] $actual
+}
+
+proc match4 {expected actual} {
+  matchNdigits 4 $expected $actual
 }
 
 ##
