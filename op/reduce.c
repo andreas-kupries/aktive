@@ -196,85 +196,25 @@ typedef struct reduce_batch_state {
  * - - -- --- ----- -------- -------------
  */
 
-#define API(fun)						\
-    extern double						\
-    aktive_image_ ## fun (aktive_image src) {			\
-	image_reduce ("image::" #fun, src,			\
-		      (aktive_batch_work)     fun ## _worker,	\
-		      (aktive_batch_complete) fun ## _completer \
-		      );					\
-    }
-
-#define WORKER(fun)					\
-    static reduce_result*				\
-    fun ## _worker (const reduce_batch_state* state,	\
-		    aktive_rectangle*         task,	\
-		    aktive_region*            wstate)
-
-#define COMPLETER(fun)					\
-    static void						\
-    fun ## _completer (reduce_batch_state* state,	\
-		       reduce_result*      result)
-
-#define WCDEF(fun) WORKER(fun); COMPLETER (fun)
-
-#define WORKER_DEF(fun)							\
-    WORKER (fun) {							\
-    TRACE_FUNC("((reducer_batch_state*) %p, (task) %p, (ws) %p)",	\
-	       state, task, wstate);					\
-									\
-    if (! *wstate) {							\
-	TRACE ("initialize wstate", 0);					\
-	*wstate = aktive_region_new (state->image);			\
-	TRACE ("(region*) %p", *wstate);				\
-    }									\
-									\
-    if (!task) {							\
-	aktive_region_destroy (*wstate);				\
-	TRACE_RETURN ("", 0);						\
-    }									\
-									\
-    TRACE_RECTANGLE (task);						\
-    aktive_block* p = aktive_region_fetch_area (*wstate, task);		\
-									\
-    reduce_result* r = ALLOC (reduce_result);
+static void*
+image_maker (reduce_batch_state* state)
+{
+    TRACE_FUNC("((reduce_batch_state*) %p, %d remaining)", state, state->count);
     
-#define WORKER_FED				\
-      ckfree (task);				\
-      TRACE_RETURN ("(reduce_result*) %p", r);	\
-      }
-
-
-#define RES r->main.sum
-
-#define COMPLETER_DEF(fun) \
-    COMPLETER (fun) {	   \
-    if (!result) {
-
-#define COMPLETER_INIT		\
-    return;			\
-    }				\
-    if (state->initialized)
-
-#define COMPLETER_FED		\
-    else {			\
-	state->acc = *result;	\
-	state->initialized ++;	\
-    } ;	ckfree (result);	\
+    // All rows scanned, stop
+    if (!state->count) {
+	TRACE_RETURN ("(rect*) %p, EOF", 0);
     }
 
-/*
- * - - -- --- ----- -------- -------------
- */
+    aktive_rectangle* r = ALLOC (aktive_rectangle);
+    aktive_rectangle_copy (r, &state->scan); 
 
-static void* image_maker (reduce_batch_state* state);
-WCDEF (max);
-WCDEF (mean);
-WCDEF (min);
-WCDEF (stddev);
-WCDEF (sum);
-WCDEF (sumsquared);
-WCDEF (variance);
+    state->count --;
+    aktive_rectangle_move (&state->scan, 0, 1);
+
+    TRACE_RECTANGLE (r);
+    TRACE_RETURN ("(rect*) %p", r);
+}
 
 /*
  * - - -- --- ----- -------- -------------
@@ -313,159 +253,17 @@ image_reduce (const char*           name,
     TRACE_RETURN ("(result) %f", result);
 }
 
-API (max);
-API (mean);
-API (min);
-API (stddev);
-API (sum);
-API (sumsquared);
-API (variance);
-
 /*
  * - - -- --- ----- -------- -------------
  */
 
-static void*
-image_maker (reduce_batch_state* state)
-{
-    TRACE_FUNC("((reduce_batch_state*) %p, %d remaining)", state, state->count);
-    
-    // All rows scanned, stop
-    if (!state->count) {
-	TRACE_RETURN ("(rect*) %p, EOF", 0);
-    }
+#define PARTIAL (result->main)
+#define P_AUX   (result->aux)
+#define ACC     (state->acc.main)
+#define AUX     (state->acc.aux)
+#define FINAL   (*state->result)
 
-    aktive_rectangle* r = ALLOC (aktive_rectangle);
-    aktive_rectangle_copy (r, &state->scan); 
-
-    state->count --;
-    aktive_rectangle_move (&state->scan, 0, 1);
-
-    TRACE_RECTANGLE (r);
-    TRACE_RETURN ("(rect*) %p", r);
-}
-
-/*
- * - - -- --- ----- -------- -------------
- * Computes max of the row maxima
- */
-    
-WORKER_DEF (max)
-    RES = aktive_reduce_max (p->pixel, p->used, 1);
-WORKER_FED
-COMPLETER_DEF (max)
-	*state->result = state->acc.main.sum;
-COMPLETER_INIT
-	state->acc.main.sum = MAX (state->acc.main.sum, result->main.sum);
-COMPLETER_FED
-
-/*
- * - - -- --- ----- -------- -------------
- * Computes sum of the row sums, computes mean on finalization call.
- */
-
-WORKER_DEF (mean) {
-    sum_1 (&r->main, p->pixel, p->used, 1);
-} WORKER_FED;
-
-COMPLETER_DEF (mean)
-	double n = state->size;
-	*state->result = aktive_kahan_final (&state->acc.main) / n;
-COMPLETER_INIT
-	aktive_kahan_add_kahan (&state->acc.main, &result->main);
-COMPLETER_FED
-
-/*
- * - - -- --- ----- -------- -------------
- * Computes min of the row minima
- */
-
-WORKER_DEF (min) {
-    RES = aktive_reduce_min (p->pixel, p->used, 1);
-} WORKER_FED;
-
-COMPLETER_DEF (min) {
-    *state->result = state->acc.main.sum;
-} COMPLETER_INIT {
-    state->acc.main.sum = MIN (state->acc.main.sum, result->main.sum);
-} COMPLETER_FED;
-
-/*
- * - - -- --- ----- -------- -------------
- * Computes sum of the row sums of squares,
- * and      sum of the row sums,
- * computes variance on finalization call,
- * and      stddev as sqrt of it.
- */
-
-WORKER_DEF (stddev) {
-    sum_and_squared (&r->main, &r->aux, p->pixel, p->used, 1);
-} WORKER_FED;
-
-COMPLETER_DEF (stddev) {
-    // main = sum, aux = sum-squared
-
-    double n    = state->size;
-    double mean = aktive_kahan_final (&state->acc.main) / n;
-    double sq   = aktive_kahan_final (&state->acc.aux)  / n;
-	
-    *state->result = sqrt (sq - mean*mean);
-} COMPLETER_INIT {
-    aktive_kahan_add_kahan (&state->acc.main, &result->main);
-    aktive_kahan_add_kahan (&state->acc.aux,  &result->aux);
-} COMPLETER_FED;
-
-/*
- * - - -- --- ----- -------- -------------
- * Computes sum of the row sums.
- */
-
-WORKER_DEF (sum) {
-    sum_1 (&r->main, p->pixel, p->used, 1);
-} WORKER_FED;
-
-COMPLETER_DEF (sum) {
-    *state->result = aktive_kahan_final (&state->acc.main);
-} COMPLETER_INIT {
-    aktive_kahan_add_kahan (&state->acc.main, &result->main);
-} COMPLETER_FED;
-
-/*
- * - - -- --- ----- -------- -------------
- * Computes sum of the row sums of squares.
- */
-
-WORKER_DEF (sumsquared) {
-    sum_squared (&r->main, p->pixel, p->used, 1);
-} WORKER_FED;
-
-COMPLETER_DEF (sumsquared) {
-    *state->result = aktive_kahan_final (&state->acc.main);
-} COMPLETER_INIT {
-    aktive_kahan_add_kahan (&state->acc.main, &result->main);
-} COMPLETER_FED;
-
-/*
- * - - -- --- ----- -------- -------------
- * Computes sum of the row sums of squares,
- * and      sum of the row sums,
- * computes variance on finalization call.
- */
-
-WORKER_DEF (variance) {
-    sum_and_squared (&r->main, &r->aux, p->pixel, p->used, 1);
-} WORKER_FED;
-
-COMPLETER_DEF (variance) {
-    // main = sum, aux = sum-squared
-    double n    = state->size;
-    double mean = aktive_kahan_final (&state->acc.main) / n;
-    double sq   = aktive_kahan_final (&state->acc.aux)  / n;
-    *state->result = sq - mean*mean;
-} COMPLETER_INIT {
-    aktive_kahan_add_kahan (&state->acc.main, &result->main);
-    aktive_kahan_add_kahan (&state->acc.aux,  &result->aux);
-} COMPLETER_FED;
+#include <generated/reduce.c>
 
 /*
  * = = == === ===== ======== ============= =====================
