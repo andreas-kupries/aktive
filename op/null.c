@@ -42,7 +42,7 @@ aktive_null_sink (aktive_uint sequential)
     TRACE_FUNC ("()", 0);
   
     aktive_null_control* info = ALLOC (aktive_null_control);
-    aktive_sink*           sink = ALLOC (aktive_sink);
+    aktive_sink*         sink = ALLOC (aktive_sink);
 
     info->sink     = sink;
     info->size     = 0;
