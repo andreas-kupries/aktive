@@ -316,13 +316,16 @@ proc dsl::reader::blit {name scans function} {
     def $name [dsl blit gen $name $scans $function]
 }
 
-proc dsl::reader::def {name script args} {
+proc dsl::reader::def {name text args} {
     OkModes C Tcl
+    set text [TemplateCode $text $args]
     if {[Get opname] eq {}} {
-	Set blocks $name [TemplateCode $script $args]
+	Set blocks $name $text
     } else {
-	Set opspec blocks $name [TemplateCode $script $args]
+	Set opspec blocks $name $text
     }
+    upvar 1 $name var
+    set var $text
 }
 
 proc dsl::reader::state {args} {
