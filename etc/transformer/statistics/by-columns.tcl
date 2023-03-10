@@ -5,7 +5,7 @@
 # # ## ### ##### ######## ############# #####################
 ## Compress columns down to a statistic
 
-operator {kind attr} {
+operator {dexpr attr} {
     op::column::max         maximum              {}
     op::column::mean        {arithmetic mean}    {}
     op::column::min         minimum              {}
@@ -16,8 +16,8 @@ operator {kind attr} {
 } {
     section transform statistics
 
-    def kind [set kind [lindex [split $__op :] 2]]
-    def fun  [set fun  [lindex [split $__op :] 4]]
+    def kind [lindex [split $__op :] 2]
+    def fun  [lindex [split $__op :] 4]
 
     ## TODO :: input width == 1 => optimize
     ## min, max, mean, sum :: elide
@@ -25,10 +25,10 @@ operator {kind attr} {
     ##
     ## ?? variance, stddev
 
-    import? ../simpler/stat_$fun.rules	;# queries @@kind@@ !!
+    import? ../simpler/stat_$fun.rules	;# queries kind !!
 
     note Returns image with input columns compressed to a single value, \
-	the $kind of the $attr column values. The result is a single-row \
+	the $dexpr of the $attr column values. The result is a single-row \
 	image with width and depth of the input.
 
     input

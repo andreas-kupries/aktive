@@ -5,7 +5,7 @@
 # # ## ### ##### ######## ############# #####################
 ## Compress rows down to a statistic
 
-operator {kind attr} {
+operator {dexpr attr} {
     op::row::max         maximum              {}
     op::row::mean        {arithmetic mean}    {}
     op::row::min         minimum              {}
@@ -16,8 +16,8 @@ operator {kind attr} {
 } {
     section transform statistics
 
-    def kind [set kind [lindex [split $__op :] 2]]
-    def fun  [set fun  [lindex [split $__op :] 4]]
+    def kind [lindex [split $__op :] 2]
+    def fun  [lindex [split $__op :] 4]
 
     ## TODO :: input width == 1 => optimize
     ## min, max, mean, sum :: elide
@@ -25,10 +25,10 @@ operator {kind attr} {
     ##
     ## ?? variance, stddev
 
-    import? ../simpler/stat_$fun.rules	;# queries @@kind@@ !!
+    import? ../simpler/stat_$fun.rules	;# queries kind !!
 
     note Returns image with input rows compressed to a single value, \
-	the $kind of the $attr row values. The result is a single-column \
+	the $dexpr of the $attr row values. The result is a single-column \
 	image with height and depth of the input.
 
     input

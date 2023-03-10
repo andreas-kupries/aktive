@@ -67,6 +67,7 @@ import transformer/math/complex/binary.tcl
 import transformer/math/complex/reduce.tcl
 import transformer/math/complex/unary.tcl
 
+import transformer/statistics/by-bands.tcl
 import transformer/statistics/by-columns.tcl
 import transformer/statistics/by-rows.tcl
 
@@ -91,10 +92,15 @@ import transformer/structure/resample/up.tcl
 
 import composer/montage.tcl
 
-import sink/aktive.tcl	;# AKTIVE raw format
-import sink/astcl.tcl	;# Tcl representation
-import sink/netpbm.tcl	;# NETPBM basics (PGM, PPM)
-import sink/null.tcl	;# NULL writer
+import sink/aktive.tcl		;# AKTIVE raw format
+import sink/astcl.tcl		;# Tcl representation
+import sink/netpbm.tcl		;# NETPBM basics (PGM, PPM)
+import sink/null.tcl		;# NULL writer
+#
+import sink/statistics.tcl	;# Compute various image statistics
+#                                  See also `transformer/statistics/by-*`
+#                                  for the variants calculating them
+#                                  per row, column, or band
 
 import accessor/attributes.tcl
 

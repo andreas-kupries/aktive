@@ -1,0 +1,51 @@
+# -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
+## (c) 2023 Andreas Kupries
+# # ## ### ##### ######## ############# #####################
+## AKTIVE. Image statistics (min, max, mean, sum, sum squared, variance, std deviation)
+
+kt check Tcl     8.6
+kt check tcltest 2
+
+# # ## ### ##### ######## ############# #####################
+
+kt local testing aktive
+
+kt source support/util.tcl
+
+# # ## ### ##### ######## ############# #####################
+## Syntax
+
+syntax {
+    max        src
+    mean       src
+    min        src
+    stddev     src
+    sum        src
+    sumsquared src
+    variance   src
+} {aktive op image}
+
+# # ## ### ##### ######## ############# #####################
+##
+## =  1  1.5 =  2  2.5 =  3  3.5
+## =  4  4.5 =  5  5.5 =  6  6.5
+## =  7  7.5 =  8  8.5 =  9  9.5
+## = 10 10.5 = 11 11.5 = 12 12.5
+
+foreach {op expected} {
+    max          12.5
+    mean          6.75
+    min           1
+    stddev        3.4610
+    sum         162
+    sumsquared 1381
+    variance     11.9792
+} {
+    test aktive-op-image-${op}-2.0 "aktive op image $op" -body {
+	aktive op image $op [grad]
+    } -match double4 -result $expected
+}
+
+# # ## ### ##### ######## ############# #####################
+cleanupTests
+return
