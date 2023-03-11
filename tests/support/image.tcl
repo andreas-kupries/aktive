@@ -56,6 +56,11 @@ proc dag/ {i} {
     return $r
 }
 
+# Just the pixels
+
+proc pixels {args} { pixels/ [{*}$args] }
+proc pixels/ {i} { dict get [astcl/ $i] pixels }
+
 # Construct image in tcl representation for comparisons
 proc makei {op x y w h d config pixels} {
     dict set domain x      $x
