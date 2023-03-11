@@ -29,7 +29,7 @@ operator op::color::sRGB::to::HSV {
     } {raw hsv-from-srgb {
 	// https://en.wikipedia.org/wiki/HSL_and_HSV#From_RGB
 	//
-	// Generally ensure (clmap) that the incoming values are in the expected range.
+	// Generally ensure (clamp) that the incoming values are in the expected range.
 	//
 	// __ATTENTION__: The `mod` in the referenced equations seems to assume that
 	// negative values still have a positive result, i.e. -1 mod 6 == 5. The C
@@ -105,16 +105,16 @@ operator op::color::HSV::to::sRGB {
 	// https://en.wikipedia.org/wiki/HSL_and_HSV#HSV_to_RGB_alternative
 	// HSV in [0,1]^3 ...
 	// WPedia code assumes H in [0,360] :: H/60 => x*360/60 = x*6
-	// To avoid issues with fmod for k+h*6 < 0 ensure that H is in range 0..1
+	// To avoid issues with fmod for k+H*6 < 0 ensure that H is in range 0..1
 	// For S and V we clamp instead.
 
 	double h = fmod (H, 1); if (h < 0) h = 1 + h;
 	double s = S; s = MAX (0, s); s = MIN (s, 1);
 	double v = V; v = MAX (0, v); v = MIN (v, 1);
 
-	double k5 = fmod (5+h*6, 6); k5 = MIN (k5, 4-k5); k5 = MAX (0, k5); k5 = MIN (k5, 1);
-	double k3 = fmod (3+h*6, 6); k3 = MIN (k3, 4-k3); k3 = MAX (0, k3); k3 = MIN (k3, 1);
-	double k1 = fmod (1+h*6, 6); k1 = MIN (k1, 4-k1); k1 = MAX (0, k1); k1 = MIN (k1, 1);
+	double k5 = fmod (5 + h * 6, 6); k5 = MIN (k5, 4-k5); k5 = MAX (0, k5); k5 = MIN (k5, 1);
+	double k3 = fmod (3 + h * 6, 6); k3 = MIN (k3, 4-k3); k3 = MAX (0, k3); k3 = MIN (k3, 1);
+	double k1 = fmod (1 + h * 6, 6); k1 = MIN (k1, 4-k1); k1 = MAX (0, k1); k1 = MIN (k1, 1);
 
 	R = v * (1 - s * k5);
 	G = v * (1 - s * k3);
