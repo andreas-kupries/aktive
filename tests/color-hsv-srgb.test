@@ -1,0 +1,57 @@
+# -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
+## (c) 2023 Andreas Kupries
+# # ## ### ##### ######## ############# #####################
+## AKTIVE. Color conversion -- sRGB / HSV round trip
+##         Both directions.
+
+kt check Tcl     8.6
+kt check tcltest 2
+
+# # ## ### ##### ######## ############# #####################
+
+kt local testing aktive
+
+kt source support/util.tcl
+
+# # ## ### ##### ######## ############# #####################
+## Syntax
+
+syntax {
+    sRGB src
+} {aktive op color HSV to}
+
+syntax {
+    HSV src
+} {aktive op color sRGB to}
+
+# # ## ### ##### ######## ############# #####################
+## Round trip of the 216 web "standard" colors
+
+foreach-color 3 [webcolor-table-fp] image bands {
+    set b ([join $bands ,])
+
+    test aktive-op-color-sRGB-to-HSV-2.[incr k]-$b "aktive op color sRGB to HSV, round trip ($bands)" -body {
+	pixels aktive op color HSV to sRGB \
+	    [aktive op pass \
+		 [aktive op color sRGB to HSV $image]]
+    } -match pixels -result [pixels/ $image]
+
+    # skip HSV where V = 0 -- These cannot round trip -- RGB == (0,0,0), regardless of HS
+    if {[lindex $bands 2] == 0} continue
+
+    # skip HSV where S = 0 -- These cannot round trip -- RGB == (x,x,x), regardless of H.V -- H' == 0
+    if {[lindex $bands 1] == 0} continue
+
+    # skip HSV where H = 1 ~~ 0 (360deg ~~ 0deg) -- In round trip H' = 0.
+    if {[lindex $bands 0] == 1} continue
+
+    test aktive-op-color-HSV-to-sRGB-2.${k}-$b "aktive op color HSV to sRGB, round trip ($bands)" -body {
+	pixels aktive op color sRGB to HSV \
+	    [aktive op pass \
+		 [aktive op color HSV to sRGB $image]]
+    } -match pixels -result [pixels/ $image]
+}
+
+# # ## ### ##### ######## ############# #####################
+cleanupTests
+return
