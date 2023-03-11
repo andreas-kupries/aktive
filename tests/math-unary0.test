@@ -154,8 +154,14 @@ foreach {fun steps first last expected} {
 	    dag aktive op math1 {*}$cfun [aktive op math1 {*}$fun [grad]]
 	} -match glob -result {image::gradient *}
 
-	# Note: The inverse order test is covered by the test for the other op
-	#       If not self complementary
+	# Test actual complementariness when reduction is disabled.
+
+	test aktive-op-math1-${fun}-2.5 "aktive op math1 $fun, complement $cfun, round trip" -body {
+	    pixels aktive op math1 {*}$cfun [aktive op pass [aktive op math1 {*}$fun [grad]]]
+	} -match pixels -result [pixels grad]
+
+	# Note: The inverse order is covered by the test for the other op
+	#       If not complementary to itself
     }
 }
 

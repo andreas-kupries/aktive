@@ -299,6 +299,7 @@ foreach fun {
     aktive_ge         aktive_scale       aktive_nshift     sign
     aktive_inside_cc  aktive_shift       aktive_outside_cc signb
     aktive_inside_co  aktive_shift	 aktive_ne	   aktive_eq
+    gcompress         gexpand
 } {
     if {[llength [info commands ::tcl::mathfunc::$fun]]} continue
     rename ::aktive::mathfunc::$fun ::tcl::mathfunc::$fun

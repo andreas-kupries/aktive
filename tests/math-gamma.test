@@ -1,0 +1,49 @@
+# -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
+## (c) 2023 Andreas Kupries
+# # ## ### ##### ######## ############# #####################
+## AKTIVE. Gamma compression/expansion. Full range test.
+##         Especially for full set of 8-bit quantization values.
+
+kt check Tcl     8.6
+kt check tcltest 2
+
+# # ## ### ##### ######## ############# #####################
+
+kt local testing aktive
+
+kt source support/util.tcl
+
+# # ## ### ##### ######## ############# #####################
+## Full range en bloc
+
+set image [aktive image gradient 256 1 1 0 1]
+
+test aktive-op-math1-gamma-compress-3.0 "aktive op math1 gamma compress, 8bit round trip" -body {
+    pixels aktive op math1 gamma expand [aktive op pass [aktive op math1 gamma compress $image]]
+} -match pixels -result [pixels/ $image]
+
+test aktive-op-math1-gamma-expand-3.0 "aktive op math1 gamma expand, 8bit round trip" -body {
+    pixels aktive op math1 gamma compress [aktive op pass [aktive op math1 gamma expand $image]]
+} -match pixels -result [pixels/ $image]
+
+# # ## ### ##### ######## ############# #####################
+## Full range, as separate test per sample point
+
+foreach p [pixels/ $image] {
+    set pi [aktive image constant 1 1 1 $p]
+
+    test aktive-op-math1-gamma-compress-4.0-$p "aktive op math1 gamma compress, trip $p" -body {
+	pixels aktive op math1 gamma expand [aktive op pass [aktive op math1 gamma compress $pi]]
+    } -match pixels -result [pixels/ $pi]
+
+    test aktive-op-math1-gamma-expand-4.0-$p "aktive op math1 gamma expand, trip $p" -body {
+	pixels aktive op math1 gamma compress [aktive op pass [aktive op math1 gamma expand $pi]]
+    } -match pixels -result [pixels/ $pi]
+
+}
+unset p pi
+
+# # ## ### ##### ######## ############# #####################
+unset image
+cleanupTests
+return

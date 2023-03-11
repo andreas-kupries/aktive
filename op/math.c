@@ -33,6 +33,8 @@ extern double aktive_exp10      (double x) { return pow (10, x); }
 /* sRGB specification
  * - gamma transfer functions
  *   https://en.wikipedia.org/wiki/SRGB#The_sRGB_transfer_function_(%22gamma%22)
+ *   https://en.wikipedia.org/wiki/SRGB#From_sRGB_to_CIE_XYZ
+ *   https://en.wikipedia.org/wiki/SRGB#From_CIE_XYZ_to_sRGB
  *
  * compress :: (scRGB) linear light -> sRGB
  * expand   :: sRGB -> linear light (scRGB)
@@ -41,8 +43,7 @@ extern double aktive_exp10      (double x) { return pow (10, x); }
 #define GAMMA  (2.4)
 #define IGAMMA (1.0/GAMMA)
 #define IGAIN  (12.92)
-#define GAIN   (1.0/IGAIN)
-#define GLIMIT (0.4045)
+#define GLIMIT (0.04045)
 #define ILIMIT (0.0031308)
 #define OFFSET (0.055)
 #define SCALE  (1.055)
@@ -61,10 +62,11 @@ aktive_gamma_compress (double x) {
 
 extern double
 aktive_gamma_expand (double x) {
+    /* BEWARE :: Assumes x in [0..1] */
     TRACE_FUNC ("((double) %f)", x);
     double value =
         (x <= GLIMIT)
-        ? x * GAIN
+        ? x / IGAIN
         : pow ((x + OFFSET) / SCALE, GAMMA)
         ;
     TRACE_RETURN ("(double) %f", value);

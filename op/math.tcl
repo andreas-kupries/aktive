@@ -22,6 +22,8 @@ foreach {fun cfun} {
     log2              -
     sign              aktive_sign
     signb             aktive_signb
+    gcompress         aktive_gamma_compress
+    gexpand           aktive_gamma_expand
 } {
     if {$cfun eq "-"} { set cfun $fun }
     critcl::cproc ::aktive::mathfunc::$fun {
