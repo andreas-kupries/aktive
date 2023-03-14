@@ -42,10 +42,10 @@ operator op::color::sRGB::to::HSL {
 	double h, s, l;
 
 	if (c == 0)           {	h = 0;
-	} else if (xmax == R) {	h = 0 + (g-b)/c;
-	} else if (xmax == G) {	h = 2 + (b-r)/c;
-	} else if (xmax == B) {	h = 4 + (r-g)/c;
-	} else {		ASSERT (0, "rgb to hsl conversion internal error");
+	} else if (xmax == r) {	h = 0 + (g-b)/c;
+	} else if (xmax == g) {	h = 2 + (b-r)/c;
+	} else if (xmax == b) {	h = 4 + (r-g)/c;
+  	} else { ASSERT_VA (0, "rgb to hsl conversion internal error", "%f = max (%f, %f, %f)", xmax, r, g, b);
 	}
 	if (h < 0) h = 6 + h;	// correct wrap around
 	h /= 6.0;
@@ -54,8 +54,8 @@ operator op::color::sRGB::to::HSL {
 	s = (c == 0) ? 0 : (l < 0.5) ? (c/(xmax+xmin)) : (c/(2-xmax-xmin));
 
 	H = h;
-	L = l;
 	S = s;
+	L = l;
     }}
 
     pixels {
