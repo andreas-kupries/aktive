@@ -10,15 +10,17 @@
 /*
  * - - -- --- ----- -------- ------------ ----------------------
  * CIE Lab / CIE XYZ conversion constants.
+ *
+ * http://www.brucelindbloom.com/index.html?Eqn_XYZ_to_Lab.html
+ * http://www.brucelindbloom.com/index.html?Eqn_Lab_to_XYZ.html
  */
 
-#define CIE_T  (0.00885645167903563081) /* = (6/29)^3 */
-#define CIE_Ti (0.20689655172413793103) /* = (6/29) = sqrt (T) */
-#define CIE_A  (7.78703703703703703702) /* = (1/3)(29/6)^2 */
-#define CIE_B  (0.13793103448275862068) /* = 4/29 */
+#define CIE_E  (216./24389.) // == CIE_Ei ** 3
+#define CIE_Ei (6./29.)      // == cbrt (CIE_E))
+#define CIE_K  (24389./27.)
 
-#define XYZ_TO_LAB(t) (((t) > CIE_T ) ? cbrt (t)      : (CIE_A * (t) + CIE_B))
-#define LAB_TO_XYZ(t) (((t) > CIE_Ti) ? ((t)*(t)*(t)) : (((t) - CIE_B) / CIE_A));
+#define XYZ_TO_LAB(t) (((t) > CIE_E ) ? cbrt (t)      : ((CIE_K * (t) + 16.)/116.))
+#define LAB_TO_XYZ(t) (((t) > CIE_Ei) ? ((t)*(t)*(t)) : ((116.*(t) - 16.)/CIE_K))
 
 /*
  * - - -- --- ----- -------- ------------ ----------------------
@@ -26,8 +28,8 @@
  * https://en.wikipedia.org/wiki/CIELAB_color_space#CIEHLC_cylindrical_model
  */
 
-#define LAB_TO_LCH_H(L,a,b) atan2(b,a)
-#define LAB_TO_LCH_C(L,a,b) hypot(b,a)
+#define LAB_TO_LCH_H(L,a,b) atan2 (b,a)
+#define LAB_TO_LCH_C(L,a,b) hypot (b,a)
 
 #define LCH_TO_LAB_A(L,c,h) ((c) * cos (h))
 #define	LCH_TO_LAB_B(L,c,h) ((c) * sin (h))
