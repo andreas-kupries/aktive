@@ -67,6 +67,7 @@ import transformer/color/scrgb-xyz.tcl
 import transformer/color/srgb-scrgb.tcl
 import transformer/color/xyz-lab.tcl
 import transformer/color/xyz-yxy.tcl
+import transformer/color/non-core.tcl
 
 import transformer/math/binary.tcl
 import transformer/math/unary.tcl
