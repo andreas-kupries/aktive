@@ -1,0 +1,144 @@
+# -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
+## (c) 2023 Andreas Kupries
+# # ## ### ##### ######## ############# #####################
+## AKTIVE. Color conversion -- Non-core chain conversions
+
+kt check Tcl     8.6
+kt check tcltest 2
+
+# # ## ### ##### ######## ############# #####################
+
+kt local testing aktive
+
+kt source support/util.tcl
+
+# # ## ### ##### ######## ############# #####################
+## Syntax
+
+syntax {
+    scRGB src
+    XYZ   src
+    Lab   src
+    LCh   src
+    Yxy   src
+} {aktive op color HSL to}
+
+syntax {
+    scRGB src
+    XYZ   src
+    Lab   src
+    LCh   src
+    Yxy   src
+} {aktive op color HSV to}
+
+syntax {
+    XYZ   src
+    Lab   src
+    LCh   src
+    Yxy   src
+} {aktive op color sRGB to}
+
+syntax {
+    Lab   src
+    LCh   src
+    Yxy   src
+} {aktive op color scRGB to}
+
+syntax {
+    Yxy   src
+} {aktive op color XYZ to}
+
+syntax {
+    HSL   src
+    HSV   src
+    sRGB  src
+    scRGB src
+    XYZ   src
+} {aktive op color LCh to}
+
+syntax {
+    HSL   src
+    HSV   src
+    sRGB  src
+    scRGB src
+} {aktive op color Lab to}
+
+syntax {
+    HSL   src
+    HSV   src
+    sRGB  src
+} {aktive op color XYZ to}
+
+
+syntax {
+    HSL   src
+    HSV   src
+    sRGB  src
+    scRGB src
+} {aktive op color Yxy to}
+
+syntax {
+    HSL src
+    HSV src
+} {aktive op color scRGB to}
+
+# # ## ### ##### ######## ############# #####################
+## Round trip of the 216 web "standard" colors
+
+#HSL   {scRGB XYZ Lab LCh Yxy} - for XYZ and beyond the pure gray levels do not round trip.
+#HSV   {scRGB XYZ Lab LCh Yxy}
+
+foreach {a bs} {
+    HSL   scRGB
+    HSV   scRGB
+    sRGB  {XYZ Lab LCh Yxy}
+    scRGB {Lab LCh Yxy}
+    XYZ   LCh
+} {
+    foreach b $bs {
+	foreach-color 3 [webcolor-table-fp] image ibands {
+	    set origin ([join $ibands ,])
+
+	    if {$a ne "sRGB"} {
+		# lift image and bands to the starting point
+		set image  [aktive op color sRGB to $a $image]
+		set ibands [pixels/ $image]
+	    }
+	    set ib ([join $ibands ,])
+
+	    set retro  [aktive op color $a to $b $image]
+	    set rbands [pixels/ $retro]
+
+	    set rb ([join $rbands ,])
+
+	    incr k
+
+	    # # ## ### ##### ######## ############# #####################
+
+	    test aktive-op-color-${a}-via-${b}-2.${k}-${ib}-$origin "aktive op color ${a} to ${b}, round trip ($ibands)" -body {
+		pixels aktive op color ${b} to ${a} \
+		    [aktive op pass \
+			 [aktive op color ${a} to ${b} $image]]
+	    } -match pixels -result $ibands
+
+	    # Attention: For the retro we are stacking so many conversions that we can see loss of
+	    #            precision for doubles. Only one digit tough, thus `double3` for matching
+	    #            instead of `pixels` (~~ `double4`).
+
+	    test aktive-op-color-${b}-via-${a}-2.${k}-$rb "aktive op color ${b} to ${a}, round trip ($rbands)" -body {
+		pixels aktive op color ${a} to ${b} \
+		    [aktive op pass \
+			 [aktive op color ${b} to ${a} $retro]]
+	    } -match double3 -result $rbands
+	}
+
+	unset k
+    }
+
+   # break;# hsl only
+}
+
+unset a bs b image ibands ib retro rbands rb
+# # ## ### ##### ######## ############# #####################
+cleanupTests
+return
