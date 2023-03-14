@@ -10,6 +10,16 @@ kt source support/files.tcl
 kt source support/match.tcl
 
 # # ## ### ##### ######## ############# #####################
+## match command registration
+
+customMatch double4        match4
+customMatch image          matchImage
+customMatch listpix        matchPixelLists
+customMatch pixels         matchPixels
+customMatch content        matchFileContent
+customMatch content/string matchFileContentString
+
+# # ## ### ##### ######## ############# #####################
 ## Automated wrong#args checking based on command name and argument
 ## list, with light annotations. Handles `args` and optional arguments
 ## (`?x?`). Generates and runs all the needed test cases.

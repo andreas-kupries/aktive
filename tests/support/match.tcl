@@ -3,16 +3,6 @@
 # # ## ### ##### ######## ############# #####################
 ## Test Utility Commands -- Image Matching
 
-customMatch double4        match4
-customMatch image          matchImage
-customMatch listpix        matchPixelLists
-customMatch pixels         matchPixels
-customMatch content        matchFileContent
-customMatch content/string matchFileContentString
-
-# # ## ### ##### ######## ############# #####################
-##
-
 # Match two lists of rational numbers to N digits fractional precision
 # Assume n > 0
 proc matchNdigits {n expected actual} {
