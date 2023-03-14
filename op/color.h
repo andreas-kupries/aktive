@@ -28,8 +28,8 @@
  * https://en.wikipedia.org/wiki/CIELAB_color_space#CIEHLC_cylindrical_model
  */
 
-#define LAB_TO_LCH_H(L,a,b) atan2 (b,a)
 #define LAB_TO_LCH_C(L,a,b) hypot (b,a)
+#define LAB_TO_LCH_H(L,a,b) atan2 (b,a)
 
 #define LCH_TO_LAB_A(L,c,h) ((c) * cos (h))
 #define	LCH_TO_LAB_B(L,c,h) ((c) * sin (h))
