@@ -112,6 +112,10 @@ proc match4 {expected actual} {
   matchNdigits 4 $expected $actual
 }
 
+proc match3 {expected actual} {
+  matchNdigits 3 $expected $actual
+}
+
 ##
 # # ## ### ##### ######## ############# #####################
 return
