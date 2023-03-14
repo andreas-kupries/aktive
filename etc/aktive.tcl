@@ -60,7 +60,9 @@ import transformer/identity.tcl
 import transformer/location.tcl
 import transformer/viewport.tcl
 
+import transformer/color/hsl-srgb.tcl
 import transformer/color/hsv-srgb.tcl
+import transformer/color/scrgb-xyz.tcl
 import transformer/color/srgb-scrgb.tcl
 
 import transformer/math/binary.tcl

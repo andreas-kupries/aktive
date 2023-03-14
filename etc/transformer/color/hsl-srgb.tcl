@@ -6,14 +6,14 @@
 ## From a technical point of view these are band recombinations.
 ## They use the same kind of blit schema.
 #
-## HSV does not fit into a simple matrix multiplication however.
+## HSL does not fit into a simple matrix multiplication however.
 
 # https://en.wikipedia.org/wiki/HSL_and_HSV#Color_conversion_formulae
 
-operator op::color::sRGB::to::HSV {
+operator op::color::sRGB::to::HSL {
     section transformer color
 
-    note Returns image in HSV colorspace, from input in sRGB colorspace.
+    note Returns image in HSL colorspace, from input in sRGB colorspace.
 
     input
 
@@ -26,9 +26,8 @@ operator op::color::sRGB::to::HSV {
     blit convert {
 	{DH {y 0 1 up} {y 0 1 up}}
 	{DW {x 0 1 up} {x 0 1 up}}
-    } {raw hsv-from-srgb {
-	// - https://en.wikipedia.org/wiki/HSL_and_HSV#From_RGB
-	// - Color Imaging, p. 442, ISBN 978-1-5688-1344-8
+    } {raw hsl-from-srgb {
+	// https://en.wikipedia.org/wiki/HSL_and_HSV#From_RGB
 	//
 	// RGB in [0,1]^3 ...
 	// Generally ensure (clamp) that the incoming values are in the expected range.
@@ -40,48 +39,52 @@ operator op::color::sRGB::to::HSV {
 	double xmax = MAX (r, MAX (g, b));
 	double xmin = MIN (r, MIN (g, b));
 	double c    = xmax - xmin;
-	double h;
+	double h, s, l;
 
-	if (c == 0)           { h = 0;
-	} else if (xmax == r) { h = 0 + (g-b)/c;
-	} else if (xmax == g) { h = 2 + (b-r)/c;
-	} else if (xmax == b) { h = 4 + (r-g)/c;
-	} else                { ASSERT (0, "rgb to hsv conversion internal error");
+	if (c == 0)           {	h = 0;
+	} else if (xmax == R) {	h = 0 + (g-b)/c;
+	} else if (xmax == G) {	h = 2 + (b-r)/c;
+	} else if (xmax == B) {	h = 4 + (r-g)/c;
+	} else {		ASSERT (0, "rgb to hsl conversion internal error");
 	}
-	if (h < 0) h = 6 + h;	// correct a wrap around
+	if (h < 0) h = 6 + h;	// correct wrap around
+	h /= 6.0;
 
-	H = h / 6.0;
-	S = (xmax == 0) ? 0 : c/xmax;
-	V = xmax;
+	l = (xmax + xmin)/2;
+	s = (c == 0) ? 0 : (l < 0.5) ? (c/(xmax+xmin)) : (c/(2-xmax-xmin));
+
+	H = h;
+	L = l;
+	S = s;
     }}
 
     pixels {
 	// request passes through as is
 	aktive_block* src = aktive_region_fetch_area (srcs->v[0], request);
 
-	#define H dstvalue [0]
-	#define S dstvalue [1]
-	#define V dstvalue [2]
-
 	#define R srcvalue [0]
 	#define G srcvalue [1]
 	#define B srcvalue [2]
+
+	#define H dstvalue [0]
+	#define S dstvalue [1]
+	#define L dstvalue [2]
 
 	@@convert@@
 
 	#undef H
 	#undef S
-	#undef V
+	#undef L
 	#undef R
 	#undef G
 	#undef B
     }
 }
 
-operator op::color::HSV::to::sRGB {
+operator op::color::HSL::to::sRGB {
     section transformer color
 
-    note Returns image in sRGB colorspace, from input in HSV colorspace.
+    note Returns image in sRGB colorspace, from input in HSL colorspace.
 
     input
 
@@ -94,43 +97,50 @@ operator op::color::HSV::to::sRGB {
     blit convert {
 	{DH {y 0 1 up} {y 0 1 up}}
 	{DW {x 0 1 up} {x 0 1 up}}
-    } {raw srgb-from-hsv {
-	// https://en.wikipedia.org/wiki/HSL_and_HSV#HSV_to_RGB_alternative
-	// HSV in [0,1]^3 ...
-	// WPedia code assumes H in [0,360] :: H/60 => x*360/60 = x*6
-	// To avoid issues with fmod for k+H*6 < 0 ensure that H is in range 0..1
-	// For S and V we clamp instead.
+    } {raw srgb-from-hsl {
+	// Was not able to make https://en.wikipedia.org/wiki/HSL_and_HSV#HSL_to_RGB_alternative to work.
+	// Ditto for the regular conversion given there.
+	// http://www.easyrgb.com/en/math.php
+	// HSL in [0,1]^3 ...
+	// Ensure that the inputs are in this range (wrap H, clamp S, L)
 
 	double h = fmod (H, 1); if (h < 0) h = 1 + h;
 	double s = S; s = MAX (0, s); s = MIN (s, 1);
-	double v = V; v = MAX (0, v); v = MIN (v, 1);
+	double l = L; l = MAX (0, l); l = MIN (l, 1);
 
-	double k5 = fmod (5 + h * 6, 6); k5 = MIN (k5, 4-k5); k5 = MAX (0, k5); k5 = MIN (k5, 1);
-	double k3 = fmod (3 + h * 6, 6); k3 = MIN (k3, 4-k3); k3 = MAX (0, k3); k3 = MIN (k3, 1);
-	double k1 = fmod (1 + h * 6, 6); k1 = MIN (k1, 4-k1); k1 = MAX (0, k1); k1 = MIN (k1, 1);
+	if (s == 0) {
+	    R = G = B = l;
+	} else {
+	    double tb = (l < 0.5) ? (l+l*s) : (l+s-l*s);
+	    double ta = 2*l - tb;
 
-	R = v * (1 - s * k5);
-	G = v * (1 - s * k3);
-	B = v * (1 - s * k1);
+	    double r = h + 1./3.; r = ((r < 0) ? (r+1) : ((r > 1) ? (r-1) : r));
+	    double g = h + 0    ; // no wrapping needed
+	    double b = h - 1./3.; b = ((b < 0) ? (b+1) : ((b > 1) ? (b-1) : b));
+
+	    R = (6*r < 1) ? (ta+(tb-ta)*6*r) : ((2*r < 1) ? (tb) : ((3*r < 2) ? (ta+(tb-ta)*6*(2./3.-r)) : (ta)));
+	    G = (6*g < 1) ? (ta+(tb-ta)*6*g) : ((2*g < 1) ? (tb) : ((3*g < 2) ? (ta+(tb-ta)*6*(2./3.-g)) : (ta)));
+	    B = (6*b < 1) ? (ta+(tb-ta)*6*b) : ((2*b < 1) ? (tb) : ((3*b < 2) ? (ta+(tb-ta)*6*(2./3.-b)) : (ta)));
+	}
     }}
 
     pixels {
 	// request passes through as is
 	aktive_block* src = aktive_region_fetch_area (srcs->v[0], request);
 
+	#define H srcvalue [0]
+	#define S srcvalue [1]
+	#define L srcvalue [2]
+
 	#define R dstvalue [0]
 	#define G dstvalue [1]
 	#define B dstvalue [2]
-
-	#define H srcvalue [0]
-	#define S srcvalue [1]
-	#define V srcvalue [2]
 
 	@@convert@@
 
 	#undef H
 	#undef S
-	#undef V
+	#undef L
 	#undef R
 	#undef G
 	#undef B
