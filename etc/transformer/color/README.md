@@ -12,7 +12,7 @@
 |___		|___							|
 |XYZ		|CIE XYZ tristimulus space				|
 |Yxy		|CIE Yxy space						|
-|Lab		|CIE La*b* space					|
+|Lab		|CIE L*a*b* space					|
 |LCh		|CIE LCh(ab) space					|
 
 ## Core conversions

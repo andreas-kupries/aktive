@@ -12,9 +12,16 @@ puts ""
 
 # ------------------------------------------------------------------------------
 
-source [file join [file dirname [file dirname [file normalize [info script]]]] tests support builtin.tcl]
-source [file join [file dirname [file dirname [file normalize [info script]]]] tests support image.tcl]
-source [file join [file dirname [file dirname [file normalize [info script]]]] tests support match.tcl]
+set top   [file dirname [file dirname [file normalize [info script]]]]
+set tests [file join $top tests]
+
+namespace eval tcltest [list variable testsDirectory $tests]
+
+source [file join $tests support builtin.tcl]
+source [file join $tests support image.tcl]
+source [file join $tests support match.tcl]
+source [file join $tests support files.tcl]
+source [file join $tests support paths.tcl]
 
 # ------------------------------------------------------------------------------
 

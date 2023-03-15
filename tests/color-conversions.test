@@ -1,0 +1,91 @@
+# -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
+## (c) 2023 Andreas Kupries
+# # ## ### ##### ######## ############# #####################
+## AKTIVE. Color conversions -- All possibilities
+
+kt check Tcl     8.6
+kt check tcltest 2
+
+# # ## ### ##### ######## ############# #####################
+
+kt local testing aktive
+
+kt source support/util.tcl
+
+# # ## ### ##### ######## ############# #####################
+##
+
+set spaces {sRGB scRGB HSL HSV XYZ Yxy Lab LCh}
+
+foreach src $spaces {
+    foreach dst $spaces {
+	if {$src eq $dst} continue
+
+	syntax [list $dst src] [list aktive op color $src to]
+
+	# skip troubled conversions
+	# The issue is in the scRGB <-> XYZ conversion
+	##
+	# It is good enough to match 4 digits.
+	#
+	# However on the return path (XYZ -> scRGB) the differences
+	# underneath that cascade to generate a completely different
+	# result when reaching HSV.
+	#
+	# (xmax > xmin) => hue != 0, but some semi-arbitrary angle
+	#
+	# Checking the two matrices they multiply to identity within 6 digits.
+	# Going beyond that and the result is not identity anymore.
+
+	if 0 {
+	    |HSV					  |sRGB						|scRGB					      |XYZ					    |
+	    |0.000000000000 0.000000000000 0.200000000000 |0.200000000000 0.200000000000 0.200000000000 |0.033104766571 0.033104766571 0.033104766571 |3.146508748263 3.310476988136 3.604546298538 |
+	    |0.000000000000 0.000000000000 0.200000000000 |0.200000000000 0.200000000000 0.200000000000 |0.033104766571 0.033104766571 0.033104766571 |3.146508748263 3.310476988136 3.604546298538 |
+	    |0.381335455184 0.000000130987 0.200000016156 |0.199999989959 0.200000016156 0.199999997504 |0.033104763442 0.033104771605 0.033104765793 |3.146508748263 3.310476988136 3.604546298538 |
+	    |0.381300000000 0.000000000000 0.200000000000 |0.200000000000 0.200000000000 0.200000000000 |0.033100000000 0.033100000000 0.033100000000 |3.146500000000 3.310500000000 3.604500000000 |
+	    |
+	    HSV.  0.0		       0.0		    0.2
+	    |	  0.38133545518449163  1.309865437994053e-7 0.2000000161564891
+	    |
+	    sRGB  0.2		       0.2		    0.2
+	    |	  0.2		       0.2		    0.2
+	    |	  0.19999998995917823  0.2000000161564891   0.19999999750433728
+	    |
+	    scRGB 0.033104766570885055 0.033104766570885055 0.033104766570885055
+	    |	  0.033104766570885055 0.033104766570885055 0.033104766570885055
+	    |	  0.033104763442423385 0.03310477160483163  0.03310476579330077
+	    |
+	    XYZ.  3.146508748262912    3.3104769881361715   3.6045462985376777
+	    |	  3.146508748262912    3.3104769881361715   3.6045462985376777
+	}
+
+	if {[dict exists {
+	    {XYZ HSL} {grey level issues}
+	    {XYZ HSV} {grey level issues}
+	    {Yxy HSL} {grey level issues}
+	    {Yxy HSV} {grey level issues}
+	    {Lab HSL} {grey level issues}
+	    {Lab HSV} {grey level issues}
+	    {LCh HSL} {grey level issues}
+	    {LCh HSV} {grey level issues}
+	} [list $src $dst]]} continue
+
+	set svecs [vectors $src]
+	set dvecs [vectors $dst]
+
+	foreach sv $svecs dv $dvecs {
+	    incr k
+
+	    test aktive-op-color-${src}-to-${dst}-2.${k} "aktive op color ${src} to ${dst} ($sv -> $dv)" -body {
+		cc $dst <- $src $sv
+	    } -match pixels -result $dv
+	}
+
+	unset k
+    }
+}
+
+unset spaces src dst svecs dvecs sv dv
+# # ## ### ##### ######## ############# #####################
+cleanupTests
+return

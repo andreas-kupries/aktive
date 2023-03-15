@@ -34,15 +34,34 @@ proc colorbox {} {
     aktive op montage z $r [aktive op montage z $g $b]
 }
 
+proc 1pixel {bands} { aktive image const bands 1 1 {*}$bands }
+proc cci {to _ from src}   { aktive op color $from to $to $src }
+proc cc  {to _ from bands} { pixels/ [cci $to <- $from [1pixel $bands]] }
+
+foreach dst {
+    sRGB scRGB HSV HSL XYZ Yxy Lab LCh
+} {
+    interp alias {} ${dst}/i {} cci $dst
+    interp alias {} ${dst}   {} cc  $dst
+}
+
 proc foreach-color {n colors iv bv script} {
     upvar 1 $iv image $bv bands
 
     while {[llength $colors]} {
 	set bands  [lrange $colors 0  ${n}-1]
 	set colors [lrange $colors $n end   ]
-	set image  [aktive image const bands 1 1 {*}$bands]
+	set image  [1pixel $bands]
 	uplevel 1 $script
     }
+}
+
+proc vectors {space} {
+    set space [string tolower $space]
+    set values [split [string trim [catx [A webcolors-${space}.txt]]]]
+    set values [lmap x $values { if {$x eq {}} continue ; set x }]
+    #if {$space in {srgb scrgb hsv hsl}} { set values [u8f $values] }
+    return [lmap {a b c} $values { list $a $b $c }]
 }
 
 proc webcolors {} {	;# web color sRGB image
@@ -69,12 +88,14 @@ proc webcolor-fp-planes {} {	;# [0..1] color planes, memoized
 }
 
 proc webcolor-table-fp {} {	;# double 3-tuples, [0..1], memoized
-    set floats [lmap x [webcolor-table] { expr { $x / 255. } }]
+    set floats [u8f [webcolor-table]]
     proc webcolor-table-fp {} [list return $floats]
     return $floats
 }
 
 proc webcolor-table {} {	;# uint8 3-tuples, [0..255]
+    return [split [catx [A webcolors-rgb.txt]]]
+
     return {
 	0   0   0    0   0   51   0   0   102  0   0   153  0   0   204  0   0   255  0   51  0    0   51  51
 	0   51  102  0   51  153  0   51  204  0   51  255  0   102 0    0   102 51   0   102 102  0   102 153

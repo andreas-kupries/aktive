@@ -7,6 +7,7 @@
 ## implementing said chains.
 
 foreach chain {
+    {HSL sRGB HSV}
     {HSL sRGB scRGB}
     {HSL sRGB scRGB XYZ}
     {HSL sRGB scRGB XYZ Lab}
@@ -29,6 +30,9 @@ foreach chain {
     {scRGB XYZ Yxy}
 
     {XYZ Lab LCh}
+
+    {Yxy XYZ Lab}
+    {Yxy XYZ Lab LCh}
 } {
     set a [lindex $chain 0]
     set b [lindex $chain end]
