@@ -11,6 +11,8 @@ operator op::color::scRGB::to::XYZ {
 
     note Returns image in XYZ colorspace, from input in scRGB colorspace.
 
+    cc-reduce scRGB XYZ
+
     input
 
     state -setup {
@@ -65,6 +67,8 @@ operator op::color::XYZ::to::scRGB {
     section transformer color
 
     note Returns image in scRGB colorspace, from input in XYZ colorspace.
+
+    cc-reduce XYZ scRGB
 
     input
 

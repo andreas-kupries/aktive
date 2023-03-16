@@ -16,6 +16,8 @@ operator op::color::Lab::to::XYZ {
     note For a different whitepoint scale the XYZ bands by the \
 	associated illuminant values after performing the conversion.
 
+    cc-reduce Lab XYZ
+
     input
 
     state -setup {
@@ -71,6 +73,8 @@ operator op::color::XYZ::to::Lab {
 
     note For a different whitepoint divide the XYZ bands by the \
 	associated illuminant values before performing the conversion.
+
+    cc-reduce XYZ Lab
 
     input
 

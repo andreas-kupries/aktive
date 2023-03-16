@@ -15,6 +15,8 @@ operator op::color::sRGB::to::HSL {
 
     note Returns image in HSL colorspace, from input in sRGB colorspace.
 
+    cc-reduce sRGB HSL
+
     input
 
     state -setup {
@@ -85,6 +87,8 @@ operator op::color::HSL::to::sRGB {
     section transformer color
 
     note Returns image in sRGB colorspace, from input in HSL colorspace.
+
+    cc-reduce HSL sRGB
 
     input
 

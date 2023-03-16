@@ -13,6 +13,8 @@ operator op::color::Yxy::to::XYZ {
 
     note Returns image in XYZ colorspace, from input in Yxy colorspace.
 
+    cc-reduce Yxy XYZ
+
     input
 
     state -setup {
@@ -60,6 +62,8 @@ operator op::color::XYZ::to::Yxy {
     section transformer color
 
     note Returns image in Yxy colorspace, from input in XYZ colorspace.
+
+    cc-reduce XYZ Yxy
 
     input
 

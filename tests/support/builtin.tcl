@@ -35,7 +35,7 @@ proc colorbox {} {
 }
 
 proc 1pixel {bands} { aktive image const bands 1 1 {*}$bands }
-proc cci {to _ from src}   { aktive op color $from to $to $src }
+proc cci {to _ from src}   { check aktive op color $from to $to $src }
 proc cc  {to _ from bands} { pixels/ [cci $to <- $from [1pixel $bands]] }
 
 foreach dst {

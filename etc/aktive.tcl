@@ -60,6 +60,13 @@ import transformer/identity.tcl
 import transformer/location.tcl
 import transformer/viewport.tcl
 
+# Helper for color transform chain reductions
+proc cc-reduce {from to} {
+    simplify \
+	for src/type op::color::${to}::to::${from} \
+	returns src/child
+}
+
 import transformer/color/hsl-srgb.tcl
 import transformer/color/hsv-srgb.tcl
 import transformer/color/lab-lch.tcl
@@ -68,6 +75,8 @@ import transformer/color/srgb-scrgb.tcl
 import transformer/color/xyz-lab.tcl
 import transformer/color/xyz-yxy.tcl
 import transformer/color/non-core.tcl
+
+rename cc-reduce {}
 
 import transformer/math/binary.tcl
 import transformer/math/unary.tcl

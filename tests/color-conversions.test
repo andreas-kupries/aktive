@@ -77,9 +77,15 @@ foreach src $spaces {
 	    incr k
 
 	    test aktive-op-color-${src}-to-${dst}-2.${k} "aktive op color ${src} to ${dst} ($sv -> $dv)" -body {
-		cc $dst <- $src $sv
+	        cc $dst <- $src $sv
 	    } -match pixels -result $dv
 	}
+
+	test aktive-op-color-${src}-to-${dst}-3.0 "aktive op color ${src} to ${dst}, and complement, dag" -body {
+	    dag aktive op color $src to $dst \
+		[aktive op color $dst to $src \
+		     [colorbox]]
+	} -match glob -result {op::montage::z-core *}
 
 	unset k
     }

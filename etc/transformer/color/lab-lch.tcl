@@ -12,6 +12,8 @@ operator op::color::Lab::to::LCh {
     note Returns image in LCh colorspace, from input in Lab colorspace.
     note The H coordinate is provided in degrees.
 
+    cc-reduce Lab LCh
+
     input
 
     state -setup {
@@ -60,6 +62,8 @@ operator op::color::LCh::to::Lab {
 
     note Returns image in Lab colorspace, from input in LCH colorspace.
     note The H coordinate is expected to be in degrees.
+
+    cc-reduce LCh Lab
 
     input
 

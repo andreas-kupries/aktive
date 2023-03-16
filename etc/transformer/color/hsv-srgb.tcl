@@ -15,6 +15,8 @@ operator op::color::sRGB::to::HSV {
 
     note Returns image in HSV colorspace, from input in sRGB colorspace.
 
+    cc-reduce sRGB HSV
+
     input
 
     state -setup {
@@ -82,6 +84,8 @@ operator op::color::HSV::to::sRGB {
     section transformer color
 
     note Returns image in sRGB colorspace, from input in HSV colorspace.
+
+    cc-reduce HSV sRGB
 
     input
 
