@@ -54,11 +54,12 @@ syntax {
 } {aktive op math1 gamma}
 
 # # ## ### ##### ######## ############# #####################
-##
+## 7 -1.4 1.6 :: -1.4 -0.9 -0.4 0.1 0.6 1.1 1.6
 
 foreach {fun steps first last expected} {
     floor            7 -1.4 1.6 {-2 -1 -1 0 0 1 1}
     ceil             7 -1.4 1.6 {-1  0  0 1 1 2 2}
+    round            7 -1.4 1.6 {-1 -1  0 0 1 1 2}
     abs              7 -3   3   {3 2 1 0 1 2 3}
     clamp            7 -3   3   {0 0 0 0 1 1 1}
     wrap             7 -1.5 1.5 {0.5 1 0.5 0 0.5 1 0.5}
@@ -127,7 +128,7 @@ foreach {fun steps first last expected} {
 
     # Chain reduction for idempotent operations
     if {$fun in {
-	abs ceil clamp floor sign sign* wrap
+	abs ceil clamp floor sign sign* wrap round
     }} {
 	set fr [aktive op math1 {*}$fun [grad]]
 	set id [aktive query id $fr]

@@ -22,6 +22,7 @@ operator {                     cfunction             mathfunc     dexpr classes}
     op::math1::atanh           atanh                 <<           {}    {}
     op::math1::cbrt            cbrt                  <<           {}    fixpoint0
     op::math1::ceil            ceil                  <<           {}    idempotent
+    op::math1::round           round                 <<           {}    idempotent
     op::math1::clamp           aktive_clamp          <<           {}    idempotent
     op::math1::cos             cos                   <<           {}    {}
     op::math1::cosh            cosh                  <<           {}    {}

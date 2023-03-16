@@ -3,6 +3,7 @@
 ## C math support ... Policy decides later which of these are kept and placed into tcl::mathfunc
 
 # # ## ### ##### ######## #############
+## ceil, floor, round :: Ignored here. Known to exist at Tcl mathfunc, using the same C functions.
 
 critcl::include math.h
 critcl::include stdlib.h	;# rand
