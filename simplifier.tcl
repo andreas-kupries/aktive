@@ -168,9 +168,17 @@ proc aktive::simplify::calc {vardst expr args} {
 proc aktive::simplify::src/pop {args} {
     debug.aktive/simplifier {src/pop}
 
-    upvar 1 src src
+    upvar 1 __type type src src
+    set saved $src
+    set stype $type
     set src [/src/child]
-    uplevel 1 [list aktive simplify {*}$args]
+    unset type
+    try {
+	uplevel 1 [list aktive simplify {*}$args]
+    } finally {
+	variable ok
+	if {!$ok} { set src $saved ; set type $stype }
+    }
 }
 
 # # ## ### ##### ######## ############# #####################
