@@ -1,0 +1,12 @@
+## -*- mode: tcl ; fill-column: 90 -*-
+# # ## ### ##### ######## ############# #####################
+## round -- op math1 max :: round (I)
+
+## round (round (I)) = round (I)  :: handled by idempotent.rules
+## round (floor (I)) = floor (I) = src
+## round (ceil  (I)) = ceil  (I) = src
+
+## Ref https://en.wikipedia.org/wiki/Floor_and_flooring_functions#Relations_among_the_functions
+
+simplify for   src/type op::math1::floor   returns src
+simplify for   src/type op::math1::ceil    returns src

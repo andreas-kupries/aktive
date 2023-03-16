@@ -119,6 +119,23 @@ foreach {fun param} {
     unset in id
 }
 
+foreach {fun param} {
+    min 4
+    max 5
+} {
+    # The special thing here is chain reduction, eliding the outer call
+
+    set in   [aktive op math1 $fun $param [grad]]
+    set id   [aktive query id $in]
+    set cfun [dict get {min max max min} $fun]
+
+    test aktive-op-math1-${fun}-4.0 "aktive op math1 $fun, pass through simplifications" -body {
+	dag aktive op math1 $fun $param $in
+    } -match glob -result "op::math1::$fun $id {$cfun $param.0} {image::gradient *}"
+
+    unset in id
+}
+
 # # ## ### ##### ######## ############# #####################
 ## More simplifications without pass through
 
@@ -172,7 +189,12 @@ foreach {fun param rconst} {
 ## - etc/transformer/simpler/aktive_scale.rules
 ## - etc/transformer/simpler/aktive_shift.rules
 ## - etc/transformer/simpler/cbrt.rules
+## - etc/transformer/simpler/ceil.rules
+## - etc/transformer/simpler/floor.rules
+## - etc/transformer/simpler/max.rules
+## - etc/transformer/simpler/min.rules
 ## - etc/transformer/simpler/pow.rules
+## - etc/transformer/simpler/round.rules
 ## - etc/transformer/simpler/sqrt.rules
 
 foreach {funb      pb funa           pa   xxx   rfun           rdetail} {
@@ -195,7 +217,12 @@ foreach {funb      pb funa           pa   xxx   rfun           rdetail} {
     sqrt           {} sqrt           {}   -->   pow            {exponent 0.25}
     ceil           {} floor          {}   -->   floor          {}
     floor          {} ceil           {}   -->   ceil           {}
+    round          {} floor          {}   -->   floor          {}
+    round          {} ceil           {}   -->   ceil           {}
+    max            10 max            5    -->   max            {min 10.0}
+    min            10 min            5    -->   min            {max 5.0}
 } {
+
     test aktive-op-math1-${funb}-chain-${funa}-8.0 "aktive op math1 $funb/$funa, chain simplifications" -body {
 	dag aktive op math1 $funb {*}$pb [aktive op math1 $funa {*}$pa [grad]]
     } -match glob -result "*::$rfun * {$rdetail} *"

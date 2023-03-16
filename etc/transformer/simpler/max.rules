@@ -4,15 +4,20 @@
 
 # max (max (I, a), a) = max (I, a)	idempotent, pass through
 
-simplify for   src/type @self   \
-    src/value  exponent __a 	\
-    if {$min == $__a)}  \
+simplify for   \
+    src/type @self   \
+    src/value  min __a 	\
+    if {$min == $__a}  \
     returns src
 
 ## Chain: max (max (I, a), b) = max (I, max(a,b))
+#
+## max (I, a)          --> R >= [a]
+## max (max (I, a), b) --> R >= [a] &&  R >= [b] --> R >= [max(a,b)]
 
-simplify for   src/type @self   \
-    src/value  exponent __a 	\
+simplify for   \
+    src/type @self   \
+    src/value  min __a 	\
     calc __ab {max ($min, $__a)}  \
     src/pop \
     returns op math1 max : __ab

@@ -20,13 +20,7 @@ operator {dexpr attr} {
     def kind [lindex [split $__op :] 2]
     def fun  [lindex [split $__op :] 4]
 
-    ## TODO :: input width == 1 => optimize
-    ## min, max, mean, sum :: elide
-    ## sumsquared          :: op math1 pow 2
-    ##
-    ## ?? variance, stddev
-
-    import? ../simpler/stat_$fun.rules	;# queries kind !!
+    # As sinks cannot be stacked, simplification is not applicable
 
     note Returns a single value, the $dexpr of the $attr values \
 	(across all rows, columns, and bands)

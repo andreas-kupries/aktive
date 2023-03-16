@@ -92,8 +92,8 @@ operator {                    function      mathfunc flip dexpr      pname     p
     op::math1::neg-shift      aktive_nshift <<        1   "@-I"      offset    {Subtract from scalar offset}
     op::math1::scale          aktive_scale  <<       0    "I*@"      factor    {Multiply by scalar factor}
     op::math1::reciproc-scale aktive_rscale <<        1   "@/I"      factor    {Divide from scalar factor}
-    op::math1::mod            fmod          <<       0    fmod       modulus   {Remainder by scalar modulus}
-    op::math1::modb           aktive_fmod   <<        1   fmod(@,I)  numerator {Remainder by scalar numerator}
+    op::math1::mod            fmod          <<       0    "I % @"    modulus   {Remainder by scalar modulus}
+    op::math1::modb           aktive_fmod   <<        1   "@ % I"    numerator {Remainder by scalar numerator}
     op::math1::pow            pow           <<       0    {}         exponent  {Power by scalar exponent}
     op::math1::expx           aktive_pow    <<        1   pow(@,I)   base      {Power by scalar base}
     op::math1::hypot          hypot         <<       0    {}         y         {Hypot to scalar y}
@@ -149,7 +149,7 @@ operator {                    function      mathfunc flip dexpr      pname     p
 
     if {$mathfunc eq "<<"} { set mathfunc $function }
 
-    import?  ../simpler/${function}.rules
+    import?  ../simpler/${mathfunc}.rules
     simplify for   constant $mathfunc $pname
 
     state -setup {
