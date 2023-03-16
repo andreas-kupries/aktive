@@ -48,35 +48,35 @@ foreach {k border results} {
 	    = 0 0 = 0 0 0 0 0 = 0 0 =
 	    = 0 0 = 0 0 0 0 0 = 0 0 =
 	}
-	copy   {op::translate::to -2 -2 9 5 1 {x -2 y -2}} {
+	copy   {op::location::move::to -2 -2 9 5 1 {x -2 y -2}} {
 	    = 0 0 = 0 1 2 3 4 = 4 4 =
 	    = 0 0 = 0 1 2 3 4 = 4 4 =
 	    = 0 0 = 0 1 2 3 4 = 4 4 =
 	    = 0 0 = 0 1 2 3 4 = 4 4 =
 	    = 0 0 = 0 1 2 3 4 = 4 4 =
 	}
-	mirror {op::translate::to -2 -2 9 5 1 {x -2 y -2}} {
+	mirror {op::location::move::to -2 -2 9 5 1 {x -2 y -2}} {
 	    = 1 0 = 0 1 2 3 4 = 4 3 =
 	    = 1 0 = 0 1 2 3 4 = 4 3 =
 	    = 1 0 = 0 1 2 3 4 = 4 3 =
 	    = 1 0 = 0 1 2 3 4 = 4 3 =
 	    = 1 0 = 0 1 2 3 4 = 4 3 =
 	}
-	tile   {op::translate::to -2 -2 9 5 1 {x -2 y -2}} {
+	tile   {op::location::move::to -2 -2 9 5 1 {x -2 y -2}} {
 	    = 3 4 = 0 1 2 3 4 = 0 1 =
 	    = 3 4 = 0 1 2 3 4 = 0 1 =
 	    = 3 4 = 0 1 2 3 4 = 0 1 =
 	    = 3 4 = 0 1 2 3 4 = 0 1 =
 	    = 3 4 = 0 1 2 3 4 = 0 1 =
 	}
-	white  {op::translate::to -2 -2 9 5 1 {x -2 y -2}} {
+	white  {op::location::move::to -2 -2 9 5 1 {x -2 y -2}} {
 	    = 1 1 = 1 1 1 1 1 = 1 1 =
 	    = 1 1 = 1 1 1 1 1 = 1 1 =
 	    = 1 1 = 0 1 2 3 4 = 1 1 =
 	    = 1 1 = 1 1 1 1 1 = 1 1 =
 	    = 1 1 = 1 1 1 1 1 = 1 1 =
 	}
-	{bg 22} {op::translate::to -2 -2 9 5 1 {x -2 y -2}} {
+	{bg 22} {op::location::move::to -2 -2 9 5 1 {x -2 y -2}} {
 	    = 22 22 = 22 22 22 22 22 = 22 22 =
 	    = 22 22 = 22 22 22 22 22 = 22 22 =
 	    = 22 22 =  0  1  2  3  4 = 22 22 =
@@ -88,19 +88,19 @@ foreach {k border results} {
 	black  {op::view -2 0 7 1 1 {view {-2 0 7 1}}} {
 	    = 0 0 = 0 1 2 3 4 =
 	}
-	copy   {op::translate::to -2 0 7 1 1 {x -2 y 0}} {
+	copy   {op::location::move::to -2 0 7 1 1 {x -2 y 0}} {
 	    = 0 0 = 0 1 2 3 4 =
 	}
-	mirror {op::translate::to -2 0 7 1 1 {x -2 y 0}} {
+	mirror {op::location::move::to -2 0 7 1 1 {x -2 y 0}} {
 	    = 1 0 = 0 1 2 3 4 =
 	}
-	tile   {op::translate::to -2 0 7 1 1 {x -2 y 0}} {
+	tile   {op::location::move::to -2 0 7 1 1 {x -2 y 0}} {
 	    = 3 4 = 0 1 2 3 4 =
 	}
-	white  {op::translate::to -2 0 7 1 1 {x -2 y 0}} {
+	white  {op::location::move::to -2 0 7 1 1 {x -2 y 0}} {
 	    = 1 1 = 0 1 2 3 4 =
 	}
-	{bg 22} {op::translate::to -2 0 7 1 1 {x -2 y 0}} {
+	{bg 22} {op::location::move::to -2 0 7 1 1 {x -2 y 0}} {
 	    = 22 22 = 0 1 2 3 4 =
 	}
     }
@@ -130,27 +130,27 @@ foreach {k border results} {
 	    = 0 0 0 0 0 =
 	    = 0 1 2 3 4 =
 	}
-	copy   {op::translate::to 0 -2 5 3 1 {x 0 y -2}} {
+	copy   {op::location::move::to 0 -2 5 3 1 {x 0 y -2}} {
 	    = 0 1 2 3 4 =
 	    = 0 1 2 3 4 =
 	    = 0 1 2 3 4 =
 	}
-	mirror {op::translate::to 0 -2 5 3 1 {x 0 y -2}} {
+	mirror {op::location::move::to 0 -2 5 3 1 {x 0 y -2}} {
 	    = 0 1 2 3 4 =
 	    = 0 1 2 3 4 =
 	    = 0 1 2 3 4 =
 	}
-	tile   {op::translate::to 0 -2 5 3 1 {x 0 y -2}} {
+	tile   {op::location::move::to 0 -2 5 3 1 {x 0 y -2}} {
 	    = 0 1 2 3 4 =
 	    = 0 1 2 3 4 =
 	    = 0 1 2 3 4 =
 	}
-	white  {op::translate::to 0 -2 5 3 1 {x 0 y -2}} {
+	white  {op::location::move::to 0 -2 5 3 1 {x 0 y -2}} {
 	    = 1 1 1 1 1 =
 	    = 1 1 1 1 1 =
 	    = 0 1 2 3 4 =
 	}
-	{bg 22} {op::translate::to 0 -2 5 3 1 {x 0 y -2}} {
+	{bg 22} {op::location::move::to 0 -2 5 3 1 {x 0 y -2}} {
 	    = 22 22 22 22 22 =
 	    = 22 22 22 22 22 =
 	    =  0  1  2  3  4 =

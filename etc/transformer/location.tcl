@@ -4,7 +4,7 @@
 
 # # ## ### ##### ######## ############# #####################
 
-operator op::translate::to {
+operator op::location::move::to {
     section transform location
 
     note Returns image translationally shifted along the x- and y-axes to a specific location
@@ -26,11 +26,11 @@ operator op::translate::to {
 
     simplify for src/type @self \
 	src/pop \
-	returns op translate to : x y
+	returns op location move to : x y
 
-    simplify for src/type op::translate::by \
+    simplify for src/type op::location::move::by \
 	src/pop \
-	returns op translate to : x y
+	returns op location move to : x y
 
     state -fields {
 	aktive_point delta;
@@ -60,7 +60,7 @@ operator op::translate::to {
     }
 }
 
-operator op::translate::by {
+operator op::location::move::by {
     section transform location
 
     note Returns image translationally shifted along the x- and y-axes by a specific amount
@@ -82,14 +82,14 @@ operator op::translate::by {
 	calc __ndx {$__dx + $dx} \
 	calc __ndy {$__dy + $dy} \
 	src/pop \
-	returns op translate by : __ndx __ndy
+	returns op location move by : __ndx __ndy
 
-    simplify for src/type op::translate::to \
+    simplify for src/type op::location::move::to \
 	src/value x __x src/value y __y \
 	calc __nx {$__x + $dx} \
 	calc __ny {$__y + $dy} \
 	src/pop \
-	returns op translate to : __nx __ny
+	returns op location move to : __nx __ny
 
     state -fields {
 	aktive_point delta;

@@ -70,7 +70,7 @@ foreach {op domain expected} {
 
     # note: 2.3 below
     test aktive-op-swap-${op}-2.4 "aktive op swap $op, translated" -body {
-	astcl aktive op swap $op [aktive op translate to 10 3 [grad]]
+	astcl aktive op swap $op [aktive op location move to 10 3 [grad]]
     } -match image -result [makei op::swap::$op 10 3 {*}$domain {} $expected]
 
     ##

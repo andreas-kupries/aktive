@@ -35,7 +35,7 @@ tcl-operator op::embed::bg {
 	if {$bottom} { set src [aktive op montage y $src [aktive image from bands $w $bottom {*}$bands]] }
 
 	# And at last shift the result to the proper location. This may be a nop.
-	return [aktive op translate to $x $y $src]
+	return [aktive op location move to $x $y $src]
     }
 }
 

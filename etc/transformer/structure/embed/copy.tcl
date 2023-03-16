@@ -44,7 +44,7 @@ tcl-operator op::embed::copy {
 	    set src [aktive op montage y $src $ext] }
 
 	# And at last shift the result to the proper location. This may be a nop.
-	return [aktive op translate to $x $y $src]
+	return [aktive op location move to $x $y $src]
     }
 }
 

@@ -27,7 +27,7 @@ tcl-operator {coordinate dimension thing} {
 	lassign [aktive query geometry $src] x y width height depth
 	set n1  [expr {$n - 1}]
 	set r1  [expr {$@@dimension@@ - 1}]
-	return [aktive op translate to $x $y \
+	return [aktive op location move to $x $y \
 		    [aktive op montage @@coordinate@@-core \
 			 [aktive op select @@coordinate@@ $n $r1 $src] \
 			 [aktive op select @@coordinate@@ 0  $n1 $src]]]

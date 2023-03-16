@@ -78,7 +78,7 @@ foreach {op expected} {
     } -match pixels -result {14 13 12 11 10 9}
 
     test aktive-op-flip-${op}-2.4 "aktive op flip $op, translated" -body {
-	astcl aktive op flip $op [aktive op translate to 5 5 [grad]]
+	astcl aktive op flip $op [aktive op location move to 5 5 [grad]]
     } -match image -result [makei op::flip::$op 5 5 3 4 2 {} $expected]
 }
 
