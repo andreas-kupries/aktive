@@ -7,7 +7,7 @@
 ## They use the same kind of blit schema.
 
 operator op::color::Lab::to::LCh {
-    section transformer color
+    section transform color
 
     note Returns image in LCh colorspace, from input in Lab colorspace.
     note The H coordinate is provided in degrees.
@@ -58,7 +58,7 @@ operator op::color::Lab::to::LCh {
 }
 
 operator op::color::LCh::to::Lab {
-    section transformer color
+    section transform color
 
     note Returns image in Lab colorspace, from input in LCH colorspace.
     note The H coordinate is expected to be in degrees.

@@ -7,7 +7,7 @@
 ## They use the same kind of blit schema.
 
 operator op::color::Lab::to::XYZ {
-    section transformer color
+    section transform color
 
     note Returns image in XYZ colorspace, from input in Lab colorspace.
 
@@ -65,7 +65,7 @@ operator op::color::Lab::to::XYZ {
 }
 
 operator op::color::XYZ::to::Lab {
-    section transformer color
+    section transform color
 
     note Returns image in Lab colorspace, from input in XYZ colorspace.
 

@@ -11,7 +11,7 @@
 # https://en.wikipedia.org/wiki/HSL_and_HSV#Color_conversion_formulae
 
 operator op::color::sRGB::to::HSV {
-    section transformer color
+    section transform color
 
     note Returns image in HSV colorspace, from input in sRGB colorspace.
 
@@ -81,7 +81,7 @@ operator op::color::sRGB::to::HSV {
 }
 
 operator op::color::HSV::to::sRGB {
-    section transformer color
+    section transform color
 
     note Returns image in sRGB colorspace, from input in HSV colorspace.
 
