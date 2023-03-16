@@ -216,7 +216,7 @@ proc aktive::simplify::/const {v} {
 
     upvar 1 src src
     set g [lrange [aktive query geometry $src] 2 end]
-    aktive image constant {*}$g $v
+    aktive image from value {*}$g $v
 }
 
 proc aktive::simplify::/constv {var} {
@@ -224,7 +224,7 @@ proc aktive::simplify::/constv {var} {
 
     upvar 1 src src $var v
     set g [lrange [aktive query geometry $src] 2 end]
-    aktive image constant {*}$g $v
+    aktive image from value {*}$g $v
 }
 
 proc aktive::simplify::/op {args} {

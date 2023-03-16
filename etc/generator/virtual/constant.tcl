@@ -2,7 +2,7 @@
 # # ## ### ##### ######## ############# #####################
 ## Generators -- Various virtual images
 
-operator image::constant {
+operator image::from::value {
     section generator virtual
 
     note Returns image which has the same VALUE everywhere.
@@ -20,7 +20,7 @@ operator image::constant {
     }
 }
 
-operator image::const::bands {
+operator image::from::bands {
     section generator virtual
 
     note Returns image having the same band VALUEs at all pixels.
@@ -42,7 +42,7 @@ operator image::const::bands {
     }
 }
 
-operator image::const::matrix {
+operator image::from::matrix {
     section generator virtual
 
     note Returns single-band image with the pixel VALUEs.

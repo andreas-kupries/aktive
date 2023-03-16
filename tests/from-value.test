@@ -1,7 +1,7 @@
 # -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
 ## (c) 2023 Andreas Kupries
 # # ## ### ##### ######## ############# #####################
-## AKTIVE. Constant images
+## AKTIVE. Fully constant images (from (a single) value)
 
 kt check Tcl     8.6
 kt check tcltest 2
@@ -16,20 +16,20 @@ kt source support/util.tcl
 ## Syntax
 
 syntax {
-    constant {width height depth value}
-} {aktive image}
+    value {width height depth value}
+} {aktive image from}
 
 # # ## ### ##### ######## ############# #####################
 ##
 
-test aktive-image-constant-2.0 "aktive image constant, dag" -body {
-    dag aktive image constant 3 4 2 5
-} -match glob -result {image::constant * {width 3 height 4 depth 2 value 5.0}}
+test aktive-image-from-value-2.0 "aktive image from value, dag" -body {
+    dag aktive image from value 3 4 2 5
+} -match glob -result {image::from::value * {width 3 height 4 depth 2 value 5.0}}
 
-test aktive-image-constant-2.1 "aktive image constant" -body {
-    astcl aktive image constant 3 4 2 5
+test aktive-image-from-value-2.1 "aktive image from value" -body {
+    astcl aktive image from value 3 4 2 5
 } -match image -result {
-    type   image::constant
+    type   image::from::value
     config {
 	width 3
 	height 4
@@ -55,10 +55,10 @@ if 0 {
     # Tcl inf(inity) works -- NaN does not
     # The result is still no comparable
 
-    test aktive-image-constant-2.2 "aktive image constant, infinity" -body {
+    test aktive-image-from-value-2.2 "aktive image from value, infinity" -body {
 	astcl flat inf
     } -match image -result {
-	type   image::constant
+	type   image::from::value
 	config {
 	    width 3
 	    height 4

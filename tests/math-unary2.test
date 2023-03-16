@@ -55,7 +55,7 @@ foreach {k fun expected} {
 
     test aktive-op-math-${fun}-2.2 "aktive math $fun, const folding, dag" -body {
 	dag aktive op math $fun -1 1 [flat 4]
-    } -match glob -result {image::constant *}
+    } -match glob -result {image::from::value *}
 }
 
 # # ## ### ##### ######## ############# #####################

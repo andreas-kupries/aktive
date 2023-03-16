@@ -1426,12 +1426,12 @@ proc dsl::writer::TranslateHint {cmd args} {
 	}
 	src/const {
 	    set action [lassign $args value]
-	    return "src/type image::constant src/const $value [TranslateHint {*}$action]"
+	    return "src/type image::from::value src/const $value [TranslateHint {*}$action]"
 	}
 	constant {
 	    set params [lassign $args tclfunc]
 	    set arity  [llength $params]
-	    return "src/type image::constant /fold/constant/$arity $tclfunc $params"
+	    return "src/type image::from::value /fold/constant/$arity $tclfunc $params"
 	}
 	src/pop   { return "$cmd [TranslateHint {*}$args]" }
 	src/attr  -

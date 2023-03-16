@@ -80,7 +80,7 @@ foreach {fun steps first last param pname expected} {
 
     test aktive-op-math1-${fun}-2.2 "aktive op math1 $fun, const folding, dag" -body {
 	dag aktive op math1 {*}$fun $param [flat 5]
-    } -match glob -result {image::constant *}
+    } -match glob -result {image::from::value *}
 }
 
 # # ## ### ##### ######## ############# #####################
@@ -99,7 +99,7 @@ foreach {fun param inconst} {
 
     test aktive-op-math1-${fun}-3.0-${param}-$inconst "aktive op math1 $fun, pass through simplifications" -body {
 	dag aktive op math1 {*}$fun $param $in
-    } -match glob -result "image::constant $id {* value $inconst}"
+    } -match glob -result "image::from::value $id {* value $inconst}"
 
     unset in id
 }
@@ -145,12 +145,12 @@ foreach {k param inconst} {
 } {
     test aktive-op-math1-reciproc-scale-5.$k "aktive op math1 reciproc-scale, simplifications" -body {
 	dag aktive op math1 reciproc-scale $param [flat $inconst]
-    } -match glob -result "image::constant * {* value Inf}"
+    } -match glob -result "image::from::value * {* value Inf}"
 }
 
 test aktive-op-math1-expx-5.2 "aktive op math1 expx, simplifications" -body {
     dag aktive op math1 expx 22 [flat 0]
-} -match glob -result "image::constant * {* value 1.0}"
+} -match glob -result "image::from::value * {* value 1.0}"
 
 test aktive-op-math1-hypot-5.2.0 "aktive op math1 hypot, simplifications" -body {
     dag aktive op math1 hypot 0 [grad]
@@ -158,7 +158,7 @@ test aktive-op-math1-hypot-5.2.0 "aktive op math1 hypot, simplifications" -body 
 
 test aktive-op-math1-hypot-5.2.1 "aktive op math1 hypot, simplifications" -body {
     dag aktive op math1 hypot -5 [flat 0]
-} -match glob -result "image::constant * {* value 5.0}"
+} -match glob -result "image::from::value * {* value 5.0}"
 
 foreach {k fun param rfun} {
     0 neg-shift      0 neg
@@ -176,7 +176,7 @@ foreach {fun param rconst} {
 } {
     test aktive-op-math1-${fun}-7.0 "aktive op math1 $fun, simplifications" -body {
 	dag aktive op math1 $fun $param [grad]
-    } -match glob -result "image::constant * {* value $rconst}"
+    } -match glob -result "image::from::value * {* value $rconst}"
 }
 
 # # ## ### ##### ######## ############# #####################

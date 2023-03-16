@@ -25,14 +25,14 @@ tcl-operator op::embed::bg {
 	# This here cannot be done by means of op::view. We have to place proper constant
 	# areas around the source to get the desired effect
 
-	if {$left}  { set src [aktive op montage x [aktive image const bands $left $h  {*}$bands] $src] }
-	if {$right} { set src [aktive op montage x $src [aktive image const bands $right $h {*}$bands]] }
+	if {$left}  { set src [aktive op montage x [aktive image from bands $left $h  {*}$bands] $src] }
+	if {$right} { set src [aktive op montage x $src [aktive image from bands $right $h {*}$bands]] }
 
 	# Get the horizontally expanded geometry, i.e. proper extended width
 	lassign [aktive query geometry $src] _ _ w _ _
 
-	if {$top}    { set src [aktive op montage y [aktive image const bands $w $top    {*}$bands] $src] }
-	if {$bottom} { set src [aktive op montage y $src [aktive image const bands $w $bottom {*}$bands]] }
+	if {$top}    { set src [aktive op montage y [aktive image from bands $w $top    {*}$bands] $src] }
+	if {$bottom} { set src [aktive op montage y $src [aktive image from bands $w $bottom {*}$bands]] }
 
 	# And at last shift the result to the proper location. This may be a nop.
 	return [aktive op translate to $x $y $src]

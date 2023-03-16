@@ -139,11 +139,11 @@ foreach {op expected} {
 	    pixels aktive op row $op \
 		[aktive op pass \
 		     [aktive op row $op [grad]]]
-	} -match pixels -result [pixels aktive image constant 1 4 2 0]
+	} -match pixels -result [pixels aktive image from value 1 4 2 0]
 
 	test aktive-op-row-${op}-2.3 "aktive op row $op, chain const, reduced dag" -body {
 	    dag aktive op row $op [aktive op row $op [grad]]
-	} -match glob -result "image::constant * {width 1 height 4 depth 2 value 0.0}"
+	} -match glob -result "image::from::value * {width 1 height 4 depth 2 value 0.0}"
     }
 }
 

@@ -14,10 +14,10 @@
 ##     --- ----  --- ----  --- ----  \- 4 rows
 ##      0. 1...   0. 1...   0. 1... --- 2 bands
 
-proc flat   {x} { aktive image constant 3 4 2 $x }
+proc flat   {x} { aktive image from value 3 4 2 $x }
 proc grad   {}  { aktive image gradient 3 4 2  1 12.5 }
-proc bands  {}  { aktive image const bands 4 2  1 2 3 }
-proc matrix {}  { aktive image const matrix 4 2  1 2 3 4  5 6 7 8 }
+proc bands  {}  { aktive image from bands 4 2  1 2 3 }
+proc matrix {}  { aktive image from matrix 4 2  1 2 3 4  5 6 7 8 }
 
 proc gradx {} { aktive image gradient 20 1 1  0 19 }
 proc grady {} { aktive image gradient 1 20 1  0 19 }
@@ -34,7 +34,7 @@ proc colorbox {} {
     aktive op montage z $r [aktive op montage z $g $b]
 }
 
-proc 1pixel {bands} { aktive image const bands 1 1 {*}$bands }
+proc 1pixel {bands} { aktive image from bands 1 1 {*}$bands }
 proc cci {to _ from src}   { check aktive op color $from to $to $src }
 proc cc  {to _ from bands} { pixels/ [cci $to <- $from [1pixel $bands]] }
 
@@ -68,9 +68,9 @@ proc webcolors {} {	;# web color sRGB image
     lassign [webcolor-fp-planes] rs gs bs
     set w [llength $rs]
     # Construct image planes
-    set r [aktive image const matrix $w 1 {*}$rs]
-    set g [aktive image const matrix $w 1 {*}$gs]
-    set b [aktive image const matrix $w 1 {*}$bs]
+    set r [aktive image from matrix $w 1 {*}$rs]
+    set g [aktive image from matrix $w 1 {*}$gs]
+    set b [aktive image from matrix $w 1 {*}$bs]
     # And aggregate into single color image
     set i [aktive op montage z $r [aktive op montage z $g $b]]
     #proc webcolors {} [list return $i]

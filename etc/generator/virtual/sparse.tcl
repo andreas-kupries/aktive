@@ -2,7 +2,7 @@
 # # ## ### ##### ######## ############# #####################
 ## Generators -- Virtual image from set of points or deltas.
 
-operator image::const::sparse::points {
+operator image::from::sparse::points {
     section generator virtual
 
     note Returns single-band image where pixels are set to white at exactly the \
@@ -48,7 +48,7 @@ operator image::const::sparse::points {
     }
 }
 
-operator image::const::sparse::deltas {
+operator image::from::sparse::deltas {
     section generator virtual
 
     note Returns single-band depth image where pixels are set to white at exactly the \

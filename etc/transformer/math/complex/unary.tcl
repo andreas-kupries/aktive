@@ -17,7 +17,7 @@ tcl-operator band {
     note Returns complex-valued image constructed from the single-band input. \
 	Input becomes the @@band@@ part.
 
-    def filler { [aktive image constant $w $h 1 0] }
+    def filler { [aktive image from value $w $h 1 0] }
     def montage [dict get {
 	real      { $src @@filler@@ }
 	imaginary { @@filler@@ $src }

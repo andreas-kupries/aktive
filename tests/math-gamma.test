@@ -30,7 +30,7 @@ test aktive-op-math1-gamma-expand-3.0 "aktive op math1 gamma expand, 8bit round 
 ## Full range, as separate test per sample point
 
 foreach p [pixels/ $image] {
-    set pi [aktive image constant 1 1 1 $p]
+    set pi [aktive image from value 1 1 1 $p]
 
     test aktive-op-math1-gamma-compress-4.0-$p "aktive op math1 gamma compress, trip $p" -body {
 	pixels aktive op math1 gamma expand [aktive op pass [aktive op math1 gamma compress $pi]]

@@ -123,7 +123,7 @@ foreach {fun steps first last expected} {
 
 	test aktive-op-math1-${fun}-2.2 "aktive op math1 $fun, const folding, dag" -body {
 	    dag aktive op math1 {*}$fun [flat $inconst]
-	} -match glob -result {image::constant *}
+	} -match glob -result {image::from::value *}
     }
 
     # Chain reduction for idempotent operations
@@ -188,7 +188,7 @@ foreach {k fun fixpoint} {
 
     test aktive-op-math1-${fun}-3.0 "aktive op math1 $fun, fixpoint pass through" -body {
 	dag aktive op math1 {*}$fun $in
-    } -match glob -result "image::constant $id {* value $fixpoint}"
+    } -match glob -result "image::from::value $id {* value $fixpoint}"
 
     unset in id
 }
