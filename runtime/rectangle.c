@@ -44,7 +44,7 @@ aktive_rectangle_is_equal (aktive_rectangle* a, aktive_rectangle* b)
 {
     TRACE_FUNC("((rect*) %p == (rect*) %p)", a, b);
 
-    int is_equal = 
+    int is_equal =
 	(a->x      == b->x     ) &&
 	(a->y      == b->y     ) &&
 	(a->width  == b->width ) &&
@@ -114,7 +114,7 @@ aktive_rectangle_grow (aktive_rectangle* dst, int left, int right, int top, int 
 {
     TRACE_FUNC("((dst*) %p <-%d %d-> ^%d v%d)",
 	       dst, left, right, top, bottom);
-    
+
     dst->x      -= left;
     dst->y      -= top;
     dst->width  += left + right;
@@ -131,7 +131,7 @@ extern void
 aktive_rectangle_union (aktive_rectangle* dst, aktive_rectangle* a, aktive_rectangle* b)
 {
     TRACE_FUNC("((dst*) %p = (rect*) %p + (rect*) %p)", dst, a, b);
-    
+
     /*
      * Compute the bounding box first, as min and max of the individual
      * boundaries. The upper values are one too high, which is canceled when
@@ -169,7 +169,7 @@ aktive_rectangle_intersect (aktive_rectangle* dst, aktive_rectangle* a, aktive_r
 	((b->x + (int) b->width ) <= a->x) || /* B left of A */
 	((a->y + (int) a->height) <= b->y) || /* A above B   */
 	((b->y + (int) b->height) <= a->y)) { /* B above A   */
-	
+
 	dst->x      = 0;
 	dst->y      = 0;
 	dst->width  = 0;
@@ -218,14 +218,14 @@ aktive_rectangle_outzones (aktive_rectangle* domain, aktive_rectangle* request,
     aktive_rectangle_intersect (&v[0], domain, request);
 
     // __aktive_rectangle_dump ("\t- intersection", &v[0]);
-	
+
     if (aktive_rectangle_is_empty (&v[0])) {
-	// fprintf(stderr,"\tNO intersection\n");fflush (stderr);	
+	// fprintf(stderr,"\tNO intersection\n");fflush (stderr);
 	TRACE_RETURN_VOID;
     }
 
     aktive_uint count = 1;
-    
+
     /* General case. Request has inside and outside parts (*). These parts can
      * reside above, below, left, or right of the image, in all
      * combinations. The following code handles the above and below strips
@@ -279,7 +279,7 @@ aktive_rectangle_outzones (aktive_rectangle* domain, aktive_rectangle* request,
 #define DH   domain->height
 #define DW   domain->width
 #define RW   request->width
-    
+
     if (top    > 0) { /* A */ ARS (DST, 0,         0,        RW,    top       ); NXT; }
     if (bottom > 0) { /* B */ ARS (DST, 0,         top + DH, RW,    bottom    ); NXT; }
     if (left   > 0) { /* C */ ARS (DST, 0,         TP,       left,  DH + HADJ ); NXT; }

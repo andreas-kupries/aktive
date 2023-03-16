@@ -45,12 +45,12 @@ extern void
 aktive_write_channel (aktive_writer* writer, Tcl_Channel chan, int binary)
 {
     TRACE_FUNC ("((writer*) %p, (Tcl_Channel) %p, (binary) %d)", writer, chan, binary);
-    
+
     writer->state  = chan;
     writer->writer = (aktive_writer_write) aktive_writer_to_channel;
 
     if (!binary) return;
-    
+
     Tcl_SetChannelOption (NULL, chan, "-encoding",    "binary");
     Tcl_SetChannelOption (NULL, chan, "-translation", "binary");
 
@@ -61,7 +61,7 @@ extern void
 aktive_write_bytearray (aktive_writer* writer, Tcl_Obj* ba)
 {
     TRACE_FUNC ("(writer*) %p, (Tcl_Obj*) %p)", writer, ba);
-    
+
     writer->state  = ba;
     writer->writer = (aktive_writer_write) aktive_writer_to_bytearray;
 
@@ -76,7 +76,7 @@ extern void
 aktive_write_append (aktive_writer* writer, char* buf, int n)
 {
     TRACE_FUNC ("((writer*) %p, write %d)", writer, n);
-    
+
     ASSERT (buf,   "buffer missing");
     ASSERT (n > 0, "empty buffer");
 
@@ -89,7 +89,7 @@ extern void
 aktive_write_done (aktive_writer* writer)
 {
     TRACE_FUNC ("((writer*) %p)", writer);
-    
+
     writer->writer (writer->state, 0, 0);
 
     TRACE_RETURN_VOID;
@@ -103,7 +103,7 @@ extern void
 aktive_write_append_uint8 (aktive_writer* writer, aktive_uint v)
 {
     TRACE_FUNC ("((writer*) %p, value %d)", writer, v);
-    
+
     char buf [1];
     buf [0] = v & 0xFF;
     aktive_write_append (writer, buf, 1);
@@ -115,7 +115,7 @@ extern void
 aktive_write_append_uint16be (aktive_writer* writer, aktive_uint v)
 {
     TRACE_FUNC ("((writer*) %p, value %d)", writer, v);
-    
+
     char buf [2];
     buf [0] = MSB (v);
     buf [1] = LSB (v);
@@ -128,7 +128,7 @@ extern void
 aktive_write_append_uint32be (aktive_writer* writer, aktive_uint v)
 {
     TRACE_FUNC ("((writer*) %p, value %d)", writer, v);
-    
+
     char buf [4];
     buf [0] = (v >> 24) & 0xFF;
     buf [1] = (v >> 16) & 0xFF;
@@ -143,7 +143,7 @@ extern void
 aktive_write_append_uint64be (aktive_writer* writer, Tcl_WideInt v)
 {
     TRACE_FUNC ("((writer*) %p, value %ld)", writer, v);
-    
+
     char buf [8];
     buf [0] = (v >> 56) & 0xFF;
     buf [1] = (v >> 48) & 0xFF;
@@ -162,7 +162,7 @@ extern int
 aktive_write_append_uint_text (aktive_writer* writer, aktive_uint v)
 {
     TRACE_FUNC ("((writer*) %p, value %d)", writer, v);
-    
+
     char buf [20];
     aktive_uint n = sprintf (buf, "%d", v);
 
@@ -204,13 +204,13 @@ static void
 aktive_writer_to_bytearray (Tcl_Obj* ba, char* buf, int n)
 {
     if (!buf || !n) return;
-    
+
     int            length;
     unsigned char* bytes;
 
     (void)  Tcl_GetByteArrayFromObj (ba, &length);
     bytes = Tcl_SetByteArrayLength  (ba, length + n);
-    memcpy (bytes + length, buf, n);    
+    memcpy (bytes + length, buf, n);
 }
 
 /*

@@ -48,19 +48,19 @@ aktive_point_union (aktive_rectangle* dst, aktive_uint c, aktive_point* v)
 	aktive_rectangle_set (dst, v[0].x, v[0].y, 1, 1);
 	return;
     }
-    
+
     int x, xmax, y, ymax;
 
     x = xmax = v[0].x;
     y = ymax = v[0].y;
 
     for (aktive_uint i = 1; i < c; i++) {
-	x    = MIN (x,    v[i].x);	
-	xmax = MAX (xmax, v[i].x);	
-	y    = MIN (y,    v[i].y);	
-	ymax = MAX (ymax, v[i].y);	
+	x    = MIN (x,    v[i].x);
+	xmax = MAX (xmax, v[i].x);
+	y    = MIN (y,    v[i].y);
+	ymax = MAX (ymax, v[i].y);
     }
-    
+
     aktive_rectangle_set (dst, x, y, xmax - x + 1, ymax - y + 1);
 }
 

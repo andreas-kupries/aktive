@@ -23,10 +23,10 @@ aktive_blit_setup (aktive_block* dst, aktive_rectangle* request)
 {
     TRACE_FUNC("((block*) %p, (rect*) %p = {%d %d : %u %u})",
 	       dst, request, request->x, request->y, request->width, request->height);
-    
+
     aktive_geometry_set_rectangle     (&dst->domain, request);
     aktive_point_set ((aktive_point*) &dst->domain, 0, 0);
-    
+
     aktive_uint size =
 	request->width * request->height * dst->domain.depth;
 
@@ -35,13 +35,13 @@ aktive_blit_setup (aktive_block* dst, aktive_rectangle* request)
     if (!dst->pixel) {
 	// No memory present, create
 	TRACE ("Initialize to %d", size);
-	
+
 	dst->pixel    = NALLOC (double, size);
 	dst->capacity = size;
 
     } else if (dst->capacity < size) {
 	TRACE ("Extend to %d", size);
-	
+
 	// Memory present without enough capacity, size up
 	dst->pixel    = REALLOC (dst->pixel, double, size);
 	dst->capacity = size;
@@ -59,7 +59,7 @@ extern void
 aktive_blit_close (aktive_block* dst)
 {
     TRACE_FUNC("((block*) %p (%d of %d @ %p)", dst, dst->used, dst->capacity, dst->pixel);
-    
+
     if (dst->pixel) { ckfree ((char*) dst->pixel); }
     dst->used     = 0;
     dst->capacity = 0;
@@ -77,7 +77,7 @@ aktive_blit_index (aktive_block* src, int x, int y, int z)
 
     return y * stride + x * src->domain.depth + z;
 }
-    
+
 /*
  * - - -- --- ----- -------- -------------
  */
@@ -93,7 +93,7 @@ aktive_blit_clear_all (aktive_block* dst) {
 #define DSTCAP (dst->used)
 #define DW     (dst->domain.width)
 #include <generated/blit/clearall.c>
-#else    
+#else
     memset (dst->pixel, 0, dst->used * sizeof (double));
     // Note: The value 0b'00000000 represents (double) 0.0.
 #endif
@@ -104,7 +104,7 @@ extern void
 aktive_blit_clear (aktive_block* dst, aktive_rectangle* area)
 {
     TRACE_FUNC("((block*) %p (%d of %d @ %p)", dst, dst->used, dst->capacity, dst->pixel);
-    
+
 #if 1 // TODO :: switch when optimized properly
 #define AH     (area->height)
 #define AW     (area->width)
@@ -116,7 +116,7 @@ aktive_blit_clear (aktive_block* dst, aktive_rectangle* area)
 #define DSTCAP (dst->used)
 #define DW     (dst->domain.width)
 #include <generated/blit/clear.c>
-#else    
+#else
     // dst  = (0, 0, dw, dh)
     // area = (x, y, w, h) < dst [== can be handled, hower clear_all should be more efficient]
     //
@@ -185,7 +185,7 @@ extern void
 aktive_blit_fill_bands (aktive_block* dst, aktive_rectangle* area, aktive_double_vector* bands)
 {
     TRACE_FUNC("((block*) %p (%d of %d @ %p)", dst, dst->used, dst->capacity, dst->pixel);
-    
+
     // block area = (0, 0, w, h)
     // clear area = (x, y, w', h') < (0, 0, w, h)	[Not <=, not equal]
     //
@@ -239,7 +239,7 @@ aktive_blit_copy (aktive_block* dst, aktive_rectangle* dstarea,
 #define SX     (srcloc->x)
 #define SY     (srcloc->y)
 #include <generated/blit/copy.c>
-#else    
+#else
     // assert : dst.domain.depth == src.domain.depth / dd == sd (*)
 
     // dst  = (0, 0, dw, dh)
@@ -249,7 +249,7 @@ aktive_blit_copy (aktive_block* dst, aktive_rectangle* dstarea,
     aktive_uint dw = dst->domain.width;
     aktive_uint sw = src->domain.width;
     aktive_uint sd = dst->domain.depth;
-    
+
     aktive_uint stride = sd * sw;				// (*)
     aktive_uint width  = sd * dstarea->width * sizeof (double);	// (*)
 
@@ -259,7 +259,7 @@ aktive_blit_copy (aktive_block* dst, aktive_rectangle* dstarea,
     for (aktive_uint row = 0;
 	 row < dstarea->height;
 	 row++, sstart += stride, dstart += stride) {
-	memcpy (dstart, sstart, width); 
+	memcpy (dstart, sstart, width);
     }
 #endif
     TRACE_RETURN_VOID;
@@ -329,7 +329,7 @@ aktive_blit_unary1 (aktive_block* dst, aktive_rectangle* dstarea,
 		    aktive_unary_transform1 op, double a, aktive_block* src)
 {
     TRACE_FUNC("((block*) %p (%d of %d @ %p)", dst, dst->used, dst->capacity, dst->pixel);
-    
+
 #define AH     (dstarea->height)
 #define AW     (dstarea->width)
 #define AX     (dstarea->x)
@@ -355,7 +355,7 @@ aktive_blit_unary2 (aktive_block* dst, aktive_rectangle* dstarea,
 		    aktive_block* src)
 {
     TRACE_FUNC("((block*) %p (%d of %d @ %p)", dst, dst->used, dst->capacity, dst->pixel);
-    
+
 #define AH     (dstarea->height)
 #define AW     (dstarea->width)
 #define AX     (dstarea->x)
@@ -480,7 +480,7 @@ aktive_blit_copy0_bands (aktive_block* dst, aktive_rectangle* dstarea,
 
     // Unoptimized loop nest to copy the selected bands
     TRACE ("sy  sx  sz  | in  | dy  dx  dz  | out |", 0);
-    
+
     for (srcy = SRC.y, dsty = DST.y, row = 0; row < DST.height; srcy++, dsty++, row++) {
 	for (srcx = SRC.x, dstx = DST.x, col = 0; col < DST.width; srcx++, dstx++, col++) {
 	    for (srcz = first, dstz = 0; dstz < DST.depth ; srcz++, dstz++) {
@@ -492,11 +492,11 @@ aktive_blit_copy0_bands (aktive_block* dst, aktive_rectangle* dstarea,
 
 		TRACE ("%3d %3d %3d | %3d | %3d %3d %3d | %3d | %.2f",
 		       srcy, srcx, srcz, srcpos, dsty, dstx, dstz, dstpos, value);
-		    
+
 		dst->pixel [dstpos] = value; // inlined blit set, we already have the coordinates
 	    }
 	}
-    }    
+    }
 #undef SRC
 #undef DST
 #undef DAR
@@ -540,11 +540,11 @@ aktive_blit_set (aktive_block* dst, aktive_point* location, double v)
 {
     TRACE_FUNC("((block*) %p (%d of %d @ %p)", dst, dst->used, dst->capacity, dst->pixel);
     TRACE_POINT(location);
-    
+
     aktive_uint pos = location->y * dst->domain.width + location->x;
-    
+
     ASSERT_VA (pos < dst->used, "pos out of range", "%d >= %d", pos, dst->used)
-    
+
     dst->pixel [pos] = v;
     TRACE_RETURN_VOID;
 }

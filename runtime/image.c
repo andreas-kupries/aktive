@@ -57,7 +57,7 @@ aktive_image_new ( aktive_image_type*   opspec
 	// Inlined pieces of aktive_image_destroy
 	// Note, this assumes that the callback saved an error message via
 	// `aktive_fail/f` for the caller of `aktive_image_new` to pick up.
-	
+
 	for (aktive_uint i = 0; i < r->public.srcs.c; i++) {
 	    aktive_image_unref (r->public.srcs.v [i]); }
 	aktive_image_vector_free (&r->public.srcs);
@@ -69,7 +69,7 @@ aktive_image_new ( aktive_image_type*   opspec
 
 	TRACE_RETURN("(aktive_image) %p", 0);
     }
-    
+
     /* Initialize type information and reference management */
 
     r->opspec   = opspec;
@@ -324,7 +324,7 @@ aktive_image_get_param_desc (aktive_image image, aktive_uint i)
     }
 
     const char* desc = image->opspec->param [i].desc;
-    
+
     TRACE_RETURN ("(desc) '%s'", desc);
 }
 

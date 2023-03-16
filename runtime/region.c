@@ -23,16 +23,16 @@ aktive_region_new (aktive_image image)
 {
     TRACE_FUNC("((image) %p '%s'", image, image->opspec->name);
 
-    // Create new and clean image structure ... 
+    // Create new and clean image structure ...
 
     aktive_region region = ALLOC(struct aktive_region);
     memset (region, 0, sizeof(struct aktive_region));
 
-    // Reference origin 
+    // Reference origin
 
     region->origin = image; aktive_image_ref (image);
 
-    // Generate regions representing the inputs, if any 
+    // Generate regions representing the inputs, if any
 
     if (image->public.srcs.c) {
 	aktive_region_vector_new (&region->public.srcs, image->public.srcs.c);
@@ -41,7 +41,7 @@ aktive_region_new (aktive_image image)
 	}
     }
 
-    // Initialize local pointers to important structures 
+    // Initialize local pointers to important structures
 
     region->public.domain = &image->public.domain;
     region->public.param  = image->public.param;
@@ -53,7 +53,7 @@ aktive_region_new (aktive_image image)
     aktive_geometry_copy (&region->pixels.domain, &image->public.domain);
     region->pixels.region = region;
 
-    // Initialize region state, if any 
+    // Initialize region state, if any
     region->public.istate = image->public.state;
 
     if (image->opspec->region_setup) {
@@ -64,8 +64,8 @@ aktive_region_new (aktive_image image)
 	aktive_region_destroy (region);
 	TRACE_RETURN("(aktive_region) %p", 0);
     }
-    
-    // Done and return 
+
+    // Done and return
     TRACE_RETURN("(aktive_region) %p", region);
 }
 
@@ -73,8 +73,8 @@ extern void
 aktive_region_destroy (aktive_region region)
 {
     TRACE_FUNC("((region) %p '%s'", region, region->opspec->name);
-    
-    // Release inputs, if any 
+
+    // Release inputs, if any
 
     if (region->public.srcs.c) {
 	for (unsigned int i = 0; i < region->public.srcs.c; i++) {
@@ -83,11 +83,11 @@ aktive_region_destroy (aktive_region region)
 	aktive_region_vector_free (&region->public.srcs);
     }
 
-    // Release owner 
+    // Release owner
 
     aktive_image_unref (region->origin);
 
-    // Release pixel data from the internal block, if any 
+    // Release pixel data from the internal block, if any
 
     aktive_blit_close (&region->pixels);
 
@@ -95,14 +95,14 @@ aktive_region_destroy (aktive_region region)
      * image structures not owned by the region
      */
 
-    // Release custom state, if any, and necessary 
+    // Release custom state, if any, and necessary
 
     if (region->public.state) {
 	if (region->opspec->region_final) { region->opspec->region_final (region->public.state); }
 	ckfree ((char*) region->public.state);
     }
 
-    // Release main structure 
+    // Release main structure
     ckfree ((char*) region);
 
     TRACE_RETURN_VOID;
@@ -116,7 +116,7 @@ extern void
 aktive_region_export (aktive_region region, aktive_block* dst)
 {
     TRACE_FUNC("((aktive_region) %p '%s')", region, region->opspec->name);
-    
+
     // Shift pixel data into destination, and squash unwanted backlink.
     *dst = region->pixels;
     dst->region = 0;
@@ -138,7 +138,7 @@ aktive_region_owner (aktive_region region)
 
 extern aktive_block*
 aktive_region_fetch_area (aktive_region region, aktive_rectangle* request)
-{    
+{
     TRACE_FUNC("((aktive_region) %p '%s' requested (@ %d..%d,%d..%d : %ux%u))",
 	       region, region->opspec->name,
 	       request->x, aktive_geometry_get_xmax (request),
@@ -163,7 +163,7 @@ aktive_region_fetch_area (aktive_region region, aktive_rectangle* request)
 #undef ID
 #undef RD
 #undef BL
-    
+
     /* Computing the pixels is done in multiple phases:
      *
      * 1. Split the request into subareas inside and outside of the image domain.
@@ -185,7 +185,7 @@ aktive_region_fetch_area (aktive_region region, aktive_rectangle* request)
 
     aktive_rectangle domain;
     aktive_rectangle_from_geometry (&domain, &region->origin->public.domain);
-    
+
     if (aktive_rectangle_is_subset (request, &domain)) {
 	// Special case (a). The entire request has to be served by the fetcher.
 	aktive_rectangle_def (dst, 0, 0, request->width, request->height);
@@ -210,9 +210,9 @@ aktive_region_fetch_area (aktive_region region, aktive_rectangle* request)
 	goto done;
     }
 
-    // Clear the outside zones, if any 
+    // Clear the outside zones, if any
     for (aktive_uint i = 1; i < zc; i++) { aktive_blit_clear (&region->pixels, &zv [i]); }
-    
+
     // The overlap is the only remaining part to handle, and this is done by
     // the fetcher.
 
@@ -227,11 +227,11 @@ aktive_region_fetch_area (aktive_region region, aktive_rectangle* request)
 #undef MX
 #undef MY
 #undef PI
-    
+
     region->opspec->region_fetch (&region->public, &zv[0], &dst, &region->pixels);
  done:
     TRACE_DO (__aktive_block_dump (region->opspec->name, &region->pixels));
-    // And return them 
+    // And return them
     TRACE_RETURN ("(aktive_block*) %p", &region->pixels);
 }
 

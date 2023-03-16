@@ -21,7 +21,7 @@ typedef struct aktive_null_control {
 
     // Processing state
     aktive_uint    size;       // Image size
-    aktive_uint    written;    // Values written == size at end    
+    aktive_uint    written;    // Values written == size at end
 } aktive_null_control;
 
 /*
@@ -40,7 +40,7 @@ extern aktive_sink*
 aktive_null_sink (aktive_uint sequential)
 {
     TRACE_FUNC ("()", 0);
-  
+
     aktive_null_control* info = ALLOC (aktive_null_control);
     aktive_sink*         sink = ALLOC (aktive_sink);
 
@@ -54,7 +54,7 @@ aktive_null_sink (aktive_uint sequential)
     sink->process    = (aktive_sink_process) null_pixels;
     sink->sequential = sequential;
     sink->state      = info;
-    
+
     TRACE_RETURN ("(aktive_sink*) %p", sink);
 }
 
@@ -83,7 +83,7 @@ null_final (aktive_null_control* info) {
 
     ASSERT_VA (info->written == info->size, "write mismatch",
 	       "NULL wrote %d != required %d", info->written, info->size);
-    
+
     ckfree (info->sink);
     ckfree (info);
 

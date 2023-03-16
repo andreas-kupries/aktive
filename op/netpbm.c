@@ -70,7 +70,7 @@ typedef struct aktive_netpbm_control {
     aktive_uint    size;       // Image size
     aktive_uint    written;    // Values written == size at end
     aktive_uint    col;        // Line breaker control for text modes
-    
+
 } aktive_netpbm_control;
 
 /*
@@ -131,10 +131,10 @@ aktive_netpbm_sink (aktive_writer* writer,
     TRACE_FUNC ("((writer*) %p, (variant) %c, (maxvalue) %d)", writer, variant, maxvalue);
 
     aktive_uint vindex = variant - '0'; // Translate from char down to array index
-      
+
     ASSERT (maxvalue < 65536, "scaling too large");
     ASSERT ((vindex < 7) && valid [vindex], "band variant");
-  
+
     aktive_netpbm_control* info = ALLOC (aktive_netpbm_control);
     aktive_sink*           sink = ALLOC (aktive_sink);
 
@@ -154,7 +154,7 @@ aktive_netpbm_sink (aktive_writer* writer,
     sink->process    = process [(vindex << 1) + extended];
     sink->sequential = 1; // TODO :: see if we can avoid this for the binary formats
     sink->state      = info;
-    
+
     TRACE_RETURN ("(aktive_sink*) %p", sink);
 }
 
@@ -167,7 +167,7 @@ netpbm_header (aktive_netpbm_control* info, aktive_image src)
 {
     TRACE_FUNC ("((aktive_netpbm_control*) %p '%s', (aktive_image) %p '%s')",
 		info, info->sink->name, src, aktive_image_get_type (src)->name);
-    
+
     char             buf [40];
     aktive_geometry* g = aktive_image_get_geometry (src);
     aktive_uint      n = sprintf (buf, "P%c %d %d %d ",
@@ -196,9 +196,9 @@ netpbm_final (aktive_netpbm_control* info) {
     ASSERT_VA (info->written == info->size, "write mismatch",
 	       "%s wrote %d != required %d",
 	       format[info->variant - '0'], info->written, info->size);
-    
+
     aktive_write_done (info->writer);
-    
+
     ckfree (info->sink);
     ckfree (info);
 

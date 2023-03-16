@@ -69,12 +69,12 @@ extern void
 aktive_queue_eof (aktive_queue q)
 {
     TRACE_FUNC ("((queue*) %p)", q);
-    
+
     Tcl_MutexLock (&q->lock);
 
     q->eof = 1;
     Tcl_ConditionNotify (&q->notempty);
-    
+
     Tcl_MutexUnlock (&q->lock);
 
     TRACE_RETURN_VOID;
@@ -93,9 +93,9 @@ aktive_queue_enter (aktive_queue q, void* thing)
 	Tcl_ConditionWait (&q->notfull, &q->lock, NULL);
     }
     TRACE ("queue writable", 0);
-    
+
     ASSERT (q->write < q->capacity, "queue outside write");
-    
+
     q->thing [q->write] = thing;
     q->write = (q->write + 1) % q->capacity;
     q->used ++;
@@ -115,7 +115,7 @@ aktive_queue_get (aktive_queue q, aktive_uint* id)
     Tcl_MutexLock (&q->lock);
 
     TRACE ("filled %d/%d, eof %d", q->used, q->capacity, q->eof);
-    
+
     void*       thing = 0;
     aktive_uint rid   = 0;
 
@@ -127,13 +127,13 @@ aktive_queue_get (aktive_queue q, aktive_uint* id)
     if (!q->used && q->eof) goto done;
 
     TRACE ("queue readable", 0);
-    
+
     ASSERT (q->read < q->capacity, "queue outside read");
-    
+
     thing = q->thing [q->read];
     rid   = q->id;
-    
-    q->thing [q->read] = 0;    
+
+    q->thing [q->read] = 0;
     q->read = (q->read + 1) % q->capacity;
     q->used --;
     q->id ++;

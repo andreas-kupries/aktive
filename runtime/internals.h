@@ -13,13 +13,13 @@ typedef struct aktive_image {
     // Private management information
 
     Tcl_Mutex            rclock   ; // Serialize access to ref count, happens from multiple threads.
-    int                  refcount ; // Number of places holding a reference to the image          
-    aktive_image_type*   opspec   ; // Operational hooks, type identification, parameter metadata 
+    int                  refcount ; // Number of places holding a reference to the image
+    aktive_image_type*   opspec   ; // Operational hooks, type identification, parameter metadata
 
     // Public information as seen by image callbacks
 
     aktive_image_info    public;
-    
+
     // %% TODO %% image meta data
 
 } *aktive_image;
@@ -30,10 +30,10 @@ typedef struct aktive_image {
 
 typedef struct aktive_region {
     // Private management information
-    
+
     aktive_image          origin ; // Image the region belongs to
     aktive_image_type*    opspec ; // Operator descriptor
-    aktive_block          pixels ; // Pixel data 
+    aktive_block          pixels ; // Pixel data
 
     // Public information as seen by region callbacks
 

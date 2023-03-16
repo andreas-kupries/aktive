@@ -25,7 +25,7 @@ typedef struct sink_batch_state {
 
     // worker
     aktive_image     image;
-    
+
     // completer
     aktive_sink*     sink;
     void*            state;
@@ -50,7 +50,7 @@ aktive_sink_run (aktive_sink* sink,
 {
     TRACE_FUNC ("((aktive_sink*) %p '%s', (aktive_image) src)",
 		sink, sink->name, src);
-    
+
     void* state = sink->setup (sink->state, src);
 
     // Some errors may appear only very late.
@@ -60,7 +60,7 @@ aktive_sink_run (aktive_sink* sink,
     // when it goes multi-threaded, and workers release their references
     // (through their regions) during completion.
     aktive_image_ref (src);
-    
+
     // Scan image by rows      -- TODO FUTURE -- ask image for prefered method
     // Scan image sequentially -- TODO FUTURE -- spread over multiple threads
 
@@ -70,7 +70,7 @@ aktive_sink_run (aktive_sink* sink,
 	aktive_image_unref (src);
 	TRACE_RETURN_VOID;
     }
-    
+
 #if MODE == CROWS
     aktive_region_destroy (rg);
 
@@ -117,11 +117,11 @@ aktive_sink_run (aktive_sink* sink,
 #elif MODE == ALL
     aktive_rectangle_def_as (scan, aktive_image_get_domain (src));
     TRACE ("fetching all pixels", 0);
-    
+
     aktive_block* pixels = aktive_region_fetch_area (rg, &scan);
 
     TRACE ("processing all pixels", 0);
-    sink->process (state, pixels);    
+    sink->process (state, pixels);
 
     aktive_region_destroy (rg); // Note that this invalidates `pixels` too.
 #endif
@@ -141,14 +141,14 @@ static void*
 sink_maker (sink_batch_state* state)
 {
     TRACE_FUNC("((sink_batch_state*) %p, %d remaining)", state, state->count);
-    
+
     // All rows scanned, stop
     if (!state->count) {
 	TRACE_RETURN ("(rect*) %p, EOF", 0);
     }
 
     aktive_rectangle* r = ALLOC (aktive_rectangle);
-    aktive_rectangle_copy (r, &state->scan); 
+    aktive_rectangle_copy (r, &state->scan);
 
     state->count --;
     aktive_rectangle_move (&state->scan, 0, 1);
@@ -161,7 +161,7 @@ static aktive_block*
 sink_worker (const sink_batch_state* state, aktive_rectangle* task, aktive_region* wstate)
 {
     TRACE_FUNC("((sink_batch_state*) %p, (task) %p, (ws) %p)", state, task, wstate);
-    
+
     // first call, initialize state
     if (! *wstate) {
 	TRACE ("initialize wstate", 0);
@@ -179,9 +179,9 @@ sink_worker (const sink_batch_state* state, aktive_rectangle* task, aktive_regio
     (void) aktive_region_fetch_area (*wstate, task);
 
     aktive_block* p = ALLOC (aktive_block);
-    
+
     aktive_region_export (*wstate, p);
-    
+
     ckfree (task);
     TRACE_RETURN ("(active_block*) %p", p);
 }
@@ -192,7 +192,7 @@ sink_completer (sink_batch_state* state, aktive_block* result)
     TRACE_FUNC("((sink_batch_state*) %p, (task) %p, (active_block*) %p)", state, result);
 
     if (!result) TRACE_RETURN_VOID;
-    
+
     state->sink->process (state->state, result);
 
     aktive_blit_close (result);

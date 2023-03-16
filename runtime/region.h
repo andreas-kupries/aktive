@@ -45,14 +45,14 @@
 
 typedef struct aktive_region_info {
     // READ ONLY information coming from the image
-    
-    void*                param  ; // Operation parameters 
-    aktive_region_vector srcs   ; // Input regions, if any 
+
+    void*                param  ; // Operation parameters
+    aktive_region_vector srcs   ; // Input regions, if any
     void*                istate ; // Image state, if any, operator dependent
     aktive_geometry*     domain ; // Image domain
 
     // RW information
-    
+
     void*                state  ; // Region region state, if any, operator dependent
 } aktive_region_info;
 

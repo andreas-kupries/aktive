@@ -32,10 +32,10 @@ typedef void     (*aktive_param_finish) (void* param);
 typedef Tcl_Obj* (*aktive_param_value)  (Tcl_Interp* interp, void* value);
 
 typedef struct aktive_image_parameter {
-    const char*        name   ; // Index into `aktive_param_name` 
-    const char*        desc   ; // Index into `aktive_param_desc` 
-    aktive_param_value to_obj ; // Index into `aktive_type_descriptor` 
-    aktive_uint        offset ; // Offset of field in the parameter structure 
+    const char*        name   ; // Index into `aktive_param_name`
+    const char*        desc   ; // Index into `aktive_param_desc`
+    aktive_param_value to_obj ; // Index into `aktive_type_descriptor`
+    aktive_uint        offset ; // Offset of field in the parameter structure
 } aktive_image_parameter;
 
 /*
@@ -43,27 +43,27 @@ typedef struct aktive_image_parameter {
  * Initialization - param and srcs are already initialized - initialize state and geometry
  * Finalization   - other fields are already destroyed     - destroy state fields
  *
- * NOTE: We can perform geometry initialization in the main setup. 
+ * NOTE: We can perform geometry initialization in the main setup.
  */
 
 typedef int  (*aktive_image_setup) (aktive_image_info* info);
 typedef void (*aktive_image_final) (void* state);
 
 typedef struct aktive_image_type {
-    char*                   name         ; // Identification                    
+    char*                   name         ; // Identification
 
-    aktive_uint             sz_param     ; // Size of parameter block [bytes]   
-    aktive_uint             n_param      ; // Number of parameters in the block 
-    aktive_image_parameter* param        ; // Parameter descriptions            
-    aktive_param_init       param_init   ; // Parameter initialization hook     
-    aktive_param_finish     param_finish ; // Parameter finishing hook          
+    aktive_uint             sz_param     ; // Size of parameter block [bytes]
+    aktive_uint             n_param      ; // Number of parameters in the block
+    aktive_image_parameter* param        ; // Parameter descriptions
+    aktive_param_init       param_init   ; // Parameter initialization hook
+    aktive_param_finish     param_finish ; // Parameter finishing hook
 
-    aktive_image_setup      setup        ; // Create  operator-specific image state        
-    aktive_image_final      final        ; // Release operator-specific image state        
+    aktive_image_setup      setup        ; // Create  operator-specific image state
+    aktive_image_final      final        ; // Release operator-specific image state
 
-    aktive_region_setup     region_setup ; // Create  operator-specific region state       
-    aktive_region_final     region_final ; // Release operator-specific region state       
-    aktive_region_fetch     region_fetch ; // Get pixels for area of the region 
+    aktive_region_setup     region_setup ; // Create  operator-specific region state
+    aktive_region_final     region_final ; // Release operator-specific region state
+    aktive_region_fetch     region_fetch ; // Get pixels for area of the region
 } aktive_image_type;
 
 /*

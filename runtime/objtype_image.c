@@ -104,7 +104,7 @@ StringImage (Tcl_Obj* obj)
 
     STRDUP (obj->bytes, "<aktive::image>");
     obj->length = strlen (obj->bytes);
-    
+
     TRACE_RETURN_VOID;
 }
 

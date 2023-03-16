@@ -54,7 +54,7 @@ aktive_error_set (Tcl_Interp* interp) {
     if (!tsdPtr->error) return;
 
     TRACE ("report '%s'", Tcl_GetString (tsdPtr->error));
-    
+
     Tcl_SetErrorCode (interp, interp, "AKTIVE", "ERROR", NULL);
     Tcl_SetObjResult (interp, tsdPtr->error);
     Tcl_DecrRefCount (tsdPtr->error);
@@ -71,7 +71,7 @@ aktive_error_add (const char* message) {
 
     // %% Consider the collection of multiple errors, instead of keeping just
     // %% the last
-    
+
     if (tsdPtr->error) { Tcl_DecrRefCount (tsdPtr->error); }
 
     tsdPtr->error = Tcl_NewStringObj (message, -1);

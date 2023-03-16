@@ -33,7 +33,7 @@ aktive_fnv_step (aktive_uint hash)
 {
     return aktive_fnv_merge_uint32 (aktive_fnv_base, hash);
 }
-    
+
 extern aktive_uint
 aktive_fnv_merge_bytes (aktive_uint hash, aktive_uint c, unsigned char* v)
 {
@@ -117,7 +117,7 @@ aktive_fnv_gauss (aktive_uint hash)
     double gain = sqrt (-2*log(s)/s);
     double z0 = u * gain;
     // Note, we can compute a second gaussian here, derived from v.
-    
+
     /* (**) hash                in [0,RAND_MAX]
      *      hash/RAND_MAX       in [0,1]
      *      2*hash/RAND_MAX     in [0,2]

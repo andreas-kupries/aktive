@@ -46,7 +46,7 @@ typedef struct aktive_aktive_control {
 
     // Processing state
     aktive_uint    size;       // Image size
-    aktive_uint    written;    // Values written == size at end    
+    aktive_uint    written;    // Values written == size at end
 } aktive_aktive_control;
 
 /*
@@ -65,7 +65,7 @@ extern aktive_sink*
 aktive_aktive_sink (aktive_writer* writer)
 {
     TRACE_FUNC ("((writer*) %p)", writer);
-  
+
     aktive_aktive_control* info = ALLOC (aktive_aktive_control);
     aktive_sink*           sink = ALLOC (aktive_sink);
 
@@ -80,7 +80,7 @@ aktive_aktive_sink (aktive_writer* writer)
     sink->process    = (aktive_sink_process) aktive_pixels;
     sink->sequential = 1; // TODO :: see if we can avoid this
     sink->state      = info;
-    
+
     TRACE_RETURN ("(aktive_sink*) %p", sink);
 }
 
@@ -119,9 +119,9 @@ aktive_final (aktive_aktive_control* info) {
 
     ASSERT_VA (info->written == info->size, "write mismatch",
 	       "AKTIVE wrote %d != required %d", info->written, info->size);
-    
+
     aktive_write_done (info->writer);
-    
+
     ckfree (info->sink);
     ckfree (info);
 

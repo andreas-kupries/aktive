@@ -52,7 +52,7 @@ typedef struct {
 typedef struct aktive_batch* aktive_batch;
 typedef struct aktive_batch {
     // -- read only configuration --
-    
+
     const char*           name      ; // Identification
     aktive_batch_make     maker     ; // Batch task generation
     aktive_batch_work     worker    ; // Batch task processing
@@ -67,7 +67,7 @@ typedef struct aktive_batch {
     // -- worker only -- state per-worker --
     //                -- to be initialized in first call of `worker`.
     //                -- to be released in last call of `worker` (indicator: `task == NULL`).
-    
+
     void** wstate;
 
     // -- worker / completer --
@@ -131,10 +131,10 @@ aktive_batch_run ( const  char*          name
 		 , void*                 state)
 {
     TRACE_FUNC ("((char*) '%s')", name);
-    
+
     Tcl_ThreadId id;
     aktive_uint  wcount = aktive_processors ();
-    
+
     aktive_batch processor = ALLOC (struct aktive_batch);
     memset (processor, 0, sizeof(struct aktive_batch));
 
@@ -185,7 +185,7 @@ aktive_batch_run ( const  char*          name
 			  TCL_THREAD_STACK_DEFAULT, TCL_THREAD_NOFLAGS);
 	TRACE ("worker %d = %p", k, id);
     }
-    
+
     TRACE ("spawn maker", 0);
     Tcl_CreateThread (&id, (Tcl_ThreadCreateProc*) task_maker, processor,
 		      TCL_THREAD_STACK_DEFAULT, TCL_THREAD_NOFLAGS);
@@ -197,7 +197,7 @@ aktive_batch_run ( const  char*          name
     task_completer (processor);
 
     // with the work done clean up all the allocated structures
-    
+
     if (processor->sequential) {
 	Tcl_ConditionFinalize (&processor->await);
 	Tcl_ConditionFinalize (&processor->hasresult);
@@ -209,7 +209,7 @@ aktive_batch_run ( const  char*          name
     ckfree (processor);
 
     // and fully done
-    
+
     TRACE_RETURN_VOID;
 }
 
@@ -221,13 +221,13 @@ static void
 task_maker (aktive_batch processor)
 {
     TRACE_FUNC ("((batch*) %p)", processor);
-    
+
     do {
 	TRACE ("// ...............................................", 0);
-	
+
 	void* task = processor->maker (processor->state);
 	if (!task) break;
-	
+
 	aktive_queue_enter (processor->tasks, task);
     } while (1);
 
@@ -240,7 +240,7 @@ task_maker (aktive_batch processor)
 static void
 task_worker (wsetup *ws) {
     TRACE_FUNC ("((batch*) %p, [%d])", ws->p, ws->wstate - ws->p->wstate);
-    
+
     // Take worker-specific information into the local state, and release the
     // communication structure allocated in `aktive_batch_run`.
     aktive_batch processor = ws->p;
@@ -273,13 +273,13 @@ static void
 task_completer (aktive_batch processor)
 {
     TRACE_FUNC ("((batch*) %p)", processor);
-    
+
     do {
 	TRACE ("// ...............................................", 0);
 	if (processor->sequential) {
 	    TRACE ("obtain result %d", processor->awaiting);
 	}
-	
+
 	void* result = result_get (processor);
 	if (!result) break;
 
@@ -314,12 +314,12 @@ result_enter (aktive_batch processor, void* result, aktive_uint id)
 	    // already waiting on the condition.
 	    Tcl_ConditionNotify (&processor->hasresult);
 	    TRACE ("signaled eof", 0);
-	    
+
 	    // completer will see it on next attempt to get a result
 	} else {
 	    // wait for completer to ask for our result
 	    TRACE ("completer %d having %d", processor->awaiting, id);
-	    
+
 	    while (processor->awaiting < id) {
 		TRACE ("await completer readiness", 0);
 		Tcl_ConditionWait (&processor->await, &processor->mresult, NULL);
@@ -339,7 +339,7 @@ result_enter (aktive_batch processor, void* result, aktive_uint id)
     }
 
     // non-sequential. pass results through a simple queue
-    
+
     aktive_queue_enter (processor->results, result);
     TRACE_RETURN_VOID;
 }
@@ -348,7 +348,7 @@ static void*
 result_get (aktive_batch processor)
 {
     TRACE_FUNC ("((batch*) %p)", processor);
-    
+
     void* result = 0;
 
     if (processor->sequential) {
@@ -360,7 +360,7 @@ result_get (aktive_batch processor)
 	Tcl_Time    wait = { 1, 0 }; // 1 second
 	aktive_uint loops;
 #define MAXLOOPS 10 // * wait = 10 seconds
-	
+
 	Tcl_MutexLock (&processor->mresult);
     restart:
 	if (processor->workers) {
@@ -407,7 +407,7 @@ result_get (aktive_batch processor)
 
 	if (!result) {
 	    TRACE ("worker completion", 0);
-	    
+
 	    // A worker signaled its completion
 	    processor->workers --;
 	    if (processor->workers == 0) {

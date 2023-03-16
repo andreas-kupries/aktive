@@ -30,7 +30,7 @@
  * -- Points	 :: 2D location
  * -- Rectangles :: 2D area   (location + dimensions)
  * -- Geometries :: 3D volume (dimensions)
- * 
+ *
  * NOTE
  *
  *  - How `aktive_point`     is a proper prefix of `aktive_rectangle`, and
@@ -41,23 +41,23 @@
  */
 
 typedef struct aktive_point {
-    int x ; // X coordinate, increasing to the right 
-    int y ; // Y coordinate, increasing downward     
+    int x ; // X coordinate, increasing to the right
+    int y ; // Y coordinate, increasing downward
 } aktive_point;
 
 typedef struct aktive_rectangle {
-    int         x      ; // X coordinate, increasing to the right 
-    int         y      ; // Y coordinate, increasing downward     
-    aktive_uint width  ; // Number of columns 
-    aktive_uint height ; // Number of rows    
+    int         x      ; // X coordinate, increasing to the right
+    int         y      ; // Y coordinate, increasing downward
+    aktive_uint width  ; // Number of columns
+    aktive_uint height ; // Number of rows
 } aktive_rectangle;
 
 typedef struct aktive_geometry {
-    int         x ; // X coordinate, increasing to the right 
-    int         y ; // Y coordinate, increasing downward     
-    aktive_uint width  ; // Number of image columns 
-    aktive_uint height ; // Number of image rows    
-    aktive_uint depth  ; // Number of image bands   
+    int         x ; // X coordinate, increasing to the right
+    int         y ; // Y coordinate, increasing downward
+    aktive_uint width  ; // Number of image columns
+    aktive_uint height ; // Number of image rows
+    aktive_uint depth  ; // Number of image bands
 } aktive_geometry;
 
 /*
@@ -191,9 +191,9 @@ extern Tcl_Obj* aktive_new_geometry_obj (aktive_geometry* r);
 #define aktive_geometry_copy(dst, src)               aktive_geometry_set (dst, (src)->x, (src)->y, (src)->width, (src)->height, (src)->depth)
 #define aktive_geometry_set_point(dst, src)          aktive_point_copy(dst, src)
 #define aktive_geometry_set_rectangle(dst, src)      aktive_rectangle_copy(dst, src)
-#define aktive_geometry_get_x(src)                   ((src)->x)			
-#define aktive_geometry_get_xmax(src)                ((src)->x + (src)->width - 1)	
-#define aktive_geometry_get_y(src)                   ((src)->y)			
+#define aktive_geometry_get_x(src)                   ((src)->x)
+#define aktive_geometry_get_xmax(src)                ((src)->x + (src)->width - 1)
+#define aktive_geometry_get_y(src)                   ((src)->y)
 #define aktive_geometry_get_ymax(src)                ((src)->y + (src)->height - 1)
 #define aktive_geometry_get_width(src)	             ((src)->width)
 #define aktive_geometry_get_height(src)	             ((src)->height)

@@ -107,7 +107,7 @@ aktive_reduce_variance (double* v, aktive_uint n, aktive_uint stride)
 {
     // wikipedia: [...] Another equivalent formula is σ² = ( (Σ x²) / N ) - μ²
 
-    kahan sum;    
+    kahan sum;
     kahan squared;
 
     sum_and_squared (&sum, &squared, v, n, stride);
@@ -136,7 +136,7 @@ static void
 sum_squared (kahan* rsum, double* v, aktive_uint n, aktive_uint stride)
 {
     kahan sum; aktive_kahan_init (&sum);
-    
+
     for (aktive_uint k = 0; k < n; k++, v += stride) {
 	double x = *v;
 	aktive_kahan_add (&sum, x*x);
@@ -177,7 +177,7 @@ typedef struct reduce_batch_state {
 
     // worker
     aktive_image     image;
-    
+
     // completer
     aktive_uint size;
 
@@ -188,7 +188,7 @@ typedef struct reduce_batch_state {
 
     reduce_result acc;
     aktive_uint   initialized;
-        
+
     double*     result;
 } reduce_batch_state;
 
@@ -200,14 +200,14 @@ static void*
 image_maker (reduce_batch_state* state)
 {
     TRACE_FUNC("((reduce_batch_state*) %p, %d remaining)", state, state->count);
-    
+
     // All rows scanned, stop
     if (!state->count) {
 	TRACE_RETURN ("(rect*) %p, EOF", 0);
     }
 
     aktive_rectangle* r = ALLOC (aktive_rectangle);
-    aktive_rectangle_copy (r, &state->scan); 
+    aktive_rectangle_copy (r, &state->scan);
 
     state->count --;
     aktive_rectangle_move (&state->scan, 0, 1);
@@ -229,8 +229,8 @@ image_reduce (const char*           name,
     TRACE_FUNC ("(aktive_image) %p", src);
 
     double result;
-    reduce_batch_state batch;					
-    
+    reduce_batch_state batch;
+
     aktive_rectangle_copy (&batch.scan, aktive_image_get_domain (src));
     batch.count       = batch.scan.height;
     batch.scan.height = 1;
@@ -243,12 +243,12 @@ image_reduce (const char*           name,
     batch.initialized = 0;
     batch.result      = &result; // completer target on finalization
 
-    aktive_batch_run (name,					
+    aktive_batch_run (name,
 		      (aktive_batch_make) image_maker,
 		      worker,
 		      completer,
 		      0, // statistics can be merged in any order
-		      &batch);						
+		      &batch);
 
     TRACE_RETURN ("(result) %f", result);
 }
