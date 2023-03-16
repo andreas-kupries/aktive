@@ -16,6 +16,7 @@ kt source support/util.tcl
 ## Syntax
 
 syntax {
+    bg     {left right top bottom bands src}
     black  {left right top bottom src}
     copy   {left right top bottom src}
     mirror {left right top bottom src}
@@ -32,11 +33,12 @@ set base [aktive op select x 0 4 [gradx]]	;# = 0 1 2 3 4 =
 # case 0 -- optimization - src pass through
 foreach {k border results} {
     0 {0 0 0 0} {
-	black  {op::select::x 0 0 5 1 1 {first 0 last 4}} {= 0 1 2 3 4 =}
-	copy   {op::select::x 0 0 5 1 1 {first 0 last 4}} {= 0 1 2 3 4 =}
-	mirror {op::select::x 0 0 5 1 1 {first 0 last 4}} {= 0 1 2 3 4 =}
-	tile   {op::select::x 0 0 5 1 1 {first 0 last 4}} {= 0 1 2 3 4 =}
-	white  {op::select::x 0 0 5 1 1 {first 0 last 4}} {= 0 1 2 3 4 =}
+	black   {op::select::x 0 0 5 1 1 {first 0 last 4}} {= 0 1 2 3 4 =}
+	copy    {op::select::x 0 0 5 1 1 {first 0 last 4}} {= 0 1 2 3 4 =}
+	mirror  {op::select::x 0 0 5 1 1 {first 0 last 4}} {= 0 1 2 3 4 =}
+	tile    {op::select::x 0 0 5 1 1 {first 0 last 4}} {= 0 1 2 3 4 =}
+	white   {op::select::x 0 0 5 1 1 {first 0 last 4}} {= 0 1 2 3 4 =}
+	{bg 22} {op::select::x 0 0 5 1 1 {first 0 last 4}} {= 0 1 2 3 4 =}
     }
     1 {2 2 2 2} {
 	black  {op::view -2 -2 9 5 1 {view {-2 -2 9 5}}} {
@@ -74,6 +76,13 @@ foreach {k border results} {
 	    = 1 1 = 1 1 1 1 1 = 1 1 =
 	    = 1 1 = 1 1 1 1 1 = 1 1 =
 	}
+	{bg 22} {op::translate::to -2 -2 9 5 1 {x -2 y -2}} {
+	    = 22 22 = 22 22 22 22 22 = 22 22 =
+	    = 22 22 = 22 22 22 22 22 = 22 22 =
+	    = 22 22 =  0  1  2  3  4 = 22 22 =
+	    = 22 22 = 22 22 22 22 22 = 22 22 =
+	    = 22 22 = 22 22 22 22 22 = 22 22 =
+	}
     }
     2 {2 0 0 0} {
 	black  {op::view -2 0 7 1 1 {view {-2 0 7 1}}} {
@@ -91,6 +100,9 @@ foreach {k border results} {
 	white  {op::translate::to -2 0 7 1 1 {x -2 y 0}} {
 	    = 1 1 = 0 1 2 3 4 =
 	}
+	{bg 22} {op::translate::to -2 0 7 1 1 {x -2 y 0}} {
+	    = 22 22 = 0 1 2 3 4 =
+	}
     }
     3 {0 2 0 0} {
 	black  {op::view 0 0 7 1 1 {view {0 0 7 1}}} {
@@ -107,6 +119,9 @@ foreach {k border results} {
 	}
 	white  {op::montage::x-core 0 0 7 1 1 {}} {
 	    = 0 1 2 3 4 = 1 1 =
+	}
+	{bg 22} {op::montage::x-core 0 0 7 1 1 {}} {
+	    = 0 1 2 3 4 = 22 22 =
 	}
     }
     4 {0 0 2 0} {
@@ -135,6 +150,11 @@ foreach {k border results} {
 	    = 1 1 1 1 1 =
 	    = 0 1 2 3 4 =
 	}
+	{bg 22} {op::translate::to 0 -2 5 3 1 {x 0 y -2}} {
+	    = 22 22 22 22 22 =
+	    = 22 22 22 22 22 =
+	    =  0  1  2  3  4 =
+	}
     }
     5 {0 0 0 2} {
 	black  {op::view 0 0 5 3 1 {view {0 0 5 3}}} {
@@ -162,11 +182,18 @@ foreach {k border results} {
 	    = 1 1 1 1 1 =
 	    = 1 1 1 1 1 =
 	}
+	{bg 22} {op::montage::y-core 0 0 5 3 1 {}} {
+	    =  0  1  2  3  4 =
+	    = 22 22 22 22 22 =
+	    = 22 22 22 22 22 =
+	}
     }
 } {
     foreach {op domain expected} $results {
+	lassign $op op param
+
 	test aktive-op-embed-${op}-2.$k "aktive op embed $op, $border" -body {
-	    astcl aktive op embed $op {*}$border $base
+	    astcl aktive op embed $op {*}$border {*}$param $base
 	} -match image -result [makei {*}$domain $expected]
     }
 }

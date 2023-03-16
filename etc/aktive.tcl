@@ -89,6 +89,7 @@ import transformer/structure/swap.tcl
 import transformer/structure/transpose.tcl
 import transformer/structure/wrap.tcl
 
+import transformer/structure/embed/bg.tcl
 import transformer/structure/embed/black.tcl
 import transformer/structure/embed/copy.tcl
 import transformer/structure/embed/mirror.tcl
