@@ -1,0 +1,6 @@
+## -*- mode: tcl ; fill-column: 90 -*-
+# # ## ### ##### ######## ############# #####################
+## (band|row|column) max is an idempotent operation.
+## Can be ignored when already at the top.
+
+simplify for   src/type @self   returns src

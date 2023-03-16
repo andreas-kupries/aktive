@@ -83,6 +83,68 @@ foreach {op expected} {
     test aktive-op-row-${op}-2.1 "aktive op row $op, dag" -body {
 	dag aktive op row $op [grad]
     } -match glob -result "op::row::$op * {} {image::gradient *}"
+
+    if {$op in {
+	max min mean sum
+    }} {
+	# confirm idempotent operations, and simplification
+
+        test aktive-op-row-${op}-2.2 "aktive op row $op, idem potent" -body {
+	    astcl aktive op row $op [aktive op pass [aktive op row $op [grad]]]
+	} -match image -result [makei op::row::$op 0 0 1 4 2 {} $expected]
+
+        test aktive-op-row-${op}-2.3 "aktive op row $op, reduction, dag" -body {
+	    dag aktive op row $op [aktive op row $op [grad]]
+	} -match glob -result "op::row::$op * {} {image::gradient *}"
+    }
+
+    if {$op in {
+	sumsquared
+    }} {
+	# confirm squarings, and simplifications
+
+        test aktive-op-row-${op}-2.2 "aktive op row $op, chain squared" -body {
+	    pixels aktive op row $op \
+		[aktive op pass \
+		     [aktive op row $op [grad]]]
+	} -match pixels -result [pixels aktive op math1 pow 2 [aktive op row $op [grad]]]
+	# squared (makei op::row::$op 0 0 1 4 2 {} $expected)
+
+        test aktive-op-row-${op}-2.3 "aktive op row $op, chain squared twice" -body {
+	    pixels aktive op row $op \
+		[aktive op pass \
+		     [aktive op row $op  \
+			  [aktive op pass \
+			       [aktive op row $op [grad]]]]]
+	} -match pixels -result [pixels aktive op math1 pow 4 [aktive op row $op [grad]]]
+	# double squared ( [makei op::row::$op 0 0 1 4 2 {} $expected])
+
+	test aktive-op-row-${op}-2.4 "aktive op row $op, squared, reduced, dag" -body {
+	    dag aktive op row $op [aktive op row $op [grad]]
+	} -match glob -result "op::math1::pow * {exponent 2.0} {op::row::$op * {} {image::gradient *}}"
+
+        test aktive-op-row-${op}-2.5 "aktive op row $op, squared 2x, reduced, dag" -body {
+	    dag aktive op row $op \
+		[aktive op row $op  \
+		     [aktive op row $op [grad]]]
+	} -match glob -result "op::math1::pow * {exponent 4.0} {op::row::$op * {} {image::gradient *}}"
+    }
+
+    if {$op in {
+	variance stddev
+    }} {
+	# confirm const results, and simplifications
+
+        test aktive-op-row-${op}-2.2 "aktive op row $op, chain const" -body {
+	    pixels aktive op row $op \
+		[aktive op pass \
+		     [aktive op row $op [grad]]]
+	} -match pixels -result [pixels aktive image constant 1 4 2 0]
+
+	test aktive-op-row-${op}-2.3 "aktive op row $op, chain const, reduced dag" -body {
+	    dag aktive op row $op [aktive op row $op [grad]]
+	} -match glob -result "image::constant * {width 1 height 4 depth 2 value 0.0}"
+    }
 }
 
 # # ## ### ##### ######## ############# #####################

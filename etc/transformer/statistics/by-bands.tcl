@@ -19,11 +19,12 @@ operator {dexpr attr} {
     def kind [lindex [split $__op :] 2]
     def fun  [lindex [split $__op :] 4]
 
-    ## TODO :: input width == 1 => optimize
-    ## min, max, mean, sum :: elide
-    ## sumsquared          :: op math1 pow 2
-    ##
-    ## ?? variance, stddev
+    ## TODO :: input depth == 1 => optimize
+    #
+    ## simplifications
+    ## - min, max, mean, sum :: elide idempotent
+    ## - sumsquared          :: op math1 pow 2 (power chaining)
+    ## - variance, stddev    :: const 0
 
     import? ../simpler/stat_$fun.rules	;# queries kind !!
 

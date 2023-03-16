@@ -1,0 +1,22 @@
+## -*- mode: tcl ; fill-column: 90 -*-
+# # ## ### ##### ######## ############# #####################
+## (band|row|column) sumsquared is not idempotent.
+#
+## However the second operation is simpler. The squared sum of the single element per
+## band|row|column is simply squared.
+#
+## Similar if we see a pow on top of a sum-squared we can replace it with a pow
+## integrating the new factor 2.
+
+simplify for   \
+    src/type @self   \
+    calc __two {2} \
+    returns op math1 pow : __two
+
+simplify for \
+    src/type op::math1::pow \
+    src/value exponent __e \
+    src/pop \
+    src/type @self   \
+    calc __two {2 * $__e} \
+    returns op math1 pow : __two

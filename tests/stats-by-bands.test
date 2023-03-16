@@ -83,6 +83,68 @@ foreach {op expected} {
     test aktive-op-band-${op}-2.1 "aktive op band $op, dag" -body {
 	dag aktive op band $op [grad]
     } -match glob -result "op::band::$op * {} {image::gradient *}"
+
+    if {$op in {
+	max min mean sum
+    }} {
+	# confirm idempotent operations, and simplification
+
+        test aktive-op-band-${op}-2.2 "aktive op band $op, idem potent" -body {
+	    astcl aktive op band $op [aktive op pass [aktive op band $op [grad]]]
+	} -match image -result [makei op::band::$op 0 0 3 4 1 {} $expected]
+
+        test aktive-op-band-${op}-2.3 "aktive op band $op, reduction, dag" -body {
+	    dag aktive op band $op [aktive op band $op [grad]]
+	} -match glob -result "op::band::$op * {} {image::gradient *}"
+    }
+
+    if {$op in {
+	sumsquared
+    }} {
+	# confirm squarings, and simplifications
+
+        test aktive-op-band-${op}-2.2 "aktive op band $op, chain squared" -body {
+	    pixels aktive op band $op \
+		[aktive op pass \
+		     [aktive op band $op [grad]]]
+	} -match pixels -result [pixels aktive op math1 pow 2 [aktive op band $op [grad]]]
+	# squared (makei op::band::$op 0 0 3 4 1 {} $expected)
+
+        test aktive-op-band-${op}-2.3 "aktive op band $op, chain squared twice" -body {
+	    pixels aktive op band $op \
+		[aktive op pass \
+		     [aktive op band $op  \
+			  [aktive op pass \
+			       [aktive op band $op [grad]]]]]
+	} -match pixels -result [pixels aktive op math1 pow 4 [aktive op band $op [grad]]]
+	# double squared ( [makei op::band::$op 0 0 3 4 1 {} $expected])
+
+	test aktive-op-band-${op}-2.4 "aktive op band $op, squared, reduced, dag" -body {
+	    dag aktive op band $op [aktive op band $op [grad]]
+	} -match glob -result "op::math1::pow * {exponent 2.0} {op::band::$op * {} {image::gradient *}}"
+
+        test aktive-op-band-${op}-2.5 "aktive op band $op, squared 2x, reduced, dag" -body {
+	    dag aktive op band $op \
+		[aktive op band $op  \
+		     [aktive op band $op [grad]]]
+	} -match glob -result "op::math1::pow * {exponent 4.0} {op::band::$op * {} {image::gradient *}}"
+    }
+
+    if {$op in {
+	variance stddev
+    }} {
+	# confirm const results, and simplifications
+
+        test aktive-op-band-${op}-2.2 "aktive op band $op, chain const" -body {
+	    pixels aktive op band $op \
+		[aktive op pass \
+		     [aktive op band $op [grad]]]
+	} -match pixels -result [pixels aktive image constant 3 4 1 0]
+
+	test aktive-op-band-${op}-2.3 "aktive op band $op, chain const, reduced dag" -body {
+	    dag aktive op band $op [aktive op band $op [grad]]
+	} -match glob -result "image::constant * {width 3 height 4 depth 1 value 0.0}"
+    }
 }
 
 # # ## ### ##### ######## ############# #####################

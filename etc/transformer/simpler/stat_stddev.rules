@@ -1,0 +1,10 @@
+## -*- mode: tcl ; fill-column: 90 -*-
+# # ## ### ##### ######## ############# #####################
+## (band|row|column) stddev is not idempotent.
+#
+## However a stack can be elided. Because the stddev over a single element per
+## band|row|column is simply constant 0.
+
+simplify for   \
+    src/type @self   \
+    returns const 0

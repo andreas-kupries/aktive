@@ -42,7 +42,7 @@ foreach {op expected} {
     variance     11.9792
 } {
     test aktive-op-image-${op}-2.0 "aktive op image $op" -body {
-	aktive op image $op [grad]
+	check aktive op image $op [grad]
     } -match double4 -result $expected
 }
 

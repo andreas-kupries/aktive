@@ -20,16 +20,20 @@ operator {dexpr attr} {
     def fun  [lindex [split $__op :] 4]
 
     ## TODO :: input width == 1 => optimize
-    ## min, max, mean, sum :: elide
-    ## sumsquared          :: op math1 pow 2
-    ##
-    ## ?? variance, stddev
+    #
+    ## simplifications
+    ## - min, max, mean, sum :: elide idempotent
+    ## - sumsquared          :: op math1 pow 2 (power chaining)
+    ## - variance, stddev    :: const 0
 
     import? ../simpler/stat_$fun.rules	;# queries kind !!
 
     note Returns image with input rows compressed to a single value, \
 	the $dexpr of the $attr row values. The result is a single-column \
 	image with height and depth of the input.
+
+    note The part about the `depth of the input` means that the bands \
+	in each row are handled separately.
 
     input
 
