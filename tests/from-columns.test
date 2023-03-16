@@ -1,0 +1,56 @@
+# -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
+## (c) 2023 Andreas Kupries
+# # ## ### ##### ######## ############# #####################
+## AKTIVE. Images from a constant set of column values.
+
+kt check Tcl     8.6
+kt check tcltest 2
+
+# # ## ### ##### ######## ############# #####################
+
+kt local testing aktive
+
+kt source support/util.tcl
+
+# # ## ### ##### ######## ############# #####################
+## Syntax -- args issue
+
+if 0 {syntax {
+    columns {width height args}
+} {aktive image from}}
+
+# # ## ### ##### ######## ############# #####################
+##
+
+test aktive-image-from-columns-2.0 "aktive image from columns" -body {
+    astcl aktive image from columns 3  1 2 3 4 5 6
+} -match image -result {
+    type   image::from::columns
+    config {
+	width 3
+	value {1.0 2.0 3.0 4.0 5.0 6.0}
+    }
+    domain {
+	x 0
+	y 0
+	width 3
+	height 6
+	depth 1
+    }
+    pixels {
+	= 1 1 1 =
+	= 2 2 2 =
+	= 3 3 3 =
+	= 4 4 4 =
+	= 5 5 5 =
+	= 6 6 6 =
+    }
+}
+
+test aktive-image-from-columns-2.1 "aktive image from columns, dag" -body {
+    dag aktive image from columns 4  1 2 3
+} -match glob -result {image::from::columns * {width 4 value {1.0 2.0 3.0}}}
+
+# # ## ### ##### ######## ############# #####################
+cleanupTests
+return

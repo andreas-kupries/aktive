@@ -1,0 +1,53 @@
+# -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
+## (c) 2023 Andreas Kupries
+# # ## ### ##### ######## ############# #####################
+## AKTIVE. Images from a constant set of row values.
+
+kt check Tcl     8.6
+kt check tcltest 2
+
+# # ## ### ##### ######## ############# #####################
+
+kt local testing aktive
+
+kt source support/util.tcl
+
+# # ## ### ##### ######## ############# #####################
+## Syntax -- args issue
+
+if 0 {syntax {
+    rows {width height args}
+} {aktive image from}}
+
+# # ## ### ##### ######## ############# #####################
+##
+
+test aktive-image-from-rows-2.0 "aktive image from rows" -body {
+    astcl aktive image from rows 3  1 2 3 4 5 6
+} -match image -result {
+    type   image::from::rows
+    config {
+	height 3
+	value {1.0 2.0 3.0 4.0 5.0 6.0}
+    }
+    domain {
+	x 0
+	y 0
+	width 6
+	height 3
+	depth 1
+    }
+    pixels {
+	= 1 2 3 4 5 6 =
+	= 1 2 3 4 5 6 =
+	= 1 2 3 4 5 6 =
+    }
+}
+
+test aktive-image-from-rows-2.1 "aktive image from rows, dag" -body {
+    dag aktive image from rows 4  1 2 3
+} -match glob -result {image::from::rows * {height 4 value {1.0 2.0 3.0}}}
+
+# # ## ### ##### ######## ############# #####################
+cleanupTests
+return

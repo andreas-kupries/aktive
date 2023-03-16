@@ -42,6 +42,48 @@ operator image::from::bands {
     }
 }
 
+operator image::from::rows {
+    section generator virtual
+
+    note Returns image having the same row VALUEs at all columns.
+
+    note Width is len(value)
+
+    uint      height  Height of the returned image
+    double... value   Pixel row values
+
+    state -setup {
+	// width is number of row values
+	aktive_geometry_set (domain, 0, 0, param->value.c, param->height, 1);
+    }
+    pixels {
+	// assert: param.value.c == block.geo.width
+	// assert: block.used % block.width == 0
+	aktive_blit_fill_rows (block, dst, request->x, &param->value);
+    }
+}
+
+operator image::from::columns {
+    section generator virtual
+
+    note Returns image having the same column VALUEs at all rows.
+
+    note Height is len(value)
+
+    uint      width   Width of the returned image
+    double... value   Pixel column values
+
+    state -setup {
+	// height is number of column values
+	aktive_geometry_set (domain, 0, 0, param->width, param->value.c, 1);
+    }
+    pixels {
+	// assert: param.value.c == block.geo.width
+	// assert: block.used % block.width == 0
+	aktive_blit_fill_columns (block, dst, request->y, &param->value);
+    }
+}
+
 operator image::from::matrix {
     section generator virtual
 

@@ -182,7 +182,7 @@ aktive_blit_fill (aktive_block* dst, aktive_rectangle* area, double v)
 }
 
 extern void
-aktive_blit_fill_bands (aktive_block* dst, aktive_rectangle* area, aktive_double_vector* bands)
+aktive_blit_fill_bands (aktive_block* dst, aktive_rectangle* area, aktive_double_vector* bandv)
 {
     TRACE_FUNC("((block*) %p (%d of %d @ %p)", dst, dst->used, dst->capacity, dst->pixel);
 
@@ -196,7 +196,7 @@ aktive_blit_fill_bands (aktive_block* dst, aktive_rectangle* area, aktive_double
     // and     row size   [byte]     (accounts for bands)
 
     aktive_uint w = dst->domain.width;
-    aktive_uint d = dst->domain.depth; // assert: == bands.c
+    aktive_uint d = dst->domain.depth; // assert: == bandv.c
 
     aktive_uint stride = d * w ; /* pitch */
     aktive_uint width  = d * area->width;
@@ -206,10 +206,74 @@ aktive_blit_fill_bands (aktive_block* dst, aktive_rectangle* area, aktive_double
 	 row < area->height;
 	 row++, start += stride) {
 
-	// blit single line
+	// blit single line, piece-wise by column
 	double* cell = start;
 	for (aktive_uint col = 0; col < width; col += d, cell += d) {
-	    memcpy (cell, bands->v, d * sizeof(double));
+	    memcpy (cell, bandv->v, d * sizeof(double));
+	}
+    }
+}
+
+extern void
+aktive_blit_fill_rows (aktive_block* dst, aktive_rectangle* area, int x, aktive_double_vector* rowv)
+{
+    TRACE_FUNC("((block*) %p (%d of %d @ %p)", dst, dst->used, dst->capacity, dst->pixel);
+
+    // block area = (0, 0, w, h)
+    // clear area = (x, y, w', h') < (0, 0, w, h)	[Not <=, not equal]
+    //
+    // Note: The `area` is in the same (physical) coordinate system as the block.
+    //
+    // Compute row start  [double*],
+    //         row stride [#double],
+    // and     row size   [byte]     (accounts for bands)
+
+    aktive_uint w = dst->domain.width; // assert: == row.c
+
+    aktive_uint stride = w ; /* pitch */
+    aktive_uint width  = area->width;
+    double*     start  = dst->pixel + area->y * stride + area->x;
+
+    for (aktive_uint row = 0;
+	 row < area->height;
+	 row++, start += stride) {
+
+	// partial blit of single line
+	memcpy (start, rowv->v + x, width * sizeof(double));
+    }
+}
+
+extern void
+aktive_blit_fill_columns (aktive_block* dst, aktive_rectangle* area, int y, aktive_double_vector* columnv)
+{
+    TRACE_FUNC("((block*) %p (%d of %d @ %p)", dst, dst->used, dst->capacity, dst->pixel);
+
+    // block area = (0, 0, w, h)
+    // clear area = (x, y, w', h') < (0, 0, w, h)	[Not <=, not equal]
+    //
+    // Note: The `area` is in the same (physical) coordinate system as the block.
+    //
+    // Compute column start  [double*],
+    //         row stride [#double],
+    // and     row size   [byte]     (accounts for bands)
+
+    aktive_uint w = dst->domain.width;
+    aktive_uint h = dst->domain.height; // assert: == columnv.c
+
+    aktive_uint stride = w ; /* pitch */
+    aktive_uint width  = area->width;
+    double*     start  = dst->pixel + area->y * stride + area->x;
+
+    for (aktive_uint row = 0;
+	 row < area->height;
+	 row++, start += stride) {
+
+	double* cell = start;
+
+	for (aktive_uint col = 0;
+	     col < width;
+	     col++, cell ++) {
+	    *cell = columnv->v [y + row];
 	}
     }
 }

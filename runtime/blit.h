@@ -59,9 +59,13 @@ extern void aktive_blit_clear      (aktive_block* dst, aktive_rectangle* area);
 extern void aktive_blit_clear_bands_from (aktive_block* dst, aktive_rectangle* area,
 					  aktive_uint first, aktive_uint n);
 
-extern void aktive_blit_fill       (aktive_block* dst, aktive_rectangle* area, double v);
-extern void aktive_blit_fill_bands (aktive_block* dst, aktive_rectangle* area,
-				    aktive_double_vector* bands);
+extern void aktive_blit_fill         (aktive_block* dst, aktive_rectangle* area, double v);
+extern void aktive_blit_fill_bands   (aktive_block* dst, aktive_rectangle* area,
+				      aktive_double_vector* bands);
+extern void aktive_blit_fill_rows    (aktive_block* dst, aktive_rectangle* area,
+				      int x, aktive_double_vector* row);
+extern void aktive_blit_fill_columns (aktive_block* dst, aktive_rectangle* area,
+				      int y, aktive_double_vector* column);
 
 extern void aktive_blit_copy (aktive_block* dst, aktive_rectangle* dstarea,
 			      aktive_block* src, aktive_point*     srcloc);
