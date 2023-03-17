@@ -8,6 +8,9 @@
 # # ## ### ##### ######## ############# #####################
 ## Constructing complex-valued images
 
+## See op/amath.h
+##     op/math.c
+
 tcl-operator band {
     op::cmath::as-real       real
     op::cmath::as-imaginary  imaginary
@@ -74,6 +77,7 @@ operator {cfunction dexpr} {
     op::cmath::log2         aktive_cmath_log2       {}
     op::cmath::neg          aktive_cmath_neg        -I
     op::cmath::reciproc     aktive_cmath_reciprocal 1/I
+    op::cmath::sign         aktive_cmath_sign       {}
     op::cmath::sin          csin                    {}
     op::cmath::sinh         csinh                   {}
     op::cmath::sqrt         csqrt                   {}
@@ -83,6 +87,8 @@ operator {cfunction dexpr} {
     op::cmath::topolar      aktive_cmath_polar      {}
 } {
     section transform math complex unary
+
+    import? ../../simpler/$cfunction.rules
 
     if {$dexpr eq {}} { set dexpr [namespace tail $__op] }
     if {![string match *I* $dexpr]} { append dexpr (I) }

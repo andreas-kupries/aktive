@@ -24,40 +24,59 @@ syntax {
     outside-oc {low high src}
     outside-co {low high src}
     outside-cc {low high src}
-} {aktive op math}
+    linear     {scale gain src}
+} {aktive op math1}
 
 # # ## ### ##### ######## ############# #####################
 ##
 
-#                 -3 -2 -1 0 1 2 3
-foreach {k fun expected} {
-    0 inside-oo  {0 0 0 1 0 0 0}
-    1 inside-oc  {0 0 0 1 1 0 0}
-    2 inside-co  {0 0 1 1 0 0 0}
-    3 inside-cc  {0 0 1 1 1 0 0}
-    4 outside-oo {1 1 1 0 1 1 1}
-    5 outside-oc {1 1 1 0 0 1 1}
-    6 outside-co {1 1 0 0 1 1 1}
-    7 outside-cc {1 1 0 0 0 1 1}
+#              -3 -2 -1 0 1 2 3
+foreach {fun expected} {
+    inside-oo  {0 0 0 1 0 0 0}
+    inside-oc  {0 0 0 1 1 0 0}
+    inside-co  {0 0 1 1 0 0 0}
+    inside-cc  {0 0 1 1 1 0 0}
+    outside-oo {1 1 1 0 1 1 1}
+    outside-oc {1 1 1 0 0 1 1}
+    outside-co {1 1 0 0 1 1 1}
+    outside-cc {1 1 0 0 0 1 1}
 } {
     # puts   "\nXX $fun ........................................................................"
     # puts   "XX INPUT [dict get [astcl aktive image gradient $steps 1 1 $first $last] pixels]"
     # puts   "XX RESLT [dict get [astcl aktive op math1 $fun [aktive image gradient $steps 1 1 $first $last]] pixels]"
     # puts   "XX EXP.. $expected\n"
 
-    test aktive-op-math-${fun}-2.0 "aktive math $fun" -body {
-	astcl aktive op math $fun -1 1 [aktive image gradient 7 1 1 -3 3]
-    } -match image -result [makei op::math::$fun 0 0 7 1 1 {low -1.0 high 1.0} $expected]
+    test aktive-op-math1-${fun}-2.0 "aktive math1 $fun" -body {
+	astcl aktive op math1 $fun -1 1 [aktive image gradient 7 1 1 -3 3]
+    } -match image -result [makei op::math1::$fun 0 0 7 1 1 {low -1.0 high 1.0} $expected]
 
-    test aktive-op-math-${fun}-2.1 "aktive math $fun, dag" -body {
-	dag aktive op math $fun -1 1 [aktive image gradient 7 1 1 -3 3]
-    } -match glob -result "op::math::$fun * {*} {image::gradient *}"
+    test aktive-op-math1-${fun}-2.1 "aktive math1 $fun, dag" -body {
+	dag aktive op math1 $fun -1 1 [aktive image gradient 7 1 1 -3 3]
+    } -match glob -result "op::math1::$fun * {*} {image::gradient *}"
 
-    test aktive-op-math-${fun}-2.2 "aktive math $fun, const folding, dag" -body {
-	dag aktive op math $fun -1 1 [flat 4]
+    test aktive-op-math1-${fun}-2.2 "aktive math1 $fun, const folding, dag" -body {
+	dag aktive op math1 $fun -1 1 [flat 4]
     } -match glob -result {image::from::value *}
 }
 
 # # ## ### ##### ######## ############# #####################
+
+set expected {4 3 2 1 0 -1 -2}
+
+test aktive-op-math1-linear-2.0 "aktive math1 linear" -body {
+    astcl aktive op math1 linear -1 1 [aktive image gradient 7 1 1 -3 3]
+} -match image -result [makei op::math1::shift 0 0 7 1 1 {offset 1.0} $expected]
+
+test aktive-op-math1-linear-2.1 "aktive math1 linear, dag" -body {
+    dag aktive op math1 linear -1 1 [aktive image gradient 7 1 1 -3 3]
+} -match glob -result "op::math1::shift * {offset 1.0} {op::math1::scale * {factor -1.0} {image::gradient *}}"
+
+test aktive-op-math1-linear-2.2 "aktive math1 linear, const folding, dag" -body {
+    dag aktive op math1 linear -1 1 [flat 4]
+} -match glob -result {image::from::value *}
+
+# # ## ### ##### ######## ############# #####################
+
+unset fun expected
 cleanupTests
 return

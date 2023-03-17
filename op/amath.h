@@ -75,8 +75,9 @@ extern double complex aktive_cmath_log2       (double complex a);
 extern double complex aktive_cmath_neg        (double complex a);
 extern double complex aktive_cmath_polar      (double complex a);
 extern double complex aktive_cmath_reciprocal (double complex a);
+extern double complex aktive_cmath_sign       (double complex a);
 
-extern double aktive_cmath_sqabs   (double complex a);
+extern double         aktive_cmath_sqabs      (double complex a);
 
 /*
  * = = == === ===== ======== ============= =====================

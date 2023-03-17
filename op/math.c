@@ -135,6 +135,11 @@ extern double complex aktive_cmath_reciprocal (double complex a) { return 1 / a;
 extern double complex aktive_cmath_polar      (double complex a) { return CMPLX (cabs (a), carg (a)); }
 extern double complex aktive_cmath_cartesian  (double complex a) { return CMPLX (creal(a) * cos(cimag (a)),
 										 creal(a) * sin(cimag (a))); }
+extern double complex aktive_cmath_sign (double complex a) {
+    double norm = cabs (a);
+    return CMPLX (creal(a)/norm, cimag(a)/norm);
+}
+
 extern double aktive_cmath_sqabs (double complex a)
 {
     double r = creal (a);

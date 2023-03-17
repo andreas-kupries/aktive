@@ -1,0 +1,5 @@
+## -*- mode: tcl ; fill-column: 90 -*-
+# # ## ### ##### ######## ############# #####################
+## aktive_cmath_sign -- op cmath sign -- idempotent
+
+import idempotent.rules
