@@ -283,7 +283,7 @@ task_completer (aktive_batch processor)
 	void* result = result_get (processor);
 	if (!result) break;
 
-	TRACE ("process result", 0);
+	TRACE ("process result %p", result);
 	processor->completer (processor->state, result);
     } while (1);
 

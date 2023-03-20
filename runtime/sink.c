@@ -189,10 +189,14 @@ sink_worker (const sink_batch_state* state, aktive_rectangle* task, aktive_regio
 static void
 sink_completer (sink_batch_state* state, aktive_block* result)
 {
-    TRACE_FUNC("((sink_batch_state*) %p, (task) %p, (active_block*) %p)", state, result);
+    TRACE_FUNC("((sink_batch_state*) %p, (active_block*) %p)", state, result);
 
-    if (!result) TRACE_RETURN_VOID;
+    if (!result) {
+	TRACE("no data %p", result);
+	TRACE_RETURN_VOID;
+    }
 
+    TRACE("process %p", result);
     state->sink->process (state->state, result);
 
     aktive_blit_close (result);
