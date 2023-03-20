@@ -56,6 +56,7 @@ import generator/virtual/pattern/eye.tcl
 import generator/virtual/pattern/sines.tcl
 import generator/virtual/pattern/zone.tcl
 
+import transformer/geometry.tcl
 import transformer/identity.tcl
 import transformer/location.tcl
 import transformer/viewport.tcl
