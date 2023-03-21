@@ -120,6 +120,208 @@ aktive_reduce_variance (double* v, aktive_uint n, aktive_uint stride)
 
 /*
  * - - -- --- ----- -------- -------------
+ * Region reductions, used in per-tile statistics
+ *
+ * TODO :: blitter, note the explicit pitch/stride/pos/cap information
+ */
+
+extern double
+aktive_tile_reduce_max (double* v, aktive_uint radius, aktive_uint base,
+			aktive_uint cap, aktive_uint pitch, aktive_uint stride)
+{
+    TRACE_FUNC("((double*) %p, [%u:%u], (radius) %u, (pitch) %u, (stride) %u)",
+	       v, base, cap, radius, pitch, stride);
+
+    double max = v[0];
+
+    int r = radius;
+    for (int y = -r ; y <= r; y++) {
+	for (int x = -r; x <= r; x++) {
+	    int index = y*pitch + x*stride;
+	    int aindex = (int) base + index;
+
+	    TRACE_HEADER (1); TRACE_ADD ("@(%d,%d) = %u[%d] = [%d]", x, y, base, index, aindex);
+	    if ((aindex < 0) || (aindex >= cap)) {
+		TRACE_CLOSER; TRACE("ASSERT", 0);
+		ASSERT_VA (0, "src out of bounds", "%d / %d", aindex, cap);
+	    }
+
+	    double val = v [index];
+
+	    TRACE_ADD ("=> %f", val); TRACE_CLOSER;
+
+	    max = MAX (max, val);
+	}
+    }
+
+    TRACE_RETURN ("(max) %f", max);
+}
+
+extern double
+aktive_tile_reduce_mean (double* v, aktive_uint radius, aktive_uint base,
+			 aktive_uint cap, aktive_uint pitch, aktive_uint stride)
+{
+    TRACE_FUNC("((double*) %p, [%u:%u], (radius) %u, (pitch) %u, (stride) %u)",
+	       v, base, cap, radius, pitch, stride);
+
+    aktive_uint n = 2*radius+1; n *= n;
+    double      r = aktive_tile_reduce_sum (v, radius, base, cap, pitch, stride) / (double) n;
+
+    TRACE_RETURN ("(mean) %f", r);
+}
+
+extern double
+aktive_tile_reduce_min (double* v, aktive_uint radius, aktive_uint base,
+			aktive_uint cap, aktive_uint pitch, aktive_uint stride)
+{
+    TRACE_FUNC("((double*) %p, [%u:%u], (radius) %u, (pitch) %u, (stride) %u)",
+	       v, base, cap, radius, pitch, stride);
+
+    double min = v[0];
+
+    int r = radius;
+    for (int y = -r ; y <= r; y++) {
+	for (int x = -r; x <= r; x++) {
+	    int index = y*pitch + x*stride;
+	    int aindex = (int) base + index;
+
+	    TRACE_HEADER (1); TRACE_ADD ("@(%d,%d) = %u[%d] = [%d]", x, y, base, index, aindex);
+	    if ((aindex < 0) || (aindex >= cap)) {
+		TRACE_CLOSER; TRACE("ASSERT", 0);
+		ASSERT_VA (0, "src out of bounds", "%d / %d", aindex, cap);
+	    }
+
+	    double val = v [index];
+
+	    TRACE_ADD ("=> %f", val); TRACE_CLOSER;
+
+	    min = MIN (min, val);
+	}
+    }
+
+    TRACE_RETURN ("(min) %f", min);
+}
+
+extern double
+aktive_tile_reduce_stddev (double* v, aktive_uint radius, aktive_uint base,
+			   aktive_uint cap, aktive_uint pitch, aktive_uint stride)
+{
+    TRACE_FUNC("((double*) %p, [%u:%u], (radius) %u, (pitch) %u, (stride) %u)",
+	       v, base, cap, radius, pitch, stride);
+
+    double r =  sqrt (aktive_tile_reduce_variance (v, radius, base, cap, pitch, stride));
+
+    TRACE_RETURN ("(stddev) %f", r);
+}
+
+extern double
+aktive_tile_reduce_sum (double* v, aktive_uint radius, aktive_uint base,
+			aktive_uint cap, aktive_uint pitch, aktive_uint stride)
+{
+    TRACE_FUNC("((double*) %p, [%u:%u], (radius) %u, (pitch) %u, (stride) %u)",
+	       v, base, cap, radius, pitch, stride);
+
+    kahan sum; aktive_kahan_init (&sum);
+
+    int r = radius;
+    for (int y = -r ; y <= r; y++) {
+	for (int x = -r; x <= r; x++) {
+	    int index = y*pitch + x*stride;
+	    int aindex = (int) base + index;
+
+	    TRACE_HEADER (1); TRACE_ADD ("@(%d,%d) = %u[%d] = [%d]", x, y, base, index, aindex);
+	    if ((aindex < 0) || (aindex >= cap)) {
+		TRACE_CLOSER; TRACE("ASSERT", 0);
+		ASSERT_VA (0, "src out of bounds", "%d / %d", aindex, cap);
+	    }
+
+	    double val = v [index];
+
+	    TRACE_ADD ("=> %f", val); TRACE_CLOSER;
+
+	    aktive_kahan_add (&sum, val);
+	}
+    }
+
+    double res = aktive_kahan_final (&sum);
+    TRACE_RETURN ("(sum) %f", res);
+}
+
+extern double
+aktive_tile_reduce_sumsquared (double* v, aktive_uint radius, aktive_uint base,
+			       aktive_uint cap, aktive_uint pitch, aktive_uint stride)
+{
+    TRACE_FUNC("((double*) %p, [%u:%u], (radius) %u, (pitch) %u, (stride) %u)",
+	       v, base, cap, radius, pitch, stride);
+
+    kahan sum; aktive_kahan_init (&sum);
+
+    int r = radius;
+    for (int y = -r ; y <= r; y++) {
+	for (int x = -r; x <= r; x++) {
+	    int index = y*pitch + x*stride;
+	    int aindex = (int) base + index;
+
+	    TRACE_HEADER (1); TRACE_ADD ("@(%d,%d) = %u[%d] = [%d]", x, y, base, index, aindex);
+	    if ((aindex < 0) || (aindex >= cap)) {
+		TRACE_CLOSER; TRACE("ASSERT", 0);
+		ASSERT_VA (0, "src out of bounds", "%d / %d", aindex, cap);
+	    }
+
+	    double val = v [index];
+
+	    TRACE_ADD ("=> %f", val); TRACE_CLOSER;
+
+	    aktive_kahan_add (&sum, val*val);
+	}
+    }
+
+    double res = aktive_kahan_final (&sum);
+    TRACE_RETURN ("(sum-squared) %f", res);
+}
+
+extern double
+aktive_tile_reduce_variance (double* v, aktive_uint radius, aktive_uint base,
+			     aktive_uint cap, aktive_uint pitch, aktive_uint stride)
+{
+    TRACE_FUNC("((double*) %p, [%u:%u], (radius) %u, (pitch) %u, (stride) %u)",
+	       v, base, cap, radius, pitch, stride);
+
+    aktive_uint n = 2*radius+1; n *= n;
+
+    kahan sum;     aktive_kahan_init (&sum);
+    kahan squared; aktive_kahan_init (&squared);
+
+    int r = radius;
+    for (int y = -r ; y <= r; y++) {
+	for (int x = -r; x <= r; x++) {
+	    int index = y*pitch + x*stride;
+	    int aindex = (int) base + index;
+
+	    TRACE_HEADER (1); TRACE_ADD ("@(%d,%d) = %u[%d] = [%d]", x, y, base, index, aindex);
+	    if ((aindex < 0) || (aindex >= cap)) {
+		TRACE_CLOSER; TRACE("ASSERT", 0);
+		ASSERT_VA (0, "src out of bounds", "%d / %d", aindex, cap);
+	    }
+
+	    double val = v [index];
+
+	    TRACE_ADD ("=> %f", val); TRACE_CLOSER;
+
+	    aktive_kahan_add (&sum, val);
+	    aktive_kahan_add (&squared, val*val);
+	}
+    }
+
+    double mean = aktive_kahan_final (&sum)     / (double) n;
+    double sq   = aktive_kahan_final (&squared) / (double) n;
+    double res  = sq - mean*mean;
+
+    TRACE_RETURN ("(variance) %f", res);
+}
+
+/*
+ * - - -- --- ----- -------- -------------
  */
 
 static void
@@ -152,9 +354,9 @@ sum_and_squared (kahan* rsum, kahan* rsquared, double* v, aktive_uint n, aktive_
     kahan squared; aktive_kahan_init (&squared);
 
     for (aktive_uint k = 0; k < n; k++, v += stride) {
-	double x = *v;
-	aktive_kahan_add (&sum, x);
-	aktive_kahan_add (&squared, x*x);
+	double val = *v;
+	aktive_kahan_add (&sum, val);
+	aktive_kahan_add (&squared, val*val);
     }
 
     *rsum     = sum;
