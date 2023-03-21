@@ -20,9 +20,9 @@ operator {dexpr attr} {
     def kind [lindex [split $__op :] 2]
     def fun  [lindex [split $__op :] 4]
 
-    # As sinks cannot be stacked, simplification is not applicable
+    # As sinks cannot be stacked, simplification is not applicable.
 
-    note Returns a single value, the $dexpr of the $attr values \
+    note Returns a single value, the $dexpr of the {*}$attr values \
 	(across all rows, columns, and bands)
 
     input

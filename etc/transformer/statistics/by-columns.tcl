@@ -29,7 +29,7 @@ operator {dexpr attr} {
     import? ../simpler/stat_$fun.rules	;# queries kind !!
 
     note Returns image with input columns compressed to a single value, \
-	the $dexpr of the $attr column values. The result is a single-row \
+	the $dexpr of the {*}$attr column values. The result is a single-row \
 	image with width and depth of the input.
 
     note The part about the `depth of the input` means that the bands \

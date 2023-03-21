@@ -29,7 +29,7 @@ operator {dexpr attr} {
     import? ../simpler/stat_$fun.rules	;# queries kind !!
 
     note Returns image with input bands compressed to a single value, \
-	the $dexpr of the $attr band values. The result is a single-band \
+	the $dexpr of the {*}$attr band values. The result is a single-band \
 	image with width and height of the input.
 
     input
