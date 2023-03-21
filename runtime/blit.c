@@ -620,7 +620,6 @@ aktive_blit_set (aktive_block* dst, aktive_point* location, double v)
  *
  * - - -- --- ----- -------- -------------
  */
-#define CHAN stderr
 
 extern void
 __aktive_block_dump (char* prefix, aktive_block* src) {
