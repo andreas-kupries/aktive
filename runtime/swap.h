@@ -13,6 +13,7 @@
 #include <sys/types.h>
 #include <sys/param.h>
 #include <byteswap.h>
+#include <stdint.h>
 
 /*
  * - - -- --- ----- -------- -------------

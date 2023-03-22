@@ -31,7 +31,7 @@ static void aktive_writer_to_bytearray (Tcl_Obj*    ba,   char* buf, int n);
  * - - -- --- ----- -------- -------------
  */
 
-#define Q(scale) return (aktive_uint) round (aktive_clamp (x) * scale)
+#define Q(scale) return (aktive_uint) floor (aktive_clamp (x) * scale)
 
 extern aktive_uint aktive_quantize_uint8  (double x) { Q (255); }
 extern aktive_uint aktive_quantize_uint16 (double x) { Q (65535); }
@@ -119,6 +119,9 @@ aktive_write_append_uint16be (aktive_writer* writer, aktive_uint v)
     char buf [2];
     buf [0] = MSB (v);
     buf [1] = LSB (v);
+
+    TRACE ("BE %02x %02x", (int)buf[0], (int)buf[1]);
+
     aktive_write_append (writer, buf, 2);
 
     TRACE_RETURN_VOID;
@@ -179,11 +182,12 @@ aktive_write_append_float64be (aktive_writer* writer, double v)
 
     union {
 	double        v;
+	uint64_t      vi;
 	unsigned char buf [sizeof(double)];
     } cast;
 
     cast.v = v;
-    SWAP64 (cast.v);
+    cast.vi = SWAP64 (cast.vi);
     aktive_write_append (writer, cast.buf, sizeof(double));
 
     TRACE_RETURN_VOID;

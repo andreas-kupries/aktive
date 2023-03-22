@@ -2,6 +2,7 @@
  */
 
 #include <math.h>
+#include <ctype.h>
 #include <string.h>
 #include <reader.h>
 #include <swap.h>
@@ -28,13 +29,17 @@ aktive_read_setup_binary (Tcl_Channel src) {
 extern int
 aktive_read_string (Tcl_Channel src, char* buf, aktive_uint n)
 {
+    TRACE_FUNC ("((Channel) %p, (char*) %p [%d])", src, buf, n);
+
     Tcl_WideInt mark = Tcl_Tell (src);
     int         got  = Tcl_Read (src, buf, n);
+
+    TRACE ("got %d, mark %d", got, mark);
     if (got < n) {
 	if (mark >= 0) { (void) Tcl_Seek (src, mark, SEEK_SET); }
-	return 0;
+	TRACE_RETURN ("(Fail) %d", 0);
     }
-    return 1;
+    TRACE_RETURN ("(OK) %d", 1);
 }
 
 extern int
@@ -51,6 +56,50 @@ aktive_read_match (Tcl_Channel src, char* pattern, aktive_uint n)
     }
     ckfree (buf);
     return ok;
+}
+
+extern int
+aktive_read_uint_str (Tcl_Channel src, aktive_uint* v)
+{
+    TRACE_FUNC ("((Channel) %p, (aktive_uint*) %p)", src, v);
+
+    aktive_uint vl = 0;
+    aktive_uint mode = 0;
+    char buf [2] = { 0, 0 };
+    aktive_uint run = 1;
+
+    while (run) {
+	if (!aktive_read_string (src, buf, 1)) { TRACE_RETURN ("(FAIL eof) %d", 0); }
+	TRACE ("read/%d = (%d) = '%c' ws=%d", mode, (int) *buf, *buf, isspace (*buf));
+
+	switch (mode) {
+	case 0:	// skip leading whitespace, if any
+	    if (isspace (*buf)) continue;
+	    // not whitespace, number start
+	    mode ++;
+	    goto digit;
+	case 1:	// process digits
+	    // post number whitespace - back skipping
+	    if (isspace (*buf)) { mode ++ ; continue; }
+	    // non-digit - syntax error - fail
+	    if ((*buf < '0') || (*buf > '9')) { TRACE_RETURN ("(FAIL not digit) %d", 0); }
+	digit:
+	    // accumulate digit
+	    vl = 10*vl + (*buf - '0');
+	    TRACE ("number = %d", vl);
+	    continue;
+	case 2: // skip trailing whitespace
+	    if (isspace (*buf)) continue;
+	    // end of whitespace, rewind for next call
+	    Tcl_Seek(src, -1, SEEK_CUR);
+	    run --;
+	    break;
+	}
+    }
+
+    *v = vl;
+    TRACE ("read number = %d", vl);
+    TRACE_RETURN ("(OK) %d", 1);
 }
 
 extern int
@@ -113,12 +162,13 @@ aktive_read_float64be (Tcl_Channel src, double* v)
 {
     union {
 	double        v;
+	uint64_t      vi;
 	unsigned char buf [sizeof(double)];
     } cast;
 
     int ok = aktive_read_string (src, cast.buf, sizeof(double));
     if (ok) {
-	SWAP64 (cast.v);
+	cast.vi = SWAP64 (cast.vi);
 	*v = cast.v;
     }
     return ok;

@@ -30,6 +30,7 @@ extern int aktive_read_uint16be  (Tcl_Channel src, aktive_uint* v);
 extern int aktive_read_uint32be  (Tcl_Channel src, aktive_uint* v);
 extern int aktive_read_uint64be  (Tcl_Channel src, Tcl_WideInt* v);
 extern int aktive_read_float64be (Tcl_Channel src, double*      v);
+extern int aktive_read_uint_str  (Tcl_Channel src, aktive_uint* v);
 
 /*
  * = = == === ===== ======== ============= =====================
