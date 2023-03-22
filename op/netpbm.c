@@ -50,6 +50,7 @@
 #include <critcl_assert.h>
 #include <critcl_trace.h>
 #include <netpbm.h>
+#include <swap.h>
 
 #define MAXCOL 70
 
@@ -75,6 +76,7 @@ typedef struct aktive_netpbm_control {
 
 /*
  * - - -- --- ----- -------- -------------
+ * Writer internals
  */
 
 static aktive_netpbm_control* netpbm_header (aktive_netpbm_control* info, aktive_image src);
@@ -87,20 +89,45 @@ static void netpbm_short (aktive_netpbm_control* info, aktive_block* src);
 
 /*
  * - - -- --- ----- -------- -------------
+ * Reader internals
+ */
+
+#define D(name)						\
+    static void						\
+    netpbm_read_ ## name (void**                cache,	\
+			  aktive_netpbm_header* info,	\
+			  aktive_uint           x,	\
+			  aktive_uint           y,	\
+			  aktive_uint           w,	\
+			  Tcl_Channel           chan,	\
+			  double*               v)
+
+D (pgm_byte);
+D (pgm_short);
+D (pgm_text);
+D (pgm_etext);
+D (ppm_byte);
+D (ppm_short);
+D (ppm_text);
+D (ppm_etext);
+
+/*
+ * - - -- --- ----- -------- -------------
  */
 
 /* 2/3 = pgm/ppm text, 5/6 = pgm/ppm binary */
 static const char* format[] = {
-	"",
-	"",
-	"pgm::text",
-	"ppm::text",
-	"",
-	"pgm::binary",
-	"ppm::binary"
+	/* 0 */	"",
+	/* 1 */	"",
+	/* 2 */	"pgm::text",
+	/* 3 */	"ppm::text",
+	/* 4 */	"",
+	/* 5 */	"pgm::binary",
+	/* 6 */	"ppm::binary"
 };
 
-static int valid[] = { 0, 0, 1, 1, 0,  1, 1 };
+static int         valid[] = { 0, 0, 1, 1, 0, 1, 1 };
+static aktive_uint bands[] = { 0, 0, 1, 3, 0, 1, 3 };
 
 static aktive_sink_process process[] = {
 	/*  0 0          */ 0,
@@ -117,6 +144,23 @@ static aktive_sink_process process[] = {
 	/* 11 5/extended */ (aktive_sink_process) netpbm_short,
 	/* 12 6          */ (aktive_sink_process) netpbm_byte,
 	/* 13 6/extended */ (aktive_sink_process) netpbm_short,
+};
+
+static aktive_netpbm_reader reader[] = {
+	/*  0 0          */ 0,
+	/*  1 0/extended */ 0,
+	/*  2 1          */ 0,
+	/*  3 1/extended */ 0,
+	/*  4 2          */ (aktive_netpbm_reader) netpbm_read_pgm_text,
+	/*  5 2/extended */ (aktive_netpbm_reader) netpbm_read_pgm_etext,
+	/*  6 3          */ (aktive_netpbm_reader) netpbm_read_ppm_text,
+	/*  7 3/extended */ (aktive_netpbm_reader) netpbm_read_ppm_etext,
+	/*  8 4          */ 0,
+	/*  9 4/extended */ 0,
+	/* 10 5          */ (aktive_netpbm_reader) netpbm_read_pgm_byte,
+	/* 11 5/extended */ (aktive_netpbm_reader) netpbm_read_pgm_short,
+	/* 12 6          */ (aktive_netpbm_reader) netpbm_read_ppm_byte,
+	/* 13 6/extended */ (aktive_netpbm_reader) netpbm_read_ppm_short,
 };
 
 /*
@@ -251,7 +295,10 @@ netpbm_byte (aktive_netpbm_control* info, aktive_block* src)
 		info, info->sink->name, info->written, info->col, src, src->used);
 
     ITER {
-	aktive_write_append_uint8 (info->writer, aktive_quantize_uint8 (VAL));
+	aktive_uint val = aktive_quantize_uint8 (VAL);
+	TRACE ("write [%8d] %f -> %5u", j, VAL, val);
+
+	aktive_write_append_uint8 (info->writer, val);
 	info->written ++;
     }
 
@@ -265,7 +312,10 @@ netpbm_short (aktive_netpbm_control* info, aktive_block* src)
 		info, info->sink->name, info->written, info->col, src, src->used);
 
     ITER {
-	aktive_write_append_uint16be (info->writer, aktive_quantize_uint16 (VAL));
+	aktive_uint val = aktive_quantize_uint16 (VAL);
+	TRACE ("write [%8d] %f -> %5u", j, VAL, val);
+
+	aktive_write_append_uint16be (info->writer, val);
 	info->written ++;
     }
 
@@ -274,6 +324,99 @@ netpbm_short (aktive_netpbm_control* info, aktive_block* src)
 
 #undef ITER
 #undef VAL
+
+/*
+ * - - -- --- ----- -------- -------------
+ */
+
+extern int
+aktive_netpbm_read_header (Tcl_Channel src, aktive_netpbm_header* info)
+{
+    TRACE_FUNC ("((Channel) %p, (header*) %p)", src, info);
+
+#define TRY(m, cmd) if (!(cmd)) { TRACE_RETURN ("(Fail) %d: " m, 0); }
+#define MAGIC "P"
+
+    TRY ("magic1", aktive_read_match (src, MAGIC, sizeof (MAGIC)-1));
+
+    aktive_uint vcode;
+    TRY ("magic2", aktive_read_uint8 (src, &vcode));
+    vcode -= '0';
+    if ((vcode > 7) || !valid [vcode]) { TRACE_RETURN ("(Fail) %d: type", 0); }
+
+    TRY ("width",  aktive_read_uint_str (src, &info->width));
+    TRY ("height", aktive_read_uint_str (src, &info->height));
+    TRY ("maxval", aktive_read_uint_str (src, &info->maxval));
+
+    aktive_uint extended = (info->maxval > 255);
+
+    info->base   = Tcl_Tell (src);
+    info->depth  = bands [vcode];
+    info->reader = reader [(vcode << 1) + extended];
+    info->scale  = 1.0 / info->maxval;
+
+    TRACE ("width  %u", info->width);
+    TRACE ("height %u", info->height);
+    TRACE ("depth  %u", info->depth);
+    TRACE ("maxv   %u", info->maxval);
+    TRACE ("data@  %u", info->base);
+    TRACE ("scale  %f", info->scale);
+
+#undef TRY
+    TRACE_RETURN ("(OK) %d", 1);
+}
+
+D (pgm_byte)	// single band, binary, byte
+{
+#define BANDS    1
+#define BANDTYPE uint8_t
+#include <netpbm_binread.h>
+}
+
+D (pgm_short)	// single band, binary, short
+{
+#define BANDS      1
+#define BANDTYPE   uint16_t
+#define PROCESS(x) x = SWAP16 (x)
+#include <netpbm_binread.h>
+}
+
+D (pgm_text)
+{
+    ASSERT (0, "reader not implemented");
+}
+
+D (pgm_etext)
+{
+    ASSERT (0, "reader not implemented");
+}
+
+D (ppm_byte)	// 3 band, binary, byte
+{
+#define BANDS      3
+#define BANDTYPE   uint8_t
+#include <netpbm_binread.h>
+}
+
+D (ppm_short)	// 3 band, binary, short
+{
+#define BANDS      3
+#define BANDTYPE   uint16_t
+#define PROCESS(x) x = SWAP16 (x)
+#include <netpbm_binread.h>
+}
+
+D (ppm_text)
+{
+    ASSERT (0, "reader not implemented");
+}
+
+D (ppm_etext)
+{
+    ASSERT (0, "reader not implemented");
+}
+
+#undef D
 
 /*
  * = = == === ===== ======== ============= =====================
