@@ -17,8 +17,13 @@ operator read::from::aktive {
     state -fields {
 	int         x;
 	int         y;
-	aktive_uint pix; // offset to first pixel value
-	Tcl_Obj*    path;
+	aktive_uint pix;	// offset to first pixel value
+	Tcl_Obj*    ppath;	// param reference, to unlink at final unref
+	Tcl_Obj*    path;	// param image copy
+    } -cleanup {
+	// Remove our copy and our hold on the parameter
+	Tcl_DecrRefCount (state->path);
+	Tcl_DecrRefCount (state->ppath);
     } -setup {
 	Tcl_Channel src = Tcl_FSOpenFileChannel (NULL, param->path, "r", 0);
 	if (!src) aktive_failf ("failed to open path %s", Tcl_GetString (param->path));
@@ -51,14 +56,25 @@ operator read::from::aktive {
 	state->pix  = pix;
 	state->x    = x;
 	state->y    = y;
-	state->path = param->path; Tcl_IncrRefCount (state->path);
+
+	// BEWARE :: hold the Tcl_Obj* reference. Required, needed for when querying the params.
+	// TODO   :: build this kind of init/finish into the generator ... see handling of vectors.
+	state->ppath = param->path;
+	Tcl_IncrRefCount (param->path);
+
+	// Create local copy of the object for regions to access, from other threads.
+	//
+	// With the param->path we cannot guarantuee that there will not be any changes
+	// made by the main thread (int rep conversions, etc) breaking us. Even if not
+	// done concurrently. The local copy will be ours, and read-only (no shimmering).
+
+	state->path = Tcl_DuplicateObj (param->path); Tcl_IncrRefCount (state->path);
+	(void) Tcl_GetString (state->path);
 
 	#undef SRC
 	#undef TRY
 
 	aktive_geometry_set (domain, x, y, w, h, d);
-    } -cleanup {
-	Tcl_IncrRefCount (state->path);
     }
 
     pixels -state {
