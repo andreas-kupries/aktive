@@ -18,12 +18,9 @@ operator read::from::aktive {
 	int         x;
 	int         y;
 	aktive_uint pix;	// offset to first pixel value
-	Tcl_Obj*    ppath;	// param reference, to unlink at final unref
-	Tcl_Obj*    path;	// param image copy
+	aktive_path path;	// Read-only copy of path.
     } -cleanup {
-	// Remove our copy and our hold on the parameter
-	Tcl_DecrRefCount (state->path);
-	Tcl_DecrRefCount (state->ppath);
+	aktive_path_free (&state->path);
     } -setup {
 	Tcl_Channel src = Tcl_FSOpenFileChannel (NULL, param->path, "r", 0);
 	if (!src) aktive_failf ("failed to open path %s", Tcl_GetString (param->path));
@@ -35,21 +32,21 @@ operator read::from::aktive {
 	#define MAGIC2  "AKTIVE_D"
 	#define VERSION "00"
 
-	#define SRC src
 	#define TRY(m, cmd) if (!(cmd)) aktive_fail ("failed to read header:" m);
 	int x, y;
 	aktive_uint w, h, d, metac, pix;
-	TRY ("magic",   aktive_read_match    (SRC, MAGIC, sizeof (MAGIC)-1));
-	TRY ("version", aktive_read_match    (SRC, VERSION, sizeof (VERSION)-1));
-	TRY ("x",       aktive_read_uint32be (SRC, &x));
-	TRY ("y",       aktive_read_uint32be (SRC, &y));
-	TRY ("w",       aktive_read_uint32be (SRC, &w));
-	TRY ("h",       aktive_read_uint32be (SRC, &h));
-	TRY ("d",       aktive_read_uint32be (SRC, &d));
-	TRY ("metac",   aktive_read_uint32be (SRC, &metac));
-	if (metac) Tcl_Seek (SRC, metac, SEEK_CUR);
-	TRY ("magic2",  aktive_read_match    (SRC, MAGIC2, sizeof (MAGIC2)-1));
-	pix = Tcl_Tell (SRC);
+	TRY ("magic",   aktive_read_match    (src, MAGIC, sizeof (MAGIC)-1));
+	TRY ("version", aktive_read_match    (src, VERSION, sizeof (VERSION)-1));
+	TRY ("x",       aktive_read_uint32be (src, &x));
+	TRY ("y",       aktive_read_uint32be (src, &y));
+	TRY ("w",       aktive_read_uint32be (src, &w));
+	TRY ("h",       aktive_read_uint32be (src, &h));
+	TRY ("d",       aktive_read_uint32be (src, &d));
+	TRY ("metac",   aktive_read_uint32be (src, &metac));
+	if (metac) Tcl_Seek (src, metac, SEEK_CUR);
+	TRY ("magic2",  aktive_read_match    (src, MAGIC2, sizeof (MAGIC2)-1));
+	pix = Tcl_Tell (src);
+	#undef TRY
 
 	Tcl_Close (NULL, src);
 
@@ -57,22 +54,7 @@ operator read::from::aktive {
 	state->x    = x;
 	state->y    = y;
 
-	// BEWARE :: hold the Tcl_Obj* reference. Required, needed for when querying the params.
-	// TODO   :: build this kind of init/finish into the generator ... see handling of vectors.
-	state->ppath = param->path;
-	Tcl_IncrRefCount (param->path);
-
-	// Create local copy of the object for regions to access, from other threads.
-	//
-	// With the param->path we cannot guarantuee that there will not be any changes
-	// made by the main thread (int rep conversions, etc) breaking us. Even if not
-	// done concurrently. The local copy will be ours, and read-only (no shimmering).
-
-	state->path = Tcl_DuplicateObj (param->path); Tcl_IncrRefCount (state->path);
-	(void) Tcl_GetString (state->path);
-
-	#undef SRC
-	#undef TRY
+	aktive_path_copy (&state->path, param->path);
 
 	aktive_geometry_set (domain, x, y, w, h, d);
     }
@@ -83,14 +65,15 @@ operator read::from::aktive {
 	int         y;
 	aktive_uint pix;
     } -setup {
-	// Each region has its own channel to the same file. At OS level a separate file handle.
-	// Concurrent access in threads without locking
+	// Each region has its own channel to the same file.
+	// At OS level a separate file handle.
+	// Concurrent access in threads without locking,
 	//
-	// WARE Breaks when the file at the path got deleted or moved between header read
-	// WARE (see above), and pixel access.
+	// WARE Breaks when the file at the path is deleted or moved between header read
+	// WARE (see above), and first pixel access.
 
-	state->data = Tcl_FSOpenFileChannel (NULL, istate->path, "r", 0);
-	if (!state->data) aktive_failf ("failed to open path %s", Tcl_GetString (istate->path));
+	state->data = aktive_path_open (&istate->path);
+	if (!state->data) aktive_failf ("failed to open path %s", istate->path.string);
 
 	state->pix  = istate->pix;
 	state->x    = istate->x;

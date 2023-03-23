@@ -21,12 +21,12 @@
 import runtime.tcl
 
 ## II. Operator support
-# __ id __________ critcl ___________ C type ____ Conversion ______________________________
+# __ id __________ critcl ___________ C type ____ Conversion _________________________________________ Init ___________ Finish _________
 type bool          boolean            int         {Tcl_NewIntObj (*value)}
 type int           -                  -           {Tcl_NewIntObj (*value)}
 type wide          wideint            Tcl_WideInt {Tcl_NewWideIntObj (*value)}
-type object0       -                  Tcl_Obj*    {*value}
-type object        -                  Tcl_Obj*    {*value}
+type object0       -                  Tcl_Obj*    {*value}                                             Tcl_IncrRefCount Tcl_DecrRefCount
+type object        -                  Tcl_Obj*    {*value}                                             Tcl_IncrRefCount Tcl_DecrRefCount
 type channel       -                  Tcl_Channel {Tcl_NewStringObj (Tcl_GetChannelName (*value), -1)}
 type take-channel  -                  Tcl_Channel {Tcl_NewStringObj (Tcl_GetChannelName (*value), -1)}
 #type pgm_variant   aktive_pgm_variant -           {aktive_pgm_variant_pool (interp, *value)}

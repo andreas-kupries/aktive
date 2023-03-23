@@ -19,12 +19,9 @@ operator read::from::netpbm {
 
     state -fields {
 	aktive_netpbm_header header;
-	Tcl_Obj*             ppath;	// param reference, to unlink at final unref
-	Tcl_Obj*             path;	// param image copy
+	aktive_path          path;	// Read-only copy of path.
     } -cleanup {
-	// Remove our copy and our hold on the parameter
-	Tcl_DecrRefCount (state->path);
-	Tcl_DecrRefCount (state->ppath);
+	aktive_path_free (&state->path);
     } -setup {
 	Tcl_Channel src = Tcl_FSOpenFileChannel (NULL, param->path, "r", 0);
 	if (!src) aktive_failf ("failed to open path %s", Tcl_GetString (param->path));
@@ -40,19 +37,7 @@ operator read::from::netpbm {
 			     state->header.height,
 			     state->header.depth);
 
-	// BEWARE :: hold the Tcl_Obj* reference. Required, needed for when querying the params.
-	// TODO   :: build this kind of init/finish into the generator ... see handling of vectors.
-	state->ppath = param->path;
-	Tcl_IncrRefCount (param->path);
-
-	// Create local copy of the object for regions to access, from other threads.
-	//
-	// With the param->path we cannot guarantuee that there will not be any changes
-	// made by the main thread (int rep conversions, etc) breaking us. Even if not
-	// done concurrently. The local copy will be ours, and read-only (no shimmering).
-
-	state->path = Tcl_DuplicateObj (param->path); Tcl_IncrRefCount (state->path);
-	(void) Tcl_GetString (state->path);
+	aktive_path_copy (&state->path, param->path);
     }
 
     pixels -state {
@@ -60,14 +45,15 @@ operator read::from::netpbm {
 	aktive_netpbm_header* info;	// quick access to netpbm information
 	void*                 cache;	// TODO CACHE
     } -setup {
-	// Each region has its own channel to the same file. At OS level a separate file handle.
-	// Concurrent access in threads without locking
+	// Each region has its own channel to the same file.
+	// At OS level a separate file handle.
+	// Concurrent access in threads without locking.
 	//
-	// WARE Breaks when the file at the path got deleted or moved between header read
-	// WARE (see above), and pixel access.
+	// WARE Breaks when the file at the path is deleted or moved between header read
+	// WARE (see above), and first pixel access.
 
-	state->data = Tcl_FSOpenFileChannel (NULL, istate->path, "r", 0);
-	if (!state->data) aktive_failf ("failed to open path %s", Tcl_GetString (istate->path));
+	state->data = aktive_path_open (&istate->path);
+	if (!state->data) aktive_failf ("failed to open path %s", istate->path.string);
 
 	state->info  = &istate->header;
 	state->cache = 0;

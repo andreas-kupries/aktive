@@ -174,6 +174,37 @@ aktive_read_float64be (Tcl_Channel src, double* v)
     return ok;
 }
 
+/*
+ * - - -- --- ----- -------- -------------
+ */
+
+extern void
+aktive_path_copy (aktive_path* dst, Tcl_Obj* src)
+{
+    int len;
+    char* path = Tcl_GetStringFromObj (src, &len);
+
+    dst->length = len;
+    STRDUP (dst->string, path);
+}
+
+extern void
+aktive_path_free (aktive_path* dst)
+{
+    ckfree (dst->string);
+    dst->string = 0;
+    dst->length = 0;
+}
+
+extern Tcl_Channel
+aktive_path_open (aktive_path* dst)
+{
+    Tcl_Obj*    path = Tcl_NewStringObj (dst->string, dst->length);
+    Tcl_IncrRefCount (path);
+    Tcl_Channel src  = Tcl_FSOpenFileChannel (NULL, path, "r", 0);
+    Tcl_DecrRefCount (path);
+    return src;
+}
 
 /*
  * = = == === ===== ======== ============= =====================
