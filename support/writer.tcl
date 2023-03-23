@@ -160,7 +160,7 @@ proc dsl::writer::ParamSignatures {} {
 
     foreach op [Operations] {
 	if {![OpHasParams     $op]} continue
-	if {![OpParamVariadic $op]} continue
+	if {![OpParamFIHooks  $op]} continue
 
 	lappend names [ParamInitFuncname   $op]
 	lappend names [ParamFinishFuncname $op]
@@ -193,7 +193,7 @@ proc dsl::writer::ParamFunctions {} {
 
     foreach op [Operations] {
 	if {![OpHasParams     $op]} continue
-	if {![OpParamVariadic $op]} continue
+	if {![OpParamFIHooks  $op]} continue
 
 	lappend names [ParamInitFuncname   $op]
 	lappend names [ParamFinishFuncname $op]
@@ -202,15 +202,22 @@ proc dsl::writer::ParamFunctions {} {
 
 	lassign {{} {}} heap free
 	foreach argspec [OpParams $op] {
-	    if {![ParameterIsVariadic $argspec]} continue
-
-	    # Note: Match vector-func-* // Callee
-
-	    set t [ParameterCType $argspec]
 	    set n [dict get $argspec name]
 
-	    lappend heap "${t}_heapify (&p->$n);"
-	    lappend free "${t}_free (&p->$n);"
+	    if {[ParameterIsVariadic $argspec]} {
+		# Note: Match vector-func-* // Callee
+
+		set t [ParameterCType $argspec]
+
+		lappend heap "${t}_heapify (&p->$n);"
+		lappend free "${t}_free (&p->$n);"
+		continue
+	    }
+	    if {[ParameterHooked $argspec init finis]} {
+		lappend heap "$init (p->$n);"
+		lappend free "$finis (p->$n);"
+		continue
+	    }
 	}
 	lappend codes $heap $free
     }
@@ -1287,7 +1294,7 @@ proc dsl::writer::FunctionBodyImageConstructor {op spec} {
 	+ "    , .sz_param     = sizeof ([ParamStructTypename $op])"
 	+ "    , .n_param      = [llength $params]"
 	+ "    , .param        = [ParamDescriptorVarname $op]"
-	if {[OpParamVariadic $op]} {
+	if {[OpParamFIHooks $op]} {
 	    + "    , .param_init   = (aktive_param_init)   [ParamInitFuncname   $op]"
 	    + "    , .param_finish = (aktive_param_finish) [ParamFinishFuncname $op]"
 	}
@@ -1594,13 +1601,30 @@ proc dsl::writer::ParameterCType      {argspec} {
     set typespec [Get types $typeid]
 
     dict with typespec {}
-    # imported critcl ctype conversion
+    # imported critcl ctype conversion init finish
 
     if {[dict get $argspec args]} {
 	if {![string match aktive_* $critcl]} { set critcl aktive_$critcl }
 	set ctype ${critcl}_vector
     }
     return $ctype
+}
+
+proc dsl::writer::ParameterHooked {argspec iv fv} {
+    upvar 1 $iv in $fv fin
+
+    set typeid   [dict get $argspec type]
+    set typespec [Get types $typeid]
+
+    dict with typespec {}
+    # imported critcl ctype conversion init finish
+
+    if {$init   eq {}} { return 0 }
+    if {$finish eq {}} { return 0 }
+
+    set in  $init
+    set fin $finish
+    return 1
 }
 
 proc dsl::writer::TclOperations {}   { lsort -dict [dict keys [Get tops]] }
@@ -1615,6 +1639,20 @@ proc dsl::writer::OpOverlays    {op} { Get ops $op overlays }
 proc dsl::writer::OpParamVariadic {op} {
     foreach argspec [Get ops $op params] {
 	if {[dict get $argspec args]} { return 1 }
+    }
+    return 0
+}
+
+proc dsl::writer::OpParamFIHooks {op} {
+    if {[OpParamVariadic $op]} { return 1 }
+
+    foreach argspec [Get ops $op params] {
+	set typeid [dict get $argspec type]
+	set typespec [Get types $typeid]
+	set i [dict get $typespec init]
+	set f [dict get $typespec finish]
+
+	if {($i ne {}) && ($f ne {})} { return 1 }
     }
     return 0
 }

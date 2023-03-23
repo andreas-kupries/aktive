@@ -70,7 +70,7 @@ proc dsl::reader::Import {path fullpath} {
     set readdir $saved
 }
 
-proc dsl::reader::type {name critcl ctype conversion} {
+proc dsl::reader::type {name critcl ctype conversion {init {}} {finish {}}} {
     OkModes {}
     variable importing
 
@@ -91,6 +91,8 @@ proc dsl::reader::type {name critcl ctype conversion} {
     Set types $name critcl     $critcl
     Set types $name ctype      $ctype
     Set types $name conversion $conversion
+    Set types $name init       $init
+    Set types $name finish     $finish
 
     interp alias {} ::dsl::reader::$name      {} ::dsl::reader::Param $name required {}
     interp alias {} ::dsl::reader::${name}... {} ::dsl::reader::Param $name args     {}
@@ -595,6 +597,8 @@ proc dsl::reader::Has {args} {
 ##  - critcl     :: string
 ##  - ctype      :: string
 ##  - conversion :: string
+##  - init       :: string
+##  - finish     :: string
 ##
 ## topspec keys
 ##  - args     :: list (string)
