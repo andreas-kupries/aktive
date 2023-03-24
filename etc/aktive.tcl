@@ -59,6 +59,7 @@ import generator/virtual/pattern/zone.tcl
 import transformer/geometry.tcl
 import transformer/identity.tcl
 import transformer/location.tcl
+import transformer/recombine.tcl
 import transformer/viewport.tcl
 
 # Helper for color transform chain reductions
@@ -110,6 +111,9 @@ import transformer/structure/embed/white.tcl
 import transformer/structure/resample/down.tcl
 import transformer/structure/resample/up-replicated.tcl
 import transformer/structure/resample/up.tcl
+
+import transformer/thresholds/mask.tcl
+import transformer/thresholds/thresholds.tcl
 
 import composer/montage.tcl
 

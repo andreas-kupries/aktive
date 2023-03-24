@@ -1,0 +1,57 @@
+# -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
+## (c) 2023 Andreas Kupries
+# # ## ### ##### ######## ############# #####################
+## AKTIVE. Thresholding
+
+kt check Tcl     8.6
+kt check tcltest 2
+
+# # ## ### ##### ######## ############# #####################
+
+kt local testing aktive
+
+kt source support/util.tcl
+
+# # ## ### ##### ######## ############# #####################
+## Syntax
+
+syntax {
+    bernsen      {radius src}
+    niblack    {k radius src}
+    sauvola    {k R radius src}
+    phansalkar {k R p q radius src}
+} {aktive image mask per}
+
+syntax {
+    bernsen      {radius src}
+    niblack    {k radius src}
+    sauvola    {k R radius src}
+    phansalkar {k R p q radius src}
+} {aktive image threshold}
+
+# # ## ### ##### ######## ############# #####################
+##
+
+set in [aktive read from netpbm [A crop.pgm]]
+
+foreach mp {
+    bernsen
+    {niblack   -0.2}
+    {sauvola    0.5 128}
+    {phansalkar 0.25 0.5 3 10}
+} {
+    set m [lindex $mp 0]
+
+    test aktive-image-threshold-${m}-2.0 "aktive image threshold $mp" -body {
+	aspgm aktive image threshold {*}$mp 5 $in
+    } -match content/string -result [R ${m}-threshold.pgm]
+
+    test aktive-image-mask-per-${m}-2.0 "aktive image mask per $mp" -body {
+	aspgm aktive image mask per {*}$mp 5 $in
+    } -match content/string -result [R ${m}-mask.pgm]
+}
+
+# # ## ### ##### ######## ############# #####################
+unset in mp m
+cleanupTests
+return

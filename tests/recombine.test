@@ -1,0 +1,55 @@
+# -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
+## (c) 2023 Andreas Kupries
+# # ## ### ##### ######## ############# #####################
+## AKTIVE. Matrix-based band recombination
+
+kt check Tcl     8.6
+kt check tcltest 2
+
+# # ## ### ##### ######## ############# #####################
+
+kt local testing aktive
+
+kt source support/util.tcl
+
+# # ## ### ##### ######## ############# #####################
+## Syntax
+
+syntax {
+    recombine {src0 src1}
+} {aktive op bands}
+
+# # ## ### ##### ######## ############# #####################
+##
+# input/gradient 3x4x2
+##
+##       0 ....   1......   2...... - 3 columns
+##     --------  --------  --------
+#	 1  1.5    2  2.5    3  3.5  0
+#	 4  4.5    5  5.5    6  6.5  1
+#	 7  7.5    8  8.5    9  9.5  2
+#	10 10.5   11 11.5   12 12.5  3
+##     --- ----  --- ----  --- ----  \ 4 rows
+##      0. 1...   0. 1...   0. 1... - 2 bands
+
+set matrix [aktive image from matrix 4 2 \
+		0.5 0.333333 0.9 0 \
+		0.5 0.666667 0.1 0 \
+	       ]
+
+test aktive-op-bands-recombine-2.0 "aktive op bands recombine" -body {
+    astcl aktive op bands recombine $matrix [grad]
+} -match image -result [makei op::bands::recombine 0 0 3 4 4 {} {
+    =  1.25  1.3333  1.05 0.0    =  2.25  2.3333  2.05 0.0    =  3.25  3.3333  3.05 0.0
+    =  4.25  4.3333  4.05 0.0    =  5.25  5.3333  5.05 0.0    =  6.25  6.3333  6.05 0.0
+    =  7.25  7.3333  7.05 0.0    =  8.25  8.3333  8.05 0.0    =  9.25  9.3333  9.05 0.0
+    = 10.25 10.3333 10.05 0.0    = 11.25 11.3333 11.05 0.0    = 12.25 12.3333 12.05 0.0
+}]
+
+test aktive-op-bands-recombine-2.1 "aktive op bands recombine, dag" -body {
+    dag aktive op bands recombine $matrix [grad]
+} -match glob -result "op::bands::recombine * {} {image::from::matrix *} {image::gradient *}"
+
+# # ## ### ##### ######## ############# #####################
+cleanupTests
+return
