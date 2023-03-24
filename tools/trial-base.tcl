@@ -23,6 +23,16 @@ source [file join $tests support paths.tcl]
 
 # ------------------------------------------------------------------------------
 
+proc perf {label args} {
+    set base [clock seconds]
+    set r [uplevel 1 $args]
+
+    set delta [expr {[clock seconds] - $base}]
+
+    puts "perf: $label $delta sec"
+    return $r
+}
+
 proc to {path g args} {
     puts "writing to $path"
     set dst [open $path w]
@@ -114,6 +124,25 @@ proc show {i} {
     flush stdout
     puts "\}"
     puts ""
+}
+
+# ------------------------------------------------------------------------------
+
+proc a {args} {
+    global stack
+    lappend stack [aktive {*}$args]
+    return [lindex $stack end]
+}
+
+proc top {} { global stack ; lindex $stack end }
+proc pop {} {
+    global stack
+    set top [lindex $stack end]
+    set stack [lreplace $stack end end]
+    return $top
+}
+
+proc / {label} {
 }
 
 # ------------------------------------------------------------------------------

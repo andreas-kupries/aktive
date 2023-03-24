@@ -47,6 +47,12 @@ proc save-to {path args} {
 proc astcl  {args} { astcl/ [check {*}$args] }
 proc astcl/ {i}    { aktive format as tcl $i }
 
+proc aspgm  {args} { aspgm/ [check {*}$args] }
+proc aspgm/ {i}    { aktive format as pgm byte 2string $i }
+
+proc save-pgm  {path args} { save-pgm/ $path [check {*}$args] }
+proc save-pgm/ {path i}    { save-to $path aktive format as pgm byte 2chan $i }
+
 # Get image input graph
 
 proc dag  {args} { dag/ [{*}$args] }
