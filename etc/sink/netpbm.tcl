@@ -48,7 +48,7 @@ operator {bands type maxval} {
     input
 
     channel dst \
-	Channel the $thing $variant image data is written to
+	Channel the $thing $variant image data is written to.
 
     void {
 	TRACE ("@@thing@@ starting", 0);

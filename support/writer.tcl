@@ -28,6 +28,7 @@ proc dsl::writer::Emit {stem} {
     Into ${stem}todo.txt              Todo               ;# List of skipped operators (`nyi`)
     Into ${stem}operators.txt         Operators          ;# List of operators
     Into ${stem}undocumented.txt      Undocumented       ;# List of undocumented operators
+    OperatorDocs ${stem}docs
     #
     Into ${stem}param-types.h         ParamTypes         ;# typedefs
     Into ${stem}param-descriptors.c   ParamDescriptors   ;# variables
@@ -484,6 +485,75 @@ proc dsl::writer::Operators {} {
 	set section [join [Get $src $op section] /]
 	+ "[PadR $nl $op] :: $kind $section :: $notes"
     }
+    Done
+}
+
+proc dsl::writer::OperatorDocs {path} {
+    if {![llength [Operations]] &&
+	![llength [TclOperations]]
+    } return
+
+    foreach op [Operations] {
+	set fop [string map {:: -} $op]
+	Into $path/operator-$fop.md OpDoc $op C [Get ops $op]
+    }
+
+    foreach op [TclOperations] {
+	set fop [string map {:: -} $op]
+	Into $path/operator-$fop.md OpDoc $op Tcl [Get tops $op]
+    }
+}
+
+proc dsl::writer::OpDoc {op lang spec} {
+    dict with spec {}
+    # c:   notes section params images ...
+    # tcl: notes section args body
+
+    set name "aktive [string map {:: { }} $op]"
+
+    set sig [DocSignature $op $spec]
+
+    + "# [lreverse $section]: $name ($sig)"
+    + ""
+
+    # TODO params, args -- Tcl args -- type + desc !!
+
+    foreach note $notes {
+	+ [join $note { }]
+	+ ""
+    }
+
+    if {[info exists params]} {
+	if {[llength $params] || [llength $images]} {
+	    + "|Argument|Type|Default|Description|"
+	    + "|---|---|---|---|"
+
+	    foreach p $params {
+		dict with p {}
+		if {![info exists default]} { set default {} }
+		if {$args} { append type ... }
+		+ "|$name|$type|$default|$desc|"
+		unset -nocomplain args default desc name type args
+	    }
+	    ## TODO :: dsl expansion to provide names, descriptions
+	    foreach i $images {
+		+ "||image|||"
+	    }
+	    + ""
+	}
+    } else {
+	if {[llength $args]} {
+	    ## TODO :: dsl expansion to provide types, defaults, descriptions
+	    ## TODO :: dsl expansion to generate type checks
+	    + "|Argument|Type|Default|Description|"
+	    + "|---|---|---|---|"
+	    foreach name $args {
+		+ "|$name||||"
+	    }
+	    + ""
+	}
+    }
+
     Done
 }
 
@@ -1166,6 +1236,37 @@ proc dsl::writer::FunctionName {op spec} {
     return $fn
 }
 
+proc dsl::writer::DocSignature {op spec} {
+    dict with spec {}
+    # notes, images, params, result, args, ...
+
+    # tcl op
+    if {![info exists params]} { return $args }
+
+    # c op
+    if {[llength $params]}  {
+	lappend sig {*}[lmap p $params {
+	    set n [dict get $p name]
+	    if {[dict get $p args]} { append n ... }
+	    set n
+	}]
+    }
+
+    set single  [expr {[llength $images] == 1}]
+    set id      0
+    foreach i $images {
+	set n src$id ; incr id
+	if {$single} { set n src }
+	set v [dict get $i args]
+	if {$v} {
+	    set n srcs...
+	}
+	lappend sig $n
+    }
+
+    return $sig
+}
+
 proc dsl::writer::FunctionDeclSignature {op spec} {
     dict with spec {}
     # notes, images, params, result
@@ -1726,8 +1827,8 @@ proc dsl::writer::StateFinalFuncname     {op} { return "aktive_[Cname $op]_final
 # # ## ### ##### ######## #############
 ## General emitter support
 
-proc dsl::writer::Into {destination textcmd} {
-    set text [$textcmd]
+proc dsl::writer::Into {destination args} {
+    set text [{*}$args]
     if {$text eq {}} return
 
     puts "Writing [blue $destination]"

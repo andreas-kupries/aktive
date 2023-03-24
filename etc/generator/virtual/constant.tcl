@@ -23,7 +23,7 @@ operator image::from::value {
 operator image::from::bands {
     section generator virtual
 
-    note Returns image having the same band VALUEs at all pixels.
+    note Returns image having the same band values at all pixels.
 
     note Depth is len(value)
 
