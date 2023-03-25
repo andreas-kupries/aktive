@@ -6,16 +6,16 @@
 ##
 
 operator op::pass {
-    section transform pass
+    section transform identity
 
     note Returns unchanged input.
 
-    note This is useful for round-trip testing, to stop simplification \
-	rules from eliminating the two complementary operations under \
-	test.
+    note This is useful for round-trip testing, to stop application \
+	of simplification rules which would otherwise eliminate or \
+	modify the chain of operations under test.
 
-    # This is also the reason why this operation has no simplification rules. Because with
-    # rules it could always be eliminated from the DAG.
+    # This is also the reason why this operation has no simplification rules.
+    # Because with rules it would always be eliminated from the DAG.
 
     input
 

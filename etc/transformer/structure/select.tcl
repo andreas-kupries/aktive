@@ -23,8 +23,9 @@ operator {thing coordinate dimension} {
 
     uint first  Input's first $thing to be placed into the result
     uint last   Input's last $thing to be placed into the result
+
     # As an image follows and we simplify (see below) we cannot make `last` optional.
-    # The simplification is done in a Tcl level wrapper, and proc do not support
+    # The simplification is done in a Tcl level wrapper, and `proc` does not support
     # optional arguments in the middle of the set. (critcl::cproc does).
 
     simplify for  \
