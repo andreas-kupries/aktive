@@ -130,6 +130,25 @@ aktive_op_geometry (Tcl_Interp* ip, aktive_image src) {
     TRACE_RETURN ("(Tcl_Obj*) %p", geo);
 }
 
+extern Tcl_Obj*
+aktive_op_setup (Tcl_Interp* ip, aktive_image src) {
+    TRACE_FUNC ("((interp*) %p, (aktive_image*) %p)", ip, src);
+
+    Tcl_Obj* r = Tcl_NewDictObj();
+
+    // setup of inputs ? just count ? id ?
+
+    Tcl_DictObjPut (ip, r, K ("type"),   K (aktive_image_get_type(src)->name));
+    Tcl_DictObjPut (ip, r, K ("domain"), aktive_op_geometry (ip, src));
+
+    Tcl_Obj* params = aktive_op_params (ip, src);
+    if (params) {
+	Tcl_DictObjPut (ip, r, K("config"), params);
+    }
+
+    TRACE_RETURN ("(Tcl_Obj*) %p", r);
+}
+
 /*
  * = = == === ===== ======== ============= =====================
  * Local Variables:

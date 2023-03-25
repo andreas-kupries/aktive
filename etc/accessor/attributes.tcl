@@ -5,52 +5,67 @@
 operator query::id {
     section accessor
 
-    note Returns implementation-specific image identity
+    note Returns implementation-specific image identity.
 
     # This is special. It provides an identification of the image, i.e. a value unique to
     # it. This enables equality comparisons, and nothing else.
     #
-    # WARE this is the integerized memory address of the thing, with some whitening to
+    # BEWARE. This is the integerized memory address of the thing, with some whitening to
     # make it not as obvious.
     input
-    return wide { return 0x25d94395245495a2 ^ (long int) src ; }
-    #                      0123456789012345
+    return wide {
+	Tcl_WideInt r = 0x25d94395245495a2 ^ (long int) src ;
+	//                0123456789012345
+	return r;
+    }
 }
 
 operator query::type {
     section accessor
 
-    note Returns image type
+    note Returns image type.
 
     input
-    return image-type { aktive_image_get_type (src); }
+    return image-type {
+	aktive_image_type* r = aktive_image_get_type (src);
+	return r;
+    }
 }
 
 operator query::location {
     section accessor
 
-    note Returns 2D image location, a 2D point
+    note Returns 2D image location, a 2D point.
 
     input
-    return point { *aktive_image_get_location (src); }
+    return point {
+	aktive_point* r = aktive_image_get_location (src);
+	return *r;
+    }
 }
 
 operator query::domain {
     section accessor
 
-    note Returns image geometry, a 2D rectangle
+    note Returns image domain, a 2D rectangle.
 
     input
-    return rect { *aktive_image_get_domain (src); }
+    return rect {
+	aktive_rectangle* r = aktive_image_get_domain (src);
+	return *r;
+    }
 }
 
 operator query::geometry {
     section accessor
 
-    note Returns image geometry, a 2D rectangle, plus depth.
+    note Returns full image geometry, i.e. domain plus depth.
 
     input
-    return geometry { *aktive_image_get_geometry (src); }
+    return geometry {
+	aktive_geometry* r = aktive_image_get_geometry (src);
+	return *r;
+    }
 }
 
 operator attribute {
@@ -61,11 +76,14 @@ operator attribute {
 } {
     section accessor
 
-    note Returns image $attribute location
+    note Returns image $attribute location.
 
     input
 
-    return int "aktive_image_get_$attribute (src);"
+    return int {
+	int r = aktive_image_get_@@attribute@@ (src);
+	return r;
+    }
 }
 
 operator attribute {
@@ -78,17 +96,20 @@ operator attribute {
 } {
     section accessor
 
-    note Returns image $attribute
+    note Returns image ${attribute}.
 
     input
 
-    return uint "aktive_image_get_$attribute (src);"
+    return uint {
+	aktive_uint r = aktive_image_get_@@attribute@@ (src);
+	return r;
+    }
 }
 
 operator query::inputs {
     section accessor
 
-    note Returns list of input images, if any
+    note Returns list of the image inputs, if any.
 
     input
 
@@ -108,19 +129,28 @@ operator query::inputs {
 operator query::params {
     section accessor
 
-    note Returns dictionary of image parameters, if any.
+    note Returns dictionary of the image parameters, if any.
 
     input
 
     return object0 {
-	aktive_uint c = aktive_image_get_nparams (src);
-	Tcl_Obj* r    = Tcl_NewDictObj();
+	Tcl_Obj* r = aktive_op_params (ip, src);
+	if (!r) { r = Tcl_NewDictObj (); }
+	return r;
+    }
+}
 
-	for (aktive_uint i = 0; i < c; i++) {
-	  const char* n = aktive_image_get_param_name (src, i);
-	  Tcl_Obj*    v = aktive_image_get_param_value (src, i, ip);
-	  Tcl_DictObjPut (ip, r, Tcl_NewStringObj (n,-1), v);
-	}
+operator query::setup {
+    section accessor
+
+    note Returns dictionary of the image setup. \
+	IOW type, geometry, and parameters, if any. \
+	No inputs though, even if the image has any.
+
+    input
+
+    return object0 {
+	Tcl_Obj* r = aktive_op_setup (ip, src);
 	return r;
     }
 }

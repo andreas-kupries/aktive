@@ -16,6 +16,7 @@ extern Tcl_Obj* aktive_op_astcl    (Tcl_Interp* ip, aktive_image src);
 extern Tcl_Obj* aktive_op_params   (Tcl_Interp* ip, aktive_image src);
 extern Tcl_Obj* aktive_op_pixels   (Tcl_Interp* ip, aktive_image src);
 extern Tcl_Obj* aktive_op_geometry (Tcl_Interp* ip, aktive_image src);
+extern Tcl_Obj* aktive_op_setup    (Tcl_Interp* ip, aktive_image src);
 
 /*
  * = = == === ===== ======== ============= =====================
