@@ -18,19 +18,19 @@ kt source support/util.tcl
 syntax {
     x       args
     x-core {src0 src1}
-    x-rep  {n src}
+    x-rep  {src args}
     y       args
     y-core {src0 src1}
-    y-rep  {n src}
+    y-rep  {src args}
     z       args
     z-core {src0 src1}
-    z-rep  {n src}
+    z-rep  {src args}
 } {aktive op montage}
 
 # # ## ### ##### ######## ############# #####################
 
-set a [aktive op select x 0 4 [gradx]]
-set b [aktive op select y 0 4 [grady]]
+set a [aktive op select x [gradx] from 0 to 4]
+set b [aktive op select y [grady] from 0 to 4]
 
 foreach {op w h d expected} {
     x 6 5 1 {
@@ -86,7 +86,7 @@ foreach {op w h d expected} {
     }
 } {
     test aktive-op-montage-${op}-rep-2.0 "aktive op montage ${op}-rep" -body {
-	astcl aktive op montage ${op}-rep 2 $a
+	astcl aktive op montage ${op}-rep $a by 2
     } -match image -result [makei op::montage::${op}-core 0 0 $w $h $d {} $expected]
 }
 

@@ -6,9 +6,9 @@ operator image::from::sparse::points {
     section generator virtual
 
     note Returns single-band image where pixels are set to white at exactly the \
-	specified POINTS.
+	specified COORDS.
 
-    point... points  Coordinates of the pixels to set in the image
+    point... coords  Coordinates of the pixels to set in the image
 
     note Generally, the bounding box specifies the geometry, especially also the image origin
     note Width is implied by the bounding box of the points
@@ -19,7 +19,7 @@ operator image::from::sparse::points {
     state -setup {
 	// Compute the bounding box from the points and use that for the geometry.
 	aktive_rectangle bb;
-	aktive_point_union (&bb, param->points.c, param->points.v);
+	aktive_point_union (&bb, param->coords.c, param->coords.v);
 
 	aktive_geometry_set_rectangle (domain, &bb);
 	domain->depth = 1;
@@ -32,8 +32,8 @@ operator image::from::sparse::points {
 
 	aktive_point* base = aktive_rectangle_as_point (request);
 
-	for (aktive_uint i = 0; i < param->points.c; i++) {
-	    #define P param->points.v[i]
+	for (aktive_uint i = 0; i < param->coords.c; i++) {
+	    #define P param->coords.v[i]
 	    TRACE ("check [%d] @(%d,%d)", i, P.x, P.x);
 	    if (!aktive_rectangle_contains (request, &P)) continue;
 
@@ -60,7 +60,7 @@ operator image::from::sparse::deltas {
     uint    width   Width of the returned image. This is needed for the conversion \
 	of the linear indices to (x,y) coordinates.
 
-    uint... delta   Linear distances between points to set
+    uint... deltas  Linear distances between points to set
 
     note The first delta is relative to index 0
     note Converts the deltas internally to points and then operates like `sparse points`
@@ -72,11 +72,11 @@ operator image::from::sparse::deltas {
     } -setup {
 	// deltas to points ... this is image state
 
-	aktive_point_vector_new (&state->points, param->delta.c);
+	aktive_point_vector_new (&state->points, param->deltas.c);
 
 	aktive_uint index = 0;
-	for (aktive_uint i = 0; i < param->delta.c; i++) {
-	    index += param->delta.v[i];
+	for (aktive_uint i = 0; i < param->deltas.c; i++) {
+	    index += param->deltas.v[i];
 	    state->points.v[i].x = index % param->width;
 	    state->points.v[i].y = index / param->width;
 	}

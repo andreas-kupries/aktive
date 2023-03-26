@@ -103,7 +103,7 @@ foreach {fun steps first last expected} {
     }
 
     test aktive-op-math1-${fun}-2.0 "aktive op math1 $fun (\[$first $last]/$steps)" -body {
-	astcl aktive op math1 {*}$fun [aktive image gradient $steps 1 1 $first $last]
+	astcl aktive op math1 {*}$fun [aktive image gradient width $steps height 1 depth 1 first $first last $last]
     } -match image -result [makei op::math1::[join $fun ::] 0 0 $steps 1 1 {} $expected]
 
     test aktive-op-math1-${fun}-2.1 "aktive op math1 $fun, dag" -body {

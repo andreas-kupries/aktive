@@ -16,14 +16,14 @@ kt source support/util.tcl
 ## Syntax
 
 syntax {
-    zone {width height}
+    zone args
 } {aktive image}
 
 # # ## ### ##### ######## ############# #####################
 ##
 
 test aktive-image-zone-2.0 "aktive image zone" -body {
-    astcl aktive image zone 3 4
+    astcl aktive image zone width 3 height 4
 } -match image -result {
     type   image::zone
     config {
@@ -46,11 +46,11 @@ test aktive-image-zone-2.0 "aktive image zone" -body {
 }
 
 test aktive-image-zone-2.1 "aktive image zone, off view" -body {
-    astcl aktive op view {-2 2 8 2} [aktive image zone 3 4]
+    astcl aktive op view [aktive image zone width 3 height 4] port {-2 2 8 2}
 } -match image -result {
     type   op::view
     config {
-	view {-2 2 8 2}
+	port {-2 2 8 2}
     }
     domain {
 	x -2
@@ -66,11 +66,11 @@ test aktive-image-zone-2.1 "aktive image zone, off view" -body {
 }
 
 test aktive-image-zone-2.2 "aktive image zone, off view" -body {
-    astcl aktive op view {2 -2 2 8} [aktive image zone 3 4]
+    astcl aktive op view [aktive image zone width 3 height 4] port {2 -2 2 8}
 } -match image -result {
     type   op::view
     config {
-	view {2 -2 2 8}
+	port {2 -2 2 8}
     }
     domain {
 	x 2
@@ -94,7 +94,7 @@ test aktive-image-zone-2.2 "aktive image zone, off view" -body {
 }
 
 test aktive-image-zone-2.3 "aktive image zone, dag" -body {
-    dag aktive image zone 3 4
+    dag aktive image zone width 3 height 4
 } -match glob -result {image::zone * {width 3 height 4}}
 
 # # ## ### ##### ######## ############# #####################

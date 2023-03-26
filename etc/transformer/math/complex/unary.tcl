@@ -11,7 +11,7 @@
 ## See op/amath.h
 ##     op/math.c
 
-tcl-operator band {
+operator band {
     op::cmath::as-real       real
     op::cmath::as-imaginary  imaginary
 } {
@@ -20,13 +20,14 @@ tcl-operator band {
     note Returns complex-valued image constructed from the single-band input. \
 	Input becomes the @@band@@ part.
 
-    def filler { [aktive image from value $w $h 1 0] }
+    def filler { [aktive image from value width $w height $h depth 1 value 0] }
     def montage [dict get {
 	real      { $src @@filler@@ }
 	imaginary { @@filler@@ $src }
     } $band]
 
-    arguments src
+    input
+
     body {
 	lassign [aktive query geometry $src] _ _ w h d
 	if {$d != 1} {
@@ -37,21 +38,23 @@ tcl-operator band {
     }
 }
 
-tcl-operator op::cmath::cons {
+operator op::cmath::cons {
     section transform math complex binary
 
     note Returns complex-valued image constructed from the 2 single-band inputs. \
 	First input becomes the real part, second the imaginary.
 
-    arguments re im
+    input	;# re
+    input	;# im
+
     body {
-	if {([aktive query depth $re] != 1) ||
-	    ([aktive query depth $im] != 1)} {
+	if {([aktive query depth $src0] != 1) ||
+	    ([aktive query depth $src1] != 1)} {
 	    aktive error "Unable to use image with multiple bands for complex result" \
 		CAST COMPLEX MULTI-BAND
 	}
 
-	return [aktive op montage z $re $im]
+	return [aktive op montage z $src0 $src1]
     }
 }
 

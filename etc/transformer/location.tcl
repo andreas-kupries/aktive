@@ -16,7 +16,8 @@ operator op::location::move::to {
 
     # Elide the operation if the input is already at the desired location
     simplify for \
-	src/attr x __x src/attr y __y \
+	src/attr x __x \
+	src/attr y __y \
 	if {($x == $__x) && ($y == $__y)} \
 	returns src
 
@@ -26,11 +27,11 @@ operator op::location::move::to {
 
     simplify for src/type @self \
 	src/pop \
-	returns op location move to : x y
+	returns op location move to : x x y y
 
     simplify for src/type op::location::move::by \
 	src/pop \
-	returns op location move to : x y
+	returns op location move to : x x y y
 
     state -fields {
 	aktive_point delta;
@@ -82,14 +83,14 @@ operator op::location::move::by {
 	calc __ndx {$__dx + $dx} \
 	calc __ndy {$__dy + $dy} \
 	src/pop \
-	returns op location move by : __ndx __ndy
+	returns op location move by : dx __ndx dy __ndy
 
     simplify for src/type op::location::move::to \
 	src/value x __x src/value y __y \
 	calc __nx {$__x + $dx} \
 	calc __ny {$__y + $dy} \
 	src/pop \
-	returns op location move to : __nx __ny
+	returns op location move to : x __nx y __ny
 
     state -fields {
 	aktive_point delta;

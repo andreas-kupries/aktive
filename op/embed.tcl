@@ -66,7 +66,7 @@ proc aktive::op::embed::Crop {lpart rpart tpart bpart w h src} {
     set top    [expr {($tpart > 0) ? ($h - $tpart) : 0}]
     set bottom [expr {($bpart > 0) ? ($h - $bpart) : 0}]
 
-    return [aktive op crop $left $right $top $bottom $src]
+    return [aktive op crop $src left $left right $right top $top bottom $bottom]
 }
 
 # # ## ### ##### ######## ############# #####################

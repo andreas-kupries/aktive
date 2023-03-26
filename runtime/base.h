@@ -11,6 +11,7 @@
  */
 
 typedef unsigned int                 aktive_uint;
+typedef char*                        aktive_string;
 typedef struct aktive_image_type*    aktive_image_type_ptr;
 typedef struct aktive_image*         aktive_image;
 typedef struct aktive_image_vector*  aktive_image_vector_ptr;

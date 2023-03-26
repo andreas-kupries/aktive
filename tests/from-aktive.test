@@ -16,7 +16,7 @@ kt source support/util.tcl
 ## Syntax
 
 syntax {
-    aktive path
+    aktive args
 } {aktive read from}
 
 # # ## ### ##### ######## ############# #####################
@@ -53,7 +53,7 @@ foreach {k d cons expected} {
     }
 } {
     test aktive-read-from-aktive-2chan-2.$k "aktive read from aktive, $cons" -body {
-	astcl aktive read from aktive [R format-$cons.aktive]
+	astcl aktive read from aktive path [R format-$cons.aktive]
     } -match image -result [makei read::from::aktive 0 0 8 8 $d [dict create path [R format-$cons.aktive]] $expected]
 }
 

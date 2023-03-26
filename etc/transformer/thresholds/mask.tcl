@@ -6,7 +6,7 @@
 ## Common operator, apply a threshold image, and return indicator mask for foreground
 ## Foreground is assumed to be darker than the background (Ex: Black text on white page)
 
-tcl-operator image::mask::from::threshold {
+operator image::mask::from::threshold {
     section transform threshold mask generate
 
     note Return image foreground mask of input, as per threshold image. \
@@ -18,17 +18,29 @@ tcl-operator image::mask::from::threshold {
 
     note The foreground pixels are indicated by white. Background by black.
 
-    arguments t src
+    input	;# t
+    input	;# src
+
     body {
-	return [aktive op math le $src $t]
+	return [aktive op math le $src1 $src0]
     }
 }
 
-tcl-operator {parameters} {
+operator {parameters} {
     image::mask::per::bernsen    {}
-    image::mask::per::niblack    {k}
-    image::mask::per::phansalkar {k R p q}
-    image::mask::per::sauvola    {k R}
+    image::mask::per::niblack    {
+	k -0.2
+    }
+    image::mask::per::phansalkar {
+	k 0.25
+	R 0.5
+	p 3
+	q 10
+    }
+    image::mask::per::sauvola    {
+	k 0.5
+	R 128
+    }
 } {
     def method [lindex [split $__op :] 6]
 
@@ -43,12 +55,18 @@ tcl-operator {parameters} {
 
     note The foreground pixels are indicated by white. Background by black.
 
-    arguments {*}$parameters radius src
+    foreach {n d} $parameters {
+	double? $d $n	$method parameter
+    }
 
-    def prefs [join [lmap p $parameters { set _ "\$$p" }] { }]
+    uint radius	Size of region to consider, as radius from center
+
+    input
+
+    def prefs [join [lmap {n d} $parameters { set _ "$n \$$n" }] { }]
 
     body {
-	set t [aktive image threshold @@method@@ @@prefs@@ $radius $src]
+	set t [aktive image threshold @@method@@ $src @@prefs@@ radius $radius]
 	return [aktive op math le $src $t]
     }
 }

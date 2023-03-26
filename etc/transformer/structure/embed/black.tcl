@@ -6,12 +6,18 @@
 #
 ## See op/embed.tcl for the supporting commands (Check, ...)
 
-tcl-operator op::embed::black {
+operator op::embed::black {
     section transform structure
 
     note Returns image embedding the input into a black border.
 
-    arguments left right top bottom src
+    uint? 0 left	Number of columns to extend the left input border by
+    uint? 0 right	Number of columns to extend the right input border by
+    uint? 0 top		Number of rows to extend the top input border by
+    uint? 0 bottom	Number of rows to extend the bottom input border by
+
+    input
+
     body {
 	Check
 
@@ -26,7 +32,7 @@ tcl-operator op::embed::black {
 	# returns black when an area outside of the image's domain is
 	# requested.
 
-	return [aktive op view [list $x $y $w $h] $src]
+	return [aktive op view $src port [list $x $y $w $h]]
     }
 }
 

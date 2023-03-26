@@ -15,20 +15,20 @@ kt source support/util.tcl
 # # ## ### ##### ######## ############# #####################
 ## Syntax -- args issue
 
-if 0 {syntax {
-    columns {width height args}
-} {aktive image from}}
+syntax {
+    columns args
+} {aktive image from}
 
 # # ## ### ##### ######## ############# #####################
 ##
 
 test aktive-image-from-columns-2.0 "aktive image from columns" -body {
-    astcl aktive image from columns 3  1 2 3 4 5 6
+    astcl aktive image from columns width 3 values 1 2 3 4 5 6
 } -match image -result {
     type   image::from::columns
     config {
 	width 3
-	value {1.0 2.0 3.0 4.0 5.0 6.0}
+	values {1.0 2.0 3.0 4.0 5.0 6.0}
     }
     domain {
 	x 0
@@ -48,8 +48,8 @@ test aktive-image-from-columns-2.0 "aktive image from columns" -body {
 }
 
 test aktive-image-from-columns-2.1 "aktive image from columns, dag" -body {
-    dag aktive image from columns 4  1 2 3
-} -match glob -result {image::from::columns * {width 4 value {1.0 2.0 3.0}}}
+    dag aktive image from columns width 4 values 1 2 3
+} -match glob -result {image::from::columns * {width 4 values {1.0 2.0 3.0}}}
 
 # # ## ### ##### ######## ############# #####################
 cleanupTests

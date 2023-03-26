@@ -37,7 +37,8 @@ proc numbers {w} {
 proc save-to {path args} {
     set path [td]/$path
     set chan [open $path w]
-    uplevel 1 [linsert [linsert $args end-1 $chan] 0 check]
+    lappend args into $chan
+    uplevel 1 [linsert $args 0 check]
     close $chan
     return $path
 }

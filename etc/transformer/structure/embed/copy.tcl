@@ -6,13 +6,19 @@
 #
 ## See op/embed.tcl for the supporting commands (Check, ...)
 
-tcl-operator op::embed::copy {
+operator op::embed::copy {
     section transform structure
 
     note Returns image embedding the input into a border \
 	made from the replicated input edges.
 
-    arguments left right top bottom src
+    uint? 0 left	Number of columns to extend the left input border by
+    uint? 0 right	Number of columns to extend the right input border by
+    uint? 0 top		Number of rows to extend the top input border by
+    uint? 0 bottom	Number of rows to extend the bottom input border by
+
+    input
+
     body {
 	Check
 
@@ -26,25 +32,25 @@ tcl-operator op::embed::copy {
 	# areas around the source to get the desired effect
 
 	if {$left} {
-	    set ext [aktive op montage x-rep $left [aktive op select x 0 0 $origin]]
-	    set src [aktive op montage x $ext $src] }
+	    set ext [aktive op montage x-rep [aktive op select x $origin from 0] by $left]
+	    set src [aktive op montage x-core $ext $src] }
 	if {$right} {
 	    set range $w ; incr range -1
-	    set ext [aktive op montage x-rep $right [aktive op select x $range $range $origin]]
-	    set src [aktive op montage x $src $ext] }
+	    set ext [aktive op montage x-rep [aktive op select x $origin from $range] by $right]
+	    set src [aktive op montage x-core $src $ext] }
 
 	set origin $src
 
 	if {$top} {
-	    set ext [aktive op montage y-rep $top [aktive op select y 0 0 $origin]]
-	    set src [aktive op montage y $ext $src] }
+	    set ext [aktive op montage y-rep [aktive op select y $origin from 0] by $top]
+	    set src [aktive op montage y-core $ext $src] }
 	if {$bottom} {
 	    set range $h ; incr range -1
-	    set ext [aktive op montage y-rep $bottom [aktive op select y $range $range $origin]]
-	    set src [aktive op montage y $src $ext] }
+	    set ext [aktive op montage y-rep [aktive op select y $origin from $range] by $bottom]
+	    set src [aktive op montage y-core $src $ext] }
 
 	# And at last shift the result to the proper location. This may be a nop.
-	return [aktive op location move to $x $y $src]
+	return [aktive op location move to $src x $x y $y]
     }
 }
 

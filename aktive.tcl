@@ -144,6 +144,7 @@ critcl::tsources generated/ensemble.tcl         ;# Command hierarchy for precedi
 critcl::tsources generated/ops.tcl              ;# - Operators built in Tcl
 critcl::tsources version.tcl			;# - Version info command
 critcl::tsources simplifier.tcl			;# - Simplifier runtime used by overlay.tcl
+critcl::tsources parameters.tcl			;# - Parameter runtime used by overlay.tcl
 critcl::tsources op/2string.tcl			;# Support for "write to string".
 critcl::tsources op/embed.tcl			;# embed argument validation
 

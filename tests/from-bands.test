@@ -15,21 +15,21 @@ kt source support/util.tcl
 # # ## ### ##### ######## ############# #####################
 ## Syntax -- args issue
 
-if 0 {syntax {
-    bands {width height args}
-} {aktive image from}}
+syntax {
+    bands args
+} {aktive image from}
 
 # # ## ### ##### ######## ############# #####################
 ##
 
 test aktive-image-from-bands-2.0 "aktive image from bands" -body {
-    astcl aktive image from bands 4 2  1 2 3
+    astcl aktive image from bands width 4 height 2 values 1 2 3
 } -match image -result {
     type   image::from::bands
     config {
 	width 4
 	height 2
-	value {1.0 2.0 3.0}
+	values {1.0 2.0 3.0}
     }
     domain {
 	x 0
@@ -45,8 +45,8 @@ test aktive-image-from-bands-2.0 "aktive image from bands" -body {
 }
 
 test aktive-image-from-bands-2.1 "aktive image from bands, dag" -body {
-    dag aktive image from bands 4 2  1 2 3
-} -match glob -result {image::from::bands * {width 4 height 2 value {1.0 2.0 3.0}}}
+    dag aktive image from bands width 4 height 2 values 1 2 3
+} -match glob -result {image::from::bands * {width 4 height 2 values {1.0 2.0 3.0}}}
 
 # # ## ### ##### ######## ############# #####################
 cleanupTests

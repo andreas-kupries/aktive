@@ -16,9 +16,9 @@ kt source support/util.tcl
 ## Syntax
 
 syntax {
-    x {n src}
-    y {n src}
-    z {n src}
+    x {src args}
+    y {src args}
+    z {src args}
 } {aktive op downsample}
 
 # # ## ### ##### ######## ############# #####################
@@ -55,26 +55,26 @@ foreach {op domain expected} {
     }
 } {
     test aktive-op-downsample-${op}-2.0 "aktive op downsample $op 2x" -body {
-	astcl aktive op downsample $op 2 [grad]
-    } -match image -result [makei op::downsample::$op 0 0 {*}$domain {n 2} $expected]
+	astcl aktive op downsample $op [grad] by 2
+    } -match image -result [makei op::downsample::$op 0 0 {*}$domain {by 2} $expected]
 
     test aktive-op-downsample-${op}-2.1 "aktive op downsample $op, dag" -body {
-	dag aktive op downsample $op 2 [grad]
-    } -match glob -result "op::downsample::$op * {n 2} {image::gradient *}"
+	dag aktive op downsample $op [grad] by 2
+    } -match glob -result "op::downsample::$op * {by 2} {image::gradient *}"
 
     set in [grad]
     set id [aktive query id $in]
 
     test aktive-op-downsample-${op}-2.2 "aktive op downsample $op, 1x is identity" -body {
-	dag aktive op downsample $op 1 $in
+	dag aktive op downsample $op $in by 1
     } -match glob -result "image::gradient $id *"
 
     test aktive-op-downsample-${op}-2.3 "aktive op downsample $op, upsample $op, same factor, identity" -body {
-	dag aktive op downsample $op 5 [aktive op upsample $op 5 0 $in]
+	dag aktive op downsample $op [aktive op upsample $op $in by 5 fill 0] by 5
     } -match glob -result "image::gradient $id *"
 
     test aktive-op-downsample-${op}-2.4 "aktive op downsample $op, upsample ${op}rep, same factor, identity" -body {
-	dag aktive op downsample $op 5 [aktive op upsample ${op}rep 5 $in]
+	dag aktive op downsample $op [aktive op upsample ${op}rep $in by 5] by 5
     } -match glob -result "image::gradient $id *"
 
     unset in id
@@ -82,9 +82,9 @@ foreach {op domain expected} {
     # Not testing chain reduction for z here, not enough bands in the standard gradient input
     if {$op eq "z"} continue
 
-    test aktive-op-downsample-${op}-2.3 "aktive op downsample $op, chain reduction, multiplies" -body {
-	dag aktive op downsample $op 3 [aktive op downsample $op 2 [grad]]
-    } -match glob -result "op::downsample::$op * {n 6} {image::gradient *}"
+    test aktive-op-downsample-${op}-2.5 "aktive op downsample $op, chain reduction, multiplies" -body {
+	dag aktive op downsample $op [aktive op downsample $op [grad] by 2] by 3
+    } -match glob -result "op::downsample::$op * {by 6} {image::gradient *}"
 }
 
 # # ## ### ##### ######## ############# #####################

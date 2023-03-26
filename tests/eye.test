@@ -16,14 +16,14 @@ kt source support/util.tcl
 ## Syntax
 
 syntax {
-    eye {width height factor}
+    eye args
 } {aktive image}
 
 # # ## ### ##### ######## ############# #####################
 ##
 
 test aktive-image-eye-2.0 "aktive image eye" -body {
-    astcl aktive image eye 3 4 0.5
+    astcl aktive image eye width 3 height 4 factor 0.5
 } -match image -result {
     type   image::eye
     config {
@@ -47,11 +47,11 @@ test aktive-image-eye-2.0 "aktive image eye" -body {
 }
 
 test aktive-image-eye-2.1 "aktive image eye, off view" -body {
-    astcl aktive op view {-2 2 8 2} [aktive image eye 3 4 0.5]
+    astcl aktive op view [aktive image eye width 3 height 4 factor 0.5] port {-2 2 8 2}
 } -match image -result {
     type   op::view
     config {
-	view {-2 2 8 2}
+	port {-2 2 8 2}
     }
     domain {
 	x -2
@@ -67,11 +67,11 @@ test aktive-image-eye-2.1 "aktive image eye, off view" -body {
 }
 
 test aktive-image-eye-2.2 "aktive image eye, off view" -body {
-    astcl aktive op view {2 -2 2 8} [aktive image eye 3 4 0.5]
+    astcl aktive op view [aktive image eye width 3 height 4 factor 0.5] port {2 -2 2 8}
 } -match image -result {
     type   op::view
     config {
-	view {2 -2 2 8}
+	port {2 -2 2 8}
     }
     domain {
 	x 2
@@ -95,7 +95,7 @@ test aktive-image-eye-2.2 "aktive image eye, off view" -body {
 }
 
 test aktive-image-eye-2.3 "aktive image eye, dag" -body {
-    dag aktive image eye 3 4 0.5
+    dag aktive image eye width 3 height 4 factor 0.5
 } -match glob -result {image::eye * {width 3 height 4 factor 0.5}}
 
 # # ## ### ##### ######## ############# #####################

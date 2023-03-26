@@ -4,7 +4,7 @@
 
 # critcl::csources ../../op/netpbm.c	;# C-level support code
 
-tcl-operator {
+operator {
     format::as::pgm::text::2string
     format::as::pgm::etext::2string
     format::as::pgm::byte::2string
@@ -22,8 +22,11 @@ tcl-operator {
     note Returns byte array containing the image serialized \
 	with [string toupper $thing]'s $variant format.
 
-    arguments src
-    body { aktive::2string $src 2chan }
+    input
+
+    body {
+	aktive::2string $src 2chan
+    }
 }
 
 operator {bands type maxval} {
@@ -42,13 +45,13 @@ operator {bands type maxval} {
 
     section sink writer
 
-    note Writes image to the DST channel, serialized \
+    note Writes image to the destination channel, serialized \
 	with [string toupper $thing]'s $variant format.
 
     input
 
-    channel dst \
-	Channel the $thing $variant image data is written to.
+    channel into \
+	Destination channel the $thing $variant image data is written to.
 
     void {
 	TRACE ("@@thing@@ starting", 0);
@@ -61,7 +64,7 @@ operator {bands type maxval} {
 	}
 
 	aktive_writer dst;
-	aktive_write_channel (&dst, param->dst, 1);
+	aktive_write_channel (&dst, param->into, 1);
 
 	TRACE ("create and execute sink", 0);
 	aktive_sink_run (aktive_netpbm_sink (&dst, '@@type@@', @@maxval@@), src);

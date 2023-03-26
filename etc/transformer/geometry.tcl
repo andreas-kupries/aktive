@@ -21,10 +21,10 @@ operator op::geometry::bands::fold {
 
     input
 
-    uint k	Folding factor. Range 2... Factor 1 is a nop-op.
+    uint by	Folding factor. Range 2... Factor 1 is a nop-op.
 
     # No operation for fold factor 1.
-    simplify for  if {$k == 1}  returns src
+    simplify for  if {$by == 1}  returns src
 
     # folding is complementary to an unfold, if the fold factor matches the depth of
     # the image the unfold applied to.
@@ -32,33 +32,33 @@ operator op::geometry::bands::fold {
 	src/type op::geometry::bands::unfold \
 	src/pop \
 	src/attr depth __d \
-	if {$k == $__d} \
+	if {$by == $__d} \
 	returns src	;# this actually is src/child
 
     # A chain of folds is a single fold with a multiplied fold factor.
     simplify for \
 	src/type @self \
-	src/value k __k \
-	calc __k {$__k * $k} \
+	src/value by __by \
+	calc __by {$__by * $by} \
 	src/pop \
-	returns op geometry bands fold : __k
+	returns op geometry bands fold : by __by
 
     state -setup {
 	// could be moved into the cons wrapper created for simplification
-	if (param->k == 0) {
+	if (param->by == 0) {
 	    aktive_fail ("Rejecting undefined folding by 0");
 	}
 
 	// geometry setup
 	aktive_geometry_copy (domain, aktive_image_get_geometry (srcs->v[0]));
 
-	if ((domain->width % param->k) != 0) {
+	if ((domain->width % param->by) != 0) {
 	    aktive_failf ("Rejecting folding by %d, not a divisor of %d",
-			  param->k, domain->width);
+			  param->by, domain->width);
 	}
 
-	domain->width /= param->k;
-	domain->depth *= param->k;
+	domain->width /= param->by;
+	domain->depth *= param->by;
     }
 
     # folded (depth 4)
@@ -69,21 +69,21 @@ operator op::geometry::bands::fold {
     #    cccccccccc
     #       |---|	query 3..7 w=5, d=4
     #
-    # unfolded (depth 2, factor k = 2)
+    # unfolded (depth 2, factor by = 2)
     #          |--------|
     #    0123456789012345678901234567890123456789
     #    0a1a2a3a4a5a6a7a8a9a
     #    bcbcbcbcbcbcbcbcbcbc
-    #          |--------| 6...15 = 3*k..7*k+(k-1) =((7+1)*k-1)
-    #                     w = 10 = 5*k
+    #          |--------| 6...15 = 3*by..7*by+(by-1) =((7+1)*by-1)
+    #                     w = 10 = 5*by
 
     pixels {
 	// rewrite request and returned pixel block
 	// child request
 
 	aktive_rectangle_def_as (subrequest, request);
-	subrequest.x     *= param->k;
-	subrequest.width *= param->k;
+	subrequest.x     *= param->by;
+	subrequest.width *= param->by;
 
 	aktive_block* src = aktive_region_fetch_area (srcs->v[0], &subrequest);
 
@@ -91,8 +91,8 @@ operator op::geometry::bands::fold {
 	// done in a local copy because `src` belongs to the input.
 
 	aktive_block srcr  = *src;
-	srcr.domain.width /= param->k;
-	srcr.domain.depth *= param->k;
+	srcr.domain.width /= param->by;
+	srcr.domain.depth *= param->by;
 
 	aktive_blit_copy0 (block, dst, &srcr);
 

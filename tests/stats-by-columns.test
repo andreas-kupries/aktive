@@ -72,7 +72,7 @@ foreach {op expected} {
 	    pixels aktive op column $op \
 		[aktive op pass \
 		     [aktive op column $op [grad]]]
-	} -match pixels -result [pixels aktive op math1 pow 2 [aktive op column $op [grad]]]
+	} -match pixels -result [pixels aktive op math1 pow [aktive op column $op [grad]] exponent 2]
 	# squared (makei op::column::$op 0 0 3 1 2 {} $expected)
 
         test aktive-op-column-${op}-2.3 "aktive op column $op, chain squared twice" -body {
@@ -81,7 +81,7 @@ foreach {op expected} {
 		     [aktive op column $op  \
 			  [aktive op pass \
 			       [aktive op column $op [grad]]]]]
-	} -match pixels -result [pixels aktive op math1 pow 4 [aktive op column $op [grad]]]
+	} -match pixels -result [pixels aktive op math1 pow [aktive op column $op [grad]] exponent 4]
 	# double squared ( [makei op::column::$op 0 0 3 1 2 {} $expected])
 
 	test aktive-op-column-${op}-2.4 "aktive op column $op, squared, reduced, dag" -body {
@@ -104,7 +104,7 @@ foreach {op expected} {
 	    pixels aktive op column $op \
 		[aktive op pass \
 		     [aktive op column $op [grad]]]
-	} -match pixels -result [pixels aktive image from value 3 1 2 0]
+	} -match pixels -result [pixels aktive image from value width 3 height 1 depth 2 value 0]
 
 	test aktive-op-column-${op}-2.3 "aktive op column $op, chain const, reduced dag" -body {
 	    dag aktive op column $op [aktive op column $op [grad]]

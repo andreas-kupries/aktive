@@ -12,14 +12,14 @@ operator op::view {
 	input's domain. Same, inside (subset), outside, partially overlapping, etc.
 
     input
-    rect view  The specific area to view in the plane
+    rect port  The specific area to view in the plane
 
     state -setup {
 	aktive_geometry_set (domain,
-			     param->view.x,
-			     param->view.y,
-			     param->view.width,
-			     param->view.height,
+			     param->port.x,
+			     param->port.y,
+			     param->port.width,
+			     param->port.height,
 			     aktive_image_get_depth (srcs->v[0]));
     }
     pixels {

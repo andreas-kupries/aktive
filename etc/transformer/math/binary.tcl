@@ -5,27 +5,31 @@
 # # ## ### ##### ######## ############# #####################
 ## Highlevel operations implemented on top of the C core
 
-tcl-operator op::math::difference {
+operator op::math::difference {
     section transform math binary
 
     note Returns image holding the absolute difference of the inputs.
 
-    arguments a b
+    input
+    input
+
     body {
-	return [aktive op math1 abs [sub $a $b]]
+	return [aktive op math1 abs [sub $src0 $src1]]
     }
 }
 
-tcl-operator op::math::screen {
+operator op::math::screen {
     section transform math binary
 
     note Returns image holding the `screen` of the inputs
     # TODO :: what is this operation exactly ?
 
-    arguments a b
+    input
+    input
+
     body {
 	# (a+b)-ab = a-ab+b = a(1-b)+b
-	return [sub [add $a $b] [mul $a $b]]
+	return [sub [add $src0 $src1] [mul $src0 $src1]]
     }
 }
 

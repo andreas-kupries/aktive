@@ -43,12 +43,12 @@ proc dsl::writer::Emit {stem} {
     Into ${stem}param-funcs.h         ParamSignatures    ;# signatures
     Into ${stem}param-funcs.c         ParamFunctions     ;# implementations
     #
-    Into ${stem}op-funcs.h            OperatorSignatures ;# signatures
-    Into ${stem}op-funcs.c            OperatorFunctions  ;# implementations
+    Into ${stem}op-funcs.h            COperatorSignatures ;# C operator core signatures
+    Into ${stem}op-funcs.c            COperatorFunctions  ;# C operator core implementations
     #
-    Into ${stem}glue.tcl              OperatorCprocs     ;# Tcl commands for C
-    Into ${stem}ops.tcl               OperatorTclProcs   ;# Tcl commands
-    Into ${stem}overlay.tcl           OperatorOverlays   ;# Constructor wrappers
+    Into ${stem}glue.tcl              OperatorCprocs     ;# Tcl glue commands for C
+    Into ${stem}ops.tcl               OperatorTclProcs   ;# Tcl operator commands
+    Into ${stem}overlay.tcl           OperatorOverlays   ;# C constructor wrappers
     Into ${stem}wraplist.txt          OperatorWrapRecord ;# List of wrap elements
     Into ${stem}ensemble.tcl          OperatorEnsemble   ;# Command ensemble
     return
@@ -466,45 +466,34 @@ proc dsl::writer::Todo {} {
 }
 
 proc dsl::writer::Operators {} {
-    if {![llength [Operations]] &&
-	![llength [TclOperations]]
-    } return
+    if {![llength [Operations]]} return
 
-    set names [lmap op [Operations] { dict set c $op . ; set op }]
-    foreach op [TclOperations] { lappend names $op }
-
-    set nl [Maxlength $names]
+    set names [Operations]
+    set nl    [Maxlength $names]
 
     foreach op [lsort -dict $names] {
-	set isc [dict exists $c $op]
-	lassign [dict get {
-	    1 {{(C)  } ops}
-	    0 {{(Tcl)} tops}
-	} $isc] kind src
-	set notes   [join [lindex [Get $src $op notes] 0] { }]
-	set section [join [Get $src $op section] /]
+	set kind [dict get {
+	    C        {(C)  }
+	    Tcl      {(Tcl)}
+	    External {(Ext)}
+	} [Get ops $op lang]]
+	set notes   [join [lindex [Get ops $op notes] 0] { }]
+	set section [join [Get ops $op section] /]
 	+ "[PadR $nl $op] :: $kind $section :: $notes"
     }
     Done
 }
 
 proc dsl::writer::OperatorDocs {path} {
-    if {![llength [Operations]] &&
-	![llength [TclOperations]]
-    } return
+    if {![llength [Operations]]} return
 
     foreach op [Operations] {
 	set fop [string map {:: -} $op]
-	Into $path/operator-$fop.md OpDoc $op C [Get ops $op]
-    }
-
-    foreach op [TclOperations] {
-	set fop [string map {:: -} $op]
-	Into $path/operator-$fop.md OpDoc $op Tcl [Get tops $op]
+	Into $path/operator-$fop.md OpDoc $op [Get ops $op]
     }
 }
 
-proc dsl::writer::OpDoc {op lang spec} {
+proc dsl::writer::OpDoc {op spec} {
     dict with spec {}
     # c:   notes section params images ...
     # tcl: notes section args body
@@ -516,67 +505,50 @@ proc dsl::writer::OpDoc {op lang spec} {
     + "# [lreverse $section]: $name ($sig)"
     + ""
 
-    # TODO params, args -- Tcl args -- type + desc !!
-
     foreach note $notes {
 	+ [join $note { }]
 	+ ""
     }
 
-    if {[info exists params]} {
-	if {[llength $params] || [llength $images]} {
-	    + "|Argument|Type|Default|Description|"
-	    + "|---|---|---|---|"
+    if {[llength $params]} {
+	+ "|Parameter|Type|Default|Description|"
+	+ "|---|---|---|---|"
 
-	    foreach p $params {
-		dict with p {}
-		if {![info exists default]} { set default {} }
-		if {$args} { append type ... }
-		+ "|$name|$type|$default|$desc|"
-		unset -nocomplain args default desc name type args
-	    }
-	    ## TODO :: dsl expansion to provide names, descriptions
-	    foreach i $images {
-		+ "||image|||"
-	    }
-	    + ""
-	}
-    } else {
-	if {[llength $args]} {
-	    ## TODO :: dsl expansion to provide types, defaults, descriptions
-	    ## TODO :: dsl expansion to generate type checks
-	    + "|Argument|Type|Default|Description|"
-	    + "|---|---|---|---|"
-	    foreach name $args {
-		+ "|$name||||"
-	    }
-	    + ""
+	foreach p $params {
+	    dict with p {}
+	    if {![info exists default]} { set default {} }
+	    if {$args}   { append type ...  }
+	    if {$vector} { append type {[]} }
+	    + "|$name|$type|$default|$desc|"
+	    unset -nocomplain args default desc name type args
 	}
     }
 
+    ## TODO :: dsl expansion to provide names, descriptions
+    ## foreach i $images { + "||image|||" }
+
+    + ""
     Done
 }
 
 proc dsl::writer::Undocumented {} {
-    if {![llength [Operations]] &&
-	![llength [TclOperations]]
-    } return
+    if {![llength [Operations]]} return
 
-    set names [lmap op [Operations] { dict set c $op . ; set op }]
-    foreach op [TclOperations] { lappend names $op }
-
-    set nl [Maxlength $names]
+    set names [Operations]
+    set nl    [Maxlength $names]
     set undocumented 0
 
     foreach op [lsort -dict $names] {
-	set isc [dict exists $c $op]
-	lassign [dict get {
-	    1 {{(C)  } ops}
-	    0 {{(Tcl)} tops}
-	} $isc] kind src
-	set notes   [join [lindex [Get $src $op notes] 0] { }]
-	set section [join [Get $src $op section] /]
+	set kind [dict get {
+	    C        {(C)  }
+	    Tcl      {(Tcl)}
+	    External {(Ext)}
+	} [Get ops $op lang]]
+	set notes   [join [lindex [Get ops $op notes] 0] { }]
+	set section [join [Get ops $op section] /]
+
 	if {($notes ne {}) && ($section ne {})} continue
+
 	if {$notes   eq {}} { append miss "; no note"    }
 	if {$section eq {}} { append miss "; no section" }
 	+ "[PadR $nl $op] :: $kind$miss"
@@ -591,15 +563,16 @@ proc dsl::writer::Undocumented {} {
     return
 }
 
-proc dsl::writer::OperatorSignatures {} {
-    if {![llength [Operations]]} return
+proc dsl::writer::COperatorSignatures {} {
+    if {![llength [COperations]]} return
 
     set names   {}
     set sigs    {}
     set results {}
 
-    foreach op [Operations] {
+    foreach op [COperations] {
 	set spec [Get ops $op]
+
 	set result [dict get $spec result]
 	if {$result ne "void"} { set result [CprocResultC $spec] }
 
@@ -625,12 +598,12 @@ proc dsl::writer::OperatorSignatures {} {
     Done
 }
 
-proc dsl::writer::OperatorFunctions {} {
-    if {![llength [Operations]]} return
+proc dsl::writer::COperatorFunctions {} {
+    if {![llength [COperations]]} return
 
     CHeader {operator function implementations}
 
-    foreach op [Operations] {
+    foreach op [COperations] {
 	+ [OperatorFunctionForOp $op]
     }
 
@@ -935,7 +908,7 @@ proc dsl::writer::OperatorCprocs {} {
 
     TclHeader {Glue commands, per operator}
 
-    foreach op [Operations] {
+    foreach op [COperations] {
 	+ [OperatorCprocForOp $op]
     }
 
@@ -956,10 +929,17 @@ proc dsl::writer::OperatorCprocForOp {op} {
     foreach n $notes { TclComment "Note: [join $n { }]" }
 
     set cmd $op
-    if {[OpHasOverlays $op]} {
+
+    if {[OpMakeWrapper $op]} {
 	TclComment {}
-	TclComment "Note: This constructor has a Tcl wrapper performing"
-	TclComment "Note: construction time peep-hole optimizations"
+	TclComment "Note: This constructor has a Tcl wrapper."
+
+	if {[OpHasOverlays $op]} {
+	    TclComment "Note: It performs construction time peep-hole optimizations."
+	}
+	if {[OpParamOptional $op]} {
+	    TclComment "Note: It the manages non-image parameters."
+	}
 
 	set stem [namespace qualifiers $op]
 	set base [namespace tail $op]
@@ -1003,7 +983,6 @@ proc dsl::writer::CprocArguments {spec} {
 
     lappend names    ip
     lappend ctypes   Tcl_Interp*
-    lappend defaults {}
 
     foreach argspec $params {
 	set n  [dict get $argspec name]
@@ -1013,15 +992,8 @@ proc dsl::writer::CprocArguments {spec} {
 	set v  [dict get $argspec args]
 	if {$v} { set n args }
 
-	if {[dict exists $argspec default]} {
-	    set d [dict get $argspec default]
-	} else {
-	    set d {}
-	}
-
 	lappend names    $n
 	lappend ctypes   $ct
-	lappend defaults $d
     }
 
     set single [expr {[llength $images] == 1}]
@@ -1035,17 +1007,12 @@ proc dsl::writer::CprocArguments {spec} {
 
 	lappend names    $n
 	lappend ctypes   aktive_image
-	lappend defaults {}
     }
 
     set nl [Maxlength $names]
     set tl [Maxlength $ctypes]
 
-    foreach n $names t $ctypes d $defaults {
-	if {$d ne {}} {
-	    + "  [PadR $tl $t] \{[PadR $nl $n] $d\}"
-	    continue
-	}
+    foreach n $names t $ctypes {
 	+ "  [PadR $tl $t] [PadR $nl $n]"
     }
 
@@ -1240,20 +1207,25 @@ proc dsl::writer::DocSignature {op spec} {
     dict with spec {}
     # notes, images, params, result, args, ...
 
-    # tcl op
-    if {![info exists params]} { return $args }
+    set isexternal [string equal [dict get $spec lang] External]
+    set haswrapper [OpMakeWrapper $op]
+    set hasopt     [OpParamOptional $op]
+    set rawargs    [expr {$isexternal || !$haswrapper}]
 
-    # c op
-    if {[llength $params]}  {
+    set sig {}
+
+    if {$rawargs && [llength $params]}  {
 	lappend sig {*}[lmap p $params {
 	    set n [dict get $p name]
-	    if {[dict get $p args]} { append n ... }
+	    if {[dict get $p args  ]} { append n ...  }
+	    if {[dict get $p vector]} { append n {[]} }
 	    set n
 	}]
     }
 
-    set single  [expr {[llength $images] == 1}]
-    set id      0
+    set single [expr {[llength $images] == 1}]
+    set id     0
+
     foreach i $images {
 	set n src$id ; incr id
 	if {$single} { set n src }
@@ -1262,6 +1234,14 @@ proc dsl::writer::DocSignature {op spec} {
 	    set n srcs...
 	}
 	lappend sig $n
+    }
+
+    set sig [join $sig { }]
+
+    if {!$rawargs && [llength $params]} {
+	set m "(param value)..."
+	if {$hasopt} { set m "?${m}?" }
+	append sig " $m"
     }
 
     return $sig
@@ -1461,10 +1441,10 @@ proc dsl::writer::FunctionBodyImageConstructor {op spec} {
 
 
 proc dsl::writer::OperatorOverlays {} {
-    if {![llength [Operations]]} return
+    if {![llength [COperations]]} return
 
-    set ops [lmap op [Operations] {
-	if {![OpHasOverlays $op]} continue
+    set ops [lmap op [COperations] {
+	if {![OpMakeWrapper $op]} continue
 	set op
     }]
     if {![llength $ops]} return
@@ -1489,6 +1469,7 @@ proc dsl::writer::OperatorOverlaysForOp {op} {
     + {}
 
     + "proc aktive::$op \{[ProcArguments $spec]\} \{"
+    ProcArgumentSetup $spec
 
     # translate the overlays
     lappend hmap {for }     "for   "
@@ -1564,25 +1545,81 @@ proc dsl::writer::TranslateHint {cmd args} {
     return -code error "Unknown simplifier command (($cmd) $args)"
 }
 
+proc dsl::writer::ProcArgumentSetup {spec} {
+    upvar 1 lines lines
+
+    dict with spec {}
+    # notes, images, params, result
+
+    if {![llength $params]} return
+
+    set all [concat {*}[lmap argspec $params {
+	set n [dict get $argspec name]
+	set a [dict get $argspec args]
+	list $n $a
+    }]]
+    + "    ::aktive parameter validate         $all"
+
+    set required [lmap argspec $params {
+	if {[dict exists $argspec default]} continue
+	dict get $argspec name
+    }]
+
+    if {[llength $required]} {
+	+ "    ::aktive parameter collect required $required"
+    }
+
+    set optional [lmap argspec $params {
+	if {![dict exists $argspec default]} continue
+	set n [dict get $argspec name]
+	set d [dict get $argspec default]
+
+	if {$d in $required} { set d \$$d }
+	+ "    set $n $d"
+	set n
+    }]
+
+    if {[llength $optional]} {
+	+ "    ::aktive parameter collect optional $optional"
+    }
+}
+
 proc dsl::writer::ProcArguments {spec} {
-    join [ProcArgumentNames $spec] { }
+    dict with spec {}
+    # notes, images, params, result
+
+    set names [ProcImageArguments $spec]
+
+    if {[llength $params]} { lappend names args }
+
+    join $names { }
 }
 
 proc dsl::writer::ProcCallWords {spec} {
-    join [lmap n [ProcArgumentNames $spec] {
-	string cat "\$$n"
-    }] { }
+    dict with spec {}
+    # notes, images, params, result
+
+    set cw {}
+    foreach argspec $params {
+	set n [dict get $argspec name]
+	set a [dict get $argspec args]
+	set n \$$n
+	if {$a} {  set n "{*}$n" }
+	lappend cw $n
+    }
+
+    foreach n [ProcImageArguments $spec] {
+	lappend cw "\$$n"
+    }
+
+    join $cw { }
 }
 
-proc dsl::writer::ProcArgumentNames {spec} {
+proc dsl::writer::ProcImageArguments {spec} {
     dict with spec {}
     # notes, images, params, result
 
     set names {}
-
-    foreach argspec $params {
-	lappend names  [dict get $argspec name]
-    }
 
     set single [expr {[llength $images] == 1}]
 
@@ -1596,6 +1633,7 @@ proc dsl::writer::ProcArgumentNames {spec} {
 
 	lappend names $n
     }
+
     return $names
 }
 
@@ -1628,15 +1666,17 @@ proc dsl::writer::OperatorTclProcs {} {
     TclHeader {Operators purely implemented in Tcl}
 
     foreach op [TclOperations] {
-	set spec [TclOpSpec $op]
-	dict with spec {}
-	# args, body
+	set spec [Get ops $op]
+	# params, body
 
 	TclComment "--- --- --- --- --- --- --- --- ---"
 	TclComment "Operator `$op` ..."
 
 	+ {}
-	+ [list proc aktive::$op $args $body]
+	+ "proc aktive::$op \{[ProcArguments $spec]\} \{"
+	ProcArgumentSetup $spec
+	+ [FormatCode [dict get $spec body] {    }]
+	+ "\}"
 	+ {}
     }
 
@@ -1644,12 +1684,9 @@ proc dsl::writer::OperatorTclProcs {} {
 }
 
 proc dsl::writer::OperatorEnsemble {} {
-    if {![llength [Operations]] &&
-	![llength [TclOperations]]
-    } return
+    if {![llength [Operations]]} return
 
-    foreach op [Operations]    { dict set n {*}[string map {:: { }} aktive::$op] . }
-    foreach op [TclOperations] { dict set n {*}[string map {:: { }} aktive::$op] . }
+    foreach op [Operations] { dict set n {*}[string map {:: { }} aktive::$op] . }
 
     TclHeader {Ensemble setup}
 
@@ -1728,10 +1765,34 @@ proc dsl::writer::ParameterHooked {argspec iv fv} {
     return 1
 }
 
-proc dsl::writer::TclOperations {}   { lsort -dict [dict keys [Get tops]] }
-proc dsl::writer::TclOpSpec     {op} { Get tops $op }
+proc dsl::writer::Operations {}   { lsort -dict [dict keys [Get ops]] }
 
-proc dsl::writer::Operations    {}   { lsort -dict [dict keys [Get ops]] }
+proc dsl::writer::COperations {}   {
+    lmap op [Operations] {
+	if {[Get ops $op lang] ne "C"} continue
+	set op
+    }
+}
+
+proc dsl::writer::TclOperations {}   {
+    lmap op [Operations] {
+	if {[Get ops $op lang] ne "Tcl"} continue
+	set op
+    }
+}
+
+proc dsl::writer::OpMakeWrapper {op} {
+    if {[OpHasOverlays $op]} { return 1 }
+    # no overlays
+    if {[OpHasParams $op] && [OpHasImages $op]} { return 1 }
+    # no params or no images
+    if {[Get ops $op result] eq "image"} { return 1 }
+    # no params or no images, non-image result
+    return 0
+}
+
+proc dsl::writer::OpHasImages   {op} { llength [OpImages $op] }
+proc dsl::writer::OpImages      {op} { Get ops $op images }
 proc dsl::writer::OpHasParams   {op} { llength [OpParams $op] }
 proc dsl::writer::OpParams      {op} { Get ops $op params }
 proc dsl::writer::OpHasOverlays {op} { llength [OpOverlays $op] }
@@ -1740,6 +1801,13 @@ proc dsl::writer::OpOverlays    {op} { Get ops $op overlays }
 proc dsl::writer::OpParamVariadic {op} {
     foreach argspec [Get ops $op params] {
 	if {[dict get $argspec args]} { return 1 }
+    }
+    return 0
+}
+
+proc dsl::writer::OpParamOptional {op} {
+    foreach argspec [Get ops $op params] {
+	if {[dict exists $argspec default]} { return 1 }
     }
     return 0
 }

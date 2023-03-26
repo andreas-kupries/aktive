@@ -12,7 +12,7 @@ simplify for   src/type @self   \
     src/value  offset __a \
     calc __ab {$offset + $__a}  \
     src/pop \
-    returns op math1 shift : __ab
+    returns op math1 shift : offset __ab
 
 # Chains: shift (neg-shift (I, a), b) = (a - I) + b = (a+b) - I = neg-shift (I, a+b)
 
@@ -20,4 +20,4 @@ simplify for   src/type op::math1::neg-shift   \
     src/value  offset __a \
     calc __ab {$offset + $__a}  \
     src/pop \
-    returns op math1 neg-shift : __ab
+    returns op math1 neg-shift : offset __ab

@@ -18,7 +18,7 @@ kt source support/util.tcl
 syntax {
     as-real       src
     as-imaginary  src
-    cons         {re im}
+    cons         {src0 src1}
 } {aktive op cmath}
 
 # # ## ### ##### ######## ############# #####################

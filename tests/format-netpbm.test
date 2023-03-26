@@ -16,24 +16,24 @@ kt source support/util.tcl
 ## Syntax
 
 syntax {
-    {byte 2chan}    {dst src}
+    {byte 2chan}    {src args}
     {byte 2string}   src
-    {etext 2chan}   {dst src}
+    {etext 2chan}   {src args}
     {etext 2string}  src
-    {short 2chan}   {dst src}
+    {short 2chan}   {src args}
     {short 2string}  src
-    {text 2chan}    {dst src}
+    {text 2chan}    {src args}
     {text 2string}   src
 } {aktive format as ppm}
 
 syntax {
-    {byte 2chan}    {dst src}
+    {byte 2chan}    {src args}
     {byte 2string}   src
-    {etext 2chan}   {dst src}
+    {etext 2chan}   {src args}
     {etext 2string}  src
-    {short 2chan}   {dst src}
+    {short 2chan}   {src args}
     {short 2string}  src
-    {text 2chan}    {dst src}
+    {text 2chan}    {src args}
     {text 2string}   src
 } {aktive format as pgm}
 

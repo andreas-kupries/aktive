@@ -16,14 +16,14 @@ kt source support/util.tcl
 ## Syntax
 
 syntax {
-    sines {width height hf vf}
+    sines args
 } {aktive image}
 
 # # ## ### ##### ######## ############# #####################
 ##
 
 test aktive-image-sines-2.0 "aktive image sines" -body {
-    astcl aktive image sines 3 4 0.5 0.6
+    astcl aktive image sines width 3 height 4 hf 0.5 vf 0.6
 } -match image -result {
     type   image::sines
     config {
@@ -48,11 +48,11 @@ test aktive-image-sines-2.0 "aktive image sines" -body {
 }
 
 test aktive-image-sines-2.1 "aktive image sines, off view" -body {
-    astcl aktive op view {-2 2 8 2} [aktive image sines 3 4 0.5 0.6]
+    astcl aktive op view [aktive image sines width 3 height 4 hf 0.5 vf 0.6] port {-2 2 8 2}
 } -match image -result {
     type   op::view
     config {
-	view {-2 2 8 2}
+	port {-2 2 8 2}
     }
     domain {
 	x -2
@@ -68,11 +68,11 @@ test aktive-image-sines-2.1 "aktive image sines, off view" -body {
 }
 
 test aktive-image-sines-2.2 "aktive image sines, off view" -body {
-    astcl aktive op view {2 -2 2 8} [aktive image sines 3 4 0.5 0.6]
+    astcl aktive op view  [aktive image sines width 3 height 4 hf 0.5 vf 0.6] port {2 -2 2 8}
 } -match image -result {
     type   op::view
     config {
-	view {2 -2 2 8}
+	port {2 -2 2 8}
     }
     domain {
 	x 2
@@ -96,7 +96,7 @@ test aktive-image-sines-2.2 "aktive image sines, off view" -body {
 }
 
 test aktive-image-sines-2.3 "aktive image sines, dag" -body {
-    dag aktive image sines 3 4 0.5 0.6
+    dag aktive image sines width 3 height 4 hf 0.5 vf 0.6
 } -match glob -result {image::sines * {width 3 height 4 hf 0.5 vf 0.6}}
 
 # # ## ### ##### ######## ############# #####################

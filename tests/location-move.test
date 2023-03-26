@@ -16,8 +16,8 @@ kt source support/util.tcl
 ## Syntax
 
 syntax {
-    by {dx dy src}
-    to {x y src}
+    by {src args}
+    to {src args}
 } {aktive op location move}
 
 # # ## ### ##### ######## ############# #####################
@@ -47,17 +47,18 @@ foreach {op config} {
     dict set expected config [string map [list @ $pos] $config]
     dict set expected domain x $pos
     dict set expected domain y $pos
+    lassign $config pa _ pb _
 
     test aktive-op-location-move-${op}-2.0 "aktive op location move $op" -body {
-	astcl aktive op location move $op $pos $pos [grad]
+	astcl aktive op location move $op [grad] $pa $pos $pb $pos
     } -match image -result $expected
 
     test aktive-op-location-move-${op}-2.1 "aktive op location move $op, dag" -body {
-	dag aktive op location move $op 1 1 [grad]
+	dag aktive op location move $op [grad] $pa 1 $pb 1
     } -match glob -result "op::location::move::$op * {image::gradient *}"
 
     test aktive-op-location-move-${op}-2.2 "aktive op location move $op, pass through, dag" -body {
-	dag aktive op location move $op 0 0 $in
+	dag aktive op location move $op $in $pa 0 $pb 0
     } -match glob -result "image::gradient [aktive query id $in] *"
 
     unset in expected
@@ -66,14 +67,22 @@ foreach {op config} {
 # # ## ### ##### ######## ############# #####################
 ## Chain reductions
 
+set pnames {
+    to {x y}
+    by {dx dy}
+}
+
 foreach {funb      pb funa           pa   xxx   rfun           rdetail} {
     to          {5 5} to          {6 6}   -->   to             {x 5 y 5}
     by          {3 3} by          {2 2}   -->   by             {dx 5 dy 5}
     to          {5 5} by          {6 6}   -->   to             {x 5 y 5}
     by          {2 2} to          {5 5}   -->   to             {x 7 y 7}
 } {
+    lassign [dict get $pnames $funa] px py ; lassign $pa x y ; set pa [list $px $x $py $x]
+    lassign [dict get $pnames $funb] px py ; lassign $pb x y ; set pb [list $px $x $py $x]
+
     test aktive-op-location-move-${funb}-chain-${funa}-8.0 "aktive op location move $funb/$funa, chain simplifications" -body {
-	dag aktive op location move $funb {*}$pb [aktive op location move $funa {*}$pa [grad]]
+	dag aktive op location move $funb [aktive op location move $funa [grad] {*}$pa] {*}$pb
     } -match glob -result "*::$rfun * {$rdetail} {image::gradient *}"
 }
 

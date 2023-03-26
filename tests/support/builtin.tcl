@@ -14,27 +14,27 @@
 ##     --- ----  --- ----  --- ----  \- 4 rows
 ##      0. 1...   0. 1...   0. 1... --- 2 bands
 
-proc flat   {x} { aktive image from value 3 4 2 $x }
-proc grad   {}  { aktive image gradient 3 4 2  1 12.5 }
-proc bands  {}  { aktive image from bands 4 2  1 2 3 }
-proc matrix {}  { aktive image from matrix 4 2  1 2 3 4  5 6 7 8 }
+proc grad   {}  { aktive image gradient    width 3 height 4 depth 2 first 1 last 12.5 }
+proc flat   {x} { aktive image from value  width 3 height 4 depth 2 value $x }
+proc bands  {}  { aktive image from bands  width 4 height 2 value 1 2 3 }
+proc matrix {}  { aktive image from matrix width 4 height 2 value 1 2 3 4  5 6 7 8 }
 
-proc gradx {} { aktive image gradient 20 1 1  0 19 }
-proc grady {} { aktive image gradient 1 20 1  0 19 }
-proc gradz {} { aktive image gradient 1 1 20  0 19 }
+proc gradx {} { aktive image gradient width 20 height  1 depth  1  first 0 last 19 }
+proc grady {} { aktive image gradient width  1 height 20 depth  1  first 0 last 19 }
+proc gradz {} { aktive image gradient width  1 height  1 depth 20  first 0 last 19 }
 
 proc graybox {} {
-    aktive image gradient 8 8 1 0 1
+    aktive image gradient width 8 height 8 depth 1 first 0 last 1
 }
 
 proc colorbox {} {
     set r [graybox]
     set g [aktive op rotate cw   $r]
     set b [aktive op rotate half $r]
-    aktive op montage z $r [aktive op montage z $g $b]
+    aktive op montage z $r $g $b
 }
 
-proc 1pixel {bands} { aktive image from bands 1 1 {*}$bands }
+proc 1pixel {bands} { aktive image from bands width 1 height 1 values {*}$bands }
 proc cci {to _ from src}   { check aktive op color $from to $to $src }
 proc cc  {to _ from bands} { pixels/ [cci $to <- $from [1pixel $bands]] }
 
@@ -68,11 +68,11 @@ proc webcolors {} {	;# web color sRGB image
     lassign [webcolor-fp-planes] rs gs bs
     set w [llength $rs]
     # Construct image planes
-    set r [aktive image from matrix $w 1 {*}$rs]
-    set g [aktive image from matrix $w 1 {*}$gs]
-    set b [aktive image from matrix $w 1 {*}$bs]
+    set r [aktive image from matrix width $w height 1 value {*}$rs]
+    set g [aktive image from matrix width $w height 1 value {*}$gs]
+    set b [aktive image from matrix width $w height 1 value {*}$bs]
     # And aggregate into single color image
-    set i [aktive op montage z $r [aktive op montage z $g $b]]
+    set i [aktive op montage z $r $g $b]
     #proc webcolors {} [list return $i]
     return $i
 }

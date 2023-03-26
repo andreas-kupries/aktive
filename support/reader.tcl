@@ -97,25 +97,15 @@ proc dsl::reader::type {name critcl ctype conversion {init {}} {finish {}}} {
     interp alias {} ::dsl::reader::$name      {} ::dsl::reader::Param $name required {}
     interp alias {} ::dsl::reader::${name}... {} ::dsl::reader::Param $name args     {}
     interp alias {} ::dsl::reader::${name}?   {} ::dsl::reader::Param $name optional ;#
+    interp alias {} ::dsl::reader::${name}()  {} ::dsl::reader::Param $name vector   {}
 }
 
 proc dsl::reader::vector {args} { ;#puts [info level 0]
-    OkModes {} C
+    OkModes {} C External
     variable importing
     foreach v $args {
 	if {[Has vectors $v]} continue
 	Set vectors $v $importing
-    }
-}
-
-proc dsl::reader::tcl-operator {args} { ;#puts [info level 0]
-    OkModes {}
-    # 2 :: tcl-operator      NAMES SPEC
-    # 3 :: tcl-operator VARS NAMES SPEC
-    switch -- [llength $args] {
-	2       { TclOperator {} {*}$args }
-	3       { TclOperator    {*}$args }
-	default { Abort "wrong#args for operator" }
     }
 }
 
@@ -158,41 +148,6 @@ proc dsl::reader::nyi {args} { ;#puts [info level 0]
 # # ## ### ##### ######## #############
 ## DSL support - (Tcl)Operator handling
 
-proc dsl::reader::TclOperator {vars ops specification} {
-    foreach [list __op {*}$vars] $ops {
-	TclOpStart $__op
-	foreach v $vars { def $v [set $v] }
-
-	eval $specification
-	TclOpFinish
-    }
-}
-
-proc dsl::reader::TclOpStart {op} {
-    if {[Get opname] ne {}} { Abort "Nested operator definition `$op`" }
-    if {[Has ops $op]}      { Abort "Duplicate operator definition" }
-
-    Set opmode Tcl		;# Allow only generic and Tcl specification commands
-    Set opname $op		;# Current operator, lock against nesting
-    Set opspec notes    {}	;# Description
-    Set opspec section  {}	;# Command category
-    Set opspec args	{}	;# Arguments
-    Set opspec body     {}	;# Body
-    Set opspec blocks   {}	;# Shared text blocks
-}
-
-proc dsl::reader::TclOpFinish {} {
-    # Cross check tcl-operator specification for missing code fragments.
-
-    if {[Get opspec args] eq {}} { Abort "Operator has no body" }
-    #if {[Get opspec body] eq {}} { Abort "Operator has no arguments" }
-
-    Set tops [Get opname] [Get opspec]
-    Set opname {}
-    Set opspec {}
-    Set opmode {}
-}
-
 proc dsl::reader::Operator {vars ops specification} {
     foreach [list __op {*}$vars] $ops {
 	OpStart $__op
@@ -207,7 +162,7 @@ proc dsl::reader::OpStart {op} {
     if {[Get opname] ne {}} { Abort "Nested operator definition `$op`" }
     if {[Has ops $op]}      { Abort "Duplicate operator definition" }
 
-    Set opmode C		;# Allow only generic and C specification commands
+    Set opmode {}		;# Allow all commands at the beginning.
     Set opname $op		;# Current operator, lock against nesting
     Set opspec notes    {}	;# Description
     Set opspec section  {}	;# Command category
@@ -233,41 +188,49 @@ proc dsl::reader::OpStart {op} {
 
 proc dsl::reader::OpFinish {} {
     # Cross check operator specification for missing code fragments.
-    if {[Get opspec result] eq "image"} {
-	# Image result.
-	# Input images, if any, are kept.
 
-	if {[Get opspec region/fetch] eq {}} { Abort "Returns image, has no pixel fetch"	  }
-	if {[Get opspec state/setup]  eq {}} { Abort "Returns image, has no state/geometry setup" }
-	# Note: state, region state optional
-	#
-	if {[Get opspec rcode] ne {}} { Abort "Returns image, yet has result code" }
-
-	# Set rc mode of inputs to `keep`.
-	Set opspec images [lmap imspec [Get opspec images] {
-	    dict set imspec rcmode keep ; set imspec
-	}]
-    } else {
-	# Non-image result, possibly void.
-	# Input images are not kept.
-
-	if {[Get opspec region/fetch]   ne {}} { Abort "No image returned, yet pixel fetch"	 }
-	if {[Get opspec region/fields]  ne {}} { Abort "No image returned, yet region state"	 }
-	if {[Get opspec region/setup]   ne {}} { Abort "No image returned, yet region state"	 }
-	if {[Get opspec region/cleanup] ne {}} { Abort "No image returned, yet region state"	 }
-	#
-	if {[Get opspec state/fields]  ne {}} { Abort "No image returned, yet state fields"  }
-	if {[Get opspec state/setup]   ne {}} { Abort "No image returned, yet state setup"   }
-	if {[Get opspec state/cleanup] ne {}} { Abort "No image returned, yet state cleanup" }
-	#
-	if {[Get opspec rcode] eq {}} { Abort "No image returned, has no result code" }
-
-	# Set rc mode of inputs to `ignore`.
-	Set opspec images [lmap imspec [Get opspec images] {
-	    dict set imspec rcmode ignore ; set imspec
-	}]
+    if {[Get opmode] eq {}} {
+	Abort "Incomplete specification, unable to determine implementation language"
     }
 
+    if {[Get opmode] eq "C"} {
+	if {[Get opspec result] eq "image"} {
+	    # Image result.
+	    # Input images, if any, are kept.
+
+	    if {[Get opspec region/fetch] eq {}} { Abort "Returns image, has no pixel fetch"	  }
+	    if {[Get opspec state/setup]  eq {}} { Abort "Returns image, has no state/geometry setup" }
+	    # Note: state, region state optional
+	    #
+	    if {[Get opspec rcode] ne {}} { Abort "Returns image, yet has result code" }
+
+	    # Set rc mode of inputs to `keep`.
+	    Set opspec images [lmap imspec [Get opspec images] {
+		dict set imspec rcmode keep ; set imspec
+	    }]
+	} else {
+	    # Non-image result, possibly void.
+	    # Input images are not kept.
+
+	    if {[Get opspec region/fetch]   ne {}} { Abort "No image returned, yet pixel fetch"	 }
+	    if {[Get opspec region/fields]  ne {}} { Abort "No image returned, yet region state" }
+	    if {[Get opspec region/setup]   ne {}} { Abort "No image returned, yet region state" }
+	    if {[Get opspec region/cleanup] ne {}} { Abort "No image returned, yet region state" }
+	    #
+	    if {[Get opspec state/fields]  ne {}} { Abort "No image returned, yet state fields"  }
+	    if {[Get opspec state/setup]   ne {}} { Abort "No image returned, yet state setup"   }
+	    if {[Get opspec state/cleanup] ne {}} { Abort "No image returned, yet state cleanup" }
+	    #
+	    if {[Get opspec rcode] eq {}} { Abort "No image returned, has no result code" }
+
+	    # Set rc mode of inputs to `ignore`.
+	    Set opspec images [lmap imspec [Get opspec images] {
+		dict set imspec rcmode ignore ; set imspec
+	    }]
+	}
+    }
+
+    Set   opspec lang [Get opmode]
     Unset opspec param
     Unset opspec args
 
@@ -281,25 +244,29 @@ proc dsl::reader::OpFinish {} {
 ## DSL support - general operator details
 
 proc dsl::reader::note {args} { ;#puts [info level 0]
-    OkModes C Tcl
+    OkModes {} C Tcl External
     LappendX opspec notes $args
 }
 
 proc dsl::reader::section {args} { ;#puts [info level 0]
-    OkModes C Tcl
+    OkModes {} C Tcl External
     Set opspec section $args
+}
+
+# # ## ### ##### ######## #############
+## DSL support - External operator details
+
+proc dsl::reader::external! {} { ;#puts [info level 0]
+    OkModes {}
+    Set opmode External
 }
 
 # # ## ### ##### ######## #############
 ## DSL support - Tcl operator details
 
-proc dsl::reader::arguments {args} {
-    OkModes Tcl
-    Set opspec args $args
-}
-
 proc dsl::reader::body {script args} {
-    OkModes Tcl
+    OkModes {} Tcl
+    Set opmode Tcl
     Set opspec body [TemplateCode $script $args]
 }
 
@@ -308,18 +275,20 @@ proc dsl::reader::body {script args} {
 
 proc dsl::reader::void   {script args} { return void $script {*}$args }
 proc dsl::reader::return {type script args} { ;#puts [info level 0]
-    OkModes C
+    OkModes {} C
+    Set opmode C
     Set opspec result $type
     Set opspec rcode  [TemplateCode $script $args]
 }
 
 proc dsl::reader::blit {name scans function} {
-    OkModes C
+    OkModes {} C
+    Set opmode C
     def $name [dsl blit gen $name $scans $function]
 }
 
 proc dsl::reader::def {name text args} {
-    OkModes C Tcl
+    OkModes {} C Tcl
     set text [TemplateCode $text $args]
     if {[Get opname] eq {}} {
 	Set blocks $name $text
@@ -331,7 +300,8 @@ proc dsl::reader::def {name text args} {
 }
 
 proc dsl::reader::state {args} {
-    OkModes C
+    OkModes {} C
+    Set opmode C
     lassign {} fields setup cleanup
     while {[string match -* [set o [lindex $args 0]]]} {
 	switch -exact -- $o {
@@ -356,7 +326,8 @@ proc dsl::reader::State {fields setup cleanup map} { ;# puts [info level 0]
 }
 
 proc ::dsl::reader::pixels {args} { ;# puts [info level 0]
-    OkModes C
+    OkModes {} C
+    Set opmode C
     lassign {} fields setup cleanup
     while {[string match -* [set o [lindex $args 0]]]} {
 	switch -exact -- $o {
@@ -384,7 +355,8 @@ proc ::dsl::reader::Pixels {fields setup cleanup fetch map} { ;#puts [info level
 }
 
 proc dsl::reader::simplify {args} {
-    OkModes C
+    OkModes {} C
+    Set opmode C
     LappendX opspec overlays $args
 }
 
@@ -392,7 +364,7 @@ proc dsl::reader::input... {} { Input ...      }
 proc dsl::reader::input    {} { Input required }
 
 proc dsl::reader::Input {mode} { ;#puts [info level 0]
-    OkModes C
+    OkModes {} C Tcl
     if {[Has opspec args] &&
 	[Get opspec args]} { Abort "Rejecting more image arguments, we have a variadic" }
 
@@ -410,15 +382,18 @@ proc dsl::reader::Input {mode} { ;#puts [info level 0]
 ## DSL support - Parameter handling
 
 proc dsl::reader::Param {type mode dvalue name args} { ;#puts [info level 0]
-    OkModes C
+    OkModes {} C Tcl External
     # args :: help text
+
+    if {$mode ni {required args optional vector}} { Abort "Internal: Bad mode $mode" }
 
     if {$name eq {}}              { Abort "Bad parameter name, empty" }
     if {[Has opspec param $name]} { Abort "Duplicate parameter `$name`" }
     if {[Has opspec args] &&
 	[Get opspec args]}        { Abort "Rejecting more parameters, we have a variadic" }
 
-    set isargs [expr {$mode eq "args"}]
+    set isargs   [expr {$mode eq "args"}]
+    set isvector [expr {$mode eq "vector"}]
     if {$isargs && [llength [Get opspec images]]} {
 	Abort "Rejecting variadic parameter, we have images"
     }
@@ -426,15 +401,17 @@ proc dsl::reader::Param {type mode dvalue name args} { ;#puts [info level 0]
     set desc [join $args { }]
         if {$desc eq {}} { Abort "Empty description" }
 
-    dict set argspec name $name
-    dict set argspec desc $desc
-    dict set argspec type $type
-    dict set argspec args $isargs
+    dict set argspec name   $name
+    dict set argspec desc   $desc
+    dict set argspec type   $type
+    dict set argspec args   $isargs
+    dict set argspec vector $isvector
 
     switch -exact -- $mode {
 	required {}
 	optional { dict set argspec default $dvalue }
-	args     { Set opspec args 1 ; vector $type }
+	args     { vector $type ; Set opspec args 1 }
+	vector   { vector $type }
     }
 
     Set      opspec param  $name .
@@ -587,7 +564,6 @@ proc dsl::reader::Has {args} {
 ##  - vectors :: dict (typename -> imported)
 ##  - blocks  :: dict (name -> c-code-fragment)
 ##  - ops     :: dict (opname -> opspec)
-##  - tops    :: dict (opname -> topspec)
 ##  - opname  :: string               [Only during collection]
 ##  - opmode  :: string               [Only during collection]
 ##  - opspec  :: dict (key -> value)  [Only during collection]
@@ -600,13 +576,9 @@ proc dsl::reader::Has {args} {
 ##  - init       :: string
 ##  - finish     :: string
 ##
-## topspec keys
-##  - args     :: list (string)
-##  - body     :: string
-##  - notes    :: list (string)
-##  - section  :: list (string)
-##
 ## opspec keys
+##  - lang     :: string	[auto set] C|Tcl
+##  - body     :: string	[presence indicates tcl operator]
 ##  - blocks   :: dict (name -> c-code-fragment)
 ##  - overlays :: list (overspec)
 ##  - args     :: bool
@@ -651,7 +623,7 @@ proc dsl::reader::Has {args} {
 
 proc dsl::reader::Abort {x} {
     set opname [Get opname]
-    if {$opname ne {}} { set x "[Get opmode] Operation $opname: $x" }
+    if {$opname ne {}} { set x "Operation $opname: $x" }
     ::return -code error $x
 }
 

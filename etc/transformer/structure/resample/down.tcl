@@ -34,27 +34,27 @@ operator {coordinate dimension} {
 
     input
 
-    uint n  Decimation factor, range 2...
+    uint by  Decimation factor, range 2...
 
     # Factor 1 decimation is no decimation at all
-    simplify for  if {$n == 1}  returns src
+    simplify for  if {$by == 1}  returns src
 
     # Chains: decimation factors multiply
     simplify for  src/type @self \
-	src/value n __n \
-	calc __n {$__n * $n} \
+	src/value by __by \
+	calc __by {$__by * $by} \
 	src/pop \
-	returns op downsample $coordinate : __n
+	returns op downsample $coordinate : by __by
 
     # Chains: decimation of a stretch with the same factor is identity
     # The reverse is __not__ true (unrecoverable information loss in the decimation)
     simplify for  src/type op::upsample::$coordinate \
-	src/value n __n \
-	if {$__n == $n}	src/pop   returns src
+	src/value by __by \
+	if {$__by == $by}	src/pop   returns src
 
     simplify for  src/type op::upsample::${coordinate}rep \
-	src/value n __n \
-	if {$__n == $n}	src/pop   returns src
+	src/value by __by \
+	if {$__by == $by}	src/pop   returns src
 
     # base blitter setup
     set blitspec {
@@ -85,18 +85,18 @@ operator {coordinate dimension} {
 
     state -setup {
 	// could be moved into the cons wrapper created for simplification
-	if (param->n == 0) aktive_fail ("Rejecting undefined decimation by 0");
+	if (param->by == 0) aktive_fail ("Rejecting undefined decimation by 0");
 
 	aktive_geometry_copy (domain, aktive_image_get_geometry (srcs->v[0]));
 	// Modify dimension according to parameter
-	domain->@@dimension@@ = (domain->@@dimension@@ / param->n) +
-		(0 != (domain->@@dimension@@ % param->n));
+	domain->@@dimension@@ = (domain->@@dimension@@ / param->by) +
+		(0 != (domain->@@dimension@@ % param->by));
     }
     # NOTE: At higher sampling factors it becomes more sensible to fetch individual points
     # from the source, as an ever higher percentage of the generated data will be thrown
     # away here. And if the input is expensive efficiency will be a botch.
     pixels {
-	aktive_uint n = param->n;
+	aktive_uint n = param->by;
 	aktive_rectangle_def_as (subrequest, request);
 	@@expansion@@
 	aktive_block* src = aktive_region_fetch_area (srcs->v[0], &subrequest);

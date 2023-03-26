@@ -15,9 +15,9 @@ kt source support/util.tcl
 # # ## ### ##### ######## ############# #####################
 ## Syntax -- args issue
 
-if 0 {syntax {
-    deltas {args}
-} {aktive image from sparse}}
+syntax {
+    deltas args
+} {aktive image from sparse}
 
 # # ## ### ##### ######## ############# #####################
 ##
@@ -32,18 +32,18 @@ set expected {
 }
 
 test aktive-image-from-sparse-deltas-2.0 "aktive image from sparse deltas" -body {
-    astcl aktive image from sparse deltas 7   0 20 5 15
+    astcl aktive image from sparse deltas width 7 deltas 0 20 5 15
     #      0 20  5 15
     # ->   0 20 25 40
     # x %7 0  6  4  5
     # y /7 0  2  3  5
 } -match image -result [makei image::from::sparse::deltas \
-			    0 0 7 6 1 {width 7 delta {0 20 5 15}} \
+			    0 0 7 6 1 {width 7 deltas {0 20 5 15}} \
 			    $expected]
 
 test aktive-image-from-sparse-deltas-2.1 "aktive image from sparse deltas, dag" -body {
-    dag aktive image from sparse deltas 7   0 20 5 15
-} -match glob -result {image::from::sparse::deltas * {width 7 delta {0 20 5 15}}}
+    dag aktive image from sparse deltas width 7 deltas 0 20 5 15
+} -match glob -result {image::from::sparse::deltas * {width 7 deltas {0 20 5 15}}}
 
 # - -- --- ----- -------- ------------- ---------------------
 ## Slice and check in all directions
@@ -52,19 +52,19 @@ lassign {7 6 1} w h d
 
 for {set row 0} {$row < $h} {incr row} {
     test aktive-image-from-sparse-deltas-2.2.r$row "aktive image from sparse deltas, row slice" -body {
-	dict get [astcl aktive op select y $row $row [aktive image from sparse deltas 7 0 20 5 15]] pixels
+	dict get [astcl aktive op select y [aktive image from sparse deltas width 7 deltas 0 20 5 15] from $row] pixels
     } -match pixels -result [slice-row $row $w $h $d $expected]
 }
 
 for {set col 0} {$col < $w} {incr col} {
     test aktive-image-from-sparse-deltas-2.2.c$col "aktive image from sparse deltas, column slice" -body {
-	dict get [astcl aktive op select x $col $col [aktive image from sparse deltas 7 0 20 5 15]] pixels
+	dict get [astcl aktive op select x [aktive image from sparse deltas width 7 deltas 0 20 5 15] from $col] pixels
     } -match pixels -result [slice-col $col $w $h $d $expected]
 }
 
 for {set band 0} {$band < $d} {incr band} {
     test aktive-image-from-sparse-deltas-2.2.b$band "aktive image from sparse deltas, band slice" -body {
-	dict get [astcl aktive op select z $band $band [aktive image from sparse deltas 7 0 20 5 15]] pixels
+	dict get [astcl aktive op select z [aktive image from sparse deltas width 7 deltas 0 20 5 15] from $band] pixels
     } -match pixels -result [slice-band $band $w $h $d $expected]
 }
 

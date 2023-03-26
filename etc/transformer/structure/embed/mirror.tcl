@@ -6,13 +6,19 @@
 #
 ## See op/embed.tcl for the supporting commands (Check, ...)
 
-tcl-operator op::embed::mirror {
+operator op::embed::mirror {
     section transform structure
 
     note Returns image embedding the input into a border \
 	made from the replicated mirrored input.
 
-    arguments left right top bottom src
+    uint? 0 left	Number of columns to extend the left input border by
+    uint? 0 right	Number of columns to extend the right input border by
+    uint? 0 top		Number of rows to extend the top input border by
+    uint? 0 bottom	Number of rows to extend the bottom input border by
+
+    input
+
     body {
 	Check
 
@@ -40,7 +46,7 @@ tcl-operator op::embed::mirror {
 	set src [Crop $lpart $rpart $tpart $bpart $w $h $src]
 
 	# And at last shift the result to the proper location. This may be a nop.
-	return [aktive op location move to $x $y $src]
+	return [aktive op location move to $src x $x y $y]
     }
 }
 

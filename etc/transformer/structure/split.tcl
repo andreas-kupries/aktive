@@ -7,7 +7,7 @@
 #
 ## - Split into rows, columns, or bands
 
-tcl-operator {coordinate dimension thing} {
+operator {coordinate dimension thing} {
     op::split::x  x width  column
     op::split::y  y height row
     op::split::z  z depth  band
@@ -16,12 +16,13 @@ tcl-operator {coordinate dimension thing} {
 
     note Returns list containing each $thing of the input as separate image.
 
-    arguments src
+    input
+
     body {
 	set end [aktive query @@dimension@@ $src]
 	set r {}
 	for {set k 0} {$k < $end} {incr k} {
-	    lappend r [aktive op select @@coordinate@@ $k $k $src]
+	    lappend r [aktive op select @@coordinate@@ $src from $k]
 	}
 	return $r
     }

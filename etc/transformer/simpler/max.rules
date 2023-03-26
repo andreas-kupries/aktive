@@ -20,4 +20,4 @@ simplify for   \
     src/value  min __a 	\
     calc __ab {max ($min, $__a)}  \
     src/pop \
-    returns op math1 max : __ab
+    returns op math1 max : min __ab

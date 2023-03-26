@@ -28,7 +28,7 @@ proc aktive::2string {src args} {
     set var ::aktive_[clock microseconds]_[aktive query id $src]
     set dst [tcl::chan::variable $var]
 
-    uplevel 1 [linsert $args end $dst $src]
+    uplevel 1 [linsert $args end $src into $dst]
 
     upvar #0 $var content
     set r $content

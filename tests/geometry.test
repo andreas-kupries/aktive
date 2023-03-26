@@ -16,7 +16,7 @@ kt source support/util.tcl
 ## Syntax
 
 syntax {
-    fold   {k src}
+    fold   {src args}
     unfold  src
 } {aktive op geometry bands}
 
@@ -53,13 +53,13 @@ test aktive-op-geometry-bands-unfold-2.1 "aktive geometry bands unfold, dag" -bo
 } -match glob -result {op::geometry::bands::unfold * {} {image::gradient *}}
 
 test aktive-op-geometry-bands-unfold-3.0 "aktive geometry bands unfold, over fold, restores geometry" -body {
-    astcl aktive op geometry bands unfold [aktive op pass [aktive op geometry bands fold 5 $in]]
+    astcl aktive op geometry bands unfold [aktive op pass [aktive op geometry bands fold $in by 5]]
 } -match image -result [makei op::geometry::bands::unfold 0 0 20 1 1 {} {
     0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19
 }]
 
 test aktive-op-geometry-bands-unfold-3.1 "aktive geometry bands unfold, over fold, no op" -body {
-    dag aktive op geometry bands unfold [aktive op geometry bands fold 5 $in]
+    dag aktive op geometry bands unfold [aktive op geometry bands fold $in by 5]
 } -match glob -result "image::gradient $id *"
 
 test aktive-op-geometry-bands-unfold-3.2 "aktive geometry bands unfold, single-band, no op" -body {
@@ -72,48 +72,48 @@ test aktive-op-geometry-bands-unfold-3.2 "aktive geometry bands unfold, single-b
 ## gradx - w = 20 = 2*2*5 ~ {1,2,4,5,10,20}
 
 test aktive-op-geometry-bands-fold-2.0 "aktive geometry bands fold, bad factor" -body {
-    astcl aktive op geometry bands fold 0 [gradx]
+    astcl aktive op geometry bands fold [gradx] by 0
 } -returnCodes error -result {Rejecting undefined folding by 0}
 
 test aktive-op-geometry-bands-fold-2.1 "aktive geometry bands fold, bad factor" -body {
-    astcl aktive op geometry bands fold 3 [gradx]
+    astcl aktive op geometry bands fold [gradx] by 3
 } -returnCodes error -result {Rejecting folding by 3, not a divisor of 20}
 
 test aktive-op-geometry-bands-fold-3.0 "aktive geometry bands fold, ok" -body {
-    astcl aktive op geometry bands fold 2 [gradx]
-} -match image -result [makei op::geometry::bands::fold 0 0 10 1 2 {k 2} {
+    astcl aktive op geometry bands fold [gradx] by 2
+} -match image -result [makei op::geometry::bands::fold 0 0 10 1 2 {by 2} {
     0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19
 }]
 
 test aktive-op-geometry-bands-fold-3.1 "aktive geometry bands fold, ok" -body {
-    astcl aktive op geometry bands fold 20 [gradx]
-} -match image -result [makei op::geometry::bands::fold 0 0 1 1 20 {k 20} {
+    astcl aktive op geometry bands fold [gradx] by 20
+} -match image -result [makei op::geometry::bands::fold 0 0 1 1 20 {by 20} {
     0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19
 }]
 
 test aktive-op-geometry-bands-fold-3.2 "aktive geometry bands fold, over fold, factors multiply" -body {
-    astcl aktive op geometry bands fold 2 [aktive op pass [aktive op geometry bands fold 2 [gradx]]]
-} -match image -result [makei op::geometry::bands::fold 0 0 5 1 4 {k 2} {
+    astcl aktive op geometry bands fold [aktive op pass [aktive op geometry bands fold [gradx] by 2]] by 2
+} -match image -result [makei op::geometry::bands::fold 0 0 5 1 4 {by 2} {
     0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19
 }]
 
 test aktive-op-geometry-bands-fold-3.3 "aktive geometry bands fold, over fold, factors multiply, reduce" -body {
-    dag aktive op geometry bands fold 2 [aktive op geometry bands fold 2 [gradx]]
-} -match glob -result {op::geometry::bands::fold * {k 4} {image::gradient *}}
+    dag aktive op geometry bands fold [aktive op geometry bands fold [gradx] by 2] by 2
+} -match glob -result {op::geometry::bands::fold * {by 4} {image::gradient *}}
 
 
 
 test aktive-op-geometry-bands-fold-3.4 "aktive geometry bands fold, dag" -body {
-    dag aktive op geometry bands fold 10 [gradx]
-} -match glob -result {op::geometry::bands::fold * {k 10} {image::gradient *}}
+    dag aktive op geometry bands fold [gradx] by 10
+} -match glob -result {op::geometry::bands::fold * {by 10} {image::gradient *}}
 
 test aktive-op-geometry-bands-fold-3.5 "aktive geometry bands fold, no op" -body {
-    dag aktive op geometry bands fold 1 $in
+    dag aktive op geometry bands fold $in by 1
 } -match glob -result "image::gradient $id *"
 
 test aktive-op-geometry-bands-unfold-3.6 "aktive geometry bands fold, over unfold, can restore geometry" -body {
-    astcl aktive op geometry bands fold 2 [aktive op pass [aktive op geometry bands unfold [grad]]]
-} -match image -result [makei op::geometry::bands::fold 0 0 3 4 2 {k 2} {
+    astcl aktive op geometry bands fold [aktive op pass [aktive op geometry bands unfold [grad]]] by 2
+} -match image -result [makei op::geometry::bands::fold 0 0 3 4 2 {by 2} {
     =  1  1.5    2  2.5    3  3.5
     =  4  4.5    5  5.5    6  6.5
     =  7  7.5    8  8.5    9  9.5
@@ -121,8 +121,8 @@ test aktive-op-geometry-bands-unfold-3.6 "aktive geometry bands fold, over unfol
 }]
 
 test aktive-op-geometry-bands-unfold-3.7 "aktive geometry bands fold, over unfold, may not restore geometry" -body {
-    astcl aktive op geometry bands fold 3 [aktive op pass [aktive op geometry bands unfold [grad]]]
-} -match image -result [makei op::geometry::bands::fold 0 0 2 4 3 {k 3} {
+    astcl aktive op geometry bands fold [aktive op pass [aktive op geometry bands unfold [grad]]] by 3
+} -match image -result [makei op::geometry::bands::fold 0 0 2 4 3 {by 3} {
     =  1  1.5  2    2.5    3  3.5
     =  4  4.5  5    5.5    6  6.5
     =  7  7.5  8    8.5    9  9.5
@@ -133,12 +133,12 @@ set in [grad]
 set id [aktive query id $in]
 
 test aktive-op-geometry-bands-unfold-3.8 "aktive geometry bands fold, over unfold, can cancel" -body {
-    dag aktive op geometry bands fold 2 [aktive op geometry bands unfold $in]
+    dag aktive op geometry bands fold [aktive op geometry bands unfold $in] by 2
 } -match glob -result "image::gradient $id *"
 
 test aktive-op-geometry-bands-unfold-3.9 "aktive geometry bands fold, over unfold, may not cancel" -body {
-    dag aktive op geometry bands fold 3 [aktive op geometry bands unfold $in]
-} -match glob -result {op::geometry::bands::fold * {k 3} *}
+    dag aktive op geometry bands fold [aktive op geometry bands unfold $in] by 3
+} -match glob -result {op::geometry::bands::fold * {by 3} *}
 
 # # ## ### ##### ######## ############# #####################
 unset in id

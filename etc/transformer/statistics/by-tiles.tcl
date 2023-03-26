@@ -29,15 +29,14 @@ operator {dexpr attr prefered_embedding} {
 	tiles, not just adjacent.
 
     note Beware, the result image is shrunken by 2*R in width and height \
-	relative to the input. If this is not desired add a border to the \
-	input using one of the `aktive op embed ...` operators before \
-	applying this operator.
+	relative to the input. Inputs smaller than that are rejected.
+
+    note If shrinkage is not desired add a border to the input using one of \
+	the `aktive op embed ...` operators before applying this operator.
 
     note The prefered embedding for $dexpr is $prefered_embedding. \
 	It is chosen to have minimal to no impact on the statistics \
 	at the original input's borders.
-
-    note Inputs with not enough width or height are rejected.
 
     note The input bands are handled separately.
 

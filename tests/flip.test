@@ -74,11 +74,11 @@ foreach {op expected} {
     unset in id
 
     test aktive-op-flip-${op}-2.3 "aktive op flip $op, partial view" -body {
-	dict get [astcl aktive op select $op 5 10 [aktive op flip $op [grad$op]]] pixels
+	dict get [astcl aktive op select $op [aktive op flip $op [grad$op]] from 5 to 10] pixels
     } -match pixels -result {14 13 12 11 10 9}
 
     test aktive-op-flip-${op}-2.4 "aktive op flip $op, translated" -body {
-	astcl aktive op flip $op [aktive op location move to 5 5 [grad]]
+	astcl aktive op flip $op [aktive op location move to [grad] x 5 y 5]
     } -match image -result [makei op::flip::$op 5 5 3 4 2 {} $expected]
 }
 

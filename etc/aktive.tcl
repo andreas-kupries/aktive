@@ -130,25 +130,30 @@ import sink/statistics.tcl	;# Compute various image statistics
 import accessor/attributes.tcl
 
 # # ## ### ##### ######## ############# #####################
-## Unsorted
+## Descriptions of commands implemented outside of the DSL
 
-tcl-operator error {
+operator error {
     section miscellaneous
+    external!
 
     note Throw error with message and error code.
 
-    arguments m args
-    body { return -code error -errorcode [linsert $args 0 AKTIVE ERROR] $m }
+    str    m	Human readable error message
+    str... args	Trappable error code suffix
 }
 
-nyi operator op::geometry::reshape {
-    input
+operator version {
+    section miscellaneous
+    external!
 
-    uint width   New width of the returned image
-    uint height  New height of the returned image
-    uint depth   New depth of the returned image
+    note Return package version number.
+}
 
-    # %% TODO %% specify implementation
+operator processors {
+    section miscellaneous
+    external!
+
+    note Return number of processor cores available for concurrent operation.
 }
 
 # # ## ### ##### ######## ############# #####################

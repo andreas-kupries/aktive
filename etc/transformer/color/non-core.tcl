@@ -50,24 +50,26 @@ foreach chain {
     lappend map %%a%%      $a
     lappend map %%b%%      $b
 
-    tcl-operator op::color::${a}::to::${b} [string map $map {
+    operator op::color::${a}::to::${b} [string map $map {
 	section transform color
 
 	note Returns image in %%a%% colorspace, from input in %%b%% colorspace.
 
-	arguments src
+	input
+
 	body {
 	    %%chain%%
 	    return $src
 	}
     }]
 
-    tcl-operator op::color::${b}::to::${a} [string map $map {
+    operator op::color::${b}::to::${a} [string map $map {
 	section transform color
 
 	note Returns image in %%b%% colorspace, from input in %%a%% colorspace.
 
-	arguments src
+	input
+
 	body {
 	    %%rchain%%
 	    return $src

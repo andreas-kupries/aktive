@@ -16,7 +16,7 @@ kt source support/util.tcl
 ## Syntax
 
 syntax {
-    2chan    {dst src}
+    2chan    {src args}
     2string   src
 } {aktive format as aktive}
 

@@ -107,7 +107,7 @@ foreach {op expected} {
 	    pixels aktive op band $op \
 		[aktive op pass \
 		     [aktive op band $op [grad]]]
-	} -match pixels -result [pixels aktive op math1 pow 2 [aktive op band $op [grad]]]
+	} -match pixels -result [pixels aktive op math1 pow [aktive op band $op [grad]] exponent 2]
 	# squared (makei op::band::$op 0 0 3 4 1 {} $expected)
 
         test aktive-op-band-${op}-2.3 "aktive op band $op, chain squared twice" -body {
@@ -116,7 +116,7 @@ foreach {op expected} {
 		     [aktive op band $op  \
 			  [aktive op pass \
 			       [aktive op band $op [grad]]]]]
-	} -match pixels -result [pixels aktive op math1 pow 4 [aktive op band $op [grad]]]
+	} -match pixels -result [pixels aktive op math1 pow [aktive op band $op [grad]] exponent 4]
 	# double squared ( [makei op::band::$op 0 0 3 4 1 {} $expected])
 
 	test aktive-op-band-${op}-2.4 "aktive op band $op, squared, reduced, dag" -body {
@@ -139,7 +139,7 @@ foreach {op expected} {
 	    pixels aktive op band $op \
 		[aktive op pass \
 		     [aktive op band $op [grad]]]
-	} -match pixels -result [pixels aktive image from value 3 4 1 0]
+	} -match pixels -result [pixels aktive image from value width 3 height 4 depth 1 value 0]
 
 	test aktive-op-band-${op}-2.3 "aktive op band $op, chain const, reduced dag" -body {
 	    dag aktive op band $op [aktive op band $op [grad]]

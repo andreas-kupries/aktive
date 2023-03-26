@@ -16,10 +16,10 @@ kt source support/util.tcl
 ## Syntax
 
 syntax {
-    x {n src}
-    y {n src}
-    z {n src}
-} {aktive op wrap}
+    x {src args}
+    y {src args}
+    z {src args}
+} {aktive op scroll}
 
 syntax {
     x src
@@ -50,8 +50,8 @@ foreach {op expected} {
 	= 10.50 10.00 = 11.50 11.00 = 12.50 12.00
     }
 } {
-    test aktive-op-wrap-${op}-2.0 "aktive op wrap $op" -body {
-	dict get [astcl aktive op wrap $op 1 [grad]] pixels
+    test aktive-op-scroll-${op}-2.0 "aktive op scroll $op" -body {
+	dict get [astcl aktive op scroll $op [grad] offset 1] pixels
     } -match pixels -result $expected
 }
 

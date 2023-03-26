@@ -19,31 +19,31 @@ operator {coordinate dimension} {
 
     input
 
-    uint   n     Stretch factor, range 2...
-    double fill  Pixel fill value
+    uint      by    Stretch factor, range 2...
+    double? 0 fill  Pixel fill value
 
     # Factor 1 stretching is no stretch at all
-    simplify for  if {$n == 1}  returns src
+    simplify for  if {$by == 1}  returns src
 
     # Chains: stretch factors multiply, however if and only if the fill values match
     simplify for  src/type @self \
 	src/value fill __fill \
 	if {$__fill == $fill} \
-	src/value n __n \
-	calc __n {$__n * $n} \
+	src/value by __by \
+	calc __by {$__by * $by} \
 	src/pop \
-	returns op upsample $coordinate : __n __fill
+	returns op upsample $coordinate : by __by fill __fill
 
     # Chains: stretching a decimation is __not__ identity. Stretching cannot recover the
     # information lost in the decimation.
 
     state -setup {
 	// could be moved into the cons wrapper created for simplification
-	if (param->n == 0) aktive_fail ("Rejecting undefined stretching by 0");
+	if (param->by == 0) aktive_fail ("Rejecting undefined stretching by 0");
 
 	aktive_geometry_copy (domain, aktive_image_get_geometry (srcs->v[0]));
 	// Modify dimension according to parameter
-	domain->@@dimension@@ *= param->n;
+	domain->@@dimension@@ *= param->by;
     }
 
     #
@@ -131,7 +131,7 @@ operator {coordinate dimension} {
 	// does not have to concern itself with the gaps, just the values to set.
 	aktive_blit_fill (block, dst, param->fill);
 
-	aktive_uint n = param->n;
+	aktive_uint n = param->by;
 	aktive_rectangle_def_as (subrequest, request);
 	@@shrink@@
 	aktive_block* src = aktive_region_fetch_area (srcs->v[0], &subrequest);

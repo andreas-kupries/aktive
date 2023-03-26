@@ -18,28 +18,28 @@ operator {coordinate dimension} {
 
     input
 
-    uint n  Stretch factor, range 2...
+    uint by  Stretch factor, range 2...
 
     # Factor 1 stretching is no stretch at all
-    simplify for  if {$n == 1}  returns src
+    simplify for  if {$by == 1}  returns src
 
     # Chains: stretch factors multiply
     simplify for  src/type @self \
-	src/value n __n \
-	calc __n {$__n * $n} \
+	src/value by __by \
+	calc __by {$__by * $by} \
 	src/pop \
-	returns op upsample ${coordinate}rep : __n
+	returns op upsample ${coordinate}rep : by __by
 
     state -fields {
 	aktive_uint max; // original max
     } -setup {
 	// could be moved into the cons wrapper created for simplification
-	if (param->n == 0) aktive_fail ("Rejecting undefined stretching by 0");
+	if (param->by == 0) aktive_fail ("Rejecting undefined stretching by 0");
 
 	aktive_geometry_copy (domain, aktive_image_get_geometry (srcs->v[0]));
 	// Modify dimension according to parameter
 	state->max = aktive_geometry_get_@@coordinate@@max (domain);
-	domain->@@dimension@@ *= param->n;
+	domain->@@dimension@@ *= param->by;
     }
 
     # The gridding here is more complex because we have fill the gaps ourselves. We cannot
@@ -108,7 +108,7 @@ operator {coordinate dimension} {
     } $coordinate]
 
     pixels {
-	aktive_uint n = param->n;
+	aktive_uint n = param->by;
 	aktive_rectangle_def_as (subrequest, request);
 	@@phasor@@
 	aktive_block* src = aktive_region_fetch_area (srcs->v[0], &subrequest);

@@ -27,14 +27,14 @@ simplify for   src/type @self   \
     src/value  exponent __a \
     calc __ab {$exponent * $__a}  \
     src/pop \
-    returns op math1 pow : __ab
+    returns op math1 pow : exponent __ab
 
 simplify for   src/type op::math1::sqrt   \
     calc __ab {$exponent / 2.}  \
     src/pop \
-    returns op math1 pow : __ab
+    returns op math1 pow : exponent __ab
 
 simplify for   src/type op::math1::cbrt   \
     calc __ab {$exponent / 3.}  \
     src/pop \
-    returns op math1 pow : __ab
+    returns op math1 pow : exponent __ab

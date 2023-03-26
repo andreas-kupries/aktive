@@ -15,20 +15,20 @@ kt source support/util.tcl
 # # ## ### ##### ######## ############# #####################
 ## Syntax -- args issue
 
-if 0 {syntax {
-    rows {width height args}
-} {aktive image from}}
+syntax {
+    rows args
+} {aktive image from}
 
 # # ## ### ##### ######## ############# #####################
 ##
 
 test aktive-image-from-rows-2.0 "aktive image from rows" -body {
-    astcl aktive image from rows 3  1 2 3 4 5 6
+    astcl aktive image from rows height 3 values 1 2 3 4 5 6
 } -match image -result {
     type   image::from::rows
     config {
 	height 3
-	value {1.0 2.0 3.0 4.0 5.0 6.0}
+	values {1.0 2.0 3.0 4.0 5.0 6.0}
     }
     domain {
 	x 0
@@ -45,8 +45,8 @@ test aktive-image-from-rows-2.0 "aktive image from rows" -body {
 }
 
 test aktive-image-from-rows-2.1 "aktive image from rows, dag" -body {
-    dag aktive image from rows 4  1 2 3
-} -match glob -result {image::from::rows * {height 4 value {1.0 2.0 3.0}}}
+    dag aktive image from rows height 4 values 1 2 3
+} -match glob -result {image::from::rows * {height 4 values {1.0 2.0 3.0}}}
 
 # # ## ### ##### ######## ############# #####################
 cleanupTests

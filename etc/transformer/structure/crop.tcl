@@ -7,14 +7,19 @@
 #
 ## - Cropping
 
-tcl-operator op::crop {
+operator op::crop {
     section transform structure
 
     note Returns image containing a rectangular subset of input, \
 	specified by the amount of rows and columns to remove \
 	from the four borders.
 
-    arguments left right top bottom src
+    uint? 0 left	Number of columns to remove from the left input border
+    uint? 0 right	Number of columns to remove from the right input border
+    uint? 0 top		Number of rows to remove from the top input border
+    uint? 0 bottom	Number of rows to remove from the bottom input border
+    input
+
     body {
 	lassign [aktive query geometry $src] x y w h d
 
@@ -45,7 +50,7 @@ tcl-operator op::crop {
 	# - 2 - see if the stack is two select ops indicating a previous crop.  If so, reorder
 	#       the stack to reduce both x and y selections.
 
-	return [aktive op select y $top $bottom [aktive op select x $left $right $src]]
+	return [aktive op select y [aktive op select x $src from $left to $right] from $top to $bottom]
     }
 }
 

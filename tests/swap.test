@@ -70,7 +70,7 @@ foreach {op domain expected} {
 
     # note: 2.3 below
     test aktive-op-swap-${op}-2.4 "aktive op swap $op, translated" -body {
-	astcl aktive op swap $op [aktive op location move to 10 3 [grad]]
+	astcl aktive op swap $op [aktive op location move to [grad] x 10 y 3]
     } -match image -result [makei op::swap::$op 10 3 {*}$domain {} $expected]
 
     ##
@@ -81,19 +81,19 @@ foreach {op domain expected} {
 
     for {set row 0} {$row < $h} {incr row} {
 	test aktive-op-swap-${op}-2.3.r$row "aktive op swap $op, row slice" -body {
-	    dict get [astcl aktive op select y $row $row [aktive op swap $op [grad]]] pixels
+	    dict get [astcl aktive op select y [aktive op swap $op [grad]] from $row] pixels
 	} -match pixels -result [slice-row $row $w $h $d $expected]
     }
 
     for {set col 0} {$col < $w} {incr col} {
 	test aktive-op-swap-${op}-2.3.c$col "aktive op swap $op, column slice" -body {
-	    dict get [astcl aktive op select x $col $col [aktive op swap $op [grad]]] pixels
+	    dict get [astcl aktive op select x [aktive op swap $op [grad]] from $col] pixels
 	} -match pixels -result [slice-col $col $w $h $d $expected]
     }
 
     for {set band 0} {$band < $d} {incr band} {
 	test aktive-op-swap-${op}-2.3.b$band "aktive op swap $op, band slice" -body {
-	    dict get [astcl aktive op select z $band $band [aktive op swap $op [grad]]] pixels
+	    dict get [astcl aktive op select z [aktive op swap $op [grad]] from $band] pixels
 	} -match pixels -result [slice-band $band $w $h $d $expected]
     }
 

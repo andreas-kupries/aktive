@@ -4,7 +4,7 @@
 
 # critcl::csources ../../op/aktive.c	;# C-level support code
 
-tcl-operator {
+operator {
     format::as::aktive::2string
 } {
     section sink writer
@@ -12,8 +12,11 @@ tcl-operator {
     note Returns byte array containing the image serialized \
 	with the AKTIVE raw format.
 
-    arguments src
-    body { aktive::2string $src 2chan }
+    input
+
+    body {
+	aktive::2string $src 2chan
+    }
 }
 
 operator {
@@ -26,14 +29,14 @@ operator {
 
     input
 
-    channel dst \
-	Channel the image data is written to
+    channel into \
+	Destination channel the image data is written to
 
     void {
 	TRACE ("AKTIVE starting", 0);
 
 	aktive_writer dst;
-	aktive_write_channel (&dst, param->dst, 1);
+	aktive_write_channel (&dst, param->into, 1);
 
 	TRACE ("create and execute sink", 0);
 	aktive_sink_run (aktive_aktive_sink (&dst), src);

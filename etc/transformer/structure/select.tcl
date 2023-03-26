@@ -19,18 +19,15 @@ operator {thing coordinate dimension} {
     note The 2D location of the first cell of the input going into the
     note result is the location of the result.
 
+    uint       from The input's first $thing to be placed into the result.
+    uint? from to   The input's last $thing to be placed into the result. \
+	If not specified defaults to the first.
+
     input
 
-    uint first  Input's first $thing to be placed into the result
-    uint last   Input's last $thing to be placed into the result
-
-    # As an image follows and we simplify (see below) we cannot make `last` optional.
-    # The simplification is done in a Tcl level wrapper, and `proc` does not support
-    # optional arguments in the middle of the set. (critcl::cproc does).
-
     simplify for  \
-	if {$first == 0} \
-	src/attr $dimension __range if {$last == ($__range - 1)} \
+	if {$from == 0} \
+	src/attr $dimension __range if {$to == ($__range - 1)} \
 	returns src
 
     # |---------------|
@@ -41,11 +38,11 @@ operator {thing coordinate dimension} {
     # Chained selects can be reduced to a single select combining the borders.
     simplify for \
 	src/type @self \
-	src/value first __f \
-	calc __l {$__f + $last} \
-	calc __f {$__f + $first} \
+	src/value from __f \
+	calc __l {$__f + $to} \
+	calc __f {$__f + $from} \
 	src/pop \
-	returns op select $coordinate : __f __l
+	returns op select $coordinate : from __f to __l
 
     # TODO :: simplify hints (const input => create const of reduced dimensions)
 
@@ -67,16 +64,16 @@ operator {thing coordinate dimension} {
 	aktive_uint range = aktive_image_get_@@dimension@@ (srcs->v[0]);
 
 	// could be moved into the cons wrapper created for simplification
-	if (param->first >= range)       aktive_failf ("First @@thing@@ >= %d", range);
-	if (param->last  >= range)       aktive_failf ("Last @@thing@@ >= %d",  range);
-	if (param->first >  param->last) \
+	if (param->from >= range)       aktive_failf ("First @@thing@@ >= %d", range);
+	if (param->to  >= range)       aktive_failf ("Last @@thing@@ >= %d",  range);
+	if (param->from >  param->to) \
 	    aktive_failf ("First @@thing@@ %d is after last %d",
-			  param->first, param->last);
+			  param->from, param->to);
 
 	aktive_geometry_copy (domain, aktive_image_get_geometry (srcs->v[0]));
 
 	// Modify dimension according to parameters
-	domain->@@dimension@@ = param->last - param->first + 1;
+	domain->@@dimension@@ = param->to - param->from + 1;
     }
 
     switch -exact -- $thing {
@@ -85,7 +82,7 @@ operator {thing coordinate dimension} {
 		@@common-setup@@
 
 		// ... and adjust location
-		domain->@@coordinate@@ += param->first;
+		domain->@@coordinate@@ += param->from;
 	    }
 	    pixels {
 		// @@thing@@ selection and blitting: Plain pass through, always
@@ -99,7 +96,7 @@ operator {thing coordinate dimension} {
 		@@common-setup@@
 
 		// ... and switch the runtime to simpler behaviour when the operator is identity
-		state->passthrough = (param->first == 0 && param->last == range);
+		state->passthrough = (param->from == 0 && param->to == range);
 	    }
 	    pixels {
 		// @@thing@@ selection and blitting
@@ -109,7 +106,7 @@ operator {thing coordinate dimension} {
 		    aktive_blit_copy0 (block, dst, src);
 		} else {
 		    // non-identity, call the blitter handling just the desired bands
-		    aktive_blit_copy0_bands (block, dst, src, param->first, param->last);
+		    aktive_blit_copy0_bands (block, dst, src, param->from, param->to);
 		}
 	    }
 	}

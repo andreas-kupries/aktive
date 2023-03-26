@@ -10,18 +10,23 @@
 # # ## ### ##### ######## ############# #####################
 ## Bernsen
 
-tcl-operator image::threshold::bernsen {
+operator image::threshold::bernsen {
     section transform threshold generate
 
     note Returns image containing per-pixel thresholds for the input, as per Bernsen's method.
 
-    arguments radius src
-    body {
-	set e   [aktive op embed mirror $radius $radius $radius $radius $src]
-	set min [aktive op tile min $radius $e]
-	set max [aktive op tile max $radius $e]
+    uint radius	Size of region to consider, as radius from center
 
-	return [aktive op math1 scale 0.5 [aktive op math add $min $max]]
+    input
+
+    body {
+	set e   [aktive op embed mirror $src left $radius right $radius top $radius bottom $radius]
+	set min [aktive op tile min $e radius $radius]
+	set max [aktive op tile max $e radius $radius]
+
+	return [aktive op math1 scale \
+		    [aktive op math add $min $max] \
+		    factor 0.5]
     }
 }
 
@@ -30,18 +35,24 @@ tcl-operator image::threshold::bernsen {
 #
 #	t = mN + (k * stdN)
 
-tcl-operator image::threshold::niblack {
+operator image::threshold::niblack {
     section transform threshold generate
 
     note Returns image containing per-pixel thresholds for the input, as per Niblack's method.
 
-    arguments k radius src
-    body {
-	set e    [aktive op embed mirror $radius $radius $radius $radius $src]
-	set mean [aktive op tile mean   $radius $e]
-	set std  [aktive op tile stddev $radius $e]
+    double? -0.2 k	niblack parameter
+    uint    radius	Size of region to consider, as radius from center
 
-	return [aktive op math add $mean [aktive op math1 scale $k $std]]
+    input
+
+    body {
+	set e    [aktive op embed mirror $src left $radius right $radius top $radius bottom $radius]
+	set mean [aktive op tile mean   $e radius $radius]
+	set std  [aktive op tile stddev $e radius $radius]
+
+	return [aktive op math add $mean \
+		    [aktive op math1 scale $std \
+			 factor $k]]
     }
 }
 
@@ -50,21 +61,27 @@ tcl-operator image::threshold::niblack {
 #
 #	t = mN * (1 + k * ((stdN/R) - 1))
 
-tcl-operator image::threshold::sauvola {
+operator image::threshold::sauvola {
     section transform threshold generate
 
     note Returns image containing per-pixel thresholds for the input, as per Sauvola's method.
 
-    arguments k R radius src
+    double? 0.5 k	sauvola parameter
+    double? 128 R	sauvola parameter
+    uint        radius	Size of region to consider, as radius from center
+
+    input
+
     body {
-	set e    [aktive op embed mirror $radius $radius $radius $radius $src]
-	set mean [aktive op tile mean   $radius $e]
-	set std  [aktive op tile stddev $radius $e]
+	set e    [aktive op embed mirror $src left $radius right $radius top $radius bottom $radius]
+	set mean [aktive op tile mean   $e radius $radius]
+	set std  [aktive op tile stddev $e radius $radius]
 
 	return [aktive op math mul $mean \
-		    [aktive op math1 linear $k 1 \
-			 [aktive op math1 linear [expr {1.0/$R}] -1 \
-			      $std]]]
+		    [aktive op math1 linear \
+			 [aktive op math1 linear $std \
+			      scale [expr {1.0/$R}] gain -1] \
+			 scale $k gain 1]]
     }
 }
 
@@ -73,27 +90,36 @@ tcl-operator image::threshold::sauvola {
 #
 #	t = mN * (p * exp(-q * mN) + 1 + k * ((stdN / R) - 1))
 
-tcl-operator image::threshold::phansalkar {
+operator image::threshold::phansalkar {
     section transform threshold generate
 
     note Returns image containing per-pixel thresholds for the input, as per Phansalkar's method.
 
-    arguments k R p q radius src
+    double? 0.25 k	phansalkar parameter
+    double? 0.5  R	phansalkar parameter
+    double? 3    p	phansalkar parameter
+    double? 10   q	phansalkar parameter
+    uint         radius	Size of region to consider, as radius from center
+
+    input
+
     body {
-	set e    [aktive op embed mirror $radius $radius $radius $radius $src]
-	set mean [aktive op tile mean   $radius $e]
-	set std  [aktive op tile stddev $radius $e]
+	set e    [aktive op embed mirror $src left $radius right $radius top $radius bottom $radius]
+	set mean [aktive op tile mean   $e radius $radius]
+	set std  [aktive op tile stddev $e radius $radius]
 
 	return [aktive op math mul \
 		    $mean \
 		    [aktive op math add \
-			 [aktive op math1 scale $p \
+			 [aktive op math1 scale \
 			      [aktive op math1 exp \
-				   [aktive op math1 scale [expr {- $q}] \
-					$mean]]] \
-			 [aktive op math1 linear $k 1 \
-			      [aktive op math1 linear [expr {1.0/$R}] -1 \
-				   $std]]]]
+				   [aktive op math1 scale $mean \
+					factor [expr {- $q}]]] \
+			      factor $p] \
+			 [aktive op math1 linear \
+			      [aktive op math1 linear $std \
+				   scale [expr {1.0/$R}] gain -1] \
+			      scale $k gain 1]]]
     }
 }
 

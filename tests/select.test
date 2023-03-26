@@ -16,9 +16,9 @@ kt source support/util.tcl
 ## Syntax
 
 syntax {
-    x {first last src}
-    y {first last src}
-    z {first last src}
+    x {src args}
+    y {src args}
+    z {src args}
 } {aktive op select}
 
 # # ## ### ##### ######## ############# #####################
@@ -54,11 +54,11 @@ foreach {op dim thing domain expected} {
     }
 } {
     test aktive-op-select-${op}-2.0 "aktive op select $op" -body {
-	astcl aktive op select $op 1 1 [grad]
-    } -match image -result [makei op::select::$op {*}$domain {first 1 last 1} $expected]
+	astcl aktive op select $op [grad] from 1 to 1
+    } -match image -result [makei op::select::$op {*}$domain {from 1 to 1} $expected]
 
     test aktive-op-select-${op}-2.1 "aktive op select $op, dag" -body {
-	dag aktive op select $op 1 1 [grad]
+	dag aktive op select $op [grad] from 1 to 1
     } -match glob -result "op::select::$op * {image::gradient *}"
 
     set in    [grad]
@@ -66,27 +66,27 @@ foreach {op dim thing domain expected} {
     set range [aktive query $dim $in] ; incr range -1
 
     test aktive-op-select-${op}-2.2 "aktive op select $op, pass through dag" -body {
-	dag aktive op select $op 0 $range $in
+	dag aktive op select $op $in from 0 to $range
     } -match glob -result "image::gradient $id *"
 
     unset in range
 
     test aktive-op-select-${op}-2.3 "aktive op select $op, chain reduction" -body {
-	dag aktive op select $op 2 4 [aktive op select $op 2 9 [grad$op]]
-    } -match glob -result "op::select::$op * {first 4 last 6} {image::gradient *}"
+	dag aktive op select $op [aktive op select $op [grad$op] from 2 to 9] from 2 to 4
+    } -match glob -result "op::select::$op * {from 4 to 6} {image::gradient *}"
 
     # - -- --- ----- -------- ------------- ---------------------
 
     test aktive-op-select-${op}-3.0 "aktive op select $op, first > range" -body {
-	aktive op select $op 5 6 [flat 0]
+	aktive op select $op [flat 0] from 5 to 6
     } -returnCodes error -match glob -result "First $thing >= *"
 
     test aktive-op-select-${op}-3.1 "aktive op select $op, last > range" -body {
-	aktive op select $op 1 6 [flat 0]
+	aktive op select $op [flat 0] from 1 to 6
     } -returnCodes error -match glob -result "Last $thing >= *"
 
     test aktive-op-select-${op}-3.2 "aktive op select $op, first > last" -body {
-	aktive op select $op 1 0 [flat 0]
+	aktive op select $op [flat 0] from 1 to 0
     } -returnCodes error -result "First $thing 1 is after last 0"
 }
 

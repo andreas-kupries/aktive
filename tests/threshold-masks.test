@@ -16,38 +16,39 @@ kt source support/util.tcl
 ## Syntax
 
 syntax {
-    bernsen      {radius src}
-    niblack    {k radius src}
-    sauvola    {k R radius src}
-    phansalkar {k R p q radius src}
+    bernsen    {src args}
+    niblack    {src args}
+    sauvola    {src args}
+    phansalkar {src args}
 } {aktive image mask per}
 
 syntax {
-    bernsen      {radius src}
-    niblack    {k radius src}
-    sauvola    {k R radius src}
-    phansalkar {k R p q radius src}
+    bernsen    {src args}
+    niblack    {src args}
+    sauvola    {src args}
+    phansalkar {src args}
 } {aktive image threshold}
 
 # # ## ### ##### ######## ############# #####################
 ##
 
-set in [aktive read from netpbm [A crop.pgm]]
+set in [aktive read from netpbm path [A crop.pgm]]
 
 foreach mp {
     bernsen
-    {niblack   -0.2}
-    {sauvola    0.5 128}
-    {phansalkar 0.25 0.5 3 10}
+    {niblack    k -0.2}
+    {sauvola    k  0.5  R 128}
+    {phansalkar k  0.25 R 0.5 p 3 q 10}
 } {
     set m [lindex $mp 0]
+    set p [lrange $mp 1 end]
 
     test aktive-image-threshold-${m}-2.0 "aktive image threshold $mp" -body {
-	aspgm aktive image threshold {*}$mp 5 $in
+	aspgm aktive image threshold $m $in {*}$p radius 5
     } -match content/string -result [R ${m}-threshold.pgm]
 
     test aktive-image-mask-per-${m}-2.0 "aktive image mask per $mp" -body {
-	aspgm aktive image mask per {*}$mp 5 $in
+	aspgm aktive image mask per $m $in {*}$p radius 5
     } -match content/string -result [R ${m}-mask.pgm]
 }
 

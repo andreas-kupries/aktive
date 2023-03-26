@@ -16,7 +16,7 @@ kt source support/util.tcl
 ## Syntax
 
 syntax {
-    gradient {width height depth first last}
+    gradient args
 } {aktive image}
 
 # # ## ### ##### ######## ############# #####################
@@ -34,7 +34,7 @@ syntax {
 ##      0. 1...   0. 1...   0. 1... - 2 bands
 
 test aktive-image-gradient-2.0 "aktive image gradient" -body {
-    astcl aktive image gradient 3 4 2  1 12.5
+    astcl aktive image gradient width 3 height 4 depth 2 first 1 last 12.5
 } -match image -result {
     type   image::gradient
     config {
@@ -60,11 +60,11 @@ test aktive-image-gradient-2.0 "aktive image gradient" -body {
 }
 
 test aktive-image-gradient-2.1 "aktive image gradient, off view" -body {
-    astcl aktive op view {-2 2 8 2} [grad]
+    astcl aktive op view [grad] port {-2 2 8 2}
 } -match image -result {
     type   op::view
     config {
-	view {-2 2 8 2}
+	port {-2 2 8 2}
     }
     domain {
 	x -2
@@ -80,11 +80,11 @@ test aktive-image-gradient-2.1 "aktive image gradient, off view" -body {
 }
 
 test aktive-image-gradient-2.2 "aktive image gradient, off view" -body {
-    astcl aktive op view {2 -2 2 8} [grad]
+    astcl aktive op view [grad] port {2 -2 2 8}
 } -match image -result {
     type   op::view
     config {
-	view {2 -2 2 8}
+	port {2 -2 2 8}
     }
     domain {
 	x 2

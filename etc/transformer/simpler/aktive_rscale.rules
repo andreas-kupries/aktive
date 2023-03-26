@@ -22,7 +22,7 @@ simplify for   src/type @self   \
     src/value  factor __a \
     calc __ab {$factor / $__a}  \
     src/pop \
-    returns op math1 scale : __ab
+    returns op math1 scale : factor __ab
 
 # Chains: rscale(b, scale (a, I)) = b / (a * I) = (b/a) / I = rscale (b/a, I)
 
@@ -30,4 +30,4 @@ simplify for   src/type op::math1::scale   \
     src/value  factor __a \
     calc __ab {$factor / $__a}  \
     src/pop \
-    returns op math1 reciproc-scale : __ab
+    returns op math1 reciproc-scale : factor __ab

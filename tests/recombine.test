@@ -32,7 +32,7 @@ syntax {
 ##     --- ----  --- ----  --- ----  \ 4 rows
 ##      0. 1...   0. 1...   0. 1... - 2 bands
 
-set matrix [aktive image from matrix 4 2 \
+set matrix [aktive image from matrix width 4 height 2 values \
 		0.5 0.333333 0.9 0 \
 		0.5 0.666667 0.1 0 \
 	       ]

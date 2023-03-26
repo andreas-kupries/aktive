@@ -2,6 +2,8 @@
 # # ## ### ##### ######## #############
 ## Project specific Critcl argument/result types
 
+critcl::argtype aktive_string = char*
+
 # # ## ### ##### ######## #############
 ## uint
 

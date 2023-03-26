@@ -203,14 +203,18 @@ operator {function lowkind highkind mode} {
     }
 }
 
-tcl-operator op::math1::linear {
+operator op::math1::linear {
     section transform math unary
 
-    note Returns image with the linear transform `scale*I+gain` applied to it.
+    note Returns image with the linear transform `(I*scale)+gain` applied to it.
 
-    arguments scale gain src
+    double scale Input scaling factor
+    double gain  Post-scaling offset
+
+    input
+
     body {
-	aktive op math1 shift $gain [aktive op math1 scale $scale $src]
+	aktive op math1 shift [aktive op math1 scale $src factor $scale] offset $gain
     }
 }
 

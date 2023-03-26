@@ -7,24 +7,30 @@
 #
 ## - Transpose / transverse
 
-tcl-operator op::transpose  {
+operator op::transpose  {
     section transform structure
 
     note Returns image with the input mirrored along the primary diagonal.
 
     note This is an alias of `swap xy`.
 
-    arguments src
-    body { swap xy $src }
+    input
+
+    body {
+	swap xy $src
+    }
 }
 
-tcl-operator op::transverse {
+operator op::transverse {
     section transform structure
 
     note Returns image with the input mirrored along the secondary diagonal.
 
-    arguments src
-    body { flip x [flip y [swap xy $src]] }
+    input
+
+    body {
+	flip x [flip y [swap xy $src]]
+    }
 }
 
 ##

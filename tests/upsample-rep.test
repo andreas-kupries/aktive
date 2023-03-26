@@ -16,9 +16,9 @@ kt source support/util.tcl
 ## Syntax
 
 syntax {
-    xrep {n src}
-    yrep {n src}
-    zrep {n src}
+    xrep {src args}
+    yrep {src args}
+    zrep {src args}
 } {aktive op upsample}
 
 # # ## ### ##### ######## ############# #####################
@@ -61,28 +61,28 @@ foreach {op domain expected} {
     }
 } {
     test aktive-op-upsample-${op}rep-2.0 "aktive op upsample ${op}rep 2x" -body {
-	astcl aktive op upsample ${op}rep 2 [grad]
-    } -match image -result [makei op::upsample::${op}rep 0 0 {*}$domain {n 2} $expected]
+	astcl aktive op upsample ${op}rep [grad] by 2
+    } -match image -result [makei op::upsample::${op}rep 0 0 {*}$domain {by 2} $expected]
 
     test aktive-op-upsample-${op}rep-2.1 "aktive op upsample ${op}rep, dag" -body {
-	dag aktive op upsample ${op}rep 2 [grad]
-    } -match glob -result "op::upsample::${op}rep * {n 2} {image::gradient *}"
+	dag aktive op upsample ${op}rep [grad] by 2
+    } -match glob -result "op::upsample::${op}rep * {by 2} {image::gradient *}"
 
     set in [grad]
     set id [aktive query id $in]
 
     test aktive-op-upsample-${op}rep-2.2 "aktive op upsample ${op}rep, 1x is identity" -body {
-	dag aktive op upsample ${op}rep 1 $in
+	dag aktive op upsample ${op}rep $in by 1
     } -match glob -result "image::gradient $id *"
 
     unset in id
 
     test aktive-op-upsample-${op}rep-2.3 "aktive op upsample ${op}rep, chain reduction, factors multiply" -body {
-	dag aktive op upsample ${op}rep 3 [aktive op upsample ${op}rep 2 [grad]]
-    } -match glob -result "op::upsample::${op}rep * {n 6} {image::gradient *}"
+	dag aktive op upsample ${op}rep [aktive op upsample ${op}rep [grad] by 2] by 3
+    } -match glob -result "op::upsample::${op}rep * {by 6} {image::gradient *}"
 
     test aktive-op-upsample-${op}-2.4 "aktive op upsample ${op}rep, partial view" -body {
-	dict get [astcl aktive op select $op 5 10 [aktive op upsample ${op}rep 3 [grad$op]]] pixels
+	dict get [astcl aktive op select $op [aktive op upsample ${op}rep [grad$op] by 3] from 5 to 10] pixels
     } -match pixels -result {1 2 2 2 3 3}
 }
 

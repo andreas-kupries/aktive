@@ -11,7 +11,7 @@
 simplify for   \
     src/type @self   \
     calc __two {2} \
-    returns op math1 pow : __two
+    returns op math1 pow : exponent __two
 
 simplify for \
     src/type op::math1::pow \
@@ -19,4 +19,4 @@ simplify for \
     src/pop \
     src/type @self   \
     calc __two {2 * $__e} \
-    returns op math1 pow : __two
+    returns op math1 pow : exponent __two

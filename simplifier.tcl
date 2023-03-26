@@ -215,16 +215,16 @@ proc aktive::simplify::/const {v} {
     debug.aktive/simplifier {[debug caller]}
 
     upvar 1 src src
-    set g [lrange [aktive query geometry $src] 2 end]
-    aktive image from value {*}$g $v
+    lassign [lrange [aktive query geometry $src] 2 end] w h d
+    aktive image from value width $w height $h depth $d value $v
 }
 
 proc aktive::simplify::/constv {var} {
     debug.aktive/simplifier {[debug caller]}
 
     upvar 1 src src $var v
-    set g [lrange [aktive query geometry $src] 2 end]
-    aktive image from value {*}$g $v
+    lassign [lrange [aktive query geometry $src] 2 end] w h d
+    aktive image from value width $w height $h depth $d value $v
 }
 
 proc aktive::simplify::/op {args} {
@@ -234,11 +234,24 @@ proc aktive::simplify::/op {args} {
     set cmd {aktive op}
     set parmode 0
     foreach w $args {
-	if {$parmode} { upvar 1 $w param ; lappend cmd $param; continue }
-	if {$w eq ":"} { incr parmode ; continue }
+	if {$parmode} {
+	    switch -exact -- $parmode {
+		1 { lappend cmd $w ; incr parmode }
+		2 { upvar 1 $w param ; lappend cmd $param; set parmode 1 }
+	    }
+	    continue
+	}
+	if {$w eq ":"} {
+	    incr parmode
+	    lappend cmd $src
+	    continue
+	}
 	lappend cmd $w
     }
-    lappend cmd $src
+
+    if {!$parmode} {
+	lappend cmd $src
+    }
 
     debug.aktive/simplifier {[debug caller] -- $cmd}
 

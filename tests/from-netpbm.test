@@ -16,7 +16,7 @@ kt source support/util.tcl
 ## Syntax
 
 syntax {
-    netpbm path
+    netpbm args
 } {aktive read from}
 
 # # ## ### ##### ######## ############# #####################
@@ -96,7 +96,7 @@ foreach {k name expected} {
     set depth [dict get $bands [file extension $name]]
 
     test aktive-read-from-netpbm-2.$k-${type}-$depth "aktive read from netpbm ($type, depth $depth)" -body {
-	astcl aktive read from netpbm [R format-$name]
+	astcl aktive read from netpbm path [R format-$name]
     } -match image -result [makei read::from::netpbm 0 0 8 8 $depth [dict create path [R format-$name]] $expected]
 }
 

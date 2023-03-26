@@ -9,7 +9,7 @@
 ## - Multi-image montage on top of the binary core
 ## - Montage core, 2 images
 
-tcl-operator {coordinate layout} {
+operator {coordinate layout} {
     op::montage::x-rep  x {left to right}
     op::montage::y-rep  y {top to bottom}
     op::montage::z-rep  z {front to back}
@@ -19,17 +19,20 @@ tcl-operator {coordinate layout} {
     note Returns image with input joined $layout with itself N times \
 	along the ${coordinate}-axis.
 
-    arguments n src
+    uint by	Replication factor
+
+    input
+
     body {
 	# I. Base list of images to montage
 	set copies {}
-	while {$n} { lappend copies $src ; incr n -1 }
+	while {$by} { lappend copies $src ; incr by -1 }
 	# II. Multi-montage
 	return [@@coordinate@@ {*}$copies]
     }
 }
 
-tcl-operator {coordinate layout} {
+operator {coordinate layout} {
     op::montage::x  x {left to right}
     op::montage::y  y {top to bottom}
     op::montage::z  z {front to back}
@@ -38,7 +41,8 @@ tcl-operator {coordinate layout} {
 
     note Returns image with all inputs joined $layout along the ${coordinate}-axis.
 
-    arguments args
+    input...
+
     body {
 	# Tree reduction of the image list until a single image is left.
 	while {[llength $args] >= 2} {

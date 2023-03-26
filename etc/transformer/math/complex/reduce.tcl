@@ -8,7 +8,7 @@
 # # ## ### ##### ######## ############# #####################
 ## The projections do not require any kind of math
 
-tcl-operator {band part} {
+operator {band part} {
     op::cmath::real       0 real
     op::cmath::imaginary  1 imaginary
 } {
@@ -16,8 +16,11 @@ tcl-operator {band part} {
 
     note Returns single-band image containing the $part part of the complex-valued input.
 
-    arguments src
-    body { aktive op select z @@band@@ @@band@@ $src }
+    input
+
+    body {
+	aktive op select z $src from @@band@@
+    }
 }
 
 # # ## ### ##### ######## ############# #####################

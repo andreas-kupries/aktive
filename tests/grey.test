@@ -16,14 +16,14 @@ kt source support/util.tcl
 ## Syntax
 
 syntax {
-    grey {width height}
+    grey args
 } {aktive image}
 
 # # ## ### ##### ######## ############# #####################
 ##
 
 test aktive-image-grey-2.0 "aktive image grey" -body {
-    astcl aktive image grey 3 4
+    astcl aktive image grey width 3 height 4
 } -match image -result {
     type   image::grey
     config {
@@ -46,11 +46,11 @@ test aktive-image-grey-2.0 "aktive image grey" -body {
 }
 
 test aktive-image-grey-2.1 "aktive image grey, off view" -body {
-    astcl aktive op view {-2 2 8 2} [aktive image grey 3 4]
+    astcl aktive op view [aktive image grey width 3 height 4] port {-2 2 8 2}
 } -match image -result {
     type   op::view
     config {
-	view {-2 2 8 2}
+	port {-2 2 8 2}
     }
     domain {
 	x -2
@@ -66,11 +66,11 @@ test aktive-image-grey-2.1 "aktive image grey, off view" -body {
 }
 
 test aktive-image-grey-2.2 "aktive image grey, off view" -body {
-    astcl aktive op view {2 -2 2 8} [aktive image grey 3 4]
+    astcl aktive op view [aktive image grey width 3 height 4] port {2 -2 2 8}
 } -match image -result {
     type   op::view
     config {
-	view {2 -2 2 8}
+	port {2 -2 2 8}
     }
     domain {
 	x 2
@@ -94,7 +94,7 @@ test aktive-image-grey-2.2 "aktive image grey, off view" -body {
 }
 
 test aktive-image-grey-2.3 "aktive image grey, dag" -body {
-    dag aktive image grey 3 4
+    dag aktive image grey width 3 height 4
 } -match glob -result {image::grey * {width 3 height 4}}
 
 # # ## ### ##### ######## ############# #####################
