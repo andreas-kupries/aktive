@@ -36,7 +36,7 @@ proc perf {label args} {
 proc to {path g args} {
     puts "writing to $path"
     set dst [open $path w]
-    uplevel 1 [linsert $args end 2chan $dst $g]
+    uplevel 1 [linsert $args end 2chan $g into $dst]
     close $dst
 }
 
@@ -55,17 +55,20 @@ proc ppms  {src} { aktive format as ppm text 2string $src }
 proc pgms  {src} { aktive format as pgm text 2string $src }
 proc akts  {src} { aktive format as aktive   2string $src }
 
-proc rgb {r g b} { aktive op montage z $r [aktive op montage z $g $b] }
+proc rgb {r g b} { aktive op montage z $r $g $b }
 
-proc graybig  {} { aktive image gradient 256 256 1 0 1 }
+proc graybig  {} { aktive image gradient width 256 height 256 depth 1 first 0 last 1 }
 proc colorbig {} { set r [graybig] ; rgb $r [aktive op rotate cw $r] [aktive op rotate half $r] }
-proc sines {} { rgb [aktive image sines 256 256 0.3 0.4] [aktive image sines 256 256 2 0.5] [aktive image sines 256 256 1 3] }
+proc sines {} { rgb \
+		    [aktive image sines width 256 height 256 hf 0.3 vf 0.4] \
+		    [aktive image sines width 256 height 256 hf 2   vf 0.5] \
+		    [aktive image sines width 256 height 256 hf 1   vf 3] }
 
 proc showbasic {i} {
     puts "[aktive query type $i] \{"
     puts "  pa ([aktive query params $i])"
     puts "  x,y [aktive query x $i]..[aktive query xmax $i],[aktive query y $i]..[aktive query ymax $i]"
-    puts "  whd [set w [aktive query width  $i]] x [set h [aktive query height $i]] x [set d [aktive query depth  $i]]"
+    puts "  whd [set w [aktive query width $i]] x [set h [aktive query height $i]] x [set d [aktive query depth  $i]]"
     puts "\}"
     flush stdout
 }
@@ -77,7 +80,6 @@ proc dagc {i {indent {}}} {
     if {[dict exists $have $id]} { puts "      :: ${indent}---> [dict get $have $id]" ; return }
     incr count ; set me $count
     dict set have $id $count
-
 
     puts "[format %5d $count] :: $indent$id  [aktive query type $i]"
     set children [aktive query inputs $i]
@@ -142,8 +144,7 @@ proc pop {} {
     return $top
 }
 
-proc / {label} {
-}
+proc / {label} {}
 
 # ------------------------------------------------------------------------------
 return
