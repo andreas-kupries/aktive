@@ -46,7 +46,11 @@ proc save-to {path args} {
 # Get image Tcl representation
 
 proc astcl  {args} { astcl/ [check {*}$args] }
-proc astcl/ {i}    { aktive format as tcl $i }
+proc astcl/ {i}    {
+    set x [aktive format as tcl $i]
+    #puts //$x//
+    return $x
+}
 
 proc aspgm  {args} { aspgm/ [check {*}$args] }
 proc aspgm/ {i}    { aktive format as pgm byte 2string $i }

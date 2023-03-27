@@ -50,12 +50,15 @@ proc dsl::reduce::Emit {function region merge finalize} {
 
             if (! *wstate) {
                 TRACE ("initialize wstate", 0);
-                *wstate = aktive_region_new (state->image);
+		aktive_context c = aktive_context_new ();
+                *wstate = aktive_region_new (state->image, c);
                 TRACE ("(region*) %p", *wstate);
             }
 
             if (!task) {
+		aktive_context c = aktive_region_context (*wstate);
                 aktive_region_destroy (*wstate);
+		aktive_context_destroy (c);
                 TRACE_RETURN ("", 0);
             }
 

@@ -24,11 +24,13 @@
  */
 
 typedef struct aktive_block {
-    aktive_region   region   ; // Region owning and managing the block. NULL for independent blocks.
-    aktive_geometry domain   ; // Area and bands covered by the `pixel` data
-    double*         pixel    ; // Pixel data in row-major order (row, column, band)
-    aktive_uint     capacity ; // Allocated size of the pixel data. in elements
-    aktive_uint     used     ; // Used part (width * height * depth)
+    aktive_uint     initialized ; // Fully initialized (pixel, capacity, etc)
+    aktive_region   region      ; // Region owning and managing the block. NULL for independent blocks.
+    aktive_point    location    ; // Logical location in the originating image.
+    aktive_geometry domain      ; // Physical area and bands covered by the `pixel` data.
+    double*         pixel       ; // Pixel data in row-major order (row, column, band)
+    aktive_uint     capacity    ; // Allocated size of the pixel data. in elements
+    aktive_uint     used        ; // Used part (width * height * depth)
 } aktive_block;
 
 typedef double (*aktive_unary_transform)   (double x);

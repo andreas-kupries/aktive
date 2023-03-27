@@ -25,7 +25,8 @@ aktive_blit_setup (aktive_block* dst, aktive_rectangle* request)
 	       dst, request, request->x, request->y, request->width, request->height);
 
     aktive_geometry_set_rectangle     (&dst->domain, request);
-    aktive_point_set ((aktive_point*) &dst->domain, 0, 0);
+    aktive_point_copy (&dst->location, aktive_rectangle_as_point (request));
+    aktive_point_set (aktive_rectangle_as_point (&dst->domain), 0, 0);
 
     aktive_uint size =
 	request->width * request->height * dst->domain.depth;
@@ -545,8 +546,8 @@ aktive_blit_copy0_bands (aktive_block* dst, aktive_rectangle* dstarea,
     // Unoptimized loop nest to copy the selected bands
     TRACE ("sy  sx  sz  | in  | dy  dx  dz  | out |", 0);
 
-    for (srcy = SRC.y, dsty = DST.y, row = 0; row < DST.height; srcy++, dsty++, row++) {
-	for (srcx = SRC.x, dstx = DST.x, col = 0; col < DST.width; srcx++, dstx++, col++) {
+    for (srcy = SRC.y, dsty = DAR->y, row = 0; row < DST.height; srcy++, dsty++, row++) {
+	for (srcx = SRC.x, dstx = DAR->x, col = 0; col < DST.width; srcx++, dstx++, col++) {
 	    for (srcz = first, dstz = 0; dstz < DST.depth ; srcz++, dstz++) {
 
 		srcpos = srcy * SRC.width * SRC.depth + srcx * SRC.depth + srcz;

@@ -31,6 +31,7 @@ typedef struct aktive_image {
 typedef struct aktive_region {
     // Private management information
 
+    aktive_context        c;       // Operating context
     aktive_image          origin ; // Image the region belongs to
     aktive_image_type*    opspec ; // Operator descriptor
     aktive_block          pixels ; // Pixel data

@@ -50,7 +50,7 @@ operator op::bands::recombine {
 
 	// materialize recombiner matrix
 
-	state->matrix  = aktive_region_new (matrix);
+	state->matrix  = aktive_region_new (matrix, 0);
 	state->mwidth  = mg->width;
 	state->mheight = mg->height;
 	state->mpixel  = aktive_region_fetch_area (state->matrix,

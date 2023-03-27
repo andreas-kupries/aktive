@@ -14,30 +14,44 @@
 
 TRACE_OFF;
 
+TRACE_TAG_OFF (fetch);
+
 /*
  * - - -- --- ----- -------- -------------
  */
 
 extern aktive_region
-aktive_region_new (aktive_image image)
+aktive_region_new (aktive_image image, aktive_context c)
 {
     TRACE_FUNC("((image) %p '%s'", image, image->opspec->name);
+
+    // Reuse region from context, if any
+
+    if (c && aktive_context_has (c, image)) {
+	TRACE ("image found in context, reusing region", 0);
+
+	aktive_region region = aktive_context_get (c, image);
+
+	TRACE_RETURN("(aktive_region) %p", region);
+    }
 
     // Create new and clean image structure ...
 
     aktive_region region = ALLOC(struct aktive_region);
     memset (region, 0, sizeof(struct aktive_region));
 
+    region->c = c;
+
     // Reference origin
 
     region->origin = image; aktive_image_ref (image);
 
-    // Generate regions representing the inputs, if any
+    // Generate regions representing the inputs, if any -- Passing the context
 
     if (image->public.srcs.c) {
 	aktive_region_vector_new (&region->public.srcs, image->public.srcs.c);
 	for (unsigned int i = 0; i < region->public.srcs.c; i++) {
-	    region->public.srcs.v [i] = aktive_region_new (image->public.srcs.v [i]);
+	    region->public.srcs.v [i] = aktive_region_new (image->public.srcs.v [i], c);
 	}
     }
 
@@ -65,6 +79,11 @@ aktive_region_new (aktive_image image)
 	TRACE_RETURN("(aktive_region) %p", 0);
     }
 
+    // Save to context, if there is any
+    if (c) {
+	aktive_context_put (c, image, region);
+    }
+
     // Done and return
     TRACE_RETURN("(aktive_region) %p", region);
 }
@@ -77,9 +96,31 @@ aktive_region_destroy (aktive_region region)
     // Release inputs, if any
 
     if (region->public.srcs.c) {
-	for (unsigned int i = 0; i < region->public.srcs.c; i++) {
-	    aktive_region_destroy (region->public.srcs.v [i]);
+
+	if (!region->c) {
+	    // Without a context region construction create a tree where no
+	    // nodes are shared. We can simply destroy our input regions as
+	    // their sole user/owner.
+
+	    for (unsigned int i = 0; i < region->public.srcs.c; i++) {
+		aktive_region_destroy (region->public.srcs.v [i]);
+	    }
+	} else {
+	    // With a context we may hsare our input regions with other users.
+	    // Skip if they are not in the context anymore. else we can
+	    // destroy them, and signal that by removal from the context.
+	    //
+
+	    for (unsigned int i = 0; i < region->public.srcs.c; i++) {
+
+		aktive_image src = region->origin->public.srcs.v [i];
+		if (!aktive_context_has (region->c, src)) continue;
+
+		aktive_region_destroy (region->public.srcs.v [i]);
+		aktive_context_remove (region->c, src);
+	    }
 	}
+
 	aktive_region_vector_free (&region->public.srcs);
     }
 
@@ -136,6 +177,13 @@ aktive_region_owner (aktive_region region)
     TRACE_RETURN ("(aktive_image) %p", region->origin);
 }
 
+extern aktive_context
+aktive_region_context (aktive_region region)
+{
+    TRACE_FUNC("((aktive_region) %p '%s')", region, region->opspec->name);
+    TRACE_RETURN ("(aktive_context) %p", region->c);
+}
+
 extern aktive_block*
 aktive_region_fetch_area (aktive_region region, aktive_rectangle* request)
 {
@@ -145,10 +193,34 @@ aktive_region_fetch_area (aktive_region region, aktive_rectangle* request)
 	       request->y, aktive_geometry_get_ymax (request),
 	       request->width, request->height);
 
+    // Check if the current request matches the last seen. If yes, simply
+    // return what we already have in our memory. NOTE, this is not full
+    // caching of pixel data, just a short circuit for a shared DAG node
+    // receiving multiple requests for the same area with no other request in
+    // between. Phansalkar local adaptive thresholding is an example for such,
+    // for the `tile mean` operator.
+    int same =
+	region->pixels.initialized &&
+	aktive_point_is_equal      (aktive_rectangle_as_point (request),  &region->pixels.location) &&
+	aktive_rectangle_is_dim_eq (request, aktive_geometry_as_rectangle (&region->pixels.domain));
+    if (same) {
+	TRACE_TAG_HEADER (fetch, 0);
+	TRACE_TAG_ADD    (fetch, "RAW REQUEST\tSAME\tSKIP", 0);
+	TRACE_TAG_CLOSER (fetch);
+	goto done;
+    }
+
+    TRACE_TAG_HEADER (fetch, 0);
+    TRACE_TAG_ADD    (fetch, "RAW REQUEST\t%-18p\t%-18p\t%-18p\t%-30s\t%-8d\t%-8d\t%-8u\t%-8u",
+		      region->origin, Tcl_GetCurrentThread(), region, region->opspec->name,
+		      request->x, request->y, request->width, request->height);
+    TRACE_TAG_CLOSER (fetch);
+
     // Update the storage per the request to match dimension and have enough
-    // space
+    // space.
 
     aktive_blit_setup (&region->pixels, request);
+    region->pixels.initialized = 1;
 
 #define ID region->origin->public.domain
 #define RD request
@@ -189,8 +261,16 @@ aktive_region_fetch_area (aktive_region region, aktive_rectangle* request)
     if (aktive_rectangle_is_subset (request, &domain)) {
 	// Special case (a). The entire request has to be served by the fetcher.
 	aktive_rectangle_def (dst, 0, 0, request->width, request->height);
-	TRACE ( "dst     (%3d .. %3d  %3d .. %3d | %3d %3d     |     )", dst.x, MX(dst), dst.y, MY(dst), dst.width, dst.height);
+	TRACE ( "dst     (%3d .. %3d  %3d .. %3d | %3d %3d     |     )",
+		dst.x, MX(dst), dst.y, MY(dst), dst.width, dst.height);
 	TRACE ( "fetch all (request <= domain)", 0);
+
+	TRACE_TAG_HEADER (fetch, 0);
+	TRACE_TAG_ADD (fetch, "IMG REQUEST\t%-18p\t%-18p\t%-18p\t%-30s\t%-8d\t%-8d\t%-8u\t%-8u",
+		       region->origin, Tcl_GetCurrentThread(), region, region->opspec->name,
+		       request->x, request->y, request->width, request->height);
+	TRACE_TAG_CLOSER (fetch);
+
 	region->opspec->region_fetch (&region->public, request, &dst, &region->pixels);
 	goto done;
     }
@@ -220,15 +300,24 @@ aktive_region_fetch_area (aktive_region region, aktive_rectangle* request)
     aktive_rectangle_move (&dst, -request->x, -request->y);
 
 #define RD zv[0]
-    TRACE ( "section (%3d .. %3d  %3d .. %3d | %3d %3d     |     )", RD.x,  MX(RD),  RD.y,  MY(RD),  RD.width,  RD.height);
-    TRACE ( "dst     (%3d .. %3d  %3d .. %3d | %3d %3d     |     )", dst.x, MX(dst), dst.y, MY(dst), dst.width, dst.height);
+    TRACE ( "section (%3d .. %3d  %3d .. %3d | %3d %3d     |     )",
+	    RD.x,  MX(RD),  RD.y,  MY(RD),  RD.width,  RD.height);
+    TRACE ( "dst     (%3d .. %3d  %3d .. %3d | %3d %3d     |     )",
+	    dst.x, MX(dst), dst.y, MY(dst), dst.width, dst.height);
     TRACE ( "fetch overlap", 0);
-#undef RD
 #undef MX
 #undef MY
 #undef PI
 
+    TRACE_TAG_HEADER (fetch, 0);
+    TRACE_TAG_ADD (fetch, "IMG REQUEST\t%-18p\t%-18p\t%-18p\t%-30s\t%-8d\t%-8d\t%-8u\t%-8u",
+		   region->origin, Tcl_GetCurrentThread(), region, region->opspec->name,
+		   RD.x, RD.y, RD.width, RD.height);
+    TRACE_TAG_CLOSER (fetch);
+#undef RD
+
     region->opspec->region_fetch (&region->public, &zv[0], &dst, &region->pixels);
+
  done:
     TRACE_DO (__aktive_block_dump (region->opspec->name, &region->pixels));
     // And return them

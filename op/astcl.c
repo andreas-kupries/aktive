@@ -82,7 +82,8 @@ aktive_op_pixels (Tcl_Interp* ip, aktive_image src) {
     Tcl_Obj* p = Tcl_NewListObj (sz, 0); // 0 => Space is allocated for `sz` elements.
 
     aktive_rectangle* domain = aktive_image_get_domain (src);
-    aktive_region     rg     = aktive_region_new (src);
+    aktive_context    c      = aktive_context_new ();
+    aktive_region     rg     = aktive_region_new (src, c);
 
     if (!rg) { TRACE_RETURN ("(Tcl_Obj*) %p", 0); }
 
@@ -111,6 +112,7 @@ aktive_op_pixels (Tcl_Interp* ip, aktive_image src) {
     }
 
     aktive_region_destroy (rg); // Note that this invalidates `pixels` too.
+    aktive_context_destroy (c);
 
     TRACE_RETURN ("(Tcl_Obj*) %p", p);
 }

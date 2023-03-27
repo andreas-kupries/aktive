@@ -64,7 +64,8 @@ aktive_sink_run (aktive_sink* sink,
     // Scan image by rows      -- TODO FUTURE -- ask image for prefered method
     // Scan image sequentially -- TODO FUTURE -- spread over multiple threads
 
-    aktive_region rg = aktive_region_new (src);
+    aktive_context c = aktive_context_new ();
+    aktive_region rg = aktive_region_new (src, c);
 
     if (!rg) {
 	aktive_image_unref (src);
@@ -73,6 +74,7 @@ aktive_sink_run (aktive_sink* sink,
 
 #if MODE == CROWS
     aktive_region_destroy (rg);
+    aktive_context_destroy (c);
 
     aktive_rectangle_def_as (scan, aktive_image_get_domain (src));
     TRACE ("fetching pixels by rows, concurrently", 0);
@@ -113,6 +115,7 @@ aktive_sink_run (aktive_sink* sink,
     }
 
     aktive_region_destroy (rg); // Note that this invalidates `pixels` too.
+    aktive_context_destroy (c);
 
 #elif MODE == ALL
     aktive_rectangle_def_as (scan, aktive_image_get_domain (src));
@@ -124,6 +127,7 @@ aktive_sink_run (aktive_sink* sink,
     sink->process (state, pixels);
 
     aktive_region_destroy (rg); // Note that this invalidates `pixels` too.
+    aktive_context_destroy (c);
 #endif
 
     sink->final (state);
@@ -162,16 +166,19 @@ sink_worker (const sink_batch_state* state, aktive_rectangle* task, aktive_regio
 {
     TRACE_FUNC("((sink_batch_state*) %p, (task) %p, (ws) %p)", state, task, wstate);
 
-    // first call, initialize state
+    // first call, initialize state - each worker has its own context
     if (! *wstate) {
 	TRACE ("initialize wstate", 0);
-	*wstate = aktive_region_new (state->image);
+	aktive_context c = aktive_context_new ();
+	*wstate = aktive_region_new (state->image, c);
 	TRACE ("(region*) %p", *wstate);
     }
 
-    // worker ends, release state
+    // worker ends, release state - that includes the context
     if (!task) {
+	aktive_context c = aktive_region_context (*wstate);
 	aktive_region_destroy (*wstate);
+	aktive_context_destroy (c);
 	TRACE_RETURN ("", 0);
     }
 
