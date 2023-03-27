@@ -23,20 +23,25 @@ source [file join $tests support paths.tcl]
 
 # ------------------------------------------------------------------------------
 
-proc perf {label args} {
-    set base [clock seconds]
+proc perf {label sz args} {
+    set base [clock milliseconds]
+
     set r [uplevel 1 $args]
 
-    set delta [expr {[clock seconds] - $base}]
+    set delta [expr {[clock milliseconds] - $base}]
 
-    puts "perf: $label $delta sec"
+    set vms [expr {double($sz) / double ($delta)}]
+    set msv [expr {double ($delta) / double($sz)}]
+
+    puts "perf: $label ($sz values :: $delta millis :: $vms v/ms :: $msv ms/v"
     return $r
 }
 
 proc to {path g args} {
     puts "writing to $path"
     set dst [open $path w]
-    uplevel 1 [linsert $args end 2chan $g into $dst]
+    lappend args 2chan $g into $dst
+    uplevel 1 $args
     close $dst
 }
 
