@@ -7,11 +7,6 @@
 # # ## ### ##### ######## ############# #####################
 ## Fixed command, not generated
 
-namespace eval aktive {
-    namespace export version processors error
-    namespace ensemble create
-}
-
 proc aktive::error {m args} {
     return -code error -errorcode [linsert $args 0 AKTIVE ERROR] $m
 }

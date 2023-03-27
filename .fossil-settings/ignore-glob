@@ -1,3 +1,5 @@
 BUILD-*
 generated*/*
 rtgen*/*
+tmp/*
+*~
