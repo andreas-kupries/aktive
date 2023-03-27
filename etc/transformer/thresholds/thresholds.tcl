@@ -20,6 +20,18 @@ operator image::threshold::bernsen {
     input
 
     body {
+	# t = (minN + maxN) / 2
+	#
+	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	#
+	#               maxN
+	#              /    \    /       \.
+	# t = (*) - (+)      >- e - ... - src
+	#        \     \.   /    \       /
+	#         0.5   maxN
+	#
+	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 	set e   [aktive op embed mirror $src left $radius right $radius top $radius bottom $radius]
 	set min [aktive op tile min $e radius $radius]
 	set max [aktive op tile max $e radius $radius]
@@ -32,8 +44,6 @@ operator image::threshold::bernsen {
 
 # # ## ### ##### ######## ############# #####################
 ## Niblack
-#
-#	t = mN + (k * stdN)
 
 operator image::threshold::niblack {
     section transform threshold generate
@@ -46,6 +56,20 @@ operator image::threshold::niblack {
     input
 
     body {
+	# t = mN + (k * stdN)
+	#
+	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	#
+	#          meanN ---\.
+	#        /           \   /       \.
+	# t = (+)            /- e - ... - src
+	#        \.         /    \       /
+	#         (*) - stdN
+	#            \.
+	#             k
+	#
+	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 	set e    [aktive op embed mirror $src left $radius right $radius top $radius bottom $radius]
 	set mean [aktive op tile mean   $e radius $radius]
 	set std  [aktive op tile stddev $e radius $radius]
@@ -58,8 +82,6 @@ operator image::threshold::niblack {
 
 # # ## ### ##### ######## ############# #####################
 ## Sauvola
-#
-#	t = mN * (1 + k * ((stdN/R) - 1))
 
 operator image::threshold::sauvola {
     section transform threshold generate
@@ -73,6 +95,20 @@ operator image::threshold::sauvola {
     input
 
     body {
+	# t = mN * (1 + k * ((stdN/R) - 1))
+	#
+	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	#
+	#          meanN -------------------\   /       \.
+	#        /                          /- e - ... - src
+	# t = (*)     (*) - (-) - (/) - stdN    \       /
+	#        \.  /   \     \     \.
+	#         (+)     k     1     R
+	#            \.
+	#             1
+	#
+	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 	set e    [aktive op embed mirror $src left $radius right $radius top $radius bottom $radius]
 	set mean [aktive op tile mean   $e radius $radius]
 	set std  [aktive op tile stddev $e radius $radius]
@@ -87,8 +123,6 @@ operator image::threshold::sauvola {
 
 # # ## ### ##### ######## ############# #####################
 ## Phansalkar
-#
-#	t = mN * (p * exp(-q * mN) + 1 + k * ((stdN / R) - 1))
 
 operator image::threshold::phansalkar {
     section transform threshold generate
@@ -107,6 +141,22 @@ operator image::threshold::phansalkar {
 	set e    [aktive op embed mirror $src left $radius right $radius top $radius bottom $radius]
 	set mean [aktive op tile mean   $e radius $radius]
 	set std  [aktive op tile stddev $e radius $radius]
+
+	# t = mN * (p * exp(-q * mN) + 1 + k * ((stdN / R) - 1))
+	#
+	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	#
+	#            /------------------- meanN
+	#           /                   /      \.
+	#          /         (exp) - (*)        \    /       \.
+	#         /         /           \ -q     \- e - ... - src
+	#        /      (*) - p                  /   \       /
+	# t = (*)      /                        /
+	#        \- (+) - (*) - (-) - (/) - stdN
+	#              \     \     \     \.
+	#               1     k     -1    R
+	#
+	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 	return [aktive op math mul \
 		    $mean \
