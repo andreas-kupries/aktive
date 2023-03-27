@@ -55,6 +55,19 @@ aktive_rectangle_is_equal (aktive_rectangle* a, aktive_rectangle* b)
 }
 
 extern int
+aktive_rectangle_is_dim_eq (aktive_rectangle* a, aktive_rectangle* b)
+{
+    TRACE_FUNC("((rect*) %p == (rect*) %p)", a, b);
+
+    int is_equal =
+	(a->width  == b->width ) &&
+	(a->height == b->height)
+	;
+
+    TRACE_RETURN("(bool) %d", is_equal);
+}
+
+extern int
 aktive_rectangle_is_subset (aktive_rectangle* a, aktive_rectangle* b)
 {
     TRACE_FUNC("((rect*) %p <= (rect*) %p)", a, b);

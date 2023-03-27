@@ -38,6 +38,19 @@ aktive_new_point_obj(aktive_point* p) {
  * - - -- --- ----- -------- -------------
  */
 
+extern int
+aktive_point_is_equal (aktive_point* a, aktive_point* b)
+{
+    TRACE_FUNC("((point*) %p == (point*) %p)", a, b);
+
+    int is_equal =
+	(a->x == b->x) &&
+	(a->y == b->y)
+	;
+
+    TRACE_RETURN("(bool) %d", is_equal);
+}
+
 extern void
 aktive_point_union (aktive_rectangle* dst, aktive_uint c, aktive_point* v)
 {

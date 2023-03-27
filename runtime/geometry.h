@@ -93,7 +93,8 @@ extern Tcl_Obj* aktive_new_point_obj (aktive_point* p);
 #define aktive_point_neg(dst)               { (dst)->x = - (dst)->x ; (dst)->y = - (dst)->y ; }
 #define aktive_point_conj(dst)              { (dst)->y = - (dst)->y ; }
 
-extern void aktive_point_union (aktive_rectangle* dst, aktive_uint c, aktive_point* v);
+extern void aktive_point_union    (aktive_rectangle* dst, aktive_uint c, aktive_point* v);
+extern int  aktive_point_is_equal (aktive_point* a, aktive_point* b);
 
 /*
  * - - -- --- ----- -------- -------------
@@ -137,11 +138,12 @@ extern void aktive_rectangle_grow         (aktive_rectangle* dst, int left, int 
 #define aktive_rectangle_as_point(src)     ((aktive_point*) (src))
 
 extern int aktive_rectangle_is_equal  (aktive_rectangle* a, aktive_rectangle* b);
+extern int aktive_rectangle_is_dim_eq (aktive_rectangle* a, aktive_rectangle* b);
 extern int aktive_rectangle_is_subset (aktive_rectangle* a, aktive_rectangle* b);
 extern int aktive_rectangle_is_empty  (aktive_rectangle* r);
 extern int aktive_rectangle_contains  (aktive_rectangle* r, aktive_point* p);
 
-extern void aktive_rectangle_union     (aktive_rectangle* dst, aktive_rectangle* a, aktive_rectangle* b);
+extern void aktive_rectangle_union    (aktive_rectangle* dst, aktive_rectangle* a, aktive_rectangle* b);
 extern void aktive_rectangle_intersect (aktive_rectangle* dst, aktive_rectangle* a, aktive_rectangle* b);
 
 // Compute intersection of request with domain, and the zones of request outside of the domain.
