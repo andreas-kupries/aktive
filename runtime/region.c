@@ -98,18 +98,18 @@ aktive_region_destroy (aktive_region region)
     if (region->public.srcs.c) {
 
 	if (!region->c) {
-	    // Without a context region construction create a tree where no
-	    // nodes are shared. We can simply destroy our input regions as
-	    // their sole user/owner.
+	    // Without a context region construction created a tree of regions
+	    // with no shared nodes. Simply destroy our input regions as their
+	    // sole user/owner.
 
 	    for (unsigned int i = 0; i < region->public.srcs.c; i++) {
 		aktive_region_destroy (region->public.srcs.v [i]);
 	    }
 	} else {
-	    // With a context we may hsare our input regions with other users.
-	    // Skip if they are not in the context anymore. else we can
-	    // destroy them, and signal that by removal from the context.
-	    //
+	    // With a context we may share our input regions with other users.
+	    // Skip destruction of those not found in the context anymore.
+	    // These were shared and destroyed already. Destroy the others and
+	    // signal that to future users by removal from the context.
 
 	    for (unsigned int i = 0; i < region->public.srcs.c; i++) {
 
