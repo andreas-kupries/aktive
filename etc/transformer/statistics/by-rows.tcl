@@ -51,7 +51,7 @@ operator {dexpr attr} {
     } {raw reduce-row {
 	// dstvalue = row/band start -
 	// srcvalue = row/band start - SD-strided row vector
-	*dstvalue = REDUCE (srcvalue, SW, SD);
+	*dstvalue = REDUCE (srcvalue, SW, SD, 0 /* client data, ignored */);
     }}
 
     pixels {

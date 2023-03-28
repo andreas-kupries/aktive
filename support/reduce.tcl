@@ -103,7 +103,7 @@ proc dsl::reduce::Emit {function region merge finalize} {
 
         // Public
         extern double
-        aktive_image_@@function@@ (aktive_image src) {
+        aktive_image_@@function@@ (aktive_image src, void* __client__ /* ignored */) {
             return image_reduce ("image::@@function@@", src,
                                  (aktive_batch_work)     @@function@@_worker,
                                  (aktive_batch_complete) @@function@@_completer);

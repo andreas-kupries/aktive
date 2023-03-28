@@ -18,7 +18,9 @@ kt source support/util.tcl
 syntax {
     max        src
     mean       src
+    median     src
     min        src
+    rank      {src args}
     stddev     src
     sum        src
     sumsquared src
@@ -32,70 +34,84 @@ syntax {
 ## =  7  7.5 =  8  8.5 =  9  9.5
 ## = 10 10.5 = 11 11.5 = 12 12.5
 
-foreach {op expected} {
-    max {
+foreach {op config expected} {
+    max {} {
 	=  1.5  2.5  3.5
 	=  4.5  5.5  6.5
 	=  7.5  8.5  9.5
 	= 10.5 11.5 12.5
     }
-    mean {
+    mean {} {
 	=  1.25  2.25  3.25
 	=  4.25  5.25  6.25
 	=  7.25  8.25  9.25
 	= 10.25 11.25 12.25
     }
-    min {
+    median {rank -1} {
+	=  1.5  2.5  3.5
+	=  4.5  5.5  6.5
+	=  7.5  8.5  9.5
+	= 10.5 11.5 12.5
+    }
+    min {} {
 	=  1  2  3
 	=  4  5  6
 	=  7  8  9
 	= 10 11 12
     }
-    stddev {
+    stddev {} {
 	= 0.25 0.25 0.25
 	= 0.25 0.25 0.25
 	= 0.25 0.25 0.25
 	= 0.25 0.25 0.25
     }
-    sum {
+    sum {} {
 	=  2.5  4.5  6.5
 	=  8.5 10.5 12.5
 	= 14.5 16.5 18.5
 	= 20.5 22.5 24.5
     }
-    sumsquared {
+    sumsquared {} {
 	=   3.25  10.25  21.25
 	=  36.25  55.25  78.25
 	= 105.25 136.25 171.25
 	= 210.25 253.25 300.25
     }
-    variance {
+    variance {} {
 	= 0.0625 0.0625 0.0625
 	= 0.0625 0.0625 0.0625
 	= 0.0625 0.0625 0.0625
 	= 0.0625 0.0625 0.0625
     }
 } {
+    set actual $op
+    if {$op eq "median"} { set actual rank }
+
     test aktive-op-band-${op}-2.0 "aktive op band $op" -body {
 	astcl aktive op band $op [grad]
-    } -match image -result [makei op::band::$op 0 0 3 4 1 {} $expected]
+    } -match image -result [makei op::band::$actual 0 0 3 4 1 $config $expected]
 
     test aktive-op-band-${op}-2.1 "aktive op band $op, dag" -body {
 	dag aktive op band $op [grad]
-    } -match glob -result "op::band::$op * {} {image::gradient *}"
+    } -match glob -result "op::band::$actual * {image::gradient *}"
 
     if {$op in {
-	max min mean sum
+	max min mean sum median
     }} {
 	# confirm idempotent operations, and simplification
 
         test aktive-op-band-${op}-2.2 "aktive op band $op, idem potent" -body {
 	    astcl aktive op band $op [aktive op pass [aktive op band $op [grad]]]
-	} -match image -result [makei op::band::$op 0 0 3 4 1 {} $expected]
+	} -match image -result [makei op::band::$actual 0 0 3 4 1 $config $expected]
+
+	set in [aktive op band $op [grad]]
+	set id [aktive query id $in]
 
         test aktive-op-band-${op}-2.3 "aktive op band $op, reduction, dag" -body {
-	    dag aktive op band $op [aktive op band $op [grad]]
-	} -match glob -result "op::band::$op * {} {image::gradient *}"
+	    dag aktive op band $op $in
+	} -match glob -result "op::band::$actual $id {$config} {image::gradient *}"
+
+	unset in id
     }
 
     if {$op in {
@@ -108,7 +124,7 @@ foreach {op expected} {
 		[aktive op pass \
 		     [aktive op band $op [grad]]]
 	} -match pixels -result [pixels aktive op math1 pow [aktive op band $op [grad]] exponent 2]
-	# squared (makei op::band::$op 0 0 3 4 1 {} $expected)
+	# squared (makei op::band::$actual 0 0 3 4 1 {} $expected)
 
         test aktive-op-band-${op}-2.3 "aktive op band $op, chain squared twice" -body {
 	    pixels aktive op band $op \
@@ -117,17 +133,17 @@ foreach {op expected} {
 			  [aktive op pass \
 			       [aktive op band $op [grad]]]]]
 	} -match pixels -result [pixels aktive op math1 pow [aktive op band $op [grad]] exponent 4]
-	# double squared ( [makei op::band::$op 0 0 3 4 1 {} $expected])
+	# double squared ( [makei op::band::$actual 0 0 3 4 1 {} $expected])
 
 	test aktive-op-band-${op}-2.4 "aktive op band $op, squared, reduced, dag" -body {
 	    dag aktive op band $op [aktive op band $op [grad]]
-	} -match glob -result "op::math1::pow * {exponent 2.0} {op::band::$op * {} {image::gradient *}}"
+	} -match glob -result "op::math1::pow * {exponent 2.0} {op::band::$actual * {} {image::gradient *}}"
 
         test aktive-op-band-${op}-2.5 "aktive op band $op, squared 2x, reduced, dag" -body {
 	    dag aktive op band $op \
 		[aktive op band $op  \
 		     [aktive op band $op [grad]]]
-	} -match glob -result "op::math1::pow * {exponent 4.0} {op::band::$op * {} {image::gradient *}}"
+	} -match glob -result "op::math1::pow * {exponent 4.0} {op::band::$actual * {} {image::gradient *}}"
     }
 
     if {$op in {

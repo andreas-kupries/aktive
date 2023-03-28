@@ -26,6 +26,7 @@
  * - - -- --- ----- -------- -------------
  */
 
+#include <stdlib.h>
 #include <amath.h>
 #include <kahan.h>
 #include <reduce.h>
@@ -45,13 +46,14 @@ static void sum_1           (kahan* rsum, double* v, aktive_uint n, aktive_uint 
 static void sum_squared     (kahan* rsum, double* v, aktive_uint n, aktive_uint stride);
 static void sum_and_squared (kahan* rsum, kahan* rsquared,
 			     double* v, aktive_uint n, aktive_uint stride);
+static int  double_compare  (const void* a, const void* b);
 
 /*
  * - - -- --- ----- -------- -------------
  */
 
 extern double
-aktive_reduce_max (double* v, aktive_uint n, aktive_uint stride)
+aktive_reduce_max (double* v, aktive_uint n, aktive_uint stride, void* __client__ /* ignored */)
 {
     double max = v[0];
     v += stride;
@@ -63,13 +65,13 @@ aktive_reduce_max (double* v, aktive_uint n, aktive_uint stride)
 }
 
 extern double
-aktive_reduce_mean (double* v, aktive_uint n, aktive_uint stride)
+aktive_reduce_mean (double* v, aktive_uint n, aktive_uint stride, void* __client__ /* ignored */)
 {
-    return aktive_reduce_sum (v, n, stride) / (double) n;
+    return aktive_reduce_sum (v, n, stride, 0) / (double) n;
 }
 
 extern double
-aktive_reduce_min (double* v, aktive_uint n, aktive_uint stride)
+aktive_reduce_min (double* v, aktive_uint n, aktive_uint stride, void* __client__ /* ignored */)
 {
     double min = v[0];
     v += stride;
@@ -81,13 +83,13 @@ aktive_reduce_min (double* v, aktive_uint n, aktive_uint stride)
 }
 
 extern double
-aktive_reduce_stddev (double* v, aktive_uint n, aktive_uint stride)
+aktive_reduce_stddev (double* v, aktive_uint n, aktive_uint stride, void* __client__ /* ignored */)
 {
-    return sqrt (aktive_reduce_variance (v, n, stride));
+    return sqrt (aktive_reduce_variance (v, n, stride, 0));
 }
 
 extern double
-aktive_reduce_sum (double* v, aktive_uint n, aktive_uint stride)
+aktive_reduce_sum (double* v, aktive_uint n, aktive_uint stride, void* __client__ /* ignored */)
 {
     kahan sum;
     sum_1 (&sum, v, n, stride);
@@ -95,7 +97,7 @@ aktive_reduce_sum (double* v, aktive_uint n, aktive_uint stride)
 }
 
 extern double
-aktive_reduce_sumsquared (double* v, aktive_uint n, aktive_uint stride)
+aktive_reduce_sumsquared (double* v, aktive_uint n, aktive_uint stride, void* __client__ /* ignored */)
 {
     kahan sum;
     sum_squared (&sum, v, n, stride);
@@ -103,7 +105,7 @@ aktive_reduce_sumsquared (double* v, aktive_uint n, aktive_uint stride)
 }
 
 extern double
-aktive_reduce_variance (double* v, aktive_uint n, aktive_uint stride)
+aktive_reduce_variance (double* v, aktive_uint n, aktive_uint stride, void* __client__ /* ignored */)
 {
     // wikipedia: [...] Another equivalent formula is σ² = ( (Σ x²) / N ) - μ²
 
@@ -118,6 +120,24 @@ aktive_reduce_variance (double* v, aktive_uint n, aktive_uint stride)
     return sq - mean*mean;
 }
 
+extern double
+aktive_reduce_rank (double* v, aktive_uint n, aktive_uint stride, void* __client__)
+{
+    aktive_rank* rt = __client__;
+    TRACE_FUNC("((n) %u, (select) %u)", n, stride, rt->select);
+
+    ASSERT (rt->select < n, "selection index out of range");
+
+    for (aktive_uint k = 0; k < n; k++, v += stride) {
+	rt->sorted [k] = *v;
+	TRACE ("[%3d] = %f", k , *v);
+    }
+    qsort (rt->sorted, n, sizeof(double), double_compare);
+    double res = rt->sorted [rt->select];
+
+    TRACE_RETURN ("(rank) %f", res);
+}
+
 /*
  * - - -- --- ----- -------- -------------
  * Region reductions, used in per-tile statistics
@@ -127,7 +147,8 @@ aktive_reduce_variance (double* v, aktive_uint n, aktive_uint stride)
 
 extern double
 aktive_tile_reduce_max (double* v, aktive_uint radius, aktive_uint base,
-			aktive_uint cap, aktive_uint pitch, aktive_uint stride)
+			aktive_uint cap, aktive_uint pitch, aktive_uint stride,
+			void* __client__ /* ignored */)
 {
     TRACE_FUNC("((double*) %p, [%u:%u], (radius) %u, (pitch) %u, (stride) %u)",
 	       v, base, cap, radius, pitch, stride);
@@ -159,20 +180,22 @@ aktive_tile_reduce_max (double* v, aktive_uint radius, aktive_uint base,
 
 extern double
 aktive_tile_reduce_mean (double* v, aktive_uint radius, aktive_uint base,
-			 aktive_uint cap, aktive_uint pitch, aktive_uint stride)
+			 aktive_uint cap, aktive_uint pitch, aktive_uint stride,
+			 void* __client__ /* ignored */)
 {
     TRACE_FUNC("((double*) %p, [%u:%u], (radius) %u, (pitch) %u, (stride) %u)",
 	       v, base, cap, radius, pitch, stride);
 
     aktive_uint n = 2*radius+1; n *= n;
-    double      r = aktive_tile_reduce_sum (v, radius, base, cap, pitch, stride) / (double) n;
+    double      r = aktive_tile_reduce_sum (v, radius, base, cap, pitch, stride, 0) / (double) n;
 
     TRACE_RETURN ("(mean) %f", r);
 }
 
 extern double
 aktive_tile_reduce_min (double* v, aktive_uint radius, aktive_uint base,
-			aktive_uint cap, aktive_uint pitch, aktive_uint stride)
+			aktive_uint cap, aktive_uint pitch, aktive_uint stride,
+			void* __client__ /* ignored */)
 {
     TRACE_FUNC("((double*) %p, [%u:%u], (radius) %u, (pitch) %u, (stride) %u)",
 	       v, base, cap, radius, pitch, stride);
@@ -204,19 +227,21 @@ aktive_tile_reduce_min (double* v, aktive_uint radius, aktive_uint base,
 
 extern double
 aktive_tile_reduce_stddev (double* v, aktive_uint radius, aktive_uint base,
-			   aktive_uint cap, aktive_uint pitch, aktive_uint stride)
+			   aktive_uint cap, aktive_uint pitch, aktive_uint stride,
+			   void* __client__ /* ignored */)
 {
     TRACE_FUNC("((double*) %p, [%u:%u], (radius) %u, (pitch) %u, (stride) %u)",
 	       v, base, cap, radius, pitch, stride);
 
-    double r =  sqrt (aktive_tile_reduce_variance (v, radius, base, cap, pitch, stride));
+    double r =  sqrt (aktive_tile_reduce_variance (v, radius, base, cap, pitch, stride, 0));
 
     TRACE_RETURN ("(stddev) %f", r);
 }
 
 extern double
 aktive_tile_reduce_sum (double* v, aktive_uint radius, aktive_uint base,
-			aktive_uint cap, aktive_uint pitch, aktive_uint stride)
+			aktive_uint cap, aktive_uint pitch, aktive_uint stride,
+			void* __client__ /* ignored */)
 {
     TRACE_FUNC("((double*) %p, [%u:%u], (radius) %u, (pitch) %u, (stride) %u)",
 	       v, base, cap, radius, pitch, stride);
@@ -249,7 +274,8 @@ aktive_tile_reduce_sum (double* v, aktive_uint radius, aktive_uint base,
 
 extern double
 aktive_tile_reduce_sumsquared (double* v, aktive_uint radius, aktive_uint base,
-			       aktive_uint cap, aktive_uint pitch, aktive_uint stride)
+			       aktive_uint cap, aktive_uint pitch, aktive_uint stride,
+			       void* __client__ /* ignored */)
 {
     TRACE_FUNC("((double*) %p, [%u:%u], (radius) %u, (pitch) %u, (stride) %u)",
 	       v, base, cap, radius, pitch, stride);
@@ -282,7 +308,8 @@ aktive_tile_reduce_sumsquared (double* v, aktive_uint radius, aktive_uint base,
 
 extern double
 aktive_tile_reduce_variance (double* v, aktive_uint radius, aktive_uint base,
-			     aktive_uint cap, aktive_uint pitch, aktive_uint stride)
+			     aktive_uint cap, aktive_uint pitch, aktive_uint stride,
+			     void* __client__ /* ignored */)
 {
     TRACE_FUNC("((double*) %p, [%u:%u], (radius) %u, (pitch) %u, (stride) %u)",
 	       v, base, cap, radius, pitch, stride);
@@ -318,6 +345,46 @@ aktive_tile_reduce_variance (double* v, aktive_uint radius, aktive_uint base,
     double res  = sq - mean*mean;
 
     TRACE_RETURN ("(variance) %f", res);
+}
+
+
+extern double
+aktive_tile_reduce_rank (double* v, aktive_uint radius, aktive_uint base,
+			     aktive_uint cap, aktive_uint pitch, aktive_uint stride,
+			     void* __client__)
+{
+    TRACE_FUNC("((double*) %p, [%u:%u], (radius) %u, (pitch) %u, (stride) %u)",
+	       v, base, cap, radius, pitch, stride);
+
+    aktive_rank* rt = __client__;
+    aktive_uint  n  = 2*radius+1; n *= n;
+
+    ASSERT (rt->select < n, "selection index out of range");
+
+    int r = radius;
+    for (int y = -r ; y <= r; y++) {
+	for (int x = -r; x <= r; x++) {
+	    int index = y*pitch + x*stride;
+	    int aindex = (int) base + index;
+
+	    TRACE_HEADER (1); TRACE_ADD ("@(%d,%d) = %u[%d] = [%d]", x, y, base, index, aindex);
+	    if ((aindex < 0) || (aindex >= cap)) {
+		TRACE_CLOSER; TRACE("ASSERT", 0);
+		ASSERT_VA (0, "src out of bounds", "%d / %d", aindex, cap);
+	    }
+
+	    double val = v [index];
+
+	    TRACE_ADD ("=> %f", val); TRACE_CLOSER;
+
+	    rt->sorted [--n] = val;
+	}
+    }
+
+    qsort (rt->sorted, n, sizeof(double), double_compare);
+    double res = rt->sorted [rt->select];
+
+    TRACE_RETURN ("(rank) %f", res);
 }
 
 /*
@@ -363,6 +430,14 @@ sum_and_squared (kahan* rsum, kahan* rsquared, double* v, aktive_uint n, aktive_
     *rsquared = squared;
 }
 
+static int
+double_compare (const void* a, const void* b)
+{
+    const double* av = a;
+    const double *bv = b;
+    return ((*av) < (*bv)) ? -1 : (((*av) > (*bv)) ? 1 : 0);
+}
+
 /*
  * - - -- --- ----- -------- -------------
  */
@@ -374,11 +449,11 @@ typedef struct reduce_result {
 
 typedef struct reduce_batch_state {
     // maker
-    aktive_rectangle scan;
-    aktive_uint      count;
+    aktive_rectangle scan;	// area to scan over the image (one row)
+    aktive_uint      count;	// number of scans to perform  (height)
 
     // worker
-    aktive_image     image;
+    aktive_image     image;	// image to getting scanned
 
     // completer
     aktive_uint size;
@@ -457,6 +532,11 @@ image_reduce (const char*           name,
 
 /*
  * - - -- --- ----- -------- -------------
+ * ATTENTION :: the generated code does not include the `rank` reducer.
+ *           :: needs client data  use, and possibly a very different
+ *           :: implementation ... line results are histograms ...
+ * -> fit into line/col/tile histograms.
+ * ->          adjacent tiles, not overlapping
  */
 
 #define PARTIAL (result->main)
@@ -466,6 +546,10 @@ image_reduce (const char*           name,
 #define FINAL   (*state->result)
 
 #include <generated/reduce.c>
+
+/*
+ * - - -- --- ----- -------- -------------
+ */
 
 /*
  * = = == === ===== ======== ============= =====================

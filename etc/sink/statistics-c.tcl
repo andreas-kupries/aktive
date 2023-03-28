@@ -8,7 +8,7 @@ dsl reduce gen generated/reduce.c {
 
     # max of max
     fun max {
-	PARTIAL.sum = aktive_reduce_max (p->pixel, p->used, 1);
+	PARTIAL.sum = aktive_reduce_max (p->pixel, p->used, 1, 0);
     } {
 	ACC.sum = MAX (ACC.sum, PARTIAL.sum);
     } {
@@ -17,7 +17,7 @@ dsl reduce gen generated/reduce.c {
 
     # min of min
     fun min {
-	PARTIAL.sum = aktive_reduce_min (p->pixel, p->used, 1);
+	PARTIAL.sum = aktive_reduce_min (p->pixel, p->used, 1, 0);
     } {
 	ACC.sum = MIN (ACC.sum, PARTIAL.sum);
     } {

@@ -28,7 +28,7 @@ operator {dexpr attr prefered_embedding} {
     note Beware, {"all tiles"} means that the operator consumes overlapping \
 	tiles, not just adjacent.
 
-    note Beware, the result image is shrunken by 2*R in width and height \
+    note Beware, the result image is shrunken by 2*radius in width and height \
 	relative to the input. Inputs smaller than that are rejected.
 
     note If shrinkage is not desired add a border to the input using one of \
@@ -64,13 +64,14 @@ operator {dexpr attr prefered_embedding} {
     }
 
     blit reducer {
-	{DH {y 0 1 up} {y R 1 up}}
-	{DW {x 0 1 up} {x R 1 up}}
+	{DH {y 0 1 up} {y radius 1 up}}
+	{DW {x 0 1 up} {x radius 1 up}}
 	{DD {z 0 1 up} {z 0 1 up}}
     } [list raw reduce-tile-$fun {
 	// dstvalue = cell to set
 	// srcvalue = center cell of tile
-	*dstvalue = REDUCE (srcvalue, R, srcpos, SRCCAP, srcpitch, srcstride);
+	*dstvalue = REDUCE (srcvalue, radius, srcpos, SRCCAP, srcpitch, srcstride,
+			    0 /* client data, ignored */);
     }]
 
     pixels {
@@ -83,10 +84,10 @@ operator {dexpr attr prefered_embedding} {
 
 	TRACE_RECTANGLE_M("@@fun@@", &subrequest);
 	aktive_block* src = aktive_region_fetch_area (srcs->v[0], &subrequest);
+	aktive_uint radius = param->radius;
 
 	// TRACE_DO (__aktive_block_dump ("tile max in", src));
 
-	#define R (param->radius)
 	#define REDUCE aktive_tile_reduce_@@fun@@
 	@@reducer@@
 	#undef REDUCE

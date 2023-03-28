@@ -51,7 +51,7 @@ operator {dexpr attr} {
     } {raw reduce-column {
 	// dstvalue = row/band start -
 	// srcvalue = row/band start - srcpitch-strided column vector
-	*dstvalue = REDUCE (srcvalue, SH, SW*SD);
+	*dstvalue = REDUCE (srcvalue, SH, SW*SD, 0 /* client data, ignored */);
     }}
 
     pixels {

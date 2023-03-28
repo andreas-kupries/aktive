@@ -32,7 +32,7 @@ operator {dexpr attr} {
 	double result;
 
 	TRACE ("create and execute batch", 0);
-	result = aktive_image_@@fun@@ (src);
+	result = aktive_image_@@fun@@ (src, 0 /* client data, ignored */);
 	result;
     }
 }

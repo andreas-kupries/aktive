@@ -27,18 +27,37 @@
  *  - cap	Max legal index in the block.
  *  - pitch	Distance between rows of the block.
  *  - stride	Distance btween columns of the block.
+ *
+ * Note: While all reducers have a client data argument, currently
+ * only the `rank` reducer actually makes use of it, and interprets
+ * the value as `aktive_rank*`.
  */
 
 #include <rt.h>
+
+/*
+ * - - -- --- ----- -------- -------------
+ */
+
+typedef struct aktive_rank {
+    double*     sorted;	// Buffer to collect pixels into, and sort.
+    aktive_uint select; // Index in `sorted` to return.
+} aktive_rank;
+
+/*
+ * - - -- --- ----- -------- -------------
+ */
 
 #define REDUCER(fun)					\
     extern double					\
     aktive_reduce_ ## fun (double*     v,		\
 			   aktive_uint n,		\
-			   aktive_uint stride);		\
+			   aktive_uint stride,		\
+			   void*       client);		\
 							\
     extern double					\
-    aktive_image_ ## fun (aktive_image src);		\
+    aktive_image_ ## fun (aktive_image src,		\
+			  void*        client);		\
 							\
     extern double					\
     aktive_tile_reduce_ ## fun (double*     v,		\
@@ -46,7 +65,8 @@
 				aktive_uint base,	\
 				aktive_uint cap,	\
 				aktive_uint pitch,	\
-				aktive_uint stride)
+				aktive_uint stride,	\
+				void*       client)
 
 /*
  * - - -- --- ----- -------- -------------
@@ -59,6 +79,7 @@ REDUCER (stddev);
 REDUCER (sum);
 REDUCER (sumsquared);
 REDUCER (variance);
+REDUCER (rank);
 
 /*
  * - - -- --- ----- -------- -------------
