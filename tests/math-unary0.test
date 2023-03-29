@@ -96,8 +96,8 @@ foreach {fun steps first last expected} {
 } {
     if {$steps eq "."} continue ;# skip undefined parts
 
-    set actual $fun
-    if {$fun eq "mul"} { set actual mul }
+    set actual math1::$fun
+    if {$fun eq "square"} { set actual math::mul }
 
     # functions to debug ...
     if {$fun in {
@@ -110,11 +110,11 @@ foreach {fun steps first last expected} {
 
     test aktive-op-math1-${fun}-2.0 "aktive op math1 $fun (\[$first $last]/$steps)" -body {
 	astcl aktive op math1 {*}$fun [aktive image gradient width $steps height 1 depth 1 first $first last $last]
-    } -match image -result [makei op::math1::[join $actual ::] 0 0 $steps 1 1 {} $expected]
+    } -match image -result [makei op::[join $actual ::] 0 0 $steps 1 1 {} $expected]
 
     test aktive-op-math1-${fun}-2.1 "aktive op math1 $fun, dag" -body {
 	dag aktive op math1 {*}$fun [grad]
-    } -match glob -result "op::math1::[join $actual ::] * {} {image::gradient *}"
+    } -match glob -result "op::[join $actual ::] * {} {image::gradient *}"
 
     # Const folding is done for most, but not all.
     if {$fun ni {
