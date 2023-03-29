@@ -146,7 +146,7 @@ operator {dim unchanged} {
 			      domain->width, domain->height, param->radius);
 	    }
 
-	    state->size = len;
+	    state->size = len*len;
 
 	    domain->x      += param->radius;
 	    domain->y      += param->radius;
