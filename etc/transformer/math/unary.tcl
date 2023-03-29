@@ -46,8 +46,8 @@ operator {                     cfunction             mathfunc     dexpr classes}
     op::math1::tan             tan                   <<           {}    fixpoint0
     op::math1::tanh            tanh                  <<           {}    fixpoint0
     op::math1::wrap            aktive_wrap           <<           {}    idempotent
+    op::math1::not             aktive_not            <<           "!I"  {}
 } {
-    section transform math unary
 
     if {$dexpr eq {}} { set dexpr [namespace tail $__op] }
     if {![string match *I* $dexpr]} { append dexpr (I) }
@@ -55,6 +55,17 @@ operator {                     cfunction             mathfunc     dexpr classes}
     note Returns image with the unary function '$dexpr' applied to all pixels of the input.
 
     note The resulting image has the same geometry as the input.
+
+    if {$__op in {
+	op::math1::not
+    }} {
+	section transform math unary logical
+
+	note As a logical operation the image is trivially thresholded at 0.5. \
+	    Values <= 0.5 are seen as false, else as true.
+    } else {
+	section transform math unary
+    }
 
     input
 
@@ -70,8 +81,22 @@ operator {                     cfunction             mathfunc     dexpr classes}
 	aktive_geometry_copy (domain, aktive_image_get_geometry (srcs->v[0]));
     }
     pixels {
-	aktive_blit_unary0 (block, dst, @@cfunction@@, aktive_region_fetch_area (srcs->v[0], request));
+	aktive_blit_unary0 (block, dst, @@cfunction@@,
+			    aktive_region_fetch_area (srcs->v[0], request));
     }
+}
+
+# # ## ### ##### ######## ############# #####################
+
+operator op::math1::square {
+    section transform math unary
+
+    note Returns image with the unary function 'square' applied to all pixels of the input.
+
+    note The resulting image has the same geometry as the input.
+
+    input
+    body { aktive op math mul $src $src }
 }
 
 ##

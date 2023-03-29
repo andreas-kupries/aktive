@@ -120,6 +120,19 @@ extern double aktive_sub (double x, double y) { return x - y; }
  * - - -- --- ----- -------- -------------
  */
 
+extern double aktive_not  (double x)           { return (x <= 0.5)               ? 1 : 0; }
+extern double aktive_and  (double x, double y) { return (x >  0.5) && (y >  0.5) ? 1 : 0; }
+extern double aktive_nand (double x, double y) { return (x >  0.5) && (y >  0.5) ? 0 : 1; }
+extern double aktive_or   (double x, double y) { return (x >  0.5) || (y >  0.5) ? 1 : 0; }
+extern double aktive_nor  (double x, double y) { return (x >  0.5) || (y >  0.5) ? 0 : 1; }
+extern double aktive_xor  (double x, double y) { return
+	(((x >  0.5) && (y <= 0.5)) ||
+	 ((x <= 0.5) && (y >  0.5))) ? 1 : 0; }
+
+/*
+ * - - -- --- ----- -------- -------------
+ */
+
 extern double complex aktive_cmath_div (double complex a, double complex b) { return a / b; }
 extern double complex aktive_cmath_mul (double complex a, double complex b) { return a * b; }
 extern double complex aktive_cmath_add (double complex a, double complex b) { return a + b; }

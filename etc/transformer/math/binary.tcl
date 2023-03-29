@@ -37,6 +37,12 @@ operator op::math::screen {
 ## Binary without parameters
 
 operator {cfunction dexpr} {
+    op::math::and     aktive_and    {A && B}
+    op::math::nand    aktive_nand   {!(A && B)}
+    op::math::or      aktive_or     {A || B}
+    op::math::nor     aktive_nor    {!(A || B)}
+    op::math::xor     aktive_xor    {A ^^ B}
+
     op::math::add     aktive_add    {A + B}
     op::math::atan2   atan2         {}
     op::math::div     aktive_div    {A / B}
@@ -54,8 +60,6 @@ operator {cfunction dexpr} {
     op::math::pow     pow           {}
     op::math::sub     aktive_sub    {A - B}
 } {
-    section transform math binary
-
     set fun [namespace tail $__op]
     if {$dexpr eq {}} { set dexpr $fun }
     if {![string match *A* $dexpr]} { append dexpr "(A, B)" }
@@ -64,6 +68,21 @@ operator {cfunction dexpr} {
 	all shared pixels of the two inputs.
 
     note The result geometry is the intersection of the inputs.
+
+    if {$__op in {
+	op::math::and
+	op::math::nand
+	op::math::or
+	op::math::nor
+	op::math::xor
+    }} {
+	section transform math binary logical
+
+	note As a logical operation the inputs are trivially thresholded at 0.5. \
+	    Values <= 0.5 are seen as false, else as true.
+    } else {
+	section transform math binary
+    }
 
     input
     input

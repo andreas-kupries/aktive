@@ -308,12 +308,12 @@ proc aktive::simplify::/src/child {} {
 ## See `/fold/constant/*` above for where they are applied.
 
 foreach fun {
-    acosh             aktive_outside_co  aktive_inside_oc  aktive_sol
-    aktive_atan       aktive_outside_oc  aktive_inside_oo  aktive_sol
-    aktive_atan       aktive_outside_oo  aktive_invert     aktive_wrap
-    aktive_clamp      aktive_pow         aktive_ge         asinh
-    aktive_fmod       aktive_pow         aktive_gt         atanh
-    aktive_fmod       aktive_reciprocal  aktive_le         cbrt
+    acosh             aktive_outside_co  aktive_inside_oc  aktive_sol  aktive_and
+    aktive_atan       aktive_outside_oc  aktive_inside_oo  aktive_sol  aktive_nand
+    aktive_atan       aktive_outside_oo  aktive_invert     aktive_wrap aktive_nor
+    aktive_clamp      aktive_pow         aktive_ge         asinh       aktive_not
+    aktive_fmod       aktive_pow         aktive_gt         atanh       aktive_or
+    aktive_fmod       aktive_reciprocal  aktive_le         cbrt        aktive_xor
     aktive_ge         aktive_rscale      aktive_lt         exp10
     aktive_ge         aktive_rscale      aktive_neg        exp2
     aktive_ge         aktive_scale       aktive_nshift     log2

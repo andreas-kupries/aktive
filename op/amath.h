@@ -61,6 +61,13 @@ extern double aktive_div (double x, double y);
 extern double aktive_mul (double x, double y);
 extern double aktive_sub (double x, double y);
 
+extern double aktive_not  (double x);
+extern double aktive_and  (double x, double y);
+extern double aktive_nand (double x, double y);
+extern double aktive_or   (double x, double y);
+extern double aktive_nor  (double x, double y);
+extern double aktive_xor  (double x, double y);
+
 extern double complex aktive_cmath_add (double complex a, double complex b);
 extern double complex aktive_cmath_div (double complex a, double complex b);
 extern double complex aktive_cmath_mul (double complex a, double complex b);

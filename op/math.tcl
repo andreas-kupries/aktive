@@ -13,18 +13,19 @@ foreach {fun cfun} {
     aktive_clamp      -
     aktive_invert     -
     aktive_neg        -
+    aktive_not        -
     aktive_reciprocal -
     aktive_wrap       -
     asinh             -
     atanh             -
     cbrt              -
-    exp2              -
     exp10             aktive_exp10
+    exp2              -
+    gcompress         aktive_gamma_compress
+    gexpand           aktive_gamma_expand
     log2              -
     sign              aktive_sign
     signb             aktive_signb
-    gcompress         aktive_gamma_compress
-    gexpand           aktive_gamma_expand
 } {
     if {$cfun eq "-"} { set cfun $fun }
     critcl::cproc ::aktive::mathfunc::$fun {
@@ -33,20 +34,25 @@ foreach {fun cfun} {
 }
 
 foreach {fun cfun} {
+    aktive_and        -
     aktive_atan       -
+    aktive_eq         -
     aktive_fmod       -
+    aktive_ge         -
+    aktive_gt         -
+    aktive_le         -
+    aktive_lt         -
+    aktive_nand       -
+    aktive_ne         -
+    aktive_nor        -
     aktive_nshift     -
+    aktive_or         -
     aktive_pow        -
     aktive_rscale     -
     aktive_scale      -
     aktive_shift      -
     aktive_sol        -
-    aktive_eq         -
-    aktive_ge         -
-    aktive_gt         -
-    aktive_le         -
-    aktive_lt         -
-    aktive_ne         -
+    aktive_xor        -
 } {
     if {$cfun eq "-"} { set cfun $fun }
     critcl::cproc ::aktive::mathfunc::$fun {
