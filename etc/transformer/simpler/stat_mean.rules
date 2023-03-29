@@ -1,9 +1,8 @@
 ## -*- mode: tcl ; fill-column: 90 -*-
 # # ## ### ##### ######## ############# #####################
-## (band|row|column) mean is an idempotent operation.
-## Can be ignored when already at the top.
+## (band|row|column) mean is idempotent elidable
 #
 ## The average in the first result does not change anymore when averaging the single
 ## element per band|row|column again.
 
-simplify for   src/type @self   returns src
+import stat_elide.rules

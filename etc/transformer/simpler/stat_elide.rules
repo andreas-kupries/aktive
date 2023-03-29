@@ -1,0 +1,15 @@
+## -*- mode: tcl ; fill-column: 90 -*-
+# # ## ### ##### ######## ############# #####################
+## (band|row|column) operation is idempotent
+## Can be ignored when already at the top.
+## Can further be ignored when depth/width/height == 1
+
+simplify for   src/type @self   returns src
+
+simplify for   src/attr [dict get {
+    band   depth
+    column height
+    row    width
+} $kind] __size \
+    if {$__size == 1} \
+    src

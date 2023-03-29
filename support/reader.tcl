@@ -64,7 +64,7 @@ proc dsl::reader::Import {path fullpath} {
     set saved   $readdir
     set readdir [file dirname $fullpath]
 
-    source $fullpath
+    uplevel 2 [list source $fullpath]
     incr importing -1
 
     set readdir $saved

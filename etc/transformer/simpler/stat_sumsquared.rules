@@ -7,6 +7,9 @@
 #
 ## Similar if we see a pow on top of a sum-squared we can replace it with a pow
 ## integrating the new factor 2.
+##
+## Note that it is easier to detect a chain of pow's than a `square I` implemented via
+## `mul I I`.
 
 simplify for   \
     src/type @self   \
@@ -19,4 +22,13 @@ simplify for \
     src/pop \
     src/type @self   \
     calc __two {2 * $__e} \
+    returns op math1 pow : exponent __two
+
+simplify for   src/attr [dict get {
+    band   depth
+    row    width
+    column height
+} $kind] __size \
+    if {$__size == 1} \
+    calc __two {2} \
     returns op math1 pow : exponent __two

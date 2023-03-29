@@ -59,6 +59,12 @@ foreach {op config expected} {
 	=  7  8  9
 	= 10 11 12
     }
+    {rank rank 0} {rank 0} {
+	=  1  2  3
+	=  4  5  6
+	=  7  8  9
+	= 10 11 12
+    }
     stddev {} {
 	= 0.25 0.25 0.25
 	= 0.25 0.25 0.25
@@ -84,32 +90,57 @@ foreach {op config expected} {
 	= 0.0625 0.0625 0.0625
     }
 } {
+    set params [lassign $op op]
     set actual $op
     if {$op eq "median"} { set actual rank }
 
     test aktive-op-band-${op}-2.0 "aktive op band $op" -body {
-	astcl aktive op band $op [grad]
+	astcl aktive op band $op [grad] {*}$params
     } -match image -result [makei op::band::$actual 0 0 3 4 1 $config $expected]
 
     test aktive-op-band-${op}-2.1 "aktive op band $op, dag" -body {
-	dag aktive op band $op [grad]
+	dag aktive op band $op [grad] {*}$params
     } -match glob -result "op::band::$actual * {image::gradient *}"
 
     if {$op in {
 	max min mean sum median
     }} {
-	# confirm idempotent operations, and simplification
+	# confirm idempotent operations, and simplifications.
+	#
+	# confirming that our claim of idempotency is true is difficult in the face of the new
+	# simplification rule which does elide the operation for any 1-band image it encounters. `op
+	# pass` is not enough anymore to stop simplification. It only stops the detection of chained
+	# operation. Even materialization is not enough, as it also is an 1-band image triggering
+	# elision. Only fully disabling simplification will work.
 
-        test aktive-op-band-${op}-2.2 "aktive op band $op, idem potent" -body {
-	    astcl aktive op band $op [aktive op pass [aktive op band $op [grad]]]
+	# confirm idem potency with actual operation chain
+	# - simplifications are off to prevent it from changing the dag on us.
+
+        test aktive-op-band-${op}-2.2 "aktive op band $op, idem potent" -setup {
+	    set aktive::simplify::__off__ 1
+	} -cleanup {
+	    unset aktive::simplify::__off__
+	} -body {
+	    astcl aktive op band $op \
+		[aktive op band $op [grad] \
+		     {*}$params] \
+		{*}$params
 	} -match image -result [makei op::band::$actual 0 0 3 4 1 $config $expected]
+
+	# confirm that simplifications elide operation chain as desired
 
 	set in [aktive op band $op [grad]]
 	set id [aktive query id $in]
 
-        test aktive-op-band-${op}-2.3 "aktive op band $op, reduction, dag" -body {
-	    dag aktive op band $op $in
+        test aktive-op-band-${op}-2.3 "aktive op band $op, reduction 1, dag" -body {
+	    dag aktive op band $op $in {*}$params
 	} -match glob -result "op::band::$actual $id {$config} {image::gradient *}"
+
+	# confirm that simplifications elide operation for any 1-band image used as input.
+
+        test aktive-op-band-${op}-2.4 "aktive op band $op, reduction 2, dag" -body {
+	    dag aktive op band $op [aktive op select z [grad] from 0] {*}$params
+	} -match glob -result "op::select::z * {from 0 to 0} {image::gradient *}"
 
 	unset in id
     }
@@ -122,7 +153,9 @@ foreach {op config expected} {
         test aktive-op-band-${op}-2.2 "aktive op band $op, chain squared" -body {
 	    pixels aktive op band $op \
 		[aktive op pass \
-		     [aktive op band $op [grad]]]
+		     [aktive op band $op [grad] \
+			  {*}$params]] \
+		{*}$params
 	} -match pixels -result [pixels aktive op math1 pow [aktive op band $op [grad]] exponent 2]
 	# squared (makei op::band::$actual 0 0 3 4 1 {} $expected)
 
@@ -131,18 +164,24 @@ foreach {op config expected} {
 		[aktive op pass \
 		     [aktive op band $op  \
 			  [aktive op pass \
-			       [aktive op band $op [grad]]]]]
+			       [aktive op band $op [grad] \
+				    {*}$params]] \
+			  {*}$params]] \
+		{*}$params
 	} -match pixels -result [pixels aktive op math1 pow [aktive op band $op [grad]] exponent 4]
 	# double squared ( [makei op::band::$actual 0 0 3 4 1 {} $expected])
 
 	test aktive-op-band-${op}-2.4 "aktive op band $op, squared, reduced, dag" -body {
-	    dag aktive op band $op [aktive op band $op [grad]]
+	    dag aktive op band $op [aktive op band $op [grad] {*}$params] {*}$params
 	} -match glob -result "op::math1::pow * {exponent 2.0} {op::band::$actual * {} {image::gradient *}}"
 
         test aktive-op-band-${op}-2.5 "aktive op band $op, squared 2x, reduced, dag" -body {
 	    dag aktive op band $op \
 		[aktive op band $op  \
-		     [aktive op band $op [grad]]]
+		     [aktive op band $op [grad] \
+			  {*}$params] \
+		     {*}$params] \
+		{*}$params
 	} -match glob -result "op::math1::pow * {exponent 4.0} {op::band::$actual * {} {image::gradient *}}"
     }
 
@@ -154,11 +193,16 @@ foreach {op config expected} {
         test aktive-op-band-${op}-2.2 "aktive op band $op, chain const" -body {
 	    pixels aktive op band $op \
 		[aktive op pass \
-		     [aktive op band $op [grad]]]
+		     [aktive op band $op [grad] \
+			  {*}$params]] \
+		{*}$params
 	} -match pixels -result [pixels aktive image from value width 3 height 4 depth 1 value 0]
 
 	test aktive-op-band-${op}-2.3 "aktive op band $op, chain const, reduced dag" -body {
-	    dag aktive op band $op [aktive op band $op [grad]]
+	    dag aktive op band $op \
+		[aktive op band $op [grad] \
+		     {*}$params] \
+		{*}$params
 	} -match glob -result "image::from::value * {width 3 height 4 depth 1 value 0.0}"
     }
 }

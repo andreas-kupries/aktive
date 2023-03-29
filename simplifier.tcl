@@ -46,6 +46,9 @@ namespace eval aktive::simplify {
 proc aktive::simplify::do {args} {
     debug.aktive/simplifier {}
 
+    # stop all simplification - uses by tests
+    variable __off__ ; if {[info exists __off__]} return
+
     variable ok 1
     set replacement [uplevel 1 [list aktive simplify {*}$args]]
     if {!$ok} return

@@ -61,15 +61,25 @@ operator {dim unchanged} {
 	band   -
 	column -
 	row    {
-	    body {
+	    lappend map %%%% [dict get {
+		band   depth
+		column height
+		row    width
+	    } $thing]
+	    body [string map $map {
 		aktive simplify do \
 		    src/type op::@@thing@@::rank \
 		    src/value rank __rank \
 		    iff {$__rank == -1} \
 		    /src
 		#
+		aktive simplify do \
+		    src/attr %%%% __size iff {$__size == 1} \
+		    /src
+		#
 		rank $src rank -1
-	    }
+	    }]
+	    unset map
 	}
 	tile   {
 	    body {

@@ -8,3 +8,11 @@
 simplify for   \
     src/type @self   \
     returns const 0
+
+simplify for   src/attr [dict get {
+    band   depth
+    row    width
+    column height
+} $kind] __size \
+    if {$__size == 1} \
+    returns const 0

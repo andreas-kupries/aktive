@@ -18,7 +18,10 @@ proc check {args} {
 }
 
 proc skiparg {w} {
-    if {$w eq "<aktive::image>"}    { return -code continue }
+    if {$w eq "<aktive::image>"}    { return -code break    } ;# images are followed by more images and parameters
+    if {$w in {
+	width height delta points path
+    }}                              { return -code break } ;# *::from parameters
     if {$w eq "X"}                  { return -code continue }
     if {$w eq "FOO"}                { return -code continue }
     if {[string match file*    $w]} { return -code continue }

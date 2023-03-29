@@ -18,8 +18,13 @@ operator {dexpr attr prefered_embedding} {
 
     def fun [lindex [split $__op :] 4]
 
+    ## TODO :: input (radius == 0) => elide   : min, mean, max, sum
+    ##                             => replace : sumsquared -> math1 square
+    ##                             => replace : variance   -> ??
+    ##                             => replace : stddev     -> sqrt (variance)
+
     # Simplifications are not easy. Results depend not only on the operator, but also the
-    # chossen embedding. Note that without an embedding the results continue to shrink, so
+    # chosen embedding. Note that without an embedding the results continue to shrink, so
     # no idempotency, etc. at all.
 
     note Returns image containing the $dexpr of the {*}$attr tile values, \
