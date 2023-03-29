@@ -99,8 +99,8 @@ import transformer/structure/rotate.tcl
 import transformer/structure/select.tcl
 import transformer/structure/split.tcl
 import transformer/structure/swap.tcl
+import transformer/structure/scrolling.tcl
 import transformer/structure/transpose.tcl
-import transformer/structure/wrap.tcl
 
 import transformer/structure/embed/bg.tcl
 import transformer/structure/embed/black.tcl

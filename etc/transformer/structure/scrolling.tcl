@@ -56,6 +56,19 @@ operator {coordinate dimension thing} {
     }
 }
 
+operator op::center-origin::xy {
+    section transform structure
+
+    note Returns image where the center pixel of the input \
+	is shifted to the origin.
+
+    input
+
+    body {
+	y [x $src]
+    }
+}
+
 ##
 # # ## ### ##### ######## ############# #####################
 ::return
