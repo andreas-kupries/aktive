@@ -119,4 +119,62 @@ operator op::color::XYZ::to::Lab {
 
 ##
 # # ## ### ##### ######## ############# #####################
+## Lossy conversions
+## - While we can convert to Grey/Luminance, we cannot convert back to color
+
+operator op::color::Lab::to::Grey {
+    section transform color
+
+    note Returns image converted to greyscale, from input in Lab colorspace.
+
+    note The gray data is just the Y channel of a conversion to XYZ colorspace. \
+	A separate operator is used to completely avoid the calculation of the \
+	unwanted XZ data.
+
+    note This conversion is based on the (1,1,1) reference white.
+
+    note For a different whitepoint scale the greyscale by the \
+	associated illuminant value after performing the conversion.
+
+    input
+
+    state -setup {
+	aktive_geometry* g = aktive_image_get_geometry (srcs->v[0]);
+	if (g->depth != 3) aktive_failf ("rejecting input with depth %d != 3", g->depth);
+	aktive_geometry_copy (domain, g);
+	domain->depth = 1;
+    }
+
+    blit convert {
+	{DH {y 0 1 up} {y 0 1 up}}
+	{DW {x 0 1 up} {x 0 1 up}}
+    } {raw xyz-from-lab {
+	// http://www.brucelindbloom.com/index.html?Eqn_Lab_to_XYZ.html
+
+	double y = (L + 16.) / 116.;
+
+	Y = LAB_TO_XYZ (y);
+    }}
+
+    pixels {
+	// request passes through as is
+	aktive_block* src = aktive_region_fetch_area (srcs->v[0], request);
+
+	#define L srcvalue [0]
+	#define A srcvalue [1]
+	#define B srcvalue [2]
+
+	#define Y dstvalue [0]
+
+	@@convert@@
+
+	#undef Y
+	#undef L
+	#undef A
+	#undef B
+    }
+}
+
+##
+# # ## ### ##### ######## ############# #####################
 ::return

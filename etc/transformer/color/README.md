@@ -14,13 +14,17 @@
 |Yxy		|CIE Yxy space						|
 |Lab		|CIE L*a*b* space					|
 |LCh		|CIE LCh(ab) space					|
+|___		|___							|
+|Grey		|Y luminance channel of CIE XYZ tristimulus space	|
 
 ## Core conversions
 
 ```
-HSL <--> \                               / <--> ICC (todo ?little cms)
-HSV <--> sRGB <--> scRGB <--> XYZ <--> Lab <--> LCh
-                                \ <--> Yxy
+HSL <--> \                                 / <--> ICC (todo ?little cms)
+HSV <--> sRGB <--> scRGB <--> XYZ <---> Lab <---> LCh
+                        \     |  \ <--> Yxy
+                         \    v        /
+                          \-> Grey <--/
 ```
 
 |A	|B	|Done	|
@@ -33,8 +37,6 @@ HSV <--> sRGB <--> scRGB <--> XYZ <--> Lab <--> LCh
 |XYZ	|Yxy	|ok	|
 |Lab	|LCh	|ok	|
 
-
 ## Other conversions
 
 Are assembled from the core conversions by chaining these.
-

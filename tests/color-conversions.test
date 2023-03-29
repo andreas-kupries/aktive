@@ -15,11 +15,17 @@ kt source support/util.tcl
 # # ## ### ##### ######## ############# #####################
 ##
 
-set spaces {sRGB scRGB HSL HSV XYZ Yxy Lab LCh}
+set spaces {sRGB scRGB HSL HSV XYZ Yxy Lab LCh Grey}
 
 foreach src $spaces {
+    # cannot perform round trip testing of the one-way to grey conversions.
+    if {$src eq "Grey"} continue
+
     foreach dst $spaces {
+	# ignore non-conversions, no-ops.
 	if {$src eq $dst} continue
+	# cannot perform round trip testing of the one-way to grey conversions.
+	if {$dst eq "Grey"} continue
 
 	syntax [list $dst src] [list aktive op color $src to]
 
@@ -89,6 +95,27 @@ foreach src $spaces {
 
 	unset k
     }
+
+    # single way grey conversions
+    syntax {
+	Grey src
+    } [list aktive op color $src to]
+
+    # testing is done by conversion from src space to Grey, and then checking that the result
+    # matches the Y channel of the equivalent conversion to XYZ.
+
+    set svecs [vectors $src]
+    set dvecs [vectors XYZ]
+
+    foreach sv $svecs dv $dvecs {
+	incr k
+
+	test aktive-op-color-${src}-to-Grey-2.${k} "aktive op color ${src} to Grey ($sv -> [lindex $dv 1])" -body {
+	    cc Grey <- $src $sv
+	} -match pixels -result [lindex $dv 1]
+    }
+
+    unset k
 }
 
 unset spaces src dst svecs dvecs sv dv
