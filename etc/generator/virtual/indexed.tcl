@@ -14,7 +14,7 @@ operator image::indexed {
 	aktive_geometry_set (domain, 0, 0, param->width, param->height, 2);
     }
 
-    blit gradient {
+    blit indexed {
 	{RH {y DY 1 up} {y SY 1 up}}
 	{RW {x DX 1 up} {x SX 1 up}}
 	{DD {z 0 1 up} {z 0  1 up}}
@@ -32,7 +32,7 @@ operator image::indexed {
 	#define SW (idomain->width)
 	#define SX (request->x)
 	#define SY (request->y)
-	@@gradient@@
+	@@indexed@@
     }
 }
 
