@@ -115,7 +115,7 @@ proc dsl::blit::F/point {cexpr} {
     set cexpr [string trim $cexpr]
     set dexpr [string map {z srcz x srcx y srcy} $cexpr]
     + "double value = $dexpr;"
-    + "TRACE_ADD (\" :: %f = \[$cexpr](%f %f %f)\", value, srcy, srcx, srcz);"
+    + "TRACE_ADD (\" :: %f = \[$cexpr](%u %u %u)\", value, srcy, srcx, srcz);"
     + "*dstvalue = value;"
 }
 
