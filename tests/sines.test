@@ -24,76 +24,40 @@ syntax {
 
 test aktive-image-sines-2.0 "aktive image sines" -body {
     astcl aktive image sines width 3 height 4 hf 0.5 vf 0.6
-} -match image -result {
-    type   image::sines
-    config {
-	width 3
-	height 4
-	hf 0.5
-	vf 0.6
-    }
-    domain {
-	x 0
-	y 0
-	width 3
-	height 4
-	depth 1
-    }
-    pixels {
-	=  1      =  0.5    = -0.5
-	=  0.3090 =  0.9781 =  0.6691
-	= -0.8090 =  0.1045 =  0.9135
-	= -0.8090 = -0.9135 = -0.1045
-    }
-}
+} -match image -result [makei image::sines 0 0 3 4 1 {
+    width 3 height 4 hf 0.5 vf 0.6
+} {
+    =  1      =  0.5    = -0.5
+    =  0.3090 =  0.9781 =  0.6691
+    = -0.8090 =  0.1045 =  0.9135
+    = -0.8090 = -0.9135 = -0.1045
+}]
 
 test aktive-image-sines-2.1 "aktive image sines, off view" -body {
     astcl aktive op view [aktive image sines width 3 height 4 hf 0.5 vf 0.6] port {-2 2 8 2}
-} -match image -result {
-    type   op::view
-    config {
-	port {-2 2 8 2}
-    }
-    domain {
-	x -2
-	y 2
-	width 8
-	height 2
-	depth 1
-    }
-    pixels {
-	= 0 = 0 =  -0.8090 =  0.1045 =  0.9135  = 0 = 0 = 0 =
-	= 0 = 0 =  -0.8090 = -0.9135 = -0.1045  = 0 = 0 = 0 =
-    }
-}
+} -match image -result [makei op::view -2 2 8 2 1 {
+    port {-2 2 8 2}
+} {
+    = 0 = 0 =  -0.8090 =  0.1045 =  0.9135  = 0 = 0 = 0 =
+    = 0 = 0 =  -0.8090 = -0.9135 = -0.1045  = 0 = 0 = 0 =
+}]
 
 test aktive-image-sines-2.2 "aktive image sines, off view" -body {
     astcl aktive op view  [aktive image sines width 3 height 4 hf 0.5 vf 0.6] port {2 -2 2 8}
-} -match image -result {
-    type   op::view
-    config {
-	port {2 -2 2 8}
-    }
-    domain {
-	x 2
-	y -2
-	width 2
-	height 8
-	depth 1
-    }
-    pixels {
-	= 0  = 0 =
-	= 0  = 0 =
+} -match image -result [makei op::view 2 -2 2 8 1 {
+    port {2 -2 2 8}
+} {
+    = 0  = 0 =
+    = 0  = 0 =
 
-	= -0.5     = 0 =
-	=  0.6691  = 0 =
-	=  0.9135  = 0 =
-	= -0.1045  = 0 =
+    = -0.5     = 0 =
+    =  0.6691  = 0 =
+    =  0.9135  = 0 =
+    = -0.1045  = 0 =
 
-	= 0  = 0 =
-	= 0  = 0 =
-    }
-}
+    = 0  = 0 =
+    = 0  = 0 =
+}]
 
 test aktive-image-sines-2.3 "aktive image sines, dag" -body {
     dag aktive image sines width 3 height 4 hf 0.5 vf 0.6

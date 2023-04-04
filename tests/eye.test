@@ -24,75 +24,40 @@ syntax {
 
 test aktive-image-eye-2.0 "aktive image eye" -body {
     astcl aktive image eye width 3 height 4 factor 0.5
-} -match image -result {
-    type   image::eye
-    config {
-	width 3
-	height 4
-	factor 0.5
-    }
-    domain {
-	x 0
-	y 0
-	width 3
-	height 4
-	depth 1
-    }
-    pixels {
-	= 0      = 0      = 0
-	= 0.0625 = 0.0604 = 0.0313
-	= 0.2500 = 0.2415 = 0.1250
-	= 0.5625 = 0.5433 = 0.2813
-    }
-}
+} -match image -result [makei image::eye 0 0 3 4 1 {
+    width 3 height 4 factor 0.5
+} {
+    = 0      = 0      = 0
+    = 0.0625 = 0.0604 = 0.0313
+    = 0.2500 = 0.2415 = 0.1250
+    = 0.5625 = 0.5433 = 0.2813
+}]
 
 test aktive-image-eye-2.1 "aktive image eye, off view" -body {
     astcl aktive op view [aktive image eye width 3 height 4 factor 0.5] port {-2 2 8 2}
-} -match image -result {
-    type   op::view
-    config {
-	port {-2 2 8 2}
-    }
-    domain {
-	x -2
-	y 2
-	width 8
-	height 2
-	depth 1
-    }
-    pixels {
-	= 0 = 0 =  0.2500 = 0.2415 = 0.1250  = 0 = 0 = 0 =
-	= 0 = 0 =  0.5625 = 0.5433 = 0.2813  = 0 = 0 = 0 =
-    }
-}
+} -match image -result [makei op::view -2 2 8 2 1 {
+    port {-2 2 8 2}
+} {
+    = 0 = 0 =  0.2500 = 0.2415 = 0.1250  = 0 = 0 = 0 =
+    = 0 = 0 =  0.5625 = 0.5433 = 0.2813  = 0 = 0 = 0 =
+}]
 
 test aktive-image-eye-2.2 "aktive image eye, off view" -body {
     astcl aktive op view [aktive image eye width 3 height 4 factor 0.5] port {2 -2 2 8}
-} -match image -result {
-    type   op::view
-    config {
-	port {2 -2 2 8}
-    }
-    domain {
-	x 2
-	y -2
-	width 2
-	height 8
-	depth 1
-    }
-    pixels {
-	= 0  = 0 =
-	= 0  = 0 =
+} -match image -result [makei op::view 2 -2 2 8 1 {
+    port {2 -2 2 8}
+} {
+    = 0  = 0 =
+    = 0  = 0 =
 
-	= 0       = 0 =
-	= 0.0313  = 0 =
-	= 0.1250  = 0 =
-	= 0.2813  = 0 =
+    = 0       = 0 =
+    = 0.0313  = 0 =
+    = 0.1250  = 0 =
+    = 0.2813  = 0 =
 
-	= 0  = 0 =
-	= 0  = 0 =
-    }
-}
+    = 0  = 0 =
+    = 0  = 0 =
+}]
 
 test aktive-image-eye-2.3 "aktive image eye, dag" -body {
     dag aktive image eye width 3 height 4 factor 0.5

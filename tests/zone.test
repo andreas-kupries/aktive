@@ -24,74 +24,40 @@ syntax {
 
 test aktive-image-zone-2.0 "aktive image zone" -body {
     astcl aktive image zone width 3 height 4
-} -match image -result {
-    type   image::zone
-    config {
-	width 3
-	height 4
-    }
-    domain {
-	x 0
-	y 0
-	width 3
-	height 4
-	depth 1
-    }
-    pixels {
-	=  0.9659 = -0.2588 = -0.2588
-	= -0.9659 =  0.2588 =  0.2588
-	= -0.7071 =  0.9659 =  0.9659
-	= -0.9659 =  0.2588 =  0.2588
-    }
-}
+} -match image -result [makei image::zone 0 0 3 4 1 {
+    width 3 height 4
+} {
+    =  0.9659 = -0.2588 = -0.2588
+    = -0.9659 =  0.2588 =  0.2588
+    = -0.7071 =  0.9659 =  0.9659
+    = -0.9659 =  0.2588 =  0.2588
+}]
 
 test aktive-image-zone-2.1 "aktive image zone, off view" -body {
     astcl aktive op view [aktive image zone width 3 height 4] port {-2 2 8 2}
-} -match image -result {
-    type   op::view
-    config {
-	port {-2 2 8 2}
-    }
-    domain {
-	x -2
-	y 2
-	width 8
-	height 2
-	depth 1
-    }
-    pixels {
-	= 0 = 0 =   -0.7071 =  0.9659 =  0.9659  = 0 = 0 = 0 =
-	= 0 = 0 =   -0.9659 =  0.2588 =  0.2588  = 0 = 0 = 0 =
-    }
-}
+} -match image -result [makei op::view -2 2 8 2 1 {
+    port {-2 2 8 2}
+} {
+    = 0 = 0 =   -0.7071 =  0.9659 =  0.9659  = 0 = 0 = 0 =
+    = 0 = 0 =   -0.9659 =  0.2588 =  0.2588  = 0 = 0 = 0 =
+}]
 
 test aktive-image-zone-2.2 "aktive image zone, off view" -body {
     astcl aktive op view [aktive image zone width 3 height 4] port {2 -2 2 8}
-} -match image -result {
-    type   op::view
-    config {
-	port {2 -2 2 8}
-    }
-    domain {
-	x 2
-	y -2
-	width 2
-	height 8
-	depth 1
-    }
-    pixels {
-	= 0  = 0 =
-	= 0  = 0 =
+} -match image -result [makei op::view 2 -2 2 8 1 {
+    port {2 -2 2 8}
+} {
+    = 0  = 0 =
+    = 0  = 0 =
 
-	= -0.2588  = 0 =
-	=  0.2588  = 0 =
-	=  0.9659  = 0 =
-	=  0.2588  = 0 =
+    = -0.2588  = 0 =
+    =  0.2588  = 0 =
+    =  0.9659  = 0 =
+    =  0.2588  = 0 =
 
-	= 0  = 0 =
-	= 0  = 0 =
-    }
-}
+    = 0  = 0 =
+    = 0  = 0 =
+}]
 
 test aktive-image-zone-2.3 "aktive image zone, dag" -body {
     dag aktive image zone width 3 height 4
