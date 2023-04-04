@@ -358,6 +358,7 @@ aktive_tile_reduce_rank (double* v, aktive_uint radius, aktive_uint base,
 
     aktive_rank* rt = __client__;
     aktive_uint  n  = 2*radius+1; n *= n;
+    aktive_uint  k  = 0;
 
     ASSERT (rt->select < n, "selection index out of range");
 
@@ -377,11 +378,20 @@ aktive_tile_reduce_rank (double* v, aktive_uint radius, aktive_uint base,
 
 	    TRACE_ADD ("=> %f", val); TRACE_CLOSER;
 
-	    rt->sorted [--n] = val;
+	    rt->sorted [k++] = val;
 	}
     }
 
+    //    TRACE_HEADER(1); TRACE_ADD ("collected = {", 0);
+    //    for (int j = 0; j < n; j++) { TRACE_ADD (" %f", rt->sorted[j]); }
+    //    TRACE_ADD(" }", 0); TRACE_CLOSER;
+
     qsort (rt->sorted, n, sizeof(double), double_compare);
+
+    //    TRACE_HEADER(1); TRACE_ADD ("sorted    = {", 0);
+    //    for (int j = 0; j < n; j++) { TRACE_ADD (" %f", rt->sorted[j]); }
+    //    TRACE_ADD(" }", 0); TRACE_CLOSER;
+
     double res = rt->sorted [rt->select];
 
     TRACE_RETURN ("(rank) %f", res);
@@ -434,8 +444,10 @@ static int
 double_compare (const void* a, const void* b)
 {
     const double* av = a;
-    const double *bv = b;
-    return ((*av) < (*bv)) ? -1 : (((*av) > (*bv)) ? 1 : 0);
+    const double* bv = b;
+    int res = ((*av) < (*bv)) ? -1 : (((*av) > (*bv)) ? 1 : 0);
+    // TRACE("(%f ~ %f) - %d", *av, *bv, res);
+    return res;
 }
 
 /*
