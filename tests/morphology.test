@@ -1,0 +1,153 @@
+# -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
+## (c) 2023 Andreas Kupries
+# # ## ### ##### ######## ############# #####################
+## AKTIVE. Patterns for structuring elements
+
+kt check Tcl     8.6
+kt check tcltest 2
+
+# # ## ### ##### ######## ############# #####################
+
+kt local testing aktive
+
+kt source support/util.tcl
+
+# # ## ### ##### ######## ############# #####################
+## Syntax
+
+syntax {
+    close  {src args}
+    dilate {src args}
+    erode  {src args}
+    open   {src args}
+    toggle {src args}
+} {aktive op morph}
+
+syntax {
+    all      {src args}
+    external {src args}
+    internal {src args}
+} {aktive op morph gradient}
+
+syntax {
+    black    {src args}
+    white    {src args}
+} {aktive op morph tophat}
+
+# # ## ### ##### ######## ############# #####################
+##
+
+set in [aktive image cross radius 3 width 1]
+
+# radius 3 = 7x7 + embed = 9x9, cross - result is 7x7
+#
+# 0 0 1 1 1 0 0
+# 0 0 1 1 1 0 0
+# 1 1 1 1 1 1 1
+# 1 1 1 1 1 1 1
+# 1 1 1 1 1 1 1
+# 0 0 1 1 1 0 0
+# 0 0 1 1 1 0 0
+
+foreach {op expected} {
+    close {
+	0 0 0 0 0 0 0
+	0 0 1 1 1 0 0
+	0 1 1 1 1 1 0
+	0 1 1 1 1 1 0
+	0 1 1 1 1 1 0
+	0 0 1 1 1 0 0
+	0 0 0 0 0 0 0
+    }
+    dilate {
+	0 1 1 1 1 1 0
+	1 1 1 1 1 1 1
+	1 1 1 1 1 1 1
+	1 1 1 1 1 1 1
+	1 1 1 1 1 1 1
+	1 1 1 1 1 1 1
+	0 1 1 1 1 1 0
+    }
+    erode {
+	 0 0 0 0 0 0 0
+	 0 0 0 1 0 0 0
+	 0 0 0 1 0 0 0
+	 0 1 1 1 1 1 0
+	 0 0 0 1 0 0 0
+	 0 0 0 1 0 0 0
+	 0 0 0 0 0 0 0
+    }
+    open {
+	0 0 1 1 1 0 0
+	0 0 1 1 1 0 0
+	1 1 1 1 1 1 1
+	1 1 1 1 1 1 1
+	1 1 1 1 1 1 1
+	0 0 1 1 1 0 0
+	0 0 1 1 1 0 0
+    }
+    toggle {
+	0   0.5 0.5 0.5 0.5 0.5 0
+	0.5 0.5 0.5 1   0.5 0.5 0.5
+	0.5 0.5 0.5 1   0.5 0.5 0.5
+	0.5 1   1   1   1   1   0.5
+	0.5 0.5 0.5 1   0.5 0.5 0.5
+	0.5 0.5 0.5 1   0.5 0.5 0.5
+	0   0.5 0.5 0.5 0.5 0.5 0
+    }
+    {gradient all} {
+	0 1 1 1 1 1 0
+	1 1 1 0 1 1 1
+	1 1 1 0 1 1 1
+	1 0 0 0 0 0 1
+	1 1 1 0 1 1 1
+	1 1 1 0 1 1 1
+	0 1 1 1 1 1 0
+    }
+    {gradient external} {
+	0 1 1 1 1 1 0
+	1 1 1 0 0 0 1
+	1 1 1 0 0 0 1
+	1 0 0 0 0 0 0
+	1 0 0 0 0 0 0
+	1 0 0 0 0 0 0
+	0 1 1 0 0 0 0
+    }
+    {gradient internal} {
+	0 0 1 1 1 0 0
+	0 0 1 0 1 0 0
+	1 1 1 0 1 1 1
+	1 0 0 0 0 0 1
+	1 1 1 0 1 1 1
+	0 0 1 0 1 0 0
+	0 0 1 1 1 0 0
+    }
+    {tophat white} {
+	0 0 0 0 0 0 0
+	0 0 0 0 0 0 0
+	0 0 0 0 0 0 0
+	0 0 0 0 0 0 0
+	0 0 0 0 0 0 0
+	0 0 0 0 0 0 0
+	0 0 0 0 0 0 0
+    }
+    {tophat black} {
+	0  0  0  0  0  0  0
+	0  0  1  1  1  0  0
+	0  1  1  0  0  0  0
+	0  1  1  0  0  0  0
+	0  0  0  0  0  0 -1
+	0 -1  0  0  0 -1 -1
+	0 -1 -1 -1 -1 -1 -1
+    }
+} {
+    test aktive-image-${op}-2.0 "aktive op morph $op, default radius" -body {
+	pixels aktive op morph {*}$op $in
+    } -match pixels -result $expected
+}
+
+unset in
+
+# # ## ### ##### ######## ############# #####################
+cleanupTests
+return
