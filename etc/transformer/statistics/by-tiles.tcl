@@ -69,9 +69,9 @@ operator {dexpr attr prefered_embedding} {
     }
 
     blit reducer {
-	{DH {y 0 1 up} {y radius 1 up}}
-	{DW {x 0 1 up} {x radius 1 up}}
-	{DD {z 0 1 up} {z 0 1 up}}
+	{AH {y AY 1 up} {y radius 1 up}}
+	{AW {x AX 1 up} {x radius 1 up}}
+	{DD {z  0 1 up} {z      0 1 up}}
     } [list raw reduce-tile-$fun {
 	// dstvalue = cell to set
 	// srcvalue = center cell of tile

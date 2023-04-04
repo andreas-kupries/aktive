@@ -193,8 +193,9 @@ operator {dim unchanged} {
 	}
 	column {
 	    blit reducer {
-		{DW {x 0 1 up} {x 0 1 up}}
-		{DD {z 0 1 up} {z 0 1 up}}
+		{AW {x AX 1 up} {x 0 1 up}}
+		{DD {z  0 1 up} {z 0 1 up}}
+		{ 1 {y AY 1 up} {y 0 1 up}}
 	    } {raw reduce-column {
 		// dstvalue = row/band start -
 		// srcvalue = row/band start - srcpitch-strided column vector
@@ -203,8 +204,9 @@ operator {dim unchanged} {
 	}
 	row {
 	    blit reducer {
-		{DH {y 0 1 up} {y 0 1 up}}
-		{DD {z 0 1 up} {z 0 1 up}}
+		{AH {y AY 1 up} {y 0 1 up}}
+		{DD {z  0 1 up} {z 0 1 up}}
+		{ 1 {x AX 1 up} {x 0 1 up}}
 	    } {raw reduce-row {
 		// dstvalue = row/band start -
 		// srcvalue = row/band start - SD-strided row vector
@@ -212,9 +214,9 @@ operator {dim unchanged} {
 	    }}
 	} tile {
 	    blit reducer {
-		{DH {y 0 1 up} {y radius 1 up}}
-		{DW {x 0 1 up} {x radius 1 up}}
-		{DD {z 0 1 up} {z 0 1 up}}
+		{AH {y AY 1 up} {y radius 1 up}}
+		{AW {x AX 1 up} {x radius 1 up}}
+		{DD {z  0 1 up} {z 0 1 up}}
 	    } [list raw reduce-tile {
 		// dstvalue = cell to set
 		// srcvalue = center cell of tile

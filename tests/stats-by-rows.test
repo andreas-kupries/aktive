@@ -66,10 +66,10 @@ foreach {op config expected} {
 	= 10 10.5 =
     }
     stddev {} {
-	= 0.8165 0.8165
-	= 0.8165 0.8165
-	= 0.8165 0.8165
-	= 0.8165 0.8165
+	= 0.8165 0.8165 =
+	= 0.8165 0.8165 =
+	= 0.8165 0.8165 =
+	= 0.8165 0.8165 =
     }
     sum {} {
 	=  6  7.5 =
@@ -84,10 +84,10 @@ foreach {op config expected} {
 	= 365 398.75 =
     }
     variance {} {
-	= 0.6667 0.6667
-	= 0.6667 0.6667
-	= 0.6667 0.6667
-	= 0.6667 0.6667
+	= 0.6667 0.6667 =
+	= 0.6667 0.6667 =
+	= 0.6667 0.6667 =
+	= 0.6667 0.6667 =
     }
 } {
     set params [lassign $op op]
@@ -116,7 +116,7 @@ foreach {op config expected} {
 	# confirm idem potency with actual operation chain
 	# - simplifications are off to prevent it from changing the dag on us.
 
-        test aktive-op-row-${op}-2.2 "aktive op row $op, idem potent" -setup {
+        test aktive-op-row-${op}-3.0 "aktive op row $op, idem potent" -setup {
 	    set aktive::simplify::__off__ 1
 	} -cleanup {
 	    unset aktive::simplify::__off__
@@ -132,13 +132,13 @@ foreach {op config expected} {
 	set in [aktive op row $op [grad]]
 	set id [aktive query id $in]
 
-        test aktive-op-row-${op}-2.3 "aktive op row $op, reduction 1, dag" -body {
+        test aktive-op-row-${op}-3.1 "aktive op row $op, reduction 1, dag" -body {
 	    dag aktive op row $op $in {*}$params
 	} -match glob -result "op::row::$actual $id {$config} {image::gradient *}"
 
 	# confirm that simplifications elide operation for any 1-column image used as input.
 
-        test aktive-op-row-${op}-2.4 "aktive op row $op, reduction 2, dag" -body {
+        test aktive-op-row-${op}-3.2 "aktive op row $op, reduction 2, dag" -body {
 	    dag aktive op row $op [aktive op select x [grad] from 0] {*}$params
 	} -match glob -result "op::select::x * {from 0 to 0} {image::gradient *}"
 
@@ -150,7 +150,7 @@ foreach {op config expected} {
     }} {
 	# confirm squarings, and simplifications
 
-        test aktive-op-row-${op}-2.2 "aktive op row $op, chain squared" -body {
+        test aktive-op-row-${op}-3.0 "aktive op row $op, chain squared" -body {
 	    pixels aktive op row $op \
 		[aktive op pass \
 		     [aktive op row $op [grad] \
@@ -159,7 +159,7 @@ foreach {op config expected} {
 	} -match pixels -result [pixels aktive op math1 pow [aktive op row $op [grad]] exponent 2]
 	# squared (makei op::row::$actual 0 0 1 4 2 {} $expected)
 
-        test aktive-op-row-${op}-2.3 "aktive op row $op, chain squared twice" -body {
+        test aktive-op-row-${op}-3.1 "aktive op row $op, chain squared twice" -body {
 	    pixels aktive op row $op \
 		[aktive op pass \
 		     [aktive op row $op  \
@@ -171,14 +171,14 @@ foreach {op config expected} {
 	} -match pixels -result [pixels aktive op math1 pow [aktive op row $op [grad]] exponent 4]
 	# double squared ( [makei op::row::$actual 0 0 1 4 2 {} $expected])
 
-	test aktive-op-row-${op}-2.4 "aktive op row $op, squared, reduced, dag" -body {
+	test aktive-op-row-${op}-3.2 "aktive op row $op, squared, reduced, dag" -body {
 	    dag aktive op row $op \
 		[aktive op row $op [grad] \
 		     {*}$params] \
 		{*}$params
 	} -match glob -result "op::math1::pow * {exponent 2.0} {op::row::$actual * {} {image::gradient *}}"
 
-        test aktive-op-row-${op}-2.5 "aktive op row $op, squared 2x, reduced, dag" -body {
+        test aktive-op-row-${op}-3.3 "aktive op row $op, squared 2x, reduced, dag" -body {
 	    dag aktive op row $op \
 		[aktive op row $op  \
 		     [aktive op row $op [grad] \
@@ -193,7 +193,7 @@ foreach {op config expected} {
     }} {
 	# confirm const results, and simplifications
 
-        test aktive-op-row-${op}-2.2 "aktive op row $op, chain const" -body {
+        test aktive-op-row-${op}-3.0 "aktive op row $op, chain const" -body {
 	    pixels aktive op row $op \
 		[aktive op pass \
 		     [aktive op row $op [grad] \
@@ -201,13 +201,24 @@ foreach {op config expected} {
 		{*}$params
 	} -match pixels -result [pixels aktive image from value width 1 height 4 depth 2 value 0]
 
-	test aktive-op-row-${op}-2.3 "aktive op row $op, chain const, reduced dag" -body {
+	test aktive-op-row-${op}-3.1 "aktive op row $op, chain const, reduced dag" -body {
 	    dag aktive op row $op \
 		[aktive op row $op [grad] \
 		     {*}$params] \
 		{*}$params
 	} -match glob -result "image::from::value * {width 1 height 4 depth 2 value 0.0}"
     }
+
+    test aktive-op-row-${op}-4.0 "aktive op row $op, embedded" -body {
+	astcl aktive op view [aktive op row $op [grad] {*}$params] port {-1 -1 3 6}
+    } -match image -result [makei op::view -1 -1 3 6 2 {port {-1 -1 3 6}} \
+				[list \
+				     0 0 0 0 0 0 \
+				     {*}[concat {*}[lmap {a b c d} $expected {
+					 list 0 0 $a $b $c $d 0 0
+				     }]] \
+				     0 0 0 0 0 0 ]]
+
 }
 
 # # ## ### ##### ######## ############# #####################

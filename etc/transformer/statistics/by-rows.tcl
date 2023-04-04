@@ -43,9 +43,11 @@ operator {dexpr attr} {
 	domain->width = 1;
     }
 
+    # AW == 1. We care about AX here. TODO :: blitter - avoid loop, unroll
     blit reducer {
-	{DH {y 0 1 up} {y 0 1 up}}
-	{DD {z 0 1 up} {z 0 1 up}}
+	{AH {y AY 1 up} {y 0 1 up}}
+	{DD {z  0 1 up} {z 0 1 up}}
+	{ 1 {x AX 1 up} {x 0 1 up}}
     } {raw reduce-row {
 	// dstvalue = row/band start -
 	// srcvalue = row/band start - SD-strided row vector

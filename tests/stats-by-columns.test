@@ -36,7 +36,7 @@ syntax {
 
 foreach {op config expected} {
     max           {}        { =  10       10.5    =  11       11.5    =  12       12.5    = }
-    mean          {}        { =   5.5      6      =   6.5      7      =   7.5      8	     = }
+    mean          {}        { =   5.5      6      =   6.5      7      =   7.5      8	  = }
     median        {rank -1} { =   7        7.5    =   8        8.5    =   9        9.5    = }
     min           {}        { =   1        1.5    =   2        2.5    =   3        3.5    = }
     {rank rank 0} {rank 0}  { =   1        1.5    =   2        2.5    =   3        3.5    = }
@@ -71,7 +71,7 @@ foreach {op config expected} {
 	# confirm idem potency with actual operation chain
 	# - simplifications are off to prevent it from changing the dag on us.
 
-        test aktive-op-column-${op}-2.2 "aktive op column $op, idem potent" -setup {
+        test aktive-op-column-${op}-3.0 "aktive op column $op, idem potent" -setup {
 	    set aktive::simplify::__off__ 1
 	} -cleanup {
 	    unset aktive::simplify::__off__
@@ -87,13 +87,13 @@ foreach {op config expected} {
 	set in [aktive op column $op [grad]]
 	set id [aktive query id $in]
 
-        test aktive-op-column-${op}-2.3 "aktive op column $op, reduction 1, dag" -body {
+        test aktive-op-column-${op}-3.1 "aktive op column $op, reduction 1, dag" -body {
 	    dag aktive op column $op $in {*}$params
 	} -match glob -result "op::column::$actual $id {$config} {image::gradient *}"
 
 	# confirm that simplifications elide operation for any 1-row image used as input.
 
-        test aktive-op-column-${op}-2.4 "aktive op column $op, reduction 2, dag" -body {
+        test aktive-op-column-${op}-3.2 "aktive op column $op, reduction 2, dag" -body {
 	    dag aktive op column $op [aktive op select y [grad] from 0] {*}$params
 	} -match glob -result "op::select::y * {from 0 to 0} {image::gradient *}"
 
@@ -105,7 +105,7 @@ foreach {op config expected} {
     }} {
 	# confirm squarings, and simplifications
 
-        test aktive-op-column-${op}-2.2 "aktive op column $op, chain squared" -body {
+        test aktive-op-column-${op}-3.0 "aktive op column $op, chain squared" -body {
 	    pixels aktive op column $op \
 		[aktive op pass \
 		     [aktive op column $op [grad] \
@@ -114,7 +114,7 @@ foreach {op config expected} {
 	} -match pixels -result [pixels aktive op math1 pow [aktive op column $op [grad]] exponent 2]
 	# squared (makei op::column::$actual 0 0 3 1 2 {} $expected)
 
-        test aktive-op-column-${op}-2.3 "aktive op column $op, chain squared twice" -body {
+        test aktive-op-column-${op}-3.1 "aktive op column $op, chain squared twice" -body {
 	    pixels aktive op column $op \
 		[aktive op pass \
 		     [aktive op column $op  \
@@ -126,11 +126,11 @@ foreach {op config expected} {
 	} -match pixels -result [pixels aktive op math1 pow [aktive op column $op [grad]] exponent 4]
 	# double squared ( [makei op::column::$actual 0 0 3 1 2 {} $expected])
 
-	test aktive-op-column-${op}-2.4 "aktive op column $op, squared, reduced, dag" -body {
+	test aktive-op-column-${op}-3.2 "aktive op column $op, squared, reduced, dag" -body {
 	    dag aktive op column $op [aktive op column $op [grad] {*}$params] {*}$params
 	} -match glob -result "op::math1::pow * {exponent 2.0} {op::column::$actual * {} {image::gradient *}}"
 
-        test aktive-op-column-${op}-2.5 "aktive op column $op, squared 2x, reduced, dag" -body {
+        test aktive-op-column-${op}-3.4 "aktive op column $op, squared 2x, reduced, dag" -body {
 	    dag aktive op column $op \
 		[aktive op column $op  \
 		     [aktive op column $op [grad] \
@@ -145,7 +145,7 @@ foreach {op config expected} {
     }} {
 	# confirm const results, and simplifications
 
-        test aktive-op-column-${op}-2.2 "aktive op column $op, chain const" -body {
+        test aktive-op-column-${op}-3.0 "aktive op column $op, chain const" -body {
 	    pixels aktive op column $op \
 		[aktive op pass \
 		     [aktive op column $op [grad] \
@@ -153,13 +153,21 @@ foreach {op config expected} {
 		{*}$params
 	} -match pixels -result [pixels aktive image from value width 3 height 1 depth 2 value 0]
 
-	test aktive-op-column-${op}-2.3 "aktive op column $op, chain const, reduced dag" -body {
+	test aktive-op-column-${op}-3.1 "aktive op column $op, chain const, reduced dag" -body {
 	    dag aktive op column $op \
 		[aktive op column $op [grad] \
 		     {*}$params] \
 		{*}$params
 	} -match glob -result "image::from::value * {width 3 height 1 depth 2 value 0.0}"
     }
+
+    test aktive-op-column-${op}-4.0 "aktive op column $op, embedded" -body {
+	astcl aktive op view [aktive op column $op [grad] {*}$params] port {-1 -1 5 3}
+    } -match image -result [makei op::view -1 -1 5 3 2 {port {-1 -1 5 3}} \
+				[list \
+				     0 0 0 0 0 0 0 0 0 0 \
+				     0 0 {*}$expected 0 0 \
+				     0 0 0 0 0 0 0 0 0 0 ]]
 }
 
 # # ## ### ##### ######## ############# #####################

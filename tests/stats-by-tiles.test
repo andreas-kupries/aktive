@@ -35,22 +35,38 @@ syntax {
 ## = 10 10.5 = 11 11.5 = 12 12.5
 
 foreach {op config em expected} {
-    max        {}         mirror { 1      2       3       4       5       6        7        8        9       10       11       12       13       14       15       16       17       18       19       19      }
-    mean       {}         mirror { 0.3333 1       2       3       4       5        6        7        8        9       10       11       12       13       14       15       16       17       18       18.6667 }
-    median     { rank -1} mirror { 0      1       2       3       4       5        6        7        8        9       10       11       12       13       14       15       16       17       18       19      }
-    min        {}         mirror { 0      0       1       2       3       4        5        6        7        8        9       10       11       12       13       14       15       16       17       18      }
-    stddev     {}         mirror { 0.4714 0.8165  0.8165  0.8165  0.8165  0.8165   0.8165   0.8165   0.8165   0.8165   0.8165   0.8165   0.8165   0.8165   0.8165   0.8165   0.8165   0.8165   0.8165   0.4714 }
-    sum        {}         black  { 1      3       6       9      12      15       18       21       24       27       30       33       36       39       42       45       48       51       54       37      }
-    sumsquared {}         black  { 1      5      14      29      50      77      110      149      194      245      302      365      434      509      590      677      770      869      974      685      }
-    variance   {}         mirror { 0.2222 0.6667  0.6667  0.6667  0.6667  0.6667   0.6667 0.6667     0.6667   0.6667   0.6667   0.6667   0.6667   0.6667   0.6667   0.6667   0.6667   0.6667   0.6667   0.2222 }
+    max           {}         mirror { 1  2   3   4   5   6    7    8    9   10   11   12   13   14   15   16   17   18   19   19  }
+    mean          {}         mirror { 0.3333 1   2   3   4   5    6    7    8    9   10   11   12   13   14   15   16   17   18   18.6667 }
+    median        { rank -1} mirror { 0  1   2   3   4   5    6    7    8    9   10   11   12   13   14   15   16   17   18   19  }
+    min           {}         mirror { 0  0   1   2   3   4    5    6    7    8    9   10   11   12   13   14   15   16   17   18  }
+    {rank rank 0} { rank 0}  mirror { 0  0   1   2   3   4    5    6    7    8    9   10   11   12   13   14   15   16   17   18  }
+    stddev        {}         mirror { 0.4714 0.8165  0.8165  0.8165  0.8165  0.8165 0.8165 0.8165 0.8165 0.8165 0.8165 0.8165 0.8165 0.8165 0.8165 0.8165 0.8165 0.8165 0.8165 0.4714 }
+    sum           {}         black  { 1  3   6   9  12  15   18   21   24   27   30   33   36   39   42   45   48   51   54   37  }
+    sumsquared    {}         black  { 1  5  14  29  50  77  110  149  194  245  302  365  434  509  590  677  770  869  974  685  }
+    variance      {}         mirror { 0.2222 0.6667  0.6667  0.6667  0.6667  0.6667 0.6667 0.6667   0.6667 0.6667 0.6667 0.6667 0.6667 0.6667 0.6667 0.6667 0.6667 0.6667 0.6667 0.2222 }
 } {
+    set params [lassign $op op]
     set actual $op
     if {$op eq "median"} { set actual rank }
 
     set r 1	;# radius
     test aktive-op-tile-${op}-2.0 "aktive op tile $op, radius $r" -body {
-	astcl aktive op tile $op [aktive op embed $em [gradx] left $r right $r top $r bottom $r] radius $r
+	astcl aktive op tile $op [aktive op embed $em [gradx] left $r right $r top $r bottom $r] radius $r {*}$params
     } -match image -result [makei op::tile::$actual 0 0 20 1 1 "radius $r$config" $expected]
+
+    test aktive-op-tile-${op}-2.1 "aktive op tile $op, radius $r, embedded" -body {
+	astcl aktive op view \
+	    [aktive op tile $op \
+		 [aktive op embed $em \
+		      [gradx] \
+		      left $r right $r top $r bottom $r] \
+		 radius $r {*}$params] \
+	    port {-1 -1 22 3}
+    } -match image -result [makei op::view -1 -1 22 3 1 {port {-1 -1 22 3}} \
+				[list \
+				     0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 \
+				     0 {*}$expected 0 \
+				     0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 ]]
 }
 
 # # ## ### ##### ######## ############# #####################

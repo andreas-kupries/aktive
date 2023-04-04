@@ -43,9 +43,11 @@ operator {dexpr attr} {
 	domain->height = 1;
     }
 
+    # AH == 1. We care about AY here. TODO :: blitter - avoid loop, unroll
     blit reducer {
-	{DW {x 0 1 up} {x 0 1 up}}
-	{DD {z 0 1 up} {z 0 1 up}}
+	{AW {x AX 1 up} {x 0 1 up}}
+	{DD {z  0 1 up} {z 0 1 up}}
+	{ 1 {y AY 1 up} {y 0 1 up}}
     } {raw reduce-column {
 	// dstvalue = row/band start -
 	// srcvalue = row/band start - srcpitch-strided column vector
