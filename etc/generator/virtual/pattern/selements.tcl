@@ -67,9 +67,9 @@ operator {desc w dw psetup ispixel} {
     }
 
     blit seblit {
-	{RH {y DY 1 up} {y SY 1 up}}
-	{RW {x DX 1 up} {x SX 1 up}}
-	{DD {z 0 1 up} {z 0  1 up}}
+	{AH {y AY 1 up} {y SY 1 up}}
+	{AW {x AX 1 up} {x SX 1 up}}
+	{DD {z  0 1 up} {z  0 1 up}}
     } {point {
 	ISPIXEL (x, y, z)
     }}
@@ -81,10 +81,6 @@ operator {desc w dw psetup ispixel} {
 	@@wsetup@@
 	@@psetup@@
 
-	#define DX (dst->x)
-	#define DY (dst->y)
-	#define RH (request->height)
-	#define RW (request->width)
 	#define SD (idomain->depth)
 	#define SH (idomain->height)
 	#define SW (idomain->width)
