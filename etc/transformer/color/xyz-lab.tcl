@@ -27,8 +27,8 @@ operator op::color::Lab::to::XYZ {
     }
 
     blit convert {
-	{DH {y 0 1 up} {y 0 1 up}}
-	{DW {x 0 1 up} {x 0 1 up}}
+	{AH {y AY 1 up} {y 0 1 up}}
+	{AW {x AX 1 up} {x 0 1 up}}
     } {raw xyz-from-lab {
 	// http://www.brucelindbloom.com/index.html?Eqn_Lab_to_XYZ.html
 
@@ -85,8 +85,8 @@ operator op::color::XYZ::to::Lab {
     }
 
     blit convert {
-	{DH {y 0 1 up} {y 0 1 up}}
-	{DW {x 0 1 up} {x 0 1 up}}
+	{AH {y AY 1 up} {y 0 1 up}}
+	{AW {x AX 1 up} {x 0 1 up}}
     } {raw lab-from-xyz {
 	// http://www.brucelindbloom.com/index.html?Eqn_XYZ_to_Lab.html
 
@@ -146,8 +146,8 @@ operator op::color::Lab::to::Grey {
     }
 
     blit convert {
-	{DH {y 0 1 up} {y 0 1 up}}
-	{DW {x 0 1 up} {x 0 1 up}}
+	{AH {y AY 1 up} {y 0 1 up}}
+	{AW {x AX 1 up} {x 0 1 up}}
     } {raw xyz-from-lab {
 	// http://www.brucelindbloom.com/index.html?Eqn_Lab_to_XYZ.html
 

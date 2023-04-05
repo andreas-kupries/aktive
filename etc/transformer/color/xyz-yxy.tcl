@@ -24,8 +24,8 @@ operator op::color::Yxy::to::XYZ {
     }
 
     blit convert {
-	{DH {y 0 1 up} {y 0 1 up}}
-	{DW {x 0 1 up} {x 0 1 up}}
+	{AH {y AY 1 up} {y 0 1 up}}
+	{AW {x AX 1 up} {x 0 1 up}}
     } {raw xyz-from-yxy {
 	// https://www.easyrgb.com/en/math.php
 	// http://www.brucelindbloom.com/index.html?Eqn_xyY_to_XYZ.html
@@ -74,8 +74,8 @@ operator op::color::XYZ::to::Yxy {
     }
 
     blit convert {
-	{DH {y 0 1 up} {y 0 1 up}}
-	{DW {x 0 1 up} {x 0 1 up}}
+	{AH {y AY 1 up} {y 0 1 up}}
+	{AW {x AX 1 up} {x 0 1 up}}
     } {raw yxy-from-xyz {
 	// https://www.easyrgb.com/en/math.php
 	// http://www.brucelindbloom.com/index.html?Eqn_XYZ_to_xyY.html
@@ -134,8 +134,8 @@ operator op::color::Yxy::to::Grey {
     }
 
     blit convert {
-	{DH {y 0 1 up} {y 0 1 up}}
-	{DW {x 0 1 up} {x 0 1 up}}
+	{AH {y AY 1 up} {y 0 1 up}}
+	{AW {x AX 1 up} {x 0 1 up}}
     } {raw xyz-from-yxy {
 	// https://www.easyrgb.com/en/math.php
 	// http://www.brucelindbloom.com/index.html?Eqn_xyY_to_XYZ.html

@@ -26,8 +26,8 @@ operator op::color::sRGB::to::HSV {
     }
 
     blit convert {
-	{DH {y 0 1 up} {y 0 1 up}}
-	{DW {x 0 1 up} {x 0 1 up}}
+	{AH {y AY 1 up} {y 0 1 up}}
+	{AW {x AX 1 up} {x 0 1 up}}
     } {raw hsv-from-srgb {
 	// - https://en.wikipedia.org/wiki/HSL_and_HSV#From_RGB
 	// - Color Imaging, p. 442, ISBN 978-1-5688-1344-8
@@ -96,8 +96,8 @@ operator op::color::HSV::to::sRGB {
     }
 
     blit convert {
-	{DH {y 0 1 up} {y 0 1 up}}
-	{DW {x 0 1 up} {x 0 1 up}}
+	{AH {y AY 1 up} {y 0 1 up}}
+	{AW {x AX 1 up} {x 0 1 up}}
     } {raw srgb-from-hsv {
 	// https://en.wikipedia.org/wiki/HSL_and_HSV#HSV_to_RGB_alternative
 	// HSV in [0,1]^3 ...

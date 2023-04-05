@@ -26,8 +26,8 @@ operator op::color::sRGB::to::HSL {
     }
 
     blit convert {
-	{DH {y 0 1 up} {y 0 1 up}}
-	{DW {x 0 1 up} {x 0 1 up}}
+	{AH {y AY 1 up} {y 0 1 up}}
+	{AW {x AX 1 up} {x 0 1 up}}
     } {raw hsl-from-srgb {
 	// https://en.wikipedia.org/wiki/HSL_and_HSV#From_RGB
 	//
@@ -99,8 +99,8 @@ operator op::color::HSL::to::sRGB {
     }
 
     blit convert {
-	{DH {y 0 1 up} {y 0 1 up}}
-	{DW {x 0 1 up} {x 0 1 up}}
+	{AH {y AY 1 up} {y 0 1 up}}
+	{AW {x AX 1 up} {x 0 1 up}}
     } {raw srgb-from-hsl {
 	// Was not able to make https://en.wikipedia.org/wiki/HSL_and_HSV#HSL_to_RGB_alternative to work.
 	// Ditto for the regular conversion given there.

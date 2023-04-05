@@ -22,8 +22,8 @@ operator op::color::scRGB::to::XYZ {
     }
 
     blit convert {
-	{DH {y 0 1 up} {y 0 1 up}}
-	{DW {x 0 1 up} {x 0 1 up}}
+	{AH {y AY 1 up} {y 0 1 up}}
+	{AW {x AX 1 up} {x 0 1 up}}
     } {raw xyz-from-scrgb {
 	// http://www.easyrgb.com/en/math.php
 	// http://www.brucelindbloom.com/index.html?Eqn_RGB_XYZ_Matrix.html
@@ -79,8 +79,8 @@ operator op::color::XYZ::to::scRGB {
     }
 
     blit convert {
-	{DH {y 0 1 up} {y 0 1 up}}
-	{DW {x 0 1 up} {x 0 1 up}}
+	{AH {y AY 1 up} {y 0 1 up}}
+	{AW {x AX 1 up} {x 0 1 up}}
     } {raw scrgb-from-xyz {
 	// http://www.easyrgb.com/en/math.php
 	// http://www.brucelindbloom.com/index.html?Eqn_RGB_XYZ_Matrix.html
@@ -157,9 +157,9 @@ operator op::color::scRGB::to::Grey {
     }
 
     blit convert {
-	{DH {y 0 1 up} {y 0 1 up}}
-	{DW {x 0 1 up} {x 0 1 up}}
-    } {raw xyz-from-scrgb {
+	{AH {y AY 1 up} {y 0 1 up}}
+	{AW {x AX 1 up} {x 0 1 up}}
+    } {raw grey-from-scrgb {
 	// http://www.easyrgb.com/en/math.php
 	// http://www.brucelindbloom.com/index.html?Eqn_RGB_XYZ_Matrix.html
 	// http://www.brucelindbloom.com/index.html?Eqn_XYZ_to_RGB.html

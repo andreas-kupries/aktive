@@ -23,8 +23,8 @@ operator op::color::Lab::to::LCh {
     }
 
     blit convert {
-	{DH {y 0 1 up} {y 0 1 up}}
-	{DW {x 0 1 up} {x 0 1 up}}
+	{AH {y AY 1 up} {y 0 1 up}}
+	{AW {x AX 1 up} {x 0 1 up}}
     } {raw lch-from-Lab {
 	// https://www.easyrgb.com/en/math.php
 	// http://www.brucelindbloom.com/index.html?Eqn_Lab_to_LCH.html
@@ -74,8 +74,8 @@ operator op::color::LCh::to::Lab {
     }
 
     blit convert {
-	{DH {y 0 1 up} {y 0 1 up}}
-	{DW {x 0 1 up} {x 0 1 up}}
+	{AH {y AY 1 up} {y 0 1 up}}
+	{AW {x AX 1 up} {x 0 1 up}}
     } {raw lab-from-lch {
 	// https://www.easyrgb.com/en/math.php
 	// http://www.brucelindbloom.com/index.html?Eqn_LCH_to_Lab.html
