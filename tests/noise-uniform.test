@@ -1,0 +1,72 @@
+# -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
+## (c) 2023 Andreas Kupries
+# # ## ### ##### ######## ############# #####################
+## AKTIVE. Uniform noise
+
+kt check Tcl     8.6
+kt check tcltest 2
+
+# # ## ### ##### ######## ############# #####################
+
+kt local testing aktive
+
+kt source support/util.tcl
+
+# # ## ### ##### ######## ############# #####################
+## Syntax
+
+syntax {
+    uniform args
+} {aktive image noise}
+
+# # ## ### ##### ######## ############# #####################
+##
+
+test aktive-image-noise-uniform-2.0 "aktive image noise uniform" -body {
+    astcl aktive image noise uniform width 4 height 4 depth 1 seed 443
+} -match image -result [makei image::noise::uniform 0 0 4 4 1 {
+    width 4 height 4 depth 1 seed 443
+} {
+    0.1735  0.5013  0.3274  0.7806
+    0.6759  0.6062  0.5385  0.0929
+    0.2737  0.4476  0.5783  0.1138
+    0.4374  0.0240  0.7328  0.5964
+}]
+
+test aktive-image-noise-uniform-2.1 "aktive image noise uniform, off view" -body {
+    astcl aktive op view \
+	[aktive image noise uniform width 4 height 4 depth 1 seed 443] \
+	port {-2 2 8 2}
+} -match image -result [makei op::view -2 2 8 2 1 {
+    port {-2 2 8 2}
+} {
+    0 0 = 0.2737 0.4476 0.5783 0.1138 = 0 0
+    0 0 = 0.4374 0.0240 0.7328 0.5964 = 0 0
+}]
+
+test aktive-image-noise-uniform-2.2 "aktive image noise uniform, off view" -body {
+    astcl aktive op view \
+	[aktive image noise uniform width 4 height 4 depth 1 seed 443] \
+	port {2 -2 2 8}
+} -match image -result [makei op::view 2 -2 2 8 1 {
+    port {2 -2 2 8}
+} {
+    0 0
+    0 0
+
+    0.3274  0.7806
+    0.5385  0.0929
+    0.5783  0.1138
+    0.7328  0.5964
+
+    0 0
+    0 0
+}]
+
+test aktive-image-noise-uniform-2.3 "aktive image noise uniform, dag" -body {
+    dag aktive image noise uniform width 4 height 4 depth 1 seed 443
+} -match glob -result {image::noise::uniform * {width 4 height 4 depth 1 seed 443}}
+
+# # ## ### ##### ######## ############# #####################
+cleanupTests
+return

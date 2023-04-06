@@ -1,0 +1,72 @@
+# -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
+## (c) 2023 Andreas Kupries
+# # ## ### ##### ######## ############# #####################
+## AKTIVE. Salt noise
+
+kt check Tcl     8.6
+kt check tcltest 2
+
+# # ## ### ##### ######## ############# #####################
+
+kt local testing aktive
+
+kt source support/util.tcl
+
+# # ## ### ##### ######## ############# #####################
+## Syntax
+
+syntax {
+    salt args
+} {aktive image noise}
+
+# # ## ### ##### ######## ############# #####################
+## non-standard threshold 0.2 (20% noise)
+
+test aktive-image-noise-salt-2.0 "aktive image noise salt" -body {
+    astcl aktive image noise salt width 4 height 4 depth 1 seed 443 threshold 0.2
+} -match image -result [makei image::noise::salt 0 0 4 4 1 {
+    width 4 height 4 depth 1 threshold 0.2 seed 443
+} {
+    1  0  0  0
+    0  0  0  1
+    0  0  0  1
+    0  1  0  0
+}]
+
+test aktive-image-noise-salt-2.1 "aktive image noise salt, off view" -body {
+    astcl aktive op view \
+	[aktive image noise salt width 4 height 4 depth 1 seed 443 threshold 0.2] \
+	port {-2 2 8 2}
+} -match image -result [makei op::view -2 2 8 2 1 {
+    port {-2 2 8 2}
+} {
+    0 0 = 0  0  0  1 = 0 0
+    0 0 = 0  1  0  0 = 0 0
+}]
+
+test aktive-image-noise-salt-2.2 "aktive image noise salt, off view" -body {
+    astcl aktive op view \
+	[aktive image noise salt width 4 height 4 depth 1 seed 443 threshold 0.2] \
+	port {2 -2 2 8}
+} -match image -result [makei op::view 2 -2 2 8 1 {
+    port {2 -2 2 8}
+} {
+    0 0
+    0 0
+
+    0  0
+    0  1
+    0  1
+    0  0
+
+    0 0
+    0 0
+}]
+
+test aktive-image-noise-salt-2.3 "aktive image noise salt, dag" -body {
+    dag aktive image noise salt width 4 height 4 depth 1 seed 443 threshold 0.2
+} -match glob -result {image::noise::salt * {width 4 height 4 depth 1 threshold 0.2 seed 443}}
+
+# # ## ### ##### ######## ############# #####################
+cleanupTests
+return

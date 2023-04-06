@@ -1,0 +1,72 @@
+# -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
+## (c) 2023 Andreas Kupries
+# # ## ### ##### ######## ############# #####################
+## AKTIVE. Gauss noise
+
+kt check Tcl     8.6
+kt check tcltest 2
+
+# # ## ### ##### ######## ############# #####################
+
+kt local testing aktive
+
+kt source support/util.tcl
+
+# # ## ### ##### ######## ############# #####################
+## Syntax
+
+syntax {
+    gauss args
+} {aktive image noise}
+
+# # ## ### ##### ######## ############# #####################
+##
+
+test aktive-image-noise-gauss-2.0 "aktive image noise gauss" -body {
+    astcl aktive image noise gauss width 4 height 4 depth 1 seed 443
+} -match image -result [makei image::noise::gauss 0 0 4 4 1 {
+    width 4 height 4 depth 1 mean 0.0 sigma 1.0 seed 443
+} {
+    = -0.4326  0.2765 -1.1317 -0.2890
+    =  0.2053 -0.1063  0.9386 -1.4232
+    = -0.2677 -1.1793 -0.2065 -0.5068
+    =  0.8668 -0.5243 -0.5372 -0.3284
+}]
+
+test aktive-image-noise-gauss-2.1 "aktive image noise gauss, off view" -body {
+    astcl aktive op view \
+	[aktive image noise gauss width 4 height 4 depth 1 seed 443] \
+	port {-2 2 8 2}
+} -match image -result [makei op::view -2 2 8 2 1 {
+    port {-2 2 8 2}
+} {
+    0 0 = -0.2677 -1.1793 -0.2065 -0.5068 = 0 0
+    0 0 =  0.8668 -0.5243 -0.5372 -0.3284 = 0 0
+}]
+
+test aktive-image-noise-gauss-2.2 "aktive image noise gauss, off view" -body {
+    astcl aktive op view \
+	[aktive image noise gauss width 4 height 4 depth 1 seed 443] \
+	port {2 -2 2 8}
+} -match image -result [makei op::view 2 -2 2 8 1 {
+    port {2 -2 2 8}
+} {
+    0 0
+    0 0
+
+    = -1.1317 -0.2890
+    =  0.9386 -1.4232
+    = -0.2065 -0.5068
+    = -0.5372 -0.3284
+
+    0 0
+    0 0
+}]
+
+test aktive-image-noise-gauss-2.3 "aktive image noise gauss, dag" -body {
+    dag aktive image noise gauss width 4 height 4 depth 1 seed 443
+} -match glob -result {image::noise::gauss * {width 4 height 4 depth 1 mean 0.0 sigma 1.0 seed 443}}
+
+# # ## ### ##### ######## ############# #####################
+cleanupTests
+return
