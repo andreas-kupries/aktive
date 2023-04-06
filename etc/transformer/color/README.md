@@ -16,6 +16,7 @@
 |LCh		|CIE LCh(ab) space					|
 |___		|___							|
 |Grey		|Y luminance channel of CIE XYZ tristimulus space	|
+|		|__Attention__: Range is 0...100	    		|
 
 ## Core conversions
 

@@ -1,0 +1,45 @@
+# -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
+## (c) 2023 Andreas Kupries
+# # ## ### ##### ######## ############# #####################
+## AKTIVE. Effects
+##         - sketch
+##         - charcoal
+
+kt check Tcl     8.6
+kt check tcltest 2
+
+# # ## ### ##### ######## ############# #####################
+
+kt local testing aktive
+
+kt source support/util.tcl
+
+# # ## ### ##### ######## ############# #####################
+## Syntax
+
+syntax {
+    sketch src
+    charcoal {src args}
+} {aktive effect}
+
+# # ## ### ##### ######## ############# #####################
+##
+
+set in [aktive read from netpbm path [A butterfly.ppm]]
+
+test aktive-effect-sketch-2.0 "aktive effect sketch" -body {
+    asppm aktive effect sketch $in
+} -match content/string -result [R bf-sketch.ppm]
+
+test aktive-effect-charcoal-2.0 "aktive effect charcoal, strong" -body {
+    aspgm aktive effect charcoal $in
+} -match content/string -result [R bf-charcoal-strong.pgm]
+
+test aktive-effect-charcoal-2.1 "aktive effect charcoal, light" -body {
+    aspgm aktive effect charcoal $in light yes
+} -match content/string -result [R bf-charcoal-light.pgm]
+
+# # ## ### ##### ######## ############# #####################
+unset in
+cleanupTests
+return

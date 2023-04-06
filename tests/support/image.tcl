@@ -58,6 +58,9 @@ proc astcl/ {i}    {
 proc aspgm  {args} { aspgm/ [check {*}$args] }
 proc aspgm/ {i}    { aktive format as pgm byte 2string $i }
 
+proc asppm  {args} { asppm/ [check {*}$args] }
+proc asppm/ {i}    { aktive format as ppm byte 2string $i }
+
 proc save-pgm  {path args} { save-pgm/ $path [check {*}$args] }
 proc save-pgm/ {path i}    { save-to $path aktive format as pgm byte 2chan $i }
 
