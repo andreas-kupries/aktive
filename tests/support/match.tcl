@@ -83,12 +83,16 @@ proc matchPixelLists {expected actual} {
     return 1
 }
 
+proc clearValues {xs} {
+    lmap v $xs { if {![string is double $v]} continue ; set v }
+}
+
 proc matchPixels {expected actual} {
     # strip non numeric elements used to highlight structue (band separation, ...).
     # only used in the expected value, nicer to be symmetric.
 
-    set expected [lmap v $expected { if {![string is double $v]} continue ; set v }]
-    set actual   [lmap v $actual   { if {![string is double $v]} continue ; set v }]
+    set expected [clearValues $expected]
+    set actual   [clearValues $actual]
 
     if {[llength $expected] != [llength $actual]} {
 	# puts XXXXX\t/[llength $expected]/ne/[llength $actual]/

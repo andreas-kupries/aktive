@@ -1,0 +1,191 @@
+# -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
+## (c) 2023 Andreas Kupries
+# # ## ### ##### ######## ############# #####################
+## AKTIVE. Patterns for kernels.
+
+kt check Tcl     8.6
+kt check tcltest 2
+
+# # ## ### ##### ######## ############# #####################
+
+kt local testing aktive
+
+kt source support/util.tcl
+
+# # ## ### ##### ######## ############# #####################
+## Syntax
+
+syntax {
+    emboss {}
+} {aktive image kernel}
+
+syntax {
+    4 {}
+    8 {}
+    X {}
+} {aktive image kernel laplace}
+
+syntax {
+    x  {}
+    y  {}
+    xy {}
+} {aktive image kernel gauss}
+
+syntax {
+    md {}
+    sd {}
+    x  {}
+    y  {}
+} {aktive image kernel kirsch}
+
+syntax {
+    md {}
+    sd {}
+    x  {}
+    y  {}
+} {aktive image kernel prewitt}
+
+syntax {
+    x  {}
+    y  {}
+} {aktive image kernel roberts}
+
+syntax {
+    x  {}
+    y  {}
+} {aktive image kernel scharr}
+
+syntax {
+    md {}
+    sd {}
+    x  {}
+    y  {}
+} {aktive image kernel sobel}
+
+# # ## ### ##### ######## ############# #####################
+
+foreach {op w h expected} {
+    emboss 3 3 {
+	2.0  0.0  0.0
+	0.0 -1.0  0.0
+	0.0  0.0 -1.0
+    }
+    {laplace 4} 3 3 {
+	=  0.0 -1.0  0.0
+	= -1.0  4.0 -1.0
+	=  0.0 -1.0  0.0
+    }
+    {laplace 8} 3 3 {
+	-1.0 -1.0 -1.0
+	-1.0  8.0 -1.0
+	-1.0 -1.0 -1.0
+    }
+    {laplace X} 3 3 {
+	=  1.0 -2.0  1.0
+	= -2.0  4.0 -2.0
+	=  1.0 -2.0  1.0
+    }
+    {gauss x} 3 1 {
+	0.25 0.5 0.25
+    }
+    {gauss y} 1 3 {
+	0.25
+	0.5
+	0.25
+    }
+    {gauss xy} 3 3 {
+	0.0625 0.125  0.0625
+	0.125  0.25   0.125
+	0.0625 0.125  0.0625
+    }
+    {kirsch md} 3 3 {
+	= -3.0  5.0  5.0
+	= -3.0  0.0  5.0
+	= -3.0 -3.0 -3.0
+    }
+    {kirsch sd} 3 3 {
+	=  5.0  5.0 -3.0
+	=  5.0  0.0 -3.0
+	= -3.0 -3.0 -3.0
+    }
+    {kirsch x} 3 3 {
+	= 5.0 -3.0 -3.0
+	= 5.0  0.0 -3.0
+	= 5.0 -3.0 -3.0
+    }
+    {kirsch y} 3 3 {
+	=  5.0  5.0  5.0
+	= -3.0  0.0 -3.0
+	= -3.0 -3.0 -3.0
+    }
+    {prewitt md} 3 3 {
+	=  0.0  1.0  1.0
+	= -1.0  0.0  1.0
+	= -1.0 -1.0  0.0
+    }
+    {prewitt sd} 3 3 {
+	= -1.0 -1.0  0.0
+	= -1.0  0.0  1.0
+	=  0.0  1.0  1.0
+    }
+    {prewitt x} 3 3 {
+	= -1.0 0.0 1.0
+	= -1.0 0.0 1.0
+	= -1.0 0.0 1.0
+    }
+    {prewitt y} 3 3 {
+	= -1.0 -1.0 -1.0
+	=  0.0  0.0  0.0
+	=  1.0  1.0  1.0
+    }
+    {roberts x} 3 3 {
+	0.0 -1.0 0.0
+	1.0  0.0 0.0
+	0.0  0.0 0.0
+    }
+    {roberts y} 3 3 {
+	= -1.0 0.0 0.0
+	=  0.0 1.0 0.0
+	=  0.0 0.0 0.0
+    }
+    {scharr x} 3 3 {
+	=  -3.0 0.0  3.0
+	= -10.0 0.0 10.0
+	=  -3.0 0.0  3.0
+    }
+    {scharr y} 3 3 {
+	= -3.0 -10.0 -3.0
+	=  0.0   0.0  0.0
+	=  3.0  10.0  3.0
+    }
+    {sobel md} 3 3 {
+	0.0 -1.0 -1.0
+	2.0  0.0 -2.0
+	1.0  1.0  0.0
+    }
+    {sobel sd} 3 3 {
+	1.0  1.0  0.0
+	2.0  0.0 -2.0
+	0.0 -1.0 -1.0
+    }
+    {sobel x} 3 3 {
+	1.0 0.0 -1.0
+	2.0 0.0 -2.0
+	1.0 0.0 -1.0
+    }
+    {sobel y} 3 3 {
+	=  1.0  2.0  1.0
+	=  0.0  0.0  0.0
+	= -1.0 -2.0 -1.0
+    }
+} {
+    set ex [clearValues $expected]
+
+    test aktive-image-kernel-[join ${op} -]-2.0 "aktive image kernel $op" -body {
+	astcl aktive image kernel {*}$op
+    } -match image -result [makei image::from::matrix 0 0 $w $h 1 "width $w height $h values {$ex}" $expected]
+}
+
+# # ## ### ##### ######## ############# #####################
+cleanupTests
+return
