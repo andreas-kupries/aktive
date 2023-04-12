@@ -183,7 +183,7 @@ foreach {op w h expected} {
 
     test aktive-image-kernel-[join ${op} -]-2.0 "aktive image kernel $op" -body {
 	astcl aktive image kernel {*}$op
-    } -match image -result [makei image::from::matrix 0 0 $w $h 1 "width $w height $h values {$ex}" $expected]
+    } -match image -result [makei image::from::matrix 0 0 $w $h 1 "width $w height $h factor 1.0 values {$ex}" $expected]
 }
 
 # # ## ### ##### ######## ############# #####################

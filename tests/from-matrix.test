@@ -24,29 +24,25 @@ syntax {
 
 test aktive-image-from-matrix-2.0 "aktive image from matrix" -body {
     astcl aktive image from matrix width 4 height 2 values 1 2 3 4  5 6 7 8
-} -match image -result {
-    type   image::from::matrix
-    config {
-	width 4
-	height 2
-	values {1.0 2.0 3.0 4.0 5.0 6.0 7.0 8.0}
-    }
-    domain {
-	x 0
-	y 0
-	width 4
-	height 2
-	depth 1
-    }
-    pixels {
-	1 2 3 4
-	5 6 7 8
-    }
-}
+} -match image -result [makei image::from::matrix 0 0 4 2 1 {
+    width 4 height 2 factor 1.0 values {1.0 2.0 3.0 4.0 5.0 6.0 7.0 8.0}
+} {
+    1 2 3 4
+    5 6 7 8
+}]
 
-test aktive-image-from-matrix-2.1 "aktive image from matrix, dag" -body {
+test aktive-image-from-matrix-2.1 "aktive image from matrix" -body {
+    astcl aktive image from matrix width 4 height 2 factor 2 values 1 2 3 4  5 6 7 8
+} -match image -result [makei image::from::matrix 0 0 4 2 1 {
+    width 4 height 2 factor 2.0 values {1.0 2.0 3.0 4.0 5.0 6.0 7.0 8.0}
+} {
+    =  2  4  6  8
+    = 10 12 14 16
+}]
+
+test aktive-image-from-matrix-2.2 "aktive image from matrix, dag" -body {
     dag aktive image from matrix width 4 height 2 values 1 2 3 4  5 6 7 8
-} -match glob -result {image::from::matrix * {width 4 height 2 values {1.0 2.0 3.0 4.0 5.0 6.0 7.0 8.0}}}
+} -match glob -result {image::from::matrix * {width 4 height 2 factor 1.0 values {1.0 2.0 3.0 4.0 5.0 6.0 7.0 8.0}}}
 
 # # ## ### ##### ######## ############# #####################
 cleanupTests
