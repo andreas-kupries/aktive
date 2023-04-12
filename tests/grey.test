@@ -24,76 +24,55 @@ syntax {
 
 test aktive-image-grey-2.0 "aktive image grey" -body {
     astcl aktive image grey width 3 height 4
-} -match image -result {
-    type   image::grey
-    config {
-	width 3
-	height 4
-    }
-    domain {
-	x 0
-	y 0
-	width 3
-	height 4
-	depth 1
-    }
-    pixels {
-	= 0 = 0.5 = 1
-	= 0 = 0.5 = 1
-	= 0 = 0.5 = 1
-	= 0 = 0.5 = 1
-    }
-}
+} -match image -result [makei image::grey 0 0 3 4 1 {
+    width 3 height 4
+} {
+    = 0 = 0.5 = 1
+    = 0 = 0.5 = 1
+    = 0 = 0.5 = 1
+    = 0 = 0.5 = 1
+}]
 
 test aktive-image-grey-2.1 "aktive image grey, off view" -body {
     astcl aktive op view [aktive image grey width 3 height 4] port {-2 2 8 2}
-} -match image -result {
-    type   op::view
-    config {
-	port {-2 2 8 2}
-    }
-    domain {
-	x -2
-	y 2
-	width 8
-	height 2
-	depth 1
-    }
-    pixels {
-	= 0 = 0 =  0 = 0.5 = 1  = 0 = 0 = 0 =
-	= 0 = 0 =  0 = 0.5 = 1  = 0 = 0 = 0 =
-    }
-}
+} -match image -result [makei op::view -2 2 8 2 1 {
+    port {-2 2 8 2}
+} {
+    = 0 = 0 =  0 = 0.5 = 1  = 0 = 0 = 0 =
+    = 0 = 0 =  0 = 0.5 = 1  = 0 = 0 = 0 =
+}]
 
 test aktive-image-grey-2.2 "aktive image grey, off view" -body {
     astcl aktive op view [aktive image grey width 3 height 4] port {2 -2 2 8}
-} -match image -result {
-    type   op::view
-    config {
-	port {2 -2 2 8}
-    }
-    domain {
-	x 2
-	y -2
-	width 2
-	height 8
-	depth 1
-    }
-    pixels {
-	= 0  = 0 =
-	= 0  = 0 =
+} -match image -result [makei op::view 2 -2 2 8 1 {
+    port {2 -2 2 8}
+} {
+    = 0  = 0 =
+    = 0  = 0 =
 
-	= 1  = 0 =
-	= 1  = 0 =
-	= 1  = 0 =
-	= 1  = 0 =
+    = 1  = 0 =
+    = 1  = 0 =
+    = 1  = 0 =
+    = 1  = 0 =
 
-	= 0  = 0 =
-	= 0  = 0 =
-    }
-}
+    = 0  = 0 =
+    = 0  = 0 =
+}]
 
-test aktive-image-grey-2.3 "aktive image grey, dag" -body {
+test aktive-image-grey-2.3 "aktive image grey, super view" -body {
+    astcl aktive op view [aktive image grey width 3 height 4] port {-1 -1 5 6}
+} -match image -result [makei op::view -1 -1 5 6 1 {
+    port {-1 -1 5 6}
+} {
+    0 0 0 0 0
+    0 = 0 0.5 1 = 0
+    0 = 0 0.5 1 = 0
+    0 = 0 0.5 1 = 0
+    0 = 0 0.5 1 = 0
+    0 0 0 0 0
+}]
+
+test aktive-image-grey-3.0 "aktive image grey, dag" -body {
     dag aktive image grey width 3 height 4
 } -match glob -result {image::grey * {width 3 height 4}}
 

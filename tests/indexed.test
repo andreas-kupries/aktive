@@ -59,7 +59,20 @@ test aktive-image-indexed-2.2 "aktive image indexed, off view" -body {
     = 0 0  = 0 0 =
 }]
 
-test aktive-image-indexed-2.3 "aktive image indexed, dag" -body {
+test aktive-image-indexed-2.3 "aktive image indexed, super view" -body {
+    astcl aktive op view [aktive image indexed width 3 height 4] port {-1 -1 5 6}
+} -match image -result [makei op::view -1 -1 5 6 2 {
+    port {-1 -1 5 6}
+} {
+    0 0 0 0 0 0 0 0 0 0
+    0 0 = 0 0 = 1 0 = 2 0 = 0 0
+    0 0 = 0 1 = 1 1 = 2 1 = 0 0
+    0 0 = 0 2 = 1 2 = 2 2 = 0 0
+    0 0 = 0 3 = 1 3 = 2 3 = 0 0
+    0 0 0 0 0 0 0 0 0 0
+}]
+
+test aktive-image-indexed-3.0 "aktive image indexed, dag" -body {
     dag aktive image indexed width 3 height 4
 } -match glob -result {image::indexed * {width 3 height 4}}
 

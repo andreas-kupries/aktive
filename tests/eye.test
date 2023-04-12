@@ -59,7 +59,20 @@ test aktive-image-eye-2.2 "aktive image eye, off view" -body {
     = 0  = 0 =
 }]
 
-test aktive-image-eye-2.3 "aktive image eye, dag" -body {
+test aktive-image-eye-2.3 "aktive image eye, super view" -body {
+    astcl aktive op view [aktive image eye width 3 height 4 factor 0.5] port {-1 -1 5 6}
+} -match image -result [makei op::view -1 -1 5 6 1 {
+    port {-1 -1 5 6}
+} {
+    0 0 0 0 0
+    0 = 0      0      0      = 0
+    0 = 0.0625 0.0604 0.0313 = 0
+    0 = 0.2500 0.2415 0.1250 = 0
+    0 = 0.5625 0.5433 0.2813 = 0
+    0 0 0 0 0
+}]
+
+test aktive-image-eye-3.0 "aktive image eye, dag" -body {
     dag aktive image eye width 3 height 4 factor 0.5
 } -match glob -result {image::eye * {width 3 height 4 factor 0.5}}
 

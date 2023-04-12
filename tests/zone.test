@@ -59,7 +59,20 @@ test aktive-image-zone-2.2 "aktive image zone, off view" -body {
     = 0  = 0 =
 }]
 
-test aktive-image-zone-2.3 "aktive image zone, dag" -body {
+test aktive-image-zone-2.3 "aktive image zone, super view" -body {
+    astcl aktive op view [aktive image zone width 3 height 4] port {-1 -1 5 6}
+} -match image -result [makei op::view -1 -1 5 6 1 {
+    port {-1 -1 5 6}
+} {
+    0 0 0 0 0
+    0 =  0.9659 -0.2588 -0.2588 = 0
+    0 = -0.9659  0.2588  0.2588 = 0
+    0 = -0.7071  0.9659  0.9659 = 0
+    0 = -0.9659  0.2588  0.2588 = 0
+    0 0 0 0 0
+}]
+
+test aktive-image-zone-3.0 "aktive image zone, dag" -body {
     dag aktive image zone width 3 height 4
 } -match glob -result {image::zone * {width 3 height 4}}
 
