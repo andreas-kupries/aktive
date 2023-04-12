@@ -1,7 +1,7 @@
 # -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
 ## (c) 2023 Andreas Kupries
 # # ## ### ##### ######## ############# #####################
-## AKTIVE. Patterns for structuring elements
+## AKTIVE. Grey-level morphology operations.
 
 kt check Tcl     8.6
 kt check tcltest 2
