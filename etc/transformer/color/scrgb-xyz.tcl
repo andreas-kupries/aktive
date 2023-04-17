@@ -126,6 +126,7 @@ operator op::color::XYZ::to::scRGB {
 ## - While we can convert to Grey/Luminance, we cannot convert back to color
 
 operator op::color::XYZ::to::Grey {
+    section transform color
 
     note Returns input converted to grey scale, from input in XYZ colorspace.
 
