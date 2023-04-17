@@ -23,6 +23,79 @@ source [file join $tests support paths.tcl]
 
 # ------------------------------------------------------------------------------
 
+proc photo {i} {
+    set w [topl]
+    set n [cid]
+    set f ._photo$n
+
+    switch -exact -- [aktive query depth $i] {
+	1 { append f .pgm ; pgm $f $i }
+	3 { append f .ppm ; ppm $f $i }
+	default { error UNKNOWN	}
+    }
+
+    set p [image create photo p$n -file $f]
+    file delete $f
+
+    label $w.l -image $p
+    pack  $w.l -expand 1 -fill both -side left
+    return
+}
+
+proc plot {series {title {}}} {
+    package require aktive::plot
+
+    if {$title ne {}} { set title [list -title $title] }
+
+    set w [topl]
+    set v ::s[cid]
+
+    set $v $series
+
+    aktive::plot $w.plot -variable $v -xlocked 0 -ylocked 0 {*}$title
+    pack $w.plot -expand 1 -fill both -side left
+    return
+}
+
+set ::windows 0
+set ::counter 0
+
+proc topl {} {
+    package require Tk
+    wm withdraw .
+
+    global counter windows
+
+    set w .t$counter
+    incr counter
+
+    toplevel    $w
+    wm protocol $w WM_DELETE_WINDOW [list window-close $w]
+    incr windows
+
+    return $w
+}
+
+proc cid {} { global counter ; return $counter }
+
+proc window-close {w} {
+    global windows
+    destroy $w
+    incr windows -1
+    return
+}
+
+proc wait-on-windows {} {
+    global windows
+    while {$windows} { puts windows=$windows ; vwait ::windows }
+    return
+}
+
+rename exit __exit
+proc   exit {args} { wait-on-windows ; __exit {*}$args }
+
+# ------------------------------------------------------------------------------
+
 proc perf {label sz args} {
     set base [clock milliseconds]
 
@@ -69,6 +142,14 @@ proc sines {} { rgb \
 		    [aktive image sines width 256 height 256 hf 2   vf 0.5] \
 		    [aktive image sines width 256 height 256 hf 1   vf 3] }
 
+proc dots {i} {
+    set i [aktive op upsample xrep $i by 8]
+    set i [aktive op upsample yrep $i by 8]
+    return $i
+}
+
+
+
 proc showbasic {i} {
     puts "[aktive query type $i] \{"
     puts "  pa ([aktive query params $i])"
@@ -96,7 +177,7 @@ proc dagc {i {indent {}}} {
     puts "      :: ${indent}\\-- $me"
 }
 
-proc show {i} {
+proc show {i {scale {}}} {
     puts "[aktive query type $i] \{"
     puts "  pa ([aktive query params $i])"
     if 0 {foreach x [aktive query inputs $i] {
@@ -124,7 +205,13 @@ proc show {i} {
 		puts -nonewline " ="
 	    }
 	}
-	puts -nonewline " [format %8.4f $v]"
+
+	if {$scale ne {}} {
+	    set v [expr {$v * $scale}]
+	    puts -nonewline " [format %3.0f $v]"
+	} else {
+	    puts -nonewline " [format %8.4f $v]"
+	}
 	incr i
     }
     puts ""
