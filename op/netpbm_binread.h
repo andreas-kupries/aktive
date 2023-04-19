@@ -39,7 +39,7 @@ TRACE ("Scale %f", scale);
 // Determine where to read in the file.
 
 aktive_uint offset = info->base + BYTES * (y * info->width + x);
-TRACE ("Goto %u", offset);
+TRACE ("Goto %d+%d*(%d*%d+%d) = %u", info->base, BYTES, y, info->width, x, offset);
 Tcl_Seek (chan, offset, SEEK_SET);
 
 // Read the (partial) row, then convert to destination
@@ -69,12 +69,20 @@ double* vbase = v;
 
 for (i = 0; i < got; i++, v++, raw++) {
     BANDTYPE vr = *raw;
+#if BANDTYPE == uint8_t
+    TRACE ("ingest [%8d] %5u /raw ...... [%02x]", i, vr, (int)((char*)&vr)[0]);
+
+    *v = vr * scale;
+
+    TRACE ("ingest [%8d] %5u -> %f [%02x]", i, vr, *v, (int)((char*)&vr)[0]);
+#else
     TRACE ("ingest [%8d] %5u /raw ...... (be) [%02x %02x]", i, vr, (int)((char*)&vr)[0], (int)((char*)&vr)[1]);
 
     PROCESS (vr);
     *v = vr * scale;
 
     TRACE ("ingest [%8d] %5u -> %f (%s) [%02x %02x]", i, vr, *v, E, (int)((char*)&vr)[0], (int)((char*)&vr)[1]);
+#endif
 }
 for (     ; i < w;   i++, v++) { *v = 0.0; }
 
