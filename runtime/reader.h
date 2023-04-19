@@ -21,7 +21,7 @@
  * which are seekable. Unseekable channels will be stuck at EOF.
  */
 
-extern int aktive_read_setup_binary (Tcl_Channel src);
+extern void aktive_read_setup_binary (Tcl_Channel src);
 
 extern int aktive_read_string    (Tcl_Channel src, char* buf, aktive_uint n);
 extern int aktive_read_match     (Tcl_Channel src, char* buf, aktive_uint n);

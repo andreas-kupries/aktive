@@ -16,10 +16,14 @@ TRACE_OFF;
  * - - -- --- ----- -------- -------------
  */
 
-extern int
+extern void
 aktive_read_setup_binary (Tcl_Channel src) {
+    TRACE_FUNC ("((Channel) %p)", src);
+
     Tcl_SetChannelOption (NULL, src, "-encoding",    "binary");
     Tcl_SetChannelOption (NULL, src, "-translation", "binary");
+
+    TRACE_RETURN_VOID;
 }
 
 /*
@@ -181,29 +185,41 @@ aktive_read_float64be (Tcl_Channel src, double* v)
 extern void
 aktive_path_copy (aktive_path* dst, Tcl_Obj* src)
 {
+    TRACE_FUNC("((path*) %p, (Tcl_Obj*) %p)", dst, src);
+
     int len;
     char* path = Tcl_GetStringFromObj (src, &len);
 
     dst->length = len;
     STRDUP (dst->string, path);
+
+    TRACE("(=> (path*) %p = (%d, '%s'))", dst, dst->length, dst->string);
+    TRACE_RETURN_VOID;
 }
 
 extern void
 aktive_path_free (aktive_path* dst)
 {
+    TRACE_FUNC("((path*) %p = (%d, '%s'))", dst, dst->length, dst->string);
+
     ckfree (dst->string);
     dst->string = 0;
     dst->length = 0;
+
+    TRACE_RETURN_VOID;
 }
 
 extern Tcl_Channel
 aktive_path_open (aktive_path* dst)
 {
+    TRACE_FUNC("((path*) %p = (%d, '%s'))", dst, dst->length, dst->string);
+
     Tcl_Obj*    path = Tcl_NewStringObj (dst->string, dst->length);
     Tcl_IncrRefCount (path);
     Tcl_Channel src  = Tcl_FSOpenFileChannel (NULL, path, "r", 0);
     Tcl_DecrRefCount (path);
-    return src;
+
+    TRACE_RETURN ("(Channel) %p", src);
 }
 
 /*
