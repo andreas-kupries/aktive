@@ -9,9 +9,9 @@
 ## Compress bands/rows/columns/tiles down to a statistic (rank order selection)
 
 operator {dim unchanged} {
-    op::band::median   band   {width and height}
-    op::column::median row    {width and depth}
-    op::row::median    column {height and depth}
+    op::band::median   depth  {width and height}
+    op::column::median height {height and depth}
+    op::row::median    width  {width and depth}
     op::tile::median   {}     {}
 } {
     # convenience wrapper around the general rank filter.
@@ -19,11 +19,6 @@ operator {dim unchanged} {
     section transform statistics
 
     def thing [lindex [split $__op :] 2]
-
-    if {$thing eq "tile"} {
-	uint radius Tile size as radius from center. \
-	    Full width and height of the tile are `2*radius+1`.
-    }
 
     input
 
@@ -35,8 +30,13 @@ operator {dim unchanged} {
     switch -exact -- $thing {
 	band   -
 	column -
-	row    { note The result is a single-$dim image with {*}$unchanged of the input }
+	row    {
+	    note The result is a single-$thing image with {*}$unchanged of the input
+	}
 	tile   {
+	    uint radius Tile size as radius from center. \
+		Full width and height of the tile are `2*radius+1`.
+
 	    note Beware, the operator consumes overlapping tiles, not just adjacent.
 
 	    note Beware, the result image is shrunken by 2*radius in width and height \
@@ -55,41 +55,28 @@ operator {dim unchanged} {
 
     # The median of the single-value median is the same value.
     # import ../simpler/idempotent.rules -- C
-    ## TODO :: allow simplification for Tcl operators as well.
+
+    simplify for \
+	src/type op::${thing}::rank \
+	src/value rank __rank \
+	if {$__rank == -1} \
+	src
 
     switch -exact -- $thing {
 	band   -
 	column -
 	row    {
-	    lappend map %%%% [dict get {
-		band   depth
-		column height
-		row    width
-	    } $thing]
-	    body [string map $map {
-		aktive simplify do \
-		    src/type op::@@thing@@::rank \
-		    src/value rank __rank \
-		    iff {$__rank == -1} \
-		    /src
-		#
-		aktive simplify do \
-		    src/attr %%%% __size iff {$__size == 1} \
-		    /src
-		#
-		rank $src rank -1
-	    }]
-	    unset map
-	}
-	tile   {
+	    simplify for \
+		src/attr $dim __size if {$__size == 1} \
+		src
+
 	    body {
-		aktive simplify do \
-		    src/type op::@@thing@@::rank \
-		    src/value rank __rank \
-		    iff {$__rank == -1} \
-		    /src
-		#
-		rank $src radius $radius rank -1
+		rank $src rank -1
+	    }
+	}
+	tile {
+	    body {
+		rank $src rank -1 radius $radius
 	    }
 	}
     }

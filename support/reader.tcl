@@ -355,8 +355,7 @@ proc ::dsl::reader::Pixels {fields setup cleanup fetch map} { ;#puts [info level
 }
 
 proc dsl::reader::simplify {args} {
-    OkModes {} C
-    Set opmode C
+    OkModes {} C Tcl
     LappendX opspec overlays $args
 }
 

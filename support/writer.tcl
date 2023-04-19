@@ -1483,7 +1483,7 @@ proc dsl::writer::OperatorOverlaysForOp {op} {
     }
     foreach hint [dict get $spec overlays] {
 	#::puts ////////////////////////////////////////////////
-	+ "    aktive simplify do [TranslateHint {*}$hint]"
+	+ "    ::aktive simplify do [TranslateHint {*}$hint]"
     }
 
     + "    I[namespace tail $op] [ProcCallWords $spec]"
@@ -1679,6 +1679,11 @@ proc dsl::writer::OperatorTclProcs {} {
 	+ {}
 	+ "proc aktive::$op \{[ProcArguments $spec]\} \{"
 	ProcArgumentSetup $spec
+	if {[OpHasOverlays $op]} {
+	    foreach hint [dict get $spec overlays] {
+		+ "    ::aktive simplify do [TranslateHint {*}$hint]"
+	    }
+	}
 	+ [FormatCode [dict get $spec body] {    }]
 	+ "\}"
 	+ {}
