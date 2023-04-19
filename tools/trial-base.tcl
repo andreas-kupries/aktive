@@ -23,10 +23,12 @@ source [file join $tests support paths.tcl]
 
 # ------------------------------------------------------------------------------
 
-proc photo {i} {
+proc photo {i {title {}}} {
     set w [topl]
     set n [cid]
     set f ._photo$n
+
+    if {$title ne {}} { wm title $w $title }
 
     switch -exact -- [aktive query depth $i] {
 	1 { append f .pgm ; pgm $f $i }
@@ -45,12 +47,15 @@ proc photo {i} {
 proc plot {series {title {}}} {
     package require aktive::plot
 
-    if {$title ne {}} { set title [list -title $title] }
-
     set w [topl]
     set v ::s[cid]
 
     set $v $series
+
+    if {$title ne {}} {
+	wm title $w $title
+	set title [list -title $title]
+    }
 
     aktive::plot $w.plot -variable $v -xlocked 0 -ylocked 0 {*}$title
     pack $w.plot -expand 1 -fill both -side left
