@@ -4,9 +4,16 @@
 #ifndef BANDS
 #error No bands set
 #endif
-#ifndef BANDTYPE
-# error No band type set
+#ifndef BANDCODE
+# error No band code set
 #endif
+
+#if BANDCODE == 1
+#define BANDTYPE uint8_t
+#else
+#define BANDTYPE uint16_t
+#endif
+
 
 #define BANDSZ sizeof(BANDTYPE)	// bytes needed for a single cell
 #define BYTES (BANDS * BANDSZ)	// bytes needed for a single column
@@ -69,7 +76,7 @@ double* vbase = v;
 
 for (i = 0; i < got; i++, v++, raw++) {
     BANDTYPE vr = *raw;
-#if BANDTYPE == uint8_t
+#if BANDCODE == 1
     TRACE ("ingest [%8d] %5u /raw ...... [%02x]", i, vr, (int)((char*)&vr)[0]);
 
     *v = vr * scale;
@@ -95,6 +102,7 @@ TRACE_RETURN_VOID;
 
 #undef E
 #undef BANDS
+#undef BANDCODE
 #undef BANDTYPE
 #undef BANDSZ
 #undef BYTES

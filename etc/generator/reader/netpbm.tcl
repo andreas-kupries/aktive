@@ -54,6 +54,7 @@ operator read::from::netpbm {
 
 	state->data = aktive_path_open (&istate->path);
 	if (!state->data) aktive_failf ("failed to open path %s", istate->path.string);
+	aktive_read_setup_binary (state->data);
 
 	state->info  = &istate->header;
 	state->cache = 0;

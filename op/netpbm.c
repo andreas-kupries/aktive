@@ -369,14 +369,14 @@ aktive_netpbm_read_header (Tcl_Channel src, aktive_netpbm_header* info)
 D (pgm_byte)	// single band, binary, byte
 {
 #define BANDS    1
-#define BANDTYPE uint8_t
+#define BANDCODE 1
 #include <netpbm_binread.h>
 }
 
 D (pgm_short)	// single band, binary, short
 {
 #define BANDS      1
-#define BANDTYPE   uint16_t
+#define BANDCODE   2
 #define PROCESS(x) x = SWAP16 (x)
 #include <netpbm_binread.h>
 }
@@ -394,14 +394,14 @@ D (pgm_etext)
 D (ppm_byte)	// 3 band, binary, byte
 {
 #define BANDS      3
-#define BANDTYPE   uint8_t
+#define BANDCODE   1
 #include <netpbm_binread.h>
 }
 
 D (ppm_short)	// 3 band, binary, short
 {
 #define BANDS      3
-#define BANDTYPE   uint16_t
+#define BANDCODE   2
 #define PROCESS(x) x = SWAP16 (x)
 #include <netpbm_binread.h>
 }
