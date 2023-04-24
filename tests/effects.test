@@ -39,6 +39,22 @@ test aktive-effect-charcoal-2.1 "aktive effect charcoal, light" -body {
     aspgm aktive effect charcoal $in light yes
 } -match content/string -result [R bf-charcoal-light.pgm]
 
+test aktive-effect-emboss-2.0 "aktive effect emboss" -body {
+    asppm aktive effect emboss $in
+} -match content/string -result [R bf-emboss.ppm]
+
+test aktive-effect-sharpen-2.0 "aktive effect sharpen" -body {
+    asppm aktive effect sharpen $in
+} -match content/string -result [R bf-sharpen.ppm]
+
+test aktive-effect-blur-2.0 "aktive effect blur radius 2 (default)" -body {
+    asppm aktive effect blur $in
+} -match content/string -result [R bf-blur-2.ppm]
+
+test aktive-effect-blur-2.1 "aktive effect blur radius 4" -body {
+    asppm aktive effect blur $in radius 4
+} -match content/string -result [R bf-blur-4.ppm]
+
 # # ## ### ##### ######## ############# #####################
 unset in
 cleanupTests

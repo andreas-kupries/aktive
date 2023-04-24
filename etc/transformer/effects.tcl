@@ -5,6 +5,46 @@
 # # ## ### ##### ######## ############# #####################
 ##
 
+operator effect::emboss {
+    section transform effect
+
+    note Returns embossed input.
+
+    input
+
+    body {
+	set k   [aktive image kernel emboss]
+	set src [aktive op convolve xy $k $src]
+	set src [aktive op math1 fit min-max $src]
+    }
+}
+
+operator effect::sharpen {
+    section transform effect
+
+    note Returns sharpened input.
+
+    input
+
+    body {
+	aktive op convolve xy [aktive image kernel laplace X1] $src
+    }
+}
+
+operator effect::blur {
+    section transform effect
+
+    note Returns blurred input, per the specified blur radius.
+
+    input
+
+    double? 2 radius Blur kernel radius. Defaults to 2.
+
+    body {
+	aktive op convolve xy [aktive image kernel gauss discrete sigma [expr {$radius/3.0}]] $src
+    }
+}
+
 operator effect::sketch {
     section transform effect
 
