@@ -243,6 +243,87 @@ operator op::math1::linear {
     }
 }
 
+operator op::math1::fit::min-max {
+    section transform math unary
+
+    note Returns image fitted into the given range. Default range is 0..1.
+
+    note Each band of the image is fitted separately.
+
+    note The actual min and max values of the image bands are used to \
+	compute the necessary fit.
+
+    note BEWARE, this means that construction incurs a computation \
+	cost on the input.
+
+    double? 0 min	Minimum value to fit the image to
+    double? 1 max	Maximum value to fit the image to
+
+    input
+
+    body {
+	aktive op montage z {*}[lmap band [aktive op split z $src] {
+	    set srcmin [aktive op image min $band]
+	    set srcmax [aktive op image max $band]
+
+	    #     max = fit (srcmax) = scale*srcmax + gain
+	    #     min = fit (srcmin) = scale*srcmin + gain
+	    # <=> max-min            = scale*(srcmax-srcmin)
+	    # <=> scale              = (max-min) / (srcmax - srcmin)
+	    # =>  gain               = min - scale * srcmin
+	    # =>  gain               = max - scale * srcmax
+
+	    set scale [expr {double($max-$min)/double($srcmax-$srcmin)}]
+	    set gain  [expr {$min - ($scale * $srcmin)}]
+
+	    aktive op math1 linear $band scale $scale gain $gain
+	}]
+    }
+}
+
+operator op::math1::fit::mean-stddev {
+    section transform math unary
+
+    note Returns image fitted into the given range. Default range is 0..1.
+
+    note Each band of the image is fitted separately.
+
+    note The actual mean and standard deviation of the image bands are \
+	used to compute the necessary fit.
+
+    note BEWARE, this means that construction incurs a computation \
+	cost on the input.
+
+    double? 0 min	Minimum value to fit the image to.
+    double? 1 max	Maximum value to fit the image to.
+    double? 1.2 sigma   Interval around the mean to fit into the min/max range.
+
+    input
+
+    body {
+	aktive op montage z {*}[lmap band [aktive op split z $src] {
+	    set m [aktive op image mean   $band]
+	    set s [aktive op image stddev $band]
+
+	    set srcmin [expr {$m - $s * $sigma}]
+	    set srcmax [expr {$m + $s * $sigma}]
+
+	    #     max = fit (srcmax) = scale*srcmax + gain
+	    #     min = fit (srcmin) = scale*srcmin + gain
+	    # <=> max-min            = scale*(srcmax-srcmin)
+	    # <=> scale              = (max-min) / (srcmax - srcmin)
+	    # =>  gain               = min - scale * srcmin
+	    # =>  gain               = max - scale * srcmax
+
+	    set scale [expr {double($max-$min)/double($srcmax-$srcmin)}]
+	    set gain  [expr {$min - ($scale * $srcmin)}]
+
+	    aktive op math1 clamp \
+		[aktive op math1 linear $band scale $scale gain $gain]
+	}]
+    }
+}
+
 ##
 # # ## ### ##### ######## ############# #####################
 ::return

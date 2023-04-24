@@ -27,8 +27,17 @@ syntax {
     linear     {src args}
 } {aktive op math1}
 
+syntax {
+    min-max     {src args}
+    mean-stddev {src args}
+} {aktive op math1 fit}
+
 # # ## ### ##### ######## ############# #####################
 ##
+
+set in [aktive image gradient width 7 height 1 depth 1 first -3 last 3]
+
+# # ## ### ##### ######## ############# #####################
 
 #              -3 -2 -1 0 1 2 3
 foreach {fun expected} {
@@ -42,16 +51,16 @@ foreach {fun expected} {
     outside-cc {1 1 0 0 0 1 1}
 } {
     # puts   "\nXX $fun ........................................................................"
-    # puts   "XX INPUT [dict get [astcl aktive image gradient $steps 1 1 $first $last] pixels]"
-    # puts   "XX RESLT [dict get [astcl aktive op math1 $fun [aktive image gradient $steps 1 1 $first $last]] pixels]"
+    # puts   "XX INPUT [dict get [astcl aktive image gradient 7 1 1 -3 3] pixels]"
+    # puts   "XX RESLT [dict get [astcl aktive op math1 $fun [aktive image gradient 7 1 1 -3 3]] pixels]"
     # puts   "XX EXP.. $expected\n"
 
     test aktive-op-math1-${fun}-2.0 "aktive math1 $fun" -body {
-	astcl aktive op math1 $fun [aktive image gradient width 7 height 1 depth 1 first -3 last 3] low -1 high 1
+	astcl aktive op math1 $fun $in low -1 high 1
     } -match image -result [makei op::math1::$fun 0 0 7 1 1 {low -1.0 high 1.0} $expected]
 
     test aktive-op-math1-${fun}-2.1 "aktive math1 $fun, dag" -body {
-	dag aktive op math1 $fun [aktive image gradient width 7 height 1 depth 1 first -3 last 3] low -1 high 1
+	dag aktive op math1 $fun $in low -1 high 1
     } -match glob -result "op::math1::$fun * {*} {image::gradient *}"
 
     test aktive-op-math1-${fun}-2.2 "aktive math1 $fun, const folding, dag" -body {
@@ -60,11 +69,12 @@ foreach {fun expected} {
 }
 
 # # ## ### ##### ######## ############# #####################
+## linear
 
 set expected {4 3 2 1 0 -1 -2}
 
 test aktive-op-math1-linear-2.0 "aktive math1 linear" -body {
-    astcl aktive op math1 linear [aktive image gradient width 7 height 1 depth 1 first -3 last 3] scale -1 gain 1
+    astcl aktive op math1 linear $in scale -1 gain 1
 } -match image -result [makei op::math1::shift 0 0 7 1 1 {offset 1.0} $expected]
 
 test aktive-op-math1-linear-2.1 "aktive math1 linear, dag" -body {
@@ -76,7 +86,19 @@ test aktive-op-math1-linear-2.2 "aktive math1 linear, const folding, dag" -body 
 } -match glob -result {image::from::value *}
 
 # # ## ### ##### ######## ############# #####################
+## fit (min-max, mean-stddev)
 
-unset fun expected
+test aktive-op-math1-fit-min-max-2.0 "aktive math1 min-max (into 0..1)" -body {
+    pixels aktive op math1 fit min-max $in
+} -match pixels -result {0 0.16667 0.33333 0.5 0.66667 0.83333 1}
+
+test aktive-op-math1-fit-mean-stddev-2.0 "aktive math1 mean-stddev (into 0..1)" -body {
+    pixels aktive op math1 fit mean-stddev $in
+} -match pixels -result {0 0.083333 0.29167 0.5 0.70833 0.91667 1}
+#                       -3 -2 -1 0 1 2 3
+
+# # ## ### ##### ######## ############# #####################
+
+unset in fun expected
 cleanupTests
 return

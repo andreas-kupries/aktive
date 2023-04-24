@@ -5,7 +5,7 @@
 
 proc 4f  {xs} { lmap x $xs { format %.4f $x }}
 proc u8f {xs} { lmap x $xs { expr { $x / 255. } } }
-proc fu8 {xs} { lmap x $xs { expr { round ($x * 255.) } } }
+proc fu8 {xs} { lmap x $xs { expr { int ($x * 255.) } } }
 
 # Run image operation. Record operation (coverage)
 
