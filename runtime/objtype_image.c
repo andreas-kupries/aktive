@@ -55,7 +55,7 @@ aktive_image_from_obj (Tcl_Interp* interp, Tcl_Obj* obj, aktive_image* dst) {
 
     if (obj->typePtr != &aktive_image_objtype) {
 	if (interp) {
-	    Tcl_SetObjResult (interp, Tcl_NewStringObj ("not an image", -1));
+	    Tcl_SetObjResult (interp, Tcl_ObjPrintf ("not an image: %s", Tcl_GetString (obj)));
 	}
 	TRACE_RETURN ("(error) %d", TCL_ERROR);
     }
