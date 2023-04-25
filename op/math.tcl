@@ -76,5 +76,9 @@ foreach {fun cfun} {
     } double "return $cfun (x, a, b);"
 }
 
+critcl::cproc ::aktive::mathfunc::lanczos {
+    int order double x
+} double "return aktive_lanczos (order, x);"
+
 # # ## ### ##### ######## #############
 return

@@ -164,6 +164,18 @@ extern double aktive_cmath_sqabs (double complex a)
  * - - -- --- ----- -------- -------------
  */
 
+extern double
+aktive_lanczos (int order, double x)
+{
+    if (x < 0) x = -x;
+    if (x >= order) return 0;
+    if (x == 0)     return 1;
+    x *= M_PI;
+    double a = (double) order;
+    double r = a * sin(x) * sin(x/a) / (x*x);
+    return r;
+}
+
 /*
  * = = == === ===== ======== ============= =====================
  * Local Variables:

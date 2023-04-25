@@ -149,6 +149,48 @@ operator image::kernel::gauss::discrete {
     }
 }
 
+
+# # ## ### ##### ######## ############# #####################
+
+operator image::kernel::lanczos {
+    section generator virtual
+
+    # Reference: https://en.wikipedia.org/wiki/Lanczos_resampling#Lanczos_kernel
+
+    uint?   3 order Order of the lanczos kernel. Acceptable minimum is 2.
+    double? 1 step  X-delta between kernel elements.
+
+    note Returns lanczos convolution kernel of the specified order. \
+	The default order is 3. Step expands the kernel to the given \
+	resolution (default 1).
+
+    note For more about the math see \
+	https://en.wikipedia.org/wiki/Lanczos_resampling#Lanczos_kernel
+
+    body {
+	if {$order < 2} {
+	    return -code error -errorCode {ARITH DOMAIN INVALID} {Invalid order, has to be >= 2}
+	}
+
+	# Compute the upper half of the kernel (0...order)
+
+	set steps [expr {ceil(double($order)/double($step))}]
+	set table {}
+	for {set n 0} {$n < $steps} {incr n} {
+	    set v [expr {lanczos($order, $n*$step)}]
+	    lappend table $v
+	}
+
+	# Compute lower half of the table as reflection of the upper half, and join the pieces.
+	if {[llength $table] > 1} {
+	    set table [linsert $table 0 {*}[lreverse [lrange $table 1 end]]]
+	}
+
+	# At last construct and return the kernel
+	aktive image from matrix width [llength $table] height 1 values {*}$table
+    }
+}
+
 ##
 # # ## ### ##### ######## ############# #####################
 ::return

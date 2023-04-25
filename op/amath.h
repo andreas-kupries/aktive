@@ -86,6 +86,8 @@ extern double complex aktive_cmath_sign       (double complex a);
 
 extern double         aktive_cmath_sqabs      (double complex a);
 
+extern double aktive_lanczos (int order, double x);
+
 /*
  * = = == === ===== ======== ============= =====================
  * Local Variables:
