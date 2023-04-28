@@ -38,6 +38,13 @@ operator read::from::netpbm {
 			     state->header.depth);
 
 	aktive_path_copy (&state->path, param->path);
+
+	const char* cspace = (state->header.depth == 1 ? "gray" : "sRGB");
+
+	Tcl_Obj* netpbm = 0;
+	aktive_meta_set_int    (&netpbm, "maxval", state->header.maxval);
+	aktive_meta_set        (meta, "netpbm", netpbm);
+	aktive_meta_set_string (meta, "colorspace", cspace);
     }
 
     pixels -state {

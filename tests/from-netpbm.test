@@ -24,8 +24,12 @@ syntax {
 ## NYI TODO text/etext formats
 
 set bands {
-    .pgm 1
-    .ppm 3
+    .pgm {1 gray}
+    .ppm {3 sRGB}
+}
+set maxv {
+    byte  255
+    short 65535
 }
 
 # Note: The conversion from double to uint when writing the asset files introduced quantization
@@ -93,11 +97,16 @@ foreach {k name expected} {
     }
 } {
     set type  [file rootname $name]
-    set depth [dict get $bands [file extension $name]]
+    lassign [dict get $bands [file extension $name]] depth colors
+    set meta {}
+    dict set meta netpbm maxval [dict get $maxv $type]
+    dict set meta colorspace $colors
 
     test aktive-read-from-netpbm-2.$k-${type}-$depth "aktive read from netpbm ($type, depth $depth)" -body {
 	astcl aktive read from netpbm path [R format-$name]
-    } -match image -result [makei read::from::netpbm 0 0 8 8 $depth [dict create path [R format-$name]] $expected]
+    } -match image -result [makei read::from::netpbm 0 0 8 8 $depth \
+				[dict create path [R format-$name]] \
+				$expected $meta]
 }
 
 # # ## ### ##### ######## ############# #####################
