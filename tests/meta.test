@@ -1,0 +1,200 @@
+# -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
+## (c) 2023 Andreas Kupries
+# # ## ### ##### ######## ############# #####################
+## AKTIVE. Meta data querying and manipulation
+
+kt check Tcl     8.6
+kt check tcltest 2
+
+# # ## ### ##### ######## ############# #####################
+
+kt local testing aktive
+
+kt source support/util.tcl
+
+# # ## ### ##### ######## ############# #####################
+## Syntax
+
+syntax {
+    append  {src key args}
+    create  {src args}
+    exists  {src args}
+    filter  {src type args}
+    for     {src vars body}
+    get     {src args}
+    incr    {src key ?increment?}
+    keys     src
+    lappend {src key args}
+    map     {src vars body}
+    merge   {src args}
+    remove  {src args}
+    replace {src args}
+    set     {src args}
+    size     src
+    unset   {src args}
+    values   src
+} {aktive meta}
+
+# # ## ### ##### ######## ############# #####################
+##
+
+## [..] filter
+
+# # ## ### ##### ######## ############# #####################
+## TODO :: image id's to compare / check pass through vs not
+## TODO :: DAG?
+## TODO :: ? fail cases
+
+# # ## ### ##### ######## ############# #####################
+##
+
+test aktive-meta-create-2.0 "aktive meta create" -body {
+     meta aktive meta create [grad] hello world foo bar mode 1
+} -match dict -result {
+    hello world
+    foo   bar
+    mode  1
+}
+
+# # ## ### ##### ######## ############# #####################
+
+test aktive-meta-exists-2.0 "aktive meta exists" -body {
+    aktive meta exists [mdbase] hello
+} -result 1
+
+test aktive-meta-exists-2.1 "aktive meta exists" -body {
+    aktive meta exists [mdbase] hell
+} -result 0
+
+test aktive-meta-get-2.0 "aktive meta get" -body {
+    aktive meta get [mdbase] hello
+} -result world
+
+test aktive-meta-keys-2.0 "aktive meta keys" -body {
+    aktive meta keys [mdbase]
+} -result {hello foo mode max}
+
+test aktive-meta-size-2.0 "aktive meta size" -body {
+    aktive meta size [mdbase]
+} -result 4
+
+test aktive-meta-values-2.0 "aktive meta values" -body {
+    aktive meta values [mdbase]
+} -result {world bar 1 33}
+
+# # ## ### ##### ######## ############# #####################
+
+test aktive-meta-merge-2.0 "aktive meta merge" -body {
+    meta aktive meta merge [mdbase] {hello friend world wide}
+} -match dict -result {
+    hello friend
+    world wide
+    foo   bar
+    mode  1
+    max   33
+}
+
+test aktive-meta-remove-2.0 "aktive meta remove" -body {
+    meta aktive meta remove [mdbase] hello bogus
+} -match dict -result {
+    foo   bar
+    mode  1
+    max   33
+}
+
+test aktive-meta-replace-2.0 "aktive meta replace" -body {
+    meta aktive meta replace [mdbase] hello friend world wide
+} -match dict -result {
+    hello friend
+    world wide
+    foo   bar
+    mode  1
+    max   33
+}
+
+# # ## ### ##### ######## ############# #####################
+
+test aktive-meta-set-2.0 "aktive meta set" -body {
+    meta aktive meta set [mdbase] hello friend
+} -match dict -result {
+    hello friend
+    foo   bar
+    mode  1
+    max   33
+}
+
+test aktive-meta-unset-2.0 "aktive meta unset" -body {
+    meta aktive meta unset [mdbase] hello
+} -match dict -result {
+    foo   bar
+    mode  1
+    max   33
+}
+
+# # ## ### ##### ######## ############# #####################
+
+test aktive-meta-append-2.0 "aktive meta append" -body {
+    meta aktive meta append [mdbase] hello wide
+} -match dict -result {
+    hello worldwide
+    foo   bar
+    mode  1
+    max   33
+}
+
+test aktive-meta-lappend-2.0 "aktive meta lappend" -body {
+    meta aktive meta lappend [mdbase] hello wide
+} -match dict -result {
+    hello {world wide}
+    foo   bar
+    mode  1
+    max   33
+}
+
+test aktive-meta-incr-2.0 "aktive meta incr" -body {
+    meta aktive meta incr [mdbase] mode
+} -match dict -result {
+    hello world
+    foo   bar
+    mode  2
+    max   33
+}
+
+# # ## ### ##### ######## ############# #####################
+
+test aktive-meta-for-2.0 "aktive meta for" -setup {
+    set r {}
+} -body {
+    aktive meta for [mdbase] {k v} {
+	lappend r $k/$v
+    }
+    lsort -dict $r
+} -cleanup {
+    unset r k v
+} -result {foo/bar hello/world max/33 mode/1}
+
+test aktive-meta-map-2.0 "aktive meta map" -body {
+    meta aktive meta map [mdbase] {k v} {
+	string cat $k / $v
+    }
+} -match dict -result {
+    foo   foo/bar
+    hello hello/world
+    max   max/33
+    mode  mode/1
+}
+
+# # ## ### ##### ######## ############# #####################
+
+test aktive-meta-filter-2.0 "aktive meta filter" -setup {
+    set r {}
+} -body {
+    meta aktive meta filter [mdbase] key *m*
+} -match dict -result {
+    max 33
+    mode 1
+}
+
+# # ## ### ##### ######## ############# #####################
+cleanupTests
+return
