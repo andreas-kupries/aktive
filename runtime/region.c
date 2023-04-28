@@ -23,7 +23,7 @@ TRACE_TAG_OFF (fetch);
 extern aktive_region
 aktive_region_new (aktive_image image, aktive_context c)
 {
-    TRACE_FUNC("((image) %p '%s'", image, image->opspec->name);
+    TRACE_FUNC("((image) %p '%s'", image, image->content->opspec->name);
 
     // Reuse region from context, if any
 
@@ -48,30 +48,32 @@ aktive_region_new (aktive_image image, aktive_context c)
 
     // Generate regions representing the inputs, if any -- Passing the context
 
-    if (image->public.srcs.c) {
-	aktive_region_vector_new (&region->public.srcs, image->public.srcs.c);
+    aktive_image_content content = image->content;
+
+    if (content->public.srcs.c) {
+	aktive_region_vector_new (&region->public.srcs, content->public.srcs.c);
 	for (unsigned int i = 0; i < region->public.srcs.c; i++) {
-	    region->public.srcs.v [i] = aktive_region_new (image->public.srcs.v [i], c);
+	    region->public.srcs.v [i] = aktive_region_new (content->public.srcs.v [i], c);
 	}
     }
 
     // Initialize local pointers to important structures
 
-    region->public.domain = &image->public.domain;
-    region->public.param  = image->public.param;
-    region->opspec        = image->opspec;
+    region->public.domain = &content->public.domain;
+    region->public.param  = content->public.param;
+    region->opspec        = content->opspec;
 
     /* Note: The width and height values will be later replaced with data from
      * the area requested to be fetched
      */
-    aktive_geometry_copy (&region->pixels.domain, &image->public.domain);
+    aktive_geometry_copy (&region->pixels.domain, &content->public.domain);
     region->pixels.region = region;
 
     // Initialize region state, if any
-    region->public.istate = image->public.state;
+    region->public.istate = content->public.state;
 
-    if (image->opspec->region_setup) {
-	image->opspec->region_setup (&region->public);
+    if (region->opspec->region_setup) {
+	region->opspec->region_setup (&region->public);
     }
 
     if (aktive_error_raised ()) {
@@ -111,9 +113,11 @@ aktive_region_destroy (aktive_region region)
 	    // These were shared and destroyed already. Destroy the others and
 	    // signal that to future users by removal from the context.
 
+	    aktive_image* cv = region->origin->content->public.srcs.v;
+
 	    for (unsigned int i = 0; i < region->public.srcs.c; i++) {
 
-		aktive_image src = region->origin->public.srcs.v [i];
+		aktive_image src = cv [i];
 		if (!aktive_context_has (region->c, src)) continue;
 
 		aktive_region_destroy (region->public.srcs.v [i]);
@@ -256,7 +260,7 @@ aktive_region_fetch_area (aktive_region region, aktive_rectangle* request)
      */
 
     aktive_rectangle domain;
-    aktive_rectangle_from_geometry (&domain, &region->origin->public.domain);
+    aktive_rectangle_from_geometry (&domain, &region->origin->content->public.domain);
 
     if (aktive_rectangle_is_subset (request, &domain)) {
 	// Special case (a). The entire request has to be served by the fetcher.

@@ -33,7 +33,7 @@ operator query::type {
 }
 
 operator query::location {
-    section accessor
+    section accessor geometry
 
     note Returns 2D image location, a 2D point.
 
@@ -45,7 +45,7 @@ operator query::location {
 }
 
 operator query::domain {
-    section accessor
+    section accessor geometry
 
     note Returns image domain, a 2D rectangle.
 
@@ -57,7 +57,7 @@ operator query::domain {
 }
 
 operator query::geometry {
-    section accessor
+    section accessor geometry
 
     note Returns full image geometry, i.e. domain plus depth.
 
@@ -74,7 +74,7 @@ operator attribute {
     query::y    y
     query::ymax ymax
 } {
-    section accessor
+    section accessor geometry
 
     note Returns image $attribute location.
 
@@ -94,7 +94,7 @@ operator attribute {
     query::pitch  pitch
     query::size   size
 } {
-    section accessor
+    section accessor geometry
 
     note Returns image ${attribute}.
 
@@ -151,6 +151,20 @@ operator query::setup {
 
     return object0 {
 	Tcl_Obj* r = aktive_op_setup (ip, src);
+	return r;
+    }
+}
+
+operator query::meta {
+    section accessor metadata
+
+    note Returns the image meta data (a Tcl dictionary).
+
+    input
+
+    return object0 {
+	Tcl_Obj* r = aktive_image_meta_get (src);
+	if (!r) { r = Tcl_NewDictObj (); }
 	return r;
     }
 }

@@ -80,8 +80,13 @@ proc dag/ {i} {
 proc pixels {args} { pixels/ [{*}$args] }
 proc pixels/ {i} { dict get [astcl/ $i] pixels }
 
+# Just the meta data
+
+proc meta {args} { meta/ [{*}$args] }
+proc meta/ {i} { aktive query meta $i }
+
 # Construct image in tcl representation for comparisons
-proc makei {op x y w h d config pixels} {
+proc makei {op x y w h d config pixels {meta {}}} {
     dict set domain x      $x
     dict set domain y      $y
     dict set domain width  $w
@@ -90,6 +95,7 @@ proc makei {op x y w h d config pixels} {
 
     dict set i type   $op
     dict set i domain $domain
+    if {$meta   ne {}} { dict set i meta   $meta }
     if {$config ne {}} { dict set i config $config }
     dict set i pixels $pixels
 

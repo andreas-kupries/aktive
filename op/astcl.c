@@ -34,6 +34,12 @@ aktive_op_astcl (Tcl_Interp* ip, aktive_image src) {
     Tcl_DictObjPut (ip, r, K ("type"),   K (aktive_image_get_type(src)->name));
     Tcl_DictObjPut (ip, r, K ("domain"), aktive_op_geometry (ip, src));
 
+
+    Tcl_Obj* meta = aktive_image_meta_get (src);
+    if (meta) {
+	Tcl_DictObjPut (ip, r, K("meta"),meta);
+    }
+
     Tcl_Obj* params = aktive_op_params (ip, src);
     if (params) {
 	Tcl_DictObjPut (ip, r, K("config"), params);

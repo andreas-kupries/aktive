@@ -23,6 +23,7 @@ syntax {
     id       src
     inputs   src
     location src
+    meta     src
     params   src
     pitch    src
     pixels   src
@@ -46,9 +47,11 @@ foreach {op value} {
     height   4
     inputs   {}
     location {0 0}
+    meta     {}
     params   {width 3 height 4 depth 2 first 1.0 last 12.5}
     pitch    6
     pixels   12
+    setup    {type image::gradient domain {x 0 y 0 width 3 height 4 depth 2} config {width 3 height 4 depth 2 first 1.0 last 12.5}}
     size     24
     type     image::gradient
     width    3
@@ -56,7 +59,6 @@ foreach {op value} {
     xmax     2
     y        0
     ymax     3
-    setup    {type image::gradient domain {x 0 y 0 width 3 height 4 depth 2} config {width 3 height 4 depth 2 first 1.0 last 12.5}}
 } {
     test aktive-query-${op}-2.0 "aktive query $op" -body {
 	check aktive query $op [grad]

@@ -25,57 +25,80 @@ aktive_image_new ( aktive_image_type*   opspec
                  ) {
     TRACE_FUNC("((opspec) %p '%s', (param) %p, (srcs) %p)", opspec, opspec->name, param, srcs);
 
-    /* Create new and clean image structure ... */
+    /* Create new and clean image structures ... */
 
     aktive_image r = ALLOC(struct aktive_image);
     memset (r, 0, sizeof(struct aktive_image));
+    // refcount == 0
+
+    aktive_image_content c = ALLOC(struct aktive_image_content);
+    memset (c, 0, sizeof(struct aktive_image_content));
+    // refcount == 0
+
+    r->content  = c;
+    c->refcount = 1;
 
     /* Initialize input images, if any */
 
     if (srcs) {
-	r->public.srcs = *srcs;
-	aktive_image_vector_heapify (&r->public.srcs);
-	for (aktive_uint i = 0; i < r->public.srcs.c; i++) {
-	    aktive_image_ref (r->public.srcs.v [i]); }
+	c->public.srcs = *srcs;
+	aktive_image_vector_heapify (&c->public.srcs);
+	for (aktive_uint i = 0; i < c->public.srcs.c; i++) {
+	    aktive_image_ref (c->public.srcs.v [i]); }
     }
 
     /* Initialize parameters, if any */
 
-    r->public.param = param;
+    c->public.param = param;
     if (param) {
 	void* p = NALLOC (char, opspec->sz_param);
 	memcpy (p, param, opspec->sz_param);
 	if (opspec->param_init) { opspec->param_init (p); }
-	r->public.param = p;
+	c->public.param = p;
     }
 
-    /* Initialize geometry, and state, if any */
+    /* Initialize geometry, meta data, and state, if any */
 
-    int ok = opspec->setup (&r->public);
+    int ok = opspec->setup (&c->public, &r->meta);
 
     if (!ok) {
-	// Inlined pieces of aktive_image_destroy
+	// Inlined pieces of `aktive_image_destroy`.
+	//
 	// Note, this assumes that the callback saved an error message via
 	// `aktive_fail/f` for the caller of `aktive_image_new` to pick up.
+	//
+	// Note further that we can simply destroy the image content because
+	// it cannot be shared, having been allocated unshared a few lines above.
 
-	for (aktive_uint i = 0; i < r->public.srcs.c; i++) {
-	    aktive_image_unref (r->public.srcs.v [i]); }
-	aktive_image_vector_free (&r->public.srcs);
+	for (aktive_uint i = 0; i < c->public.srcs.c; i++) {
+	    aktive_image_unref (c->public.srcs.v [i]); }
+	aktive_image_vector_free (&c->public.srcs);
 
-	if (r->public.param) {
-	    if (opspec->param_finish) { opspec->param_finish (r->public.param); }
-	    ckfree ((char*) r->public.param);
+	if (c->public.param) {
+	    if (opspec->param_finish) { opspec->param_finish (c->public.param); }
+	    ckfree ((char*) c->public.param);
 	}
+
+	ckfree ((char*) c);
 
 	TRACE_RETURN("(aktive_image) %p", 0);
     }
 
     /* Initialize type information and reference management */
 
-    r->opspec   = opspec;
-    r->refcount = 0;
+    c->opspec = opspec;
 
-    // TODO meta     -- opspec hook taking param, srcs -- returning Tcl_Obj*
+    /* Meta data defaults. If the operator has not done any meta data
+     * initialization in its setup hook then we inherit the meta data of the
+     * first input by default, if any.
+     */
+
+    if (!r->meta && c->public.srcs.c) {
+	r->meta = c->public.srcs.v [0]->meta;
+    }
+    if (r->meta) {
+	Tcl_IncrRefCount (r->meta);
+    }
 
     /* Done and return */
     TRACE_RETURN("(aktive_image) %p", r);
@@ -83,31 +106,41 @@ aktive_image_new ( aktive_image_type*   opspec
 
 extern void
 aktive_image_destroy (aktive_image image) {
-    TRACE_FUNC("((aktive_image) %p '%s'/%d)", image, image->opspec->name, image->refcount);
+    TRACE_FUNC("((aktive_image) %p '%s'/%d)", image, image->content->opspec->name, image->refcount);
 
-    /* Release custom state, if any, and necessary */
+    aktive_image_content c = image->content;
 
-    if (image->public.state) {
-	if (image->opspec->final) { image->opspec->final (image->public.state); }
-	ckfree ((char*) image->public.state);
+    if (c->refcount <= 1) {
+	/* Release custom state, if any, and necessary */
+
+	if (c->public.state) {
+	    if (c->opspec->final) { c->opspec->final (c->public.state); }
+	    ckfree ((char*) c->public.state);
+	}
+
+	/* Release parameters, if any, and necessary */
+
+	if (c->public.param) {
+	    if (c->opspec->param_finish) { c->opspec->param_finish (c->public.param); }
+	    ckfree ((char*) c->public.param);
+	}
+
+	/* Release inputs, if any */
+
+	for (aktive_uint i = 0; i < c->public.srcs.c; i++) {
+	    aktive_image_unref (c->public.srcs.v [i]); }
+	aktive_image_vector_free (&c->public.srcs);
+
+	/* Nothing to do for location and geometry */
+
+	ckfree ((char*) c);
+    } else {
+	c->refcount --;
     }
 
-    /* Release parameters, if any, and necessary */
-
-    if (image->public.param) {
-	if (image->opspec->param_finish) { image->opspec->param_finish (image->public.param); }
-	ckfree ((char*) image->public.param);
+    if (image->meta) {
+	Tcl_DecrRefCount (image->meta);
     }
-
-    // TODO meta
-
-    /* Release inputs, if any */
-
-    for (aktive_uint i = 0; i < image->public.srcs.c; i++) {
-	aktive_image_unref (image->public.srcs.v [i]); }
-    aktive_image_vector_free (&image->public.srcs);
-
-    /* Nothing to do for location and geometry */
 
     /* Release main structure */
     ckfree ((char*) image);
@@ -122,7 +155,7 @@ aktive_image_destroy (aktive_image image) {
 
 extern aktive_image
 aktive_image_check (Tcl_Interp* ip, aktive_image src) {
-    TRACE_FUNC("((aktive_image) %p '%s')", src, src ? src->opspec->name : 0);
+    TRACE_FUNC("((aktive_image) %p '%s')", src, src ? src->content->opspec->name : 0);
 
     if (!src) { aktive_error_set (ip); }
 
@@ -131,7 +164,7 @@ aktive_image_check (Tcl_Interp* ip, aktive_image src) {
 
 extern int
 aktive_image_unused (aktive_image image) {
-    TRACE_FUNC("((aktive_image) %p '%s'/%d)", image, image->opspec->name, image->refcount);
+    TRACE_FUNC("((aktive_image) %p '%s'/%d)", image, image->content->opspec->name, image->refcount);
 
     Tcl_MutexLock (&image->rclock);
     int rc = image->refcount;
@@ -142,7 +175,7 @@ aktive_image_unused (aktive_image image) {
 
 extern void
 aktive_image_ref (aktive_image image) {
-    TRACE_FUNC("((aktive_image) %p @ '%s'/%d)", image, image->opspec->name, image->refcount);
+    TRACE_FUNC("((aktive_image) %p @ '%s'/%d)", image, image->content->opspec->name, image->refcount);
 
     Tcl_MutexLock (&image->rclock);
     image->refcount ++;
@@ -153,7 +186,7 @@ aktive_image_ref (aktive_image image) {
 
 extern void
 aktive_image_unref (aktive_image image) {
-    TRACE_FUNC("((aktive_image) %p '%s'/%d)", image, image->opspec->name, image->refcount);
+    TRACE_FUNC("((aktive_image) %p '%s'/%d)", image, image->content->opspec->name, image->refcount);
 
     Tcl_MutexLock (&image->rclock);
     if (image->refcount > 1) {
@@ -179,137 +212,137 @@ aktive_image_unref (aktive_image image) {
 extern aktive_point*
 aktive_image_get_location (aktive_image image)
 {
-    TRACE_FUNC("((aktive_image) %p '%s'/%d)", image, image->opspec->name, image->refcount);
-    TRACE_RETURN ("(aktive_point*) %p", aktive_geometry_as_point (&image->public.domain));
+    TRACE_FUNC("((aktive_image) %p '%s'/%d)", image, image->content->opspec->name, image->refcount);
+    TRACE_RETURN ("(aktive_point*) %p", aktive_geometry_as_point (&image->content->public.domain));
 }
 
 extern aktive_rectangle*
 aktive_image_get_domain (aktive_image image)
 {
-    TRACE_FUNC("((aktive_image) %p '%s'/%d)", image, image->opspec->name, image->refcount);
-    TRACE_RETURN ("(aktive_rectangle*) %p", aktive_geometry_as_rectangle (&image->public.domain));
+    TRACE_FUNC("((aktive_image) %p '%s'/%d)", image, image->content->opspec->name, image->refcount);
+    TRACE_RETURN ("(aktive_rectangle*) %p", aktive_geometry_as_rectangle (&image->content->public.domain));
 }
 
 extern aktive_geometry*
 aktive_image_get_geometry (aktive_image image)
 {
-    TRACE_FUNC("((aktive_image) %p '%s'/%d)", image, image->opspec->name, image->refcount);
-    TRACE_RETURN ("(aktive_geometry*) %p", &image->public.domain);
+    TRACE_FUNC("((aktive_image) %p '%s'/%d)", image, image->content->opspec->name, image->refcount);
+    TRACE_RETURN ("(aktive_geometry*) %p", &image->content->public.domain);
 }
 
 extern int
 aktive_image_get_x (aktive_image image)
 {
-    TRACE_FUNC("((aktive_image) %p '%s'/%d)", image, image->opspec->name, image->refcount);
-    TRACE_RETURN ("(x) %d", aktive_geometry_get_x (&image->public.domain));
+    TRACE_FUNC("((aktive_image) %p '%s'/%d)", image, image->content->opspec->name, image->refcount);
+    TRACE_RETURN ("(x) %d", aktive_geometry_get_x (&image->content->public.domain));
 }
 
 extern int
 aktive_image_get_xmax (aktive_image image)
 {
-    TRACE_FUNC("((aktive_image) %p '%s'/%d)", image, image->opspec->name, image->refcount);
-    TRACE_RETURN ("(xmax) %d", aktive_geometry_get_xmax (&image->public.domain));
+    TRACE_FUNC("((aktive_image) %p '%s'/%d)", image, image->content->opspec->name, image->refcount);
+    TRACE_RETURN ("(xmax) %d", aktive_geometry_get_xmax (&image->content->public.domain));
 }
 
 extern int
 aktive_image_get_y (aktive_image image)
 {
-    TRACE_FUNC("((aktive_image) %p '%s'/%d)", image, image->opspec->name, image->refcount);
-    TRACE_RETURN ("(y) %d", aktive_geometry_get_y (&image->public.domain));
+    TRACE_FUNC("((aktive_image) %p '%s'/%d)", image, image->content->opspec->name, image->refcount);
+    TRACE_RETURN ("(y) %d", aktive_geometry_get_y (&image->content->public.domain));
 }
 
 extern int
 aktive_image_get_ymax (aktive_image image)
 {
-    TRACE_FUNC("((aktive_image) %p '%s'/%d)", image, image->opspec->name, image->refcount);
-    TRACE_RETURN ("(ymax) %d", aktive_geometry_get_ymax (&image->public.domain));
+    TRACE_FUNC("((aktive_image) %p '%s'/%d)", image, image->content->opspec->name, image->refcount);
+    TRACE_RETURN ("(ymax) %d", aktive_geometry_get_ymax (&image->content->public.domain));
 }
 
 extern aktive_uint
 aktive_image_get_width (aktive_image image)
 {
-    TRACE_FUNC("((aktive_image) %p '%s'/%d)", image, image->opspec->name, image->refcount);
-    TRACE_RETURN ("(width) %u", aktive_geometry_get_width (&image->public.domain));
+    TRACE_FUNC("((aktive_image) %p '%s'/%d)", image, image->content->opspec->name, image->refcount);
+    TRACE_RETURN ("(width) %u", aktive_geometry_get_width (&image->content->public.domain));
 }
 
 extern aktive_uint
 aktive_image_get_height (aktive_image image)
 {
-    TRACE_FUNC("((aktive_image) %p '%s'/%d)", image, image->opspec->name, image->refcount);
-    TRACE_RETURN ("(height) %u", aktive_geometry_get_height (&image->public.domain));
+    TRACE_FUNC("((aktive_image) %p '%s'/%d)", image, image->content->opspec->name, image->refcount);
+    TRACE_RETURN ("(height) %u", aktive_geometry_get_height (&image->content->public.domain));
 }
 
 extern aktive_uint
 aktive_image_get_depth (aktive_image image)
 {
-    TRACE_FUNC("((aktive_image) %p '%s'/%d)", image, image->opspec->name, image->refcount);
-    TRACE_RETURN ("(depth) %u", aktive_geometry_get_depth (&image->public.domain));
+    TRACE_FUNC("((aktive_image) %p '%s'/%d)", image, image->content->opspec->name, image->refcount);
+    TRACE_RETURN ("(depth) %u", aktive_geometry_get_depth (&image->content->public.domain));
 }
 
 extern aktive_uint
 aktive_image_get_pixels (aktive_image image)
 {
-    TRACE_FUNC("((aktive_image) %p '%s'/%d)", image, image->opspec->name, image->refcount);
-    TRACE_RETURN ("(pixels) %u", aktive_geometry_get_pixels (&image->public.domain));
+    TRACE_FUNC("((aktive_image) %p '%s'/%d)", image, image->content->opspec->name, image->refcount);
+    TRACE_RETURN ("(pixels) %u", aktive_geometry_get_pixels (&image->content->public.domain));
 }
 
 extern aktive_uint
 aktive_image_get_pitch (aktive_image image)
 {
-    TRACE_FUNC("((aktive_image) %p '%s'/%d)", image, image->opspec->name, image->refcount);
-    TRACE_RETURN ("(pitch) %u", aktive_geometry_get_pitch (&image->public.domain));
+    TRACE_FUNC("((aktive_image) %p '%s'/%d)", image, image->content->opspec->name, image->refcount);
+    TRACE_RETURN ("(pitch) %u", aktive_geometry_get_pitch (&image->content->public.domain));
 }
 
 extern aktive_uint
 aktive_image_get_size (aktive_image image)
 {
-    TRACE_FUNC("((aktive_image) %p '%s'/%d)", image, image->opspec->name, image->refcount);
-    TRACE_RETURN ("(size) %u", aktive_geometry_get_size (&image->public.domain));
+    TRACE_FUNC("((aktive_image) %p '%s'/%d)", image, image->content->opspec->name, image->refcount);
+    TRACE_RETURN ("(size) %u", aktive_geometry_get_size (&image->content->public.domain));
 }
 
 extern aktive_image_type*
 aktive_image_get_type (aktive_image image)
 {
-    TRACE_FUNC("((aktive_image) %p '%s'/%d)", image, image->opspec->name, image->refcount);
-    TRACE_RETURN ("(type) '%p'", image->opspec);
+    TRACE_FUNC("((aktive_image) %p '%s'/%d)", image, image->content->opspec->name, image->refcount);
+    TRACE_RETURN ("(type) '%p'", image->content->opspec);
 }
 
 extern aktive_uint
 aktive_image_get_nsrcs (aktive_image image)
 {
-    TRACE_FUNC("((aktive_image) %p '%s'/%d)", image, image->opspec->name, image->refcount);
-    TRACE_RETURN ("(nsrcs) %d", image->public.srcs.c);
+    TRACE_FUNC("((aktive_image) %p '%s'/%d)", image, image->content->opspec->name, image->refcount);
+    TRACE_RETURN ("(nsrcs) %d", image->content->public.srcs.c);
 }
 
 extern aktive_image
 aktive_image_get_src (aktive_image image, aktive_uint i)
 {
-    TRACE_FUNC("((aktive_image) %p '%s'/%d)", image, image->opspec->name, image->refcount);
+    TRACE_FUNC("((aktive_image) %p '%s'/%d)", image, image->content->opspec->name, image->refcount);
 
-    if (i >= image->public.srcs.c) {
+    if (i >= image->content->public.srcs.c) {
 	TRACE_RETURN ("(src) %p", 0);
     }
 
-    TRACE_RETURN ("(src) '%p'", image->public.srcs.v [i]);
+    TRACE_RETURN ("(src) '%p'", image->content->public.srcs.v [i]);
 }
 
 extern aktive_uint
 aktive_image_get_nparams (aktive_image image)
 {
-    TRACE_FUNC("((aktive_image) %p '%s'/%d)", image, image->opspec->name, image->refcount);
-    TRACE_RETURN ("(nparams) %d", image->opspec->n_param);
+    TRACE_FUNC("((aktive_image) %p '%s'/%d)", image, image->content->opspec->name, image->refcount);
+    TRACE_RETURN ("(nparams) %d", image->content->opspec->n_param);
 }
 
 extern const char*
 aktive_image_get_param_name (aktive_image image, aktive_uint i)
 {
-    TRACE_FUNC("((aktive_image) %p '%s'/%d)", image, image->opspec->name, image->refcount);
+    TRACE_FUNC("((aktive_image) %p '%s'/%d)", image, image->content->opspec->name, image->refcount);
 
-    if (i >= image->opspec->n_param) {
+    if (i >= image->content->opspec->n_param) {
 	TRACE_RETURN ("(name) %p", 0);
     }
 
-    const char* name = image->opspec->param [i].name;
+    const char* name = image->content->opspec->param [i].name;
 
     TRACE_RETURN ("(name) '%s'", name);
 }
@@ -317,13 +350,13 @@ aktive_image_get_param_name (aktive_image image, aktive_uint i)
 extern const char*
 aktive_image_get_param_desc (aktive_image image, aktive_uint i)
 {
-    TRACE_FUNC("((aktive_image) %p '%s'/%d)", image, image->opspec->name, image->refcount);
+    TRACE_FUNC("((aktive_image) %p '%s'/%d)", image, image->content->opspec->name, image->refcount);
 
-    if (i >= image->opspec->n_param) {
+    if (i >= image->content->opspec->n_param) {
 	TRACE_RETURN ("(desc) %p", 0);
     }
 
-    const char* desc = image->opspec->param [i].desc;
+    const char* desc = image->content->opspec->param [i].desc;
 
     TRACE_RETURN ("(desc) '%s'", desc);
 }
@@ -331,18 +364,100 @@ aktive_image_get_param_desc (aktive_image image, aktive_uint i)
 extern Tcl_Obj*
 aktive_image_get_param_value (aktive_image image, aktive_uint i, Tcl_Interp* interp)
 {
-    TRACE_FUNC("((aktive_image) %p '%s'/%d)", image, image->opspec->name, image->refcount);
+    TRACE_FUNC("((aktive_image) %p '%s'/%d)", image, image->content->opspec->name, image->refcount);
 
-    if (i >= image->opspec->n_param) {
+    if (i >= image->content->opspec->n_param) {
 	TRACE_RETURN ("(value) %p", 0);
     }
 
-    void*              field  = image->public.param  + image->opspec->param [i].offset;
-    aktive_param_value to_obj = image->opspec->param [i].to_obj;
+    void*              field  = image->content->public.param  + image->content->opspec->param [i].offset;
+    aktive_param_value to_obj = image->content->opspec->param [i].to_obj;
 
     Tcl_Obj* obj = to_obj (interp, field);
 
     TRACE_RETURN ("(value) %p", obj);
+}
+
+/*
+ * - - -- --- ----- -------- -------------
+ */
+
+extern Tcl_Obj*
+aktive_image_meta_get (aktive_image image)
+{
+    TRACE_FUNC("((aktive_image) %p '%s'/%d)", image, image->content->opspec->name, image->refcount);
+    TRACE_RETURN ("(value) %p", image->meta);
+}
+
+extern aktive_image
+aktive_image_meta_set (aktive_image image, Tcl_Obj* meta)
+{
+    TRACE_FUNC("((aktive_image) %p '%s'/%d)", image, image->content->opspec->name, image->refcount);
+
+    // TODO :: See if there is a case of shared image where in-place edit is still possible.
+    //             -- something for the meta edit operators to look at
+    //                ?? ref as operator argument + ref to variable
+
+    aktive_image r;
+
+    if (image->refcount <= 1) {
+	// Pass unshared image through, and replace meta in place.
+
+	r = image;
+	if (r->meta) { Tcl_DecrRefCount (r->meta); }
+
+    } else {
+	// New image structure with new meta data and using the content of the
+	// input image.
+
+	aktive_image r = ALLOC(struct aktive_image);
+	memset (r, 0, sizeof(struct aktive_image));
+	// refcount == 0
+
+	r->content = image->content;
+	r->content->refcount ++;
+    }
+
+    r->meta = meta;
+    if (r->meta) {
+	Tcl_IncrRefCount (r->meta);
+    }
+
+    TRACE_RETURN ("(aktive_image) %p", image);
+}
+
+/*
+ * - - -- --- ----- -------- -------------
+ */
+
+extern void
+aktive_meta_inherit (Tcl_Obj** meta, aktive_image src)
+{
+    if (*meta) { Tcl_DecrRefCount (*meta); }
+    *meta = src->meta;
+    if (*meta) { Tcl_IncrRefCount (*meta); }
+}
+
+extern void
+aktive_meta_set (Tcl_Obj** meta, const char* key, Tcl_Obj* value)
+{
+    if (! *meta) { *meta = Tcl_NewDictObj (); }
+    if (Tcl_IsShared (*meta)) { *meta = Tcl_DuplicateObj (*meta); }
+
+    Tcl_Obj* okey = Tcl_NewStringObj (key, -1);
+    Tcl_DictObjPut (NULL, *meta, okey, value);
+}
+
+extern void
+aktive_meta_set_string (Tcl_Obj** meta, const char* key, const char* value)
+{
+    aktive_meta_set (meta, key, Tcl_NewStringObj (value, -1));
+}
+
+extern void
+aktive_meta_set_int (Tcl_Obj** meta, const char* key, int value)
+{
+    aktive_meta_set (meta, key, Tcl_NewIntObj (value));
 }
 
 /*

@@ -19,6 +19,7 @@ customMatch listpix        matchPixelLists
 customMatch pixels         matchPixels
 customMatch content        matchFileContent
 customMatch content/string matchFileContentString
+customMatch dict           matchDict
 
 # # ## ### ##### ######## ############# #####################
 ## Automated wrong#args checking based on command name and argument

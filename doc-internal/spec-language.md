@@ -255,6 +255,7 @@ The fragment has access to the following variables:
 |srcs        |aktive_image_vector*      |Input images. May be empty                     |
 |domain	     |aktive_geometry*		|Operator geometry to initialize    		|
 |state       |(image-state-struct)*     |Operator image state to optionally initialize	|
+|meta        |Tcl_Obj**                 |Operator meta data to optionally initialize	|
 
 ###### `CLEANUP`
 

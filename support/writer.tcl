@@ -603,6 +603,9 @@ proc dsl::writer::COperatorFunctions {} {
 
     CHeader {operator function implementations}
 
+    + "#define NOSRCS NULL"
+    + ""
+
     foreach op [COperations] {
 	+ [OperatorFunctionForOp $op]
     }
@@ -701,7 +704,7 @@ proc dsl::writer::OperatorFunctionForOp {op} {
 
     if {${state/setup} ne {}} {
 	+ "static int"
-	+ "[StateSetupFuncname $op] (aktive_image_info* info) \{"
+	+ "[StateSetupFuncname $op] (aktive_image_info* info, Tcl_Obj** meta) \{"
 	+ "  TRACE_FUNC(\"((aktive_image_info*) %p)\", info);"
 
 	# Enhance fragment with code providing the info data in properly typed form.
@@ -1435,7 +1438,7 @@ proc dsl::writer::FunctionBodyImageConstructor {op spec} {
 	    append call ", &srcs"
 	}
     } else {
-	append call ", NULL"	;# No input images.
+	append call ", NOSRCS"	;# No input images.
     }
 
     + "  aktive_image r = aktive_image_new (&$opspecvar$call);"

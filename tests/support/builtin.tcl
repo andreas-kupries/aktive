@@ -3,6 +3,14 @@
 # # ## ### ##### ######## ############# #####################
 ## Test Utility Commands - Standard images for tests
 
+proc mdbase {} {
+    aktive meta create [grad] \
+	hello world \
+	foo bar \
+	mode 1 \
+	max 33
+}
+
 # grad -- input/gradient 3x4x2
 ##
 ##       0 ....   1......   2...... --- 3 columns
