@@ -55,7 +55,7 @@ proc matchImage {expected actual} {
 		    return 0
 		}
 	    }
-	    config - domain {
+	    config - domain - meta {
 		if {![matchDict $evalue $avalue]} {
 		    #puts "image config"
 		    return 0

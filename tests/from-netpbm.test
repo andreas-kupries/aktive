@@ -98,18 +98,22 @@ foreach {k name expected} {
 } {
     set type  [file rootname $name]
     lassign [dict get $bands [file extension $name]] depth colors
+
+    set rpath  [R format-$name]
+    set config [dict create path $rpath]
     set meta {}
     dict set meta netpbm maxval [dict get $maxv $type]
     dict set meta colorspace $colors
+    dict set meta path $rpath
 
     test aktive-read-from-netpbm-2.$k-${type}-$depth "aktive read from netpbm ($type, depth $depth)" -body {
 	astcl aktive read from netpbm path [R format-$name]
-    } -match image -result [makei read::from::netpbm 0 0 8 8 $depth \
-				[dict create path [R format-$name]] \
-				$expected $meta]
+    } -match image -result [makei read::from::netpbm 0 0 8 8 $depth $config $expected $meta]
+
+    unset type depth colors rpath config meta
 }
 
 # # ## ### ##### ######## ############# #####################
-unset bands k name expected type depth
+unset bands k name expected
 cleanupTests
 return

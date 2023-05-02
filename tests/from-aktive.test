@@ -52,11 +52,18 @@ foreach {k d cons expected} {
 	=  0.9524 0.4921 0.0476 = 0.9683 0.3651 0.0317 = 0.9841 0.2381 0.0159 = 1      0.1111 0
     }
 } {
+    set rpath  [R format-$cons.aktive]
+    set config [dict create path $rpath]
+    set meta   [dict create path $rpath label $cons]
+
     test aktive-read-from-aktive-2chan-2.$k "aktive read from aktive, $cons" -body {
 	astcl aktive read from aktive path [R format-$cons.aktive]
-    } -match image -result [makei read::from::aktive 0 0 8 8 $d [dict create path [R format-$cons.aktive]] $expected [dict create label $cons]]
+    } -match image -result [makei read::from::aktive 0 0 8 8 $d $config $expected $meta]
+
+    unset rpath config meta
 }
 
 # # ## ### ##### ######## ############# #####################
+unset k d cons expected
 cleanupTests
 return

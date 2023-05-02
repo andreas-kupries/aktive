@@ -44,6 +44,7 @@ operator read::from::netpbm {
 	Tcl_Obj* netpbm = 0;
 	aktive_meta_set_int    (&netpbm, "maxval", state->header.maxval);
 	aktive_meta_set        (meta, "netpbm", netpbm);
+	aktive_meta_set        (meta, "path",   param->path);
 	aktive_meta_set_string (meta, "colorspace", cspace);
     }
 

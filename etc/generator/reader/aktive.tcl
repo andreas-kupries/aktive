@@ -62,6 +62,8 @@ operator read::from::aktive {
 	state->x    = x;
 	state->y    = y;
 
+	aktive_meta_set  (meta, "path",   param->path);
+
 	aktive_path_copy (&state->path, param->path);
 
 	aktive_geometry_set (domain, x, y, w, h, d);
