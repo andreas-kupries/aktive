@@ -1,0 +1,101 @@
+# -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
+## (c) 2023 Andreas Kupries
+# # ## ### ##### ######## ############# #####################
+## AKTIVE. Image align to a border in a larger area.
+
+kt check Tcl     8.6
+kt check tcltest 2
+
+# # ## ### ##### ######## ############# #####################
+
+kt local testing aktive
+
+kt source support/util.tcl
+
+# # ## ### ##### ######## ############# #####################
+## Syntax
+
+syntax {
+    left   {src args}
+    right  {src args}
+    top    {src args}
+    bottom {src args}
+} {aktive op align}
+
+# # ## ### ##### ######## ############# #####################
+
+set base [aktive op select x [gradx] from 0 to 4]	;# = 0 1 2 3 4 =
+
+# TODO: bad argument rejection
+
+foreach {border size embed pixels} {
+    left   7 black  {= 0 1 2 3 4 = 0 0}
+    left   7 copy   {= 0 1 2 3 4 = 4 4}
+    left   7 mirror {= 0 1 2 3 4 = 4 3}
+    left   7 tile   {= 0 1 2 3 4 = 0 1}
+    left   7 white  {= 0 1 2 3 4 = 1 1}
+    right  7 black  {0 0 = 0 1 2 3 4 =}
+    right  7 copy   {0 0 = 0 1 2 3 4 =}
+    right  7 mirror {1 0 = 0 1 2 3 4 =}
+    right  7 tile   {3 4 = 0 1 2 3 4 =}
+    right  7 white  {1 1 = 0 1 2 3 4 =}
+    top    3 black  {
+	= 0 1 2 3 4 =
+	= 0 0 0 0 0 =
+	= 0 0 0 0 0 =
+    }
+    top	   3 copy   {
+	= 0 1 2 3 4 =
+	= 0 1 2 3 4 =
+	= 0 1 2 3 4 =
+    }
+    top	   3 mirror {
+	= 0 1 2 3 4 =
+	= 0 1 2 3 4 =
+	= 0 1 2 3 4 =
+    }
+    top	   3 tile   {
+	= 0 1 2 3 4 =
+	= 0 1 2 3 4 =
+	= 0 1 2 3 4 =
+    }
+    top	   3 white  {
+	= 0 1 2 3 4 =
+	= 1 1 1 1 1 =
+	= 1 1 1 1 1 =
+    }
+    bottom 3 black  {
+	= 0 0 0 0 0 =
+	= 0 0 0 0 0 =
+	= 0 1 2 3 4 =
+    }
+    bottom 3 copy   {
+	= 0 1 2 3 4 =
+	= 0 1 2 3 4 =
+	= 0 1 2 3 4 =
+    }
+    bottom 3 mirror {
+	= 0 1 2 3 4 =
+	= 0 1 2 3 4 =
+	= 0 1 2 3 4 =
+    }
+    bottom 3 tile   {
+	= 0 1 2 3 4 =
+	= 0 1 2 3 4 =
+	= 0 1 2 3 4 =
+    }
+    bottom 3 white  {
+	= 1 1 1 1 1 =
+	= 1 1 1 1 1 =
+	= 0 1 2 3 4 =
+    }
+} {
+    test aktive-op-align-${border}-2.0-$embed "aktive op align $border ($embed)" -body {
+	pixels aktive op align $border $base border $embed size $size
+    } -match pixels -result $pixels
+}
+
+# # ## ### ##### ######## ############# #####################
+unset base border embed pixels size
+cleanupTests
+return
