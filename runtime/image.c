@@ -460,6 +460,30 @@ aktive_meta_set_int (Tcl_Obj** meta, const char* key, int value)
     aktive_meta_set (meta, key, Tcl_NewIntObj (value));
 }
 
+extern int
+aktive_meta_has (Tcl_Obj* meta, const char* key)
+{
+    Tcl_Obj* k = Tcl_NewStringObj (key, -1);
+    Tcl_Obj* v;
+    int      r = Tcl_DictObjGet(NULL, meta, k, &v);
+    return (r == TCL_OK) && (v != NULL);
+}
+
+extern int
+aktive_meta_equal (Tcl_Obj* meta, const char* key, const char* value)
+{
+    Tcl_Obj* k = Tcl_NewStringObj (key, -1);
+    Tcl_Obj* v;
+    int      r = Tcl_DictObjGet (NULL, meta, k, &v);
+
+    if (r != TCL_OK) { return 0; }
+    if (!v)          { return 0; }
+
+    char* vs = Tcl_GetStringFromObj (v, NULL);
+
+    return strcmp (value, vs) == 0;
+}
+
 /*
  * - - -- --- ----- -------- -------------
  */

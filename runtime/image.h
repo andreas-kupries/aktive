@@ -123,9 +123,12 @@ extern aktive_image aktive_image_meta_set (aktive_image image, Tcl_Obj* meta);
  */
 
 extern void aktive_meta_inherit     (Tcl_Obj** meta, aktive_image src);
-extern void aktive_meta_set         (Tcl_Obj** meta, const char* key, Tcl_Obj* value);
+extern void aktive_meta_set         (Tcl_Obj** meta, const char* key, Tcl_Obj*    value);
 extern void aktive_meta_set_string  (Tcl_Obj** meta, const char* key, const char* value);
 extern void aktive_meta_set_int     (Tcl_Obj** meta, const char* key, int         value);
+
+extern int aktive_meta_has   (Tcl_Obj* meta, const char* key);
+extern int aktive_meta_equal (Tcl_Obj* meta, const char* key, const char* value);
 
 /*
  * = = == === ===== ======== ============= =====================
