@@ -118,6 +118,27 @@ foreach src $spaces {
     unset k
 }
 
+# # ## ### ##### ######## ############# #####################
+## Conversion errors - Rejection of mismatched input colorspace
+
+foreach src $spaces {
+    # cannot perform round trip testing of the one-way to grey conversions.
+    if {$src eq "Grey"} continue
+
+    foreach dst $spaces {
+	# ignore non-conversions, no-ops.
+	if {$src eq $dst} continue
+
+	test aktive-op-color-${src}-to-${dst}-3.0 "aktive op color ${src} to ${dst}, colorspace mismatch" -body {
+	    aktive op color $src to $dst [aktive meta set [grad] colorspace bogus]
+	} -returnCodes error \
+	    -errorCode {AKTIVE ERROR} \
+	    -result "rejecting input not in colorspace $src"
+    }
+}
+
+# # ## ### ##### ######## ############# #####################
+
 unset spaces src dst svecs dvecs sv dv
 # # ## ### ##### ######## ############# #####################
 cleanupTests

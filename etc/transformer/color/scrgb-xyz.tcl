@@ -16,9 +16,13 @@ operator op::color::scRGB::to::XYZ {
     input
 
     state -setup {
+	@@check-input-colorspace@@
+
 	aktive_geometry* g = aktive_image_get_geometry (srcs->v[0]);
 	if (g->depth != 3) aktive_failf ("rejecting input with depth %d != 3", g->depth);
 	aktive_geometry_copy (domain, g);
+
+	@@set-result-colorspace@@
     }
 
     blit convert {
@@ -73,9 +77,13 @@ operator op::color::XYZ::to::scRGB {
     input
 
     state -setup {
+	@@check-input-colorspace@@
+
 	aktive_geometry* g = aktive_image_get_geometry (srcs->v[0]);
 	if (g->depth != 3) aktive_failf ("rejecting input with depth %d != 3", g->depth);
 	aktive_geometry_copy (domain, g);
+
+	@@set-result-colorspace@@
     }
 
     blit convert {
@@ -135,12 +143,14 @@ operator op::color::XYZ::to::Grey {
     input
 
     body {
-	aktive op select z $src from 1
+	::aktive::op::color::CC XYZ Grey $src aktive op select z $src from 1
     }
 }
 
 operator op::color::scRGB::to::Grey {
     section transform color
+
+    cc-meta scRGB Grey
 
     note Returns input converted to grey scale, from input in scRGB colorspace.
 
@@ -151,10 +161,14 @@ operator op::color::scRGB::to::Grey {
     input
 
     state -setup {
+	@@check-input-colorspace@@
+
 	aktive_geometry* g = aktive_image_get_geometry (srcs->v[0]);
 	if (g->depth != 3) aktive_failf ("rejecting input with depth %d != 3", g->depth);
 	aktive_geometry_copy (domain, g);
 	domain->depth = 1;
+
+	@@set-result-colorspace@@
     }
 
     blit convert {

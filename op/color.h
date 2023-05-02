@@ -6,6 +6,13 @@
 #define AKTIVE_COLOR_H
 
 #include <math.h>
+#include <rt.h>
+
+/*
+ * - - -- --- ----- -------- ------------ ----------------------
+ */
+
+extern int aktive_colorspace (aktive_image src, const char* csname);
 
 /*
  * - - -- --- ----- -------- ------------ ----------------------

@@ -21,9 +21,13 @@ operator op::color::Lab::to::XYZ {
     input
 
     state -setup {
+	@@check-input-colorspace@@
+
 	aktive_geometry* g = aktive_image_get_geometry (srcs->v[0]);
 	if (g->depth != 3) aktive_failf ("rejecting input with depth %d != 3", g->depth);
 	aktive_geometry_copy (domain, g);
+
+	@@set-result-colorspace@@
     }
 
     blit convert {
@@ -79,9 +83,13 @@ operator op::color::XYZ::to::Lab {
     input
 
     state -setup {
+	@@check-input-colorspace@@
+
 	aktive_geometry* g = aktive_image_get_geometry (srcs->v[0]);
 	if (g->depth != 3) aktive_failf ("rejecting input with depth %d != 3", g->depth);
 	aktive_geometry_copy (domain, g);
+
+	@@set-result-colorspace@@
     }
 
     blit convert {
@@ -125,6 +133,8 @@ operator op::color::XYZ::to::Lab {
 operator op::color::Lab::to::Grey {
     section transform color
 
+    cc-meta Lab Grey
+
     note Returns image converted to greyscale, from input in Lab colorspace.
 
     note The gray data is just the Y channel of a conversion to XYZ colorspace. \
@@ -139,10 +149,14 @@ operator op::color::Lab::to::Grey {
     input
 
     state -setup {
+	@@check-input-colorspace@@
+
 	aktive_geometry* g = aktive_image_get_geometry (srcs->v[0]);
 	if (g->depth != 3) aktive_failf ("rejecting input with depth %d != 3", g->depth);
 	aktive_geometry_copy (domain, g);
 	domain->depth = 1;
+
+	@@set-result-colorspace@@
     }
 
     blit convert {

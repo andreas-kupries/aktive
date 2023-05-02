@@ -15,7 +15,7 @@ operator op::color::scRGB::to::sRGB {
     input
 
     body {
-	aktive op math1 gamma compress $src
+	::aktive::op::color::CC scRGB sRGB $src aktive op math1 gamma compress $src
     }
 }
 
@@ -30,7 +30,7 @@ operator op::color::sRGB::to::scRGB {
     input
 
     body {
-	aktive op math1 gamma expand $src
+	::aktive::op::color::CC sRGB scRGB $src aktive op math1 gamma expand $src
     }
 }
 

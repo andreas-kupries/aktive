@@ -135,6 +135,18 @@ critcl::include generated/type-funcs.c          ;# Type conversions
 critcl::include generated/op-funcs.c            ;# Operators
 
 # # ## ### ##### ######## ############# #####################
+## Meta data operations - Not operators, positional parameters
+
+critcl::source   op/meta.tcl	;# meta data core set
+critcl::tsources meta.tcl	;# meta data dict wrapper
+
+# # ## ### ##### ######## ############# #####################
+## Versioning information and exposure, processor count
+
+critcl::cconst  aktive::version    char* {"0.0"}
+critcl::cconst  aktive::processors int aktive_processors()
+
+# # ## ### ##### ######## ############# #####################
 ## Assemble Tcl level interface
 
 critcl::source   generated/glue.tcl             ;# Tcl-level operator construction
@@ -148,14 +160,11 @@ critcl::tsources parameters.tcl			;# - Parameter runtime used by overlay.tcl
 critcl::tsources error.tcl			;# - Error helper
 critcl::tsources op/2string.tcl			;# Support for "write to string".
 critcl::tsources op/embed.tcl			;# embed argument validation
+critcl::tsources op/color.tcl			;# color conversion support (sRGB <-> scRGB)
 
 critcl::csources op/math.c
 
 # # ## ### ##### ######## ############# #####################
-## Versioning information and exposure, processor count
-
-critcl::cconst  aktive::version    char* {"0.0"}
-critcl::cconst  aktive::processors int aktive_processors()
 
 package provide aktive 0.0
 

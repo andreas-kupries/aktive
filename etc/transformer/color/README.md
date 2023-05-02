@@ -11,12 +11,24 @@
 |HSL		|Another transformation of sRGB				|
 |___		|___							|
 |XYZ		|CIE XYZ tristimulus space				|
+|		|__X__ Range:	     					|
+|		|__Y__ Range: 0...100					|
+|		|__Z__ Range: 						|
 |Yxy		|CIE Yxy space						|
 |Lab		|CIE L*a*b* space					|
+|		|__L__ Range: 0...100					|
+|		|__a__ Range: +/- 150, no specific limits		|
+|		|__b__ Range: +/- 150, no specific limits		|
 |LCh		|CIE LCh(ab) space					|
 |___		|___							|
 |Grey		|Y luminance channel of CIE XYZ tristimulus space	|
 |		|__Attention__: Range is 0...100	    		|
+
+
+Lab - L* defines black at 0 and white at 100. The a* and b* axes are unbounded and depending on the
+reference white they can easily exceed +/- 150 to cover the human gamut.
+
+
 
 ## Core conversions
 

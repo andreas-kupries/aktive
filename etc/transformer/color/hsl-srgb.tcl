@@ -20,9 +20,13 @@ operator op::color::sRGB::to::HSL {
     input
 
     state -setup {
+	@@check-input-colorspace@@
+
 	aktive_geometry* g = aktive_image_get_geometry (srcs->v[0]);
 	if (g->depth != 3) aktive_failf ("rejecting input with depth %d != 3", g->depth);
 	aktive_geometry_copy (domain, g);
+
+	@@set-result-colorspace@@
     }
 
     blit convert {
@@ -93,9 +97,13 @@ operator op::color::HSL::to::sRGB {
     input
 
     state -setup {
+	@@check-input-colorspace@@
+
 	aktive_geometry* g = aktive_image_get_geometry (srcs->v[0]);
 	if (g->depth != 3) aktive_failf ("rejecting input with depth %d != 3", g->depth);
 	aktive_geometry_copy (domain, g);
+
+	@@set-result-colorspace@@
     }
 
     blit convert {

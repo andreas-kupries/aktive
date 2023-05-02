@@ -17,9 +17,13 @@ operator op::color::Lab::to::LCh {
     input
 
     state -setup {
+	@@check-input-colorspace@@
+
 	aktive_geometry* g = aktive_image_get_geometry (srcs->v[0]);
 	if (g->depth != 3) aktive_failf ("rejecting input with depth %d != 3", g->depth);
 	aktive_geometry_copy (domain, g);
+
+	@@set-result-colorspace@@
     }
 
     blit convert {
@@ -68,9 +72,13 @@ operator op::color::LCh::to::Lab {
     input
 
     state -setup {
+	@@check-input-colorspace@@
+
 	aktive_geometry* g = aktive_image_get_geometry (srcs->v[0]);
 	if (g->depth != 3) aktive_failf ("rejecting input with depth %d != 3", g->depth);
 	aktive_geometry_copy (domain, g);
+
+	@@set-result-colorspace@@
     }
 
     blit convert {

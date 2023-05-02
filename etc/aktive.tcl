@@ -73,6 +73,19 @@ proc cc-reduce {from to} {
     simplify \
 	for src/type op::color::${to}::to::${from} \
 	returns src/child
+
+    cc-meta $from $to
+}
+
+proc cc-meta {from to} {
+    def check-input-colorspace {
+	if (!aktive_colorspace (srcs->v[0], "%%%")) aktive_fail ("rejecting input not in colorspace %%%");
+    } %%% $from
+
+    def set-result-colorspace {
+	aktive_meta_inherit    (meta, srcs->v[0]);
+	aktive_meta_set_string (meta, "colorspace", "%%%");
+    } %%% $to
 }
 
 import transformer/color/hsl-srgb.tcl
@@ -85,6 +98,7 @@ import transformer/color/xyz-yxy.tcl
 import transformer/color/non-core.tcl
 
 rename cc-reduce {}
+rename cc-meta   {}
 
 import transformer/math/binary.tcl
 import transformer/math/unary.tcl
