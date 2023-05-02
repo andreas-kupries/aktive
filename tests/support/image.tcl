@@ -64,6 +64,9 @@ proc asppm/ {i}    { aktive format as ppm byte 2string $i }
 proc save-pgm  {path args} { save-pgm/ $path [check {*}$args] }
 proc save-pgm/ {path i}    { save-to $path aktive format as pgm byte 2chan $i }
 
+proc save-aktive  {path args} { save-aktive/ $path [check {*}$args] }
+proc save-aktive/ {path i}    { save-to $path aktive format as aktive 2chan $i }
+
 # Get image input graph
 
 proc dag  {args} { dag/ [{*}$args] }

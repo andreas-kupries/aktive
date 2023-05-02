@@ -15,12 +15,14 @@
  * |24		|4	|uint32_be	|depth	|#bands			|
  * |28		|4	|uint32_be	|metac	|#bytes meta data	|
  * |===		|===	|===		|===	|===			|
- * |32		|metac	|uchar[metac]	|meta	|meta data (?format?)	|
+ * |32		|metac	|uchar[metac]	|meta	|meta data (1)		|
  * |===		|===	|===		|===	|===			|
  * |32+metac	|8	|uchar[8]	|magic2	|'AKTIVE_D'		|
  * |40+metac	|8*n	|float64_be[n]	|pixel	|n == w*h*d values	|
  * |===		|===	|===		|===	|===			|
  * |40+metac+8*n|	|		|	|			|
+ *
+ * (1) Format: String representation of a Tcl dictionary value.
  */
 
 #include <rt.h>
@@ -95,6 +97,10 @@ aktive_header (aktive_aktive_control* info, aktive_image src)
 		info, info->sink->name, src, aktive_image_get_type (src)->name);
 
     aktive_geometry* g = aktive_image_get_geometry (src);
+    Tcl_Obj*         m = aktive_image_meta_get (src);
+    int              msize = 0;
+    char*            mdata = 0;
+    if (m) { mdata = Tcl_GetStringFromObj (m, &msize); }
 
     TRACE ("magic",      0); aktive_write_append          (info->writer, MAGIC,   sizeof (MAGIC)-1);
     TRACE ("version",    0); aktive_write_append          (info->writer, VERSION, sizeof (VERSION)-1);
@@ -103,7 +109,10 @@ aktive_header (aktive_aktive_control* info, aktive_image src)
     TRACE ("width",      0); aktive_write_append_uint32be (info->writer, g->width);
     TRACE ("height",     0); aktive_write_append_uint32be (info->writer, g->height);
     TRACE ("depth",      0); aktive_write_append_uint32be (info->writer, g->depth);
-    TRACE ("meta size",  0); aktive_write_append_uint32be (info->writer, 0);	// # meta data, none, so far
+    TRACE ("meta size",  0); aktive_write_append_uint32be (info->writer, msize);
+    if (msize) {
+	TRACE ("meta data",  0); aktive_write_append (info->writer, mdata, msize);
+    }
     TRACE ("magic2",     0); aktive_write_append          (info->writer, MAGIC2, sizeof (MAGIC2)-1);
 
     info->size    = aktive_geometry_get_size (g);

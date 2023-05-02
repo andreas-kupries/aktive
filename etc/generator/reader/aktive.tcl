@@ -32,7 +32,7 @@ operator read::from::aktive {
 	#define MAGIC2  "AKTIVE_D"
 	#define VERSION "00"
 
-	#define TRY(m, cmd) if (!(cmd)) aktive_fail ("failed to read header:" m);
+	#define TRY(m, cmd) if (!(cmd)) aktive_fail ("failed to read header: " m);
 	int x, y;
 	aktive_uint w, h, d, metac, pix;
 	TRY ("magic",   aktive_read_match    (src, MAGIC, sizeof (MAGIC)-1));
@@ -43,7 +43,15 @@ operator read::from::aktive {
 	TRY ("h",       aktive_read_uint32be (src, &h));
 	TRY ("d",       aktive_read_uint32be (src, &d));
 	TRY ("metac",   aktive_read_uint32be (src, &metac));
-	if (metac) Tcl_Seek (src, metac, SEEK_CUR);
+	if (metac) {
+	    char* buf = NALLOC (char, metac);
+	    if (!aktive_read_string (src, buf, metac)) {
+		ckfree (buf);
+		aktive_fail ("failed to read header: metad");
+	    }
+	    *meta = Tcl_NewStringObj (buf, metac);
+	    ckfree (buf);
+	}
 	TRY ("magic2",  aktive_read_match    (src, MAGIC2, sizeof (MAGIC2)-1));
 	pix = Tcl_Tell (src);
 	#undef TRY
