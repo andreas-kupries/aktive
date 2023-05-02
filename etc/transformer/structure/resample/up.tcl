@@ -3,7 +3,7 @@
 ## Transformers -- Structural changes (data re-arrangements)
 
 # # ## ### ##### ######## ############# #####################
-## Stretch along one of the coordinate axes. No replication.
+## Zero-stuff along one of the coordinate axes. No replication.
 ## Intermediate points are filled with a fixed value.
 
 operator {coordinate dimension} {
@@ -13,19 +13,22 @@ operator {coordinate dimension} {
 } {
     section transform structure
 
-    note Returns image where the input is stretched along the ${coordinate}-axis \
-	according to the stretching factor (>= 1), and the gaps set to the \
-	specified fill value.
+    note Returns image where the input is \"zero-stuffed\" \
+	along the ${coordinate}-axis according to the stuffing \
+	factor (>= 1). The gaps are set to the specified fill \
+	value, zero, i.e. 0, by default.
 
     input
 
-    uint      by    Stretch factor, range 2...
+    uint      by    Stuff factor, range 2...
     double? 0 fill  Pixel fill value
 
-    # Factor 1 stretching is no stretch at all
-    simplify for  if {$by == 1}  returns src
+    # Factor 1 stuffing is no stuffing at all
+    simplify for \
+	if {$by == 1} \
+	returns src
 
-    # Chains: stretch factors multiply, however if and only if the fill values match
+    # Chains: stuff factors multiply, however if and only if the fill values match
     simplify for  src/type @self \
 	src/value fill __fill \
 	if {$__fill == $fill} \
@@ -34,12 +37,12 @@ operator {coordinate dimension} {
 	src/pop \
 	returns op upsample $coordinate : by __by fill __fill
 
-    # Chains: stretching a decimation is __not__ identity. Stretching cannot recover the
-    # information lost in the decimation.
+    # Chains: stuffing a sampling is __not__ identity.
+    #         The stuffing cannot recover the information lost in the sampling.
 
     state -setup {
 	// could be moved into the cons wrapper created for simplification
-	if (param->by == 0) aktive_fail ("Rejecting undefined stretching by 0");
+	if (param->by == 0) aktive_fail ("Rejecting undefined stuffing by factor 0");
 
 	aktive_geometry_copy (domain, aktive_image_get_geometry (srcs->v[0]));
 	// Modify dimension according to parameter
@@ -61,7 +64,7 @@ operator {coordinate dimension} {
     # gradient request: 2..3  = 2,1 (grid to 6 (+1 = (-5 % 3) [1] = ((5 - (5 % 3)) % 3) [2])
     # note: different %-semantics for Tcl [1] and C [2].
     #
-    # The actual dst x is shifted to align to the stretch grid in the destination.
+    # The actual dst x is shifted to align to the stretched grid in the destination.
     #
     # X % 5 | Correction -x  % 5 == (5 - x%5) % 5
     # ----- + ------------------ -- -------------
@@ -84,7 +87,7 @@ operator {coordinate dimension} {
 	{DW {x 0 1 up} {x 0 1 up}}
 	{DD {z 0 1 up} {z 0 1 up}}
     }
-    # ... stretch specific destination axis using source dimension, lock start to grid
+    # ... stuff specific destination axis using source dimension, lock start to grid
     switch -exact -- $coordinate {
 	y { lset blitspec 0 0 SH ; lset blitspec 0 1 2 n ; lset blitspec 0 1 1 grid }
 	x { lset blitspec 1 0 SW ; lset blitspec 1 1 2 n ; lset blitspec 1 1 1 grid }

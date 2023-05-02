@@ -94,7 +94,7 @@ operator {coordinate dimension} {
 
     state -setup {
 	// could be moved into the cons wrapper created for simplification
-	if (param->by == 0) aktive_fail ("Rejecting undefined sampling by 0");
+	if (param->by == 0) aktive_fail ("Rejecting undefined sampling by factor 0");
 
 	aktive_geometry_copy (domain, aktive_image_get_geometry (srcs->v[0]));
 	// Modify dimension according to parameter

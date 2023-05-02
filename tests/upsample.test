@@ -1,7 +1,8 @@
 # -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
 ## (c) 2023 Andreas Kupries
 # # ## ### ##### ######## ############# #####################
-## AKTIVE. Upsampling (stretching) rows, columns, bands
+## AKTIVE. Upsampling rows, columns, bands by zero-stuffing
+##         (Actually any desired fill value, 0 is default).
 
 kt check Tcl     8.6
 kt check tcltest 2

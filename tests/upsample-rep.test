@@ -1,7 +1,7 @@
 # -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
 ## (c) 2023 Andreas Kupries
 # # ## ### ##### ######## ############# #####################
-## AKTIVE. Replicated upsampling (stretching) rows, columns, bands
+## AKTIVE. Upsampling rows, columns, bands by value replication.
 
 kt check Tcl     8.6
 kt check tcltest 2
