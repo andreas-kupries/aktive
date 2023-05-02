@@ -1,7 +1,7 @@
 # -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
 ## (c) 2023 Andreas Kupries
 # # ## ### ##### ######## ############# #####################
-## AKTIVE. Downsampling (decimating) rows, columns, bands
+## AKTIVE. Downsampling rows, columns, bands
 
 kt check Tcl     8.6
 kt check tcltest 2
@@ -34,7 +34,7 @@ syntax {
 ##     --- ----  --- ----  --- ----  \ 4 rows
 ##      0. 1...   0. 1...   0. 1... - 2 bands
 #
-# Downsampleing columns, rows, or bands
+# Downsampling columns, rows, or bands
 
 foreach {op domain expected} {
     x {2 4 2} {

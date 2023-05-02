@@ -5,9 +5,9 @@
 # # ## ### ##### ######## ############# #####################
 ## Compress along one of the coordinate axes.
 #
-# BEWARE: The compression is a simple decimation.
+# BEWARE: The compression is simply sub-sampling.
 #         The user is responsible for running a convolution beforehand to avoid/reduce
-#         aliasing artifacts.
+#         aliasing artifacts. See `op::decimate`.
 #
 ## TODO OPTIMIZATION :: do not query input for full rectangle - ask just for desired points
 ##                   :: -- because most of the input data is thrown away --
@@ -29,32 +29,41 @@ operator {coordinate dimension} {
 } {
     section transform structure
 
-    note Returns image with the input decimated along the ${coordinate}-axis \
-	according to the decimation factor (>= 1).
+    note Returns image with the input sampled down along the ${coordinate}-axis \
+	according to the sampling factor (>= 1).
 
     input
 
-    uint by  Decimation factor, range 2...
+    uint? 2 by Sampling factor, range 2...
 
     # Factor 1 decimation is no decimation at all
-    simplify for  if {$by == 1}  returns src
+    simplify for \
+	if {$by == 1} \
+	returns src
 
-    # Chains: decimation factors multiply
-    simplify for  src/type @self \
+    # Chains: sampling factors multiply
+    simplify for  \
+	src/type @self \
 	src/value by __by \
 	calc __by {$__by * $by} \
 	src/pop \
 	returns op downsample $coordinate : by __by
 
-    # Chains: decimation of a stretch with the same factor is identity
-    # The reverse is __not__ true (unrecoverable information loss in the decimation)
-    simplify for  src/type op::upsample::$coordinate \
+    # Chains: sampling of a zero-stuff with the same factor is identity
+    # The reverse is __not__ true (unrecoverable information loss in the sampling)
+    simplify for \
+	src/type op::upsample::$coordinate \
 	src/value by __by \
-	if {$__by == $by}	src/pop   returns src
+	if {$__by == $by} \
+	src/pop \
+	returns src
 
-    simplify for  src/type op::upsample::${coordinate}rep \
+    simplify for \
+	src/type op::upsample::${coordinate}rep \
 	src/value by __by \
-	if {$__by == $by}	src/pop   returns src
+	if {$__by == $by} \
+	src/pop \
+	returns src
 
     # base blitter setup
     set blitspec {
@@ -85,16 +94,20 @@ operator {coordinate dimension} {
 
     state -setup {
 	// could be moved into the cons wrapper created for simplification
-	if (param->by == 0) aktive_fail ("Rejecting undefined decimation by 0");
+	if (param->by == 0) aktive_fail ("Rejecting undefined sampling by 0");
 
 	aktive_geometry_copy (domain, aktive_image_get_geometry (srcs->v[0]));
 	// Modify dimension according to parameter
 	domain->@@dimension@@ = (domain->@@dimension@@ / param->by) +
 		(0 != (domain->@@dimension@@ % param->by));
     }
+
     # NOTE: At higher sampling factors it becomes more sensible to fetch individual points
     # from the source, as an ever higher percentage of the generated data will be thrown
     # away here. And if the input is expensive efficiency will be a botch.
+    #
+    # An example is decimation, a low pass filter followed by sampling.
+
     pixels {
 	aktive_uint n = param->by;
 	aktive_rectangle_def_as (subrequest, request);
