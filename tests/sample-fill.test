@@ -19,10 +19,11 @@ kt source support/util.tcl
 ## Syntax
 
 syntax {
-    x {src args}
-    y {src args}
-    z {src args}
-} {aktive op upsample}
+    x  {src args}
+    xy {src args}
+    y  {src args}
+    z  {src args}
+} {aktive op sample fill}
 
 # # ## ### ##### ######## ############# #####################
 ##
@@ -62,31 +63,46 @@ foreach {op domain expected} {
 	=  7 0  7.5 0 =  8 0  8.5 0 =  9 0  9.5 0 =
 	= 10 0 10.5 0 = 11 0 11.5 0 = 12 0 12.5 0 =
     }
+    xy {6 8 2} {
+	=  1  1.5 = 0 0 =  2  2.5 = 0 0 =  3  3.5 = 0 0 =
+	=  0  0   = 0 0 =  0  0   = 0 0 =  0  0   = 0 0  =
+	=  4  4.5 = 0 0 =  5  5.5 = 0 0 =  6  6.5 = 0 0 =
+	=  0  0   = 0 0 =  0  0   = 0 0 =  0  0   = 0 0  =
+	=  7  7.5 = 0 0 =  8  8.5 = 0 0 =  9  9.5 = 0 0 =
+	=  0  0   = 0 0 =  0  0   = 0 0 =  0  0   = 0 0  =
+	= 10 10.5 = 0 0 = 11 11.5 = 0 0 = 12 12.5 = 0 0 =
+	=  0  0   = 0 0 =  0  0   = 0 0 =  0  0   = 0 0  =
+    }
 } {
-    test aktive-op-upsample-${op}-2.0 "aktive op upsample $op 2x" -body {
-	astcl aktive op upsample $op [grad] by 2 fill 0
-    } -match image -result [makei op::upsample::$op 0 0 {*}$domain {by 2 fill 0.0} $expected]
+    set opd $op ; if {$op eq "xy"} { set opd y }
 
-    test aktive-op-upsample-${op}-2.1 "aktive op upsample $op, dag" -body {
-	dag aktive op upsample $op [grad] by 2 fill 0
-    } -match glob -result "op::upsample::$op * {by 2 fill 0.0} {image::gradient *}"
+    test aktive-op-sample-fill-${op}-2.0 "aktive op sample fill $op 2x" -body {
+	astcl aktive op sample fill $op [grad] by 2 fill 0
+    } -match image -result [makei op::sample::fill::$opd 0 0 {*}$domain {by 2 fill 0.0} $expected]
+
+    test aktive-op-sample-fill-${op}-2.1 "aktive op sample fill $op, dag" -body {
+	dag aktive op sample fill $op [grad] by 2 fill 0
+    } -match glob -result "op::sample::fill::$opd * {by 2 fill 0.0} {image::gradient *}"
 
     set in [grad]
     set id [aktive query id $in]
 
-    test aktive-op-upsample-${op}-2.2 "aktive op upsample $op, 1x is identity" -body {
-	dag aktive op upsample $op $in by 1 fill 0
+    test aktive-op-sample-fill-${op}-2.2 "aktive op sample fill $op, 1x is identity" -body {
+	dag aktive op sample fill $op $in by 1 fill 0
     } -match glob -result "image::gradient $id *"
 
     unset in id
 
-    test aktive-op-upsample-${op}-2.3 "aktive op upsample $op, chain reduction, factors multiply, for same fill" -body {
-	dag aktive op upsample $op [aktive op upsample $op [grad] by 2 fill 0] by 3 fill 0
-    } -match glob -result "op::upsample::$op * {by 6 fill 0.0} {image::gradient *}"
+    # no reductions for xy yet
+    if {$op ne "xy"} {
+	test aktive-op-sample-fill-${op}-2.3 "aktive op sample fill $op, chain reduction, factors multiply, for same fill" -body {
+	    dag aktive op sample fill $op [aktive op sample fill $op [grad] by 2 fill 0] by 3 fill 0
+	} -match glob -result "op::sample::fill::$op * {by 6 fill 0.0} {image::gradient *}"
 
-    test aktive-op-upsample-${op}-2.4 "aktive op upsample $op, partial view" -body {
-	dict get [astcl aktive op select $op [aktive op upsample $op [grad$op] by 3 fill 0] from 5 to 10] pixels
-    } -match pixels -result {0 2 0 0 3 0}
+	test aktive-op-sample-fill-${op}-2.4 "aktive op sample fill $op, partial view" -body {
+	    dict get [astcl aktive op select $op [aktive op sample fill $op [grad$op] by 3 fill 0] from 5 to 10] pixels
+	} -match pixels -result {0 2 0 0 3 0}
+    }
 
     ##
     # - -- --- ----- -------- ------------- ---------------------
@@ -95,20 +111,20 @@ foreach {op domain expected} {
     lassign $domain w h d
 
     for {set row 0} {$row < $h} {incr row} {
-	test aktive-op-upsample-${op}-2.5.r$row "aktive op upsample $op, row slice" -body {
-	    dict get [astcl aktive op select y [aktive op upsample $op [grad] by 2 fill 0] from $row] pixels
+	test aktive-op-sample-fill-${op}-2.5.r$row "aktive op sample fill $op, row slice" -body {
+	    dict get [astcl aktive op select y [aktive op sample fill $op [grad] by 2 fill 0] from $row] pixels
 	} -match pixels -result [slice-row $row $w $h $d $expected]
     }
 
     for {set col 0} {$col < $w} {incr col} {
-	test aktive-op-upsample-${op}-2.5.c$col "aktive op upsample $op, column slice" -body {
-	    dict get [astcl aktive op select x [aktive op upsample $op [grad] by 2 fill 0] from $col] pixels
+	test aktive-op-sample-fill-${op}-2.5.c$col "aktive op sample fill $op, column slice" -body {
+	    dict get [astcl aktive op select x [aktive op sample fill $op [grad] by 2 fill 0] from $col] pixels
 	} -match pixels -result [slice-col $col $w $h $d $expected]
     }
 
     for {set band 0} {$band < $d} {incr band} {
-	test aktive-op-upsample-${op}-2.5.b$band "aktive op upsample $op, band slice" -body {
-	    dict get [astcl aktive op select z [aktive op upsample $op [grad] by 2 fill 0] from $band] pixels
+	test aktive-op-sample-fill-${op}-2.5.b$band "aktive op sample fill $op, band slice" -body {
+	    dict get [astcl aktive op select z [aktive op sample fill $op [grad] by 2 fill 0] from $band] pixels
 	} -match pixels -result [slice-band $band $w $h $d $expected]
     }
 

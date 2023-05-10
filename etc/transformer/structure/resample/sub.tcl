@@ -3,40 +3,71 @@
 ## Transformers -- Structural changes (data re-arrangements)
 
 # # ## ### ##### ######## ############# #####################
-## Compress along one of the coordinate axes.
+## Sub sampling along one of the coordinate axes.
 #
-# BEWARE: The compression is simply sub-sampling.
-#         The user is responsible for running a convolution beforehand to avoid/reduce
-#         aliasing artifacts. See `op::decimate`.
+# BEWARE: The user is responsible for running a convolution beforehand to avoid/reduce
+#         aliasing artifacts. See `op::sample::decimate`.
 #
-## TODO OPTIMIZATION :: do not query input for full rectangle - ask just for desired points
-##                   :: -- because most of the input data is thrown away --
-##                   :: NOTE - placement of decimation into runtime functions
-##                   :: i.e. ...fetch_decimated ... complicates inputs, making them
-##                   :: aware of decimation, i.e. load is on them.
 ##
-##                   :: OTOH, while fetching a single point can be done through the
-##                   :: existing interface (i.e. an 1x1 rectangle), this still goes
-##                   :: through loops. A specialised point fetcher can leave such out, and
-##                   :: thus be faster -- in terms of cycles, less branch-prediction work,
-##                   :: etc. At that point decimated fetching might not be that difficult
-##                   :: to add as well
+## The sampling factor S is also the scale factor, i.e.
+##
+##   result width = floor (input width / S)
+##
+## and S-1 pixels are removed from the input for every kept pixel.
+#
+## TODO OPTIMIZATION do not query input for full rectangle - ask just for desired points
+##                   -- because most of the input data is thrown away --
+##
+##                   NOTE - placement of sampling into runtime functions
+##                   i.e. ...fetch_sampled ... complicates inputs, making them aware of
+##                   sampling, i.e. load is on them.
+##
+##                   OTOH, while fetching a single point can be done through the existing
+##                   interface (i.e. an 1x1 rectangle), this still goes through loops. A
+##                   specialised point fetcher can leave such out, and thus be faster
+##                   because of less cycles spent, less branch-prediction work, etc. At
+##                   that point sampled fetching might not be that difficult to add as
+##                   well.
+
+operator op::sample::sub::xy {
+    input
+
+    uint? 2 by Sampling factor, range 2...
+
+    # TODO label the last operation with the actual operation performed by the sequence.
+    # TODO use this information in a simplification rule to properly reduce repeated
+    # TODO application.
+    ##
+    # NOTE do the labeling in a way which allows for co-existence with higher combinations
+    #      using this combo doing their own labeling too.
+
+    body {
+	set src [x $src by $by]
+	set src [y $src by $by]
+    }
+}
 
 operator {coordinate dimension} {
-    op::downsample::x  x width
-    op::downsample::y  y height
-    op::downsample::z  z depth
+    op::sample::sub::x  x width
+    op::sample::sub::y  y height
+    op::sample::sub::z  z depth
 } {
     section transform structure
 
     note Returns image with the input sampled down along the ${coordinate}-axis \
-	according to the sampling factor (>= 1).
+	according to the sampling factor S (>= 1). The result keeps every S'th \
+	pixel of the input. S-1 pixels after every kept pixel is removed.
+
+    # Factor 0 - Undefined. Rejected.
+    #        1 - Keep every pixel -> Identity, no operation
+    #        2 - Keep half the pixels
+    #        3 - Keep a third of the pixels
 
     input
 
     uint? 2 by Sampling factor, range 2...
 
-    # Factor 1 decimation is no decimation at all
+    # Factor 1 sampling is no sampling at all
     simplify for \
 	if {$by == 1} \
 	returns src
@@ -47,19 +78,19 @@ operator {coordinate dimension} {
 	src/value by __by \
 	calc __by {$__by * $by} \
 	src/pop \
-	returns op downsample $coordinate : by __by
+	returns op sample sub $coordinate : by __by
 
-    # Chains: sampling of a zero-stuff with the same factor is identity
+    # Chains: sampling of a zero-stuffed with the same factor is identity
     # The reverse is __not__ true (unrecoverable information loss in the sampling)
     simplify for \
-	src/type op::upsample::$coordinate \
+	src/type op::sample::fill::$coordinate \
 	src/value by __by \
 	if {$__by == $by} \
 	src/pop \
 	returns src
 
     simplify for \
-	src/type op::upsample::${coordinate}rep \
+	src/type op::sample::replicate::${coordinate} \
 	src/value by __by \
 	if {$__by == $by} \
 	src/pop \

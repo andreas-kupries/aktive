@@ -5,18 +5,41 @@
 # # ## ### ##### ######## ############# #####################
 ## Zero-stuff along one of the coordinate axes. No replication.
 ## Intermediate points are filled with a fixed value.
+##
+## The stuffing factor S is also the scale factor, i.e.
+##
+##   result width = input width * S
+##
+## and S-1 pixel gaps to be set to the chosen fill value.
+
+operator op::sample::fill::xy {
+    input
+
+    uint? 2 by Stuff factor, range 2...
+    double? 0 fill  Pixel fill value
+
+    body {
+	set src [x $src by $by fill $fill]
+	set src [y $src by $by fill $fill]
+    }
+}
 
 operator {coordinate dimension} {
-    op::upsample::x  x width
-    op::upsample::y  y height
-    op::upsample::z  z depth
+    op::sample::fill::x  x width
+    op::sample::fill::y  y height
+    op::sample::fill::z  z depth
 } {
     section transform structure
 
     note Returns image where the input is \"zero-stuffed\" \
 	along the ${coordinate}-axis according to the stuffing \
-	factor (>= 1). The gaps are set to the specified fill \
-	value, zero, i.e. 0, by default.
+	factor S (>= 1). The S-1 gaps in the result are set to \
+	the given fill value, with zero, i.e. 0, used by default.
+
+    # Factor 0 - Undefined. Rejected.
+    #        1 - No gaps -> Identity, no operation
+    #        2 - Gap 1, fill every other value
+    #        3 - Gap 2.
 
     input
 
@@ -35,7 +58,7 @@ operator {coordinate dimension} {
 	src/value by __by \
 	calc __by {$__by * $by} \
 	src/pop \
-	returns op upsample $coordinate : by __by fill __fill
+	returns op sample fill $coordinate : by __by fill __fill
 
     # Chains: stuffing a sampling is __not__ identity.
     #         The stuffing cannot recover the information lost in the sampling.
@@ -50,8 +73,8 @@ operator {coordinate dimension} {
     }
 
     #
-    # SRC 0     1     2     3     4     5     6		(gradient 7 1 1 0 6)
-    # DST 0 . . 1 . . 2 . . 3 . . 4 . . 5 . . 6 . .	(upsample x 3 .)
+    # SRC 0     1     2     3     4     5     6		(gradient    7 1 1 0 6)
+    # DST 0 . . 1 . . 2 . . 3 . . 4 . . 5 . . 6 . .	(sample fill x 3 .)
     #     = = = = = = = = = = = = = = = = = = = = =
     #     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0
     #                         1                   2
@@ -59,9 +82,9 @@ operator {coordinate dimension} {
     #               . 2 . . 3 .				(select x 5 10)
     #               0 1 2 3 4 5
     #
-    # select   request: 5..10 = 5,6
-    # upsample request: 5..10 = 5,6
-    # gradient request: 2..3  = 2,1 (grid to 6 (+1 = (-5 % 3) [1] = ((5 - (5 % 3)) % 3) [2])
+    # select      request: 5..10 = 5,6
+    # sample fill request: 5..10 = 5,6
+    # gradient    request: 2..3  = 2,1 (grid to 6 (+1 = (-5 % 3) [1] = ((5 - (5 % 3)) % 3) [2])
     # note: different %-semantics for Tcl [1] and C [2].
     #
     # The actual dst x is shifted to align to the stretched grid in the destination.
@@ -94,14 +117,14 @@ operator {coordinate dimension} {
 	z { lset blitspec 2 0 SD ; lset blitspec 2 1 2 n }
     }
     # ... generate code
-    blit upsampler $blitspec copy
+    blit filler $blitspec copy
 
     def shrinkcore {
 	// Note: C-semantics for `%`. Tcl semantics yield `(-i)%n`.
-	#define CORR(i,n)  (((n) - ((i) % (n))) % (n))
+	#define CORRECTION(i,n)  (((n) - ((i) % (n))) % (n))
 	// Shift correction to snap request into the sample grid
-	int grid = CORR (subrequest.@@coordinate@@, n);
-	#undef CORR
+	int grid = CORRECTION (subrequest.@@coordinate@@, n);
+	#undef CORRECTION
 	TRACE ("Correction: %d (%d in %d)", grid, subrequest.@@coordinate@@, n);
 
 	// Rewrite request to the input coordinates and dimensions
@@ -141,7 +164,7 @@ operator {coordinate dimension} {
 
 	// The destination @@coordinate@@ axis is scanned N times faster than the source.
 	// The destination location is snapped forward to the grid.
-	@@upsampler@@
+	@@filler@@
     }
 }
 

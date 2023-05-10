@@ -1,0 +1,71 @@
+# -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
+## (c) 2023 Andreas Kupries
+# # ## ### ##### ######## ############# #####################
+## AKTIVE. Sample decimation (sub sampling after a low-pass filter) of rows, columns, bands
+
+kt check Tcl     8.6
+kt check tcltest 2
+
+# # ## ### ##### ######## ############# #####################
+
+kt local testing aktive
+
+kt source support/util.tcl
+
+# # ## ### ##### ######## ############# #####################
+## Syntax
+
+syntax {
+    x  {src args}
+    xy {src args}
+    y  {src args}
+} {aktive op sample decimate}
+
+# # ## ### ##### ######## ############# #####################
+##
+# input/gradient 3x4x2
+##
+##       0 ....   1......   2...... - 3 columns
+##     --------  --------  --------
+#	 1  1.5    2  2.5    3  3.5  0
+#	 4  4.5    5  5.5    6  6.5  1
+#	 7  7.5    8  8.5    9  9.5  2
+#	10 10.5   11 11.5   12 12.5  3
+##     --- ----  --- ----  --- ----  \ 4 rows
+##      0. 1...   0. 1...   0. 1... - 2 bands
+#
+# Decimating columns, or rows
+
+foreach {op expected} {
+    x {
+	=  1.3912  1.8912 =  2.6088  3.1088
+	=  4.3912  4.8912 =  5.6088  6.1088
+	=  7.3912  7.8912 =  8.6088  9.1088
+	= 10.3912 10.8912 = 11.6088 12.1088
+    }
+    y {
+	2.1982 2.6982 = 3.1982 3.6982 = 4.1982 4.6982
+	6.8008 7.3008 = 7.8008 8.3008 = 8.8008 9.3008
+    }
+    xy {
+	2.5894 3.0894 = 3.80696 4.30696
+	7.1920 7.6920 = 8.4096  8.9096
+    }
+} {
+    test aktive-op-sample-decimate-${op}-2.0 "aktive op sample decimate $op 2x" -body {
+	pixels aktive op sample decimate $op [grad] by 2
+    } -match pixels -result $expected
+
+    set in [grad]
+    set id [aktive query id $in]
+
+    test aktive-op-sample-decimate-${op}-2.2 "aktive op sample decimate $op, 1x is identity" -body {
+	dag aktive op sample decimate $op $in by 1
+    } -match glob -result "image::gradient $id *"
+
+    unset in id
+}
+
+# # ## ### ##### ######## ############# #####################
+cleanupTests
+return

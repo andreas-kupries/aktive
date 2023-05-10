@@ -130,9 +130,11 @@ import transformer/structure/embed/mirror.tcl
 import transformer/structure/embed/tile.tcl
 import transformer/structure/embed/white.tcl
 
-import transformer/structure/resample/down.tcl
-import transformer/structure/resample/up-replicated.tcl
-import transformer/structure/resample/up.tcl
+import transformer/structure/resample/decimate.tcl
+import transformer/structure/resample/fill.tcl
+import transformer/structure/resample/interpolate.tcl
+import transformer/structure/resample/replicated.tcl
+import transformer/structure/resample/sub.tcl
 
 import transformer/thresholds/mask.tcl
 import transformer/thresholds/thresholds.tcl

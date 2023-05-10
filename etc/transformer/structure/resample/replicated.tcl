@@ -3,12 +3,23 @@
 ## Transformers -- Structural changes (data re-arrangements)
 
 # # ## ### ##### ######## ############# #####################
-## Stretch along one of the coordinate axes, by replicating input points
+## Replicate pixels along one of the coordinate axes.
+
+operator op::sample::replicate::xy {
+    input
+
+    uint? 2 by Stretch factor, range 2...
+
+    body {
+	set src [x $src by $by]
+	set src [y $src by $by]
+    }
+}
 
 operator {coordinate dimension} {
-    op::upsample::xrep  x width
-    op::upsample::yrep  y height
-    op::upsample::zrep  z depth
+    op::sample::replicate::x  x width
+    op::sample::replicate::y  y height
+    op::sample::replicate::z  z depth
 } {
     section transform structure
 
@@ -28,7 +39,7 @@ operator {coordinate dimension} {
 	src/value by __by \
 	calc __by {$__by * $by} \
 	src/pop \
-	returns op upsample ${coordinate}rep : by __by
+	returns op sample replicate ${coordinate} : by __by
 
     state -fields {
 	aktive_uint max; // original max
@@ -76,7 +87,7 @@ operator {coordinate dimension} {
 	z { lset blitspec 2 2 2 1/n }
     }
     # ... generate code
-    blit upsampler $blitspec copy
+    blit replicator $blitspec copy
 
     def phasor-core {
 	aktive_uint phase = subrequest.@@coordinate@@ % n;
@@ -116,7 +127,7 @@ operator {coordinate dimension} {
 	// The source @@coordinate@@ axis is scanned N times slower
 	// than the source via fractional stepping.
 	// The destination location is snapped backward to the grid.
-	@@upsampler@@
+	@@replicator@@
     }
 }
 
