@@ -288,5 +288,16 @@ test aktive-image-kernel-lanczos-2.0 "aktive image kernel lanczos (3, 0.1)" -bod
 }]
 
 # # ## ### ##### ######## ############# #####################
+## Kernel errors
+
+test aktive-image-kernel-gauss-discrete-3.0 "aktive image kernel gauss discrete, bad sigma" -body {
+    astcl aktive image kernel gauss discrete sigma -1
+} -returnCodes error -errorCode {AKTIVE ERROR} -result {Invalid sigma -1, expected a value > 0}
+
+test aktive-image-kernel-lanczos-3.0 "aktive image kernel lanczos, bad order" -body {
+     aktive image kernel lanczos order 1
+} -returnCodes error -errorCode {AKTIVE ERROR} -result {Invalid order 1, expected a value >= 2}
+
+# # ## ### ##### ######## ############# #####################
 cleanupTests
 return

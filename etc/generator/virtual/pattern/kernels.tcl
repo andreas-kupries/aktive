@@ -107,9 +107,7 @@ operator image::kernel::gauss::discrete {
 
     body {
 	package require math::special
-	if {$sigma <= 0} {
-	    return -code error -errorCode {ARITH DOMAIN INVALID} {Invalid sigma, expected number > 0}
-	}
+	if {$sigma <= 0} { aktive error "Invalid sigma $sigma, expected a value > 0" }
 
 	# Compute the upper half of the kernel (0...radius).
 	set table {}
@@ -168,9 +166,7 @@ operator image::kernel::lanczos {
 	https://en.wikipedia.org/wiki/Lanczos_resampling#Lanczos_kernel
 
     body {
-	if {$order < 2} {
-	    return -code error -errorCode {ARITH DOMAIN INVALID} {Invalid order, has to be >= 2}
-	}
+	if {$order < 2} { aktive error "Invalid order $order, expected a value >= 2" }
 
 	# Compute the upper half of the kernel (0...order)
 
