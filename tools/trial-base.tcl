@@ -23,25 +23,62 @@ source [file join $tests support paths.tcl]
 
 # ------------------------------------------------------------------------------
 
+proc stretch {src} {
+    # NOTE -- stretching each band separately
+    # - i.e. min/max per band (not per pixel per band)
+
+    # the code structure is a general thing
+    # - split into bands, apply op to each band, then rejoin the bands.
+    #   i.e. split/modify/join
+
+    aktive op montage z {*}[lmap band [aktive op split z $src] {
+	set min [aktive op image min $band]
+	set max [aktive op image max $band]
+
+	puts MM/$min/$max
+	# 1   = scale*max+gain
+	# 0   = scale*min+gain
+	# 1-0 = scale*(max-min)
+	# scale = 1/(max - min)
+	# gain = -scale*min
+
+	set scale [expr {1./($max-$min)}]
+	set gain  [expr {- ($scale * $min)}]
+	puts SG/$scale/$gain
+
+	aktive op math1 linear $band scale $scale gain $gain
+    }]
+}
+
+proc photo-image {i} {
+    set bands [aktive query depth $i]
+    set convert {
+	1 {pgm byte}
+	3 {ppm byte}
+    }
+    if {![dict exists $convert $bands]} {
+	return -code error -errorcode UNKNOWN \
+	    "Unable to convert/show image with $bands bands"
+    }
+    set chan [file tempfile thefile __aktive_photo__]
+    aktive format as {*}[dict get $convert $bands] 2chan $i into $chan
+    close $chan
+    set p [image create photo -file $thefile]
+    file delete $thefile
+    return $p
+}
+
 proc photo {i {title {}}} {
     set w [topl]
     set n [cid]
-    set f ._photo$n
 
     if {$title ne {}} { wm title $w $title }
 
-    switch -exact -- [aktive query depth $i] {
-	1 { append f .pgm ; pgm $f $i }
-	3 { append f .ppm ; ppm $f $i }
-	default { error UNKNOWN	}
-    }
-
-    set p [image create photo p$n -file $f]
-    file delete $f
-
-    label $w.l -image $p
+    label $w.l -image [photo-image $i]
     pack  $w.l -expand 1 -fill both -side left
-    return
+
+    # allow chaining
+    return $i
 }
 
 proc plot {series {title {}}} {
