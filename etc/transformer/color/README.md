@@ -23,12 +23,15 @@
 |___		|___							|
 |Grey		|Y luminance channel of CIE XYZ tristimulus space	|
 |		|__Attention__: Range is 0...100	    		|
+|___		|___							|
+|gray		|grayscale as coming out of PGM images, etc.            |
 
-
-Lab - L* defines black at 0 and white at 100. The a* and b* axes are unbounded and depending on the
-reference white they can easily exceed +/- 150 to cover the human gamut.
-
-
+```
+Lab - L* defines black at 0 and white at 100.
+      The a* and b* axes are unbounded and depending on the
+      reference white they can easily exceed +/- 150 to cover
+      the human gamut.
+```
 
 ## Core conversions
 
@@ -53,3 +56,5 @@ HSV <--> sRGB <--> scRGB <--> XYZ <---> Lab <---> LCh
 ## Other conversions
 
 Are assembled from the core conversions by chaining these.
+
+See `no-core.tcl`.
