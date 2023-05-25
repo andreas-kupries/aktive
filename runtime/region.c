@@ -226,7 +226,7 @@ aktive_region_fetch_area (aktive_region region, aktive_rectangle* request)
     aktive_blit_setup (&region->pixels, request);
     region->pixels.initialized = 1;
 
-#define ID region->origin->public.domain
+#define ID region->origin->content->public.domain
 #define RD request
 #define BL region->pixels.domain
 #define MX(r) ((r).x+(r).width-1)

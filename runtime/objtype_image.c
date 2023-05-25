@@ -34,7 +34,8 @@ static Tcl_ObjType aktive_image_objtype = {
 
 extern Tcl_Obj*
 aktive_new_image_obj (aktive_image src) {
-    TRACE_FUNC ("((aktive_image) %p '%s' ~ rc %d)", src, src->opspec->name, src->refcount);
+    TRACE_FUNC ("((aktive_image) %p '%s' ~ rc %d)", src,
+		src->content->opspec->name, src->refcount);
 
     Tcl_Obj* obj = Tcl_NewObj ();
 
@@ -74,7 +75,8 @@ FreeImage (Tcl_Obj* obj)
 {
     aktive_image a = (aktive_image) obj->internalRep.twoPtrValue.ptr1;
 
-    TRACE_FUNC ("((Tcl_Obj*) %p obj ~ image %p '%s' @ %d)", obj, a, a->opspec->name, a->refcount);
+    TRACE_FUNC ("((Tcl_Obj*) %p obj ~ image %p '%s' @ %d)", obj, a,
+		a->content->opspec->name, a->refcount);
 
     aktive_image_unref (a);
 
