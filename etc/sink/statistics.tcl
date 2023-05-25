@@ -5,6 +5,8 @@
 ## NOTE: In contrast to the row, column, and band statistics, which are transformers, the
 ##       image statistics are sinks. Because they return a scalar double value, instead of
 ##       an 1x1x1 image.
+##
+## TODO: Look into computing all the statistical values in a single run.
 
 operator {dexpr attr} {
     op::image::max         maximum              {}
@@ -34,6 +36,42 @@ operator {dexpr attr} {
 	TRACE ("create and execute batch", 0);
 	result = aktive_image_@@fun@@ (src, 0 /* client data, ignored */);
 	result;
+    }
+}
+
+operator op::image::min-max {
+    section sink statistics
+    input
+
+    note Returns a 2-element list containing the min and max of the image, in this order.
+
+    # Note: Look into computing these in C, together.
+
+    body {
+	set min [min $src]
+	set max [max $src]
+	return [list $min $max]
+    }
+}
+
+operator op::image::mean-stddev {
+    section sink statistics
+    input
+
+    note Returns a 2-element list containing lower and upper bounds for the \
+	image values, based on the image's mean and a multiple of its \
+	standard deviation.
+
+    double? 1.2 sigma   Interval around the mean to return.
+
+    # Note: Look into computing these in C, together.
+
+    body {
+	set m   [aktive op image mean   $src]
+	set s   [aktive op image stddev $src]
+	set min [expr {$m - $s * $sigma}]
+	set max [expr {$m + $s * $sigma}]
+	return [list $min $max]
     }
 }
 

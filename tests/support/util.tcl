@@ -22,6 +22,10 @@ customMatch content/string matchFileContentString
 customMatch dict           matchDict
 
 # # ## ### ##### ######## ############# #####################
+
+proc P {n args} { lindex $args $n }
+
+# # ## ### ##### ######## ############# #####################
 ## Automated wrong#args checking based on command name and argument
 ## list, with light annotations. Handles `args` and optional arguments
 ## (`?x?`). Generates and runs all the needed test cases.

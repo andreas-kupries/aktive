@@ -243,6 +243,58 @@ operator op::math1::linear {
     }
 }
 
+operator op::math1::fit::stretch {
+    section transform math unary
+
+    note Returns image fitted into the given range. Default range is 0..1.
+    note Each band of the image is fitted separately.
+
+    note The (image statistics) method `<by>` is used to determine the \
+	range of the image band values to fit into the destination range. \
+	The method is expected to return a list of two values, \
+	the min and the max to fit, in this order.
+
+    note BEWARE, this means that construction incurs a computation \
+	cost on the input.
+
+    double? 0 min	Destination minimum value to fit the image into
+    double? 1 max	Destination maximum value to fit the image into
+    str       by	Method computing the input min and max values to fit into the destination.
+    bool?   1 clamp	Force clamping into result range.
+
+    input
+
+    body {
+	set byparams [lassign $by by]
+	aktive op montage z {*}[lmap band [aktive op split z $src] {
+	    lassign [{*}$by $band {*}$byparams] srclow srchigh
+
+	    #     max = fit (srchigh) = scale*srchigh + gain
+	    #     min = fit (srclow)  = scale*srclow  + gain
+	    # <=> max-min             = scale*(srchigh-srclow)
+	    # <=> scale               = (max-min) / (srchigh - srclow)
+	    # =>  gain                = min - scale * srclow
+	    # =>  gain                = max - scale * srchigh
+
+	    set scale [expr {double($max-$min)/double($srchigh-$srclow)}]
+	    set gain  [expr {$min - ($scale * $srclow)}]
+	    set src   [aktive op math1 linear $band scale $scale gain $gain]
+
+	    if {$clamp} {
+		# The max and min operations ensure that the result is indeed limited to the
+		# desired range.  Because the source low/high boundaries can specify a mapping
+		# where the actual min/max values are mapped to something outside the desired
+		# result range.
+		#
+		# The caller can disable this if it is sure that the mapping will be good.
+		set src [aktive op math1 max $src min $min]
+		set src [aktive op math1 min $src max $max]
+	    }
+	    set src
+	}]
+    }
+}
+
 operator op::math1::fit::min-max {
     section transform math unary
 
@@ -262,22 +314,7 @@ operator op::math1::fit::min-max {
     input
 
     body {
-	aktive op montage z {*}[lmap band [aktive op split z $src] {
-	    set srcmin [aktive op image min $band]
-	    set srcmax [aktive op image max $band]
-
-	    #     max = fit (srcmax) = scale*srcmax + gain
-	    #     min = fit (srcmin) = scale*srcmin + gain
-	    # <=> max-min            = scale*(srcmax-srcmin)
-	    # <=> scale              = (max-min) / (srcmax - srcmin)
-	    # =>  gain               = min - scale * srcmin
-	    # =>  gain               = max - scale * srcmax
-
-	    set scale [expr {double($max-$min)/double($srcmax-$srcmin)}]
-	    set gain  [expr {$min - ($scale * $srcmin)}]
-
-	    aktive op math1 linear $band scale $scale gain $gain
-	}]
+	stretch $src min $min max $max clamp 0 by {{aktive op image min-max}}
     }
 }
 
@@ -301,26 +338,8 @@ operator op::math1::fit::mean-stddev {
     input
 
     body {
-	aktive op montage z {*}[lmap band [aktive op split z $src] {
-	    set m [aktive op image mean   $band]
-	    set s [aktive op image stddev $band]
-
-	    set srcmin [expr {$m - $s * $sigma}]
-	    set srcmax [expr {$m + $s * $sigma}]
-
-	    #     max = fit (srcmax) = scale*srcmax + gain
-	    #     min = fit (srcmin) = scale*srcmin + gain
-	    # <=> max-min            = scale*(srcmax-srcmin)
-	    # <=> scale              = (max-min) / (srcmax - srcmin)
-	    # =>  gain               = min - scale * srcmin
-	    # =>  gain               = max - scale * srcmax
-
-	    set scale [expr {double($max-$min)/double($srcmax-$srcmin)}]
-	    set gain  [expr {$min - ($scale * $srcmin)}]
-
-	    aktive op math1 clamp \
-		[aktive op math1 linear $band scale $scale gain $gain]
-	}]
+	stretch $src min $min max $max \
+	    by [list {aktive op image mean-stddev} sigma $sigma]
     }
 }
 

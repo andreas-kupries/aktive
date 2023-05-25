@@ -16,13 +16,15 @@ kt source support/util.tcl
 ## Syntax
 
 syntax {
-    max        src
-    mean       src
-    min        src
-    stddev     src
-    sum        src
-    sumsquared src
-    variance   src
+    max          src
+    mean         src
+    mean-stddev {src args}
+    min          src
+    min-max      src
+    stddev       src
+    sum          src
+    sumsquared   src
+    variance     src
 } {aktive op image}
 
 # # ## ### ##### ######## ############# #####################
@@ -47,5 +49,18 @@ foreach {op expected} {
 }
 
 # # ## ### ##### ######## ############# #####################
+
+set in [aktive image gradient width 7 height 1 depth 1 first -3 last 3]
+
+test aktive-op-image-min-max-2.0 "aktive op image min-max" -body {
+    aktive op image min-max $in
+} -match double4 -result {-3 3}
+
+test aktive-op-image-mean-stddev-2.0 "aktive op image mean-stddev (default sigma)" -body {
+    aktive op image mean-stddev $in
+} -match double4 -result {-2.4 2.4}
+
+# # ## ### ##### ######## ############# #####################
+unset in
 cleanupTests
 return
