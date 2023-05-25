@@ -44,22 +44,27 @@ typedef struct aktive_rank {
     aktive_uint select; // Index in `sorted` to return.
 } aktive_rank;
 
+typedef struct aktive_histogram {
+    aktive_uint bins;	// Histogram size, count of bins
+    double*     count;	// Counter array for histogram data
+} aktive_histogram;
+
 /*
  * - - -- --- ----- -------- -------------
  */
 
-#define REDUCER(fun)					\
-    extern double					\
+#define REDUCER(rtype,fun)				\
+    extern rtype					\
     aktive_reduce_ ## fun (double*     v,		\
 			   aktive_uint n,		\
 			   aktive_uint stride,		\
 			   void*       client);		\
 							\
-    extern double					\
+    extern rtype					\
     aktive_image_ ## fun (aktive_image src,		\
 			  void*        client);		\
 							\
-    extern double					\
+    extern rtype					\
     aktive_tile_reduce_ ## fun (double*     v,		\
 				aktive_uint radius,	\
 				aktive_uint base,	\
@@ -72,14 +77,15 @@ typedef struct aktive_rank {
  * - - -- --- ----- -------- -------------
  */
 
-REDUCER (max);
-REDUCER (mean);
-REDUCER (min);
-REDUCER (stddev);
-REDUCER (sum);
-REDUCER (sumsquared);
-REDUCER (variance);
-REDUCER (rank);
+REDUCER (double, max);
+REDUCER (double, mean);
+REDUCER (double, min);
+REDUCER (double, stddev);
+REDUCER (double, sum);
+REDUCER (double, sumsquared);
+REDUCER (double, variance);
+REDUCER (double, rank);
+REDUCER (void,   histogram);
 
 /*
  * - - -- --- ----- -------- -------------

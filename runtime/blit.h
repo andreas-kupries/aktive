@@ -46,6 +46,12 @@ typedef double complex (*aktive_cbinary_transform) (double complex x, double com
  * - - -- --- ----- -------- -------------
  */
 
+extern void aktive_blit_raw_copy (double* dst, aktive_uint num, aktive_uint stride, double* src);
+
+/*
+ * - - -- --- ----- -------- -------------
+ */
+
 extern void aktive_blit_setup (aktive_block* dst, aktive_rectangle* request);
 extern void aktive_blit_close (aktive_block* dst);
 

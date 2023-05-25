@@ -124,7 +124,7 @@ extern double
 aktive_reduce_rank (double* v, aktive_uint n, aktive_uint stride, void* __client__)
 {
     aktive_rank* rt = __client__;
-    TRACE_FUNC("((n) %u, (select) %u)", n, stride, rt->select);
+    TRACE_FUNC("((n) %u, (stride) %u, (select) %u)", n, stride, rt->select);
 
     ASSERT (rt->select < n, "selection index out of range");
 
@@ -136,6 +136,30 @@ aktive_reduce_rank (double* v, aktive_uint n, aktive_uint stride, void* __client
     double res = rt->sorted [rt->select];
 
     TRACE_RETURN ("(rank) %f", res);
+}
+
+extern void
+aktive_reduce_histogram (double* v, aktive_uint n, aktive_uint stride, void* __client__)
+{
+    aktive_histogram* h = __client__;
+    TRACE_FUNC("((n) %u, (stride) %u, (bins) %u)", n, stride, h->bins);
+
+    memset (h->count, 0, h->bins*sizeof(double));
+
+    for (aktive_uint k = 0; k < n; k++, v += stride) {
+	int bin = (*v) * h->bins;
+	bin = MAX (0, bin);
+	bin = MIN (h->bins, bin);
+
+	h->count [bin] += 1;
+	TRACE ("[%3d] = %f -> %d/%d => %f", k , *v, bin, h->bins, h->count [bin]);
+    }
+
+    TRACE_HEADER(1); TRACE_ADD ("histogram = {", 0);
+    for (int j = 0; j < h->bins; j++) { TRACE_ADD (" %f", h->count[j]); }
+    TRACE_ADD(" }", 0); TRACE_CLOSER;
+
+    TRACE_RETURN_VOID;
 }
 
 /*
@@ -347,7 +371,6 @@ aktive_tile_reduce_variance (double* v, aktive_uint radius, aktive_uint base,
     TRACE_RETURN ("(variance) %f", res);
 }
 
-
 extern double
 aktive_tile_reduce_rank (double* v, aktive_uint radius, aktive_uint base,
 			     aktive_uint cap, aktive_uint pitch, aktive_uint stride,
@@ -395,6 +418,47 @@ aktive_tile_reduce_rank (double* v, aktive_uint radius, aktive_uint base,
     double res = rt->sorted [rt->select];
 
     TRACE_RETURN ("(rank) %f", res);
+}
+
+extern void
+aktive_tile_reduce_histogram (double* v, aktive_uint radius, aktive_uint base,
+			      aktive_uint cap, aktive_uint pitch, aktive_uint stride,
+			      void* __client__)
+{
+    TRACE_FUNC("((double*) %p, [%u:%u], (radius) %u, (pitch) %u, (stride) %u)",
+	       v, base, cap, radius, pitch, stride);
+
+    aktive_histogram* h = __client__;
+    aktive_uint  n  = 2*radius+1; n *= n;
+    aktive_uint  k  = 0;
+
+    memset (h->count, 0, h->bins*sizeof(double));
+
+    int r = radius;
+    for (int y = -r ; y <= r; y++) {
+	for (int x = -r; x <= r; x++) {
+	    int index = y*pitch + x*stride;
+	    int aindex = (int) base + index;
+
+	    TRACE_HEADER (1); TRACE_ADD ("@(%d,%d) = %u[%d] = [%d]", x, y, base, index, aindex);
+	    if ((aindex < 0) || (aindex >= cap)) {
+		TRACE_CLOSER; TRACE("ASSERT", 0);
+		ASSERT_VA (0, "src out of bounds", "%d / %d", aindex, cap);
+	    }
+
+	    double val = v [index];
+
+	    int bin = val * h->bins;
+	    bin = MAX (0, bin);
+	    bin = MIN (h->bins, bin);
+
+	    h->count [bin] += 1;
+	    TRACE_ADD ("[%3d] = %f -> %d/%d => %f", k , val, bin, h->bins, h->count [bin]);
+	    TRACE_CLOSER;
+	}
+    }
+
+    TRACE_RETURN_VOID;
 }
 
 /*
@@ -545,10 +609,9 @@ image_reduce (const char*           name,
 /*
  * - - -- --- ----- -------- -------------
  * ATTENTION :: the generated code does not include the `rank` reducer.
- *           :: needs client data  use, and possibly a very different
- *           :: implementation ... line results are histograms ...
- * -> fit into line/col/tile histograms.
- * ->          adjacent tiles, not overlapping
+ *           :: nor the `histogram` reducer. both use client data, and
+ *           :: will likely require a very different implementation than
+ *           :: what is generated ...
  */
 
 #define PARTIAL (result->main)

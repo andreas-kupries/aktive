@@ -19,6 +19,28 @@ TRACE_OFF;
  */
 
 extern void
+aktive_blit_raw_copy (double* dst, aktive_uint num, aktive_uint stride, double* src)
+{
+    TRACE_FUNC("((dst) %p, (num) %u, (stride) %u, (src) %p)", dst, num, stride, src);
+    double* dhead = dst;
+    double* shead = src;
+
+    // Essentially destination-strided memcopy
+    for (; num > 0; num--) {
+	TRACE("d[%u] = s[%u] = %f", dst-dhead, src-shead, *src);
+	*dst = *src;
+	dst += stride;
+	src ++;
+    }
+
+    TRACE_RETURN_VOID;
+}
+
+/*
+ * - - -- --- ----- -------- -------------
+ */
+
+extern void
 aktive_blit_setup (aktive_block* dst, aktive_rectangle* request)
 {
     TRACE_FUNC("((block*) %p, (rect*) %p = {%d %d : %u %u})",
