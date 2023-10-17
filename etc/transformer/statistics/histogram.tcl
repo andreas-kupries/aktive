@@ -23,6 +23,29 @@
 # # ## ### ##### ######## ############# #####################
 ## Semi-compress bands/rows/columns/tiles down to a statistic (histogram).
 
+operator op::image::histogram {
+    section transform statistics
+
+    int? 256 bins \
+	The number of bins in the returned histogram. The pixel values are quantized \
+	to fit. Only values in the range of \[0..1\] are considered valid. Values \
+	outside of that range are placed into the smallest/largest bin. \
+	\
+	The default quantizes the image values to 8-bit.
+
+    input
+
+    note Returns image with the input transformed into a histogram of `bins` values.
+
+    # it is computed as column sum of the row histograms of the input
+
+    body {
+	set src [aktive op row histogram $src bins $bins]
+	set src [aktive op column sum $src]
+	return $src
+    }
+}
+
 operator {dim unchanged} {
     op::band::histogram   band   {width and height}
     op::column::histogram row    {width and depth}

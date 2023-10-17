@@ -80,6 +80,12 @@ test aktive-op-tile-histogram-2.0 "aktive op tile histogram" -body {
 	7 . . . . 2   6 . . . . 3   6 . . . . 3   6 . . . . 3   6 . . . . 3   7 . . . . 2
     }]]
 
+test aktive-op-image-histogram-2.0 "aktive op image histogram" -body {
+    astcl aktive op image histogram [hbase] bins 6
+} -match image -result [makei op::column::sum 0 0 6 1 1 {} {
+    7 1 1 1 1 7
+}]
+
 # # ## ### ##### ######## ############# #####################
 rename hbase {}
 cleanupTests
