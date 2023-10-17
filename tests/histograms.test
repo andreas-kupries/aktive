@@ -1,0 +1,86 @@
+# -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
+## (c) 2023 Andreas Kupries
+# # ## ### ##### ######## ############# #####################
+## AKTIVE. Row histograms
+
+kt check Tcl     8.6
+kt check tcltest 2
+
+# # ## ### ##### ######## ############# #####################
+
+kt local testing aktive
+
+kt source support/util.tcl
+
+# # ## ### ##### ######## ############# #####################
+## Syntax
+
+foreach op {
+    row
+    column
+    tile
+    band
+} {
+    syntax {
+	histogram {src args}
+    } [list aktive op $op]
+}
+
+# # ## ### ##### ######## ############# #####################
+##
+## 0 1 2 3 4 5 - 0   0.2 0.4 0.6 0.8 1
+## 0 0 0 0 0 0 - 0   0   0   0   0   0
+## 5 5 5 5 5 5 - 1   1   1   1   1   1
+#
+
+proc hbase {} {
+    aktive image from matrix width 6 height 3 factor 0.2 values \
+	0 1 2 3 4 5 \
+	0 0 0 0 0 0 \
+	5 5 5 5 5 5
+}
+
+test aktive-op-row-histogram-2.0 "aktive op row histogram" -body {
+    astcl aktive op row histogram [hbase] bins 6
+} -match image -result [makei op::row::histogram 0 0 6 3 1 {bins 6} {
+    1 1 1 1 1 1
+    6 0 0 0 0 0
+    0 0 0 0 0 6
+}]
+
+test aktive-op-column-histogram-2.0 "aktive op column histogram" -body {
+    astcl aktive op column histogram [hbase] bins 6
+} -match image -result [makei op::column::histogram 0 0 6 6 1 {bins 6} {
+    2 1 1 1 1 1
+    0 1 0 0 0 0
+    0 0 1 0 0 0
+    0 0 0 1 0 0
+    0 0 0 0 1 0
+    1 1 1 1 1 2
+}]
+
+test aktive-op-band-histogram-2.0 "aktive op band histogram" -body {
+    astcl aktive op band histogram \
+	[aktive op geometry bands fold [hbase] by 2] \
+	bins 6
+} -match image -result [makei op::band::histogram 0 0 3 3 6 {bins 6} {
+    1 1 0 0 0 0  0 0 1 1 0 0  0 0 0 0 1 1
+    2 0 0 0 0 0  2 0 0 0 0 0  2 0 0 0 0 0
+    0 0 0 0 0 2  0 0 0 0 0 2  0 0 0 0 0 2
+}]
+
+test aktive-op-tile-histogram-2.0 "aktive op tile histogram" -body {
+    astcl aktive op tile histogram \
+	[aktive op embed black [hbase] left 1 right 1 top 1 bottom 1] \
+	bins 6 radius 1
+} -match image \
+    -result [makei op::tile::histogram 0 0 6 3 6 {radius 1 bins 6} [string map {. 0} {
+	8 1 . . . .   7 1 1 . . .   6 1 1 1 . .   6 . 1 1 1 .   6 . . 1 1 1   7 . . . 1 1
+	6 1 . . . 2   4 1 1 . . 3   3 1 1 1 . 3   3 . 1 1 1 3   3 . . 1 1 4   5 . . . 1 3
+	7 . . . . 2   6 . . . . 3   6 . . . . 3   6 . . . . 3   6 . . . . 3   7 . . . . 2
+    }]]
+
+# # ## ### ##### ######## ############# #####################
+rename hbase {}
+cleanupTests
+return
