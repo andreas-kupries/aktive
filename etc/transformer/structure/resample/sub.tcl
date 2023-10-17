@@ -30,6 +30,12 @@
 ##                   well.
 
 operator op::sample::sub::xy {
+    section transform structure
+
+    note Returns image with the input sampled down along both x and y axes \
+	according to the sampling factor S (>= 1). The result keeps every S'th \
+	pixel of the input. S-1 pixels after every kept pixel are removed.
+
     input
 
     uint? 2 by Sampling factor, range 2...
@@ -56,7 +62,7 @@ operator {coordinate dimension} {
 
     note Returns image with the input sampled down along the ${coordinate}-axis \
 	according to the sampling factor S (>= 1). The result keeps every S'th \
-	pixel of the input. S-1 pixels after every kept pixel is removed.
+	pixel of the input. S-1 pixels after every kept pixel are removed.
 
     # Factor 0 - Undefined. Rejected.
     #        1 - Keep every pixel -> Identity, no operation

@@ -13,6 +13,14 @@
 ## and S-1 pixel gaps to be set to the chosen fill value.
 
 operator op::sample::fill::xy {
+
+    section transform structure
+
+    note Returns image where the input is \"zero-stuffed\" \
+	along both x and y axes according to the stuffing \
+	factor S (>= 1). The S-1 gaps in the result are set to \
+	the given fill value, with zero, i.e. 0, used by default.
+
     input
 
     uint? 2 by Stuff factor, range 2...

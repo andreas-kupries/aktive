@@ -6,6 +6,12 @@
 ## Replicate pixels along one of the coordinate axes.
 
 operator op::sample::replicate::xy {
+    section transform structure
+
+    note Returns image where the input is stretched along both x and y axes \
+	according to the stretching factor (>= 1), and the gaps are filled by \
+	replicating the preceding non-gap pixel.
+
     input
 
     uint? 2 by Stretch factor, range 2...

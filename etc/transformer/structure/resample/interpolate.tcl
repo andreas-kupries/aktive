@@ -6,8 +6,18 @@
 ## Interpolation - Fill step followed by a lowpass filter.
 
 operator op::sample::interpolate::xy {
+    section transform structure
+
+    note Returns image with the input interpolated along both x and y axes \
+	according to the interpolation factor (>= 1).
+
+    note This is accomplished by low-pass filtering applied to the result of \
+	zero-stuffing the input.
+
     input
+
     uint? 2 by Interpolation factor, range 2...
+
     str?  mirror embed \
 	Embedding to apply to prevent input from shrinking \
 	before sampled down.

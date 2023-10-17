@@ -6,6 +6,11 @@
 ## Decimation - Lowpass filter followed by a sub sampling step.
 
 operator op::sample::decimate::xy {
+    section transform structure
+
+    note Returns image with the input decimated along both x and \
+	y axes according to the decimation factor (>= 1).
+
     input
 
     uint? 2 by Decimation factor, range 2...
