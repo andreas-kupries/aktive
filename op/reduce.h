@@ -28,9 +28,9 @@
  *  - pitch	Distance between rows of the block.
  *  - stride	Distance btween columns of the block.
  *
- * Note: While all reducers have a client data argument, currently
- * only the `rank` reducer actually makes use of it, and interprets
- * the value as `aktive_rank*`.
+ * Note: While all reducers have a client data argument, currently only the
+ * `rank` and `histogram` reducers actually make use of it, and interpret the
+ * value as `aktive_rank*` and `aktive_histogram*` respectively.
  */
 
 #include <rt.h>
@@ -46,6 +46,7 @@ typedef struct aktive_rank {
 
 typedef struct aktive_histogram {
     aktive_uint bins;	// Histogram size, count of bins
+    aktive_uint maxbin;	// Derived, index of highest bin.
     double*     count;	// Counter array for histogram data
 } aktive_histogram;
 

@@ -149,7 +149,7 @@ aktive_reduce_histogram (double* v, aktive_uint n, aktive_uint stride, void* __c
     for (aktive_uint k = 0; k < n; k++, v += stride) {
 	int bin = (*v) * h->bins;
 	bin = MAX (0, bin);
-	bin = MIN (h->bins, bin);
+	bin = MIN (h->maxbin, bin);
 
 	h->count [bin] += 1;
 	TRACE ("[%3d] = %f -> %d/%d => %f", k , *v, bin, h->bins, h->count [bin]);
@@ -450,7 +450,7 @@ aktive_tile_reduce_histogram (double* v, aktive_uint radius, aktive_uint base,
 
 	    int bin = val * h->bins;
 	    bin = MAX (0, bin);
-	    bin = MIN (h->bins, bin);
+	    bin = MIN (h->maxbin, bin);
 
 	    h->count [bin] += 1;
 	    TRACE_ADD ("[%3d] = %f -> %d/%d => %f", k , val, bin, h->bins, h->count [bin]);
