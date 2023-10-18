@@ -38,7 +38,7 @@ proc numbers {w} {
 
 # Save to file
 proc save-to {path args} {
-    set path [td]/$path
+    set path [file join [td] $path]
     set chan [open $path w]
     lappend args into $chan
     uplevel 1 [linsert $args 0 check]
