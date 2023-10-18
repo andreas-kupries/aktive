@@ -648,12 +648,13 @@ extern void
 __aktive_block_dump (char* prefix, aktive_block* src) {
 
     TRACE ("%s %p = block {", prefix, src);
-    TRACE ("  domain  = { %d..%d, %d..%d : %u x %u x %u }",
+    TRACE ("  domain   = { %d..%d, %d..%d : %u x %u x %u }",
 	   src->domain.x, src->domain.x + src->domain.width  - 1,
 	   src->domain.y, src->domain.y + src->domain.height - 1,
 	   src->domain.width, src->domain.height, src->domain.depth);
-    TRACE ("  region  = %p", src->region);
-    TRACE ("  use/cap = %d/%d", src->used, src->capacity);
+    TRACE ("  location = { %d x %d } ", src->location.x, src->location.y);
+    TRACE ("  region   = %p", src->region);
+    TRACE ("  use/cap  = %d/%d", src->used, src->capacity);
 
     TRACE_HEADER(1) ; TRACE_ADD ("  pixels  = {", 0);
     if (src->used) {
@@ -661,8 +662,10 @@ __aktive_block_dump (char* prefix, aktive_block* src) {
 	for (aktive_uint i = 0 ; i < src->used; i++) {
 	    if (i) {
 		if (i % (src->domain.width * src->domain.depth) == 0) {
+		    // end of row, start new row
 		    TRACE_CLOSER; TRACE_HEADER (1); TRACE_ADD ("    ", 0);
 		} else if (i % src->domain.depth == 0) {
+		    // end of pixel (bands), start new pixel
 		    TRACE_ADD (" /", 0);
 		}
 	    }
