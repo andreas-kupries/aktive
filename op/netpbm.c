@@ -15,34 +15,34 @@
  *
  *  - PPM data represents a byte- or short-quantized RGB image (i.e. it has 3 bands). It
  *    consists of a minimal header followed by a list of integer triples. The integer
- *    values can be coded in binary (bytes or shorts), or as ASCII decimal numbers
+ *    values can be coded in binary (uint8 or uint16), or as ASCII decimal numbers
  *    (unsigned, >= 0 always). The header indicates the coding in use.
  *
  *  - PGM data represents a byte- or short-quantized gray image (i.e. it has 1 band). The
  *    header is identical to PPM, except in the type indicator up front. The possible
- *    encodings for the integer values is the same.
+ *    encodings for the integer values are the same.
  *
  *  - The header is always plain text. It consists of type indicator, image width and
  *    height, and the possible maximal integer value, in this order. The `maximal value` is
- *    a scaling factor in the range 1 to 65535. Values <= 255 indicate bytes for binary
- *    coding, otherwise shorts.
+ *    a scaling factor in the range 1 to 65535. Values <= 255 indicate uint8 for binary
+ *    coding, otherwise uint16.
  *
- *  - The format supports *-based single-line comments in the header H which may start
+ *  - All formats allow `#`-based single-line comments in the header H which may start
  *    __anywhere__ in H. IOW even in the middle of a number.
  *
  *    This writer does not generate any comments - TODO FUTURE :: use for meta data
  *
- *    The formats writing encoding the pixel values as text support *-based single-line
- *    comments in the pixel data section as well.
+ *    The formats encoding the pixel values as text allow #-based single-line comments
+ *    in the pixel data section as well.
  *
- *  - With this parsing the header can be done in a state machine supporting a single level
+ *  - Parsing the header can and is done using a state machine supporting a single level
  *    of stack/context.
  *
  *  - Whitespace (Space, TAB, VT, CR, LF) is used to terminate all values in the header.
  *    Whitespace is also used to terminate text encoded pixel values. Binary coded pixel
  *    values on the other hand are __not__ terminated at all.
  *
- *  - Binary coded data is written in __big endian__ order.
+ *  - Binary coded data is written in __big endian__ order (relevant only to uint16).
  */
 
 #include <rt.h>
@@ -126,8 +126,9 @@ static const char* format[] = {
 	/* 6 */	"ppm::binary"
 };
 
-static int         valid[] = { 0, 0, 1, 1, 0, 1, 1 };
-static aktive_uint bands[] = { 0, 0, 1, 3, 0, 1, 3 };
+static int         valid [] = { 0, 0, 1, 1, 0, 1, 1 };
+static aktive_uint bands [] = { 0, 0, 1, 3, 0, 1, 3 };
+static aktive_uint binary[] = { 0, 0, 0, 0, 0, 1, 1 };
 
 static aktive_sink_process process[] = {
 	/*  0 0          */ 0,
@@ -223,7 +224,7 @@ netpbm_header (aktive_netpbm_control* info, aktive_image src)
     ASSERT (n < 40, "header overflowed internal string buffer");
     TRACE ("header to write (%s)", buf);
 
-    aktive_write_append (info->writer, buf, n);
+    aktive_write_here (info->writer, buf, n);
 
     info->size    = aktive_geometry_get_size (g);
     info->written = 0;
@@ -259,11 +260,11 @@ netpbm_text (aktive_netpbm_control* info, aktive_block* src)
 		info, info->sink->name, info->written, info->col, src, src->used);
 
     ITER {
-	aktive_uint n = aktive_write_append_uint_text (info->writer, aktive_quantize_uint8 (VAL));
+	aktive_uint n = aktive_write_here_uint_text (info->writer, aktive_quantize_uint8 (VAL));
 	info->col += n;
 	int term = 32;
 	if (info->col >= MAXCOL) { TRACE ("break %d", info->col); info->col = 0; term = 10; } else { info->col ++; }
-	aktive_write_append_uint8 (info->writer, term);
+	aktive_write_here_uint8 (info->writer, term);
 	info->written ++;
     }
 
@@ -277,11 +278,11 @@ netpbm_etext (aktive_netpbm_control* info, aktive_block* src)
 		info, info->sink->name, info->written, info->col, src, src->used);
 
     ITER {
-	aktive_uint n = aktive_write_append_uint_text (info->writer, aktive_quantize_uint16 (VAL));
+	aktive_uint n = aktive_write_here_uint_text (info->writer, aktive_quantize_uint16 (VAL));
 	info->col += n;
 	int term = 32;
 	if (info->col >= MAXCOL) { TRACE ("break %d", info->col); info->col = 0; term = 10; } else { info->col ++; }
-	aktive_write_append_uint8 (info->writer, term);
+	aktive_write_here_uint8 (info->writer, term);
 	info->written ++;
     }
 
@@ -298,7 +299,7 @@ netpbm_byte (aktive_netpbm_control* info, aktive_block* src)
 	aktive_uint val = aktive_quantize_uint8 (VAL);
 	TRACE ("write [%8d] %f -> %5u", j, VAL, val);
 
-	aktive_write_append_uint8 (info->writer, val);
+	aktive_write_here_uint8 (info->writer, val);
 	info->written ++;
     }
 
@@ -315,7 +316,7 @@ netpbm_short (aktive_netpbm_control* info, aktive_block* src)
 	aktive_uint val = aktive_quantize_uint16 (VAL);
 	TRACE ("write [%8d] %f -> %5u", j, VAL, val);
 
-	aktive_write_append_uint16be (info->writer, val);
+	aktive_write_here_uint16be (info->writer, val);
 	info->written ++;
     }
 

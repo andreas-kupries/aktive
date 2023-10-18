@@ -47,8 +47,11 @@ typedef struct aktive_aktive_control {
     aktive_sink*   sink;     // Owning/owned sink
 
     // Processing state
-    aktive_uint    size;       // Image size
-    aktive_uint    written;    // Values written == size at end
+    aktive_uint    size;      // Image size in pixels
+    aktive_uint    written;   // Values written == size at end
+    aktive_uint    start;     // Byte offset where pixels start in the file
+    aktive_uint    rowsize;   // Size of a row in bytes
+    aktive_uint    pixsize;   // Size of a single pixel in bytes
 } aktive_aktive_control;
 
 /*
@@ -74,13 +77,14 @@ aktive_aktive_sink (aktive_writer* writer)
     info->writer   = writer;
     info->sink     = sink;
     info->size     = 0;
+    info->start    = 0;
     info->written  = 0;
 
     sink->name       = "aktive";
     sink->setup      = (aktive_sink_setup)   aktive_header;
     sink->final      = (aktive_sink_final)   aktive_final;
     sink->process    = (aktive_sink_process) aktive_pixels;
-    sink->sequential = 1; // TODO :: see if we can avoid this
+    sink->sequential = 0;
     sink->state      = info;
 
     TRACE_RETURN ("(aktive_sink*) %p", sink);
@@ -100,23 +104,27 @@ aktive_header (aktive_aktive_control* info, aktive_image src)
     Tcl_Obj*         m = aktive_image_meta_get (src);
     int              msize = 0;
     char*            mdata = 0;
-    if (m) { mdata = Tcl_GetStringFromObj (m, &msize); }
+    int              start = 0;
+    if (m) { mdata = Tcl_GetStringFromObj (m, &msize); start += msize; }
 
-    TRACE ("magic",      0); aktive_write_append          (info->writer, MAGIC,   sizeof (MAGIC)-1);
-    TRACE ("version",    0); aktive_write_append          (info->writer, VERSION, sizeof (VERSION)-1);
-    TRACE ("x location", 0); aktive_write_append_uint32be (info->writer, g->x);
-    TRACE ("y location", 0); aktive_write_append_uint32be (info->writer, g->y);
-    TRACE ("width",      0); aktive_write_append_uint32be (info->writer, g->width);
-    TRACE ("height",     0); aktive_write_append_uint32be (info->writer, g->height);
-    TRACE ("depth",      0); aktive_write_append_uint32be (info->writer, g->depth);
-    TRACE ("meta size",  0); aktive_write_append_uint32be (info->writer, msize);
+    TRACE ("magic",      0); aktive_write_here          (info->writer, MAGIC,   sizeof (MAGIC)-1);   start += sizeof (MAGIC)-1;
+    TRACE ("version",    0); aktive_write_here          (info->writer, VERSION, sizeof (VERSION)-1); start += sizeof (VERSION)-1;
+    TRACE ("x location", 0); aktive_write_here_uint32be (info->writer, g->x);                        start += 4;
+    TRACE ("y location", 0); aktive_write_here_uint32be (info->writer, g->y);                        start += 4;
+    TRACE ("width",      0); aktive_write_here_uint32be (info->writer, g->width);                    start += 4;
+    TRACE ("height",     0); aktive_write_here_uint32be (info->writer, g->height);                   start += 4;
+    TRACE ("depth",      0); aktive_write_here_uint32be (info->writer, g->depth);                    start += 4;
+    TRACE ("meta size",  0); aktive_write_here_uint32be (info->writer, msize);                       start += 4;
     if (msize) {
-	TRACE ("meta data",  0); aktive_write_append (info->writer, mdata, msize);
+	TRACE ("meta data", 0); aktive_write_here (info->writer, mdata, msize);
     }
-    TRACE ("magic2",     0); aktive_write_append          (info->writer, MAGIC2, sizeof (MAGIC2)-1);
+    TRACE ("magic2",        0); aktive_write_here (info->writer, MAGIC2, sizeof (MAGIC2)-1);         start += sizeof (MAGIC2)-1;
 
     info->size    = aktive_geometry_get_size (g);
     info->written = 0;
+    info->start   = start;
+    info->pixsize = g->depth * sizeof (double);
+    info->rowsize = g->width * info->pixsize;
 
     TRACE_RETURN ("(aktive_aktive_control*) %p", info);
 }
@@ -137,25 +145,38 @@ aktive_final (aktive_aktive_control* info) {
     TRACE_RETURN_VOID;
 }
 
-#define ITER  for (aktive_uint j = 0; j < src->used; j++)
-#define VAL   src->pixel [j]
-
 static void
 aktive_pixels (aktive_aktive_control* info, aktive_block* src)
 {
     TRACE_FUNC ("((aktive_aktive_control*) %p '%s', written %d, getting (%p): %d)",
 		info, info->sink->name, info->written, src, src->used);
 
-    ITER {
-	aktive_write_append_float64be (info->writer, VAL);
-	info->written ++;
+    TRACE_DO (__aktive_block_dump (info->sink->name, src));
+
+    // start offset of the block in the file
+    int offset = info->start
+	+ info->rowsize * src->location.y
+	+ info->pixsize * src->location.x;
+
+    TRACE ("location offset: %d", offset);
+
+    aktive_uint r, c, j;
+    aktive_uint rowvalues = src->domain.width * src->domain.depth;
+
+    // iterate over the rows of the block ...
+    for (j = 0, r = 0; r < src->domain.height; r++, offset += info->rowsize) {
+	// seek to pixel location in the file, for the current row ...
+	aktive_write_goto (info->writer, offset);
+
+	// ... and write the elements of the row into place
+	for (c = 0; c < rowvalues; c++, j++) {
+	    aktive_write_here_float64be (info->writer, src->pixel [j]);
+	    info->written ++;
+	}
     }
 
     TRACE_RETURN_VOID;
 }
-
-#undef ITER
-#undef VAL
 
 /*
  * = = == === ===== ======== ============= =====================
