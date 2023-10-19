@@ -1,13 +1,29 @@
-# # ## ### ##### ######## ############# #####################
 ## -*- tcl -*-
+# # ## ### ##### ######## ############# #####################
+## (c) 2023 Andreas Kupries
+
+# @@ Meta Begin
+# Package aktive::plot 0
+# Meta author      {Andreas Kupries}
+# Meta location    https://core.tcl.tk/akupries/aktive
+# Meta platform    tcl
+# Meta summary	   Simple XY plot widget
+# Meta description Simple XY plot widget.
+# Meta description Wrapper around Tklib's plotchart providing a simplified API
+# Meta subject	   {XY plot} {plot widget} {plot XY series}
+# Meta require     {Tcl 8.6-}
+# Meta require     Tk
+# Meta require     snit
+# Meta require     Plotchart
+# @@ Meta End
 
 # # ## ### ##### ######## ############# #####################
 ## Requisites
 
 package require Tcl 8.6
 package require Tk
-package require snit          ; # Tcllib
-package require Plotchart ;#1.9 ; # Tklib
+package require snit      ; #         Tcllib
+package require Plotchart ; # 1.9 ; # Tklib
 
 package provide aktive::plot 0.0
 
