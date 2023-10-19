@@ -10,7 +10,7 @@ source [file join $top tools trial-base.tcl]
 
 # ------------------------------------------------------------------------------
 foreach p $argv {
-    photo [aktive read from netpbm path $p] $p
+    pv [aktive read from netpbm path $p] $p
 }
 exit
 # ------------------------------------------------------------------------------

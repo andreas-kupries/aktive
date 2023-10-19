@@ -23,58 +23,17 @@ source [file join $tests support paths.tcl]
 
 # ------------------------------------------------------------------------------
 
-proc stretch {src} {
-    # NOTE -- stretching each band separately
-    # - i.e. min/max per band (not per pixel per band)
+proc pv {i {title {}}} {
+    package require aktive::tk
 
-    # the code structure is a general thing
-    # - split into bands, apply op to each band, then rejoin the bands.
-    #   i.e. split/modify/join
-
-    aktive op montage z {*}[lmap band [aktive op split z $src] {
-	set min [aktive op image min $band]
-	set max [aktive op image max $band]
-
-	puts MM/$min/$max
-	# 1   = scale*max+gain
-	# 0   = scale*min+gain
-	# 1-0 = scale*(max-min)
-	# scale = 1/(max - min)
-	# gain = -scale*min
-
-	set scale [expr {1./($max-$min)}]
-	set gain  [expr {- ($scale * $min)}]
-	puts SG/$scale/$gain
-
-	aktive op math1 linear $band scale $scale gain $gain
-    }]
-}
-
-proc photo-image {i} {
-    set bands [aktive query depth $i]
-    set convert {
-	1 {pgm byte}
-	3 {ppm byte}
-    }
-    if {![dict exists $convert $bands]} {
-	return -code error -errorcode UNKNOWN \
-	    "Unable to convert/show image with $bands bands"
-    }
-    set chan [file tempfile thefile __aktive_photo__]
-    aktive format as {*}[dict get $convert $bands] 2chan $i into $chan
-    close $chan
-    set p [image create photo -file $thefile]
-    file delete $thefile
-    return $p
-}
-
-proc photo {i {title {}}} {
     set w [topl]
     set n [cid]
 
     if {$title ne {}} { wm title $w $title }
 
-    label $w.l -image [photo-image $i]
+    set ::photo [aktive tk photo $i]
+
+    label $w.l -image $::photo
     pack  $w.l -expand 1 -fill both -side left
 
     # allow chaining
@@ -101,6 +60,7 @@ proc plot {series {title {}}} {
 
 set ::windows 0
 set ::counter 0
+set ::photo   {} ;# last photo
 
 proc topl {} {
     package require Tk
