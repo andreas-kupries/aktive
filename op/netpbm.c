@@ -345,9 +345,9 @@ aktive_netpbm_read_header (Tcl_Channel src, aktive_netpbm_header* info)
     vcode -= '0';
     if ((vcode > 7) || !valid [vcode]) { TRACE_RETURN ("(Fail) %d: type", 0); }
 
-    TRY ("width",  aktive_read_uint_str (src, &info->width));
-    TRY ("height", aktive_read_uint_str (src, &info->height));
-    TRY ("maxval", aktive_read_uint_str (src, &info->maxval));
+    TRY ("width",  aktive_read_uint_strcom (src, &info->width));
+    TRY ("height", aktive_read_uint_strcom (src, &info->height));
+    TRY ("maxval", aktive_read_uint_strcom (src, &info->maxval));
 
     aktive_uint extended = (info->maxval > 255);
 
