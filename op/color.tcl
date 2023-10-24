@@ -14,5 +14,9 @@ proc aktive::op::color::CC {from to src args} {
 	([aktive meta get $src colorspace] ne $from)} {
 	aktive error "rejecting input not in colorspace $from"
     }
-    aktive meta set [{*}$args] colorspace $to
+    aktive op color set [{*}$args] $to
+}
+
+proc aktive::op::color::set {src colorspace} {
+    aktive meta set $src colorspace $colorspace
 }

@@ -77,6 +77,7 @@ proc cc-reduce {from to} {
     cc-meta $from $to
 }
 
+# See also aktive::op::color::CC (op/color.tcl) for Tcl-level equivalent
 proc cc-meta {from to} {
     def check-input-colorspace {
 	if (!aktive_colorspace (srcs->v[0], "%%%")) aktive_fail ("rejecting input not in colorspace %%%");
@@ -96,6 +97,7 @@ import transformer/color/srgb-scrgb.tcl
 import transformer/color/xyz-lab.tcl
 import transformer/color/xyz-yxy.tcl
 import transformer/color/non-core.tcl
+import transformer/color/recast.tcl
 
 rename cc-reduce {}
 rename cc-meta   {}
@@ -153,6 +155,7 @@ import sink/statistics.tcl	;# Compute various image statistics
 #                                  per row, column, or band
 
 import accessor/attributes.tcl
+import accessor/colorspace.tcl
 
 # # ## ### ##### ######## ############# #####################
 ## Descriptions of commands implemented outside of the DSL
