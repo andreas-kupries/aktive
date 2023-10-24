@@ -20,7 +20,7 @@ syntax {
     mean         src
     mean-stddev {src args}
     min          src
-    min-max      src
+    min-max     {src args}
     stddev       src
     sum          src
     sumsquared   src

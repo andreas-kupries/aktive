@@ -44,12 +44,24 @@ operator op::image::min-max {
     input
 
     note Returns a 2-element list containing the min and max of the image, in this order.
+    note The results can be modified by setting lower and upper percentiles.
+
+    double? 1 upper	Upper percentile to apply to max. Default is 100%
+    double? 0 lower	Lower percentile to apply to min. Default is 0%
 
     # Note: Look into computing these in C, together.
 
     body {
-	set min [min $src]
-	set max [max $src]
+	# base min/max information
+	set min   [min $src]
+	set max   [max $src]
+
+	set delta [expr {$max - $min}] ;# span of values
+
+	# shift min/max via the percentiles
+	set min [expr {$min + $lower*$delta}]
+	set max [expr {$min + $upper*$delta}]
+
 	return [list $min $max]
     }
 }

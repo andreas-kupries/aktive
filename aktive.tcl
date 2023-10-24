@@ -99,7 +99,7 @@ critcl::include  runtime/rt.h
 critcl::cheaders op/*.h
 critcl::csources op/*.c
 
-# Types    ##### ######## ############# #####################
+# Types ## ##### ######## ############# #####################
 
 critcl::source  op/types.tcl                    ;# Operator support
 critcl::include generated/vector-types.h        ;# Variadic support

@@ -303,7 +303,8 @@ operator op::math1::fit::min-max {
     note Each band of the image is fitted separately.
 
     note The actual min and max values of the image bands are used to \
-	compute the necessary fit.
+	compute the necessary fit. They may be modified by the upper and \
+	lower percentiles.
 
     note BEWARE, this means that construction incurs a computation \
 	cost on the input.
@@ -311,10 +312,14 @@ operator op::math1::fit::min-max {
     double? 0 min	Minimum value to fit the image to
     double? 1 max	Maximum value to fit the image to
 
+    double? 1 upper	Upper percentile to apply to input max. Default is 100%
+    double? 0 lower	Lower percentile to apply to input min. Default is 0%
+
     input
 
     body {
-	stretch $src min $min max $max clamp 0 by {{aktive op image min-max}}
+	stretch $src min $min max $max by \
+	    [list {aktive op image min-max} upper $upper lower $lower]
     }
 }
 
@@ -333,7 +338,7 @@ operator op::math1::fit::mean-stddev {
 
     double? 0 min	Minimum value to fit the image to.
     double? 1 max	Maximum value to fit the image to.
-    double? 1.2 sigma   Interval around the mean to fit into the min/max range.
+    double? 1.2 sigma   Interval around the input mean to fit into the min/max range.
 
     input
 
