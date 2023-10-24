@@ -3,6 +3,19 @@
 ## Transformers -- Color conversions
 
 # # ## ### ##### ######## ############# #####################
+## Force a colorspace on an image (essentially a kind of type cast)
+
+operator op::color::set {
+    external!
+    section transform color
+
+    note Forcibly sets the colorspace attribute of the input image to the specified value
+
+    image src		Input to modify
+    str   colorspace	New colorspace to assume
+}
+
+# # ## ### ##### ######## ############# #####################
 ## Convert chains of color conversions into proper operators
 ## implementing said chains.
 
@@ -55,6 +68,7 @@ foreach chain {
 
     lappend map %%chain%%  [join $ab \n]
 
+    # ______________________________________________________________ a -> b conversion
     operator op::color::${a}::to::${b} [string map $map {
 	section transform color
 
@@ -67,15 +81,18 @@ foreach chain {
 	    return $src
 	}
     }]
+    # ______________________________________________________________
 
     # Grey cannot be converted back to color.
     if {$b eq "Grey"} continue
 
+    # generate reverse conversion code, Tcl commands
     set ba [lreverse [lmap from [lrange $chain 0 end-1] to [lrange $chain 1 end] {
 	set __ "set src \[aktive op color $to to $from \$src\]"
     }]] ;#                                ^------^- reversed also!
     lappend map %%rchain%% [join $ba \n]
 
+    # ______________________________________________________________ b -> a conversion
     operator op::color::${b}::to::${a} [string map $map {
 	section transform color
 
@@ -88,6 +105,7 @@ foreach chain {
 	    return $src
 	}
     }]
+    # ______________________________________________________________
 
     unset a b ab map
 }

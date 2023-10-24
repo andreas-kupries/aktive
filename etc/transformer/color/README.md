@@ -58,3 +58,7 @@ HSV <--> sRGB <--> scRGB <--> XYZ <---> Lab <---> LCh
 Are assembled from the core conversions by chaining these.
 
 See `no-core.tcl`.
+
+## Queries
+
+See `../../accessor/colorspace.tcl`.
