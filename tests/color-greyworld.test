@@ -1,0 +1,56 @@
+# -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
+## (c) 2023 Andreas Kupries
+# # ## ### ##### ######## ############# #####################
+## AKTIVE. Color correction - Grey world, global and local
+
+kt check Tcl     8.6
+kt check tcltest 2
+
+# # ## ### ##### ######## ############# #####################
+
+kt local testing aktive
+
+kt source support/util.tcl
+
+# # ## ### ##### ######## ############# #####################
+## Syntax
+
+syntax {
+    global {src args}
+} {aktive op color correct greyworld}
+
+syntax {
+    local  {src args}
+} aktive::op::color::correct::greyworld
+
+# # ## ### ##### ######## ############# #####################
+##
+
+foreach mp {
+    global
+    {local radius 5}
+} {
+    set m [lindex $mp 0]
+    set p [lrange $mp 1 end]
+    set k 0
+    foreach im {
+	butterfly
+	watergarden
+    } {
+	set in [aktive read from netpbm path [A $im.ppm]]
+
+	test aktive-op-color-correct-greyworld-${m}-2.$k "aktive op color correct greyworld $mp $im" -body {
+	    save-to test.gw-${m}.ppm aktive format as ppm byte 2chan \
+		[aktive op color correct greyworld $m $in {*}$p]
+	} -cleanup {
+	    removeFile test.gw-${m}.ppm
+	} -match content -result [R greyworld-${m}-${im}.ppm]
+    }
+
+    incr k
+}
+
+# # ## ### ##### ######## ############# #####################
+unset mp m p k im
+cleanupTests
+return
