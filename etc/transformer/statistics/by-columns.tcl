@@ -6,6 +6,8 @@
 ## Compress columns down to a statistic
 
 operator {dexpr attr} {
+    op::column::argmax      {first index}        maximal
+    op::column::argmin      {first index}        minimal
     op::column::max         maximum              {}
     op::column::mean        {arithmetic mean}    {}
     op::column::min         minimum              {}

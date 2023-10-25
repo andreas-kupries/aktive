@@ -16,6 +16,8 @@ kt source support/util.tcl
 ## Syntax
 
 syntax {
+    argmin     src
+    argmax     src
     max        src
     mean       src
     median     src
@@ -35,6 +37,18 @@ syntax {
 ## = 10 10.5 = 11 11.5 = 12 12.5
 
 foreach {op config expected} {
+    argmin {} {
+	0 0 0
+	0 0 0
+	0 0 0
+	0 0 0
+    }
+    argmax {} {
+	1 1 1
+	1 1 1
+	1 1 1
+	1 1 1
+    }
     max {} {
 	=  1.5  2.5  3.5
 	=  4.5  5.5  6.5

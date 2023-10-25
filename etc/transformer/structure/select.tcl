@@ -64,7 +64,7 @@ operator {thing coordinate dimension} {
 	aktive_uint range = aktive_image_get_@@dimension@@ (srcs->v[0]);
 
 	// could be moved into the cons wrapper created for simplification
-	if (param->from >= range)       aktive_failf ("First @@thing@@ >= %d", range);
+	if (param->from >= range)      aktive_failf ("First @@thing@@ >= %d", range);
 	if (param->to  >= range)       aktive_failf ("Last @@thing@@ >= %d",  range);
 	if (param->from >  param->to) \
 	    aktive_failf ("First @@thing@@ %d is after last %d",

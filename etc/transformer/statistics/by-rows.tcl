@@ -6,6 +6,8 @@
 ## Compress rows down to a statistic
 
 operator {dexpr attr} {
+    op::row::argmax      {first index}        maximal
+    op::row::argmin      {first index}        minimal
     op::row::max         maximum              {}
     op::row::mean        {arithmetic mean}    {}
     op::row::min         minimum              {}

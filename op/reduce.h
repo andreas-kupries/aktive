@@ -52,6 +52,19 @@ typedef struct aktive_histogram {
 
 /*
  * - - -- --- ----- -------- -------------
+ ** A selector is a special form of reducer, returning the vector element
+ ** addressed by the index.
+ */
+
+extern double
+aktive_select (double*     v,
+	       aktive_uint n,
+	       aktive_uint stride,
+	       double*     index);
+
+/*
+ * - - -- --- ----- -------- -------------
+ ** General reducer setup
  */
 
 #define REDUCER(rtype,fun)				\
@@ -78,6 +91,8 @@ typedef struct aktive_histogram {
  * - - -- --- ----- -------- -------------
  */
 
+REDUCER (double, argmax);
+REDUCER (double, argmin);
 REDUCER (double, max);
 REDUCER (double, mean);
 REDUCER (double, min);

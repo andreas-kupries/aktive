@@ -53,6 +53,48 @@ static int  double_compare  (const void* a, const void* b);
  */
 
 extern double
+aktive_select (double* v, aktive_uint n, aktive_uint stride, double* index)
+{
+    double      id = *index;
+    aktive_uint i  = (id < 0
+		      ? 0
+		      : id >= n
+		      ? n-1
+		      : (int) id);
+    return v [i*stride];
+}
+
+/*
+ * - - -- --- ----- -------- -------------
+ */
+
+extern double
+aktive_reduce_argmax (double* v, aktive_uint n, aktive_uint stride, void* __client__ /* ignored */)
+{
+    double      max    = v[0];
+    aktive_uint argmax = 0;
+    v += stride;
+    for (aktive_uint k = 1; k < n; k++, v += stride) {
+	double x = *v;
+	if (x > max) { max = x; argmax = k; }
+    }
+    return (double) argmax;
+}
+
+extern double
+aktive_reduce_argmin (double* v, aktive_uint n, aktive_uint stride, void* __client__ /* ignored */)
+{
+    double      min    = v[0];
+    aktive_uint argmin = 0;
+    v += stride;
+    for (aktive_uint k = 1; k < n; k++, v += stride) {
+	double x = *v;
+	if (x < min) { min = x; argmin = k; }
+    }
+    return (double) argmin;
+}
+
+extern double
 aktive_reduce_max (double* v, aktive_uint n, aktive_uint stride, void* __client__ /* ignored */)
 {
     double max = v[0];

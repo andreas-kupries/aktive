@@ -6,6 +6,8 @@
 ## Compress bands down to a statistic
 
 operator {dexpr attr} {
+    op::band::argmax      {first index}        maximal
+    op::band::argmin      {first index}        minimal
     op::band::max         maximum              {}
     op::band::mean        {arithmetic mean}    {}
     op::band::min         minimum              {}
