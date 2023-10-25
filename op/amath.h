@@ -28,6 +28,7 @@ extern double aktive_neg            (double x);
 extern double aktive_reciprocal     (double x);
 extern double aktive_sign           (double x);
 extern double aktive_signb          (double x);
+extern double aktive_square         (double x);
 extern double aktive_wrap           (double x);
 
 extern double aktive_shift  (double x, double offset);

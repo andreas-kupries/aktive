@@ -3,7 +3,7 @@
 ## C math support ... Policy decides later which of these are kept and placed into tcl::mathfunc
 
 # # ## ### ##### ######## #############
-## ceil, floor, round :: Ignored here. Known to exist at Tcl mathfunc, using the same C functions.
+## ceil, floor, round :: Ignored here. Known to exist as builtin Tcl mathfunc, using the same C functions.
 
 critcl::include math.h
 critcl::include stdlib.h	;# rand
@@ -26,6 +26,7 @@ foreach {fun cfun} {
     log2              -
     sign              aktive_sign
     signb             aktive_signb
+    square            aktive_square
 } {
     if {$cfun eq "-"} { set cfun $fun }
     critcl::cproc ::aktive::mathfunc::$fun {

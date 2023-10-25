@@ -42,6 +42,7 @@ operator {                     cfunction             mathfunc     dexpr classes}
     op::math1::sign*           aktive_signb          signb        {}    idempotent
     op::math1::sin             sin                   <<           {}    fixpoint0
     op::math1::sinh            sinh                  <<           {}    fixpoint0
+    op::math1::square          aktive_square         <<           "I**2" {}
     op::math1::sqrt            sqrt                  <<           {}    fixpoint0
     op::math1::tan             tan                   <<           {}    fixpoint0
     op::math1::tanh            tanh                  <<           {}    fixpoint0
@@ -84,19 +85,6 @@ operator {                     cfunction             mathfunc     dexpr classes}
 	aktive_blit_unary0 (block, dst, @@cfunction@@,
 			    aktive_region_fetch_area (srcs->v[0], request));
     }
-}
-
-# # ## ### ##### ######## ############# #####################
-
-operator op::math1::square {
-    section transform math unary
-
-    note Returns image with the unary function 'square' applied to all pixels of the input.
-
-    note The resulting image has the same geometry as the input.
-
-    input
-    body { aktive op math mul $src $src }
 }
 
 ##

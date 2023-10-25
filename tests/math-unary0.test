@@ -97,7 +97,6 @@ foreach {fun steps first last expected} {
     if {$steps eq "."} continue ;# skip undefined parts
 
     set actual math1::$fun
-    if {$fun eq "square"} { set actual math::mul }
 
     # functions to debug ...
     if {$fun in {
