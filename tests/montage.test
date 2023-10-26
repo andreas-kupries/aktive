@@ -90,8 +90,18 @@ foreach {op w h d expected} {
     } -match image -result [makei op::montage::${op}-core 0 0 $w $h $d {} $expected]
 }
 
-unset a
-unset b
 # # ## ### ##### ######## ############# #####################
+
+test aktive-op-montage-z-core-3.0 "aktive op montage z-core, translation" -body {
+    astcl aktive op montage z \
+	[aktive image from value width 2 height 1 depth 1 value 11] \
+	[aktive op location move to \
+	     [aktive image from value width 4 height 1 depth 1 value 22] x -1 y -1]
+} -match image -result [makei op::montage::z-core 0 0 4 1 2 {} {
+    = 11 22 = 11 22 = 0 22 = 0 22
+}]
+
+# # ## ### ##### ######## ############# #####################
+unset a b op w h d expected
 cleanupTests
 return

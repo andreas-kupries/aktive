@@ -120,7 +120,11 @@ operator {coordinate dimension layout dima dimb} {
     def setup [dict get {
 	x { @@xysetup@@ }
 	y { @@xysetup@@ }
-	z { state->d0 = aktive_image_get_depth (srcs->v [0]); }
+	z {
+	    state->d0 = aktive_image_get_depth (srcs->v [0]);
+
+	    TRACE_POINT_M ("offset", &state->delta);
+	}
     } $coordinate]
 
     state -fields {
@@ -236,7 +240,9 @@ operator {coordinate dimension layout dima dimb} {
 					aktive_region_fetch_area (srcs->v[0], request),
 					0);
 
-	    aktive_rectangle_add (&rectb, &istate->delta);
+	    TRACE_POINT(&istate->delta);
+
+	    aktive_rectangle_sub (&rectb, &istate->delta);
 	    aktive_blit_copy0_bands_to (block, dst,
 					aktive_region_fetch_area (srcs->v[1], &rectb),
 					istate->d0);
