@@ -25,59 +25,70 @@ source [file join $tests support paths.tcl]
 
 proc pv {i {title {}}} {
     package require aktive::tk
+    view-core [topl] $i $title
+}
 
-    set w [topl]
-    set n [cid]
+proc pv+ {i {title {}}} {
+    package require aktive::tk
+    view-core $::top $i $title
+}
 
-    if {$title ne {}} { wm title $w $title }
-
-    set ::photo [aktive tk photo $i]
-
-    label $w.l -image $::photo
-    pack  $w.l -expand 1 -fill both -side left
-
+proc view-core {w i title} {
+    global photo
+    set photo [aktive tk photo $i]
+    set n [nxt]
+    frame $w.f$n
+    label $w.f$n.t -text  $title ; pack $w.f$n.t -fill both -side top
+    label $w.f$n.p -image $photo ; pack $w.f$n.p -fill both -side top -expand 1
+    pack  $w.f$n -fill both -side left -expand 1
     # allow chaining
     return $i
 }
 
 proc plot {series {title {}}} {
     package require aktive::plot
-
-    set w [topl]
-    set v ::s[cid]
-
-    set $v $series
-
-    if {$title ne {}} {
-	wm title $w $title
-	set title [list -title $title]
-    }
-
-    aktive::plot $w.plot -variable $v -xlocked 0 -ylocked 0 {*}$title
-    pack $w.plot -expand 1 -fill both -side left
+    plot-core [topl] $series $title
     return
 }
 
-set ::windows 0
-set ::counter 0
-set ::photo   {} ;# last photo
+proc plot+ {series {title {}}} {
+    package require aktive::plot
+    plot-core $::top $series $title
+    return
+}
 
-proc topl {} {
+proc plot-core {w series title} {
+    set v ::s[nxt]
+    set $v $series
+
+    if {$title ne {}} { set title [list -title $title] }
+    set n [cid]
+    aktive::plot $w.plot$n -variable $v -xlocked 0 -ylocked 0 {*}$title
+    pack         $w.plot$n -expand 1 -fill both -side left
+    return
+}
+
+set ::windows 0  ;# number of open windows
+set ::counter 0  ;# id counter for windows, photos, labels, etc.
+set ::photo   {} ;# last loaded photo for dislay
+set ::top     {} ;# last new toplevel
+
+proc topl {{title {}}} {
     package require Tk
     wm withdraw .
 
-    global counter windows
+    global windows top
 
-    set w .t$counter
-    incr counter
-
-    toplevel    $w
-    wm protocol $w WM_DELETE_WINDOW [list window-close $w]
+    set top .t[nxt]
+    toplevel    $top
+    wm protocol $top WM_DELETE_WINDOW [list window-close $top]
     incr windows
 
-    return $w
+    if {$title ne {}} { wm title $top $title }
+    return $top
 }
 
+proc nxt {} { global counter ; incr counter ; return $counter }
 proc cid {} { global counter ; return $counter }
 
 proc window-close {w} {
