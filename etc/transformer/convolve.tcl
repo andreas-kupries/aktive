@@ -27,8 +27,8 @@ operator {
     # R = (...((I * M1) * M2) *...* Mk)
     #   = I * (M1*M2*...*Mk)
     #
-    # This is a simplification as the matrices would be convolved once and the result
-    # materialized.
+    # This is a simplification as the filter matrices would be convolved once and the
+    # combined filter result materialized.
     #
     # Actual setup of this simplification is more difficult because we should expect
     # intercalated embed operations ensuring proper sizing. These would have to be moved

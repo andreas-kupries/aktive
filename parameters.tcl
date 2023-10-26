@@ -5,6 +5,7 @@
 # (c) 2023 Andreas Kupries http://wiki.tcl.tk/andreas%20kupries
 
 # # ## ### ##### ######## ############# #####################
+## Runtime, Tcl level, Parameter collection support - Reserved namespace `parameter`
 
 package require debug           ;# Tcllib
 package require debug::caller   ;# ditto
@@ -15,8 +16,6 @@ debug prefix aktive/parameter {<[pid]> | }
 #debug on     aktive/parameter
 
 # # ## ### ##### ######## ############# #####################
-## Parameter collection support - Reserved namespace `parameter`
-#
 ## See dsl writer `ProcArgumentSetup` for the code emitting
 ## calls to these commands.
 
