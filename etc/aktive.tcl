@@ -62,6 +62,7 @@ import transformer/convolve.tcl
 import transformer/effects.tcl
 import transformer/geometry.tcl
 import transformer/identity.tcl
+import transformer/kuwahara.tcl
 import transformer/location.tcl
 import transformer/meta.tcl
 import transformer/morphology.tcl
@@ -124,6 +125,7 @@ import transformer/structure/select.tcl
 import transformer/structure/split.tcl
 import transformer/structure/swap.tcl
 import transformer/structure/scrolling.tcl
+import transformer/structure/take.tcl
 import transformer/structure/transpose.tcl
 
 import transformer/structure/embed/bg.tcl
