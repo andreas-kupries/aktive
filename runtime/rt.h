@@ -17,6 +17,8 @@
 #include <fnv.h>
 #include <matrix.h>
 #include <nproc.h>
+#include <cache.h>
+#include <veccache.h>
 #include <rtgen/vector-funcs.h>
 #include <rtgen/type-funcs.h>
 
