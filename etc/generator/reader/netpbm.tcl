@@ -20,8 +20,13 @@ operator read::from::netpbm {
     state -fields {
 	aktive_netpbm_header header;
 	aktive_path          path;	// Read-only copy of path.
+	aktive_veccache      rows;	// Row cache. Text formats only.
     } -cleanup {
 	aktive_path_free (&state->path);
+	// For the text modes the cache is at image-level. Release here as well.
+	if (!state->header.binary) {
+	    aktive_veccache_release (state->rows);
+	}
     } -setup {
 	Tcl_Channel src = Tcl_FSOpenFileChannel (NULL, param->path, "r", 0);
 	if (!src) aktive_failf ("failed to open path %s", Tcl_GetString (param->path));
@@ -46,6 +51,12 @@ operator read::from::netpbm {
 	aktive_meta_set        (meta, "netpbm", netpbm);
 	aktive_meta_set        (meta, "path",   param->path);
 	aktive_meta_set_string (meta, "colorspace", cspace);
+
+	if (!state->header.binary) {
+	    state->rows = aktive_veccache_new (state->header.height,
+					       state->header.width,
+					       state->header.base);
+	}
     }
 
     pixels -state {
@@ -65,13 +76,20 @@ operator read::from::netpbm {
 	aktive_read_setup_binary (state->data);
 
 	state->info  = &istate->header;
-	state->cache = 0;
-	// NOTE: cache init is done by reader function
 
+	// Cache management. For the binary modes the cache holds the raw data for a
+	// single row, and is allocated by the reader function on first call.
+	// For the text modes the image-level row cache is passed in instead.
+
+	if (state->info->binary) {
+	    state->cache = 0;
+	} else {
+	    state->cache = istate->rows;
+	}
     } -cleanup {
 	if (state->data) Tcl_Close (NULL, state->data);
-	if (state->cache) ckfree (state->cache);
-	// TODO cache cleanup -- proper -- TODO cache structures and API
+	// For the binary modes the cache was allocated at pixel-level. Release here as well.
+	if (state->info->binary && state->cache) { ckfree (state->cache); }
     } {
 	aktive_uint stride = block->domain.depth;
 	aktive_uint pitch  = block->domain.width * stride;

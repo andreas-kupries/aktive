@@ -30,6 +30,8 @@ set bands {
 set maxv {
     byte  255
     short 65535
+    color 255
+    feep  15
 }
 
 # Note: The conversion from double to uint when writing the asset files introduced quantization
@@ -93,22 +95,42 @@ foreach {k name expected} {
 	= 0.8254 0.4762 0.1746 = 0.8413 0.3492 0.1587 = 0.8571 0.2222 0.1429 = 0.8730 0.0952 0.1270
 	= 0.8889 1      0.1111 = 0.9048 0.8730 0.0952 = 0.9206 0.7460 0.0794 = 0.9365 0.6190 0.0635
 	= 0.9524 0.4921 0.0476 = 0.9682 0.3651 0.0317 = 0.9841 0.2381 0.0159 = 1      0.1111 0
-
+    }
+    4 24,7/feep.pgm {
+	= 0 0   0   0   0   0 0 0      0      0      0      0 0 0      0      0      0      0 0 0 0 0 0 0
+	= 0 0.2 0.2 0.2 0.2 0 0 0.4667 0.4667 0.4667 0.4667 0 0 0.7333 0.7333 0.7333 0.7333 0 0 1 1 1 1 0
+	= 0 0.2 0   0   0   0 0 0.4667 0      0      0      0 0 0.7333 0      0      0      0 0 1 0 0 1 0
+	= 0 0.2 0.2 0.2 0   0 0 0.4667 0.4667 0.4667 0      0 0 0.7333 0.7333 0.7333 0      0 0 1 1 1 1 0
+	= 0 0.2 0   0   0   0 0 0.4667 0      0      0      0 0 0.7333 0      0      0      0 0 1 0 0 0 0
+	= 0 0.2 0   0   0   0 0 0.4667 0.4667 0.4667 0.4667 0 0 0.7333 0.7333 0.7333 0.7333 0 0 1 0 0 0 0
+	= 0 0   0   0   0   0 0 0      0      0      0      0 0 0      0      0      0      0 0 0 0 0 0 0
+    }
+    5 3,2/color.ppm {
+	1   0   0	0   1   0	0   0   1
+	1   1   0	1   1   1	0   0   0
     }
 } {
-    set type  [file rootname $name]
-    lassign [dict get $bands [file extension $name]] depth colors
+    if {[string match */* $name]} {
+	lassign [split $name /] dim name
+	lassign [split $dim ,] w h
+	set rpath [A $name]
+    } else {
+	lassign {8 8} w h
+	set rpath [R format-$name]
+    }
 
-    set rpath  [R format-$name]
+    set type [file rootname $name]
+    lassign  [dict get $bands [file extension $name]] depth colors
+
     set config [dict create path $rpath]
     set meta {}
     dict set meta netpbm maxval [dict get $maxv $type]
-    dict set meta colorspace $colors
     dict set meta path $rpath
+    dict set meta colorspace $colors
 
     test aktive-read-from-netpbm-2.$k-${type}-$depth "aktive read from netpbm ($type, depth $depth)" -body {
-	astcl aktive read from netpbm path [R format-$name]
-    } -match image -result [makei read::from::netpbm 0 0 8 8 $depth $config $expected $meta]
+	astcl aktive read from netpbm path $rpath
+    } -match image -result [makei read::from::netpbm 0 0 $w $h $depth $config $expected $meta]
 
     unset type depth colors rpath config meta
 }

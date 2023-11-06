@@ -51,13 +51,14 @@ typedef void (*aktive_netpbm_reader) (void**                   cache, // row cac
 // The PPM formats provide 3 values per column.
 
 typedef struct aktive_netpbm_header {
-    aktive_uint          width;
-    aktive_uint          height;
-    aktive_uint          depth;
-    aktive_uint          maxval;
-    aktive_uint          base;
-    aktive_netpbm_reader reader;
-    double               scale;
+    aktive_uint          width;		// Image width, #columns
+    aktive_uint          height;	// Image height, #rows
+    aktive_uint          depth;		// Image depth, #bands
+    aktive_uint          maxval;	// Max pixel value possible (<256 => 8 bit, else 16)
+    aktive_uint          base;		// Offset to pixel data
+    aktive_netpbm_reader reader;	// Pointer to pixel reader
+    double               scale;		// 1/maxval, scaling to internal [0..1] range
+    aktive_uint          binary;	// Bool flag. True for the binary formats
 } aktive_netpbm_header;
 
 extern int aktive_netpbm_read_header (Tcl_Channel src, aktive_netpbm_header* info);
