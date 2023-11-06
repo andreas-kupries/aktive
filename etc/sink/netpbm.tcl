@@ -29,6 +29,34 @@ operator {
     }
 }
 
+operator {
+    format::as::pgm::text::2file
+    format::as::pgm::etext::2file
+    format::as::pgm::byte::2file
+    format::as::pgm::short::2file
+    format::as::ppm::text::2file
+    format::as::ppm::etext::2file
+    format::as::ppm::byte::2file
+    format::as::ppm::short::2file
+} {
+    def thing	[set thing   [lindex [split $__op :] 4]]
+    def variant [set variant [lindex [split $__op :] 6]]
+
+    section sink writer
+
+    note Writes image to the destination file, serialized \
+	with [string toupper $thing]'s $variant format.
+
+    input
+
+    str into \
+	Destination file the $thing $variant image data is written to.
+
+    body {
+	aktive::2file $into $src 2chan
+    }
+}
+
 operator {bands type maxval} {
     format::as::pgm::text::2chan    1 2	  255
     format::as::pgm::etext::2chan   1 2 65535

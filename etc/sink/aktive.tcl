@@ -20,6 +20,24 @@ operator {
 }
 
 operator {
+    format::as::aktive::2file
+} {
+    section sink writer
+
+    note Writes image to the destination file, serialized \
+	with the AKTIVE format.
+
+    input
+
+    str into \
+	Destination file the image data is written to.
+
+    body {
+	aktive::2file $src 2chan
+    }
+}
+
+operator {
     format::as::aktive::2chan
 } {
     section sink writer

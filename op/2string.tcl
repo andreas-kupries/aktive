@@ -16,11 +16,11 @@ debug prefix aktive/2string {<[pid]> | }
 
 #debug on     aktive/2string
 
+namespace eval aktive {}
+
 # # ## ### ##### ######## ############# #####################
 ## Helper to wrap a 2chan image writer so that it returns a string.
 ## The helper is not made public.
-
-namespace eval aktive {}
 
 proc aktive::2string {src args} {
     debug.aktive/2string {}
@@ -37,6 +37,19 @@ proc aktive::2string {src args} {
     unset content
 
     return $r
+}
+
+# # ## ### ##### ######## ############# #####################
+## Helper to wrap a 2chan image writer so that it writes to a file
+## The helper is not made public.
+
+proc aktive::2file {path src args} {
+    debug.aktive/2string {}
+
+    set dst [open $path w]
+    uplevel 1 [linsert $args end $src into $dst]
+    close $dst
+    return
 }
 
 # # ## ### ##### ######## ############# #####################
