@@ -40,7 +40,7 @@ code generator emits
     parameters and/or input images.
 
     Note that the exact nature of the image argument depends on the declared reference counting mode
-    of the argument. Inputs which may be ignorted, or not, get a second argument through which the
+    of the argument. Inputs which may be ignored, or not, get a second argument through which the
     constructor can signal if the input was actually ignored, or not.
 
     Parameter data is provided before image arguments.

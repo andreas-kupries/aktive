@@ -6,6 +6,7 @@ namespace eval dsl::reader {
     namespace ensemble create
 
     variable state {}
+    variable counter 0	;# counter for operator groups
 }
 
 # # ## ### ##### ######## #############
@@ -149,8 +150,9 @@ proc dsl::reader::nyi {args} { ;#puts [info level 0]
 ## DSL support - (Tcl)Operator handling
 
 proc dsl::reader::Operator {vars ops specification} {
+    set key [Next] ;# key identifying the entire group of operators
     foreach [list __op {*}$vars] $ops {
-	OpStart $__op
+	OpStart $__op $key
 	foreach v $vars { def $v [set $v] }
 
 	eval $specification
@@ -158,12 +160,13 @@ proc dsl::reader::Operator {vars ops specification} {
     }
 }
 
-proc dsl::reader::OpStart {op} {
+proc dsl::reader::OpStart {op key} {
     if {[Get opname] ne {}} { Abort "Nested operator definition `$op`" }
     if {[Has ops $op]}      { Abort "Duplicate operator definition" }
 
     Set opmode {}		;# Allow all commands at the beginning.
     Set opname $op		;# Current operator, lock against nesting
+    Set opspec key      $key    ;# Group code for multiple operators from one spec
     Set opspec notes    {}	;# Description
     Set opspec section  {}	;# Command category
     Set opspec images   {}	;# Input images
@@ -244,9 +247,9 @@ proc dsl::reader::OpFinish {} {
 # # ## ### ##### ######## #############
 ## DSL support - general operator details
 
-proc dsl::reader::supporting {cfragment} { ;#puts [info level 0]
+proc dsl::reader::support {cfragment args} { ;#puts [info level 0]
     OkModes {} C
-    LappendX opspec support $cfragment
+    LappendX opspec support [TemplateCode $cfragment $args]
 }
 
 proc dsl::reader::note {args} { ;#puts [info level 0]
@@ -559,6 +562,11 @@ proc dsl::reader::Get {args} {
 proc dsl::reader::Has {args} {
     variable state
     dict exists $state {*}$args
+}
+
+proc dsl::reader::Next {} {
+    variable counter
+    incr counter
 }
 
 # ... ... ... ingestion commands ... ... ... ... ... ...

@@ -617,9 +617,9 @@ proc dsl::writer::OperatorFunctionForOp {op} {
     set spec [Get ops $op]
 
     dict with spec {}
-    # notes, images, params, result, rcode, statec, stater, statef, geometry, support
+    # notes, images, params, result, rcode, statec, stater, statef, geometry, support, key
     unset notes
-    ##       images          result, rcode, statec, stater, statef, geometry, support
+    ##       images          result, rcode, statec, stater, statef, geometry, support, key
 
     if {$result ne "void"} {
 	set result [CprocResultC $spec]
@@ -642,10 +642,14 @@ proc dsl::writer::OperatorFunctionForOp {op} {
 	Comment "- - -- --- ----- -------- ------------- " {    }
 	Comment " -- BEGIN supporting definitions"         {    }
 	+ {}
+	+ "#ifndef OPERATOR_GROUP_$key"
+	+ "#define OPERATOR_GROUP_$key"
 	foreach cfragment $support {
 	    + [FormatCode $cfragment {    }]
 	    + {}
 	}
+	+ "#endif /* OPERATOR_GROUP_$key */"
+	+ {}
 	Comment " -- END supporting definitions"           {    }
 	Comment "- - -- --- ----- -------- ------------- " {    }
 	+ {}

@@ -26,7 +26,7 @@ number of (non-image) parameters, and the kind of their result, if any.
 
 ### `nyi`
 
-A prefix command for easy disabling of an entire block, like `operator`.
+A prefix command to disable an entire block, like `operator`.
 
 The name stands for `Not Implemented Yet`.
 
@@ -86,8 +86,8 @@ Arguments:
 
 ### `operator`
 
-The command takes a name and a detailed specification of the desired operator and arranges for the
-generator to emit the C code implementing this operator on top of the AKTIVE runtime.
+The command takes a name and a detailed specification of the desired operators and arranges for the
+generator to emit the C code implementing these operators on top of the AKTIVE runtime.
 
 So-specified operators can take zero or more images, zero or more parameters, and will return either
 a single new image, some non-image value, or nothing.
@@ -139,18 +139,18 @@ Defaults:
 |`<type>? NAME VALUE ...`       |As above, optional, with default value                 |
 |`<type>... NAME ...`           |As above, variadic, has to be last, see notes below    |
 |||
-|`input RC`                     |Declare required input image with ref-counting mode    |
-|`input... RC`                  |As above, variadic, has to be last, see notes below    |
+|`input`			|Declare required input image				|
+|`input...`                  	|As above, variadic, has to be last, see notes below    |
 |||
-|`geometry GEO_CODE ...`                |C code fragment to compute initial location+geometry   |
 |`pixels ?-fields RFIELDS? ?-setup RSETUP? ?-cleanup RCLEANUP? FETCH ...`|C code fragments to manage custom region state, and pixel fetch|
 |`state ?-fields FIELDS? ?-setup SETUP? ?-cleanup CLEANUP? ...`|C code fragments to manage custom operator state|
+|`support CCODE ...`		|Provide C code fragments containing supporting definitions|
 
 ##### Variadics
 
 Only one parameter and/or input image can be declared variadic.
 
-More than one varidic element is not allowed.
+More than one variadic element is not allowed.
 
 Whichever element, parameter or inpu image is variadic, has to be declared last.
 
@@ -164,10 +164,10 @@ that the specified operator cannot take any image arguments.
 Which of the commands `state`, and `pixels` are required or forbidden depends on the operator
 result.
 
-Operators returning void or a non-image must not specify the aforementioned commands. Their actions
-are specified as part of the `void` and `return` commands which declare them as such.
+Operators returning `void` or a non-image must not specify the aforementioned commands. Their
+actions are specified as part of the `void` and `return` commands which declare them as such.
 
-Operators returning an image have to specify the `state` and `pixels` commands.
+Operators returning an image have to specify both `state` and `pixels` commands.
 
 The image `state -setup` is required and has to initialize the image geometry.
 
@@ -324,6 +324,11 @@ The fragment has access to the following variables:
 
 The `request` is the image area to get pixels for. This is possibly passed to inputs.
 The `dst` is the storage area the pixels are to be written (blitted) to.
+
+###### `CCODE`
+
+Supporting C code fragments are emitted before the definitions of the containing operator.
+They have no access to variables, and just the public types.
 
 ##### Blitter
 
