@@ -19,6 +19,7 @@
 #include <nproc.h>
 #include <cache.h>
 #include <veccache.h>
+#include <iveccache.h>
 #include <rtgen/vector-funcs.h>
 #include <rtgen/type-funcs.h>
 

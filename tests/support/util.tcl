@@ -25,6 +25,8 @@ customMatch dict           matchDict
 
 proc P {n args} { lindex $args $n }
 
+proc untest {args} {} ;# disable test by renaming the command
+
 # # ## ### ##### ######## ############# #####################
 ## Automated wrong#args checking based on command name and argument
 ## list, with light annotations. Handles `args` and optional arguments

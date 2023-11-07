@@ -1,0 +1,108 @@
+/* -*- c -*-
+ * - - -- --- ----- -------- -------------
+ *
+ * -- Vector cache utility functions, independent vectors.
+ *
+ *    Management of a local vector cache on top of the global cache.
+ *    The global cache handles evictions, in cooperation with this user.
+ *
+ *    A vector cache stores a fixed number of vectors of doubles, all the
+ *    same size, i.e. same number of elements.
+ *
+ *    Vector was chosen as generic name, applying to both image rows, and columns.
+ *
+ *    Access to the vectorcache from multiple concurrent threads is safe.
+ *
+ *    So far this sounds the same as the facilities of `veccache.[ch]`.
+ *
+ *    The difference is in a low-level assumption.
+ *
+ *    VecCache assumes that the vectors to cache are stored sequentially in
+ *    the input, and that getting the vector at a higher index requires
+ *    reading the vectors at the lower indices at least once.
+ *
+ *    IVecCache here replaces that with the assumption that vectors at any
+ *    index can be retrieved independent of each other from the input,
+ *    i.e. that the input supports random access at least at vector level.
+ *
+ *    This changes the interface between cache and input somewhat (See filler).
+ *
+ * EXAMPLE USER
+ *
+ *      `op column histogram` caches the calculated histograms to avoid
+ *      recalculation in the face of row scans.
+ *
+ * API
+ *
+ * - new, release
+ *
+ *   Create and destroy vector caches. The cache has space for "nvecs" vectors
+ *   of "nelems" double elements each. This cannot change over the lifetime of
+ *   the cache.
+ *
+ * - take, done
+ *
+ *   Take from and return a specific vector to the cache, keyed by index.
+ *   While the vector is taken the thread has exclusive access.
+ *
+ *   BEWARE: `take`/`done` lock and unlock the cached vector. They also lock
+ *           the entire cache for short segments (trimming). They have to come
+ *           in pairs and the activity between them should be kept short. Just
+ *           copying copying the returned area to some thread-local space is
+ *           likely best.
+ *
+ *   Asking for an undefined vector causes the cache to fill this from the
+ *   input, using the provided "filler" function vector and its "context".
+ *
+ *   The "filler" is given the index of vector to fill.
+ *
+ *   Trimming if vectors is done in cooperation with the underlyng global cache.
+ *   The vector cache performs trim completion at the beginning of each "take"
+ *   and the end of each "done" operation, as well as during cache destruction.
+ *
+ *   It is during these times that the entire cache is locked, as management
+ *   accesses data across the threads. The trimmed vectors are also locked in
+ *   case other thread's `take`s already got past trimming and the vector for
+ *   use.
+ */
+#ifndef AKTIVE_IVECTORCACHE_H
+#define AKTIVE_IVECTORCACHE_H
+
+/*
+ * - - -- --- ----- -------- -------------
+ */
+
+#include <tcl.h>
+#include <base.h>
+
+/*
+ * - - -- --- ----- -------- -------------
+ */
+
+typedef struct aktive_iveccache_ *aktive_iveccache;
+
+typedef void (*aktive_iveccache_fill)(void* context, aktive_uint index, double* dst);
+
+/*
+ * - - -- --- ----- -------- -------------
+ */
+
+extern aktive_iveccache aktive_iveccache_new    (aktive_uint nvecs,
+						 aktive_uint nelems);
+extern void            aktive_iveccache_release (aktive_iveccache cache);
+extern double*         aktive_iveccache_take    (aktive_iveccache      cache,
+						 aktive_uint           index,
+						 aktive_iveccache_fill filler,
+						 void*                 context);
+extern void            aktive_iveccache_done    (aktive_iveccache cache,
+						 aktive_uint     index);
+
+/*
+ * = = == === ===== ======== ============= =====================
+ * Local Variables:
+ * mode: c
+ * c-basic-offset: 4
+ * fill-column: 78
+ * End:
+ */
+#endif /* AKTIVE_IVECTORCACHE_H */
