@@ -20,8 +20,9 @@
  *	text, with arbitrary whitespace and comments before and within it.
  *
  *      Reading of data has to be row-sequential. Putting a vector cache in
- *      frot of it then allows arbitrary access to rows and columns, whle the
- *      caches ensures initial row-sequential access and then row access.
+ *      front of it then allows arbitrary access to rows and columns, while
+ *      the caches ensures initial row-sequential access and then row access
+ *      of the input.
  *
  * API
  *
@@ -54,10 +55,10 @@
  *   Take from and return a specific vector to the cache, keyed by index.
  *   While the vector is taken the thread has exclusive access.
  *
- *   BEWARE: take/done lock and unlock the cache. They have to come in pairs
- *           and the activity between them should be kept short. Just copying
- *           copying the returned area to some thread-local space is likely
- *           best.
+ *   BEWARE: `take`/`done` lock and unlock the entire cache. They have to come
+ *           in pairs and the activity between them should be kept short. Just
+ *           copying copying the returned area to some thread-local space is
+ *           likely best.
  *
  *   Asking for an undefined vector causes the cache to fill this and all
  *   preceding undefined vectors from the input, using the provided "filler"

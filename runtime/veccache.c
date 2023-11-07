@@ -32,18 +32,19 @@ TRACE_OFF;
 
 /*
  * - - -- --- ----- -------- -------------
+ * Cache structures, per vector, and cache itself
  */
 
 typedef struct vecentry {
-    aktive_uint        offset;
-    aktive_cache_area* area;
+    aktive_uint        offset;	// start of vector in input. `0` indicates `unknown`
+    aktive_cache_area* area;	// memory block holding the cached vector
 } vecentry;
 
 typedef struct aktive_veccache_ {
-    Tcl_Mutex   lock;
-    aktive_uint nvectors;
-    aktive_uint nelems;
-    vecentry    vec[0];
+    Tcl_Mutex   lock;		// sync access to entire cache
+    aktive_uint nvectors;	// number of managed vectors
+    aktive_uint nelems;		// number of elements per vector
+    vecentry    vec[0];		// vector management
 } aktive_veccache_;
 
 /*
