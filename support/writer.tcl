@@ -617,9 +617,9 @@ proc dsl::writer::OperatorFunctionForOp {op} {
     set spec [Get ops $op]
 
     dict with spec {}
-    # notes, images, params, result, rcode, statec, stater, statef, geometry
+    # notes, images, params, result, rcode, statec, stater, statef, geometry, support
     unset notes
-    ##       images          result, rcode, statec, stater, statef, geometry
+    ##       images          result, rcode, statec, stater, statef, geometry, support
 
     if {$result ne "void"} {
 	set result [CprocResultC $spec]
@@ -637,6 +637,19 @@ proc dsl::writer::OperatorFunctionForOp {op} {
     Comment "- - -- --- ----- -------- ------------- ---------------------"
     Comment "Operator \"$op\" ..."
     + {}
+
+    if {[llength $support]} {
+	Comment "- - -- --- ----- -------- ------------- " {    }
+	Comment " -- BEGIN supporting definitions"         {    }
+	+ {}
+	foreach cfragment $support {
+	    + [FormatCode $cfragment {    }]
+	    + {}
+	}
+	Comment " -- END supporting definitions"           {    }
+	Comment "- - -- --- ----- -------- ------------- " {    }
+	+ {}
+    }
 
     ## %% TODO %% move into separate emitter for placement into its own header file, sourcable elsewhere
     if {${state/fields} ne {}} {

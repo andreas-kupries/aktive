@@ -184,6 +184,7 @@ proc dsl::reader::OpStart {op} {
 
     Set opspec args     0	;# Presence of variadic input or parameter
     Set opspec blocks   {}	;# Shared text blocks
+    Set opspec support  {}	;# Supporting C code blocks
 }
 
 proc dsl::reader::OpFinish {} {
@@ -242,6 +243,11 @@ proc dsl::reader::OpFinish {} {
 
 # # ## ### ##### ######## #############
 ## DSL support - general operator details
+
+proc dsl::reader::supporting {cfragment} { ;#puts [info level 0]
+    OkModes {} C
+    LappendX opspec support $cfragment
+}
 
 proc dsl::reader::note {args} { ;#puts [info level 0]
     OkModes {} C Tcl External
@@ -587,6 +593,7 @@ proc dsl::reader::Has {args} {
 ##  - param    :: dict (string -> '.') [Only during collection]
 ##  - params   :: list (argspec)
 ##  - result   :: string
+##  - support  :: list (string)
 ##  - state/setup
 ##  - state/cleanup
 ##  - state/fields
