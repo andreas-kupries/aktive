@@ -40,30 +40,18 @@
  *   of "nelems" double elements each. This cannot change over the lifetime of
  *   the cache.
  *
- * - take, done
+ * - get
  *
- *   Take from and return a specific vector to the cache, keyed by index.
- *   While the vector is taken the thread has exclusive access.
+ *   Get the indexed vector.
  *
- *   BEWARE: `take`/`done` lock and unlock the cached vector. They also lock
- *           the entire cache for short segments (trimming). They have to come
- *           in pairs and the activity between them should be kept short. Just
- *           copying copying the returned area to some thread-local space is
- *           likely best.
+ *   Asking for an undefined vector causes the cache to fill the vector from
+ *   the input, using the provided "filler" function vector and its "context".
+ *   The vector is locked during this specific action.
  *
- *   Asking for an undefined vector causes the cache to fill this from the
- *   input, using the provided "filler" function vector and its "context".
+ *   Once the vector is defined no locking is performed any more. The data is
+ *   considered immutable and read-only.
  *
  *   The "filler" is given the index of vector to fill.
- *
- *   Trimming if vectors is done in cooperation with the underlyng global cache.
- *   The vector cache performs trim completion at the beginning of each "take"
- *   and the end of each "done" operation, as well as during cache destruction.
- *
- *   It is during these times that the entire cache is locked, as management
- *   accesses data across the threads. The trimmed vectors are also locked in
- *   case other thread's `take`s already got past trimming and the vector for
- *   use.
  */
 #ifndef AKTIVE_IVECTORCACHE_H
 #define AKTIVE_IVECTORCACHE_H
@@ -90,12 +78,10 @@ typedef void (*aktive_iveccache_fill)(void* context, aktive_uint index, double* 
 extern aktive_iveccache aktive_iveccache_new    (aktive_uint nvecs,
 						 aktive_uint nelems);
 extern void            aktive_iveccache_release (aktive_iveccache cache);
-extern double*         aktive_iveccache_take    (aktive_iveccache      cache,
+extern double*         aktive_iveccache_get     (aktive_iveccache      cache,
 						 aktive_uint           index,
 						 aktive_iveccache_fill filler,
 						 void*                 context);
-extern void            aktive_iveccache_done    (aktive_iveccache cache,
-						 aktive_uint     index);
 
 /*
  * = = == === ===== ======== ============= =====================

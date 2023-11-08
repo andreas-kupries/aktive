@@ -30,9 +30,9 @@
  * - - -- --- ----- -------- -------------
  */
 
-#include <cache.h>
 #include <iveccache.h>
 #include <micros.h>
+#include <memory.h>
 #include <inttypes.h>
 #include <critcl_alloc.h>
 #include <critcl_assert.h>
@@ -48,8 +48,8 @@ TRACE_OFF;
  */
 
 typedef struct ivecentry {
-    Tcl_Mutex          lock;	// sync access to this vector
-    aktive_cache_area* area;	// memory block holding the cached vector
+    Tcl_Mutex lock;	// sync access to this vector
+    double*   area;	// memory block holding the cached vector
 } ivecentry;
 
 typedef struct aktive_iveccache_ {
@@ -63,13 +63,6 @@ typedef struct aktive_iveccache_ {
  * - - -- --- ----- -------- -------------
  */
 
-static void trim      (aktive_iveccache cache);
-static void trim_area (aktive_iveccache cache, aktive_cache_area* area);
-
-/*
- * - - -- --- ----- -------- -------------
- */
-
 extern aktive_iveccache
 aktive_iveccache_new (aktive_uint nvecs,
 		      aktive_uint nelems)
@@ -77,7 +70,7 @@ aktive_iveccache_new (aktive_uint nvecs,
     TRACE_FUNC("(vecs %u, of %u)", nvecs, nelems);
 
     aktive_uint      sz = sizeof(aktive_iveccache_)   + nvecs*sizeof(ivecentry);
-    aktive_iveccache vc = ALLOC_PLUS(aktive_iveccache_, nvecs*sizeof(ivecentry));
+    aktive_iveccache vc = TR_ALLOC_PLUS(aktive_iveccache_, nvecs*sizeof(ivecentry));
     memset (vc, 0, sz);
 
     vc->nvectors = nvecs;
@@ -92,106 +85,61 @@ aktive_iveccache_release (aktive_iveccache cache)
 {
     TRACE_FUNC("(iveccache %p)", cache);
 
-    aktive_cache_trim (cache, (aktive_cache_trimmer) trim);
-
     aktive_uint k;
     for (k=0; k < cache->nvectors; k++) {
 	if (!cache->vec[k].area) continue;
-	aktive_cache_release (cache->vec[k].area);
+	TR_FREE (cache->vec[k].area);
     }
+
+    TR_FREE (cache);
 
     TRACE_RETURN_VOID;
 }
 
 extern double*
-aktive_iveccache_take (aktive_iveccache      cache,
-		       aktive_uint           index,
-		       aktive_iveccache_fill filler,
-		       void*                 context)
+aktive_iveccache_get (aktive_iveccache      cache,
+		      aktive_uint           index,
+		      aktive_iveccache_fill filler,
+		      void*                 context)
 {
     TRACE_FUNC("(iveccache %p, index %u, fill %p, ctx %p)", cache, index, filler, context);
     ASSERT (index < cache->nvectors, "out of bounds vector request");
 
-    trim (cache);
-
-    TRACE_RUN (aktive_uint start = aktive_now());
-    Tcl_MutexLock (&cache->vec[index].lock);	// released in `done`
-    TRACE_RUN (aktive_uint entrywait = aktive_now() - start);
-    TRACE("micro index %u wait on entry %u", index, entrywait);
+    // The cached vectors are, once created, immutable. They are not freed
+    // during execution either, only when the image itself is destroyed.
+    //
+    // This means that once the condition `area != NULL` holds access does not
+    // require locking anymore.
+    //
+    // Locking is only required for `area == NULL`, to ensure that the vector
+    // is created by a single thread, once. Note however that the condition
+    // `area == NULL` has to be re-checked after entering, as some other
+    // thread may have raced us through the critical section while we passed
+    // through [x].
 
     if (!cache->vec[index].area) {
-	aktive_cache_area* area = aktive_cache_new (cache->nelems*sizeof(double),
-						    cache,
-						    UINT2PTR (index));
-	filler (context, index, (double*) area->data);
-	cache->vec[index].area = area;
-    } else {
-	aktive_cache_take (cache->vec[index].area);
+	// vector possibly not defined.
+	// [x]
+
+	TRACE_RUN (aktive_uint start = aktive_now());
+	Tcl_MutexLock (&cache->vec[index].lock);
+	TRACE_RUN (aktive_uint entrywait = aktive_now() - start);
+	TRACE("micro index %u wait on entry %u", index, entrywait);
+
+	if (!cache->vec[index].area) {
+	    // vector definitely not defined (no other thread created it
+
+	    double* area = TR_NALLOC (double, cache->nelems);
+	    filler (context, index, area);
+	    cache->vec[index].area = area;
+	}
+
+	Tcl_MutexUnlock (&cache->vec[index].lock);	// aquired in `take`
+	TRACE_RUN(aktive_uint section = aktive_now() - start);
+	TRACE("micro index %u in section %u", index, section);
     }
 
-    TRACE_RETURN("double[] %p", (double*) cache->vec[index].area->data);
-}
-
-extern void
-aktive_iveccache_done (aktive_iveccache cache,
-		       aktive_uint      index)
-{
-    TRACE_FUNC("(iveccache %p, index %d)", cache, index);
-
-    aktive_cache_enter (cache->vec[index].area);
-
-    Tcl_MutexUnlock (&cache->vec[index].lock);	// aquired in `take`
-
-    trim (cache);
-
-    TRACE_RETURN_VOID;
-}
-
-/*
- * - - -- --- ----- -------- -------------
- ** Trim support. During trimming the entire cache is locked
- */
-
-static void
-trim (aktive_iveccache cache)
-{
-    TRACE_FUNC("(iveccache %p)", cache);
-
-    TRACE_RUN (aktive_uint start = aktive_now());
-    Tcl_MutexLock (&cache->lock);
-    TRACE_RUN (aktive_uint entrywait = aktive_now() - start);
-    TRACE("micro wait on entry %u", entrywait);
-
-    aktive_cache_trim  (cache, (aktive_cache_trimmer) trim_area);
-
-    Tcl_MutexUnlock (&cache->lock);
-    TRACE_RUN(aktive_uint section = aktive_now() - start);
-    TRACE("micro in section %u", section);
-
-    TRACE_RETURN_VOID;
-}
-
-static void
-trim_area (aktive_iveccache cache, aktive_cache_area* area)
-{
-    TRACE_FUNC("(iveccache %p, area %p)", cache, area);
-
-    aktive_uint index = PTR2UINT (area->context);
-
-    // Trimmed vectors are locked, in case other threads still use them.
-
-    TRACE_RUN (aktive_uint start = aktive_now());
-    Tcl_MutexLock (&cache->vec[index].lock);
-    TRACE_RUN (aktive_uint entrywait = aktive_now() - start);
-    TRACE("micro index %u wait on entry %u", index, entrywait);
-
-    cache->vec[index].area = NULL;
-
-    Tcl_MutexUnlock (&cache->vec[index].lock);
-    TRACE_RUN(aktive_uint section = aktive_now() - start);
-    TRACE("micro index %u in section %u", index, section);
-
-    TRACE_RETURN_VOID;
+    TRACE_RETURN("double[] %p", cache->vec[index].area);
 }
 
 /*

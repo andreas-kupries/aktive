@@ -23,22 +23,26 @@ Expect `ROWS` overhead to be  256x.
 
 The `cXXX` methods have a column cache added to their base operation.
 
-The `CROWSc` was originally much slower than `CROWS` itself (2-3x). This was likely due to the
-threads lock-fighting over the columns, as all the threads scanned their row from left to right,
+The `CROWSc` method was originally much slower than `CROWS` itself (2-3x). This was likely due to
+the threads lock-fighting over the columns, as all the threads scanned their row from left to right,
 starting at the same column. The system was then modified to have each thread start scanning in a
 different column, by some randomization. I.e. spread the threads over the columns as means of
 reducing the change of contention. The performance data shown here is from this modified code.
 
+`CROWSv` is based on the redone `IVecCache` which does not use the global cache at all, may use only
+two locks (vector, and tracking alocator) in the worst case, and no locking at all when the vector
+is created.
+
 Details below. Performance numbers are given as values/millisecond
 
-|Height |Factor |`ALL`  |`ROWS` |`ROWSc` |`CROWS` |`CROWSc` |
-|---:   |---:   |---:   |---:   |---:    |---:    |---:     |
-|800    |1      |15693  |82     |470     |662     |758      |
-|1600   |2      |7846   |41     |242     |382     |514      |
-|3200   |4      |4024   |23     |123     |202     |321      |
-|6400   |8      |2092   |14     |61      |50      |178      |
-|12800  |16     |1090   |6      |30      |18      |88       |
-|25600  |32     |477    |2      |15      |9       |49       |
+|Height |Factor |`ALL`  |`ROWS` |`ROWSc` |`CROWS` |`CROWSc` |`CROWSv` |
+|---:   |---:   |---:   |---:   |---:    |---:    |---:     |---:     |
+|800    |1      |15693  |82     |470     |662     |758      |1097     |
+|1600   |2      |7846   |41     |242     |382     |514      |737      |
+|3200   |4      |4024   |23     |123     |202     |321      |375      |
+|6400   |8      |2092   |14     |61      |50      |178      |191      |
+|12800  |16     |1090   |6      |30      |18      |88       |99       |
+|25600  |32     |477    |2      |15      |9       |49       |50       |
 
 |Method   |Performance |Overhead vs `ALL` |
 |---      |---:        |---:              |
@@ -48,6 +52,7 @@ Details below. Performance numbers are given as values/millisecond
 |         |            |                  |
 |`CROWS`  |662         |~ 24              |
 |`CROWSc` |758         |~ 20   (x1.14)    |
+|`CROWSv` |1097        |~ 14   (x1.66)    |
 
 The measured overheads are somewhat better than the expected.
 They are however in the rough ballpark.
@@ -62,6 +67,14 @@ I suspect that the locking we have is eating a substantial part of the possible 
 It would be simpler if the cache were unlimited, i.e. would not have to care about invalidated
 blocks. In that case the moment a cache block exists no locking is required anymore, as all access
 would be read-only, of immutable data.
+
+# Summary II
+
+With the changed `IVecCache` we get arond 66% boost over the `CROWS` baseline.
+Much happier.
+
+Work on similar changes for the `VecCache`.
+
 
 # TODO
 
