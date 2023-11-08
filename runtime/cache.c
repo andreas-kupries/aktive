@@ -15,10 +15,11 @@
  */
 
 #include <cache.h>
+#include <micros.h>
 #include <stddef.h>
 #include <critcl_alloc.h>
-#include <critcl_trace.h>
 #include <critcl_assert.h>
+#include <critcl_trace.h>
 
 TRACE_OFF;
 
@@ -86,8 +87,17 @@ aktive_cache_set_max (aktive_uint size)
     once();
     TRACE_FUNC("(size %u)", size);
 
+    TRACE_RUN (aktive_uint start = aktive_now());
+    Tcl_MutexLock (&cache_lock);
+    TRACE_RUN (aktive_uint entrywait = aktive_now() - start);
+    TRACE("micro wait on entry %u", entrywait);
+
     cache_max = size;
     pretrim();
+
+    Tcl_MutexUnlock (&cache_lock);
+    TRACE_RUN(aktive_uint section = aktive_now() - start);
+    TRACE("micro in section %u", section);
 
     TRACE_RETURN_VOID;
 }
@@ -148,7 +158,11 @@ aktive_cache_enter (aktive_cache_area* area)
     TRACE_FUNC("(area %p)", area);
 
     aktive_cache_node* node = NODE_FROM_AREA (area);
+
+    TRACE_RUN (aktive_uint start = aktive_now());
     Tcl_MutexLock (&cache_lock);
+    TRACE_RUN (aktive_uint entrywait = aktive_now() - start);
+    TRACE("micro wait on entry %u", entrywait);
 
     cache_size += area->size;
 
@@ -159,7 +173,10 @@ aktive_cache_enter (aktive_cache_area* area)
     node->next->previous = node;
 
     pretrim();
+
     Tcl_MutexUnlock (&cache_lock);
+    TRACE_RUN(aktive_uint section = aktive_now() - start);
+    TRACE("micro in section %u", section);
 
     TRACE_RETURN_VOID;
 }
@@ -169,7 +186,11 @@ aktive_cache_trim (void* owner, aktive_cache_trimmer trimmer)
 {
     TRACE_FUNC("(owner %p, trimmer %p)", owner, trimmer);
 
+    TRACE_RUN (aktive_uint start = aktive_now());
     Tcl_MutexLock (&cache_lock);
+    TRACE_RUN (aktive_uint entrywait = aktive_now() - start);
+    TRACE("micro wait on entry %u", entrywait);
+
     inittrim();
 
     Tcl_HashEntry* he = Tcl_FindHashEntry (&cache_trim, owner);
@@ -192,6 +213,8 @@ aktive_cache_trim (void* owner, aktive_cache_trimmer trimmer)
     }
 
     Tcl_MutexUnlock (&cache_lock);
+    TRACE_RUN(aktive_uint section = aktive_now() - start);
+    TRACE("micro in section %u", section);
 
     TRACE_RETURN_VOID;
 }
@@ -205,7 +228,10 @@ take (aktive_cache_node* node)
 {
     TRACE_FUNC("(node %p)", node);
 
+    TRACE_RUN (aktive_uint start = aktive_now());
     Tcl_MutexLock (&cache_lock);
+    TRACE_RUN (aktive_uint entrywait = aktive_now() - start);
+    TRACE("micro wait on entry %u", entrywait);
 
     ASSERT (node->owner, "Do not call release/take from trim.trimmer");
 
@@ -215,6 +241,8 @@ take (aktive_cache_node* node)
     node->next->previous = node->previous;
 
     Tcl_MutexUnlock (&cache_lock);
+    TRACE_RUN(aktive_uint section = aktive_now() - start);
+    TRACE("micro in section %u", section);
 
     node->previous = 0;
     node->next = 0;

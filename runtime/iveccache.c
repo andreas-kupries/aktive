@@ -30,12 +30,13 @@
  * - - -- --- ----- -------- -------------
  */
 
-#include <iveccache.h>
 #include <cache.h>
+#include <iveccache.h>
+#include <micros.h>
 #include <inttypes.h>
 #include <critcl_alloc.h>
-#include <critcl_trace.h>
 #include <critcl_assert.h>
+#include <critcl_trace.h>
 
 TRACE_OFF;
 
@@ -113,7 +114,11 @@ aktive_iveccache_take (aktive_iveccache      cache,
 
     trim (cache);
 
+    TRACE_RUN (aktive_uint start = aktive_now());
     Tcl_MutexLock (&cache->vec[index].lock);	// released in `done`
+    TRACE_RUN (aktive_uint entrywait = aktive_now() - start);
+    TRACE("micro index %u wait on entry %u", index, entrywait);
+
     if (!cache->vec[index].area) {
 	aktive_cache_area* area = aktive_cache_new (cache->nelems*sizeof(double),
 						    cache,
@@ -134,6 +139,7 @@ aktive_iveccache_done (aktive_iveccache cache,
     TRACE_FUNC("(iveccache %p, index %d)", cache, index);
 
     aktive_cache_enter (cache->vec[index].area);
+
     Tcl_MutexUnlock (&cache->vec[index].lock);	// aquired in `take`
 
     trim (cache);
@@ -151,9 +157,16 @@ trim (aktive_iveccache cache)
 {
     TRACE_FUNC("(iveccache %p)", cache);
 
+    TRACE_RUN (aktive_uint start = aktive_now());
     Tcl_MutexLock (&cache->lock);
+    TRACE_RUN (aktive_uint entrywait = aktive_now() - start);
+    TRACE("micro wait on entry %u", entrywait);
+
     aktive_cache_trim  (cache, (aktive_cache_trimmer) trim_area);
+
     Tcl_MutexUnlock (&cache->lock);
+    TRACE_RUN(aktive_uint section = aktive_now() - start);
+    TRACE("micro in section %u", section);
 
     TRACE_RETURN_VOID;
 }
@@ -167,9 +180,16 @@ trim_area (aktive_iveccache cache, aktive_cache_area* area)
 
     // Trimmed vectors are locked, in case other threads still use them.
 
+    TRACE_RUN (aktive_uint start = aktive_now());
     Tcl_MutexLock (&cache->vec[index].lock);
+    TRACE_RUN (aktive_uint entrywait = aktive_now() - start);
+    TRACE("micro index %u wait on entry %u", index, entrywait);
+
     cache->vec[index].area = NULL;
+
     Tcl_MutexUnlock (&cache->vec[index].lock);
+    TRACE_RUN(aktive_uint section = aktive_now() - start);
+    TRACE("micro index %u in section %u", index, section);
 
     TRACE_RETURN_VOID;
 }

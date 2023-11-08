@@ -115,6 +115,16 @@ aktive_new_uint_obj (aktive_uint x) {
  * - - -- --- ----- -------- -------------
  */
 
+#include <sys/time.h>
+
+extern aktive_uint
+aktive_now(void)
+{
+    struct timeval tv;
+    gettimeofday (&tv,NULL);
+    return tv.tv_sec*1000000 + tv.tv_usec;
+}
+
 /*
  * = = == === ===== ======== ============= =====================
  * Local Variables:
