@@ -433,14 +433,13 @@ D (pgm_text) // single band, text
 
     rowfill param = { chan, w, info->scale };
 
-    double* src = aktive_veccache_take (*cache, y,
-					(aktive_veccache_fill) rowfiller,
+    double* src = aktive_veccache_get (*cache, y,
+				       (aktive_veccache_fill) rowfiller,
 					&param);
 
-    // src is owned by the cache. read-only! copy coljumn segment out
+    // src is owned by the cache. read-only!
     memcpy (v, src + x, w * sizeof(double));
 
-    aktive_veccache_done (*cache, y);
     TRACE_RETURN_VOID;
 }
 
@@ -472,13 +471,13 @@ D (ppm_text) // 3 band, text
     // *cache, info, x, y, w, chan, v [3*w]
 
     rowfill param = { chan, 3*w, info->scale };
-    double* src = aktive_veccache_take (*cache, y,
-					(aktive_veccache_fill) rowfiller,
-					&param);
+    double* src = aktive_veccache_get (*cache, y,
+				       (aktive_veccache_fill) rowfiller,
+				       &param);
+
     // src is owned by the cache. read-only!
     memcpy (v, src + x, 3*w * sizeof(double));
 
-    aktive_veccache_done (*cache, y);
     TRACE_RETURN_VOID;
 }
 

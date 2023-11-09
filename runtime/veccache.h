@@ -47,34 +47,29 @@
  *           It is simply necessary to +1 the actual start on cache creation,
  *           and hdo a compensating -1 in the filler function.
  *
- *   Another assumption made by the cache is that the data associated for
- *   vectors 0, 1, ... occurs sequentially in the input, in this order.
+ *   Another assumption made by this cache is that the data associated for
+ *   vectors 0, 1, ... occurs sequentially in the input, in this order.  For
+ *   contrast see `iveccache` where the vectors are Independent in the input.
  *
- * - take, done
+ * - get
  *
- *   Take from and return a specific vector to the cache, keyed by index.
- *   While the vector is taken the thread has exclusive access.
+ *   Get the indexed vector.
  *
- *   BEWARE: `take`/`done` lock and unlock the entire cache. They have to come
- *           in pairs and the activity between them should be kept short. Just
- *           copying copying the returned area to some thread-local space is
- *           likely best.
+ *   Asking for an undefined vector causes the cache to fill the vector from
+ *   the input, using the provided "filler" function vector and its "context".
+ *   The vector is locked during this specific action.
  *
- *   Asking for an undefined vector causes the cache to fill this and all
- *   preceding undefined vectors from the input, using the provided "filler"
- *   function vector and its "context".
+ *   Note that the operation will also fill all preceding missing vectors, due
+ *   to their sequential ordering in the input. While these vectors will be
+ *   locked during their fill the function ensures that it has only one vector
+ *   locked at a time.
+ *
+ *   Once the vector is defined no locking is performed any more. The data is
+ *   considered immutable and read-only.
  *
  *   The "filler" is given the start offset for the vector, and has to return
  *   the start offset of the next vector after it. These starting points are
- *   never forgotten.
- *
- *   It is this last which enables proper handling of invalidated vectors. The
- *   cache simply refills the vector from the memorized starting point,
- *   without have to re-read all preceding vectors again.
- *
- *   Trimming if vectors is done in cooperation with the underlyng global cache.
- *   The vector cache performs trim completion at the beginning of each "take"
- *   and the end of each "done" operation, as well as during cache destruction.
+ *   never forgotten either.
  */
 #ifndef AKTIVE_VECTORCACHE_H
 #define AKTIVE_VECTORCACHE_H
@@ -102,12 +97,10 @@ extern aktive_veccache aktive_veccache_new     (aktive_uint nvecs,
 						aktive_uint nelems,
 						aktive_uint start);
 extern void            aktive_veccache_release (aktive_veccache cache);
-extern double*         aktive_veccache_take    (aktive_veccache      cache,
+extern double*         aktive_veccache_get     (aktive_veccache      cache,
 						aktive_uint          index,
 						aktive_veccache_fill filler,
 						void*                context);
-extern void            aktive_veccache_done    (aktive_veccache cache,
-						aktive_uint     index);
 
 /*
  * = = == === ===== ======== ============= =====================
