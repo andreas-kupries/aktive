@@ -14,6 +14,7 @@
 #include <writer.h>
 #include <reader.h>
 #include <sink.h>
+#include <kahan.h>
 #include <fnv.h>
 #include <matrix.h>
 #include <nproc.h>
