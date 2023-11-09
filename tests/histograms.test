@@ -40,6 +40,22 @@ proc hbase {} {
 	5 5 5 5 5 5
 }
 
+proc mbase {} {
+    aktive op montage z \
+	[aktive image from matrix width 6 height 3 factor 0.2 values \
+	     0 1 2 3 4 5   \
+	     0 0 0 0 0 0   \
+	     5 5 5 5 5 5 ] \
+	[aktive image from matrix width 6 height 3 factor 0.2 values \
+	     0 1 2 3 4 5   \
+	     0 0 4 4 0 0   \
+	     5 4 3 2 1 0 ] \
+	[aktive image from matrix width 6 height 3 factor 0.2 values \
+	     0 3 5 2 0 1   \
+	     1 4 4 1 3 2   \
+	     2 5 3 0 4 5 ]
+}
+
 test aktive-op-row-histogram-2.0 "aktive op row histogram" -body {
     astcl aktive op row histogram [hbase] bins 6
 } -match image -result [makei op::row::histogram 0 0 6 3 1 {bins 6} {
@@ -84,6 +100,36 @@ test aktive-op-image-histogram-2.0 "aktive op image histogram" -body {
     astcl aktive op image histogram [hbase] bins 6
 } -match image -result [makei op::column::sum 0 0 6 1 1 {} {
     7 1 1 1 1 7
+}]
+
+# # ## ### ##### ######## ############# #####################
+## histograms for multi-band images (row, column, image)
+## note: band histograms require multi-band input by definition, already handled, above
+## note: tile histograms allow only single band input
+
+test aktive-op-row-histogram-3.0 "aktive op row histogram, multi-band" -body {
+    astcl aktive op row histogram [mbase] bins 6
+} -match image -result [makei op::row::histogram 0 0 6 3 3 {bins 6} {
+    1 1 2 - 1 1 1 - 1 1 1 - 1 1 1 - 1 1 0 - 1 1 1
+    6 4 0 - 0 0 2 - 0 0 1 - 0 0 1 - 0 2 2 - 0 0 0
+    0 1 1 - 0 1 0 - 0 1 1 - 0 1 1 - 0 1 1 - 6 1 2
+}]
+
+test aktive-op-column-histogram-3.0 "aktive op column histogram" -body {
+    astcl aktive op column histogram [mbase] bins 6
+} -match image -result [makei op::column::histogram 0 0 6 6 3 {bins 6} {
+    2 2 1 - 1 1 0 - 1 0 0 - 1 0 1 - 1 1 1 - 1 2 0
+    0 0 1 - 1 1 0 - 0 0 0 - 0 0 1 - 0 1 0 - 0 0 1
+    0 0 1 - 0 0 0 - 1 1 0 - 0 1 1 - 0 0 0 - 0 0 1
+    0 0 0 - 0 0 1 - 0 1 1 - 1 1 0 - 0 0 1 - 0 0 0
+    0 0 0 - 0 1 1 - 0 1 1 - 0 1 0 - 1 1 1 - 0 0 0
+    1 1 0 - 1 0 1 - 1 0 1 - 1 0 0 - 1 0 0 - 2 1 1
+}]
+
+test aktive-op-image-histogram-3.0 "aktive op image histogram, multi-band" -body {
+    astcl aktive op image histogram [mbase] bins 6
+} -match image -result [makei op::column::sum 0 0 6 1 3 {} {
+    7 6 3 - 1 2 3 - 1 2 3 - 1 2 3 - 1 4 3 - 7 2 3
 }]
 
 # # ## ### ##### ######## ############# #####################
