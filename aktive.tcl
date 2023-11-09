@@ -123,6 +123,7 @@ critcl::include op/amath.h
 critcl::include op/astcl.h
 critcl::include op/color.h
 critcl::include op/convolve.h
+critcl::include op/csum.h
 critcl::include op/netpbm.h
 critcl::include op/null.h
 critcl::include op/reduce.h

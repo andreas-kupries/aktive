@@ -43,8 +43,10 @@ operator op::row::cumulative {
 	aktive_uint stride = block->domain.width * block->domain.depth;
 	aktive_uint bands  = block->domain.depth;
 
-	rcs_context rcs = {
-	    .bands   = bands,
+	cs_context csc = {
+	    // .z is set during the iteration. same for subrequest.y
+	    .size    = subrequest.width,
+	    .stride  = bands,
 	    .request = &subrequest,
 	    .src     = srcs->v[0]
 	};
@@ -55,9 +57,9 @@ operator op::row::cumulative {
 
 	ITERY {
 	    ITERZ {
-		rcs.z = z;
-		/* rcs->request */ subrequest.y = y;
-		double* cs = aktive_iveccache_get (state->sums, y*bands+z, RCSFILL, &rcs);
+		csc.z = z;
+		/* csc->request */ subrequest.y = y;
+		double* cs = aktive_iveccache_get (state->sums, y*bands+z, CSFILL, &csc);
 		// cs is full input width
 
 		TRACE_HEADER(1); TRACE_ADD ("[x,z=%u,%u] sum = {", x, z);
@@ -79,49 +81,9 @@ operator op::row::cumulative {
 	#undef ITERX
 	#undef ITERY
 	#undef ITERZ
-	#undef RCSFILL
+	#undef CSFILL
 
 	TRACE_DO (__aktive_block_dump ("row csum out", block));
-    }
-
-    support {
-	typedef struct rcs_context {
-	    aktive_uint         z;       // requested band
-	    aktive_uint         bands;   // overall #bands
-	    aktive_rectangle*   request; // request for input (has actual column)
-	    aktive_region       src;     // input region to pull from
-	} rcs_context;
-
-	static void
-	row_cumulative_sum (rcs_context* rcs, aktive_uint index, double* dst)
-	{
-	    TRACE_FUNC("([%d] %u,%u[%u] (dst) %p [%u])", index, rcs->request->y, rcs->z,
-		       rcs->bands, dst, rcs->request->width);
-
-	    // ask for single row, all bands
-	    aktive_block* src = aktive_region_fetch_area (rcs->src, rcs->request);
-
-	    // compute the cumulative sum directly into the destination
-	    // properly offset into the requested band, with stride
-
-	    kahan running_sum; aktive_kahan_init (&running_sum);
-
-	    #define ITER aktive_uint i; for (i=0; i < rcs->request->width; i++)
-	    ITER {
-		double x = src->pixel [rcs->z + i*rcs->bands];
-		aktive_kahan_add (&running_sum, x);
-		dst[i] = aktive_kahan_final (&running_sum);
-	    }
-	    #undef ITER
-
-	    TRACE_HEADER(1); TRACE_ADD ("row csum = {", 0);
-	    for (int j = 0; j < rcs->request->width; j++) { TRACE_ADD (" %f", dst[j]); }
-	    TRACE_ADD(" }", 0); TRACE_CLOSER;
-
-	    TRACE_RETURN_VOID;
-	}
-
-	#define RCSFILL ((aktive_iveccache_fill) row_cumulative_sum)
     }
 }
 
@@ -164,19 +126,23 @@ operator op::column::cumulative {
 	aktive_uint stride = block->domain.width * block->domain.depth;
 	aktive_uint bands  = block->domain.depth;
 
-	// start each line in a different column, spread the threads across the width of the image
-	// reduce chance of lock fighting over the column vectors during the creation phase
+	// context structure and filler shared with row csum
+	cs_context csc = {
+	    // .z is set during the iteration. same for subrequest.x
+	    .size    = subrequest.height,
+	    .stride  = bands,
+	    .request = &subrequest,
+	    .src     = srcs->v[0]
+	};
+
+	// start each line in a different column. spreads the threads across the width of
+	// the image. reduces chance of lock fighting over the column vectors during their
+	// creation
 
 	aktive_uint xmin   = request->x;
 	aktive_uint xmax   = request->x + request->width - 1;
 	aktive_uint xoff   = aktive_fnv_step (request->y) % request->width;
 	aktive_uint xstart = xmin + xoff;
-
-	ccs_context ccs = {
-	    .bands   = bands,
-	    .request = &subrequest,
-	    .src     = srcs->v[0]
-	};
 
 	#define ITERZ for (z = 0; z < bands; z++)
 	#define ITERX for (x = xstart, k = xoff, q = 0; q < request->width  ; q++)
@@ -184,9 +150,9 @@ operator op::column::cumulative {
 
 	ITERX {
 	    ITERZ {
-		ccs.z = z;
-		/* ccs->request */ subrequest.x = x;
-		double* cs = aktive_iveccache_get (state->sums, x*bands+z, CCSFILL, &ccs);
+		csc.z = z;
+		/* csc->request */ subrequest.x = x;
+		double* cs = aktive_iveccache_get (state->sums, x*bands+z, CSFILL, &csc);
 		// cs is full input height
 
 		TRACE_HEADER(1); TRACE_ADD ("[x,z=%u,%u] col sum = {", x, z);
@@ -211,49 +177,37 @@ operator op::column::cumulative {
 	#undef ITERX
 	#undef ITERY
 	#undef ITERZ
-	#undef CCSFILL
+	// #undef CSFILL // shared with row csum
 
 	TRACE_DO (__aktive_block_dump ("column csum out", block));
     }
 
     support {
-	typedef struct ccs_context {
+	typedef struct cs_context {
 	    aktive_uint         z;       // requested band
-	    aktive_uint         bands;   // overall #bands
-	    aktive_rectangle*   request; // request for input (has actual column)
+	    aktive_uint         stride;  // delta between band groups
+	    aktive_uint         size;    // number of values in the band
+	    aktive_rectangle*   request; // full request for input
 	    aktive_region       src;     // input region to pull from
-	} ccs_context;
+	} cs_context;
 
 	static void
-	col_cumulative_sum (ccs_context* ccs, aktive_uint index, double* dst)
+	cumulative_sum (cs_context* csc, aktive_uint index, double* dst)
 	{
-	    TRACE_FUNC("([%d] %u,%u[%u] (dst) %p [%u])", index, ccs->request->x, ccs->z,
-		       ccs->bands, dst, ccs->request->height);
+	    TRACE_FUNC("([%d] %u,%u[%u] (dst) %p [%u])", index, csc->request->y, csc->z,
+		       csc->stride, dst, csc->size);
 
-	    // ask for single input column, all bands
-	    aktive_block* src = aktive_region_fetch_area (ccs->src, ccs->request);
+	    aktive_block* src = aktive_region_fetch_area (csc->src, csc->request);
 
 	    // compute the cumulative sum directly into the destination
 	    // properly offset into the requested band, with stride
 
-	    kahan running_sum; aktive_kahan_init (&running_sum);
-
-	    #define ITER aktive_uint i; for (i=0; i < ccs->request->height; i++)
-	    ITER {
-		double x = src->pixel [ccs->z + i*ccs->bands];
-		aktive_kahan_add (&running_sum, x);
-		dst[i] = aktive_kahan_final (&running_sum);
-	    }
-	    #undef ITER
-
-	    TRACE_HEADER(1); TRACE_ADD ("col csum = {", 0);
-	    for (int j = 0; j < ccs->request->height; j++) { TRACE_ADD (" %f", dst[j]); }
-	    TRACE_ADD(" }", 0); TRACE_CLOSER;
+	    aktive_cumulative_sum (dst, csc->size, src->pixel + csc->z, csc->stride);
 
 	    TRACE_RETURN_VOID;
 	}
 
-	#define CCSFILL ((aktive_iveccache_fill) col_cumulative_sum)
+	#define CSFILL ((aktive_iveccache_fill) cumulative_sum)
     }
 }
 
