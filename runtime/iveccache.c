@@ -53,7 +53,6 @@ typedef struct ivecentry {
 } ivecentry;
 
 typedef struct aktive_iveccache_ {
-    Tcl_Mutex   lock;		// sync access to entire cache
     aktive_uint nvectors;	// number of managed vectors
     aktive_uint nelems;		// number of elements per vector
     ivecentry   vec[0];		// vector management
@@ -75,7 +74,6 @@ aktive_iveccache_new (aktive_uint nvecs,
 
     vc->nvectors = nvecs;
     vc->nelems   = nelems;
-    vc->lock     = 0;
 
     TRACE_RETURN ("iveccache %p", vc);
 }

@@ -352,7 +352,7 @@ operator {dim unchanged} {
 	#define ITERY for (y = request->y, j = 0; j < request->height ; y++, j++)
 
 	ITERX {
-	    double* h = aktive_iveccache_take (state->histogram, x, CHFILL, &ch);
+	    double* h = aktive_iveccache_get (state->histogram, x, CHFILL, &ch);
 
 	    TRACE_HEADER(1); TRACE_ADD ("[x=%u] histogram = {", x);
 	    for (int a = 0; a < param->bins; a++) { TRACE_ADD (" %f", h[a]); }
@@ -362,7 +362,6 @@ operator {dim unchanged} {
 		TRACE ("line [%u], select %u, place k%u s%u -> %u", y, j, k, stride, k+j*stride);
 		block->pixel [k+j*stride] = h[y];
 	    }	    // TODO :: ASSERT against capacity
-	    aktive_iveccache_done (state->histogram, x);
 
 	    // step the column with wrap around
 	    x++ ; if (x > xmax) x = request->x;
