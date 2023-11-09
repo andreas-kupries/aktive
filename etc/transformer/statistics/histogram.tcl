@@ -328,6 +328,8 @@ operator op::column::histogram {
 
 	#undef ITERX
 	#undef ITERY
+	#undef ITERZ
+	#undef CHFILL
 
 	TRACE_DO (__aktive_block_dump ("column histogram out", block));
     }
