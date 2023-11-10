@@ -27,20 +27,11 @@ operator image::mask::from::threshold {
 }
 
 operator {parameters} {
+    image::mask::per::mean       {}
     image::mask::per::bernsen    {}
-    image::mask::per::niblack    {
-	k -0.2
-    }
-    image::mask::per::phansalkar {
-	k 0.25
-	R 0.5
-	p 3
-	q 10
-    }
-    image::mask::per::sauvola    {
-	k 0.5
-	R 128
-    }
+    image::mask::per::niblack    { k -0.2 }
+    image::mask::per::phansalkar { k 0.25 R 0.5 p 3 q 10 }
+    image::mask::per::sauvola    { k 0.5  R 128 }
 } {
     def method [lindex [split $__op :] 6]
 
@@ -71,6 +62,42 @@ operator {parameters} {
     }
 }
 
+# # ## ### ##### ######## ############# #####################
+## Masks from global thresholds
+
+operator {parameters} {
+    image::mask::per::global::mean       {}
+    image::mask::per::global::bernsen    {}
+    image::mask::per::global::niblack    { k -0.2 }
+    image::mask::per::global::phansalkar { k 0.25 R 0.5 p 3 q 10 }
+    image::mask::per::global::sauvola    { k 0.5  R 128 }
+} {
+    def method [lindex [split $__op :] 8]
+
+    section transform threshold mask generate
+
+    note Return image foreground mask of input, \
+	using global [string totitle $method] thresholding.
+
+    note The foreground are the pixels falling under the threshold. \
+	IOW the input foreground is assumed to be darker than background. \
+	Invert the result otherwise.
+
+    note The foreground pixels are indicated by white. Background by black.
+
+    foreach {n d} $parameters {
+	double? $d $n	$method parameter
+    }
+
+    input
+
+    def prefs [join [lmap {n d} $parameters { set _ "$n \$$n" }] { }]
+
+    body {
+	set t [aktive image threshold global @@method@@ $src @@prefs@@]
+	return [aktive op math1 le $src threshold $t]
+    }
+}
 
 ##
 # # ## ### ##### ######## ############# #####################

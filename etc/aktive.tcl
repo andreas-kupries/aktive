@@ -150,7 +150,7 @@ import composer/montage.tcl
 import sink/aktive.tcl		;# AKTIVE raw format
 import sink/astcl.tcl		;# Tcl representation
 import sink/netpbm.tcl		;# NETPBM basics (PGM, PPM)
-import sink/null.tcl		;# NULL writer
+import sink/null.tcl		;# NULL writer (debug, perf measure)
 #
 import sink/statistics.tcl	;# Compute various image statistics
 #                                  See also `transformer/statistics/by-*`
@@ -159,6 +159,7 @@ import sink/statistics.tcl	;# Compute various image statistics
 
 import accessor/attributes.tcl
 import accessor/colorspace.tcl
+import accessor/thresholds.tcl
 
 # # ## ### ##### ######## ############# #####################
 ## Descriptions of commands implemented outside of the DSL

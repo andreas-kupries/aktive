@@ -1,11 +1,45 @@
 ## -*- mode: tcl ; fill-column: 90 -*-
 # # ## ### ##### ######## ############# #####################
-## Transformers -- Threshold generation
+## Transformers -- Threshold generation - Local / Adaptive
 #
 #	https://craftofcoding.wordpress.com/2021/10/27/thresholding-algorithms-bernsen-local/
 #	https://craftofcoding.wordpress.com/2021/09/30/thresholding-algorithms-niblack-local/
 #	https://craftofcoding.wordpress.com/2021/10/06/thresholding-algorithms-sauvola-local/
 #	https://craftofcoding.wordpress.com/2021/09/28/thresholding-algorithms-phansalkar-local/
+
+# # ## ### ##### ######## ############# #####################
+## Mean
+
+operator image::threshold::mean {
+    section transform threshold generate
+
+    note Returns image containing per-pixel thresholds for the input, as per the local mean.
+
+    note There are better methods. Extensions to the simple mean, in order \
+	of creation (and complexity), are Sauvola, Niblack, and Phansalkar. \
+	Each of these modifies the plain mean with a bias based on a mix of \
+	standard deviation, parameters, and the mean itself.
+
+    uint radius	Size of region to consider, as radius from center
+
+    input
+
+    body {
+	# t = meanN
+	#
+	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	#
+	#                    /       \.
+	# t = (*) - meanN - e - ... - src
+	#        \           \       /
+	#         0.5
+	#
+	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+	set e  [aktive op embed mirror $src left $radius right $radius top $radius bottom $radius]
+	return [aktive op tile mean $e radius $radius]
+    }
+}
 
 # # ## ### ##### ######## ############# #####################
 ## Bernsen
