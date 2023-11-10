@@ -1,0 +1,57 @@
+# -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
+## (c) 2023 Andreas Kupries
+# # ## ### ##### ######## ############# #####################
+## AKTIVE. Otsu threshold from histogram images
+
+kt check Tcl     8.6
+kt check tcltest 2
+
+# # ## ### ##### ######## ############# #####################
+
+kt local testing aktive
+
+kt source support/util.tcl
+
+# # ## ### ##### ######## ############# #####################
+## Syntax
+
+syntax {
+    otsu src
+} {aktive op row}
+
+syntax {
+    otsu src
+} {aktive op column}
+
+syntax {
+    otsu src
+} {aktive op band}
+
+# # ## ### ##### ######## ############# #####################
+## Example originates at
+## - http://www.labbookpages.co.uk/software/imgProc/otsuThreshold.html
+
+test aktive-op-row-otsu-2.0 "aktive op row otsu" -body {
+    astcl aktive op row otsu [aktive image from matrix width 6 height 1 values 8 7 2 6 9 4 ]
+} -match image -result [makei op::row::otsu 0 0 1 1 1 {} 3]
+
+test aktive-op-column-otsu-2.0 "aktive op column otsu" -body {
+    astcl aktive op column otsu [aktive image from matrix width 1 height 6 values \
+				     8 \
+				     7 \
+				     2 \
+				     6 \
+				     9 \
+				     4 ]
+} -match image -result [makei op::column::otsu 0 0 1 1 1 {} 3]
+
+test aktive-op-band-otsu-2.0 "aktive op band otsu" -body {
+    astcl aktive op band otsu \
+	[aktive op geometry band fold \
+	     [aktive image from matrix width 6 height 1 values 8 7 2 6 9 4 ] \
+	     by 6]
+} -match image -result [makei op::band::otsu 0 0 1 1 1 {} 3]
+
+# # ## ### ##### ######## ############# #####################
+cleanupTests
+return

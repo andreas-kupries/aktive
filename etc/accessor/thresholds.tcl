@@ -140,7 +140,7 @@ operator image::threshold::global::sauvola {
 operator image::threshold::global::phansalkar {
     section accessor threshold generate
 
-    note Returns image containing per-pixel thresholds for the input, as per Phansalkar's method.
+    note Returns a global threshold for the input, according to Phansalkar's method.
 
     double? 0.25 k	phansalkar parameter
     double? 0.5  R	phansalkar parameter
@@ -170,6 +170,35 @@ operator image::threshold::global::phansalkar {
 	set std  [aktive op image stddev $src]
 
 	return [expr {$mean * ($p * exp(- $q * $mean) + 1. + $k * ($std / double($R) - 1.))}]
+    }
+}
+
+# # ## ### ##### ######## ############# #####################
+## Otsu
+
+operator image::threshold::global::otsu {
+    section accessor threshold generate
+
+    note Returns a global threshold for the input, according to Otsu's method.
+
+    int? 256 bins \
+	The number of bins used by the internal histogram. \
+	The pixel values are quantized to fit. \
+	Only values in the range of \[0..1\] are considered valid. \
+	Values outside of that range are placed into the smallest/largest bin. \
+	\
+	The default quantizes the image values to 8-bit.
+
+    input
+
+    body {
+	# t = scaled (extract (row otsu (image histogram I)))
+	#     the threshold is scaled by the number of bins, to be in [0..1]
+
+	set e [aktive op image histogram $src bins $bins]
+	set e [aktive op row otsu $e]
+	set e [aktive format as tcl $e]
+	return [expr {[lindex [dict get $e pixels] 0] / double($bins)}]
     }
 }
 

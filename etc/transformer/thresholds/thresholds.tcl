@@ -207,6 +207,38 @@ operator image::threshold::phansalkar {
     }
 }
 
+# # ## ### ##### ######## ############# #####################
+## Otsu
+
+operator image::threshold::otsu {
+    section transform threshold generate
+
+    note Returns image containing per-pixel thresholds for the input, as per Otsu's method.
+
+    uint radius	Size of region to consider, as radius from center
+
+    int? 256 bins \
+	The number of bins used by the internal histograms. \
+	The pixel values are quantized to fit. \
+	Only values in the range of \[0..1\] are considered valid. \
+	Values outside of that range are placed into the smallest/largest bin. \
+	\
+	The default quantizes the image values to 8-bit.
+
+    input
+
+    body {
+	# t = scaled (band otsu (tile histogram (embedded I)))
+	#     the threshold is scaled by the number of bins, to be in [0..1]
+
+	set e [aktive op embed mirror $src left $radius right $radius top $radius bottom $radius]
+	set e [aktive op tile histogram $e radius $radius bins $bins]
+	set e [aktive op band otsu $e]
+	set e [aktive op math1 scale $e factor [expr {1./$bins}]]
+	return $e
+    }
+}
+
 ##
 # # ## ### ##### ######## ############# #####################
 ::return

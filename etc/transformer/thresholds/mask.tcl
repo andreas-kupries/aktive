@@ -32,6 +32,7 @@ operator {parameters} {
     image::mask::per::niblack    { k -0.2 }
     image::mask::per::phansalkar { k 0.25 R 0.5 p 3 q 10 }
     image::mask::per::sauvola    { k 0.5  R 128 }
+    image::mask::per::otsu       { bins 256 }
 } {
     def method [lindex [split $__op :] 6]
 
@@ -47,7 +48,11 @@ operator {parameters} {
     note The foreground pixels are indicated by white. Background by black.
 
     foreach {n d} $parameters {
-	double? $d $n	$method parameter
+	if {$n eq "bins"} {
+	    int?    $d $n	$method histogram parameter
+	} else {
+	    double? $d $n	$method parameter
+	}
     }
 
     uint radius	Size of region to consider, as radius from center
@@ -71,6 +76,7 @@ operator {parameters} {
     image::mask::per::global::niblack    { k -0.2 }
     image::mask::per::global::phansalkar { k 0.25 R 0.5 p 3 q 10 }
     image::mask::per::global::sauvola    { k 0.5  R 128 }
+    image::mask::per::global::otsu       { bins 256 }
 } {
     def method [lindex [split $__op :] 8]
 
@@ -86,7 +92,11 @@ operator {parameters} {
     note The foreground pixels are indicated by white. Background by black.
 
     foreach {n d} $parameters {
-	double? $d $n	$method parameter
+	if {$n eq "bins"} {
+	    int?    $d $n	$method histogram parameter
+	} else {
+	    double? $d $n	$method parameter
+	}
     }
 
     input

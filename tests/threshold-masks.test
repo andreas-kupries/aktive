@@ -16,35 +16,39 @@ kt source support/util.tcl
 ## Syntax
 
 syntax {
-    mean       {src args}
     bernsen    {src args}
+    mean       {src args}
     niblack    {src args}
-    sauvola    {src args}
+    otsu       {src args}
     phansalkar {src args}
+    sauvola    {src args}
 } {aktive image mask per}
 
 syntax {
-    mean       {src args}
     bernsen    {src args}
+    mean       {src args}
     niblack    {src args}
-    sauvola    {src args}
+    otsu       {src args}
     phansalkar {src args}
+    sauvola    {src args}
 } {aktive image threshold}
 
 syntax {
-    mean        src
     bernsen     src
+    mean        src
     niblack    {src args}
-    sauvola    {src args}
+    otsu       {src args}
     phansalkar {src args}
+    sauvola    {src args}
 } {aktive image mask per global}
 
 syntax {
-    mean        src
     bernsen     src
+    mean        src
     niblack    {src args}
-    sauvola    {src args}
+    otsu       {src args}
     phansalkar {src args}
+    sauvola    {src args}
 } {aktive image threshold global}
 
 # # ## ### ##### ######## ############# #####################
@@ -53,17 +57,18 @@ syntax {
 set in [aktive read from netpbm path [A crop.pgm]]
 
 foreach {mp expected} {
-    mean                                 0.4649
-    bernsen                              0.3314
+    {bernsen}                            0.3314
+    {mean}                               0.4649
     {niblack    k -0.2}                  0.4461
-    {sauvola    k  0.5  R 128}           0.2326
+    {otsu}                               0.3516
     {phansalkar k  0.25 R 0.5 p 3 q 10}  0.3839
+    {sauvola    k  0.5  R 128}           0.2326
 } {
     set m [lindex $mp 0]
     set p [lrange $mp 1 end]
 
     test aktive-image-threshold-${m}-2.0 "aktive image threshold $mp" -body {
-	#save-to test.thresh-${m}.pgm aktive format as pgm byte 2chan [aktive image threshold $m $in {*}$p radius 5]
+	# save-to test.thresh-${m}.pgm aktive format as pgm byte 2chan [aktive image threshold $m $in {*}$p radius 5]
 
 	aspgm aktive image threshold $m $in {*}$p radius 5
     } -match content/string -result [R ${m}-threshold.pgm]

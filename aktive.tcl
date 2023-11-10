@@ -126,6 +126,7 @@ critcl::include op/convolve.h
 critcl::include op/csum.h
 critcl::include op/netpbm.h
 critcl::include op/null.h
+critcl::include op/otsu.h
 critcl::include op/reduce.h
 critcl::include op/whitepoint.h
 
