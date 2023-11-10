@@ -48,7 +48,6 @@ operator op::image::histogram {
 
 operator {dim unchanged} {
     op::band::histogram   band {width and height}
-    op::row::histogram    row  {height and depth}
     op::tile::histogram   {}   {}
 } {
     section transform statistics
@@ -72,8 +71,7 @@ operator {dim unchanged} {
     note Returns image with input ${thing}s transformed into a histogram of `bins` values.
 
     switch -exact -- $thing {
-	band   -
-	row    {
+	band   {
 	    note The result is an image of bin-sized histogram ${dim}s with {*}$unchanged of the input
 	}
 	tile   {
@@ -95,7 +93,6 @@ operator {dim unchanged} {
 
     def fieldsetup [dict get {
 	band   { state->size = domain->depth;  domain->depth  = param->bins; }
-	row    { state->size = domain->width;  domain->width  = param->bins; }
 	tile   {
 	    if (domain->depth > 1) {
 		aktive_failf ("rejecting input with depth %d != 1", domain->depth);
@@ -125,18 +122,6 @@ operator {dim unchanged} {
 	@@fieldsetup@@
     }
 
-    # NOTE how these have to compute the entire band|row histogram even if only a small
-    # part of it is requested.  For good performance this operator needs to be wrapped by
-    # a cache which passes only full band|column|row requests, caches (sic!)  the results,
-    # and then serves the original partial requests from that cache. In future requests no
-    # recalculation is required for anything already in the cache.
-    #
-    # The reducers expect a full band|column|row of the source, feed it into the
-    # histogrammer and then blit the selected parts of the resulting histogram into the
-    # destination band|column|row.
-    #
-    # Except for tile, which collects a full tile and delivers a histogram as bands.
-
     switch -exact -- $thing {
 	band {
 	    blit reducer {
@@ -149,40 +134,27 @@ operator {dim unchanged} {
 		memcpy (dstvalue, state->h.count, DD * sizeof(double));
 	    }}
 	}
-	row {
-	    # dst[0:0+AW-1:SD] = state->h.count[AX:AX+AW-1:1]
-	    blit reducer {
-		{AH {y AY 1 up} {y 0 1 up}}
-		{DD {z  0 1 up} {z 0 1 up}}
-	    } {raw reduce-row {
-		// dstvalue = row/band start - SD-strided row vector (partial histogram)
-		// srcvalue = row/band start - SD-strided full row vector
-		REDUCE (srcvalue, SW, SD, &state->h);
-		COPY   (dstvalue, AW, SD, state->h.count, SX);
-	    }}
-	} tile {
+	tile {
 	    # This assumes a single band input
 	    blit reducer {
 		{AH {y AY 1 up} {y radius 1 up}}
 		{AW {x AX 1 up} {x radius 1 up}}
-	    } [list raw reduce-tile {
+	    } {raw reduce-tile {
 		// dstvalue = cells to set (bands = histogram)
 		// srcvalue = center cell of tile
 		REDUCE (srcvalue, radius, srcpos, SRCCAP, srcpitch, srcstride, &state->h);
 		memcpy (dstvalue, state->h.count, DD * sizeof(double));
-	    }]
+	    }}
 	}
     }
 
     def rfunction [dict get {
 	band   { aktive_reduce_histogram      }
-	row    { aktive_reduce_histogram      }
 	tile   { aktive_tile_reduce_histogram }
     } $thing]
 
     def subrequest [dict get {
 	band   {}
-	row    { subrequest.width = istate->size; subrequest.x = 0; }
 	tile   {
 	    aktive_uint radius = param->radius;
 	    subrequest.x      -= radius;
@@ -204,7 +176,7 @@ operator {dim unchanged} {
 	TRACE("histogram actual %u bins", param->bins);
 	aktive_rectangle_def_as (subrequest, request);
 	@@subrequest@@
-	TRACE_RECTANGLE_M("hist", &subrequest);
+	TRACE_RECTANGLE_M("@@thing@@ hist", &subrequest);
 	aktive_block* src = aktive_region_fetch_area (srcs->v[0], &subrequest);
 
 	#define REDUCE @@rfunction@@
@@ -227,6 +199,105 @@ operator {dim unchanged} {
 }
 
 # # ## ### ##### ######## ############# #####################
+
+operator op::row::histogram {
+    section transform statistics
+
+    int? 256 bins \
+	The number of bins held by a single histogram. The pixel values are quantized \
+	to fit. Only values in the range of \[0..1\] are considered valid. Values \
+	outside of that range are placed into the smallest/largest bin. \
+	\
+	The default quantizes the image values to 8-bit.
+
+    input
+
+    note Returns image with input rows transformed into a histogram of `bins` values.
+
+    note The result is an image of bin-sized histogram rows with height and depth of the input
+
+    state -fields {
+	aktive_uint      size;      // quick access to the original size of the reduced rows
+	aktive_iveccache histogram; // cache, result histograms
+    } -cleanup {
+	aktive_iveccache_release (state->histogram);
+    } -setup {
+	aktive_geometry_copy (domain, aktive_image_get_geometry (srcs->v[0]));
+	state->size = domain->width;  domain->width  = param->bins;
+	state->histogram = aktive_iveccache_new (domain->height * domain->depth, param->bins);
+	// note: #(row vectors) takes bands into account
+    }
+
+    pixels -state {
+	aktive_histogram h;
+	aktive_iveccache histogram; // cache, result histograms, thread-shared
+    } -setup {
+	state->histogram = istate->histogram;
+	state->h.bins    = param->bins;
+	state->h.maxbin  = param->bins - 1;
+	state->h.count   = NALLOC (double, param->bins);
+    } -cleanup {
+	ckfree (state->h.count);
+    } {
+	// Scan the rows of the request
+	// - Get the associated histograms from the cache
+	// - If needed, compute the histograms
+
+	TRACE("histogram actual %u bins", param->bins);
+	aktive_rectangle_def_as (subrequest, request);
+	subrequest.width = istate->size; subrequest.x = 0;
+	TRACE_RECTANGLE_M("row hist", &subrequest);
+
+	aktive_uint x, y, z, k, j;
+	aktive_uint stride = block->domain.width * block->domain.depth;
+	aktive_uint bands  = block->domain.depth;
+
+	aktive_histogram_context context = {
+	    // .z is set during the iteration. same for subrequest.y
+	    .size    = subrequest.width,
+	    .stride  = bands,
+	    .request = &subrequest,
+	    .src     = srcs->v[0],
+	    .h       = &state->h
+	};
+
+	#define ITERZ for (z = 0; z < bands; z++)
+	#define ITERX for (x = request->x, k = 0; k < request->width  ; x++, k++)
+	#define ITERY for (y = request->y, j = 0; j < request->height ; y++, j++)
+
+	ITERY {
+	    ITERZ {
+		context.z = z;
+		/* context->request */ subrequest.y = y;
+		double* hist = aktive_iveccache_get (state->histogram, y*bands+z,
+						     AKTIVE_HISTOGRAM_FILL, &context);
+		// hist is full input width
+
+		TRACE_HEADER(1); TRACE_ADD ("[x,z=%u,%u] row hist = {", x, z);
+		for (int a = 0; a < param->bins; a++) { TRACE_ADD (" %f", hist[a]); }
+		TRACE_ADD(" }", 0); TRACE_CLOSER;
+
+		ITERX {
+		    TRACE ("line [%u], band [%u] place k%u b%u j%u s%u -> %u",
+			   y, z, k, bands, j, stride, z+k*bands+j*stride);
+		    block->pixel [z+k*bands+j*stride] = hist[x];
+		}    // TODO :: ASSERT against capacity
+	    }
+
+	    TRACE_HEADER(1); TRACE_ADD ("[y=%u] line = {", y);
+	    for (int a = 0; a < request->width; a++) { TRACE_ADD (" %f", block->pixel[a]); }
+	    TRACE_ADD(" }", 0); TRACE_CLOSER;
+	}
+
+
+	#undef ITERX
+	#undef ITERY
+	#undef ITERZ
+
+	TRACE_DO (__aktive_block_dump ("row histogram out", block));
+    }
+}
+
 # # ## ### ##### ######## ############# #####################
 
 operator op::column::histogram {
@@ -246,7 +317,7 @@ operator op::column::histogram {
     note The result is an image of bin-sized histogram columns with width and depth of the input
 
     state -fields {
-	aktive_uint size;           // quick access to the original size of the reduced colums
+	aktive_uint      size;      // quick access to the original size of the reduced colums
 	aktive_iveccache histogram; // cache, result column histograms
     } -cleanup {
 	aktive_iveccache_release (state->histogram);
@@ -276,7 +347,7 @@ operator op::column::histogram {
 
 	aktive_rectangle_def_as (subrequest, request);
 	subrequest.width = 1; subrequest.height = istate->size; subrequest.y = 0;
-	TRACE_RECTANGLE_M("hist", &subrequest);
+	TRACE_RECTANGLE_M("column hist", &subrequest);
 
 	aktive_uint x, y, z, k, q, j;
 	aktive_uint stride = block->domain.width * block->domain.depth;
@@ -290,11 +361,13 @@ operator op::column::histogram {
 	aktive_uint xoff   = aktive_fnv_step (request->y) % request->width;
 	aktive_uint xstart = xmin + xoff;
 
-	ch_context ch = {
-	    .bands   = bands,
-	    .h       = &state->h,
+	aktive_histogram_context context = {
+	    // .z is set during the iteration. same for subrequest.x
+	    .size    = subrequest.height,
+	    .stride  = bands,
 	    .request = &subrequest,
-	    .src     = srcs->v[0]
+	    .src     = srcs->v[0],
+	    .h       = &state->h
 	};
 
 	#define ITERZ for (z = 0; z < bands; z++)
@@ -303,17 +376,19 @@ operator op::column::histogram {
 
 	ITERX {
 	    ITERZ {
-		ch.z = z;
-		/* ch->request */ subrequest.x = x;
-		double* h = aktive_iveccache_get (state->histogram, x*bands+z, CHFILL, &ch);
+		context.z = z;
+		/* context->request */ subrequest.x = x;
+		double* hist = aktive_iveccache_get (state->histogram, x*bands+z,
+						     AKTIVE_HISTOGRAM_FILL, &context);
+		// hist is full input width
 
 		TRACE_HEADER(1); TRACE_ADD ("[x=%u] histogram = {", x);
-		for (int a = 0; a < param->bins; a++) { TRACE_ADD (" %f", h[a]); }
+		for (int a = 0; a < param->bins; a++) { TRACE_ADD (" %f", hist[a]); }
 		TRACE_ADD(" }", 0); TRACE_CLOSER;
 
 		ITERY {
 		    TRACE ("line [%u], band [%u] place k%u b%u j%u s%u -> %u", y, z, k, bands, j, stride, z+k*bands+j*stride);
-		    block->pixel [z+k*bands+j*stride] = h[y];
+		    block->pixel [z+k*bands+j*stride] = hist[y];
 		}    // TODO :: ASSERT against capacity
 	    }
 
@@ -332,30 +407,6 @@ operator op::column::histogram {
 	#undef CHFILL
 
 	TRACE_DO (__aktive_block_dump ("column histogram out", block));
-    }
-
-    support {
-	typedef struct ch_context {
-	    aktive_uint         z;       // requested band
-	    aktive_uint         bands;   // overall #bands
-	    aktive_rectangle*   request; // request for input (has actual column)
-	    aktive_region       src;     // input region to pull from
-	    aktive_histogram*   h;       // result: histogram configuration and buffer
-	} ch_context;
-
-	static void
-	colhistogram (ch_context* ch, aktive_uint index, double* dst)
-	{
-	    // ask for single input column, all bands
-	    aktive_block* src = aktive_region_fetch_area (ch->src, ch->request);
-
-	    // offset into requested band, stride
-	    aktive_reduce_histogram (src->pixel + ch->z, ch->request->height, ch->bands, ch->h);
-
-	    memcpy (dst, ch->h->count, ch->h->bins*sizeof(double));
-	}
-
-	#define CHFILL ((aktive_iveccache_fill) colhistogram)
     }
 }
 

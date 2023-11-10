@@ -52,6 +52,26 @@ typedef struct aktive_histogram {
 
 /*
  * - - -- --- ----- -------- -------------
+ * Operator support.
+ * - Fill function for iveccache, and supporting
+ * - context structure
+ */
+
+typedef struct aktive_histogram_context {
+    aktive_uint         z;       // requested band
+    aktive_uint         stride;  // delta between band groups
+    aktive_uint         size;    // number of values in the band
+    aktive_rectangle*   request; // full request for input
+    aktive_region       src;     // input: region to pull from
+    aktive_histogram*   h;       // result: histogram configuration and buffer
+} aktive_histogram_context;
+
+extern void aktive_histogram_fill (aktive_histogram_context* context, aktive_uint index, double* dst);
+
+#define AKTIVE_HISTOGRAM_FILL ((aktive_iveccache_fill) aktive_histogram_fill)
+
+/*
+ * - - -- --- ----- -------- -------------
  ** A selector is a special form of reducer, returning the vector element
  ** addressed by the index.
  */
