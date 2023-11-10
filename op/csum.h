@@ -40,7 +40,7 @@ typedef struct aktive_csum_context {
     aktive_region       src;     // input region to pull from
 } aktive_csum_context;
 
-extern void aktive_csum_fill (aktive_csum_context* csc, aktive_uint index, double* dst);
+extern void aktive_csum_fill (aktive_csum_context* context, aktive_uint index, double* dst);
 
 #define AKTIVE_CSUM_FILL ((aktive_iveccache_fill) aktive_csum_fill)
 

@@ -129,7 +129,7 @@ operator op::column::cumulative {
 
 	aktive_rectangle_def_as (subrequest, request);
 	subrequest.width = 1; subrequest.height = idomain->height; subrequest.y = 0;
-	TRACE_RECTANGLE_M("col csum", &subrequest);
+	TRACE_RECTANGLE_M("column csum", &subrequest);
 
 	aktive_uint x, y, z, k, q, j;
 	aktive_uint stride = block->domain.width * block->domain.depth;
@@ -163,7 +163,7 @@ operator op::column::cumulative {
 		double* cs = aktive_iveccache_get (state->sums, x*bands+z, AKTIVE_CSUM_FILL, &csc);
 		// cs is full input height
 
-		TRACE_HEADER(1); TRACE_ADD ("[x,z=%u,%u] col sum = {", x, z);
+		TRACE_HEADER(1); TRACE_ADD ("[x,z=%u,%u] column sum = {", x, z);
 		for (int a = 0; a < subrequest.height; a++) { TRACE_ADD (" %f", cs[a]); }
 		TRACE_ADD(" }", 0); TRACE_CLOSER;
 
