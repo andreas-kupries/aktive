@@ -20,9 +20,29 @@
 
 /*
  * - - -- --- ----- -------- -------------
+ * Core functionality
  */
 
 extern void aktive_cumulative_sum (double* dst, aktive_uint n, double* src, aktive_uint stride);
+
+/*
+ * - - -- --- ----- -------- -------------
+ * Operator support.
+ * - Fill function for iveccache, and supporting
+ * - context structure
+ */
+
+typedef struct aktive_csum_context {
+    aktive_uint         z;       // requested band
+    aktive_uint         stride;  // delta between band groups
+    aktive_uint         size;    // number of values in the band
+    aktive_rectangle*   request; // full request for input
+    aktive_region       src;     // input region to pull from
+} aktive_csum_context;
+
+extern void aktive_csum_fill (aktive_csum_context* csc, aktive_uint index, double* dst);
+
+#define AKTIVE_CSUM_FILL ((aktive_iveccache_fill) aktive_csum_fill)
 
 /*
  * = = == === ===== ======== ============= =====================

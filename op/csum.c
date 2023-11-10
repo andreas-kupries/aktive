@@ -40,6 +40,26 @@ aktive_cumulative_sum (double* dst, aktive_uint n, double* src, aktive_uint stri
 }
 
 /*
+ * - - -- --- ----- -------- -------------
+ */
+
+extern void
+aktive_csum_fill (aktive_csum_context* context, aktive_uint index, double* dst)
+{
+    TRACE_FUNC("([%d] %u,%u[%u] (dst) %p [%u])", index, context->request->y,
+	       context->z, context->stride, dst, context->size);
+
+    aktive_block* src = aktive_region_fetch_area (context->src, context->request);
+
+    // compute the cumulative sum directly into the destination
+    // properly offset into the requested band, with stride
+
+    aktive_cumulative_sum (dst, context->size, src->pixel + context->z, context->stride);
+
+    TRACE_RETURN_VOID;
+}
+
+/*
  * = = == === ===== ======== ============= =====================
  * Local Variables:
  * mode: c

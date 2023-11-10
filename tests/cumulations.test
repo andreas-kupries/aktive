@@ -66,6 +66,14 @@ test aktive-op-column-cumulative-2.0 "aktive op column cumulative" -body {
     5 6 7 8 9 10
 }]
 
+test aktive-op-band-cumulative-2.0 "aktive op band cumulative" -body {
+    astcl aktive op band cumulative [mbase]
+} -match image -result [makei op::band::cumulative 0 0 6 3 3 {} {
+    0  0  0 - 1 2  5 - 2 4  9 - 3 6 8 - 4 8  8 - 5 10 11
+    0  0  1 - 0 0  4 - 0 4  8 - 0 4 5 - 0 0  3 - 0  0  2
+    5 10 12 - 5 9 14 - 5 8 11 - 5 7 7 - 5 6 10 - 5  5 10
+}]
+
 # # ## ### ##### ######## ############# #####################
 ## cumulatives for multi-band images (row, column, image)
 ## note: band cumulatives require multi-band input by definition, already handled, above
