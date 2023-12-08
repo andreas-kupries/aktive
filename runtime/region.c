@@ -98,7 +98,6 @@ aktive_region_destroy (aktive_region region)
     // Release inputs, if any
 
     if (region->public.srcs.c) {
-
 	if (!region->c) {
 	    // Without a context region construction created a tree of regions
 	    // with no shared nodes. Simply destroy our input regions as their
@@ -119,9 +118,7 @@ aktive_region_destroy (aktive_region region)
 
 		aktive_image src = cv [i];
 		if (!aktive_context_has (region->c, src)) continue;
-
 		aktive_region_destroy (region->public.srcs.v [i]);
-		aktive_context_remove (region->c, src);
 	    }
 	}
 
@@ -145,6 +142,11 @@ aktive_region_destroy (aktive_region region)
     if (region->public.state) {
 	if (region->opspec->region_final) { region->opspec->region_final (region->public.state); }
 	ckfree ((char*) region->public.state);
+    }
+
+    // Remove ourself from controlling context, if such is present
+    if (region->c) {
+	aktive_context_remove (region->c, region->origin);
     }
 
     // Release main structure
