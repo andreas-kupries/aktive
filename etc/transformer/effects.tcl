@@ -27,7 +27,7 @@ operator effect::sharpen {
     input
 
     body {
-	aktive op convolve xy [aktive image kernel laplace X1] $src
+	aktive op convolve xy [aktive image kernel sharp X] $src
     }
 }
 

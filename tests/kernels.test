@@ -20,70 +20,41 @@ syntax {
     lanczos args
 } {aktive image kernel}
 
-syntax {
-    4 {}
-    5 {}
-    8 {}
-    9 {}
-    X {}
-    X1 {}
-} {aktive image kernel laplace}
+foreach cmd {
+    laplace sharp
+} {
+    syntax {
+	4 {}
+	8 {}
+	X {}
+    } [list aktive image kernel $cmd]
+}
 
 syntax {
     discrete args
 } {aktive image kernel gauss}
 
+foreach cmd {
+    gauss3 gauss5 gauss7 gauss9 kirsch prewitt roberts scharr sobel
+} {
+    syntax {
+	x  {}
+	y  {}
+    } [list aktive image kernel $cmd]
+}
+
+foreach cmd {
+    kirsch prewitt sobel
+} {
+    syntax {
+	md {}
+	sd {}
+    } [list aktive image kernel $cmd]
+}
+
 syntax {
-    x  {}
-    y  {}
     xy {}
 } {aktive image kernel gauss3}
-
-syntax {
-    x  {}
-    y  {}
-} {aktive image kernel gauss5}
-
-syntax {
-    x  {}
-    y  {}
-} {aktive image kernel gauss7}
-
-syntax {
-    x  {}
-    y  {}
-} {aktive image kernel gauss9}
-
-syntax {
-    md {}
-    sd {}
-    x  {}
-    y  {}
-} {aktive image kernel kirsch}
-
-syntax {
-    md {}
-    sd {}
-    x  {}
-    y  {}
-} {aktive image kernel prewitt}
-
-syntax {
-    x  {}
-    y  {}
-} {aktive image kernel roberts}
-
-syntax {
-    x  {}
-    y  {}
-} {aktive image kernel scharr}
-
-syntax {
-    md {}
-    sd {}
-    x  {}
-    y  {}
-} {aktive image kernel sobel}
 
 # # ## ### ##### ######## ############# #####################
 
@@ -98,19 +69,9 @@ foreach {op w h f expected} {
 	= -1.0  4.0 -1.0
 	=  0.0 -1.0  0.0
     }
-    {laplace 5} 3 3 {} {
-	=  0.0 -1.0  0.0
-	= -1.0  5.0 -1.0
-	=  0.0 -1.0  0.0
-    }
     {laplace 8} 3 3 {} {
 	-1.0 -1.0 -1.0
 	-1.0  8.0 -1.0
-	-1.0 -1.0 -1.0
-    }
-    {laplace 9} 3 3 {} {
-	-1.0 -1.0 -1.0
-	-1.0  9.0 -1.0
 	-1.0 -1.0 -1.0
     }
     {laplace X} 3 3 {} {
@@ -118,7 +79,17 @@ foreach {op w h f expected} {
 	= -2.0  4.0 -2.0
 	=  1.0 -2.0  1.0
     }
-    {laplace X1} 3 3 {} {
+    {sharp 4} 3 3 {} {
+	=  0.0 -1.0  0.0
+	= -1.0  5.0 -1.0
+	=  0.0 -1.0  0.0
+    }
+    {sharp 8} 3 3 {} {
+	-1.0 -1.0 -1.0
+	-1.0  9.0 -1.0
+	-1.0 -1.0 -1.0
+    }
+    {sharp X} 3 3 {} {
 	=  1.0 -2.0  1.0
 	= -2.0  5.0 -2.0
 	=  1.0 -2.0  1.0
