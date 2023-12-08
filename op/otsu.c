@@ -19,7 +19,7 @@ TRACE_OFF;
 extern double
 aktive_otsu (double* src, aktive_uint n, aktive_uint stride)
 {
-    TRACE_FUNC ("(src %p [%u:%u], scratch %p [%u])", src, n, stride, scratch, n);
+    TRACE_FUNC ("(src %p [%u:%u])", src, n, stride);
 
     double total = 0;
     double sum   = 0;
