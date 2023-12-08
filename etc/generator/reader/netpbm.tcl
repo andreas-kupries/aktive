@@ -54,7 +54,7 @@ operator read::from::netpbm {
 
 	if (!state->header.binary) {
 	    state->rows = aktive_veccache_new (state->header.height,
-					       state->header.width,
+					       state->header.width * state->header.depth,
 					       state->header.base);
 	}
     }
