@@ -67,10 +67,12 @@ aktive_read_uint_str (Tcl_Channel src, aktive_uint* v)
 {
     TRACE_FUNC ("((Channel) %p, (aktive_uint*) %p)", src, v);
 
-    aktive_uint vl = 0;
-    aktive_uint mode = 0;
-    char buf [2] = { 0, 0 };
-    aktive_uint run = 1;
+    aktive_uint vl   = 0;		// Number buffer
+    aktive_uint mode = 0;		// DFA state
+    aktive_uint run  = 1;		// Fag: Continue
+    char        buf [2] = { 0, 0 };	// Character buffer
+
+    static char* hmode[3] = {"leader","digits","trails"};
 
     // Deterministic finite automaton
     // State Input  To   Action           Notes
@@ -85,8 +87,17 @@ aktive_read_uint_str (Tcl_Channel src, aktive_uint* v)
     //       !space STOP rewind, return
 
     while (run) {
-	if (!aktive_read_string (src, buf, 1)) { TRACE_RETURN ("(FAIL eof) %d", 0); }
-	TRACE ("read/%d = (%d) = '%c' ws=%d", mode, (int) *buf, *buf, isspace (*buf));
+	if (!aktive_read_string (src, buf, 1)) {
+	    // EOF reached
+	    if (mode > 0) {
+		// Managed to read at least one digit. This is the number
+		*v = vl;
+		TRACE ("read number = %d", vl);
+		TRACE_RETURN ("(OK) %d", 1);
+	    }
+	    TRACE_RETURN ("(FAIL eof) %d", 0);
+	}
+	TRACE ("read/%s = (%d) = '%c' ws=%d", hmode[mode], (int) *buf, *buf, isspace (*buf));
 
 	switch (mode) {
 	case 0:	// skip leading whitespace, if any
@@ -123,11 +134,13 @@ aktive_read_uint_strcom (Tcl_Channel src, aktive_uint* v)
 {
     TRACE_FUNC ("((Channel) %p, (aktive_uint*) %p)", src, v);
 
-    aktive_uint vl = 0;
-    aktive_uint mode = 0;
-    aktive_uint skip = 0;
-    char buf [2] = { 0, 0 };
-    aktive_uint run = 1;
+    aktive_uint vl   = 0;		// Number buffer
+    aktive_uint mode = 0;		// DFA state
+    aktive_uint skip = 0;		// Flag: In-comment
+    aktive_uint run  = 1;		// Flag: Continue
+    char        buf [2] = { 0, 0 };	// Character buffer
+
+    static char* hmode[3] = {"leader","digits","trails"};
 
     // Deterministic finite automaton
     // See `aktive_read_uint_str` for the core.
@@ -146,8 +159,18 @@ aktive_read_uint_strcom (Tcl_Channel src, aktive_uint* v)
     //       !space STOP rewind, return
 
     while (run) {
-	if (!aktive_read_string (src, buf, 1)) { TRACE_RETURN ("(FAIL eof) %d", 0); }
-	TRACE ("read/%d = (%d) = '%c' ws=%d", mode, (int) *buf, *buf, isspace (*buf));
+	if (!aktive_read_string (src, buf, 1)) {
+	    // EOF reached
+	    if (mode > 0) {
+		// Managed to read at least one digit. This is the number
+		*v = vl;
+		TRACE ("read number = %d", vl);
+		TRACE_RETURN ("(OK) %d", 1);
+	    }
+	    TRACE_RETURN ("(FAIL eof) %d", 0);
+	}
+	TRACE ("read/%s%s = (%d) = '%c' ws=%d", hmode[mode], skip ? "/skip" : "",
+	       (int) *buf, *buf, isspace (*buf));
 
 	if (skip) {
 	    // In comment. Skip all characters until EOL, including the EOL
@@ -170,7 +193,7 @@ aktive_read_uint_strcom (Tcl_Channel src, aktive_uint* v)
 	    mode ++;
 	    goto digit;
 	case 1:	// process digits
-	    // post number whitespace - back skipping
+	    // post number whitespace - skip trailing whitespace
 	    if (isspace (*buf)) { mode ++ ; continue; }
 	digit:
 	    // non-digit - syntax error - fail
