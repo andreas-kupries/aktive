@@ -5,7 +5,7 @@
  *
  * Contexts allow for the saving and reuse of information by key.
  *
- * Region management use them to determine images used in multiple branches of
+ * Region management uses them to locate images used in multiple branches of
  * a DAG to both reduce the number of region structures and mark nodes where
  * caching is useful.
  *

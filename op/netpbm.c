@@ -396,11 +396,12 @@ rowfiller (rowfill* param, aktive_uint start, double* v)
     for (k = 0; k < param->count; k++) {
 	aktive_uint value;
 	int ok = aktive_read_uint_strcom (param->chan, &value);
-	if (!ok) break;
+	if (!ok) { TRACE ("v[%u] READ FAIL", k); break; }
 	// NOTE: This not only leaves the requested row short.
 	// NOTE: It also forces all rows after to the same place,
 	// NOTE: shorting them further (empty).
 	v[k] = ((double) value) * param->scale;
+	TRACE ("v[%u] = %f", k, v[k]);
     }
 
     TRACE_RETURN ("next %d", Tcl_Tell(param->chan));

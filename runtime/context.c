@@ -86,7 +86,12 @@ aktive_context_remove (aktive_context c, void* key)
     TRACE_FUNC ("((context*) %p, (key) %p)", c, key);
 
     Tcl_HashEntry* he = Tcl_FindHashEntry (&c->val, key);
-    if (he) Tcl_DeleteHashEntry (he);
+    if (he) {
+	TRACE ("removed (value) %p", Tcl_GetHashValue (he));
+	Tcl_DeleteHashEntry (he);
+    } else {
+	TRACE ("not found", 0);
+    }
 
     TRACE_RETURN_VOID;
 }

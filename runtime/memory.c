@@ -29,6 +29,9 @@
  */
 
 #include <tcl.h>
+#include <critcl_trace.h>
+
+TRACE_OFF;
 
 /*
  * - - -- --- ----- -------- -------------
@@ -68,29 +71,75 @@ aktive_tracked_alloc (size_t sz)
 
     // stuff the size in, and return the actual block after
     *((size_t *) mem) = sz;
-    mem = (void *) ((char *) mem + 16);
+    void* memo = (void *) ((char *) mem + 16);
 
     // only the tracking requires serialization
     Tcl_MutexLock (&serial);
     amount += sz;
     Tcl_MutexUnlock (&serial);
 
-    return mem;
+    TRACE_FUNC("(sz %u) -> %u (%p)", sz-16, amount, mem);
+    TRACE_RETURN ("(%p)", memo);
 }
 
 extern void
 aktive_tracked_free (void* mem)
 {
     // undo the actions of alloc, and retrieve the block size.
-    mem       = (void *) ((char *) mem - 16);
-    size_t sz = *((size_t *) mem);
+    void* memi = (void *) ((char *) mem - 16);
+    size_t sz  = *((size_t *) mem);
 
-    ckfree (mem);
+    ckfree (memi);
 
     // only the tracking requires serialization
     Tcl_MutexLock (&serial);
     amount -= sz;
     Tcl_MutexUnlock (&serial);
+
+    TRACE_FUNC("(%p %p sz %u) -> %u", mem, memi, sz-16, amount);
+    TRACE_RETURN_VOID;
+}
+
+/*
+ * - - -- --- ----- -------- -------------
+ */
+
+extern void*
+aktive_tracked_dalloc (char* file, int line, size_t sz)
+{
+    // overallocate to have space to store the size of the tracked block.
+    sz += 16;
+    void* mem = ckalloc (sz);
+
+    // stuff the size in, and return the actual block after
+    *((size_t *) mem) = sz;
+    void* memo = (void *) ((char *) mem + 16);
+
+    // only the tracking requires serialization
+    Tcl_MutexLock (&serial);
+    amount += sz;
+    Tcl_MutexUnlock (&serial);
+
+    TRACE_FUNC("[%s:%d] (sz %u) -> %u (%p)", file, line, sz-16, amount, mem);
+    TRACE_RETURN ("(%p)", memo);
+}
+
+extern void
+aktive_tracked_dfree (char* file, int line, void* mem)
+{
+    // undo the actions of alloc, and retrieve the block size.
+    void* memi = (void *) ((char *) mem - 16);
+    size_t sz  = *((size_t *) mem);
+
+    ckfree (memi);
+
+    // only the tracking requires serialization
+    Tcl_MutexLock (&serial);
+    amount -= sz;
+    Tcl_MutexUnlock (&serial);
+
+    TRACE_FUNC("[%s:%d] (%p %p sz %u) -> %u", file, line, mem, memi, sz-16, amount);
+    TRACE_RETURN_VOID;
 }
 
 /*

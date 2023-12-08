@@ -76,7 +76,7 @@ aktive_veccache_new     (aktive_uint nvecs,
 			 aktive_uint nelems,
 			 aktive_uint start)
 {
-    TRACE_FUNC("(vecs %u, of %u, at %u)", nvecs, nelems, start);
+    TRACE_FUNC("(vecs %u, elements %u, at %u)", nvecs, nelems, start);
 
     // (NOTE) Allocating a sentinel entry ensures that there is no special
     // case in `get` when filling in the last row, just space.

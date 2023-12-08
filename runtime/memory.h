@@ -26,13 +26,15 @@
 /*
  * - - -- --- ----- -------- -------------
  * - Query size of tracked allocated memory
- * - Allocate with tracking
- * - release with tracking
+ * - Allocate/Release with tracking
+ * - Same with debug information (caller)
  */
 
 extern size_t aktive_tracked_size  (void);
 extern void*  aktive_tracked_alloc (size_t sz);
 extern void   aktive_tracked_free  (void* mem);
+extern void*  aktive_tracked_dalloc (char* file, int line, size_t sz);
+extern void   aktive_tracked_dfree  (char* file, int line, void* mem);
 
 /*
  * Helper macros for easy allocation of structures and arrays. These are
@@ -40,11 +42,20 @@ extern void   aktive_tracked_free  (void* mem);
  * functions.
  */
 
+#ifdef TCL_MEM_DEBUG
+#define TR_ALLOC(type)        (type *) aktive_tracked_dalloc (__FILE__, __LINE__, sizeof (type))
+#define TR_ALLOC_PLUS(type,n) (type *) aktive_tracked_dalloc (__FILE__, __LINE__, sizeof (type) + (n))
+#define TR_NALLOC(type,n)     (type *) aktive_tracked_dalloc (__FILE__, __LINE__, sizeof (type) * (n))
+#define TR_FREE(p)            aktive_tracked_dfree (__FILE__, __LINE__, (void*)(p))
+
+#else
+
 #define TR_ALLOC(type)        (type *) aktive_tracked_alloc (sizeof (type))
 #define TR_ALLOC_PLUS(type,n) (type *) aktive_tracked_alloc (sizeof (type) + (n))
 #define TR_NALLOC(type,n)     (type *) aktive_tracked_alloc (sizeof (type) * (n))
+#define TR_FREE(p)            aktive_tracked_free ((void*)(p))
 
-#define TR_FREE(p) aktive_tracked_free ((void*)(p))
+#endif
 
 /*
  * = = == === ===== ======== ============= =====================
