@@ -30,9 +30,10 @@ operator {parameters} {
     image::mask::per::mean       {}
     image::mask::per::bernsen    {}
     image::mask::per::niblack    { k -0.2 }
-    image::mask::per::phansalkar { k 0.25 R 0.5 p 3 q 10 }
     image::mask::per::sauvola    { k 0.5  R 128 }
+    image::mask::per::phansalkar { k 0.25 R 0.5 p 3 q 10 }
     image::mask::per::otsu       { bins 256 }
+    image::mask::per::wolfjolion { k 0.5 }
 } {
     def method [lindex [split $__op :] 6]
 

@@ -2,10 +2,15 @@
 # # ## ### ##### ######## ############# #####################
 ## Transformers -- Threshold generation - Local / Adaptive
 #
-#	https://craftofcoding.wordpress.com/2021/10/27/thresholding-algorithms-bernsen-local/
-#	https://craftofcoding.wordpress.com/2021/09/30/thresholding-algorithms-niblack-local/
-#	https://craftofcoding.wordpress.com/2021/10/06/thresholding-algorithms-sauvola-local/
-#	https://craftofcoding.wordpress.com/2021/09/28/thresholding-algorithms-phansalkar-local/
+# References
+# - https://craftofcoding.wordpress.com/2021/10/27/thresholding-algorithms-bernsen-local/
+# - https://craftofcoding.wordpress.com/2021/09/30/thresholding-algorithms-niblack-local/
+# - https://craftofcoding.wordpress.com/2021/10/06/thresholding-algorithms-sauvola-local/
+# - https://craftofcoding.wordpress.com/2021/09/28/thresholding-algorithms-phansalkar-local/
+#
+# - https://github.com/chriswolfvision/local_adaptive_binarization/blob/HASH/binarizewolfjolion.cpp#L182
+#   where HASH = 2eb51465a917297910f2795fc149abafc96e657f
+# - http://liris.cnrs.fr/christian.wolf/papers/icpr2002v.pdf
 
 # # ## ### ##### ######## ############# #####################
 ## Mean
@@ -236,6 +241,66 @@ operator image::threshold::otsu {
 	set e [aktive op band otsu $e]
 	set e [aktive op math1 scale $e factor [expr {1./$bins}]]
 	return $e
+    }
+}
+
+# # ## ### ##### ######## ############# #####################
+## Wolfjolion - Christian Wolf + J. M. Jolion - At core a variant of Sauvola
+
+operator image::threshold::wolfjolion {
+    section transform threshold generate
+
+    note Returns image containing per-pixel thresholds for the input, as per Wolf+Jolion's method.
+
+    double? 0.5 k	wolfjolion parameter
+    uint    radius	Size of region to consider, as radius from center
+
+    input
+
+    body {
+	# R = max(stdN)
+	# M = min(src)
+	# t = mN + k * (stdN/R-1) * (mN-M))
+	#   = mN + k*(mN-M)*(stdN/R-1)				reorder
+	#   = mN + k*(mN-M)*stdN/R - k*(mN-M)			split stdN/R-1
+	#   = mN + k*stdN/R*(mN-M) - k*(mN-M)			reorder
+	#   = mN + k*stdN/R*(mN-M) - k*m + k*M			split 2nd mN-M
+	#   = mN - k*mN + k*stdN/R*(mN-M) + k*M			reorder
+	#   = (1-k)*mN + k*stdN/R*(mN-M) + k*M			factor m
+	#   = (1-k)*mN + k*M + k*stdN/R*(mN-M)			reorder
+	#   = (1-k)*mN + k*M + k*stdN/R*mN - k*stdN/R*M		split mN-M
+	#   = (1-k)*mN + k*M + stdN*mN*(k/R) - stdN*(M*k/R)	reorder
+	#   = stdN*mN*(k/R) + (1-k)*mN - stdN*(M*k/R) + k*M	reorder
+	##
+	#   = A*stdN*mN + B*mN + C*stdN + D
+	#   for	A = k/R
+	#   	B = 1-k
+	#	C = -M*k/R = -M*A = -D/R
+	#	D = k*M
+	#
+	# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+	set e [aktive op embed mirror $src left $radius right $radius top $radius bottom $radius]
+	set m [aktive op tile mean   $e radius $radius]
+	set s [aktive op tile stddev $e radius $radius]
+
+	set R [aktive op image max $s]
+	set M [aktive op image min $src]
+
+	set a [expr {$k / double($R)}]
+	set b [expr {1 - $k}]
+	set c [expr {- $M * $a}]
+	set d [expr {$k * $M}]
+
+	set sm [aktive op math mul $s $m]
+	set sm [aktive op math1 scale $sm factor $a]
+	set m  [aktive op math1 scale $m  factor $b]
+	set s  [aktive op math1 scale $s  factor $c]
+	set ms [aktive op math add $m $s]
+	set sm [aktive op math add $sm $ms]
+
+	set src [aktive op math1 shift $sm offset $d]
+	return $src
     }
 }
 
