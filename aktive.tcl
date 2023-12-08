@@ -49,13 +49,14 @@ critcl::subject {vector operations} {matrix operations}
 
 critcl::tcl 8.6
 
-::critcl::debug symbols memory
+#::critcl::debug symbols
+#::critcl::debug symbols memory
 #::critcl::config trace on
 #::critcl::config lines off
 
 package require critcl::cutil
 
-critcl::config keepsrc
+# critcl::config keepsrc 1
 
 critcl::cutil::assertions on
 critcl::cutil::tracer     off

@@ -2,4 +2,4 @@
 find . -follow -name "core*" -exec rm "{}" \;
 rm -f *.trace
 
-./build.tcl uninstall install
+./build.tcl uninstall install "$@"

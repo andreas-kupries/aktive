@@ -9,6 +9,8 @@ puts ""
 puts loaded:\t[join [info loaded] \nloaded:\t]
 puts ""
 puts "have aktive v[aktive version] / cpu count [aktive processors]"
+puts "exec [info nameofexecutable]"
+puts "exec $argv0"
 puts ""
 
 # ------------------------------------------------------------------------------
@@ -119,7 +121,7 @@ proc perf {label sz args} {
     set vms [expr {double($sz) / double ($delta)}]
     set msv [expr {double ($delta) / double($sz)}]
 
-    puts "perf: $label ($sz values :: $delta millis :: $vms v/ms :: $msv ms/v"
+    puts "perf: $label ($sz values) :: $delta millis :: $vms v/ms :: $msv ms/v"
     return $r
 }
 
@@ -250,6 +252,11 @@ proc pop {} {
 }
 
 proc / {label} {}
+
+# ------------------------------------------------------------------------------
+## validate memory, if supported by the interpreter
+
+catch { memory validate on }
 
 # ------------------------------------------------------------------------------
 return
