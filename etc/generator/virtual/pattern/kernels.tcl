@@ -5,11 +5,12 @@
 ## - gauss (3/5/7/9; x, y, xy; discrete)
 ## - emboss
 ## - kirsch  (x, y, md, sd)
-## - laplace (5, 9, X)
+## - laplace (4, 8, X)
 ## - prewitt (x, y, md, sd)
 ## - roberts (x, y)
 ## - scharr  (x, y)
 ## - sobel   (x, y, md, sd)
+## - sharp   (4, 8, X)
 #
 ## References
 #
