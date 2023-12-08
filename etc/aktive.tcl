@@ -68,6 +68,7 @@ import transformer/meta.tcl
 import transformer/morphology.tcl
 import transformer/recombine.tcl
 import transformer/viewport.tcl
+import transformer/wiener.tcl
 
 # Helper for color transform chain reductions
 proc cc-reduce {from to} {
