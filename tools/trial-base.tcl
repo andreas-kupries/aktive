@@ -25,6 +25,14 @@ source [file join $tests support paths.tcl]
 
 # ------------------------------------------------------------------------------
 
+proc pvs {is args} {
+    set itail [lassign $is   ifirst]
+    set ntail [lassign $args nfirst]
+    pv $ifirst $nfirst
+    foreach n $ntail i $itail { pv+ $i $n }
+    return
+}
+
 proc pv {i {title {}}} {
     package require aktive::tk
     view-core [topl] $i $title
@@ -208,11 +216,9 @@ proc show {i {scale {}}} {
     set pi [aktive query pitch  $i]
     puts "  pi  $pi"
 
-    set t  [aktive format as tcl $i]
-
     puts -nonewline "\n\t= "
     set i 0
-    foreach v [dict get $t pixels] {
+    foreach v [aktive query values $i] {
 	if {$i} {
 	    if {($i % $pi) == 0} {
 		puts -nonewline "\n\t= "

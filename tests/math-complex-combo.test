@@ -41,13 +41,13 @@ foreach {op vars expected} {
     # functions to debug ...
     if {![llength $expected] || ($op in {})} {
 	puts   "\nXX $op ........................................................................"
-	puts   "XX INPUT [dict get [astcl/ $a] pixels]"
-	puts   "XX RESLT [4f [dict get [astcl/ [aktive op cmath $op $a]] pixels]]"
+	puts   "XX INPUT [pixels/ $a]"
+	puts   "XX RESLT [4f [pixels/ [aktive op cmath $op $a]]]"
 	puts   "XX EXP.. $expected\n"
     }
 
     test aktive-op-cmath-${op}-2.0 "aktive op cmath $op" -body {
-	dict get [astcl aktive op cmath $op {*}[lmap v $vars { set $v }]] pixels
+	pixels aktive op cmath $op {*}[lmap v $vars { set $v }]
     } -match pixels -result $expected
 }
 

@@ -52,19 +52,19 @@ lassign {7 6 1} w h d
 
 for {set row 0} {$row < $h} {incr row} {
     test aktive-image-from-sparse-deltas-2.2.r$row "aktive image from sparse deltas, row slice" -body {
-	dict get [astcl aktive op select y [aktive image from sparse deltas width 7 deltas 0 20 5 15] from $row] pixels
+	pixels aktive op select y [aktive image from sparse deltas width 7 deltas 0 20 5 15] from $row
     } -match pixels -result [slice-row $row $w $h $d $expected]
 }
 
 for {set col 0} {$col < $w} {incr col} {
     test aktive-image-from-sparse-deltas-2.2.c$col "aktive image from sparse deltas, column slice" -body {
-	dict get [astcl aktive op select x [aktive image from sparse deltas width 7 deltas 0 20 5 15] from $col] pixels
+	pixels aktive op select x [aktive image from sparse deltas width 7 deltas 0 20 5 15] from $col
     } -match pixels -result [slice-col $col $w $h $d $expected]
 }
 
 for {set band 0} {$band < $d} {incr band} {
     test aktive-image-from-sparse-deltas-2.2.b$band "aktive image from sparse deltas, band slice" -body {
-	dict get [astcl aktive op select z [aktive image from sparse deltas width 7 deltas 0 20 5 15] from $band] pixels
+	pixels aktive op select z [aktive image from sparse deltas width 7 deltas 0 20 5 15] from $band
     } -match pixels -result [slice-band $band $w $h $d $expected]
 }
 

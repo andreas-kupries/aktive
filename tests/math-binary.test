@@ -83,9 +83,9 @@ foreach {op expected} {
     # functions to debug ...
     if {![llength $expected] || ($op in {})} {
 	puts   "\nXX $op ........................................................................"
-	puts   "XX INPUT [dict get [astcl/ $in] pixels]"
-	puts   "XX INPUT [dict get [astcl/ [aktive op flip x $in]] pixels]"
-	puts   "XX RESLT [dict get [astcl/ [aktive op math $op $in [aktive op flip x $in]]] pixels]"
+	puts   "XX INPUT [pixels/ $in]"
+	puts   "XX INPUT [pixels/ [aktive op flip x $in]]"
+	puts   "XX RESLT [pixels/ [aktive op math $op $in [aktive op flip x $in]]]"
 	puts   "XX EXP.. $expected\n"
     }
 
@@ -98,7 +98,7 @@ foreach {op expected} {
     } -result "type op::math::$op domain {x 0 y 0 width 20 height 1 depth 1}"
 
     test aktive-op-math-${op}-2.1 "aktive op math $op, pixels" -body {
-	dict get [astcl aktive op select x [aktive op math $op $in [aktive op flip x $in]] from 0 to 18] pixels
+	pixels aktive op select x [aktive op math $op $in [aktive op flip x $in]] from 0 to 18
     } -match pixels -result $expected
 
     test aktive-op-math-${op}-2.2 "aktive op math $op, dag" -body {
@@ -118,15 +118,15 @@ foreach {op expected} {
     # functions to debug ...
     if {![llength $expected] || ($op in {})} {
 	puts   "\nXX $op ........................................................................"
-	puts   "XX INPUT [dict get [astcl/ [gradx]] pixels]"
-	puts   "XX INPUT [dict get [astcl/ [aktive op flip x [gradx]]] pixels]"
-	puts   "XX RESLT [dict get [astcl/ [aktive op math $op [gradx] [aktive op flip x [gradx]]]] pixels]"
+	puts   "XX INPUT [pixels/ [gradx]]"
+	puts   "XX INPUT [pixels/ [aktive op flip x [gradx]]]"
+	puts   "XX RESLT [pixels/ [aktive op math $op [gradx] [aktive op flip x [gradx]]]]"
 	puts   "XX EXP.. $expected\n"
     }
 
     test aktive-op-math-${op}-2.1 "aktive op math $op, pixels" -body {
-	#dict get [astcl aktive op select x [aktive op math $op [gradx] [aktive op flip x [gradx]]] from 0 to 18] pixels
-	dict get [astcl aktive op math $op [gradx] [aktive op flip x [gradx]]] pixels
+	#pixels aktive op select x [aktive op math $op [gradx] [aktive op flip x [gradx]]] from 0 to 18
+	pixels aktive op math $op [gradx] [aktive op flip x [gradx]]
     } -match pixels -result $expected
 }
 

@@ -52,8 +52,8 @@ foreach {fun expected} {
     outside-cc {1 1 0 0 0 1 1}
 } {
     # puts   "\nXX $fun ........................................................................"
-    # puts   "XX INPUT [dict get [astcl aktive image gradient 7 1 1 -3 3] pixels]"
-    # puts   "XX RESLT [dict get [astcl aktive op math1 $fun [aktive image gradient 7 1 1 -3 3]] pixels]"
+    # puts   "XX INPUT [pixels aktive image gradient 7 1 1 -3 3]"
+    # puts   "XX RESLT [pixels aktive op math1 $fun [aktive image gradient 7 1 1 -3 3]]"
     # puts   "XX EXP.. $expected\n"
 
     test aktive-op-math1-${fun}-2.0 "aktive math1 $fun" -body {

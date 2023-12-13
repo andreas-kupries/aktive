@@ -66,8 +66,8 @@ foreach {fun steps first last param pname expected} {
     if {$steps eq "."} continue ;# skip undefined parts
 
     # puts   "\nXX $fun ........................................................................"
-    # puts   "XX INPUT [dict get [astcl aktive image gradient $steps 1 1 $first $last] pixels]"
-    # puts   "XX RESLT [dict get [astcl aktive op math1 $fun [aktive image gradient $steps 1 1 $first $last]] pixels]"
+    # puts   "XX INPUT [pixels aktive image gradient $steps 1 1 $first $last]"
+    # puts   "XX RESLT [pixels aktive op math1 $fun [aktive image gradient $steps 1 1 $first $last]]"
     # puts   "XX EXP.. $expected\n"
 
     test aktive-op-math1-${fun}-2.0 "aktive op math1 $fun (\[$first $last]/$steps)" -body {

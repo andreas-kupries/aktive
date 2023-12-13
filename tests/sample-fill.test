@@ -100,7 +100,7 @@ foreach {op domain expected} {
 	} -match glob -result "op::sample::fill::$op * {by 6 fill 0.0} {image::gradient *}"
 
 	test aktive-op-sample-fill-${op}-2.4 "aktive op sample fill $op, partial view" -body {
-	    dict get [astcl aktive op select $op [aktive op sample fill $op [grad$op] by 3 fill 0] from 5 to 10] pixels
+	   pixels aktive op select $op [aktive op sample fill $op [grad$op] by 3 fill 0] from 5 to 10
 	} -match pixels -result {0 2 0 0 3 0}
     }
 
@@ -112,19 +112,19 @@ foreach {op domain expected} {
 
     for {set row 0} {$row < $h} {incr row} {
 	test aktive-op-sample-fill-${op}-2.5.r$row "aktive op sample fill $op, row slice" -body {
-	    dict get [astcl aktive op select y [aktive op sample fill $op [grad] by 2 fill 0] from $row] pixels
+	    pixels aktive op select y [aktive op sample fill $op [grad] by 2 fill 0] from $row
 	} -match pixels -result [slice-row $row $w $h $d $expected]
     }
 
     for {set col 0} {$col < $w} {incr col} {
 	test aktive-op-sample-fill-${op}-2.5.c$col "aktive op sample fill $op, column slice" -body {
-	    dict get [astcl aktive op select x [aktive op sample fill $op [grad] by 2 fill 0] from $col] pixels
+	    pixels aktive op select x [aktive op sample fill $op [grad] by 2 fill 0] from $col
 	} -match pixels -result [slice-col $col $w $h $d $expected]
     }
 
     for {set band 0} {$band < $d} {incr band} {
 	test aktive-op-sample-fill-${op}-2.5.b$band "aktive op sample fill $op, band slice" -body {
-	    dict get [astcl aktive op select z [aktive op sample fill $op [grad] by 2 fill 0] from $band] pixels
+	    pixels aktive op select z [aktive op sample fill $op [grad] by 2 fill 0] from $band
 	} -match pixels -result [slice-band $band $w $h $d $expected]
     }
 

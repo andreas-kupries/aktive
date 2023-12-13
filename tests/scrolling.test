@@ -52,7 +52,7 @@ foreach {op expected} {
     }
 } {
     test aktive-op-scroll-${op}-2.0 "aktive op scroll $op" -body {
-	dict get [astcl aktive op scroll $op [grad] offset 1] pixels
+	pixels aktive op scroll $op [grad] offset 1
     } -match pixels -result $expected
 }
 
@@ -83,7 +83,7 @@ foreach {op expected} {
     }
 } {
     test aktive-op-center-origin-${op}-2.0 "aktive op center-origin $op" -body {
-	dict get [astcl aktive op center-origin $op [grad]] pixels
+	pixels aktive op center-origin $op [grad]
     } -match pixels -result $expected
 }
 

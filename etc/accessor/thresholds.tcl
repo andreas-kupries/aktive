@@ -197,8 +197,7 @@ operator image::threshold::global::otsu {
 
 	set e [aktive op image histogram $src bins $bins]
 	set e [aktive op row otsu $e]
-	set e [aktive format as tcl $e]
-	return [expr {[lindex [dict get $e pixels] 0] / double($bins)}]
+	return [expr {[lindex [aktive query values $e] 0] / double($bins)}]
     }
 }
 

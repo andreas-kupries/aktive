@@ -47,8 +47,8 @@ foreach {op expected} {
     # functions to debug ...
     if {![llength $expected] || ($op in {})} {
 	puts   "\nXX $op ........................................................................"
-	puts   "XX INPUT [dict get [astcl/ $a] pixels]"
-	puts   "XX RESLT [dict get [astcl/ [aktive op cmath $op $a]] pixels]"
+	puts   "XX INPUT [pixels/ $a"
+	puts   "XX RESLT [pixels/ [aktive op cmath $op $a]]"
 	puts   "XX EXP.. $expected\n"
     }
 
@@ -64,8 +64,8 @@ foreach op {
     # functions to debug ...
     if {![llength $expected] || ($op in {})} {
 	puts   "\nXX $op ........................................................................"
-	puts   "XX INPUT [dict get [astcl/ $a] pixels]"
-	puts   "XX RESLT [dict get [astcl/ [aktive op cmath $op $a]] pixels]"
+	puts   "XX INPUT [pixels/ $a]"
+	puts   "XX RESLT [pixels/ [aktive op cmath $op $a]]"
 	puts   "XX EXP.. $expected\n"
     }
 
@@ -74,8 +74,8 @@ foreach op {
     } -match glob -result "type op::select::z domain {*} *"
 
     test aktive-op-cmath-${op}-2.1 "aktive op cmath $op, pixels" -body {
-	dict get [astcl aktive op cmath $op $a] pixels
-    } -match pixels -result [dict get [astcl/ [set $op]] pixels]
+	pixels aktive op cmath $op $a
+    } -match pixels -result [pixels/ [set $op]]
     # note: op names match the variable names holding the bands
 }
 

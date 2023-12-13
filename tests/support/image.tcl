@@ -80,12 +80,12 @@ proc dag/ {i} {
 
 # Just the pixels
 
-proc pixels {args} { pixels/ [{*}$args] }
-proc pixels/ {i} { dict get [astcl/ $i] pixels }
+proc pixels  {args} { pixels/ [{*}$args] }
+proc pixels/ {i} { aktive query values $i }
 
 # Just the meta data
 
-proc meta {args} { meta/ [{*}$args] }
+proc meta  {args} { meta/ [{*}$args] }
 proc meta/ {i} { aktive query meta $i }
 
 # Construct image in tcl representation for comparisons

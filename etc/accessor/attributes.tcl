@@ -169,6 +169,22 @@ operator query::meta {
     }
 }
 
+operator query::values {
+    section accessor
+
+    note Returns list of image pixel values. \
+	The values are provided in row-major order.
+
+    input
+
+    return object0 {
+	Tcl_Obj* r = aktive_op_pixels (ip, src);
+	if (r) { return r; }
+	if (aktive_error_raised()) { return 0; }
+	return Tcl_NewListObj (0, 0);
+    }
+}
+
 ##
 # # ## ### ##### ######## ############# #####################
 ::return

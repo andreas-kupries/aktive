@@ -46,7 +46,7 @@ foreach {op expected} {
     }
 } {
     test aktive-op-${op}-2.0 "aktive op $op" -body {
-	dict get [astcl aktive op $op [grad]] pixels
+	pixels aktive op $op [grad]
     } -match pixels -result $expected
 }
 

@@ -102,8 +102,8 @@ foreach {fun steps first last expected} {
     if {$fun in {
     }} {
 	puts   "\nXX $fun ........................................................................"
-	puts   "XX INPUT [dict get [astcl aktive image gradient $steps 1 1 $first $last] pixels]"
-	puts   "XX RESLT [dict get [astcl aktive op math1 $fun [aktive image gradient $steps 1 1 $first $last]] pixels]"
+	puts   "XX INPUT [pixels aktive image gradient $steps 1 1 $first $last]"
+	puts   "XX RESLT [pixels aktive op math1 $fun [aktive image gradient $steps 1 1 $first $last]]"
 	puts   "XX EXP.. $expected\n"
     }
 
