@@ -37,11 +37,30 @@ operator op::image::histogram {
 
     note Returns image with the input transformed into a histogram of `bins` values.
 
-    # Note: it is computed as the column sum of the row histograms of the input
+    # Deprecated: Note: it is computed as the column sum of the row histograms of the input
+    #
+    # Note: it is computed as the transposed row sum of the column histograms of the input
+    #
+    #       in the current setup, where we concurrently scan over rows
+    #       the column sum of the original implementation returns a single row,
+    #       causing threading to be effectively disabled.
+    #
+    #       while the new form computes column histograms their vector cache ensures
+    #       that each is calculated only once, and the row sums are concurrent.
+    #
+    # TODO FUTURE - ops declare prefered access pattern, sinks choose
+    # TODO FUTURE - sink auto-chooses different patterns based on image geometry
+    #               i.e. thin tall -> by rows, thin wide -> by columns, else ops preference
 
     body {
-	set src [aktive op row histogram $src bins $bins]
-	set src [aktive op column sum $src]
+	if 0 {
+	    set src [aktive op row histogram $src bins $bins]
+	    set src [aktive op column sum $src]
+	} else {
+	    set src [aktive op column histogram $src bins $bins]
+	    set src [aktive op row sum $src]
+	    set src [aktive op transpose $src]
+	}
 	return $src
     }
 }
