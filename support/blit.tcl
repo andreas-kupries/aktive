@@ -144,6 +144,24 @@ proc dsl::blit::F/apply1 {op args} {
     + "*dstvalue = result;"
 }
 
+proc dsl::blit::F/apply1z {op args} {
+    append call "$op (*srcvalue"
+    foreach a $args { append call ", $a" }
+    append call ", srcz)"
+
+    append fmt "$op (%f"
+    foreach a $args { append fmt ", %f" }
+    append fmt ", %u)"
+
+    append values "*srcvalue"
+    foreach a $args { append values ", $a" }
+    append values ", srcz"
+
+    + "double result = ${call};"
+    + "TRACE_ADD (\" :: set %f = $fmt\", result, $values);"
+    + "*dstvalue = result;"
+}
+
 proc dsl::blit::F/apply2 {op} {
     + "double result = $op (*src0value, *src1value);"
     + "TRACE_ADD (\" :: set %f = $op (%f, %f)\", result, *src0value, *src1value);"

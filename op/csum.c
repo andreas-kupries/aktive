@@ -49,6 +49,8 @@ aktive_csum_fill (aktive_csum_context* context, aktive_uint index, double* dst)
     TRACE_FUNC("([%d] %u,%u[%u] (dst) %p [%u])", index, context->request->y,
 	       context->z, context->stride, dst, context->size);
 
+    TRACE_RECTANGLE_M("csum request", context->request);
+
     aktive_block* src = aktive_region_fetch_area (context->src, context->request);
 
     // compute the cumulative sum directly into the destination

@@ -60,10 +60,12 @@ import generator/virtual/pattern/zone.tcl
 
 import transformer/convolve.tcl
 import transformer/effects.tcl
+import transformer/equalization.tcl
 import transformer/geometry.tcl
 import transformer/identity.tcl
 import transformer/kuwahara.tcl
 import transformer/location.tcl
+import transformer/lookup.tcl
 import transformer/meta.tcl
 import transformer/morphology.tcl
 import transformer/recombine.tcl

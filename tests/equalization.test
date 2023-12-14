@@ -1,0 +1,47 @@
+# -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
+## (c) 2023 Andreas Kupries
+# # ## ### ##### ######## ############# #####################
+## AKTIVE. Equalization.
+
+kt check Tcl     8.6
+kt check tcltest 2
+
+# # ## ### ##### ######## ############# #####################
+
+kt local testing aktive
+
+kt source support/util.tcl
+
+# # ## ### ##### ######## ############# #####################
+## Syntax
+
+syntax {
+    global {src args}
+} {aktive op equalization}
+
+# # ## ### ##### ######## ############# #####################
+##
+
+set k 0
+foreach path {
+    crop.pgm
+    butterfly.ppm
+    watergarden.ppm
+} {
+    set in  [aktive read from netpbm path [A $path]]
+    set ext [string range [file ext $path] 1 end]
+
+    test aktive-op-equalization-global-2.[incr k] "aktive op equalization global" -body {
+	save-to test.eq-global-$path \
+	    aktive format as $ext byte 2chan [aktive op equalization global $in]
+    } -cleanup {
+	removeFile test.eq-global-$path
+    } -match content -result [R eq-global-$path]
+}
+
+# Should test for all colorspaces.
+
+# # ## ### ##### ######## ############# #####################
+unset in k path
+cleanupTests
+return

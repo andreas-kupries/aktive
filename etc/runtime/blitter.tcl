@@ -65,6 +65,13 @@ dsl blit into generated/blit/unary2.c {
     {DD {z 0  1 up} {z 0 1 up}}
 } {apply1 op a b}
 
+# aktive_blit_unarygz
+dsl blit into generated/blit/unarygz.c {
+    {AH {y AY 1 up} {y 0 1 up}}
+    {AW {x AX 1 up} {x 0 1 up}}
+    {DD {z 0  1 up} {z 0 1 up}}
+} {apply1z op param}
+
 # aktive_blit_binary
 dsl blit into generated/blit/binary.c {
     {AH {y AY 1 up} {y 0 1 up} {y 0 1 up}}

@@ -463,6 +463,31 @@ aktive_blit_unary2 (aktive_block* dst, aktive_rectangle* dstarea,
 }
 
 extern void
+aktive_blit_unarygz (aktive_block* dst, aktive_rectangle* dstarea,
+		    aktive_unary_transformgz op, void* param, aktive_block* src)
+{
+    TRACE_FUNC("((block*) %p (%d of %d @ %p)", dst, dst->used, dst->capacity, dst->pixel);
+
+#define AH     (dstarea->height)
+#define AW     (dstarea->width)
+#define AX     (dstarea->x)
+#define AY     (dstarea->y)
+#define DD     (dst->domain.depth)
+#define DH     (dst->domain.height)
+#define DST    (dst->pixel)
+#define DSTCAP (dst->used)
+#define DW     (dst->domain.width)
+#define SD     (src->domain.depth)
+#define SH     (src->domain.height)
+#define SRC    (src->pixel)
+#define SRCCAP (src->used)
+#define SW     (src->domain.width)
+#include <generated/blit/unarygz.c>
+
+    TRACE_RETURN_VOID;
+}
+
+extern void
 aktive_blit_binary (aktive_block* dst, aktive_rectangle* dstarea,
 		    aktive_binary_transform op,
 		    aktive_block* srca, aktive_block* srcb)
