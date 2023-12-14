@@ -217,12 +217,12 @@ proc show {i {scale {}}} {
     puts "  pi  $pi"
 
     puts -nonewline "\n\t= "
-    set i 0
+    set k 0
     foreach v [aktive query values $i] {
-	if {$i} {
-	    if {($i % $pi) == 0} {
+	if {$k} {
+	    if {($k % $pi) == 0} {
 		puts -nonewline "\n\t= "
-	    } elseif {($i % $d) == 0} {
+	    } elseif {($k % $d) == 0} {
 		puts -nonewline " ="
 	    }
 	}
@@ -233,7 +233,7 @@ proc show {i {scale {}}} {
 	} else {
 	    puts -nonewline " [format %8.4f $v]"
 	}
-	incr i
+	incr k
     }
     puts ""
     flush stdout
