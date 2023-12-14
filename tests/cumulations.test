@@ -48,54 +48,63 @@ proc mbase {} {
 	     2 5 3 0 4 5 ]
 }
 
+proc mboff {} {
+    aktive op location move to [mbase] x 200 y 51
+}
+
+proc hboff {} {
+    aktive op location move to [hbase] x 200 y 51
+}
+
 # # ## ### ##### ######## ############# #####################
 
 test aktive-op-row-cumulative-2.0 "aktive op row cumulative" -body {
-    astcl aktive op row cumulative [hbase]
-} -match image -result [makei op::row::cumulative 0 0 6 3 1 {} {
+    astcl aktive op row cumulative [hboff]
+} -match image -result [makei op::row::cumulative 200 51 6 3 1 {} {
     0  1  3  6 10 15
     0  0  0  0  0  0
     5 10 15 20 25 30
 }]
 
-test aktive-op-column-cumulative-2.0 "aktive op column cumulative" -body {
-    astcl aktive op column cumulative [hbase]
-} -match image -result [makei op::column::cumulative 0 0 6 3 1 {} {
-    0 1 2 3 4  5
-    0 1 2 3 4  5
-    5 6 7 8 9 10
-}]
-
-test aktive-op-band-cumulative-2.0 "aktive op band cumulative" -body {
-    astcl aktive op band cumulative [mbase]
-} -match image -result [makei op::band::cumulative 0 0 6 3 3 {} {
-    0  0  0 - 1 2  5 - 2 4  9 - 3 6 8 - 4 8  8 - 5 10 11
-    0  0  1 - 0 0  4 - 0 4  8 - 0 4 5 - 0 0  3 - 0  0  2
-    5 10 12 - 5 9 14 - 5 8 11 - 5 7 7 - 5 6 10 - 5  5 10
-}]
-
-# # ## ### ##### ######## ############# #####################
-## cumulatives for multi-band images (row, column, image)
-## note: band cumulatives require multi-band input by definition, already handled, above
-## note: tile cumulatives allow only single band input
-
 test aktive-op-row-cumulative-3.0 "aktive op row cumulative, multi-band" -body {
-    astcl aktive op row cumulative [mbase]
-} -match image -result [makei op::row::cumulative 0 0 6 3 3 {} {
+    astcl aktive op row cumulative [mboff]
+} -match image -result [makei op::row::cumulative 200 51 6 3 3 {} {
     0 0 0 -  1 1 3 -  3  3  8 -  6  6 10 - 10 10 10 - 15 15 11
     0 0 1 -  0 0 5 -  0  4  9 -  0  8 10 -  0  8 13 -  0  8 15
     5 5 2 - 10 9 7 - 15 12 10 - 20 14 10 - 25 15 14 - 30 15 19
 }]
 
+# # ## ### ##### ######## ############# #####################
+
+test aktive-op-column-cumulative-2.0 "aktive op column cumulative" -body {
+    astcl aktive op column cumulative [hboff]
+} -match image -result [makei op::column::cumulative 200 51 6 3 1 {} {
+    0 1 2 3 4  5
+    0 1 2 3 4  5
+    5 6 7 8 9 10
+}]
+
 test aktive-op-column-cumulative-3.0 "aktive op column cumulative" -body {
-    astcl aktive op column cumulative [mbase]
-} -match image -result [makei op::column::cumulative 0 0 6 3 3 {} {
+    astcl aktive op column cumulative [mboff]
+} -match image -result [makei op::column::cumulative 200 51 6 3 3 {} {
     0 0 0 - 1 1  3 - 2 2  5 - 3 3 2 - 4 4 0 -  5 5 1
     0 0 1 - 1 1  7 - 2 6  9 - 3 7 3 - 4 4 3 -  5 5 3
     5 5 3 - 6 5 12 - 7 9 12 - 8 9 3 - 9 5 7 - 10 5 8
 }]
 
 # # ## ### ##### ######## ############# #####################
-rename hbase {}
+## note: band cumulatives require multi-band input by definition
+##       no separate test
+
+test aktive-op-band-cumulative-2.0 "aktive op band cumulative" -body {
+    astcl aktive op band cumulative [mboff]
+} -match image -result [makei op::band::cumulative 200 51 6 3 3 {} {
+    0  0  0 - 1 2  5 - 2 4  9 - 3 6 8 - 4 8  8 - 5 10 11
+    0  0  1 - 0 0  4 - 0 4  8 - 0 4 5 - 0 0  3 - 0  0  2
+    5 10 12 - 5 9 14 - 5 8 11 - 5 7 7 - 5 6 10 - 5  5 10
+}]
+
+# # ## ### ##### ######## ############# #####################
+foreach p {hbase mbase hboff mboff} { rename $p {} }
 cleanupTests
 return

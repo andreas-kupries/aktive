@@ -80,9 +80,10 @@ operator op::geometry::bands::fold {
     pixels {
 	// rewrite request and returned pixel block
 	// child request
+	// beware: translate x to be domain relative before scaling, and translate back after
 
 	aktive_rectangle_def_as (subrequest, request);
-	subrequest.x     *= param->by;
+	subrequest.x      = (subrequest.x - idomain->x) * param->by + idomain->x;
 	subrequest.width *= param->by;
 
 	aktive_block* src = aktive_region_fetch_area (srcs->v[0], &subrequest);
@@ -95,7 +96,6 @@ operator op::geometry::bands::fold {
 	srcr.domain.depth *= param->by;
 
 	aktive_blit_copy0 (block, dst, &srcr);
-
     }
 }
 
@@ -149,15 +149,16 @@ operator op::geometry::bands::unfold {
     pixels {
 	// rewrite request and returned pixel block
 	// x offset in fetched block
+	// beware: translate x to be domain relative before scaling, and translate back after
 
 	aktive_point srcloc = { .x = request->x % istate->depth, .y = 0 };
 
 	// child request, gridded to input
 
 	aktive_rectangle_def_as (subrequest, request);
-	subrequest.x     /= istate->depth;
+	subrequest.x      = (subrequest.x - idomain->x) / istate->depth + idomain->x;
 	subrequest.width /= istate->depth;
-	int xm = aktive_rectangle_get_xmax (&subrequest);
+	int xm = aktive_rectangle_get_xmax (&subrequest) - idomain->x;
 	if (xm > istate->width) { subrequest.width -= xm - istate->width; }
 
 	aktive_block* src = aktive_region_fetch_area (srcs->v[0], &subrequest);

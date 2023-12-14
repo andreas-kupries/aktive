@@ -56,17 +56,37 @@ proc mbase {} {
 	     2 5 3 0 4 5 ]
 }
 
+proc mboff {} {
+    aktive op location move to [mbase] x 200 y 51
+}
+
+proc hboff {} {
+    aktive op location move to [hbase] x 200 y 51
+}
+
+# # ## ### ##### ######## ############# #####################
+
 test aktive-op-row-histogram-2.0 "aktive op row histogram" -body {
-    astcl aktive op row histogram [hbase] bins 6
-} -match image -result [makei op::row::histogram 0 0 6 3 1 {bins 6} {
+    astcl aktive op row histogram [hboff] bins 6
+} -match image -result [makei op::row::histogram 200 51 6 3 1 {bins 6} {
     1 1 1 1 1 1
     6 0 0 0 0 0
     0 0 0 0 0 6
 }]
 
+test aktive-op-row-histogram-3.0 "aktive op row histogram, multi-band" -body {
+    astcl aktive op row histogram [mboff] bins 6
+} -match image -result [makei op::row::histogram 200 51 6 3 3 {bins 6} {
+    1 1 2 - 1 1 1 - 1 1 1 - 1 1 1 - 1 1 0 - 1 1 1
+    6 4 0 - 0 0 2 - 0 0 1 - 0 0 1 - 0 2 2 - 0 0 0
+    0 1 1 - 0 1 0 - 0 1 1 - 0 1 1 - 0 1 1 - 6 1 2
+}]
+
+# # ## ### ##### ######## ############# #####################
+
 test aktive-op-column-histogram-2.0 "aktive op column histogram" -body {
-    astcl aktive op column histogram [hbase] bins 6
-} -match image -result [makei op::column::histogram 0 0 6 6 1 {bins 6} {
+    astcl aktive op column histogram [hboff] bins 6
+} -match image -result [makei op::column::histogram 200 51 6 6 1 {bins 6} {
     2 1 1 1 1 1
     0 1 0 0 0 0
     0 0 1 0 0 0
@@ -75,15 +95,33 @@ test aktive-op-column-histogram-2.0 "aktive op column histogram" -body {
     1 1 1 1 1 2
 }]
 
+test aktive-op-column-histogram-3.0 "aktive op column histogram" -body {
+    astcl aktive op column histogram [mboff] bins 6
+} -match image -result [makei op::column::histogram 200 51 6 6 3 {bins 6} {
+    2 2 1 - 1 1 0 - 1 0 0 - 1 0 1 - 1 1 1 - 1 2 0
+    0 0 1 - 1 1 0 - 0 0 0 - 0 0 1 - 0 1 0 - 0 0 1
+    0 0 1 - 0 0 0 - 1 1 0 - 0 1 1 - 0 0 0 - 0 0 1
+    0 0 0 - 0 0 1 - 0 1 1 - 1 1 0 - 0 0 1 - 0 0 0
+    0 0 0 - 0 1 1 - 0 1 1 - 0 1 0 - 1 1 1 - 0 0 0
+    1 1 0 - 1 0 1 - 1 0 1 - 1 0 0 - 1 0 0 - 2 1 1
+}]
+
+# # ## ### ##### ######## ############# #####################
+## note: band histograms require multi-band input by definition
+##       no separate test
+
 test aktive-op-band-histogram-2.0 "aktive op band histogram" -body {
     astcl aktive op band histogram \
-	[aktive op geometry bands fold [hbase] by 2] \
+	[aktive op geometry bands fold [hboff] by 2] \
 	bins 6
-} -match image -result [makei op::band::histogram 0 0 3 3 6 {bins 6} {
+} -match image -result [makei op::band::histogram 200 51 3 3 6 {bins 6} {
     1 1 0 0 0 0  0 0 1 1 0 0  0 0 0 0 1 1
     2 0 0 0 0 0  2 0 0 0 0 0  2 0 0 0 0 0
     0 0 0 0 0 2  0 0 0 0 0 2  0 0 0 0 0 2
 }]
+
+# # ## ### ##### ######## ############# #####################
+## note: tile histograms allow only single band input
 
 test aktive-op-tile-histogram-2.0 "aktive op tile histogram" -body {
     astcl aktive op tile histogram \
@@ -96,34 +134,12 @@ test aktive-op-tile-histogram-2.0 "aktive op tile histogram" -body {
 	7 . . . . 2   6 . . . . 3   6 . . . . 3   6 . . . . 3   6 . . . . 3   7 . . . . 2
     }]]
 
+# # ## ### ##### ######## ############# #####################
+
 test aktive-op-image-histogram-2.0 "aktive op image histogram" -body {
     astcl aktive op image histogram [hbase] bins 6
 } -match image -result [makei op::column::sum 0 0 6 1 1 {} {
     7 1 1 1 1 7
-}]
-
-# # ## ### ##### ######## ############# #####################
-## histograms for multi-band images (row, column, image)
-## note: band histograms require multi-band input by definition, already handled, above
-## note: tile histograms allow only single band input
-
-test aktive-op-row-histogram-3.0 "aktive op row histogram, multi-band" -body {
-    astcl aktive op row histogram [mbase] bins 6
-} -match image -result [makei op::row::histogram 0 0 6 3 3 {bins 6} {
-    1 1 2 - 1 1 1 - 1 1 1 - 1 1 1 - 1 1 0 - 1 1 1
-    6 4 0 - 0 0 2 - 0 0 1 - 0 0 1 - 0 2 2 - 0 0 0
-    0 1 1 - 0 1 0 - 0 1 1 - 0 1 1 - 0 1 1 - 6 1 2
-}]
-
-test aktive-op-column-histogram-3.0 "aktive op column histogram" -body {
-    astcl aktive op column histogram [mbase] bins 6
-} -match image -result [makei op::column::histogram 0 0 6 6 3 {bins 6} {
-    2 2 1 - 1 1 0 - 1 0 0 - 1 0 1 - 1 1 1 - 1 2 0
-    0 0 1 - 1 1 0 - 0 0 0 - 0 0 1 - 0 1 0 - 0 0 1
-    0 0 1 - 0 0 0 - 1 1 0 - 0 1 1 - 0 0 0 - 0 0 1
-    0 0 0 - 0 0 1 - 0 1 1 - 1 1 0 - 0 0 1 - 0 0 0
-    0 0 0 - 0 1 1 - 0 1 1 - 0 1 0 - 1 1 1 - 0 0 0
-    1 1 0 - 1 0 1 - 1 0 1 - 1 0 0 - 1 0 0 - 2 1 1
 }]
 
 test aktive-op-image-histogram-3.0 "aktive op image histogram, multi-band" -body {
@@ -133,6 +149,6 @@ test aktive-op-image-histogram-3.0 "aktive op image histogram, multi-band" -body
 }]
 
 # # ## ### ##### ######## ############# #####################
-rename hbase {}
+foreach p {hbase mbase hboff mboff} { rename $p {} }
 cleanupTests
 return

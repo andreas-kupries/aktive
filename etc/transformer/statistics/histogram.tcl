@@ -124,34 +124,29 @@ operator {dim unchanged} {
 
     switch -exact -- $thing {
 	band {
-	    blit reducer {
-		{DH {y 0 1 up} {y 0 1 up}}
-		{DW {x 0 1 up} {x 0 1 up}}
-	    } {raw reduce-band {
+	    blit histogrammer {
+		{AH {y AY 1 up} {y 0 1 up}}
+		{AW {x AX 1 up} {x 0 1 up}}
+	    } {raw histogram-band {
 		// dstvalue = row/col start - 1-strided band (full histogram)
 		// srcvalue = row/col start - 1-strided full band vector
-		REDUCE (srcvalue, SD, 1, &state->h);
+		aktive_reduce_histogram (srcvalue, SD, 1, &state->h);
 		memcpy (dstvalue, state->h.count, DD * sizeof(double));
 	    }}
 	}
 	tile {
 	    # This assumes a single band input
-	    blit reducer {
+	    blit histogrammer {
 		{AH {y AY 1 up} {y radius 1 up}}
 		{AW {x AX 1 up} {x radius 1 up}}
-	    } {raw reduce-tile {
+	    } {raw histogram-tile {
 		// dstvalue = cells to set (bands = histogram)
 		// srcvalue = center cell of tile
-		REDUCE (srcvalue, radius, srcpos, SRCCAP, srcpitch, srcstride, &state->h);
+		aktive_tile_reduce_histogram (srcvalue, radius, srcpos, SRCCAP, srcpitch, srcstride, &state->h);
 		memcpy (dstvalue, state->h.count, DD * sizeof(double));
 	    }}
 	}
     }
-
-    def rfunction [dict get {
-	band   { aktive_reduce_histogram      }
-	tile   { aktive_tile_reduce_histogram }
-    } $thing]
 
     def subrequest [dict get {
 	band   {}
@@ -176,23 +171,11 @@ operator {dim unchanged} {
 	TRACE("histogram actual %u bins", param->bins);
 	aktive_rectangle_def_as (subrequest, request);
 	@@subrequest@@
+
 	TRACE_RECTANGLE_M("@@thing@@ hist", &subrequest);
 	aktive_block* src = aktive_region_fetch_area (srcs->v[0], &subrequest);
 
-	#define REDUCE @@rfunction@@
-	#define COPY(dst,num,stride,src,shead) \
-	    aktive_blit_raw_copy(dst,num,stride,src+shead)
-	#define AH (dst->height)
-	#define AW (dst->width)
-	#define AX (dst->x)
-	#define AY (dst->y)
-	@@reducer@@
-	#undef REDUCE
-	#undef COPY
-	#undef AH
-	#undef AW
-	#undef AX
-	#undef AY
+	@@histogrammer@@
 
 	TRACE_DO (__aktive_block_dump ("@@thing@@ histogram out", block));
     }
@@ -245,7 +228,7 @@ operator op::row::histogram {
 
 	TRACE("histogram actual %u bins", param->bins);
 	aktive_rectangle_def_as (subrequest, request);
-	subrequest.width = istate->size; subrequest.x = 0;
+	subrequest.width = istate->size; subrequest.x = idomain->x;
 	TRACE_RECTANGLE_M("row hist", &subrequest);
 
 	aktive_uint x, y, z, k, j;
@@ -263,24 +246,33 @@ operator op::row::histogram {
 
 	#define ITERZ for (z = 0; z < bands; z++)
 	#define ITERX for (x = request->x, k = 0; k < request->width  ; x++, k++)
-	#define ITERY for (y = request->y, j = 0; j < request->height ; y++, j++)
+	#define ITERY for (y = request->y, j = 0; j < request->height ; y++, j++, py++)
 
+	// 3 kinds of y-coordinates.
+	//
+	// 1. y  - logical coordinate of row
+	// 2. j  - physical coordinate of row in memory block
+	// 3. py - distance to logical y position -> cache index
+
+	aktive_uint py = request->y - idomain->y;
 	ITERY {
 	    ITERZ {
+		TRACE ("VEC INDEX (%u,%u,%u) (%u,%u) %u - vec %u", x,y,z, k,py, bands, py*bands+z);
+
 		context.z = z;
 		/* context->request */ subrequest.y = y;
-		double* hist = aktive_iveccache_get (state->histogram, y*bands+z,
+		double* hist = aktive_iveccache_get (state->histogram, py*bands+z,
 						     AKTIVE_HISTOGRAM_FILL, &context);
 		// hist is full input width
 
-		TRACE_HEADER(1); TRACE_ADD ("[x,z=%u,%u] row hist = {", x, z);
+		TRACE_HEADER(1); TRACE_ADD ("[y,z=%u,%u] row hist = {", y, z);
 		for (int a = 0; a < param->bins; a++) { TRACE_ADD (" %f", hist[a]); }
 		TRACE_ADD(" }", 0); TRACE_CLOSER;
 
 		ITERX {
-		    TRACE ("line [%u], band [%u] place k%u b%u j%u s%u -> %u",
-			   y, z, k, bands, j, stride, z+k*bands+j*stride);
-		    block->pixel [z+k*bands+j*stride] = hist[x];
+		    TRACE ("line [%u], band [%u] place k%u b%u j%u s%u -> %u (hist[%d] = %f)",
+			   y, z, k, bands, j, stride, z+k*bands+j*stride, k, hist[k]);
+		    block->pixel [z+k*bands+j*stride] = hist[k];
 		}    // TODO :: ASSERT against capacity
 	    }
 
@@ -346,7 +338,7 @@ operator op::column::histogram {
 	// - If needed, compute the histogram
 
 	aktive_rectangle_def_as (subrequest, request);
-	subrequest.width = 1; subrequest.height = istate->size; subrequest.y = 0;
+	subrequest.width = 1; subrequest.height = istate->size; subrequest.y = idomain->y;
 	TRACE_RECTANGLE_M("column hist", &subrequest);
 
 	aktive_uint x, y, z, k, q, j;
@@ -372,29 +364,44 @@ operator op::column::histogram {
 
 	#define ITERZ for (z = 0; z < bands; z++)
 	#define ITERX for (x = xstart, k = xoff, q = 0; q < request->width ; q++)
-	#define ITERY for (y = request->y, j = 0; j < request->height ; y++, j++)
+	#define ITERY for (y = request->y, j = 0; j < request->height ; y++, j++, py++)
 
+	// 3 kinds of x-coordinates.
+	//
+	// 1. x,y   - logical  coordinate of column/row
+	// 2. k,j   - physical coordinate of column/row -- memory block
+	// 3. px,py - distance to logical x/y position  -- cache index, hist index
+
+	aktive_uint xd = request->x - idomain->x;
+	aktive_uint yd = request->y - idomain->y;
+	aktive_uint px = xstart - idomain->x;
 	ITERX {
 	    ITERZ {
+		TRACE ("VEC INDEX (%u,%u,%u) (%u,%u) %u - vec %u", x,y,z, px,j, bands, px*bands+z);
+
 		context.z = z;
 		/* context->request */ subrequest.x = x;
-		double* hist = aktive_iveccache_get (state->histogram, x*bands+z,
+		double* hist = aktive_iveccache_get (state->histogram, px*bands+z,
 						     AKTIVE_HISTOGRAM_FILL, &context);
 		// hist is full input width
 
-		TRACE_HEADER(1); TRACE_ADD ("[x=%u] histogram = {", x);
+		TRACE_HEADER(1); TRACE_ADD ("[x,z=%u,%u] histogram = {", x, z);
 		for (int a = 0; a < param->bins; a++) { TRACE_ADD (" %f", hist[a]); }
 		TRACE_ADD(" }", 0); TRACE_CLOSER;
 
+		aktive_uint py = yd;
 		ITERY {
-		    TRACE ("line [%u], band [%u] place k%u b%u j%u s%u -> %u", y, z, k, bands, j, stride, z+k*bands+j*stride);
-		    block->pixel [z+k*bands+j*stride] = hist[y];
+		    TRACE ("line [%u], band [%u] place k%u b%u j%u s%u -> %u (hist[%d] = %f)",
+			   y, z, k, bands, j, stride, z+k*bands+j*stride, py, hist[py]);
+
+		    block->pixel [z+k*bands+j*stride] = hist[py];
 		}    // TODO :: ASSERT against capacity
 	    }
 
 	    // step the column with wrap around
 	    x++ ; if (x > xmax) x = request->x;
-	    k++ ; if (k >= request->width) k = 0;
+	    px++;
+	    k++ ; if (k >= request->width) { k = 0; px = xd; }
 	}
 
 	TRACE_HEADER(1); TRACE_ADD ("[y=%u] line = {", y);
@@ -404,7 +411,6 @@ operator op::column::histogram {
 	#undef ITERX
 	#undef ITERY
 	#undef ITERZ
-	#undef CHFILL
 
 	TRACE_DO (__aktive_block_dump ("column histogram out", block));
     }

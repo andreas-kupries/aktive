@@ -78,6 +78,16 @@ proc dag/ {i} {
     return $r
 }
 
+proc dag+  {args} { dag+/ [{*}$args] }
+proc dag+/ {i} {
+    lappend r [aktive query type     $i]
+    lappend r [aktive query id       $i]
+    lappend r [aktive query geometry $i]
+    lappend r [aktive query params   $i]
+    foreach c [aktive query inputs   $i] { lappend r [dag+/ $c] }
+    return $r
+}
+
 # Just the pixels
 
 proc pixels  {args} { pixels/ [{*}$args] }
@@ -87,6 +97,8 @@ proc pixels/ {i} { aktive query values $i }
 
 proc meta  {args} { meta/ [{*}$args] }
 proc meta/ {i} { aktive query meta $i }
+
+proc m {x y i} { aktive op location move to $i x $x y $y }
 
 # Construct image in tcl representation for comparisons
 proc makei {op x y w h d config pixels {meta {}}} {

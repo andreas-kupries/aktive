@@ -2,13 +2,13 @@
 # # ## ### ##### ######## ############# #####################
 ## Transformers -- Cumulations along the various axes
 ##                 (rows, columns, bands), and the entire image.
-##                Tiled does not make sense.
+##                 Tiled does not make sense.
 ##
 ## Note: Cumulation of the entire image is also known as `Sum Area Table`.
-
-## Note: Due to the wrap around from one row to the next this operation
-##       is __not separable__ into a combination of row and column csums.
-##       It might be possible to use a veccache for some perf boost.
+##
+##       Due to the wrap around from one row to the next the SAT is __not separable__ into
+##       a combination of row and column csums. It might be possible to use a veccache for
+##       some perf boost.
 
 # # ## ### ##### ######## ############# #####################
 
@@ -44,7 +44,7 @@ operator op::row::cumulative {
 	// - If needed, compute the sums
 
 	aktive_rectangle_def_as (subrequest, request);
-	subrequest.height = 1; subrequest.width = idomain->width; subrequest.x = 0;
+	subrequest.height = 1; subrequest.width = idomain->width; subrequest.x = idomain->x;
 	TRACE_RECTANGLE_M("row csum", &subrequest);
 
 	aktive_uint x, y, z, k, j;
@@ -61,13 +61,20 @@ operator op::row::cumulative {
 
 	#define ITERZ for (z = 0; z < bands; z++)
 	#define ITERX for (x = request->x, k = 0; k < request->width  ; x++, k++)
-	#define ITERY for (y = request->y, j = 0; j < request->height ; y++, j++)
+	#define ITERY for (y = request->y, j = 0; j < request->height ; y++, j++, py++)
 
+	// 3 kinds of y-coordinates.
+	//
+	// 1. y  - logical coordinate of row
+	// 2. j  - physical coordinate of row in memory block
+	// 3. py - distance to logical y position -> cache index
+
+	aktive_uint py = request->y - idomain->y;
 	ITERY {
 	    ITERZ {
 		csc.z = z;
 		/* csc->request */ subrequest.y = y;
-		double* cs = aktive_iveccache_get (state->sums, y*bands+z, AKTIVE_CSUM_FILL, &csc);
+		double* cs = aktive_iveccache_get (state->sums, py*bands+z, AKTIVE_CSUM_FILL, &csc);
 		// cs is full input width
 
 		TRACE_HEADER(1); TRACE_ADD ("[x,z=%u,%u] sum = {", x, z);
@@ -75,8 +82,9 @@ operator op::row::cumulative {
 		TRACE_ADD(" }", 0); TRACE_CLOSER;
 
 		ITERX {
-		    TRACE ("line [%u], band [%u] place k%u b%u j%u s%u -> %u", y, z, k, bands, j, stride, z+k*bands+j*stride);
-		    block->pixel [z+k*bands+j*stride] = cs[x];
+		    TRACE ("line [%u], band [%u] place k%u b%u j%u s%u -> %u (cs[%d] = %f)",
+			   y, z, k, bands, j, stride, z+k*bands+j*stride, k, cs[k]);
+		    block->pixel [z+k*bands+j*stride] = cs[k];
 		}    // TODO :: ASSERT against capacity
 	    }
 
@@ -128,7 +136,7 @@ operator op::column::cumulative {
 	// - If needed, compute the sums
 
 	aktive_rectangle_def_as (subrequest, request);
-	subrequest.width = 1; subrequest.height = idomain->height; subrequest.y = 0;
+	subrequest.width = 1; subrequest.height = idomain->height; subrequest.y = idomain->y;
 	TRACE_RECTANGLE_M("column csum", &subrequest);
 
 	aktive_uint x, y, z, k, q, j;
@@ -154,28 +162,40 @@ operator op::column::cumulative {
 
 	#define ITERZ for (z = 0; z < bands; z++)
 	#define ITERX for (x = xstart, k = xoff, q = 0; q < request->width  ; q++)
-	#define ITERY for (y = request->y, j = 0      ; j < request->height ; y++, j++)
+	#define ITERY for (y = request->y, j = 0      ; j < request->height ; y++, j++, py++)
 
+	// 3 kinds of x-coordinates.
+	//
+	// 1. x,y   - logical  coordinate of column/row
+	// 2. k,j   - physical coordinate of column/row -- memory block
+	// 3. px,py - distance to logical x/y position  -- cache index, csum index
+
+	aktive_uint xd = request->x - idomain->x;
+	aktive_uint yd = request->y - idomain->y;
+	aktive_uint px = xstart - idomain->x;
 	ITERX {
 	    ITERZ {
 		csc.z = z;
 		/* csc->request */ subrequest.x = x;
-		double* cs = aktive_iveccache_get (state->sums, x*bands+z, AKTIVE_CSUM_FILL, &csc);
+		double* cs = aktive_iveccache_get (state->sums, px*bands+z, AKTIVE_CSUM_FILL, &csc);
 		// cs is full input height
 
 		TRACE_HEADER(1); TRACE_ADD ("[x,z=%u,%u] column sum = {", x, z);
 		for (int a = 0; a < subrequest.height; a++) { TRACE_ADD (" %f", cs[a]); }
 		TRACE_ADD(" }", 0); TRACE_CLOSER;
 
+		aktive_uint py = yd;
 		ITERY {
-		    TRACE ("line [%u], band [%u] place k%u b%u j%u s%u -> %u", y, z, k, bands, j, stride, z+k*bands+j*stride);
-		    block->pixel [z+k*bands+j*stride] = cs[y];
+		    TRACE ("line [%u], band [%u] place k%u b%u j%u s%u -> %u (cs[%d] = %f)",
+			   y, z, k, bands, j, stride, z+k*bands+j*stride, py, cs[py]);
+		    block->pixel [z+k*bands+j*stride] = cs[py];
 		}    // TODO :: ASSERT against capacity
 	    }
 
 	    // step the column with wrap around
 	    x++ ; if (x > xmax) x = request->x;
-	    k++ ; if (k >= request->width) k = 0;
+	    px++;
+	    k++ ; if (k >= request->width) { k = 0; px = xd; }
 	}
 
 	TRACE_HEADER(1); TRACE_ADD ("[y=%u] line = {", y);

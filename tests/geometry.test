@@ -66,6 +66,15 @@ test aktive-op-geometry-bands-unfold-3.2 "aktive geometry bands unfold, single-b
     dag aktive op geometry bands unfold $in
 } -match glob -result "image::gradient $id *"
 
+test aktive-op-geometry-bands-unfold-4.0 "aktive geometry bands unfold, translated, ok" -body {
+    astcl aktive op geometry bands unfold [m 200 51 [grad]]
+} -match image -result [makei op::geometry::bands::unfold 200 51 6 4 1 {} {
+    =  1  1.5    2  2.5    3  3.5
+    =  4  4.5    5  5.5    6  6.5
+    =  7  7.5    8  8.5    9  9.5
+    = 10 10.5   11 11.5   12 12.5
+}]
+
 # # ## ### ##### ######## ############# #####################
 ## Fold - Note how the (linear) pixel data is unchanged
 ##
@@ -101,8 +110,6 @@ test aktive-op-geometry-bands-fold-3.3 "aktive geometry bands fold, over fold, f
     dag aktive op geometry bands fold [aktive op geometry bands fold [gradx] by 2] by 2
 } -match glob -result {op::geometry::bands::fold * {by 4} {image::gradient *}}
 
-
-
 test aktive-op-geometry-bands-fold-3.4 "aktive geometry bands fold, dag" -body {
     dag aktive op geometry bands fold [gradx] by 10
 } -match glob -result {op::geometry::bands::fold * {by 10} {image::gradient *}}
@@ -111,7 +118,7 @@ test aktive-op-geometry-bands-fold-3.5 "aktive geometry bands fold, no op" -body
     dag aktive op geometry bands fold $in by 1
 } -match glob -result "image::gradient $id *"
 
-test aktive-op-geometry-bands-unfold-3.6 "aktive geometry bands fold, over unfold, can restore geometry" -body {
+test aktive-op-geometry-bands-fold-3.6 "aktive geometry bands fold, over unfold, can restore geometry" -body {
     astcl aktive op geometry bands fold [aktive op pass [aktive op geometry bands unfold [grad]]] by 2
 } -match image -result [makei op::geometry::bands::fold 0 0 3 4 2 {by 2} {
     =  1  1.5    2  2.5    3  3.5
@@ -120,7 +127,7 @@ test aktive-op-geometry-bands-unfold-3.6 "aktive geometry bands fold, over unfol
     = 10 10.5   11 11.5   12 12.5
 }]
 
-test aktive-op-geometry-bands-unfold-3.7 "aktive geometry bands fold, over unfold, may not restore geometry" -body {
+test aktive-op-geometry-bands-fold-3.7 "aktive geometry bands fold, over unfold, may not restore geometry" -body {
     astcl aktive op geometry bands fold [aktive op pass [aktive op geometry bands unfold [grad]]] by 3
 } -match image -result [makei op::geometry::bands::fold 0 0 2 4 3 {by 3} {
     =  1  1.5  2    2.5    3  3.5
@@ -132,13 +139,19 @@ test aktive-op-geometry-bands-unfold-3.7 "aktive geometry bands fold, over unfol
 set in [grad]
 set id [aktive query id $in]
 
-test aktive-op-geometry-bands-unfold-3.8 "aktive geometry bands fold, over unfold, can cancel" -body {
+test aktive-op-geometry-bands-fold-3.8 "aktive geometry bands fold, over unfold, can cancel" -body {
     dag aktive op geometry bands fold [aktive op geometry bands unfold $in] by 2
 } -match glob -result "image::gradient $id *"
 
-test aktive-op-geometry-bands-unfold-3.9 "aktive geometry bands fold, over unfold, may not cancel" -body {
+test aktive-op-geometry-bands-fold-3.9 "aktive geometry bands fold, over unfold, may not cancel" -body {
     dag aktive op geometry bands fold [aktive op geometry bands unfold $in] by 3
 } -match glob -result {op::geometry::bands::fold * {by 3} *}
+
+test aktive-op-geometry-bands-fold-4.0 "aktive geometry bands fold, translated, ok" -body {
+    astcl aktive op geometry bands fold [m 22 11 [gradx]] by 2
+} -match image -result [makei op::geometry::bands::fold 22 11 10 1 2 {by 2} {
+    0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19
+}]
 
 # # ## ### ##### ######## ############# #####################
 unset in id
