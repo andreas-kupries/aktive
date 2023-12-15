@@ -14,6 +14,8 @@ operator {thing coordinate dimension other1 other2} {
 
     def direction [lindex [split $__op :] 4]
 
+    note Select values of the input (2nd argument) under the control of the index.
+
     note Takes two inputs of the same $other1 and ${other2}.
     note The first input, the index, is single-${thing}.
     note Its $other1 and $other2 match the second input.

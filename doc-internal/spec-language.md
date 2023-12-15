@@ -283,8 +283,8 @@ The fragment has access to the following variables:
 |---         |---                       |---                                            |
 |param       |(param-struct)*           |Operator parameter structure. May be `0`       |
 |srcs        |aktive_image_vector*      |Input images. May be empty                     |
-|imagestate  |(image-state-struct)*     |Operator image state. May be `0`               |
-|state       |(region-state-struct)*	|Region state to fill. 	      			|
+|istate      |(image-state-struct)*     |Operator image state. May be `0`               |
+|state       |(region-state-struct)*    |Region state to fill.                          |
 
 The `state` is pre-allocated when the type is known, i.e. when `RFIELDS` were provided.
 
@@ -318,7 +318,8 @@ The fragment has access to the following variables:
 |srcs        |aktive_region_vector*     |Input regions. If any.                         |
 |state       |(region-state-struct)*    |Operator region state. If any.                 |
 |istate      |(image-state-struct)*     |Operator state. If any.                        |
-|request     |aktive_rectangle*         |Area to compute the pixels for                 |
+|idomain     |aktive_geometry*          |Image geometry                                 |
+|request     |aktive_rectangle*         |Area to compute pixels for, within idomain     |
 |dst         |aktive_rectangle*         |Destination areay for the pixels in block      |
 |block       |aktive_block*             |Pixel storage                                  |
 

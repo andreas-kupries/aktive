@@ -25,7 +25,7 @@ operator op::embed::black {
 
 	incr x -$left
 	incr y -$top
-	incr w  $left ; incr w  $right
+	incr w  $left ; incr w $right
 	incr h  $top  ; incr h $bottom
 
 	# This works because the region core processing automatically

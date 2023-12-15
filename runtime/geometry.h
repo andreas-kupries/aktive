@@ -53,8 +53,8 @@ typedef struct aktive_rectangle {
 } aktive_rectangle;
 
 typedef struct aktive_geometry {
-    int         x ; // X coordinate, increasing to the right
-    int         y ; // Y coordinate, increasing downward
+    int         x      ; // X coordinate, increasing to the right
+    int         y      ; // Y coordinate, increasing downward
     aktive_uint width  ; // Number of image columns
     aktive_uint height ; // Number of image rows
     aktive_uint depth  ; // Number of image bands
