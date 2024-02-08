@@ -1,0 +1,48 @@
+# -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
+## (c) 2024 Andreas Kupries
+# # ## ### ##### ######## ############# #####################
+## AKTIVE. Linear blending of two images.
+
+kt check Tcl     8.6 9
+kt check tcltest 2
+
+# # ## ### ##### ######## ############# #####################
+
+kt local testing aktive
+
+kt source support/util.tcl
+
+# # ## ### ##### ######## ############# #####################
+
+set a [aktive image from matrix width 4 height 2 values \
+	   1 2 3 4 \
+	   5 6 7 8 ]
+set b [aktive image from matrix width 4 height 2 values \
+	    9 10 11 12 \
+	   13 14 15 16 ]
+set t [aktive image from matrix width 4 height 2 values \
+	   0 0.5  0.25 1 \
+	   1 0.75 0.5  0 ]
+
+# # ## ### ##### ######## ############# #####################
+
+syntax {
+    linear {src0 src1 src2}
+} {aktive op math}
+
+# # ## ### ##### ######## ############# #####################
+
+test aktive-op-math-linear-3.0 "aktive op math linear" -body {
+    astcl aktive op math linear $a $b $t
+} -match image -result [makei op::math::add 0 0 4 2 1 {} {
+    1  6  5 12
+   13 12 11  8
+}]
+
+# # ## ### ##### ######## ############# #####################
+
+unset a b t
+
+# # ## ### ##### ######## ############# #####################
+cleanupTests
+return

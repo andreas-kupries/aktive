@@ -108,6 +108,7 @@ rename cc-meta   {}
 
 import transformer/math/binary.tcl
 import transformer/math/unary.tcl
+import transformer/math/other.tcl
 
 import transformer/math/complex/binary.tcl
 import transformer/math/complex/reduce.tcl
@@ -139,6 +140,9 @@ import transformer/structure/embed/copy.tcl
 import transformer/structure/embed/mirror.tcl
 import transformer/structure/embed/tile.tcl
 import transformer/structure/embed/white.tcl
+
+import transformer/structure/embed/band/black.tcl
+import transformer/structure/embed/band/copy.tcl
 
 import transformer/structure/resample/decimate.tcl
 import transformer/structure/resample/fill.tcl

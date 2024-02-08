@@ -1,0 +1,116 @@
+# -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
+## (c) 2024 Andreas Kupries
+# # ## ### ##### ######## ############# #####################
+## AKTIVE. Image embedding (in a border of some kind)
+
+kt check Tcl     8.6 9
+kt check tcltest 2
+
+# # ## ### ##### ######## ############# #####################
+
+kt local testing aktive
+
+kt source support/util.tcl
+
+# # ## ### ##### ######## ############# #####################
+## Syntax
+
+syntax {
+    black  {src args}
+    copy   {src args}
+} {aktive op embed band}
+
+# TODO bad argument rejection (up, down < 0)
+
+# # ## ### ##### ######## ############# #####################
+
+set base [aktive op select x [gradx] from 0 to 4]	;# = 0 1 2 3 4 =
+
+# case 0 -- optimization - src pass through
+foreach {k border results} {
+    0 {up 0 down 0} {
+	black   {op::select::x 0 0 5 1 1 {from 0 to 4}} {= 0 1 2 3 4 =}
+	copy    {op::select::x 0 0 5 1 1 {from 0 to 4}} {= 0 1 2 3 4 =}
+    }
+    1 {up 0 down 2} {
+	black  {op::montage::z-core 0 0 5 1 3 {}} {
+	    = 0 0 0 = 1 0 0 = 2 0 0 = 3 0 0 = 4 0 0 =
+	}
+	copy   {op::sample::replicate::z 0 0 5 1 3 {by 3}} {
+	    = 0 0 0 = 1 1 1 = 2 2 2 = 3 3 3 = 4 4 4 =
+	}
+    }
+    2 {up 2 down 2} {
+	black  {op::montage::z-core 0 0 5 1 5 {}} {
+	    = 0 0 0 0 0 = 0 0 1 0 0 = 0 0 2 0 0 = 0 0 3 0 0 = 0 0 4 0 0 =
+	}
+	copy   {op::sample::replicate::z 0 0 5 1 5 {by 5}} {
+	    = 0 0 0 0 0 = 1 1 1 1 1 = 2 2 2 2 2 = 3 3 3 3 3 = 4 4 4 4 4 =
+	}
+    }
+    3 {up 2 down 0} {
+	black  {op::montage::z-core 0 0 5 1 3 {}} {
+	    = 0 0 0 = 0 0 1 = 0 0 2 = 0 0 3 = 0 0 4 =
+	}
+	copy   {op::sample::replicate::z 0 0 5 1 3 {by 3}} {
+	    = 0 0 0 = 1 1 1 = 2 2 2 = 3 3 3 = 4 4 4 =
+	}
+    }
+} {
+    foreach {op domain expected} $results {
+	set param [lassign $op op]
+
+	test aktive-op-embed-band-${op}-2.$k "aktive op embed band $op, $border, single band" -body {
+	    astcl aktive op embed band $op $base {*}$border {*}$param
+	} -match image -result [makei {*}$domain $expected]
+    }
+}
+
+# # ## ### ##### ######## ############# #####################
+
+set base [aktive op select y [grad] from 0 to 0]	;# = 1 1.5 = 2 2.5 = 3 3.5 =
+
+# case 0 -- optimization - src pass through
+foreach {k border results} {
+    0 {up 0 down 0} {
+	black   {op::select::y 0 0 3 1 2 {from 0 to 0}} {= 1 1.5 = 2 2.5 = 3 3.5 =}
+	copy    {op::select::y 0 0 3 1 2 {from 0 to 0}} {= 1 1.5 = 2 2.5 = 3 3.5 =}
+    }
+    1 {up 0 down 2} {
+	black  {op::montage::z-core 0 0 3 1 4 {}} {
+	    = 1 1.5 0 0 = 2 2.5 0 0 = 3 3.5 0 0 =
+	}
+	copy   {op::montage::z-core 0 0 3 1 4 {}} {
+	    = 1 1.5 1.5 1.5 = 2 2.5 2.5 2.5 = 3 3.5 3.5 3.5 =
+	}
+    }
+    2 {up 2 down 2} {
+	black  {op::montage::z-core 0 0 3 1 6 {}} {
+	    = 0 0 1 1.5 0 0 = 0 0 2 2.5 0 0 = 0 0 3 3.5 0 0 =
+	}
+	copy   {op::montage::z-core 0 0 3 1 6 {}} {
+	    = 1 1 1 1.5 1.5 1.5 = 2 2 2 2.5 2.5 2.5 = 3 3 3 3.5 3.5 3.5 =
+	}
+    }
+    3 {up 2 down 0} {
+	black  {op::montage::z-core 0 0 3 1 4 {}} {
+	    = 0 0 1 1.5 = 0 0 2 2.5 = 0 0 3 3.5 =
+	}
+	copy   {op::montage::z-core 0 0 3 1 4 {}} {
+	    = 1 1 1 1.5 = 2 2 2 2.5 = 3 3 3 3.5 =
+	}
+    }
+} {
+    foreach {op domain expected} $results {
+	set param [lassign $op op]
+
+	test aktive-op-embed-band-${op}-3.$k "aktive op embed band $op, $border, multi-band" -body {
+	    astcl aktive op embed band $op $base {*}$border {*}$param
+	} -match image -result [makei {*}$domain $expected]
+    }
+}
+
+unset base
+# # ## ### ##### ######## ############# #####################
+cleanupTests
+return
