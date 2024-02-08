@@ -5,31 +5,6 @@
 # critcl::csources ../../op/netpbm.c	;# C-level support code
 
 operator {
-    format::as::pgm::text::2string
-    format::as::pgm::etext::2string
-    format::as::pgm::byte::2string
-    format::as::pgm::short::2string
-    format::as::ppm::text::2string
-    format::as::ppm::etext::2string
-    format::as::ppm::byte::2string
-    format::as::ppm::short::2string
-} {
-    def thing	[set thing   [lindex [split $__op :] 4]]
-    def variant [set variant [lindex [split $__op :] 6]]
-
-    section sink writer
-
-    note Returns byte array containing the image serialized \
-	with [string toupper $thing]'s $variant format.
-
-    input
-
-    body {
-	aktive::2string $src 2chan
-    }
-}
-
-operator {
     format::as::pgm::text::2file
     format::as::pgm::etext::2file
     format::as::pgm::byte::2file
@@ -97,6 +72,49 @@ operator {bands type maxval} {
 	TRACE ("create and execute sink", 0);
 	aktive_sink_run (aktive_netpbm_sink (&dst, '@@type@@', @@maxval@@), src);
 	// Note: The sink self-destroys in its state finalization.
+    }
+}
+
+operator {bands type maxval} {
+    format::as::pgm::text::2string    1 2	  255
+    format::as::pgm::etext::2string   1 2 65535
+    format::as::pgm::byte::2string    1 5	  255
+    format::as::pgm::short::2string   1 5 65535
+
+    format::as::ppm::text::2string    3 3	  255
+    format::as::ppm::etext::2string   3 3 65535
+    format::as::ppm::byte::2string    3 6	  255
+    format::as::ppm::short::2string   3 6 65535
+} {
+    def thing	[set thing   [lindex [split $__op :] 4]]
+    def variant [set variant [lindex [split $__op :] 6]]
+
+    section sink writer
+
+    note Returns byte array containing the image serialized \
+	with [string toupper $thing]'s $variant format.
+
+    input
+
+    return object0 {
+	TRACE ("@@thing@@ starting", 0);
+
+	aktive_uint depth = aktive_image_get_depth (src);
+	if (depth != @@bands@@) {
+	    TRACE ("band mismatch, have %d, wanted %d", depth, @@bands@@);
+	    aktive_failf ("@@thing@@ does not support images with %d bands, expects @@bands@@",
+			  depth);
+	}
+
+	aktive_writer dst;
+	Tcl_Obj*      ba = Tcl_NewObj();
+	aktive_write_bytearray (&dst, ba);
+
+	TRACE ("create and execute sink", 0);
+	aktive_sink_run (aktive_netpbm_sink (&dst, '@@type@@', @@maxval@@), src);
+	// Note: The sink self-destroys in its state finalization.
+
+	return ba;
     }
 }
 

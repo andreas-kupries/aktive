@@ -5,21 +5,6 @@
 # critcl::csources ../../op/aktive.c	;# C-level support code
 
 operator {
-    format::as::aktive::2string
-} {
-    section sink writer
-
-    note Returns byte array containing the image serialized \
-	with the AKTIVE raw format.
-
-    input
-
-    body {
-	aktive::2string $src 2chan
-    }
-}
-
-operator {
     format::as::aktive::2file
 } {
     section sink writer
@@ -59,6 +44,31 @@ operator {
 	TRACE ("create and execute sink", 0);
 	aktive_sink_run (aktive_aktive_sink (&dst), src);
 	// Note: The sink self-destroys in its state finalization.
+    }
+}
+
+operator {
+    format::as::aktive::2string
+} {
+    section sink writer
+
+    note Returns byte array containing the image serialized \
+	with the AKTIVE raw format.
+
+    input
+
+    return object0 {
+	TRACE ("AKTIVE starting", 0);
+
+	aktive_writer dst;
+	Tcl_Obj*      ba = Tcl_NewObj();
+	aktive_write_bytearray (&dst, ba);
+
+	TRACE ("create and execute sink", 0);
+	aktive_sink_run (aktive_aktive_sink (&dst), src);
+	// Note: The sink self-destroys in its state finalization.
+
+	return ba;
     }
 }
 
