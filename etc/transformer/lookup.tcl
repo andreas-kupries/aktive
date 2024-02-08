@@ -79,9 +79,7 @@ operator {
 	set ld [aktive query depth $src0]
 	set id [aktive query depth $src1]
 	if {$ld < $id} {
-	    set last [aktive op select z $src0 [expr {$ld-1}]]
-	    set ext  [aktive op montage z-rep $last by [expr {$id - $ld}]]
-	    set src0 [aktive op montage z $src0 $ext]
+	    set src0 [aktive op embed band copy $src0 down [expr {$id - $ld}]]
 	}
 
 	indexed-core $src0 $src1 interpolate $interpolate
