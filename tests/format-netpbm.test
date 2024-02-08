@@ -48,7 +48,9 @@ foreach {format cons} {
 	text etext byte short
     } {
 	test aktive-format-as-${format}-${variant}-2chan-2.0 "aktive format as $format $variant 2chan" -body {
-	    save-to test.$variant.$format aktive format as $format $variant 2chan [$cons]
+	    save-to test.$variant.$format \
+		[$cons] \
+		aktive format as $format $variant
 	} -cleanup {
 	    removeFile test.$variant.$format
 	} -match content -result [R format-$variant.$format]

@@ -18,7 +18,7 @@ operator {
 	Destination file the image data is written to.
 
     body {
-	aktive::2file $src 2chan
+	aktive::2file $into $src 2chan
     }
 }
 

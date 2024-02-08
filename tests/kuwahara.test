@@ -26,8 +26,9 @@ syntax {
 set in [aktive read from netpbm path [A crop.pgm]]
 
 test aktive-op-kuwahara-core-2.0 "aktive op kuwahara-core" -body {
-    save-to test.kuwahara-core.pgm aktive format as pgm byte 2chan \
-	[aktive op kuwahara-core $in k 3]
+    save-to test.kuwahara-core.pgm \
+	[aktive op kuwahara-core $in k 3] \
+	aktive format as pgm byte
 } -cleanup {
     removeFile test.kuwahara-core.pgm
 } -match content -result [R kuwahara.pgm]
@@ -37,8 +38,9 @@ test aktive-op-kuwahara-core-2.0 "aktive op kuwahara-core" -body {
 set in [aktive read from netpbm path [A butterfly.ppm]]
 
 test aktive-op-kuwahara-2.0 "aktive op kuwahara" -body {
-    save-to test.kuwahara.ppm aktive format as ppm byte 2chan \
-	[aktive op kuwahara $in k 6]
+    save-to test.kuwahara.ppm \
+	[aktive op kuwahara $in k 6] \
+	aktive format as ppm byte
 } -cleanup {
     removeFile test.kuwahara.ppm
 } -match content -result [R kuwahara.ppm]

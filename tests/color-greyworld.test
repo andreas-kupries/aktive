@@ -40,8 +40,9 @@ foreach mp {
 	set in [aktive read from netpbm path [A $im.ppm]]
 
 	test aktive-op-color-correct-greyworld-${m}-2.$k "aktive op color correct greyworld $mp $im" -body {
-	    save-to test.gw-${m}.ppm aktive format as ppm byte 2chan \
-		[aktive op color correct greyworld $m $in {*}$p]
+	    save-to test.gw-${m}.ppm \
+		[aktive op color correct greyworld $m $in {*}$p] \
+		aktive format as ppm byte
 	} -cleanup {
 	    removeFile test.gw-${m}.ppm
 	} -match content -result [R greyworld-${m}-${im}.ppm]

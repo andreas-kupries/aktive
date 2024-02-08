@@ -37,12 +37,11 @@ proc numbers {w} {
 }
 
 # Save to file
-proc save-to {path args} {
+proc save-to {path image args} {
     set path [file join [td] $path]
-    set chan [open $path w]
-    lappend args into $chan
+    # args = format command - extend
+    lappend args 2file $image into $path
     uplevel 1 [linsert $args 0 check]
-    close $chan
     return $path
 }
 
@@ -62,10 +61,10 @@ proc asppm  {args} { asppm/ [check {*}$args] }
 proc asppm/ {i}    { aktive format as ppm byte 2string $i }
 
 proc save-pgm  {path args} { save-pgm/ $path [check {*}$args] }
-proc save-pgm/ {path i}    { save-to $path aktive format as pgm byte 2chan $i }
+proc save-pgm/ {path i}    { save-to $path $i aktive format as pgm byte }
 
 proc save-aktive  {path args} { save-aktive/ $path [check {*}$args] }
-proc save-aktive/ {path i}    { save-to $path aktive format as aktive 2chan $i }
+proc save-aktive/ {path i}    { save-to $path $i aktive format as aktive }
 
 # Get image input graph
 

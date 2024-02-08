@@ -68,13 +68,13 @@ foreach {mp expected} {
     set p [lrange $mp 1 end]
 
     test aktive-image-threshold-${m}-2.0 "aktive image threshold $mp" -body {
-	# save-to test.thresh-${m}.pgm aktive format as pgm byte 2chan [aktive image threshold $m $in {*}$p radius 5]
+	# save-to test.thresh-${m}.pgm [aktive image threshold $m $in {*}$p radius 5] aktive format as pgm byte
 
 	aspgm aktive image threshold $m $in {*}$p radius 5
     } -match content/string -result [R ${m}-threshold.pgm]
 
     test aktive-image-mask-per-${m}-2.0 "aktive image mask per $mp" -body {
-	# save-to test.mask-${m}.pgm aktive format as pgm byte 2chan [aktive image mask per $m $in {*}$p radius 5]
+	# save-to test.mask-${m}.pgm [aktive image mask per $m $in {*}$p radius 5] aktive format as pgm byte
 
 	aspgm aktive image mask per $m $in {*}$p radius 5
     } -match content/string -result [R ${m}-mask.pgm]
@@ -84,7 +84,7 @@ foreach {mp expected} {
     } -match double4 -result $expected
 
     test aktive-image-mask-per-global-${m}-2.0 "aktive image mask per global $mp" -body {
-	# save-to test.global-mask-${m}.pgm aktive format as pgm byte 2chan [aktive image mask per global $m $in {*}$p]
+	# save-to test.global-mask-${m}.pgm [aktive image mask per global $m $in {*}$p] aktive format as pgm byte
 
 	aspgm aktive image mask per global $m $in {*}$p
     } -match content/string -result [R ${m}-global-mask.pgm]

@@ -33,7 +33,8 @@ foreach path {
 
     test aktive-op-equalization-global-2.[incr k] "aktive op equalization global" -body {
 	save-to test.eq-global-$path \
-	    aktive format as $ext byte 2chan [aktive op equalization global $in]
+	    [aktive op equalization global $in] \
+	    aktive format as $ext byte
     } -cleanup {
 	removeFile test.eq-global-$path
     } -match content -result [R eq-global-$path]

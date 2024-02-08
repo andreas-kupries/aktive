@@ -28,7 +28,9 @@ foreach {k cons} {
     1 colorbox
 } {
     test aktive-format-as-aktive-2chan-2.$k "aktive format as aktive 2chan, $cons" -body {
-	save-to test.$cons.aktive aktive format as aktive 2chan [aktive meta set [$cons] label $cons]
+	save-to test.$cons.aktive \
+	    [aktive meta set [$cons] label $cons] \
+	    aktive format as aktive
     } -cleanup {
 	removeFile test.$cons.aktive
     } -match content -result [R format-$cons.aktive]
