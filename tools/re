@@ -1,5 +1,6 @@
 #!/bin/bash
+
 find . -follow -name "core*" -exec rm "{}" \;
 rm -f *.trace
 
-./build.tcl uninstall install "$@"
+$K ./build.tcl uninstall install "$@"
