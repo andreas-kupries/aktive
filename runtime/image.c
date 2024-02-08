@@ -4,7 +4,7 @@
  * API implementation - Images
  */
 
-#include <tcl.h>
+#include <tclpre9compat.h>
 #include <critcl_alloc.h>
 #include <critcl_assert.h>
 #include <critcl_trace.h>
@@ -410,7 +410,7 @@ aktive_image_meta_set (aktive_image image, Tcl_Obj* meta)
 	// New image structure with new meta data and using the content of the
 	// input image.
 
-	aktive_image r = ALLOC(struct aktive_image);
+	r = ALLOC(struct aktive_image);
 	memset (r, 0, sizeof(struct aktive_image));
 	// refcount == 0
 
@@ -444,26 +444,26 @@ aktive_meta_set (Tcl_Obj** meta, const char* key, Tcl_Obj* value)
     if (! *meta) { *meta = Tcl_NewDictObj (); }
     if (Tcl_IsShared (*meta)) { *meta = Tcl_DuplicateObj (*meta); }
 
-    Tcl_Obj* okey = Tcl_NewStringObj (key, -1);
+    Tcl_Obj* okey = Tcl_NewStringObj (key, TCL_AUTO_LENGTH);	 /* OK tcl9 */
     Tcl_DictObjPut (NULL, *meta, okey, value);
 }
 
 extern void
 aktive_meta_set_string (Tcl_Obj** meta, const char* key, const char* value)
 {
-    aktive_meta_set (meta, key, Tcl_NewStringObj (value, -1));
+    aktive_meta_set (meta, key, Tcl_NewStringObj (value, TCL_AUTO_LENGTH));	 /* OK tcl9 */
 }
 
 extern void
 aktive_meta_set_int (Tcl_Obj** meta, const char* key, int value)
 {
-    aktive_meta_set (meta, key, Tcl_NewIntObj (value));
+    aktive_meta_set (meta, key, Tcl_NewIntObj (value));	 /* OK tcl9 */
 }
 
 extern int
 aktive_meta_has (Tcl_Obj* meta, const char* key)
 {
-    Tcl_Obj* k = Tcl_NewStringObj (key, -1);
+    Tcl_Obj* k = Tcl_NewStringObj (key, TCL_AUTO_LENGTH);	 /* OK tcl9 */
     Tcl_Obj* v;
     int      r = Tcl_DictObjGet(NULL, meta, k, &v);
     return (r == TCL_OK) && (v != NULL);
@@ -472,14 +472,14 @@ aktive_meta_has (Tcl_Obj* meta, const char* key)
 extern int
 aktive_meta_equal (Tcl_Obj* meta, const char* key, const char* value)
 {
-    Tcl_Obj* k = Tcl_NewStringObj (key, -1);
+    Tcl_Obj* k = Tcl_NewStringObj (key, TCL_AUTO_LENGTH);	 /* OK tcl9 */
     Tcl_Obj* v;
     int      r = Tcl_DictObjGet (NULL, meta, k, &v);
 
     if (r != TCL_OK) { return 0; }
     if (!v)          { return 0; }
 
-    char* vs = Tcl_GetStringFromObj (v, NULL);
+    char* vs = Tcl_GetStringFromObj (v, NULL);	 /* OK tcl9 */
 
     return strcmp (value, vs) == 0;
 }

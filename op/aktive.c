@@ -102,10 +102,10 @@ aktive_header (aktive_aktive_control* info, aktive_image src)
 
     aktive_geometry* g = aktive_image_get_geometry (src);
     Tcl_Obj*         m = aktive_image_meta_get (src);
-    int              msize = 0;
+    Tcl_Size         msize = 0;
     char*            mdata = 0;
     int              start = 0;
-    if (m) { mdata = Tcl_GetStringFromObj (m, &msize); start += msize; }
+    if (m) { mdata = Tcl_GetStringFromObj (m, &msize); start += msize; }	 /* OK tcl9 */
 
     TRACE ("magic",      0); aktive_write_here          (info->writer, MAGIC,   sizeof (MAGIC)-1);   start += sizeof (MAGIC)-1;
     TRACE ("version",    0); aktive_write_here          (info->writer, VERSION, sizeof (VERSION)-1); start += sizeof (VERSION)-1;

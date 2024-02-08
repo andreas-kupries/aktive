@@ -24,10 +24,10 @@ critcl::resulttype aktive_uint = wideint
 ## 2d points
 
 critcl::argtype aktive_point {
-    int       c;
+    Tcl_Size  c;
     Tcl_Obj** v;
 
-    if (Tcl_ListObjGetElements (interp, @@, &c, (Tcl_Obj***) &v) != TCL_OK) {
+    if (Tcl_ListObjGetElements (interp, @@, &c, (Tcl_Obj***) &v) != TCL_OK) { /* OK tcl9 */
 	return TCL_ERROR;
     }
     if (c != 2) {
@@ -36,8 +36,8 @@ critcl::argtype aktive_point {
     }
 
     int x, y;
-    if (Tcl_GetIntFromObj (interp, v[0], &x) != TCL_OK) { return TCL_ERROR; }
-    if (Tcl_GetIntFromObj (interp, v[1], &y) != TCL_OK) { return TCL_ERROR; }
+    if (Tcl_GetIntFromObj (interp, v[0], &x) != TCL_OK) { return TCL_ERROR; } /* OK tcl9 */
+    if (Tcl_GetIntFromObj (interp, v[1], &y) != TCL_OK) { return TCL_ERROR; } /* OK tcl9 */
 
     aktive_point_set (&@A, x, y);
 } aktive_point aktive_point
@@ -51,10 +51,10 @@ critcl::resulttype aktive_point {
 ## 2d rectangle
 
 critcl::argtype aktive_rectangle {
-    int       c;
+    Tcl_Size  c;
     Tcl_Obj** v;
 
-    if (Tcl_ListObjGetElements (interp, @@, &c, (Tcl_Obj***) &v) != TCL_OK) {
+    if (Tcl_ListObjGetElements (interp, @@, &c, (Tcl_Obj***) &v) != TCL_OK) { /* OK tcl9 */
 	return TCL_ERROR;
     }
     if (c != 4) {
@@ -63,10 +63,10 @@ critcl::argtype aktive_rectangle {
     }
 
     int x, y, w, h;
-    if (Tcl_GetIntFromObj (interp, v[0], &x) != TCL_OK) { return TCL_ERROR; }
-    if (Tcl_GetIntFromObj (interp, v[1], &y) != TCL_OK) { return TCL_ERROR; }
-    if (Tcl_GetIntFromObj (interp, v[2], &w) != TCL_OK) { return TCL_ERROR; }
-    if (Tcl_GetIntFromObj (interp, v[3], &h) != TCL_OK) { return TCL_ERROR; }
+    if (Tcl_GetIntFromObj (interp, v[0], &x) != TCL_OK) { return TCL_ERROR; } /* OK tcl9 */
+    if (Tcl_GetIntFromObj (interp, v[1], &y) != TCL_OK) { return TCL_ERROR; } /* OK tcl9 */
+    if (Tcl_GetIntFromObj (interp, v[2], &w) != TCL_OK) { return TCL_ERROR; } /* OK tcl9 */
+    if (Tcl_GetIntFromObj (interp, v[3], &h) != TCL_OK) { return TCL_ERROR; } /* OK tcl9 */
 
     aktive_rectangle_set (&@A, x, y, w, h);
 } aktive_rectangle aktive_rectangle
@@ -80,10 +80,10 @@ critcl::resulttype aktive_rectangle {
 ## 2d/3d geometry
 
 critcl::argtype aktive_geometry {
-    int       c;
+    Tcl_Size  c;
     Tcl_Obj** v;
 
-    if (Tcl_ListObjGetElements (interp, @@, &c, (Tcl_Obj***) &v) != TCL_OK) {
+    if (Tcl_ListObjGetElements (interp, @@, &c, (Tcl_Obj***) &v) != TCL_OK) { /* OK tcl9 */
 	return TCL_ERROR;
     }
     if (c != 5) {
@@ -92,11 +92,11 @@ critcl::argtype aktive_geometry {
     }
 
     int x, y, w, h, d;
-    if (Tcl_GetIntFromObj (interp, v[0], &x) != TCL_OK) { return TCL_ERROR; }
-    if (Tcl_GetIntFromObj (interp, v[1], &y) != TCL_OK) { return TCL_ERROR; }
-    if (Tcl_GetIntFromObj (interp, v[2], &w) != TCL_OK) { return TCL_ERROR; }
-    if (Tcl_GetIntFromObj (interp, v[3], &h) != TCL_OK) { return TCL_ERROR; }
-    if (Tcl_GetIntFromObj (interp, v[3], &d) != TCL_OK) { return TCL_ERROR; }
+    if (Tcl_GetIntFromObj (interp, v[0], &x) != TCL_OK) { return TCL_ERROR; } /* OK tcl9 */
+    if (Tcl_GetIntFromObj (interp, v[1], &y) != TCL_OK) { return TCL_ERROR; } /* OK tcl9 */
+    if (Tcl_GetIntFromObj (interp, v[2], &w) != TCL_OK) { return TCL_ERROR; } /* OK tcl9 */
+    if (Tcl_GetIntFromObj (interp, v[3], &h) != TCL_OK) { return TCL_ERROR; } /* OK tcl9 */
+    if (Tcl_GetIntFromObj (interp, v[3], &d) != TCL_OK) { return TCL_ERROR; } /* OK tcl9 */
 
     aktive_geometry_set (&@A, x, y, w, h, d);
 } aktive_geometry aktive_geometry
@@ -111,7 +111,7 @@ critcl::resulttype aktive_geometry {
 
 critcl::resulttype aktive_image_type_ptr {
     if (rv == NULL) { return TCL_ERROR; }
-    Tcl_SetObjResult (interp, Tcl_NewStringObj (rv->name, -1));
+    Tcl_SetObjResult (interp, Tcl_NewStringObj (rv->name, -1)); /* OK tcl9 */
     return TCL_OK;
 } aktive_image_type_ptr
 

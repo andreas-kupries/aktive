@@ -79,7 +79,7 @@
  * - - -- --- ----- -------- -------------
  */
 
-#include <tcl.h>
+#include <tclpre9compat.h>
 #include <base.h>
 
 /*

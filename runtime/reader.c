@@ -36,9 +36,9 @@ aktive_read_string (Tcl_Channel src, char* buf, aktive_uint n)
     TRACE_FUNC ("((Channel) %p, (char*) %p [%d])", src, buf, n);
 
     Tcl_WideInt mark = Tcl_Tell (src);
-    int         got  = Tcl_Read (src, buf, n);
+    Tcl_Size    got  = Tcl_Read (src, buf, n);	 /* OK tcl9 */
 
-    TRACE ("got %d, mark %d", got, mark);
+    TRACE ("got " TCL_SIZE_FMT ", mark %d", got, mark);
     if (got < n) {
 	if (mark >= 0) { (void) Tcl_Seek (src, mark, SEEK_SET); }
 	TRACE_RETURN ("(Fail) %d", 0);
@@ -297,20 +297,20 @@ aktive_path_copy (aktive_path* dst, Tcl_Obj* src)
 {
     TRACE_FUNC("((path*) %p, (Tcl_Obj*) %p)", dst, src);
 
-    int len;
-    char* path = Tcl_GetStringFromObj (src, &len);
+    Tcl_Size len;
+    char*    path = Tcl_GetStringFromObj (src, &len);	 /* OK tcl9 */
 
     dst->length = len;
     STRDUP (dst->string, path);
 
-    TRACE("(=> (path*) %p = (%d, '%s'))", dst, dst->length, dst->string);
+    TRACE("(=> (path*) %p = (" TCL_SIZE_FMT ", '%s'))", dst, len, dst->string);
     TRACE_RETURN_VOID;
 }
 
 extern void
 aktive_path_free (aktive_path* dst)
 {
-    TRACE_FUNC("((path*) %p = (%d, '%s'))", dst, dst->length, dst->string);
+    TRACE_FUNC("((path*) %p = (" TCL_SIZE_FMT ", '%s'))", dst, dst->length, dst->string);
 
     ckfree (dst->string);
     dst->string = 0;
@@ -324,7 +324,7 @@ aktive_path_open (aktive_path* dst)
 {
     TRACE_FUNC("((path*) %p = (%d, '%s'))", dst, dst->length, dst->string);
 
-    Tcl_Obj*    path = Tcl_NewStringObj (dst->string, dst->length);
+    Tcl_Obj*    path = Tcl_NewStringObj (dst->string, dst->length);	 /* OK tcl9 */
     Tcl_IncrRefCount (path);
     Tcl_Channel src  = Tcl_FSOpenFileChannel (NULL, path, "r", 0);
     Tcl_DecrRefCount (path);

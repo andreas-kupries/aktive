@@ -3,8 +3,10 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <stdarg.h>
 
-#include <tcl.h>
+#include <tclpre9compat.h>
+
 #include <critcl_alloc.h>
 #include <critcl_assert.h>
 #include <critcl_trace.h>
@@ -27,7 +29,7 @@ typedef struct ThreadSpecificData {
 
 /* copied from tclInt.h */
 #define TCL_TSD_INIT(keyPtr) \
-  (ThreadSpecificData *)Tcl_GetThreadData((keyPtr), sizeof(ThreadSpecificData))
+    (ThreadSpecificData *)Tcl_GetThreadData((keyPtr), sizeof(ThreadSpecificData)) /* OK tcl9 */
 
 static Tcl_ThreadDataKey rtDataKey;
 
@@ -74,7 +76,7 @@ aktive_error_add (const char* message) {
 
     if (tsdPtr->error) { Tcl_DecrRefCount (tsdPtr->error); }
 
-    tsdPtr->error = Tcl_NewStringObj (message, -1);
+    tsdPtr->error = Tcl_NewStringObj (message, TCL_AUTO_LENGTH); /* OK tcl9 */
     Tcl_IncrRefCount (tsdPtr->error);
 
     TRACE_RETURN_VOID;

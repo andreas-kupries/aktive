@@ -23,15 +23,18 @@ TRACE_OFF;
  */
 
 typedef struct __ba_writer {
-    Tcl_Obj* ba;
-    int      pos;
+    Tcl_Obj*       ba;    // output, filled from buffer
+    Tcl_Size       pos;   // write position in buffer
+    unsigned char* bytes; // internal byte buffer
+    Tcl_Size       used;  // buffer usage
+    Tcl_Size       n;     // buffer capacity
 } __ba_writer;
 
 // replicated from op.h -- move to runtime
 static double aktive_clamp (double x) { return (x < 0) ? 0 : (x > 1) ? 1 : x; }
 
-static void aktive_writer_to_channel   (Tcl_Channel  chan, char* buf, int n, int pos);
-static void aktive_writer_to_bytearray (__ba_writer* ba,   char* buf, int n, int pos);
+static void aktive_writer_to_channel   (Tcl_Channel  chan, char* buf, Tcl_Size n, Tcl_Size pos);
+static void aktive_writer_to_bytearray (__ba_writer* ba,   char* buf, Tcl_Size n, Tcl_Size pos);
 
 /*
  * - - -- --- ----- -------- -------------
@@ -69,8 +72,12 @@ aktive_write_bytearray (aktive_writer* writer, Tcl_Obj* ba)
     TRACE_FUNC ("(writer*) %p, (Tcl_Obj*) %p)", writer, ba);
 
     __ba_writer* baw = ALLOC (__ba_writer);
-    baw->ba  = ba;
-    baw->pos = 0;
+    baw->ba    = ba;
+    baw->pos   = 0;
+    baw->bytes = 0;
+    baw->n     = 0;
+    baw->n     = 0;
+    baw->used  = 0;
 
     writer->state  = baw;
     writer->writer = (aktive_writer_write) aktive_writer_to_bytearray;
@@ -83,26 +90,26 @@ aktive_write_bytearray (aktive_writer* writer, Tcl_Obj* ba)
  */
 
 extern void
-aktive_write_here (aktive_writer* writer, char* buf, int n)
+aktive_write_here (aktive_writer* writer, char* buf, Tcl_Size n)
 {
-    TRACE_FUNC ("((writer*) %p, write %d at end)", writer, n);
+    TRACE_FUNC ("((writer*) %p, write " TCL_SIZE_FMT " at end)", writer, n);
 
     ASSERT (buf,   "buffer missing");
     ASSERT (n > 0, "empty buffer");
 
-    writer->writer (writer->state, buf, n, -1); // (C) write at current location
+    writer->writer (writer->state, buf, n, AKTIVE_WRITE_HERE); // (C) write at current location
 
     TRACE_RETURN_VOID;
 }
 
 extern void
-aktive_write_at (aktive_writer* writer, char* buf, int n, int pos)
+aktive_write_at (aktive_writer* writer, char* buf, Tcl_Size n, Tcl_Size pos)
 {
-    TRACE_FUNC ("((writer*) %p, write %d at %d)", writer, n, pos);
+    TRACE_FUNC ("((writer*) %p, write " TCL_SIZE_FMT " at " TCL_SIZE_FMT ")", writer, n, pos);
 
-    ASSERT (buf,      "buffer missing");
-    ASSERT (n > 0,    "empty buffer");
-    ASSERT (pos >= 0, "bad location");
+    ASSERT (buf,                     "buffer missing");
+    ASSERT (n > 0,                   "empty buffer");
+    ASSERT (pos != AKTIVE_WRITE_END, "bad location");
 
     writer->writer (writer->state, buf, n, pos); // (W) goto pos, then write
 
@@ -110,11 +117,11 @@ aktive_write_at (aktive_writer* writer, char* buf, int n, int pos)
 }
 
 extern void
-aktive_write_goto (aktive_writer* writer, int pos)
+aktive_write_goto (aktive_writer* writer, Tcl_Size pos)
 {
-    TRACE_FUNC ("((writer*) %p, goto %d)", writer, pos);
+    TRACE_FUNC ("((writer*) %p, goto " TCL_SIZE_FMT ")", writer, pos);
 
-    ASSERT (pos >= -1, "bad location");
+    ASSERT (pos != AKTIVE_WRITE_END, "bad location");
 
     writer->writer (writer->state, 0, 0, pos); // (@, E) goto pos, maybe end
 
@@ -126,7 +133,7 @@ aktive_write_done (aktive_writer* writer)
 {
     TRACE_FUNC ("((writer*) %p)", writer);
 
-    writer->writer (writer->state, 0, 0, -2); // (D) finalize
+    writer->writer (writer->state, 0, 0, AKTIVE_WRITE_DONE); // (D) finalize
 
     TRACE_RETURN_VOID;
 }
@@ -234,17 +241,17 @@ aktive_write_here_float64be (aktive_writer* writer, double v)
  */
 
 static void
-aktive_writer_to_channel (Tcl_Channel chan, char* buf, int n, int pos)
+aktive_writer_to_channel (Tcl_Channel chan, char* buf, Tcl_Size n, Tcl_Size pos)
 {
-    TRACE_FUNC ("((chan*) %p, values %p[%d] @ %d)", chan, buf, n, pos);
+    TRACE_FUNC ("((chan*) %p, values %p[" TCL_SIZE_FMT "] @ " TCL_SIZE_FMT ")", chan, buf, n, pos);
 
-    if ((pos == -2) && (n == 0) && !buf) {
+    if ((pos == AKTIVE_WRITE_DONE) && (n == 0) && !buf) {
 	// (D)
 	Tcl_Flush (chan);
 	TRACE_RETURN_VOID;
     }
 
-    if (pos >= 0) {
+    if (pos != AKTIVE_WRITE_END) {
 	// (@, W)
 	Tcl_Flush (chan);
 	Tcl_Seek(chan, pos, SEEK_SET);
@@ -252,7 +259,7 @@ aktive_writer_to_channel (Tcl_Channel chan, char* buf, int n, int pos)
 
 	if (buf && (n > 0)) {
 	    // (W)
-	    Tcl_Write (chan, buf, n);
+	    Tcl_Write (chan, buf, n);	 /* OK tcl9 */
 	} // else (@)
 
 	TRACE_RETURN_VOID;
@@ -269,25 +276,25 @@ aktive_writer_to_channel (Tcl_Channel chan, char* buf, int n, int pos)
     }
 
     // (C)
-    Tcl_Write (chan, buf, n);
+    Tcl_Write (chan, buf, n);	 /* OK tcl9 */
     TRACE_RETURN_VOID;
 }
 
 static void
-aktive_writer_to_bytearray (__ba_writer* baw, char* buf, int n, int pos)
+aktive_writer_to_bytearray (__ba_writer* baw, char* buf, Tcl_Size n, Tcl_Size pos)
 {
-    if ((pos == -2) && (n == 0) && !buf) {
-	// (D)
-	return;
+    TRACE_FUNC ("((baw*) %p, values %p[" TCL_SIZE_FMT "] @ " TCL_SIZE_FMT ")", baw, buf, n, pos);
+
+    if ((pos == AKTIVE_WRITE_DONE) && (n == 0) && !buf) {
+	// (D) done, flush to output Tcl_Obj*, and release
+	if (baw->bytes) {
+	    Tcl_SetByteArrayObj (baw->ba, baw->bytes, baw->used);	 /* OK tcl9 */
+	    ckfree (baw->bytes);
+	}
+	TRACE_RETURN_VOID;
     }
 
-    int            length;
-    unsigned char* bytes;
-    Tcl_Obj*       ba  = baw->ba;
-
-    bytes = Tcl_GetByteArrayFromObj (ba, &length);
-
-    if (pos >= 0) {
+    if (pos != AKTIVE_WRITE_END) {
 	// (@, W)
 	baw->pos = pos;
 
@@ -295,26 +302,38 @@ aktive_writer_to_bytearray (__ba_writer* baw, char* buf, int n, int pos)
 	    // (W)
 	    goto write;
 	} // else (@)
-	return;
+	TRACE_RETURN_VOID;
     }
 
-    // (E, C)
+    // (E, C) - end, or here
 
     if ((n == 0) && !buf) {
 	// (E)
-	baw->pos = length;
-	return;
+	baw->pos = baw->n;
+	TRACE_RETURN_VOID;
     }
 
     // (C)
  write:
-    if ((baw->pos + n) > length) {
-	bytes = Tcl_SetByteArrayLength (ba, baw->pos + n);
+    // manipulate the internal buffer
+
+    if ((baw->pos + n) > baw->n) {
+	// not enough space, extend it - doubleing to amortize
+	TRACE ("have " TCL_SIZE_FMT ", need " TCL_SIZE_FMT, baw->n, baw->pos + n);
+	baw->n = 2*(baw->pos + n);
+	TRACE ("now  " TCL_SIZE_FMT ", need " TCL_SIZE_FMT, baw->n, baw->pos + n);
+
+	baw->bytes = REALLOC (baw->bytes, unsigned char, baw->n);
     }
 
-    memcpy (bytes + baw->pos, buf, n);
+    memcpy (baw->bytes + baw->pos, buf, n);
     baw->pos += n;
-    return;
+
+    if (baw->pos > baw->used) {
+	baw->used = baw->pos;
+    }
+
+    TRACE_RETURN_VOID;
 }
 
 /*

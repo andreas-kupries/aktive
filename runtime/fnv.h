@@ -12,7 +12,7 @@
 #ifndef AKTIVE_FNV_H
 #define AKTIVE_FNV_H
 
-#include <tcl.h>
+#include <tclpre9compat.h>
 #include <base.h>
 
 /*

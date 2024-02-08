@@ -2,7 +2,7 @@
 ##
 # AKTIVE -- Andreas Kupries's Tcl Image/Vector Extension
 #
-# (c) 2022,2023 Andreas Kupries http://wiki.tcl.tk/andreas%20kupries
+# (c) 2022-2024 Andreas Kupries http://wiki.tcl.tk/andreas%20kupries
 #
 
 # # ## ### ##### ######## ############# #####################
@@ -47,7 +47,7 @@ critcl::subject {vector operations} {matrix operations}
 # # ## ### ##### ######## ############# #####################
 ## Implementation.
 
-critcl::tcl 8.6
+## critcl::tcl 8.6 ##
 
 #::critcl::debug symbols
 #::critcl::debug symbols memory

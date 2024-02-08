@@ -10,14 +10,29 @@
 
 /*
  * - - -- --- ----- -------- -------------
+ * min, max, (bi)linear interpolation
  */
 
 #define MAX(a,b) ((a) > (b) ? (a) : (b))
 #define MIN(a,b) ((a) < (b) ? (a) : (b))
 
+/* Note:
+ *       As implemented `a`, `b` are evaluated once, while `t` is evaluated twice.
+ *       The alternate implementation "a + t*(b-a)" evaluates `a` twice.
+ *
+ *       For bilinear the `a` to `d` are evaluated once, `t1` twice, and `t0` four
+ *       times.
+ */
+
+#define LINEAR(a,b,t)            ((1-(t))*(a) + (t)*(b))
+#define BILINEAR(a,b,c,d,t0,t1)  LINEAR (LINEAR (a,b,t0), LINEAR (c,d,t0), t1)
+
 /*
  * - - -- --- ----- -------- -------------
  */
+
+// extern double aktive_linear   (double a, double b, double t);
+// extern double aktive_bilinear (double a, double b, double c, double d, double t0, double t1);
 
 extern double aktive_clamp          (double x);
 extern double aktive_exp10          (double x);

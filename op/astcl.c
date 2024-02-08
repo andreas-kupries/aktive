@@ -8,7 +8,7 @@
 
 #include <astcl.h>
 
-#include <tcl.h>
+#include <tclpre9compat.h>
 #include <critcl_alloc.h>
 #include <critcl_assert.h>
 #include <critcl_trace.h>
@@ -19,7 +19,7 @@ TRACE_OFF;
  * - - -- --- ----- -------- -------------
  */
 
-#define K(s) Tcl_NewStringObj((s), -1) /* TODO :: Use enum */
+#define K(s) Tcl_NewStringObj((s), TCL_AUTO_LENGTH) /* TODO :: Use enum */ /* OK tcl9 */
 
 /*
  * - - -- --- ----- -------- -------------
@@ -85,7 +85,7 @@ aktive_op_pixels (Tcl_Interp* ip, aktive_image src) {
 
     if (!sz) { TRACE_RETURN ("(Tcl_Obj*) %p", 0); }
 
-    Tcl_Obj* p = Tcl_NewListObj (sz, 0); // 0 => Space is allocated for `sz` elements.
+    Tcl_Obj* p = Tcl_NewListObj (sz, 0); // OK tcl9, 0 => Space is allocated for `sz` elements.
 
     aktive_rectangle* domain = aktive_image_get_domain (src);
     aktive_context    c      = aktive_context_new ();
@@ -111,7 +111,7 @@ aktive_op_pixels (Tcl_Interp* ip, aktive_image src) {
 	    ASSERT_VA (i < sz, "too many pixel values", "%d >= %d", i, sz);
 
 	    Tcl_Obj* v = Tcl_NewDoubleObj (pixels->pixel [j]);
-	    Tcl_ListObjReplace(ip, p, i, 1, 1, &v);
+	    Tcl_ListObjReplace(ip, p, i, 1, 1, &v);	 /* OK tcl9 */
 	}
 
 	aktive_rectangle_move (&scan, 0, 1);
@@ -129,8 +129,8 @@ aktive_op_geometry (Tcl_Interp* ip, aktive_image src) {
 
     Tcl_Obj* geo = Tcl_NewDictObj();
 
-    Tcl_DictObjPut (ip, geo, K ("x"),      Tcl_NewIntObj       (aktive_image_get_x      (src)));
-    Tcl_DictObjPut (ip, geo, K ("y"),      Tcl_NewIntObj       (aktive_image_get_y      (src)));
+    Tcl_DictObjPut (ip, geo, K ("x"),      Tcl_NewIntObj       (aktive_image_get_x      (src))); /* OK tcl9 */
+    Tcl_DictObjPut (ip, geo, K ("y"),      Tcl_NewIntObj       (aktive_image_get_y      (src))); /* OK tcl9 */
     Tcl_DictObjPut (ip, geo, K ("width"),  aktive_new_uint_obj (aktive_image_get_width  (src)));
     Tcl_DictObjPut (ip, geo, K ("height"), aktive_new_uint_obj (aktive_image_get_height (src)));
     Tcl_DictObjPut (ip, geo, K ("depth"),  aktive_new_uint_obj (aktive_image_get_depth  (src)));

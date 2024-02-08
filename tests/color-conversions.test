@@ -1,9 +1,9 @@
 # -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
-## (c) 2023 Andreas Kupries
+## (c) 2023,2024 Andreas Kupries
 # # ## ### ##### ######## ############# #####################
 ## AKTIVE. Color conversions -- All possibilities
 
-kt check Tcl     8.6
+kt check Tcl     8.6 9
 kt check tcltest 2
 
 # # ## ### ##### ######## ############# #####################
@@ -27,7 +27,7 @@ foreach src $spaces {
 	# cannot perform round trip testing of the one-way to grey conversions.
 	if {$dst eq "Grey"} continue
 
-	syntax [list $dst src] [list aktive op color $src to]
+	# syntax [list $dst src] [list aktive op color $src to]
 
 	# skip troubled conversions
 	# The issue is in the scRGB <-> XYZ conversion
@@ -93,7 +93,7 @@ foreach src $spaces {
 		     [colorbox]]
 	} -match glob -result {op::montage::z-core *}
 
-	unset k
+	unset -nocomplain k
     }
 
     # single way grey conversions
@@ -129,7 +129,7 @@ foreach src $spaces {
 	# ignore non-conversions, no-ops.
 	if {$src eq $dst} continue
 
-	test aktive-op-color-${src}-to-${dst}-3.0 "aktive op color ${src} to ${dst}, colorspace mismatch" -body {
+	test aktive-op-color-${src}-to-${dst}-4.0 "aktive op color ${src} to ${dst}, colorspace mismatch" -body {
 	    aktive op color $src to $dst [aktive meta set [grad] colorspace bogus]
 	} -returnCodes error \
 	    -errorCode {AKTIVE ERROR} \

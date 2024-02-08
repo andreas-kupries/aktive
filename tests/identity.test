@@ -1,5 +1,5 @@
 # -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
-## (c) 2023 Andreas Kupries
+## (c) 2023,2024 Andreas Kupries
 # # ## ### ##### ######## ############# #####################
 
 ## AKTIVE. Identity transform.
@@ -7,7 +7,7 @@
 ## Mainly useful for round-trip testing as means of disabling simplifications by intercalating it
 ## between complementary operations.
 
-kt check Tcl     8.6
+kt check Tcl     8.6 9
 kt check tcltest 2
 
 # # ## ### ##### ######## ############# #####################

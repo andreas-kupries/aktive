@@ -28,7 +28,7 @@
  *    Allocation count / Free count
  */
 
-#include <tcl.h>
+#include <tclpre9compat.h>
 #include <critcl_trace.h>
 
 TRACE_OFF;

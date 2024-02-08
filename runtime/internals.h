@@ -3,7 +3,7 @@
 #ifndef AKTIVE_INTERNALS_H
 #define AKTIVE_INTERNALS_H
 
-#include <tcl.h>
+#include <tclpre9compat.h>
 
 /*
  * - - -- --- ----- -------- -------------

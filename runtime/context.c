@@ -5,7 +5,7 @@
  */
 
 #include <context.h>
-#include <tcl.h>
+#include <tclpre9compat.h>
 #include <critcl_alloc.h>
 #include <critcl_assert.h>
 #include <critcl_trace.h>

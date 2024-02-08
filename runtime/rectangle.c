@@ -4,7 +4,7 @@
  * -- Rectangle methods
  */
 
-#include <tcl.h>
+#include <tclpre9compat.h>
 #include <critcl_alloc.h>
 #include <critcl_assert.h>
 #include <critcl_trace.h>
@@ -27,12 +27,12 @@ TRACE_OFF;
 extern Tcl_Obj* aktive_new_rectangle_obj(aktive_rectangle* r) {
     Tcl_Obj* el[4];
 
-    el[0] = Tcl_NewIntObj (r->x);
-    el[1] = Tcl_NewIntObj (r->y);
-    el[2] = Tcl_NewIntObj (r->width);
-    el[3] = Tcl_NewIntObj (r->height);
+    el[0] = Tcl_NewIntObj (r->x);	 /* OK tcl9 */
+    el[1] = Tcl_NewIntObj (r->y);	 /* OK tcl9 */
+    el[2] = Tcl_NewIntObj (r->width);	 /* OK tcl9 */
+    el[3] = Tcl_NewIntObj (r->height);	 /* OK tcl9 */
 
-    return Tcl_NewListObj (4, el);
+    return Tcl_NewListObj (4, el); /* OK tcl9 */
 }
 
 /*

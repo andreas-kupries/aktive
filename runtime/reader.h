@@ -10,7 +10,7 @@
  * - - -- --- ----- -------- -------------
  */
 
-#include <tcl.h>
+#include <tclpre9compat.h>
 #include <base.h>
 
 /*
@@ -47,8 +47,8 @@ extern int aktive_read_uint_strcom (Tcl_Channel src, aktive_uint* v);
  */
 
 typedef struct {
-    int   length;
-    char* string;
+    Tcl_Size length;
+    char*    string;
 } aktive_path;
 
 extern void        aktive_path_copy (aktive_path* dst, Tcl_Obj* src);

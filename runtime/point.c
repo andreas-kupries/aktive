@@ -4,7 +4,7 @@
  * -- Point methods
  */
 
-#include <tcl.h>
+#include <tclpre9compat.h>
 #include <critcl_alloc.h>
 #include <critcl_assert.h>
 #include <critcl_trace.h>
@@ -28,10 +28,10 @@ extern Tcl_Obj*
 aktive_new_point_obj(aktive_point* p) {
     Tcl_Obj* el[2];
 
-    el[0] = Tcl_NewIntObj (p->x);
-    el[1] = Tcl_NewIntObj (p->y);
+    el[0] = Tcl_NewIntObj (p->x); /* OK tcl9 */
+    el[1] = Tcl_NewIntObj (p->y); /* OK tcl9 */
 
-    return Tcl_NewListObj (2, el);
+    return Tcl_NewListObj (2, el); /* OK tcl9 */
 }
 
 /*
