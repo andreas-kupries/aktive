@@ -150,7 +150,7 @@ proc dsl::blit::F/apply1z {op args} {
     append call ", srcz)"
 
     append fmt "$op (%f"
-    foreach a $args { append fmt ", %f" }
+    foreach a $args { append fmt ", %p" }
     append fmt ", %u)"
 
     append values "*srcvalue"
