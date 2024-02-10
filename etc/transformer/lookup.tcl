@@ -39,13 +39,47 @@
 #       cumulative sum scaled to end in 1.0.
 #
 ## TODO :: LUT composition - Z(x) = B(A(x)) - Z = B . A
-##         This is LUT mapping! A is the LUT, B the input.
-##         set Z [op lut indexed A B]
+##         This is LUT mapping! B is the LUT, A the input.
+##         set Z [op lut indexed B A]
 
 # Mapping through csum(hist) is "histogram equalization".
 # Histogram matching is mapping through CSH and inverse CSH.
 
 # # ## ### ##### ######## ############# #####################
+
+operator {
+    op::lut::from
+} {
+    section transform lookup indexed make
+
+    note Create a single-band indexed LUT from values
+
+    double... values LUT values
+
+    body {
+	aktive image from rows height 1 values {*}$values
+    }
+}
+
+operator {
+    op::lut::compose
+} {
+    section transform lookup indexed compose
+
+    input	;# LUT A
+    input	;# LUT B
+
+    note Taking two indexed LUTs A and B it returns the indexed LUT computing `res = A (B (src))`.
+
+    # This is a wrapper of convenience around `indexed` to self-document the different
+    # meaning at call-sites.
+    #
+    # The composed LUT is created by indexing B through A.
+
+    body {
+	indexed $src0 $src1
+    }
+}
 
 operator {
     op::lut::indexed

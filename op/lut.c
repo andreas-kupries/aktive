@@ -21,15 +21,18 @@ extern double
 aktive_lut_index (double x, aktive_lut_config* lut, aktive_uint z)
 {
     TRACE_FUNC("(%f, (lut) %p [%ux1x%u] @ %u)", x, lut, lut->width, lut->depth, z);
-    aktive_uint i;
+    aktive_uint i, j;
 
-    x = aktive_clamp (x);
-    i =     x * (lut->width-1);
-    i = z + i * lut->depth;
+    double  xc = aktive_clamp (x);
+    i =     xc * (lut->width-1);
+    j = z + i * lut->depth;
 
-    ASSERT_VA (i < lut->cap, "LUT access out of bounds", "@ %u >= cap %u", i, lut->cap);
+    ASSERT_VA (j < lut->cap, "LUT access out of bounds", "@ %u >= cap %u", j, lut->cap);
 
-    double r = lut->pixel [i];
+    double r = lut->pixel [j];
+
+    TRACE ("MAP %f -> %f ->(w%d): %d ->(z%d d%d): %d -> %f", x, xc, lut->width-1, i, z, lut->depth, j, r);
+    //      x     xc   lw     i     z    ld   j
 
     TRACE_RETURN("(double) %f", r);
 }

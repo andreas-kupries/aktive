@@ -1,0 +1,72 @@
+# -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
+## (c) 2024 Andreas Kupries
+# # ## ### ##### ######## ############# #####################
+## AKTIVE. Apply indexed LUTs to image and other LUTs
+#
+## Note: Because the input domain is [0..1], i.e. the endpoints included, a LUT is best odd-sized to
+##       properly space points at metric intervals. For example, the LUTs below all contain 11
+##       elements, placing the intermediate elements at proper 1/10th steps.
+
+kt check Tcl     8.6 9
+kt check tcltest 2
+
+# # ## ### ##### ######## ############# #####################
+
+kt local testing aktive
+
+kt source support/util.tcl
+
+# # ## ### ##### ######## ############# #####################
+## Syntax
+
+syntax {
+    from    {args}
+    indexed {src0 src1 args}
+    compose {src0 src1}
+} {aktive op lut}
+
+# # ## ### ##### ######## ############# #####################
+## LUT creation
+
+test aktive-op-lut-from-2.0 "aktive op lut from" -body {
+    astcl aktive op lut from values 1 2 3 4 5 6 7 8 9 10
+} -match image -result [makei image::from::rows 0 0 10 1 1 {height 1 values {1.0 2.0 3.0 4.0 5.0 6.0 7.0 8.0 9.0 10.0}} {
+    1 2 3 4 5 6 7 8 9 10
+}]
+
+# # ## ### ##### ######## ############# #####################
+## LUT apply
+
+## TODO lut indexed with interpolation
+
+test aktive-op-lut-indexed-2.0 "aktive op lut indexed" -setup {
+    set plus  [aktive op lut from values 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1   1.1]
+    #                                    0   0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1.0
+    #                                    0   1   2   3   4   5   6   7   8   9   10
+    set image [aktive image from matrix width 5 height 1 values 0 0.2 0.4 0.6 0.8]
+} -body {
+    astcl aktive op lut indexed $plus $image
+} -cleanup {
+    unset plus image
+} -match image -result [makei op::lut::indexed-core 0 0 5 1 1 {interpolate 0} {
+    0.1 0.3 0.5 0.7 0.9
+}]
+
+# # ## ### ##### ######## ############# #####################
+## LUT composition
+
+test aktive-op-lut-compose-2.0 "aktive op lut compose" -setup {
+    set plus  [aktive op lut from values 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1.0 1.1]
+    set twice [aktive op lut from values 0.0 0.2 0.4 0.6 0.8 1.2 1.4 1.6 1.8 2.0 2.2]
+} -body {
+    astcl aktive op lut compose $plus $twice
+    # Z = plus . twice <=> O := 1+ (2* I)
+} -cleanup {
+    unset plus twice
+} -match image -result [makei op::lut::indexed-core 0 0 11 1 1 {interpolate 0} {
+    0.1 0.3 0.5 0.7 0.9 1.1 1.1 1.1 1.1 1.1 1.1
+}]
+
+# # ## ### ##### ######## ############# #####################
+cleanupTests
+return
