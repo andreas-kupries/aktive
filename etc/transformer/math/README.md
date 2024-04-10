@@ -25,8 +25,8 @@ The applied functions may have no, one, or two parameters.
 |exp10		| `pow(10,I)`					|
 |exp2		| `pow(2,I)`					|
 |floor		| `floor(I)`, next integer less or equal	|
-|gamma::compress| [Gamma compression](https://en.wikipedia.org/wiki/SRGB#Transfer_function_(%22gamma%22))	|
-|gamma::expand	| [Gamma expansion](https://en.wikipedia.org/wiki/SRGB#Transfer_function_(%22gamma%22))		|
+|gamma::compress| [Gamma compression](https://en.wikipedia.org/wiki/SRGB#Transfer_function_\(%22gamma%22\))	|
+|gamma::expand	| [Gamma expansion](https://en.wikipedia.org/wiki/SRGB#Transfer_function_\(%22gamma%22\))	|
 |invert		| `1-I`							|
 |log		| `log(e,I)`						|
 |log10		| `log(10,I)`						|
