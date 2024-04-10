@@ -16,9 +16,9 @@ The applied functions may have no, one, or two parameters.
 |asinh		| Hyperbolic arcsinus				|
 |atan		| Arctangens					|
 |atanh		| Hyperbolic arctangens				|
-|cbrt		| Cubic root					|
+|cbrt		| `pow(I,1/3)`, cubic root			|
 |ceil		| `ceil(I)`, next integer greater or equal	|
-|clamp		| `min(1,max(0,I)`				|
+|clamp		| `min(1,max(0,I))`				|
 |cos		| Cosinus					|
 |cosh		| Hyperbolic cosinus				|
 |exp		| `pow(e,I)`					|
@@ -39,8 +39,8 @@ The applied functions may have no, one, or two parameters.
 |sign*		| `sign*(I)` { -1, 1, 1 }				|
 |sin		| Sinus							|
 |sinh		| Hyperbolic sinus					|
-|sqrt		| Square root						|
-|square		| `pow(I,2)`						|
+|sqrt		| `pow(I,1/2)`, square root				|
+|square		| `pow(I,2)` = `I*I`					|
 |tan		| Tangens						|
 |tanh		| Hyperbolic tangens					|
 |wrap		| Reduce to interval [0,1], via `fmod` (wrapping)	|
@@ -112,7 +112,7 @@ their input's logical levels before applying the actual logical function.
 
 |Op		|Result per pixel, applied function	|
 |---		|---					|
-|linear		|`A+T*(B-A)` <=> `(1-T)*A+T*B`		|
+|linear		|`A+T*(B-A)` = `(1-T)*A+T*B`		|
 
 ## Complex
 
@@ -144,7 +144,7 @@ band `1` the complex part.
 |log2		| `log(2,I)`					|
 |neg		| `0-I`						|
 |reciproc	| `1/I`						|
-|sign		| `sign(I)`  { -1, 0, 1 }			|
+|sign		| `I/abs(I)`					|
 |sin		| Sinus						|
 |sinh		| Hyperbolic sinus				|
 |sqrt		| Square root					|
