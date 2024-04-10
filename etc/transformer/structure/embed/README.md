@@ -7,7 +7,7 @@ a larger frame. The size of the border is specified separately for all 4 possibl
 |---	|---									|
 |black	|A black border								|
 |white	|A white border								|
-|bg	|A border of some abitrary "color" (band values)			|
+|bg	|A border of some arbitrary "color" (band values)			|
 |copy	|Replicate the edge itself 	   	 				|
 |tile	|Place (partial) copies of the input around it (toroidal closure)	|
 |mirror	|Place (partial) mirrored copies of the input around it	 		|
@@ -20,7 +20,7 @@ concrete values. The input row is shown on top of the output row. The borders ar
 examples.
 
 
-## Details for `black`, `white`, and `bg`
+## `black`, `white`, and `bg`
 
 ```
       a b c d e f g h i j k l
@@ -29,7 +29,7 @@ X X X a b c d e f g h i j k l X X X
 
 where X is the chosen color / band values.
 
-## Details for `copy`
+## `copy`
 
 ```
       a b c d e f g h i j k l
@@ -37,7 +37,7 @@ a a a a b c d e f g h i j k l l l l
 \-\-\-/                     \-/-/-/
 ```
 
-## Details for `tile`
+## `tile`
 
 ```
       a b c d e f g h i j k l
@@ -45,7 +45,7 @@ j k l a b c d e f g h i j k l a b c
 ----/ \---------------------/ \----
 ```
 
-## Details for `mirror`
+## `mirror`
 
 ```
       a b c d e f g h i j k l
