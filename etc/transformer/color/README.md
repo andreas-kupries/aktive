@@ -36,11 +36,11 @@ Lab - L* defines black at 0 and white at 100.
 ## Core conversions
 
 ```
-HSL <--> \                                 / <--> ICC (todo ?little cms)
-HSV <--> sRGB <--> scRGB <--> XYZ <---> Lab <---> LCh
-                        \     |  \ <--> Yxy
-                         \    v        /
-                          \-> Grey <--/
+HSL <--> \                                       / <--> ICC (nyi, LittleCMS ?)
+HSV <--> sRGB <--> scRGB <--> XYZ <---------> Lab <---> LCh
+                        \     |  \ <--> Yxy  /
+                         \    v  / <--- /   /
+                          \-> Grey <-------/
 ```
 
 |A	|B	|Done	|

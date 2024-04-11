@@ -5,8 +5,11 @@ This directory contains the operator specifications written in AKTIVE's custom D
 ## Files
 
   - The file `runtime.tcl` declares a basic set of types using operators.
-  - The file `aktive.tcl` uses the basic runtime types, declares a few more,
-    and then aggregates the operator specs from the various directories.
+
+  - The file `aktive.tcl` provides the operators of the `aktive` package. It uses the basic runtime
+    types, declares a few more, and then aggregates the operator specs from the various directories.
+
+  - The file `aktive_tk.tcl` provides the operators of the `aktive::tk` package.
 
 ## Directories
 

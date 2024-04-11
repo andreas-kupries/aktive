@@ -58,19 +58,19 @@ import generator/virtual/pattern/selements.tcl
 import generator/virtual/pattern/sines.tcl
 import generator/virtual/pattern/zone.tcl
 
-import transformer/convolve.tcl
-import transformer/effects.tcl
-import transformer/equalization.tcl
-import transformer/geometry.tcl
 import transformer/identity.tcl
-import transformer/kuwahara.tcl
 import transformer/location.tcl
-import transformer/lookup.tcl
 import transformer/meta.tcl
-import transformer/morphology.tcl
-import transformer/recombine.tcl
 import transformer/viewport.tcl
-import transformer/wiener.tcl
+
+import transformer/filter/convolve.tcl
+import transformer/filter/effects.tcl
+import transformer/filter/equalization.tcl
+import transformer/filter/kuwahara.tcl
+import transformer/filter/lookup.tcl
+import transformer/filter/morphology.tcl
+import transformer/filter/recombine.tcl
+import transformer/filter/wiener.tcl
 
 # Helper for color transform chain reductions
 proc cc-reduce {from to} {
@@ -124,13 +124,14 @@ import transformer/statistics/otsu.tcl
 import transformer/statistics/rank-order.tcl
 
 import transformer/structure/align.tcl
+import transformer/structure/band-geometry.tcl
 import transformer/structure/crop.tcl
 import transformer/structure/flip.tcl
 import transformer/structure/rotate.tcl
+import transformer/structure/scrolling.tcl
 import transformer/structure/select.tcl
 import transformer/structure/split.tcl
 import transformer/structure/swap.tcl
-import transformer/structure/scrolling.tcl
 import transformer/structure/take.tcl
 import transformer/structure/transpose.tcl
 
