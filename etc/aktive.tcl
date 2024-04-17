@@ -165,6 +165,8 @@ import sink/statistics.tcl	;# Compute various image statistics
 #                                  See also `transformer/statistics/by-*`
 #                                  for the variants calculating them
 #                                  per row, column, or band
+import sink/compare.tcl		;# Compute various image difference
+#                                  metrics for comparisons
 
 import accessor/attributes.tcl
 import accessor/colorspace.tcl

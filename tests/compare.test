@@ -1,0 +1,44 @@
+# -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
+## (c) 2024 Andreas Kupries
+# # ## ### ##### ######## ############# #####################
+## AKTIVE. Image comparisons
+
+kt check Tcl     8.6 9
+kt check tcltest 2
+
+# # ## ### ##### ######## ############# #####################
+
+kt local testing aktive
+
+kt source support/util.tcl
+
+# # ## ### ##### ######## ############# #####################
+## Syntax
+
+syntax {
+    mse  {src0 src1}
+    rmse {src0 src1}
+} {aktive op compare}
+
+# # ## ### ##### ######## ############# #####################
+##
+
+test aktive-op-compare-mse-2.0 "aktive op compare mse, same" -body {
+    check aktive op compare mse [grad] [grad]
+} -match double4 -result 0
+
+test aktive-op-compare-mse-2.1 "aktive op compare mse, not same" -body {
+    check aktive op compare mse [grad] [aktive op math1 shift [grad] offset 1]
+} -match double4 -result 2
+
+test aktive-op-compare-rmse-2.0 "aktive op compare rmse, same" -body {
+    check aktive op compare rmse [grad] [grad]
+} -match double4 -result 0
+
+test aktive-op-compare-rmse-2.1 "aktive op compare rmse, not same" -body {
+    check aktive op compare rmse [grad] [aktive op math1 shift [grad] offset 1]
+} -match double4 -result 1.4142
+
+# # ## ### ##### ######## ############# #####################
+cleanupTests
+return
