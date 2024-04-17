@@ -3,7 +3,7 @@
 ## Transformers -- Rank Order Statistics
 
 ## Not handled in the by-* specs as it is sufficiently different in the details from the
-## others (aktive_rank* client data, etc). So, sliced on the operation.
+## others (aktive_rank* client data, etc). Therefore sliced on the operation instead.
 
 # # ## ### ##### ######## ############# #####################
 ## Compress bands/rows/columns/tiles down to a statistic (rank order selection)

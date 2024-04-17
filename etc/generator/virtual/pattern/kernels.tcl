@@ -100,7 +100,7 @@ operator image::kernel::gauss::discrete {
     double                                        sigma  Kernel spread, as standard deviation to cover.
     uint?   {[expr {max(1,int(ceil(3*$sigma)))}]} radius Kernel radius, defaults to max(1,ceil(3*sigma)).
 
-    note Returns discrete gaussian convolution kernel, for the specified sigma and radius. \
+    note Returns the 1D discrete gaussian convolution kernel, for the specified sigma and radius. \
 	By default sigma is 1. \
 	By default the radius is max(1,ceil(3*sigma)).
 

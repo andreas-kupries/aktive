@@ -6,6 +6,18 @@
 dsl reduce gen generated/reduce.c {
     # fun NAME REGION-REDUCTION MERGE-PARTS FINAL-RESULT
 
+    # REGION-REDUCTION -- runs in workers, generates partial result for the processed region
+    # MERGE-PARTS      -- main thread, merges partial results into the semi-final state
+    # FINAL-RESULT     -- main thread, extracts final result from the semi-final state
+    ##
+    # PARTIAL -- kahan accumulator for partial results
+    # ACC     -- primary   kahan accumulator
+    # AUX     -- secondary kahan accumulator
+    # FINAL   -- place to hold the final double result
+    #
+    # Each kahan accumulator can also be used to simply hold one or two (separate) double
+    # values instead of using it for the precise summation of many double values.
+
     # max of max
     fun max {
 	PARTIAL.sum = aktive_reduce_max (p->pixel, p->used, 1, 0);

@@ -22,7 +22,7 @@ operator {dexpr attr} {
     def fun  [lindex [split $__op :] 4]
 
     ## simplifications (also apply for input depth == 1)
-    ## - min, max, mean, sum :: elide idempotent
+    ## - min, max, mean, sum :: elide (idempotent)
     ## - sumsquared          :: op math1 pow 2 (power chaining)
     ## - variance, stddev    :: const 0
 

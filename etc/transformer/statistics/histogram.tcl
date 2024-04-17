@@ -4,21 +4,21 @@
 
 ## Not handled in the by-* specs. Histogram statistics are sufficiently different in the
 ## details of their calculation from the others (aktive_histogram* client data, etc.) to
-## warrant separate handling.
-
-## BEWARE : As written performance is sub-optimal - Because asking for a small part of the
-##          result causes full (re)calculation of the required histogram. This is
-##          especially noticeable for the operations where the primary result direction
-##          (i.e. column-wise) is orthogonal to the primary result query direction
-##          (i.e. row-wise)
+## warrant separate handling. Therefore sliced on the operation instead.
 #
-##          For good performance this needs a cache holding already calculated histogram
-##          data. On the other side of that beware the ballooning memory needed to contain
-##          said cache. A disk cache may be needed for large images to limit this, at the
-##          expense of some of the performance.
+## NOTES
+##
+## - Caches are used to hold full row|column histograms. While this requires more memory
+##   we get higher speed as no histogram is computed more than once.  Should we find that
+##   memory usage is too high we can
+##   (1) limit the cache size, at the at the cost of having to re-compute some histograms.
+##   (2) spill to and reload from disk. Beware that this may be slower than a re-compute.
+##
+## - For band and tile histograms caches are not needed, as both return per-pixel results
+##   and automatically do not re-compute anything.
 #
-##          This is also a place where future management of request types (i.e. by rows,
-##          by columns, by tiles, etc.) will be useful.
+## This is a place where future management of request types (i.e. by rows, by columns, by
+## tiles, etc.) could be useful.
 
 # # ## ### ##### ######## ############# #####################
 ## Semi-compress bands/rows/columns/tiles/image down to a statistic (histogram).
