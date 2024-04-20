@@ -5,27 +5,26 @@
 # # ## ### ##### ######## ############# #####################
 ## Select a row, column, or band, per an index image.
 
-operator {thing coordinate dimension other1 other2} {
+operator {kind coordinate dimension other1 other2} {
     op::take::x column x width       height depth
     op::take::y row    y height      width  depth
     op::take::z band   z depth       width  height
 } {
+    op -> _ _ direction
     section transform structure
-
-    def direction [lindex [split $__op :] 4]
 
     note Select values of the input (2nd argument) under the control of the index.
 
     note Takes two inputs of the same $other1 and ${other2}.
-    note The first input, the index, is single-${thing}.
+    note The first input, the index, is single-${kind}.
     note Its $other1 and $other2 match the second input.
     note The result image has the same geometry as the index.
 
     note The stored indices select, per result pixel, the \
-	$thing value to take from the second input and \
+	$kind value to take from the second input and \
 	place into the result.
 
-    note Indices are clamped to the interval 0 ... \#${thing}s of the second input.
+    note Indices are clamped to the interval 0 ... \#${kind}s of the second input.
     note Fractional indices are rounded down to integer.
 
     note The locations of index and data inputs are ignored.
@@ -122,7 +121,7 @@ operator {thing coordinate dimension other1 other2} {
 	aktive_geometry* index_geo = aktive_image_get_geometry (srcs->v[0]);
 	aktive_geometry* data_geo  = aktive_image_get_geometry (srcs->v[1]);
 
-	if (index_geo->@@dimension@@ > 1)                  aktive_fail ("Not single-@@thing@@");
+	if (index_geo->@@dimension@@ > 1)                  aktive_fail ("Not single-@@kind@@");
 	if (index_geo->@@other1@@ != data_geo->@@other1@@) aktive_fail ("Index/data @@other1@@ mismatch");
 	if (index_geo->@@other2@@ != data_geo->@@other2@@) aktive_fail ("Index/data @@other2@@ mismatch");
 

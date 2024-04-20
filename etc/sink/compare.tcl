@@ -6,9 +6,9 @@ operator {fun} {
     op::compare::mse  {}
     op::compare::rmse sqrt
 } {
-    section sink statistics
+    op -> _ _ metric
 
-    def metric [lindex [split $__op :] 4]
+    section sink statistics
 
     # As sinks cannot be stacked, simplification is not applicable.
 

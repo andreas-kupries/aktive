@@ -14,8 +14,7 @@ operator {
     format::as::ppm::byte::2file
     format::as::ppm::short::2file
 } {
-    def thing	[set thing   [lindex [split $__op :] 4]]
-    def variant [set variant [lindex [split $__op :] 6]]
+    op -> _ _ thing variant _
 
     section sink writer
 
@@ -43,8 +42,7 @@ operator {bands type maxval} {
     format::as::ppm::byte::2chan    3 6	  255
     format::as::ppm::short::2chan   3 6 65535
 } {
-    def thing	[set thing   [lindex [split $__op :] 4]]
-    def variant [set variant [lindex [split $__op :] 6]]
+    op -> _ _ thing variant _
 
     section sink writer
 
@@ -86,8 +84,7 @@ operator {bands type maxval} {
     format::as::ppm::byte::2string    3 6	  255
     format::as::ppm::short::2string   3 6 65535
 } {
-    def thing	[set thing   [lindex [split $__op :] 4]]
-    def variant [set variant [lindex [split $__op :] 6]]
+    op -> _ _ thing variant _
 
     section sink writer
 

@@ -14,9 +14,8 @@ operator {dexpr attr prefered_embedding} {
     op::tile::sumsquared  sum                  squared	black
     op::tile::variance    variance             {}	mirror
 } {
+    op -> _ _ fun
     section transform statistics
-
-    def fun [lindex [split $__op :] 4]
 
     ## TODO :: input (radius == 0) => elide   : min, mean, max, sum
     ##                             => replace : sumsquared -> math1 square

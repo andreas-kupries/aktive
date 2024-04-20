@@ -38,9 +38,8 @@ operator {imgresult} {
     meta::unset   1
     meta::values  0
 } {
+    op -> _ method
     external!
-
-    ::set method [lindex [split $__op :] 2]
 
     note Wraps the dict method \"$method\" for image meta data management.
 

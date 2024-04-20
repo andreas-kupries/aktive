@@ -10,14 +10,16 @@ operator {axis dim} {
     op::align::top    y height
     op::align::bottom y height
 } {
+    op -> _ _ border
     section transform structure
 
+    # opposite border is what we have to expand for alignment
     def border [dict get {
 	left   right
 	right  left
 	top    bottom
 	bottom top
-    } [lindex [split $__op :] 4]]
+    } $border]
 
     note Returns image aligned to a border in a larger image.
 

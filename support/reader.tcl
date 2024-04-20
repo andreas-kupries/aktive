@@ -154,7 +154,9 @@ proc dsl::reader::Operator {vars ops specification} {
     foreach [list __op {*}$vars] $ops {
 	OpStart $__op $key
 	foreach v $vars { def $v [set $v] }
-
+	set __parts [split [string map {:: \0} $__op] \0]
+	# __parts -> `op` command input
+	#
 	eval $specification
 	OpFinish
     }
@@ -281,6 +283,15 @@ proc dsl::reader::body {script args} {
 
 # # ## ### ##### ######## #############
 ## DSL support - C operator details
+
+proc dsl::reader::op {_ args} {
+    upvar 1 __parts __parts
+    foreach v $args p $__parts {
+	if {$v eq "_"} continue
+	upvar 1 $v $v
+	def $v $p
+    }
+}
 
 proc dsl::reader::void   {script args} { return void $script {*}$args }
 proc dsl::reader::return {type script args} { ;#puts [info level 0]

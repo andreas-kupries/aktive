@@ -35,7 +35,7 @@ operator {parameters} {
     image::mask::per::otsu       { bins 256 }
     image::mask::per::wolfjolion { k 0.5 }
 } {
-    def method [lindex [split $__op :] 6]
+    op -> _ _ _ method
 
     section transform threshold mask generate
 
@@ -79,7 +79,7 @@ operator {parameters} {
     image::mask::per::global::sauvola    { k 0.5  R 128 }
     image::mask::per::global::otsu       { bins 256 }
 } {
-    def method [lindex [split $__op :] 8]
+    op -> _ _ _ _ method
 
     section transform threshold mask generate
 

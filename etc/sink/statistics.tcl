@@ -17,10 +17,8 @@ operator {dexpr attr} {
     op::image::sumsquared  sum                  squared
     op::image::variance    variance             {}
 } {
+    op -> _ _ fun
     section sink statistics
-
-    def kind [lindex [split $__op :] 2]
-    def fun  [lindex [split $__op :] 4]
 
     # As sinks cannot be stacked, simplification is not applicable.
 

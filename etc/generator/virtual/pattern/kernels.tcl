@@ -69,7 +69,7 @@ operator {w h description factor kernel} {
     image::kernel::sharp::8    3 3 {sharpening effect}        {}    { -1  -1 -1   -1  9 -1 -1 -1 -1 }
     image::kernel::sharp::X    3 3 {sharpening effect}        {}    {  1  -2  1   -2  5 -2  1 -2  1 }
 } {
-    set ref         [lindex [split $__op :] 4]
+    op -> _ _ ref _
     set description [string map [list @ $ref] $description]
 
     if {$factor ne {}} {

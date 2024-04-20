@@ -16,22 +16,21 @@ operator {dim unchanged} {
 } {
     # convenience wrapper around the general rank filter.
 
+    op -> _ kind _
     section transform statistics
-
-    def thing [lindex [split $__op :] 2]
 
     input
 
     # look into shared documentation code/text blocks ...
 
-    note Returns image with input ${thing}s compressed to a single value, \
-	the median of the sorted $thing values.
+    note Returns image with input ${kind}s compressed to a single value, \
+	the median of the sorted $kind values.
 
-    switch -exact -- $thing {
+    switch -exact -- $kind {
 	band   -
 	column -
 	row    {
-	    note The result is a single-$thing image with {*}$unchanged of the input
+	    note The result is a single-$kind image with {*}$unchanged of the input
 	}
 	tile   {
 	    uint radius Tile size as radius from center. \
@@ -57,12 +56,12 @@ operator {dim unchanged} {
     # import ../simpler/idempotent.rules -- C
 
     simplify for \
-	src/type op::${thing}::rank \
+	src/type op::${kind}::rank \
 	src/value rank __rank \
 	if {$__rank == -1} \
 	src
 
-    switch -exact -- $thing {
+    switch -exact -- $kind {
 	band   -
 	column -
 	row    {
@@ -88,11 +87,10 @@ operator {dim unchanged} {
     op::row::rank    column {height and depth}
     op::tile::rank   {}     {}
 } {
+    op -> _ kind _
     section transform statistics
 
-    def thing [lindex [split $__op :] 2]
-
-    if {$thing eq "tile"} {
+    if {$kind eq "tile"} {
 	uint radius Tile size as radius from center. \
 	    Full width and height of the tile are `2*radius+1`.
     }
@@ -103,10 +101,10 @@ operator {dim unchanged} {
 
     input
 
-    note Returns image with input ${thing}s compressed to a single value, \
-	the chosen rank of the sorted $thing values.
+    note Returns image with input ${kind}s compressed to a single value, \
+	the chosen rank of the sorted $kind values.
 
-    switch -exact -- $thing {
+    switch -exact -- $kind {
 	band   -
 	column -
 	row    { note The result is a single-$dim image with {*}$unchanged of the input }
@@ -150,10 +148,10 @@ operator {dim unchanged} {
 	    domain->width  -= 2*param->radius;
 	    domain->height -= 2*param->radius;
 	}
-    } $thing]
+    } $kind]
 
     state -fields {
-	aktive_uint size; // quick access to the size of reduced @@thing@@s
+	aktive_uint size; // quick access to the size of reduced @@kind@@s
 	aktive_uint rank; // rank selector, with default resolved
     } -setup {
 	aktive_geometry_copy (domain, aktive_image_get_geometry (srcs->v[0]));
@@ -162,12 +160,12 @@ operator {dim unchanged} {
 	state->rank = (param->rank < 0) ? state->size/2 : param->rank;
 
 	if (state->rank >= state->size) {
-	    aktive_failf ("Rank %d too large for @@thing@@ size %u",
+	    aktive_failf ("Rank %d too large for @@kind@@ size %u",
 			  param->rank, state->size);
 	}
     }
 
-    switch -exact -- $thing {
+    switch -exact -- $kind {
 	band {
 	    blit reducer {
 		{DH {y 0 1 up} {y 0 1 up}}
@@ -218,7 +216,7 @@ operator {dim unchanged} {
 	column { aktive_reduce_rank      }
 	row    { aktive_reduce_rank      }
 	tile   { aktive_tile_reduce_rank }
-    } $thing]
+    } $kind]
 
     def subrequest [dict get {
 	band   {}
@@ -231,7 +229,7 @@ operator {dim unchanged} {
 	    subrequest.width  += 2 * radius;
 	    subrequest.height += 2 * radius;
 	}
-    } $thing]
+    } $kind]
 
     pixels -state {
 	aktive_rank rt;
@@ -251,7 +249,7 @@ operator {dim unchanged} {
 	@@reducer@@
 	#undef REDUCE
 
-	TRACE_DO (__aktive_block_dump ("@@thing@@ rank out", block));
+	TRACE_DO (__aktive_block_dump ("@@kind@@ rank out", block));
     }
 }
 

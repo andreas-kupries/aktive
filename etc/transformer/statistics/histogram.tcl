@@ -69,11 +69,10 @@ operator {dim unchanged} {
     op::band::histogram   band {width and height}
     op::tile::histogram   {}   {}
 } {
+    op -> _ kind _
     section transform statistics
 
-    def thing [lindex [split $__op :] 2]
-
-    if {$thing eq "tile"} {
+    if {$kind eq "tile"} {
 	uint radius Tile size as radius from center. \
 	    Full width and height of the tile are `2*radius+1`.
     }
@@ -87,9 +86,9 @@ operator {dim unchanged} {
 
     input
 
-    note Returns image with input ${thing}s transformed into a histogram of `bins` values.
+    note Returns image with input ${kind}s transformed into a histogram of `bins` values.
 
-    switch -exact -- $thing {
+    switch -exact -- $kind {
 	band   {
 	    note The result is an image of bin-sized histogram ${dim}s with {*}$unchanged of the input
 	}
@@ -132,16 +131,16 @@ operator {dim unchanged} {
 	    domain->height -= 2*param->radius;
 	    domain->depth   = param->bins;
 	}
-    } $thing]
+    } $kind]
 
     state -fields {
-	aktive_uint size; // quick access to the original size of the reduced @@thing@@s
+	aktive_uint size; // quick access to the original size of the reduced @@kind@@s
     } -setup {
 	aktive_geometry_copy (domain, aktive_image_get_geometry (srcs->v[0]));
 	@@fieldsetup@@
     }
 
-    switch -exact -- $thing {
+    switch -exact -- $kind {
 	band {
 	    blit histogrammer {
 		{AH {y AY 1 up} {y 0 1 up}}
@@ -176,7 +175,7 @@ operator {dim unchanged} {
 	    subrequest.width  += 2 * radius;
 	    subrequest.height += 2 * radius;
 	}
-    } $thing]
+    } $kind]
 
     pixels -state {
 	aktive_histogram h;
@@ -191,12 +190,12 @@ operator {dim unchanged} {
 	aktive_rectangle_def_as (subrequest, request);
 	@@subrequest@@
 
-	TRACE_RECTANGLE_M("@@thing@@ hist", &subrequest);
+	TRACE_RECTANGLE_M("@@kind@@ hist", &subrequest);
 	aktive_block* src = aktive_region_fetch_area (srcs->v[0], &subrequest);
 
 	@@histogrammer@@
 
-	TRACE_DO (__aktive_block_dump ("@@thing@@ histogram out", block));
+	TRACE_DO (__aktive_block_dump ("@@kind@@ histogram out", block));
     }
 }
 
