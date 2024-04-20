@@ -111,16 +111,20 @@ aktive_select (double*     v,
  * - - -- --- ----- -------- -------------
  */
 
+REDUCER (double, argge);
+REDUCER (double, arggt);
+REDUCER (double, argle);
+REDUCER (double, arglt);
 REDUCER (double, argmax);
 REDUCER (double, argmin);
 REDUCER (double, max);
 REDUCER (double, mean);
 REDUCER (double, min);
+REDUCER (double, rank);
 REDUCER (double, stddev);
 REDUCER (double, sum);
 REDUCER (double, sumsquared);
 REDUCER (double, variance);
-REDUCER (double, rank);
 REDUCER (void,   histogram);
 
 /*

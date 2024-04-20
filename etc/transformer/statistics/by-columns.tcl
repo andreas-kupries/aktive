@@ -6,8 +6,8 @@
 ## Compress columns down to a statistic
 
 operator {dexpr attr} {
-    op::column::argmax      {first index}        maximal
-    op::column::argmin      {first index}        minimal
+    op::column::arg::max   {first index}        maximal
+    op::column::arg::min   {first index}        minimal
     op::column::max         maximum              {}
     op::column::mean        {arithmetic mean}    {}
     op::column::min         minimum              {}
@@ -16,10 +16,10 @@ operator {dexpr attr} {
     op::column::sumsquared  sum                  squared
     op::column::variance    variance             {}
 } {
-    section transform statistics
+    op -> _ kind fun extra
+    if {$fun eq "arg"} { def fun $fun$extra }
 
-    def kind [lindex [split $__op :] 2]
-    def fun  [lindex [split $__op :] 4]
+    section transform statistics
 
     ## simplifications
     ## - min, max, mean, sum :: elide (idempotent), and for input height == 1

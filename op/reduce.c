@@ -94,6 +94,94 @@ aktive_reduce_argmin (double* v, aktive_uint n, aktive_uint stride, void* __clie
     return (double) argmin;
 }
 
+/*
+ * - - -- --- ----- -------- -------------
+ */
+
+extern double
+aktive_reduce_argge (double* v, aktive_uint n, aktive_uint stride, void* __client__)
+{
+    double      threshold = *((double*) __client__);
+    TRACE_FUNC("((n) %u, (stride) %u, (threshold) %f)", n, stride, threshold);
+    aktive_uint k;
+
+    TRACE_HEADER(1); TRACE_ADD ("bands = {", 0);
+    for (int j = 0; j < n; j++) { TRACE_ADD (" %f", v[j*stride]); }
+    TRACE_ADD(" }", 0); TRACE_CLOSER;
+
+    for (k = 0; k < n; k++, v += stride) {
+	double x = *v;
+	TRACE ("[%3d] = %f", k , x);
+	if (x >= threshold) break;
+    }
+
+    TRACE_RETURN ("(index) %f", (double) k);
+}
+
+extern double
+aktive_reduce_arggt (double* v, aktive_uint n, aktive_uint stride, void* __client__)
+{
+    double      threshold = *((double*) __client__);
+    TRACE_FUNC("((n) %u, (stride) %u, (threshold) %f)", n, stride, threshold);
+    aktive_uint k;
+
+    TRACE_HEADER(1); TRACE_ADD ("bands = {", 0);
+    for (int j = 0; j < n; j++) { TRACE_ADD (" %f", v[j*stride]); }
+    TRACE_ADD(" }", 0); TRACE_CLOSER;
+
+    for (k = 0; k < n; k++, v += stride) {
+	double x = *v;
+	TRACE ("[%3d] = %f", k , x);
+	if (x > threshold) break;
+    }
+
+    TRACE_RETURN ("(index) %f", (double) k);
+}
+
+extern double
+aktive_reduce_argle (double* v, aktive_uint n, aktive_uint stride, void* __client__)
+{
+    double      threshold = *((double*) __client__);
+    TRACE_FUNC("((n) %u, (stride) %u, (threshold) %f)", n, stride, threshold);
+    aktive_uint k;
+
+    TRACE_HEADER(1); TRACE_ADD ("bands = {", 0);
+    for (int j = 0; j < n; j++) { TRACE_ADD (" %f", v[j*stride]); }
+    TRACE_ADD(" }", 0); TRACE_CLOSER;
+
+    for (k = 0; k < n; k++, v += stride) {
+	double x = *v;
+	TRACE ("[%3d] = %f", k , x);
+	if (x <= threshold) break;
+    }
+
+    TRACE_RETURN ("(index) %f", (double) k);
+}
+
+extern double
+aktive_reduce_arglt (double* v, aktive_uint n, aktive_uint stride, void* __client__)
+{
+    double      threshold = *((double*) __client__);
+    TRACE_FUNC("((n) %u, (stride) %u, (threshold) %f)", n, stride, threshold);
+    aktive_uint k;
+
+    TRACE_HEADER(1); TRACE_ADD ("bands = {", 0);
+    for (int j = 0; j < n; j++) { TRACE_ADD (" %f", v[j*stride]); }
+    TRACE_ADD(" }", 0); TRACE_CLOSER;
+
+    for (k = 0; k < n; k++, v += stride) {
+	double x = *v;
+	TRACE ("[%3d] = %f", k , x);
+	if (x < threshold) break;
+    }
+
+    TRACE_RETURN ("(index) %f", (double) k);
+}
+
+/*
+ * - - -- --- ----- -------- -------------
+ */
+
 extern double
 aktive_reduce_max (double* v, aktive_uint n, aktive_uint stride, void* __client__ /* ignored */)
 {

@@ -162,7 +162,7 @@ operator op::kuwahara-core {
 	# - Compute the index of the quadrant with minimum variance, per pixel, and
 	# - select the mean values from these quadrants into the result.
 
-	set indices [aktive op band argmin     [aktive op montage z {*}$vars]]
+	set indices [aktive op band arg min    [aktive op montage z {*}$vars]]
 	set src     [aktive op take z $indices [aktive op montage z {*}$means]]
     }
 }

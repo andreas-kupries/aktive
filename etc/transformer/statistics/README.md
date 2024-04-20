@@ -7,8 +7,12 @@ We have
 
 |Op		|Result per unit (row, column, band, tile)	|
 |---		|---						|
-|argmax		|First index where the maximal value is reached	|
-|argmin		|First index where the minimal value is reached	|
+|arg.max	|First index where the maximal value is reached	|
+|arg.min	|First index where the minimal value is reached	|
+|arg.ge		|First index where value greater or equal than threshold	|
+|arg.gt		|First index where value greater than threshold	|
+|arg.le		|First index where value less or equal than threshold	|
+|arg.lt		|First index where value less than threshold	|
 |cumulative	|A prefix sum over the unit			|
 |histogram	|Histogram of the unit 				|
 |max		|The maximum of the values			|

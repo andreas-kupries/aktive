@@ -16,8 +16,6 @@ kt source support/util.tcl
 ## Syntax
 
 syntax {
-    argmin     src
-    argmax     src
     max        src
     mean       src
     median     src
@@ -29,6 +27,15 @@ syntax {
     variance   src
 } {aktive op band}
 
+syntax {
+    ge    {src0 src1}
+    gt    {src0 src1}
+    le    {src0 src1}
+    lt    {src0 src1}
+    max    src
+    min    src
+} {aktive op band arg}
+
 # # ## ### ##### ######## ############# #####################
 ##
 ## =  1  1.5 =  2  2.5 =  3  3.5
@@ -37,13 +44,13 @@ syntax {
 ## = 10 10.5 = 11 11.5 = 12 12.5
 
 foreach {op config expected} {
-    argmin {} {
+    arg.min {} {
 	0 0 0
 	0 0 0
 	0 0 0
 	0 0 0
     }
-    argmax {} {
+    arg.max {} {
 	1 1 1
 	1 1 1
 	1 1 1
@@ -105,15 +112,17 @@ foreach {op config expected} {
     }
 } {
     set params [lassign $op op]
+    set op [split $op .]
     set actual $op
     if {$op eq "median"} { set actual rank }
+    if {[llength $actual] > 1} { set actual [join $actual ::] }
 
     test aktive-op-band-${op}-2.0 "aktive op band $op" -body {
-	astcl aktive op band $op [grad] {*}$params
+	astcl aktive op band {*}$op [grad] {*}$params
     } -match image -result [makei op::band::$actual 0 0 3 4 1 $config $expected]
 
     test aktive-op-band-${op}-2.1 "aktive op band $op, dag" -body {
-	dag aktive op band $op [grad] {*}$params
+	dag aktive op band {*}$op [grad] {*}$params
     } -match glob -result "op::band::$actual * {image::gradient *}"
 
     if {$op in {
@@ -122,11 +131,13 @@ foreach {op config expected} {
 	# confirm idempotent operations, and simplifications.
 	#
 	# confirming that our claim of idempotency is true is difficult in the face of the new
-	# simplification rule which does elide the operation for any 1-band image it encounters. `op
-	# pass` is not enough anymore to stop simplification. It only stops the detection of chained
-	# operation. Even materialization is not enough, as it also is an 1-band image triggering
-	# elision. Only fully disabling simplification will work.
-
+	# simplification rule which does elide the operation for any 1-band image it encounters.
+	#
+	# `op pass` is not enough anymore to stop simplification. It only stops the detection of
+	# chained operations. Even materialization is not enough, as it also is an 1-band image
+	# triggering elision. Only fully disabling simplification will work. For this we have to
+	# poke into the package internals and use the special flag just for this.
+	#
 	# confirm idem potency with actual operation chain
 	# - simplifications are off to prevent it from changing the dag on us.
 
@@ -222,5 +233,39 @@ foreach {op config expected} {
 }
 
 # # ## ### ##### ######## ############# #####################
+
+proc t {} { aktive image gradient width 5 height 1 depth 1 first 5 last 21 }
+proc d {} { aktive image gradient width 5 height 1 depth 5 first 1 last 25 }
+
+# # ## ### ##### ######## ############# #####################
+##
+## d = (( 1 2 3 4 5   6 7 8 9 10   11 12 13 14 15   16 17 18 19 20   21 22 23 24 25 ))
+## t = (( 5           9            13               17               21 ))
+## / = (( 5 4 3 2 1   10 9 8 7 6   15 14 13 12 11   20 19 18 17 16   25 24 23 22 21 ))
+
+foreach {op dcmd expected} {
+    ge d { 4 3 2 1 0 }
+    gt d { 5 4 3 2 1 }
+    le e { 0 1 2 3 4 }
+    lt e { 1 2 3 4 5 }
+} {
+    set t [t]
+    set d [d]
+    if {[string match l* $op]} { set d [aktive op flip z $d] }
+
+    test aktive-op-band-${op}-2.0 "aktive op band $op" -body {
+	astcl aktive op band arg $op $t $d
+    } -match image -result [makei op::band::arg::$op 0 0 5 1 1 {} $expected]
+
+    test aktive-op-band-${op}-2.1 "aktive op band $op, dag" -body {
+	dag aktive op band arg $op $t $d
+    } -match glob -result "op::band::arg::$op * {image::gradient *} {image::gradient *}"
+
+    unset t d
+}
+
+# # ## ### ##### ######## ############# #####################
+rename d {}
+rename t {}
 cleanupTests
 return
