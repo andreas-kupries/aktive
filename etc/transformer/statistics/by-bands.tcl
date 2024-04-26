@@ -107,9 +107,17 @@ operator {attr} {
     }}
 
     pixels {
-	TRACE_RECTANGLE_M("arg@@fun@@", request);
-	aktive_block* srca = aktive_region_fetch_area (srcs->v[0], request);
+	TRACE_RECTANGLE_M("arg@@fun@@ data", request);
 	aktive_block* srcb = aktive_region_fetch_area (srcs->v[1], request);
+	TRACE_GEOMETRY_M("srcb geometry (d)", &srcb->domain);
+
+	TRACE_RECTANGLE_M("arg@@fun@@ thresholds", request);
+	aktive_block* srca = aktive_region_fetch_area (srcs->v[0], request);
+	TRACE_GEOMETRY_M("srca geometry (t)", &srca->domain);
+
+	/**/
+	TRACE_GEOMETRY_M("p srcb geometry (d)", &srcb->domain);
+	TRACE_GEOMETRY_M("p srca geometry (t)", &srca->domain);
 	#define REDUCE aktive_reduce_arg@@fun@@
 	@@reducer@@
 	#undef REDUCE
