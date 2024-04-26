@@ -8,8 +8,8 @@
  * |---:	|---:	|---		|---	|---			|
  * |0		|6	|uchar[6]	|magic	|'AKTIVE'		|
  * |6		|2	|uchar[2]	|version|'00'			|
- * |8		|4	|uint32_be	|x	|x location		|
- * |12		|4	|uint32_be	|y	|y location		|
+ * |8		|4	|int32_be	|x	|x location		|
+ * |12		|4	|int32_be	|y	|y location		|
  * |16		|4	|uint32_be	|width	|#columns		|
  * |20		|4	|uint32_be	|height	|#rows			|
  * |24		|4	|uint32_be	|depth	|#bands			|
@@ -47,8 +47,10 @@ typedef struct aktive_aktive_control {
     aktive_sink*   sink;     // Owning/owned sink
 
     // Processing state
+    int x;
+    int y;
     aktive_uint    size;      // Image size in pixels
-    aktive_uint    written;   // Values written == size at end
+    aktive_uint    written;   // #values written == size at end (in values, not bytes)
     aktive_uint    start;     // Byte offset where pixels start in the file
     aktive_uint    rowsize;   // Size of a row in bytes
     aktive_uint    pixsize;   // Size of a single pixel in bytes
@@ -109,8 +111,8 @@ aktive_header (aktive_aktive_control* info, aktive_image src)
 
     TRACE ("magic",      0); aktive_write_here          (info->writer, MAGIC,   sizeof (MAGIC)-1);   start += sizeof (MAGIC)-1;
     TRACE ("version",    0); aktive_write_here          (info->writer, VERSION, sizeof (VERSION)-1); start += sizeof (VERSION)-1;
-    TRACE ("x location", 0); aktive_write_here_uint32be (info->writer, g->x);                        start += 4;
-    TRACE ("y location", 0); aktive_write_here_uint32be (info->writer, g->y);                        start += 4;
+    TRACE ("x location", 0); aktive_write_here_int32be  (info->writer, g->x);                        start += 4;
+    TRACE ("y location", 0); aktive_write_here_int32be  (info->writer, g->y);                        start += 4;
     TRACE ("width",      0); aktive_write_here_uint32be (info->writer, g->width);                    start += 4;
     TRACE ("height",     0); aktive_write_here_uint32be (info->writer, g->height);                   start += 4;
     TRACE ("depth",      0); aktive_write_here_uint32be (info->writer, g->depth);                    start += 4;
@@ -125,6 +127,9 @@ aktive_header (aktive_aktive_control* info, aktive_image src)
     info->start   = start;
     info->pixsize = g->depth * sizeof (double);
     info->rowsize = g->width * info->pixsize;
+
+    info->x = g->x;
+    info->y = g->y;
 
     TRACE_RETURN ("(aktive_aktive_control*) %p", info);
 }
@@ -153,18 +158,25 @@ aktive_pixels (aktive_aktive_control* info, aktive_block* src)
 
     TRACE_DO (__aktive_block_dump (info->sink->name, src));
 
-    // start offset of the block in the file
-    int offset = info->start
-	+ info->rowsize * src->location.y
-	+ info->pixsize * src->location.x;
+    TRACE ("pixel offset: %d", info->start);
+    TRACE_POINT_M   ("src loc", &src->location);
+    TRACE_GEOMETRY_M("src dom", &src->domain);
 
-    TRACE ("location offset: %d", offset);
+    // start offset of the block in the file
+    // - note that we translate the logical location into a physical 0-based location first, before computing an offset.
+    // - using explicit casts to the destination type ensures avoiding of overflows in intermediate values.
+    Tcl_WideInt offset = ((Tcl_WideInt) info->start)
+	+ ((Tcl_WideInt) info->rowsize) * ((Tcl_WideInt) (src->location.y - info->y))
+	+ ((Tcl_WideInt) info->pixsize) * ((Tcl_WideInt) (src->location.x - info->x));
+
+    TRACE ("location offset: %lld", offset);
+    ASSERT (offset >= info->start, "Header smash");
 
     aktive_uint r, c, j;
     aktive_uint rowvalues = src->domain.width * src->domain.depth;
 
     // iterate over the rows of the block ...
-    for (j = 0, r = 0; r < src->domain.height; r++, offset += info->rowsize) {
+    for (j = 0, r = 0; r < src->domain.height; r++, offset += ((Tcl_WideInt) info->rowsize)) {
 	// seek to pixel location in the file, for the current row ...
 	aktive_write_goto (info->writer, offset);
 

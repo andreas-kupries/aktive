@@ -25,13 +25,22 @@ extern void aktive_read_setup_binary (Tcl_Channel src);
 
 extern int aktive_read_string      (Tcl_Channel src, char* buf, aktive_uint n);
 extern int aktive_read_match       (Tcl_Channel src, char* buf, aktive_uint n);
+
 extern int aktive_read_uint8       (Tcl_Channel src, aktive_uint* v);
 extern int aktive_read_uint16be    (Tcl_Channel src, aktive_uint* v);
 extern int aktive_read_uint32be    (Tcl_Channel src, aktive_uint* v);
 extern int aktive_read_uint64be    (Tcl_Channel src, Tcl_WideInt* v);
-extern int aktive_read_float64be   (Tcl_Channel src, double*      v);
 extern int aktive_read_uint_str    (Tcl_Channel src, aktive_uint* v);
 extern int aktive_read_uint_strcom (Tcl_Channel src, aktive_uint* v);
+
+extern int aktive_read_int8        (Tcl_Channel src, int*         v);
+extern int aktive_read_int16be     (Tcl_Channel src, int*         v);
+extern int aktive_read_int32be     (Tcl_Channel src, int*         v);
+extern int aktive_read_int64be     (Tcl_Channel src, Tcl_WideInt* v);
+extern int aktive_read_int_str     (Tcl_Channel src, int*         v);
+extern int aktive_read_int_strcom  (Tcl_Channel src, int*         v);
+
+extern int aktive_read_float64be   (Tcl_Channel src, double*      v);
 
 /*
  * - - -- --- ----- -------- -------------
