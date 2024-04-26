@@ -27,7 +27,7 @@ operator op::embed::mirror {
 	incr x -$left
 	incr y -$top
 
-	# This here cannot be done by means of op::view. We have to places (mirrored) copies
+	# This here cannot be done by means of op::view. We have to place (mirrored) copies
 	# of the source around it to get the desired effect
 
 	lassign [Count $left   $w] lpart left

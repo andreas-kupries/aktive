@@ -203,7 +203,7 @@ proc dsl::blit::EmitAxisSupport {axes} {
     if {!$sep} return
     + {}
 
-    + "TRACE (\"blit [T geo] | W.. | H.. | D.. | Pit | Str |\", 0);"
+    + "TRACE (\"blit [T geo] | W... | H... | D... | Pit | Str |\", 0);"
     foreach k [lsort -dict [dict keys $axes]] {
 	set ax [dict get $axes $k]
 	EmitAxeTrace $k $ax
@@ -224,14 +224,14 @@ proc dsl::blit::EmitAxeTrace {k axes} {
 
     set p [string map {dst D src S} $k]
 
-    append fmt " | %3d | %3d | %3d"
+    append fmt " | %4d | %4d | %4d"
     lappend values ${p}W ${p}H ${p}D
     ArgMark ${p}W
     ArgMark ${p}H
     ArgMark ${p}D
 
-    if {[dict exists $axes y]} { append fmt " | %3d" }
-    if {[dict exists $axes x]} { append fmt " | %3d" }
+    if {[dict exists $axes y]} { append fmt " | %4d" }
+    if {[dict exists $axes x]} { append fmt " | %4d" }
     append fmt " |"
     if {[dict exists $axes y]} { lappend values ${k}pitch  }
     if {[dict exists $axes x]} { lappend values ${k}stride }
@@ -285,26 +285,25 @@ proc dsl::blit::EmitCellAccess {axes virtual nopos} {
 }
 
 proc dsl::blit::EmitCellTrace {k axes virtual nopos} {
-
     + "TRACE_ADD (\" | [T $k]\", 0);"
     foreach a {y x z} {
 	if {![dict exists $axes $a]} continue
-	+ "TRACE_ADD (\" | %3d\", $k$a);"
+	+ "TRACE_ADD (\" | %4d\", $k$a);"
     }
 
     if {![string match src* $k]} {
 	# dst
 	ArgMark [P $k]CAP
-	+ "TRACE_ADD (\" | %3d/%3d\", ${k}pos, [P $k]CAP);"
+	+ "TRACE_ADD (\" | %4d/%4d\", ${k}pos, [P $k]CAP);"
     } elseif {!$nopos} {
 	# src, pos requested
 	if {$virtual} {
 	    # src, virtual, pos, no cap
-	    + "TRACE_ADD (\" | %3d\", ${k}pos);"
+	    + "TRACE_ADD (\" | %4d\", ${k}pos);"
 	} else {
 	    # src, physical, pos and cap
 	    ArgMark [P $k]CAP
-	    + "TRACE_ADD (\" | %3d/%3d\", ${k}pos, [P $k]CAP);"
+	    + "TRACE_ADD (\" | %4d/%4d\", ${k}pos, [P $k]CAP);"
 	}
     } ;# src, no pos virtual, nothing
 
@@ -312,6 +311,7 @@ proc dsl::blit::EmitCellTrace {k axes virtual nopos} {
 
     if {[string match src* $k] && ($nopos||$virtual)} return;
     + "if (${k}pos >= [P $k]CAP) { TRACE_CLOSER; TRACE(\"ASSERT\", 0); ASSERT_VA (0, \"$k out of bounds\", \"%d / %d\", ${k}pos, [P $k]CAP); }"
+    return
 }
 
 proc dsl::blit::EmitCellPosition {k axes} {

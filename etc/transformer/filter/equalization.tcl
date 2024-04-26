@@ -56,14 +56,14 @@ operator op::equalization::global {
 	} elseif {$n == 3} {
 	    switch -exact -- $cs {
 		sRGB {
-		    # Transform into and out colorspace with luminance channel.
+		    # Transform into and out of colorspace with luminance channel.
 		    # Use adjacent space to avoid a long conversion chain.
 		    set src [aktive op color sRGB to HSV $src]
 		    set src [global $src]
 		    return  [aktive op color HSV to sRGB $src]
 		}
 		scRGB {
-		    # Transform into and out colorspace with luminance channel.
+		    # Transform into and out of colorspace with luminance channel.
 		    # Use adjacent space to avoid a long conversion chain.
 		    set src [aktive op color scRGB to XYZ $src]
 		    set src [global $src]
