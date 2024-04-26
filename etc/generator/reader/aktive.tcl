@@ -25,6 +25,11 @@ operator read::from::aktive {
 	Tcl_Channel src = Tcl_FSOpenFileChannel (NULL, param->path, "r", 0);
 	if (!src) aktive_failf ("failed to open path %s", Tcl_GetString (param->path));
 
+	// Determine file size
+	Tcl_Seek (src, 0, SEEK_END);
+	Tcl_WideInt fsize = Tcl_Tell (src);
+	Tcl_Seek (src, 0, SEEK_SET);
+
 	// Read header
 	aktive_read_setup_binary (src);
 
@@ -37,8 +42,8 @@ operator read::from::aktive {
 	aktive_uint w, h, d, metac, pix;
 	TRY ("magic",   aktive_read_match    (src, MAGIC, sizeof (MAGIC)-1));
 	TRY ("version", aktive_read_match    (src, VERSION, sizeof (VERSION)-1));
-	TRY ("x",       aktive_read_uint32be (src, &x));
-	TRY ("y",       aktive_read_uint32be (src, &y));
+	TRY ("x",       aktive_read_int32be  (src, &x));
+	TRY ("y",       aktive_read_int32be  (src, &y));
 	TRY ("w",       aktive_read_uint32be (src, &w));
 	TRY ("h",       aktive_read_uint32be (src, &h));
 	TRY ("d",       aktive_read_uint32be (src, &d));
@@ -57,6 +62,16 @@ operator read::from::aktive {
 	#undef TRY
 
 	Tcl_Close (NULL, src);
+
+	// Check found versus expected file size
+	Tcl_WideInt esize = (sizeof (MAGIC)-1)         // 1st magic
+	                  + (sizeof (VERSION)-1)       // version
+			  + 6 * 4                      // x, y, w, h, d, meta size
+			  + metac                      // meta data
+	                  + (sizeof (MAGIC2)-1)        // 2nd magic
+                          + w * h * d * sizeof(double) // pixels
+                          ;
+        if (esize != fsize) aktive_failf ("bad size, expected %lld, got %lld", esize, fsize);
 
 	state->pix  = pix;
 	state->x    = x;
@@ -110,6 +125,7 @@ operator read::from::aktive {
 	aktive_uint srcpos, srcy, srcx;
 	aktive_uint row, col, band;
 
+	// Translate logical request location to physical 0-based location into the pixel block
 	aktive_uint sy = request->y - state->y;
 	aktive_uint sx = request->x - state->x;
 
@@ -122,7 +138,8 @@ operator read::from::aktive {
 
 	ITER_ROW {
 	    Tcl_WideInt rowat = state->pix + sizeof(double) * (srcy * pitch + sx * stride);
-	    TRACE ("%3d %3d     |     | %3d | off %d %d %d", srcy, sx, rowat, state->pix, pitch, stride);
+	    TRACE ("%3d %3d     |     | %3lld | off %d %d %d", srcy, sx, rowat, state->pix, pitch, stride);
+	    ASSERT (rowat >= state->pix, "read before pixel data");
 
 	    Tcl_Seek (state->data, rowat, SEEK_SET);
 	    ITER_COL {
@@ -130,11 +147,12 @@ operator read::from::aktive {
 		    dstpos = dsty * pitch + dstx * stride + dstz;
 
 		    Tcl_WideInt at = Tcl_Tell (state->data);
+		    ASSERT (at >= 0, "read before channel");
 
 		    double value = 0.0;
 		    (void) aktive_read_float64be (state->data, &value);
 
-		    TRACE ("%3d %3d %3d | %3d | %3d | %.2f", dsty, dstx, dstz, dstpos, at, value);
+		    TRACE ("%3d %3d %3d | %3d | %3lld | %.2f", dsty, dstx, dstz, dstpos, at, value);
 		    ASSERT (dstpos < block->used, "read/write out of bounds");
 
 		    block->pixel [dstpos] = value;
