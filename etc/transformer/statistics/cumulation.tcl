@@ -234,7 +234,12 @@ operator op::band::cumulative {
     } {raw sum-bands {
 	// dstvalue = row/col start - 1-strided full band vector
 	// srcvalue = row/col start - 1-strided full band vector
+
 	aktive_cumulative_sum (dstvalue, DD, srcvalue, 1);
+
+	// Applies only when src can be assumed to contain only positive or negative values
+	// If a mix is present the result can return to the initial value
+	// ASSERT (dstvalue[DD-1] > dstvalue[0], "bad cumulation is flat");
     }}
 
     pixels {

@@ -21,6 +21,10 @@ aktive_cumulative_sum (double* dst, aktive_uint n, double* src, aktive_uint stri
 {
     TRACE_FUNC ("(dst %p [%u] = sum (src %p [%u*%u]))", dst, n, src, n, stride);
 
+    TRACE_HEADER(1); TRACE_ADD ("src  = {", 0);
+    for (int k = 0; k < n; k++) { TRACE_ADD (" %f", src[k*stride]); }
+    TRACE_ADD(" }", 0); TRACE_CLOSER;
+
     kahan running_sum;
     aktive_kahan_init (&running_sum);
 
@@ -32,11 +36,10 @@ aktive_cumulative_sum (double* dst, aktive_uint n, double* src, aktive_uint stri
     }
 
     TRACE_HEADER(1); TRACE_ADD ("csum = {", 0);
-    for (i = 0; i < n; i++) { TRACE_ADD (" %f", dst[i]); }
+    for (int k = 0; k < n; k++) { TRACE_ADD (" %f", dst[k]); }
     TRACE_ADD(" }", 0); TRACE_CLOSER;
 
     TRACE_RETURN_VOID;
-
 }
 
 /*
