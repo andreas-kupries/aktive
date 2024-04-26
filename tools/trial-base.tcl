@@ -8,9 +8,9 @@ package require aktive
 puts ""
 puts loaded:\t[join [info loaded] \nloaded:\t]
 puts ""
-puts "have aktive v[aktive version] / cpu count [aktive processors]"
-puts "exec [info nameofexecutable]"
-puts "exec $argv0"
+puts "have   aktive v[aktive version] / cpu count [aktive processors]"
+puts "shell  [info nameofexecutable]"
+puts "script $argv0"
 puts ""
 
 # ------------------------------------------------------------------------------
@@ -171,10 +171,8 @@ proc dots {i} {
     return $i
 }
 
-
-
-proc showbasic {i} {
-    puts "[aktive query type $i] \{"
+proc showbasic {label i} {
+    puts "$label = [aktive query type $i] \{"
     puts "  pa ([aktive query params $i])"
     puts "  x,y [aktive query x $i]..[aktive query xmax $i],[aktive query y $i]..[aktive query ymax $i]"
     puts "  whd [set w [aktive query width $i]] x [set h [aktive query height $i]] x [set d [aktive query depth  $i]]"
@@ -190,7 +188,7 @@ proc dagc {i {indent {}}} {
     incr count ; set me $count
     dict set have $id $count
 
-    puts "[format %5d $count] :: $indent$id  [aktive query type $i]"
+    puts "[format %5d $count] :: $indent$id  [aktive query type $i] ([aktive query params $i])"
     set children [aktive query inputs $i]
     if {![llength $children]} {
 	puts "      :: ${indent}***"
@@ -198,6 +196,30 @@ proc dagc {i {indent {}}} {
     }
     foreach x $children { dagc $x "$indent  " }
     puts "      :: ${indent}\\-- $me"
+}
+
+proc insn {i} {
+    upvar 1 have have count count
+
+    set id [aktive query id $i]
+    if {![info exists have] || ![dict exists $have $id]} {
+	set cids [join [lmap child [aktive query inputs $i] {
+	    string cat "\$i" [insn $child]
+	}] { }]
+	if {$cids ne {}} { set cids " $cids" }
+
+	set pa [aktive query params $i]
+	if {$pa ne {}} { set pa " $pa" }
+
+	set op [string map {:: { }} [aktive query type $i]]
+
+	incr count
+	puts "set [format %6s i$count] \[aktive $op$cids$pa\]"
+
+	dict set have $id $count
+    }
+
+    return [dict get $have $id]
 }
 
 proc show {i {scale {}}} {
