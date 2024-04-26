@@ -427,12 +427,12 @@ D (pgm_short)	// single band, binary, short
 #include <netpbm_binread.h>
 }
 
-D (pgm_text) // single band, text
+D (pgm_text) // single band, text // cache is vector cache of all rows
 {
     TRACE_FUNC ("((void**) %p, (info*) %p, (%u x %u), (Chan) %p, (double*) %p [%u]) [%u %f]",
 	    cache, info, x, y, chan, v, w, info->width, info->scale);
 
-    rowfill param = { chan, w, info->scale };
+    rowfill param = { chan, info->width, info->scale };
 
     double* src = aktive_veccache_get (*cache, y,
 				       (aktive_veccache_fill) rowfiller,
@@ -456,7 +456,7 @@ D (ppm_byte)	// 3 band, binary, byte
 #include <netpbm_binread.h>
 }
 
-D (ppm_short)	// 3 band, binary, short
+D (ppm_short)	// 3 band, binary, short // cache is vector cache of all rows
 {
 #define BANDS      3
 #define BANDCODE   2
@@ -471,13 +471,13 @@ D (ppm_text) // 3 band, text
 
     // *cache, info, x, y, w, chan, v [3*w]
 
-    rowfill param = { chan, 3*w, info->scale };
+    rowfill param = { chan, 3*info->width, info->scale };
     double* src = aktive_veccache_get (*cache, y,
 				       (aktive_veccache_fill) rowfiller,
 				       &param);
 
     // src is owned by the cache. read-only!
-    memcpy (v, src + x, 3*w * sizeof(double));
+    memcpy (v, src + 3*x, 3*w * sizeof(double));
 
     TRACE_RETURN_VOID;
 }
