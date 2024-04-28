@@ -100,6 +100,8 @@ operator read::from::aktive {
 	state->data = aktive_path_open (&istate->path);
 	if (!state->data) aktive_failf ("failed to open path %s", istate->path.string);
 
+	aktive_read_setup_binary (state->data);
+
 	state->pix  = istate->pix;
 	state->x    = istate->x;
 	state->y    = istate->y;
