@@ -39,10 +39,11 @@ operator op::equalization::global {
 
 	if {$n == 1} {
 	    # grey or other single-band. apply directly.
+	    set norm  [expr {1./[aktive query pixels $src]}]	 ;# normalization factor (#pixels)
 	    set ghist [aktive op image histogram $src]		 ;# global histogram
 	    set csum  [aktive op row cumulative  $ghist]	 ;# global cumulative sum
-	    set norm  [expr {1./[aktive op image max $csum]}]	 ;# normalization factor
 	    set pdf   [aktive op math1 scale $csum factor $norm] ;# global PDF, normalized sum
+	    # lut materializes pdf now
 	    set src   [aktive op lut indexed $pdf $src]
 	    #
 	    set src   [aktive op color set $src $cs]
