@@ -24,7 +24,7 @@ In the sense that AKTIVE's runtime enables the same thing that VIPS does, the
 multi-threaded, concurrent handling of multiple input regions without having
 to load the entirety of the inputs into memory.
 
-The detailed structures are very differen from VIPS however, for several reasons:
+The detailed structures are very different from VIPS however, for several reasons:
 
   - This is a Tcl extension, linked to and using Tcl API functions and structures.
 
