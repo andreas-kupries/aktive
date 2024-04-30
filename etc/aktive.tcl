@@ -157,7 +157,8 @@ import transformer/thresholds/thresholds.tcl
 import composer/montage.tcl
 
 import sink/aktive.tcl		;# AKTIVE raw format
-import sink/astcl.tcl		;# Tcl representation
+import sink/asother.tcl		;# Other representations, without materialization
+import sink/astcl.tcl		;# Tcl representation, materialization
 import sink/netpbm.tcl		;# NETPBM basics (PGM, PPM)
 import sink/null.tcl		;# NULL writer (debug, perf measure)
 #

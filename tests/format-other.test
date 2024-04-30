@@ -1,0 +1,79 @@
+# -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
+## (c) 2024 Andreas Kupries
+# # ## ### ##### ######## ############# #####################
+## AKTIVE. Other representations (Tcl script, D2, Markdown)
+
+kt check Tcl     8.6 9
+kt check tcltest 2
+
+# # ## ### ##### ######## ############# #####################
+
+kt local testing aktive
+
+kt source support/util.tcl
+
+# # ## ### ##### ######## ############# #####################
+## Syntax
+
+syntax {
+    tclscript src
+    d2        src
+    markdown  src
+} {aktive format as}
+
+# # ## ### ##### ######## ############# #####################
+##
+
+test aktive-format-as-tclscript-2.0 "aktive format as tclscript" -body {
+    check aktive format as tclscript [colorbox]
+} -result {set tmp1     [aktive image gradient width 8 height 8 depth 1 first 0.0 last 1.0]	;# FO(3): tmp2, tmp4, tmp5
+set tmp2     [aktive op swap xy $tmp1]
+set tmp3     [aktive op flip x $tmp2]
+set tmp4     [aktive op montage z-core $tmp1 $tmp3]
+set tmp5     [aktive op flip y $tmp1]
+set tmp6     [aktive op flip x $tmp5]
+set result   [aktive op montage z-core $tmp4 $tmp6]}
+
+test aktive-format-as-d2-2.0 "aktive format as d2" -body {
+    check aktive format as d2 [colorbox]
+} -result {# -*- d2 -*-
+direction: left
+1: "aktive image gradient\n(width 8 height 8 depth 1 first 0.0 last 1.0)"
+1.shape: oval
+2: "aktive op swap xy"
+2.shape: oval
+1 -> 2
+3: "aktive op flip x"
+3.shape: oval
+2 -> 3
+4: "aktive op montage z-core"
+4.shape: oval
+1 -> 4
+3 -> 4
+5: "aktive op flip y"
+5.shape: oval
+1 -> 5
+6: "aktive op flip x"
+6.shape: oval
+5 -> 6
+7: "aktive op montage z-core"
+7.shape: oval
+7.style.fill: orange
+4 -> 7
+6 -> 7}
+
+test aktive-format-as-markdown-2.0 "aktive format as markdown" -body {
+    check aktive format as markdown [colorbox]
+} -result {||Id|Command|Config|Inputs|Notes|
+|:---|:---|:---|:---|:---|:---|
+||1|aktive image gradient|width 8 height 8 depth 1 first 0.0 last 1.0||FO(3): 4, 2, 5|
+||2|aktive op swap xy||1||
+||3|aktive op flip x||2||
+||4|aktive op montage z-core||1, 3||
+||5|aktive op flip y||1||
+||6|aktive op flip x||5||
+|__OUT__|7|aktive op montage z-core||4, 6||}
+
+# # ## ### ##### ######## ############# #####################
+cleanupTests
+return
