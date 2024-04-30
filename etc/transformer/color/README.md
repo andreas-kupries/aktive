@@ -9,6 +9,10 @@
 |___		|___							|
 |HSV		|sRGB in a different basis to separate color components |
 |HSL		|Another transformation of sRGB				|
+|		|__V__ Range: 0..1	   				|
+|		|__L__ Range: 0..1	   				|
+|		|__S__ Range: 0..1					|
+|		|__H__ Range: 0..1 (Wikipedia: 0..360)			|
 |___		|___							|
 |XYZ		|CIE XYZ tristimulus space				|
 |		|__X__ Range:	     					|
