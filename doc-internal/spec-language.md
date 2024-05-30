@@ -145,6 +145,8 @@ Defaults:
 |`pixels ?-fields RFIELDS? ?-setup RSETUP? ?-cleanup RCLEANUP? FETCH ...`|C code fragments to manage custom region state, and pixel fetch|
 |`state ?-fields FIELDS? ?-setup SETUP? ?-cleanup CLEANUP? ...`|C code fragments to manage custom operator state|
 |`support CCODE ...`		|Provide C code fragments containing supporting definitions|
+|||
+|`cached CKIND CLABEL CFILL_FUNCTION  ?-fields RFIELDS? ?-setup RSETUP? ?-cleanup RCLEANUP? ?-rsize CPARAM? ?-cdata CDATA?`|Emit `state` and `pixel` for a row/column-caching operator|
 
 ##### Variadics
 
@@ -330,6 +332,42 @@ The `dst` is the storage area the pixels are to be written (blitted) to.
 
 Supporting C code fragments are emitted before the definitions of the containing operator.
 They have no access to variables, and just the public types.
+
+###### `CKIND`
+
+For cached operators, what to cache. Either `row` or `column`.
+
+###### `CLABEL`
+
+For cached operators a plain text string to insert into comments and trace commands
+for identification.
+
+###### `CFILL_FUNCTION`
+
+For cached operator the name of the C function to call to compute not yet
+cached rows or columns. It has to be generally of type `aktive_iveccache_fill*`,
+as declared in `runtime/iveccache.h`, whose the first argument (`context`)
+will be a `aktive_ivcache_context*`.
+
+This is different from the function type, which expects a generic `void*`.
+
+The type of the function argument may change to `aktive_iveccache_fill*`
+if no operators appear which do not fit into the framework/code emitted by `cached`.
+
+###### `CPARAM`
+
+For cached operators the name of the operator parameter specifying the size of
+the result along the uncached axis.
+
+For example, for row histograms it is the `bins`, which becomes the width of the result.
+
+###### `CDATA`
+
+For cached operators a C RHS expression defining the value for the `.client` field
+of the internal `aktive_ivcache_context*` structure.
+
+For example, for row/column histograms this is a pointer to the `aktive_histogram` structure
+used by the `aktive_histogram_fill` function to collect interim results.
 
 ##### Blitter
 
