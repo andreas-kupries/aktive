@@ -9,8 +9,9 @@
 ## mathfunc	Equivalent Tcl mathfunc to use when short-circuiting at construction
 ##		The value `<<` signals identity with `function`.
 ##              The value `-` signals that it does not exist. Prevents short-circuiting
-## dexpr	Display expression. If not set operator tail name is used
-## class	General class of behaviour, with attached simplifiction rules
+## dexpr	Documentation expression. If undefined use operator name tail.
+##              `I` refers to source image. If not present extend to function notation, i.e. `(I)`.
+## class	General class of behaviour, with attached simplification rules
 
 operator {                     cfunction             mathfunc     dexpr classes} {
     op::math1::abs             fabs                  abs          {}    idempotent
@@ -36,8 +37,8 @@ operator {                     cfunction             mathfunc     dexpr classes}
     op::math1::log             log                   <<           {}    {}
     op::math1::log10           log10                 <<           {}    {}
     op::math1::log2            log2                  <<           {}    {}
-    op::math1::neg             aktive_neg            <<           "-I"  {inverting fixpoint0}
-    op::math1::reciproc        aktive_reciprocal     <<           "1/I" {inverting fixpoint1}
+    op::math1::neg             aktive_neg            <<           "-I"  {inverting  fixpoint0}
+    op::math1::reciproc        aktive_reciprocal     <<           "1/I" {inverting  fixpoint1}
     op::math1::sign            aktive_sign           sign         {}    {idempotent fixpoint0}
     op::math1::sign*           aktive_signb          signb        {}    idempotent
     op::math1::sin             sin                   <<           {}    fixpoint0
@@ -49,7 +50,6 @@ operator {                     cfunction             mathfunc     dexpr classes}
     op::math1::wrap            aktive_wrap           <<           {}    idempotent
     op::math1::not             aktive_not            <<           "!I"  {}
 } {
-
     if {$dexpr eq {}} { set dexpr [namespace tail $__op] }
     if {![string match *I* $dexpr]} { append dexpr (I) }
 
@@ -61,9 +61,8 @@ operator {                     cfunction             mathfunc     dexpr classes}
 	op::math1::not
     }} {
 	section transform math unary logical
-
-	note As a logical operation the image is trivially thresholded at 0.5. \
-	    Values <= 0.5 are seen as false, else as true.
+	note As a logical operation the input image is implicitly trivially \
+	    thresholded at 0.5. Values <= 0.5 are seen as false, else as true.
     } else {
 	section transform math unary
     }
@@ -76,7 +75,7 @@ operator {                     cfunction             mathfunc     dexpr classes}
     import? ../simpler/$cfunction.rules
 
     if {$mathfunc eq "<<"} { set mathfunc $cfunction}
-    if {$mathfunc ne "-"} { simplify for   constant $mathfunc }
+    if {$mathfunc ne "-"}  { simplify for   constant $mathfunc }
 
     state -setup {
 	aktive_geometry_copy (domain, aktive_image_get_geometry (srcs->v[0]));
