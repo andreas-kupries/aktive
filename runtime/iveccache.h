@@ -62,6 +62,7 @@
 
 #include <tclpre9compat.h>
 #include <base.h>
+#include <geometry.h>
 
 /*
  * - - -- --- ----- -------- -------------
@@ -70,6 +71,15 @@
 typedef struct aktive_iveccache_ *aktive_iveccache;
 
 typedef void (*aktive_iveccache_fill)(void* context, aktive_uint index, double* dst);
+
+typedef struct aktive_ivcache_context {
+    aktive_uint         z;       // requested band
+    aktive_uint         stride;  // delta between band groups
+    aktive_uint         size;    // number of values in the band
+    aktive_rectangle*   request; // full request for input
+    aktive_region       src;     // input region to pull from
+    void*               client;  // function-specific context data
+} aktive_ivcache_context;
 
 /*
  * - - -- --- ----- -------- -------------

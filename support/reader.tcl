@@ -33,7 +33,247 @@ proc dsl::reader::do {package specification} {
 }
 
 # # ## ### ##### ######## #############
-## DSL commands
+## DSL commands -- Highlevel
+##
+## Cache operators (row, column)
+
+proc dsl::reader::cached {kind label function args} {
+    CacheCode \
+	[CacheCodeConfig \
+	     $kind $label $function \
+	     [ProcessCacheConfig $args]]
+}
+
+proc dsl::reader::ProcessCacheConfig {words} {
+    lassign {{} {} {} {} 0} rsize fields setup cleanup cdata
+    while {[string match -* [set o [lindex $words 0]]]} {
+	switch -exact -- $o {
+	    --       { set words [lassign $words _] ; break }
+	    -cdata   { set words [lassign $words _ cdata]   }
+	    -rsize   { set words [lassign $words _ rsize]   }
+	    -fields  { set words [lassign $words _ fields]  }
+	    -setup   { set words [lassign $words _ setup]   }
+	    -cleanup { set words [lassign $words _ cleanup] }
+	    default  {
+		Abort "Bad option '$o', expected -cdata, -cleanup, -fields, -rsize, -setup, or --"
+	    }
+	}
+    }
+
+    if {[llength $words]} {
+	Abort "Unknown arguments after options"
+    }
+
+    list $rsize $fields $setup $cleanup $cdata
+}
+
+proc dsl::reader::CacheCodeConfig {kind label function config} {
+    set axis [dict get { row y      column x      } $kind]
+    set adim [dict get { row height column width  } $kind]
+    set oaxs [dict get { row x      column y      } $kind]
+    set odim [dict get { row width  column height } $kind]
+
+    lappend map @@@kind@@@     $kind	;# elements, implies axis
+    lappend map @@@label@@@    $label
+    lappend map @@@function@@@ $function
+    #
+    lappend map @@@axis@@@     $axis	;# axis
+    lappend map @@@adim@@@     $adim	;# axis dimension
+    lappend map @@@oaxis@@@    $oaxs	;# ortho axis
+    lappend map @@@odim@@@     $odim	;# ortho axis dimension
+    #
+    lassign $config rsize fields setup cleanup cdata
+    #
+    lappend map @@@rfields@@@  $fields
+    lappend map @@@rsetup@@@   $setup
+    lappend map @@@rcleanup@@@ $cleanup
+    lappend map @@@cdata@@@    $cdata
+
+    if {$rsize ne {}} {
+	lappend map @@@sfields@@@ "aktive_uint size; // quick access to original size of the ${kind}s"
+	lappend map @@@ssetup@@@  "state->size = domain->${odim}; domain->${odim} = param->${rsize};"
+	lappend map @@@subsize@@@ "istate->size"
+	lappend map @@@rsize@@@   "param->${rsize}"
+    } else {
+	lappend map @@@sfields@@@ {}
+	lappend map @@@ssetup@@@  {}
+	lappend map @@@subsize@@@ "idomain->${odim}"
+	lappend map @@@rsize@@@   "subrequest.${odim}"
+    }
+    #
+    # last, because it needs the preceding map
+    lappend map @@@loops@@@    [CacheLoops/$kind $map]
+}
+
+proc dsl::reader::CacheCode {map} {
+    input
+
+    state -fields {
+	@@@sfields@@@
+	aktive_iveccache ivcache; // result cache, @@@kind@@@ @@@label@@@
+    } -cleanup {
+	aktive_iveccache_release (state->ivcache);
+    } -setup {
+	aktive_geometry_copy (domain, aktive_image_get_geometry (srcs->v[0]));
+	@@@ssetup@@@
+	state->ivcache = aktive_iveccache_new (domain->@@@adim@@@ * domain->depth, domain->@@@odim@@@);
+	// note: #(@@@kind@@@ vectors) takes bands into account
+    } {*}$map
+
+    pixels -state {
+	@@@rfields@@@
+	aktive_iveccache ivcache; // result cache, @@@kind@@@ @@@label@@@, thread-shared
+    } -setup {
+	state->ivcache = istate->ivcache;
+	@@@rsetup@@@
+    } -cleanup {
+	@@@rcleanup@@@
+    } {
+	// Scan the @@@kind@@@s of the request
+	// - Get the associated cached @@@kind@@@ @@@label@@@
+	// - Compute and cache any missing results
+
+	aktive_rectangle_def_as (subrequest, request);
+	subrequest.@@@adim@@@  = 1;
+	subrequest.@@@odim@@@  = @@@subsize@@@;
+	subrequest.@@@oaxis@@@ = idomain->@@@oaxis@@@;
+	TRACE_RECTANGLE_M("@@@kind@@@ @@@label@@@", &subrequest);
+
+	aktive_uint stride = block->domain.width * block->domain.depth;
+	aktive_uint bands  = block->domain.depth;
+
+	aktive_ivcache_context context = {
+	    // .z is set during the iteration. same for subrequest.@@@axis@@@
+	    .size    = subrequest.@@@odim@@@,
+	    .stride  = bands,
+	    .request = &subrequest,
+	    .src     = srcs->v[0],
+	    .client  = @@@cdata@@@,
+	};
+
+	@@@loops@@@
+
+	TRACE_DO (__aktive_block_dump ("@@@kind@@@ @@@label@@@ out", block));
+    } {*}$map
+}
+
+proc dsl::reader::CacheLoops/row {map} {
+    string map $map {
+	// iterator setup
+	aktive_uint x, y, z, k, j;
+	#define ITERX for (x = request->x, k = 0; k < request->width  ; x++, k++)
+	#define ITERY for (y = request->y, j = 0; j < request->height ; y++, j++, py++)
+	#define ITERZ for (z = 0; z < bands; z++)
+
+	// 3 kinds of y-coordinates.
+	//
+	// 1. y  - logical coordinate of @@@kind@@@
+	// 2. j  - physical coordinate of @@@kind@@@ in memory block
+	// 3. py - distance to logical y position -> cache index
+
+	aktive_uint py = request->y - idomain->y;
+	ITERY {
+	    ITERZ {
+		context.z = z;
+		/* context->request */ subrequest.y = y;
+		double* result = aktive_iveccache_get (state->ivcache,
+						       py*bands+z,
+						       @@@function@@@,
+						       &context);
+		// result is full @@@odim@@@ of function result.
+		// now extract the requested sub section.
+
+		TRACE_HEADER(1); TRACE_ADD ("[y,z=%u,%u] @@@kind@@@ @@@label@@@ = {", y, z);
+		for (int a = 0; a < @@@rsize@@@; a++) { TRACE_ADD (" %f", result[a]); }
+		TRACE_ADD(" }", 0); TRACE_CLOSER;
+
+		ITERX {
+		    TRACE ("line [%u], band [%u] place k%u b%u j%u s%u -> %u (res[%d] = %f)",
+			   y, z, k, bands, j, stride, z+k*bands+j*stride, k, result[k]);
+		    block->pixel [z+k*bands+j*stride] = result[k];
+		}    // TODO :: ASSERT against capacity
+	    }
+
+	    TRACE_HEADER(1); TRACE_ADD ("[y=%u] line = {", y);
+	    for (int a = 0; a < request->width; a++) { TRACE_ADD (" %f", block->pixel[a]); }
+	    TRACE_ADD(" }", 0); TRACE_CLOSER;
+	}
+
+	#undef ITERX
+	#undef ITERY
+	#undef ITERZ
+    }
+}
+
+proc dsl::reader::CacheLoops/column {map} {
+    string map $map {
+	// ATTENTION -- start each line in a different column -- this spreads the threads
+	// across the width of the image -- this reduces the chance of lock fighting over
+	// the column vectors during the creation phase
+
+	aktive_uint xmin   = request->x;
+	aktive_uint xmax   = request->x + request->width - 1;
+	aktive_uint xoff   = aktive_fnv_step (request->y) % request->width;
+	aktive_uint xstart = xmin + xoff;
+
+	// iterator setup
+	aktive_uint q;
+	aktive_uint x, y, z, k, j;
+	#define ITERX for (x = xstart, k = xoff, q = 0; q < request->width  ; q++)
+	#define ITERY for (y = request->y, j = 0      ; j < request->height ; y++, j++, py++)
+	#define ITERZ for (z = 0; z < bands; z++)
+
+	// 3 kinds of x-coordinates.
+	//
+	// 1. x,y   - logical  coordinate of column/row
+	// 2. k,j   - physical coordinate of column/row in memory block
+	// 3. px,py - distance to logical x/y position  -> cache index @@@label@@@
+
+	aktive_uint xd = request->x - idomain->x;
+	aktive_uint yd = request->y - idomain->y;
+	aktive_uint px = xstart - idomain->x;
+	ITERX {
+	    ITERZ {
+		TRACE ("VEC INDEX (%u,%u,%u) (%u,%u) %u - vec %u", x,y,z, px,j, bands, px*bands+z);
+
+		context.z = z;
+		/* context->request */ subrequest.x = x;
+		double* result = aktive_iveccache_get (state->ivcache,
+						       px*bands+z,
+						       @@@function@@@,
+						       &context);
+
+		TRACE_HEADER(1); TRACE_ADD ("[x,z=%u,%u] @@@kind@@@ @@@label@@@ = {", x, z);
+		for (int a = 0; a < @@@rsize@@@; a++) { TRACE_ADD (" %f", result[a]); }
+		TRACE_ADD(" }", 0); TRACE_CLOSER;
+
+		aktive_uint py = yd;
+		ITERY {
+		    TRACE ("line [%u], band [%u] place k%u b%u j%u s%u -> %u (res[%d] = %f)",
+			   y, z, k, bands, j, stride, z+k*bands+j*stride, py, result[py]);
+
+		    block->pixel [z+k*bands+j*stride] = result[py];
+		}   // TODO :: ASSERT against capacity
+	    }
+
+	    // step the column with wrap around
+	    x++ ; if (x > xmax) x = request->x;
+	    px++;
+	    k++ ; if (k >= request->width) { k = 0; px = xd; }
+	}
+
+	TRACE_HEADER(1); TRACE_ADD ("[y=%u] line = {", y);
+	for (int a = 0; a < request->width; a++) { TRACE_ADD (" %f", block->pixel[a]); }
+	TRACE_ADD(" }", 0); TRACE_CLOSER;
+
+	#undef ITERX
+	#undef ITERY
+	#undef ITERZ
+    }
+}
+
+# # ## ### ##### ######## #############
+## DSL commands -- Core
 
 proc dsl::reader::import? {path} {
     set fullpath [ImportPath $path]
