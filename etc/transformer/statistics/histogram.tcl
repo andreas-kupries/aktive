@@ -201,7 +201,12 @@ operator {dim unchanged} {
 
 # # ## ### ##### ######## ############# #####################
 
-operator op::row::histogram {
+operator oaxis {
+    op::row::histogram    height
+    op::column::histogram width
+} {
+    op -> _ kind _
+
     section transform statistics
 
     int? 256 bins \
@@ -211,40 +216,11 @@ operator op::row::histogram {
 	\
 	The default quantizes the image values to 8-bit.
 
-    note Returns image with input rows transformed into a histogram of `bins` values.
+    note Returns image with input ${kind}s transformed into a histogram of `bins` values.
 
-    note The result is an image of `bins`-sized histogram rows with height and depth of the input.
+    note The result is an image of `bins`-sized histogram ${kind}s with $oaxis and depth of the input.
 
-    cached row histogram AKTIVE_HISTOGRAM_FILL -fields {
-	aktive_histogram h;
-    } -setup {
-	state->h.bins    = param->bins;
-	state->h.maxbin  = param->bins - 1;
-	state->h.count   = NALLOC (double, param->bins);
-
-	TRACE("histogram actual %u bins", param->bins);
-    } -cleanup {
-	ckfree (state->h.count);
-    } -rsize bins -cdata "&state->h"
-}
-
-# # ## ### ##### ######## ############# #####################
-
-operator op::column::histogram {
-    section transform statistics
-
-    int? 256 bins \
-	The number of bins held by a single histogram. The pixel values are quantized \
-	to fit. Only values in the range of \[0..1\] are considered valid. Values \
-	outside of that range are placed into the smallest/largest bin. \
-	\
-	The default quantizes the image values to 8-bit.
-
-    note Returns image with input columns transformed into histograms of `bins` values.
-
-    note The result is an image of `bins`-sized histogram columns with width and depth of the input.
-
-    cached column histogram AKTIVE_HISTOGRAM_FILL -fields {
+    cached $kind histogram AKTIVE_HISTOGRAM_FILL -fields {
 	aktive_histogram h;
     } -setup {
 	state->h.bins    = param->bins;

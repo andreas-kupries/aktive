@@ -12,34 +12,22 @@
 
 # # ## ### ##### ######## ############# #####################
 
-operator op::row::cumulative {
+operator okind {
+    op::row::cumulative    column
+    op::column::cumulative row
+} {
+    op -> _ kind _
+
     section transform statistics
 
-    note Returns image with the input rows transformed into cumulative sums.
+    note Returns image with the input ${kind}s transformed into cumulative sums.
 
-    note This means that each pixel in a row is the sum of the values in the \
-	columns before it, having the same row.
+    note This means that each pixel in a ${kind} is the sum of the values in the \
+	${okind} before it, having the same ${kind}.
 
     note The result has the same geometry as the input. Only the contents change.
 
-    cached row \
-	cumulation AKTIVE_CSUM_FILL
-}
-
-# # ## ### ##### ######## ############# #####################
-
-operator op::column::cumulative {
-    section transform statistics
-
-    note Returns image with the input columns transformed into cumulative sums.
-
-    note This means that each pixel in a column is the sum of the values in the \
-	rows before it, having the same column.
-
-    note The result has the same geometry as the input. Only the contents change.
-
-    cached column \
-	cumulation AKTIVE_CSUM_FILL
+    cached $kind cumulation AKTIVE_CSUM_FILL
 }
 
 # # ## ### ##### ######## ############# #####################
