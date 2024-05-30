@@ -47,7 +47,7 @@ aktive_cumulative_sum (double* dst, aktive_uint n, double* src, aktive_uint stri
  */
 
 extern void
-aktive_csum_fill (aktive_csum_context* context, aktive_uint index, double* dst)
+aktive_csum_fill (aktive_ivcache_context* context, aktive_uint index, double* dst)
 {
     TRACE_FUNC("([%d] %u,%u[%u] (dst) %p [%u])", index, context->request->y,
 	       context->z, context->stride, dst, context->size);

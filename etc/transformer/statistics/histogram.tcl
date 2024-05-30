@@ -211,101 +211,21 @@ operator op::row::histogram {
 	\
 	The default quantizes the image values to 8-bit.
 
-    input
-
     note Returns image with input rows transformed into a histogram of `bins` values.
 
-    note The result is an image of bin-sized histogram rows with height and depth of the input
+    note The result is an image of `bins`-sized histogram rows with height and depth of the input.
 
-    state -fields {
-	aktive_uint      size;      // quick access to the original size of the reduced rows
-	aktive_iveccache histogram; // cache, result histograms
-    } -cleanup {
-	aktive_iveccache_release (state->histogram);
-    } -setup {
-	aktive_geometry_copy (domain, aktive_image_get_geometry (srcs->v[0]));
-	state->size = domain->width;  domain->width  = param->bins;
-	state->histogram = aktive_iveccache_new (domain->height * domain->depth, param->bins);
-	// note: #(row vectors) takes bands into account
-    }
-
-    pixels -state {
+    cached row histogram AKTIVE_HISTOGRAM_FILL -fields {
 	aktive_histogram h;
-	aktive_iveccache histogram; // cache, result histograms, thread-shared
     } -setup {
-	state->histogram = istate->histogram;
 	state->h.bins    = param->bins;
 	state->h.maxbin  = param->bins - 1;
 	state->h.count   = NALLOC (double, param->bins);
-    } -cleanup {
-	ckfree (state->h.count);
-    } {
-	// Scan the rows of the request
-	// - Get the associated histograms from the cache
-	// - If needed, compute the histograms
 
 	TRACE("histogram actual %u bins", param->bins);
-	aktive_rectangle_def_as (subrequest, request);
-	subrequest.width = istate->size; subrequest.x = idomain->x;
-	TRACE_RECTANGLE_M("row hist", &subrequest);
-
-	aktive_uint x, y, z, k, j;
-	aktive_uint stride = block->domain.width * block->domain.depth;
-	aktive_uint bands  = block->domain.depth;
-
-	aktive_histogram_context context = {
-	    // .z is set during the iteration. same for subrequest.y
-	    .size    = subrequest.width,
-	    .stride  = bands,
-	    .request = &subrequest,
-	    .src     = srcs->v[0],
-	    .h       = &state->h
-	};
-
-	#define ITERZ for (z = 0; z < bands; z++)
-	#define ITERX for (x = request->x, k = 0; k < request->width  ; x++, k++)
-	#define ITERY for (y = request->y, j = 0; j < request->height ; y++, j++, py++)
-
-	// 3 kinds of y-coordinates.
-	//
-	// 1. y  - logical coordinate of row
-	// 2. j  - physical coordinate of row in memory block
-	// 3. py - distance to logical y position -> cache index
-
-	aktive_uint py = request->y - idomain->y;
-	ITERY {
-	    ITERZ {
-		TRACE ("VEC INDEX (%u,%u,%u) (%u,%u) %u - vec %u", x,y,z, k,py, bands, py*bands+z);
-
-		context.z = z;
-		/* context->request */ subrequest.y = y;
-		double* hist = aktive_iveccache_get (state->histogram, py*bands+z,
-						     AKTIVE_HISTOGRAM_FILL, &context);
-		// hist is full input width
-
-		TRACE_HEADER(1); TRACE_ADD ("[y,z=%u,%u] row hist = {", y, z);
-		for (int a = 0; a < param->bins; a++) { TRACE_ADD (" %f", hist[a]); }
-		TRACE_ADD(" }", 0); TRACE_CLOSER;
-
-		ITERX {
-		    TRACE ("line [%u], band [%u] place k%u b%u j%u s%u -> %u (hist[%d] = %f)",
-			   y, z, k, bands, j, stride, z+k*bands+j*stride, k, hist[k]);
-		    block->pixel [z+k*bands+j*stride] = hist[k];
-		}    // TODO :: ASSERT against capacity
-	    }
-
-	    TRACE_HEADER(1); TRACE_ADD ("[y=%u] line = {", y);
-	    for (int a = 0; a < request->width; a++) { TRACE_ADD (" %f", block->pixel[a]); }
-	    TRACE_ADD(" }", 0); TRACE_CLOSER;
-	}
-
-
-	#undef ITERX
-	#undef ITERY
-	#undef ITERZ
-
-	TRACE_DO (__aktive_block_dump ("row histogram out", block));
-    }
+    } -cleanup {
+	ckfree (state->h.count);
+    } -rsize bins -cdata "&state->h"
 }
 
 # # ## ### ##### ######## ############# #####################
@@ -320,118 +240,21 @@ operator op::column::histogram {
 	\
 	The default quantizes the image values to 8-bit.
 
-    input
-
     note Returns image with input columns transformed into histograms of `bins` values.
 
-    note The result is an image of bin-sized histogram columns with width and depth of the input
+    note The result is an image of `bins`-sized histogram columns with width and depth of the input.
 
-    state -fields {
-	aktive_uint      size;      // quick access to the original size of the reduced colums
-	aktive_iveccache histogram; // cache, result column histograms
-    } -cleanup {
-	aktive_iveccache_release (state->histogram);
-    } -setup {
-	aktive_geometry_copy (domain, aktive_image_get_geometry (srcs->v[0]));
-	state->size = domain->height; domain->height = param->bins;
-	state->histogram = aktive_iveccache_new (domain->width * domain->depth, param->bins);
-	// note: #(column vectors) takes bands into account
-    }
-
-    pixels -state {
+    cached column histogram AKTIVE_HISTOGRAM_FILL -fields {
 	aktive_histogram h;
-	aktive_iveccache histogram; // cache, result column histograms, thread-shared
     } -setup {
-	state->histogram = istate->histogram;
 	state->h.bins    = param->bins;
 	state->h.maxbin  = param->bins - 1;
 	state->h.count   = NALLOC (double, param->bins);
+
+	TRACE("histogram actual %u bins", param->bins);
     } -cleanup {
 	ckfree (state->h.count);
-    } {
-	TRACE("histogram actual %u bins", param->bins);
-
-	// Scan the columns of the request
-	// - Get the associated histogram from the cache
-	// - If needed, compute the histogram
-
-	aktive_rectangle_def_as (subrequest, request);
-	subrequest.width = 1; subrequest.height = istate->size; subrequest.y = idomain->y;
-	TRACE_RECTANGLE_M("column hist", &subrequest);
-
-	aktive_uint x, y, z, k, q, j;
-	aktive_uint stride = block->domain.width * block->domain.depth;
-	aktive_uint bands  = block->domain.depth;
-
-	// start each line in a different column, spread the threads across the width of the image
-	// reduce chance of lock fighting over the column vectors during the creation phase
-
-	aktive_uint xmin   = request->x;
-	aktive_uint xmax   = request->x + request->width - 1;
-	aktive_uint xoff   = aktive_fnv_step (request->y) % request->width;
-	aktive_uint xstart = xmin + xoff;
-
-	aktive_histogram_context context = {
-	    // .z is set during the iteration. same for subrequest.x
-	    .size    = subrequest.height,
-	    .stride  = bands,
-	    .request = &subrequest,
-	    .src     = srcs->v[0],
-	    .h       = &state->h
-	};
-
-	#define ITERZ for (z = 0; z < bands; z++)
-	#define ITERX for (x = xstart, k = xoff, q = 0; q < request->width ; q++)
-	#define ITERY for (y = request->y, j = 0; j < request->height ; y++, j++, py++)
-
-	// 3 kinds of x-coordinates.
-	//
-	// 1. x,y   - logical  coordinate of column/row
-	// 2. k,j   - physical coordinate of column/row -- memory block
-	// 3. px,py - distance to logical x/y position  -- cache index, hist index
-
-	aktive_uint xd = request->x - idomain->x;
-	aktive_uint yd = request->y - idomain->y;
-	aktive_uint px = xstart - idomain->x;
-	ITERX {
-	    ITERZ {
-		TRACE ("VEC INDEX (%u,%u,%u) (%u,%u) %u - vec %u", x,y,z, px,j, bands, px*bands+z);
-
-		context.z = z;
-		/* context->request */ subrequest.x = x;
-		double* hist = aktive_iveccache_get (state->histogram, px*bands+z,
-						     AKTIVE_HISTOGRAM_FILL, &context);
-		// hist is full input width
-
-		TRACE_HEADER(1); TRACE_ADD ("[x,z=%u,%u] histogram = {", x, z);
-		for (int a = 0; a < param->bins; a++) { TRACE_ADD (" %f", hist[a]); }
-		TRACE_ADD(" }", 0); TRACE_CLOSER;
-
-		aktive_uint py = yd;
-		ITERY {
-		    TRACE ("line [%u], band [%u] place k%u b%u j%u s%u -> %u (hist[%d] = %f)",
-			   y, z, k, bands, j, stride, z+k*bands+j*stride, py, hist[py]);
-
-		    block->pixel [z+k*bands+j*stride] = hist[py];
-		}    // TODO :: ASSERT against capacity
-	    }
-
-	    // step the column with wrap around
-	    x++ ; if (x > xmax) x = request->x;
-	    px++;
-	    k++ ; if (k >= request->width) { k = 0; px = xd; }
-	}
-
-	TRACE_HEADER(1); TRACE_ADD ("[y=%u] line = {", y);
-	for (int a = 0; a < request->width; a++) { TRACE_ADD (" %f", block->pixel[a]); }
-	TRACE_ADD(" }", 0); TRACE_CLOSER;
-
-	#undef ITERX
-	#undef ITERY
-	#undef ITERZ
-
-	TRACE_DO (__aktive_block_dump ("column histogram out", block));
-    }
+    } -rsize bins -cdata "&state->h"
 }
 
 ##

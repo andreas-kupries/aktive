@@ -757,18 +757,18 @@ image_reduce (const char*           name,
  */
 
 extern void
-aktive_histogram_fill (aktive_histogram_context* context, aktive_uint index, double* dst)
+aktive_histogram_fill (aktive_ivcache_context* context, aktive_uint index, double* dst)
 {
     TRACE_FUNC("([%d] %u,%u[%u] (dst) %p [%u])", index, context->request->y,
 	       context->z, context->stride, dst, context->size);
 
-    aktive_block* src = aktive_region_fetch_area (context->src, context->request);
+    aktive_block*     src = aktive_region_fetch_area (context->src, context->request);
+    aktive_histogram* h   = (aktive_histogram*) context->client;
 
     // offset into requested band, stride
-    aktive_reduce_histogram (src->pixel + context->z, context->size,
-			     context->stride, context->h);
+    aktive_reduce_histogram (src->pixel + context->z, context->size, context->stride, h);
 
-    memcpy (dst, context->h->count, context->h->bins*sizeof(double));
+    memcpy (dst, h->count, h->bins*sizeof(double));
 
     TRACE_RETURN_VOID;
 }
