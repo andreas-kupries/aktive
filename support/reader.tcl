@@ -73,87 +73,87 @@ proc dsl::reader::CacheCodeConfig {kind label function config} {
     set oaxs [dict get { row x      column y      } $kind]
     set odim [dict get { row width  column height } $kind]
 
-    lappend map @@@kind@@@     $kind	;# elements, implies axis
-    lappend map @@@label@@@    $label
-    lappend map @@@function@@@ $function
+    lappend map %%%kind%%%     $kind	;# elements, implies axis
+    lappend map %%%label%%%    $label
+    lappend map %%%function%%% $function
     #
-    lappend map @@@axis@@@     $axis	;# axis
-    lappend map @@@adim@@@     $adim	;# axis dimension
-    lappend map @@@oaxis@@@    $oaxs	;# ortho axis
-    lappend map @@@odim@@@     $odim	;# ortho axis dimension
+    lappend map %%%axis%%%     $axis	;# axis
+    lappend map %%%adim%%%     $adim	;# axis dimension
+    lappend map %%%oaxis%%%    $oaxs	;# ortho axis
+    lappend map %%%odim%%%     $odim	;# ortho axis dimension
     #
     lassign $config rsize fields setup cleanup cdata
     #
-    lappend map @@@rfields@@@  $fields
-    lappend map @@@rsetup@@@   $setup
-    lappend map @@@rcleanup@@@ $cleanup
-    lappend map @@@cdata@@@    $cdata
+    lappend map %%%rfields%%%  $fields
+    lappend map %%%rsetup%%%   $setup
+    lappend map %%%rcleanup%%% $cleanup
+    lappend map %%%cdata%%%    $cdata
 
     if {$rsize ne {}} {
-	lappend map @@@sfields@@@ "aktive_uint size; // quick access to original size of the ${kind}s"
-	lappend map @@@ssetup@@@  "state->size = domain->${odim}; domain->${odim} = param->${rsize};"
-	lappend map @@@subsize@@@ "istate->size"
-	lappend map @@@rsize@@@   "param->${rsize}"
+	lappend map %%%sfields%%% "aktive_uint size; // quick access to original size of the ${kind}s"
+	lappend map %%%ssetup%%%  "state->size = domain->${odim}; domain->${odim} = param->${rsize};"
+	lappend map %%%subsize%%% "istate->size"
+	lappend map %%%rsize%%%   "param->${rsize}"
     } else {
-	lappend map @@@sfields@@@ {}
-	lappend map @@@ssetup@@@  {}
-	lappend map @@@subsize@@@ "idomain->${odim}"
-	lappend map @@@rsize@@@   "subrequest.${odim}"
+	lappend map %%%sfields%%% {}
+	lappend map %%%ssetup%%%  {}
+	lappend map %%%subsize%%% "idomain->${odim}"
+	lappend map %%%rsize%%%   "subrequest.${odim}"
     }
     #
     # last, because it needs the preceding map
-    lappend map @@@loops@@@    [CacheLoops/$kind $map]
+    lappend map %%%loops%%%    [CacheLoops/$kind $map]
 }
 
 proc dsl::reader::CacheCode {map} {
     input
 
     state -fields {
-	@@@sfields@@@
-	aktive_iveccache ivcache; // result cache, @@@kind@@@ @@@label@@@
+	%%%sfields%%%
+	aktive_iveccache ivcache; // result cache, %%%kind%%% %%%label%%%
     } -cleanup {
 	aktive_iveccache_release (state->ivcache);
     } -setup {
 	aktive_geometry_copy (domain, aktive_image_get_geometry (srcs->v[0]));
-	@@@ssetup@@@
-	state->ivcache = aktive_iveccache_new (domain->@@@adim@@@ * domain->depth, domain->@@@odim@@@);
-	// note: #(@@@kind@@@ vectors) takes bands into account
+	%%%ssetup%%%
+	state->ivcache = aktive_iveccache_new (domain->%%%adim%%% * domain->depth, domain->%%%odim%%%);
+	// note: #(%%%kind%%% vectors) takes bands into account
     } {*}$map
 
     pixels -state {
-	@@@rfields@@@
-	aktive_iveccache ivcache; // result cache, @@@kind@@@ @@@label@@@, thread-shared
+	%%%rfields%%%
+	aktive_iveccache ivcache; // result cache, %%%kind%%% %%%label%%%, thread-shared
     } -setup {
 	state->ivcache = istate->ivcache;
-	@@@rsetup@@@
+	%%%rsetup%%%
     } -cleanup {
-	@@@rcleanup@@@
+	%%%rcleanup%%%
     } {
-	// Scan the @@@kind@@@s of the request
-	// - Get the associated cached @@@kind@@@ @@@label@@@
+	// Scan the %%%kind%%%s of the request
+	// - Get the associated cached %%%kind%%% %%%label%%%
 	// - Compute and cache any missing results
 
 	aktive_rectangle_def_as (subrequest, request);
-	subrequest.@@@adim@@@  = 1;
-	subrequest.@@@odim@@@  = @@@subsize@@@;
-	subrequest.@@@oaxis@@@ = idomain->@@@oaxis@@@;
-	TRACE_RECTANGLE_M("@@@kind@@@ @@@label@@@", &subrequest);
+	subrequest.%%%adim%%%  = 1;
+	subrequest.%%%odim%%%  = %%%subsize%%%;
+	subrequest.%%%oaxis%%% = idomain->%%%oaxis%%%;
+	TRACE_RECTANGLE_M("%%%kind%%% %%%label%%%", &subrequest);
 
 	aktive_uint stride = block->domain.width * block->domain.depth;
 	aktive_uint bands  = block->domain.depth;
 
 	aktive_ivcache_context context = {
-	    // .z is set during the iteration. same for subrequest.@@@axis@@@
-	    .size    = subrequest.@@@odim@@@,
+	    // .z is set during the iteration. same for subrequest.%%%axis%%%
+	    .size    = subrequest.%%%odim%%%,
 	    .stride  = bands,
 	    .request = &subrequest,
 	    .src     = srcs->v[0],
-	    .client  = @@@cdata@@@,
+	    .client  = %%%cdata%%%,
 	};
 
-	@@@loops@@@
+	%%%loops%%%
 
-	TRACE_DO (__aktive_block_dump ("@@@kind@@@ @@@label@@@ out", block));
+	TRACE_DO (__aktive_block_dump ("%%%kind%%% %%%label%%% out", block));
     } {*}$map
 }
 
@@ -167,8 +167,8 @@ proc dsl::reader::CacheLoops/row {map} {
 
 	// 3 kinds of y-coordinates.
 	//
-	// 1. y  - logical coordinate of @@@kind@@@
-	// 2. j  - physical coordinate of @@@kind@@@ in memory block
+	// 1. y  - logical coordinate of %%%kind%%%
+	// 2. j  - physical coordinate of %%%kind%%% in memory block
 	// 3. py - distance to logical y position -> cache index
 
 	aktive_uint py = request->y - idomain->y;
@@ -178,13 +178,13 @@ proc dsl::reader::CacheLoops/row {map} {
 		/* context->request */ subrequest.y = y;
 		double* result = aktive_iveccache_get (state->ivcache,
 						       py*bands+z,
-						       @@@function@@@,
+						       %%%function%%%,
 						       &context);
-		// result is full @@@odim@@@ of function result.
+		// result is full %%%odim%%% of function result.
 		// now extract the requested sub section.
 
-		TRACE_HEADER(1); TRACE_ADD ("[y,z=%u,%u] @@@kind@@@ @@@label@@@ = {", y, z);
-		for (int a = 0; a < @@@rsize@@@; a++) { TRACE_ADD (" %f", result[a]); }
+		TRACE_HEADER(1); TRACE_ADD ("[y,z=%u,%u] %%%kind%%% %%%label%%% = {", y, z);
+		for (int a = 0; a < %%%rsize%%%; a++) { TRACE_ADD (" %f", result[a]); }
 		TRACE_ADD(" }", 0); TRACE_CLOSER;
 
 		ITERX {
@@ -227,7 +227,7 @@ proc dsl::reader::CacheLoops/column {map} {
 	//
 	// 1. x,y   - logical  coordinate of column/row
 	// 2. k,j   - physical coordinate of column/row in memory block
-	// 3. px,py - distance to logical x/y position  -> cache index @@@label@@@
+	// 3. px,py - distance to logical x/y position  -> cache index %%%label%%%
 
 	aktive_uint xd = request->x - idomain->x;
 	aktive_uint yd = request->y - idomain->y;
@@ -240,11 +240,11 @@ proc dsl::reader::CacheLoops/column {map} {
 		/* context->request */ subrequest.x = x;
 		double* result = aktive_iveccache_get (state->ivcache,
 						       px*bands+z,
-						       @@@function@@@,
+						       %%%function%%%,
 						       &context);
 
-		TRACE_HEADER(1); TRACE_ADD ("[x,z=%u,%u] @@@kind@@@ @@@label@@@ = {", x, z);
-		for (int a = 0; a < @@@rsize@@@; a++) { TRACE_ADD (" %f", result[a]); }
+		TRACE_HEADER(1); TRACE_ADD ("[x,z=%u,%u] %%%kind%%% %%%label%%% = {", x, z);
+		for (int a = 0; a < %%%rsize%%%; a++) { TRACE_ADD (" %f", result[a]); }
 		TRACE_ADD(" }", 0); TRACE_CLOSER;
 
 		aktive_uint py = yd;
