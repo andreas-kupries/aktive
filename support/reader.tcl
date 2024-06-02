@@ -91,9 +91,9 @@ proc dsl::reader::CacheCodeConfig {kind label function config} {
 
     if {$rsize ne {}} {
 	lappend map %%%sfields%%% "aktive_uint size; // quick access to original size of the ${kind}s"
-	lappend map %%%ssetup%%%  "state->size = domain->${odim}; domain->${odim} = param->${rsize};"
+	lappend map %%%ssetup%%%  "state->size = domain->${odim}; domain->${odim} = ${rsize};"
 	lappend map %%%subsize%%% "istate->size"
-	lappend map %%%rsize%%%   "param->${rsize}"
+	lappend map %%%rsize%%%   "$rsize"
     } else {
 	lappend map %%%sfields%%% {}
 	lappend map %%%ssetup%%%  {}

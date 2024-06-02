@@ -230,7 +230,7 @@ operator oaxis {
 	TRACE("histogram actual %u bins", param->bins);
     } -cleanup {
 	ckfree (state->h.count);
-    } -rsize bins -cdata "&state->h"
+    } -rsize "param->bins" -cdata "&state->h"
 }
 
 ##

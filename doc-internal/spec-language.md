@@ -146,7 +146,7 @@ Defaults:
 |`state ?-fields FIELDS? ?-setup SETUP? ?-cleanup CLEANUP? ...`|C code fragments to manage custom operator state|
 |`support CCODE ...`		|Provide C code fragments containing supporting definitions|
 |||
-|`cached CKIND CLABEL CFILL_FUNCTION  ?-fields RFIELDS? ?-setup RSETUP? ?-cleanup RCLEANUP? ?-rsize CPARAM? ?-cdata CDATA?`|Emit `state` and `pixel` for a row/column-caching operator|
+|`cached CKIND CLABEL CFILL_FUNCTION  ?-fields RFIELDS? ?-setup RSETUP? ?-cleanup RCLEANUP? ?-rsize CSIZE? ?-cdata CDATA?`|Emit `state` and `pixel` for a row/column-caching operator|
 
 ##### Variadics
 
@@ -354,12 +354,11 @@ This is different from the function type, which expects a generic `void*`.
 The type of the function argument may change to `aktive_iveccache_fill*`
 if no operators appear which do not fit into the framework/code emitted by `cached`.
 
-###### `CPARAM`
+###### `CSIZE`
 
-For cached operators the name of the operator parameter specifying the size of
-the result along the uncached axis.
+For cached operators a C RHS expression defining the size of the result along the uncached axis.
 
-For example, for row histograms it is the `bins`, which becomes the width of the result.
+For example, for row histograms it is `param->bins` which becomes the width of the result.
 
 ###### `CDATA`
 
