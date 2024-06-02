@@ -25,6 +25,136 @@ source [file join $tests support paths.tcl]
 
 # ------------------------------------------------------------------------------
 
+proc at  {x y i} { aktive op select x [aktive op select y $i from $y to $y] from $x to $x }
+proc atv {x y i} { aktive op swap xz  [at $x $y $i] }
+
+proc gauss {} { aktive image kernel gauss discrete sigma 13.3] }
+
+proc smooth {i} {
+    set g [gauss]
+    set t [aktive op transpose $g]
+    set r [expr {([aktive query width $g]-1)/2}]
+    set e [aktive op embed mirror $i left $r right $r top $r bottom $r]
+    set e [aktive op convolve xy $g $e]
+    set e [aktive op convolve xy $t $e]
+    return $e
+}
+
+proc threshold {i {r 7}} {
+    set i [aktive op embed mirror           $i left $r right $r top $r bottom $r]
+    set i [aktive image mask per phansalkar $i radius $r]
+    set i [aktive op math1 invert $i]
+}
+
+proc stretch {i} { aktive op math1 fit min-max $i }
+proc rmse  {a b} { aktive op compare rmse $a $b }
+
+# ------------------------------------------------------------------------------
+## process exit intercept
+
+proc on-exit {args} { lappend ::exitcmds $args ; return }
+
+rename exit __exit
+proc   exit {args} {
+    foreach cmd $::exitcmds {
+	#puts ($cmd)
+	{*}$cmd
+    }
+    __exit {*}$args
+}
+
+# ------------------------------------------------------------------------------
+## file mgmt
+
+proc wr {path text} {
+    puts "writing $path"
+    set c [open $path w]
+    puts -nonewline $c $text
+    close $c
+    return $text
+}
+
+proc ! {label args} {
+    upvar 1 $label i ; set i [uplevel 1 $args]
+}
+
+proc !g {label args} {
+    append label .pgm
+    to $label [uplevel 1 $args] aktive format as pgm byte
+}
+
+proc !c {label args} {
+    append label .ppm
+    to $label [uplevel 1 $args] aktive format as ppm byte
+}
+
+proc !a {label args} {
+    append label .aktive
+    to $label [uplevel 1 $args] aktive format as aktive
+}
+
+proc !file {label srcpath} {
+    append label .ppm
+    puts "$srcpath --> $label"
+    exec convert $srcpath $label
+    def $label
+}
+
+proc !jg {dstpath label} {
+    append label .pgm
+    puts "$label --> $dstpath"
+    exec convert $label $dstpath
+}
+
+proc !jc {dstpath label} {
+    append label .ppm
+    puts "$label --> $dstpath"
+    exec convert $label $dstpath
+}
+
+proc to {path src args} {
+    def $path
+    puts "[desc $src] --> $path"
+    set dst [open $path w]
+    lappend args 2chan $src into $dst
+    uplevel 1 $args
+    close $dst
+}
+
+proc g {label} {
+    append label .pgm
+    puts "<-- $label"
+    aktive read from netpbm path $label
+}
+
+proc c {label} {
+    append label .ppm
+    puts "<-- $label"
+    aktive read from netpbm path $label
+}
+
+proc a {label} {
+    append label .aktive
+    puts "<-- $label"
+    aktive read from aktive path $label
+}
+
+# ------------------------------------------------------------------------------
+
+set tmps {}
+proc def {label} { global tmps ; lappend tmps $label }
+proc keep {} { set ::tmps {} }
+
+on-exit apply {{} {
+    global tmps
+    foreach tmp [lsort -dict [lsort -unique $tmps]] { file delete $tmp }
+}}
+
+proc desc {i} { return "[aktive query type $i] ([aktive query params $i])" }
+
+# ------------------------------------------------------------------------------
+## image display and plot window support
+
 proc pvs {is args} {
     set itail [lassign $is   ifirst]
     set ntail [lassign $args nfirst]
@@ -47,6 +177,8 @@ proc view-core {w i title} {
     global photo
     set photo [aktive tk photo $i]
     set n [nxt]
+
+    ### TODO ### canvas based, auto-scrolling ### proper package
     frame $w.f$n
     label $w.f$n.t -text  $title ; pack $w.f$n.t -fill both -side top
     label $w.f$n.p -image $photo ; pack $w.f$n.p -fill both -side top -expand 1
@@ -108,14 +240,11 @@ proc window-close {w} {
     return
 }
 
-proc wait-on-windows {} {
+on-exit apply {{} {
     global windows
     while {$windows} { puts windows=$windows ; vwait ::windows }
     return
-}
-
-rename exit __exit
-proc   exit {args} { wait-on-windows ; __exit {*}$args }
+}}
 
 # ------------------------------------------------------------------------------
 
@@ -131,14 +260,6 @@ proc perf {label sz args} {
 
     puts "perf: $label ($sz values) :: $delta millis :: $vms v/ms :: $msv ms/v"
     return $r
-}
-
-proc to {path g args} {
-    puts "writing to $path"
-    set dst [open $path w]
-    lappend args 2chan $g into $dst
-    uplevel 1 $args
-    close $dst
 }
 
 proc null       {src} { aktive format as null   2string $src }
@@ -172,7 +293,7 @@ proc dots {i} {
 }
 
 proc showbasic {label i} {
-    puts "$label = [aktive query type $i] \{"
+    puts "$label = [aktive query id $i] [aktive query type $i] \{"
     puts "  pa ([aktive query params $i])"
     puts "  x,y [aktive query x $i]..[aktive query xmax $i],[aktive query y $i]..[aktive query ymax $i]"
     puts "  whd [set w [aktive query width $i]] x [set h [aktive query height $i]] x [set d [aktive query depth  $i]]"
@@ -264,22 +385,6 @@ proc show {i {scale {}}} {
 }
 
 # ------------------------------------------------------------------------------
-
-proc a {args} {
-    global stack
-    lappend stack [aktive {*}$args]
-    return [lindex $stack end]
-}
-
-proc top {} { global stack ; lindex $stack end }
-proc pop {} {
-    global stack
-    set top [lindex $stack end]
-    set stack [lreplace $stack end end]
-    return $top
-}
-
-proc / {label} {}
 
 # ------------------------------------------------------------------------------
 ## validate memory, if supported by the interpreter
