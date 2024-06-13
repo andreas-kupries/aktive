@@ -38,6 +38,11 @@ syntax {
     ymax     src
 } {aktive query}
 
+syntax {
+    at     {src args}
+    around {src args}
+} {aktive query value}
+
 # # ## ### ##### ######## ############# #####################
 ##
 
@@ -70,6 +75,24 @@ foreach {op value} {
 test aktive-query-id-2.0 "aktive query id, bignum" -body {
     string is entier [check aktive query id [grad]]
 } -result 1
+
+test aktive-query-value-at-2.0 "aktive query value at" -body {
+    check aktive query value at [grad] x 2 y 3
+} -result {12.0 12.5}
+
+test aktive-query-value-around-2.0 "aktive query value around, bad region" -body {
+    check aktive query value around [grad] x 2 y 3
+} -returnCodes error -result {Unable to query locations outside of the image domain}
+
+test aktive-query-value-around-2.1 "aktive query value around" -body {
+    check aktive query value around \
+	[aktive op embed mirror [grad] right 2 bottom 2] \
+	x 2 y 3
+} -result [list {*}{
+     8.0  8.5  9.0  9.5  9.0  9.5
+    11.0 11.5 12.0 12.5 12.0 12.5
+    11.0 11.5 12.0 12.5 12.0 12.5
+}]
 
 # # ## ### ##### ######## ############# #####################
 cleanupTests

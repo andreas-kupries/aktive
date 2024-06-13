@@ -170,9 +170,9 @@ operator query::meta {
 }
 
 operator query::values {
-    section accessor
+    section accessor values
 
-    note Returns list of image pixel values. \
+    note Returns a list of image pixel values. \
 	The values are provided in row-major order.
 
     input
@@ -182,6 +182,63 @@ operator query::values {
 	if (r) { return r; }
 	if (aktive_error_raised()) { return 0; }
 	return Tcl_NewListObj (0, 0);
+    }
+}
+
+operator query::value::at {
+    section accessor values
+
+    note Returns the pixel value at the given 2d point. \
+	The result is a list for multi-band inputs. \
+	The result is __not__ an image.
+
+    note Beware that the coordinate domain is 0..width|height, \
+	regardless of image location.
+
+    input
+    int   x	x-coordinate of the pixel to query
+    int   y	y-coordinate of the pixel to query
+
+    body {
+	set src [aktive op select y $src from $y to $y]
+	set src [aktive op select x $src from $x to $x]
+	aktive query values $src
+    }
+}
+
+operator query::value::around {
+    section accessor values
+
+    note Returns the pixels values for the region around \
+	the specified 2d point, within the manhattan radius. \
+	The result is __not__ an image.
+
+    note Beware that the coordinate domain is 0..width|height, \
+	regardless of image location.
+
+    input
+    int     x		x-coordinate of the pixel to query
+    int     y		y-coordinate of the pixel to query
+    uint? 1 radius	Region radius, defaults to 1, i.e. a 3x3 region.
+
+    body {
+	lassign [aktive query domain $src] _ _ w h
+
+	if {(($x - $radius) <   0) ||
+	    (($x + $radius) >= $w) ||
+	    (($y - $radius) <   0) ||
+	    (($y + $radius) >= $h) } {
+	    aktive error "Unable to query locations outside of the image domain" }
+
+	set x0 [expr {$x - $radius}]
+	set x1 [expr {$x + $radius}]
+	set y0 [expr {$y - $radius}]
+	set y1 [expr {$y + $radius}]
+
+	set src [aktive op select y $src from $y0 to $y1]
+	set src [aktive op select x $src from $x0 to $x1]
+
+	aktive query values $src
     }
 }
 
