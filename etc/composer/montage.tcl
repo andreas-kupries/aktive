@@ -44,17 +44,9 @@ operator {coordinate layout} {
     input...
 
     body {
-	# Tree reduction of the image list until a single image is left.
-	while {[llength $args] >= 2} {
-	    set odd [expr {[llength $args] % 2 == 1}]
-	    if {$odd} {
-		set pass [lindex $args end]
-		set args [lrange $args 0 end-1]
-	    }
-	    set args [lmap {a b} $args { @@coordinate@@-core $a $b }]
-	    if {$odd} { lappend args $pass }
-	}
-	return [lindex $args 0]
+	return [aktive::aggregate {
+	    aktive op montage @@coordinate@@-core
+	} $args]
     }
 }
 

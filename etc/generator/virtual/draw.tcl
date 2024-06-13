@@ -38,24 +38,14 @@ operator image::draw::circles {
 
     body {
 	# This is implemented as a set of circle images aggregated through `max`.
-	set parts [lmap c $center {
+	aktive::aggregate {
+	    aktive op math max
+	} [lmap c $center {
 	    aktive image draw circle \
 		x $x y $y width $width height $height \
 		radius $radius cwidth $cwidth center $c \
 		filled $filled alias $alias
 	}]
-	# combine the masks via `max`, binary tree reduction
-	while {[llength $parts] >= 2} {
-	    set odd [expr {[llength $parts] % 2 == 1}]
-	    if {$odd} {
-		set pass  [lindex $parts end]
-		set parts [lrange $parts 0 end-1]
-	    }
-	    set parts [lmap {a b} $parts { aktive op math max $a $b }]
-	    if {$odd} { lappend parts $pass }
-	}
-	# done
-	return [lindex $parts 0]
     }
 }
 
