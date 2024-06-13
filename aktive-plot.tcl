@@ -17,6 +17,11 @@
 # Meta require     Plotchart
 # @@ Meta End
 
+# Zoom: 1.Press   - start
+#       1.Motion  - track
+#       1.Release - end - configure to show spanned box
+#       3         - unzoom a level
+
 # # ## ### ##### ######## ############# #####################
 ## Requisites
 
@@ -24,6 +29,7 @@ package require Tcl 8.6
 package require Tk
 package require snit      ; #         Tcllib
 package require Plotchart ; # 1.9 ; # Tklib
+package require xyplot    ; #       # Tklib - Interactive resizing
 
 package provide aktive::plot 0.0
 
@@ -33,112 +39,109 @@ package provide aktive::plot 0.0
 snit::widget aktive::plot {
     # # ## ### ##### ######## ############# #####################
 
-    constructor {args} {
-	canvas $win.c -bg white
-	pack   $win.c -side top -expand 1 -fill both
-        $self configurelist $args
+    #typevariable ouroptions {-color -title -xscale -yscale}
+    typevariable ouroptions {-color -title}
+
+    variable mycolors {red green blue orange}
+    variable mycindex 2 ;# start with blue
+
+    method NextColor {} {
+	set next [lindex $mycolors $mycindex]
+	incr mycindex
+	if {$mycindex >= [llength $mycolors]} { set mycindex 0 }
+	return $next
+    }
+
+    proc Scale {series} {
+	::Plotchart::determineScaleFromList $series
+    }
+
+    proc Default {o args} {
+	upvar 1 options options
+	if {[dict exists $options $o]} return
+	dict set options $o [uplevel 1 $args]
+	return
+    }
+
+    method Options {words} {
+	upvar 1 options options
+
+	# apply options
+	set options $words
+
+	# ensure that only legal options are used
+	foreach o [dict keys $options] {
+	    if {$o ni $ouroptions} {
+		return -code error "illegal option $o, expected one of $ouroptions"
+	    }
+	}
+
+	# Apply defaults to all missing parts
+	Default -color  $self NextColor
+	#Default -yscale Scale $series
+	#Default -xscale Scale [list 0 [llength $series]]
+	Default -title  string cat ""
 	return
     }
 
     # # ## ### ##### ######## ############# #####################
-    ## Style options - plot color and title
+    ## Add plots to the canvas
 
-    option  -color -default blue -configuremethod C-color
-    method C-color {o value} {
-	set options($o) $value
-	catch {
-	    $myplot dataconfig series -color $value
-	}
+    method vertical {x lowy highy args} {
+	$self Options $args
+	# make options are available as scalar variables
+	dict with options {}
+
+	$self Setup ${-title}
+
+	set points [list $x $lowy $x $highy]
+	incr myseries
+	$myplot add_data series$myseries $points -color ${-color}
 	return
     }
 
-    option  -title -default {} -configuremethod C-title
-    method C-title {o value} {
-	set options($o) $value
-	catch {
-	    $myplot title $value
-	}
+    method horizontal {y lowx highx args} {
+	$self Options $args
+	# make options are available as scalar variables
+	dict with options {}
+
+	$self Setup ${-title}
+
+	set points [list $lowx $y $highx $y]
+	incr myseries
+	$myplot add_data series$myseries $points -color ${-color}
 	return
     }
 
-    # # ## ### ##### ######## ############# #####################
-    ## Fixed versus auto-scaled axes
+    method add {series args} {
+	$self Options $args
+	# make options are available as scalar variables
+	dict with options {}
 
-    option -ylocked -default 1 -configuremethod C-locked
-    option -xlocked -default 1 -configuremethod C-locked
+	$self Setup ${-title}
 
-    method C-locked {o value} {
-	set options($o) $value
-	$self Refresh
-	return
-    }
+	# convert to coordinates taken by xyplot
+	lassign {0 {}} x points ; foreach y $series { lappend points $x $y ; incr x }
 
-    # # ## ### ##### ######## ############# #####################
-    ## Variable holding series to show.
-
-    option  -variable -configuremethod C-variable
-
-    method C-variable {o value} {
-	if {$options($o) ne {}} {
-	    trace remove variable $options($o) write [mymethod UpdateData]
-	}
-	set options($o) $value
-	if {$options($o) ne {}} {
-	    trace add variable $options($o) write [mymethod Refresh]
-
-	    # Force update now, to handle pre-existing data in the
-	    # variable, if any, as such does not invoke the trace.
-	    $self Refresh
-	}
+	incr myseries
+	$myplot add_data series$myseries $points -color ${-color}
 	return
     }
 
     # # ## ### ##### ######## ############# #####################
     ## Internal helpers - Track changes to the series and refresh the plot.
 
-    method Refresh {args} {
-	catch { after cancel $myupdate }
-	set myupdate [after idle [mymethod UpdateData]]
-	return
-    }
-
-    method UpdateData {} {
-	upvar #0 $options(-variable) series
-	if {![info exists series]} return
-
-	if {!$options(-ylocked)} {
-	    set  yscale [::Plotchart::determineScaleFromList $series]
-	    lset yscale 0 0
-	} else {
-	    set yscale {0 255 64}
-	}
-
-	if {!$options(-xlocked)} {
-	    set  xscale [::Plotchart::determineScaleFromList [list 0 [llength $series]]]
-	    lset xscale 0 0
-	} else {
-	    set xscale {0 255 64}
-	}
-
-	$win.c delete all
-
-	set myplot [Plotchart::createXYPlot $win.c $xscale $yscale]
-	$myplot title $options(-title)
-	$myplot dataconfig series -color $options(-color)
-	$myplot xconfig -format %d
-
-	set x 0
-	foreach y $series {
-	    $myplot plot series $x $y
-	    incr x
-	}
-	return
+    method Setup {title} {
+	if {$myplot ne {}} return
+	set myplot [xyplot $win.xyp -xinteger 1 -xformat %d -title $title]
+	pack $myplot -in $win -expand 1 -fill both
+return
     }
 
     # # ## ### ##### ######## ############# #####################
 
-    variable myplot   {} ; # plotchar xyplot for the series
-    variable myupdate {} ; # idle token for defered update
+    variable myplot   {}	;# xy plot to hold the series to come
+    variable myseries 0		;# counter to generate ids for the series to come
 
     # # ## ### ##### ######## ############# #####################
 }
