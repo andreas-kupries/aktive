@@ -1,0 +1,52 @@
+# -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
+## (c) 2024 Andreas Kupries
+# # ## ### ##### ######## ############# #####################
+## AKTIVE. Row statistics (profile)
+
+kt check Tcl     8.6 9
+kt check tcltest 2
+
+# # ## ### ##### ######## ############# #####################
+
+kt local testing aktive
+
+kt source support/util.tcl
+
+# # ## ### ##### ######## ############# #####################
+## Syntax
+
+syntax {
+    profile src
+} {aktive op row}
+
+syntax {
+    profile src
+} {aktive op column}
+
+# # ## ### ##### ######## ############# #####################
+
+set src [aktive image from matrix width 8 height 8 values \
+	     0 0 0 0 0 0 0 0 \
+	     0 0 0 0 0 0 0 0 \
+	     0 1 1 0 0 0 0 0 \
+	     0 0 0 0 0 0 1 0 \
+	     0 0 0 1 0 0 0 0 \
+	     0 0 0 0 0 1 0 0 \
+	     0 0 0 0 1 0 0 0 \
+	     0 0 0 0 0 0 0 0 ]
+
+# # ## ### ##### ######## ############# #####################
+
+foreach {op expected} {
+    row    {8.0 8.0 1.0 6.0 3.0 5.0 4.0 8.0}
+    column {8.0 2.0 2.0 4.0 6.0 5.0 3.0 8.0}
+} {
+    test aktive-op-${op}-profile-2.0 "aktive op $op profile" -body {
+	pixels aktive op $op profile $src
+    } -result $expected
+}
+
+# # ## ### ##### ######## ############# #####################
+unset op expected src
+cleanupTests
+return

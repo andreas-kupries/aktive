@@ -121,6 +121,7 @@ import transformer/statistics/by-tiles.tcl
 import transformer/statistics/cumulation.tcl
 import transformer/statistics/histogram.tcl
 import transformer/statistics/otsu.tcl
+import transformer/statistics/profile.tcl
 import transformer/statistics/rank-order.tcl
 
 import transformer/structure/align.tcl

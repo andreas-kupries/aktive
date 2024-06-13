@@ -25,6 +25,7 @@ We have
 |sum		|The sum of all values	     	 		|
 |sumsquared	|The sum of all squared values 	 		|
 |variance	|The variance of the values			|
+|profile	|Top/Left profile of the unit			|
 
 Note that not all operations are sensible for all units.
 
