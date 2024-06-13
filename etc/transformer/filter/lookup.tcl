@@ -57,7 +57,7 @@ operator {
     double... values LUT values
 
     body {
-	aktive image from rows height 1 values {*}$values
+	aktive image from row height 1 values {*}$values
     }
 }
 

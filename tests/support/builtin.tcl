@@ -24,7 +24,7 @@ proc mdbase {} {
 
 proc grad   {}  { aktive image gradient    width 3 height 4 depth 2 first 1 last 12.5 }
 proc flat   {x} { aktive image from value  width 3 height 4 depth 2 value $x }
-proc bands  {}  { aktive image from bands  width 4 height 2 value 1 2 3 }
+proc bands  {}  { aktive image from band   width 4 height 2 value 1 2 3 }
 proc matrix {}  { aktive image from matrix width 4 height 2 value 1 2 3 4  5 6 7 8 }
 
 proc gradx {} { aktive image gradient width 20 height  1 depth  1  first 0 last 19 }
@@ -42,9 +42,9 @@ proc colorbox {} {
     aktive op montage z $r $g $b
 }
 
-proc 1pixel {bands} { aktive image from bands width 1 height 1 values {*}$bands }
+proc 1pixel {bandvalues} { aktive image from band width 1 height 1 values {*}$bandvalues }
 proc cci {to _ from src}   { check aktive op color $from to $to $src }
-proc cc  {to _ from bands} { pixels/ [cci $to <- $from [1pixel $bands]] }
+proc cc  {to _ from bandvalues} { pixels/ [cci $to <- $from [1pixel $bandvalues]] }
 
 foreach dst {
     sRGB scRGB HSV HSL XYZ Yxy Lab LCh
@@ -54,12 +54,12 @@ foreach dst {
 }
 
 proc foreach-color {n colors iv bv script} {
-    upvar 1 $iv image $bv bands
+    upvar 1 $iv image $bv bandvalues
 
     while {[llength $colors]} {
-	set bands  [lrange $colors 0  ${n}-1]
+	set bandvalues  [lrange $colors 0  ${n}-1]
 	set colors [lrange $colors $n end   ]
-	set image  [1pixel $bands]
+	set image  [1pixel $bandvalues]
 	uplevel 1 $script
     }
 }

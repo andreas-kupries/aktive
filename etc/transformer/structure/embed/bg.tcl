@@ -16,7 +16,7 @@ operator op::embed::bg {
     uint?    0 right	Number of columns to extend the right input border by
     uint?    0 top	Number of rows to extend the top input border by
     uint?    0 bottom	Number of rows to extend the bottom input border by
-    double()   bands	Band values
+    double()   values	Band values
 
     input
 
@@ -24,7 +24,7 @@ operator op::embed::bg {
 	Check
 
 	lassign [aktive query geometry $src] x y w h d
-	while {[llength $bands] < $d} { lappend bands 0 }
+	while {[llength $values] < $d} { lappend values 0 }
 
 	incr x -$left
 	incr y -$top
@@ -32,14 +32,14 @@ operator op::embed::bg {
 	# This here cannot be done by means of op::view. We have to place proper constant
 	# areas around the source to get the desired effect
 
-	if {$left}  { set src [aktive op montage x [aktive image from bands width $left height $h values {*}$bands] $src] }
-	if {$right} { set src [aktive op montage x $src [aktive image from bands width $right height $h values {*}$bands]] }
+	if {$left}  { set src [aktive op montage x [aktive image from band width $left height $h values {*}$values] $src] }
+	if {$right} { set src [aktive op montage x $src [aktive image from band width $right height $h values {*}$values]] }
 
 	# Get the horizontally expanded geometry, i.e. proper extended width
 	lassign [aktive query geometry $src] _ _ w _ _
 
-	if {$top}    { set src [aktive op montage y [aktive image from bands width $w height $top values {*}$bands] $src] }
-	if {$bottom} { set src [aktive op montage y $src [aktive image from bands width $w height $bottom values {*}$bands]] }
+	if {$top}    { set src [aktive op montage y [aktive image from band width $w height $top values {*}$values] $src] }
+	if {$bottom} { set src [aktive op montage y $src [aktive image from band width $w height $bottom values {*}$values]] }
 
 	# And at last shift the result to the proper location. This may be a nop.
 	return [aktive op location move to $src x $x y $y]

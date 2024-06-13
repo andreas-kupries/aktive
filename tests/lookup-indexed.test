@@ -30,7 +30,7 @@ syntax {
 
 test aktive-op-lut-from-2.0 "aktive op lut from" -body {
     astcl aktive op lut from values 1 2 3 4 5 6 7 8 9 10
-} -match image -result [makei image::from::rows 0 0 10 1 1 {height 1 values {1.0 2.0 3.0 4.0 5.0 6.0 7.0 8.0 9.0 10.0}} {
+} -match image -result [makei image::from::row 0 0 10 1 1 {height 1 values {1.0 2.0 3.0 4.0 5.0 6.0 7.0 8.0 9.0 10.0}} {
     1 2 3 4 5 6 7 8 9 10
 }]
 

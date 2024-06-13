@@ -20,10 +20,10 @@ operator image::from::value {
     }
 }
 
-operator image::from::bands {
+operator image::from::band {
     section generator virtual
 
-    note Returns image having the same band values at all pixels.
+    note Returns image where all pixels have the same band values.
 
     note Depth is len(value)
 
@@ -42,12 +42,11 @@ operator image::from::bands {
     }
 }
 
-operator image::from::rows {
+operator image::from::row {
     section generator virtual
 
-    note Returns image having the same row values at all columns.
-
-    note Width is len(values)
+    note Returns image of the specified height where all rows have the same set of values.
+    note The image's width is the number of values.
 
     uint      height  Height of the returned image
     double... values  Pixel row values
@@ -63,12 +62,11 @@ operator image::from::rows {
     }
 }
 
-operator image::from::columns {
+operator image::from::column {
     section generator virtual
 
-    note Returns image having the same column values at all rows.
-
-    note Height is len(values)
+    note Returns image of the specified with where all columns have the same set of values.
+    note The image's height is the number of values.
 
     uint      width   Width of the returned image
     double... values  Pixel column values

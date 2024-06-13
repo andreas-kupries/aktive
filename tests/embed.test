@@ -38,7 +38,7 @@ foreach {k border results} {
 	mirror  {op::select::x 0 0 5 1 1 {from 0 to 4}} {= 0 1 2 3 4 =}
 	tile    {op::select::x 0 0 5 1 1 {from 0 to 4}} {= 0 1 2 3 4 =}
 	white   {op::select::x 0 0 5 1 1 {from 0 to 4}} {= 0 1 2 3 4 =}
-	{bg bands 22} {op::select::x 0 0 5 1 1 {from 0 to 4}} {= 0 1 2 3 4 =}
+	{bg values 22} {op::select::x 0 0 5 1 1 {from 0 to 4}} {= 0 1 2 3 4 =}
     }
     1 {left 2 right 2 top 2 bottom 2} {
 	black  {op::view -2 -2 9 5 1 {port {-2 -2 9 5}}} {
@@ -76,7 +76,7 @@ foreach {k border results} {
 	    = 1 1 = 1 1 1 1 1 = 1 1 =
 	    = 1 1 = 1 1 1 1 1 = 1 1 =
 	}
-	{bg bands 22} {op::location::move::to -2 -2 9 5 1 {x -2 y -2}} {
+	{bg values 22} {op::location::move::to -2 -2 9 5 1 {x -2 y -2}} {
 	    = 22 22 = 22 22 22 22 22 = 22 22 =
 	    = 22 22 = 22 22 22 22 22 = 22 22 =
 	    = 22 22 =  0  1  2  3  4 = 22 22 =
@@ -100,7 +100,7 @@ foreach {k border results} {
 	white  {op::location::move::to -2 0 7 1 1 {x -2 y 0}} {
 	    = 1 1 = 0 1 2 3 4 =
 	}
-	{bg bands 22} {op::location::move::to -2 0 7 1 1 {x -2 y 0}} {
+	{bg values 22} {op::location::move::to -2 0 7 1 1 {x -2 y 0}} {
 	    = 22 22 = 0 1 2 3 4 =
 	}
     }
@@ -120,7 +120,7 @@ foreach {k border results} {
 	white  {op::montage::x-core 0 0 7 1 1 {}} {
 	    = 0 1 2 3 4 = 1 1 =
 	}
-	{bg bands 22} {op::montage::x-core 0 0 7 1 1 {}} {
+	{bg values 22} {op::montage::x-core 0 0 7 1 1 {}} {
 	    = 0 1 2 3 4 = 22 22 =
 	}
     }
@@ -150,7 +150,7 @@ foreach {k border results} {
 	    = 1 1 1 1 1 =
 	    = 0 1 2 3 4 =
 	}
-	{bg bands 22} {op::location::move::to 0 -2 5 3 1 {x 0 y -2}} {
+	{bg values 22} {op::location::move::to 0 -2 5 3 1 {x 0 y -2}} {
 	    = 22 22 22 22 22 =
 	    = 22 22 22 22 22 =
 	    =  0  1  2  3  4 =
@@ -182,7 +182,7 @@ foreach {k border results} {
 	    = 1 1 1 1 1 =
 	    = 1 1 1 1 1 =
 	}
-	{bg bands 22} {op::montage::y-core 0 0 5 3 1 {}} {
+	{bg values 22} {op::montage::y-core 0 0 5 3 1 {}} {
 	    =  0  1  2  3  4 =
 	    = 22 22 22 22 22 =
 	    = 22 22 22 22 22 =
