@@ -1,28 +1,40 @@
 # Useful patterns
 
- - Eye test pattern (left to right increasing spatial frequency, top to bottom black to white)
+  - Eye test pattern (left to right increasing spatial frequency, top to bottom black to white)
 
- - Small common convolution kernels
+  - Small common convolution kernels
 
-   - [Edge Detection Notes](http://www.holoborodko.com/pavel/image-processing/edge-detection)
-   - [Tcler's Wiki TkPhotoLab](https://wiki.tcl-lang.org/page/TkPhotoLab)
-   - [Wikipedia Prewitt](https://en.wikipedia.org/wiki/Prewitt_operator)
-   - [Wikipedia Robert's Cross](https://en.wikipedia.org/wiki/Roberts_cross)
-   - [Wikipedia Sobel](https://en.wikipedia.org/wiki/Sobel_operator)
-   - [Wikipedia Scharr](https://en.wikipedia.org/wiki/Scharr_operator)
+      - [Edge Detection Notes](http://www.holoborodko.com/pavel/image-processing/edge-detection)
+      - [Tcler's Wiki TkPhotoLab](https://wiki.tcl-lang.org/page/TkPhotoLab)
+      - [Wikipedia Prewitt](https://en.wikipedia.org/wiki/Prewitt_operator)
+      - [Wikipedia Robert's Cross](https://en.wikipedia.org/wiki/Roberts_cross)
+      - [Wikipedia Sobel](https://en.wikipedia.org/wiki/Sobel_operator)
+      - [Wikipedia Scharr](https://en.wikipedia.org/wiki/Scharr_operator)
 
- - Small common structuring elements
+  - Small common structuring elements, parameterized by a radius.
+    The resulting SE's have width and height of `2*radius+1`.
 
-   - square
-   - disc
-   - circle
-   - horizontal bar
-   - vertical bar
-   - axis-aligned cross (+)
-   - main diagonal
-   - cross (secondary) diagonal
-   - diagonal-aligned cross (x)
+      - square
+      - disc
+      - circle
+      - horizontal bar
+      - vertical bar
+      - axis-aligned cross (+)
+      - main diagonal
+      - cross (secondary) diagonal
+      - diagonal-aligned cross (x)
 
- - 2D sine wave
+      Examples for `radius == 2` (=> `width|height == 5`):
 
- - Zone plate test pattern
+      ```
+      square disc   circle hbar   vbar   cross dbar    cbar  xcross
+      *****  ..*..  ..*..  .....  ..*..  ..*..  *....  ....*  *...*
+      *****  .***.  .*.*.  .....  ..*..  ..*..  .*...  ...*.  .*.*.
+      *****  *****  *...*  *****  ..*..  *****  ..*..  ..*..  ..*..
+      *****  .***.  .*.*.  .....  ..*..  ..*..  ...*.  .*...  .*.*.
+      *****  ..*..  ..*..  .....  ..*..  ..*..  ....*  *....  *...*
+      ```
+
+  - 2D sine wave
+
+  - Zone plate test pattern
