@@ -25,13 +25,17 @@ source [file join $tests support paths.tcl]
 
 # ------------------------------------------------------------------------------
 
+proc skip {args} {}
+
+# ------------------------------------------------------------------------------
+
 proc at  {x y i} { aktive op select x [aktive op select y $i from $y to $y] from $x to $x }
 proc atv {x y i} { aktive op swap xz  [at $x $y $i] }
 
-proc gauss {} { aktive image kernel gauss discrete sigma 13.3] }
+proc gauss {{s 13.3}} { aktive image kernel gauss discrete sigma $s } ;# radius 40
 
-proc smooth {i} {
-    set g [gauss]
+proc smooth {i {s 13.3}} {
+    set g [gauss $s]
     set t [aktive op transpose $g]
     set r [expr {([aktive query width $g]-1)/2}]
     set e [aktive op embed mirror $i left $r right $r top $r bottom $r]
@@ -41,22 +45,64 @@ proc smooth {i} {
 }
 
 proc threshold {i {r 7}} {
-    set i [aktive op embed mirror           $i left $r right $r top $r bottom $r]
-    set i [aktive image mask per phansalkar $i radius $r]
-    set i [aktive op math1 invert $i]
+    aktive op math1 invert [aktive image mask per phansalkar $i radius $r]
+}
+
+# remove white speckles // 0-rank // min
+proc despeckle-white {i {r 5}} {
+    set i [aktive op embed mirror $i left $r right $r top $r bottom $r]
+    set i [aktive op tile rank $i rank 0 radius 5]
 }
 
 proc stretch {i} { aktive op math1 fit min-max $i }
 proc rmse  {a b} { aktive op compare rmse $a $b }
 
+proc coords-x {series} { set x -1 ; return [lmap y $series { incr x ; list $x $y }] }
+proc coords-y {series} { set y -1 ; return [lmap x $series { incr y ; list $x $y }] }
+
+proc sparse {args} { aktive image from sparse points coords {*}$args }
+
+# 0      -> (at-1)
+# (at-1) -> 0
+proc flip1 {at v}      { incr at -1 ; expr {$at - $v} }
+proc flip  {at series} { incr at -1 ; lmap v $series { expr {$at - $v} } }
+proc flip* {at args}   { flip $at $args }
+
+# might be something for the main package
+proc zero {i ew eh} {
+    lassign [aktive query geometry $i] x y w h _
+
+puts //$x/$y/$w/$h//
+
+    lassign {0 0 0 0} l r t b
+    if {$x > 0} { set l $x }
+    if {$y > 0} { set t $y }
+    set r [expr {$ew - $w - $l}] ; if {$r < 0} { set r 0}
+    set b [expr {$eh - $h - $t}] ; if {$b < 0} { set b 0}
+
+puts //$l/$r/$t/$b//
+
+    aktive op embed black $i left $l right $r top $t bottom $b
+}
+
+proc int1 {v}      { expr {int($v)} }
+proc ints {series} { lmap v $series { expr {int($v)} } }
+proc pos  {series} { lmap v $series { expr {$v < 0 ? 0 : $v} } }
+
+proc max {series} { set max -Inf ; foreach v $series { set max [expr {max($max,$v)}] } ; set max }
+proc min {series} { set min  Inf ; foreach v $series { set min [expr {min($min,$v)}] } ; set min }
+
+proc clip   {max series} { lmap v $series { expr {min($max,$v)} } }
+proc clipsz {sz  series} { incr sz -1 ; clip $sz $series }
+
 # ------------------------------------------------------------------------------
 ## process exit intercept
 
-proc on-exit {args} { lappend ::exitcmds $args ; return }
+proc on-exit {args} { lappend ::__exitcmds $args ; return }
 
 rename exit __exit
 proc   exit {args} {
-    foreach cmd $::exitcmds {
+    foreach cmd $::__exitcmds {
 	#puts ($cmd)
 	{*}$cmd
     }
@@ -78,20 +124,13 @@ proc ! {label args} {
     upvar 1 $label i ; set i [uplevel 1 $args]
 }
 
-proc !g {label args} {
-    append label .pgm
-    to $label [uplevel 1 $args] aktive format as pgm byte
-}
+proc !g {label args} { append label .pgm    ; gw $label [uplevel 1 $args] }
+proc !c {label args} { append label .ppm    ; cw $label [uplevel 1 $args] }
+proc !a {label args} { append label .aktive ; aw $label [uplevel 1 $args] }
 
-proc !c {label args} {
-    append label .ppm
-    to $label [uplevel 1 $args] aktive format as ppm byte
-}
-
-proc !a {label args} {
-    append label .aktive
-    to $label [uplevel 1 $args] aktive format as aktive
-}
+proc gw {label i} { to $label $i aktive format as pgm byte }
+proc cw {label i} { to $label $i aktive format as ppm byte }
+proc aW {label i} { to $label $i aktive format as aktive   }
 
 proc !file {label srcpath} {
     append label .ppm
@@ -121,39 +160,44 @@ proc to {path src args} {
     close $dst
 }
 
-proc g {label} {
-    append label .pgm
-    puts "<-- $label"
-    aktive read from netpbm path $label
-}
+proc g {label} { append label .pgm    ; g* $label }
+proc c {label} { append label .ppm    ; c* $label }
+proc a {label} { append label .aktive ; a* $label }
 
-proc c {label} {
-    append label .ppm
-    puts "<-- $label"
-    aktive read from netpbm path $label
-}
-
-proc a {label} {
-    append label .aktive
-    puts "<-- $label"
-    aktive read from aktive path $label
-}
+proc g* {path} { puts "<-- $path" ; aktive read from netpbm path $path }
+proc c* {path} { puts "<-- $path" ; aktive read from netpbm path $path }
+proc a* {path} { puts "<-- $path" ; aktive read from aktive path $path }
 
 # ------------------------------------------------------------------------------
 
-set tmps {}
-proc def {label} { global tmps ; lappend tmps $label }
-proc keep {} { set ::tmps {} }
+proc = {label args} {
+    upvar 1 $label i ; set i [uplevel 1 $args]
+    puts ${label}=$i
+}
+
+proc head     {series} { lindex $series 0 }
+proc tail     {series} { lindex $series end }
+proc 2iseries {image} { ints [aktive query values $image] }
+proc 2series  {image} { aktive query values $image }
+proc 2image   {series} { aktive op lut from values {*}$series }
+
+# ------------------------------------------------------------------------------
+
+set __tmps {}
+proc def {label} { global __tmps ; lappend __tmps $label }
+proc keep {} { set ::__tmps {} }
 
 on-exit apply {{} {
-    global tmps
-    foreach tmp [lsort -dict [lsort -unique $tmps]] { file delete $tmp }
+    global __tmps
+    foreach tmp [lsort -dict [lsort -unique $__tmps]] { file delete $tmp }
 }}
 
 proc desc {i} { return "[aktive query type $i] ([aktive query params $i])" }
 
 # ------------------------------------------------------------------------------
-## image display and plot window support
+## Photo display support
+
+set ::__photo {} ;# last created photo for display
 
 proc pvs {is args} {
     set itail [lassign $is   ifirst]
@@ -163,88 +207,104 @@ proc pvs {is args} {
     return
 }
 
-proc pv {i {title {}}} {
-    package require aktive::tk
-    view-core [topl] $i $title
-}
+proc pv  {i {title {}}} { view/new [window/new ] $i $title }
+proc pv+ {i {title {}}} { view/new [window/last] $i $title }
 
-proc pv+ {i {title {}}} {
+proc view/new {w i title} {
     package require aktive::tk
-    view-core $::top $i $title
-}
 
-proc view-core {w i title} {
-    global photo
-    set photo [aktive tk photo $i]
-    set n [nxt]
+    global __photo
+    set    __photo [aktive tk photo $i]
+
+    set n [id/new]
 
     ### TODO ### canvas based, auto-scrolling ### proper package
     frame $w.f$n
-    label $w.f$n.t -text  $title ; pack $w.f$n.t -fill both -side top
-    label $w.f$n.p -image $photo ; pack $w.f$n.p -fill both -side top -expand 1
+    label $w.f$n.t -text  $title   ; pack $w.f$n.t -fill both -side top
+    label $w.f$n.p -image $__photo ; pack $w.f$n.p -fill both -side top -expand 1
     pack  $w.f$n -fill both -side left -expand 1
     # allow chaining
     return $i
 }
 
-proc plot {series {title {}}} {
+# ------------------------------------------------------------------------------
+## Plot display support
+
+set ::__plot {} ;# last created plot for display
+set ::__plots 1
+
+proc plots! {e} { set ::__plots $e ; return }
+proc plots? {}  { if {$::__plots} return ; return -code return }
+
+proc plot0 {} { plots? ; plot/new [window/new]  ; return }
+proc plotn {} { plots? ; plot/new [window/last] ; return }
+
+proc plot    {series args} { plots? ; [plot/new [window/new ]] add $series {*}$args }
+proc plot/w+ {series args} { plots? ; [plot/new [window/last]] add $series {*}$args }
+#
+proc plot+   {series args} { plots? ; [plot/last]              add $series {*}$args }
+proc plot+v  {x h args}    { plots? ; [plot/last] vertical   $x 0 $h -color black {*}$args }
+proc plot+h  {y w args}    { plots? ; [plot/last] horizontal $y 0 $w -color black {*}$args }
+
+proc plot/new {w} {
     package require aktive::plot
-    plot-core [topl] $series $title
-    return
+
+    set n [id/new]
+
+    global __plot
+    set    __plot $w.plot$n
+
+    aktive::plot $__plot
+    pack         $__plot -expand 1 -fill both -side left
+
+    return $w.plot$n
 }
 
-proc plot+ {series {title {}}} {
-    package require aktive::plot
-    plot-core $::top $series $title
-    return
-}
+proc plot/last {} { return $::__plot }
 
-proc plot-core {w series title} {
-    set v ::s[nxt]
-    set $v $series
+# ------------------------------------------------------------------------------
+## Window support, used by photo and plot display
 
-    if {$title ne {}} { set title [list -title $title] }
-    set n [cid]
-    aktive::plot $w.plot$n -variable $v -xlocked 0 -ylocked 0 {*}$title
-    pack         $w.plot$n -expand 1 -fill both -side left
-    return
-}
+set ::__wincount 0  ;# number of open windows
+set ::__winlast     {} ;# last created toplevel
 
-set ::windows 0  ;# number of open windows
-set ::counter 0  ;# id counter for windows, photos, labels, etc.
-set ::photo   {} ;# last loaded photo for dislay
-set ::top     {} ;# last new toplevel
-
-proc topl {{title {}}} {
+proc window/new {{title {}}} {
     package require Tk
     wm withdraw .
 
-    global windows top
+    global __wincount __winlast
 
-    set top .t[nxt]
-    toplevel    $top
-    wm protocol $top WM_DELETE_WINDOW [list window-close $top]
-    incr windows
+    set  __winlast     .t[id/new]
+    incr __wincount
 
-    if {$title ne {}} { wm title $top $title }
-    return $top
+    toplevel    $__winlast
+    wm protocol $__winlast WM_DELETE_WINDOW [list window/done $__winlast]
+
+    if {$title ne {}} { wm title $__winlast $title }
+    return $__winlast
 }
 
-proc nxt {} { global counter ; incr counter ; return $counter }
-proc cid {} { global counter ; return $counter }
+proc window/last {} { global __winlast ; return $__winlast }
 
-proc window-close {w} {
-    global windows
+proc window/done {w} {
+    global __wincount
     destroy $w
-    incr windows -1
+    incr __wincount -1
     return
 }
 
 on-exit apply {{} {
-    global windows
-    while {$windows} { puts windows=$windows ; vwait ::windows }
+    global __wincount
+    while {$__wincount} { puts windows=$__wincount ; vwait ::__wincount }
     return
 }}
+
+# ------------------------------------------------------------------------------
+
+set ::__counter 0  ;# id counter for windows, photos, labels, etc.
+
+proc id/new  {} { global __counter ; incr __counter ; return $__counter }
+proc id/last {} { global __counter ;                  return $__counter }
 
 # ------------------------------------------------------------------------------
 
@@ -286,11 +346,7 @@ proc sines {} { rgb \
 		    [aktive image sines width 256 height 256 hf 2   vf 0.5] \
 		    [aktive image sines width 256 height 256 hf 1   vf 3] }
 
-proc dots {i} {
-    set i [aktive op upsample xrep $i by 8]
-    set i [aktive op upsample yrep $i by 8]
-    return $i
-}
+proc dots {i} { aktive op sample replicate xy $i by 8 }
 
 proc showbasic {label i} {
     puts "$label = [aktive query id $i] [aktive query type $i] \{"
@@ -298,6 +354,12 @@ proc showbasic {label i} {
     puts "  x,y [aktive query x $i]..[aktive query xmax $i],[aktive query y $i]..[aktive query ymax $i]"
     puts "  whd [set w [aktive query width $i]] x [set h [aktive query height $i]] x [set d [aktive query depth  $i]]"
     puts "\}"
+    flush stdout
+}
+
+proc showgeo {label i} {
+    lassign [aktive query domain $i] x y w h d
+    puts "$label = [aktive query id $i] $w x $h x $d @$x,$y"
     flush stdout
 }
 
