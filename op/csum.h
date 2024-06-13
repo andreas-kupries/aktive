@@ -12,7 +12,7 @@
  *
  *  - src[]	Vector of values to access.
  *  - dst[]	Vector to write the sums to.
- *  - n		Number of values in vector.
+ *  - n		Number of values in src/dst vector.
  *  - stride	distance between vector elements.
  */
 
@@ -28,8 +28,7 @@ extern void aktive_cumulative_sum (double* dst, aktive_uint n, double* src, akti
 /*
  * - - -- --- ----- -------- -------------
  * Operator support.
- * - Fill function for iveccache, and supporting
- * - context structure
+ * - Fill function for iveccache
  */
 
 extern void aktive_csum_fill (aktive_ivcache_context* context, aktive_uint index, double* dst);
