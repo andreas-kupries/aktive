@@ -122,8 +122,8 @@ operator {kind coordinate dimension other1 other2} {
 	aktive_geometry* data_geo  = aktive_image_get_geometry (srcs->v[1]);
 
 	if (index_geo->@@dimension@@ > 1)                  aktive_fail ("Not single-@@kind@@");
-	if (index_geo->@@other1@@ != data_geo->@@other1@@) aktive_fail ("Index/data @@other1@@ mismatch");
-	if (index_geo->@@other2@@ != data_geo->@@other2@@) aktive_fail ("Index/data @@other2@@ mismatch");
+	if (index_geo->@@other1@@ != data_geo->@@other1@@) aktive_failf ("Index/data @@other1@@ mismatch %d != %d", index_geo->@@other1@@, data_geo->@@other1@@);
+	if (index_geo->@@other2@@ != data_geo->@@other2@@) aktive_failf ("Index/data @@other2@@ mismatch %d != %d", index_geo->@@other2@@, data_geo->@@other2@@);
 
 	state->full = data_geo->@@dimension@@;
 
@@ -141,6 +141,45 @@ operator {kind coordinate dimension other1 other2} {
 	@@selector@@
     }
 }
+
+
+# # ## ### ##### ######## ############# #####################
+## Choose between two images based on a condition images / mask
+
+operator op::if-then-else {
+    input	;# selector
+    input	;# then	(selector == 1)
+    input	;# else (selector == 0)
+
+    note Choose between second and third images based on the content \
+	of the first. All images have to have the same width and height. \
+	The selector image has to be single-band. The other images may \
+	have arbitrary depth, as long as both have the same.
+
+    body {
+	lassign [aktive query geometry $src0] _ _ ws hs ds
+	lassign [aktive query geometry $src1] _ _ wt ht dt
+	lassign [aktive query geometry $src2] _ _ we he de
+
+	if {($ws != $wt) ||
+	    ($hs != $ht)} { aktive error "Domain mismatch selector/then" }
+	if {($ws != $we) ||
+	    ($hs != $he)} { aktive error "Domain mismatch selector/else" }
+	if {($dt != $de)} { aktive error "Depth mismatch then/else" }
+	if {($ds != 1)}   { aktive error "Selector is not single-band" }
+
+	set selector $src0
+	set then     [aktive op split z $src1]
+	set else     [aktive op split z $src2]
+
+	# band-wise application of choice, then rejoin the bands
+	set bands [lmap t $then e $else {
+	       aktive op take z $selector [aktive op montage z $e $t]
+	}]
+	aktive op montage z {*}$bands
+    }
+}
+
 
 ##
 # # ## ### ##### ######## ############# #####################

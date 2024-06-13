@@ -35,6 +35,8 @@ proc graybox {} {
     aktive image gradient width 8 height 8 depth 1 first 0 last 1
 }
 
+proc colorgraybox {} { set g [graybox] ; aktive op montage z $g $g $g }
+
 proc colorbox {} {
     set r [graybox]
     set g [aktive op rotate cw   $r]
