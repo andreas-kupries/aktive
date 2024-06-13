@@ -43,6 +43,7 @@ import generator/reader/aktive.tcl
 import generator/reader/netpbm.tcl
 
 import generator/virtual/constant.tcl
+import generator/virtual/draw.tcl
 import generator/virtual/gradient.tcl
 import generator/virtual/grey.tcl
 import generator/virtual/indexed.tcl
