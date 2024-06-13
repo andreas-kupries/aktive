@@ -129,6 +129,7 @@ critcl::include op/lut.h
 critcl::include op/netpbm.h
 critcl::include op/null.h
 critcl::include op/otsu.h
+critcl::include op/profile.h
 critcl::include op/reduce.h
 critcl::include op/whitepoint.h
 
