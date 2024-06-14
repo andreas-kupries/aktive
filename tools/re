@@ -3,4 +3,5 @@
 find . -follow -name "core*" -exec rm "{}" \;
 rm -f *.trace
 
-$K ./build.tcl uninstall install "$@"
+$K ./build.tcl uninstall install "$@" |& tee ../Logs.install
+
