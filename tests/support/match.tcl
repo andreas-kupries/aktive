@@ -1,5 +1,5 @@
 # -*- tcl -*-
-## (c) 2023 Andreas Kupries
+## (c) 2023,2024 Andreas Kupries
 # # ## ### ##### ######## ############# #####################
 ## Test Utility Commands -- Image Matching
 
@@ -7,9 +7,13 @@
 # Assume n > 0
 proc matchNdigits {n expected actual} {
     set x 1e-$n
+    set loc -1
     foreach a $actual e $expected {
+	incr loc
         if {abs($e-$a) > $x} {
-	    #puts MISMATCH-FP$n|$e|$a|[expr {abs($e-$a)}]|$x|
+	    # puts MISMATCH-FP$n|$e|$a|[expr {abs($e-$a)}]|$x|@$loc
+	    # puts MIS:E:(([lrange $expected 0 $loc]))
+	    # puts MIS:A:(([lrange $actual 0 $loc]))
 	    return 0
         }
     }
@@ -21,7 +25,7 @@ proc matchDict {expected actual} {
     set akeys [lsort -dict [dict keys $actual]]
 
     if {$ekeys ne $akeys} {
-	#puts "dict keys ($ekeys) ne ($akeys)"
+	# puts "MISMATCH dict keys ($ekeys) ne ($akeys)"
 	return 0
     }
 
@@ -29,7 +33,7 @@ proc matchDict {expected actual} {
 	set evalue [dict get $expected $key]
 	set avalue [dict get $actual   $key]
 	if {$evalue ne $avalue} {
-	    #puts "dict value ($evalue) ne ($avalue)"
+	    # puts "MISMATCH dict value ($evalue) ne ($avalue)"
 	    return 0
 	}
     }
@@ -42,7 +46,7 @@ proc matchImage {expected actual} {
     set akeys [lsort -dict [dict keys $actual]]
 
     if {$ekeys ne $akeys} {
-	#puts "image keys ($ekeys) != ($akeys)"
+	# puts "MISMATCH image keys ($ekeys) != ($akeys)"
 	return 0
     }
     foreach key $akeys {
@@ -51,19 +55,19 @@ proc matchImage {expected actual} {
 	switch -exact -- $key {
 	    type {
 		if {$evalue ne $avalue} {
-		    #puts "image type"
+		    # puts "MISMATCH image type"
 		    return 0
 		}
 	    }
 	    config - domain - meta {
 		if {![matchDict $evalue $avalue]} {
-		    #puts "image config"
+		    # puts "MISMATCH image config"
 		    return 0
 		}
 	    }
 	    pixels {
 		if {![matchPixels $evalue $avalue]} {
-		    #puts "image pixels"
+		    # puts "MISMATCH image pixels"
 		    return 0
 		}
 	    }
@@ -95,12 +99,12 @@ proc matchPixels {expected actual} {
     set actual   [clearValues $actual]
 
     if {[llength $expected] != [llength $actual]} {
-	# puts XXXXX\t/[llength $expected]/ne/[llength $actual]/
+	# puts MISMATCH\t/[llength $expected]/ne/[llength $actual]/
 	return 0
     }
 
     set ok [matchNdigits 4 $expected $actual]
-    #if {!$ok} { puts XXXXX\t/digits }
+    # if {!$ok} { puts MISMATCH\t/digits }
     return $ok
 }
 
