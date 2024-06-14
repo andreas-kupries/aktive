@@ -99,6 +99,8 @@ proc meta/ {i} { aktive query meta $i }
 
 proc m {x y i} { aktive op location move to $i x $x y $y }
 
+proc bw {x} { string map {_ 0 * 1} $x }
+
 # Construct image in tcl representation for comparisons
 proc makei {op x y w h d config pixels {meta {}}} {
     dict set domain x      $x
