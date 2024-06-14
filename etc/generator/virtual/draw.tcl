@@ -23,17 +23,14 @@ operator image::draw::circles {
 	border points will be fractionally blended into the background, making \
 	the result gray-scale.
 
-    uint   width   Width of the returned image
-    uint   height  Height of the returned image
-    int? 0 x       Image location, X coordinate
-    int? 0 y       Image location, Y coordinate
-
-    bool? 0 filled Default is an unfilled circle. Filled makes it a disc.
-    bool? 0 alias  If set smooths circle border by blending with the background
-
-    uint? 1 radius Circle radius
-    uint? 0 cwidth Width of the circle's border.
-
+    uint    width   Width of the returned image
+    uint    height  Height of the returned image
+    int?  0 x       Image location, X coordinate
+    int?  0 y       Image location, Y coordinate
+    bool? 0 filled  Default is an unfilled circle. Filled makes it a disc.
+    bool? 0 alias   If set smooths circle border by blending with the background
+    uint? 0 cwidth  Width of the circle's border.
+    uint? 1 radius  Circle radius
     point... center Circle centers
 
     body {
@@ -64,48 +61,46 @@ operator image::draw::circle {
 	border points will be fractionally blended into the background, making \
 	the result gray-scale.
 
-    uint   width   Width of the returned image
-    uint   height  Height of the returned image
-    int? 0 x       Image location, X coordinate
-    int? 0 y       Image location, Y coordinate
-
-    bool? 0 filled Default is an unfilled circle. Filled makes it a disc.
-    bool? 0 alias  If set smooths circle border by blending with the background
-
-    uint? 1 radius Circle radius
-    uint? 0 cwidth Width of the circle's border.
-    point   center Circle center
+    uint    width   Width of the returned image
+    uint    height  Height of the returned image
+    int?  0 x       Image location, X coordinate
+    int?  0 y       Image location, Y coordinate
+    bool? 0 filled  Default is an unfilled circle. Filled makes it a disc.
+    bool? 0 alias   If set smooths circle border by blending with the background
+    uint? 0 cwidth  Width of the circle's border.
+    uint? 1 radius  Circle radius
+    point   center  Circle center
 
     state -setup {
 	aktive_geometry_set (domain, param->x, param->y, param->width, param->height, 1);
     }
 
-    blit circle {
+    blit circle-bw {
 	{AH {y AY 1 up} {y SY 1 up}}
 	{AW {x AX 1 up} {x SX 1 up}}
     } {point {
-	ISPIXEL (x, y)
+	CIRCLE_BW (x, y)
     }}
 
-    blit circle-alias {
+    blit circle-grey {
 	{AH {y AY 1 up} {y SY 1 up}}
 	{AW {x AX 1 up} {x SX 1 up}}
     } {point {
-	ISPIXEL_A (x, y)
+	CIRCLE_GREY (x, y)
     }}
 
-    blit circle-filled {
+    blit disc-bw {
 	{AH {y AY 1 up} {y SY 1 up}}
 	{AW {x AX 1 up} {x SX 1 up}}
     } {point {
-	ISPIXEL_F (x, y)
+	DISC_BW (x, y)
     }}
 
-    blit circle-alias-filled {
+    blit disc-grey {
 	{AH {y AY 1 up} {y SY 1 up}}
 	{AW {x AX 1 up} {x SX 1 up}}
     } {point {
-	ISPIXEL_FA (x, y)
+	DISC_GREY (x, y)
     }}
 
     pixels {
@@ -123,31 +118,27 @@ operator image::draw::circle {
 	TRACE("filled   = %d", filled);
 	TRACE("alias    = %d", alias);
 
-	double d;
-	#define DIST(x,y) d = hypot ((double) (x) - cx, (double) (y) - cy)
-	#define CLIP(v)   fmax(0, fmin (1, (v)))
-
-	#define ISPIXEL(x,y)	( DIST(x,y), (abs(d-r) <= w)     ? 1 : 0 )
-	#define ISPIXEL_F(x,y)  ( DIST(x,y), (d     <= (r+w))    ? 1 : 0 )
-	#define ISPIXEL_A(x,y)  ( DIST(x,y), (abs(d-r) <= (w+1)) ? CLIP(1-(abs(d-r)-w)) : 0 )
-	#define ISPIXEL_FA(x,y) ( DIST(x,y), (d      <= (r+w+1)) ? CLIP(1-(d-(r+w)))    : 0 )
+	#define CIRCLE_BW(x,y)   aktive_circle_bw   (aktive_circle_distance (x, y, cx, cy), r, w)
+	#define DISC_BW(x,y)	 aktive_disc_bw     (aktive_circle_distance (x, y, cx, cy), r, w)
+	#define CIRCLE_GREY(x,y) aktive_circle_grey (aktive_circle_distance (x, y, cx, cy), r, w)
+	#define DISC_GREY(x,y)	 aktive_disc_grey   (aktive_circle_distance (x, y, cx, cy), r, w)
 
 	if (alias) {
 	    if (filled) {
-		// Needed for every loop because each undefs them
+		// Needed for every case because the generated code undefs them
 		#define SD (idomain->depth)
 		#define SH (idomain->height)
 		#define SW (idomain->width)
 		#define SX (request->x)
 		#define SY (request->y)
-		@@circle-alias-filled@@
+		@@disc-grey@@
 	    } else {
 		#define SD (idomain->depth)
 		#define SH (idomain->height)
 		#define SW (idomain->width)
 		#define SX (request->x)
 		#define SY (request->y)
-		@@circle-alias@@
+		@@circle-grey@@
 	    }
 	} else {
 	    if (filled) {
@@ -156,23 +147,21 @@ operator image::draw::circle {
 		#define SW (idomain->width)
 		#define SX (request->x)
 		#define SY (request->y)
-		@@circle-filled@@
+		@@disc-bw@@
 	    } else {
 		#define SD (idomain->depth)
 		#define SH (idomain->height)
 		#define SW (idomain->width)
 		#define SX (request->x)
 		#define SY (request->y)
-		@@circle@@
+		@@circle-bw@@
 	    }
 	}
 
-	#undef ISPIXEL
-	#undef ISPIXEL_A
-	#undef ISPIXEL_F
-	#undef ISPIXEL_FA
-	#undef DIST
-	#undef CLIP
+	#undef CIRCLE_BW
+	#undef DISC_BW
+	#undef CIRCLE_GREY
+	#undef DISC_GREY
     }
 }
 
