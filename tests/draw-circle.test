@@ -1,7 +1,7 @@
 # -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
 ## (c) 2024 Andreas Kupries
 # # ## ### ##### ######## ############# #####################
-## AKTIVE. Drawing a circle
+## AKTIVE. Drawing circles
 
 kt check Tcl     8.6 9
 kt check tcltest 2

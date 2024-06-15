@@ -40,17 +40,9 @@ double aktive_circle_grey     (double d, double r, double w);
 double aktive_disc_bw         (double d, double r, double w);
 double aktive_disc_grey       (double d, double r, double w);
 
-// #define CLIP(v)   fmax(0,fmin(1,v))
-#define AKTIVE_CIRCLE_P(d,r,w)   (fabs((d)-(r)) <= (w)  ? 1 : 0)
-#define AKTIVE_CIRCLE_A(d,r,w)			\
-    (fabs((d)-(r)) <= ((w)+1)			\
-     ? CLIP(1-(fabs((d)-(r))-(w)))	\
-     : 0)
-#define AKTIVE_DISC_P(d,r,w)   ((d) <= ((r)+(w)) ? 1 : 0)
-#define AKTIVE_DISC_A(d,r,w)			\
-    ((d) <= ((r)+(w))				\
-     ? CLIP(1-((d)-((r)+(w))))		\
-     : 0)
+double aktive_line_segment_distance (double x, double y, aktive_point* a, aktive_point* b);
+double aktive_line_segment_bw       (double d, double w);
+double aktive_line_segment_grey     (double d, double w);
 
 /*
  * - - -- --- ----- -------- -------------
