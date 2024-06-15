@@ -40,7 +40,7 @@ proc aktive::parameter::validate {args} {
     foreach {p a} $args { dict set isargs $p $a }
     set pos 0
     foreach {p _} $params {
-	if {![dict exists $isargs $p]} { aktive error "Bogus parameter $p" PARAMETER BOGUS }
+	if {![dict exists $isargs $p]} { aktive error "Bogus parameter \"$p\"" PARAMETER BOGUS }
 	if {![dict get    $isargs $p]} { incr pos 2 ; continue }
 	# p isargs -- everything after the key are the values.
 	# rewrite into a proper dictionary (aggregate the list)
