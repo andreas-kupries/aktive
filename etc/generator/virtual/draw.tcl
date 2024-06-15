@@ -2,9 +2,35 @@
 # # ## ### ##### ######## ############# #####################
 ## Generators -- Basic 2D geometry primitives
 #
-## - Single Circle
-## - Many circles (dots)
-## - Line segment
+## At the core of the implementation are signed distance functions.
+#
+## Instead of having to explicitly set each pixel of the primitive based on some
+## drawing algorithm (bresenham, variants, etc.) here each pixel computes the
+## distance to the primitive (or its outline (filled yes/no)) and either lights
+## up within +/- 0.5 (b/w, jaggy), or gradually lights up within +/- 1 (grey
+## scale, aliased drawing).
+#
+## This is also naturally parallelizable and fits directly into the multi-
+## threaded setup used in AKTIVE (see [VIPS](https://www.libvips.org) for the
+## inspiring system).
+#
+## [ok] Circle
+## [ok] Many circles (dots)
+## [ok] Line segment
+## [ok] Many line segments (poly-line)
+## [..] Many line segments (separate, scattered)
+## [..] Ellipse(s)
+## [..] Rotated ellipse(s)
+## [..] (Circle) arc(s)
+## [..] (Disc) segment(s)
+## [..] ...
+##
+## Variants of the above drawing their element over an input.
+#
+## See `op if-then-else` (bw) and `op math linear` (grey)
+##
+
+# # ## ### ##### ######## ############# #####################
 
 operator image::draw::circles {
     section generator virtual
@@ -24,15 +50,15 @@ operator image::draw::circles {
 	points are fractionally blended into the background, resulting in a \
 	gray-scale image.
 
-    uint    width   Width of the returned image
-    uint    height  Height of the returned image
-    int?  0 x       Image location, X coordinate
-    int?  0 y       Image location, Y coordinate
-    bool? 0 filled  Default draws a circle. When set a filled disc is drawn instead
-    bool? 0 alias   When set the circle's border is smoothed by blending with the background
-    uint? 0 cwidth  Stroke width. Width of the circle's border
-    uint? 1 radius  Circle radius
-    point... center Circle centers
+    uint     width   Width of the returned image
+    uint     height  Height of the returned image
+    int?  0  x       Image location, X coordinate
+    int?  0  y       Image location, Y coordinate
+    bool? 0  filled  Default draws a circle. When set a filled disc is drawn instead
+    bool? 0  alias   When set the circle's border is smoothed by blending with the background
+    uint? 0  cwidth  Stroke width. Width of the circle's border
+    uint? 1  radius  Circle radius
+    point... center  Circle centers
 
     body {
 	# This is implemented as a set of circle images aggregated through `max`.
@@ -168,6 +194,52 @@ operator image::draw::circle {
 ##
 # # ## ### ##### ######## ############# #####################
 ##
+
+operator image::draw::poly-line {
+    section generator virtual
+
+    ##
+    ## TODO move this into the C level. reduced overhead, i.e.
+    ## TODO no tree of aggregator images fusing the pieces into
+    ## TODO a whole.
+    ##
+
+    note Returns an image with the given dimensions and location, showing \
+	a poly-line over 2+ points, with the specified stroke width.
+
+    note Beware, the location and size of the poly-line is independent of \
+	the image. The operator is perfectly fine with drawing a poly-line \
+	completely outside of the image domain.
+
+    note The returned image is single-band, and normally black/white, with the \
+	poly-line in white. When aliasing is active however, partial border \
+        points are fractionally blended into the background, resulting in a \
+	gray-scale image.
+
+    uint     width        Width of the returned image
+    uint     height       Height of the returned image
+    int?  0  x            Image location, X coordinate
+    int?  0  y            Image location, Y coordinate
+    bool? 0  alias        When set the segments's border is smoothed by blending with the background
+    uint? 0  strokewidth  Width of the line segments
+    point... points       Points of the poly-line
+
+    body {
+	# This is implemented as a set of line segments, with each segment sharing a point
+	# with its predessor, except the first.
+	if {[llength $points] < 2} {
+	    aktive error "Not enough points for a poly line, needs at least 2"
+	}
+	aktive::aggregate {
+	    aktive op math max
+	} [lmap from [lrange $points 0 end-1] to [lrange $points 1 end] {
+	    aktive image draw line \
+		x $x y $y width $width height $height \
+		alias $alias strokewidth $strokewidth \
+		from $from to $to
+	}]
+    }
+}
 
 operator image::draw::line {
     section generator virtual
