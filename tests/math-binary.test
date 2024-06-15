@@ -16,8 +16,10 @@ kt source support/util.tcl
 ## Syntax
 
 syntax {
-    add        {src0 src1}
-    and        {src0 src1}
+    add         args
+    add-core   {src0 src1}
+    and         args
+    and-core   {src0 src1}
     atan2      {src0 src1}
     difference {src0 src1}
     div        {src0 src1}
@@ -27,18 +29,23 @@ syntax {
     hypot      {src0 src1}
     le         {src0 src1}
     lt         {src0 src1}
-    max        {src0 src1}
-    min        {src0 src1}
+    max         args
+    max-core   {src0 src1}
+    min         args
+    min-core   {src0 src1}
     mod        {src0 src1}
-    mul        {src0 src1}
+    mul         args
+    mul-core   {src0 src1}
     nand       {src0 src1}
     ne         {src0 src1}
     nor        {src0 src1}
-    or         {src0 src1}
+    or          args
+    or-core    {src0 src1}
     pow        {src0 src1}
     screen     {src0 src1}
     sub        {src0 src1}
-    xor        {src0 src1}
+    xor         args
+    xor-core   {src0 src1}
 } {aktive op math}
 
 # # ## ### ##### ######## ############# #####################
@@ -89,13 +96,16 @@ foreach {op expected} {
 	puts   "XX EXP.. $expected\n"
     }
 
+    set cop $op
+    if {$op in {and or xor add mul min max}} { append cop -core }
+
     test aktive-op-math-${op}-2.0 "aktive op math $op, core" -body {
 	set x [astcl aktive op math $op $in [aktive op flip x $in]]
 	dict unset x pixels
 	set x
     } -cleanup {
 	unset x
-    } -result "type op::math::$op domain {x 0 y 0 width 20 height 1 depth 1}"
+    } -result "type op::math::$cop domain {x 0 y 0 width 20 height 1 depth 1}"
 
     test aktive-op-math-${op}-2.1 "aktive op math $op, pixels" -body {
 	pixels aktive op select x [aktive op math $op $in [aktive op flip x $in]] from 0 to 18
@@ -103,7 +113,7 @@ foreach {op expected} {
 
     test aktive-op-math-${op}-2.2 "aktive op math $op, dag" -body {
 	dag aktive op math $op $in [aktive op flip x $in]
-    } -match glob -result "op::math::$op * {} {$it *} {*}"
+    } -match glob -result "op::math::$cop * {} {$it *} {*}"
 
     unset in
 }

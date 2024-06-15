@@ -34,7 +34,7 @@ syntax {
 
 test aktive-op-math-linear-3.0 "aktive op math linear" -body {
     astcl aktive op math linear $a $b $t
-} -match image -result [makei op::math::add 0 0 4 2 1 {} {
+} -match image -result [makei op::math::add-core 0 0 4 2 1 {} {
     1  6  5 12
    13 12 11  8
 }]

@@ -296,8 +296,7 @@ operator image::threshold::wolfjolion {
 	set sm [aktive op math1 scale $sm factor $a]
 	set m  [aktive op math1 scale $m  factor $b]
 	set s  [aktive op math1 scale $s  factor $c]
-	set ms [aktive op math add $m $s]
-	set sm [aktive op math add $sm $ms]
+	set sm [aktive op math add $sm $m $s]
 
 	set src [aktive op math1 shift $sm offset $d]
 	return $src

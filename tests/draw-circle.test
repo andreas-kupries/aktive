@@ -141,7 +141,7 @@ foreach {id config expected} {
 test aktive-image-draw-circles-2.0 "aktive image draw circles" -body {
     astcl aktive image draw circles width 11 height 11 radius 1 \
 	center {2 2} {7 3} {5 7}
-} -match image -result [makei op::math::max 0 0 11 11 1 {} {
+} -match image -result [makei op::math::max-core 0 0 11 11 1 {} {
     0 0 0 0 0 0 0 0 0 0 0
     0 1 1 1 0 0 0 0 0 0 0
     0 1 0 1 0 0 1 1 1 0 0

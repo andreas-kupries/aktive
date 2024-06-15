@@ -37,32 +37,30 @@ operator op::math::screen {
 ## Binary without parameters
 
 operator {cfunction dexpr} {
-    op::math::and     aktive_and    {A && B}
-    op::math::nand    aktive_nand   {!(A && B)}
-    op::math::or      aktive_or     {A || B}
-    op::math::nor     aktive_nor    {!(A || B)}
-    op::math::xor     aktive_xor    {A ^^ B}
+    op::math::and-core  aktive_and   {A && B}
+    op::math::nand      aktive_nand  {!(A && B)}
+    op::math::or-core   aktive_or    {A || B}
+    op::math::nor       aktive_nor   {!(A || B)}
+    op::math::xor-core  aktive_xor   {A ^^ B}
 
-    op::math::add     aktive_add    {A + B}
-    op::math::atan2   atan2         {}
-    op::math::div     aktive_div    {A / B}
-    op::math::eq      aktive_eq     {A == B}
-    op::math::ge      aktive_ge     {A >= B}
-    op::math::gt      aktive_gt     {A > B}
-    op::math::hypot   hypot         {}
-    op::math::le      aktive_le     {A <= B}
-    op::math::lt      aktive_lt     {A < B}
-    op::math::max     fmax          max
-    op::math::min     fmin          min
-    op::math::mod     fmod          {A % B}
-    op::math::mul     aktive_mul    {A * B}
-    op::math::ne      aktive_ne     {A != B}
-    op::math::pow     pow           {}
-    op::math::sub     aktive_sub    {A - B}
+    op::math::add-core  aktive_add   {A + B}
+    op::math::atan2     atan2        {atan2(A, B)}
+    op::math::div       aktive_div   {A / B}
+    op::math::eq        aktive_eq    {A == B}
+    op::math::ge        aktive_ge    {A >= B}
+    op::math::gt        aktive_gt    {A > B}
+    op::math::hypot     hypot        {hypot (A, B)}
+    op::math::le        aktive_le    {A <= B}
+    op::math::lt        aktive_lt    {A < B}
+    op::math::max-core  fmax         {max(A, B)}
+    op::math::min-core  fmin         {min(A, B)}
+    op::math::mod       fmod         {A % B}
+    op::math::mul-core  aktive_mul   {A * B}
+    op::math::ne        aktive_ne    {A != B}
+    op::math::pow       pow          {pow (A, B)}
+    op::math::sub       aktive_sub   {A - B}
 } {
-    set fun [namespace tail $__op]
-    if {$dexpr eq {}} { set dexpr $fun }
-    if {![string match *A* $dexpr]} { append dexpr "(A, B)" }
+    op -> _ _ fun
 
     note Returns image with the binary operation '$dexpr' applied to \
 	all shared pixels of the two inputs.
@@ -105,6 +103,37 @@ operator {cfunction dexpr} {
 	aktive_blit_binary (block, dst, @@cfunction@@,
 			    aktive_region_fetch_area (srcs->v[0], request),
 			    aktive_region_fetch_area (srcs->v[1], request));
+    }
+}
+
+# # ## ### ##### ######## ############# #####################
+## Multi-ary operations of commutative any-associative binary ops
+
+operator dexpr {
+    op::math::and  {A && B}
+    op::math::or   {A || B}
+    op::math::xor  {A ^^ B}
+    op::math::add  {A + B}
+    op::math::mul  {A * B}
+    op::math::max  {max(A, B)}
+    op::math::min  {min(A, B)}
+} {
+    op -> _ _ fun
+    if {$fun in {and or xor}} {
+	section transform math n-ary logical
+    } else {
+	section transform math n-ary
+    }
+
+    input...
+
+    note Returns image aggregated from the application of the associative \
+	binary operation '$dexpr' to all shared pixels of all the inputs.
+
+    body {
+	aktive::aggregate {
+	    aktive op math @@fun@@-core
+	} $args
     }
 }
 

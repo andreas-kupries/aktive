@@ -44,9 +44,9 @@ operator {coordinate layout} {
     input...
 
     body {
-	return [aktive::aggregate {
+	aktive::aggregate {
 	    aktive op montage @@coordinate@@-core
-	} $args]
+	} $args
     }
 }
 
