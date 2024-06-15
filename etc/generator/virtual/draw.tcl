@@ -8,7 +8,7 @@
 ## drawing algorithm (bresenham, variants, etc.) here each pixel computes the
 ## distance to the primitive (or its outline (filled yes/no)) and either lights
 ## up within +/- 0.5 (b/w, jaggy), or gradually lights up within +/- 1 (grey
-## scale, aliased drawing).
+## scale, antialiased drawing).
 #
 ## This is also naturally parallelizable and fits directly into the multi-
 ## threaded setup used in AKTIVE (see [VIPS](https://www.libvips.org) for the
@@ -46,19 +46,19 @@ operator image::draw::circles {
 	circles completely outside of the image domain.
 
     note The returned image is single-band, and normally black/white, with the \
-	circle/disc in white. When aliasing is active however, partial border \
+	circle/disc in white. When antialiasing is active however, partial border \
 	points are fractionally blended into the background, resulting in a \
 	gray-scale image.
 
-    uint     width   Width of the returned image
-    uint     height  Height of the returned image
-    int?  0  x       Image location, X coordinate
-    int?  0  y       Image location, Y coordinate
-    bool? 0  filled  Default draws a circle. When set a filled disc is drawn instead
-    bool? 0  alias   When set the circle's border is smoothed by blending with the background
-    uint? 0  cwidth  Stroke width. Width of the circle's border
-    uint? 1  radius  Circle radius
-    point... center  Circle centers
+    uint     width      Width of the returned image
+    uint     height     Height of the returned image
+    int?  0  x          Image location, X coordinate
+    int?  0  y          Image location, Y coordinate
+    bool? 0  filled     Default draws a circle. When set a filled disc is drawn instead
+    bool? 0  antialias  When set the circle's border is smoothed by blending with the background
+    uint? 0  cwidth     Stroke width. Width of the circle's border
+    uint? 1  radius     Circle radius
+    point... center     Circle centers
 
     body {
 	# This is implemented as a set of circle images aggregated through `max`.
@@ -68,7 +68,7 @@ operator image::draw::circles {
 	    aktive image draw circle \
 		x $x y $y width $width height $height \
 		radius $radius cwidth $cwidth center $c \
-		filled $filled alias $alias
+		filled $filled antialias $antialias
 	}]
     }
 }
@@ -84,19 +84,19 @@ operator image::draw::circle {
 	completely outside of the image domain.
 
     note The returned image is single-band, and normally black/white, with the \
-	circle/disc in white. When aliasing is active however, partial border \
+	circle/disc in white. When antialiasing is active however, partial border \
         points are fractionally blended into the background, resulting in a \
 	gray-scale image.
 
-    uint    width   Width of the returned image
-    uint    height  Height of the returned image
-    int?  0 x       Image location, X coordinate
-    int?  0 y       Image location, Y coordinate
-    bool? 0 filled  Default draws a circle. When set a filled disc is drawn instead
-    bool? 0 alias   When set the circle's border is smoothed by blending with the background
-    uint? 0 cwidth  Stroke width. Width of the circle's border
-    uint? 1 radius  Circle radius
-    point   center  Circle center
+    uint    width      Width of the returned image
+    uint    height     Height of the returned image
+    int?  0 x          Image location, X coordinate
+    int?  0 y          Image location, Y coordinate
+    bool? 0 filled     Default draws a circle. When set a filled disc is drawn instead
+    bool? 0 antialias  When set the circle's border is smoothed by blending with the background
+    uint? 0 cwidth     Stroke width. Width of the circle's border
+    uint? 1 radius     Circle radius
+    point   center     Circle center
 
     state -setup {
 	aktive_geometry_set (domain, param->x, param->y, param->width, param->height, 1);
@@ -131,25 +131,25 @@ operator image::draw::circle {
     }}
 
     pixels {
-	double      r      = param->radius;	// early cast to the type need during blit
-	double      cx     = param->center.x;	// ditto
-	double      cy     = param->center.y;	// ditto
-	double      w      = param->cwidth;	// ditto
-	aktive_uint filled = param->filled;
-	aktive_uint alias  = param->alias;
+	double      r         = param->radius;	// early cast to the type need during blit
+	double      cx        = param->center.x;	// ditto
+	double      cy        = param->center.y;	// ditto
+	double      w         = param->cwidth;	// ditto
+	aktive_uint filled    = param->filled;
+	aktive_uint antialias = param->antialias;
 
-	TRACE("center = @%d,%d", cx, cy);
-	TRACE("radius =  %d", r);
-	TRACE("width  =  %d", w);
-	TRACE("filled =  %d", filled);
-	TRACE("alias  =  %d", alias);
+	TRACE("center     = @%d,%d", cx, cy);
+	TRACE("radius    =  %d", r);
+	TRACE("width     =  %d", w);
+	TRACE("filled    =  %d", filled);
+	TRACE("antialias =  %d", antialias);
 
 	#define CIRCLE_BW(x,y)   aktive_circle_bw   (aktive_circle_distance (x, y, cx, cy), r, w)
 	#define DISC_BW(x,y)     aktive_disc_bw     (aktive_circle_distance (x, y, cx, cy), r, w)
 	#define CIRCLE_GREY(x,y) aktive_circle_grey (aktive_circle_distance (x, y, cx, cy), r, w)
 	#define DISC_GREY(x,y)   aktive_disc_grey   (aktive_circle_distance (x, y, cx, cy), r, w)
 
-	if (alias) {
+	if (antialias) {
 	    if (filled) {
 		// Needed for every case because the generated code undefs them
 		#define SD (idomain->depth)
@@ -212,17 +212,17 @@ operator image::draw::poly-line {
 	completely outside of the image domain.
 
     note The returned image is single-band, and normally black/white, with the \
-	poly-line in white. When aliasing is active however, partial border \
+	poly-line in white. When antialiasing is active however, partial border \
         points are fractionally blended into the background, resulting in a \
 	gray-scale image.
 
-    uint     width        Width of the returned image
-    uint     height       Height of the returned image
-    int?  0  x            Image location, X coordinate
-    int?  0  y            Image location, Y coordinate
-    bool? 0  alias        When set the segments's border is smoothed by blending with the background
-    uint? 0  strokewidth  Width of the line segments
-    point... points       Points of the poly-line
+    uint     width       Width of the returned image
+    uint     height      Height of the returned image
+    int?  0  x           Image location, X coordinate
+    int?  0  y           Image location, Y coordinate
+    bool? 0  antialias   When set the segments's border is smoothed by blending with the background
+    uint? 0  strokewidth Width of the line segments
+    point... points      Points of the poly-line
 
     body {
 	# This is implemented as a set of line segments, with each segment sharing a point
@@ -235,7 +235,7 @@ operator image::draw::poly-line {
 	} [lmap from [lrange $points 0 end-1] to [lrange $points 1 end] {
 	    aktive image draw line \
 		x $x y $y width $width height $height \
-		alias $alias strokewidth $strokewidth \
+		antialias $antialias strokewidth $strokewidth \
 		from $from to $to
 	}]
     }
@@ -252,7 +252,7 @@ operator image::draw::line {
 	completely outside of the image domain.
 
     note The returned image is single-band, and normally black/white, with the \
-	line segment in white. When aliasing is active however, partial border \
+	line segment in white. When antialiasing is active however, partial border \
         points are fractionally blended into the background, resulting in a \
 	gray-scale image.
 
@@ -260,7 +260,7 @@ operator image::draw::line {
     uint    height       Height of the returned image
     int?  0 x            Image location, X coordinate
     int?  0 y            Image location, Y coordinate
-    bool? 0 alias        When set the segments's border is smoothed by blending with the background
+    bool? 0 antialias    When set the segments's border is smoothed by blending with the background
     uint? 0 strokewidth  Width of the line segment
     point   from         Start point
     point   to           End point
@@ -287,18 +287,18 @@ operator image::draw::line {
 	aktive_point* pstart = &param->from;
 	aktive_point* pend   = &param->to;
 	aktive_point  here;
-	double        w      = param->strokewidth;
-	aktive_uint   alias  = param->alias;
+	double        w         = param->strokewidth;
+	aktive_uint   antialias = param->antialias;
 
-	TRACE("from  = @%d,%d", pstart->x, pstart->y);
-	TRACE("to    = @%d,%d", pend->x, pend->y);
-	TRACE("width = %d", w);
-	TRACE("alias = %d", alias);
+	TRACE("from      = @%d,%d", pstart->x, pstart->y);
+	TRACE("to        = @%d,%d", pend->x, pend->y);
+	TRACE("width     = %d", w);
+	TRACE("antialias = %d", antialias);
 
 	#define LINE_SEGMENT_BW(x,y)   aktive_line_segment_bw   (aktive_line_segment_distance (x, y, pstart, pend), w)
 	#define LINE_SEGMENT_GREY(x,y) aktive_line_segment_grey (aktive_line_segment_distance (x, y, pstart, pend), w)
 
-	if (alias) {
+	if (antialias) {
 	    #define SD (idomain->depth)
 	    #define SH (idomain->height)
 	    #define SW (idomain->width)

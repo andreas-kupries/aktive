@@ -3,6 +3,18 @@
  *
  * - - -- --- ----- -------- -------------
  * -- Geometry utilities
+ *
+ * Mainly (signed) distance functions for various 2D primitives.
+ *
+ * https://math.stackexchange.com/questions/3670465/calculate-distance-from-point-to-ellipse-edge
+ * https://iquilezles.org/articles/ellipsedist/
+ * https://iquilezles.org/articles/ellipses
+ * https://iquilezles.org/articles
+ * https://iquilezles.org/articles/distgradfunctions2d	!!
+ * https://iquilezles.org/articles/distfunctions2d	!!
+ * https://iquilezles.org/articles/distfunctions2dlinf	!!
+ * https://iquilezles.org/articles/distfunctions
+
  */
 
 #include <tclpre9compat.h>
