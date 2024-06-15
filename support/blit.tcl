@@ -53,8 +53,8 @@ proc dsl::blit::gen {name scans function} {
     foreach scan $scans { EmitLoopSetup $scan ; >>> }
 
     set f [lindex $function 0]
-    set virtual [expr {$f in {pos point}}]
-    set nopos   [string equal $f point]
+    set virtual [expr {$f in {pos point point/2d}}]
+    set nopos   [expr {$f in     {point point/2d}}]
 
     EmitCellAccess $axes $virtual $nopos
     EmitFunction   $function
@@ -116,6 +116,14 @@ proc dsl::blit::F/point {cexpr} {
     set dexpr [string map {z srcz x srcx y srcy} $cexpr]
     + "double value = $dexpr;"
     + "TRACE_ADD (\" :: %f = \[$cexpr](%u %u %u)\", value, srcy, srcx, srcz);"
+    + "*dstvalue = value;"
+}
+
+proc dsl::blit::F/point/2d {cexpr} {
+    set cexpr [string trim $cexpr]
+    set dexpr [string map {x srcx y srcy} $cexpr]
+    + "double value = $dexpr;"
+    + "TRACE_ADD (\" :: %f = \[$cexpr](%u %u)\", value, srcy, srcx);"
     + "*dstvalue = value;"
 }
 
