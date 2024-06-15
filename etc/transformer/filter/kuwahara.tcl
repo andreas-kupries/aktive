@@ -130,12 +130,12 @@ operator op::kuwahara-core {
 	# Create the convolution filters for the 4 quadrants of the window.
 	# Example for k=2, window size 3:
 	#
-	# 110 011 000 000
-	# 110 011 011 110
-	# 000 000 011 110
+	# | 110 | 011 | 000 | 000 |
+	# | 110 | 011 | 011 | 110 |
+	# | 000 | 000 | 011 | 110 |
 	#
 	# The `1` in the examples is replaced with a scaling factor ensuring that the
-	# result of the filtre is the mean of the values in the addressed quadrant.
+	# result of the filter is the mean of the values in the addressed quadrant.
 
 	set mfcore [aktive image from value width $k height $k depth 1 value [expr {1./($k*$k)}]]
 	foreach {bordera borderb} {
