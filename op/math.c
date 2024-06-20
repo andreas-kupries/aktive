@@ -19,7 +19,8 @@ TRACE_OFF;
  * - - -- --- ----- -------- -------------
  */
 
-extern double aktive_clamp      (double x) { return (x < 0) ? 0 : (x > 1) ? 1 : x; }
+// extern double aktive_clamp      (double x) { return (x < 0) ? 0 : (x > 1) ? 1 : x; }
+extern double aktive_clamp      (double x) { return fmax (0, fmin (1, x)); }
 extern double aktive_invert     (double x) { return 1 - x; }
 extern double aktive_neg        (double x) { return -x; }
 extern double aktive_reciprocal (double x) { return 1.0/x; }
