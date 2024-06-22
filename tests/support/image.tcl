@@ -54,6 +54,22 @@ proc astcl/ {i}    {
     return $x
 }
 
+proc astclx {n args} {
+    set x [astcl {*}$args]
+    set p [dict get $x pixels]
+
+    set nl 1 ; set k $n ; set pn {}
+    foreach v $p {
+	if {$nl} { append pn \t ; set nl 0 }
+	set v [format %.4f $v]
+	append pn  $v " "
+	incr k -1 ; if {$k == 0} { set k $n ; set nl 1 ; append pn \n }
+    }
+    set pn [string trimright $pn]\n
+    dict set x pixels $pn
+    return $x
+}
+
 proc aspgm  {args} { aspgm/ [check {*}$args] }
 proc aspgm/ {i}    { aktive format as pgm byte 2string $i }
 
