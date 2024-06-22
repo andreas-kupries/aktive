@@ -31,9 +31,9 @@ foreach format {
 } {
     puts "### $format"
     puts ""
-    if {$format ne "markdown"} { puts "```" }
+    if {$format ne "markdown"} { puts "\`\`\`" }
     puts [aktive format as $format $i]
-    if {$format ne "markdown"} { puts "```" }
+    if {$format ne "markdown"} { puts "\`\`\`" }
     puts ""
 }
 ```
@@ -173,5 +173,5 @@ This can be converted into an SVG via the `d2` command,
 and then into a PNG image with a number of tools. This
 results in:
 
-![phansalkar pipeline](README-pipeline.png)
+![phansalkar pipeline](/doc/trunk/etc/sink/README-pipeline.png)
 
