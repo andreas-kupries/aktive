@@ -131,6 +131,7 @@ critcl::include op/null.h
 critcl::include op/otsu.h
 critcl::include op/profile.h
 critcl::include op/reduce.h
+critcl::include op/sdf.h
 critcl::include op/whitepoint.h
 
 critcl::source  op/math.tcl                     ;# Extended math function support
