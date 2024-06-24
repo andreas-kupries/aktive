@@ -14,7 +14,8 @@
  * https://iquilezles.org/articles/distfunctions2d	!!
  * https://iquilezles.org/articles/distfunctions2dlinf	!!
  * https://iquilezles.org/articles/distfunctions
-
+ *
+ * https://iquilezles.org/articles/sdfrepetition
  */
 
 #include <tclpre9compat.h>
