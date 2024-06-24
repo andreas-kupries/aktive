@@ -640,6 +640,16 @@ proc dsl::reader::Input {mode} { ;#puts [info level 0]
 # # ## ### ##### ######## #############
 ## DSL support - Parameter handling
 
+proc dsl::reader::pass {args} { ;#puts [info level 0]
+
+    Set opspec pass .
+
+    # process the parameter as-is ...
+    uplevel 1 $args
+
+    Unset opspec pass
+}
+
 proc dsl::reader::Param {type mode dvalue name args} { ;#puts [info level 0]
     OkModes {} C Tcl External
     # args :: help text
@@ -653,12 +663,14 @@ proc dsl::reader::Param {type mode dvalue name args} { ;#puts [info level 0]
 
     set isargs   [expr {$mode eq "args"}]
     set isvector [expr {$mode eq "vector"}]
-    if {$isargs && [llength [Get opspec images]]} {
-	Abort "Rejecting variadic parameter, we have images"
+    if 0 {
+	if {$isargs && [llength [Get opspec images]]} {
+	    Abort "Rejecting variadic parameter, we have images"
+	}
     }
 
     set desc [join $args { }]
-        if {$desc eq {}} { Abort "Empty description" }
+    if {$desc eq {}} { Abort "Empty description" }
 
     dict set argspec name   $name
     dict set argspec desc   $desc
@@ -675,6 +687,20 @@ proc dsl::reader::Param {type mode dvalue name args} { ;#puts [info level 0]
 
     Set      opspec param  $name .
     LappendX opspec params $argspec
+
+    if {![Has opspec pass]} ::return
+
+    # extend text block `passthrough`
+    set pass {}
+    catch { set pass [Get opspec blocks passthrough] }
+
+    append pass " $name"
+    if {$isargs} {
+	append pass " \{*\}\$$name"
+    } else {
+	append pass " \$$name"
+    }
+    Set opspec blocks passthrough [string trimleft $pass]
 }
 
 # # ## ### ##### ######## #############
