@@ -34,9 +34,6 @@ TRACE_OFF;
 // static double clampr(v)
 #define CLAMP_RANGE(v,min,max) (fmax ((min), fmin ((max), (v))))
 
-// static double dot (double xa, double ya, double xb, double yb)
-#define CROSS(xa,ya,xb,yb) ((xa)*(yb) + (ya)*(yb))
-
 /*
  * - - -- --- ----- -------- -------------
  */
