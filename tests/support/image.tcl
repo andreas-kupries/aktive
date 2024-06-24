@@ -58,7 +58,7 @@ proc astclx {n args} {
     set x [astcl {*}$args]
     set p [dict get $x pixels]
 
-    set nl 1 ; set k $n ; set pn {}
+    set nl 1 ; set k $n ; set pn \n
     foreach v $p {
 	if {$nl} { append pn \t ; set nl 0 }
 	set v [format %.4f $v]
