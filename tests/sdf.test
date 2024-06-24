@@ -20,10 +20,10 @@ syntax {
     box-rounded   args
     circle        args
     circles       args
+    line          args
     parallelogram args
+    polyline      args
     rhombus       args
-    segment       args
-    segments      args
     triangle      args
 } {aktive image sdf}
 
@@ -134,9 +134,9 @@ test aktive-image-sdf-rhombus-2.0 "aktive image sdf rhombus" -body {
     4.2875  3.7730  3.2585  2.7440  2.2361  2       2.2361  2.7440  3.2585  3.7730 4.2875
 }]
 
-test aktive-image-sdf-segment-2.0 "aktive image sdf segment" -body {
-    astclx 11 aktive image sdf segment {*}$base from {1 2} to {8 9}
-} -match image -result [makei image::sdf::segment 0 0 11 11 1 "$base from {1 2} to {8 9}" {
+test aktive-image-sdf-line-2.0 "aktive image sdf line" -body {
+    astclx 11 aktive image sdf line {*}$base from {1 2} to {8 9}
+} -match image -result [makei image::sdf::line 0 0 11 11 1 "$base from {1 2} to {8 9}" {
 
     2.2361 2      2.2361 2.8284 3.5355 4.2426 4.9497 5.6569 6.3640 7.0711 7.7782
     1.4142 1      1.4142 2.1213 2.8284 3.5355 4.2426 4.9497 5.6569 6.3640 7.0711
@@ -185,8 +185,8 @@ test aktive-image-sdf-circles-2.0 "aktive image sdf circles" -body {
     4.8310 4       3.2426 2.6056 2.1623  2      2.1623  2.6056 3.2426 4      4.8310
 }]
 
-test aktive-image-sdf-segments-2.0 "aktive image sdf segments" -body {
-    astclx 11 aktive image sdf segments {*}$base points {2 2} {7 3} {5 7}
+test aktive-image-sdf-polyline-2.0 "aktive image sdf polyline" -body {
+    astclx 11 aktive image sdf polyline {*}$base points {2 2} {7 3} {5 7}
 } -match image -result [makei op::math::min-core 0 0 11 11 1 {} {
     2.8284 2.2361 2      2.1573 2.3534 2.5495 2.7456 2.9417 3.1623 3.6056 4.2426
     2.2361 1.4142 1      1.1767 1.3728 1.5689 1.7650 1.9612 2.2361 2.8284 3.6056

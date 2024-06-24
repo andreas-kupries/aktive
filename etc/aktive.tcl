@@ -43,12 +43,15 @@ import generator/reader/aktive.tcl
 import generator/reader/netpbm.tcl
 
 import generator/virtual/constant.tcl
-import generator/virtual/draw.tcl
 import generator/virtual/gradient.tcl
 import generator/virtual/grey.tcl
 import generator/virtual/indexed.tcl
-import generator/virtual/sdf.tcl
 import generator/virtual/sparse.tcl
+
+import generator/virtual/sdf/support.tcl
+import generator/virtual/sdf/definitions.tcl
+import generator/virtual/sdf.tcl
+import generator/virtual/draw.tcl
 
 import generator/virtual/noise/gauss.tcl
 import generator/virtual/noise/salt.tcl
