@@ -103,6 +103,16 @@ extern void aktive_blit_binary (aktive_block*           dst,
 				aktive_block*           srca,
 				aktive_block*           srcb);
 
+/* Accumulate the `src` data into the destination by means of `op`.
+ * In other words:
+ *
+ *	`dst = dst "op" src`  <==> `dst = op (dst, src)`
+ */
+extern void aktive_blit_binary_acc (aktive_block*           dst,
+				    aktive_rectangle*       dstarea,
+				    aktive_binary_transform op,
+				    aktive_block*           src);
+
 extern void aktive_blit_cunary (aktive_block* dst, aktive_rectangle* dstarea,
 				aktive_cunary_transform op, aktive_block* src);
 

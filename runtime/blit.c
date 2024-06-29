@@ -488,6 +488,14 @@ aktive_blit_unarygz (aktive_block* dst, aktive_rectangle* dstarea,
 }
 
 extern void
+aktive_blit_binary_acc (aktive_block* dst, aktive_rectangle* dstarea,
+			aktive_binary_transform op,
+			aktive_block* src)
+{
+    aktive_blit_binary (dst, dstarea, op, dst, src);
+}
+
+extern void
 aktive_blit_binary (aktive_block* dst, aktive_rectangle* dstarea,
 		    aktive_binary_transform op,
 		    aktive_block* srca, aktive_block* srcb)
