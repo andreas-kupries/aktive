@@ -79,7 +79,7 @@ critcl::ccode {
 critcl::source support/dsl.tcl
 
 dsl generate runtime etc/runtime.tcl rtgen
-dsl generate aktive  etc/aktive.tcl  generated doc
+dsl generate aktive  etc/aktive.tcl  generated doc/ref
 
 critcl::source etc/runtime/blitter.tcl
 critcl::source etc/sink/statistics-c.tcl
