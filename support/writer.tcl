@@ -788,7 +788,7 @@ proc dsl::writer::OpNav {} {
     append s |
     append d |
     foreach {label ref} {
-	"Home \u2197"       "/"
+	"Home \u2197"       "../README.md"
 	"Main \u2197"       "index.md"
 	Sections            "index.md#sectree"
 	{Permuted Sections} bypsections.md
