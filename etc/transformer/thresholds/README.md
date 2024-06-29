@@ -1,6 +1,6 @@
 # Thresholding / Binarization
 
-  - [Operator reference](/doc/trunk/doc/transform_threshold.md)
+  - [Operator reference](/doc/trunk/doc/ref/transform_threshold.md)
 
 ## Overview
 

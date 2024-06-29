@@ -1,6 +1,6 @@
 # Accessor operators
 
-  - [Operator reference](/doc/trunk/doc/accessor.md)
+  - [Operator reference](/doc/trunk/doc/ref/accessor.md)
 
   - Image `attributes`
   - Global `thresholds` for various methods.

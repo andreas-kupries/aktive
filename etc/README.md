@@ -2,7 +2,7 @@
 
 This directory contains the operator specifications written in AKTIVE's custom DSL.
 
-  - [Operator reference](/doc/trunk/doc/index.md)
+  - [Operator reference](/doc/trunk/doc/ref/index.md)
 
 ## Files
 

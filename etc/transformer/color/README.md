@@ -1,6 +1,6 @@
 # Color conversions
 
-  - [Operator reference](/doc/trunk/doc/transform_color.md)
+  - [Operator reference](/doc/trunk/doc/ref/transform_color.md)
 
 ## Color spaces
 

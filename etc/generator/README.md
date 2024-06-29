@@ -1,6 +1,6 @@
 # Image generators
 
-  - [Operator reference](/doc/trunk/doc/generator.md)
+  - [Operator reference](/doc/trunk/doc/ref/generator.md)
 
 Operators creating images from nothing or one or more parameters.
 

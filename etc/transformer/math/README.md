@@ -1,6 +1,6 @@
 # Image math
 
-  - [Operator reference](/doc/trunk/doc/transform_math.md)
+  - [Operator reference](/doc/trunk/doc/ref/transform_math.md)
 
 Unary and binary math on images, for regular and `complex`-valued images.
 All functions are applied per-cell.

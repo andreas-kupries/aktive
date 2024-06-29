@@ -1,6 +1,6 @@
 # Sinks
 
-  - [Operator reference](/doc/trunk/doc/sink.md)
+  - [Operator reference](/doc/trunk/doc/ref/sink.md)
 
 Operations taking images and returning nothing.
 

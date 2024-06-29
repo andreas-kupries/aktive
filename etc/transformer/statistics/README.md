@@ -1,6 +1,6 @@
 # Image statistics
 
-  - [Operator reference](/doc/trunk/doc/transform_statistics.md)
+  - [Operator reference](/doc/trunk/doc/ref/transform_statistics.md)
 
 These are here, under Transformers, because they compute results per row, column, band or tile, and
 return them as an image.

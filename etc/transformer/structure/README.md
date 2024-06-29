@@ -1,6 +1,6 @@
 # Structural transformations of various kinds
 
-  - [Operator reference](/doc/trunk/doc/transform_structure.md)
+  - [Operator reference](/doc/trunk/doc/ref/transform_structure.md)
 
 ---
 

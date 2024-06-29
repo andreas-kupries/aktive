@@ -1,6 +1,6 @@
 ## Math on complex images
 
-  - [Operator reference](/doc/trunk/doc/transform_math_complex.md)
+  - [Operator reference](/doc/trunk/doc/ref/transform_math_complex.md)
 
 `Complex` images are 2-band images, where band `0` holds the real part of the complex value, and
 band `1` the imanginary part.

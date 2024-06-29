@@ -1,6 +1,6 @@
 # Virtual images
 
-  - [Operator reference](/doc/trunk/doc/generator_virtual.md)
+  - [Operator reference](/doc/trunk/doc/ref/generator_virtual.md)
 
 Are generated whole cloth from a small number of parameters without access to anything external. In
 contrast to Readers which pull the image data from a file.
