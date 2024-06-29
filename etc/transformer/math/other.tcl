@@ -9,15 +9,15 @@ operator op::math::linear {
     section transform math
 
     note Blends first and second input under control of the third.
-    note As equation, result = A + T*(B-A).
+    note As an equation: `result = A + T*(B-A)`.
 
     input	;# A :: primary image to blend with
     input	;# B :: secondary image to blend into/over
     input	;# T :: blend factors
 
     note All inputs are extended to matching depth.
-    note The images to blend are extended with black/zeros.
-    note The blend factors replicate their last band.
+    note - The images to blend are extended with black/zeros.
+    note - The blend factors replicate their last band.
 
     note The other dimensions of the inputs, i.e. width and height, have to match. \
 	An error is thrown if they don't.

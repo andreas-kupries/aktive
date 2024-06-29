@@ -9,11 +9,14 @@ namespace eval dsl::writer {
 
 # # ## ### ##### ######## #############
 
-proc dsl::writer::do {stem specification} {
+proc dsl::writer::do {stem doc specification} {
     variable state $specification
 
-    Clear $stem
-    Emit  $stem
+    Clear $stem/
+    Emit  $stem/
+
+    if {$doc eq {}} return
+    EmitDoc $doc/
     return
 }
 
@@ -26,9 +29,8 @@ proc dsl::writer::Clear {stem} {
 
 proc dsl::writer::Emit {stem} {
     Into ${stem}todo.txt              Todo               ;# List of skipped operators (`nyi`)
-    Into ${stem}operators.txt         Operators          ;# List of operators
     Into ${stem}undocumented.txt      Undocumented       ;# List of undocumented operators
-    OperatorDocs ${stem}docs
+    Into ${stem}operators.txt         Operators          ;# List of operators
     #
     Into ${stem}param-types.h         ParamTypes         ;# typedefs
     Into ${stem}param-descriptors.c   ParamDescriptors   ;# variables
@@ -52,6 +54,48 @@ proc dsl::writer::Emit {stem} {
     Into ${stem}wraplist.txt          OperatorWrapRecord ;# List of wrap elements
     Into ${stem}ensemble.tcl          OperatorEnsemble   ;# Command ensemble
     return
+}
+
+proc dsl::writer::EmitDoc {stem} {
+    # Collect operators into a document tree based.
+    # Various indices:
+    #
+    #   - by section
+    #   - alphanumeric by name
+    #   - by implementation
+    #
+    # Note: As the description of each operator itself is quite small they are aggregated
+    # into section files and where they are referenced from by the indices.
+
+    # collect doc structure (sections, languages, alphanum
+    set docs {}
+    foreach op [Operations] {
+	set spec    [Get ops $op]
+	set section [dict get $spec section]
+	set lang    [dict get $spec lang]
+
+	dict set docs section $section op $op [OpDoc $op $spec]
+	dict set docs lang    $lang $op $section
+	dict set docs alpha         $op $section
+	dict set docs roots   [lindex $section 0] .
+	dict set docs section [lrange $section 0 end-1] children $section .
+    }
+
+    # Emit by-section operator collections (= by section index)
+    dict for {section spec} [dict get $docs section] {
+	Into ${stem}[OpSectionKey $section].md OperatorSection $spec $section
+    }
+
+    # Emit by name / language indices
+    Into ${stem}byname.md OperatorsByName [dict get $docs alpha]
+    Into ${stem}bylang.md OperatorsByLang [dict get $docs lang]
+
+    # Emit main index referencing the others, and has the section tree
+    Into ${stem}index.md  OperatorIndex   $docs
+
+    # Emit permuted indices for perator names and sections.
+    Into ${stem}bypnames.md     OperatorPermutedNames    $docs
+    Into ${stem}bypsections.md  OperatorPermutedSections $docs
 }
 
 # # ## ### ##### ######## #############
@@ -469,6 +513,336 @@ proc dsl::writer::Todo {} {
     Done
 }
 
+proc dsl::writer::OperatorPermutedNames {docs} {
+    set ops [dict keys [dict get $docs alpha]]
+
+    set perm {}
+    foreach op $ops {
+	foreach p [Permute [lrange [OpName $op] 1 end]] {
+	    dict set perm $p $op .
+	}
+    }
+
+    lassign [NavLetter [dict keys $perm]] h s d
+
+    + "# Permuted Index Of Operator Names"
+    + {}
+    + "  - \[Main](index.md) \u2197"
+    + {}
+    + "## Navigation"
+    + {}
+    + $h	;# heading
+    + $s	;# separator
+    + $d	;# data
+
+    set last {}
+    foreach p [lsort -dict [dict keys $perm]] {
+	set initial [string index $p 0]
+	if {$initial ne $last} {
+	    + {}
+	    + "## <a name='_$initial'></a> $initial"
+	    + {}
+	}
+	set last $initial
+	foreach op [lsort -dict [dict keys [dict get $perm $p]]] {
+	    set section [dict get $docs alpha $op]
+	    + "  - \[$p]([OpSectionKey $section].md#[OpKey $op])"
+	}
+    }
+
+    Done
+}
+
+proc dsl::writer::OperatorPermutedSections {docs} {
+    set sections [dict keys [dict get $docs section]]
+
+    set perm {}
+    foreach section $sections {
+	foreach p [Permute $section] {
+	    dict set perm $p $section .
+	}
+    }
+
+    lassign [NavLetter [dict keys $perm]] h s d
+
+    + "# Permuted Index Of Section"
+    + {}
+    + "  - \[Main](index.md) \u2197"
+    + {}
+    + "## Navigation"
+    + {}
+    + $h	;# heading
+    + $s	;# separator
+    + $d	;# data
+
+    set last {}
+    foreach p [lsort -dict [dict keys $perm]] {
+	set initial [string index $p 0]
+	if {$initial ne $last} {
+	    + {}
+	    + "## <a name='_$initial'></a> $initial"
+	    + {}
+	}
+	set last $initial
+	foreach section [lsort -dict [dict keys [dict get $perm $p]]] {
+	    + "  - \[$p]([OpSectionKey $section].md)"
+	}
+    }
+
+    Done
+}
+
+proc dsl::writer::Permute {words} {
+    if {[llength $words] < 2} { return $words }
+
+    set r {}
+    set i 0
+
+    # compute rotations of the words.
+    foreach w $words {
+	set pivot  [lindex $words $i]
+	set before [lrange $words 0 $i-1]
+	set after  [lrange $words $i+1 end]
+	# rotation left places pivot at the front, then after, then before
+	lappend r [string map {{  } { }} \
+		       [string trimright "$pivot &mdash; $after $before"]]
+	incr i
+    }
+    return $r
+}
+
+proc dsl::writer::NavLetter {words} {
+    set initial {}
+    foreach w $words {
+	dict set initial [string index $w 0] .
+    }
+
+    NavWords [lsort -dict [dict keys $initial]]
+}
+
+proc dsl::writer::NavWords {words} {
+    append h |
+    append s |
+    append d |
+    foreach w [lsort -dict $words] {
+	append h |
+	append s ":---|"
+	append d "\[$w\](#_$w)|"
+    }
+
+    list $h $s $d
+}
+
+proc dsl::writer::OperatorIndex {docs} {
+    # generate linear section tree formatting instructions
+    # from implied tree in docs collection
+    # -- depth first walk --
+    set stack [lreverse [lsort -dict [dict get $docs roots]]]
+    set queue {}
+    while {[llength $stack]} {
+	set top   [lindex $stack end]
+	set stack [lrange $stack 0 end-1]
+
+	if {$top eq "."} continue
+	if {$top in {++ --}} { lappend queue $top ; continue }
+
+	lappend queue $top
+
+	if {![dict exists $docs section $top children]} continue
+	set children [dict keys [dict get $docs section $top children]]
+	if {![llength $children]} continue
+
+	lappend stack -- {*}[lreverse [lsort -dict $children]] ++
+    }
+
+    + "# Operator Reference"
+    + {}
+    + "  - \[Home](../README.md) \u2197"
+    + {}
+    + [string map {
+	"\t" {}
+    } [string trim {
+	This is the reference  documentation for all of AKTIVE's public operators and commands.
+
+	Search by
+    }]]
+
+    + {}
+    + "- \[Name](byname.md)"
+    + "- \[Permuted Name](bypnames.md)"
+    + "- \[Permuted Section](bypsections.md)"
+    + "- \[Implementation](bylang.md)"
+    + {}
+    + "or Section tree:"
+    + {}
+
+    # translate section tree instructions into formatting
+    set prefix ""
+    foreach ins $queue {
+	if {$ins eq "++"} {
+	    append prefix "  "
+	} elseif {$ins eq "--"} {
+	    set prefix [string range $prefix 0 end-2]
+	} else {
+	    + "$prefix  - \[$ins\]([OpSectionKey $ins].md)"
+	}
+    }
+
+    + {}
+    Done
+}
+
+proc dsl::writer::OperatorsByLang {spec} {
+    # spec = dict (lang -> op -> section)
+
+    set langs [dict keys $spec]
+    set map  {
+	C        C
+	Tcl      Tcl
+	External Direct
+    }
+    set desc {
+	C {
+	    The operators listed here are implemented in C. We ignore supporting Tcl code.
+	}
+	Tcl {
+	    The operators listed here are implemented wholly in Tcl.
+	}
+	External {
+	    The commands listed here are implemented outside of the operator framework.
+	}
+    }
+
+    lassign [NavWords [lmap {lang label} $map {
+	if {![dict exists $spec $lang]} continue
+	set label
+    }]] h s d
+
+    + "# Operators By Implementation"
+    + {}
+    + "  - \[Main](index.md) \u2197"
+    + {}
+    + "## Navigation"
+    + {}
+    + $h	;# heading
+    + $s	;# separator
+    + $d	;# data
+    + {}
+
+    foreach {lang label} $map {
+	if {![dict exists $spec $lang]} continue
+
+	+ "## <a name='_$label'></a> $label"
+	+ {}
+
+	set d [string map {
+	    {	    } {}
+	} [string trim [dict get $desc $lang]]]
+
+	+ $d
+	+ {}
+
+	foreach op [lsort -dict [dict keys [dict get $spec $lang]]] {
+	    set section [dict get $spec $lang $op]
+	    + " - \[[OpName $op]\]([OpSectionKey $section].md#[OpKey $op])"
+	}
+	+ {}
+    }
+
+    Done
+}
+
+proc dsl::writer::OperatorsByName {spec} {
+    # spec = dict (op -> section)
+
+    lassign [NavLetter [lmap {op section} $spec {
+	set op
+    }]] h s d
+
+    + "# Operators By Name"
+    + {}
+    + "  - \[Main](index.md) \u2197"
+    + {}
+    + "## Navigation"
+    + {}
+    + $h	;# heading
+    + $s	;# separator
+    + $d	;# data
+
+    set last {}
+    foreach op [lsort -dict [dict keys $spec]] {
+	set initial [string index $op 0]
+	if {$initial ne $last} {
+	    + {}
+	    + "## <a name='_$initial'></a> $initial"
+	    + {}
+	}
+	set last $initial
+	set section [dict get $spec $op]
+	+ " - \[[OpName $op]\]([OpSectionKey $section].md#[OpKey $op])"
+    }
+
+    + {}
+    Done
+}
+
+proc dsl::writer::OperatorSection {spec section} {
+    # spec = dict ( op    -> doc,
+    #               child -> section . )
+
+    + "# $section"
+    + "## $section - Table Of Contents"
+
+    if {[llength $section] > 1} {
+	set parent [lrange $section 0 end-1]
+	+ {}
+	+ "  - \[$parent]([OpSectionKey $parent].md) \u2197"
+	+ {}
+    } else {
+	+ {}
+	+ "  - \[Main](index.md) \u2197"
+	+ {}
+    }
+
+    # list of subordinate sections first
+    if {[dict exists $spec children]} {
+	+ {}
+	+ "## Subsections"
+	+ {}
+
+	set children [dict keys [dict get $spec children]]
+	if {[llength $children]} {
+	    + {}
+
+	    foreach child [lsort -dict $children] {
+		+ " - \[$child\]([OpSectionKey $child].md) \u2198"
+	    }
+	}
+    }
+
+    # list of operators
+    if {[dict exists $spec op]} {
+	+ {}
+	+ "### Operators"
+	+ {}
+
+	foreach {op __} [lsort -dict -index 0 -stride 2 [dict get $spec op]] {
+	    + " - \[[OpName $op]\](#[OpKey $op])"
+	}
+
+	+ {}
+	+ "## Operators"
+	+ {}
+
+	# operators a second time, documentation
+	foreach {op text} [lsort -dict -index 0 -stride 2 [dict get $spec op]] {
+	    + $text
+	}
+    }
+
+    Done
+}
+
 proc dsl::writer::Operators {} {
     if {![llength [Operations]]} return
 
@@ -488,13 +862,16 @@ proc dsl::writer::Operators {} {
     Done
 }
 
-proc dsl::writer::OperatorDocs {path} {
-    if {![llength [Operations]]} return
+proc dsl::writer::OpName {op} {
+    return "aktive [string map {:: { }} $op]"
+}
 
-    foreach op [Operations] {
-	set fop [string map {:: -} $op]
-	Into $path/operator-$fop.md OpDoc $op [Get ops $op]
-    }
+proc dsl::writer::OpKey {op} {
+    return [string map {:: _ - _} $op]
+}
+
+proc dsl::writer::OpSectionKey {section} {
+    return [join [string map {- {}} $section] _]
 }
 
 proc dsl::writer::OpDoc {op spec} {
@@ -502,11 +879,12 @@ proc dsl::writer::OpDoc {op spec} {
     # c:   notes section params images ...
     # tcl: notes section args body
 
-    set name "aktive [string map {:: { }} $op]"
-
     set sig [DocSignature $op $spec]
 
-    + "# [lreverse $section]: $name ($sig)"
+    + "---"
+    + "### <a name='[OpKey $op]'></a> [OpName $op]"
+    + ""
+    + "Syntax: __[OpName $op]__ $sig"
     + ""
 
     foreach note $notes {
@@ -516,7 +894,7 @@ proc dsl::writer::OpDoc {op spec} {
 
     if {[llength $params]} {
 	+ "|Parameter|Type|Default|Description|"
-	+ "|---|---|---|---|"
+	+ "|:---|:---|:---|:---|"
 
 	foreach p $params {
 	    dict with p {}

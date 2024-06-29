@@ -1,5 +1,7 @@
 # Sinks
 
+  - [Operator reference](/doc/trunk/doc/sink.md)
+
 Operations taking images and returning nothing.
 
   - Saving images using the `AKTIVE` format, or a host of the NetPBM formats.

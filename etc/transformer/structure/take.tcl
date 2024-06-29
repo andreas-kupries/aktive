@@ -151,10 +151,14 @@ operator op::if-then-else {
     input	;# then	(selector == 1)
     input	;# else (selector == 0)
 
+    section transform structure
+
     note Choose between second and third images based on the content \
-	of the first. All images have to have the same width and height. \
-	The selector image has to be single-band. The other images may \
-	have arbitrary depth, as long as both have the same.
+	of the first.
+
+    note All images have to have the same width and height. \
+	The selector image has to be single-band. \
+	The other images may have arbitrary depth, as long as both have the same.
 
     body {
 	lassign [aktive query geometry $src0] _ _ ws hs ds

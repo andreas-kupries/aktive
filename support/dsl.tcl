@@ -5,11 +5,11 @@ namespace eval ::dsl {
     namespace ensemble create
 }
 
-proc ::dsl::generate {pkg in out} {
+proc ::dsl::generate {pkg in out {doc {}}} {
     puts ""
     puts "  Ops processing \[$pkg\]"
 
-    writer do $out [reader do $pkg $in]
+    writer do $out $doc [reader do $pkg $in]
 }
 
 apply {{selfdir} {

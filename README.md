@@ -1,9 +1,9 @@
 
 `AKTIVE`, Andreas Kupries's Tcl Image Vector Extension is yet another attempt
-at creating an image processing package for Tcl, which started out with
+at creating an image processing package for Tcl, which started out with the
 `CRIMP` (CRItcl IMage Processor).
 
-It started as an experiment in massive code generation, both Tcl and C,
+This here started as an experiment in massive code generation, both Tcl and C,
 converting operator specifications written in a custom DSL into a functional
 Tcl extension.
 
@@ -17,6 +17,8 @@ At the moment the sources are split, after code generation, into
   - 77% generated code (C).
 
 implementing a few hundred operators in 6 major sections.
+
+For the full details please read the [operator reference](/doc/trunk/doc/index.md).
 
 The internals are somewhat inspired by VIPS.
 

@@ -1,5 +1,7 @@
 # Color conversions
 
+  - [Operator reference](/doc/trunk/doc/transform_color.md)
+
 ## Color spaces
 
 |Colorspace	|Notes							|

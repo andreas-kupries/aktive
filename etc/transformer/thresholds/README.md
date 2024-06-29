@@ -1,5 +1,7 @@
 # Thresholding / Binarization
 
+  - [Operator reference](/doc/trunk/doc/transform_threshold.md)
+
 ## Overview
 
 The listed methods are all based on adaption to the local environment of a pixel. As such they all

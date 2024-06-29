@@ -1,5 +1,7 @@
 # Filter Transformers
 
+  - [Operator reference](/doc/trunk/doc/transform.md)
+
 Provides
 
   - Generic spatial convolutions configured by a filter image holding the convolution matrix

@@ -36,6 +36,14 @@ operator op::math::screen {
 # # ## ### ##### ######## ############# #####################
 ## Binary without parameters
 
+proc logical {} { ::return {
+    op::math::nand
+    op::math::and
+    op::math::or
+    op::math::nor
+    op::math::xor
+}}
+
 operator {cfunction dexpr} {
     op::math::nand      aktive_nand  {!(A && B)}
     op::math::nor       aktive_nor   {!(A || B)}
@@ -60,13 +68,7 @@ operator {cfunction dexpr} {
 
     note The result geometry is the intersection of the inputs.
 
-    if {$__op in {
-	op::math::and
-	op::math::nand
-	op::math::or
-	op::math::nor
-	op::math::xor
-    }} {
+    if {$__op in [logical]} {
 	section transform math binary logical
 
 	note As a logical operation the inputs are trivially thresholded at 0.5. \
@@ -112,8 +114,11 @@ operator {cfunction dexpr} {
     op::math::min  fmin       {min(A, B)}
 } {
     op -> _ _ fun
-    if {$fun in {and or xor}} {
+    if {$__op in [logical]} {
 	section transform math n-ary logical
+
+	note As a logical operation the inputs are trivially thresholded at 0.5. \
+	    Values <= 0.5 are seen as false, else as true.
     } else {
 	section transform math n-ary
     }

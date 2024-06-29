@@ -2,6 +2,8 @@
 
 This directory contains the operator specifications written in AKTIVE's custom DSL.
 
+  - [Operator reference](/doc/trunk/doc/index.md)
+
 ## Files
 
   - The file `runtime.tcl` declares a basic set of types using operators.
