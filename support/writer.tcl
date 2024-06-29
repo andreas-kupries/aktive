@@ -602,18 +602,11 @@ proc dsl::writer::OperatorIndex {docs} {
 	lappend stack -- {*}[lreverse [lsort -dict $children]] ++
     }
 
-    + "# Operator Reference"
+    + "# Documentation &mdash; Reference Pages"
     + {}
     + [OpNav]
     + {}
-    + [string map {
-	"\t" {}
-    } [string trim {
-	This is the reference documentation for all of AKTIVE's public operators and commands.
-
-	Search by
-    }]]
-
+    + "Reference pages for all the package's public operators and commands."
     + {}
     + "- \[Name](byname.md)"
     + "- \[Permuted Name](bypnames.md)"
@@ -784,21 +777,51 @@ proc dsl::writer::OperatorSection {spec section} {
 }
 
 proc dsl::writer::OpNav {} {
-    append h |
-    append s |
-    append d |
+    set h |
+    set s |
+    set d |
     foreach {label ref} {
-	"Home \u2197"       "../README.md"
-	"Main \u2197"       "index.md"
-	Sections            "index.md#sectree"
-	{Permuted Sections} bypsections.md
-	Names               byname.md
-	{Permuted Names}    bypnames.md
-	Implementations     bylang.md
+	"Project \u2197"       "../../README.md"
+	- -
+	"Documentation \u2197" "../index.md"
+	"Tutorials \u2197"     "../tutorials.md"
+	"How To's \u2197"      "../howtos.md"
+	"Explanations \u2197"  "../explanations.md"
     } {
 	append h |
 	append s ---|
-	append d "\[$label]($ref)|"
+	if {$label eq "-"} {
+	    append d "&mdash;|"
+	} else {
+	    append d "\[$label]($ref)|"
+	}
+    }
+    append h |
+    append s ---|
+    append d References|
+    + $h
+    + $s
+    + $d
+    + {}
+    set h |
+    set s |
+    set d |
+    foreach {label ref} {
+	"Entry \u2197"            "index.md"
+	- -
+	"Sections \u2198"         "index.md#sectree"
+	"Permuted Sections \u2198" bypsections.md
+	"Names \u2198"             byname.md
+	"Permuted Names \u2198"    bypnames.md
+	"Implementations \u2198"   bylang.md
+    } {
+	append h |
+	append s ---|
+	if {$label eq "-"} {
+	    append d "&mdash;|"
+	} else {
+	    append d "\[$label]($ref)|"
+	}
     }
     + $h
     + $s
