@@ -48,7 +48,7 @@ set base [aktive image from value width 11 height 11 depth 1 value 9]
 
 test aktive-op-draw-box-2.0 "aktive op draw box" -body {
     astclx 11 aktive op draw box on $base color 2 ewidth 5 eheight 3 center {5 5}
-} -match image -result [makei op::math::add-core 0 0 11 11 1 {} {
+} -match image -result [makei op::math::add 0 0 11 11 1 {} {
     9 9 9 9 9 9 9 9 9 9 9
     9 9 9 9 9 9 9 9 9 9 9
     2 2 2 2 2 2 2 2 2 2 2
@@ -80,7 +80,7 @@ test aktive-op-draw-box-2.1 "aktive op draw box, pixelated" -body {
 
 test aktive-op-draw-box-2.2 "aktive op draw box, outlined" -body {
     astclx 11 aktive op draw box on $base color 2 outlined 1 ewidth 5 eheight 3 center {5 5}
-} -match image -result [makei op::math::add-core 0 0 11 11 1 {} {
+} -match image -result [makei op::math::add 0 0 11 11 1 {} {
     9 9 9 9 9 9 9 9 9 9 9
     9 9 9 9 9 9 9 9 9 9 9
     2 2 2 2 2 2 2 2 2 2 2
@@ -114,7 +114,7 @@ test aktive-op-draw-box-rounded-2.0 "aktive op draw box-rounded" -body {
     astclx 11 aktive op draw box-rounded on $base color 2 \
 	upleftradius 1 uprightradius 1 downleftradius 1 downrightradius 1 \
 	ewidth 5 eheight 3 center {5 5}
-} -match image -result [makei op::math::add-core 0 0 11 11 1 {} {
+} -match image -result [makei op::math::add 0 0 11 11 1 {} {
     9      9      9      9      9      9      9      9      9      9      9
     9      9      9      9      9      9      9      9      9      9      9
     4.8995 2      2      2      2      2      2      2      2      2      4.8995
@@ -150,7 +150,7 @@ test aktive-op-draw-box-rounded-2.2 "aktive op draw box-rounded, outlined" -body
     astclx 11 aktive op draw box-rounded on $base color 2 outlined 1 \
 	upleftradius 1 uprightradius 1 downleftradius 1 downrightradius 1 \
 	ewidth 5 eheight 3 center {5 5}
-} -match image -result [makei op::math::add-core 0 0 11 11 1 {} {
+} -match image -result [makei op::math::add 0 0 11 11 1 {} {
     9      9      9      9      9      9      9      9      9      9      9
     9      9      9      9      9      9      9      9      9      9      9
     4.8995 2      2      2      2      2      2      2      2      2      4.8995
@@ -184,7 +184,7 @@ test aktive-op-draw-box-rounded-2.3 "aktive op draw box-rounded, pixelated, outl
 
 test aktive-op-draw-circle-2.0 "aktive op draw circle" -body {
     astclx 11 aktive op draw circle on $base color 2 radius 3 center {5 5}
-} -match image -result [makei op::math::add-core 0 0 11 11 1 {} {
+} -match image -result [makei op::math::add 0 0 11 11 1 {} {
     9      9      9      9      9      9      9      9      9      9      9
     9      9      9      9      9      9      9      9      9      9      9
     9      9      9      6.2389 3.1359 2      3.1359 6.2389 9      9      9
@@ -216,7 +216,7 @@ test aktive-op-draw-circle-2.1 "aktive op draw circle, pixelated" -body {
 
 test aktive-op-draw-circle-2.2 "aktive op draw circle, outlined" -body {
     astclx 11 aktive op draw circle on $base color 2 outlined 1 radius 3 center {5 5}
-} -match image -result [makei op::math::add-core 0 0 11 11 1 {} {
+} -match image -result [makei op::math::add 0 0 11 11 1 {} {
     9      9      9      9      9      9      9      9      9      9      9
     9      9      9      9      9      9      9      9      9      9      9
     9      9      9      6.2389 3.1359 2      3.1359 6.2389 9      9      9
@@ -248,7 +248,7 @@ test aktive-op-draw-circle-2.3 "aktive op draw circle, pixelated, outlined" -bod
 
 test aktive-op-draw-parallelogram-2.0 "aktive op draw parallelogram" -body {
     astclx 11 aktive op draw parallelogram on $base color 2 ewidth 5 eheight 3 eskew 1 center {5 5}
-} -match image -result [makei op::math::add-core 0 0 11 11 1 {} {
+} -match image -result [makei op::math::add 0 0 11 11 1 {} {
     9      9      9      9      9      9      9      9      9      9      9
     9      9      9      9      9      9      9      9      9      9      9
     2      2      2      2      2      2      2      2      2      2      8.6408
@@ -280,7 +280,7 @@ test aktive-op-draw-parallelogram-2.1 "aktive op draw parallelogram, pixelated" 
 
 test aktive-op-draw-parallelogram-2.2 "aktive op draw parallelogram, outlined" -body {
     astclx 11 aktive op draw parallelogram on $base color 2 outlined 1 ewidth 5 eheight 3 eskew 1 center {5 5}
-} -match image -result [makei op::math::add-core 0 0 11 11 1 {} {
+} -match image -result [makei op::math::add 0 0 11 11 1 {} {
     9      9      9      9      9      9      9      9      9      9      9
     9      9      9      9      9      9      9      9      9      9      9
     2      2      2      2      2      2      2      2      2      2      8.6408
@@ -312,7 +312,7 @@ test aktive-op-draw-parallelogram-2.3 "aktive op draw parallelogram, pixelated, 
 
 test aktive-op-draw-rhombus-2.0 "aktive op draw rhombus" -body {
     astclx 11 aktive op draw rhombus on $base color 2 ewidth 5 eheight 3 center {5 5}
-} -match image -result [makei op::math::add-core 0 0 11 11 1 {} {
+} -match image -result [makei op::math::add 0 0 11 11 1 {} {
     9      9      9      9      9      9      9      9      9      9      9
     9      9      9      9      9      9      9      9      9      9      9
     9      9      9      9      5.6015 2      5.6015 9      9      9      9
@@ -344,7 +344,7 @@ test aktive-op-draw-rhombus-2.1 "aktive op draw rhombus, pixelated" -body {
 
 test aktive-op-draw-rhombus-2.2 "aktive op draw rhombus, outlined" -body {
     astclx 11 aktive op draw rhombus on $base color 2 outlined 1 ewidth 5 eheight 3 center {5 5}
-} -match image -result [makei op::math::add-core 0 0 11 11 1 {} {
+} -match image -result [makei op::math::add 0 0 11 11 1 {} {
     9      9      9      9      9      9      9      9      9      9      9
     9      9      9      9      9      9      9      9      9      9      9
     9      9      9      9      5.6015 2      5.6015 9      9      9      9
@@ -376,7 +376,7 @@ test aktive-op-draw-rhombus-2.3 "aktive op draw rhombus, pixelated, outlined" -b
 
 test aktive-op-draw-line-2.0 "aktive op draw line" -body {
     astclx 11 aktive op draw line on $base color 2 from {1 2} to {8 9}
-} -match image -result [makei op::math::add-core 0 0 11 11 1 {} {
+} -match image -result [makei op::math::add 0 0 11 11 1 {} {
     9      9      9      9      9      9      9      9      9      9      9
     9      9      9      9      9      9      9      9      9      9      9
     9      2      6.9497 9      9      9      9      9      9      9      9
@@ -408,7 +408,7 @@ test aktive-op-draw-line-2.1 "aktive op draw line, pixelated" -body {
 
 test aktive-op-draw-line-2.2 "aktive op draw line, wide stroke" -body {
     astclx 11 aktive op draw line on $base color 2 strokewidth 1 from {1 2} to {8 9}
-} -match image -result [makei op::math::add-core 0 0 11 11 1 {} {
+} -match image -result [makei op::math::add 0 0 11 11 1 {} {
     9      9      9      9      9      9      9      9      9      9      9
     4.8995 2      4.8995 9      9      9      9      9      9      9      9
     2      2      2      4.8995 9      9      9      9      9      9      9
@@ -440,7 +440,7 @@ test aktive-op-draw-line-2.3 "aktive op draw line, pixelated, wide stroke" -body
 
 test aktive-op-draw-triangle-2.0 "aktive op draw triangle" -body {
     astclx 11 aktive op draw triangle on $base color 2 a {1 1} b {3 8} c {8 3}
-} -match image -result [makei op::math::add-core 0 0 11 11 1 {} {
+} -match image -result [makei op::math::add 0 0 11 11 1 {} {
     9      9      9      9      9      9      9      9      9      9      9
     9      2      3.9230 5.8461 7.7691 9      9      9      9      9      9
     9      3.9230 2      2      2      2.9615 4.8846 6.8076 8.7307 9      9
@@ -472,7 +472,7 @@ test aktive-op-draw-triangle-2.1 "aktive op draw triangle, pixelated" -body {
 
 test aktive-op-draw-triangle-2.2 "aktive op draw triangle, outlined" -body {
     astclx 11 aktive op draw triangle on $base color 2 outlined 1 a {1 1} b {3 8} c {8 3}
-} -match image -result [makei op::math::add-core 0 0 11 11 1 {} {
+} -match image -result [makei op::math::add 0 0 11 11 1 {} {
     9      9      9      9      9      9      9      9      9      9      9
     9      2      3.9230 5.8461 7.7691 9      9      9      9      9      9
     9      3.9230 6.8076 4.8846 2.9615 2.9615 4.8846 6.8076 8.7307 9      9
@@ -506,7 +506,7 @@ test aktive-op-draw-triangle-2.3 "aktive op draw triangle, pixelated, outlined" 
 
 test aktive-op-draw-circles-2.0 "aktive op draw circles" -body {
     astclx 11 aktive op draw circles on $base color 2 radius 1 centers {2 2} {7 3} {5 7}
-} -match image -result [makei op::math::add-core 0 0 11 11 1 {} {
+} -match image -result [makei op::math::add 0 0 11 11 1 {} {
     9      9      9      9      9      9      9      9      9      9      9
     9      4.8995 2      4.8995 9      9      9      9      9      9      9
     9      2      2      2      9      9      4.8995 2      4.8995 9      9
@@ -538,7 +538,7 @@ test aktive-op-draw-circles-2.1 "aktive op draw circles, pixelated" -body {
 
 test aktive-op-draw-circles-2.2 "aktive op draw circles, outlined" -body {
     astclx 11 aktive op draw circles on $base color 2 outlined 1 radius 1 centers {2 2} {7 3} {5 7}
-} -match image -result [makei op::math::add-core 0 0 11 11 1 {} {
+} -match image -result [makei op::math::add 0 0 11 11 1 {} {
     9      9      9      9      9      9      9      9      9      9      9
     9      4.8995 2      4.8995 9      9      9      9      9      9      9
     9      2      9      2      9      9      4.8995 2      4.8995 9      9
@@ -570,7 +570,7 @@ test aktive-op-draw-circles-2.3 "aktive op draw circles, pixelated, outlined" -b
 
 test aktive-op-draw-polyline-2.0 "aktive op draw polyline" -body {
     astclx 11 aktive op draw polyline on $base color 2 points {2 2} {7 3} {5 7}
-} -match image -result [makei op::math::add-core 0 0 11 11 1 {} {
+} -match image -result [makei op::math::add 0 0 11 11 1 {} {
     9      9      9      9      9      9      9      9      9      9      9
     9      9      9      9      9      9      9      9      9      9      9
     9      9      2      3.3728 4.7456 6.1184 7.4913 8.8641 9      9      9
@@ -602,7 +602,7 @@ test aktive-op-draw-polyline-2.1 "aktive op draw polyline, pixelated" -body {
 
 test aktive-op-draw-polyline-2.2 "aktive op draw polyline, wide stroke" -body {
     astclx 11 aktive op draw polyline on $base color 2 strokewidth 1 points {2 2} {7 3} {5 7}
-} -match image -result [makei op::math::add-core 0 0 11 11 1 {} {
+} -match image -result [makei op::math::add 0 0 11 11 1 {} {
     9      9      9      9      9      9      9      9      9      9      9
     9      4.8995 2      3.2369 4.6097 5.9825 7.3553 8.7281 9      9      9
     9      2      2      2      2      2      2      2      4.8995 9      9

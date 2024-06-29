@@ -17,9 +17,7 @@ kt source support/util.tcl
 
 syntax {
     add         args
-    add-core   {src0 src1}
     and         args
-    and-core   {src0 src1}
     atan2      {src0 src1}
     difference {src0 src1}
     div        {src0 src1}
@@ -30,22 +28,17 @@ syntax {
     le         {src0 src1}
     lt         {src0 src1}
     max         args
-    max-core   {src0 src1}
     min         args
-    min-core   {src0 src1}
     mod        {src0 src1}
     mul         args
-    mul-core   {src0 src1}
     nand       {src0 src1}
     ne         {src0 src1}
     nor        {src0 src1}
     or          args
-    or-core    {src0 src1}
     pow        {src0 src1}
     screen     {src0 src1}
     sub        {src0 src1}
     xor         args
-    xor-core   {src0 src1}
 } {aktive op math}
 
 # # ## ### ##### ######## ############# #####################
@@ -97,7 +90,7 @@ foreach {op expected} {
     }
 
     set cop $op
-    if {$op in {and or xor add mul min max}} { append cop -core }
+    #if {$op in {and or xor add mul min max}} { append cop -core }
 
     test aktive-op-math-${op}-2.0 "aktive op math $op, core" -body {
 	set x [astcl aktive op math $op $in [aktive op flip x $in]]
