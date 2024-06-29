@@ -263,7 +263,7 @@ operator op::sdf::2image::smooth {
 operator op::sdf::2image::pixelated {
     section transform sdf
 
-    note Converts the SDF into a b/w-scale image with pixelated element borders.
+    note Converts the SDF into a black/white image with pixelated element borders.
 
     input
 
