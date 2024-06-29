@@ -1,12 +1,12 @@
 # Permuted Index Of Operator Names
 
-  - [Main](index.md) ↗
-
-## Navigation
+||||||||
+|---|---|---|---|---|---|---|
+|[Home ↗](/)|[Main ↗](index.md)|[Sections](index.md#sectree)|[Permuted Sections](bypsections.md)|[Names](byname.md)|[Permuted Names](bypnames.md)|[Implementations](bylang.md)|
 
 ||||||||||||||||||||||||||||||||||
-|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|
-|[2](#_2)|[4](#_4)|[8](#_8)|[a](#_a)|[b](#_b)|[c](#_c)|[d](#_d)|[e](#_e)|[f](#_f)|[G](#_G)|[g](#_g)|[H](#_H)|[h](#_h)|[i](#_i)|[k](#_k)|[L](#_L)|[l](#_l)|[m](#_m)|[n](#_n)|[o](#_o)|[p](#_p)|[q](#_q)|[r](#_r)|[s](#_s)|[t](#_t)|[u](#_u)|[v](#_v)|[w](#_w)|[X](#_X)|[x](#_x)|[Y](#_Y)|[y](#_y)|[z](#_z)|
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+|&nbsp;[2](#_2)&nbsp;|&nbsp;[4](#_4)&nbsp;|&nbsp;[8](#_8)&nbsp;|&nbsp;[a](#_a)&nbsp;|&nbsp;[b](#_b)&nbsp;|&nbsp;[c](#_c)&nbsp;|&nbsp;[d](#_d)&nbsp;|&nbsp;[e](#_e)&nbsp;|&nbsp;[f](#_f)&nbsp;|&nbsp;[G](#_G)&nbsp;|&nbsp;[g](#_g)&nbsp;|&nbsp;[H](#_H)&nbsp;|&nbsp;[h](#_h)&nbsp;|&nbsp;[i](#_i)&nbsp;|&nbsp;[k](#_k)&nbsp;|&nbsp;[L](#_L)&nbsp;|&nbsp;[l](#_l)&nbsp;|&nbsp;[m](#_m)&nbsp;|&nbsp;[n](#_n)&nbsp;|&nbsp;[o](#_o)&nbsp;|&nbsp;[p](#_p)&nbsp;|&nbsp;[q](#_q)&nbsp;|&nbsp;[r](#_r)&nbsp;|&nbsp;[s](#_s)&nbsp;|&nbsp;[t](#_t)&nbsp;|&nbsp;[u](#_u)&nbsp;|&nbsp;[v](#_v)&nbsp;|&nbsp;[w](#_w)&nbsp;|&nbsp;[X](#_X)&nbsp;|&nbsp;[x](#_x)&nbsp;|&nbsp;[Y](#_Y)&nbsp;|&nbsp;[y](#_y)&nbsp;|&nbsp;[z](#_z)&nbsp;|
 
 ## <a name='_2'></a> 2
 

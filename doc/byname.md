@@ -1,12 +1,12 @@
 # Operators By Name
 
-  - [Main](index.md) ↗
-
-## Navigation
+||||||||
+|---|---|---|---|---|---|---|
+|[Home ↗](/)|[Main ↗](index.md)|[Sections](index.md#sectree)|[Permuted Sections](bypsections.md)|[Names](byname.md)|[Permuted Names](bypnames.md)|[Implementations](bylang.md)|
 
 ||||||||||
-|:---|:---|:---|:---|:---|:---|:---|:---|:---|
-|[e](#_e)|[f](#_f)|[i](#_i)|[m](#_m)|[o](#_o)|[p](#_p)|[q](#_q)|[r](#_r)|[v](#_v)|
+|---|---|---|---|---|---|---|---|---|
+|&nbsp;[e](#_e)&nbsp;|&nbsp;[f](#_f)&nbsp;|&nbsp;[i](#_i)&nbsp;|&nbsp;[m](#_m)&nbsp;|&nbsp;[o](#_o)&nbsp;|&nbsp;[p](#_p)&nbsp;|&nbsp;[q](#_q)&nbsp;|&nbsp;[r](#_r)&nbsp;|&nbsp;[v](#_v)&nbsp;|
 
 ## <a name='_e'></a> e
 

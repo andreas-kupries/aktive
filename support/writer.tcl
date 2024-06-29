@@ -523,17 +523,11 @@ proc dsl::writer::OperatorPermutedNames {docs} {
 	}
     }
 
-    lassign [NavLetter [dict keys $perm]] h s d
-
     + "# Permuted Index Of Operator Names"
     + {}
-    + "  - \[Main](index.md) \u2197"
+    + [OpNav]
     + {}
-    + "## Navigation"
-    + {}
-    + $h	;# heading
-    + $s	;# separator
-    + $d	;# data
+    + [NavLetter [dict keys $perm]]
 
     set last {}
     foreach p [lsort -dict [dict keys $perm]] {
@@ -563,17 +557,11 @@ proc dsl::writer::OperatorPermutedSections {docs} {
 	}
     }
 
-    lassign [NavLetter [dict keys $perm]] h s d
-
-    + "# Permuted Index Of Section"
+    + "# Permuted Index Of Sections"
     + {}
-    + "  - \[Main](index.md) \u2197"
+    + [OpNav]
     + {}
-    + "## Navigation"
-    + {}
-    + $h	;# heading
-    + $s	;# separator
-    + $d	;# data
+    + [NavLetter [dict keys $perm]]
 
     set last {}
     foreach p [lsort -dict [dict keys $perm]] {
@@ -590,47 +578,6 @@ proc dsl::writer::OperatorPermutedSections {docs} {
     }
 
     Done
-}
-
-proc dsl::writer::Permute {words} {
-    if {[llength $words] < 2} { return $words }
-
-    set r {}
-    set i 0
-
-    # compute rotations of the words.
-    foreach w $words {
-	set pivot  [lindex $words $i]
-	set before [lrange $words 0 $i-1]
-	set after  [lrange $words $i+1 end]
-	# rotation left places pivot at the front, then after, then before
-	lappend r [string map {{  } { }} \
-		       [string trimright "$pivot &mdash; $after $before"]]
-	incr i
-    }
-    return $r
-}
-
-proc dsl::writer::NavLetter {words} {
-    set initial {}
-    foreach w $words {
-	dict set initial [string index $w 0] .
-    }
-
-    NavWords [lsort -dict [dict keys $initial]]
-}
-
-proc dsl::writer::NavWords {words} {
-    append h |
-    append s |
-    append d |
-    foreach w [lsort -dict $words] {
-	append h |
-	append s ":---|"
-	append d "\[$w\](#_$w)|"
-    }
-
-    list $h $s $d
 }
 
 proc dsl::writer::OperatorIndex {docs} {
@@ -657,12 +604,12 @@ proc dsl::writer::OperatorIndex {docs} {
 
     + "# Operator Reference"
     + {}
-    + "  - \[Home](../README.md) \u2197"
+    + [OpNav]
     + {}
     + [string map {
 	"\t" {}
     } [string trim {
-	This is the reference  documentation for all of AKTIVE's public operators and commands.
+	This is the reference documentation for all of AKTIVE's public operators and commands.
 
 	Search by
     }]]
@@ -670,10 +617,11 @@ proc dsl::writer::OperatorIndex {docs} {
     + {}
     + "- \[Name](byname.md)"
     + "- \[Permuted Name](bypnames.md)"
+    + "- \[Section](#sectree)"
     + "- \[Permuted Section](bypsections.md)"
     + "- \[Implementation](bylang.md)"
     + {}
-    + "or Section tree:"
+    + "## <a name ='sectree'></a> Section tree"
     + {}
 
     # translate section tree instructions into formatting
@@ -713,20 +661,15 @@ proc dsl::writer::OperatorsByLang {spec} {
 	}
     }
 
-    lassign [NavWords [lmap {lang label} $map {
-	if {![dict exists $spec $lang]} continue
-	set label
-    }]] h s d
 
     + "# Operators By Implementation"
     + {}
-    + "  - \[Main](index.md) \u2197"
+    + [OpNav]
     + {}
-    + "## Navigation"
-    + {}
-    + $h	;# heading
-    + $s	;# separator
-    + $d	;# data
+    + [NavWords [lmap {lang label} $map {
+	if {![dict exists $spec $lang]} continue
+	set label
+    }]]
     + {}
 
     foreach {lang label} $map {
@@ -755,19 +698,13 @@ proc dsl::writer::OperatorsByLang {spec} {
 proc dsl::writer::OperatorsByName {spec} {
     # spec = dict (op -> section)
 
-    lassign [NavLetter [lmap {op section} $spec {
-	set op
-    }]] h s d
-
     + "# Operators By Name"
     + {}
-    + "  - \[Main](index.md) \u2197"
+    + [OpNav]
     + {}
-    + "## Navigation"
-    + {}
-    + $h	;# heading
-    + $s	;# separator
-    + $d	;# data
+    + [NavLetter [lmap {op section} $spec {
+	set op
+    }]]
 
     set last {}
     foreach op [lsort -dict [dict keys $spec]] {
@@ -791,7 +728,10 @@ proc dsl::writer::OperatorSection {spec section} {
     #               child -> section . )
 
     + "# $section"
-    + "## $section - Table Of Contents"
+    + {}
+    + [OpNav]
+    + {}
+    + "## Table Of Contents"
 
     if {[llength $section] > 1} {
 	set parent [lrange $section 0 end-1]
@@ -840,6 +780,29 @@ proc dsl::writer::OperatorSection {spec section} {
 	}
     }
 
+    Done
+}
+
+proc dsl::writer::OpNav {} {
+    append h |
+    append s |
+    append d |
+    foreach {label ref} {
+	"Home \u2197"       "/"
+	"Main \u2197"       "index.md"
+	Sections            "index.md#sectree"
+	{Permuted Sections} bypsections.md
+	Names               byname.md
+	{Permuted Names}    bypnames.md
+	Implementations     bylang.md
+    } {
+	append h |
+	append s ---|
+	append d "\[$label]($ref)|"
+    }
+    + $h
+    + $s
+    + $d
     Done
 }
 
@@ -910,6 +873,50 @@ proc dsl::writer::OpDoc {op spec} {
     ## foreach i $images { + "||image|||" }
 
     + ""
+    Done
+}
+
+proc dsl::writer::Permute {words} {
+    if {[llength $words] < 2} { return $words }
+
+    set r {}
+    set i 0
+
+    # compute rotations of the words.
+    foreach w $words {
+	set pivot  [lindex $words $i]
+	set before [lrange $words 0 $i-1]
+	set after  [lrange $words $i+1 end]
+	# rotation left places pivot at the front, then after, then before
+	lappend r [string map {{  } { }} \
+		       [string trimright "$pivot &mdash; $after $before"]]
+	incr i
+    }
+    return $r
+}
+
+proc dsl::writer::NavLetter {words} {
+    set initial {}
+    foreach w $words {
+	dict set initial [string index $w 0] .
+    }
+
+    NavWords [lsort -dict [dict keys $initial]]
+}
+
+proc dsl::writer::NavWords {words} {
+    append h |
+    append s |
+    append d |
+    foreach w $words {
+	append h |
+	append s "---|"
+	append d "&nbsp;\[$w\](#_$w)&nbsp;|"
+    }
+
+    + $h
+    + $s
+    + $d
     Done
 }
 

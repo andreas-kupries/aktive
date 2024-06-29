@@ -1,12 +1,12 @@
-# Permuted Index Of Section
+# Permuted Index Of Sections
 
-  - [Main](index.md) ↗
-
-## Navigation
+||||||||
+|---|---|---|---|---|---|---|
+|[Home ↗](/)|[Main ↗](index.md)|[Sections](index.md#sectree)|[Permuted Sections](bypsections.md)|[Names](byname.md)|[Permuted Names](bypnames.md)|[Implementations](bylang.md)|
 
 |||||||||||||||||||
-|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|:---|
-|[a](#_a)|[b](#_b)|[c](#_c)|[d](#_d)|[e](#_e)|[g](#_g)|[h](#_h)|[i](#_i)|[k](#_k)|[l](#_l)|[m](#_m)|[n](#_n)|[r](#_r)|[s](#_s)|[t](#_t)|[u](#_u)|[v](#_v)|[w](#_w)|
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+|&nbsp;[a](#_a)&nbsp;|&nbsp;[b](#_b)&nbsp;|&nbsp;[c](#_c)&nbsp;|&nbsp;[d](#_d)&nbsp;|&nbsp;[e](#_e)&nbsp;|&nbsp;[g](#_g)&nbsp;|&nbsp;[h](#_h)&nbsp;|&nbsp;[i](#_i)&nbsp;|&nbsp;[k](#_k)&nbsp;|&nbsp;[l](#_l)&nbsp;|&nbsp;[m](#_m)&nbsp;|&nbsp;[n](#_n)&nbsp;|&nbsp;[r](#_r)&nbsp;|&nbsp;[s](#_s)&nbsp;|&nbsp;[t](#_t)&nbsp;|&nbsp;[u](#_u)&nbsp;|&nbsp;[v](#_v)&nbsp;|&nbsp;[w](#_w)&nbsp;|
 
 ## <a name='_a'></a> a
 

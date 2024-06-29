@@ -1,5 +1,10 @@
 # transform math n-ary logical
-## transform math n-ary logical - Table Of Contents
+
+||||||||
+|---|---|---|---|---|---|---|
+|[Home ↗](/)|[Main ↗](index.md)|[Sections](index.md#sectree)|[Permuted Sections](bypsections.md)|[Names](byname.md)|[Permuted Names](bypnames.md)|[Implementations](bylang.md)|
+
+## Table Of Contents
 
   - [transform math n-ary](transform_math_nary.md) ↗
 

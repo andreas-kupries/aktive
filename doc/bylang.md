@@ -1,12 +1,12 @@
 # Operators By Implementation
 
-  - [Main](index.md) ↗
-
-## Navigation
+||||||||
+|---|---|---|---|---|---|---|
+|[Home ↗](/)|[Main ↗](index.md)|[Sections](index.md#sectree)|[Permuted Sections](bypsections.md)|[Names](byname.md)|[Permuted Names](bypnames.md)|[Implementations](bylang.md)|
 
 ||||
-|:---|:---|:---|
-|[C](#_C)|[Direct](#_Direct)|[Tcl](#_Tcl)|
+|---|---|---|
+|&nbsp;[C](#_C)&nbsp;|&nbsp;[Tcl](#_Tcl)&nbsp;|&nbsp;[Direct](#_Direct)&nbsp;|
 
 ## <a name='_C'></a> C
 

@@ -1,5 +1,10 @@
 # transform math complex reduce
-## transform math complex reduce - Table Of Contents
+
+||||||||
+|---|---|---|---|---|---|---|
+|[Home ↗](/)|[Main ↗](index.md)|[Sections](index.md#sectree)|[Permuted Sections](bypsections.md)|[Names](byname.md)|[Permuted Names](bypnames.md)|[Implementations](bylang.md)|
+
+## Table Of Contents
 
   - [transform math complex](transform_math_complex.md) ↗
 

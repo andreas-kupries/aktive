@@ -1,5 +1,10 @@
 # sink writer
-## sink writer - Table Of Contents
+
+||||||||
+|---|---|---|---|---|---|---|
+|[Home ↗](/)|[Main ↗](index.md)|[Sections](index.md#sectree)|[Permuted Sections](bypsections.md)|[Names](byname.md)|[Permuted Names](bypnames.md)|[Implementations](bylang.md)|
+
+## Table Of Contents
 
   - [sink](sink.md) ↗
 

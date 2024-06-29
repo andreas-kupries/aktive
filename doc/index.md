@@ -1,17 +1,20 @@
 # Operator Reference
 
-  - [Home](../README.md) ↗
+||||||||
+|---|---|---|---|---|---|---|
+|[Home ↗](/)|[Main ↗](index.md)|[Sections](index.md#sectree)|[Permuted Sections](bypsections.md)|[Names](byname.md)|[Permuted Names](bypnames.md)|[Implementations](bylang.md)|
 
-This is the reference  documentation for all of AKTIVE's public operators and commands.
+This is the reference documentation for all of AKTIVE's public operators and commands.
 
 Search by
 
 - [Name](byname.md)
 - [Permuted Name](bypnames.md)
+- [Section](#sectree)
 - [Permuted Section](bypsections.md)
 - [Implementation](bylang.md)
 
-or Section tree:
+## <a name ='sectree'></a> Section tree
 
   - [accessor](accessor.md)
     - [accessor geometry](accessor_geometry.md)

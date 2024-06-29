@@ -1,5 +1,10 @@
 # transform global histogram
-## transform global histogram - Table Of Contents
+
+||||||||
+|---|---|---|---|---|---|---|
+|[Home ↗](/)|[Main ↗](index.md)|[Sections](index.md#sectree)|[Permuted Sections](bypsections.md)|[Names](byname.md)|[Permuted Names](bypnames.md)|[Implementations](bylang.md)|
+
+## Table Of Contents
 
   - [transform global](transform_global.md) ↗
 

@@ -1,5 +1,10 @@
 # transform lookup indexed compose
-## transform lookup indexed compose - Table Of Contents
+
+||||||||
+|---|---|---|---|---|---|---|
+|[Home ↗](/)|[Main ↗](index.md)|[Sections](index.md#sectree)|[Permuted Sections](bypsections.md)|[Names](byname.md)|[Permuted Names](bypnames.md)|[Implementations](bylang.md)|
+
+## Table Of Contents
 
   - [transform lookup indexed](transform_lookup_indexed.md) ↗
 

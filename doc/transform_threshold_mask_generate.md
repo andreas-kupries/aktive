@@ -1,5 +1,10 @@
 # transform threshold mask generate
-## transform threshold mask generate - Table Of Contents
+
+||||||||
+|---|---|---|---|---|---|---|
+|[Home ↗](/)|[Main ↗](index.md)|[Sections](index.md#sectree)|[Permuted Sections](bypsections.md)|[Names](byname.md)|[Permuted Names](bypnames.md)|[Implementations](bylang.md)|
+
+## Table Of Contents
 
   - [transform threshold mask](transform_threshold_mask.md) ↗
 
