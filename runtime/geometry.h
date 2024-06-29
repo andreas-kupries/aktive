@@ -143,7 +143,12 @@ extern int aktive_rectangle_is_subset (aktive_rectangle* a, aktive_rectangle* b)
 extern int aktive_rectangle_is_empty  (aktive_rectangle* r);
 extern int aktive_rectangle_contains  (aktive_rectangle* r, aktive_point* p);
 
-extern void aktive_rectangle_union    (aktive_rectangle* dst, aktive_rectangle* a, aktive_rectangle* b);
+/* Both `union` and `intersection operations allow one of the input rectangles
+ * to be used as `dst` without issue, due to modifying the destination only
+ * after the result is fully calculated and no data from the input is required
+ * anymore.
+ */
+extern void aktive_rectangle_union     (aktive_rectangle* dst, aktive_rectangle* a, aktive_rectangle* b);
 extern void aktive_rectangle_intersect (aktive_rectangle* dst, aktive_rectangle* a, aktive_rectangle* b);
 
 // Compute intersection of request with domain, and the zones of request outside of the domain.
