@@ -523,7 +523,7 @@ proc dsl::writer::OperatorPermutedNames {docs} {
 	}
     }
 
-    + "# Permuted Index Of Operator Names"
+    + "# Documentation -- Reference Pages -- Permuted Index Of Operator Names"
     + {}
     + [OpNav]
     + {}
@@ -557,7 +557,7 @@ proc dsl::writer::OperatorPermutedSections {docs} {
 	}
     }
 
-    + "# Permuted Index Of Sections"
+    + "# Documentation -- Reference Pages -- Permuted Index Of Sections"
     + {}
     + [OpNav]
     + {}
@@ -602,7 +602,7 @@ proc dsl::writer::OperatorIndex {docs} {
 	lappend stack -- {*}[lreverse [lsort -dict $children]] ++
     }
 
-    + "# Documentation &mdash; Reference Pages"
+    + "# Documentation -- Reference Pages"
     + {}
     + [OpNav]
     + {}
@@ -614,7 +614,7 @@ proc dsl::writer::OperatorIndex {docs} {
     + "- \[Permuted Section](bypsections.md)"
     + "- \[Implementation](bylang.md)"
     + {}
-    + "## <a name ='sectree'></a> Section tree"
+    + "## <a name ='sectree'></a> Sections"
     + {}
 
     # translate section tree instructions into formatting
@@ -655,7 +655,7 @@ proc dsl::writer::OperatorsByLang {spec} {
     }
 
 
-    + "# Operators By Implementation"
+    + "# Documentation -- Reference Pages -- Operators By Implementation"
     + {}
     + [OpNav]
     + {}
@@ -691,7 +691,7 @@ proc dsl::writer::OperatorsByLang {spec} {
 proc dsl::writer::OperatorsByName {spec} {
     # spec = dict (op -> section)
 
-    + "# Operators By Name"
+    + "# Documentation -- Reference Pages -- Operators By Name"
     + {}
     + [OpNav]
     + {}
@@ -720,7 +720,7 @@ proc dsl::writer::OperatorSection {spec section} {
     # spec = dict ( op    -> doc,
     #               child -> section . )
 
-    + "# $section"
+    + "# Documentation -- Reference Pages -- $section"
     + {}
     + [OpNav]
     + {}
@@ -782,8 +782,8 @@ proc dsl::writer::OpNav {} {
     set d |
     foreach {label ref} {
 	"Project \u2197"       "../../README.md"
-	- -
 	"Documentation \u2197" "../index.md"
+	- -
 	"Tutorials \u2197"     "../tutorials.md"
 	"How To's \u2197"      "../howtos.md"
 	"Explanations \u2197"  "../explanations.md"

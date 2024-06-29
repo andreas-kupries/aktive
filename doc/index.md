@@ -2,7 +2,7 @@
 
 |||||||
 |---|---|---|---|---|---|
-|[Project ↗](../README.md)|&mdash;|[Tutorials ↘](tutorials.md)|[How To's ↘](howtos.md)|[Explanations ↘](explanations.md)|[References ↘](ref/index.md)|
+|[Project ↗](../README.md)|Documentation|&mdash;|[Tutorials ↘](tutorials.md)|[How To's ↘](howtos.md)|[Explanations ↘](explanations.md)|[References ↘](ref/index.md)|
 
 AKTIVE's documentation directed at its users is mostly organized around the 4 quadrants, i.e.
 

@@ -18,7 +18,7 @@ At the moment the sources are split, after code generation, into
 
 implementing a few hundred operators in 6 major sections.
 
-For the full details please read the [operator reference](/doc/trunk/doc/index.md).
+For the full details please read the [operator reference](/doc/trunk/doc/ref/index.md).
 
 The internals are somewhat inspired by VIPS.
 

@@ -1,8 +1,8 @@
-# Documentation &mdash; Reference Pages
+# Documentation -- Reference Pages
 
 ||||||||
 |---|---|---|---|---|---|---|
-|[Project ↗](../../README.md)|&mdash;|[Documentation ↗](../index.md)|[Tutorials ↗](../tutorials.md)|[How To's ↗](../howtos.md)|[Explanations ↗](../explanations.md)|References|
+|[Project ↗](../../README.md)|[Documentation ↗](../index.md)|&mdash;|[Tutorials ↗](../tutorials.md)|[How To's ↗](../howtos.md)|[Explanations ↗](../explanations.md)|References|
 
 ||||||||
 |---|---|---|---|---|---|---|
@@ -16,7 +16,7 @@ Reference pages for all the package's public operators and commands.
 - [Permuted Section](bypsections.md)
 - [Implementation](bylang.md)
 
-## <a name ='sectree'></a> Section tree
+## <a name ='sectree'></a> Sections
 
   - [accessor](accessor.md)
     - [accessor geometry](accessor_geometry.md)
