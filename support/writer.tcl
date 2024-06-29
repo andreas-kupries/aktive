@@ -253,12 +253,16 @@ proc dsl::writer::VectorTypes {} {
 	set t  [TypeCType  $type]
 	set tx [TypeVector $type]
 
-	set n [Maxlength [list int *$ct]]
+	set n [Maxlength [list int *$ct Tcl_Obj**]]
 
 	Comment "--- --- --- --- --- --- --- --- ---"
 	Comment "Vector `$type` ..."
+	Comment ""
+	Comment "  Structurally matches `critcl_variadic_$ct`."
+	Comment "  Simplifies handling of variadics."
 	+ {}
 	+ "typedef struct ${tx} \{"
+	+ "  [PadR $n Tcl_Obj**] o ; /* Generally superfluous */"
 	+ "  [PadR $n    int] c ; /* Number of elements               */"
 	+ "  [PadR $n ${ct}*] v ; /* Array of the elements, allocated */"
 	+ "\} ${tx};"
@@ -1632,9 +1636,7 @@ proc dsl::writer::ProcCallWords {spec} {
 	lappend cw $n
     }
 
-    foreach n [ProcImageArguments $spec] {
-	lappend cw "\$$n"
-    }
+    lappend cw {*}[ProcImageCall $spec]
 
     join $cw { }
 }
@@ -1661,6 +1663,28 @@ proc dsl::writer::ProcImageArguments {spec} {
     return $names
 }
 
+proc dsl::writer::ProcImageCall {spec} {
+    dict with spec {}
+    # notes, images, params, result
+
+    set refs {}
+    set single [expr {[llength $images] == 1}]
+
+    set id 0
+    foreach i $images {
+	set n src$id ; incr id
+	if {$single} { set n src }
+	set v [dict get $i args]
+	if {$v} {
+	    set n "\{*\}\$args"
+	} else {
+	    set n "\$$n"
+	}
+	lappend refs $n
+    }
+
+    return $refs
+}
 
 proc dsl::writer::OperatorWrapRecord {} {
     if {![llength [Operations]]} return
