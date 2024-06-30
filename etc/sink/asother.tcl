@@ -17,6 +17,10 @@ operator {format} {
 
     input
 
+    note Despite the naming the operator is __not strict__. \
+	It does not access the input's pixels at all, only the \
+	meta information of the pipeline.
+
     body {
 	aktive::AsDict $src aktive::FromDict::@@func@@
     }

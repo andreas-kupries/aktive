@@ -91,8 +91,10 @@ operator {
 
     note Map the input image (second argument) through the LUT image \
 	provided as the first arguments and return the result.
+
+    strict 1st The LUT to map through is materialized and cached.
+
     note The location of the LUT image is ignored.
-    note The LUT is fully materialized at construction time.
 
     note The LUT image has to be single-row, with multiple columns and bands.
     note

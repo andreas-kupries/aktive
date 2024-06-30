@@ -23,6 +23,9 @@ operator {
 
     input
 
+    strict single The computed pixels are not materialized. \
+	They are immediately saved to the destination file.
+
     str into \
 	Destination file the $thing $variant image data is written to.
 
@@ -50,6 +53,9 @@ operator {bands type maxval} {
 	with [string toupper $thing]'s $variant format.
 
     input
+
+    strict single The computed pixels are not materialized. \
+	They are immediately saved to the destination channel.
 
     channel into \
 	Destination channel the $thing $variant image data is written to.
@@ -92,6 +98,9 @@ operator {bands type maxval} {
 	with [string toupper $thing]'s $variant format.
 
     input
+
+    strict single The computed pixels __are__ materialized \
+	into the returned string.
 
     return object0 {
 	TRACE ("@@thing@@ starting", 0);

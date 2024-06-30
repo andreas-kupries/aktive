@@ -18,6 +18,10 @@ operator {fun} {
     input
     input
 
+    strict both The computed pixels are not materialized. \
+	They are immediately used for the comparison and \
+	then discarded.
+
     body {
 	set n [aktive query pixels $src0]
 	set d [aktive op image sumsquared [aktive op math sub $src0 $src1]]

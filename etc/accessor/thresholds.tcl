@@ -22,6 +22,9 @@ operator image::threshold::global::mean {
 
     input
 
+    strict single The computed pixels are not materialized. \
+	They are immediately reduced to the threshold.
+
     body {
 	# t = meanI
 	#
@@ -44,6 +47,9 @@ operator image::threshold::global::bernsen {
     note Returns a global threshold for the input, according to Bernsen's method.
 
     input
+
+    strict single The computed pixels are not materialized. \
+	They are immediately reduced to the threshold.
 
     body {
 	# t = (minI + maxI) / 2
@@ -76,6 +82,9 @@ operator image::threshold::global::niblack {
     double? -0.2 k	niblack parameter
 
     input
+
+    strict single The computed pixels are not materialized. \
+	They are immediately reduced to the threshold.
 
     body {
 	# t = meanI + (k * stdI)
@@ -111,6 +120,9 @@ operator image::threshold::global::sauvola {
     double? 128 R	sauvola parameter
 
     input
+
+    strict single The computed pixels are not materialized. \
+	They are immediately reduced to the threshold.
 
     body {
 	# t = meanI * (1 + k * ((stdI/R) - 1))
@@ -148,6 +160,9 @@ operator image::threshold::global::phansalkar {
     double? 10   q	phansalkar parameter
 
     input
+
+    strict single The computed pixels are not materialized. \
+	They are immediately reduced to the threshold.
 
     body {
 	# t = meanN * (p * exp(-q * meanN) + 1 + k * ((stdN / R) - 1))
@@ -190,6 +205,9 @@ operator image::threshold::global::otsu {
 	The default quantizes the image values to 8-bit.
 
     input
+
+    strict single The computed pixels are not materialized. \
+	They are immediately reduced to the threshold.
 
     body {
 	# t = scaled (extract (row otsu (image histogram I)))

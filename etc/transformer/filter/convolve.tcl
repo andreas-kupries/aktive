@@ -9,10 +9,6 @@
 # - http://www.dspguide.com/ch24/6.htm
 # - https://micro.magnet.fsu.edu/primer/java/digitalimaging/processing/kernelmaskoperation/
 # - https://archive.org/details/Lectures_on_Image_Processing
-# -
-# -
-# -
-# -
 
 # # ## ### ##### ######## ############# #####################
 
@@ -40,6 +36,8 @@ operator {
     input	;# input image (See `op::tile::rank` for analogous blit setup).
 
     note Returns image of input (2nd argument) convolved with the matrix (1st argument).
+
+    strict 1st The convolution kernel is materialized and cached.
 
     note The location of the matrix image is ignored.
 

@@ -4,9 +4,9 @@
 |---|---|---|---|---|---|---|
 |[Project ↗](../../README.md)|[Documentation ↗](../index.md)|&mdash;|[Tutorials ↗](../tutorials.md)|[How To's ↗](../howtos.md)|[Explanations ↗](../explanations.md)|References|
 
-||||||||
-|---|---|---|---|---|---|---|
-|[Entry ↗](index.md)|&mdash;|[Sections ↘](index.md#sectree)|[Permuted Sections ↘](bypsections.md)|[Names ↘](byname.md)|[Permuted Names ↘](bypnames.md)|[Implementations ↘](bylang.md)|
+|||||||||
+|---|---|---|---|---|---|---|---|
+|[Entry ↗](index.md)|&mdash;|[Sections ↘](index.md#sectree)|[Permuted Sections ↘](bypsections.md)|[Names ↘](byname.md)|[Permuted Names ↘](bypnames.md)|[Strict ↘](strict.md)|[Implementations ↘](bylang.md)|
 
 ## Table Of Contents
 
@@ -55,6 +55,8 @@ Syntax: __aktive format as aktive 2chan__ src (param value)...
 
 Writes image to the DST channel, serialized with the AKTIVE raw format.
 
+This operator is __strict__ in its single input. The computed pixels are not materialized. They are immediately saved to the destination channel.
+
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |into|channel||Destination channel the image data is written to|
@@ -65,6 +67,8 @@ Writes image to the DST channel, serialized with the AKTIVE raw format.
 Syntax: __aktive format as aktive 2file__ src (param value)...
 
 Writes image to the destination file, serialized with the AKTIVE format.
+
+This operator is __strict__ in its single input. The computed pixels are not materialized. They are immediately saved to the destination file.
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -77,6 +81,8 @@ Syntax: __aktive format as aktive 2string__ src
 
 Returns byte array containing the image serialized with the AKTIVE raw format.
 
+This operator is __strict__ in its single input. The computed pixels __are__ materialized into the returned string.
+
 
 ---
 ### <a name='format_as_null_s_2string'></a> aktive format as null-s 2string
@@ -84,6 +90,8 @@ Returns byte array containing the image serialized with the AKTIVE raw format.
 Syntax: __aktive format as null-s 2string__ src
 
 Returns nothing, while triggering full pixel calculation for the input.
+
+This operator is __strict__ in its single input. The computed pixels are not materialized. They are ignored, immediately discarded.
 
 
 ---
@@ -93,6 +101,8 @@ Syntax: __aktive format as null 2string__ src
 
 Returns nothing, while triggering full pixel calculation for the input.
 
+This operator is __strict__ in its single input. The computed pixels are not materialized. They are ignored, immediately discarded.
+
 
 ---
 ### <a name='format_as_pgm_byte_2chan'></a> aktive format as pgm byte 2chan
@@ -100,6 +110,8 @@ Returns nothing, while triggering full pixel calculation for the input.
 Syntax: __aktive format as pgm byte 2chan__ src (param value)...
 
 Writes image to the destination channel, serialized with PGM's byte format.
+
+This operator is __strict__ in its single input. The computed pixels are not materialized. They are immediately saved to the destination channel.
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -112,6 +124,8 @@ Syntax: __aktive format as pgm byte 2file__ src (param value)...
 
 Writes image to the destination file, serialized with PGM's byte format.
 
+This operator is __strict__ in its single input. The computed pixels are not materialized. They are immediately saved to the destination file.
+
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |into|str||Destination file the pgm byte image data is written to.|
@@ -123,6 +137,8 @@ Syntax: __aktive format as pgm byte 2string__ src
 
 Returns byte array containing the image serialized with PGM's byte format.
 
+This operator is __strict__ in its single input. The computed pixels __are__ materialized into the returned string.
+
 
 ---
 ### <a name='format_as_pgm_etext_2chan'></a> aktive format as pgm etext 2chan
@@ -130,6 +146,8 @@ Returns byte array containing the image serialized with PGM's byte format.
 Syntax: __aktive format as pgm etext 2chan__ src (param value)...
 
 Writes image to the destination channel, serialized with PGM's etext format.
+
+This operator is __strict__ in its single input. The computed pixels are not materialized. They are immediately saved to the destination channel.
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -142,6 +160,8 @@ Syntax: __aktive format as pgm etext 2file__ src (param value)...
 
 Writes image to the destination file, serialized with PGM's etext format.
 
+This operator is __strict__ in its single input. The computed pixels are not materialized. They are immediately saved to the destination file.
+
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |into|str||Destination file the pgm etext image data is written to.|
@@ -153,6 +173,8 @@ Syntax: __aktive format as pgm etext 2string__ src
 
 Returns byte array containing the image serialized with PGM's etext format.
 
+This operator is __strict__ in its single input. The computed pixels __are__ materialized into the returned string.
+
 
 ---
 ### <a name='format_as_pgm_short_2chan'></a> aktive format as pgm short 2chan
@@ -160,6 +182,8 @@ Returns byte array containing the image serialized with PGM's etext format.
 Syntax: __aktive format as pgm short 2chan__ src (param value)...
 
 Writes image to the destination channel, serialized with PGM's short format.
+
+This operator is __strict__ in its single input. The computed pixels are not materialized. They are immediately saved to the destination channel.
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -172,6 +196,8 @@ Syntax: __aktive format as pgm short 2file__ src (param value)...
 
 Writes image to the destination file, serialized with PGM's short format.
 
+This operator is __strict__ in its single input. The computed pixels are not materialized. They are immediately saved to the destination file.
+
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |into|str||Destination file the pgm short image data is written to.|
@@ -183,6 +209,8 @@ Syntax: __aktive format as pgm short 2string__ src
 
 Returns byte array containing the image serialized with PGM's short format.
 
+This operator is __strict__ in its single input. The computed pixels __are__ materialized into the returned string.
+
 
 ---
 ### <a name='format_as_pgm_text_2chan'></a> aktive format as pgm text 2chan
@@ -190,6 +218,8 @@ Returns byte array containing the image serialized with PGM's short format.
 Syntax: __aktive format as pgm text 2chan__ src (param value)...
 
 Writes image to the destination channel, serialized with PGM's text format.
+
+This operator is __strict__ in its single input. The computed pixels are not materialized. They are immediately saved to the destination channel.
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -202,6 +232,8 @@ Syntax: __aktive format as pgm text 2file__ src (param value)...
 
 Writes image to the destination file, serialized with PGM's text format.
 
+This operator is __strict__ in its single input. The computed pixels are not materialized. They are immediately saved to the destination file.
+
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |into|str||Destination file the pgm text image data is written to.|
@@ -213,6 +245,8 @@ Syntax: __aktive format as pgm text 2string__ src
 
 Returns byte array containing the image serialized with PGM's text format.
 
+This operator is __strict__ in its single input. The computed pixels __are__ materialized into the returned string.
+
 
 ---
 ### <a name='format_as_ppm_byte_2chan'></a> aktive format as ppm byte 2chan
@@ -220,6 +254,8 @@ Returns byte array containing the image serialized with PGM's text format.
 Syntax: __aktive format as ppm byte 2chan__ src (param value)...
 
 Writes image to the destination channel, serialized with PPM's byte format.
+
+This operator is __strict__ in its single input. The computed pixels are not materialized. They are immediately saved to the destination channel.
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -232,6 +268,8 @@ Syntax: __aktive format as ppm byte 2file__ src (param value)...
 
 Writes image to the destination file, serialized with PPM's byte format.
 
+This operator is __strict__ in its single input. The computed pixels are not materialized. They are immediately saved to the destination file.
+
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |into|str||Destination file the ppm byte image data is written to.|
@@ -243,6 +281,8 @@ Syntax: __aktive format as ppm byte 2string__ src
 
 Returns byte array containing the image serialized with PPM's byte format.
 
+This operator is __strict__ in its single input. The computed pixels __are__ materialized into the returned string.
+
 
 ---
 ### <a name='format_as_ppm_etext_2chan'></a> aktive format as ppm etext 2chan
@@ -250,6 +290,8 @@ Returns byte array containing the image serialized with PPM's byte format.
 Syntax: __aktive format as ppm etext 2chan__ src (param value)...
 
 Writes image to the destination channel, serialized with PPM's etext format.
+
+This operator is __strict__ in its single input. The computed pixels are not materialized. They are immediately saved to the destination channel.
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -262,6 +304,8 @@ Syntax: __aktive format as ppm etext 2file__ src (param value)...
 
 Writes image to the destination file, serialized with PPM's etext format.
 
+This operator is __strict__ in its single input. The computed pixels are not materialized. They are immediately saved to the destination file.
+
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |into|str||Destination file the ppm etext image data is written to.|
@@ -273,6 +317,8 @@ Syntax: __aktive format as ppm etext 2string__ src
 
 Returns byte array containing the image serialized with PPM's etext format.
 
+This operator is __strict__ in its single input. The computed pixels __are__ materialized into the returned string.
+
 
 ---
 ### <a name='format_as_ppm_short_2chan'></a> aktive format as ppm short 2chan
@@ -280,6 +326,8 @@ Returns byte array containing the image serialized with PPM's etext format.
 Syntax: __aktive format as ppm short 2chan__ src (param value)...
 
 Writes image to the destination channel, serialized with PPM's short format.
+
+This operator is __strict__ in its single input. The computed pixels are not materialized. They are immediately saved to the destination channel.
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -292,6 +340,8 @@ Syntax: __aktive format as ppm short 2file__ src (param value)...
 
 Writes image to the destination file, serialized with PPM's short format.
 
+This operator is __strict__ in its single input. The computed pixels are not materialized. They are immediately saved to the destination file.
+
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |into|str||Destination file the ppm short image data is written to.|
@@ -303,6 +353,8 @@ Syntax: __aktive format as ppm short 2string__ src
 
 Returns byte array containing the image serialized with PPM's short format.
 
+This operator is __strict__ in its single input. The computed pixels __are__ materialized into the returned string.
+
 
 ---
 ### <a name='format_as_ppm_text_2chan'></a> aktive format as ppm text 2chan
@@ -310,6 +362,8 @@ Returns byte array containing the image serialized with PPM's short format.
 Syntax: __aktive format as ppm text 2chan__ src (param value)...
 
 Writes image to the destination channel, serialized with PPM's text format.
+
+This operator is __strict__ in its single input. The computed pixels are not materialized. They are immediately saved to the destination channel.
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -322,6 +376,8 @@ Syntax: __aktive format as ppm text 2file__ src (param value)...
 
 Writes image to the destination file, serialized with PPM's text format.
 
+This operator is __strict__ in its single input. The computed pixels are not materialized. They are immediately saved to the destination file.
+
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |into|str||Destination file the ppm text image data is written to.|
@@ -333,6 +389,8 @@ Syntax: __aktive format as ppm text 2string__ src
 
 Returns byte array containing the image serialized with PPM's text format.
 
+This operator is __strict__ in its single input. The computed pixels __are__ materialized into the returned string.
+
 
 ---
 ### <a name='format_as_tcl'></a> aktive format as tcl
@@ -340,5 +398,7 @@ Returns byte array containing the image serialized with PPM's text format.
 Syntax: __aktive format as tcl__ src
 
 Returns string containing the image serialized into readable Tcl structures. Dictionary with flat pixel list.
+
+This operator is __strict__ in its single input. The computed pixels __are__ materialized into the returned string.
 
 

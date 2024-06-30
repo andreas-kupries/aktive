@@ -19,6 +19,9 @@ operator sequential {
 
     input
 
+    strict single The computed pixels are not materialized. \
+	They are ignored, immediately discarded.
+
     void {
 	TRACE ("NULL @@slabel@@ starting", 0);
 

@@ -4,9 +4,9 @@
 |---|---|---|---|---|---|---|
 |[Project ↗](../../README.md)|[Documentation ↗](../index.md)|&mdash;|[Tutorials ↗](../tutorials.md)|[How To's ↗](../howtos.md)|[Explanations ↗](../explanations.md)|References|
 
-||||||||
-|---|---|---|---|---|---|---|
-|[Entry ↗](index.md)|&mdash;|[Sections ↘](index.md#sectree)|[Permuted Sections ↘](bypsections.md)|[Names ↘](byname.md)|[Permuted Names ↘](bypnames.md)|[Implementations ↘](bylang.md)|
+|||||||||
+|---|---|---|---|---|---|---|---|
+|[Entry ↗](index.md)|&mdash;|[Sections ↘](index.md#sectree)|[Permuted Sections ↘](bypsections.md)|[Names ↘](byname.md)|[Permuted Names ↘](bypnames.md)|[Strict ↘](strict.md)|[Implementations ↘](bylang.md)|
 
 ## Table Of Contents
 
@@ -25,6 +25,8 @@
 Syntax: __aktive op convolve xy__ src0 src1
 
 Returns image of input (2nd argument) convolved with the matrix (1st argument).
+
+This operator is __strict__ in the 1st input. The convolution kernel is materialized and cached.
 
 The location of the matrix image is ignored.
 

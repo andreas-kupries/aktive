@@ -4,9 +4,9 @@
 |---|---|---|---|---|---|---|
 |[Project ↗](../../README.md)|[Documentation ↗](../index.md)|&mdash;|[Tutorials ↗](../tutorials.md)|[How To's ↗](../howtos.md)|[Explanations ↗](../explanations.md)|References|
 
-||||||||
-|---|---|---|---|---|---|---|
-|[Entry ↗](index.md)|&mdash;|[Sections ↘](index.md#sectree)|[Permuted Sections ↘](bypsections.md)|[Names ↘](byname.md)|[Permuted Names ↘](bypnames.md)|[Implementations ↘](bylang.md)|
+|||||||||
+|---|---|---|---|---|---|---|---|
+|[Entry ↗](index.md)|&mdash;|[Sections ↘](index.md#sectree)|[Permuted Sections ↘](bypsections.md)|[Names ↘](byname.md)|[Permuted Names ↘](bypnames.md)|[Strict ↘](strict.md)|[Implementations ↘](bylang.md)|
 
 ## Table Of Contents
 
@@ -33,9 +33,9 @@ Syntax: __aktive op lut indexed__ src0 src1 ?(param value)...?
 
 Map the input image (second argument) through the LUT image provided as the first arguments and return the result.
 
-The location of the LUT image is ignored.
+This operator is __strict__ in the 1st input. The LUT to map through is materialized and cached.
 
-The LUT is fully materialized at construction time.
+The location of the LUT image is ignored.
 
 The LUT image has to be single-row, with multiple columns and bands.
 

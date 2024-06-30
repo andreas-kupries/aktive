@@ -27,6 +27,10 @@ operator {dexpr attr} {
 
     input
 
+    strict single The computed pixels are not materialized. \
+	They are immediately used for the calculation of the \
+	statistic and then discarded.
+
     return double {
 	TRACE ("image @@fun@@ reduction starting", 0);
 	double result;
@@ -43,6 +47,9 @@ operator op::image::min-max {
 
     note Returns a 2-element list containing the min and max of the image, in this order.
     note The results can be modified by setting lower and upper percentiles.
+
+    strict single The computed pixels are not materialized and just used for the \
+	for the calculation of the statistics.
 
     double? 1 upper	Upper percentile to apply to max. Default is 100%
     double? 0 lower	Lower percentile to apply to min. Default is 0%
@@ -71,6 +78,9 @@ operator op::image::mean-stddev {
     note Returns a 2-element list containing lower and upper bounds for the \
 	image values, based on the image's mean and a multiple of its \
 	standard deviation.
+
+    strict single The computed pixels are not materialized and just used \
+	for the calculation of the statistics.
 
     double? 1.2 sigma   Interval around the mean to return.
 

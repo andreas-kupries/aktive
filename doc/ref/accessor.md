@@ -4,9 +4,9 @@
 |---|---|---|---|---|---|---|
 |[Project ↗](../../README.md)|[Documentation ↗](../index.md)|&mdash;|[Tutorials ↗](../tutorials.md)|[How To's ↗](../howtos.md)|[Explanations ↗](../explanations.md)|References|
 
-||||||||
-|---|---|---|---|---|---|---|
-|[Entry ↗](index.md)|&mdash;|[Sections ↘](index.md#sectree)|[Permuted Sections ↘](bypsections.md)|[Names ↘](byname.md)|[Permuted Names ↘](bypnames.md)|[Implementations ↘](bylang.md)|
+|||||||||
+|---|---|---|---|---|---|---|---|
+|[Entry ↗](index.md)|&mdash;|[Sections ↘](index.md#sectree)|[Permuted Sections ↘](bypsections.md)|[Names ↘](byname.md)|[Permuted Names ↘](bypnames.md)|[Strict ↘](strict.md)|[Implementations ↘](bylang.md)|
 
 ## Table Of Contents
 
@@ -41,6 +41,8 @@ Syntax: __aktive format as d2__ src
 
 Converts the internal DAG representation of the image into a D2 graph format and returns the resulting string.
 
+Despite the naming the operator is __not strict__. It does not access the input's pixels at all, only the meta information of the pipeline.
+
 
 ---
 ### <a name='format_as_markdown'></a> aktive format as markdown
@@ -49,6 +51,8 @@ Syntax: __aktive format as markdown__ src
 
 Converts the internal DAG representation of the image into a Markdown table and returns the resulting string.
 
+Despite the naming the operator is __not strict__. It does not access the input's pixels at all, only the meta information of the pipeline.
+
 
 ---
 ### <a name='format_as_tclscript'></a> aktive format as tclscript
@@ -56,6 +60,8 @@ Converts the internal DAG representation of the image into a Markdown table and 
 Syntax: __aktive format as tclscript__ src
 
 Converts the internal DAG representation of the image into a Tcl script and returns the resulting string.
+
+Despite the naming the operator is __not strict__. It does not access the input's pixels at all, only the meta information of the pipeline.
 
 
 ---
@@ -75,7 +81,7 @@ For anything else an error is thrown instead of making assumptions.
 
 Syntax: __aktive query id__ src
 
-Returns implementation-specific image identity.
+Returns an implementation-specific image identity.
 
 
 ---

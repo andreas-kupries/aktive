@@ -316,7 +316,9 @@ proc dsl::reader::type {name critcl ctype conversion {init {}} {finish {}}} {
     variable importing
 
     if {$name in {
-	type vector operator note void result input
+	blit body cached def external! import import? input input...
+	note nyi op operator pixels result return section simplify
+	state type vector void
     } || [string match {[A-Z]*} $name]} {
 	Abort "Rejected attempt to replace DSL command with user type"
     }
@@ -414,6 +416,7 @@ proc dsl::reader::OpStart {op key} {
     Set opspec images   {}	;# Input images
     Set opspec params   {}	;# Parameters
     Set opspec overlays {}	;# Policy overlays - checks and simplifications
+    Set opspec strict   0	;# Strictness flag, default not.
 
     Set opspec result   image	;# Return value
     Set opspec rcode    {}	;# C code fragment for non-image return (getter, doer)
@@ -497,6 +500,28 @@ proc dsl::reader::support {cfragment args} { ;#puts [info level 0]
 proc dsl::reader::note {args} { ;#puts [info level 0]
     OkModes {} C Tcl External
     LappendX opspec notes $args
+}
+
+proc dsl::reader::strict {ids args} { ;#puts [info level 0]
+    OkModes {} C Tcl External
+
+    if {![llength ids]} { Abort "Missing spec of which arguments are strict" }
+
+    set a     input
+    set infix the
+
+    if {[llength $ids] > 1} {
+	append a s
+	set ids [linsert [join $ids {, }] end-1 and]
+    } else {
+	if {$ids eq "all"}      { append a s ; set infix ""    }
+	if {$ids eq "its"}      {              set infix ""    }
+	if {$ids eq "single"}   {              set infix "its" }
+	if {$ids eq "both"}     { append a s ; set infix ""    }
+    }
+
+    note This operator is __strict__ in {*}$infix {*}$ids ${a}. {*}$args
+    Set opspec strict 1
 }
 
 proc dsl::reader::section {args} { ;#puts [info level 0]
@@ -867,17 +892,18 @@ proc dsl::reader::Next {} {
 ##  - finish     :: string
 ##
 ## opspec keys
-##  - lang     :: string	[auto set] C|Tcl
-##  - body     :: string	[presence indicates tcl operator]
-##  - blocks   :: dict (name -> c-code-fragment)
-##  - overlays :: list (overspec)
 ##  - args     :: bool
+##  - blocks   :: dict (name -> c-code-fragment)
+##  - body     :: string	[presence indicates tcl operator]
 ##  - images   :: list (imspec)
+##  - lang     :: string	[auto set] C|Tcl
 ##  - notes    :: list (string)
-##  - section  :: list (string)
+##  - overlays :: list (overspec)
 ##  - param    :: dict (string -> '.') [Only during collection]
 ##  - params   :: list (argspec)
 ##  - result   :: string
+##  - section  :: list (string)
+##  - strict   :: bool
 ##  - support  :: list (string)
 ##  - state/setup
 ##  - state/cleanup

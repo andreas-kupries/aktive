@@ -4,9 +4,9 @@
 |---|---|---|---|---|---|---|
 |[Project ↗](../../README.md)|[Documentation ↗](../index.md)|&mdash;|[Tutorials ↗](../tutorials.md)|[How To's ↗](../howtos.md)|[Explanations ↗](../explanations.md)|References|
 
-||||||||
-|---|---|---|---|---|---|---|
-|[Entry ↗](index.md)|&mdash;|[Sections ↘](index.md#sectree)|[Permuted Sections ↘](bypsections.md)|[Names ↘](byname.md)|[Permuted Names ↘](bypnames.md)|[Implementations ↘](bylang.md)|
+|||||||||
+|---|---|---|---|---|---|---|---|
+|[Entry ↗](index.md)|&mdash;|[Sections ↘](index.md#sectree)|[Permuted Sections ↘](bypsections.md)|[Names ↘](byname.md)|[Permuted Names ↘](bypnames.md)|[Strict ↘](strict.md)|[Implementations ↘](bylang.md)|
 
 Reference pages for all the package's public operators and commands.
 
@@ -14,6 +14,7 @@ Reference pages for all the package's public operators and commands.
 - [Permuted Name](bypnames.md)
 - [Section](#sectree)
 - [Permuted Section](bypsections.md)
+- [Strictness](strict.md)
 - [Implementation](bylang.md)
 
 ## <a name ='sectree'></a> Sections

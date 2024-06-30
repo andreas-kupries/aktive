@@ -14,6 +14,9 @@ operator format::as::tcl {
 
     input
 
+    strict single The computed pixels __are__ materialized \
+	into the returned string.
+
     return object0 {
 	Tcl_Obj* r = aktive_op_astcl (ip, src);
 	return r;

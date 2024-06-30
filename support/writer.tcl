@@ -73,12 +73,16 @@ proc dsl::writer::EmitDoc {stem} {
 	set spec    [Get ops $op]
 	set section [dict get $spec section]
 	set lang    [dict get $spec lang]
+	set strict  [dict get $spec strict]
 
 	dict set docs section $section op $op [OpDoc $op $spec]
 	dict set docs lang    $lang $op $section
 	dict set docs alpha         $op $section
 	dict set docs roots   [lindex $section 0] .
 	dict set docs section [lrange $section 0 end-1] children $section .
+
+	if {!$strict} continue
+	dict set docs strict $op $section
     }
 
     # Emit by-section operator collections (= by section index)
@@ -89,6 +93,7 @@ proc dsl::writer::EmitDoc {stem} {
     # Emit by name / language indices
     Into ${stem}byname.md OperatorsByName [dict get $docs alpha]
     Into ${stem}bylang.md OperatorsByLang [dict get $docs lang]
+    Into ${stem}strict.md OperatorsStrict [dict get $docs strict]
 
     # Emit main index referencing the others, and has the section tree
     Into ${stem}index.md  OperatorIndex   $docs
@@ -612,6 +617,7 @@ proc dsl::writer::OperatorIndex {docs} {
     + "- \[Permuted Name](bypnames.md)"
     + "- \[Section](#sectree)"
     + "- \[Permuted Section](bypsections.md)"
+    + "- \[Strictness](strict.md)"
     + "- \[Implementation](bylang.md)"
     + {}
     + "## <a name ='sectree'></a> Sections"
@@ -698,6 +704,47 @@ proc dsl::writer::OperatorsByName {spec} {
     + [NavLetter [lmap {op section} $spec {
 	set op
     }]]
+
+    set last {}
+    foreach op [lsort -dict [dict keys $spec]] {
+	set initial [string index $op 0]
+	if {$initial ne $last} {
+	    + {}
+	    + "## <a name='_$initial'></a> $initial"
+	    + {}
+	}
+	set last $initial
+	set section [dict get $spec $op]
+	+ " - \[[OpName $op]\]([OpSectionKey $section].md#[OpKey $op])"
+    }
+
+    + {}
+    Done
+}
+
+proc dsl::writer::OperatorsStrict {spec} {
+    # spec = dict (op -> section)
+
+    + "# Documentation -- Reference Pages -- StrictOperators"
+    + {}
+    + [OpNav]
+    + {}
+    + [NavLetter [lmap {op section} $spec {
+	set op
+    }]]
+
+    + {
+	All operators listed here are strict in at least one of their image arguments.
+
+	This means that these operators execute the image pipelines to calculate the
+	pixels of the input images they are strict in.
+
+	Note that this does necessarily mean that these inputs are fully materialized
+	in memory, only that the pixels are computed. These pixels may then be saved
+	to disk, or reduced by some statistical measure, or, yes, indeed materialized.
+
+	It all depends on the details of the operator in question.
+    }
 
     set last {}
     foreach op [lsort -dict [dict keys $spec]] {
@@ -813,6 +860,7 @@ proc dsl::writer::OpNav {} {
 	"Permuted Sections \u2198" bypsections.md
 	"Names \u2198"             byname.md
 	"Permuted Names \u2198"    bypnames.md
+	"Strict \u2198"            strict.md
 	"Implementations \u2198"   bylang.md
     } {
 	append h |

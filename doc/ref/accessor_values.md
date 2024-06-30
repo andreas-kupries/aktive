@@ -4,9 +4,9 @@
 |---|---|---|---|---|---|---|
 |[Project ↗](../../README.md)|[Documentation ↗](../index.md)|&mdash;|[Tutorials ↗](../tutorials.md)|[How To's ↗](../howtos.md)|[Explanations ↗](../explanations.md)|References|
 
-||||||||
-|---|---|---|---|---|---|---|
-|[Entry ↗](index.md)|&mdash;|[Sections ↘](index.md#sectree)|[Permuted Sections ↘](bypsections.md)|[Names ↘](byname.md)|[Permuted Names ↘](bypnames.md)|[Implementations ↘](bylang.md)|
+|||||||||
+|---|---|---|---|---|---|---|---|
+|[Entry ↗](index.md)|&mdash;|[Sections ↘](index.md#sectree)|[Permuted Sections ↘](bypsections.md)|[Names ↘](byname.md)|[Permuted Names ↘](bypnames.md)|[Strict ↘](strict.md)|[Implementations ↘](bylang.md)|
 
 ## Table Of Contents
 
@@ -30,6 +30,8 @@ Returns the pixels values for the region around the specified 2d point, within t
 
 Beware that the coordinate domain is 0..width|height, regardless of image location.
 
+This operator is __strict__ in its single input. The requested pixel region is materialized in memory.
+
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |x|int||x-coordinate of the pixel to query|
@@ -45,6 +47,8 @@ Returns the pixel value at the given 2d point. The result is a list for multi-ba
 
 Beware that the coordinate domain is 0..width|height, regardless of image location.
 
+This operator is __strict__ in its single input. The requested pixel is materialized in memory.
+
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |x|int||x-coordinate of the pixel to query|
@@ -55,6 +59,8 @@ Beware that the coordinate domain is 0..width|height, regardless of image locati
 
 Syntax: __aktive query values__ src
 
-Returns a list of image pixel values. The values are provided in row-major order.
+Returns a Tcl list of image pixel values. The values are provided in row-major order.
+
+This operator is __strict__ in its single input. The image is materialized in memory.
 
 

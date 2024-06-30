@@ -5,7 +5,7 @@
 operator query::id {
     section accessor
 
-    note Returns implementation-specific image identity.
+    note Returns an implementation-specific image identity.
 
     # This is special. It provides an identification of the image, i.e. a value unique to
     # it. This enables equality comparisons, and nothing else.
@@ -172,10 +172,12 @@ operator query::meta {
 operator query::values {
     section accessor values
 
-    note Returns a list of image pixel values. \
+    note Returns a Tcl list of image pixel values. \
 	The values are provided in row-major order.
 
     input
+
+    strict single The image is materialized in memory.
 
     return object0 {
 	Tcl_Obj* r = aktive_op_pixels (ip, src);
@@ -194,6 +196,8 @@ operator query::value::at {
 
     note Beware that the coordinate domain is 0..width|height, \
 	regardless of image location.
+
+    strict single The requested pixel is materialized in memory.
 
     input
     int   x	x-coordinate of the pixel to query
@@ -215,6 +219,8 @@ operator query::value::around {
 
     note Beware that the coordinate domain is 0..width|height, \
 	regardless of image location.
+
+    strict single The requested pixel region is materialized in memory.
 
     input
     int     x		x-coordinate of the pixel to query
