@@ -12,17 +12,16 @@
 |---|---|---|---|
 |&nbsp;[f](#_f)&nbsp;|&nbsp;[i](#_i)&nbsp;|&nbsp;[o](#_o)&nbsp;|&nbsp;[q](#_q)&nbsp;|
 
-	All operators listed here are strict in at least one of their image arguments.
+All operators listed here are strict in at least one of their image arguments.
 
-	This means that these operators execute the image pipelines to calculate the
-	pixels of the input images they are strict in.
+This means that these operators execute the image pipelines to calculate the
+pixels of the input images they are strict in.
 
-	Note that this does necessarily mean that these inputs are fully materialized
-	in memory, only that the pixels are computed. These pixels may then be saved
-	to disk, or reduced by some statistical measure, or, yes, indeed materialized.
+Note that this does necessarily mean that these inputs are fully materialized
+in memory, only that the pixels are computed. These pixels may then be saved
+to disk, or reduced by some statistical measure, or, yes, indeed materialized.
 
-	It all depends on the details of the operator in question.
-    
+It all depends on the details of the operator in question.
 
 ## <a name='_f'></a> f
 

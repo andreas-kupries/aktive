@@ -732,8 +732,8 @@ proc dsl::writer::OperatorsStrict {spec} {
     + [NavLetter [lmap {op section} $spec {
 	set op
     }]]
-
-    + {
+    + {}
+    + [string map {"\t" ""} [string trim {
 	All operators listed here are strict in at least one of their image arguments.
 
 	This means that these operators execute the image pipelines to calculate the
@@ -744,7 +744,7 @@ proc dsl::writer::OperatorsStrict {spec} {
 	to disk, or reduced by some statistical measure, or, yes, indeed materialized.
 
 	It all depends on the details of the operator in question.
-    }
+    }]]
 
     set last {}
     foreach op [lsort -dict [dict keys $spec]] {
