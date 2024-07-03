@@ -72,10 +72,10 @@ aktive_write_bytearray (aktive_writer* writer, Tcl_Obj* ba)
     TRACE_FUNC ("(writer*) %p, (Tcl_Obj*) %p)", writer, ba);
 
     __ba_writer* baw = ALLOC (__ba_writer);
+
     baw->ba    = ba;
     baw->pos   = 0;
     baw->bytes = 0;
-    baw->n     = 0;
     baw->n     = 0;
     baw->used  = 0;
 
