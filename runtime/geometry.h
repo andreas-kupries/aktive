@@ -40,25 +40,25 @@
  *    `aktive_block too.
  */
 
-typedef struct aktive_point {
-    int x ; // X coordinate, increasing to the right
-    int y ; // Y coordinate, increasing downward
-} aktive_point;
+A_STRUCTURE (aktive_point) {
+    A_FIELD (int, x) ; // X coordinate, increasing to the right
+    A_FIELD (int, y) ; // Y coordinate, increasing downward
+} A_END (aktive_point);
 
-typedef struct aktive_rectangle {
-    int         x      ; // X coordinate, increasing to the right
-    int         y      ; // Y coordinate, increasing downward
-    aktive_uint width  ; // Number of columns
-    aktive_uint height ; // Number of rows
-} aktive_rectangle;
+A_STRUCTURE (aktive_rectangle) {
+    A_FIELD (int,         x)      ; // X coordinate, increasing to the right
+    A_FIELD (int,         y)      ; // Y coordinate, increasing downward
+    A_FIELD (aktive_uint, width)  ; // Number of columns
+    A_FIELD (aktive_uint, height) ; // Number of rows
+} A_END (aktive_rectangle);
 
-typedef struct aktive_geometry {
-    int         x      ; // X coordinate, increasing to the right
-    int         y      ; // Y coordinate, increasing downward
-    aktive_uint width  ; // Number of image columns
-    aktive_uint height ; // Number of image rows
-    aktive_uint depth  ; // Number of image bands
-} aktive_geometry;
+A_STRUCTURE (aktive_geometry) {
+    A_FIELD (int,         x)      ; // X coordinate, increasing to the right
+    A_FIELD (int,         y)      ; // Y coordinate, increasing downward
+    A_FIELD (aktive_uint, width)  ; // Number of image columns
+    A_FIELD (aktive_uint, height) ; // Number of image rows
+    A_FIELD (aktive_uint, depth)  ; // Number of image bands
+} A_END (aktive_geometry);
 
 /*
  * - - -- --- ----- -------- -------------

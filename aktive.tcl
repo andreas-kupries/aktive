@@ -78,8 +78,17 @@ critcl::ccode {
 
 critcl::source support/dsl.tcl
 
+# translate the operator specifications
 dsl generate runtime etc/runtime.tcl rtgen
 dsl generate aktive  etc/aktive.tcl  generated doc/ref
+
+# extract structure definitions for developer documentation
+dsl structs scan \
+    /into doc/dev/figures/generated \
+    /from runtime op rtgen generated
+
+# render the main figures, these include the generated definitions as needed
+dsl structs render doc/dev/figures
 
 critcl::source etc/runtime/blitter.tcl
 critcl::source etc/sink/statistics-c.tcl

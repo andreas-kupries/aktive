@@ -20,6 +20,21 @@ typedef struct aktive_region_vector* aktive_region_vector_ptr;
 
 /*
  * - - -- --- ----- -------- -------------
+ * Macro definitions supporting the extraction of type structures for the
+ * internal documentation.
+ */
+
+#define A_STRUCTURE(n) typedef struct n
+#define A_FIELD(t,n)   t n
+#define A_END(n)       n
+#define A_END_PTR(n)   *n
+#define A_OP_DEPENDENT void*
+#define A_CSTRING      const char*
+#define A_STRING       char*
+#define A_FUNC         /**/
+
+/*
+ * - - -- --- ----- -------- -------------
  */
 
 /*

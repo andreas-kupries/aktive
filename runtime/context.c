@@ -4,6 +4,7 @@
  * -- Runtime API -- Contexts
  */
 
+#include <base.h>
 #include <context.h>
 #include <tclpre9compat.h>
 #include <critcl_alloc.h>
@@ -16,9 +17,9 @@ TRACE_OFF;
  * - - -- --- ----- -------- -------------
  */
 
-typedef struct aktive_context {
-    Tcl_HashTable val;
-} aktive_context_d;
+A_STRUCTURE (aktive_context) {
+    A_FIELD (Tcl_HashTable, val) ; // key-value context map
+} A_END_PTR (aktive_context);
 
 /*
  * - - -- --- ----- -------- -------------
@@ -29,7 +30,7 @@ aktive_context_new (void)
 {
     TRACE_FUNC ("", 0);
 
-    aktive_context c = ALLOC (aktive_context_d);
+    aktive_context c = ALLOC (struct aktive_context);
     Tcl_InitHashTable (&c->val, TCL_ONE_WORD_KEYS);
 
     TRACE_RETURN ("(context*) %p", c);

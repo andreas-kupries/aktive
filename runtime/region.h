@@ -44,18 +44,18 @@
  *    written to.
  */
 
-typedef struct aktive_region_info {
+A_STRUCTURE (aktive_region_info) {
     // READ ONLY information coming from the image
 
-    void*                param  ; // Operation parameters
-    aktive_region_vector srcs   ; // Input regions, if any
-    void*                istate ; // Image state, if any, operator dependent
-    aktive_geometry*     domain ; // Image domain
+    A_FIELD (A_OP_DEPENDENT,       param)  ; // Operation parameters
+    A_FIELD (aktive_region_vector, srcs)   ; // Input regions, if any
+    A_FIELD (A_OP_DEPENDENT,       istate) ; // Image state, if any, operator dependent
+    A_FIELD (aktive_geometry*,     domain) ; // Image domain
 
     // RW information
 
-    void*                state  ; // Region region state, if any, operator dependent
-} aktive_region_info;
+    A_FIELD (A_OP_DEPENDENT,       state)  ; // Region region state, if any, operator dependent
+} A_END (aktive_region_info);
 
 /*
  * - - -- --- ----- -------- -------------

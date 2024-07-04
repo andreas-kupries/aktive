@@ -6,6 +6,8 @@
 #ifndef AKTIVE_IMAGE_H
 #define AKTIVE_IMAGE_H
 
+#include <base.h>
+
 /*
  * - - -- --- ----- -------- -------------
  *
@@ -16,12 +18,12 @@
  *    ALL information is READ ONLY.
  */
 
-typedef struct aktive_image_info {
-    void*                param  ; // Operation parameters, heap located
-    aktive_image_vector  srcs   ; // Input images, if any, heap-located array
-    aktive_geometry      domain ; // 2D/3D domain (2D location, 3D dimensions)
-    void*                state  ; // Image state, if any, operator dependent
-} aktive_image_info;
+A_STRUCTURE (aktive_image_info) {
+    A_FIELD (A_OP_DEPENDENT,      param)  ; // Operation parameters, heap located
+    A_FIELD (aktive_image_vector, srcs)   ; // Input images, if any, heap-located array
+    A_FIELD (aktive_geometry,     domain) ; // 2D/3D domain (2D location, 3D dimensions)
+    A_FIELD (A_OP_DEPENDENT,      state)  ; // Image state, if any, operator dependent
+} A_END (aktive_image_info);
 
 /*
  * - - -- --- ----- -------- -------------
@@ -31,12 +33,12 @@ typedef void     (*aktive_param_init)   (void* param);
 typedef void     (*aktive_param_finish) (void* param);
 typedef Tcl_Obj* (*aktive_param_value)  (Tcl_Interp* interp, void* value);
 
-typedef struct aktive_image_parameter {
-    const char*        name   ; // Index into `aktive_param_name`
-    const char*        desc   ; // Index into `aktive_param_desc`
-    aktive_param_value to_obj ; // Index into `aktive_type_descriptor`
-    aktive_uint        offset ; // Offset of field in the parameter structure
-} aktive_image_parameter;
+A_STRUCTURE (aktive_image_parameter) {
+    A_FIELD (A_CSTRING,                 name)   ; // Index into `aktive_param_name`
+    A_FIELD (A_CSTRING,                 desc)   ; // Index into `aktive_param_desc`
+    A_FIELD (A_FUNC aktive_param_value, to_obj) ; // Index into `aktive_type_descriptor`
+    A_FIELD (aktive_uint,               offset) ; // Offset of field in the parameter structure
+} A_END (aktive_image_parameter);
 
 /*
  * - - -- --- ----- -------- -------------
@@ -49,22 +51,22 @@ typedef struct aktive_image_parameter {
 typedef int  (*aktive_image_setup) (aktive_image_info* info, Tcl_Obj** meta);
 typedef void (*aktive_image_final) (void* state);
 
-typedef struct aktive_image_type {
-    char*                   name         ; // Identification
+A_STRUCTURE (aktive_image_type) {
+    A_FIELD (A_CSTRING,                  name)         ; // Identification
 
-    aktive_uint             sz_param     ; // Size of parameter block [bytes]
-    aktive_uint             n_param      ; // Number of parameters in the block
-    aktive_image_parameter* param        ; // Parameter descriptions
-    aktive_param_init       param_init   ; // Parameter initialization hook
-    aktive_param_finish     param_finish ; // Parameter finishing hook
+    A_FIELD (aktive_uint,                sz_param)     ; // Size of parameter block [bytes]
+    A_FIELD (aktive_uint,                n_param)      ; // Number of parameters in the block
+    A_FIELD (aktive_image_parameter*,    param)        ; // Parameter descriptions
+    A_FIELD (A_FUNC aktive_param_init,   param_init)   ; // Parameter initialization hook
+    A_FIELD (A_FUNC aktive_param_finish, param_finish) ; // Parameter finishing hook
 
-    aktive_image_setup      setup        ; // Create  operator-specific image state
-    aktive_image_final      final        ; // Release operator-specific image state
+    A_FIELD (A_FUNC aktive_image_setup,  setup)        ; // Create  operator-specific image state
+    A_FIELD (A_FUNC aktive_image_final,  final)        ; // Release operator-specific image state
 
-    aktive_region_setup     region_setup ; // Create  operator-specific region state
-    aktive_region_final     region_final ; // Release operator-specific region state
-    aktive_region_fetch     region_fetch ; // Get pixels for area of the region
-} aktive_image_type;
+    A_FIELD (A_FUNC aktive_region_setup, region_setup) ; // Create  operator-specific region state
+    A_FIELD (A_FUNC aktive_region_final, region_final) ; // Release operator-specific region state
+    A_FIELD (A_FUNC aktive_region_fetch, region_fetch) ; // Get pixels for area of the region
+} A_END (aktive_image_type);
 
 /*
  * - - -- --- ----- -------- -------------

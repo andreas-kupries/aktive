@@ -297,6 +297,8 @@ proc dsl::writer::VectorTypes {} {
 
     CHeader {Structures for types used in variadics}
 
+    + "#include <base.h>"
+
     foreach type [Vectors] {
 	set ct [TypeCritcl $type]
 	set t  [TypeCType  $type]
@@ -310,11 +312,11 @@ proc dsl::writer::VectorTypes {} {
 	Comment "  Structurally matches `critcl_variadic_$ct`."
 	Comment "  Simplifies handling of variadics."
 	+ {}
-	+ "typedef struct ${tx} \{"
-	+ "  [PadR $n Tcl_Obj**] o ; /* Generally superfluous */"
-	+ "  [PadR $n    int] c ; /* Number of elements               */"
-	+ "  [PadR $n ${ct}*] v ; /* Array of the elements, allocated */"
-	+ "\} ${tx};"
+	+ "A_STRUCTURE (${tx}) \{"
+	+ "  A_FIELD ([PadR $n Tcl_Obj**], o) ; /* Generally superfluous */"
+	+ "  A_FIELD ([PadR $n    int], c) ; /* Number of elements               */"
+	+ "  A_FIELD ([PadR $n ${ct}*], v) ; /* Array of the elements, allocated */"
+	+ "\} A_END (${tx});"
 	+ {}
     }
 
