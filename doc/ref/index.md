@@ -23,6 +23,7 @@ Reference pages for all the package's public operators and commands.
     - [accessor geometry](accessor_geometry.md)
     - [accessor metadata](accessor_metadata.md)
     - [accessor values](accessor_values.md)
+  - [cache](cache.md)
   - [composer](composer.md)
   - [generator](generator.md)
     - [generator reader](generator_reader.md)

@@ -135,6 +135,7 @@ critcl::include op/color.h
 critcl::include op/convolve.h
 critcl::include op/csum.h
 critcl::include op/lut.h
+critcl::include op/memory.h
 critcl::include op/netpbm.h
 critcl::include op/null.h
 critcl::include op/otsu.h

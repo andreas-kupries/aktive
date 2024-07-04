@@ -86,6 +86,7 @@ The operators listed here are implemented in C. We ignore supporting Tcl code.
  - [aktive op band sumsquared](transform_statistics.md#op_band_sumsquared)
  - [aktive op band variance](transform_statistics.md#op_band_variance)
  - [aktive op bands recombine](transform.md#op_bands_recombine)
+ - [aktive op cache](cache.md#op_cache)
  - [aktive op cmath abs](transform_math_complex_reduce.md#op_cmath_abs)
  - [aktive op cmath acos](transform_math_complex_unary.md#op_cmath_acos)
  - [aktive op cmath acosh](transform_math_complex_unary.md#op_cmath_acosh)

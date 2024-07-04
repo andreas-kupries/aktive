@@ -193,6 +193,7 @@
 
 ## <a name='_c'></a> c
 
+  - [cache &mdash; op](cache.md#op_cache)
   - [cbar &mdash; image](generator_virtual.md#image_cbar)
   - [cbrt &mdash; op cmath](transform_math_complex_unary.md#op_cmath_cbrt)
   - [cbrt &mdash; op math1](transform_math_unary.md#op_math1_cbrt)
@@ -1121,6 +1122,7 @@
   - [op &mdash; band sumsquared](transform_statistics.md#op_band_sumsquared)
   - [op &mdash; band variance](transform_statistics.md#op_band_variance)
   - [op &mdash; bands recombine](transform.md#op_bands_recombine)
+  - [op &mdash; cache](cache.md#op_cache)
   - [op &mdash; center-origin x](transform_structure.md#op_center_origin_x)
   - [op &mdash; center-origin xy](transform_structure.md#op_center_origin_xy)
   - [op &mdash; center-origin y](transform_structure.md#op_center_origin_y)

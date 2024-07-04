@@ -210,6 +210,7 @@
  - [aktive op band sumsquared](transform_statistics.md#op_band_sumsquared)
  - [aktive op band variance](transform_statistics.md#op_band_variance)
  - [aktive op bands recombine](transform.md#op_bands_recombine)
+ - [aktive op cache](cache.md#op_cache)
  - [aktive op center-origin x](transform_structure.md#op_center_origin_x)
  - [aktive op center-origin xy](transform_structure.md#op_center_origin_xy)
  - [aktive op center-origin y](transform_structure.md#op_center_origin_y)

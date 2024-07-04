@@ -63,6 +63,7 @@ import generator/virtual/pattern/selements.tcl
 import generator/virtual/pattern/sines.tcl
 import generator/virtual/pattern/zone.tcl
 
+import transformer/cache.tcl
 import transformer/identity.tcl
 import transformer/location.tcl
 import transformer/meta.tcl

@@ -29,6 +29,7 @@
 
 ## <a name='_c'></a> c
 
+  - [cache](cache.md)
   - [color &mdash; transform](transform_color.md)
   - [combiner &mdash; transform sdf](transform_sdf_combiner.md)
   - [complex &mdash; binary transform math](transform_math_complex_binary.md)
