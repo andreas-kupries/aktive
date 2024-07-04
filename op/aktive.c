@@ -2,7 +2,7 @@
  *
  * -- Direct operator support - AKTIVE format support
  *
- * AKTIVE image files - Bare bones format, VIPS insprired
+ * AKTIVE image files - Bare bones format, VIPS inspired
  *
  * |Offset	|Size	|Type		|Id	|Content		|
  * |---:	|---:	|---		|---	|---			|
