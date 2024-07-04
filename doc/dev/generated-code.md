@@ -1,5 +1,9 @@
 # Code generated from specifications
 
+||||
+|---|---|---|
+|[Project ↗](../../README.md)|[Documentation](../index.md)||[Developer Index ↗](index.md)|
+
 ## Types
 
 Per declared user type the generator emits

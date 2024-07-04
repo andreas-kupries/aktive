@@ -15,3 +15,8 @@ Not all of the quadrants are filled at the moment.
 
 The only quadrant actually ensured to contain documents at the moment is the reference information,
 as that part is generated from the operator specifications.
+
+# Developers
+
+The [documentation explaining the internals](dev/index.md) is directed at developers wishing to
+understand the package's internals, whether just for curiosity, or to extend or modify it.
