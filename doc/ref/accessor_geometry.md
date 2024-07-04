@@ -36,7 +36,7 @@
 
 Syntax: __aktive query depth__ src
 
-Returns image depth.
+Returns the image's depth.
 
 
 ---
@@ -44,7 +44,7 @@ Returns image depth.
 
 Syntax: __aktive query domain__ src
 
-Returns image domain, a 2D rectangle.
+Returns the image domain, a 2D rectangle. I.e. location, width, and height.
 
 
 ---
@@ -52,7 +52,7 @@ Returns image domain, a 2D rectangle.
 
 Syntax: __aktive query geometry__ src
 
-Returns full image geometry, i.e. domain plus depth.
+Returns the full image geometry, i.e. domain and depth.
 
 
 ---
@@ -60,7 +60,7 @@ Returns full image geometry, i.e. domain plus depth.
 
 Syntax: __aktive query height__ src
 
-Returns image height.
+Returns the image's height.
 
 
 ---
@@ -68,7 +68,7 @@ Returns image height.
 
 Syntax: __aktive query location__ src
 
-Returns 2D image location, a 2D point.
+Returns the image location, a 2D point.
 
 
 ---
@@ -76,7 +76,7 @@ Returns 2D image location, a 2D point.
 
 Syntax: __aktive query pitch__ src
 
-Returns image pitch.
+Returns the image's pitch, the number of values in a row, taking depth into account.
 
 
 ---
@@ -84,7 +84,7 @@ Returns image pitch.
 
 Syntax: __aktive query pixels__ src
 
-Returns image pixels.
+Returns the image's number of pixels.
 
 
 ---
@@ -92,7 +92,7 @@ Returns image pixels.
 
 Syntax: __aktive query size__ src
 
-Returns image size.
+Returns the image's size, the number of pixels multiplied by the depth.
 
 
 ---
@@ -100,7 +100,7 @@ Returns image size.
 
 Syntax: __aktive query width__ src
 
-Returns image width.
+Returns the image's width.
 
 
 ---
@@ -108,7 +108,7 @@ Returns image width.
 
 Syntax: __aktive query x__ src
 
-Returns image x location.
+Returns the image's x location.
 
 
 ---
@@ -116,7 +116,7 @@ Returns image x location.
 
 Syntax: __aktive query xmax__ src
 
-Returns image xmax location.
+Returns the image's maximum x location.
 
 
 ---
@@ -124,7 +124,7 @@ Returns image xmax location.
 
 Syntax: __aktive query y__ src
 
-Returns image y location.
+Returns the image's y location.
 
 
 ---
@@ -132,6 +132,6 @@ Returns image y location.
 
 Syntax: __aktive query ymax__ src
 
-Returns image ymax location.
+Returns the image's maximum y location.
 
 

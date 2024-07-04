@@ -89,7 +89,9 @@ Returns an implementation-specific image identity.
 
 Syntax: __aktive query inputs__ src
 
-Returns list of the image inputs, if any.
+Returns list of the image's inputs.
+
+For an image without inputs the result is the empty list.
 
 
 ---
@@ -97,7 +99,9 @@ Returns list of the image inputs, if any.
 
 Syntax: __aktive query params__ src
 
-Returns dictionary of the image parameters, if any.
+Returns dictionary of the image's parameters.
+
+For an image without parameters the result is the empty dictionary.
 
 
 ---
@@ -105,7 +109,9 @@ Returns dictionary of the image parameters, if any.
 
 Syntax: __aktive query setup__ src
 
-Returns dictionary of the image setup. IOW type, geometry, and parameters, if any. No inputs though, even if the image has any.
+Returns dictionary of the image's setup.
+
+This includes type, geometry, and parameters, if any. No inputs though, even if the image has any.
 
 
 ---
@@ -113,6 +119,6 @@ Returns dictionary of the image setup. IOW type, geometry, and parameters, if an
 
 Syntax: __aktive query type__ src
 
-Returns image type.
+Returns the image's type.
 
 

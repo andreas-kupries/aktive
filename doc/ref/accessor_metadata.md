@@ -129,6 +129,6 @@ Returns result of "dict values" applied to the input's meta data dictionary
 
 Syntax: __aktive query meta__ src
 
-Returns the image meta data (a Tcl dictionary).
+Returns the image's meta data (a Tcl dictionary).
 
 

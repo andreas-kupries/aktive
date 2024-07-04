@@ -23,7 +23,7 @@ operator query::id {
 operator query::type {
     section accessor
 
-    note Returns image type.
+    note Returns the image's type.
 
     input
     return image-type {
@@ -35,7 +35,7 @@ operator query::type {
 operator query::location {
     section accessor geometry
 
-    note Returns 2D image location, a 2D point.
+    note Returns the image location, a 2D point.
 
     input
     return point {
@@ -47,7 +47,7 @@ operator query::location {
 operator query::domain {
     section accessor geometry
 
-    note Returns image domain, a 2D rectangle.
+    note Returns the image domain, a 2D rectangle. I.e. location, width, and height.
 
     input
     return rect {
@@ -59,7 +59,7 @@ operator query::domain {
 operator query::geometry {
     section accessor geometry
 
-    note Returns full image geometry, i.e. domain plus depth.
+    note Returns the full image geometry, i.e. domain and depth.
 
     input
     return geometry {
@@ -68,15 +68,16 @@ operator query::geometry {
     }
 }
 
-operator attribute {
+operator description {
     query::x    x
-    query::xmax xmax
+    query::xmax {maximum x}
     query::y    y
-    query::ymax ymax
+    query::ymax {maximum y}
 } {
     section accessor geometry
+    op -> _ attribute
 
-    note Returns image $attribute location.
+    note Returns the image's $description location.
 
     input
 
@@ -86,17 +87,18 @@ operator attribute {
     }
 }
 
-operator attribute {
+operator description {
     query::width  width
     query::height height
     query::depth  depth
-    query::pixels pixels
-    query::pitch  pitch
-    query::size   size
+    query::pixels {number of pixels}
+    query::pitch  {pitch, the number of values in a row, taking depth into account}
+    query::size   {size, the number of pixels multiplied by the depth}
 } {
     section accessor geometry
+        op -> _ attribute
 
-    note Returns image ${attribute}.
+    note Returns the image's ${description}.
 
     input
 
@@ -109,7 +111,8 @@ operator attribute {
 operator query::inputs {
     section accessor
 
-    note Returns list of the image inputs, if any.
+    note Returns list of the image's inputs.
+    note For an image without inputs the result is the empty list.
 
     input
 
@@ -129,7 +132,8 @@ operator query::inputs {
 operator query::params {
     section accessor
 
-    note Returns dictionary of the image parameters, if any.
+    note Returns dictionary of the image's parameters.
+    note For an image without parameters the result is the empty dictionary.
 
     input
 
@@ -143,8 +147,8 @@ operator query::params {
 operator query::setup {
     section accessor
 
-    note Returns dictionary of the image setup. \
-	IOW type, geometry, and parameters, if any. \
+    note Returns dictionary of the image's setup.
+    note This includes type, geometry, and parameters, if any. \
 	No inputs though, even if the image has any.
 
     input
@@ -158,7 +162,7 @@ operator query::setup {
 operator query::meta {
     section accessor metadata
 
-    note Returns the image meta data (a Tcl dictionary).
+    note Returns the image's meta data (a Tcl dictionary).
 
     input
 
@@ -172,8 +176,9 @@ operator query::meta {
 operator query::values {
     section accessor values
 
-    note Returns a Tcl list of image pixel values. \
-	The values are provided in row-major order.
+    note Returns a Tcl list of the image's pixel values.
+    note The values are provided in row-major order.
+    note The list has length `\[aktive query size <input>]`.
 
     input
 
@@ -190,18 +195,19 @@ operator query::values {
 operator query::value::at {
     section accessor values
 
-    note Returns the pixel value at the given 2d point. \
-	The result is a list for multi-band inputs. \
-	The result is __not__ an image.
+    note Returns the image's pixel value at the given 2D point.
 
-    note Beware that the coordinate domain is 0..width|height, \
+    note The result is __not__ an image. It is a list for multi-band \
+	inputs, and a single floating point number otherwise.
+
+    note Beware that the coordinate domain is `0..width|height`, \
 	regardless of image location.
 
     strict single The requested pixel is materialized in memory.
 
     input
-    int   x	x-coordinate of the pixel to query
-    int   y	y-coordinate of the pixel to query
+    int   x	Physical x-coordinate of the pixel to query
+    int   y	Physical y-coordinate of the pixel to query
 
     body {
 	set src [aktive op select y $src from $y to $y]
@@ -213,18 +219,19 @@ operator query::value::at {
 operator query::value::around {
     section accessor values
 
-    note Returns the pixels values for the region around \
-	the specified 2d point, within the manhattan radius. \
-	The result is __not__ an image.
+    note Returns the image's pixel values for the region around \
+	the specified 2D point, within the manhattan `radius`.
 
-    note Beware that the coordinate domain is 0..width|height, \
+    note The result is __not__ an image.
+
+    note Beware that the coordinate domain is `0..width|height`, \
 	regardless of image location.
 
     strict single The requested pixel region is materialized in memory.
 
     input
-    int     x		x-coordinate of the pixel to query
-    int     y		y-coordinate of the pixel to query
+    int     x		Physical x-coordinate of the pixel to query
+    int     y		Physical y-coordinate of the pixel to query
     uint? 1 radius	Region radius, defaults to 1, i.e. a 3x3 region.
 
     body {
