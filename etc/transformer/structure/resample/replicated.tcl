@@ -101,7 +101,7 @@ operator {coordinate dimension} {
 	// the scaler because that location is the unchanging scale origin.
 
 	aktive_uint phase = (subrequest.@@coordinate@@ - idomain->@@coordinate@@) % n;
-	TRACE ("Phase: %d ((%d -%d) mod %d)",
+	TRACE ("Phase: %d ((%d - %d) mod %d)",
 	       phase, subrequest.@@coordinate@@, idomain->@@coordinate@@, n);
 
 	subrequest.@@coordinate@@ -= idomain->@@coordinate@@;
