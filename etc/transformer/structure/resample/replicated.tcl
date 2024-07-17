@@ -96,18 +96,25 @@ operator {coordinate dimension} {
     blit replicator $blitspec copy
 
     def phasor-core {
-	aktive_uint phase = subrequest.@@coordinate@@ % n;
+	// Rewrite request along the @coordinate@@-axis to get enough from the source.
+	// For the base location a translation to 0-relative and back is wrapped around
+	// the scaler because that location is the unchanging scale origin.
 
-	TRACE ("Phase: %d (%d in %d)", phase, subrequest.@@coordinate@@, n);
+	aktive_uint phase = (subrequest.@@coordinate@@ - idomain->@@coordinate@@) % n;
+	TRACE ("Phase: %d ((%d -%d) mod %d)",
+	       phase, subrequest.@@coordinate@@, idomain->@@coordinate@@, n);
 
-	// Rewrite request along the @coordinate@@-axis to get enough from the source
+	subrequest.@@coordinate@@ -= idomain->@@coordinate@@;
 	subrequest.@@coordinate@@ /= n;
+	subrequest.@@coordinate@@ += idomain->@@coordinate@@;
 	subrequest.@@dimension@@ /= n;
 	subrequest.@@dimension@@ ++;
 
 	// And prevent overshooting the upper border of the input
 	int excess = aktive_rectangle_get_@@coordinate@@max (&subrequest) - istate->max;
 	if (excess > 0) { subrequest.@@dimension@@ -= excess; }
+
+	TRACE_RECTANGLE (&subrequest);
     }
 
     def phasor [dict get {

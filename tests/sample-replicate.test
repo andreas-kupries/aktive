@@ -100,6 +100,12 @@ foreach {op domain expected} {
     test aktive-op-sample-replicate-${op}-2.4 "aktive op sample replicate ${op}rep, partial view" -body {
 	pixels aktive op select $op [aktive op sample replicate ${op} [grad$op] by 3] from 5 to 10
     } -match pixels -result {1 2 2 2 3 3}
+
+    # replicate from non-origin location
+
+    test aktive-op-sample-replicate-${op}-2.5 "aktive op sample replicate ${op} 2x, non-origin" -body {
+	astcl aktive op sample replicate ${op} [aktive op location move to [grad] x 22 y 22] by 2
+    } -match image -result [makei op::sample::replicate::${opd} 22 22 {*}$domain {by 2} $expected]
 }
 
 # # ## ### ##### ######## ############# #####################
