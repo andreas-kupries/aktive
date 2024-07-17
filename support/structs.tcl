@@ -165,6 +165,7 @@ proc dsl::structs::Retype {type} {
     }
 
     if {[string match aktive_* $type]} { set type [string range $type 7 end] }
+    if {[string match "*_ptr"  $type]} { set type "[string range $type 0 end-4]*" }
     set map {
 	A_OP_DEPENDENT "<op-dependent>*"
 	A_STRING       "string"

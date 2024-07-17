@@ -95,7 +95,7 @@ proc dsl::writer::EmitDoc {stem} {
     Into ${stem}bylang.md OperatorsByLang [dict get $docs lang]
     Into ${stem}strict.md OperatorsStrict [dict get $docs strict]
 
-    # Emit main index referencing the others, and has the section tree
+    # Emit main index containing the section tree and references to the other indices.
     Into ${stem}index.md  OperatorIndex   $docs
 
     # Emit permuted indices for perator names and sections.
@@ -633,7 +633,7 @@ proc dsl::writer::OperatorIndex {docs} {
 	} elseif {$ins eq "--"} {
 	    set prefix [string range $prefix 0 end-2]
 	} else {
-	    + "$prefix  - \[$ins\]([OpSectionKey $ins].md)"
+	    + "$prefix  - \[[lindex $ins end]\]([OpSectionKey $ins].md)"
 	}
     }
 
