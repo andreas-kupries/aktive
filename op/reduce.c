@@ -3,11 +3,11 @@
  *
  * -- Reducer utility functions.
  *
- * Note: The image level reduction use the batch processor API directly,
+ * Note: The image level reductions use the batch processor API directly,
  *       instead of through a sink. The sink API is a bit restricted, as it
  *       assumes that the workers always return pixel blocks.
  *
- *       While the the reduction workers fetch pixel blocks as usual they do
+ *       While the reduction workers fetch pixel blocks as usual they do
  *       not return these, but the result of a partial reduction of that
  *       block.  That way the completer only has to merge small partial
  *       results into a final result.
