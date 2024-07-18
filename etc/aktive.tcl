@@ -57,8 +57,10 @@ import generator/virtual/noise/gauss.tcl
 import generator/virtual/noise/salt.tcl
 import generator/virtual/noise/uniform.tcl
 
+import generator/virtual/pattern/checkers.tcl
 import generator/virtual/pattern/eye.tcl
 import generator/virtual/pattern/kernels.tcl
+import generator/virtual/pattern/palette.tcl
 import generator/virtual/pattern/selements.tcl
 import generator/virtual/pattern/sines.tcl
 import generator/virtual/pattern/zone.tcl

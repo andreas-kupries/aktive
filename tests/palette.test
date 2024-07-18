@@ -1,0 +1,42 @@
+# -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
+## (c) 2024 Andreas Kupries
+# # ## ### ##### ######## ############# #####################
+## AKTIVE. Grey and color palettes
+
+kt check Tcl     8.6 9
+kt check tcltest 2
+
+# # ## ### ##### ######## ############# #####################
+
+kt local testing aktive
+
+kt source support/util.tcl
+
+# # ## ### ##### ######## ############# #####################
+## Syntax
+
+syntax {
+    grey  {}
+    color {}
+} {aktive image palette}
+
+# # ## ### ##### ######## ############# #####################
+##
+
+foreach {cmd asset} {
+    grey  graybox
+    color colorbox
+} {
+    test aktive-image-palette-${cmd}-2.0 "aktive image palette $cmd" -body {
+	astcl aktive image palette $cmd
+    } -match image -result \
+	[astcl/ [aktive op meta clear \
+		     [aktive op sample replicate xy \
+			  [aktive read from aktive path [R format-${asset}.aktive ]] \
+			  by 16]]]
+}
+
+# # ## ### ##### ######## ############# #####################
+unset cmd asset
+cleanupTests
+return

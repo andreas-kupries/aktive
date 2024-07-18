@@ -1,0 +1,93 @@
+# -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
+## (c) 2024 Andreas Kupries
+# # ## ### ##### ######## ############# #####################
+## AKTIVE. Stripes, grids, and checker boards.
+
+kt check Tcl     8.6 9
+kt check tcltest 2
+
+# # ## ### ##### ######## ############# #####################
+
+kt local testing aktive
+
+kt source support/util.tcl
+
+# # ## ### ##### ######## ############# #####################
+## Syntax
+
+syntax {
+    stripes  args
+    dstripes args
+    grid     args
+    dgrid    args
+    checker  args
+} {aktive image}
+
+# # ## ### ##### ######## ############# #####################
+##
+
+foreach {n cmd expected} {
+    0 stripes {
+	_ * * * _ _ * *
+	_ * * * _ _ * *
+	_ * * * _ _ * *
+	_ * * * _ _ * *
+	_ * * * _ _ * *
+	_ * * * _ _ * *
+	_ * * * _ _ * *
+	_ * * * _ _ * *
+    }
+    1 dstripes {
+	_ * * * _ _ * *
+	_ _ * * * _ _ *
+	_ _ _ * * * _ _
+	* _ _ _ * * * _
+	* * _ _ _ * * *
+	* * * _ _ _ * *
+	_ * * * _ _ _ *
+	_ _ * * * _ _ _
+    }
+    2 grid {
+	_ _ _ _ _ _ _ _
+	_ * * * _ _ * *
+	_ * * * _ _ * *
+	_ * * * _ _ * *
+	_ _ _ _ _ _ _ _
+	_ _ _ _ _ _ _ _
+	_ * * * _ _ * *
+	_ * * * _ _ * *
+    }
+    3 dgrid {
+	_ _ * * _ _ _ _
+	_ _ * * _ _ _ *
+	_ _ _ _ _ _ _ _
+	* _ _ _ _ * * _
+	* _ _ _ _ * * _
+	_ _ _ _ _ _ _ _
+	_ _ * * _ _ _ *
+	_ _ * * _ _ _ _
+    }
+    4 checkers {
+	_ * * * _ _ * *
+	* _ _ _ * * _ _
+	* _ _ _ * * _ _
+	* _ _ _ * * _ _
+	_ * * * _ _ * *
+	_ * * * _ _ * *
+	* _ _ _ * * _ _
+	* _ _ _ * * _ _
+    }
+} {
+    set data [list image::$cmd 0 0 8 8 1 {width 8 height 8 offset 1 black 2 white 3}]
+    if {[string match *grid $cmd]} {
+	set data {op::math::min 0 0 8 8 1 {}}
+    }
+
+    test aktive-image-${cmd}-2 "aktive image $cmd" -body {
+	astcl aktive image $cmd width 8 height 8 black 2 white 3 offset 1
+    } -match image -result [makei {*}$data [string map {_ 0 * 1} $expected]]
+}
+
+# # ## ### ##### ######## ############# #####################
+cleanupTests
+return
