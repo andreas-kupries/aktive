@@ -6,7 +6,7 @@
 
 |||||||||
 |---|---|---|---|---|---|---|---|
-|[Entry ↗](index.md)|&mdash;|[Sections ↘](index.md#sectree)|[Permuted Sections ↘](bypsections.md)|[Names ↘](byname.md)|[Permuted Names ↘](bypnames.md)|[Strict ↘](strict.md)|[Implementations ↘](bylang.md)|
+|[Entry ↗](index.md)|&mdash;|[Sections ↘](bysection.md)|[Permuted Sections ↘](bypsection.md)|Names|[Permuted Names ↘](bypname.md)|[Strict ↘](strict.md)|[Implementations ↘](bylang.md)|
 
 ||||||||||
 |---|---|---|---|---|---|---|---|---|
@@ -60,9 +60,11 @@
 ## <a name='_i'></a> i
 
  - [aktive image cbar](generator_virtual.md#image_cbar)
+ - [aktive image checkers](generator_virtual.md#image_checkers)
  - [aktive image circle](generator_virtual.md#image_circle)
  - [aktive image cross](generator_virtual.md#image_cross)
  - [aktive image dbar](generator_virtual.md#image_dbar)
+ - [aktive image dgrid](generator_virtual.md#image_dgrid)
  - [aktive image disc](generator_virtual.md#image_disc)
  - [aktive image draw box](generator_virtual_drawing.md#image_draw_box)
  - [aktive image draw box-rounded](generator_virtual_drawing.md#image_draw_box_rounded)
@@ -73,6 +75,7 @@
  - [aktive image draw polyline](generator_virtual_drawing.md#image_draw_polyline)
  - [aktive image draw rhombus](generator_virtual_drawing.md#image_draw_rhombus)
  - [aktive image draw triangle](generator_virtual_drawing.md#image_draw_triangle)
+ - [aktive image dstripes](generator_virtual.md#image_dstripes)
  - [aktive image eye](generator_virtual.md#image_eye)
  - [aktive image from band](generator_virtual.md#image_from_band)
  - [aktive image from column](generator_virtual.md#image_from_column)
@@ -80,9 +83,11 @@
  - [aktive image from row](generator_virtual.md#image_from_row)
  - [aktive image from sparse deltas](generator_virtual.md#image_from_sparse_deltas)
  - [aktive image from sparse points](generator_virtual.md#image_from_sparse_points)
+ - [aktive image from sparse ranges](generator_virtual.md#image_from_sparse_ranges)
  - [aktive image from value](generator_virtual.md#image_from_value)
  - [aktive image gradient](generator_virtual.md#image_gradient)
  - [aktive image grey](generator_virtual.md#image_grey)
+ - [aktive image grid](generator_virtual.md#image_grid)
  - [aktive image hbar](generator_virtual.md#image_hbar)
  - [aktive image indexed](generator_virtual.md#image_indexed)
  - [aktive image kernel emboss](generator_virtual.md#image_kernel_emboss)
@@ -136,6 +141,8 @@
  - [aktive image noise gauss](generator_virtual.md#image_noise_gauss)
  - [aktive image noise salt](generator_virtual.md#image_noise_salt)
  - [aktive image noise uniform](generator_virtual.md#image_noise_uniform)
+ - [aktive image palette color](generator_virtual.md#image_palette_color)
+ - [aktive image palette grey](generator_virtual.md#image_palette_grey)
  - [aktive image sdf box](generator_virtual_sdf.md#image_sdf_box)
  - [aktive image sdf box-rounded](generator_virtual_sdf.md#image_sdf_box_rounded)
  - [aktive image sdf circle](generator_virtual_sdf.md#image_sdf_circle)
@@ -147,6 +154,7 @@
  - [aktive image sdf triangle](generator_virtual_sdf.md#image_sdf_triangle)
  - [aktive image sines](generator_virtual.md#image_sines)
  - [aktive image square](generator_virtual.md#image_square)
+ - [aktive image stripes](generator_virtual.md#image_stripes)
  - [aktive image threshold bernsen](transform_threshold_generate.md#image_threshold_bernsen)
  - [aktive image threshold global bernsen](accessor_threshold_generate.md#image_threshold_global_bernsen)
  - [aktive image threshold global mean](accessor_threshold_generate.md#image_threshold_global_mean)
@@ -473,6 +481,7 @@
  - [aktive op math screen](transform_math_binary.md#op_math_screen)
  - [aktive op math sub](transform_math_binary.md#op_math_sub)
  - [aktive op math xor](transform_math_nary_logical.md#op_math_xor)
+ - [aktive op meta clear](transform_metadata.md#op_meta_clear)
  - [aktive op meta set](transform_metadata.md#op_meta_set)
  - [aktive op montage x](composer.md#op_montage_x)
  - [aktive op montage x-core](composer.md#op_montage_x_core)

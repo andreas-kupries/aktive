@@ -6,7 +6,7 @@
 
 |||||||||
 |---|---|---|---|---|---|---|---|
-|[Entry ↗](index.md)|&mdash;|[Sections ↘](index.md#sectree)|[Permuted Sections ↘](bypsections.md)|[Names ↘](byname.md)|[Permuted Names ↘](bypnames.md)|[Strict ↘](strict.md)|[Implementations ↘](bylang.md)|
+|[Entry ↗](index.md)|&mdash;|[Sections ↘](bysection.md)|[Permuted Sections ↘](bypsection.md)|[Names ↘](byname.md)|[Permuted Names ↘](bypname.md)|[Strict ↘](strict.md)|[Implementations ↘](bylang.md)|
 
 ## Table Of Contents
 
@@ -26,6 +26,7 @@
  - [aktive meta replace](#meta_replace)
  - [aktive meta set](#meta_set)
  - [aktive meta unset](#meta_unset)
+ - [aktive op meta clear](#op_meta_clear)
  - [aktive op meta set](#op_meta_set)
 
 ## Operators
@@ -183,6 +184,17 @@ Returns input with meta data dictionary modified by application of "dict unset"
 |:---|:---|:---|:---|
 |src|image||Input to modify|
 |args|str...||Dict command arguments, except for dict value or variable.|
+
+---
+### <a name='op_meta_clear'></a> aktive op meta clear
+
+Syntax: __aktive op meta clear__ src
+
+Returns input with all meta data cleared.
+
+|Parameter|Type|Default|Description|
+|:---|:---|:---|:---|
+|src|image||Input to modify|
 
 ---
 ### <a name='op_meta_set'></a> aktive op meta set

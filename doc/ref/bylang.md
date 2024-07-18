@@ -6,7 +6,7 @@
 
 |||||||||
 |---|---|---|---|---|---|---|---|
-|[Entry ↗](index.md)|&mdash;|[Sections ↘](index.md#sectree)|[Permuted Sections ↘](bypsections.md)|[Names ↘](byname.md)|[Permuted Names ↘](bypnames.md)|[Strict ↘](strict.md)|[Implementations ↘](bylang.md)|
+|[Entry ↗](index.md)|&mdash;|[Sections ↘](bysection.md)|[Permuted Sections ↘](bypsection.md)|[Names ↘](byname.md)|[Permuted Names ↘](bypname.md)|[Strict ↘](strict.md)|Implementations|
 
 ||||
 |---|---|---|
@@ -38,10 +38,12 @@ The operators listed here are implemented in C. We ignore supporting Tcl code.
  - [aktive format as ppm text 2string](sink_writer.md#format_as_ppm_text_2string)
  - [aktive format as tcl](sink_writer.md#format_as_tcl)
  - [aktive image cbar](generator_virtual.md#image_cbar)
+ - [aktive image checkers](generator_virtual.md#image_checkers)
  - [aktive image circle](generator_virtual.md#image_circle)
  - [aktive image cross](generator_virtual.md#image_cross)
  - [aktive image dbar](generator_virtual.md#image_dbar)
  - [aktive image disc](generator_virtual.md#image_disc)
+ - [aktive image dstripes](generator_virtual.md#image_dstripes)
  - [aktive image eye](generator_virtual.md#image_eye)
  - [aktive image from band](generator_virtual.md#image_from_band)
  - [aktive image from column](generator_virtual.md#image_from_column)
@@ -49,6 +51,7 @@ The operators listed here are implemented in C. We ignore supporting Tcl code.
  - [aktive image from row](generator_virtual.md#image_from_row)
  - [aktive image from sparse deltas](generator_virtual.md#image_from_sparse_deltas)
  - [aktive image from sparse points](generator_virtual.md#image_from_sparse_points)
+ - [aktive image from sparse ranges](generator_virtual.md#image_from_sparse_ranges)
  - [aktive image from value](generator_virtual.md#image_from_value)
  - [aktive image gradient](generator_virtual.md#image_gradient)
  - [aktive image grey](generator_virtual.md#image_grey)
@@ -65,6 +68,7 @@ The operators listed here are implemented in C. We ignore supporting Tcl code.
  - [aktive image sdf rhombus](generator_virtual_sdf.md#image_sdf_rhombus)
  - [aktive image sdf triangle](generator_virtual_sdf.md#image_sdf_triangle)
  - [aktive image sines](generator_virtual.md#image_sines)
+ - [aktive image stripes](generator_virtual.md#image_stripes)
  - [aktive image vbar](generator_virtual.md#image_vbar)
  - [aktive image xcross](generator_virtual.md#image_xcross)
  - [aktive image zone](generator_virtual.md#image_zone)
@@ -353,6 +357,7 @@ The operators listed here are implemented wholly in Tcl.
  - [aktive format as ppm short 2file](sink_writer.md#format_as_ppm_short_2file)
  - [aktive format as ppm text 2file](sink_writer.md#format_as_ppm_text_2file)
  - [aktive format as tclscript](accessor.md#format_as_tclscript)
+ - [aktive image dgrid](generator_virtual.md#image_dgrid)
  - [aktive image draw box](generator_virtual_drawing.md#image_draw_box)
  - [aktive image draw box-rounded](generator_virtual_drawing.md#image_draw_box_rounded)
  - [aktive image draw circle](generator_virtual_drawing.md#image_draw_circle)
@@ -362,6 +367,7 @@ The operators listed here are implemented wholly in Tcl.
  - [aktive image draw polyline](generator_virtual_drawing.md#image_draw_polyline)
  - [aktive image draw rhombus](generator_virtual_drawing.md#image_draw_rhombus)
  - [aktive image draw triangle](generator_virtual_drawing.md#image_draw_triangle)
+ - [aktive image grid](generator_virtual.md#image_grid)
  - [aktive image kernel emboss](generator_virtual.md#image_kernel_emboss)
  - [aktive image kernel gauss3 x](generator_virtual.md#image_kernel_gauss3_x)
  - [aktive image kernel gauss3 xy](generator_virtual.md#image_kernel_gauss3_xy)
@@ -410,6 +416,8 @@ The operators listed here are implemented wholly in Tcl.
  - [aktive image mask per phansalkar](transform_threshold_mask_generate.md#image_mask_per_phansalkar)
  - [aktive image mask per sauvola](transform_threshold_mask_generate.md#image_mask_per_sauvola)
  - [aktive image mask per wolfjolion](transform_threshold_mask_generate.md#image_mask_per_wolfjolion)
+ - [aktive image palette color](generator_virtual.md#image_palette_color)
+ - [aktive image palette grey](generator_virtual.md#image_palette_grey)
  - [aktive image sdf circles](generator_virtual_sdf.md#image_sdf_circles)
  - [aktive image sdf polyline](generator_virtual_sdf.md#image_sdf_polyline)
  - [aktive image square](generator_virtual.md#image_square)
@@ -608,6 +616,7 @@ The commands listed here are implemented outside of the operator framework.
  - [aktive meta unset](transform_metadata.md#meta_unset)
  - [aktive meta values](accessor_metadata.md#meta_values)
  - [aktive op color set](transform_color.md#op_color_set)
+ - [aktive op meta clear](transform_metadata.md#op_meta_clear)
  - [aktive op meta set](transform_metadata.md#op_meta_set)
  - [aktive processors](miscellaneous.md#processors)
  - [aktive version](miscellaneous.md#version)

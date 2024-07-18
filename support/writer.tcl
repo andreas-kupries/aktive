@@ -94,17 +94,19 @@ proc dsl::writer::EmitDoc {stem} {
 	Into ${stem}[OpSectionKey $section].md OperatorSection $spec $section
     }
 
-    # Emit by name / language indices
-    Into ${stem}byname.md OperatorsByName [dict get $docs alpha]
-    Into ${stem}bylang.md OperatorsByLang [dict get $docs lang]
-    Into ${stem}strict.md OperatorsStrict [dict get $docs strict]
+    # Emit base indices: names, sections, languages, strictness
+    Into ${stem}byname.md    OperatorsByName  [dict get $docs alpha]
+    Into ${stem}bysection.md OperatorSections $docs
+    Into ${stem}bylang.md    OperatorsByLang  [dict get $docs lang]
+    Into ${stem}strict.md    OperatorsStrict  [dict get $docs strict]
 
-    # Emit main index containing the section tree and references to the other indices.
+    # Emit permuted indices: names, sections
+    Into ${stem}bypname.md     OperatorPermutedNames    $docs
+    Into ${stem}bypsection.md  OperatorPermutedSections $docs
+
+    # Emit main page referencing all the indices.
     Into ${stem}index.md  OperatorIndex   $docs
 
-    # Emit permuted indices for perator names and sections.
-    Into ${stem}bypnames.md     OperatorPermutedNames    $docs
-    Into ${stem}bypsections.md  OperatorPermutedSections $docs
 }
 
 # # ## ### ##### ######## #############
@@ -536,7 +538,7 @@ proc dsl::writer::OperatorPermutedNames {docs} {
 
     + "# Documentation -- Reference Pages -- Permuted Index Of Operator Names"
     + {}
-    + [OpNav]
+    + [OpNav pname]
     + {}
     + [NavLetter [dict keys $perm]]
 
@@ -570,7 +572,7 @@ proc dsl::writer::OperatorPermutedSections {docs} {
 
     + "# Documentation -- Reference Pages -- Permuted Index Of Sections"
     + {}
-    + [OpNav]
+    + [OpNav psection]
     + {}
     + [NavLetter [dict keys $perm]]
 
@@ -592,53 +594,47 @@ proc dsl::writer::OperatorPermutedSections {docs} {
 }
 
 proc dsl::writer::OperatorIndex {docs} {
-    # generate linear section tree formatting instructions
-    # from implied tree in docs collection
+    + "# Documentation -- Reference Pages"
+    + {}
+    + [OpNav entry]
+    + {}
+    + "Reference pages for all the package's public operators and commands."
+    + "See the navigation bar at the top for the available indices."
+    + {}
+    Done
+}
+
+proc dsl::writer::OperatorSections {docs} {
+    + "# Documentation -- Reference Pages -- Index Of Sections"
+    + {}
+    + [OpNav section]
+    + {}
+
+    # generate linear section tree from implied tree in docs collection
     # -- depth first walk --
-    set stack [lreverse [lsort -dict [dict get $docs roots]]]
-    set queue {}
+    set stack  [lreverse [lsort -dict [dict get $docs roots]]]
+    set prefix ""
     while {[llength $stack]} {
 	set top   [lindex $stack end]
 	set stack [lrange $stack 0 end-1]
 
 	if {$top eq "."} continue
-	if {$top in {++ --}} { lappend queue $top ; continue }
 
-	lappend queue $top
+	if {$top eq "++"} {
+	    append prefix "  "
+	    continue
+	} elseif {$top eq "--"} {
+	    set prefix [string range $prefix 0 end-2]
+	    continue
+	}
+
+	+ "$prefix  - \[[lindex $top end]\]([OpSectionKey $top].md)"
 
 	if {![dict exists $docs section $top children]} continue
 	set children [dict keys [dict get $docs section $top children]]
 	if {![llength $children]} continue
 
 	lappend stack -- {*}[lreverse [lsort -dict $children]] ++
-    }
-
-    + "# Documentation -- Reference Pages"
-    + {}
-    + [OpNav]
-    + {}
-    + "Reference pages for all the package's public operators and commands."
-    + {}
-    + "- \[Name](byname.md)"
-    + "- \[Permuted Name](bypnames.md)"
-    + "- \[Section](#sectree)"
-    + "- \[Permuted Section](bypsections.md)"
-    + "- \[Strictness](strict.md)"
-    + "- \[Implementation](bylang.md)"
-    + {}
-    + "## <a name ='sectree'></a> Sections"
-    + {}
-
-    # translate section tree instructions into formatting
-    set prefix ""
-    foreach ins $queue {
-	if {$ins eq "++"} {
-	    append prefix "  "
-	} elseif {$ins eq "--"} {
-	    set prefix [string range $prefix 0 end-2]
-	} else {
-	    + "$prefix  - \[[lindex $ins end]\]([OpSectionKey $ins].md)"
-	}
     }
 
     + {}
@@ -669,7 +665,7 @@ proc dsl::writer::OperatorsByLang {spec} {
 
     + "# Documentation -- Reference Pages -- Operators By Implementation"
     + {}
-    + [OpNav]
+    + [OpNav language]
     + {}
     + [NavWords [lmap {lang label} $map {
 	if {![dict exists $spec $lang]} continue
@@ -705,7 +701,7 @@ proc dsl::writer::OperatorsByName {spec} {
 
     + "# Documentation -- Reference Pages -- Operators By Name"
     + {}
-    + [OpNav]
+    + [OpNav name]
     + {}
     + [NavLetter [lmap {op section} $spec {
 	set op
@@ -733,7 +729,7 @@ proc dsl::writer::OperatorsStrict {spec} {
 
     + "# Documentation -- Reference Pages -- StrictOperators"
     + {}
-    + [OpNav]
+    + [OpNav strict]
     + {}
     + [NavLetter [lmap {op section} $spec {
 	set op
@@ -775,7 +771,7 @@ proc dsl::writer::OperatorSection {spec section} {
 
     + "# Documentation -- Reference Pages -- $section"
     + {}
-    + [OpNav]
+    + [OpNav] ;# link to all indices
     + {}
     + "## Table Of Contents"
 
@@ -829,7 +825,7 @@ proc dsl::writer::OperatorSection {spec section} {
     Done
 }
 
-proc dsl::writer::OpNav {} {
+proc dsl::writer::OpNav {{current {}}} {
     set h |
     set s |
     set d |
@@ -859,20 +855,23 @@ proc dsl::writer::OpNav {} {
     set h |
     set s |
     set d |
-    foreach {label ref} {
-	"Entry \u2197"            "index.md"
-	- -
-	"Sections \u2198"         "index.md#sectree"
-	"Permuted Sections \u2198" bypsections.md
-	"Names \u2198"             byname.md
-	"Permuted Names \u2198"    bypnames.md
-	"Strict \u2198"            strict.md
-	"Implementations \u2198"   bylang.md
+    foreach {key label ref} {
+	entry "Entry \u2197"            "index.md"
+	- - -
+	section  "Sections \u2198"          bysection.md
+	psection "Permuted Sections \u2198" bypsection.md
+	name     "Names \u2198"             byname.md
+	pname    "Permuted Names \u2198"    bypname.md
+	strict   "Strict \u2198"            strict.md
+	language "Implementations \u2198"   bylang.md
     } {
 	append h |
 	append s ---|
 	if {$label eq "-"} {
 	    append d "&mdash;|"
+	} elseif {$key eq $current} {
+	    # strip the arrow from the label
+	    append d "[string range $label 0 end-2]|"
 	} else {
 	    append d "\[$label]($ref)|"
 	}

@@ -6,7 +6,7 @@
 
 |||||||||
 |---|---|---|---|---|---|---|---|
-|[Entry ↗](index.md)|&mdash;|[Sections ↘](index.md#sectree)|[Permuted Sections ↘](bypsections.md)|[Names ↘](byname.md)|[Permuted Names ↘](bypnames.md)|[Strict ↘](strict.md)|[Implementations ↘](bylang.md)|
+|[Entry ↗](index.md)|&mdash;|[Sections ↘](bysection.md)|[Permuted Sections ↘](bypsection.md)|[Names ↘](byname.md)|Permuted Names|[Strict ↘](strict.md)|[Implementations ↘](bylang.md)|
 
 ||||||||||||||||||||||||||||||||||
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
@@ -204,6 +204,7 @@
   - [center-origin &mdash; y op](transform_structure.md#op_center_origin_y)
   - [center-origin &mdash; z op](transform_structure.md#op_center_origin_z)
   - [charcoal &mdash; effect](transform_effect.md#effect_charcoal)
+  - [checkers &mdash; image](generator_virtual.md#image_checkers)
   - [circle &mdash; image](generator_virtual.md#image_circle)
   - [circle &mdash; image draw](generator_virtual_drawing.md#image_draw_circle)
   - [circle &mdash; image sdf](generator_virtual_sdf.md#image_sdf_circle)
@@ -212,6 +213,7 @@
   - [circles &mdash; image sdf](generator_virtual_sdf.md#image_sdf_circles)
   - [circles &mdash; on op draw](transform_drawing.md#op_draw_circles_on)
   - [clamp &mdash; op math1](transform_math_unary.md#op_math1_clamp)
+  - [clear &mdash; op meta](transform_metadata.md#op_meta_clear)
   - [close &mdash; op morph](transform_morphology.md#op_morph_close)
   - [cmath &mdash; abs op](transform_math_complex_reduce.md#op_cmath_abs)
   - [cmath &mdash; acos op](transform_math_complex_unary.md#op_cmath_acos)
@@ -270,6 +272,7 @@
   - [color &mdash; HSV to sRGB op](transform_color.md#op_color_HSV_to_sRGB)
   - [color &mdash; HSV to XYZ op](transform_color.md#op_color_HSV_to_XYZ)
   - [color &mdash; HSV to Yxy op](transform_color.md#op_color_HSV_to_Yxy)
+  - [color &mdash; image palette](generator_virtual.md#image_palette_color)
   - [color &mdash; Lab to Grey op](transform_color.md#op_color_Lab_to_Grey)
   - [color &mdash; Lab to HSL op](transform_color.md#op_color_Lab_to_HSL)
   - [color &mdash; Lab to HSV op](transform_color.md#op_color_Lab_to_HSV)
@@ -368,6 +371,7 @@
   - [decimate &mdash; y op sample](transform_structure.md#op_sample_decimate_y)
   - [deltas &mdash; image from sparse](generator_virtual.md#image_from_sparse_deltas)
   - [depth &mdash; query](accessor_geometry.md#query_depth)
+  - [dgrid &mdash; image](generator_virtual.md#image_dgrid)
   - [difference &mdash; op math](transform_math_binary.md#op_math_difference)
   - [dilate &mdash; op morph](transform_morphology.md#op_morph_dilate)
   - [disc &mdash; image](generator_virtual.md#image_disc)
@@ -393,6 +397,7 @@
   - [draw &mdash; rhombus on op](transform_drawing.md#op_draw_rhombus_on)
   - [draw &mdash; triangle image](generator_virtual_drawing.md#image_draw_triangle)
   - [draw &mdash; triangle on op](transform_drawing.md#op_draw_triangle_on)
+  - [dstripes &mdash; image](generator_virtual.md#image_dstripes)
 
 ## <a name='_e'></a> e
 
@@ -495,6 +500,7 @@
   - [from &mdash; row image](generator_virtual.md#image_from_row)
   - [from &mdash; sparse deltas image](generator_virtual.md#image_from_sparse_deltas)
   - [from &mdash; sparse points image](generator_virtual.md#image_from_sparse_points)
+  - [from &mdash; sparse ranges image](generator_virtual.md#image_from_sparse_ranges)
   - [from &mdash; threshold image mask](transform_threshold_mask_generate.md#image_mask_from_threshold)
   - [from &mdash; value image](generator_virtual.md#image_from_value)
 
@@ -539,6 +545,7 @@
   - [gradient &mdash; image](generator_virtual.md#image_gradient)
   - [gradient &mdash; internal op morph](transform_morphology.md#op_morph_gradient_internal)
   - [grey &mdash; image](generator_virtual.md#image_grey)
+  - [grey &mdash; image palette](generator_virtual.md#image_palette_grey)
 
 ## <a name='_G'></a> G
 
@@ -555,6 +562,7 @@
 
   - [greyworld &mdash; global op color correct](transform_color.md#op_color_correct_greyworld_global)
   - [greyworld &mdash; local op color correct](transform_color.md#op_color_correct_greyworld_local)
+  - [grid &mdash; image](generator_virtual.md#image_grid)
   - [grow &mdash; rectangle](miscellaneous_geometry.md#rectangle_grow)
   - [gt &mdash; op band arg](transform_statistics.md#op_band_arg_gt)
   - [gt &mdash; op math](transform_math_binary.md#op_math_gt)
@@ -614,9 +622,11 @@
   - [id &mdash; query](accessor.md#query_id)
   - [if-then-else &mdash; op](transform_structure.md#op_if_then_else)
   - [image &mdash; cbar](generator_virtual.md#image_cbar)
+  - [image &mdash; checkers](generator_virtual.md#image_checkers)
   - [image &mdash; circle](generator_virtual.md#image_circle)
   - [image &mdash; cross](generator_virtual.md#image_cross)
   - [image &mdash; dbar](generator_virtual.md#image_dbar)
+  - [image &mdash; dgrid](generator_virtual.md#image_dgrid)
   - [image &mdash; disc](generator_virtual.md#image_disc)
   - [image &mdash; draw box](generator_virtual_drawing.md#image_draw_box)
   - [image &mdash; draw box-rounded](generator_virtual_drawing.md#image_draw_box_rounded)
@@ -627,6 +637,7 @@
   - [image &mdash; draw polyline](generator_virtual_drawing.md#image_draw_polyline)
   - [image &mdash; draw rhombus](generator_virtual_drawing.md#image_draw_rhombus)
   - [image &mdash; draw triangle](generator_virtual_drawing.md#image_draw_triangle)
+  - [image &mdash; dstripes](generator_virtual.md#image_dstripes)
   - [image &mdash; eye](generator_virtual.md#image_eye)
   - [image &mdash; from band](generator_virtual.md#image_from_band)
   - [image &mdash; from column](generator_virtual.md#image_from_column)
@@ -634,9 +645,11 @@
   - [image &mdash; from row](generator_virtual.md#image_from_row)
   - [image &mdash; from sparse deltas](generator_virtual.md#image_from_sparse_deltas)
   - [image &mdash; from sparse points](generator_virtual.md#image_from_sparse_points)
+  - [image &mdash; from sparse ranges](generator_virtual.md#image_from_sparse_ranges)
   - [image &mdash; from value](generator_virtual.md#image_from_value)
   - [image &mdash; gradient](generator_virtual.md#image_gradient)
   - [image &mdash; grey](generator_virtual.md#image_grey)
+  - [image &mdash; grid](generator_virtual.md#image_grid)
   - [image &mdash; hbar](generator_virtual.md#image_hbar)
   - [image &mdash; histogram op](transform_statistics.md#op_image_histogram)
   - [image &mdash; indexed](generator_virtual.md#image_indexed)
@@ -696,6 +709,8 @@
   - [image &mdash; noise gauss](generator_virtual.md#image_noise_gauss)
   - [image &mdash; noise salt](generator_virtual.md#image_noise_salt)
   - [image &mdash; noise uniform](generator_virtual.md#image_noise_uniform)
+  - [image &mdash; palette color](generator_virtual.md#image_palette_color)
+  - [image &mdash; palette grey](generator_virtual.md#image_palette_grey)
   - [image &mdash; sdf box](generator_virtual_sdf.md#image_sdf_box)
   - [image &mdash; sdf box-rounded](generator_virtual_sdf.md#image_sdf_box_rounded)
   - [image &mdash; sdf circle](generator_virtual_sdf.md#image_sdf_circle)
@@ -708,6 +723,7 @@
   - [image &mdash; sines](generator_virtual.md#image_sines)
   - [image &mdash; square](generator_virtual.md#image_square)
   - [image &mdash; stddev op](sink_statistics.md#op_image_stddev)
+  - [image &mdash; stripes](generator_virtual.md#image_stripes)
   - [image &mdash; sum op](sink_statistics.md#op_image_sum)
   - [image &mdash; sumsquared op](sink_statistics.md#op_image_sumsquared)
   - [image &mdash; threshold bernsen](transform_threshold_generate.md#image_threshold_bernsen)
@@ -1004,6 +1020,7 @@
   - [median &mdash; op tile](transform_statistics.md#op_tile_median)
   - [merge &mdash; meta](transform_metadata.md#meta_merge)
   - [meta &mdash; append](transform_metadata.md#meta_append)
+  - [meta &mdash; clear op](transform_metadata.md#op_meta_clear)
   - [meta &mdash; create](transform_metadata.md#meta_create)
   - [meta &mdash; exists](accessor_metadata.md#meta_exists)
   - [meta &mdash; filter](transform_metadata.md#meta_filter)
@@ -1385,6 +1402,7 @@
   - [op &mdash; math1 tan](transform_math_unary.md#op_math1_tan)
   - [op &mdash; math1 tanh](transform_math_unary.md#op_math1_tanh)
   - [op &mdash; math1 wrap](transform_math_unary.md#op_math1_wrap)
+  - [op &mdash; meta clear](transform_metadata.md#op_meta_clear)
   - [op &mdash; meta set](transform_metadata.md#op_meta_set)
   - [op &mdash; montage x](composer.md#op_montage_x)
   - [op &mdash; montage x-core](composer.md#op_montage_x_core)
@@ -1502,6 +1520,8 @@
 
 ## <a name='_p'></a> p
 
+  - [palette &mdash; color image](generator_virtual.md#image_palette_color)
+  - [palette &mdash; grey image](generator_virtual.md#image_palette_grey)
   - [parallelogram &mdash; image draw](generator_virtual_drawing.md#image_draw_parallelogram)
   - [parallelogram &mdash; image sdf](generator_virtual_sdf.md#image_sdf_parallelogram)
   - [parallelogram &mdash; on op draw](transform_drawing.md#op_draw_parallelogram_on)
@@ -1598,6 +1618,7 @@
 
 ## <a name='_r'></a> r
 
+  - [ranges &mdash; image from sparse](generator_virtual.md#image_from_sparse_ranges)
   - [rank &mdash; op band](transform_statistics.md#op_band_rank)
   - [rank &mdash; op column](transform_statistics.md#op_column_rank)
   - [rank &mdash; op row](transform_statistics.md#op_row_rank)
@@ -1762,6 +1783,7 @@
   - [solarize &mdash; op math1](transform_math_unary.md#op_math1_solarize)
   - [sparse &mdash; deltas image from](generator_virtual.md#image_from_sparse_deltas)
   - [sparse &mdash; points image from](generator_virtual.md#image_from_sparse_points)
+  - [sparse &mdash; ranges image from](generator_virtual.md#image_from_sparse_ranges)
   - [split &mdash; x op](transform_structure.md#op_split_x)
   - [split &mdash; y op](transform_structure.md#op_split_y)
   - [split &mdash; z op](transform_structure.md#op_split_z)
@@ -1791,6 +1813,7 @@
   - [stddev &mdash; op row](transform_statistics.md#op_row_stddev)
   - [stddev &mdash; op tile](transform_statistics.md#op_tile_stddev)
   - [stretch &mdash; op math1 fit](transform_math_unary.md#op_math1_fit_stretch)
+  - [stripes &mdash; image](generator_virtual.md#image_stripes)
   - [sub &mdash; op cmath](transform_math_complex_binary.md#op_cmath_sub)
   - [sub &mdash; op math](transform_math_binary.md#op_math_sub)
   - [sub &mdash; op sdf](transform_sdf_combiner.md#op_sdf_sub)

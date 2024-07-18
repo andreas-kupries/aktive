@@ -6,7 +6,7 @@
 
 |||||||||
 |---|---|---|---|---|---|---|---|
-|[Entry ↗](index.md)|&mdash;|[Sections ↘](index.md#sectree)|[Permuted Sections ↘](bypsections.md)|[Names ↘](byname.md)|[Permuted Names ↘](bypnames.md)|[Strict ↘](strict.md)|[Implementations ↘](bylang.md)|
+|[Entry ↗](index.md)|&mdash;|[Sections ↘](bysection.md)|[Permuted Sections ↘](bypsection.md)|[Names ↘](byname.md)|[Permuted Names ↘](bypname.md)|[Strict ↘](strict.md)|[Implementations ↘](bylang.md)|
 
 ## Table Of Contents
 
@@ -22,10 +22,13 @@
 ### Operators
 
  - [aktive image cbar](#image_cbar)
+ - [aktive image checkers](#image_checkers)
  - [aktive image circle](#image_circle)
  - [aktive image cross](#image_cross)
  - [aktive image dbar](#image_dbar)
+ - [aktive image dgrid](#image_dgrid)
  - [aktive image disc](#image_disc)
+ - [aktive image dstripes](#image_dstripes)
  - [aktive image eye](#image_eye)
  - [aktive image from band](#image_from_band)
  - [aktive image from column](#image_from_column)
@@ -33,9 +36,11 @@
  - [aktive image from row](#image_from_row)
  - [aktive image from sparse deltas](#image_from_sparse_deltas)
  - [aktive image from sparse points](#image_from_sparse_points)
+ - [aktive image from sparse ranges](#image_from_sparse_ranges)
  - [aktive image from value](#image_from_value)
  - [aktive image gradient](#image_gradient)
  - [aktive image grey](#image_grey)
+ - [aktive image grid](#image_grid)
  - [aktive image hbar](#image_hbar)
  - [aktive image indexed](#image_indexed)
  - [aktive image kernel emboss](#image_kernel_emboss)
@@ -75,8 +80,11 @@
  - [aktive image noise gauss](#image_noise_gauss)
  - [aktive image noise salt](#image_noise_salt)
  - [aktive image noise uniform](#image_noise_uniform)
+ - [aktive image palette color](#image_palette_color)
+ - [aktive image palette grey](#image_palette_grey)
  - [aktive image sines](#image_sines)
  - [aktive image square](#image_square)
+ - [aktive image stripes](#image_stripes)
  - [aktive image vbar](#image_vbar)
  - [aktive image xcross](#image_xcross)
  - [aktive image zone](#image_zone)
@@ -94,6 +102,21 @@ Returns square single-band image containing a cross diagonal bar. The image has 
 |:---|:---|:---|:---|
 |radius|uint|1|Radius of the cross diagonal bar.|
 |width|uint|0|Width of the element. Default 0. Has to be less or equal to the radius.|
+
+---
+### <a name='image_checkers'></a> aktive image checkers
+
+Syntax: __aktive image checkers__  ?(param value)...?
+
+Returns image containing a black/white checker board.
+
+|Parameter|Type|Default|Description|
+|:---|:---|:---|:---|
+|width|uint||Width of the returned image|
+|height|uint||Height of the returned image|
+|offset|uint|0|Pattern offset|
+|black|uint|8|Width of the black area|
+|white|uint|8|Width of the white area|
 
 ---
 ### <a name='image_circle'></a> aktive image circle
@@ -132,6 +155,21 @@ Returns square single-band image containing a diagonal bar. The image has size `
 |width|uint|0|Width of the element. Default 0. Has to be less or equal to the radius.|
 
 ---
+### <a name='image_dgrid'></a> aktive image dgrid
+
+Syntax: __aktive image dgrid__  ?(param value)...?
+
+Returns image containing a diagonal black/white grid with configurable stripes
+
+|Parameter|Type|Default|Description|
+|:---|:---|:---|:---|
+|width|uint||Width of the returned image|
+|height|uint||Height of the returned image|
+|offset|uint|0|Pattern offset|
+|black|uint|8|Width of the black stripe|
+|white|uint|8|Width of the white stripe|
+
+---
 ### <a name='image_disc'></a> aktive image disc
 
 Syntax: __aktive image disc__  ?(param value)...?
@@ -141,6 +179,21 @@ Returns square single-band image containing a filled disc. The image has size `2
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |radius|uint|1|Radius of the filled disc.|
+
+---
+### <a name='image_dstripes'></a> aktive image dstripes
+
+Syntax: __aktive image dstripes__  ?(param value)...?
+
+Returns image containing a series of diagonal black/white stripes.
+
+|Parameter|Type|Default|Description|
+|:---|:---|:---|:---|
+|width|uint||Width of the returned image|
+|height|uint||Height of the returned image|
+|offset|uint|0|Pattern offset|
+|black|uint|8|Width of the black stripe|
+|white|uint|8|Width of the white stripe|
 
 ---
 ### <a name='image_eye'></a> aktive image eye
@@ -262,6 +315,27 @@ Pixel value is fixed at 1.0
 |coords|point...||Coordinates of the pixels to set in the image|
 
 ---
+### <a name='image_from_sparse_ranges'></a> aktive image from sparse ranges
+
+Syntax: __aktive image from sparse ranges__  (param value)...
+
+Returns single-band image where pixels are set to the specified values of each row range.
+
+A row range is specified by 4 numbers, the row index, a range of columns, and the pixel value. The latter is a floating point value, while the others are integers.
+
+Generally, the bounding box specifies the geometry, especially also the image origin.
+
+Width is implied by the bounding box of the points
+
+Height is implied by the bounding box of the points
+
+Depth is fixed at 1
+
+|Parameter|Type|Default|Description|
+|:---|:---|:---|:---|
+|ranges|range...||Ranges to set in the result|
+
+---
 ### <a name='image_from_value'></a> aktive image from value
 
 Syntax: __aktive image from value__  (param value)...
@@ -301,6 +375,21 @@ Returns image containing a left to right black to white gradient.
 |:---|:---|:---|:---|
 |width|uint||Width of the returned image|
 |height|uint||Height of the returned image|
+
+---
+### <a name='image_grid'></a> aktive image grid
+
+Syntax: __aktive image grid__  ?(param value)...?
+
+Returns image containing an axis-aligned black/white grid with configurable stripes
+
+|Parameter|Type|Default|Description|
+|:---|:---|:---|:---|
+|width|uint||Width of the returned image|
+|height|uint||Height of the returned image|
+|offset|uint|0|Pattern offset|
+|black|uint|8|Width of the black stripe|
+|white|uint|8|Width of the white stripe|
 
 ---
 ### <a name='image_hbar'></a> aktive image hbar
@@ -662,6 +751,22 @@ Returns image where pixels are set to random values drawn from a uniform distrib
 |seed|uint|[expr {int(4294967296*rand())}]|Randomizer seed. Needed only to force fixed results, or external random numbers.|
 
 ---
+### <a name='image_palette_color'></a> aktive image palette color
+
+Syntax: __aktive image palette color__ 
+
+Returns a 128x128 image containing a color palette.
+
+
+---
+### <a name='image_palette_grey'></a> aktive image palette grey
+
+Syntax: __aktive image palette grey__ 
+
+Returns a 128x128 image containing a gray palette.
+
+
+---
 ### <a name='image_sines'></a> aktive image sines
 
 Syntax: __aktive image sines__  (param value)...
@@ -687,6 +792,21 @@ Returns single-band white square with radius. Default radius 1.
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |radius|uint|1|Radius of the square. Full size is 2*radius + 1.|
+
+---
+### <a name='image_stripes'></a> aktive image stripes
+
+Syntax: __aktive image stripes__  ?(param value)...?
+
+Returns image containing a series of vertical black/white stripes.
+
+|Parameter|Type|Default|Description|
+|:---|:---|:---|:---|
+|width|uint||Width of the returned image|
+|height|uint||Height of the returned image|
+|offset|uint|0|Pattern offset|
+|black|uint|8|Width of the black stripe|
+|white|uint|8|Width of the white stripe|
 
 ---
 ### <a name='image_vbar'></a> aktive image vbar

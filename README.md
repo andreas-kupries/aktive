@@ -1,34 +1,34 @@
 
-`AKTIVE`, Andreas Kupries's Tcl Image Vector Extension is yet another attempt
-at creating an image processing package for Tcl, which started out with the
-`CRIMP` (CRItcl IMage Processor).
+||||
+|---|---|---|
+|Project|[Documentation](doc/index.md)|[Developer Index](doc/dev/index.md)|
 
-This here started as an experiment in massive code generation, both Tcl and C,
-converting operator specifications written in a custom DSL into a functional
-Tcl extension.
+<a href='doc/logo.md'><img src='doc/assets/aktive-logo-128.png'
+     style='border-right:20px solid white;
+            border-bottom:280px solid white;
+	    float:left;'></a>
 
-This experiment looks to be a success and worthy of continuing.
+# Welcome
 
-At the moment the sources are split, after code generation, into
+Welcome to `AKTIVE`, Andreas Kupries's Tcl Image Vector Extension.
+
+It is yet another attempt at creating an image processing package for Tcl, which started out with
+the `CRIMP` (CRItcl IMage Processor).
+
+While it only started as an experiment in massive code generation, it was successful and now
+continued normally.
+
+Operator specifications written in a custom Tcl-based DSL are converted into Tcl and C code working
+on top of a small fixed runtime, making the combination a functional Tcl extension.
+
+# State
+
+The extension currently implements a few hundred operators in 7 major sections.
+For the full details please read the [operator reference](/doc/trunk/doc/ref/index.md).
+
+Last time it was checked the sources (after code generation) were split into
 
   - 2% DSL implementation/converter (Tcl),
   - 8% runtime (C),
   - 13% operator specifications (Tcl DSL), and
   - 77% generated code (C).
-
-implementing a few hundred operators in 6 major sections.
-
-For the full details please read the [operator reference](/doc/trunk/doc/ref/index.md).
-
-The internals are somewhat inspired by VIPS.
-
-In the sense that AKTIVE's runtime enables the same thing that VIPS does, the
-multi-threaded, concurrent handling of multiple input regions without having
-to load the entirety of the inputs into memory.
-
-The detailed structures are very different from VIPS however, for several reasons:
-
-  - This is a Tcl extension, linked to and using Tcl API functions and structures.
-
-  - No support for multiple integer types, etc. for pixel values. The only type
-    used internally is __double__.
