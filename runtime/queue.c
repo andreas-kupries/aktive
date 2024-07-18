@@ -21,19 +21,28 @@ TRACE_OFF;
  * - - -- --- ----- -------- -------------
  */
 
+typedef struct aktive_queue_prio {
+    void*                     thing; // priority entry
+    struct aktive_queue_prio* next;  // next entry in stack
+} aktive_queue_prio;
+
 typedef struct aktive_queue {
-    Tcl_Mutex     lock;
-    Tcl_Condition notfull;
-    Tcl_Condition notempty;
+    Tcl_Mutex     lock;      // access exclusion
+    Tcl_Condition notfull;   // publisher/consumer signaling
+    Tcl_Condition notempty;  //
     //
-    aktive_uint   capacity; // number of entries in thing
-    aktive_uint   used;     // number of used entries
-    aktive_uint   write;    // index of slot to place next entry into
-    aktive_uint   read;     // index of slot to get   next entry from
-    aktive_uint   eof;	    // queue is EOF;
-    aktive_uint   id;       // global id for next retrieved entry
+    aktive_uint   id;        // global id for next retrieved entry
     //
-    void*         thing[0];
+    aktive_queue_prio* prio; // stack of priority entries
+    aktive_uint        phas; // number of priority entries
+    //
+    aktive_uint   capacity;  // number of entries in the fifo
+    aktive_uint   used;      // number of used entries
+    aktive_uint   write;     // index of slot to write next entry into
+    aktive_uint   read;      // index of slot to read  next entry from
+    aktive_uint   eof;	     // flag: queue is EOF;
+    //
+    void*         thing[0];  // fifo ring buffer
 } aq;
 
 /*
@@ -100,6 +109,34 @@ aktive_queue_enter (aktive_queue q, void* thing)
     q->write = (q->write + 1) % q->capacity;
     q->used ++;
 
+    TRACE ("(queue*) %p = filled %d/%d eof %d prio %d",
+	   q, q->used, q->capacity, q->eof, q->phas);
+    TRACE ("queue signal not empty", 0);
+    Tcl_ConditionNotify (&q->notempty);
+    Tcl_MutexUnlock (&q->lock);
+
+    TRACE_RETURN_VOID;
+}
+
+extern void
+aktive_queue_enter_priority (aktive_queue q, void* thing)
+{
+    TRACE_FUNC ("((queue*) %p, (void*) %p)", q, thing);
+
+    Tcl_MutexLock (&q->lock);
+
+    // Priority entries have no limit.
+
+    aktive_queue_prio* entry = ALLOC (aktive_queue_prio);
+
+    entry->thing = thing;
+    entry->next  = q->prio;
+
+    q->prio = entry;
+    q->phas ++;
+
+    TRACE ("(queue*) %p = filled %d/%d eof %d prio %d",
+	   q, q->used, q->capacity, q->eof, q->phas);
     TRACE ("queue signal not empty", 0);
     Tcl_ConditionNotify (&q->notempty);
     Tcl_MutexUnlock (&q->lock);
@@ -114,15 +151,38 @@ aktive_queue_get (aktive_queue q, aktive_uint* id)
 
     Tcl_MutexLock (&q->lock);
 
-    TRACE ("filled %d/%d, eof %d", q->used, q->capacity, q->eof);
-
     void*       thing = 0;
     aktive_uint rid   = 0;
 
-    while (!q->used && !q->eof) {
+    TRACE ("(queue*) %p = filled %d/%d, eof %d prio %d",
+	   q, q->used, q->capacity, q->eof, q->phas);
+
+    // Look for and return priority entries first.
+    if (q->prio) {
+    prio:
+	TRACE ("priority", 0);
+
+	thing = q->prio->thing;
+	rid   = q->id;
+	q->id ++;
+
+	aktive_queue_prio* next  = q->prio->next;
+	FREE (q->prio);
+	q->prio = next;
+	q->phas --;
+
+	// We cannot signal notfull here, as the signal has only bearing for
+	// regular queue entries in the ring buffer.
+
+	goto done;
+    }
+
+    while (!q->used && !q->eof && !q->prio) {
 	TRACE ("queue empty, wait", 0);
 	Tcl_ConditionWait (&q->notempty, &q->lock, NULL);
     }
+
+    if (q->prio) goto prio; // check priority again first
 
     if (!q->used && q->eof) goto done;
 

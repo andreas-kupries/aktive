@@ -5,7 +5,7 @@
  *
  *  Queues are two-ended FIFOS. One end to place data in, the other to
  *  retrieve data from. They are used for communication between concurrent
- *  threads. All necessary synchronizatoin and locking is done internally.
+ *  threads. All necessary synchronization and locking is done internally.
  *
  *  new . - Creates a queue of the given capacity. This many elements can be put
  *          into the queue before it becomes necessary to take elements out of it.
@@ -48,11 +48,12 @@ typedef struct aktive_queue *aktive_queue;
  * - - -- --- ----- -------- -------------
  */
 
-extern aktive_queue aktive_queue_new   (aktive_uint capacity);
-extern void         aktive_queue_eof   (aktive_queue q);
-extern void         aktive_queue_enter (aktive_queue q, void* thing);
-extern void*        aktive_queue_get   (aktive_queue q, aktive_uint* id);
-extern void         aktive_queue_free  (aktive_queue q);
+extern aktive_queue aktive_queue_new           (aktive_uint capacity);
+extern void         aktive_queue_eof           (aktive_queue q);
+extern void         aktive_queue_enter         (aktive_queue q, void* thing);
+extern void         aktive_queue_enter_priority (aktive_queue q, void* thing);
+extern void*        aktive_queue_get           (aktive_queue q, aktive_uint* id);
+extern void         aktive_queue_free          (aktive_queue q);
 
 /*
  * - - -- --- ----- -------- -------------
