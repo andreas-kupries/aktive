@@ -44,12 +44,6 @@ TRACE_OFF;
  * - - -- --- ----- -------- -------------
  */
 
-typedef struct {
-    int   id;
-    void* value;
-} rentry;
-
-typedef struct aktive_batch* aktive_batch;
 typedef struct aktive_batch {
     // -- read only configuration --
 
@@ -80,7 +74,7 @@ typedef struct aktive_batch {
     //    communication in non-sequential mode is by a queue like for
     //    maker/worker. worker writes, completer reads.
     //
-    //    communication in sequential mode is done by ping/poing signaling
+    //    communication in sequential mode is done by ping/pong signaling
     //    between completer and workers. The completer asks for a specific
     //    result, and only the worker who has that result will place it and
     //    then signal the result's presence back. Workers which do not have
@@ -91,9 +85,10 @@ typedef struct aktive_batch {
     //    count. the completer then tracks if it should end also, or not,
     //    whenever it asks for a result.
 
-    // This queue is relevant and allocated only on non-sequential mode
+    // This queue is relevant and allocated only in non-sequential mode
     aktive_queue  results   ; // Result queue -- worker writes, completer reads
 
+    // Ping/pong signaling for sequential mode.
     Tcl_Mutex     mresult   ; // mutex controlling worker/completer synch in sequential mode
     Tcl_Condition await     ; // signal when completer is ready for next result
     aktive_uint   awaiting  ; // id of task the completer is waiting for
@@ -121,6 +116,18 @@ static void* result_get   (aktive_batch processor);
 /*
  * - - -- --- ----- -------- -------------
  */
+
+extern void
+aktive_batch_inject (aktive_batch processor, void* task)
+{
+    TRACE_FUNC ("(processor %p = (char*) '%s', task %p)",
+		processor, processor ? processor->name : "", task);
+
+    ASSERT (!processor->sequential, "cannot inject tasks into sequential batch");
+
+    aktive_queue_enter_priority (processor->tasks, task);
+    TRACE_RETURN_VOID;
+}
 
 extern void
 aktive_batch_run ( const  char*          name
@@ -284,12 +291,12 @@ task_completer (aktive_batch processor)
 	if (!result) break;
 
 	TRACE ("process result %p", result);
-	processor->completer (processor->state, result);
+	processor->completer (processor, processor->state, result);
     } while (1);
 
     TRACE ("// ...............................................", 0);
     TRACE ("results eof, done", 0);
-    processor->completer (processor->state, 0);
+    processor->completer (processor, processor->state, 0);
 
     TRACE_RETURN_VOID;
 }

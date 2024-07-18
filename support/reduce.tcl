@@ -79,7 +79,8 @@ proc dsl::reduce::Emit {function region merge finalize} {
         // Internal :: completer - merging partial results to final
 
         static void
-        @@function@@_completer (reduce_batch_state* state,
+        @@function@@_completer (aktive_batch __ignored,
+				reduce_batch_state* state,
                                 reduce_result*      result)
         {
             if (!result) {

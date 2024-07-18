@@ -37,7 +37,8 @@ static aktive_block* sink_worker    (const sink_batch_state* state,
 				     aktive_rectangle*       task,
 				     aktive_region*          wstate);
 
-static void          sink_completer (sink_batch_state* state,
+static void          sink_completer (aktive_batch      __ignored,
+				     sink_batch_state* state,
 				     aktive_block*     result);
 
 /*
@@ -194,7 +195,7 @@ sink_worker (const sink_batch_state* state, aktive_rectangle* task, aktive_regio
 }
 
 static void
-sink_completer (sink_batch_state* state, aktive_block* result)
+sink_completer (aktive_batch __ignored, sink_batch_state* state, aktive_block* result)
 {
     TRACE_FUNC("((sink_batch_state*) %p, (active_block*) %p)", state, result);
 
