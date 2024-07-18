@@ -92,7 +92,7 @@ proc clearValues {xs} {
 }
 
 proc matchPixels {expected actual} {
-    # strip non numeric elements used to highlight structue (band separation, ...).
+    # strip non numeric elements used to highlight structure (band separation, ...).
     # only used in the expected value, nicer to be symmetric.
 
     set expected [clearValues $expected]
