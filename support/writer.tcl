@@ -79,7 +79,11 @@ proc dsl::writer::EmitDoc {stem} {
 	dict set docs lang    $lang $op $section
 	dict set docs alpha         $op $section
 	dict set docs roots   [lindex $section 0] .
-	dict set docs section [lrange $section 0 end-1] children $section .
+
+	# roots have no parent
+	if {[llength $section] > 1} {
+	    dict set docs section [lrange $section 0 end-1] children $section .
+	}
 
 	if {!$strict} continue
 	dict set docs strict $op $section
@@ -2407,6 +2411,10 @@ proc dsl::writer::StateFinalFuncname     {op} { return "aktive_[Cname $op]_final
 ## General emitter support
 
 proc dsl::writer::Into {destination args} {
+    if {[file rootname [file tail $destination]] eq ""} {
+	return -code error "Bad destination, no file name, just extension or nothing"
+    }
+
     set text [{*}$args]
     if {$text eq {}} return
 

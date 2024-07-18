@@ -10,6 +10,10 @@ proc ::dsl::generate {pkg in out {doc {}}} {
     puts "  Ops processing \[$pkg\]"
 
     writer do $out $doc [reader do $pkg $in]
+
+    puts ""
+    puts "  Done \[$pkg\]"
+    puts ""
 }
 
 apply {{selfdir} {
