@@ -32,21 +32,21 @@ operator op::embed::copy {
 	# areas around the source to get the desired effect
 
 	if {$left} {
-	    set ext [aktive op montage x-rep [aktive op select x $origin from 0] by $left]
+	    set ext [aktive op sample replicate x [aktive op select x $origin from 0] by $left]
 	    set src [aktive op montage x-core $ext $src] }
 	if {$right} {
 	    set range $w ; incr range -1
-	    set ext [aktive op montage x-rep [aktive op select x $origin from $range] by $right]
+	    set ext [aktive op sample replicate x [aktive op select x $origin from $range] by $right]
 	    set src [aktive op montage x-core $src $ext] }
 
 	set origin $src
 
 	if {$top} {
-	    set ext [aktive op montage y-rep [aktive op select y $origin from 0] by $top]
+	    set ext [aktive op sample replicate y [aktive op select y $origin from 0] by $top]
 	    set src [aktive op montage y-core $ext $src] }
 	if {$bottom} {
 	    set range $h ; incr range -1
-	    set ext [aktive op montage y-rep [aktive op select y $origin from $range] by $bottom]
+	    set ext [aktive op sample replicate y [aktive op select y $origin from $range] by $bottom]
 	    set src [aktive op montage y-core $src $ext] }
 
 	# And at last shift the result to the proper location. This may be a nop.
