@@ -15,6 +15,15 @@ operator op::meta::set {
     object meta	New meta data dictionary replacing the input's.
 }
 
+operator op::meta::clear {
+    section transform metadata
+    external!
+
+    note Returns input with all meta data cleared.
+
+    image  src  Input to modify
+}
+
 # # ## ### ##### ######## ############# #####################
 ## Dict wrapper operators
 
