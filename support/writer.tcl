@@ -28,10 +28,6 @@ proc dsl::writer::Clear {stem} {
 }
 
 proc dsl::writer::Emit {stem} {
-    Into ${stem}todo.txt              Todo               ;# List of skipped operators (`nyi`)
-    Into ${stem}undocumented.txt      Undocumented       ;# List of undocumented operators
-    Into ${stem}operators.txt         Operators          ;# List of operators
-    #
     Into ${stem}param-types.h         ParamTypes         ;# typedefs
     Into ${stem}param-descriptors.c   ParamDescriptors   ;# variables
     #
@@ -53,6 +49,12 @@ proc dsl::writer::Emit {stem} {
     Into ${stem}overlay.tcl           OperatorOverlays   ;# C constructor wrappers
     Into ${stem}wraplist.txt          OperatorWrapRecord ;# List of wrap elements
     Into ${stem}ensemble.tcl          OperatorEnsemble   ;# Command ensemble
+    #
+    Into ${stem}operators.txt         Operators          ;# List of operators
+    Into ${stem}todo.txt              Todo               ;# List of skipped operators (`nyi`)
+    Into ${stem}undocumented.txt      Undocumented       ;# List of undocumented operators
+    Into ${stem}noexamples.txt        NoExamples         ;# List of operators without examples
+    #
     return
 }
 
@@ -65,9 +67,9 @@ proc dsl::writer::EmitDoc {stem} {
     #   - by implementation
     #
     # Note: As the description of each operator itself is quite small they are aggregated
-    # into section files and where they are referenced from by the indices.
+    # into section files, where they are referenced from by the indices.
 
-    # collect doc structure (sections, languages, alphanum
+    # collect doc structure (sections, languages, alphanum)
     set docs {}
     foreach op [Operations] {
 	set spec    [Get ops $op]
@@ -75,7 +77,7 @@ proc dsl::writer::EmitDoc {stem} {
 	set lang    [dict get $spec lang]
 	set strict  [dict get $spec strict]
 
-	dict set docs section $section op $op [OpDoc $op $spec]
+	dict set docs section $section op $op [OpDoc $stem $op $spec]
 	dict set docs lang    $lang $op $section
 	dict set docs alpha         $op $section
 	dict set docs roots   [lindex $section 0] .
@@ -536,11 +538,13 @@ proc dsl::writer::OperatorPermutedNames {docs} {
 	}
     }
 
-    + "# Documentation -- Reference Pages -- Permuted Index Of Operator Names"
+    + "<img src='../assets/aktive-logo-128.png' style='float:right;'>"
     + {}
     + [OpNav pname]
     + {}
     + [NavLetter [dict keys $perm]]
+    + {}
+    + "# Documentation -- Reference Pages -- Permuted Index Of Operator Names"
 
     set last {}
     foreach p [lsort -dict [dict keys $perm]] {
@@ -570,11 +574,13 @@ proc dsl::writer::OperatorPermutedSections {docs} {
 	}
     }
 
-    + "# Documentation -- Reference Pages -- Permuted Index Of Sections"
+    + "<img src='../assets/aktive-logo-128.png' style='float:right;'>"
     + {}
     + [OpNav psection]
     + {}
     + [NavLetter [dict keys $perm]]
+    + {}
+    + "# Documentation -- Reference Pages -- Permuted Index Of Sections"
 
     set last {}
     foreach p [lsort -dict [dict keys $perm]] {
@@ -594,9 +600,11 @@ proc dsl::writer::OperatorPermutedSections {docs} {
 }
 
 proc dsl::writer::OperatorIndex {docs} {
-    + "# Documentation -- Reference Pages"
+    + "<img src='../assets/aktive-logo-128.png' style='float:right;'>"
     + {}
     + [OpNav entry]
+    + {}
+    + "# Documentation -- Reference Pages"
     + {}
     + "Reference pages for all the package's public operators and commands."
     + "See the navigation bar at the top for the available indices."
@@ -605,9 +613,11 @@ proc dsl::writer::OperatorIndex {docs} {
 }
 
 proc dsl::writer::OperatorSections {docs} {
-    + "# Documentation -- Reference Pages -- Index Of Sections"
+    + "<img src='../assets/aktive-logo-128.png' style='float:right;'>"
     + {}
     + [OpNav section]
+    + {}
+    + "# Documentation -- Reference Pages -- Index Of Sections"
     + {}
 
     # generate linear section tree from implied tree in docs collection
@@ -662,8 +672,7 @@ proc dsl::writer::OperatorsByLang {spec} {
 	}
     }
 
-
-    + "# Documentation -- Reference Pages -- Operators By Implementation"
+    + "<img src='../assets/aktive-logo-128.png' style='float:right;'>"
     + {}
     + [OpNav language]
     + {}
@@ -671,6 +680,8 @@ proc dsl::writer::OperatorsByLang {spec} {
 	if {![dict exists $spec $lang]} continue
 	set label
     }]]
+    + {}
+    + "# Documentation -- Reference Pages -- Operators By Implementation"
     + {}
 
     foreach {lang label} $map {
@@ -699,13 +710,15 @@ proc dsl::writer::OperatorsByLang {spec} {
 proc dsl::writer::OperatorsByName {spec} {
     # spec = dict (op -> section)
 
-    + "# Documentation -- Reference Pages -- Operators By Name"
+    + "<img src='../assets/aktive-logo-128.png' style='float:right;'>"
     + {}
     + [OpNav name]
     + {}
     + [NavLetter [lmap {op section} $spec {
 	set op
     }]]
+    + {}
+    + "# Documentation -- Reference Pages -- Operators By Name"
 
     set last {}
     foreach op [lsort -dict [dict keys $spec]] {
@@ -727,13 +740,15 @@ proc dsl::writer::OperatorsByName {spec} {
 proc dsl::writer::OperatorsStrict {spec} {
     # spec = dict (op -> section)
 
-    + "# Documentation -- Reference Pages -- StrictOperators"
+    + "<img src='../assets/aktive-logo-128.png' style='float:right;'>"
     + {}
     + [OpNav strict]
     + {}
     + [NavLetter [lmap {op section} $spec {
 	set op
     }]]
+    + {}
+    + "# Documentation -- Reference Pages -- StrictOperators"
     + {}
     + [string map {"\t" ""} [string trim {
 	All operators listed here are strict in at least one of their image arguments.
@@ -769,12 +784,15 @@ proc dsl::writer::OperatorSection {spec section} {
     # spec = dict ( op    -> doc,
     #               child -> section . )
 
-    + "# Documentation -- Reference Pages -- $section"
+    + "<img src='../assets/aktive-logo-128.png' style='float:right;'>"
     + {}
     + [OpNav] ;# link to all indices
     + {}
+    + "# Documentation -- Reference Pages -- $section"
+    + {}
     + "## Table Of Contents"
 
+    # navigation up to parent section, or main (for roots)
     if {[llength $section] > 1} {
 	set parent [lrange $section 0 end-1]
 	+ {}
@@ -786,7 +804,7 @@ proc dsl::writer::OperatorSection {spec section} {
 	+ {}
     }
 
-    # list of subordinate sections first
+    # navigation down to subordinate sections
     if {[dict exists $spec children]} {
 	+ {}
 	+ "## Subsections"
@@ -808,6 +826,7 @@ proc dsl::writer::OperatorSection {spec section} {
 	+ "### Operators"
 	+ {}
 
+	# operators, first run, local TOC with links
 	foreach {op __} [lsort -dict -index 0 -stride 2 [dict get $spec op]] {
 	    + " - \[[OpName $op]\](#[OpKey $op])"
 	}
@@ -816,7 +835,7 @@ proc dsl::writer::OperatorSection {spec section} {
 	+ "## Operators"
 	+ {}
 
-	# operators a second time, documentation
+	# operators, second run, actual documentation
 	foreach {op text} [lsort -dict -index 0 -stride 2 [dict get $spec op]] {
 	    + $text
 	}
@@ -913,10 +932,10 @@ proc dsl::writer::OpSectionKey {section} {
     return [join [string map {- {}} $section] _]
 }
 
-proc dsl::writer::OpDoc {op spec} {
+proc dsl::writer::OpDoc {stem op spec} {
     dict with spec {}
-    # c:   notes section params images ...
-    # tcl: notes section args body
+    # c:   examples notes section params images ...
+    # tcl: examples notes section args body
 
     set sig [DocSignature $op $spec]
 
@@ -945,11 +964,139 @@ proc dsl::writer::OpDoc {op spec} {
 	}
     }
 
+    if {[llength $examples]} {
+	+ {}
+	+ "## Examples"
+
+	foreach example $examples {
+	    lassign $example run transforms matrix int
+
+	    puts "[blue $op] example: [blue $run]"
+
+	    # scripts, and result files.
+
+	    if {[llength $transforms]} {
+		set dsts [lmap post $transforms {
+		    ExampleScript $stem $run $post $matrix $int
+		}]
+	    } else {
+		set dsts [list [ExampleScript $stem $run {} $matrix $int]]
+		set transforms {{}}
+	    }
+
+	    if {$matrix} {
+		if {[llength $transforms] > 1} {
+		    # pseudo join the results in a paragraph.
+		    + {}
+		    + "### $run"
+		    + {}
+		    foreach post $transforms dst $dsts {
+			+ "($post):"
+			+ "!include $dst"
+		    }
+		} else {
+		    # single transform
+		    lassign $transforms post
+		    lassign $dsts       dst
+
+		    set title $run ; if {$post ne {}} { append title " ($post)" }
+
+		    + {}
+		    + "### $title"
+		    + {}
+		    + "!include $dst"
+		}
+
+		continue
+	    }
+
+	    if {[llength $transforms] > 1} {
+		# show the images side by side // table
+		set n [llength $transforms]
+		+ {}
+		+ "### $run"
+		+ {}
+		+ "|[string repeat    | $n]"
+		+ "|[string repeat ---| $n]"
+		+ "|[join $transforms |]|"
+		+ "|[join [lmap dst $dsts {
+		    string cat "<img src='$dst' alt='$run ($post)' style='border:4px solid gold'>"
+		    }] |]"
+		continue
+	    }
+
+	    lassign $transforms post
+	    lassign $dsts       dst
+
+	    set title $run ; if {$post ne {}} { append title " ($post)" }
+
+	    + {}
+	    + "### $title"
+	    + {}
+	    + "<img src='$dst' alt='$run ($post)' style='border:4px solid gold'>"
+	}
+    }
+
     ## TODO :: dsl expansion to provide names, descriptions
     ## foreach i $images { + "||image|||" }
 
     + ""
     Done
+}
+
+proc dsl::writer::ExampleScript {stem run transform matrix int} {
+    # Assemble a script to run the example and capture the resulting image for use
+    # by the operator doc
+
+    set dst [File example- [expr {$matrix
+				  ? ".md"
+				  : ".png"}]]
+
+    set ctransform $transform
+    if {$ctransform ne {}} { set ctransform "set run \[$transform \$run\]" }
+
+    set     map {}
+    lappend map "\t\t    " {}
+    lappend map "\t\t"     {}
+    lappend map @run  $run
+    lappend map @transform $ctransform
+    lappend map @dst  ${stem}$dst
+    lappend map @int  $int
+
+    set script {}
+    lappend script [string trim [string map $map {
+	# Example: @run
+	puts {Example: @dst := @run}
+	set run [@run]
+	@transform
+    }]]
+
+    if {$matrix} {
+	# emit as (int) matrix
+	lappend script [string trim [string map $map {
+	    print-as-matrix @dst @int $run
+	}]]
+    } else {
+	# emit as image
+	lappend script [string trim [string map $map {
+	    set depth [aktive query depth $run]
+	    set format [dict get {3 ppm 1 pgm} $depth]
+	    close [file tempfile tmp aktive-example]
+	    aktive format as $format byte 2file $run into $tmp
+	    exec convert $tmp @dst
+	    file delete $tmp
+	}]]
+    }
+
+    set script [join $script \n]
+    Stash $script
+
+    return $dst
+}
+
+proc dsl::writer::File {prefix ext} {
+    variable counter
+    return $prefix[format %05d [incr counter]]$ext
 }
 
 proc dsl::writer::Permute {words} {
@@ -1023,6 +1170,29 @@ proc dsl::writer::Undocumented {} {
 
     if {$undocumented} {
 	puts "Undocumented operators: [red $undocumented]"
+	Done
+    }
+    return
+}
+
+proc dsl::writer::NoExamples {} {
+    if {![llength [Operations]]} return
+
+    set names [Operations]
+    set noexamples 0
+    set examples   0
+
+    foreach op [lsort -dict $names] {
+	if {[llength [Get ops $op examples]]} {
+	    incr examples; continue
+	}
+	+ "$op"
+	incr noexamples
+    }
+
+    if {$noexamples} {
+	puts "Operators with    examples: [blue $examples]"
+	puts "Operators without examples: [red  $noexamples]"
 	Done
     }
     return
@@ -2456,6 +2626,64 @@ proc dsl::writer::TclHeader {text} {
     TclComment {}
     TclComment "Generated [clock format [clock seconds]] -- $tcl_platform(user)@[info hostname]"
     + {}
+}
+
+# # ## ### ##### ######## #############
+## Stash of tclscript to run when the package
+## is available.
+
+proc dsl::writer::stash-to {path} {
+    variable stash
+
+    lappend s "#!/usr/bin/env/tclsh"
+    lappend s "package require aktive"
+    lappend s [string map {\t {}} {
+	proc sdf-fit       {x} { aktive op sdf 2image fit       $x }
+	proc sdf-smooth    {x} { aktive op sdf 2image smooth    $x }
+	proc sdf-pixelated {x} { aktive op sdf 2image pixelated $x }
+	proc height-times {n x} { aktive op sample replicate y  $x by $n }
+	proc width-times  {n x} { aktive op sample replicate x  $x by $n }
+	proc times        {n x} { aktive op sample replicate xy $x by $n }
+	proc print-as-matrix {path int src} {
+	    set chan [open $path w]
+	    set width  [aktive query width  $src]
+	    set values [aktive query values $src]
+	    if {$int} {
+		set values [lmap v $values { format %.0f $v }]
+	    } else {
+		set values [lmap v $values { format %.4f $v }]
+	    }
+	    # aggregate bands into cells, if needed
+	    set depth [aktive query depth $src]
+	    if {$depth > 1} {
+		set cells {}
+		while {[llength $values]} {
+		    lappend cells ([join [lrange $values 0 ${depth}-1] {, }])
+		    set values [lrange $values $depth end]
+		}
+		set values $cells
+	    }
+	    # emit cells as table
+	    puts $chan "|[string repeat |     $width]"
+	    puts $chan "|[string repeat ---:| $width]"
+	    while {[llength $values]} {
+		puts $chan |[join [lrange $values 0 ${width}-1] |]|
+		set values [lrange $values $width end]
+	    }
+	    close $chan
+	}
+    }]
+    lappend s ""
+    lappend s [join $stash \n\n]
+    lappend s ""
+    lappend s exit
+
+    fileutil::writeFile $path [join $s \n]
+}
+
+proc dsl::writer::Stash {script} {
+    variable stash
+    lappend  stash $script
 }
 
 # # ## ### ##### ######## #############

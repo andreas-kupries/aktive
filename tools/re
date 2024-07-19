@@ -1,8 +1,11 @@
 #!/bin/bash
 
+find . -name "*~" -print
+find . -name "*~" -exec rm "{}" \;
 find . -follow -name "core*" -exec rm "{}" \;
-rm -f *.trace
+rm -f *.trace doc/ref/*
 
 mkdir -p ../Logs
-$K ./build.tcl uninstall install "$@" |& tee ../Logs/test.install
-
+$K ./build.tcl uninstall install "$@" |& tee ../Logs/test.install && \
+    tclsh examples.tcl && \
+    tclsh tools/md-include $(find doc -name '*.md' -a -not -name 'example-*')

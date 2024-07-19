@@ -1,0 +1,52 @@
+#!/usr/bin/env tclsh
+# ------------------------------------------------------------------------------
+package require fileutil
+
+proc main {} {
+    do $::argv
+}
+
+proc do {paths} {
+    foreach path $paths { do-file $path }
+}
+
+proc do-file {path} {
+    puts "processing $path ..."
+    
+    set path  [file normalize $path]    
+    lappend   chain $path
+    fileutil::writeFile $path [resolve $path $chain]
+}
+
+proc resolve {path chain} {
+    join [lmap line [split [fileutil::cat $path] \n] {
+	if {[string match "!include *" $line]} {
+	    puts "  $line"
+	    set include [find $path [lindex $line 1]]
+	    if {$include in $chain} {
+		return -code error "Inclusion cycle for $include via [join $chain {-> }]"
+	    }
+	    lappend chain $include
+	    resolve $include $chain
+	} else {
+	    set line
+	}
+    }] \n
+}
+
+proc find {includer path} {
+    foreach dir [list [file dirname $includer] [pwd]] {
+	set maybe [file normalize [file join $dir $path]]
+
+	puts "    checking: $maybe"
+	
+	if {[file exists $maybe]} {
+	    return $maybe
+	}
+    }
+    return -code error "include file $path not found"
+}
+
+main
+exit
+# ------------------------------------------------------------------------------

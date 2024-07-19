@@ -433,6 +433,7 @@ proc dsl::reader::OpStart {op key} {
     Set opspec args     0	;# Presence of variadic input or parameter
     Set opspec blocks   {}	;# Shared text blocks
     Set opspec support  {}	;# Supporting C code blocks
+    Set opspec examples {}	;# Collected examples for docs
 }
 
 proc dsl::reader::OpFinish {} {
@@ -500,6 +501,39 @@ proc dsl::reader::support {cfragment args} { ;#puts [info level 0]
 proc dsl::reader::note {args} { ;#puts [info level 0]
     OkModes {} C Tcl External
     LappendX opspec notes $args
+}
+
+proc dsl::reader::example {args} { ;#puts [info level 0]
+    OkModes {} C Tcl External
+
+
+    lassign {{} {} 0 0} transforms pre matrix int
+    while {[string match -* [set o [lindex $args 0]]]} {
+	switch -exact -- $o {
+	    --         { set args [lassign $args _] ; break }
+	    -int       { set args [lassign $args _] ; set int    1 }
+	    -matrix    { set args [lassign $args _] ; set matrix 1 }
+	    -post - -t - -transform {
+		set args [lassign $args _ post]
+		set post [string trim $post]
+		lappend transforms $post
+	    }
+	    default { Abort "Bad option '$o', expected -int, -matrix, -transform, or --" }
+	}
+    }
+
+    # Remainder of args is run and key/value map for templating.
+    # The op name is auto-inserted into the run code.
+    set n "aktive [string map {:: { }} [Get opname]]"
+    set args [lassign $args run]
+    set run  [linsert $run 0 {*}$n]
+    set run  [string trim $run]
+
+    Example $run $transforms $matrix $int
+}
+
+proc dsl::reader::Example {run transforms matrix int} { ;#puts [info level 0]
+    LappendX opspec examples [list $run $transforms $matrix $int]
 }
 
 proc dsl::reader::strict {ids args} { ;#puts [info level 0]
@@ -895,6 +929,7 @@ proc dsl::reader::Next {} {
 ##  - args     :: bool
 ##  - blocks   :: dict (name -> c-code-fragment)
 ##  - body     :: string	[presence indicates tcl operator]
+##  - examples :: list (example-spec)
 ##  - images   :: list (imspec)
 ##  - lang     :: string	[auto set] C|Tcl
 ##  - notes    :: list (string)
@@ -923,6 +958,17 @@ proc dsl::reader::Next {} {
 ## imspec keys
 ##  - rcmode :: string
 ##  - args   :: bool
+##
+## example-spec - list
+##  - pre  Code to run before the actual example.
+##  - run  Code to run as the actual example
+##  - post Code to run after the actual example to get the final result.
+#
+##  The result of `pre` is available in the `pre` variable, if code is specified.
+##  The result of `run` is available in the `run` variable.
+#
+##  Post code refers to result of `run` with `<run>` placeholder.
+##  Post code refers to result of `pre` with `<pre>` placeholder.
 ##
 ## # # ## ### ##### ######## #############
 ##

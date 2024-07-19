@@ -193,6 +193,10 @@ if {![critcl::load]} {
     error "Building and loading aktive failed."
 }
 
+# Save scripts stashed by the DSL writer for post-installation execution
+# - documentation examples
+dsl::writer::stash-to examples.tcl
+
 # # ## ### ##### ######## ############# #####################
 return
 
