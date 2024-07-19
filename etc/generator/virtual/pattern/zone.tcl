@@ -7,6 +7,8 @@ operator image::zone {
 
     note Returns image containing a zone plate test pattern.
 
+    example {width 256 height 256}
+
     uint   width   Width of the returned image
     uint   height  Height of the returned image
 

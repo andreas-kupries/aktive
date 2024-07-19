@@ -7,6 +7,9 @@ operator image::gradient {
 
     note Returns image containing a linear gradient through all cells.
 
+    example -post {height-times 32} {width 256 height 1 depth 1 first 0 last 1}
+    example                         {width 128 height 128 depth 1 first 0 last 1}
+
     uint   width   Width of the returned image
     uint   height  Height of the returned image
     uint   depth   Depth of the returned image

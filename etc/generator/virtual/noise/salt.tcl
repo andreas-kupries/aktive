@@ -13,6 +13,10 @@ operator image::noise::salt {
     note For a given desired percentage P of noise pixels set the threshold to P/100.
     note The value of set pixels is fixed at 1.0
 
+    # fixed seed to keep the examples identical across runs
+    example {width 256 height 256 depth 1 seed 703011174 threshold 0.02}
+    example {width 256 height 256 depth 3 seed 703011174 threshold 0.02}
+
     uint      width      Width of the returned image
     uint      height     Height of the returned image
     uint      depth      Depth of the returned image

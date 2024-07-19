@@ -19,6 +19,8 @@ operator image::square {
 
     note Returns single-band white square with radius. Default radius 1.
 
+    example {radius 32}
+
     uint? 1 radius	Radius of the square. Full size is 2*radius + 1.
 
     body {
@@ -46,9 +48,13 @@ operator {desc w dw psetup ispixel} {
     uint? 1 radius	Radius of the ${desc}.
 
     if {!$w} {
+	example {radius 32}
+
 	def wsetup {}
 	def wcheck {}
     } else {
+	example {radius 32 width 8}
+
 	uint? $dw width	Width of the element. Default $dw. Has to be less or equal to the radius.
 
 	def wsetup { aktive_uint w = param->width; }

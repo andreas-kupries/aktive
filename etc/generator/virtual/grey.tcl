@@ -7,6 +7,8 @@ operator image::grey {
 
     note Returns image containing a left to right black to white gradient.
 
+    example {width 256 height 32}
+
     uint   width   Width of the returned image
     uint   height  Height of the returned image
 

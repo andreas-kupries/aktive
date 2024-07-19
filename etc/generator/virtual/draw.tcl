@@ -52,7 +52,7 @@ proc draw-modifier {} {
 operator [sdf-known image::draw::] {
     section generator virtual drawing
 
-    op -> _ _ sdf
+    op -> _ mode sdf
 
     def element [sdf-label $sdf]
 
@@ -92,7 +92,7 @@ operator [sdf-known image::draw::] {
 operator [sdf-known op::draw:: ::on] {
     section transform drawing
 
-    op -> _ _ sdf _
+    op -> _ mode sdf _
 
     input	;# image to draw on. i.e. the background for the drawing
 

@@ -13,6 +13,8 @@ operator image::eye {
     uint   height  Height of the returned image
     double factor  Maximum spatial frequency. Range 0..1.
 
+    example {width 256 height 256 factor 0.8}
+
     state -fields {
 	double c  ; // scaling factor
 	double h  ;

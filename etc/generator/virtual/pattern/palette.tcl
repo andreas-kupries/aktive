@@ -7,6 +7,8 @@ operator image::palette::grey {
 
     note Returns a 128x128 image containing a gray palette.
 
+    example
+
     body {
 	aktive op sample replicate xy \
 	    [aktive image gradient width 8 height 8 depth 1 first 0 last 1] \
@@ -18,6 +20,8 @@ operator image::palette::color {
     section generator virtual
 
     note Returns a 128x128 image containing a color palette.
+
+    example
 
     body {
 	set red   [aktive image gradient width 8 height 8 depth 1 first 0 last 1]

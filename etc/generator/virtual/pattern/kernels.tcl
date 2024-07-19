@@ -83,6 +83,12 @@ operator {w h description factor kernel} {
 
     note Returns convolution kernel for $description
 
+    if {![string match "gauss*" $ref]} {
+	example -int -matrix
+    } else {
+	example -matrix
+    }
+
     body {
         aktive image from matrix width @@w@@ height @@h@@ @@scale@@ values @@kernel@@
     }
@@ -96,6 +102,10 @@ operator image::kernel::gauss::discrete {
     # Reference: http://en.wikipedia.org/wiki/Scale_space_implementation#The_discrete_Gaussian_kernel
     # G(x,sigma) = exp(-t)*I_x(t), where t = sigma^2
     # and I_x = Modified Bessel function of Order x
+
+    example -matrix {sigma 1}
+    example -matrix {sigma 2}
+    example -matrix {sigma 1 radius 6}
 
     double                                        sigma  Kernel spread, as standard deviation to cover.
     uint?   {[expr {max(1,int(ceil(3*$sigma)))}]} radius Kernel radius, defaults to max(1,ceil(3*sigma)).
@@ -154,6 +164,10 @@ operator image::kernel::gauss::discrete {
 
 operator image::kernel::lanczos {
     section generator virtual
+
+    example -matrix
+    example -matrix {order 2}
+    example -matrix {order 2 step 0.25}
 
     # Reference: https://en.wikipedia.org/wiki/Lanczos_resampling#Lanczos_kernel
 

@@ -4,3 +4,11 @@ note The circles all have the same `radius`, and are placed at the specified cen
 
 uint? 1  radius     Circle radius
 point... centers    Circle centers
+
+if {$mode eq "sdf"} {
+    example \
+	-transform sdf-fit       \
+	-transform sdf-smooth    \
+	-transform sdf-pixelated \
+	{width 128 height 128 radius 8 centers {10 10} {30 80} {80 30}}
+}

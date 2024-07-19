@@ -7,6 +7,10 @@ operator image::grid {
 
     note Returns image containing an axis-aligned black/white grid with configurable stripes
 
+    example {width 128 height 128}
+    example {width 128 height 128 black 16 white 32}
+    example {width 128 height 128 black 16 white 32 offset 8}
+
     uint   width   Width of the returned image
     uint   height  Height of the returned image
 
@@ -27,6 +31,10 @@ operator image::dgrid {
 
     note Returns image containing a diagonal black/white grid with configurable stripes
 
+    example {width 128 height 128}
+    example {width 128 height 128 black 16 white 32}
+    example {width 128 height 128 black 16 white 32 offset 8}
+
     uint   width   Width of the returned image
     uint   height  Height of the returned image
 
@@ -46,6 +54,10 @@ operator image::stripes {
     section generator virtual
 
     note Returns image containing a series of vertical black/white stripes.
+
+    example {width 128 height 128}
+    example {width 128 height 128 black 16 white 32}
+    example {width 128 height 128 black 16 white 32 offset 8}
 
     uint   width   Width of the returned image
     uint   height  Height of the returned image
@@ -88,6 +100,10 @@ operator image::dstripes {
 
     note Returns image containing a series of diagonal black/white stripes.
 
+    example {width 128 height 128}
+    example {width 128 height 128 black 16 white 32}
+    example {width 128 height 128 black 16 white 32 offset 8}
+
     uint   width   Width of the returned image
     uint   height  Height of the returned image
 
@@ -128,6 +144,10 @@ operator image::checkers {
     section generator virtual
 
     note Returns image containing a black/white checker board.
+
+    example {width 128 height 128}
+    example {width 128 height 128 black 16 white 32}
+    example {width 128 height 128 black 16 white 32 offset 8}
 
     uint   width   Width of the returned image
     uint   height  Height of the returned image

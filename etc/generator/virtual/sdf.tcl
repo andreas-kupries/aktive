@@ -75,7 +75,7 @@
 operator [sdf-known image::sdf::] {
     section generator virtual sdf
 
-    op -> _ _ sdf
+    op -> _ mode sdf
 
     def element [sdf-label $sdf]
 

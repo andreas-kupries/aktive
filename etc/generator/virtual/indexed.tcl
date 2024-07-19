@@ -5,7 +5,9 @@
 operator image::indexed {
     section generator virtual
 
-    note Returns 2-band image where the pixels proclaiming their own position
+    note Returns 2-band image where each pixel declares its own position
+
+    example -int -matrix {width 5 height 5}
 
     uint   width   Width of the returned image
     uint   height  Height of the returned image

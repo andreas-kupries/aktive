@@ -7,6 +7,9 @@ operator image::from::value {
 
     note Returns image which has the same VALUE everywhere.
 
+    example {width 64 height 64 depth 1 value 0.5}
+    example {width 64 height 64 depth 3 value 0.5}
+
     uint   width   Width of the returned image
     uint   height  Height of the returned image
     uint   depth   Depth of the returned image
@@ -24,6 +27,9 @@ operator image::from::band {
     section generator virtual
 
     note Returns image where all pixels have the same band values.
+
+    example {width 64 height 64 values 0.3}
+    example {width 64 height 64 values 0.3 0.5 0.7}
 
     note Depth is len(value)
 
@@ -48,6 +54,10 @@ operator image::from::row {
     note Returns image of the specified height where all rows have the same set of values.
     note The image's width is the number of values.
 
+    example {
+	height 64 values 0 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 0.45 0.5 0.55 0.6 0.6 0.7 0.75 0.8 0.85 0.9 0.95 1
+    }
+
     uint      height  Height of the returned image
     double... values  Pixel row values
 
@@ -65,8 +75,12 @@ operator image::from::row {
 operator image::from::column {
     section generator virtual
 
-    note Returns image of the specified with where all columns have the same set of values.
+    note Returns image of the specified width where all columns have the same set of values.
     note The image's height is the number of values.
+
+    example {
+	width 64 values 0 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 0.45 0.5 0.55 0.6 0.6 0.7 0.75 0.8 0.85 0.9 0.95 1
+    }
 
     uint      width   Width of the returned image
     double... values  Pixel column values
@@ -90,6 +104,8 @@ operator image::from::matrix {
     note Less than width by height values are extended with zeroes.
     note Excess values are ignored.
     note Depth is fixed at 1.
+
+    example -post {times 8} {width 16 height 16 values 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0}
 
     uint      width   Width of the returned image
     uint      height  Height of the returned image

@@ -1,6 +1,12 @@
 # Useful patterns
 
+  - Configurable stripes, grids, and checkerboards
+
   - Eye test pattern (left to right increasing spatial frequency, top to bottom black to white)
+
+  - 2D sine wave
+
+  - Zone plate test pattern
 
   - Small common convolution kernels
 
@@ -34,7 +40,3 @@
       *****  .***.  .*.*.  .....  ..*..  ..*..  ...*.  .*...  .*.*.
       *****  ..*..  ..*..  .....  ..*..  ..*..  ....*  *....  *...*
       ```
-
-  - 2D sine wave
-
-  - Zone plate test pattern
