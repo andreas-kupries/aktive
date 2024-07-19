@@ -1,4 +1,4 @@
-# Documentation -- Reference Pages -- Index Of Sections
+<img src='../assets/aktive-logo-128.png' style='float:right;'>
 
 ||||||||
 |---|---|---|---|---|---|---|
@@ -7,6 +7,8 @@
 |||||||||
 |---|---|---|---|---|---|---|---|
 |[Entry ↗](index.md)|&mdash;|Sections|[Permuted Sections ↘](bypsection.md)|[Names ↘](byname.md)|[Permuted Names ↘](bypname.md)|[Strict ↘](strict.md)|[Implementations ↘](bylang.md)|
+
+# Documentation -- Reference Pages -- Index Of Sections
 
   - [accessor](accessor.md)
     - [geometry](accessor_geometry.md)

@@ -1,4 +1,4 @@
-# Documentation -- Reference Pages -- generator virtual sdf
+<img src='../assets/aktive-logo-128.png' style='float:right;'>
 
 ||||||||
 |---|---|---|---|---|---|---|
@@ -7,6 +7,8 @@
 |||||||||
 |---|---|---|---|---|---|---|---|
 |[Entry ↗](index.md)|&mdash;|[Sections ↘](bysection.md)|[Permuted Sections ↘](bypsection.md)|[Names ↘](byname.md)|[Permuted Names ↘](bypname.md)|[Strict ↘](strict.md)|[Implementations ↘](bylang.md)|
+
+# Documentation -- Reference Pages -- generator virtual sdf
 
 ## Table Of Contents
 
@@ -48,6 +50,15 @@ The box is axis-aligned, of width `2*ewidth+1`, height `2*eheight+1`, and placed
 |eheight|uint|1|Element height|
 |center|point||Element center|
 
+## Examples
+
+### aktive image sdf box center {64 64} width 128 height 128 ewidth 32 eheight 32
+
+||||
+|---|---|---|
+|sdf-fit|sdf-smooth|sdf-pixelated|
+|<img src='example-00080.png' alt='aktive image sdf box center {64 64} width 128 height 128 ewidth 32 eheight 32 (sdf-pixelated)' style='border:4px solid gold'>|<img src='example-00081.png' alt='aktive image sdf box center {64 64} width 128 height 128 ewidth 32 eheight 32 (sdf-pixelated)' style='border:4px solid gold'>|<img src='example-00082.png' alt='aktive image sdf box center {64 64} width 128 height 128 ewidth 32 eheight 32 (sdf-pixelated)' style='border:4px solid gold'>
+
 ---
 ### <a name='image_sdf_box_rounded'></a> aktive image sdf box-rounded
 
@@ -75,6 +86,22 @@ The radii defauilt to 0, i.e. no rounded corners.
 |eheight|uint|1|Element height|
 |center|point||Element center|
 
+## Examples
+
+### aktive image sdf box-rounded center {64 64} width 128 height 128 ewidth 32 eheight 32
+
+||||
+|---|---|---|
+|sdf-fit|sdf-smooth|sdf-pixelated|
+|<img src='example-00083.png' alt='aktive image sdf box-rounded center {64 64} width 128 height 128 ewidth 32 eheight 32 (sdf-pixelated)' style='border:4px solid gold'>|<img src='example-00084.png' alt='aktive image sdf box-rounded center {64 64} width 128 height 128 ewidth 32 eheight 32 (sdf-pixelated)' style='border:4px solid gold'>|<img src='example-00085.png' alt='aktive image sdf box-rounded center {64 64} width 128 height 128 ewidth 32 eheight 32 (sdf-pixelated)' style='border:4px solid gold'>
+
+### aktive image sdf box-rounded center {64 64} width 128 height 128 ewidth 32 eheight 32 upleftradius 32
+
+||||
+|---|---|---|
+|sdf-fit|sdf-smooth|sdf-pixelated|
+|<img src='example-00086.png' alt='aktive image sdf box-rounded center {64 64} width 128 height 128 ewidth 32 eheight 32 upleftradius 32 (sdf-pixelated)' style='border:4px solid gold'>|<img src='example-00087.png' alt='aktive image sdf box-rounded center {64 64} width 128 height 128 ewidth 32 eheight 32 upleftradius 32 (sdf-pixelated)' style='border:4px solid gold'>|<img src='example-00088.png' alt='aktive image sdf box-rounded center {64 64} width 128 height 128 ewidth 32 eheight 32 upleftradius 32 (sdf-pixelated)' style='border:4px solid gold'>
+
 ---
 ### <a name='image_sdf_circle'></a> aktive image sdf circle
 
@@ -94,6 +121,15 @@ The circle has the `radius`, and is placed at the specified center.
 |y|int|0|Image location, Y coordinate|
 |radius|uint|1|Circle radius|
 |center|point||Element center|
+
+## Examples
+
+### aktive image sdf circle center {64 64} width 128 height 128 radius 32
+
+||||
+|---|---|---|
+|sdf-fit|sdf-smooth|sdf-pixelated|
+|<img src='example-00089.png' alt='aktive image sdf circle center {64 64} width 128 height 128 radius 32 (sdf-pixelated)' style='border:4px solid gold'>|<img src='example-00090.png' alt='aktive image sdf circle center {64 64} width 128 height 128 radius 32 (sdf-pixelated)' style='border:4px solid gold'>|<img src='example-00091.png' alt='aktive image sdf circle center {64 64} width 128 height 128 radius 32 (sdf-pixelated)' style='border:4px solid gold'>
 
 ---
 ### <a name='image_sdf_circles'></a> aktive image sdf circles
@@ -115,6 +151,15 @@ The circles all have the same `radius`, and are placed at the specified centers.
 |radius|uint|1|Circle radius|
 |centers|point...||Circle centers|
 
+## Examples
+
+### aktive image sdf circles width 128 height 128 radius 8 centers {10 10} {30 80} {80 30}
+
+||||
+|---|---|---|
+|sdf-fit|sdf-smooth|sdf-pixelated|
+|<img src='example-00092.png' alt='aktive image sdf circles width 128 height 128 radius 8 centers {10 10} {30 80} {80 30} (sdf-pixelated)' style='border:4px solid gold'>|<img src='example-00093.png' alt='aktive image sdf circles width 128 height 128 radius 8 centers {10 10} {30 80} {80 30} (sdf-pixelated)' style='border:4px solid gold'>|<img src='example-00094.png' alt='aktive image sdf circles width 128 height 128 radius 8 centers {10 10} {30 80} {80 30} (sdf-pixelated)' style='border:4px solid gold'>
+
 ---
 ### <a name='image_sdf_line'></a> aktive image sdf line
 
@@ -134,6 +179,15 @@ The line connects the two specified locations.
 |y|int|0|Image location, Y coordinate|
 |from|point||Starting location|
 |to|point||End location|
+
+## Examples
+
+### aktive image sdf line width 128 height 128 from {10 10} to {30 80}
+
+||||
+|---|---|---|
+|sdf-fit|sdf-smooth|sdf-pixelated|
+|<img src='example-00095.png' alt='aktive image sdf line width 128 height 128 from {10 10} to {30 80} (sdf-pixelated)' style='border:4px solid gold'>|<img src='example-00096.png' alt='aktive image sdf line width 128 height 128 from {10 10} to {30 80} (sdf-pixelated)' style='border:4px solid gold'>|<img src='example-00097.png' alt='aktive image sdf line width 128 height 128 from {10 10} to {30 80} (sdf-pixelated)' style='border:4px solid gold'>
 
 ---
 ### <a name='image_sdf_parallelogram'></a> aktive image sdf parallelogram
@@ -157,6 +211,15 @@ The parallelogram is axis-aligned, of width `2*ewidth+1`, height `2*eheight+1`, 
 |eheight|uint|1|Element height|
 |center|point||Element center|
 
+## Examples
+
+### aktive image sdf parallelogram center {64 64} width 128 height 128 ewidth 32 eheight 32 eskew 8
+
+||||
+|---|---|---|
+|sdf-fit|sdf-smooth|sdf-pixelated|
+|<img src='example-00098.png' alt='aktive image sdf parallelogram center {64 64} width 128 height 128 ewidth 32 eheight 32 eskew 8 (sdf-pixelated)' style='border:4px solid gold'>|<img src='example-00099.png' alt='aktive image sdf parallelogram center {64 64} width 128 height 128 ewidth 32 eheight 32 eskew 8 (sdf-pixelated)' style='border:4px solid gold'>|<img src='example-00100.png' alt='aktive image sdf parallelogram center {64 64} width 128 height 128 ewidth 32 eheight 32 eskew 8 (sdf-pixelated)' style='border:4px solid gold'>
+
 ---
 ### <a name='image_sdf_polyline'></a> aktive image sdf polyline
 
@@ -175,6 +238,15 @@ The lines form a polyline through the specified points.
 |x|int|0|Image location, X coordinate|
 |y|int|0|Image location, Y coordinate|
 |points|point...||Points of the poly-line|
+
+## Examples
+
+### aktive image sdf polyline width 128 height 128 points {10 10} {30 80} {80 30}
+
+||||
+|---|---|---|
+|sdf-fit|sdf-smooth|sdf-pixelated|
+|<img src='example-00101.png' alt='aktive image sdf polyline width 128 height 128 points {10 10} {30 80} {80 30} (sdf-pixelated)' style='border:4px solid gold'>|<img src='example-00102.png' alt='aktive image sdf polyline width 128 height 128 points {10 10} {30 80} {80 30} (sdf-pixelated)' style='border:4px solid gold'>|<img src='example-00103.png' alt='aktive image sdf polyline width 128 height 128 points {10 10} {30 80} {80 30} (sdf-pixelated)' style='border:4px solid gold'>
 
 ---
 ### <a name='image_sdf_rhombus'></a> aktive image sdf rhombus
@@ -197,6 +269,15 @@ The rhombus is axis-aligned, of width `2*ewidth+1`, height `2*eheight+1`, and pl
 |eheight|uint|1|Element height|
 |center|point||Element center|
 
+## Examples
+
+### aktive image sdf rhombus center {64 64} width 128 height 128 ewidth 32 eheight 32
+
+||||
+|---|---|---|
+|sdf-fit|sdf-smooth|sdf-pixelated|
+|<img src='example-00104.png' alt='aktive image sdf rhombus center {64 64} width 128 height 128 ewidth 32 eheight 32 (sdf-pixelated)' style='border:4px solid gold'>|<img src='example-00105.png' alt='aktive image sdf rhombus center {64 64} width 128 height 128 ewidth 32 eheight 32 (sdf-pixelated)' style='border:4px solid gold'>|<img src='example-00106.png' alt='aktive image sdf rhombus center {64 64} width 128 height 128 ewidth 32 eheight 32 (sdf-pixelated)' style='border:4px solid gold'>
+
 ---
 ### <a name='image_sdf_triangle'></a> aktive image sdf triangle
 
@@ -217,4 +298,13 @@ The triangle connects the points A, B, and C, in this order.
 |a|point||Triangle point A|
 |b|point||Triangle point B|
 |c|point||Triangle point C|
+
+## Examples
+
+### aktive image sdf triangle width 128 height 128 a {10 10} b {30 80} c {80 30}
+
+||||
+|---|---|---|
+|sdf-fit|sdf-smooth|sdf-pixelated|
+|<img src='example-00107.png' alt='aktive image sdf triangle width 128 height 128 a {10 10} b {30 80} c {80 30} (sdf-pixelated)' style='border:4px solid gold'>|<img src='example-00108.png' alt='aktive image sdf triangle width 128 height 128 a {10 10} b {30 80} c {80 30} (sdf-pixelated)' style='border:4px solid gold'>|<img src='example-00109.png' alt='aktive image sdf triangle width 128 height 128 a {10 10} b {30 80} c {80 30} (sdf-pixelated)' style='border:4px solid gold'>
 

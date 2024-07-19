@@ -1,4 +1,4 @@
-# Documentation -- Reference Pages -- accessor
+<img src='../assets/aktive-logo-128.png' style='float:right;'>
 
 ||||||||
 |---|---|---|---|---|---|---|
@@ -7,6 +7,8 @@
 |||||||||
 |---|---|---|---|---|---|---|---|
 |[Entry ↗](index.md)|&mdash;|[Sections ↘](bysection.md)|[Permuted Sections ↘](bypsection.md)|[Names ↘](byname.md)|[Permuted Names ↘](bypname.md)|[Strict ↘](strict.md)|[Implementations ↘](bylang.md)|
+
+# Documentation -- Reference Pages -- accessor
 
 ## Table Of Contents
 
@@ -25,6 +27,7 @@
  - [aktive format as d2](#format_as_d2)
  - [aktive format as markdown](#format_as_markdown)
  - [aktive format as tclscript](#format_as_tclscript)
+ - [aktive op connected-components](#op_connected_components)
  - [aktive op query colorspace](#op_query_colorspace)
  - [aktive query id](#query_id)
  - [aktive query inputs](#query_inputs)
@@ -62,6 +65,18 @@ Syntax: __aktive format as tclscript__ src
 Converts the internal DAG representation of the image into a Tcl script and returns the resulting string.
 
 Despite the naming the operator is __not strict__. It does not access the input's pixels at all, only the meta information of the pipeline.
+
+
+---
+### <a name='op_connected_components'></a> aktive op connected-components
+
+Syntax: __aktive op connected-components__ src
+
+Returns a Tcl dictionary describing all the connected components found in the (binary) input.
+
+The components are identified by integer numbers.
+
+The data of each component is a dictionary providing the elements of the component's bounding box, its area (in pixels), and an unordered list of the row ranges the component consists of.
 
 
 ---

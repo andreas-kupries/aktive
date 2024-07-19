@@ -1,4 +1,4 @@
-# Documentation -- Reference Pages -- Permuted Index Of Sections
+<img src='../assets/aktive-logo-128.png' style='float:right;'>
 
 ||||||||
 |---|---|---|---|---|---|---|
@@ -11,6 +11,8 @@
 |||||||||||||||||||
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 |&nbsp;[a](#_a)&nbsp;|&nbsp;[b](#_b)&nbsp;|&nbsp;[c](#_c)&nbsp;|&nbsp;[d](#_d)&nbsp;|&nbsp;[e](#_e)&nbsp;|&nbsp;[g](#_g)&nbsp;|&nbsp;[h](#_h)&nbsp;|&nbsp;[i](#_i)&nbsp;|&nbsp;[k](#_k)&nbsp;|&nbsp;[l](#_l)&nbsp;|&nbsp;[m](#_m)&nbsp;|&nbsp;[n](#_n)&nbsp;|&nbsp;[r](#_r)&nbsp;|&nbsp;[s](#_s)&nbsp;|&nbsp;[t](#_t)&nbsp;|&nbsp;[u](#_u)&nbsp;|&nbsp;[v](#_v)&nbsp;|&nbsp;[w](#_w)&nbsp;|
+
+# Documentation -- Reference Pages -- Permuted Index Of Sections
 
 ## <a name='_a'></a> a
 

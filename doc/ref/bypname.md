@@ -1,4 +1,4 @@
-# Documentation -- Reference Pages -- Permuted Index Of Operator Names
+<img src='../assets/aktive-logo-128.png' style='float:right;'>
 
 ||||||||
 |---|---|---|---|---|---|---|
@@ -11,6 +11,8 @@
 ||||||||||||||||||||||||||||||||||
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 |&nbsp;[2](#_2)&nbsp;|&nbsp;[4](#_4)&nbsp;|&nbsp;[8](#_8)&nbsp;|&nbsp;[a](#_a)&nbsp;|&nbsp;[b](#_b)&nbsp;|&nbsp;[c](#_c)&nbsp;|&nbsp;[d](#_d)&nbsp;|&nbsp;[e](#_e)&nbsp;|&nbsp;[f](#_f)&nbsp;|&nbsp;[G](#_G)&nbsp;|&nbsp;[g](#_g)&nbsp;|&nbsp;[H](#_H)&nbsp;|&nbsp;[h](#_h)&nbsp;|&nbsp;[i](#_i)&nbsp;|&nbsp;[k](#_k)&nbsp;|&nbsp;[L](#_L)&nbsp;|&nbsp;[l](#_l)&nbsp;|&nbsp;[m](#_m)&nbsp;|&nbsp;[n](#_n)&nbsp;|&nbsp;[o](#_o)&nbsp;|&nbsp;[p](#_p)&nbsp;|&nbsp;[q](#_q)&nbsp;|&nbsp;[r](#_r)&nbsp;|&nbsp;[s](#_s)&nbsp;|&nbsp;[t](#_t)&nbsp;|&nbsp;[u](#_u)&nbsp;|&nbsp;[v](#_v)&nbsp;|&nbsp;[w](#_w)&nbsp;|&nbsp;[X](#_X)&nbsp;|&nbsp;[x](#_x)&nbsp;|&nbsp;[Y](#_Y)&nbsp;|&nbsp;[y](#_y)&nbsp;|&nbsp;[z](#_z)&nbsp;|
+
+# Documentation -- Reference Pages -- Permuted Index Of Operator Names
 
 ## <a name='_2'></a> 2
 
@@ -344,6 +346,7 @@
   - [compose &mdash; op lut](transform_lookup_indexed_compose.md#op_lut_compose)
   - [compress &mdash; op math1 gamma](transform_math_unary.md#op_math1_gamma_compress)
   - [conjugate &mdash; op cmath](transform_math_complex_unary.md#op_cmath_conjugate)
+  - [connected-components &mdash; op](accessor.md#op_connected_components)
   - [cons &mdash; op cmath](transform_math_complex_binary.md#op_cmath_cons)
   - [convolve &mdash; xy op](transform_convolution.md#op_convolve_xy)
   - [copy &mdash; op embed](transform_structure.md#op_embed_copy)
@@ -1267,6 +1270,7 @@
   - [op &mdash; column variance](transform_statistics.md#op_column_variance)
   - [op &mdash; compare mse](sink_statistics.md#op_compare_mse)
   - [op &mdash; compare rmse](sink_statistics.md#op_compare_rmse)
+  - [op &mdash; connected-components](accessor.md#op_connected_components)
   - [op &mdash; convolve xy](transform_convolution.md#op_convolve_xy)
   - [op &mdash; crop](transform_structure.md#op_crop)
   - [op &mdash; draw box on](transform_drawing.md#op_draw_box_on)

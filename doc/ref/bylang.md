@@ -1,4 +1,4 @@
-# Documentation -- Reference Pages -- Operators By Implementation
+<img src='../assets/aktive-logo-128.png' style='float:right;'>
 
 ||||||||
 |---|---|---|---|---|---|---|
@@ -11,6 +11,8 @@
 ||||
 |---|---|---|
 |&nbsp;[C](#_C)&nbsp;|&nbsp;[Tcl](#_Tcl)&nbsp;|&nbsp;[Direct](#_Direct)&nbsp;|
+
+# Documentation -- Reference Pages -- Operators By Implementation
 
 ## <a name='_C'></a> C
 
@@ -154,6 +156,7 @@ The operators listed here are implemented in C. We ignore supporting Tcl code.
  - [aktive op column sum](transform_statistics.md#op_column_sum)
  - [aktive op column sumsquared](transform_statistics.md#op_column_sumsquared)
  - [aktive op column variance](transform_statistics.md#op_column_variance)
+ - [aktive op connected-components](accessor.md#op_connected_components)
  - [aktive op convolve xy](transform_convolution.md#op_convolve_xy)
  - [aktive op flip x](transform_structure.md#op_flip_x)
  - [aktive op flip y](transform_structure.md#op_flip_y)

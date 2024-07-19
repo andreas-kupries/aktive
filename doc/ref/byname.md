@@ -1,4 +1,4 @@
-# Documentation -- Reference Pages -- Operators By Name
+<img src='../assets/aktive-logo-128.png' style='float:right;'>
 
 ||||||||
 |---|---|---|---|---|---|---|
@@ -11,6 +11,8 @@
 ||||||||||
 |---|---|---|---|---|---|---|---|---|
 |&nbsp;[e](#_e)&nbsp;|&nbsp;[f](#_f)&nbsp;|&nbsp;[i](#_i)&nbsp;|&nbsp;[m](#_m)&nbsp;|&nbsp;[o](#_o)&nbsp;|&nbsp;[p](#_p)&nbsp;|&nbsp;[q](#_q)&nbsp;|&nbsp;[r](#_r)&nbsp;|&nbsp;[v](#_v)&nbsp;|
+
+# Documentation -- Reference Pages -- Operators By Name
 
 ## <a name='_e'></a> e
 
@@ -346,6 +348,7 @@
  - [aktive op column variance](transform_statistics.md#op_column_variance)
  - [aktive op compare mse](sink_statistics.md#op_compare_mse)
  - [aktive op compare rmse](sink_statistics.md#op_compare_rmse)
+ - [aktive op connected-components](accessor.md#op_connected_components)
  - [aktive op convolve xy](transform_convolution.md#op_convolve_xy)
  - [aktive op crop](transform_structure.md#op_crop)
  - [aktive op draw box-rounded on](transform_drawing.md#op_draw_box_rounded_on)

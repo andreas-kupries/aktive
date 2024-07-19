@@ -1,4 +1,4 @@
-# Documentation -- Reference Pages -- StrictOperators
+<img src='../assets/aktive-logo-128.png' style='float:right;'>
 
 ||||||||
 |---|---|---|---|---|---|---|
@@ -11,6 +11,8 @@
 |||||
 |---|---|---|---|
 |&nbsp;[f](#_f)&nbsp;|&nbsp;[i](#_i)&nbsp;|&nbsp;[o](#_o)&nbsp;|&nbsp;[q](#_q)&nbsp;|
+
+# Documentation -- Reference Pages -- StrictOperators
 
 All operators listed here are strict in at least one of their image arguments.
 

@@ -1,4 +1,4 @@
-# Documentation -- Reference Pages -- transform convolution
+<img src='../assets/aktive-logo-128.png' style='float:right;'>
 
 ||||||||
 |---|---|---|---|---|---|---|
@@ -7,6 +7,8 @@
 |||||||||
 |---|---|---|---|---|---|---|---|
 |[Entry ↗](index.md)|&mdash;|[Sections ↘](bysection.md)|[Permuted Sections ↘](bypsection.md)|[Names ↘](byname.md)|[Permuted Names ↘](bypname.md)|[Strict ↘](strict.md)|[Implementations ↘](bylang.md)|
+
+# Documentation -- Reference Pages -- transform convolution
 
 ## Table Of Contents
 
