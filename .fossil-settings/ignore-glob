@@ -4,3 +4,4 @@ generated*/*
 rtgen*/*
 tmp/*
 *~
+examples.tcl
