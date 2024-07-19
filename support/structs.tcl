@@ -13,14 +13,14 @@ namespace eval dsl::structs {
 proc dsl::structs::render {figures} {
     set dtwo [auto_execok d2]
     if {![llength $dtwo]} {
-	puts [::dsl reader red {d2 command not found, unable to render SVG}]
+	puts [dsl::writer::red {d2 command not found, unable to render SVG}]
 	return
     }
 
     puts "Rendering figures to SVG, using structures:"
 
     foreach figure [glob -nocomplain -directory $figures *.d2] {
-	puts "  - [file rootname [file tail $figure]]"
+	puts "  - [dsl::writer::blue [file rootname [file tail $figure]]]"
 
 	set dst [file rootname $figure].svg
 	exec >@ stdout 2>@ stderr $dtwo --layout=elk $figure $dst
@@ -51,7 +51,7 @@ proc dsl::structs::Init {} {
 }
 
 proc dsl::structs::Ingest {headerfile} {
-    puts "Scanning $headerfile ..."
+    puts "Scanning [dsl::writer::blue $headerfile] ..."
 
     foreach line [split [fileutil::cat $headerfile] \n] {
 	switch -glob $line {
@@ -111,7 +111,7 @@ proc dsl::structs::End {ref line} {
 	return -code error "Bad closure, expected `$cname`"
     }
 
-    puts "  + Structure `$cname`"
+    puts "  + Structure `[dsl::writer::blue $cname]`"
 
     variable structs
     dict set structs $cname ref $ref
@@ -209,7 +209,7 @@ proc dsl::structs::EmitStruct {destination name spec} {
     #      :: "fields" -> list (string)
     #      :: "ref"    -> bool
 
-    puts "  - $name"
+    puts "  - [dsl::writer::blue $name]"
 
     lappend lines "$name : \{"
     lappend lines "  shape: class"
