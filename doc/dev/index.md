@@ -1,8 +1,11 @@
-# Documentation
 
 ||||
 |---|---|---|
 |[Project ↗](../../README.md)|[Documentation](../index.md)|Developer Index|
+
+<img src='../assets/aktive-logo-128.png' style='float:right;'>
+
+# Documentation
 
 AKTIVE's developer documentation explains the internals of the package, especially its operator
 specification DSL and templating system.

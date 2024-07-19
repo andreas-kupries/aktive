@@ -1,8 +1,11 @@
-# Image pipelines: Definition structures
+
+<img src='../assets/aktive-logo-128.png' style='float:right;'>
 
 ||||
 |---|---|---|
 |[Project ↗](../../README.md)|[Documentation](../index.md)||[Developer Index ↗](index.md)|
+
+# Image pipelines: Definition structures
 
 [image.h line 21-26](/file?ci=trunk&ln=21-26&name=runtime/image.h)
 

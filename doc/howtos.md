@@ -1,7 +1,15 @@
-# Documentation -- How To Solve Problems
+
+<img src='assets/aktive-logo-128.png' style='float:right;'>
 
 |||||||
 |---|---|---|---|---|---|
 |[Project ↗](../README.md)|[Documentation ↗](index.md)|&mdash;|[Tutorials ↘](tutorials.md)|How To's|[Explanations ↘](explanations.md)|[References ↘](ref/index.md)|
 
-Here we will have how-to documents solving problems through use of AKTIVE commands.
+# Documentation -- How To Solve Problems
+
+Index of How To's solving general problems with AKTIVE.
+
+  - [How To Get AKTIVE's sources](doc/howtos/getsrc.md)
+  - [How To Install AKTIVE](doc/howtos/install.md)
+
+Index of How To's solving image processing tasks and problems through use of AKTIVE commands.

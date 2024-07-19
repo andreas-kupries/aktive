@@ -1,12 +1,9 @@
 
+<a href='doc/logo.md'><img src='doc/assets/aktive-logo-128.png' style='float:right;'></a>
+
 ||||
 |---|---|---|
 |Project|[Documentation](doc/index.md)|[Developer Index](doc/dev/index.md)|
-
-<a href='doc/logo.md'><img src='doc/assets/aktive-logo-128.png'
-     style='border-right:20px solid white;
-            border-bottom:280px solid white;
-	    float:left;'></a>
 
 # Welcome
 
@@ -21,10 +18,31 @@ continued normally.
 Operator specifications written in a custom Tcl-based DSL are converted into Tcl and C code working
 on top of a small fixed runtime, making the combination a functional Tcl extension.
 
+#  License
+
+The license is [MIT/BSD](doc/license.md)
+
+# Ticket Tracking
+
+This package is currently available from a single repository:
+
+  - [Primary repository](http://core.tcl-lang.org/akupries/aktive)
+
+This repository contains the
+[official ticket tracker](https://core.tcl-lang.org/akupries/aktive/reportlist).
+
+# Guides and other Documentation
+
+  - [License](doc/license.md)
+  - [Command Reference](doc/ref/index.md)
+  - [Changes By Version](doc/changes.md)
+  - [How To Install AKTIVE](doc/howtos/install.md)
+  - [Documentation Main](doc/index.md)
+
 # State
 
 The extension currently implements a few hundred operators in 7 major sections.
-For the full details please read the [operator reference](/doc/trunk/doc/ref/index.md).
+For the full details please read the [command reference](/doc/trunk/doc/ref/index.md).
 
 Last time it was checked the sources (after code generation) were split into
 
