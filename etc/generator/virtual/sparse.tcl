@@ -1,12 +1,14 @@
 ## -*- mode: tcl ; fill-column: 90 -*-
 # # ## ### ##### ######## ############# #####################
-## Generators -- Virtual image from set of points or deltas.
+## Generators -- Virtual image from set of points, deltas, or row ranges.
 
 operator image::from::sparse::points {
     section generator virtual
 
     note Returns single-band image where pixels are set to white at exactly the \
-	specified COORDS.
+	specified coordinates.
+
+    example -post {times 32} {coords {0 0} {4 3} {5 5} {6 2}}
 
     point... coords  Coordinates of the pixels to set in the image
 
@@ -52,8 +54,10 @@ operator image::from::sparse::deltas {
     section generator virtual
 
     note Returns single-band depth image where pixels are set to white at exactly the \
-	specified points. Different to `sparse points` the points are specified as \
+	specified points. Differently to `sparse points` the points are specified as \
 	linear distances from the origin.
+
+    example -post {times 32} {width 7 deltas 0 20 5 15}
 
     note The height is infered from the points
 
@@ -101,7 +105,7 @@ operator image::from::sparse::deltas {
 
 	for (aktive_uint i = 0; i < istate->points.c; i++) {
 	    #define P istate->points.v[i]
-	    TRACE ("check [%d] @(%d,%d)", i, P.x, P.x);
+	    TRACE ("check [%d] @(%d,%d)", i, P.x, P.y);
 	    if (!aktive_rectangle_contains (request, &P)) continue;
 
 	    // P is in the image domain. Translate it into the request/dst/block domain
@@ -112,6 +116,108 @@ operator image::from::sparse::deltas {
 	    aktive_blit_set (block, &rdst, 1.0);
 	    #undef P
         }
+    }
+}
+
+operator image::from::sparse::ranges {
+    section generator virtual
+
+    example -post {times 32} {ranges {1 24 30 1} {2 23 31 1} {3 22 32 1} {4 22 24 0.75} {4 30 32 0.75} {5 22 23 0.75} {5 31 32 0.75} {6 23 24 0.5} {6 30 31 0.5} {7 24 25 0.5} {7 29 30 0.5}}
+
+    note Returns a single-band image where the pixels are set to the specified values as per the provided row ranges.
+
+    note A single row range is specified by 4 numbers.
+    note These are, in order, the row index, a range of columns, and the pixel value.
+    note The latter is a floating point value, while the others are integers.
+
+    note The bounding box over all provided the ranges specifies the result's geometry, including the origin.
+    note The image depth is fixed at 1, i.e. the result is single-band.
+
+    range... ranges Ranges to set in the result
+
+    state -fields {
+	aktive_uint* rowstart; // index of where each row starts in the ranges.
+	aktive_uint  isize;    // size of the index
+    } -cleanup {
+	FREE (state->rowstart);
+    } -setup {
+	// Compute the bounding box from the ranges and use the result as the image geometry.
+	aktive_rectangle bb;
+	aktive_range_union (&bb, param->ranges.c, param->ranges.v);
+	aktive_geometry_set_rectangle (domain, &bb);
+	domain->depth = 1;
+
+	// pre-sort the ranges for better iteration
+	aktive_range_sort (param->ranges.c, param->ranges.v);
+
+	// similarly, compute an index of row starts.
+
+	state->rowstart = NALLOC (aktive_uint, param->ranges.c);
+	aktive_uint i, top = 0;
+	int row = param->ranges.v[0].y - 1;
+
+	for (i=0; i < param->ranges.c; i++) {
+	    if (row == param->ranges.v[i].y) continue;
+	    state->rowstart[top] = i;
+	    row = param->ranges.v[i].y;
+	    top++;
+	}
+
+	// Shrink the index to actually used size.
+	if (top < param->ranges.c) {
+	    state->rowstart = REALLOC (state->rowstart, aktive_uint, top);
+	}
+	state->isize = top;
+    }
+
+    pixels {
+	// First clear the destination area, then iterate over the ranges and set all
+	// which are contained in the request.
+
+	aktive_blit_clear (block, dst);
+
+	int xmin = aktive_rectangle_get_x    (request);
+	int xmax = aktive_rectangle_get_xmax (request);
+	int ymin = aktive_rectangle_get_y    (request);
+	int ymax = aktive_rectangle_get_ymax (request);
+
+	aktive_point* base = aktive_rectangle_as_point (request);
+
+	// locate start of first row in the request within the param ranges, via the index
+	aktive_uint i, k = 0;
+	for (i=0; i < istate->isize; i++) {
+	    k = istate->rowstart[i];
+	    if (param->ranges.v[k].y >= ymin) break;
+	}
+
+	// no rows overlapping the request
+	if (i >= istate->isize) return;
+
+	// iterate over the ranges until we fall out of the request, row-wise, or run out of ranges
+	for ( ; (param->ranges.v[k].y <= ymax) &&
+	        (k < param->ranges.c) ; k++) {
+	    // Check for each range if they are in the proper x-range as well.
+
+	    int ry    = param->ranges.v[k].y;
+	    int rxmin = param->ranges.v[k].xmin;
+	    int rxmax = param->ranges.v[k].xmax;
+
+	    if ((rxmax < xmin) || (xmax < rxmin)) continue;
+	    // range at least overlaps request
+
+	    // contract to intersection of range and request
+	    rxmin  = MAX (rxmin, xmin);
+	    rxmax  = MIN (rxmax, xmax);
+	    int rw = rxmax - rxmin + 1;
+
+	    // compute blit destination in the request/dst/block domain
+	    aktive_rectangle_def (rdst, rxmin, ry, rw, 1);
+	    aktive_point_sub (aktive_rectangle_as_point (&rdst), base);
+
+	    // and fill
+	    double rvalue = param->ranges.v[k].value;
+	    aktive_blit_fill (block, &rdst, rvalue);
+	}
     }
 }
 

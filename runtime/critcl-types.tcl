@@ -107,6 +107,31 @@ critcl::resulttype aktive_geometry {
 } aktive_geometry
 
 # # ## ### ##### ######## #############
+## range
+
+critcl::argtype aktive_range {
+    Tcl_Size  c;
+    Tcl_Obj** v;
+
+    if (Tcl_ListObjGetElements (interp, @@, &c, (Tcl_Obj***) &v) != TCL_OK) { /* OK tcl9 */
+	return TCL_ERROR;
+    }
+    if (c != 4) {
+	Tcl_SetResult (interp, "Bad #elements for range", TCL_STATIC);
+	return TCL_ERROR;
+    }
+
+    int xmin, xmax, y;
+    double value;
+    if (Tcl_GetIntFromObj    (interp, v[0], &y    ) != TCL_OK) { return TCL_ERROR; } /* OK tcl9 */
+    if (Tcl_GetIntFromObj    (interp, v[1], &xmin ) != TCL_OK) { return TCL_ERROR; } /* OK tcl9 */
+    if (Tcl_GetIntFromObj    (interp, v[2], &xmax ) != TCL_OK) { return TCL_ERROR; } /* OK tcl9 */
+    if (Tcl_GetDoubleFromObj (interp, v[3], &value) != TCL_OK) { return TCL_ERROR; }
+
+    aktive_range_set (&@A, xmin, xmax, y, value);
+} aktive_range aktive_range
+
+# # ## ### ##### ######## #############
 ## image types
 
 critcl::resulttype aktive_image_type_ptr {

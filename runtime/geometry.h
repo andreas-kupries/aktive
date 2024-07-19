@@ -30,6 +30,7 @@
  * -- Points	 :: 2D location
  * -- Rectangles :: 2D area   (location + dimensions)
  * -- Geometries :: 3D volume (dimensions)
+ * -- Ranges     :: Degenerated Rectangle (Height 1) + Pixel value
  *
  * NOTE
  *
@@ -59,6 +60,25 @@ A_STRUCTURE (aktive_geometry) {
     A_FIELD (aktive_uint, height) ; // Number of image rows
     A_FIELD (aktive_uint, depth)  ; // Number of image bands
 } A_END (aktive_geometry);
+
+A_STRUCTURE (aktive_range) {
+    A_FIELD (int,         xmin)   ; // X coordinate, start of range
+    A_FIELD (int,         xmax)   ; // X coordinate, end of range
+    A_FIELD (int,         y)      ; // Y coordinate
+    A_FIELD (double,      value)  ; // Pixel value
+} A_END (aktive_range);
+
+/*
+ * - - -- --- ----- -------- -------------
+ */
+
+extern Tcl_Obj* aktive_new_range_obj (aktive_range* p);
+
+#define aktive_range_set(dst,xa,xb,yv,pval) \
+    { (dst)->xmin = (xa) ; (dst)->xmax = (xb) ; (dst)->y = (yv) ; (dst)->value = (pval) ; }
+
+extern void aktive_range_union (aktive_rectangle* dst, aktive_uint c, aktive_range* v);
+extern void aktive_range_sort  (aktive_uint c, aktive_range* v);
 
 /*
  * - - -- --- ----- -------- -------------

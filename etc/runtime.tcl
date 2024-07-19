@@ -8,6 +8,7 @@
 
 # __ id __________ critcl ___________    C type _______ Conversion ______________________________
 type point         aktive_point          -              {aktive_new_point_obj (value)}
+type range         aktive_range          -              {aktive_new_range_obj (value)}
 type rect          aktive_rectangle      -              {aktive_new_rectangle_obj (value)}
 type geometry      aktive_geometry       -              {aktive_new_geometry_obj (value)}
 type image-type    aktive_image_type_ptr -              {Tcl_NewStringObj ((*value)->name, -1)}
@@ -17,7 +18,7 @@ type uint          aktive_uint           -              {aktive_new_uint_obj (*v
 type double        -                     -              {Tcl_NewDoubleObj (*value)}
 type str           aktive_string         aktive_string  {Tcl_NewStringObj (*value, -1)}
 
-vector region image point rect uint double str
+vector region image point range rect uint double str
 
 # # ## ### ##### ######## ############# #####################
 ## Generally useful blocks of code
