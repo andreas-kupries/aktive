@@ -1,8 +1,11 @@
-# Strictness
+
+<img src='assets/aktive-logo-128.png' style='float:right;'>
 
 |||||||
 |---|---|---|---|---|---|
 |[Project ↗](../README.md)|[Documentation ↗](index.md)|&mdash;|[Tutorials ↗](tutorials.md)|[How To's ↗](howtos.md)|[Explanations ↗](explanations.md)|[References ↗](ref/index.md)|
+
+# Strictness
 
 While functional and other paradigms programming have a very good definition of strictness here we
 need to know only this:
@@ -17,7 +20,7 @@ need to know only this:
 This makes most of the operators fast, as they only have to construct a small node in memory
 describing their operation instead of computing all the pixels.
 
-For the full set please see the [index of the strict operators](ref/strict.md).
+For the full set please see the [index of the strict operators](../ref/strict.md).
 
 Note that while [materialization](materialize.md) is a related concept, it is not the same.
 
