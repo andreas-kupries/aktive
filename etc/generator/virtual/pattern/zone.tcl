@@ -5,9 +5,9 @@
 operator image::zone {
     section generator virtual
 
-    note Returns image containing a zone plate test pattern.
-
     example {width 256 height 256}
+
+    note Returns image containing a zone plate test pattern.
 
     uint   width   Width of the returned image
     uint   height  Height of the returned image

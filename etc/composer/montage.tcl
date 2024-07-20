@@ -16,6 +16,8 @@ operator {coordinate layout} {
 } {
     section composer
 
+    example {aktive image zone width 32 height 32} {@1 by 3}
+
     note Returns image with input joined $layout with itself N times \
 	along the ${coordinate}-axis.
 
@@ -38,6 +40,12 @@ operator {coordinate layout} {
     op::montage::z  z {front to back}
 } {
     section composer
+
+    example \
+	{aktive image zone     width  32 height  32} \
+	{aktive image gradient width  64 height  64 depth 1 first 0 last 1} \
+	{aktive image eye      width 128 height 128 factor 0.8} \
+	{@1 @2 @3}
 
     note Returns image with all inputs joined $layout along the ${coordinate}-axis.
 

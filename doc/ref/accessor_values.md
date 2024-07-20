@@ -60,6 +60,15 @@ This operator is __strict__ in its single input. The requested pixel is material
 |x|int||Physical x-coordinate of the pixel to query|
 |y|int||Physical y-coordinate of the pixel to query|
 
+## Examples
+
+### aktive query value at @1 x 0 y 1
+
+|||
+|---|---|
+|@1|aktive query value at @1 x 0 y 1|
+|<img src='example-00185.png' alt='aktive query value at @1 x 0 y 1' style='border:4px solid gold'>|`0.6666666666666666`
+
 ---
 ### <a name='query_values'></a> aktive query values
 
@@ -73,4 +82,13 @@ The list has length `[aktive query size <input>]`.
 
 This operator is __strict__ in its single input. The image is materialized in memory.
 
+
+## Examples
+
+### aktive query values @1
+
+|||
+|---|---|
+|@1|aktive query values @1|
+|<img src='example-00187.png' alt='aktive query values @1' style='border:4px solid gold'>|`0.0 0.3333333333333333 0.6666666666666666 1.0`
 

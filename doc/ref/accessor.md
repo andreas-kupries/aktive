@@ -12,7 +12,7 @@
 
 ## Table Of Contents
 
-  - [Main](index.md) ↗
+  - [Roots](bysection.md) ↗
 
 
 ## Subsections
@@ -119,6 +119,22 @@ Returns dictionary of the image's parameters.
 For an image without parameters the result is the empty dictionary.
 
 
+## Examples
+
+### aktive query params @1
+
+|||
+|---|---|
+|@1|aktive query params @1|
+|<img src='example-00161.png' alt='aktive query params @1' style='border:4px solid gold'>|`width 32 height 32`
+
+### aktive query params @1
+
+|||
+|---|---|
+|@1|aktive query params @1|
+|<img src='example-00163.png' alt='aktive query params @1' style='border:4px solid gold'>|`width 32 height 32 depth 1 first 0.0 last 1.0`
+
 ---
 ### <a name='query_setup'></a> aktive query setup
 
@@ -129,6 +145,22 @@ Returns dictionary of the image's setup.
 This includes type, geometry, and parameters, if any. No inputs though, even if the image has any.
 
 
+## Examples
+
+### aktive query setup @1
+
+|||
+|---|---|
+|@1|aktive query setup @1|
+|<img src='example-00173.png' alt='aktive query setup @1' style='border:4px solid gold'>|`type image::zone domain {x 0 y 0 width 32 height 32 depth 1} config {width 32 height 32}`
+
+### aktive query setup @1
+
+|||
+|---|---|
+|@1|aktive query setup @1|
+|<img src='example-00175.png' alt='aktive query setup @1' style='border:4px solid gold'>|`type image::gradient domain {x 0 y 0 width 32 height 32 depth 1} config {width 32 height 32 depth 1 first 0.0 last 1.0}`
+
 ---
 ### <a name='query_type'></a> aktive query type
 
@@ -136,4 +168,20 @@ Syntax: __aktive query type__ src
 
 Returns the image's type.
 
+
+## Examples
+
+### aktive query type @1
+
+|||
+|---|---|
+|@1|aktive query type @1|
+|<img src='example-00181.png' alt='aktive query type @1' style='border:4px solid gold'>|`image::zone`
+
+### aktive query type @1
+
+|||
+|---|---|
+|@1|aktive query type @1|
+|<img src='example-00183.png' alt='aktive query type @1' style='border:4px solid gold'>|`image::gradient`
 

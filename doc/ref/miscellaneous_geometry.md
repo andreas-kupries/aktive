@@ -36,14 +36,20 @@
 ---
 ### <a name='point_add'></a> aktive point add
 
-Syntax: __aktive point add__ r delta
+Syntax: __aktive point add__ point delta
 
 Translate a 2D point by a specific amount given as 2D vector
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
-|r|point||Point to modify|
+|point|point||Point to modify|
 |delta|point||Point to add|
+
+## Examples
+
+### aktive point add {11 23} {-1 7}
+
+  - `10 30`
 
 ---
 ### <a name='point_box'></a> aktive point box
@@ -55,6 +61,12 @@ Compute minimum axis-aligned 2D rectangle enclosing the set of 2D points
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |points|point...||Points to find the bounding box for|
+
+## Examples
+
+### aktive point box {11 23} {45 5} {5 45}
+
+  - `5 5 41 41`
 
 ---
 ### <a name='point_make'></a> aktive point make
@@ -68,29 +80,51 @@ Construct a 2D point from x- and y-coordinates
 |x|int||Point location, Column|
 |y|int||Point location, Row|
 
+## Examples
+
+### aktive point make 11 23
+
+  - `11 23`
+
 ---
 ### <a name='point_move'></a> aktive point move
 
-Syntax: __aktive point move__ r dx dy
+Syntax: __aktive point move__ point dx dy
 
 Translate a 2D point by a specific amount given as separate x- and y-deltas
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
-|r|point||Point to modify|
+|point|point||Point to modify|
 |dx|int||Amount to move left/right, positive to the right|
 |dy|int||Amount to move up/down, positive downward|
+
+## Examples
+
+### aktive point move {11 23} -1 7
+
+  - `10 30`
 
 ---
 ### <a name='rectangle_empty'></a> aktive rectangle empty
 
-Syntax: __aktive rectangle empty__ r
+Syntax: __aktive rectangle empty__ rect
 
 Test a 2D rectangle for emptiness
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
-|r|rect||Rectangle to check|
+|rect|rect||Rectangle to check|
+
+## Examples
+
+### aktive rectangle empty {11 23 30 20}
+
+  - `0`
+
+### aktive rectangle empty {11 23 0 0}
+
+  - `1`
 
 ---
 ### <a name='rectangle_equal'></a> aktive rectangle equal
@@ -104,31 +138,47 @@ Test two 2D rectangles for equality (location and dimensions)
 |a|rect||First rectangle to compare|
 |b|rect||Second rectangle to compare|
 
+## Examples
+
+### aktive rectangle equal {11 23 30 20} {11 23 30 20}
+
+  - `1`
+
+### aktive rectangle equal {11 23 30 20} {11 23 10 20}
+
+  - `0`
+
 ---
 ### <a name='rectangle_grow'></a> aktive rectangle grow
 
-Syntax: __aktive rectangle grow__ r left right top bottom
+Syntax: __aktive rectangle grow__ rect left right top bottom
 
-Modify 2D rectangle by moving its 4 borders by a specififc amount
+Modify 2D rectangle by moving its 4 borders by a specific amount
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
-|r|rect||Rectangle to modify|
+|rect|rect||Rectangle to modify|
 |left|int||Amount to grow the left border, positive to the left|
 |right|int||Amount to grow the right border, positive to the right|
 |top|int||Amount to grow the top border, positive upward|
 |bottom|int||Amount to grow the bottom border, positive downward|
 
+## Examples
+
+### aktive rectangle grow {11 23 30 20} 1 7 5 10
+
+  - `10 18 38 35`
+
 ---
 ### <a name='rectangle_intersect'></a> aktive rectangle intersect
 
-Syntax: __aktive rectangle intersect__ r...
+Syntax: __aktive rectangle intersect__ rects...
 
 Compute the maximum axis-aligned 2D rectangle shared by all input rectangles
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
-|r|rect...||Rectangles to intersect|
+|rects|rect...||Rectangles to intersect|
 
 ---
 ### <a name='rectangle_make'></a> aktive rectangle make
@@ -144,18 +194,30 @@ Construct a 2D rectangle from x- and y-coordinates and width/height dimensions
 |w|uint||Rectangle width|
 |h|uint||Rectangle height|
 
+## Examples
+
+### aktive rectangle make 11 23 30 20
+
+  - `11 23 30 20`
+
 ---
 ### <a name='rectangle_move'></a> aktive rectangle move
 
-Syntax: __aktive rectangle move__ r dx dy
+Syntax: __aktive rectangle move__ rect dx dy
 
 Translate a 2D rectangle by a specific amount given as separate x- and y-deltas
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
-|r|rect||Rectangle to modify|
+|rect|rect||Rectangle to modify|
 |dx|int||Amount to move left/right, positive to the right|
 |dy|int||Amount to move up/down, positive downward|
+
+## Examples
+
+### aktive rectangle move {11 23 30 20} -5 7
+
+  - `6 30 30 20`
 
 ---
 ### <a name='rectangle_subset'></a> aktive rectangle subset
@@ -169,16 +231,30 @@ Test if the first 2D rectangle is a subset of the second.
 |a|rect||First rectangle to compare|
 |b|rect||Second rectangle to compare|
 
+## Examples
+
+### aktive rectangle subset {11 23 30 20} {11 23 30 20}
+
+  - `1`
+
+### aktive rectangle subset {11 23 30 20} {12 22 10 15}
+
+  - `0`
+
+### aktive rectangle subset {11 23 30 20} {10 20 40 25}
+
+  - `1`
+
 ---
 ### <a name='rectangle_union'></a> aktive rectangle union
 
-Syntax: __aktive rectangle union__ r...
+Syntax: __aktive rectangle union__ rects...
 
 Compute the minimum axis-aligned 2D rectangle encompassing all input rectangles
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
-|r|rect...||Rectangles to union|
+|rects|rect...||Rectangles to union|
 
 ---
 ### <a name='rectangle_zones'></a> aktive rectangle zones

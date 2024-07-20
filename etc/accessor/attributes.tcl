@@ -7,6 +7,8 @@ operator query::id {
 
     note Returns an implementation-specific image identity.
 
+    # Example: makes no sense, changes with each run
+
     # This is special. It provides an identification of the image, i.e. a value unique to
     # it. This enables equality comparisons, and nothing else.
     #
@@ -23,6 +25,9 @@ operator query::id {
 operator query::type {
     section accessor
 
+    example -text {aktive image zone width 32 height 32} {@1}
+    example -text {aktive image gradient width 32 height 32 depth 1 first 0 last 1} {@1}
+
     note Returns the image's type.
 
     input
@@ -34,6 +39,9 @@ operator query::type {
 
 operator query::location {
     section accessor geometry
+
+    example -text {aktive image zone width 32 height 32} {@1}
+    example -text {aktive image gradient width 32 height 32 depth 1 first 0 last 1} {@1}
 
     note Returns the image location, a 2D point.
 
@@ -47,6 +55,9 @@ operator query::location {
 operator query::domain {
     section accessor geometry
 
+    example -text {aktive image zone width 32 height 32} {@1}
+    example -text {aktive image gradient width 32 height 32 depth 1 first 0 last 1} {@1}
+
     note Returns the image domain, a 2D rectangle. I.e. location, width, and height.
 
     input
@@ -58,6 +69,9 @@ operator query::domain {
 
 operator query::geometry {
     section accessor geometry
+
+    example -text {aktive image zone width 32 height 32} {@1}
+    example -text {aktive image gradient width 32 height 32 depth 1 first 0 last 1} {@1}
 
     note Returns the full image geometry, i.e. domain and depth.
 
@@ -76,6 +90,9 @@ operator description {
 } {
     section accessor geometry
     op -> _ attribute
+
+    example -text {aktive image zone width 32 height 32} {@1}
+    example -text {aktive image gradient width 32 height 32 depth 1 first 0 last 1} {@1}
 
     note Returns the image's $description location.
 
@@ -96,7 +113,10 @@ operator description {
     query::size   {size, the number of pixels multiplied by the depth}
 } {
     section accessor geometry
-        op -> _ attribute
+    op -> _ attribute
+
+    example -text {aktive image zone width 32 height 32} {@1}
+    example -text {aktive image gradient width 32 height 32 depth 1 first 0 last 1} {@1}
 
     note Returns the image's ${description}.
 
@@ -110,6 +130,9 @@ operator description {
 
 operator query::inputs {
     section accessor
+
+    # Example: makes no sense, changes with each run (it is raw stuff)
+    # ... Maybe by transforming to type, or something else stable.
 
     note Returns list of the image's inputs.
     note For an image without inputs the result is the empty list.
@@ -132,6 +155,9 @@ operator query::inputs {
 operator query::params {
     section accessor
 
+    example -text {aktive image zone width 32 height 32} {@1}
+    example -text {aktive image gradient width 32 height 32 depth 1 first 0 last 1} {@1}
+
     note Returns dictionary of the image's parameters.
     note For an image without parameters the result is the empty dictionary.
 
@@ -146,6 +172,9 @@ operator query::params {
 
 operator query::setup {
     section accessor
+
+    example -text {aktive image zone width 32 height 32} {@1}
+    example -text {aktive image gradient width 32 height 32 depth 1 first 0 last 1} {@1}
 
     note Returns dictionary of the image's setup.
     note This includes type, geometry, and parameters, if any. \
@@ -176,6 +205,8 @@ operator query::meta {
 operator query::values {
     section accessor values
 
+    example -text {aktive image gradient width 2 height 2 depth 1 first 0 last 1} {@1}
+
     note Returns a Tcl list of the image's pixel values.
     note The values are provided in row-major order.
     note The list has length `\[aktive query size <input>]`.
@@ -194,6 +225,8 @@ operator query::values {
 
 operator query::value::at {
     section accessor values
+
+    example -text {aktive image gradient width 2 height 2 depth 1 first 0 last 1} {@1 x 0 y 1}
 
     note Returns the image's pixel value at the given 2D point.
 

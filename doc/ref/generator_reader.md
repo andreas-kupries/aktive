@@ -33,6 +33,16 @@ Construct image from file content in the native AKTIVE format.
 |:---|:---|:---|:---|
 |path|object||Path to file holding the AKTIVE image data to read|
 
+## Examples
+
+### aktive read from aktive path tests/assets/results/format-colorbox.aktive (times 8)
+
+<img src='example-00208.png' alt='aktive read from aktive path tests/assets/results/format-colorbox.aktive (times 8)' style='border:4px solid gold'>
+
+### aktive read from aktive path tests/assets/results/format-graybox.aktive (times 8)
+
+<img src='example-00209.png' alt='aktive read from aktive path tests/assets/results/format-graybox.aktive (times 8)' style='border:4px solid gold'>
+
 ---
 ### <a name='read_from_netpbm'></a> aktive read from netpbm
 
@@ -43,4 +53,14 @@ Construct image from file content in one of the NetPBM formats.
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |path|object||Path to file holding the NetPBM image data to read|
+
+## Examples
+
+### aktive read from netpbm path tests/assets/sines.ppm
+
+<img src='example-00210.png' alt='aktive read from netpbm path tests/assets/sines.ppm' style='border:4px solid gold'>
+
+### aktive read from netpbm path tests/assets/crop.pgm
+
+<img src='example-00211.png' alt='aktive read from netpbm path tests/assets/crop.pgm' style='border:4px solid gold'>
 

@@ -8,6 +8,8 @@
 operator rectangle::make {
     section miscellaneous geometry
 
+    example -text {11 23 30 20}
+
     note Construct a 2D rectangle from x- and y-coordinates and width/height dimensions
 
     int  x  Rectangle location, Column
@@ -24,9 +26,11 @@ operator rectangle::make {
 operator rectangle::grow {
     section miscellaneous geometry
 
-    note Modify 2D rectangle by moving its 4 borders by a specififc amount
+    example -text {{11 23 30 20} 1 7 5 10}
 
-    rect r       Rectangle to modify
+    note Modify 2D rectangle by moving its 4 borders by a specific amount
+
+    rect rect    Rectangle to modify
     int  left    Amount to grow the left border, positive to the left
     int  right   Amount to grow the right border, positive to the right
     int  top     Amount to grow the top border, positive upward
@@ -34,7 +38,7 @@ operator rectangle::grow {
 
     return rect {
 	aktive_rectangle r;
-	r = param->r;
+	r = param->rect;
 	aktive_rectangle_grow (&r,
 			       param->left, param->right,
 			       param->top,  param->bottom);
@@ -45,15 +49,17 @@ operator rectangle::grow {
 operator rectangle::move {
     section miscellaneous geometry
 
+    example -text {{11 23 30 20} -5 7}
+
     note Translate a 2D rectangle by a specific amount given as separate x- and y-deltas
 
-    rect r   Rectangle to modify
-    int  dx  Amount to move left/right, positive to the right
-    int  dy  Amount to move up/down, positive downward
+    rect rect  Rectangle to modify
+    int  dx    Amount to move left/right, positive to the right
+    int  dy    Amount to move up/down, positive downward
 
     return rect {
 	aktive_rectangle r;
-	r = param->r;
+	r = param->rect;
 	aktive_rectangle_move (&r, param->dx, param->dy);
 	return r;
     }
@@ -63,6 +69,9 @@ operator rectangle::move {
 
 operator rectangle::equal {
     section miscellaneous geometry
+
+    example -text {{11 23 30 20} {11 23 30 20}}
+    example -text {{11 23 30 20} {11 23 10 20}}
 
     note Test two 2D rectangles for equality (location and dimensions)
 
@@ -75,6 +84,10 @@ operator rectangle::equal {
 operator rectangle::subset {
     section miscellaneous geometry
 
+    example -text {{11 23 30 20} {11 23 30 20}}
+    example -text {{11 23 30 20} {12 22 10 15}}
+    example -text {{11 23 30 20} {10 20 40 25}}
+
     note Test if the first 2D rectangle is a subset of the second.
 
     rect a   First rectangle to compare
@@ -86,11 +99,14 @@ operator rectangle::subset {
 operator rectangle::empty {
     section miscellaneous geometry
 
+    example -text {{11 23 30 20}}
+    example -text {{11 23 0 0}}
+
     note Test a 2D rectangle for emptiness
 
-    rect r   Rectangle to check
+    rect rect   Rectangle to check
 
-    return int { aktive_rectangle_is_empty (&param->r) ; }
+    return int { aktive_rectangle_is_empty (&param->rect) ; }
 }
 
 # # ## ### ##### ######## ############# #####################
@@ -100,18 +116,21 @@ operator rectangle::union {
 
     note Compute the minimum axis-aligned 2D rectangle encompassing all input rectangles
 
-    rect... r   Rectangles to union
+    rect... rects   Rectangles to union
 
     return rect {
-	if (param->r.c == 0) {
+	if (param->rects.c == 0) {
 	    aktive_rectangle_def (zero, 0, 0, 0, 0);
 	    TRACE_RETURN ("(zero)", zero);
 	}
 
 	aktive_rectangle r;
-	r = param->r.v [0];
-	if (param->r.c > 1) {
-	    for (aktive_uint i = 1; i < param->r.c; i++) { aktive_rectangle_union (&r, &r, &param->r.v [i]); }
+	r = param->rects.v [0];
+	if (param->rects.c > 1) {
+	    aktive_uint i;
+	    for (i = 1; i < param->rects.c; i++) {
+		aktive_rectangle_union (&r, &r, &param->rects.v [i]);
+	    }
 	}
 	return r;
     }
@@ -122,18 +141,21 @@ operator rectangle::intersect {
 
     note Compute the maximum axis-aligned 2D rectangle shared by all input rectangles
 
-    rect... r   Rectangles to intersect
+    rect... rects   Rectangles to intersect
 
     return rect {
-	if (param->r.c == 0) {
+	if (param->rects.c == 0) {
 	    aktive_rectangle_def (zero, 0, 0, 0, 0);
 	    TRACE_RETURN ("(zero)", zero);
 	}
 
 	aktive_rectangle r;
-	r = param->r.v [0];
-	if (param->r.c > 1) {
-	    for (aktive_uint i = 1; i < param->r.c; i++) { aktive_rectangle_intersect (&r, &r, &param->r.v [i]); }
+	r = param->rects.v [0];
+	if (param->rects.c > 1) {
+	    aktive_uint i;
+	    for (i = 1; i < param->rects.c; i++) {
+		aktive_rectangle_intersect (&r, &r, &param->rects.v [i]);
+	    }
 	}
 	return r;
     }

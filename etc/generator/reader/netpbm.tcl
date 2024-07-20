@@ -7,6 +7,9 @@
 
 operator read::from::netpbm {
 
+    example {path tests/assets/sines.ppm}
+    example {path tests/assets/crop.pgm}
+
     section generator reader
 
     note Construct image from file content in one of the NetPBM formats.

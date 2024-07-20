@@ -7,6 +7,9 @@
 
 operator read::from::aktive {
 
+    example -post {times 8} {path tests/assets/results/format-colorbox.aktive}
+    example -post {times 8} {path tests/assets/results/format-graybox.aktive}
+
     section generator reader
 
     note Construct image from file content in the native AKTIVE format.

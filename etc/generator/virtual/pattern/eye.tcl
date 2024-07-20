@@ -5,6 +5,8 @@
 operator image::eye {
     section generator virtual
 
+    example {width 256 height 256 factor 0.8}
+
     note Returns image containing a test pattern with increasing spatial frequency \
 	from left to right, and increasing amplitude (i.e. black to white) \
 	from top to bottom.
@@ -12,8 +14,6 @@ operator image::eye {
     uint   width   Width of the returned image
     uint   height  Height of the returned image
     double factor  Maximum spatial frequency. Range 0..1.
-
-    example {width 256 height 256 factor 0.8}
 
     state -fields {
 	double c  ; // scaling factor
