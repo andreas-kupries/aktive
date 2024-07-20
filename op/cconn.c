@@ -24,9 +24,9 @@ A_STRUCTURE(aktive_cc_task) {
     // a == 0 --> row task
     // else   --> fuse task
 
-    A_FIELD (aktive_uint,            y)    ; // Row to generate.
-    A_FIELD (aktive_cc_block*,       a)    ; // Block to fuse. A.ymax+1 = B.ymin
-    A_FIELD (aktive_cc_block*,       b)    ; //   ditto
+    A_FIELD (aktive_uint,      y)    ; // Row to generate.
+    A_FIELD (aktive_cc_block*, a)    ; // Block to fuse. A.ymax+1 = B.ymin
+    A_FIELD (aktive_cc_block*, b)    ; //   ditto
 } A_END (aktive_cc_task);
 
 A_STRUCTURE(aktive_cc_batch) {
@@ -47,31 +47,37 @@ A_STRUCTURE(aktive_cc_batch) {
     A_FIELD (aktive_uint,       maxrow); // Highest row index
 
     // Note: O(row) memory
-    //       O(1)   add/remove have to touch only first/last row of a block
+    //       O(1)   access, as add/remove has to touch only first/last row of a block
 } A_END (aktive_cc_batch);
 
 /*
  * - - -- --- ----- -------- -------------
  * Supporting static functions for various manipulations of the state and
- * CC data structures (block, row, cc, run).
+ * CC data structures (block, row, cc, range).
  */
 
-static aktive_cc_run* cc_new_run (aktive_cc* owner, aktive_uint y, aktive_uint xmin, aktive_uint xmax)
+/* Creates and returns a new filled range structure (proto-CC, piece of CC).
+ * Used during extension of a base block, when scanning an image row.
+ */
+static aktive_cc_range* cc_new_range (aktive_cc* owner, aktive_uint y, aktive_uint xmin, aktive_uint xmax)
 {
     TRACE_FUNC("(aktive_cc*) %p, @%u/%u..%u", owner, y, xmin, xmax);
 
-    aktive_cc_run* run = ALLOC (aktive_cc_run);
+    aktive_cc_range* range = ALLOC (aktive_cc_range);
 
-    run->y        = y;
-    run->xmin     = xmin;
-    run->xmax     = xmax;
-    run->owner    = owner;
-    run->row_next = 0;
-    run->cc_next  = 0;
+    range->y        = y;
+    range->xmin     = xmin;
+    range->xmax     = xmax;
+    range->owner    = owner;
+    range->row_next = 0;
+    range->cc_next  = 0;
 
-    TRACE_RETURN ("(aktive_cc_run*) %p", run);
+    TRACE_RETURN ("(aktive_cc_range*) %p", range);
 }
 
+/* Creates and returns a new filled CC structure (with associated single range).
+ * Used during extension of a base block, when scanning an image row.
+ */
 static aktive_cc* cc_new (aktive_uint y, aktive_uint xmin, aktive_uint xmax)
 {
     TRACE_FUNC("@%u/%u..%u", y, xmin, xmax);
@@ -84,16 +90,19 @@ static aktive_cc* cc_new (aktive_uint y, aktive_uint xmin, aktive_uint xmax)
     cc->xmax = xmax;
     cc->area = xmax - xmin + 1;
 
-    aktive_cc_run* run = cc_new_run (cc, y, xmin, xmax);
+    aktive_cc_range* range = cc_new_range (cc, y, xmin, xmax);
 
-    cc->first = run;
-    cc->last  = run;
+    cc->first = range;
+    cc->last  = range;
     cc->next  = 0;
     cc->prev  = 0;
 
     TRACE_RETURN ("(aktive_cc*) %p", cc);
 }
 
+/* Creates and returns a new filled row structure.
+ * Used during creation of a base block, when scanning an image row, for the row to be scanned.
+ */
 static aktive_cc_row* cc_new_row (aktive_uint y)
 {
     TRACE_FUNC("@%u", y);
@@ -107,6 +116,9 @@ static aktive_cc_row* cc_new_row (aktive_uint y)
     TRACE_RETURN ("(aktive_cc_row*) %p", row);
 }
 
+/* Creates and returns a new filled block structure for a single row.
+ * Used to create the base block to be filled by scanning an image row.
+ */
 static aktive_cc_block* cc_new_block (aktive_uint y)
 {
     TRACE_FUNC("@%u", y);
@@ -124,6 +136,8 @@ static aktive_cc_block* cc_new_block (aktive_uint y)
     TRACE_RETURN ("(aktive_cc_block*) %p", block);
 }
 
+/* Unlinks a CC discarded by a merge from its block.
+ */
 static void cc_unlink (aktive_cc* cc)
 {
     TRACE_FUNC("(aktive_cc*) %p", cc);
@@ -158,6 +172,9 @@ static void cc_unlink (aktive_cc* cc)
     TRACE_RETURN_VOID;
 }
 
+/* Extend a base block with a new range and its CC.
+ * Used during scanning of an image row to record a newly found range/CC.
+ */
 static void cc_extend_block (aktive_cc_block* block, aktive_uint xmin, aktive_uint xmax)
 {
     TRACE_FUNC("(aktive_cc_block*) %p += %u..%u", block, xmin, xmax);
@@ -165,7 +182,7 @@ static void cc_extend_block (aktive_cc_block* block, aktive_uint xmin, aktive_ui
     // This assumes the modified block covers a single row, i.e. was returned
     // by `cc_new_block` and only modified by this function.
 
-    // We add a new CC, consisting of a single run.
+    // We add a new CC, consisting of a single range.
     aktive_cc* cc = cc_new (block->ymin, xmin, xmax);
 
     // link cc into the block
@@ -180,31 +197,33 @@ static void cc_extend_block (aktive_cc_block* block, aktive_uint xmin, aktive_ui
     }
     block->cc_last = cc;
 
-    // link the run of the cc into the block's single row.
-    aktive_cc_run* run = cc->first;
+    // link the range of the cc into the block's single row.
+    aktive_cc_range* range = cc->first;
     aktive_cc_row* row = block->row_last;
 
     if (row->last) {
-	row->last->row_next = run;
+	row->last->row_next = range;
     } else {
-	row->first = run;
+	row->first = range;
     }
-    row->last = run;
+    row->last = range;
 
     TRACE_RETURN_VOID;
 }
 
+/* Merge two CCs. The second CC, B, is freed after adding itself (ranges, area, bounding box) to A.
+ */
 static void cc_merge (aktive_cc* a, aktive_cc* b)
 {
     TRACE_FUNC("(aktive_cc*) %p, %p", a, b);
 
-    // for all runs in B, change owner to A
+    // for all ranges in B, change owner to A
 
-    aktive_cc_run* run = b->first;
-    while (run) { run->owner = a; run = run->cc_next; }
+    aktive_cc_range* range;
+    for (range = b->first; range; range = range->cc_next) { range->owner = a; }
 
-    // relink the runs of B into A (append)
-    // assumes that both A and B have at least one run.
+    // relink the ranges of B into A (append)
+    // assumes that both A and B have at least one range.
 
     a->last->cc_next = b->first;
     a->last          = b->last;
@@ -223,13 +242,17 @@ static void cc_merge (aktive_cc* a, aktive_cc* b)
     TRACE_RETURN_VOID;
 }
 
-static int cc_neighbour_4 (aktive_cc_run* a, aktive_cc_run* b)
+/* Check if the two ranges A and B overlap enough in X to make their owning
+ * CCs neighbours and thus the same.  Assumes that the ranges are in adjacent
+ * rows. No check of this done.
+ */
+static int cc_neighbour_4 (aktive_cc_range* a, aktive_cc_range* b)
 {
-    TRACE_FUNC("(aktive_cc_run*) %p, %p", a, b);
+    TRACE_FUNC("(aktive_cc_range*) %p, %p", a, b);
 
-    // The possible relative positions of the two runs A, B under consideration,
-    // and when they are neighbours. The two runs are in adjacent rows, where
-    // A.row + 1 = B.row
+    // The possible relative positions of the two ranges A and B under
+    // consideration, and when they are neighbours. The two ranges are in
+    // adjacent rows, where `A.row + 1 = B.row`.
     //
     // case |                         | neighbours
     // %%%%% %%%%%%%%%%%%%%%%%%%%%%%%% %%%%%%%%
@@ -269,14 +292,19 @@ static int cc_neighbour_4 (aktive_cc_run* a, aktive_cc_run* b)
     TRACE_RETURN ("neighbour %d", 1);                            // N4[c-j]
 }
 
+/* Phase 2 task: Fuse two blocks by iterating over the ranges in the adjacent
+ * rows and merging all neighbouring CCs. The merged CCs of B are
+ * discarded. All unmerged CCs of B are added to A. All row and ranges of B
+ * are added to A.
+ */
 static void cc_fuse_blocks (aktive_cc_block* a, aktive_cc_block* b)
 {
     TRACE_FUNC("(aktive_cc_block*) %p, %p, %% @%u..%u @%u..%u",
 	       a, b, a->ymin, a->ymax, b->ymin, b->ymax);
 
     // a before b -- `a->row_last` adjacent to `b->row_first`.
-    aktive_cc_run* ar = a->row_last->first;
-    aktive_cc_run* br = b->row_first->first;
+    aktive_cc_range* ar = a->row_last->first;
+    aktive_cc_range* br = b->row_first->first;
 
     while (ar && br) {
 	if (cc_neighbour_4 (ar, br) && (ar->owner != br->owner)) {
@@ -284,9 +312,9 @@ static void cc_fuse_blocks (aktive_cc_block* a, aktive_cc_block* b)
 	    cc_merge  (ar->owner, br->owner);
 	}
 
-        // The possible relative positions of the two runs A, B under consideration,
-	// and how to step. Essentially neighbour 4, with a different action table
-	// attached to it.
+        // The possible relative positions of the two ranges A and B under
+	// consideration, and how to step. Essentially neighbour 4 with a
+	// different action table attached to it.
 	//
 	// case |                         | step
 	// %%%%% %%%%%%%%%%%%%%%%%%%%%%%%% %%%%%%%%
@@ -324,8 +352,8 @@ static void cc_fuse_blocks (aktive_cc_block* a, aktive_cc_block* b)
 	// Step A :: A.xmax <= B.xmax
 	// Step B :: else
 	//
-	// The step action skips over the run which has the smallest reach
-	// into the future where more overlaps may be hidden with other run.
+	// The step action skips over the range which has the smallest reach
+	// into the future where more overlaps may be hidden with other range.
 
 	if (ar->xmax <= br->xmax) {
 	    /* N4[acegj] Step A */ ar = ar->row_next;
@@ -337,8 +365,9 @@ static void cc_fuse_blocks (aktive_cc_block* a, aktive_cc_block* b)
     // relink the remaining CCs of B, if any, into A
 
     if (b->cc_first) {
-	aktive_cc* cc = b->cc_first;
-	while (cc) { cc->owner = a; cc = cc->next; }
+	// change owner of CCs to A
+	aktive_cc* cc;
+	for (cc = b->cc_first; cc; cc = cc->next) { cc->owner = a; }
 
 	if (a->cc_first) {
 	    // Append B's CC to A's
@@ -366,6 +395,9 @@ static void cc_fuse_blocks (aktive_cc_block* a, aktive_cc_block* b)
     TRACE_RETURN_VOID;
 }
 
+/* Phase 1 task: Scan a single row of the input image and generate a basic
+ * block for it, with a single, found ranges and trivial CCs.
+ */
 static void cc_scan (aktive_block* p, aktive_cc_block* a)
 {
     TRACE_FUNC("(aktive_block*) %p, (aktive_cc_block*) %p", p, a);
@@ -400,8 +432,13 @@ static void cc_scan (aktive_block* p, aktive_cc_block* a)
 
 /*
  * - - -- --- ----- -------- -------------
+ * Batch processor hooks
  */
 
+/* Issue a basic task (scanning an image row) per call. When all tasks are
+ * issued wait for the eof from the completer and then issue a regular
+ * shutdown to the controlling batch processor.
+ */
 static aktive_cc_task*
 cc_maker (aktive_cc_batch* controller)
 {
@@ -436,15 +473,18 @@ cc_maker (aktive_cc_batch* controller)
     TRACE_RETURN ("(aktive_cc_task*) %p", task);
 }
 
+/* Execute the next task, either scanning the requested image row, or fusing
+ * two blocks into a larger block.
+ */
 static aktive_cc_block*
 cc_worker (const aktive_cc_batch* controller, aktive_cc_task* task, void** wstate)
 {
     TRACE_FUNC("(aktive_cc_batch*) %p, (aktive_cc_task*) %p", controller, task);
 
-    // EOF
+    // EOF reached?
     if (!task) {
 	TRACE ("no tasks", 0);
-	// Do not exclude possibility that EOF is reached without *wstate initialized
+	// Note: Do not exclude possibility that EOF was reached without *wstate initialized.
 	if (*wstate) {
 	    aktive_context c = aktive_region_context (*wstate);
 	    aktive_region_destroy (*wstate);
@@ -488,6 +528,14 @@ cc_worker (const aktive_cc_batch* controller, aktive_cc_task* task, void** wstat
     TRACE_RETURN ("(aktive_cc_block*) %p", a);
 }
 
+/* Receive and act on worker results, blocks. Blocks adjacent to a previously
+ * seen block trigger generation and injection of fuse requests. Standalone
+ * blocks are recorded for adjacency checks against future results.
+ *
+ * Note that blocks put into a fuse request are removed from (or not even
+ * entered into) the adjacency array. This prevents their use in other fuse
+ * requests until they are properly processed.
+ */
 static void
 cc_completer (aktive_batch processor, aktive_cc_batch* controller, aktive_cc_block* result)
 {
@@ -509,7 +557,6 @@ cc_completer (aktive_batch processor, aktive_cc_batch* controller, aktive_cc_blo
     if (ymin == 0 && ymax == controller->maxrow) {
 	// remember for caller
 	controller->row [0] = result;
-
 	TRACE ("signaling eof to maker", 0);
 	// signal EOF to maker
 	Tcl_MutexLock (&controller->lock);
@@ -517,12 +564,14 @@ cc_completer (aktive_batch processor, aktive_cc_batch* controller, aktive_cc_blo
 	Tcl_MutexUnlock (&controller->lock);
 	Tcl_ConditionNotify (&controller->eof);
 
+	// The next call of the completer will trigger the EOF branch of this
+	// function, see above.
 	TRACE_RETURN_VOID;
     }
 
     aktive_cc_task* fuse = 0;
     // Check if the incoming result is adjacent to an existing block below it.
-    // Do not enter it, pull the other block out for fusion.
+    // If yes, then do not enter it and pull the other block out for fusion.
 
     if (result->ymin > 0) {
 	aktive_uint down = result->ymin - 1;
@@ -542,14 +591,14 @@ cc_completer (aktive_batch processor, aktive_cc_batch* controller, aktive_cc_blo
 	    fuse->a = x;
 	    fuse->b = result; // result after x
 
-	    // and pass to maker for injection into the overall batch process
+	    // and inject into the overall batch process
 	    aktive_batch_inject (processor, fuse);
 	    TRACE_RETURN_VOID;
 	}
     }
 
     // Check if the incoming result is adjacent to an existing block above it.
-    // Do not enter it, pull the other block out for fusion.
+    // If yes, then do not enter it and pull the other block out for fusion.
 
     if (result->ymax < controller->maxrow) {
 	aktive_uint up = result->ymax + 1;
@@ -569,14 +618,14 @@ cc_completer (aktive_batch processor, aktive_cc_batch* controller, aktive_cc_blo
 	    fuse->a = result; // result before x
 	    fuse->b = x;
 
-	    // and pass to maker for injection into the overall batch process
+	    // and inject into the overall batch process
 	    aktive_batch_inject (processor, fuse);
 	    TRACE_RETURN_VOID;
 	}
     }
 
-    // The incoming result has no adjacent blocks (yet)
-    // Enter into the adjacency array for pick up by future results
+    // The incoming result has no adjacent blocks yet. Record in the adjacency
+    // array for pick up by future results
 
     TRACE ("save stand-alone", 0);
 
@@ -588,6 +637,7 @@ cc_completer (aktive_batch processor, aktive_cc_batch* controller, aktive_cc_blo
 
 /*
  * - - -- --- ----- -------- -------------
+ * Main API entry point, setting up and executing a batch processor for CC calculation.
  */
 
 extern aktive_cc_block*
@@ -624,6 +674,7 @@ aktive_cc_find (aktive_image src)
 
 /*
  * - - -- --- ----- -------- -------------
+ * Subordinate API entry points.
  */
 
 #undef I
@@ -631,6 +682,8 @@ aktive_cc_find (aktive_image src)
 #define I(x) Tcl_NewIntObj ((x)) // OK tcl9
 #define K(s) Tcl_NewStringObj((s), TCL_AUTO_LENGTH) /* TODO :: Use enum */ /* OK tcl9 */
 
+/* Convert the block structure into a Tcl dictionary recording the same information.
+ */
 extern Tcl_Obj*
 aktive_cc_as_tcl_dict (Tcl_Interp* ip, aktive_cc_block* block)
 {
@@ -661,26 +714,26 @@ aktive_cc_as_tcl_dict (Tcl_Interp* ip, aktive_cc_block* block)
 	Tcl_DictObjPut (ip, cco, K ("ymax"), I (cc->ymax));
 	Tcl_DictObjPut (ip, cco, K ("area"), I (cc->area));
 
-	// Fill CC dict (rows and runs)
+	// Fill CC dict (rows and ranges)
 	//
-	// Notes: Running over rows, and then the runs in rows provides proper
-	// order for collecting of a row subdict with list of runs. It also
-	// roughly takes O(image). Enumerating runs by CC on the other hand is
-	// more complex as it will have to track which rows already have runs,
+	// Notes: Running over rows, and then the ranges in rows provides proper
+	// order for collecting of a row subdict with list of ranges. It also
+	// roughly takes O(image). Enumerating ranges by CC on the other hand is
+	// more complex as it will have to track which rows already have ranges,
 	// to either initialize or extend the dict structures.
 	//
 	// Chosen: defer any kind of row ordering to Tcl level. Here just
-	// collect the runs as unordered list.
+	// collect the ranges as unordered list.
 
 	Tcl_Obj* parts = Tcl_NewListObj (0, 0); // OK tcl9
 	Tcl_DictObjPut (ip, cco, K ("parts"), parts);
 
-	aktive_cc_run* run;
-	for (run = cc->first; run; run = run->cc_next) {
+	aktive_cc_range* range;
+	for (range = cc->first; range; range = range->cc_next) {
 	    Tcl_Obj* v[3];
-	    v[0] = I (run->y);
-	    v[1] = I (run->xmin);
-	    v[2] = I (run->xmax);
+	    v[0] = I (range->y);
+	    v[1] = I (range->xmin);
+	    v[2] = I (range->xmax);
 	    Tcl_Obj* part = Tcl_NewListObj (3, v); // OK tcl9
 	    Tcl_ListObjAppendElement (ip, parts, part);
 	}
@@ -689,6 +742,8 @@ aktive_cc_as_tcl_dict (Tcl_Interp* ip, aktive_cc_block* block)
     TRACE_RETURN ("(Tcl_Obj*) %p", r);
 }
 
+/* Release a block structure.
+ */
 extern void
 aktive_cc_release_block (aktive_cc_block* block)
 {
@@ -708,12 +763,12 @@ aktive_cc_release_block (aktive_cc_block* block)
     for (row = block->row_first; row ; row = rownext) {
 	rownext = row->next;
 
-	// Enumerate and release the runs
-	aktive_cc_run* run;
-	aktive_cc_run* runnext;
-	for (run = row->first; run ; run = runnext) {
-	    runnext = run->row_next;
-	    FREE (run);
+	// Enumerate and release the ranges
+	aktive_cc_range* range;
+	aktive_cc_range* rangenext;
+	for (range = row->first; range ; range = rangenext) {
+	    rangenext = range->row_next;
+	    FREE (range);
 	}
 	FREE (row);
     }

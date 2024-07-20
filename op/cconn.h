@@ -12,55 +12,55 @@
  *      /- .... ->\
  * block -> cc ... cc <| (next)
  *   / \
- *  /   row -> run ... run <| (row_next)
+ *  /   row -> range ... range <| (row_next)
  *  .   .
- *  \-> row -> run ... run <| (row_next)
+ *  \-> row -> range ... range <| (row_next)
  *      ^
  *      -
  *      (next)
  *
- *  cc -> run ... run <| (cc_next)
+ *  cc -> range ... range <| (cc_next)
  *
- * Not shown above: ownership back-links from run to cc, and cc to block.
+ * Not shown above: ownership back-links from range to cc, and cc to block.
  *
  * - The `block` is the main structure.
  *
  * - A block links to a set of `row`s, ordered from smallest to largest index,
  *   without gaps.
  *
- * - Each `row` links to a set of `run`s.
+ * - Each `row` links to a set of `range`s.
  *
- * - Each `run` describes a component range in the containing `row`.
+ * - Each `range` describes a component range in the containing `row`.
  *
  * - A block further links to a set of `cc`s, the actual connected components
  *   found in the row-set of the block.
  *
- * - Each `cc` links to the set of `runs` which build it.
+ * - Each `cc` links to the set of `ranges` which build it.
  *
- * - The `run`s link back to their owning `cc`.
+ * - The `range`s link back to their owning `cc`.
  *
  * - The `cc`s link back to their owning `block`.
  */
 
 typedef struct aktive_cc*       aktive_cc_ptr;
 typedef struct aktive_cc_row*   aktive_cc_row_ptr;
-typedef struct aktive_cc_run*   aktive_cc_run_ptr;
+typedef struct aktive_cc_range* aktive_cc_range_ptr;
 typedef struct aktive_cc_block* aktive_cc_block_ptr;
 
-A_STRUCTURE(aktive_cc_run) {
-    A_FIELD (aktive_uint,       y)        ; // Run row index
-    A_FIELD (aktive_uint,       xmin)     ; // Run start
-    A_FIELD (aktive_uint,       xmax)     ; // Run end
-    A_FIELD (aktive_cc_ptr,     owner)    ; // CC containing the run
-    A_FIELD (aktive_cc_run_ptr, row_next) ; // Next run in same row
-    A_FIELD (aktive_cc_run_ptr, cc_next)  ; // Next run in same CC
-} A_END (aktive_cc_run);
+A_STRUCTURE(aktive_cc_range) {
+    A_FIELD (aktive_uint,         y)        ; // Range row index
+    A_FIELD (aktive_uint,         xmin)     ; // Range start
+    A_FIELD (aktive_uint,         xmax)     ; // Range end
+    A_FIELD (aktive_cc_ptr,       owner)    ; // CC containing the range
+    A_FIELD (aktive_cc_range_ptr, row_next) ; // Next range in same row
+    A_FIELD (aktive_cc_range_ptr, cc_next)  ; // Next range in same CC
+} A_END (aktive_cc_range);
 
 A_STRUCTURE(aktive_cc_row) {
-    A_FIELD (aktive_uint,       y)     ; // Row index
-    A_FIELD (aktive_cc_run_ptr, first) ; // First run in this row
-    A_FIELD (aktive_cc_run_ptr, last)  ; // Last run in this row
-    A_FIELD (aktive_cc_row_ptr, next)  ; // Next row
+    A_FIELD (aktive_uint,         y)     ; // Row index
+    A_FIELD (aktive_cc_range_ptr, first) ; // First range in this row
+    A_FIELD (aktive_cc_range_ptr, last)  ; // Last range in this row
+    A_FIELD (aktive_cc_row_ptr,   next)  ; // Next row
 } A_END (aktive_cc_row);
 
 A_STRUCTURE(aktive_cc) {
@@ -69,8 +69,8 @@ A_STRUCTURE(aktive_cc) {
     A_FIELD (aktive_uint,         ymin)  ; //   ditto
     A_FIELD (aktive_uint,         ymax)  ; //   ditto
     A_FIELD (aktive_uint,         area)  ; // Area in pixels
-    A_FIELD (aktive_cc_run_ptr,   first) ; // First run in this CC
-    A_FIELD (aktive_cc_run_ptr,   last)  ; // Last run in this CC
+    A_FIELD (aktive_cc_range_ptr, first) ; // First range in this CC
+    A_FIELD (aktive_cc_range_ptr, last)  ; // Last range in this CC
     A_FIELD (aktive_cc_ptr,       prev)  ; // Previous CC in block
     A_FIELD (aktive_cc_ptr,       next)  ; // Next CC in block
     A_FIELD (aktive_cc_block_ptr, owner) ; // Block containing the CC
