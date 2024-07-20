@@ -1,5 +1,5 @@
 # -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
-## (c) 2023,2024 Andreas Kupries
+## (c) 2024 Andreas Kupries
 # # ## ### ##### ######## ############# #####################
 ## AKTIVE. Full image caching -- Read AKTIVE, show that cache does modify the image
 
