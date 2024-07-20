@@ -1057,7 +1057,6 @@ proc dsl::writer::Show/r=single/t=single/matrix {int runs transforms results} {
 
 proc dsl::writer::Show/r=single/t=single/text {int runs transforms results} {
     # E03 | single run | single transform | text
-
     lassign $transforms post
     lassign $results    dst
     lassign $runs       title
@@ -1102,12 +1101,11 @@ proc dsl::writer::Show/r=single/t=multi/matrix {int runs transforms results} {
 }
 
 proc dsl::writer::Show/r=single/t=multi/text {int runs transforms results} {
-    error
+    error E06
 }
 
 proc dsl::writer::Show/r=multi/t=single/image {int runs transforms results} {
-    # E07 | multi  run | single transform | image
-
+    # E07 | multi run | single transform | image
     lassign $results results
 
     set n       [llength $runs]
@@ -1127,19 +1125,39 @@ proc dsl::writer::Show/r=multi/t=single/image {int runs transforms results} {
     + "|[join [lmap item $heads { string cat @[incr k] }] |]|$last|"
     + "|[join [lmap dst $results {
 	    string cat "<img src='$dst' alt='$title' style='border:4px solid gold'>"
-    }] |]|<img src='$result' alt='$title' style='border:4px solid gold'>"
+    }] |]|<img src='$result' alt='$title' style='border:4px solid gold'>|"
     Done
-
-    error
 }
 
 proc dsl::writer::Show/r=multi/t=single/matrix {int runs transforms results} {
-    error
+    # E08 | multi  run | single transform | matrix (int)
+    lassign $results results
+
+    set n       [llength $runs] ; incr n -1
+    set heads   [lreverse [lassign [lreverse $runs] last]]
+    set results [lreverse [lassign [lreverse $results] result]]
+    lassign $transforms post
+
+    set title $last ; if {$post ne {}} { append title " ($post)" }
+
+    # show a table of the inputs, and the resulting matrix as table below that.
+
+    + {}
+    + "### $title"
+    + {}
+    + "|[string repeat    | $n]"
+    + "|[string repeat ---| $n]"
+    + "|[join [lmap item $heads { string cat @[incr k] }] |]|"
+    + "|[join [lmap dst $results {
+	    string cat "<img src='$dst' alt='$title' style='border:4px solid gold'>"
+    }] |]|"
+    + {}
+    + "!include $result"
+    Done
 }
 
 proc dsl::writer::Show/r=multi/t=single/text {int runs transforms results} {
     # E09 | multi run | single transform | text
-
     lassign $results results
 
     set n       [llength $runs]
@@ -1159,20 +1177,20 @@ proc dsl::writer::Show/r=multi/t=single/text {int runs transforms results} {
     + "|[join [lmap item $heads { string cat @[incr k] }] |]|$last|"
     + "|[join [lmap dst $results {
 	    string cat "<img src='$dst' alt='$title' style='border:4px solid gold'>"
-    }] |]|`<!include: $result>`"
+    }] |]|`<!include: $result>`|"
     Done
 }
 
 proc dsl::writer::Show/r=multi/t=multi/image {int runs transforms results} {
-    error
+    error E10
 }
 
 proc dsl::writer::Show/r=multi/t=multi/matrix {int runs transforms results} {
-    error
+    error E11
 }
 
 proc dsl::writer::Show/r=multi/t=multi/text {int runs transforms results} {
-    error
+    error E12
 }
 
 proc dsl::writer::ExampleScript {stem runs transform mode int} {
@@ -1181,7 +1199,7 @@ proc dsl::writer::ExampleScript {stem runs transform mode int} {
 
     # primary result
     set dst [File example- [dict get {
-	image  .png
+	image  .gif
 	matrix .md
 	text   .txt
     } $mode]]
@@ -1203,7 +1221,7 @@ proc dsl::writer::ExampleScript {stem runs transform mode int} {
 	append setup "set x$i \[$run\]\n"
 	# save the intermediate images
 	if {$i == $max} continue
-	set tmp [File example- .png]
+	set tmp [File example- .gif]
 	append setup "emit-image ${stem}$tmp 0 \$x$i\n" ;#[expr {$i - 1}]
 	lappend dsts $tmp
     }
@@ -2787,12 +2805,31 @@ proc dsl::writer::stash-to {path} {
     lappend s "package require aktive"
     lappend s "package require fileutil"
     lappend s [string map {\t {}} {
-	proc sdf-fit       {x} { aktive op sdf 2image fit       $x }
-	proc sdf-smooth    {x} { aktive op sdf 2image smooth    $x }
-	proc sdf-pixelated {x} { aktive op sdf 2image pixelated $x }
-	proc height-times {n x} { aktive op sample replicate y  $x by $n }
-	proc width-times  {n x} { aktive op sample replicate x  $x by $n }
-	proc times        {n x} { aktive op sample replicate xy $x by $n }
+	proc cc.norm {ccs} {
+	    # convert the ccs dict into a standard form we can compare to.
+	    set norm {}
+	    foreach id [lsort -dict [dict keys $ccs]] {
+		set spec [dict get $ccs $id]
+		set new {}
+		foreach el [lsort -dict [dict keys $spec]] {
+		    set val [dict get $spec $el]
+		    switch -exact -- $el {
+			parts   { set val [lsort -dict $val] }
+			default {}
+		    }
+		    lappend new $el $val
+		}
+		lappend norm $id $new
+	    }
+	    return $norm
+	}
+	proc meta-of       {x}   { aktive query meta $x }
+	proc sdf-fit       {x}   { aktive op sdf 2image fit       $x }
+	proc sdf-smooth    {x}   { aktive op sdf 2image smooth    $x }
+	proc sdf-pixelated {x}   { aktive op sdf 2image pixelated $x }
+	proc height-times  {n x} { aktive op sample replicate y  $x by $n }
+	proc width-times   {n x} { aktive op sample replicate x  $x by $n }
+	proc times         {n x} { aktive op sample replicate xy $x by $n }
 	proc emit-text {dst int src} {
 	    fileutil::writeFile $dst [string trim $src]
 	}

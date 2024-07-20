@@ -191,6 +191,8 @@ operator query::setup {
 operator query::meta {
     section accessor metadata
 
+    example -text {aktive read from netpbm path tests/assets/sines.ppm} @1
+
     note Returns the image's meta data (a Tcl dictionary).
 
     input
