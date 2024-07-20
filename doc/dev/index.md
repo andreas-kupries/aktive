@@ -15,6 +15,8 @@ specification DSL and templating system.
       - [Definition structures](definitions.md)
       - [Runtime structures](runtime.md)
       - [Definition and Runtime structures together](defrun.md)
+  - [Batch Processor](batch.md) - AKTIVE's foundation for horizontal threading.
+  - [Connected Components](cc.md)
 
 The internals are somewhat inspired by [VIPS](https://www.libvips.org/).
 
