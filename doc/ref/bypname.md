@@ -346,7 +346,8 @@
   - [compose &mdash; op lut](transform_lookup_indexed_compose.md#op_lut_compose)
   - [compress &mdash; op math1 gamma](transform_math_unary.md#op_math1_gamma_compress)
   - [conjugate &mdash; op cmath](transform_math_complex_unary.md#op_cmath_conjugate)
-  - [connected-components &mdash; op](accessor.md#op_connected_components)
+  - [connected-components &mdash; get op](accessor_morphology.md#op_connected_components_get)
+  - [connected-components &mdash; labeled op](transform_morphology.md#op_connected_components_labeled)
   - [cons &mdash; op cmath](transform_math_complex_binary.md#op_cmath_cons)
   - [convolve &mdash; xy op](transform_convolution.md#op_convolve_xy)
   - [copy &mdash; op embed](transform_structure.md#op_embed_copy)
@@ -529,6 +530,7 @@
   - [geometry &mdash; bands unfold op](transform_geometry.md#op_geometry_bands_unfold)
   - [geometry &mdash; query](accessor_geometry.md#query_geometry)
   - [get &mdash; meta](accessor_metadata.md#meta_get)
+  - [get &mdash; op connected-components](accessor_morphology.md#op_connected_components_get)
   - [global &mdash; bernsen image mask per](transform_threshold_mask_generate.md#image_mask_per_global_bernsen)
   - [global &mdash; bernsen image threshold](accessor_threshold_generate.md#image_threshold_global_bernsen)
   - [global &mdash; mean image mask per](transform_threshold_mask_generate.md#image_mask_per_global_mean)
@@ -828,6 +830,7 @@
 
 ## <a name='_l'></a> l
 
+  - [labeled &mdash; op connected-components](transform_morphology.md#op_connected_components_labeled)
   - [lanczos &mdash; image kernel](generator_virtual.md#image_kernel_lanczos)
   - [laplace &mdash; 4 image kernel](generator_virtual.md#image_kernel_laplace_4)
   - [laplace &mdash; 8 image kernel](generator_virtual.md#image_kernel_laplace_8)
@@ -1270,7 +1273,8 @@
   - [op &mdash; column variance](transform_statistics.md#op_column_variance)
   - [op &mdash; compare mse](sink_statistics.md#op_compare_mse)
   - [op &mdash; compare rmse](sink_statistics.md#op_compare_rmse)
-  - [op &mdash; connected-components](accessor.md#op_connected_components)
+  - [op &mdash; connected-components get](accessor_morphology.md#op_connected_components_get)
+  - [op &mdash; connected-components labeled](transform_morphology.md#op_connected_components_labeled)
   - [op &mdash; convolve xy](transform_convolution.md#op_convolve_xy)
   - [op &mdash; crop](transform_structure.md#op_crop)
   - [op &mdash; draw box on](transform_drawing.md#op_draw_box_on)

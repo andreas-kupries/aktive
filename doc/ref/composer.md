@@ -44,7 +44,7 @@ Returns image with all inputs joined left to right along the x-axis.
 |||||
 |---|---|---|---|
 |@1|@2|@3|aktive op montage x @1 @2 @3|
-|<img src='example-00119.png' alt='aktive op montage x @1 @2 @3' style='border:4px solid gold'>|<img src='example-00120.png' alt='aktive op montage x @1 @2 @3' style='border:4px solid gold'>|<img src='example-00121.png' alt='aktive op montage x @1 @2 @3' style='border:4px solid gold'>|<img src='example-00118.png' alt='aktive op montage x @1 @2 @3' style='border:4px solid gold'>
+|<img src='example-00123.gif' alt='aktive op montage x @1 @2 @3' style='border:4px solid gold'>|<img src='example-00124.gif' alt='aktive op montage x @1 @2 @3' style='border:4px solid gold'>|<img src='example-00125.gif' alt='aktive op montage x @1 @2 @3' style='border:4px solid gold'>|<img src='example-00122.gif' alt='aktive op montage x @1 @2 @3' style='border:4px solid gold'>|
 
 ---
 ### <a name='op_montage_x_core'></a> aktive op montage x-core
@@ -82,7 +82,7 @@ Returns image with input joined left to right with itself N times along the x-ax
 |||
 |---|---|
 |@1|aktive op montage x-rep @1 by 3|
-|<img src='example-00123.png' alt='aktive op montage x-rep @1 by 3' style='border:4px solid gold'>|<img src='example-00122.png' alt='aktive op montage x-rep @1 by 3' style='border:4px solid gold'>
+|<img src='example-00127.gif' alt='aktive op montage x-rep @1 by 3' style='border:4px solid gold'>|<img src='example-00126.gif' alt='aktive op montage x-rep @1 by 3' style='border:4px solid gold'>|
 
 ---
 ### <a name='op_montage_y'></a> aktive op montage y
@@ -99,7 +99,7 @@ Returns image with all inputs joined top to bottom along the y-axis.
 |||||
 |---|---|---|---|
 |@1|@2|@3|aktive op montage y @1 @2 @3|
-|<img src='example-00125.png' alt='aktive op montage y @1 @2 @3' style='border:4px solid gold'>|<img src='example-00126.png' alt='aktive op montage y @1 @2 @3' style='border:4px solid gold'>|<img src='example-00127.png' alt='aktive op montage y @1 @2 @3' style='border:4px solid gold'>|<img src='example-00124.png' alt='aktive op montage y @1 @2 @3' style='border:4px solid gold'>
+|<img src='example-00129.gif' alt='aktive op montage y @1 @2 @3' style='border:4px solid gold'>|<img src='example-00130.gif' alt='aktive op montage y @1 @2 @3' style='border:4px solid gold'>|<img src='example-00131.gif' alt='aktive op montage y @1 @2 @3' style='border:4px solid gold'>|<img src='example-00128.gif' alt='aktive op montage y @1 @2 @3' style='border:4px solid gold'>|
 
 ---
 ### <a name='op_montage_y_core'></a> aktive op montage y-core
@@ -137,7 +137,7 @@ Returns image with input joined top to bottom with itself N times along the y-ax
 |||
 |---|---|
 |@1|aktive op montage y-rep @1 by 3|
-|<img src='example-00129.png' alt='aktive op montage y-rep @1 by 3' style='border:4px solid gold'>|<img src='example-00128.png' alt='aktive op montage y-rep @1 by 3' style='border:4px solid gold'>
+|<img src='example-00133.gif' alt='aktive op montage y-rep @1 by 3' style='border:4px solid gold'>|<img src='example-00132.gif' alt='aktive op montage y-rep @1 by 3' style='border:4px solid gold'>|
 
 ---
 ### <a name='op_montage_z'></a> aktive op montage z
@@ -154,7 +154,7 @@ Returns image with all inputs joined front to back along the z-axis.
 |||||
 |---|---|---|---|
 |@1|@2|@3|aktive op montage z @1 @2 @3|
-|<img src='example-00131.png' alt='aktive op montage z @1 @2 @3' style='border:4px solid gold'>|<img src='example-00132.png' alt='aktive op montage z @1 @2 @3' style='border:4px solid gold'>|<img src='example-00133.png' alt='aktive op montage z @1 @2 @3' style='border:4px solid gold'>|<img src='example-00130.png' alt='aktive op montage z @1 @2 @3' style='border:4px solid gold'>
+|<img src='example-00135.gif' alt='aktive op montage z @1 @2 @3' style='border:4px solid gold'>|<img src='example-00136.gif' alt='aktive op montage z @1 @2 @3' style='border:4px solid gold'>|<img src='example-00137.gif' alt='aktive op montage z @1 @2 @3' style='border:4px solid gold'>|<img src='example-00134.gif' alt='aktive op montage z @1 @2 @3' style='border:4px solid gold'>|
 
 ---
 ### <a name='op_montage_z_core'></a> aktive op montage z-core
@@ -192,5 +192,5 @@ Returns image with input joined front to back with itself N times along the z-ax
 |||
 |---|---|
 |@1|aktive op montage z-rep @1 by 3|
-|<img src='example-00135.png' alt='aktive op montage z-rep @1 by 3' style='border:4px solid gold'>|<img src='example-00134.png' alt='aktive op montage z-rep @1 by 3' style='border:4px solid gold'>
+|<img src='example-00139.gif' alt='aktive op montage z-rep @1 by 3' style='border:4px solid gold'>|<img src='example-00138.gif' alt='aktive op montage z-rep @1 by 3' style='border:4px solid gold'>|
 

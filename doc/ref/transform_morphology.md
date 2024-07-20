@@ -17,6 +17,7 @@
 
 ### Operators
 
+ - [aktive op connected-components labeled](#op_connected_components_labeled)
  - [aktive op morph close](#op_morph_close)
  - [aktive op morph dilate](#op_morph_dilate)
  - [aktive op morph erode](#op_morph_erode)
@@ -29,6 +30,40 @@
  - [aktive op morph tophat white](#op_morph_tophat_white)
 
 ## Operators
+
+---
+### <a name='op_connected_components_labeled'></a> aktive op connected-components labeled
+
+Syntax: __aktive op connected-components labeled__ src
+
+Returns the input with labeled connected components.
+
+This operator is __strict__ in its single input. The computed pixels are not materialized, only used to compute the connected components. The returned image is virtual based on the CC data.
+
+
+## Examples
+
+### aktive op connected-components labeled @1
+
+||
+|---|
+|@1|
+|<img src='example-00121.gif' alt='aktive op connected-components labeled @1' style='border:4px solid gold'>|
+
+||||||||||||||||||||||||||||||||||
+|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+|0|0|0|0|0|1|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|
+|0|0|0|0|0|1|0|0|2|2|0|0|3|3|3|0|4|4|4|4|4|0|0|0|5|5|5|5|5|5|5|0|0|
+|1|1|1|1|1|1|0|0|2|2|0|0|3|0|3|0|4|0|0|0|4|0|0|5|5|5|5|5|5|5|5|5|0|
+|0|0|0|0|0|0|0|2|2|0|0|0|3|3|3|0|4|0|0|0|4|0|5|5|5|5|5|5|5|5|5|5|5|
+|0|2|2|2|2|2|2|2|0|6|0|0|0|0|0|0|4|0|0|0|4|0|5|5|5|0|0|0|0|0|5|5|5|
+|0|2|0|0|0|0|0|0|0|6|0|0|0|0|0|0|4|0|0|0|4|0|5|5|0|0|0|7|0|0|0|5|5|
+|0|2|0|6|6|6|6|6|6|6|0|0|0|0|0|0|4|4|4|4|4|0|0|5|5|0|0|7|0|0|5|5|0|
+|0|0|6|6|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|5|5|0|7|0|5|5|0|0|
+|0|6|6|0|0|8|8|8|8|8|8|0|9|9|9|9|9|9|9|9|0|0|0|0|0|0|0|7|0|0|0|0|0|
+|0|6|6|0|0|8|0|0|0|0|0|0|9|9|9|9|9|9|9|9|0|0|7|7|7|7|7|7|7|7|7|7|7|
+|0|0|0|0|0|8|0|0|0|0|0|0|9|9|0|0|0|0|9|9|0|0|0|0|0|0|7|7|7|0|0|0|0|
+
 
 ---
 ### <a name='op_morph_close'></a> aktive op morph close

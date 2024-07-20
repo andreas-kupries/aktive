@@ -1,1 +1,1 @@
-1024
+width 32 height 32 depth 1 first 0.0 last 1.0

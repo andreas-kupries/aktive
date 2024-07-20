@@ -20,6 +20,7 @@
 
  - [accessor geometry](accessor_geometry.md) ↘
  - [accessor metadata](accessor_metadata.md) ↘
+ - [accessor morphology](accessor_morphology.md) ↘
  - [accessor values](accessor_values.md) ↘
 
 ### Operators
@@ -27,7 +28,6 @@
  - [aktive format as d2](#format_as_d2)
  - [aktive format as markdown](#format_as_markdown)
  - [aktive format as tclscript](#format_as_tclscript)
- - [aktive op connected-components](#op_connected_components)
  - [aktive op query colorspace](#op_query_colorspace)
  - [aktive query id](#query_id)
  - [aktive query inputs](#query_inputs)
@@ -65,18 +65,6 @@ Syntax: __aktive format as tclscript__ src
 Converts the internal DAG representation of the image into a Tcl script and returns the resulting string.
 
 Despite the naming the operator is __not strict__. It does not access the input's pixels at all, only the meta information of the pipeline.
-
-
----
-### <a name='op_connected_components'></a> aktive op connected-components
-
-Syntax: __aktive op connected-components__ src
-
-Returns a Tcl dictionary describing all the connected components found in the (binary) input.
-
-The components are identified by integer numbers.
-
-The data of each component is a dictionary providing the elements of the component's bounding box, its area (in pixels), and an unordered list of the row ranges the component consists of.
 
 
 ---
@@ -126,14 +114,14 @@ For an image without parameters the result is the empty dictionary.
 |||
 |---|---|
 |@1|aktive query params @1|
-|<img src='example-00161.png' alt='aktive query params @1' style='border:4px solid gold'>|`width 32 height 32`
+|<img src='example-00167.gif' alt='aktive query params @1' style='border:4px solid gold'>|`width 32 height 32`|
 
 ### aktive query params @1
 
 |||
 |---|---|
 |@1|aktive query params @1|
-|<img src='example-00163.png' alt='aktive query params @1' style='border:4px solid gold'>|`width 32 height 32 depth 1 first 0.0 last 1.0`
+|<img src='example-00169.gif' alt='aktive query params @1' style='border:4px solid gold'>|`width 32 height 32 depth 1 first 0.0 last 1.0`|
 
 ---
 ### <a name='query_setup'></a> aktive query setup
@@ -152,14 +140,14 @@ This includes type, geometry, and parameters, if any. No inputs though, even if 
 |||
 |---|---|
 |@1|aktive query setup @1|
-|<img src='example-00173.png' alt='aktive query setup @1' style='border:4px solid gold'>|`type image::zone domain {x 0 y 0 width 32 height 32 depth 1} config {width 32 height 32}`
+|<img src='example-00179.gif' alt='aktive query setup @1' style='border:4px solid gold'>|`type image::zone domain {x 0 y 0 width 32 height 32 depth 1} config {width 32 height 32}`|
 
 ### aktive query setup @1
 
 |||
 |---|---|
 |@1|aktive query setup @1|
-|<img src='example-00175.png' alt='aktive query setup @1' style='border:4px solid gold'>|`type image::gradient domain {x 0 y 0 width 32 height 32 depth 1} config {width 32 height 32 depth 1 first 0.0 last 1.0}`
+|<img src='example-00181.gif' alt='aktive query setup @1' style='border:4px solid gold'>|`type image::gradient domain {x 0 y 0 width 32 height 32 depth 1} config {width 32 height 32 depth 1 first 0.0 last 1.0}`|
 
 ---
 ### <a name='query_type'></a> aktive query type
@@ -176,12 +164,12 @@ Returns the image's type.
 |||
 |---|---|
 |@1|aktive query type @1|
-|<img src='example-00181.png' alt='aktive query type @1' style='border:4px solid gold'>|`image::zone`
+|<img src='example-00187.gif' alt='aktive query type @1' style='border:4px solid gold'>|`image::zone`|
 
 ### aktive query type @1
 
 |||
 |---|---|
 |@1|aktive query type @1|
-|<img src='example-00183.png' alt='aktive query type @1' style='border:4px solid gold'>|`image::gradient`
+|<img src='example-00189.gif' alt='aktive query type @1' style='border:4px solid gold'>|`image::gradient`|
 

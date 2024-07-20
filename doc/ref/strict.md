@@ -71,6 +71,7 @@ It all depends on the details of the operator in question.
 
  - [aktive op compare mse](sink_statistics.md#op_compare_mse)
  - [aktive op compare rmse](sink_statistics.md#op_compare_rmse)
+ - [aktive op connected-components labeled](transform_morphology.md#op_connected_components_labeled)
  - [aktive op convolve xy](transform_convolution.md#op_convolve_xy)
  - [aktive op image max](sink_statistics.md#op_image_max)
  - [aktive op image mean](sink_statistics.md#op_image_mean)
