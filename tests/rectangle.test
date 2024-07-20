@@ -16,12 +16,12 @@ kt source support/util.tcl
 ## Syntax
 
 syntax {
-    empty     r
+    empty     rect
     equal    {a b}
-    grow     {r left right top bottom}
+    grow     {rect left right top bottom}
     intersect args
     make     {x y w h}
-    move     {r dx dy}
+    move     {rect dx dy}
     subset   {a b}
     union     args
     zones    {domain request}

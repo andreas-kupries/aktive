@@ -17,8 +17,8 @@ kt source support/util.tcl
 
 syntax {
     make     {x y}
-    move     {r dx dy}
-    add      {r delta}
+    move     {point dx dy}
+    add      {point delta}
     box       args
 } {aktive point}
 
