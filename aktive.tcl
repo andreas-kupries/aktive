@@ -131,6 +131,7 @@ critcl::include generated/param-descriptors.c   ;# Parameter block descriptors
 critcl::include op/aktive.h
 critcl::include op/amath.h
 critcl::include op/astcl.h
+critcl::include op/cconn.h
 critcl::include op/color.h
 critcl::include op/convolve.h
 critcl::include op/csum.h

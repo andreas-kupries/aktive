@@ -66,6 +66,7 @@ import generator/virtual/pattern/sines.tcl
 import generator/virtual/pattern/zone.tcl
 
 import transformer/cache.tcl
+import transformer/cc.tcl
 import transformer/identity.tcl
 import transformer/location.tcl
 import transformer/meta.tcl
@@ -179,6 +180,7 @@ import sink/compare.tcl		;# Compute various image difference
 #                                  metrics for comparisons
 
 import accessor/attributes.tcl
+import accessor/cc.tcl
 import accessor/colorspace.tcl
 import accessor/thresholds.tcl
 

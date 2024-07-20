@@ -190,6 +190,25 @@ proc slice-band {band w h d pixels} {
     return $res
 }
 
+proc cc.norm {ccs} {
+    # convert the ccs dict into a standard form we can compare to.
+    set norm {}
+    foreach id [lsort -dict [dict keys $ccs]] {
+	set spec [dict get $ccs $id]
+	set new {}
+	foreach el [lsort -dict [dict keys $spec]] {
+	    set val [dict get $spec $el]
+	    switch -exact -- $el {
+		parts   { set val [lsort -dict $val] }
+		default {}
+	    }
+	    lappend new $el $val
+	}
+	lappend norm $id $new
+    }
+    return $norm
+}
+
 ##
 # # ## ### ##### ######## ############# #####################
 return
