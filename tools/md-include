@@ -3,7 +3,7 @@
 package require fileutil
 
 proc main {} {
-    do $::argv
+    do [lsort -dict $::argv]
 }
 
 proc do {paths} {
@@ -21,6 +21,7 @@ proc do-file {path} {
 proc resolve {path chain} {
     join [lmap line [split [fileutil::cat $path] \n] {
 	if {[string match "!include *" $line]} {
+	    # whole line replacement by included file
 	    puts "  $line"
 	    set include [find $path [lindex $line 1]]
 	    if {$include in $chain} {
@@ -28,6 +29,41 @@ proc resolve {path chain} {
 	    }
 	    lappend chain $include
 	    resolve $include $chain
+	} elseif {[regexp {(<!include: [^>]*>)} $line]} {
+	    puts "  $line"
+	    # in-line inclusion, replace part of the line
+	    # do not recurse
+	    set start 0
+	    set matches {}
+	    while {[regexp -start $start -indices {(<!include: [^>]*>)} $line -> match]} {
+		#puts "    $match"
+		lappend matches $match
+		set start [lindex $match end]
+	    }
+	    #puts "(($matches)) :: /$line/"
+	    # work from the back, this keeps the indices correct as replacements happen.
+	    foreach match [lreverse $matches] {
+		set cmd [string range $line {*}$match]
+		puts "    ($cmd)@($match)"
+		regexp {<!include: ([^>]*)>} $cmd -> include
+		set include [find $path $include]
+		#puts i(($include))
+		set include [string map [list \n { }] [string trim [fileutil::cat $include]]]
+		while {$include ne [set new [string map {
+		    {        } { }
+		    {       } { }
+		    {      } { }
+		    {     } { }
+		    {    } { }
+		    {   } { }
+		    {  } { }
+		} $include]]} {
+		    set include $new
+		}
+		#puts r(($include))
+		set line [string replace $line {*}$match $include]
+	    }
+	    set line
 	} else {
 	    set line
 	}

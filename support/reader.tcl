@@ -507,33 +507,34 @@ proc dsl::reader::example {args} { ;#puts [info level 0]
     OkModes {} C Tcl External
 
 
-    lassign {{} {} 0 0} transforms pre matrix int
+    lassign {{} image 0} transforms mode int
     while {[string match -* [set o [lindex $args 0]]]} {
 	switch -exact -- $o {
 	    --         { set args [lassign $args _] ; break }
-	    -int       { set args [lassign $args _] ; set int    1 }
-	    -matrix    { set args [lassign $args _] ; set matrix 1 }
-	    -post - -t - -transform {
+	    -int       { set args [lassign $args _] ; set int  1      }
+	    -matrix    { set args [lassign $args _] ; set mode matrix }
+	    -text      { set args [lassign $args _] ; set mode text   }
+	    -post - -transform {
 		set args [lassign $args _ post]
 		set post [string trim $post]
 		lappend transforms $post
 	    }
-	    default { Abort "Bad option '$o', expected -int, -matrix, -transform, or --" }
+	    default { Abort "Bad option '$o', expected -int, -matrix, -text, -transform, or --" }
 	}
     }
 
-    # Remainder of args is run and key/value map for templating.
+    # Remainder of args is the commands to run. Last is the actual example output.
     # The op name is auto-inserted into the run code.
     set n "aktive [string map {:: { }} [Get opname]]"
-    set args [lassign $args run]
-    set run  [linsert $run 0 {*}$n]
-    set run  [string trim $run]
 
-    Example $run $transforms $matrix $int
+    set args [lreplace $args end end [linsert [lindex $args end] 0 {*}$n]]
+    set args [lmap run $args { string trim $run }]
+
+    Example $args $transforms $mode $int
 }
 
-proc dsl::reader::Example {run transforms matrix int} { ;#puts [info level 0]
-    LappendX opspec examples [list $run $transforms $matrix $int]
+proc dsl::reader::Example {runs transforms mode int} { ;#puts [info level 0]
+    LappendX opspec examples [list $runs $transforms $mode $int]
 }
 
 proc dsl::reader::strict {ids args} { ;#puts [info level 0]
