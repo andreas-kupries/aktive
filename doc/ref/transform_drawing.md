@@ -40,7 +40,7 @@ Beware, the location and size of the box are independent of the image dimensions
 
 The box is axis-aligned, of width `2*ewidth+1`, height `2*eheight+1`, with rounded corners per the radii, and placed at the specified center.
 
-The radii defauilt to 0, i.e. no rounded corners.
+The radii default to 0, i.e. no rounded corners.
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|

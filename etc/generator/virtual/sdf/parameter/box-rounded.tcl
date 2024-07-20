@@ -20,6 +20,6 @@ uint? 0  uprightradius    Radius of element at upper right corner
 uint? 0  downleftradius   Radius of element at lower left corner
 uint? 0  downrightradius  Radius of element at lower right corner
 
-note The radii defauilt to 0, i.e. no rounded corners.
+note The radii default to 0, i.e. no rounded corners.
 
 sdf-whc
