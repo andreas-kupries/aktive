@@ -527,7 +527,8 @@ proc dsl::reader::example {args} { ;#puts [info level 0]
     # The op name is auto-inserted into the run code.
     set n "aktive [string map {:: { }} [Get opname]]"
 
-    set args [lreplace $args end end [linsert [lindex $args end] 0 {*}$n]]
+    set args [lmap run $args { string trim $run }]
+    set args [lreplace $args end end "$n [lindex $args end]"]
     set args [lmap run $args { string trim $run }]
 
     Example $args $transforms $mode $int
