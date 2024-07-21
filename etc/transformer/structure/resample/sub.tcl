@@ -32,6 +32,10 @@
 operator op::sample::sub::xy {
     section transform structure
 
+    example \
+	{aktive op sdf 2image smooth [aktive op sdf ring [aktive image sdf triangle width 128 height 128 a {10 10} b {50 80} c {80 30}] thickness 4]} \
+	{@1 by 4}
+
     note Returns image with the input sampled down along both x and y axes \
 	according to the sampling factor S (>= 1). The result keeps every S'th \
 	pixel of the input. S-1 pixels after every kept pixel are removed.
@@ -59,6 +63,12 @@ operator {coordinate dimension} {
     op::sample::sub::z  z depth
 } {
     section transform structure
+
+    if {$coordinate in {x y}} {
+	example \
+	    {aktive op sdf 2image smooth [aktive op sdf ring [aktive image sdf triangle width 128 height 128 a {10 10} b {50 80} c {80 30}] thickness 4]} \
+	    {@1 by 4}
+    }
 
     note Returns image with the input sampled down along the ${coordinate}-axis \
 	according to the sampling factor S (>= 1). The result keeps every S'th \

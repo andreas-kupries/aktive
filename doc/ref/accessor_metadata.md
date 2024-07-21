@@ -141,5 +141,5 @@ Returns the image's meta data (a Tcl dictionary).
 |||
 |---|---|
 |@1|aktive query meta @1|
-|<img src='example-00165.gif' alt='aktive query meta @1' style='border:4px solid gold'>|`netpbm {maxval 255} path tests/assets/sines.ppm colorspace sRGB`|
+|<img src='example-00319.gif' alt='aktive query meta @1' style='border:4px solid gold'>|`netpbm {maxval 255} path tests/assets/sines.ppm colorspace sRGB`|
 

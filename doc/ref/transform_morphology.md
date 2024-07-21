@@ -48,7 +48,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 ||
 |---|
 |@1|
-|<img src='example-00121.gif' alt='aktive op connected-components labeled @1' style='border:4px solid gold'>|
+|<img src='example-00173.gif' alt='aktive op connected-components labeled @1' style='border:4px solid gold'>|
 
 ||||||||||||||||||||||||||||||||||
 |---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|

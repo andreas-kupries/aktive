@@ -8,6 +8,10 @@
 operator effect::emboss {
     section transform effect
 
+    example \
+	{aktive op sdf 2image smooth [aktive op sdf ring [aktive image sdf triangle width 128 height 128 a {10 10} b {50 80} c {80 30}] thickness 4]} \
+	@1
+
     note Returns embossed input.
 
     input
@@ -22,6 +26,10 @@ operator effect::emboss {
 operator effect::sharpen {
     section transform effect
 
+    example \
+	{aktive op sdf 2image smooth [aktive op sdf ring [aktive image sdf triangle width 128 height 128 a {10 10} b {50 80} c {80 30}] thickness 4]} \
+	@1
+
     note Returns sharpened input.
 
     input
@@ -33,6 +41,14 @@ operator effect::sharpen {
 
 operator effect::blur {
     section transform effect
+
+    example \
+	{aktive op sdf 2image smooth [aktive op sdf ring [aktive image sdf triangle width 128 height 128 a {10 10} b {50 80} c {80 30}] thickness 4]} \
+	{@1 radius 16}
+
+    example \
+	{aktive op sdf 2image smooth [aktive op sdf ring [aktive image sdf triangle width 128 height 128 a {10 10} b {50 80} c {80 30}] thickness 1]} \
+	{@1 radius 16}
 
     note Returns blurred input, per the specified blur radius.
 
@@ -47,6 +63,14 @@ operator effect::blur {
 
 operator effect::sketch {
     section transform effect
+
+    example \
+	{aktive op sdf 2image smooth [aktive op sdf ring [aktive image sdf triangle width 128 height 128 a {10 10} b {50 80} c {80 30}] thickness 4]} \
+	@1
+
+    example \
+	{aktive op sdf 2image smooth [aktive image sdf triangle width 128 height 128 a {10 10} b {50 80} c {80 30}]} \
+	@1
 
     note Returns image with a general sketch of the input.
 

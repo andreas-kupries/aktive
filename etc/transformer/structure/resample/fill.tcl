@@ -16,6 +16,10 @@ operator op::sample::fill::xy {
 
     section transform structure
 
+    example \
+	{aktive op sdf 2image smooth [aktive op sdf ring [aktive image sdf triangle width 128 height 128 a {10 10} b {50 80} c {80 30}] thickness 4]} \
+	{@1 by 4 fill 0.5}
+
     note Returns image where the input is \"zero-stuffed\" \
 	along both x and y axes according to the stuffing \
 	factor S (>= 1). The S-1 gaps in the result are set to \
@@ -38,6 +42,12 @@ operator {coordinate dimension} {
     op::sample::fill::z  z depth
 } {
     section transform structure
+
+    if {$coordinate in {x y}} {
+	example \
+	    {aktive op sdf 2image smooth [aktive op sdf ring [aktive image sdf triangle width 128 height 128 a {10 10} b {50 80} c {80 30}] thickness 4]} \
+	    {@1 by 4 fill 0.5}
+    }
 
     note Returns image where the input is \"zero-stuffed\" \
 	along the ${coordinate}-axis according to the stuffing \

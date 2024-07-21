@@ -9,6 +9,10 @@
 operator op::embed::copy {
     section transform structure
 
+    example \
+	{aktive op sdf 2image smooth [aktive op sdf ring [aktive image sdf triangle width 128 height 128 a {10 10} b {50 80} c {80 30}] thickness 4]} \
+	{@1 left 32 right 32 top 32 bottom 32}
+
     note Returns image embedding the input into a border \
 	made from the replicated input edges.
 

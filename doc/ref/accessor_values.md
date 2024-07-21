@@ -67,7 +67,7 @@ This operator is __strict__ in its single input. The requested pixel is material
 |||
 |---|---|
 |@1|aktive query value at @1 x 0 y 1|
-|<img src='example-00191.gif' alt='aktive query value at @1 x 0 y 1' style='border:4px solid gold'>|`0.6666666666666666`|
+|<img src='example-00345.gif' alt='aktive query value at @1 x 0 y 1' style='border:4px solid gold'>|`0.6666666666666666`|
 
 ---
 ### <a name='query_values'></a> aktive query values
@@ -90,5 +90,5 @@ This operator is __strict__ in its single input. The image is materialized in me
 |||
 |---|---|
 |@1|aktive query values @1|
-|<img src='example-00193.gif' alt='aktive query values @1' style='border:4px solid gold'>|`0.0 0.3333333333333333 0.6666666666666666 1.0`|
+|<img src='example-00347.gif' alt='aktive query values @1' style='border:4px solid gold'>|`0.0 0.3333333333333333 0.6666666666666666 1.0`|
 

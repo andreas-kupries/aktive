@@ -114,14 +114,14 @@ For an image without parameters the result is the empty dictionary.
 |||
 |---|---|
 |@1|aktive query params @1|
-|<img src='example-00167.gif' alt='aktive query params @1' style='border:4px solid gold'>|`width 32 height 32`|
+|<img src='example-00321.gif' alt='aktive query params @1' style='border:4px solid gold'>|`width 32 height 32`|
 
 ### aktive query params @1
 
 |||
 |---|---|
 |@1|aktive query params @1|
-|<img src='example-00169.gif' alt='aktive query params @1' style='border:4px solid gold'>|`width 32 height 32 depth 1 first 0.0 last 1.0`|
+|<img src='example-00323.gif' alt='aktive query params @1' style='border:4px solid gold'>|`width 32 height 32 depth 1 first 0.0 last 1.0`|
 
 ---
 ### <a name='query_setup'></a> aktive query setup
@@ -140,14 +140,14 @@ This includes type, geometry, and parameters, if any. No inputs though, even if 
 |||
 |---|---|
 |@1|aktive query setup @1|
-|<img src='example-00179.gif' alt='aktive query setup @1' style='border:4px solid gold'>|`type image::zone domain {x 0 y 0 width 32 height 32 depth 1} config {width 32 height 32}`|
+|<img src='example-00333.gif' alt='aktive query setup @1' style='border:4px solid gold'>|`type image::zone domain {x 0 y 0 width 32 height 32 depth 1} config {width 32 height 32}`|
 
 ### aktive query setup @1
 
 |||
 |---|---|
 |@1|aktive query setup @1|
-|<img src='example-00181.gif' alt='aktive query setup @1' style='border:4px solid gold'>|`type image::gradient domain {x 0 y 0 width 32 height 32 depth 1} config {width 32 height 32 depth 1 first 0.0 last 1.0}`|
+|<img src='example-00335.gif' alt='aktive query setup @1' style='border:4px solid gold'>|`type image::gradient domain {x 0 y 0 width 32 height 32 depth 1} config {width 32 height 32 depth 1 first 0.0 last 1.0}`|
 
 ---
 ### <a name='query_type'></a> aktive query type
@@ -164,12 +164,12 @@ Returns the image's type.
 |||
 |---|---|
 |@1|aktive query type @1|
-|<img src='example-00187.gif' alt='aktive query type @1' style='border:4px solid gold'>|`image::zone`|
+|<img src='example-00341.gif' alt='aktive query type @1' style='border:4px solid gold'>|`image::zone`|
 
 ### aktive query type @1
 
 |||
 |---|---|
 |@1|aktive query type @1|
-|<img src='example-00189.gif' alt='aktive query type @1' style='border:4px solid gold'>|`image::gradient`|
+|<img src='example-00343.gif' alt='aktive query type @1' style='border:4px solid gold'>|`image::gradient`|
 

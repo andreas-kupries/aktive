@@ -10,6 +10,10 @@
 operator op::crop {
     section transform structure
 
+    example \
+	{aktive op sdf 2image smooth [aktive op sdf ring [aktive image sdf triangle width 128 height 128 a {10 10} b {50 80} c {80 30}] thickness 4]} \
+	{@1 left 10 right 20 top 30 bottom 50}
+
     note Returns image containing a rectangular subset of input, \
 	specified by the amount of rows and columns to remove \
 	from the four borders.

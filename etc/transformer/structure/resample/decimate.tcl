@@ -8,6 +8,10 @@
 operator op::sample::decimate::xy {
     section transform structure
 
+    example \
+	{aktive op sdf 2image smooth [aktive op sdf ring [aktive image sdf triangle width 128 height 128 a {10 10} b {50 80} c {80 30}] thickness 4]} \
+	{@1 by 4}
+
     note Returns image with the input decimated along both x and \
 	y axes according to the decimation factor (>= 1).
 
@@ -30,6 +34,10 @@ operator {coordinate dimension} {
     op::sample::decimate::y  y height
 } {
     section transform structure
+
+    example \
+	{aktive op sdf 2image smooth [aktive op sdf ring [aktive image sdf triangle width 128 height 128 a {10 10} b {50 80} c {80 30}] thickness 4]} \
+	{@1 by 4}
 
     note Returns image with the input decimated along the ${coordinate}-axis \
 	according to the decimation factor (>= 1).

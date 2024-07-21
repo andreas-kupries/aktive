@@ -10,6 +10,10 @@
 operator op::rotate::cw   {
     section transform structure
 
+    example \
+	{aktive op sdf 2image smooth [aktive op sdf ring [aktive image sdf triangle width 128 height 128 a {10 10} b {50 80} c {80 30}] thickness 4]} \
+	@1
+
     note Returns image rotating the input 90 degrees clockwise.
 
     input
@@ -22,6 +26,10 @@ operator op::rotate::cw   {
 operator op::rotate::ccw  {
     section transform structure
 
+    example \
+	{aktive op sdf 2image smooth [aktive op sdf ring [aktive image sdf triangle width 128 height 128 a {10 10} b {50 80} c {80 30}] thickness 4]} \
+	@1
+
     note Returns image rotating the input 90 degrees counter clockwise
 
     input
@@ -33,6 +41,10 @@ operator op::rotate::ccw  {
 
 operator op::rotate::half {
     section transform structure
+
+    example \
+	{aktive op sdf 2image smooth [aktive op sdf ring [aktive image sdf triangle width 128 height 128 a {10 10} b {50 80} c {80 30}] thickness 4]} \
+	@1
 
     note Returns image rotating the input 180 degrees (counter) clockwise.
 

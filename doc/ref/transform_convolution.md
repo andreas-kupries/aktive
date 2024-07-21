@@ -41,3 +41,19 @@ If shrinkage is not desired add a border to the input using one of the `aktive o
 The prefered embedding for convolution is `mirror`. It is chosen to have minimal to no impact on results at the original input's borders.
 
 
+## Examples
+
+### aktive op convolve xy @2 @1
+
+||||
+|---|---|---|
+|@1|@2|aktive op convolve xy @2 @1|
+|<img src='example-00175.gif' alt='aktive op convolve xy @2 @1' style='border:4px solid gold'>|<img src='example-00176.gif' alt='aktive op convolve xy @2 @1' style='border:4px solid gold'>|<img src='example-00174.gif' alt='aktive op convolve xy @2 @1' style='border:4px solid gold'>|
+
+### aktive op convolve xy @2 @1
+
+||||
+|---|---|---|
+|@1|@2|aktive op convolve xy @2 @1|
+|<img src='example-00178.gif' alt='aktive op convolve xy @2 @1' style='border:4px solid gold'>|<img src='example-00179.gif' alt='aktive op convolve xy @2 @1' style='border:4px solid gold'>|<img src='example-00177.gif' alt='aktive op convolve xy @2 @1' style='border:4px solid gold'>|
+

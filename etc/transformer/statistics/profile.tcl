@@ -17,6 +17,10 @@ operator {oaxis border okind} {
 } {
     op -> _ kind _
 
+    example -matrix -int \
+	{aktive op sdf 2image smooth [aktive op sdf ring [aktive image sdf triangle width 32 height 32 a {10 10} b {50 80} c {80 30}] thickness 4]} \
+	@1
+
     section transform statistics
 
     note Returns image with input ${kind}s transformed into a profile.
