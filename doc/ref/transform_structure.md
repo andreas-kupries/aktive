@@ -475,7 +475,7 @@ Returns image rotating the input 90 degrees counter clockwise
 |||
 |---|---|
 |@1|aktive op rotate ccw @1|
-|<img src='example-00219.gif' alt='aktive op rotate ccw @1' style='border:4px solid gold'>|<img src='example-00218.gif' alt='aktive op rotate ccw @1' style='border:4px solid gold'>|
+|<img src='example-00231.gif' alt='aktive op rotate ccw @1' style='border:4px solid gold'>|<img src='example-00230.gif' alt='aktive op rotate ccw @1' style='border:4px solid gold'>|
 
 ---
 ### <a name='op_rotate_cw'></a> aktive op rotate cw
@@ -492,7 +492,7 @@ Returns image rotating the input 90 degrees clockwise.
 |||
 |---|---|
 |@1|aktive op rotate cw @1|
-|<img src='example-00221.gif' alt='aktive op rotate cw @1' style='border:4px solid gold'>|<img src='example-00220.gif' alt='aktive op rotate cw @1' style='border:4px solid gold'>|
+|<img src='example-00233.gif' alt='aktive op rotate cw @1' style='border:4px solid gold'>|<img src='example-00232.gif' alt='aktive op rotate cw @1' style='border:4px solid gold'>|
 
 ---
 ### <a name='op_rotate_half'></a> aktive op rotate half
@@ -509,7 +509,7 @@ Returns image rotating the input 180 degrees (counter) clockwise.
 |||
 |---|---|
 |@1|aktive op rotate half @1|
-|<img src='example-00223.gif' alt='aktive op rotate half @1' style='border:4px solid gold'>|<img src='example-00222.gif' alt='aktive op rotate half @1' style='border:4px solid gold'>|
+|<img src='example-00235.gif' alt='aktive op rotate half @1' style='border:4px solid gold'>|<img src='example-00234.gif' alt='aktive op rotate half @1' style='border:4px solid gold'>|
 
 ---
 ### <a name='op_sample_decimate_x'></a> aktive op sample decimate x
@@ -532,7 +532,7 @@ This is accomplished by sub sampling the result of a lowpass filter applied to t
 |||
 |---|---|
 |@1|aktive op sample decimate x @1 by 4|
-|<img src='example-00251.gif' alt='aktive op sample decimate x @1 by 4' style='border:4px solid gold'>|<img src='example-00250.gif' alt='aktive op sample decimate x @1 by 4' style='border:4px solid gold'>|
+|<img src='example-00263.gif' alt='aktive op sample decimate x @1 by 4' style='border:4px solid gold'>|<img src='example-00262.gif' alt='aktive op sample decimate x @1 by 4' style='border:4px solid gold'>|
 
 ---
 ### <a name='op_sample_decimate_xy'></a> aktive op sample decimate xy
@@ -553,7 +553,7 @@ Returns image with the input decimated along both x and y axes according to the 
 |||
 |---|---|
 |@1|aktive op sample decimate xy @1 by 4|
-|<img src='example-00253.gif' alt='aktive op sample decimate xy @1 by 4' style='border:4px solid gold'>|<img src='example-00252.gif' alt='aktive op sample decimate xy @1 by 4' style='border:4px solid gold'>|
+|<img src='example-00265.gif' alt='aktive op sample decimate xy @1 by 4' style='border:4px solid gold'>|<img src='example-00264.gif' alt='aktive op sample decimate xy @1 by 4' style='border:4px solid gold'>|
 
 ---
 ### <a name='op_sample_decimate_y'></a> aktive op sample decimate y
@@ -576,7 +576,7 @@ This is accomplished by sub sampling the result of a lowpass filter applied to t
 |||
 |---|---|
 |@1|aktive op sample decimate y @1 by 4|
-|<img src='example-00255.gif' alt='aktive op sample decimate y @1 by 4' style='border:4px solid gold'>|<img src='example-00254.gif' alt='aktive op sample decimate y @1 by 4' style='border:4px solid gold'>|
+|<img src='example-00267.gif' alt='aktive op sample decimate y @1 by 4' style='border:4px solid gold'>|<img src='example-00266.gif' alt='aktive op sample decimate y @1 by 4' style='border:4px solid gold'>|
 
 ---
 ### <a name='op_sample_fill_x'></a> aktive op sample fill x
@@ -597,7 +597,7 @@ Returns image where the input is "zero-stuffed" along the x-axis according to th
 |||
 |---|---|
 |@1|aktive op sample fill x @1 by 4 fill 0.5|
-|<img src='example-00257.gif' alt='aktive op sample fill x @1 by 4 fill 0.5' style='border:4px solid gold'>|<img src='example-00256.gif' alt='aktive op sample fill x @1 by 4 fill 0.5' style='border:4px solid gold'>|
+|<img src='example-00269.gif' alt='aktive op sample fill x @1 by 4 fill 0.5' style='border:4px solid gold'>|<img src='example-00268.gif' alt='aktive op sample fill x @1 by 4 fill 0.5' style='border:4px solid gold'>|
 
 ---
 ### <a name='op_sample_fill_xy'></a> aktive op sample fill xy
@@ -618,7 +618,7 @@ Returns image where the input is "zero-stuffed" along both x and y axes accordin
 |||
 |---|---|
 |@1|aktive op sample fill xy @1 by 4 fill 0.5|
-|<img src='example-00259.gif' alt='aktive op sample fill xy @1 by 4 fill 0.5' style='border:4px solid gold'>|<img src='example-00258.gif' alt='aktive op sample fill xy @1 by 4 fill 0.5' style='border:4px solid gold'>|
+|<img src='example-00271.gif' alt='aktive op sample fill xy @1 by 4 fill 0.5' style='border:4px solid gold'>|<img src='example-00270.gif' alt='aktive op sample fill xy @1 by 4 fill 0.5' style='border:4px solid gold'>|
 
 ---
 ### <a name='op_sample_fill_y'></a> aktive op sample fill y
@@ -639,7 +639,7 @@ Returns image where the input is "zero-stuffed" along the y-axis according to th
 |||
 |---|---|
 |@1|aktive op sample fill y @1 by 4 fill 0.5|
-|<img src='example-00261.gif' alt='aktive op sample fill y @1 by 4 fill 0.5' style='border:4px solid gold'>|<img src='example-00260.gif' alt='aktive op sample fill y @1 by 4 fill 0.5' style='border:4px solid gold'>|
+|<img src='example-00273.gif' alt='aktive op sample fill y @1 by 4 fill 0.5' style='border:4px solid gold'>|<img src='example-00272.gif' alt='aktive op sample fill y @1 by 4 fill 0.5' style='border:4px solid gold'>|
 
 ---
 ### <a name='op_sample_fill_z'></a> aktive op sample fill z
@@ -674,7 +674,7 @@ This is accomplished by low-pass filtering applied to the result of zero-stuffin
 |||
 |---|---|
 |@1|aktive op sample interpolate x @1 by 4|
-|<img src='example-00263.gif' alt='aktive op sample interpolate x @1 by 4' style='border:4px solid gold'>|<img src='example-00262.gif' alt='aktive op sample interpolate x @1 by 4' style='border:4px solid gold'>|
+|<img src='example-00275.gif' alt='aktive op sample interpolate x @1 by 4' style='border:4px solid gold'>|<img src='example-00274.gif' alt='aktive op sample interpolate x @1 by 4' style='border:4px solid gold'>|
 
 ---
 ### <a name='op_sample_interpolate_xy'></a> aktive op sample interpolate xy
@@ -697,7 +697,7 @@ This is accomplished by low-pass filtering applied to the result of zero-stuffin
 |||
 |---|---|
 |@1|aktive op sample interpolate xy @1 by 4|
-|<img src='example-00265.gif' alt='aktive op sample interpolate xy @1 by 4' style='border:4px solid gold'>|<img src='example-00264.gif' alt='aktive op sample interpolate xy @1 by 4' style='border:4px solid gold'>|
+|<img src='example-00277.gif' alt='aktive op sample interpolate xy @1 by 4' style='border:4px solid gold'>|<img src='example-00276.gif' alt='aktive op sample interpolate xy @1 by 4' style='border:4px solid gold'>|
 
 ---
 ### <a name='op_sample_interpolate_y'></a> aktive op sample interpolate y
@@ -720,7 +720,7 @@ This is accomplished by low-pass filtering applied to the result of zero-stuffin
 |||
 |---|---|
 |@1|aktive op sample interpolate y @1 by 4|
-|<img src='example-00267.gif' alt='aktive op sample interpolate y @1 by 4' style='border:4px solid gold'>|<img src='example-00266.gif' alt='aktive op sample interpolate y @1 by 4' style='border:4px solid gold'>|
+|<img src='example-00279.gif' alt='aktive op sample interpolate y @1 by 4' style='border:4px solid gold'>|<img src='example-00278.gif' alt='aktive op sample interpolate y @1 by 4' style='border:4px solid gold'>|
 
 ---
 ### <a name='op_sample_replicate_x'></a> aktive op sample replicate x
@@ -740,7 +740,7 @@ Returns image where the input is stretched along the x-axis according to the str
 |||
 |---|---|
 |@1|aktive op sample replicate x @1 by 4|
-|<img src='example-00269.gif' alt='aktive op sample replicate x @1 by 4' style='border:4px solid gold'>|<img src='example-00268.gif' alt='aktive op sample replicate x @1 by 4' style='border:4px solid gold'>|
+|<img src='example-00281.gif' alt='aktive op sample replicate x @1 by 4' style='border:4px solid gold'>|<img src='example-00280.gif' alt='aktive op sample replicate x @1 by 4' style='border:4px solid gold'>|
 
 ---
 ### <a name='op_sample_replicate_xy'></a> aktive op sample replicate xy
@@ -760,7 +760,7 @@ Returns image where the input is stretched along both x and y axes according to 
 |||
 |---|---|
 |@1|aktive op sample replicate xy @1 by 4|
-|<img src='example-00271.gif' alt='aktive op sample replicate xy @1 by 4' style='border:4px solid gold'>|<img src='example-00270.gif' alt='aktive op sample replicate xy @1 by 4' style='border:4px solid gold'>|
+|<img src='example-00283.gif' alt='aktive op sample replicate xy @1 by 4' style='border:4px solid gold'>|<img src='example-00282.gif' alt='aktive op sample replicate xy @1 by 4' style='border:4px solid gold'>|
 
 ---
 ### <a name='op_sample_replicate_y'></a> aktive op sample replicate y
@@ -780,7 +780,7 @@ Returns image where the input is stretched along the y-axis according to the str
 |||
 |---|---|
 |@1|aktive op sample replicate y @1 by 4|
-|<img src='example-00273.gif' alt='aktive op sample replicate y @1 by 4' style='border:4px solid gold'>|<img src='example-00272.gif' alt='aktive op sample replicate y @1 by 4' style='border:4px solid gold'>|
+|<img src='example-00285.gif' alt='aktive op sample replicate y @1 by 4' style='border:4px solid gold'>|<img src='example-00284.gif' alt='aktive op sample replicate y @1 by 4' style='border:4px solid gold'>|
 
 ---
 ### <a name='op_sample_replicate_z'></a> aktive op sample replicate z
@@ -811,7 +811,7 @@ Returns image with the input sampled down along the x-axis according to the samp
 |||
 |---|---|
 |@1|aktive op sample sub x @1 by 4|
-|<img src='example-00275.gif' alt='aktive op sample sub x @1 by 4' style='border:4px solid gold'>|<img src='example-00274.gif' alt='aktive op sample sub x @1 by 4' style='border:4px solid gold'>|
+|<img src='example-00287.gif' alt='aktive op sample sub x @1 by 4' style='border:4px solid gold'>|<img src='example-00286.gif' alt='aktive op sample sub x @1 by 4' style='border:4px solid gold'>|
 
 ---
 ### <a name='op_sample_sub_xy'></a> aktive op sample sub xy
@@ -831,7 +831,7 @@ Returns image with the input sampled down along both x and y axes according to t
 |||
 |---|---|
 |@1|aktive op sample sub xy @1 by 4|
-|<img src='example-00277.gif' alt='aktive op sample sub xy @1 by 4' style='border:4px solid gold'>|<img src='example-00276.gif' alt='aktive op sample sub xy @1 by 4' style='border:4px solid gold'>|
+|<img src='example-00289.gif' alt='aktive op sample sub xy @1 by 4' style='border:4px solid gold'>|<img src='example-00288.gif' alt='aktive op sample sub xy @1 by 4' style='border:4px solid gold'>|
 
 ---
 ### <a name='op_sample_sub_y'></a> aktive op sample sub y
@@ -851,7 +851,7 @@ Returns image with the input sampled down along the y-axis according to the samp
 |||
 |---|---|
 |@1|aktive op sample sub y @1 by 4|
-|<img src='example-00279.gif' alt='aktive op sample sub y @1 by 4' style='border:4px solid gold'>|<img src='example-00278.gif' alt='aktive op sample sub y @1 by 4' style='border:4px solid gold'>|
+|<img src='example-00291.gif' alt='aktive op sample sub y @1 by 4' style='border:4px solid gold'>|<img src='example-00290.gif' alt='aktive op sample sub y @1 by 4' style='border:4px solid gold'>|
 
 ---
 ### <a name='op_sample_sub_z'></a> aktive op sample sub z
@@ -882,7 +882,7 @@ Returns image with the pixels of the input shifted along the @@coordinate@@ axis
 |||
 |---|---|
 |@1|aktive op scroll x @1 offset 32|
-|<img src='example-00281.gif' alt='aktive op scroll x @1 offset 32' style='border:4px solid gold'>|<img src='example-00280.gif' alt='aktive op scroll x @1 offset 32' style='border:4px solid gold'>|
+|<img src='example-00293.gif' alt='aktive op scroll x @1 offset 32' style='border:4px solid gold'>|<img src='example-00292.gif' alt='aktive op scroll x @1 offset 32' style='border:4px solid gold'>|
 
 ---
 ### <a name='op_scroll_y'></a> aktive op scroll y
@@ -902,7 +902,7 @@ Returns image with the pixels of the input shifted along the @@coordinate@@ axis
 |||
 |---|---|
 |@1|aktive op scroll y @1 offset 32|
-|<img src='example-00283.gif' alt='aktive op scroll y @1 offset 32' style='border:4px solid gold'>|<img src='example-00282.gif' alt='aktive op scroll y @1 offset 32' style='border:4px solid gold'>|
+|<img src='example-00295.gif' alt='aktive op scroll y @1 offset 32' style='border:4px solid gold'>|<img src='example-00294.gif' alt='aktive op scroll y @1 offset 32' style='border:4px solid gold'>|
 
 ---
 ### <a name='op_scroll_z'></a> aktive op scroll z
@@ -942,7 +942,7 @@ result is the location of the result.
 |||
 |---|---|
 |@1|aktive op select x @1 from 20 to 50|
-|<img src='example-00285.gif' alt='aktive op select x @1 from 20 to 50' style='border:4px solid gold'>|<img src='example-00284.gif' alt='aktive op select x @1 from 20 to 50' style='border:4px solid gold'>|
+|<img src='example-00297.gif' alt='aktive op select x @1 from 20 to 50' style='border:4px solid gold'>|<img src='example-00296.gif' alt='aktive op select x @1 from 20 to 50' style='border:4px solid gold'>|
 
 ---
 ### <a name='op_select_y'></a> aktive op select y
@@ -971,7 +971,7 @@ result is the location of the result.
 |||
 |---|---|
 |@1|aktive op select y @1 from 20 to 50|
-|<img src='example-00287.gif' alt='aktive op select y @1 from 20 to 50' style='border:4px solid gold'>|<img src='example-00286.gif' alt='aktive op select y @1 from 20 to 50' style='border:4px solid gold'>|
+|<img src='example-00299.gif' alt='aktive op select y @1 from 20 to 50' style='border:4px solid gold'>|<img src='example-00298.gif' alt='aktive op select y @1 from 20 to 50' style='border:4px solid gold'>|
 
 ---
 ### <a name='op_select_z'></a> aktive op select z
@@ -1034,7 +1034,7 @@ The location of the image is not changed.
 |||
 |---|---|
 |@1|aktive op swap xy @1|
-|<img src='example-00289.gif' alt='aktive op swap xy @1' style='border:4px solid gold'>|<img src='example-00288.gif' alt='aktive op swap xy @1' style='border:4px solid gold'>|
+|<img src='example-00301.gif' alt='aktive op swap xy @1' style='border:4px solid gold'>|<img src='example-00300.gif' alt='aktive op swap xy @1' style='border:4px solid gold'>|
 
 ---
 ### <a name='op_swap_xz'></a> aktive op swap xz
@@ -1151,7 +1151,7 @@ This is an alias of `swap xy`.
 |||
 |---|---|
 |@1|aktive op transpose @1|
-|<img src='example-00291.gif' alt='aktive op transpose @1' style='border:4px solid gold'>|<img src='example-00290.gif' alt='aktive op transpose @1' style='border:4px solid gold'>|
+|<img src='example-00303.gif' alt='aktive op transpose @1' style='border:4px solid gold'>|<img src='example-00302.gif' alt='aktive op transpose @1' style='border:4px solid gold'>|
 
 ---
 ### <a name='op_transverse'></a> aktive op transverse
@@ -1168,5 +1168,5 @@ Returns image with the input mirrored along the secondary diagonal.
 |||
 |---|---|
 |@1|aktive op transverse @1|
-|<img src='example-00293.gif' alt='aktive op transverse @1' style='border:4px solid gold'>|<img src='example-00292.gif' alt='aktive op transverse @1' style='border:4px solid gold'>|
+|<img src='example-00305.gif' alt='aktive op transverse @1' style='border:4px solid gold'>|<img src='example-00304.gif' alt='aktive op transverse @1' style='border:4px solid gold'>|
 

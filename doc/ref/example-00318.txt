@@ -1,1 +1,1 @@
-netpbm {maxval 255} path tests/assets/sines.ppm colorspace sRGB
+0 0 32 32 1

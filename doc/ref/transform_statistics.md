@@ -949,7 +949,7 @@ The part about the `depth of the input` means that the bands in each row are han
 ||
 |---|
 |@1|
-|<img src='example-00225.gif' alt='aktive op row arg max @1' style='border:4px solid gold'>|
+|<img src='example-00237.gif' alt='aktive op row arg max @1' style='border:4px solid gold'>|
 
 ||
 |---:|
@@ -1004,7 +1004,7 @@ The part about the `depth of the input` means that the bands in each row are han
 ||
 |---|
 |@1|
-|<img src='example-00227.gif' alt='aktive op row arg min @1' style='border:4px solid gold'>|
+|<img src='example-00239.gif' alt='aktive op row arg min @1' style='border:4px solid gold'>|
 
 ||
 |---:|
@@ -1061,7 +1061,7 @@ The result has the same geometry as the input. Only the contents change.
 ||
 |---|
 |@1|
-|<img src='example-00229.gif' alt='aktive op row cumulative @1' style='border:4px solid gold'>|
+|<img src='example-00241.gif' alt='aktive op row cumulative @1' style='border:4px solid gold'>|
 
 |||||||||||||||||||||||||||||||||
 |---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
@@ -1119,7 +1119,7 @@ The result is an image of `bins`-sized histogram rows with height and depth of t
 ||
 |---|
 |@1|
-|<img src='example-00231.gif' alt='aktive op row histogram @1' style='border:4px solid gold'>|
+|<img src='example-00243.gif' alt='aktive op row histogram @1' style='border:4px solid gold'>|
 
 |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 |---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
@@ -1174,7 +1174,7 @@ The part about the `depth of the input` means that the bands in each row are han
 ||
 |---|
 |@1|
-|<img src='example-00233.gif' alt='aktive op row max @1' style='border:4px solid gold'>|
+|<img src='example-00245.gif' alt='aktive op row max @1' style='border:4px solid gold'>|
 
 ||
 |---:|
@@ -1229,7 +1229,7 @@ The part about the `depth of the input` means that the bands in each row are han
 ||
 |---|
 |@1|
-|<img src='example-00235.gif' alt='aktive op row mean @1' style='border:4px solid gold'>|
+|<img src='example-00247.gif' alt='aktive op row mean @1' style='border:4px solid gold'>|
 
 ||
 |---:|
@@ -1294,7 +1294,7 @@ The part about the `depth of the input` means that the bands in each row are han
 ||
 |---|
 |@1|
-|<img src='example-00237.gif' alt='aktive op row min @1' style='border:4px solid gold'>|
+|<img src='example-00249.gif' alt='aktive op row min @1' style='border:4px solid gold'>|
 
 ||
 |---:|
@@ -1353,7 +1353,7 @@ The result has a single column.
 ||
 |---|
 |@1|
-|<img src='example-00239.gif' alt='aktive op row otsu [aktive op row histogram @1]' style='border:4px solid gold'>|
+|<img src='example-00251.gif' alt='aktive op row otsu [aktive op row histogram @1]' style='border:4px solid gold'>|
 
 ||
 |---:|
@@ -1412,7 +1412,7 @@ The result is a single-column image with height and depth of the input.
 ||
 |---|
 |@1|
-|<img src='example-00241.gif' alt='aktive op row profile @1' style='border:4px solid gold'>|
+|<img src='example-00253.gif' alt='aktive op row profile @1' style='border:4px solid gold'>|
 
 ||
 |---:|
@@ -1482,7 +1482,7 @@ The part about the `depth of the input` means that the bands in each row are han
 ||
 |---|
 |@1|
-|<img src='example-00243.gif' alt='aktive op row stddev @1' style='border:4px solid gold'>|
+|<img src='example-00255.gif' alt='aktive op row stddev @1' style='border:4px solid gold'>|
 
 ||
 |---:|
@@ -1537,7 +1537,7 @@ The part about the `depth of the input` means that the bands in each row are han
 ||
 |---|
 |@1|
-|<img src='example-00245.gif' alt='aktive op row sum @1' style='border:4px solid gold'>|
+|<img src='example-00257.gif' alt='aktive op row sum @1' style='border:4px solid gold'>|
 
 ||
 |---:|
@@ -1592,7 +1592,7 @@ The part about the `depth of the input` means that the bands in each row are han
 ||
 |---|
 |@1|
-|<img src='example-00247.gif' alt='aktive op row sumsquared @1' style='border:4px solid gold'>|
+|<img src='example-00259.gif' alt='aktive op row sumsquared @1' style='border:4px solid gold'>|
 
 ||
 |---:|
@@ -1647,7 +1647,7 @@ The part about the `depth of the input` means that the bands in each row are han
 ||
 |---|
 |@1|
-|<img src='example-00249.gif' alt='aktive op row variance @1' style='border:4px solid gold'>|
+|<img src='example-00261.gif' alt='aktive op row variance @1' style='border:4px solid gold'>|
 
 ||
 |---:|

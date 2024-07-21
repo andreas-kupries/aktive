@@ -47,6 +47,12 @@ operator {coordinate layout} {
 	{aktive image eye      width 128 height 128 factor 0.8} \
 	{@1 @2 @3}
 
+    example \
+	{aktive                        image gradient width 64 height 64 depth 1 first 0 last 1} \
+	{aktive op rotate cw   [aktive image gradient width 64 height 64 depth 1 first 0 last 1]} \
+	{aktive op rotate half [aktive image gradient width 64 height 64 depth 1 first 0 last 1]} \
+	{@1 @2 @3}
+
     note Returns image with all inputs joined $layout along the ${coordinate}-axis.
 
     input...
