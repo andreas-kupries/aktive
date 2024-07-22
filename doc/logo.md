@@ -76,5 +76,5 @@ shuffles.
 Click on the image for full-size:
 
 <a href='assets/aktive-logo-128-pipeline.svg'>
-![pipeline](assets/aktive-logo-128-pipeline.svg)
+<img alt='pipeline' src='assets/aktive-logo-128-pipeline.svg'>
 </a>
