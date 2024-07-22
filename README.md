@@ -24,12 +24,20 @@ The license is [MIT/BSD](doc/license.md)
 
 # Ticket Tracking
 
-This package is currently available from a single repository:
+AKTIVE is currently available from three repositories:
 
-  - [Primary repository](http://core.tcl-lang.org/akupries/aktive)
+  - The [primary fossil repository](https://core.tcl-lang.org/akupries/aktive), which is also where
+    the   [official ticket tracker](https://core.tcl-lang.org/akupries/aktive/reportlist) lives.
 
-This repository contains the
-[official ticket tracker](https://core.tcl-lang.org/akupries/aktive/reportlist).
+  - A [github mirror](https://github.com/andreas-kupries/aktive) updated from the primary, roughly
+    once a day.
+
+    __Please do not submit tickets at the mirror__.
+
+    Note that you may be reading this README at the mirror.
+
+  - And a [fossil mirror](https://chiselapp.com/user/andreas_kupries/repository/aktive/index) at
+    [Chiselapp](https://chiselapp.com), also updated from the primary roughly once a day.
 
 # Guides and other Documentation
 
@@ -38,6 +46,7 @@ This repository contains the
   - [Changes By Version](doc/changes.md)
   - [How To Install AKTIVE](doc/howtos/install.md)
   - [Documentation Main](doc/index.md)
+  - [Logo](doc/logo.md)
 
 # State
 
