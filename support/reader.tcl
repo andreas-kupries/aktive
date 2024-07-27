@@ -500,7 +500,7 @@ proc dsl::reader::support {cfragment args} { ;#puts [info level 0]
 
 proc dsl::reader::note {args} { ;#puts [info level 0]
     OkModes {} C Tcl External
-    LappendX opspec notes $args
+    LappendX opspec notes [lmap a $args { TemplateCode $a {} }]
 }
 
 proc dsl::reader::example {args} { ;#puts [info level 0]
@@ -794,16 +794,20 @@ proc dsl::reader::TemplateCode {code map} {
 
     # Operator blocks first - May contain references to global blocks
 
-    set blocks [Get opspec blocks]
-    foreach key [lsort -dict [dict keys $blocks]] {
-	set code [TemplateBlock $code $key [dict get $blocks $key]]
+    if {[Has opspec blocks]} {
+	set blocks [Get opspec blocks]
+	foreach key [lsort -dict [dict keys $blocks]] {
+	    set code [TemplateBlock $code $key [dict get $blocks $key]]
+	}
     }
 
     # Global blocks
 
-    set blocks [Get blocks]
-    foreach key [lsort -dict [dict keys $blocks]] {
-	set code [TemplateBlock $code $key [dict get $blocks $key]]
+    if {[Has blocks]} {
+	set blocks [Get blocks]
+	foreach key [lsort -dict [dict keys $blocks]] {
+	    set code [TemplateBlock $code $key [dict get $blocks $key]]
+	}
     }
 
     # Last minute things
@@ -913,7 +917,7 @@ proc dsl::reader::Next {} {
 ##  - todos   :: list (string)
 ##  - types   :: dict (typename -> typespec)
 ##  - vectors :: dict (typename -> imported)
-##  - blocks  :: dict (name -> c-code-fragment)
+##  - blocks  :: dict (name -> text-fragment)
 ##  - ops     :: dict (opname -> opspec)
 ##  - opname  :: string               [Only during collection]
 ##  - opmode  :: string               [Only during collection]
@@ -929,7 +933,7 @@ proc dsl::reader::Next {} {
 ##
 ## opspec keys
 ##  - args     :: bool
-##  - blocks   :: dict (name -> c-code-fragment)
+##  - blocks   :: dict (name -> text-fragment)
 ##  - body     :: string	[presence indicates tcl operator]
 ##  - examples :: list (example-spec)
 ##  - images   :: list (imspec)
