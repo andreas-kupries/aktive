@@ -1,4 +1,4 @@
-!include ../parts/topnav-quadrant-2explanations.inc
+!include ../parts/topnav-quadrant-up.inc
 
 # Strictness
 

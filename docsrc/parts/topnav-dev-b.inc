@@ -1,4 +1,4 @@
-<img src='assets/aktive-logo-128.png' style='float:right;'>
+<img src='../assets/aktive-logo-128.png' style='float:right;'>
 
 ||||
 |---|---|---|

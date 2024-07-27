@@ -1,3 +1,3 @@
-!include ../parts/topnav-quadrant-2howto.inc
+!include ../parts/topnav-quadrant-up.inc
 
 # How to get AKTIVE's sources
