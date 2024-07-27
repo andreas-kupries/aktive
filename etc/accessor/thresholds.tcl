@@ -10,19 +10,26 @@
 # # ## ### ##### ######## ############# #####################
 ## Mean
 
+def ref-bernsen    \[Bernsen\](https://craftofcoding.wordpress.com/2021/10/27/thresholding-algorithms-bernsen-local)
+def ref-sauvola    \[Sauvola\](https://craftofcoding.wordpress.com/2021/10/06/thresholding-algorithms-sauvola-local)
+def ref-niblack    \[Niblack\](https://craftofcoding.wordpress.com/2021/09/30/thresholding-algorithms-niblack-local)
+def ref-phansalkar \[Phansalkar\](https://craftofcoding.wordpress.com/2021/09/28/thresholding-algorithms-phansalkar-local)
+def ref-otsu       \[Otsu\](https://en.wikipedia.org/wiki/Otsu%27s_method)
+
 operator image::threshold::global::mean {
     section accessor threshold generate
 
     note Returns a global threshold for the input, as the image mean.
 
     note There are better methods. Extensions to the simple mean, in order \
-	of creation (and complexity), are Sauvola, Niblack, and Phansalkar. \
-	Each of these modifies the plain mean with a bias based on a mix of \
-	standard deviation, parameters, and the mean itself.
+	of creation (and complexity), are @@ref-sauvola@@, @@ref-niblack@@, and \
+	@@ref-phansalkar@@. Each of these modifies the plain mean with a bias \
+	based on a mix of mean, standard deviation, and parameters.
 
     input
 
-    strict single The computed pixels are not materialized. \
+    strict single \
+	The computed pixels are not materialized. \
 	They are immediately reduced to the threshold.
 
     body {
@@ -44,11 +51,13 @@ operator image::threshold::global::mean {
 operator image::threshold::global::bernsen {
     section accessor threshold generate
 
-    note Returns a global threshold for the input, according to Bernsen's method.
+    note Returns a global threshold for the input, \
+	according to @@ref-bernsen@@'s method.
 
     input
 
-    strict single The computed pixels are not materialized. \
+    strict single \
+	The computed pixels are not materialized. \
 	They are immediately reduced to the threshold.
 
     body {
@@ -77,13 +86,15 @@ operator image::threshold::global::bernsen {
 operator image::threshold::global::niblack {
     section accessor threshold generate
 
-    note Returns a global threshold for the input, according to Niblack's method.
+    note Returns a global threshold for the input, \
+	according to @@ref-niblack@@'s method.
 
     double? -0.2 k	niblack parameter
 
     input
 
-    strict single The computed pixels are not materialized. \
+    strict single \
+	The computed pixels are not materialized. \
 	They are immediately reduced to the threshold.
 
     body {
@@ -114,14 +125,16 @@ operator image::threshold::global::niblack {
 operator image::threshold::global::sauvola {
     section accessor threshold generate
 
-    note Returns a global threshold for the input, according to Sauvola's method.
+    note Returns a global threshold for the input, \
+	according to @@ref-sauvola@@'s method.
 
     double? 0.5 k	sauvola parameter
     double? 128 R	sauvola parameter
 
     input
 
-    strict single The computed pixels are not materialized. \
+    strict single \
+	The computed pixels are not materialized. \
 	They are immediately reduced to the threshold.
 
     body {
@@ -152,7 +165,8 @@ operator image::threshold::global::sauvola {
 operator image::threshold::global::phansalkar {
     section accessor threshold generate
 
-    note Returns a global threshold for the input, according to Phansalkar's method.
+    note Returns a global threshold for the input, \
+	according to @@ref-phansalkar@@'s method.
 
     double? 0.25 k	phansalkar parameter
     double? 0.5  R	phansalkar parameter
@@ -161,7 +175,8 @@ operator image::threshold::global::phansalkar {
 
     input
 
-    strict single The computed pixels are not materialized. \
+    strict single \
+	The computed pixels are not materialized. \
 	They are immediately reduced to the threshold.
 
     body {
@@ -194,19 +209,22 @@ operator image::threshold::global::phansalkar {
 operator image::threshold::global::otsu {
     section accessor threshold generate
 
-    note Returns a global threshold for the input, according to Otsu's method.
+    note Returns a global threshold for the input, \
+	according to @@ref-otsu@@'s method.
 
     int? 256 bins \
 	The number of bins used by the internal histogram. \
 	The pixel values are quantized to fit. \
-	Only values in the range of \[0..1\] are considered valid. \
-	Values outside of that range are placed into the smallest/largest bin. \
+	Only values in the range of `\[0..1\]` are considered valid. \
+	Values outside of that range are placed into the smallest/largest \
+	bins, respectively. \
 	\
 	The default quantizes the image values to 8-bit.
 
     input
 
-    strict single The computed pixels are not materialized. \
+    strict single \
+	The computed pixels are not materialized. \
 	They are immediately reduced to the threshold.
 
     body {

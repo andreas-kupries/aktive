@@ -5,7 +5,7 @@
 operator op::query::colorspace {
     section accessor
 
-    note Returns the name of color space the image is in.
+    note Returns the name of the color space the input is in.
 
     note If no colorspace is set then `sRGB` is assumed for 3-band images, \
 	and `grey` for single-band images.

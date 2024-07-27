@@ -5,16 +5,18 @@
 operator query::id {
     section accessor
 
-    note Returns an implementation-specific image identity.
+    note Returns the input's implementation-specific image identity.
 
-    # Example: makes no sense, changes with each run
-
+    # Example: makes no sense, would change with each run.
+    #
     # This is special. It provides an identification of the image, i.e. a value unique to
     # it. This enables equality comparisons, and nothing else.
     #
     # BEWARE. This is the integerized memory address of the thing, with some whitening to
     # make it not as obvious.
+
     input
+
     return wide {
 	Tcl_WideInt r = 0x25d94395245495a2 ^ (long int) src ;
 	//                0123456789012345
@@ -28,7 +30,7 @@ operator query::type {
     example -text {aktive image zone width 32 height 32} {@1}
     example -text {aktive image gradient width 32 height 32 depth 1 first 0 last 1} {@1}
 
-    note Returns the image's type.
+    note Returns the input's type.
 
     input
     return image-type {
@@ -43,7 +45,7 @@ operator query::location {
     example -text {aktive image zone width 32 height 32} {@1}
     example -text {aktive image gradient width 32 height 32 depth 1 first 0 last 1} {@1}
 
-    note Returns the image location, a 2D point.
+    note Returns the input's location, a 2D point.
 
     input
     return point {
@@ -58,7 +60,7 @@ operator query::domain {
     example -text {aktive image zone width 32 height 32} {@1}
     example -text {aktive image gradient width 32 height 32 depth 1 first 0 last 1} {@1}
 
-    note Returns the image domain, a 2D rectangle. I.e. location, width, and height.
+    note Returns the input's domain, a 2D rectangle. I.e. location, width, and height.
 
     input
     return rect {
@@ -73,7 +75,7 @@ operator query::geometry {
     example -text {aktive image zone width 32 height 32} {@1}
     example -text {aktive image gradient width 32 height 32 depth 1 first 0 last 1} {@1}
 
-    note Returns the full image geometry, i.e. domain and depth.
+    note Returns the input's full geometry, i.e. domain and depth.
 
     input
     return geometry {
@@ -94,7 +96,7 @@ operator description {
     example -text {aktive image zone width 32 height 32} {@1}
     example -text {aktive image gradient width 32 height 32 depth 1 first 0 last 1} {@1}
 
-    note Returns the image's $description location.
+    note Returns the input's $description location.
 
     input
 
@@ -109,8 +111,8 @@ operator description {
     query::height height
     query::depth  depth
     query::pixels {number of pixels}
-    query::pitch  {pitch, the number of values in a row, taking depth into account}
-    query::size   {size, the number of pixels multiplied by the depth}
+    query::pitch  {pitch, the number of values in a row, i.e. width times depth}
+    query::size   {size, i.e. the number of pixels times depth}
 } {
     section accessor geometry
     op -> _ attribute
@@ -118,7 +120,7 @@ operator description {
     example -text {aktive image zone width 32 height 32} {@1}
     example -text {aktive image gradient width 32 height 32 depth 1 first 0 last 1} {@1}
 
-    note Returns the image's ${description}.
+    note Returns the input's ${description}.
 
     input
 
@@ -134,7 +136,8 @@ operator query::inputs {
     # Example: makes no sense, changes with each run (it is raw stuff)
     # ... Maybe by transforming to type, or something else stable.
 
-    note Returns list of the image's inputs.
+    note Returns a list of the input's inputs.
+
     note For an image without inputs the result is the empty list.
 
     input
@@ -158,7 +161,8 @@ operator query::params {
     example -text {aktive image zone width 32 height 32} {@1}
     example -text {aktive image gradient width 32 height 32 depth 1 first 0 last 1} {@1}
 
-    note Returns dictionary of the image's parameters.
+    note Returns a dictionary containing the input's parameters.
+
     note For an image without parameters the result is the empty dictionary.
 
     input
@@ -176,9 +180,9 @@ operator query::setup {
     example -text {aktive image zone width 32 height 32} {@1}
     example -text {aktive image gradient width 32 height 32 depth 1 first 0 last 1} {@1}
 
-    note Returns dictionary of the image's setup.
-    note This includes type, geometry, and parameters, if any. \
-	No inputs though, even if the image has any.
+    note Returns a dictionary containing the input's setup.
+
+    note This includes type, geometry, and parameters, if any. The inputs however are excluded.
 
     input
 
@@ -193,7 +197,7 @@ operator query::meta {
 
     example -text {aktive read from netpbm path tests/assets/sines.ppm} @1
 
-    note Returns the image's meta data (a Tcl dictionary).
+    note Returns a dictionary containing the input's meta data.
 
     input
 
@@ -209,13 +213,15 @@ operator query::values {
 
     example -text {aktive image gradient width 2 height 2 depth 1 first 0 last 1} {@1}
 
-    note Returns a Tcl list of the image's pixel values.
+    note Returns a list containing the input's pixel values.
+
     note The values are provided in row-major order.
-    note The list has length `\[aktive query size <input>]`.
+    note The list has length \"<!xref: aktive query size> \\<src\\>\".
 
     input
 
-    strict single The image is materialized in memory.
+    strict single \
+	The image is materialized in memory.
 
     return object0 {
 	Tcl_Obj* r = aktive_op_pixels (ip, src);
@@ -230,15 +236,16 @@ operator query::value::at {
 
     example -text {aktive image gradient width 2 height 2 depth 1 first 0 last 1} {@1 x 0 y 1}
 
-    note Returns the image's pixel value at the given 2D point.
+    note Returns the input's pixel value(s) at the given 2D point.
 
-    note The result is __not__ an image. It is a list for multi-band \
-	inputs, and a single floating point number otherwise.
+    note The result is __not__ an image. It is a list of floating point numbers \
+	for a multi-band input, and a single floating point number otherwise.
 
     note Beware that the coordinate domain is `0..width|height`, \
 	regardless of image location.
 
-    strict single The requested pixel is materialized in memory.
+    strict single \
+	The requested pixel is materialized in memory.
 
     input
     int   x	Physical x-coordinate of the pixel to query
@@ -254,7 +261,7 @@ operator query::value::at {
 operator query::value::around {
     section accessor values
 
-    note Returns the image's pixel values for the region around \
+    note Returns the input's pixel values for the region around \
 	the specified 2D point, within the manhattan `radius`.
 
     note The result is __not__ an image.
@@ -262,9 +269,11 @@ operator query::value::around {
     note Beware that the coordinate domain is `0..width|height`, \
 	regardless of image location.
 
-    strict single The requested pixel region is materialized in memory.
+    strict single \
+	The requested pixel region is materialized in memory.
 
     input
+
     int     x		Physical x-coordinate of the pixel to query
     int     y		Physical y-coordinate of the pixel to query
     uint? 1 radius	Region radius, defaults to 1, i.e. a 3x3 region.
