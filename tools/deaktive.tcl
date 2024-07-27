@@ -1,8 +1,6 @@
-#!/home/aku/opt/ActiveTcl/bin/tclsh
+#!/usr/bin/env tclsh
 # ------------------------------------------------------------------------------
 ## Decode AKTIVE image files into a plain text form for human inspection
-
-package require aktive
 
 proc main {} {
     do {*}[cmdline]

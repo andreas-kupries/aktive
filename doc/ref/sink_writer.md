@@ -55,7 +55,7 @@
 
 Syntax: __aktive format as aktive 2chan__ src (param value)...
 
-Writes image to the DST channel, serialized with the AKTIVE raw format.
+Writes image to the DST channel, serialized with the [AKTIVE](ff-aktive.md) format.
 
 This operator is __strict__ in its single input. The computed pixels are not materialized. They are immediately saved to the destination channel.
 
@@ -68,7 +68,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 
 Syntax: __aktive format as aktive 2file__ src (param value)...
 
-Writes image to the destination file, serialized with the AKTIVE format.
+Writes image to the destination file, serialized with the [AKTIVE](ff-aktive.md) format.
 
 This operator is __strict__ in its single input. The computed pixels are not materialized. They are immediately saved to the destination file.
 
@@ -81,7 +81,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 
 Syntax: __aktive format as aktive 2string__ src
 
-Returns byte array containing the image serialized with the AKTIVE raw format.
+Returns byte array containing the image, serialized with the [AKTIVE](ff-aktive.md) format.
 
 This operator is __strict__ in its single input. The computed pixels __are__ materialized into the returned string.
 
