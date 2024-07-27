@@ -1,11 +1,28 @@
 #!/bin/bash
 
+## inlined clean
 find . -name "*~" -print
 find . -name "*~" -exec rm "{}" \;
 find . -follow -name "core*" -exec rm "{}" \;
-rm -f *.trace doc/ref/*
+rm -f *.trace
+
+## inlined/integrated doc
+rm -rf        doc
+cp -rf docsrc doc
+mkdir -p      doc/ref
+cp -r  doc/parts  doc/assets
+rm doc/assets/aktive-logo-32.ico
+rm doc/assets/aktive-logo-128.ppm
+rm doc/assets/aktive-logo-128-pipeline.d2
+rm doc/assets/aktive-logo-128-pipeline.png
+rm doc/assets/*.inc
 
 mkdir -p ../Logs
 $K ./build.tcl uninstall install "$@" |& tee ../Logs/test.install && \
     tclsh examples.tcl && \
     tclsh tools/md-include $(find doc -name '*.md' -a -not -name 'example-*')
+
+rm -rf doc/parts
+rm -rf doc/dev/figures/*.d2
+rm -rf doc/dev/figures/generated
+rm -rf doc/dev/figures/parts

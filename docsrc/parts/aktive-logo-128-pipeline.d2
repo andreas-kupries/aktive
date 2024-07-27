@@ -1,0 +1,167 @@
+# -*- d2 -*-
+direction: left
+1: "aktive read from netpbm\n(path doc/assets/tcl-feather-on-white-128.ppm)"
+1.shape: document
+1.style.fill: lightgreen
+2: "aktive op select x\n(from 0 to 0)"
+2.shape: oval
+1 -> 2
+3: "aktive op sample replicate x\n(by 24)"
+3.shape: oval
+2 -> 3
+4: "aktive op montage x-core"
+4.shape: oval
+3 -> 4
+1 -> 4
+5: "aktive op select x\n(from 79 to 79)"
+5.shape: oval
+1 -> 5
+6: "aktive op sample replicate x\n(by 24)"
+6.shape: oval
+5 -> 6
+7: "aktive op montage x-core"
+7.shape: oval
+4 -> 7
+6 -> 7
+8: "aktive op location move to\n(x -24 y 0)"
+8.shape: oval
+7 -> 8
+9: "aktive op select z\n(from 0 to 0)"
+9.shape: oval
+8 -> 9
+10: "aktive op select z\n(from 1 to 1)"
+10.shape: oval
+8 -> 10
+11: "aktive op select z\n(from 2 to 2)"
+11.shape: oval
+8 -> 11
+12: "aktive op math mul"
+12.shape: oval
+9 -> 12
+10 -> 12
+11 -> 12
+13: "aktive op select x\n(from 0 to 0)"
+13.shape: oval
+12 -> 13
+14: "aktive op montage x-core"
+14.shape: oval
+13 -> 14
+12 -> 14
+15: "aktive op select x\n(from 127 to 127)"
+15.shape: oval
+12 -> 15
+16: "aktive op montage x-core"
+16.shape: oval
+14 -> 16
+15 -> 16
+17: "aktive op select y\n(from 0 to 0)"
+17.shape: oval
+16 -> 17
+18: "aktive op montage y-core"
+18.shape: oval
+17 -> 18
+16 -> 18
+19: "aktive op select y\n(from 127 to 127)"
+19.shape: oval
+16 -> 19
+20: "aktive op montage y-core"
+20.shape: oval
+18 -> 20
+19 -> 20
+21: "aktive op location move to\n(x -25 y -1)"
+21.shape: oval
+20 -> 21
+22: "aktive op tile min\n(radius 1)"
+22.shape: oval
+21 -> 22
+23: "aktive op select z\n(from 0 to 0)"
+23.shape: oval
+8 -> 23
+24: "aktive image gradient\n(width 8 height 8 depth 1 first 0.0 last 1.0)"
+24.shape: oval
+25: "aktive op swap xy"
+25.shape: oval
+24 -> 25
+26: "aktive op flip x"
+26.shape: oval
+25 -> 26
+27: "aktive op montage z-core"
+27.shape: oval
+24 -> 27
+26 -> 27
+28: "aktive op flip y"
+28.shape: oval
+24 -> 28
+29: "aktive op flip x"
+29.shape: oval
+28 -> 29
+30: "aktive op montage z-core"
+30.shape: oval
+27 -> 30
+29 -> 30
+31: "aktive op sample replicate x\n(by 16)"
+31.shape: oval
+30 -> 31
+32: "aktive op sample replicate y\n(by 16)"
+32.shape: oval
+31 -> 32
+33: "aktive image checkers\n(width 128 height 128 offset 1 black 2 white 14)"
+33.shape: oval
+34: "aktive op math1 invert"
+34.shape: oval
+33 -> 34
+35: "aktive op sample replicate z\n(by 3)"
+35.shape: oval
+34 -> 35
+36: "aktive op math mul"
+36.shape: oval
+32 -> 36
+35 -> 36
+37: "aktive op select z\n(from 0 to 0)"
+37.shape: oval
+36 -> 37
+38: "aktive op montage z-core"
+38.shape: oval
+23 -> 38
+37 -> 38
+39: "aktive op take z"
+39.shape: oval
+22 -> 39
+38 -> 39
+40: "aktive op select z\n(from 1 to 1)"
+40.shape: oval
+8 -> 40
+41: "aktive op select z\n(from 1 to 1)"
+41.shape: oval
+36 -> 41
+42: "aktive op montage z-core"
+42.shape: oval
+40 -> 42
+41 -> 42
+43: "aktive op take z"
+43.shape: oval
+22 -> 43
+42 -> 43
+44: "aktive op montage z-core"
+44.shape: oval
+39 -> 44
+43 -> 44
+45: "aktive op select z\n(from 2 to 2)"
+45.shape: oval
+8 -> 45
+46: "aktive op select z\n(from 2 to 2)"
+46.shape: oval
+36 -> 46
+47: "aktive op montage z-core"
+47.shape: oval
+45 -> 47
+46 -> 47
+48: "aktive op take z"
+48.shape: oval
+22 -> 48
+47 -> 48
+49: "aktive op montage z-core"
+49.shape: oval
+49.style.fill: orange
+44 -> 49
+48 -> 49
