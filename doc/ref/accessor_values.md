@@ -28,7 +28,7 @@
 
 Syntax: __aktive query value around__ src ?(param value)...?
 
-Returns the image's pixel values for the region around the specified 2D point, within the manhattan `radius`.
+Returns the input's pixel values for the region around the specified 2D point, within the manhattan `radius`.
 
 The result is __not__ an image.
 
@@ -47,9 +47,9 @@ This operator is __strict__ in its single input. The requested pixel region is m
 
 Syntax: __aktive query value at__ src (param value)...
 
-Returns the image's pixel value at the given 2D point.
+Returns the input's pixel value(s) at the given 2D point.
 
-The result is __not__ an image. It is a list for multi-band inputs, and a single floating point number otherwise.
+The result is __not__ an image. It is a list of floating point numbers for a multi-band input, and a single floating point number otherwise.
 
 Beware that the coordinate domain is `0..width|height`, regardless of image location.
 
@@ -74,11 +74,11 @@ This operator is __strict__ in its single input. The requested pixel is material
 
 Syntax: __aktive query values__ src
 
-Returns a Tcl list of the image's pixel values.
+Returns a list containing the input's pixel values.
 
 The values are provided in row-major order.
 
-The list has length `[aktive query size <input>]`.
+The list has length "[aktive query size](accessor_geometry.md#query_size) \<src\>".
 
 This operator is __strict__ in its single input. The image is materialized in memory.
 

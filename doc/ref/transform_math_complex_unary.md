@@ -73,7 +73,7 @@ The resulting image has the same geometry as the input.
 
 Syntax: __aktive op cmath as-imaginary__ src
 
-Returns complex-valued image constructed from the single-band input. Input becomes the @@band@@ part.
+Returns complex-valued image constructed from the single-band input. Input becomes the imaginary part.
 
 
 ---
@@ -81,7 +81,7 @@ Returns complex-valued image constructed from the single-band input. Input becom
 
 Syntax: __aktive op cmath as-real__ src
 
-Returns complex-valued image constructed from the single-band input. Input becomes the @@band@@ part.
+Returns complex-valued image constructed from the single-band input. Input becomes the real part.
 
 
 ---

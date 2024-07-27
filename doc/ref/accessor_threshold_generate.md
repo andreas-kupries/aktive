@@ -31,7 +31,7 @@
 
 Syntax: __aktive image threshold global bernsen__ src
 
-Returns a global threshold for the input, according to Bernsen's method.
+Returns a global threshold for the input, according to [Bernsen](https://craftofcoding.wordpress.com/2021/10/27/thresholding-algorithms-bernsen-local)'s method.
 
 This operator is __strict__ in its single input. The computed pixels are not materialized. They are immediately reduced to the threshold.
 
@@ -43,7 +43,7 @@ Syntax: __aktive image threshold global mean__ src
 
 Returns a global threshold for the input, as the image mean.
 
-There are better methods. Extensions to the simple mean, in order of creation (and complexity), are Sauvola, Niblack, and Phansalkar. Each of these modifies the plain mean with a bias based on a mix of standard deviation, parameters, and the mean itself.
+There are better methods. Extensions to the simple mean, in order of creation (and complexity), are [Sauvola](https://craftofcoding.wordpress.com/2021/10/06/thresholding-algorithms-sauvola-local), [Niblack](https://craftofcoding.wordpress.com/2021/09/30/thresholding-algorithms-niblack-local), and [Phansalkar](https://craftofcoding.wordpress.com/2021/09/28/thresholding-algorithms-phansalkar-local). Each of these modifies the plain mean with a bias based on a mix of mean, standard deviation, and parameters.
 
 This operator is __strict__ in its single input. The computed pixels are not materialized. They are immediately reduced to the threshold.
 
@@ -53,7 +53,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 
 Syntax: __aktive image threshold global niblack__ src ?(param value)...?
 
-Returns a global threshold for the input, according to Niblack's method.
+Returns a global threshold for the input, according to [Niblack](https://craftofcoding.wordpress.com/2021/09/30/thresholding-algorithms-niblack-local)'s method.
 
 This operator is __strict__ in its single input. The computed pixels are not materialized. They are immediately reduced to the threshold.
 
@@ -66,20 +66,20 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 
 Syntax: __aktive image threshold global otsu__ src ?(param value)...?
 
-Returns a global threshold for the input, according to Otsu's method.
+Returns a global threshold for the input, according to [Otsu](https://en.wikipedia.org/wiki/Otsu%27s_method)'s method.
 
 This operator is __strict__ in its single input. The computed pixels are not materialized. They are immediately reduced to the threshold.
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
-|bins|int|256|The number of bins used by the internal histogram. The pixel values are quantized to fit. Only values in the range of [0..1] are considered valid. Values outside of that range are placed into the smallest/largest bin. The default quantizes the image values to 8-bit.|
+|bins|int|256|The number of bins used by the internal histogram. The pixel values are quantized to fit. Only values in the range of `[0..1]` are considered valid. Values outside of that range are placed into the smallest/largest bins, respectively. The default quantizes the image values to 8-bit.|
 
 ---
 ### <a name='image_threshold_global_phansalkar'></a> aktive image threshold global phansalkar
 
 Syntax: __aktive image threshold global phansalkar__ src ?(param value)...?
 
-Returns a global threshold for the input, according to Phansalkar's method.
+Returns a global threshold for the input, according to [Phansalkar](https://craftofcoding.wordpress.com/2021/09/28/thresholding-algorithms-phansalkar-local)'s method.
 
 This operator is __strict__ in its single input. The computed pixels are not materialized. They are immediately reduced to the threshold.
 
@@ -95,7 +95,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 
 Syntax: __aktive image threshold global sauvola__ src ?(param value)...?
 
-Returns a global threshold for the input, according to Sauvola's method.
+Returns a global threshold for the input, according to [Sauvola](https://craftofcoding.wordpress.com/2021/10/06/thresholding-algorithms-sauvola-local)'s method.
 
 This operator is __strict__ in its single input. The computed pixels are not materialized. They are immediately reduced to the threshold.
 

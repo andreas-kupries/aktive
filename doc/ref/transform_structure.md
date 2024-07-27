@@ -168,7 +168,7 @@ Returns image aligned to a border in a larger image.
 
 Syntax: __aktive op center-origin x__ src
 
-Returns image where the center column of the input is shifted to the origin of the @@coordinate@@ axis.
+Returns image where the center column of the input is shifted to the origin of the x axis.
 
 
 ## Examples
@@ -202,7 +202,7 @@ Returns image where the center pixel of the input is shifted to the origin.
 
 Syntax: __aktive op center-origin y__ src
 
-Returns image where the center row of the input is shifted to the origin of the @@coordinate@@ axis.
+Returns image where the center row of the input is shifted to the origin of the y axis.
 
 
 ## Examples
@@ -219,7 +219,7 @@ Returns image where the center row of the input is shifted to the origin of the 
 
 Syntax: __aktive op center-origin z__ src
 
-Returns image where the center band of the input is shifted to the origin of the @@coordinate@@ axis.
+Returns image where the center band of the input is shifted to the origin of the z axis.
 
 
 ---
@@ -869,7 +869,7 @@ Returns image with the input sampled down along the z-axis according to the samp
 
 Syntax: __aktive op scroll x__ src (param value)...
 
-Returns image with the pixels of the input shifted along the @@coordinate@@ axis so that the N'th column becomes the origin on that axis.
+Returns image with the pixels of the input shifted along the x axis so that the N'th column becomes the origin on that axis.
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -889,7 +889,7 @@ Returns image with the pixels of the input shifted along the @@coordinate@@ axis
 
 Syntax: __aktive op scroll y__ src (param value)...
 
-Returns image with the pixels of the input shifted along the @@coordinate@@ axis so that the N'th row becomes the origin on that axis.
+Returns image with the pixels of the input shifted along the y axis so that the N'th row becomes the origin on that axis.
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -909,7 +909,7 @@ Returns image with the pixels of the input shifted along the @@coordinate@@ axis
 
 Syntax: __aktive op scroll z__ src (param value)...
 
-Returns image with the pixels of the input shifted along the @@coordinate@@ axis so that the N'th band becomes the origin on that axis.
+Returns image with the pixels of the input shifted along the z axis so that the N'th band becomes the origin on that axis.
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|

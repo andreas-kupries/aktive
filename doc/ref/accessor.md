@@ -72,7 +72,7 @@ Despite the naming the operator is __not strict__. It does not access the input'
 
 Syntax: __aktive op query colorspace__ src
 
-Returns the name of color space the image is in.
+Returns the name of the color space the input is in.
 
 If no colorspace is set then `sRGB` is assumed for 3-band images, and `grey` for single-band images.
 
@@ -84,7 +84,7 @@ For anything else an error is thrown instead of making assumptions.
 
 Syntax: __aktive query id__ src
 
-Returns an implementation-specific image identity.
+Returns the input's implementation-specific image identity.
 
 
 ---
@@ -92,7 +92,7 @@ Returns an implementation-specific image identity.
 
 Syntax: __aktive query inputs__ src
 
-Returns list of the image's inputs.
+Returns a list of the input's inputs.
 
 For an image without inputs the result is the empty list.
 
@@ -102,7 +102,7 @@ For an image without inputs the result is the empty list.
 
 Syntax: __aktive query params__ src
 
-Returns dictionary of the image's parameters.
+Returns a dictionary containing the input's parameters.
 
 For an image without parameters the result is the empty dictionary.
 
@@ -128,9 +128,9 @@ For an image without parameters the result is the empty dictionary.
 
 Syntax: __aktive query setup__ src
 
-Returns dictionary of the image's setup.
+Returns a dictionary containing the input's setup.
 
-This includes type, geometry, and parameters, if any. No inputs though, even if the image has any.
+This includes type, geometry, and parameters, if any. The inputs however are excluded.
 
 
 ## Examples
@@ -154,7 +154,7 @@ This includes type, geometry, and parameters, if any. No inputs though, even if 
 
 Syntax: __aktive query type__ src
 
-Returns the image's type.
+Returns the input's type.
 
 
 ## Examples

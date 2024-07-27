@@ -38,7 +38,7 @@
 
 Syntax: __aktive query depth__ src
 
-Returns the image's depth.
+Returns the input's depth.
 
 
 ## Examples
@@ -62,7 +62,7 @@ Returns the image's depth.
 
 Syntax: __aktive query domain__ src
 
-Returns the image domain, a 2D rectangle. I.e. location, width, and height.
+Returns the input's domain, a 2D rectangle. I.e. location, width, and height.
 
 
 ## Examples
@@ -86,7 +86,7 @@ Returns the image domain, a 2D rectangle. I.e. location, width, and height.
 
 Syntax: __aktive query geometry__ src
 
-Returns the full image geometry, i.e. domain and depth.
+Returns the input's full geometry, i.e. domain and depth.
 
 
 ## Examples
@@ -110,7 +110,7 @@ Returns the full image geometry, i.e. domain and depth.
 
 Syntax: __aktive query height__ src
 
-Returns the image's height.
+Returns the input's height.
 
 
 ## Examples
@@ -134,7 +134,7 @@ Returns the image's height.
 
 Syntax: __aktive query location__ src
 
-Returns the image location, a 2D point.
+Returns the input's location, a 2D point.
 
 
 ## Examples
@@ -158,7 +158,7 @@ Returns the image location, a 2D point.
 
 Syntax: __aktive query pitch__ src
 
-Returns the image's pitch, the number of values in a row, taking depth into account.
+Returns the input's pitch, the number of values in a row, i.e. width times depth.
 
 
 ## Examples
@@ -182,7 +182,7 @@ Returns the image's pitch, the number of values in a row, taking depth into acco
 
 Syntax: __aktive query pixels__ src
 
-Returns the image's number of pixels.
+Returns the input's number of pixels.
 
 
 ## Examples
@@ -206,7 +206,7 @@ Returns the image's number of pixels.
 
 Syntax: __aktive query size__ src
 
-Returns the image's size, the number of pixels multiplied by the depth.
+Returns the input's size, i.e. the number of pixels times depth.
 
 
 ## Examples
@@ -230,7 +230,7 @@ Returns the image's size, the number of pixels multiplied by the depth.
 
 Syntax: __aktive query width__ src
 
-Returns the image's width.
+Returns the input's width.
 
 
 ## Examples
@@ -254,7 +254,7 @@ Returns the image's width.
 
 Syntax: __aktive query x__ src
 
-Returns the image's x location.
+Returns the input's x location.
 
 
 ## Examples
@@ -278,7 +278,7 @@ Returns the image's x location.
 
 Syntax: __aktive query xmax__ src
 
-Returns the image's maximum x location.
+Returns the input's maximum x location.
 
 
 ## Examples
@@ -302,7 +302,7 @@ Returns the image's maximum x location.
 
 Syntax: __aktive query y__ src
 
-Returns the image's y location.
+Returns the input's y location.
 
 
 ## Examples
@@ -326,7 +326,7 @@ Returns the image's y location.
 
 Syntax: __aktive query ymax__ src
 
-Returns the image's maximum y location.
+Returns the input's maximum y location.
 
 
 ## Examples

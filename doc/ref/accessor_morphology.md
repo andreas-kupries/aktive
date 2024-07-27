@@ -26,7 +26,9 @@
 
 Syntax: __aktive op connected-components get__ src
 
-Returns a Tcl dictionary describing all the connected components found in the (binary) input.
+Returns a dictionary describing all the connected components of the single-band input.
+
+The input is expected to be binary. If not, all `values > 0` are treated as the foreground searched for components.
 
 The components are identified by integer numbers.
 
