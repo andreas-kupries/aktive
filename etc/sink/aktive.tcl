@@ -9,12 +9,13 @@ operator {
 } {
     section sink writer
 
-    note Writes image to the destination file, serialized \
-	with the AKTIVE format.
+    note Writes image to the destination file, \
+	serialized with the \[AKTIVE\](ff-aktive.md) format.
 
     input
 
-    strict single The computed pixels are not materialized. \
+    strict single \
+	The computed pixels are not materialized. \
 	They are immediately saved to the destination file.
 
     str into \
@@ -30,12 +31,13 @@ operator {
 } {
     section sink writer
 
-    note Writes image to the DST channel, serialized \
-	with the AKTIVE raw format.
+    note Writes image to the DST channel, \
+	serialized with the \[AKTIVE\](ff-aktive.md) format.
 
     input
 
-    strict single The computed pixels are not materialized. \
+    strict single \
+	The computed pixels are not materialized. \
 	They are immediately saved to the destination channel.
 
     channel into \
@@ -58,13 +60,13 @@ operator {
 } {
     section sink writer
 
-    note Returns byte array containing the image serialized \
-	with the AKTIVE raw format.
+    note Returns byte array containing the image, \
+	serialized with the \[AKTIVE\](ff-aktive.md) format.
 
     input
 
-    strict single The computed pixels __are__ materialized \
-	into the returned string.
+    strict single \
+	The computed pixels __are__ materialized into the returned string.
 
     return object0 {
 	TRACE ("AKTIVE starting", 0);

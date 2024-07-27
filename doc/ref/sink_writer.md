@@ -111,7 +111,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 
 Syntax: __aktive format as pgm byte 2chan__ src (param value)...
 
-Writes image to the destination channel, serialized with PGM's byte format.
+Writes image to the destination channel, serialized with [PGM](ff-netpbm.md)'s byte format.
 
 This operator is __strict__ in its single input. The computed pixels are not materialized. They are immediately saved to the destination channel.
 
@@ -124,7 +124,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 
 Syntax: __aktive format as pgm byte 2file__ src (param value)...
 
-Writes image to the destination file, serialized with PGM's byte format.
+Writes image to the destination file, serialized with [PGM](ff-netpbm.md)'s byte format.
 
 This operator is __strict__ in its single input. The computed pixels are not materialized. They are immediately saved to the destination file.
 
@@ -137,7 +137,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 
 Syntax: __aktive format as pgm byte 2string__ src
 
-Returns byte array containing the image serialized with PGM's byte format.
+Returns byte array containing the image, serialized with [PGM](ff-netpbm.md)'s byte format.
 
 This operator is __strict__ in its single input. The computed pixels __are__ materialized into the returned string.
 
@@ -147,7 +147,7 @@ This operator is __strict__ in its single input. The computed pixels __are__ mat
 
 Syntax: __aktive format as pgm etext 2chan__ src (param value)...
 
-Writes image to the destination channel, serialized with PGM's etext format.
+Writes image to the destination channel, serialized with [PGM](ff-netpbm.md)'s etext format.
 
 This operator is __strict__ in its single input. The computed pixels are not materialized. They are immediately saved to the destination channel.
 
@@ -160,7 +160,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 
 Syntax: __aktive format as pgm etext 2file__ src (param value)...
 
-Writes image to the destination file, serialized with PGM's etext format.
+Writes image to the destination file, serialized with [PGM](ff-netpbm.md)'s etext format.
 
 This operator is __strict__ in its single input. The computed pixels are not materialized. They are immediately saved to the destination file.
 
@@ -173,7 +173,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 
 Syntax: __aktive format as pgm etext 2string__ src
 
-Returns byte array containing the image serialized with PGM's etext format.
+Returns byte array containing the image, serialized with [PGM](ff-netpbm.md)'s etext format.
 
 This operator is __strict__ in its single input. The computed pixels __are__ materialized into the returned string.
 
@@ -183,7 +183,7 @@ This operator is __strict__ in its single input. The computed pixels __are__ mat
 
 Syntax: __aktive format as pgm short 2chan__ src (param value)...
 
-Writes image to the destination channel, serialized with PGM's short format.
+Writes image to the destination channel, serialized with [PGM](ff-netpbm.md)'s short format.
 
 This operator is __strict__ in its single input. The computed pixels are not materialized. They are immediately saved to the destination channel.
 
@@ -196,7 +196,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 
 Syntax: __aktive format as pgm short 2file__ src (param value)...
 
-Writes image to the destination file, serialized with PGM's short format.
+Writes image to the destination file, serialized with [PGM](ff-netpbm.md)'s short format.
 
 This operator is __strict__ in its single input. The computed pixels are not materialized. They are immediately saved to the destination file.
 
@@ -209,7 +209,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 
 Syntax: __aktive format as pgm short 2string__ src
 
-Returns byte array containing the image serialized with PGM's short format.
+Returns byte array containing the image, serialized with [PGM](ff-netpbm.md)'s short format.
 
 This operator is __strict__ in its single input. The computed pixels __are__ materialized into the returned string.
 
@@ -219,7 +219,7 @@ This operator is __strict__ in its single input. The computed pixels __are__ mat
 
 Syntax: __aktive format as pgm text 2chan__ src (param value)...
 
-Writes image to the destination channel, serialized with PGM's text format.
+Writes image to the destination channel, serialized with [PGM](ff-netpbm.md)'s text format.
 
 This operator is __strict__ in its single input. The computed pixels are not materialized. They are immediately saved to the destination channel.
 
@@ -232,7 +232,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 
 Syntax: __aktive format as pgm text 2file__ src (param value)...
 
-Writes image to the destination file, serialized with PGM's text format.
+Writes image to the destination file, serialized with [PGM](ff-netpbm.md)'s text format.
 
 This operator is __strict__ in its single input. The computed pixels are not materialized. They are immediately saved to the destination file.
 
@@ -245,7 +245,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 
 Syntax: __aktive format as pgm text 2string__ src
 
-Returns byte array containing the image serialized with PGM's text format.
+Returns byte array containing the image, serialized with [PGM](ff-netpbm.md)'s text format.
 
 This operator is __strict__ in its single input. The computed pixels __are__ materialized into the returned string.
 
@@ -255,7 +255,7 @@ This operator is __strict__ in its single input. The computed pixels __are__ mat
 
 Syntax: __aktive format as ppm byte 2chan__ src (param value)...
 
-Writes image to the destination channel, serialized with PPM's byte format.
+Writes image to the destination channel, serialized with [PPM](ff-netpbm.md)'s byte format.
 
 This operator is __strict__ in its single input. The computed pixels are not materialized. They are immediately saved to the destination channel.
 
@@ -268,7 +268,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 
 Syntax: __aktive format as ppm byte 2file__ src (param value)...
 
-Writes image to the destination file, serialized with PPM's byte format.
+Writes image to the destination file, serialized with [PPM](ff-netpbm.md)'s byte format.
 
 This operator is __strict__ in its single input. The computed pixels are not materialized. They are immediately saved to the destination file.
 
@@ -281,7 +281,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 
 Syntax: __aktive format as ppm byte 2string__ src
 
-Returns byte array containing the image serialized with PPM's byte format.
+Returns byte array containing the image, serialized with [PPM](ff-netpbm.md)'s byte format.
 
 This operator is __strict__ in its single input. The computed pixels __are__ materialized into the returned string.
 
@@ -291,7 +291,7 @@ This operator is __strict__ in its single input. The computed pixels __are__ mat
 
 Syntax: __aktive format as ppm etext 2chan__ src (param value)...
 
-Writes image to the destination channel, serialized with PPM's etext format.
+Writes image to the destination channel, serialized with [PPM](ff-netpbm.md)'s etext format.
 
 This operator is __strict__ in its single input. The computed pixels are not materialized. They are immediately saved to the destination channel.
 
@@ -304,7 +304,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 
 Syntax: __aktive format as ppm etext 2file__ src (param value)...
 
-Writes image to the destination file, serialized with PPM's etext format.
+Writes image to the destination file, serialized with [PPM](ff-netpbm.md)'s etext format.
 
 This operator is __strict__ in its single input. The computed pixels are not materialized. They are immediately saved to the destination file.
 
@@ -317,7 +317,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 
 Syntax: __aktive format as ppm etext 2string__ src
 
-Returns byte array containing the image serialized with PPM's etext format.
+Returns byte array containing the image, serialized with [PPM](ff-netpbm.md)'s etext format.
 
 This operator is __strict__ in its single input. The computed pixels __are__ materialized into the returned string.
 
@@ -327,7 +327,7 @@ This operator is __strict__ in its single input. The computed pixels __are__ mat
 
 Syntax: __aktive format as ppm short 2chan__ src (param value)...
 
-Writes image to the destination channel, serialized with PPM's short format.
+Writes image to the destination channel, serialized with [PPM](ff-netpbm.md)'s short format.
 
 This operator is __strict__ in its single input. The computed pixels are not materialized. They are immediately saved to the destination channel.
 
@@ -340,7 +340,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 
 Syntax: __aktive format as ppm short 2file__ src (param value)...
 
-Writes image to the destination file, serialized with PPM's short format.
+Writes image to the destination file, serialized with [PPM](ff-netpbm.md)'s short format.
 
 This operator is __strict__ in its single input. The computed pixels are not materialized. They are immediately saved to the destination file.
 
@@ -353,7 +353,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 
 Syntax: __aktive format as ppm short 2string__ src
 
-Returns byte array containing the image serialized with PPM's short format.
+Returns byte array containing the image, serialized with [PPM](ff-netpbm.md)'s short format.
 
 This operator is __strict__ in its single input. The computed pixels __are__ materialized into the returned string.
 
@@ -363,7 +363,7 @@ This operator is __strict__ in its single input. The computed pixels __are__ mat
 
 Syntax: __aktive format as ppm text 2chan__ src (param value)...
 
-Writes image to the destination channel, serialized with PPM's text format.
+Writes image to the destination channel, serialized with [PPM](ff-netpbm.md)'s text format.
 
 This operator is __strict__ in its single input. The computed pixels are not materialized. They are immediately saved to the destination channel.
 
@@ -376,7 +376,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 
 Syntax: __aktive format as ppm text 2file__ src (param value)...
 
-Writes image to the destination file, serialized with PPM's text format.
+Writes image to the destination file, serialized with [PPM](ff-netpbm.md)'s text format.
 
 This operator is __strict__ in its single input. The computed pixels are not materialized. They are immediately saved to the destination file.
 
@@ -389,7 +389,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 
 Syntax: __aktive format as ppm text 2string__ src
 
-Returns byte array containing the image serialized with PPM's text format.
+Returns byte array containing the image, serialized with [PPM](ff-netpbm.md)'s text format.
 
 This operator is __strict__ in its single input. The computed pixels __are__ materialized into the returned string.
 

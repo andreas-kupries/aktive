@@ -18,12 +18,13 @@ operator {
 
     section sink writer
 
-    note Writes image to the destination file, serialized \
-	with [string toupper $thing]'s $variant format.
+    note Writes image to the destination file, \
+	serialized with \[[string toupper $thing]\](ff-netpbm.md)'s $variant format.
 
     input
 
-    strict single The computed pixels are not materialized. \
+    strict single \
+	The computed pixels are not materialized. \
 	They are immediately saved to the destination file.
 
     str into \
@@ -49,12 +50,13 @@ operator {bands type maxval} {
 
     section sink writer
 
-    note Writes image to the destination channel, serialized \
-	with [string toupper $thing]'s $variant format.
+    note Writes image to the destination channel, \
+	serialized with \[[string toupper $thing]\](ff-netpbm.md)'s $variant format.
 
     input
 
-    strict single The computed pixels are not materialized. \
+    strict single \
+	The computed pixels are not materialized. \
 	They are immediately saved to the destination channel.
 
     channel into \
@@ -94,12 +96,13 @@ operator {bands type maxval} {
 
     section sink writer
 
-    note Returns byte array containing the image serialized \
-	with [string toupper $thing]'s $variant format.
+    note Returns byte array containing the image, \
+	serialized with \[[string toupper $thing]\](ff-netpbm.md)'s $variant format.
 
     input
 
-    strict single The computed pixels __are__ materialized \
+    strict single \
+	The computed pixels __are__ materialized \
 	into the returned string.
 
     return object0 {
