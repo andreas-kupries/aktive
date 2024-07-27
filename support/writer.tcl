@@ -71,11 +71,15 @@ proc dsl::writer::EmitDoc {stem} {
 
     # collect doc structure (sections, languages, alphanum)
     set docs {}
+    set xref {}
     foreach op [Operations] {
 	set spec    [Get ops $op]
 	set section [dict get $spec section]
 	set lang    [dict get $spec lang]
 	set strict  [dict get $spec strict]
+
+	set ref \[[OpName $op]\]([OpSectionKey $section].md#[OpKey $op])
+	lappend xref [list xref [OpName $op] $ref]
 
 	dict set docs section $section op $op [OpDoc $stem $op $spec]
 	dict set docs lang    $lang $op $section
@@ -90,6 +94,8 @@ proc dsl::writer::EmitDoc {stem} {
 	if {!$strict} continue
 	dict set docs strict $op $section
     }
+
+    Into ${stem}xref.tcl string cat [join $xref \n] \n
 
     # Emit by-section operator collections (= by section index)
     dict for {section spec} [dict get $docs section] {

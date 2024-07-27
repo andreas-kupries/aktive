@@ -3,7 +3,37 @@
 package require fileutil
 
 proc main {} {
-    do [lsort -dict $::argv]
+    do [cmdline]
+}
+
+proc cmdline {} {
+    global argv xr
+
+    set xrefs {}
+    while {[string match -* [set o [lindex $argv 0]]]} {
+	switch -exact -- $o {
+	    -- {		                  set argv [lrange $argv 1 end] ; break }
+	    -x { lappend xrefs [lindex $argv 1] ; set argv [lrange $argv 2 end]         }
+	    default usage
+	}
+    }
+
+    set xr {}
+    foreach path $xrefs { source $path }
+
+    return [lsort -dict $argv]
+}
+
+proc usage {} {
+    global argv0
+    puts stderr "$argv0 ?-x xref? path..."
+    exit 1
+}
+
+proc xref {key value} {
+    global xr 
+    dict set xr $key $value
+    return
 }
 
 proc do {paths} {
@@ -19,6 +49,8 @@ proc do-file {path} {
 }
 
 proc resolve {path chain} {
+    global xr
+    
     join [lmap line [split [fileutil::cat $path] \n] {
 	if {[string match "!include *" $line]} {
 	    # whole line replacement by included file
@@ -33,6 +65,7 @@ proc resolve {path chain} {
 	    puts "  $line"
 	    # in-line inclusion, replace part of the line
 	    # do not recurse
+	    
 	    set start 0
 	    set matches {}
 	    while {[regexp -start $start -indices {(<!include: [^>]*>)} $line -> match]} {
@@ -64,6 +97,33 @@ proc resolve {path chain} {
 		set line [string replace $line {*}$match $include]
 	    }
 	    set line
+	} elseif {[regexp {(<!xref: [^>]*>)} $line]} {
+	    puts "  $line"
+	    # in-line cross-reference, replace part of the line
+	    # do not recurse
+
+	    set start 0
+	    set matches {}
+	    while {[regexp -start $start -indices {(<!xref: [^>]*>)} $line -> match]} {
+		#puts "    $match"
+		lappend matches $match
+		set start [lindex $match end]
+	    }
+	    #puts "(($matches)) :: /$line/"
+	    # work from the back, this keeps the indices correct as replacements happen.
+	    foreach match [lreverse $matches] {
+		set cmd [string range $line {*}$match]
+		puts "    ($cmd)@($match)"
+		regexp {<!xref: ([^>]*)>} $cmd -> reference
+
+		if {![dict exists $xr $reference]} continue
+		set replacement [dict get $xr $reference]
+		
+		#puts r(($include))
+		set line [string replace $line {*}$match $replacement]
+	    }
+	    set line
+	    
 	} else {
 	    set line
 	}

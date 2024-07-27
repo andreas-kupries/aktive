@@ -20,9 +20,12 @@ rm doc/assets/*.inc
 mkdir -p ../Logs
 $K ./build.tcl uninstall install "$@" |& tee ../Logs/test.install && \
     tclsh examples.tcl && \
-    tclsh tools/md-include $(find doc -name '*.md' -a -not -name 'example-*')
+    tclsh tools/md-include \
+	  -x doc/ref/xref.tcl \
+	  $(find doc -name '*.md' -a -not -name 'example-*')
 
 rm -rf doc/parts
 rm -rf doc/dev/figures/*.d2
 rm -rf doc/dev/figures/generated
 rm -rf doc/dev/figures/parts
+rm -rf doc/ref/*.tcl
