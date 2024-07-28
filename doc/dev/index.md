@@ -10,11 +10,9 @@
 AKTIVE's developer documentation explains the internals of the package, especially its operator
 specification DSL and templating system.
 
-  - [Code generated from the operator specifications](generated-code.md)
-  - Image Pipelines:
-      - [Definition structures](definitions.md)
-      - [Runtime structures](runtime.md)
-      - [Definition and Runtime structures together](defrun.md)
+  - [Operator Specifications DSL](opspec.md)
+  - [Generated Code](generated-code.md)
+  - [Data Structures for Image Pipelines](pipeline-structures.md)
   - [Batch Processor](batch.md) - AKTIVE's foundation for horizontal threading.
   - [Connected Components](cc.md)
 

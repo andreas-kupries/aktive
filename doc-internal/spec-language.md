@@ -194,7 +194,7 @@ The basic templating is done by means of named code blocks created via `def`. Ea
 Note that for an operator specification using variables each variable is also available as a code
 block of the same name.
 
-When using both code blocks and last-minute templating the code blocks are inserted first, before
+When using both code blocks and last-minute templating the code blocks are resolved first, before
 the keys from the last-minute templating.
 
 ###### `FIELDS`, `RFIELDS`
