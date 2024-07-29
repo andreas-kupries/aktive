@@ -31,23 +31,40 @@ set ranges [list {*}{
     {6 23 24 1.0} {6 30 31 1.0}
     {7 24 25 1.0} {7 29 30 1.0}
 }]
-set expected [string map {_ 0 * 1} {
-    _ _ * * * * * * * _ _
-    _ * * * * * * * * * _
-    * * * * * * * * * * *
-    * * * _ _ _ _ _ * * *
-    * * _ _ _ _ _ _ _ * *
-    _ * * _ _ _ _ _ * * _
-    _ _ * * _ _ _ * * _ _
-}]
 
-test aktive-image-from-sparse-ranges-2.0 "aktive image from sparse ranges" -body {
+test aktive-image-from-sparse-ranges-2.0 "aktive image from sparse ranges, bounding box" -body {
     astclx 11 aktive image from sparse ranges ranges {*}$ranges
 } -match image -result [makei image::from::sparse::ranges \
-			    22 1 11 7 1 [list ranges $ranges] \
-			    $expected]
+    22 1 11 7 1 [list geometry {0 0 0 0} ranges $ranges] \
+    [string map {_ 0 * 1} {
+	_ _ * * * * * * * _ _
+	_ * * * * * * * * * _
+	* * * * * * * * * * *
+	* * * _ _ _ _ _ * * *
+	* * _ _ _ _ _ _ _ * *
+	_ * * _ _ _ _ _ * * _
+	_ _ * * _ _ _ * * _ _
+    }]]
+
+test aktive-image-from-sparse-ranges-2.0 "aktive image from sparse ranges, set geometry" -body {
+    astclx 33 aktive image from sparse ranges geometry {0 0 33 11} ranges {*}$ranges
+} -match image -result [makei image::from::sparse::ranges \
+    0 0 33 11 1 [list geometry {0 0 33 11} ranges $ranges] \
+    [string map {_ 0 * 1} {
+	_ _ _ _ _ _ _ _ _ _ _  _ _ _ _ _ _ _ _ _ _ _  _ _ _ _ _ _ _ _ _ _ _
+	_ _ _ _ _ _ _ _ _ _ _  _ _ _ _ _ _ _ _ _ _ _  _ _ * * * * * * * _ _
+	_ _ _ _ _ _ _ _ _ _ _  _ _ _ _ _ _ _ _ _ _ _  _ * * * * * * * * * _
+	_ _ _ _ _ _ _ _ _ _ _  _ _ _ _ _ _ _ _ _ _ _  * * * * * * * * * * *
+	_ _ _ _ _ _ _ _ _ _ _  _ _ _ _ _ _ _ _ _ _ _  * * * _ _ _ _ _ * * *
+	_ _ _ _ _ _ _ _ _ _ _  _ _ _ _ _ _ _ _ _ _ _  * * _ _ _ _ _ _ _ * *
+	_ _ _ _ _ _ _ _ _ _ _  _ _ _ _ _ _ _ _ _ _ _  _ * * _ _ _ _ _ * * _
+	_ _ _ _ _ _ _ _ _ _ _  _ _ _ _ _ _ _ _ _ _ _  _ _ * * _ _ _ * * _ _
+	_ _ _ _ _ _ _ _ _ _ _  _ _ _ _ _ _ _ _ _ _ _  _ _ _ _ _ _ _ _ _ _ _
+	_ _ _ _ _ _ _ _ _ _ _  _ _ _ _ _ _ _ _ _ _ _  _ _ _ _ _ _ _ _ _ _ _
+	_ _ _ _ _ _ _ _ _ _ _  _ _ _ _ _ _ _ _ _ _ _  _ _ _ _ _ _ _ _ _ _ _
+    }]]
 
 # # ## ### ##### ######## ############# #####################
-unset ranges expected
+unset ranges
 cleanupTests
 return

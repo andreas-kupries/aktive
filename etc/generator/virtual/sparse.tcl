@@ -133,7 +133,9 @@ operator image::from::sparse::ranges {
     note The bounding box over all provided the ranges specifies the result's geometry, including the origin.
     note The image depth is fixed at 1, i.e. the result is single-band.
 
-    range... ranges Ranges to set in the result
+    rect? {{0 0 0 0}} geometry	Image geometry. Defaults to the bounding box of the ranges.
+
+    range...          ranges    The ranges to set in the result, and their values.
 
     state -fields {
 	aktive_uint* rowstart; // index of where each row starts in the ranges.
@@ -141,10 +143,15 @@ operator image::from::sparse::ranges {
     } -cleanup {
 	FREE (state->rowstart);
     } -setup {
-	// Compute the bounding box from the ranges and use the result as the image geometry.
-	aktive_rectangle bb;
-	aktive_range_union (&bb, param->ranges.c, param->ranges.v);
-	aktive_geometry_set_rectangle (domain, &bb);
+	// Either use the provided geometry, or compute the bounding box from the ranges
+	// and use the result as the image geometry.
+	if (aktive_rectangle_is_empty (&param->geometry)) {
+	    aktive_rectangle bb;
+	    aktive_range_union (&bb, param->ranges.c, param->ranges.v);
+	    aktive_geometry_set_rectangle (domain, &bb);
+	} else {
+	    aktive_geometry_set_rectangle (domain, &param->geometry);
+	}
 	domain->depth = 1;
 
 	// pre-sort the ranges for better iteration
