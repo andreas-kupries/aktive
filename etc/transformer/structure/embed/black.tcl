@@ -25,7 +25,7 @@ operator op::embed::black {
     body {
 	Check
 
-	lassign [aktive query geometry $src] x y w h d
+	lassign [aktive query domain $src] x y w h
 
 	incr x -$left
 	incr y -$top
