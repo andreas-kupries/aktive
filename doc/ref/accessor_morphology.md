@@ -34,6 +34,8 @@ The components are identified by integer numbers.
 
 The data of each component is a dictionary providing the elements of the component's bounding box, its area (in pixels), and an unordered list of the row ranges the component consists of.
 
+See "[aktive op connected-components labeled](transform_morphology.md#op_connected_components_labeled)" for a transformer command built on top of this.
+
 
 ## Examples
 

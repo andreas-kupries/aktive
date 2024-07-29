@@ -437,7 +437,7 @@ Pixel value is fixed at 1.0
 ---
 ### <a name='image_from_sparse_ranges'></a> aktive image from sparse ranges
 
-Syntax: __aktive image from sparse ranges__  (param value)...
+Syntax: __aktive image from sparse ranges__  ?(param value)...?
 
 Returns a single-band image where the pixels are set to the specified values as per the provided row ranges.
 
@@ -453,7 +453,8 @@ The image depth is fixed at 1, i.e. the result is single-band.
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
-|ranges|range...||Ranges to set in the result|
+|geometry|rect|{0 0 0 0}|Image geometry. Defaults to the bounding box of the ranges.|
+|ranges|range...||The ranges to set in the result, and their values.|
 
 ## Examples
 
@@ -591,13 +592,7 @@ Returns 2-band image where each pixel declares its own position
 
 ### aktive image indexed width 5 height 5
 
-||||||
-|---:|---:|---:|---:|---:|
-|(0, 0)|(1, 0)|(2, 0)|(3, 0)|(4, 0)|
-|(0, 1)|(1, 1)|(2, 1)|(3, 1)|(4, 1)|
-|(0, 2)|(1, 2)|(2, 2)|(3, 2)|(4, 2)|
-|(0, 3)|(1, 3)|(2, 3)|(3, 3)|(4, 3)|
-|(0, 4)|(1, 4)|(2, 4)|(3, 4)|(4, 4)|
+<table><tr><td>(0, 0)</td><td>(1, 0)</td><td>(2, 0)</td><td>(3, 0)</td><td>(4, 0)</td></tr><tr><td>(0, 1)</td><td>(1, 1)</td><td>(2, 1)</td><td>(3, 1)</td><td>(4, 1)</td></tr><tr><td>(0, 2)</td><td>(1, 2)</td><td>(2, 2)</td><td>(3, 2)</td><td>(4, 2)</td></tr><tr><td>(0, 3)</td><td>(1, 3)</td><td>(2, 3)</td><td>(3, 3)</td><td>(4, 3)</td></tr><tr><td>(0, 4)</td><td>(1, 4)</td><td>(2, 4)</td><td>(3, 4)</td><td>(4, 4)</td></tr></table>
 
 
 ---
@@ -612,11 +607,7 @@ Returns convolution kernel for embossing effect
 
 ### aktive image kernel emboss
 
-||||
-|---:|---:|---:|
-|2|0|0|
-|0|-1|0|
-|0|0|-1|
+<table><tr><td>2</td><td>0</td><td>0</td></tr><tr><td>0</td><td>-1</td><td>0</td></tr><tr><td>0</td><td>0</td><td>-1</td></tr></table>
 
 
 ---
@@ -631,9 +622,7 @@ Returns convolution kernel for gauss3ian blur effect
 
 ### aktive image kernel gauss3 x
 
-||||
-|---:|---:|---:|
-|0.2500|0.5000|0.2500|
+<table><tr><td>0.2500</td><td>0.5000</td><td>0.2500</td></tr></table>
 
 
 ---
@@ -648,11 +637,7 @@ Returns convolution kernel for gauss3ian blur effect
 
 ### aktive image kernel gauss3 xy
 
-||||
-|---:|---:|---:|
-|0.0625|0.1250|0.0625|
-|0.1250|0.2500|0.1250|
-|0.0625|0.1250|0.0625|
+<table><tr><td>0.0625</td><td>0.1250</td><td>0.0625</td></tr><tr><td>0.1250</td><td>0.2500</td><td>0.1250</td></tr><tr><td>0.0625</td><td>0.1250</td><td>0.0625</td></tr></table>
 
 
 ---
@@ -667,11 +652,7 @@ Returns convolution kernel for gauss3ian blur effect
 
 ### aktive image kernel gauss3 y
 
-||
-|---:|
-|0.2500|
-|0.5000|
-|0.2500|
+<table><tr><td>0.2500</td></tr><tr><td>0.5000</td></tr><tr><td>0.2500</td></tr></table>
 
 
 ---
@@ -686,9 +667,7 @@ Returns convolution kernel for gauss5ian blur effect
 
 ### aktive image kernel gauss5 x
 
-||||||
-|---:|---:|---:|---:|---:|
-|0.0625|0.2500|0.3750|0.2500|0.0625|
+<table><tr><td>0.0625</td><td>0.2500</td><td>0.3750</td><td>0.2500</td><td>0.0625</td></tr></table>
 
 
 ---
@@ -703,13 +682,7 @@ Returns convolution kernel for gauss5ian blur effect
 
 ### aktive image kernel gauss5 y
 
-||
-|---:|
-|0.0625|
-|0.2500|
-|0.3750|
-|0.2500|
-|0.0625|
+<table><tr><td>0.0625</td></tr><tr><td>0.2500</td></tr><tr><td>0.3750</td></tr><tr><td>0.2500</td></tr><tr><td>0.0625</td></tr></table>
 
 
 ---
@@ -724,9 +697,7 @@ Returns convolution kernel for gauss7ian blur effect
 
 ### aktive image kernel gauss7 x
 
-||||||||
-|---:|---:|---:|---:|---:|---:|---:|
-|0.0156|0.0938|0.2344|0.3125|0.2344|0.0938|0.0156|
+<table><tr><td>0.0156</td><td>0.0938</td><td>0.2344</td><td>0.3125</td><td>0.2344</td><td>0.0938</td><td>0.0156</td></tr></table>
 
 
 ---
@@ -741,15 +712,7 @@ Returns convolution kernel for gauss7ian blur effect
 
 ### aktive image kernel gauss7 y
 
-||
-|---:|
-|0.0156|
-|0.0938|
-|0.2344|
-|0.3125|
-|0.2344|
-|0.0938|
-|0.0156|
+<table><tr><td>0.0156</td></tr><tr><td>0.0938</td></tr><tr><td>0.2344</td></tr><tr><td>0.3125</td></tr><tr><td>0.2344</td></tr><tr><td>0.0938</td></tr><tr><td>0.0156</td></tr></table>
 
 
 ---
@@ -764,9 +727,7 @@ Returns convolution kernel for gauss9ian blur effect
 
 ### aktive image kernel gauss9 x
 
-||||||||||
-|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-|0.0078|0.0625|0.2188|0.4375|0.5469|0.4375|0.2188|0.0625|0.0078|
+<table><tr><td>0.0078</td><td>0.0625</td><td>0.2188</td><td>0.4375</td><td>0.5469</td><td>0.4375</td><td>0.2188</td><td>0.0625</td><td>0.0078</td></tr></table>
 
 
 ---
@@ -781,17 +742,7 @@ Returns convolution kernel for gauss9ian blur effect
 
 ### aktive image kernel gauss9 y
 
-||
-|---:|
-|0.0078|
-|0.0625|
-|0.2188|
-|0.4375|
-|0.5469|
-|0.4375|
-|0.2188|
-|0.0625|
-|0.0078|
+<table><tr><td>0.0078</td></tr><tr><td>0.0625</td></tr><tr><td>0.2188</td></tr><tr><td>0.4375</td></tr><tr><td>0.5469</td></tr><tr><td>0.4375</td></tr><tr><td>0.2188</td></tr><tr><td>0.0625</td></tr><tr><td>0.0078</td></tr></table>
 
 
 ---
@@ -812,23 +763,17 @@ For more about the math see http://en.wikipedia.org/wiki/Scale_space_implementat
 
 ### aktive image kernel gauss discrete sigma 1
 
-||||||||
-|---:|---:|---:|---:|---:|---:|---:|
-|0.0082|0.0501|0.2084|0.4668|0.2084|0.0501|0.0082|
+<table><tr><td>0.0082</td><td>0.0501</td><td>0.2084</td><td>0.4668</td><td>0.2084</td><td>0.0501</td><td>0.0082</td></tr></table>
 
 
 ### aktive image kernel gauss discrete sigma 2
 
-||||||||||||||
-|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-|0.0028|0.0093|0.0260|0.0612|0.1179|0.1791|0.2074|0.1791|0.1179|0.0612|0.0260|0.0093|0.0028|
+<table><tr><td>0.0028</td><td>0.0093</td><td>0.0260</td><td>0.0612</td><td>0.1179</td><td>0.1791</td><td>0.2074</td><td>0.1791</td><td>0.1179</td><td>0.0612</td><td>0.0260</td><td>0.0093</td><td>0.0028</td></tr></table>
 
 
 ### aktive image kernel gauss discrete sigma 1 radius 6
 
-||||||||||||||
-|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-|0.0000|0.0001|0.0010|0.0082|0.0499|0.2079|0.4658|0.2079|0.0499|0.0082|0.0010|0.0001|0.0000|
+<table><tr><td>0.0000</td><td>0.0001</td><td>0.0010</td><td>0.0082</td><td>0.0499</td><td>0.2079</td><td>0.4658</td><td>0.2079</td><td>0.0499</td><td>0.0082</td><td>0.0010</td><td>0.0001</td><td>0.0000</td></tr></table>
 
 
 ---
@@ -843,11 +788,7 @@ Returns convolution kernel for kirsch edge detection
 
 ### aktive image kernel kirsch md
 
-||||
-|---:|---:|---:|
-|-3|5|5|
-|-3|0|5|
-|-3|-3|-3|
+<table><tr><td>-3</td><td>5</td><td>5</td></tr><tr><td>-3</td><td>0</td><td>5</td></tr><tr><td>-3</td><td>-3</td><td>-3</td></tr></table>
 
 
 ---
@@ -862,11 +803,7 @@ Returns convolution kernel for kirsch edge detection
 
 ### aktive image kernel kirsch sd
 
-||||
-|---:|---:|---:|
-|5|5|-3|
-|5|0|-3|
-|-3|-3|-3|
+<table><tr><td>5</td><td>5</td><td>-3</td></tr><tr><td>5</td><td>0</td><td>-3</td></tr><tr><td>-3</td><td>-3</td><td>-3</td></tr></table>
 
 
 ---
@@ -881,11 +818,7 @@ Returns convolution kernel for kirsch edge detection
 
 ### aktive image kernel kirsch x
 
-||||
-|---:|---:|---:|
-|5|-3|-3|
-|5|0|-3|
-|5|-3|-3|
+<table><tr><td>5</td><td>-3</td><td>-3</td></tr><tr><td>5</td><td>0</td><td>-3</td></tr><tr><td>5</td><td>-3</td><td>-3</td></tr></table>
 
 
 ---
@@ -900,11 +833,7 @@ Returns convolution kernel for kirsch edge detection
 
 ### aktive image kernel kirsch y
 
-||||
-|---:|---:|---:|
-|5|5|5|
-|-3|0|-3|
-|-3|-3|-3|
+<table><tr><td>5</td><td>5</td><td>5</td></tr><tr><td>-3</td><td>0</td><td>-3</td></tr><tr><td>-3</td><td>-3</td><td>-3</td></tr></table>
 
 
 ---
@@ -925,23 +854,17 @@ For more about the math see https://en.wikipedia.org/wiki/Lanczos_resampling#Lan
 
 ### aktive image kernel lanczos
 
-||||||
-|---:|---:|---:|---:|---:|
-|-0.0000|0.0000|1.0000|0.0000|-0.0000|
+<table><tr><td>-0.0000</td><td>0.0000</td><td>1.0000</td><td>0.0000</td><td>-0.0000</td></tr></table>
 
 
 ### aktive image kernel lanczos order 2
 
-||||
-|---:|---:|---:|
-|0.0000|1.0000|0.0000|
+<table><tr><td>0.0000</td><td>1.0000</td><td>0.0000</td></tr></table>
 
 
 ### aktive image kernel lanczos order 2 step 0.25
 
-||||||||||||||||
-|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-|-0.0179|-0.0637|-0.0847|0.0000|0.2353|0.5732|0.8774|1.0000|0.8774|0.5732|0.2353|0.0000|-0.0847|-0.0637|-0.0179|
+<table><tr><td>-0.0179</td><td>-0.0637</td><td>-0.0847</td><td>0.0000</td><td>0.2353</td><td>0.5732</td><td>0.8774</td><td>1.0000</td><td>0.8774</td><td>0.5732</td><td>0.2353</td><td>0.0000</td><td>-0.0847</td><td>-0.0637</td><td>-0.0179</td></tr></table>
 
 
 ---
@@ -956,11 +879,7 @@ Returns convolution kernel for laplacian edge detection
 
 ### aktive image kernel laplace 4
 
-||||
-|---:|---:|---:|
-|0|-1|0|
-|-1|4|-1|
-|0|-1|0|
+<table><tr><td>0</td><td>-1</td><td>0</td></tr><tr><td>-1</td><td>4</td><td>-1</td></tr><tr><td>0</td><td>-1</td><td>0</td></tr></table>
 
 
 ---
@@ -975,11 +894,7 @@ Returns convolution kernel for laplacian edge detection
 
 ### aktive image kernel laplace 8
 
-||||
-|---:|---:|---:|
-|-1|-1|-1|
-|-1|8|-1|
-|-1|-1|-1|
+<table><tr><td>-1</td><td>-1</td><td>-1</td></tr><tr><td>-1</td><td>8</td><td>-1</td></tr><tr><td>-1</td><td>-1</td><td>-1</td></tr></table>
 
 
 ---
@@ -994,11 +909,7 @@ Returns convolution kernel for laplacian edge detection
 
 ### aktive image kernel laplace X
 
-||||
-|---:|---:|---:|
-|1|-2|1|
-|-2|4|-2|
-|1|-2|1|
+<table><tr><td>1</td><td>-2</td><td>1</td></tr><tr><td>-2</td><td>4</td><td>-2</td></tr><tr><td>1</td><td>-2</td><td>1</td></tr></table>
 
 
 ---
@@ -1013,11 +924,7 @@ Returns convolution kernel for prewitt edge detection
 
 ### aktive image kernel prewitt md
 
-||||
-|---:|---:|---:|
-|0|1|1|
-|-1|0|1|
-|-1|-1|0|
+<table><tr><td>0</td><td>1</td><td>1</td></tr><tr><td>-1</td><td>0</td><td>1</td></tr><tr><td>-1</td><td>-1</td><td>0</td></tr></table>
 
 
 ---
@@ -1032,11 +939,7 @@ Returns convolution kernel for prewitt edge detection
 
 ### aktive image kernel prewitt sd
 
-||||
-|---:|---:|---:|
-|-1|-1|0|
-|-1|0|1|
-|0|1|1|
+<table><tr><td>-1</td><td>-1</td><td>0</td></tr><tr><td>-1</td><td>0</td><td>1</td></tr><tr><td>0</td><td>1</td><td>1</td></tr></table>
 
 
 ---
@@ -1051,11 +954,7 @@ Returns convolution kernel for prewitt edge detection
 
 ### aktive image kernel prewitt x
 
-||||
-|---:|---:|---:|
-|-1|0|1|
-|-1|0|1|
-|-1|0|1|
+<table><tr><td>-1</td><td>0</td><td>1</td></tr><tr><td>-1</td><td>0</td><td>1</td></tr><tr><td>-1</td><td>0</td><td>1</td></tr></table>
 
 
 ---
@@ -1070,11 +969,7 @@ Returns convolution kernel for prewitt edge detection
 
 ### aktive image kernel prewitt y
 
-||||
-|---:|---:|---:|
-|-1|-1|-1|
-|0|0|0|
-|1|1|1|
+<table><tr><td>-1</td><td>-1</td><td>-1</td></tr><tr><td>0</td><td>0</td><td>0</td></tr><tr><td>1</td><td>1</td><td>1</td></tr></table>
 
 
 ---
@@ -1089,11 +984,7 @@ Returns convolution kernel for roberts cross edge detection
 
 ### aktive image kernel roberts x
 
-||||
-|---:|---:|---:|
-|0|-1|0|
-|1|0|0|
-|0|0|0|
+<table><tr><td>0</td><td>-1</td><td>0</td></tr><tr><td>1</td><td>0</td><td>0</td></tr><tr><td>0</td><td>0</td><td>0</td></tr></table>
 
 
 ---
@@ -1108,11 +999,7 @@ Returns convolution kernel for roberts cross edge detection
 
 ### aktive image kernel roberts y
 
-||||
-|---:|---:|---:|
-|-1|0|0|
-|0|1|0|
-|0|0|0|
+<table><tr><td>-1</td><td>0</td><td>0</td></tr><tr><td>0</td><td>1</td><td>0</td></tr><tr><td>0</td><td>0</td><td>0</td></tr></table>
 
 
 ---
@@ -1127,11 +1014,7 @@ Returns convolution kernel for scharr edge detection
 
 ### aktive image kernel scharr x
 
-||||
-|---:|---:|---:|
-|-3|0|3|
-|-10|0|10|
-|-3|0|3|
+<table><tr><td>-3</td><td>0</td><td>3</td></tr><tr><td>-10</td><td>0</td><td>10</td></tr><tr><td>-3</td><td>0</td><td>3</td></tr></table>
 
 
 ---
@@ -1146,11 +1029,7 @@ Returns convolution kernel for scharr edge detection
 
 ### aktive image kernel scharr y
 
-||||
-|---:|---:|---:|
-|-3|-10|-3|
-|0|0|0|
-|3|10|3|
+<table><tr><td>-3</td><td>-10</td><td>-3</td></tr><tr><td>0</td><td>0</td><td>0</td></tr><tr><td>3</td><td>10</td><td>3</td></tr></table>
 
 
 ---
@@ -1165,11 +1044,7 @@ Returns convolution kernel for sharpening effect
 
 ### aktive image kernel sharp 4
 
-||||
-|---:|---:|---:|
-|0|-1|0|
-|-1|5|-1|
-|0|-1|0|
+<table><tr><td>0</td><td>-1</td><td>0</td></tr><tr><td>-1</td><td>5</td><td>-1</td></tr><tr><td>0</td><td>-1</td><td>0</td></tr></table>
 
 
 ---
@@ -1184,11 +1059,7 @@ Returns convolution kernel for sharpening effect
 
 ### aktive image kernel sharp 8
 
-||||
-|---:|---:|---:|
-|-1|-1|-1|
-|-1|9|-1|
-|-1|-1|-1|
+<table><tr><td>-1</td><td>-1</td><td>-1</td></tr><tr><td>-1</td><td>9</td><td>-1</td></tr><tr><td>-1</td><td>-1</td><td>-1</td></tr></table>
 
 
 ---
@@ -1203,11 +1074,7 @@ Returns convolution kernel for sharpening effect
 
 ### aktive image kernel sharp X
 
-||||
-|---:|---:|---:|
-|1|-2|1|
-|-2|5|-2|
-|1|-2|1|
+<table><tr><td>1</td><td>-2</td><td>1</td></tr><tr><td>-2</td><td>5</td><td>-2</td></tr><tr><td>1</td><td>-2</td><td>1</td></tr></table>
 
 
 ---
@@ -1222,11 +1089,7 @@ Returns convolution kernel for sobel edge detection
 
 ### aktive image kernel sobel md
 
-||||
-|---:|---:|---:|
-|0|-1|-1|
-|2|0|-2|
-|1|1|0|
+<table><tr><td>0</td><td>-1</td><td>-1</td></tr><tr><td>2</td><td>0</td><td>-2</td></tr><tr><td>1</td><td>1</td><td>0</td></tr></table>
 
 
 ---
@@ -1241,11 +1104,7 @@ Returns convolution kernel for sobel edge detection
 
 ### aktive image kernel sobel sd
 
-||||
-|---:|---:|---:|
-|1|1|0|
-|2|0|-2|
-|0|-1|-1|
+<table><tr><td>1</td><td>1</td><td>0</td></tr><tr><td>2</td><td>0</td><td>-2</td></tr><tr><td>0</td><td>-1</td><td>-1</td></tr></table>
 
 
 ---
@@ -1260,11 +1119,7 @@ Returns convolution kernel for sobel edge detection
 
 ### aktive image kernel sobel x
 
-||||
-|---:|---:|---:|
-|1|0|-1|
-|2|0|-2|
-|1|0|-1|
+<table><tr><td>1</td><td>0</td><td>-1</td></tr><tr><td>2</td><td>0</td><td>-2</td></tr><tr><td>1</td><td>0</td><td>-1</td></tr></table>
 
 
 ---
@@ -1279,11 +1134,7 @@ Returns convolution kernel for sobel edge detection
 
 ### aktive image kernel sobel y
 
-||||
-|---:|---:|---:|
-|1|2|1|
-|0|0|0|
-|-1|-2|-1|
+<table><tr><td>1</td><td>2</td><td>1</td></tr><tr><td>0</td><td>0</td><td>0</td></tr><tr><td>-1</td><td>-2</td><td>-1</td></tr></table>
 
 
 ---

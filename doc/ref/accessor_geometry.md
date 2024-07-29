@@ -48,14 +48,14 @@ Returns the input's depth.
 |||
 |---|---|
 |@1|aktive query depth @1|
-|<img src='example-00311.gif' alt='aktive query depth @1' style='border:4px solid gold'>|`1`|
+|<img src='example-00315.gif' alt='aktive query depth @1' style='border:4px solid gold'>|`1`|
 
 ### aktive query depth @1
 
 |||
 |---|---|
 |@1|aktive query depth @1|
-|<img src='example-00313.gif' alt='aktive query depth @1' style='border:4px solid gold'>|`1`|
+|<img src='example-00317.gif' alt='aktive query depth @1' style='border:4px solid gold'>|`1`|
 
 ---
 ### <a name='query_domain'></a> aktive query domain
@@ -72,14 +72,14 @@ Returns the input's domain, a 2D rectangle. I.e. location, width, and height.
 |||
 |---|---|
 |@1|aktive query domain @1|
-|<img src='example-00315.gif' alt='aktive query domain @1' style='border:4px solid gold'>|`0 0 32 32`|
+|<img src='example-00319.gif' alt='aktive query domain @1' style='border:4px solid gold'>|`0 0 32 32`|
 
 ### aktive query domain @1
 
 |||
 |---|---|
 |@1|aktive query domain @1|
-|<img src='example-00317.gif' alt='aktive query domain @1' style='border:4px solid gold'>|`0 0 32 32`|
+|<img src='example-00321.gif' alt='aktive query domain @1' style='border:4px solid gold'>|`0 0 32 32`|
 
 ---
 ### <a name='query_geometry'></a> aktive query geometry
@@ -96,14 +96,14 @@ Returns the input's full geometry, i.e. domain and depth.
 |||
 |---|---|
 |@1|aktive query geometry @1|
-|<img src='example-00319.gif' alt='aktive query geometry @1' style='border:4px solid gold'>|`0 0 32 32 1`|
+|<img src='example-00323.gif' alt='aktive query geometry @1' style='border:4px solid gold'>|`0 0 32 32 1`|
 
 ### aktive query geometry @1
 
 |||
 |---|---|
 |@1|aktive query geometry @1|
-|<img src='example-00321.gif' alt='aktive query geometry @1' style='border:4px solid gold'>|`0 0 32 32 1`|
+|<img src='example-00325.gif' alt='aktive query geometry @1' style='border:4px solid gold'>|`0 0 32 32 1`|
 
 ---
 ### <a name='query_height'></a> aktive query height
@@ -120,14 +120,14 @@ Returns the input's height.
 |||
 |---|---|
 |@1|aktive query height @1|
-|<img src='example-00323.gif' alt='aktive query height @1' style='border:4px solid gold'>|`32`|
+|<img src='example-00327.gif' alt='aktive query height @1' style='border:4px solid gold'>|`32`|
 
 ### aktive query height @1
 
 |||
 |---|---|
 |@1|aktive query height @1|
-|<img src='example-00325.gif' alt='aktive query height @1' style='border:4px solid gold'>|`32`|
+|<img src='example-00329.gif' alt='aktive query height @1' style='border:4px solid gold'>|`32`|
 
 ---
 ### <a name='query_location'></a> aktive query location
@@ -144,14 +144,14 @@ Returns the input's location, a 2D point.
 |||
 |---|---|
 |@1|aktive query location @1|
-|<img src='example-00327.gif' alt='aktive query location @1' style='border:4px solid gold'>|`0 0`|
+|<img src='example-00331.gif' alt='aktive query location @1' style='border:4px solid gold'>|`0 0`|
 
 ### aktive query location @1
 
 |||
 |---|---|
 |@1|aktive query location @1|
-|<img src='example-00329.gif' alt='aktive query location @1' style='border:4px solid gold'>|`0 0`|
+|<img src='example-00333.gif' alt='aktive query location @1' style='border:4px solid gold'>|`0 0`|
 
 ---
 ### <a name='query_pitch'></a> aktive query pitch
@@ -168,14 +168,14 @@ Returns the input's pitch, the number of values in a row, i.e. width times depth
 |||
 |---|---|
 |@1|aktive query pitch @1|
-|<img src='example-00337.gif' alt='aktive query pitch @1' style='border:4px solid gold'>|`32`|
+|<img src='example-00341.gif' alt='aktive query pitch @1' style='border:4px solid gold'>|`32`|
 
 ### aktive query pitch @1
 
 |||
 |---|---|
 |@1|aktive query pitch @1|
-|<img src='example-00339.gif' alt='aktive query pitch @1' style='border:4px solid gold'>|`32`|
+|<img src='example-00343.gif' alt='aktive query pitch @1' style='border:4px solid gold'>|`32`|
 
 ---
 ### <a name='query_pixels'></a> aktive query pixels
@@ -192,14 +192,14 @@ Returns the input's number of pixels.
 |||
 |---|---|
 |@1|aktive query pixels @1|
-|<img src='example-00341.gif' alt='aktive query pixels @1' style='border:4px solid gold'>|`1024`|
+|<img src='example-00345.gif' alt='aktive query pixels @1' style='border:4px solid gold'>|`1024`|
 
 ### aktive query pixels @1
 
 |||
 |---|---|
 |@1|aktive query pixels @1|
-|<img src='example-00343.gif' alt='aktive query pixels @1' style='border:4px solid gold'>|`1024`|
+|<img src='example-00347.gif' alt='aktive query pixels @1' style='border:4px solid gold'>|`1024`|
 
 ---
 ### <a name='query_size'></a> aktive query size
@@ -216,14 +216,14 @@ Returns the input's size, i.e. the number of pixels times depth.
 |||
 |---|---|
 |@1|aktive query size @1|
-|<img src='example-00349.gif' alt='aktive query size @1' style='border:4px solid gold'>|`1024`|
+|<img src='example-00353.gif' alt='aktive query size @1' style='border:4px solid gold'>|`1024`|
 
 ### aktive query size @1
 
 |||
 |---|---|
 |@1|aktive query size @1|
-|<img src='example-00351.gif' alt='aktive query size @1' style='border:4px solid gold'>|`1024`|
+|<img src='example-00355.gif' alt='aktive query size @1' style='border:4px solid gold'>|`1024`|
 
 ---
 ### <a name='query_width'></a> aktive query width
@@ -240,14 +240,14 @@ Returns the input's width.
 |||
 |---|---|
 |@1|aktive query width @1|
-|<img src='example-00361.gif' alt='aktive query width @1' style='border:4px solid gold'>|`32`|
+|<img src='example-00365.gif' alt='aktive query width @1' style='border:4px solid gold'>|`32`|
 
 ### aktive query width @1
 
 |||
 |---|---|
 |@1|aktive query width @1|
-|<img src='example-00363.gif' alt='aktive query width @1' style='border:4px solid gold'>|`32`|
+|<img src='example-00367.gif' alt='aktive query width @1' style='border:4px solid gold'>|`32`|
 
 ---
 ### <a name='query_x'></a> aktive query x
@@ -264,14 +264,14 @@ Returns the input's x location.
 |||
 |---|---|
 |@1|aktive query x @1|
-|<img src='example-00365.gif' alt='aktive query x @1' style='border:4px solid gold'>|`0`|
+|<img src='example-00369.gif' alt='aktive query x @1' style='border:4px solid gold'>|`0`|
 
 ### aktive query x @1
 
 |||
 |---|---|
 |@1|aktive query x @1|
-|<img src='example-00367.gif' alt='aktive query x @1' style='border:4px solid gold'>|`0`|
+|<img src='example-00371.gif' alt='aktive query x @1' style='border:4px solid gold'>|`0`|
 
 ---
 ### <a name='query_xmax'></a> aktive query xmax
@@ -288,14 +288,14 @@ Returns the input's maximum x location.
 |||
 |---|---|
 |@1|aktive query xmax @1|
-|<img src='example-00369.gif' alt='aktive query xmax @1' style='border:4px solid gold'>|`31`|
+|<img src='example-00373.gif' alt='aktive query xmax @1' style='border:4px solid gold'>|`31`|
 
 ### aktive query xmax @1
 
 |||
 |---|---|
 |@1|aktive query xmax @1|
-|<img src='example-00371.gif' alt='aktive query xmax @1' style='border:4px solid gold'>|`31`|
+|<img src='example-00375.gif' alt='aktive query xmax @1' style='border:4px solid gold'>|`31`|
 
 ---
 ### <a name='query_y'></a> aktive query y
@@ -312,14 +312,14 @@ Returns the input's y location.
 |||
 |---|---|
 |@1|aktive query y @1|
-|<img src='example-00373.gif' alt='aktive query y @1' style='border:4px solid gold'>|`0`|
+|<img src='example-00377.gif' alt='aktive query y @1' style='border:4px solid gold'>|`0`|
 
 ### aktive query y @1
 
 |||
 |---|---|
 |@1|aktive query y @1|
-|<img src='example-00375.gif' alt='aktive query y @1' style='border:4px solid gold'>|`0`|
+|<img src='example-00379.gif' alt='aktive query y @1' style='border:4px solid gold'>|`0`|
 
 ---
 ### <a name='query_ymax'></a> aktive query ymax
@@ -336,12 +336,12 @@ Returns the input's maximum y location.
 |||
 |---|---|
 |@1|aktive query ymax @1|
-|<img src='example-00377.gif' alt='aktive query ymax @1' style='border:4px solid gold'>|`31`|
+|<img src='example-00381.gif' alt='aktive query ymax @1' style='border:4px solid gold'>|`31`|
 
 ### aktive query ymax @1
 
 |||
 |---|---|
 |@1|aktive query ymax @1|
-|<img src='example-00379.gif' alt='aktive query ymax @1' style='border:4px solid gold'>|`31`|
+|<img src='example-00383.gif' alt='aktive query ymax @1' style='border:4px solid gold'>|`31`|
 

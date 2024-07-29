@@ -34,12 +34,18 @@
 ---
 ### <a name='op_connected_components_labeled'></a> aktive op connected-components labeled
 
-Syntax: __aktive op connected-components labeled__ src
+Syntax: __aktive op connected-components labeled__ src ?(param value)...?
 
 Returns the input with labeled connected components.
 
+See "[aktive op connected-components get](accessor_morphology.md#op_connected_components_get)" for the CC core.
+
 This operator is __strict__ in its single input. The computed pixels are not materialized, only used to compute the connected components. The returned image is virtual based on the CC data.
 
+|Parameter|Type|Default|Description|
+|:---|:---|:---|:---|
+|transform|str|{}|Command prefix to transform the CCs before creating an image from them. Executed in the global scope.|
+|bbox|bool|0|Flag controlling the result geometry. When false (default) the result has the same geometry as the input. Else the result's geometry is the bounding box containing all CCs (After transformation, if any).|
 
 ## Examples
 
@@ -47,23 +53,22 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 
 ||
 |---|
-|@1|
-|<img src='example-00173.gif' alt='aktive op connected-components labeled @1' style='border:4px solid gold'>|
+|@1|aktive op connected-components labeled @1|
+|<img src='example-00173.gif' alt='aktive op connected-components labeled @1' style='border:4px solid gold'>|<table><tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr><tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>2</td><td>2</td><td>0</td><td>0</td><td>3</td><td>3</td><td>3</td><td>0</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>0</td><td>0</td><td>0</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>0</td><td>0</td></tr><tr><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>0</td><td>0</td><td>2</td><td>2</td><td>0</td><td>0</td><td>3</td><td>0</td><td>3</td><td>0</td><td>4</td><td>0</td><td>0</td><td>0</td><td>4</td><td>0</td><td>0</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>0</td></tr><tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>2</td><td>2</td><td>0</td><td>0</td><td>0</td><td>3</td><td>3</td><td>3</td><td>0</td><td>4</td><td>0</td><td>0</td><td>0</td><td>4</td><td>0</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td></tr><tr><td>0</td><td>2</td><td>2</td><td>2</td><td>2</td><td>2</td><td>2</td><td>2</td><td>0</td><td>6</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>4</td><td>0</td><td>0</td><td>0</td><td>4</td><td>0</td><td>5</td><td>5</td><td>5</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>5</td><td>5</td><td>5</td></tr><tr><td>0</td><td>2</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>6</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>4</td><td>0</td><td>0</td><td>0</td><td>4</td><td>0</td><td>5</td><td>5</td><td>0</td><td>0</td><td>0</td><td>7</td><td>0</td><td>0</td><td>0</td><td>5</td><td>5</td></tr><tr><td>0</td><td>2</td><td>0</td><td>6</td><td>6</td><td>6</td><td>6</td><td>6</td><td>6</td><td>6</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>0</td><td>0</td><td>5</td><td>5</td><td>0</td><td>0</td><td>7</td><td>0</td><td>0</td><td>5</td><td>5</td><td>0</td></tr><tr><td>0</td><td>0</td><td>6</td><td>6</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>5</td><td>5</td><td>0</td><td>7</td><td>0</td><td>5</td><td>5</td><td>0</td><td>0</td></tr><tr><td>0</td><td>6</td><td>6</td><td>0</td><td>0</td><td>8</td><td>8</td><td>8</td><td>8</td><td>8</td><td>8</td><td>0</td><td>9</td><td>9</td><td>9</td><td>9</td><td>9</td><td>9</td><td>9</td><td>9</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>7</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr><tr><td>0</td><td>6</td><td>6</td><td>0</td><td>0</td><td>8</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>9</td><td>9</td><td>9</td><td>9</td><td>9</td><td>9</td><td>9</td><td>9</td><td>0</td><td>0</td><td>7</td><td>7</td><td>7</td><td>7</td><td>7</td><td>7</td><td>7</td><td>7</td><td>7</td><td>7</td><td>7</td></tr><tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>8</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>9</td><td>9</td><td>0</td><td>0</td><td>0</td><td>0</td><td>9</td><td>9</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>7</td><td>7</td><td>7</td><td>0</td><td>0</td><td>0</td><td>0</td></tr></table>|
 
-||||||||||||||||||||||||||||||||||
-|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-|0|0|0|0|0|1|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|
-|0|0|0|0|0|1|0|0|2|2|0|0|3|3|3|0|4|4|4|4|4|0|0|0|5|5|5|5|5|5|5|0|0|
-|1|1|1|1|1|1|0|0|2|2|0|0|3|0|3|0|4|0|0|0|4|0|0|5|5|5|5|5|5|5|5|5|0|
-|0|0|0|0|0|0|0|2|2|0|0|0|3|3|3|0|4|0|0|0|4|0|5|5|5|5|5|5|5|5|5|5|5|
-|0|2|2|2|2|2|2|2|0|6|0|0|0|0|0|0|4|0|0|0|4|0|5|5|5|0|0|0|0|0|5|5|5|
-|0|2|0|0|0|0|0|0|0|6|0|0|0|0|0|0|4|0|0|0|4|0|5|5|0|0|0|7|0|0|0|5|5|
-|0|2|0|6|6|6|6|6|6|6|0|0|0|0|0|0|4|4|4|4|4|0|0|5|5|0|0|7|0|0|5|5|0|
-|0|0|6|6|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|5|5|0|7|0|5|5|0|0|
-|0|6|6|0|0|8|8|8|8|8|8|0|9|9|9|9|9|9|9|9|0|0|0|0|0|0|0|7|0|0|0|0|0|
-|0|6|6|0|0|8|0|0|0|0|0|0|9|9|9|9|9|9|9|9|0|0|7|7|7|7|7|7|7|7|7|7|7|
-|0|0|0|0|0|8|0|0|0|0|0|0|9|9|0|0|0|0|9|9|0|0|0|0|0|0|7|7|7|0|0|0|0|
+### aktive op connected-components labeled @1 transform cc.max (times 8)
 
+|||
+|---|---|
+|@1|aktive op connected-components labeled @1 transform cc.max|
+|<img src='example-00175.gif' alt='aktive op connected-components labeled @1 transform cc.max (times 8)' style='border:4px solid gold'>|<img src='example-00174.gif' alt='aktive op connected-components labeled @1 transform cc.max (times 8)' style='border:4px solid gold'>|
+
+### aktive op connected-components labeled @1 transform cc.max bbox 1 (times 8)
+
+|||
+|---|---|
+|@1|aktive op connected-components labeled @1 transform cc.max bbox 1|
+|<img src='example-00177.gif' alt='aktive op connected-components labeled @1 transform cc.max bbox 1 (times 8)' style='border:4px solid gold'>|<img src='example-00176.gif' alt='aktive op connected-components labeled @1 transform cc.max bbox 1 (times 8)' style='border:4px solid gold'>|
 
 ---
 ### <a name='op_morph_close'></a> aktive op morph close

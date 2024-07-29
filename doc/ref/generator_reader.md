@@ -37,11 +37,11 @@ Construct image from file content in the native AKTIVE format.
 
 ### aktive read from aktive path tests/assets/results/format-colorbox.aktive (times 8)
 
-<img src='example-00380.gif' alt='aktive read from aktive path tests/assets/results/format-colorbox.aktive (times 8)' style='border:4px solid gold'>
+<img src='example-00384.gif' alt='aktive read from aktive path tests/assets/results/format-colorbox.aktive (times 8)' style='border:4px solid gold'>
 
 ### aktive read from aktive path tests/assets/results/format-graybox.aktive (times 8)
 
-<img src='example-00381.gif' alt='aktive read from aktive path tests/assets/results/format-graybox.aktive (times 8)' style='border:4px solid gold'>
+<img src='example-00385.gif' alt='aktive read from aktive path tests/assets/results/format-graybox.aktive (times 8)' style='border:4px solid gold'>
 
 ---
 ### <a name='read_from_netpbm'></a> aktive read from netpbm
@@ -58,9 +58,9 @@ Construct image from file content in one of the NetPBM formats.
 
 ### aktive read from netpbm path tests/assets/sines.ppm
 
-<img src='example-00382.gif' alt='aktive read from netpbm path tests/assets/sines.ppm' style='border:4px solid gold'>
+<img src='example-00386.gif' alt='aktive read from netpbm path tests/assets/sines.ppm' style='border:4px solid gold'>
 
 ### aktive read from netpbm path tests/assets/crop.pgm
 
-<img src='example-00383.gif' alt='aktive read from netpbm path tests/assets/crop.pgm' style='border:4px solid gold'>
+<img src='example-00387.gif' alt='aktive read from netpbm path tests/assets/crop.pgm' style='border:4px solid gold'>
 
