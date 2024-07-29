@@ -33,6 +33,9 @@ operator op::connected-components::get {
 	of the component's bounding box, its area (in pixels), and an \
 	unordered list of the row ranges the component consists of.
 
+    note See \"<!xref: aktive op connected-components labeled>\" \
+	for a transformer command built on top of this.
+
     input
 
     return object0 {
