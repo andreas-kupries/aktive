@@ -1153,12 +1153,10 @@ proc dsl::writer::Show/r=multi/t=single/matrix {int runs transforms results} {
     + {}
     + "|[string repeat    | $n]"
     + "|[string repeat ---| $n]"
-    + "|[join [lmap item $heads { string cat @[incr k] }] |]|"
+    + "|[join [lmap item $heads { string cat @[incr k] }] |]|$last|"
     + "|[join [lmap dst $results {
 	    string cat "<img src='$dst' alt='$title' style='border:4px solid gold'>"
-    }] |]|"
-    + {}
-    + "!include $result"
+    }] |]|<!include: $result>|"
     Done
 }
 
@@ -2811,6 +2809,28 @@ proc dsl::writer::stash-to {path} {
     lappend s "package require aktive"
     lappend s "package require fileutil"
     lappend s [string map {\t {}} {
+	proc cc.max {ccs} {
+	    # keep only the max sized cc's
+	    # find max
+	    set maxarea -1
+	    dict for {id spec} $ccs {
+		set a [dict get $spec area] ; if {$a < $maxarea} continue ; set maxarea $a
+	    }
+	    # extract max
+	    set single {}
+	    dict for {id spec} $ccs {
+		if {[dict get $spec area] < $maxarea} continue
+		set single $id
+		dict set new $id $spec
+	    }
+	    # relabel if single
+	    if {([dict size $new] == 1) && ($single != 1)} {
+		dict set new 1 [dict get $new $single]
+		dict unset new $single
+	    }
+	    # done
+	    return $new
+	}
 	proc cc.norm {ccs} {
 	    # convert the ccs dict into a standard form we can compare to.
 	    set norm {}
@@ -2867,13 +2887,17 @@ proc dsl::writer::stash-to {path} {
 		}
 		set values $cells
 	    }
-	    # emit cells as table
-	    puts $chan "|[string repeat |     $width]"
-	    puts $chan "|[string repeat ---:| $width]"
+
+	    # emit data as a single-line HTML table - embeddable into markdown table!
+	    puts -nonewline $chan <table>
 	    while {[llength $values]} {
-		puts $chan |[join [lrange $values 0 ${width}-1] |]|
+		puts -nonewline $chan <tr>
+		puts -nonewline $chan <td>[join [lrange $values 0 ${width}-1] </td><td>]</td>
 		set values [lrange $values $width end]
+		puts -nonewline $chan </tr>
 	    }
+	    puts -nonewline $chan </table>
+	    puts  $chan ""
 	    close $chan
 	}
     }]
