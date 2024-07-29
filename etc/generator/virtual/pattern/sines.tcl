@@ -5,13 +5,13 @@
 operator image::sines {
     section generator virtual
 
+    example {width 256 height 256 hf 0.5 vf 0.6}
+
     note Returns image containing a sine wave in two dimensions.
 
     note The ratio between horizontal and vertical frequencies \
 	determines the angle of the composite wave relative to \
 	the X axis.
-
-    example {width 256 height 256 hf 0.5 vf 0.6}
 
     uint   width   Width of the returned image
     uint   height  Height of the returned image

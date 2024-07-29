@@ -5,12 +5,12 @@
 operator image::noise::uniform {
     section generator virtual
 
-    note Returns image where pixels are set to random values drawn \
-	from a uniform distribution over {[0..1]}
-
     # fixed seed to keep the examples identical across runs
     example {width 256 height 256 depth 1 seed 703011174}
     example {width 256 height 256 depth 3 seed 703011174}
+
+    note Returns image where pixels are set to random values drawn \
+	from a uniform distribution over {[0..1]}
 
     uint      width   Width of the returned image
     uint      height  Height of the returned image

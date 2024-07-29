@@ -7,8 +7,8 @@
 
 operator read::from::aktive {
 
-    example -post {times 8} {path tests/assets/results/format-colorbox.aktive}
-    example -post {times 8} {path tests/assets/results/format-graybox.aktive}
+    example {path tests/assets/results/format-colorbox.aktive | times 8}
+    example {path tests/assets/results/format-graybox.aktive  | times 8}
 
     section generator reader
 

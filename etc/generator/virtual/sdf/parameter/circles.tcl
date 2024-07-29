@@ -6,9 +6,7 @@ uint? 1  radius     Circle radius
 point... centers    Circle centers
 
 if {$mode eq "sdf"} {
-    example \
-	-transform sdf-fit       \
-	-transform sdf-smooth    \
-	-transform sdf-pixelated \
-	{width 128 height 128 radius 8 centers {10 10} {30 80} {80 30}}
+    example {
+	width 128 height 128 radius 8 centers {10 10} {30 80} {80 30} | sdf-fit ; sdf-smooth ; sdf-pixelated
+    }
 }

@@ -19,11 +19,12 @@ operator {dexpr attr} {
     op -> _ kind fun extra
     if {$fun eq "arg"} { def fun $fun$extra }
 
-    example {*}[expr {$fun in {mean stddev variance}
-		      ? ""
-		      : "-int"}] -matrix \
-	{aktive op sdf 2image smooth [aktive op sdf ring [aktive image sdf triangle width 32 height 32 a {10 10} b {50 80} c {80 30}] thickness 4]} \
-	@1
+    set int [expr {$fun in {mean stddev variance} ? "" : "-int"}]
+    example [string map [list INT $int] {
+	aktive op sdf 2image smooth [aktive op sdf ring [aktive image sdf triangle width 32 height 32 a {10 10} b {50 80} c {80 30}] thickness 4]
+	@1 | -matrix INT
+    }]
+    unset int
 
     section transform statistics
 

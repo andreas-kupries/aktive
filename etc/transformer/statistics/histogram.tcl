@@ -26,9 +26,10 @@
 operator op::image::histogram {
     section transform statistics
 
-    example -matrix -int \
-	{aktive op sdf 2image smooth [aktive op sdf ring [aktive image sdf triangle width 128 height 128 a {10 10} b {50 80} c {80 30}] thickness 4]} \
-	@1
+    example {
+	aktive op sdf 2image smooth [aktive op sdf ring [aktive image sdf triangle width 128 height 128 a {10 10} b {50 80} c {80 30}] thickness 4]
+	@1 | -matrix -int
+    }
 
     int? 256 bins \
 	The number of bins in the returned histogram. The pixel values are quantized \
@@ -211,9 +212,10 @@ operator oaxis {
 } {
     op -> _ kind _
 
-    example -matrix -int \
-	{aktive op sdf 2image smooth [aktive op sdf ring [aktive image sdf triangle width 32 height 32 a {10 10} b {30 80} c {80 30}] thickness 4]} \
-	@1
+    example {
+	aktive op sdf 2image smooth [aktive op sdf ring [aktive image sdf triangle width 32 height 32 a {10 10} b {30 80} c {80 30}] thickness 4]
+	@1 | -matrix -int
+    }
 
     section transform statistics
 

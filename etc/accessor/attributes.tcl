@@ -27,8 +27,14 @@ operator query::id {
 operator query::type {
     section accessor
 
-    example -text {aktive image zone width 32 height 32} {@1}
-    example -text {aktive image gradient width 32 height 32 depth 1 first 0 last 1} {@1}
+    example {
+	aktive image zone width 32 height 32
+	@1 | -text
+    }
+    example {
+	aktive image gradient width 32 height 32 depth 1 first 0 last 1
+	@1 | -text
+    }
 
     note Returns the input's type.
 
@@ -42,8 +48,14 @@ operator query::type {
 operator query::location {
     section accessor geometry
 
-    example -text {aktive image zone width 32 height 32} {@1}
-    example -text {aktive image gradient width 32 height 32 depth 1 first 0 last 1} {@1}
+    example {
+	aktive image zone width 32 height 32
+	@1 | -text
+    }
+    example {
+	aktive image gradient width 32 height 32 depth 1 first 0 last 1
+	@1 | -text
+    }
 
     note Returns the input's location, a 2D point.
 
@@ -57,8 +69,14 @@ operator query::location {
 operator query::domain {
     section accessor geometry
 
-    example -text {aktive image zone width 32 height 32} {@1}
-    example -text {aktive image gradient width 32 height 32 depth 1 first 0 last 1} {@1}
+    example {
+	aktive image zone width 32 height 32
+	@1 | -text
+    }
+    example {
+	aktive image gradient width 32 height 32 depth 1 first 0 last 1
+	@1 | -text
+    }
 
     note Returns the input's domain, a 2D rectangle. I.e. location, width, and height.
 
@@ -72,8 +90,14 @@ operator query::domain {
 operator query::geometry {
     section accessor geometry
 
-    example -text {aktive image zone width 32 height 32} {@1}
-    example -text {aktive image gradient width 32 height 32 depth 1 first 0 last 1} {@1}
+    example {
+	aktive image zone width 32 height 32
+	@1 | -text
+    }
+    example {
+	aktive image gradient width 32 height 32 depth 1 first 0 last 1
+	@1 | -text
+    }
 
     note Returns the input's full geometry, i.e. domain and depth.
 
@@ -93,8 +117,14 @@ operator description {
     section accessor geometry
     op -> _ attribute
 
-    example -text {aktive image zone width 32 height 32} {@1}
-    example -text {aktive image gradient width 32 height 32 depth 1 first 0 last 1} {@1}
+    example {
+	aktive image zone width 32 height 32
+	@1 | -text
+    }
+    example {
+	aktive image gradient width 32 height 32 depth 1 first 0 last 1
+	@1 | -text
+    }
 
     note Returns the input's $description location.
 
@@ -117,8 +147,14 @@ operator description {
     section accessor geometry
     op -> _ attribute
 
-    example -text {aktive image zone width 32 height 32} {@1}
-    example -text {aktive image gradient width 32 height 32 depth 1 first 0 last 1} {@1}
+    example {
+	aktive image zone width 32 height 32
+	@1 | -text
+    }
+    example {
+	aktive image gradient width 32 height 32 depth 1 first 0 last 1
+	@1 | -text
+    }
 
     note Returns the input's ${description}.
 
@@ -158,8 +194,14 @@ operator query::inputs {
 operator query::params {
     section accessor
 
-    example -text {aktive image zone width 32 height 32} {@1}
-    example -text {aktive image gradient width 32 height 32 depth 1 first 0 last 1} {@1}
+    example {
+	aktive image zone width 32 height 32
+	@1 | -text
+    }
+    example {
+	aktive image gradient width 32 height 32 depth 1 first 0 last 1
+	@1 | -text
+    }
 
     note Returns a dictionary containing the input's parameters.
 
@@ -177,8 +219,14 @@ operator query::params {
 operator query::setup {
     section accessor
 
-    example -text {aktive image zone width 32 height 32} {@1}
-    example -text {aktive image gradient width 32 height 32 depth 1 first 0 last 1} {@1}
+    example {
+	aktive image zone width 32 height 32
+	@1 | -text
+    }
+    example {
+	aktive image gradient width 32 height 32 depth 1 first 0 last 1
+	@1 | -text
+    }
 
     note Returns a dictionary containing the input's setup.
 
@@ -195,7 +243,10 @@ operator query::setup {
 operator query::meta {
     section accessor metadata
 
-    example -text {aktive read from netpbm path tests/assets/sines.ppm} @1
+    example {
+	aktive read from netpbm path tests/assets/sines.ppm
+	@1 | -text
+    }
 
     note Returns a dictionary containing the input's meta data.
 
@@ -211,7 +262,10 @@ operator query::meta {
 operator query::values {
     section accessor values
 
-    example -text {aktive image gradient width 2 height 2 depth 1 first 0 last 1} {@1}
+    example {
+	aktive image gradient width 2 height 2 depth 1 first 0 last 1 | times 16
+	@1 | -text
+    }
 
     note Returns a list containing the input's pixel values.
 
@@ -234,7 +288,10 @@ operator query::values {
 operator query::value::at {
     section accessor values
 
-    example -text {aktive image gradient width 2 height 2 depth 1 first 0 last 1} {@1 x 0 y 1}
+    example {
+	aktive image gradient width 2 height 2 depth 1 first 0 last 1 | times 16
+	@1 x 0 y 1 | -text
+    }
 
     note Returns the input's pixel value(s) at the given 2D point.
 

@@ -13,9 +13,10 @@ operator {coorda coordb coordc dima dimb dimc} {
     section transform structure
 
     if {"$coorda$coordb" eq "xy"} {
-	example \
-	    {aktive op sdf 2image smooth [aktive op sdf ring [aktive image sdf triangle width 128 height 128 a {10 10} b {50 80} c {80 30}] thickness 4]} \
+	example {
+	    aktive op sdf 2image smooth [aktive op sdf ring [aktive image sdf triangle width 128 height 128 a {10 10} b {50 80} c {80 30}] thickness 4]
 	    @1
+	}
     }
 
     note Returns image with the ${coorda}- and ${coordb}-axes of the input exchanged.

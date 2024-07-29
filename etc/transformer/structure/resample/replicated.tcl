@@ -8,9 +8,10 @@
 operator op::sample::replicate::xy {
     section transform structure
 
-    example \
-	{aktive op sdf 2image smooth [aktive op sdf ring [aktive image sdf triangle width 128 height 128 a {10 10} b {50 80} c {80 30}] thickness 4]} \
-	{@1 by 4}
+    example {
+	aktive op sdf 2image smooth [aktive op sdf ring [aktive image sdf triangle width 128 height 128 a {10 10} b {50 80} c {80 30}] thickness 4]
+	@1 by 4
+    }
 
     note Returns image where the input is stretched along both x and y axes \
 	according to the stretching factor (>= 1), and the gaps are filled by \
@@ -34,9 +35,10 @@ operator {coordinate dimension} {
     section transform structure
 
     if {$coordinate in {x y}} {
-	example \
-	    {aktive op sdf 2image smooth [aktive op sdf ring [aktive image sdf triangle width 128 height 128 a {10 10} b {50 80} c {80 30}] thickness 4]} \
-	    {@1 by 4}
+	example {
+	    aktive op sdf 2image smooth [aktive op sdf ring [aktive image sdf triangle width 128 height 128 a {10 10} b {50 80} c {80 30}] thickness 4]
+	    @1 by 4
+	}
     }
 
     note Returns image where the input is stretched along the ${coordinate}-axis \

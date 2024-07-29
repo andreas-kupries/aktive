@@ -62,12 +62,10 @@ This operator is __strict__ in its single input. The requested pixel is material
 
 ## Examples
 
-### aktive query value at @1 x 0 y 1
-
-|||
+|@1|aktive query value at 	@1 x 0 y 1 |
 |---|---|
-|@1|aktive query value at @1 x 0 y 1|
-|<img src='example-00361.gif' alt='aktive query value at @1 x 0 y 1' style='border:4px solid gold'>|`0.6666666666666666`|
+|<table><trf><td valign='top'>times 16</td><td valign='top'><img src='example-00360.gif' alt='@1' style='border:4px solid gold'></td></tr></table>|0.6666666666666666|
+
 
 ---
 ### <a name='query_values'></a> aktive query values
@@ -85,10 +83,8 @@ This operator is __strict__ in its single input. The image is materialized in me
 
 ## Examples
 
-### aktive query values @1
-
-|||
+|@1|aktive query values 	@1 |
 |---|---|
-|@1|aktive query values @1|
-|<img src='example-00363.gif' alt='aktive query values @1' style='border:4px solid gold'>|`0.0 0.3333333333333333 0.6666666666666666 1.0`|
+|<table><trf><td valign='top'>times 16</td><td valign='top'><img src='example-00362.gif' alt='@1' style='border:4px solid gold'></td></tr></table>|0.0 0.3333333333333333 0.6666666666666666 1.0|
+
 

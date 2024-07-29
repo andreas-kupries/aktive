@@ -7,7 +7,7 @@ operator image::indexed {
 
     note Returns 2-band image where each pixel declares its own position
 
-    example -int -matrix {width 5 height 5}
+    example {width 5 height 5 | -int -matrix}
 
     uint   width   Width of the returned image
     uint   height  Height of the returned image

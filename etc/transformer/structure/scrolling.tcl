@@ -19,9 +19,10 @@ operator {coordinate dimension thing} {
     section transform structure
 
     if {$coordinate in {x y}} {
-	example \
-	    {aktive op sdf 2image smooth [aktive op sdf ring [aktive image sdf triangle width 128 height 128 a {10 10} b {50 80} c {80 30}] thickness 4]} \
-	    {@1 offset 32}
+	example {
+	    aktive op sdf 2image smooth [aktive op sdf ring [aktive image sdf triangle width 128 height 128 a {10 10} b {50 80} c {80 30}] thickness 4]
+	    @1 offset 32
+	}
     }
 
     note Returns image with the pixels of the input shifted along \
@@ -52,9 +53,10 @@ operator {coordinate dimension thing} {
     section transform structure
 
     if {$coordinate in {x y}} {
-	example \
-	    {aktive op sdf 2image smooth [aktive op sdf ring [aktive image sdf triangle width 128 height 128 a {10 10} b {50 80} c {80 30}] thickness 4]} \
+	example {
+	    aktive op sdf 2image smooth [aktive op sdf ring [aktive image sdf triangle width 128 height 128 a {10 10} b {50 80} c {80 30}] thickness 4]
 	    @1
+	}
     }
 
     note Returns image where the center $thing of the input is shifted to \
@@ -71,9 +73,10 @@ operator {coordinate dimension thing} {
 operator op::center-origin::xy {
     section transform structure
 
-    example \
-	{aktive op sdf 2image smooth [aktive op sdf ring [aktive image sdf triangle width 128 height 128 a {10 10} b {50 80} c {80 30}] thickness 4]} \
+    example {
+	aktive op sdf 2image smooth [aktive op sdf ring [aktive image sdf triangle width 128 height 128 a {10 10} b {50 80} c {80 30}] thickness 4]
 	@1
+    }
 
     note Returns image where the center pixel of the input \
 	is shifted to the origin.

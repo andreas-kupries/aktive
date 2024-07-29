@@ -1,6 +1,7 @@
 # -*- mode: tcl ; fill-column: 90 -*-
 
 package require textutil::adjust
+package require struct::matrix
 
 namespace eval dsl::writer {
     namespace export do
@@ -973,52 +974,24 @@ proc dsl::writer::OpDoc {stem op spec} {
     if {[llength $examples]} {
 	+ {}
 	+ "## Examples"
+	+ {}
 
+	# examples :: list (example...)
 	foreach example $examples {
-	    lassign $example runs transforms mode int
-	    set matrix [expr {$mode eq "matrix"}]
-	    set text   [expr {$mode eq "text"}]
-	    # mode:image implied by none of the others active.
+	    # example :: list (run...)
 
-	    # Possible example combinations
-	    ##
-	    # E01 | single run | single transform | image
-	    # E02 | single run | single transform | matrix (int)
-	    # E03 | single run | single transform | text
-	    # E04 | single run | multi  transform | image
-	    # E05 | single run | multi  transform | matrix (int)
-	    # E06 | single run | multi  transform | text
-	    # E07 | multi  run | single transform | image
-	    # E08 | multi  run | single transform | matrix (int)
-	    # E09 | multi  run | single transform | text
-	    # E10 | multi  run | multi  transform | image
-	    # E11 | multi  run | multi  transform | matrix (int)
-	    # E12 | multi  run | multi  transform | text
-
-	    puts "[blue $op] example: [blue $runs]"
-
-	    # scripts, and result files.
-
-	    if {[llength $transforms]} {
-		# E 4-6,10-12
-		set dsts [lmap post $transforms {
-		    ExampleScript $stem $runs $post $mode $int
-		}]
-	    } else {
-		# E 1-3,7-9
-		set dsts [list [ExampleScript $stem $runs {} $mode $int]]
-		set transforms {{}}
-	    }
-
-	    # dsts = list of lists of example result files.
-	    # result files are in order of the runs.
-	    # last result file is as per the mode.
-	    # all preceding results are images.
-
-	    set rmode [expr {[llength $runs      ] > 1 ? "multi":"single"}]
-	    set tmode [expr {[llength $transforms] > 1 ? "multi":"single"}]
-
-	    + [Show/r=$rmode/t=$tmode/$mode $int $runs $transforms $dsts]
+	    set n [llength $example]
+	    set id 0
+	    set varmap {}
+	    + [ExampleRender $op [lmap run $example {
+		# run :: list (gencmd showcmds format int)
+		incr n -1 ; set islast [expr {$n == 0}]
+		incr id
+		set label   [expr {$islast ? "[lindex $run 0]" : "@$id"}]
+		lappend varmap @$id "\$x$id"
+		list $label [ExampleScript $op $stem $id $varmap {*}$run]
+	    }]]
+	    + {}
 	}
     }
 
@@ -1029,239 +1002,89 @@ proc dsl::writer::OpDoc {stem op spec} {
     Done
 }
 
-# 12 render methods for the cases E01 .. E12
+proc dsl::writer::ExampleRender {op example} {
+    # example :: list (run...)
+    # run     :: list (label results)
+    # results :: list (result...)
+    # result  :: list (show format dstfile)
 
-proc dsl::writer::Show/r=single/t=single/image {int runs transforms results} {
-    # E01 | single run | single transform | image
-    lassign $transforms post
-    lassign $results    dst
-    lassign $runs       title
+    # Table - example.len       => width
+    #         max (results.len) => height
 
-    if {$post ne {}} { append title " ($post)" }
+    # render results into a matrix
+    struct::matrix M
+    M add columns [llength $example]
+    M add rows 1 ; # header
 
-    + {}
-    + "### $title"
-    + {}
-    + "<img src='$dst' alt='$title' style='border:4px solid gold'>"
-    Done
-}
+    set col 0
+    foreach run $example {
+	lassign $run label results
 
-proc dsl::writer::Show/r=single/t=single/matrix {int runs transforms results} {
-    # E02 | single run | single transform | matrix (int)
-    lassign $transforms post
-    lassign $results    dst
-    lassign $runs       title
-
-    if {$post ne {}} { append title " ($post)" }
-
-    + {}
-    + "### $title"
-    + {}
-    + "!include $dst"
-    Done
-}
-
-proc dsl::writer::Show/r=single/t=single/text {int runs transforms results} {
-    # E03 | single run | single transform | text
-    lassign $transforms post
-    lassign $results    dst
-    lassign $runs       title
-
-    if {$post ne {}} { append title " ($post)" }
-
-    + {}
-    + "### $title"
-    + {}
-    + "  - `<!include: $dst>`"
-    Done
-}
-
-proc dsl::writer::Show/r=single/t=multi/image {int runs transforms results} {
-    # E04 | single run | multi transform | image
-    set n [llength $transforms]
-    lassign $runs title
-    + {}
-    + "### $title"
-    + {}
-    + "|[string repeat    | $n]"
-    + "|[string repeat ---| $n]"
-    + "|[join $transforms |]|"
-    + "|[join [lmap dst $results post $transforms {
-	    string cat "<img src='$dst' alt='$runs ($post)' style='border:4px solid gold'>"
-    }] |]|"
-    Done
-}
-
-proc dsl::writer::Show/r=single/t=multi/matrix {int runs transforms results} {
-    # E05 | single run | multi transform | matrix (int)
-    lassign $results dst
-    lassign $runs title
-    + {}
-    + "### $title"
-    + {}
-    foreach post $transforms dst $dsts {
-	+ "($post):"
-	+ "!include $dst"
+	if {([llength $results]+1) > [M rows]} {
+	    M add rows [expr {[llength $results] + 1 - [M rows]}]
+	}
+	M set cell $col 0 $label
+	set row 1
+	foreach result $results {
+	    lassign $result show format dst
+	    # cell type / formatting
+	    switch -exact -- $format {
+		text   -
+		matrix { set data "<!include: $dst>" }
+		image  { set data "<img src='$dst' alt='$label' style='border:4px solid gold'>" }
+	    }
+	    # transform wrap, if needed
+	    if {$show ne {}} {
+		set data "<table><trf><td valign='top'>$show</td><td valign='top'>$data</td></tr></table>"
+	    }
+	    # record
+	    M set cell $col $row $data
+	    incr row
+	}
+	incr col
     }
-    Done
-}
 
-proc dsl::writer::Show/r=single/t=multi/text {int runs transforms results} {
-    error E06
-}
-
-proc dsl::writer::Show/r=multi/t=single/image {int runs transforms results} {
-    # E07 | multi run | single transform | image
-    lassign $results results
-
-    set n       [llength $runs]
-    set heads   [lreverse [lassign [lreverse $runs] last]]
-    set results [lreverse [lassign [lreverse $results] result]]
-    lassign $transforms post
-
-    set title $last ; if {$post ne {}} { append title " ($post)" }
-
-    # show a table ... inputs to the left, then result at the right
-
-    + {}
-    + "### $title"
-    + {}
-    + "|[string repeat    | $n]"
-    + "|[string repeat ---| $n]"
-    + "|[join [lmap item $heads { string cat @[incr k] }] |]|$last|"
-    + "|[join [lmap dst $results {
-	    string cat "<img src='$dst' alt='$title' style='border:4px solid gold'>"
-    }] |]|<img src='$result' alt='$title' style='border:4px solid gold'>|"
-    Done
-}
-
-proc dsl::writer::Show/r=multi/t=single/matrix {int runs transforms results} {
-    # E08 | multi  run | single transform | matrix (int)
-    lassign $results results
-
-    set n       [llength $runs] ; incr n -1
-    set heads   [lreverse [lassign [lreverse $runs] last]]
-    set results [lreverse [lassign [lreverse $results] result]]
-    lassign $transforms post
-
-    set title $last ; if {$post ne {}} { append title " ($post)" }
-
-    # show a table of the inputs, and the resulting matrix as table below that.
-
-    + {}
-    + "### $title"
-    + {}
-    + "|[string repeat    | $n]"
-    + "|[string repeat ---| $n]"
-    + "|[join [lmap item $heads { string cat @[incr k] }] |]|$last|"
-    + "|[join [lmap dst $results {
-	    string cat "<img src='$dst' alt='$title' style='border:4px solid gold'>"
-    }] |]|<!include: $result>|"
-    Done
-}
-
-proc dsl::writer::Show/r=multi/t=single/text {int runs transforms results} {
-    # E09 | multi run | single transform | text
-    lassign $results results
-
-    set n       [llength $runs]
-    set heads   [lreverse [lassign [lreverse $runs] last]]
-    set results [lreverse [lassign [lreverse $results] result]]
-    lassign $transforms post
-
-    set title $last ; if {$post ne {}} { append title " ($post)" }
-
-    # show a table ... inputs to the left, then result at the right
-
-    + {}
-    + "### $title"
-    + {}
-    + "|[string repeat    | $n]"
-    + "|[string repeat ---| $n]"
-    + "|[join [lmap item $heads { string cat @[incr k] }] |]|$last|"
-    + "|[join [lmap dst $results {
-	    string cat "<img src='$dst' alt='$title' style='border:4px solid gold'>"
-    }] |]|`<!include: $result>`|"
-    Done
-}
-
-proc dsl::writer::Show/r=multi/t=multi/image {int runs transforms results} {
-    error E10
-}
-
-proc dsl::writer::Show/r=multi/t=multi/matrix {int runs transforms results} {
-    error E11
-}
-
-proc dsl::writer::Show/r=multi/t=multi/text {int runs transforms results} {
-    error E12
-}
-
-proc dsl::writer::ExampleScript {stem runs transform mode int} {
-    # Assemble a script to run the example and capture the resulting image for use
-    # by the operator doc
-
-    # primary result
-    set dst [File example- [dict get {
-	image  .gif
-	matrix .md
-	text   .txt
-    } $mode]]
-
-    # templating
-    set     map {}
-    lappend map "\t\t    " {}
-    lappend map "\t\t"     {}
-    lappend map @dst  ${stem}$dst
-    lappend map @int  $int
-    lappend map @final [lindex $runs end]
-
-    # example code processing
-    set max [llength $runs]
-    set i 0
-    foreach run $runs {
-	incr i
-	lappend map @$i \$x$i
-	append setup "set x$i \[$run\]\n"
-	# save the intermediate images
-	if {$i == $max} continue
-	set tmp [File example- .gif]
-	append setup "emit-image ${stem}$tmp 0 \$x$i\n" ;#[expr {$i - 1}]
-	lappend dsts $tmp
+    # render matrix into a markdown table
+    lappend lines |[join [M get row 0] |]|
+    lappend lines |[string repeat ---| [M columns]]
+    for {set row 1} {$row < [M rows]} {incr row} {
+	lappend lines |[join [M get row $row] |]|
     }
-    append setup "set run \$x$i\n"
-    lappend map @run [string map $map $setup]
+    M destroy
 
-    # transform setup
-    set ctransform $transform
-    if {$ctransform ne {}} {
-	set ctransform "set run \[$transform \$run\]"
-    } else {
-	set ctransform "## >> no transformation <<"
-    }
-    lappend map @transform $ctransform
+    # render complete
+    return [join $lines \n]
+}
 
-    # assembly of example creation
-    set script {}
-    lappend script [string trim [string map $map {
-	# Example: @final
-	puts {Example: @dst := @final}
-	# execute runs ___________________________
-	@run
-	# execute transform ______________________
-	@transform
-	# ___________________________________ done
-    }]]
+proc dsl::writer::ExampleScript {op stem id varmap gencmd showcmds format int} {
+    # intro
+    lappend script "puts \{# Example: ($id) $gencmd\}"
 
-    # example conversion as per the mode
-    lappend script "emit-$mode ${stem}$dst $int \$run"
-    lappend dsts $dst
+    # generation command
+    set gencmd [string map $varmap $gencmd]
+    lappend script "# generate _____________________"
+    lappend script "set x$id \[$gencmd\]"
+
+    # show commands, plus final formatting
+    set results [lmap show $showcmds {
+    	set dst [File example- [dict get {
+	    image  .gif
+	    matrix .md
+	    text   .txt
+	} $format]]
+	if {$show ne {}} {
+	    lappend script "set x${id}t \[$show \$x$id\]"
+	    lappend script "emit-$format ${stem}$dst $int \$x${id}t"
+	} else {
+	    lappend script "emit-$format ${stem}$dst $int \$x$id"
+	}
+	list $show $format $dst
+    }]
 
     # Save script for execution after compilation and installation
-    set script [join $script \n]
-    Stash $script
-
-    return $dsts
+    Stash [join $script \n]
+    return $results
+    # results :: list (list (show format dst)...)
 }
 
 proc dsl::writer::File {prefix ext} {

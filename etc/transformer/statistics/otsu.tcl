@@ -17,9 +17,10 @@
 operator op::row::otsu {
     section transform statistics
 
-    example -matrix -int \
-	{aktive op sdf 2image smooth [aktive op sdf ring [aktive image sdf triangle width 32 height 32 a {10 10} b {50 80} c {80 30}] thickness 4]} \
-	{[aktive op row histogram @1]}
+    example {
+	aktive op sdf 2image smooth [aktive op sdf ring [aktive image sdf triangle width 32 height 32 a {10 10} b {50 80} c {80 30}] thickness 4]
+	[aktive op row histogram @1] | -matrix -int
+    }
 
     input
 
@@ -61,9 +62,10 @@ operator op::row::otsu {
 operator op::column::otsu {
     section transform statistics
 
-    example -matrix -int \
-	{aktive op sdf 2image smooth [aktive op sdf ring [aktive image sdf triangle width 32 height 32 a {10 10} b {30 80} c {80 30}] thickness 4]} \
-	{[aktive op column histogram @1]}
+    example {
+	aktive op sdf 2image smooth [aktive op sdf ring [aktive image sdf triangle width 32 height 32 a {10 10} b {30 80} c {80 30}] thickness 4]
+	[aktive op column histogram @1] | -matrix -int
+    }
 
     input
 

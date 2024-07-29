@@ -5,9 +5,7 @@ uint? 1  eskew    Element skew
 sdf-whc
 
 if {$mode eq "sdf"} {
-    example \
-	-transform sdf-fit       \
-	-transform sdf-smooth    \
-	-transform sdf-pixelated \
-	{center {64 64} width 128 height 128 ewidth 32 eheight 32 eskew 8}
+    example {
+	center {64 64} width 128 height 128 ewidth 32 eheight 32 eskew 8 | sdf-fit ; sdf-smooth ; sdf-pixelated
+    }
 }

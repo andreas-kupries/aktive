@@ -13,9 +13,10 @@ operator {coordinate dimension} {
     section transform structure
 
     if {$coordinate in {x y}} {
-	example \
-	    {aktive op sdf 2image smooth [aktive op sdf ring [aktive image sdf triangle width 128 height 128 a {10 10} b {50 80} c {80 30}] thickness 4]} \
+	example {
+	    aktive op sdf 2image smooth [aktive op sdf ring [aktive image sdf triangle width 128 height 128 a {10 10} b {50 80} c {80 30}] thickness 4]
 	    @1
+	}
     }
 
     note Returns image which mirrors the input along the ${coordinate}-axis.

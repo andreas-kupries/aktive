@@ -8,7 +8,7 @@
 operator op::connected-components::get {
     section accessor morphology
 
-    example -post cc.norm -text {aktive image from matrix width 33 height 11 values {*}{
+    set values [string map [list \n { } \t {}] {
 	0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 	0 0 0 0 0 1 0 0 1 1 0 0 1 1 1 0 1 1 1 1 1 0 0 0 1 1 1 1 1 1 1 0 0
 	1 1 1 1 1 1 0 0 1 1 0 0 1 0 1 0 1 0 0 0 1 0 0 1 1 1 1 1 1 1 1 1 0
@@ -20,7 +20,14 @@ operator op::connected-components::get {
 	0 1 1 0 0 1 1 1 1 1 1 0 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 1 0 0 0 0 0
 	0 1 1 0 0 1 0 0 0 0 0 0 1 1 1 1 1 1 1 1 0 0 1 1 1 1 1 1 1 1 1 1 1
 	0 0 0 0 0 1 0 0 0 0 0 0 1 1 0 0 0 0 1 1 0 0 0 0 0 0 1 1 1 0 0 0 0
-    }} @1
+    }]
+
+    example [string map [list VALUES $values] {
+	aktive image from matrix width 33 height 11 values VALUES | times 8
+	@1                                                        | -text cc.norm
+    }]
+
+    unset values
 
     note Returns a dictionary describing all the connected components of the single-band input.
 

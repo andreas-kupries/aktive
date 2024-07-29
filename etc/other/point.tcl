@@ -6,7 +6,7 @@
 operator point::make {
     section miscellaneous geometry
 
-    example -text {11 23}
+    example {11 23 | -text}
 
     note Construct a 2D point from x- and y-coordinates
 
@@ -22,7 +22,7 @@ operator point::make {
 operator point::add {
     section miscellaneous geometry
 
-    example -text {{11 23} {-1 7}}
+    example {{11 23} {-1 7} | -text}
 
     note Translate a 2D point by a specific amount given as 2D vector
 
@@ -40,7 +40,7 @@ operator point::add {
 operator point::move {
     section miscellaneous geometry
 
-    example -text {{11 23} -1 7}
+    example {{11 23} -1 7 | -text}
 
     note Translate a 2D point by a specific amount given as separate x- and y-deltas
 
@@ -59,7 +59,7 @@ operator point::move {
 operator point::box {
     section miscellaneous geometry
 
-    example -text {{11 23} {45 5} {5 45}}
+    example {{11 23} {45 5} {5 45} | -text}
 
     note Compute minimum axis-aligned 2D rectangle enclosing the set of 2D points
 

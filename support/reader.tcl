@@ -503,39 +503,51 @@ proc dsl::reader::note {args} { ;#puts [info level 0]
     LappendX opspec notes [lmap a $args { TemplateCode $a {} }]
 }
 
-proc dsl::reader::example {args} { ;#puts [info level 0]
+proc dsl::reader::example {{spec {}}} { ;#puts [info level 0]
     OkModes {} C Tcl External
 
+    set runs [split [string trim $spec] \n]
+    set n    [llength $runs]
 
-    lassign {{} image 0} transforms mode int
-    while {[string match -* [set o [lindex $args 0]]]} {
-	switch -exact -- $o {
-	    --         { set args [lassign $args _] ; break }
-	    -int       { set args [lassign $args _] ; set int  1      }
-	    -matrix    { set args [lassign $args _] ; set mode matrix }
-	    -text      { set args [lassign $args _] ; set mode text   }
-	    -post - -transform {
-		set args [lassign $args _ post]
-		set post [string trim $post]
-		lappend transforms $post
-	    }
-	    default { Abort "Bad option '$o', expected -int, -matrix, -text, -transform, or --" }
+    # default run
+    if {$n == 0} { incr n ; lappend runs {} }
+
+    Example [lmap run $runs {
+	# per run extract the generation command and its modifiers (formatting, display processing)
+	lassign [split $run |] gen modifiers
+
+	# extend last generation part with command to demonstrate
+	incr n -1
+	if {$n == 0} {
+	    set gen "aktive [string map {:: { }} [Get opname]] $gen"
 	}
-    }
+	# scan modifiers for result formatting, extract, remove
+	set show {}
+	set format image
+	set int  0
+	foreach {m modcmd} {
+	    -matrix {set format matrix}
+	    -text   {set format text}
+	    -int    {set int  1}
+	} {
+	    if {![string match *${m}* $modifiers]} continue
+	    eval $modcmd
+	}
+	set modifiers [string trim [string map {
+	    -matrix {} -text {} -int {}
+	} $modifiers]]
+	# process remaining modifiers into display transforms
+	set showcmds [lmap s [split $modifiers \;] { string trim $s }]
+	# default show command, non transforming
+	if {![llength $showcmds]} { lappend showcmds {} }
 
-    # Remainder of args is the commands to run. Last is the actual example output.
-    # The op name is auto-inserted into the run code.
-    set n "aktive [string map {:: { }} [Get opname]]"
-
-    set args [lmap run $args { string trim $run }]
-    set args [lreplace $args end end "$n [lindex $args end]"]
-    set args [lmap run $args { string trim $run }]
-
-    Example $args $transforms $mode $int
+	# record parsed part
+	list $gen $showcmds $format $int
+    }]
 }
 
-proc dsl::reader::Example {runs transforms mode int} { ;#puts [info level 0]
-    LappendX opspec examples [list $runs $transforms $mode $int]
+proc dsl::reader::Example {spec} { ;#puts [info level 0]
+    LappendX opspec examples $spec
 }
 
 proc dsl::reader::strict {ids args} { ;#puts [info level 0]

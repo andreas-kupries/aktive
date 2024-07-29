@@ -8,7 +8,7 @@ operator image::from::sparse::points {
     note Returns single-band image where pixels are set to white at exactly the \
 	specified coordinates.
 
-    example -post {times 32} {coords {0 0} {4 3} {5 5} {6 2}}
+    example {coords {0 0} {4 3} {5 5} {6 2} | times 32}
 
     point... coords  Coordinates of the pixels to set in the image
 
@@ -57,7 +57,7 @@ operator image::from::sparse::deltas {
 	specified points. Differently to `sparse points` the points are specified as \
 	linear distances from the origin.
 
-    example -post {times 32} {width 7 deltas 0 20 5 15}
+    example {width 7 deltas 0 20 5 15 | times 32}
 
     note The height is infered from the points
 
@@ -122,7 +122,7 @@ operator image::from::sparse::deltas {
 operator image::from::sparse::ranges {
     section generator virtual
 
-    example -post {times 32} {ranges {1 24 30 1} {2 23 31 1} {3 22 32 1} {4 22 24 0.75} {4 30 32 0.75} {5 22 23 0.75} {5 31 32 0.75} {6 23 24 0.5} {6 30 31 0.5} {7 24 25 0.5} {7 29 30 0.5}}
+    example {ranges {1 24 30 1} {2 23 31 1} {3 22 32 1} {4 22 24 0.75} {4 30 32 0.75} {5 22 23 0.75} {5 31 32 0.75} {6 23 24 0.5} {6 30 31 0.5} {7 24 25 0.5} {7 29 30 0.5} | times 32}
 
     note Returns a single-band image where the pixels are set to the specified values as per the provided row ranges.
 

@@ -8,7 +8,7 @@
 operator rectangle::make {
     section miscellaneous geometry
 
-    example -text {11 23 30 20}
+    example {11 23 30 20 | -text}
 
     note Construct a 2D rectangle from x- and y-coordinates and width/height dimensions
 
@@ -26,7 +26,7 @@ operator rectangle::make {
 operator rectangle::grow {
     section miscellaneous geometry
 
-    example -text {{11 23 30 20} 1 7 5 10}
+    example {{11 23 30 20} 1 7 5 10 | -text}
 
     note Modify 2D rectangle by moving its 4 borders by a specific amount
 
@@ -49,7 +49,7 @@ operator rectangle::grow {
 operator rectangle::move {
     section miscellaneous geometry
 
-    example -text {{11 23 30 20} -5 7}
+    example {{11 23 30 20} -5 7 | -text}
 
     note Translate a 2D rectangle by a specific amount given as separate x- and y-deltas
 
@@ -70,8 +70,8 @@ operator rectangle::move {
 operator rectangle::equal {
     section miscellaneous geometry
 
-    example -text {{11 23 30 20} {11 23 30 20}}
-    example -text {{11 23 30 20} {11 23 10 20}}
+    example {{11 23 30 20} {11 23 30 20} | -text}
+    example {{11 23 30 20} {11 23 10 20} | -text}
 
     note Test two 2D rectangles for equality (location and dimensions)
 
@@ -84,9 +84,9 @@ operator rectangle::equal {
 operator rectangle::subset {
     section miscellaneous geometry
 
-    example -text {{11 23 30 20} {11 23 30 20}}
-    example -text {{11 23 30 20} {12 22 10 15}}
-    example -text {{11 23 30 20} {10 20 40 25}}
+    example {{11 23 30 20} {11 23 30 20} | -text}
+    example {{11 23 30 20} {12 22 10 15} | -text}
+    example {{11 23 30 20} {10 20 40 25} | -text}
 
     note Test if the first 2D rectangle is a subset of the second.
 
@@ -99,8 +99,8 @@ operator rectangle::subset {
 operator rectangle::empty {
     section miscellaneous geometry
 
-    example -text {{11 23 30 20}}
-    example -text {{11 23 0 0}}
+    example {{11 23 30 20} | -text}
+    example {{11 23 0 0}   | -text}
 
     note Test a 2D rectangle for emptiness
 

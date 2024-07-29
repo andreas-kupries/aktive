@@ -107,9 +107,10 @@ Returns square single-band image containing a cross diagonal bar. The image has 
 
 ## Examples
 
-### aktive image cbar radius 32 width 8
+|aktive image cbar radius 32 width 8|
+|---|
+|<img src='example-00013.gif' alt='aktive image cbar radius 32 width 8' style='border:4px solid gold'>|
 
-<img src='example-00013.gif' alt='aktive image cbar radius 32 width 8' style='border:4px solid gold'>
 
 ---
 ### <a name='image_checkers'></a> aktive image checkers
@@ -128,17 +129,18 @@ Returns image containing a black/white checker board.
 
 ## Examples
 
-### aktive image checkers width 128 height 128
+|aktive image checkers width 128 height 128|
+|---|
+|<img src='example-00014.gif' alt='aktive image checkers width 128 height 128' style='border:4px solid gold'>|
 
-<img src='example-00014.gif' alt='aktive image checkers width 128 height 128' style='border:4px solid gold'>
+|aktive image checkers width 128 height 128 black 16 white 32|
+|---|
+|<img src='example-00015.gif' alt='aktive image checkers width 128 height 128 black 16 white 32' style='border:4px solid gold'>|
 
-### aktive image checkers width 128 height 128 black 16 white 32
+|aktive image checkers width 128 height 128 black 16 white 32 offset 8|
+|---|
+|<img src='example-00016.gif' alt='aktive image checkers width 128 height 128 black 16 white 32 offset 8' style='border:4px solid gold'>|
 
-<img src='example-00015.gif' alt='aktive image checkers width 128 height 128 black 16 white 32' style='border:4px solid gold'>
-
-### aktive image checkers width 128 height 128 black 16 white 32 offset 8
-
-<img src='example-00016.gif' alt='aktive image checkers width 128 height 128 black 16 white 32 offset 8' style='border:4px solid gold'>
 
 ---
 ### <a name='image_circle'></a> aktive image circle
@@ -154,9 +156,10 @@ Returns square single-band image containing a circle (disc perimeter). The image
 
 ## Examples
 
-### aktive image circle radius 32 width 8
+|aktive image circle radius 32 width 8|
+|---|
+|<img src='example-00017.gif' alt='aktive image circle radius 32 width 8' style='border:4px solid gold'>|
 
-<img src='example-00017.gif' alt='aktive image circle radius 32 width 8' style='border:4px solid gold'>
 
 ---
 ### <a name='image_cross'></a> aktive image cross
@@ -172,9 +175,10 @@ Returns square single-band image containing a cross. The image has size `2*radiu
 
 ## Examples
 
-### aktive image cross radius 32 width 8
+|aktive image cross radius 32 width 8|
+|---|
+|<img src='example-00018.gif' alt='aktive image cross radius 32 width 8' style='border:4px solid gold'>|
 
-<img src='example-00018.gif' alt='aktive image cross radius 32 width 8' style='border:4px solid gold'>
 
 ---
 ### <a name='image_dbar'></a> aktive image dbar
@@ -190,9 +194,10 @@ Returns square single-band image containing a diagonal bar. The image has size `
 
 ## Examples
 
-### aktive image dbar radius 32 width 8
+|aktive image dbar radius 32 width 8|
+|---|
+|<img src='example-00019.gif' alt='aktive image dbar radius 32 width 8' style='border:4px solid gold'>|
 
-<img src='example-00019.gif' alt='aktive image dbar radius 32 width 8' style='border:4px solid gold'>
 
 ---
 ### <a name='image_dgrid'></a> aktive image dgrid
@@ -211,17 +216,18 @@ Returns image containing a diagonal black/white grid with configurable stripes
 
 ## Examples
 
-### aktive image dgrid width 128 height 128
+|aktive image dgrid width 128 height 128|
+|---|
+|<img src='example-00020.gif' alt='aktive image dgrid width 128 height 128' style='border:4px solid gold'>|
 
-<img src='example-00020.gif' alt='aktive image dgrid width 128 height 128' style='border:4px solid gold'>
+|aktive image dgrid width 128 height 128 black 16 white 32|
+|---|
+|<img src='example-00021.gif' alt='aktive image dgrid width 128 height 128 black 16 white 32' style='border:4px solid gold'>|
 
-### aktive image dgrid width 128 height 128 black 16 white 32
+|aktive image dgrid width 128 height 128 black 16 white 32 offset 8|
+|---|
+|<img src='example-00022.gif' alt='aktive image dgrid width 128 height 128 black 16 white 32 offset 8' style='border:4px solid gold'>|
 
-<img src='example-00021.gif' alt='aktive image dgrid width 128 height 128 black 16 white 32' style='border:4px solid gold'>
-
-### aktive image dgrid width 128 height 128 black 16 white 32 offset 8
-
-<img src='example-00022.gif' alt='aktive image dgrid width 128 height 128 black 16 white 32 offset 8' style='border:4px solid gold'>
 
 ---
 ### <a name='image_disc'></a> aktive image disc
@@ -236,9 +242,10 @@ Returns square single-band image containing a filled disc. The image has size `2
 
 ## Examples
 
-### aktive image disc radius 32
+|aktive image disc radius 32|
+|---|
+|<img src='example-00023.gif' alt='aktive image disc radius 32' style='border:4px solid gold'>|
 
-<img src='example-00023.gif' alt='aktive image disc radius 32' style='border:4px solid gold'>
 
 ---
 ### <a name='image_dstripes'></a> aktive image dstripes
@@ -257,17 +264,18 @@ Returns image containing a series of diagonal black/white stripes.
 
 ## Examples
 
-### aktive image dstripes width 128 height 128
+|aktive image dstripes width 128 height 128|
+|---|
+|<img src='example-00024.gif' alt='aktive image dstripes width 128 height 128' style='border:4px solid gold'>|
 
-<img src='example-00024.gif' alt='aktive image dstripes width 128 height 128' style='border:4px solid gold'>
+|aktive image dstripes width 128 height 128 black 16 white 32|
+|---|
+|<img src='example-00025.gif' alt='aktive image dstripes width 128 height 128 black 16 white 32' style='border:4px solid gold'>|
 
-### aktive image dstripes width 128 height 128 black 16 white 32
+|aktive image dstripes width 128 height 128 black 16 white 32 offset 8|
+|---|
+|<img src='example-00026.gif' alt='aktive image dstripes width 128 height 128 black 16 white 32 offset 8' style='border:4px solid gold'>|
 
-<img src='example-00025.gif' alt='aktive image dstripes width 128 height 128 black 16 white 32' style='border:4px solid gold'>
-
-### aktive image dstripes width 128 height 128 black 16 white 32 offset 8
-
-<img src='example-00026.gif' alt='aktive image dstripes width 128 height 128 black 16 white 32 offset 8' style='border:4px solid gold'>
 
 ---
 ### <a name='image_eye'></a> aktive image eye
@@ -284,9 +292,10 @@ Returns image containing a test pattern with increasing spatial frequency from l
 
 ## Examples
 
-### aktive image eye width 256 height 256 factor 0.8
+|aktive image eye width 256 height 256 factor 0.8|
+|---|
+|<img src='example-00027.gif' alt='aktive image eye width 256 height 256 factor 0.8' style='border:4px solid gold'>|
 
-<img src='example-00027.gif' alt='aktive image eye width 256 height 256 factor 0.8' style='border:4px solid gold'>
 
 ---
 ### <a name='image_from_band'></a> aktive image from band
@@ -305,13 +314,14 @@ Depth is len(value)
 
 ## Examples
 
-### aktive image from band width 64 height 64 values 0.3
+|aktive image from band width 64 height 64 values 0.3|
+|---|
+|<img src='example-00028.gif' alt='aktive image from band width 64 height 64 values 0.3' style='border:4px solid gold'>|
 
-<img src='example-00028.gif' alt='aktive image from band width 64 height 64 values 0.3' style='border:4px solid gold'>
+|aktive image from band width 64 height 64 values 0.3 0.5 0.7|
+|---|
+|<img src='example-00029.gif' alt='aktive image from band width 64 height 64 values 0.3 0.5 0.7' style='border:4px solid gold'>|
 
-### aktive image from band width 64 height 64 values 0.3 0.5 0.7
-
-<img src='example-00029.gif' alt='aktive image from band width 64 height 64 values 0.3 0.5 0.7' style='border:4px solid gold'>
 
 ---
 ### <a name='image_from_column'></a> aktive image from column
@@ -329,9 +339,10 @@ The image's height is the number of values.
 
 ## Examples
 
-### aktive image from column width 64 values 0 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 0.45 0.5 0.55 0.6 0.6 0.7 0.75 0.8 0.85 0.9 0.95 1
+|aktive image from column width 64 values 0 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 0.45 0.5 0.55 0.6 0.6 0.7 0.75 0.8 0.85 0.9 0.95 1|
+|---|
+|<img src='example-00030.gif' alt='aktive image from column width 64 values 0 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 0.45 0.5 0.55 0.6 0.6 0.7 0.75 0.8 0.85 0.9 0.95 1' style='border:4px solid gold'>|
 
-<img src='example-00030.gif' alt='aktive image from column width 64 values 0 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 0.45 0.5 0.55 0.6 0.6 0.7 0.75 0.8 0.85 0.9 0.95 1' style='border:4px solid gold'>
 
 ---
 ### <a name='image_from_matrix'></a> aktive image from matrix
@@ -355,9 +366,10 @@ Depth is fixed at 1.
 
 ## Examples
 
-### aktive image from matrix width 16 height 16 values 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 (times 8)
+|aktive image from matrix width 16 height 16 values 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 |
+|---|
+|<table><trf><td valign='top'>times 8</td><td valign='top'><img src='example-00031.gif' alt='aktive image from matrix width 16 height 16 values 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 ' style='border:4px solid gold'></td></tr></table>|
 
-<img src='example-00031.gif' alt='aktive image from matrix width 16 height 16 values 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 (times 8)' style='border:4px solid gold'>
 
 ---
 ### <a name='image_from_row'></a> aktive image from row
@@ -375,9 +387,10 @@ The image's width is the number of values.
 
 ## Examples
 
-### aktive image from row height 64 values 0 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 0.45 0.5 0.55 0.6 0.6 0.7 0.75 0.8 0.85 0.9 0.95 1
+|aktive image from row height 64 values 0 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 0.45 0.5 0.55 0.6 0.6 0.7 0.75 0.8 0.85 0.9 0.95 1|
+|---|
+|<img src='example-00032.gif' alt='aktive image from row height 64 values 0 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 0.45 0.5 0.55 0.6 0.6 0.7 0.75 0.8 0.85 0.9 0.95 1' style='border:4px solid gold'>|
 
-<img src='example-00032.gif' alt='aktive image from row height 64 values 0 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 0.45 0.5 0.55 0.6 0.6 0.7 0.75 0.8 0.85 0.9 0.95 1' style='border:4px solid gold'>
 
 ---
 ### <a name='image_from_sparse_deltas'></a> aktive image from sparse deltas
@@ -403,9 +416,10 @@ Pixel value is fixed at 1.0
 
 ## Examples
 
-### aktive image from sparse deltas width 7 deltas 0 20 5 15 (times 32)
+|aktive image from sparse deltas width 7 deltas 0 20 5 15 |
+|---|
+|<table><trf><td valign='top'>times 32</td><td valign='top'><img src='example-00033.gif' alt='aktive image from sparse deltas width 7 deltas 0 20 5 15 ' style='border:4px solid gold'></td></tr></table>|
 
-<img src='example-00033.gif' alt='aktive image from sparse deltas width 7 deltas 0 20 5 15 (times 32)' style='border:4px solid gold'>
 
 ---
 ### <a name='image_from_sparse_points'></a> aktive image from sparse points
@@ -430,9 +444,10 @@ Pixel value is fixed at 1.0
 
 ## Examples
 
-### aktive image from sparse points coords {0 0} {4 3} {5 5} {6 2} (times 32)
+|aktive image from sparse points coords {0 0} {4 3} {5 5} {6 2} |
+|---|
+|<table><trf><td valign='top'>times 32</td><td valign='top'><img src='example-00034.gif' alt='aktive image from sparse points coords {0 0} {4 3} {5 5} {6 2} ' style='border:4px solid gold'></td></tr></table>|
 
-<img src='example-00034.gif' alt='aktive image from sparse points coords {0 0} {4 3} {5 5} {6 2} (times 32)' style='border:4px solid gold'>
 
 ---
 ### <a name='image_from_sparse_ranges'></a> aktive image from sparse ranges
@@ -458,9 +473,10 @@ The image depth is fixed at 1, i.e. the result is single-band.
 
 ## Examples
 
-### aktive image from sparse ranges ranges {1 24 30 1} {2 23 31 1} {3 22 32 1} {4 22 24 0.75} {4 30 32 0.75} {5 22 23 0.75} {5 31 32 0.75} {6 23 24 0.5} {6 30 31 0.5} {7 24 25 0.5} {7 29 30 0.5} (times 32)
+|aktive image from sparse ranges ranges {1 24 30 1} {2 23 31 1} {3 22 32 1} {4 22 24 0.75} {4 30 32 0.75} {5 22 23 0.75} {5 31 32 0.75} {6 23 24 0.5} {6 30 31 0.5} {7 24 25 0.5} {7 29 30 0.5} |
+|---|
+|<table><trf><td valign='top'>times 32</td><td valign='top'><img src='example-00035.gif' alt='aktive image from sparse ranges ranges {1 24 30 1} {2 23 31 1} {3 22 32 1} {4 22 24 0.75} {4 30 32 0.75} {5 22 23 0.75} {5 31 32 0.75} {6 23 24 0.5} {6 30 31 0.5} {7 24 25 0.5} {7 29 30 0.5} ' style='border:4px solid gold'></td></tr></table>|
 
-<img src='example-00035.gif' alt='aktive image from sparse ranges ranges {1 24 30 1} {2 23 31 1} {3 22 32 1} {4 22 24 0.75} {4 30 32 0.75} {5 22 23 0.75} {5 31 32 0.75} {6 23 24 0.5} {6 30 31 0.5} {7 24 25 0.5} {7 29 30 0.5} (times 32)' style='border:4px solid gold'>
 
 ---
 ### <a name='image_from_value'></a> aktive image from value
@@ -478,13 +494,14 @@ Returns image which has the same VALUE everywhere.
 
 ## Examples
 
-### aktive image from value width 64 height 64 depth 1 value 0.5
+|aktive image from value width 64 height 64 depth 1 value 0.5|
+|---|
+|<img src='example-00036.gif' alt='aktive image from value width 64 height 64 depth 1 value 0.5' style='border:4px solid gold'>|
 
-<img src='example-00036.gif' alt='aktive image from value width 64 height 64 depth 1 value 0.5' style='border:4px solid gold'>
+|aktive image from value width 64 height 64 depth 3 value 0.5|
+|---|
+|<img src='example-00037.gif' alt='aktive image from value width 64 height 64 depth 3 value 0.5' style='border:4px solid gold'>|
 
-### aktive image from value width 64 height 64 depth 3 value 0.5
-
-<img src='example-00037.gif' alt='aktive image from value width 64 height 64 depth 3 value 0.5' style='border:4px solid gold'>
 
 ---
 ### <a name='image_gradient'></a> aktive image gradient
@@ -503,13 +520,14 @@ Returns image containing a linear gradient through all cells.
 
 ## Examples
 
-### aktive image gradient width 256 height 1 depth 1 first 0 last 1 (height-times 32)
+|aktive image gradient width 256 height   1 depth 1 first 0 last 1 |
+|---|
+|<table><trf><td valign='top'>height-times 32</td><td valign='top'><img src='example-00038.gif' alt='aktive image gradient width 256 height   1 depth 1 first 0 last 1 ' style='border:4px solid gold'></td></tr></table>|
 
-<img src='example-00038.gif' alt='aktive image gradient width 256 height 1 depth 1 first 0 last 1 (height-times 32)' style='border:4px solid gold'>
+|aktive image gradient width 128 height 128 depth 1 first 0 last 1|
+|---|
+|<img src='example-00039.gif' alt='aktive image gradient width 128 height 128 depth 1 first 0 last 1' style='border:4px solid gold'>|
 
-### aktive image gradient width 128 height 128 depth 1 first 0 last 1
-
-<img src='example-00039.gif' alt='aktive image gradient width 128 height 128 depth 1 first 0 last 1' style='border:4px solid gold'>
 
 ---
 ### <a name='image_grey'></a> aktive image grey
@@ -525,9 +543,10 @@ Returns image containing a left to right black to white gradient.
 
 ## Examples
 
-### aktive image grey width 256 height 32
+|aktive image grey width 256 height 32|
+|---|
+|<img src='example-00040.gif' alt='aktive image grey width 256 height 32' style='border:4px solid gold'>|
 
-<img src='example-00040.gif' alt='aktive image grey width 256 height 32' style='border:4px solid gold'>
 
 ---
 ### <a name='image_grid'></a> aktive image grid
@@ -546,17 +565,18 @@ Returns image containing an axis-aligned black/white grid with configurable stri
 
 ## Examples
 
-### aktive image grid width 128 height 128
+|aktive image grid width 128 height 128|
+|---|
+|<img src='example-00041.gif' alt='aktive image grid width 128 height 128' style='border:4px solid gold'>|
 
-<img src='example-00041.gif' alt='aktive image grid width 128 height 128' style='border:4px solid gold'>
+|aktive image grid width 128 height 128 black 16 white 32|
+|---|
+|<img src='example-00042.gif' alt='aktive image grid width 128 height 128 black 16 white 32' style='border:4px solid gold'>|
 
-### aktive image grid width 128 height 128 black 16 white 32
+|aktive image grid width 128 height 128 black 16 white 32 offset 8|
+|---|
+|<img src='example-00043.gif' alt='aktive image grid width 128 height 128 black 16 white 32 offset 8' style='border:4px solid gold'>|
 
-<img src='example-00042.gif' alt='aktive image grid width 128 height 128 black 16 white 32' style='border:4px solid gold'>
-
-### aktive image grid width 128 height 128 black 16 white 32 offset 8
-
-<img src='example-00043.gif' alt='aktive image grid width 128 height 128 black 16 white 32 offset 8' style='border:4px solid gold'>
 
 ---
 ### <a name='image_hbar'></a> aktive image hbar
@@ -572,9 +592,10 @@ Returns square single-band image containing a horizontal bar. The image has size
 
 ## Examples
 
-### aktive image hbar radius 32 width 8
+|aktive image hbar radius 32 width 8|
+|---|
+|<img src='example-00044.gif' alt='aktive image hbar radius 32 width 8' style='border:4px solid gold'>|
 
-<img src='example-00044.gif' alt='aktive image hbar radius 32 width 8' style='border:4px solid gold'>
 
 ---
 ### <a name='image_indexed'></a> aktive image indexed
@@ -590,9 +611,9 @@ Returns 2-band image where each pixel declares its own position
 
 ## Examples
 
-### aktive image indexed width 5 height 5
-
-<table><tr><td>(0, 0)</td><td>(1, 0)</td><td>(2, 0)</td><td>(3, 0)</td><td>(4, 0)</td></tr><tr><td>(0, 1)</td><td>(1, 1)</td><td>(2, 1)</td><td>(3, 1)</td><td>(4, 1)</td></tr><tr><td>(0, 2)</td><td>(1, 2)</td><td>(2, 2)</td><td>(3, 2)</td><td>(4, 2)</td></tr><tr><td>(0, 3)</td><td>(1, 3)</td><td>(2, 3)</td><td>(3, 3)</td><td>(4, 3)</td></tr><tr><td>(0, 4)</td><td>(1, 4)</td><td>(2, 4)</td><td>(3, 4)</td><td>(4, 4)</td></tr></table>
+|aktive image indexed width 5 height 5 |
+|---|
+|<table><tr><td>(0, 0)</td><td>(1, 0)</td><td>(2, 0)</td><td>(3, 0)</td><td>(4, 0)</td></tr><tr><td>(0, 1)</td><td>(1, 1)</td><td>(2, 1)</td><td>(3, 1)</td><td>(4, 1)</td></tr><tr><td>(0, 2)</td><td>(1, 2)</td><td>(2, 2)</td><td>(3, 2)</td><td>(4, 2)</td></tr><tr><td>(0, 3)</td><td>(1, 3)</td><td>(2, 3)</td><td>(3, 3)</td><td>(4, 3)</td></tr><tr><td>(0, 4)</td><td>(1, 4)</td><td>(2, 4)</td><td>(3, 4)</td><td>(4, 4)</td></tr></table>|
 
 
 ---
@@ -605,9 +626,9 @@ Returns convolution kernel for embossing effect
 
 ## Examples
 
-### aktive image kernel emboss
-
-<table><tr><td>2</td><td>0</td><td>0</td></tr><tr><td>0</td><td>-1</td><td>0</td></tr><tr><td>0</td><td>0</td><td>-1</td></tr></table>
+|aktive image kernel emboss |
+|---|
+|<table><tr><td>2</td><td>0</td><td>0</td></tr><tr><td>0</td><td>-1</td><td>0</td></tr><tr><td>0</td><td>0</td><td>-1</td></tr></table>|
 
 
 ---
@@ -620,9 +641,9 @@ Returns convolution kernel for gauss3ian blur effect
 
 ## Examples
 
-### aktive image kernel gauss3 x
-
-<table><tr><td>0.2500</td><td>0.5000</td><td>0.2500</td></tr></table>
+|aktive image kernel gauss3 x |
+|---|
+|<table><tr><td>0.2500</td><td>0.5000</td><td>0.2500</td></tr></table>|
 
 
 ---
@@ -635,9 +656,9 @@ Returns convolution kernel for gauss3ian blur effect
 
 ## Examples
 
-### aktive image kernel gauss3 xy
-
-<table><tr><td>0.0625</td><td>0.1250</td><td>0.0625</td></tr><tr><td>0.1250</td><td>0.2500</td><td>0.1250</td></tr><tr><td>0.0625</td><td>0.1250</td><td>0.0625</td></tr></table>
+|aktive image kernel gauss3 xy |
+|---|
+|<table><tr><td>0.0625</td><td>0.1250</td><td>0.0625</td></tr><tr><td>0.1250</td><td>0.2500</td><td>0.1250</td></tr><tr><td>0.0625</td><td>0.1250</td><td>0.0625</td></tr></table>|
 
 
 ---
@@ -650,9 +671,9 @@ Returns convolution kernel for gauss3ian blur effect
 
 ## Examples
 
-### aktive image kernel gauss3 y
-
-<table><tr><td>0.2500</td></tr><tr><td>0.5000</td></tr><tr><td>0.2500</td></tr></table>
+|aktive image kernel gauss3 y |
+|---|
+|<table><tr><td>0.2500</td></tr><tr><td>0.5000</td></tr><tr><td>0.2500</td></tr></table>|
 
 
 ---
@@ -665,9 +686,9 @@ Returns convolution kernel for gauss5ian blur effect
 
 ## Examples
 
-### aktive image kernel gauss5 x
-
-<table><tr><td>0.0625</td><td>0.2500</td><td>0.3750</td><td>0.2500</td><td>0.0625</td></tr></table>
+|aktive image kernel gauss5 x |
+|---|
+|<table><tr><td>0.0625</td><td>0.2500</td><td>0.3750</td><td>0.2500</td><td>0.0625</td></tr></table>|
 
 
 ---
@@ -680,9 +701,9 @@ Returns convolution kernel for gauss5ian blur effect
 
 ## Examples
 
-### aktive image kernel gauss5 y
-
-<table><tr><td>0.0625</td></tr><tr><td>0.2500</td></tr><tr><td>0.3750</td></tr><tr><td>0.2500</td></tr><tr><td>0.0625</td></tr></table>
+|aktive image kernel gauss5 y |
+|---|
+|<table><tr><td>0.0625</td></tr><tr><td>0.2500</td></tr><tr><td>0.3750</td></tr><tr><td>0.2500</td></tr><tr><td>0.0625</td></tr></table>|
 
 
 ---
@@ -695,9 +716,9 @@ Returns convolution kernel for gauss7ian blur effect
 
 ## Examples
 
-### aktive image kernel gauss7 x
-
-<table><tr><td>0.0156</td><td>0.0938</td><td>0.2344</td><td>0.3125</td><td>0.2344</td><td>0.0938</td><td>0.0156</td></tr></table>
+|aktive image kernel gauss7 x |
+|---|
+|<table><tr><td>0.0156</td><td>0.0938</td><td>0.2344</td><td>0.3125</td><td>0.2344</td><td>0.0938</td><td>0.0156</td></tr></table>|
 
 
 ---
@@ -710,9 +731,9 @@ Returns convolution kernel for gauss7ian blur effect
 
 ## Examples
 
-### aktive image kernel gauss7 y
-
-<table><tr><td>0.0156</td></tr><tr><td>0.0938</td></tr><tr><td>0.2344</td></tr><tr><td>0.3125</td></tr><tr><td>0.2344</td></tr><tr><td>0.0938</td></tr><tr><td>0.0156</td></tr></table>
+|aktive image kernel gauss7 y |
+|---|
+|<table><tr><td>0.0156</td></tr><tr><td>0.0938</td></tr><tr><td>0.2344</td></tr><tr><td>0.3125</td></tr><tr><td>0.2344</td></tr><tr><td>0.0938</td></tr><tr><td>0.0156</td></tr></table>|
 
 
 ---
@@ -725,9 +746,9 @@ Returns convolution kernel for gauss9ian blur effect
 
 ## Examples
 
-### aktive image kernel gauss9 x
-
-<table><tr><td>0.0078</td><td>0.0625</td><td>0.2188</td><td>0.4375</td><td>0.5469</td><td>0.4375</td><td>0.2188</td><td>0.0625</td><td>0.0078</td></tr></table>
+|aktive image kernel gauss9 x |
+|---|
+|<table><tr><td>0.0078</td><td>0.0625</td><td>0.2188</td><td>0.4375</td><td>0.5469</td><td>0.4375</td><td>0.2188</td><td>0.0625</td><td>0.0078</td></tr></table>|
 
 
 ---
@@ -740,9 +761,9 @@ Returns convolution kernel for gauss9ian blur effect
 
 ## Examples
 
-### aktive image kernel gauss9 y
-
-<table><tr><td>0.0078</td></tr><tr><td>0.0625</td></tr><tr><td>0.2188</td></tr><tr><td>0.4375</td></tr><tr><td>0.5469</td></tr><tr><td>0.4375</td></tr><tr><td>0.2188</td></tr><tr><td>0.0625</td></tr><tr><td>0.0078</td></tr></table>
+|aktive image kernel gauss9 y |
+|---|
+|<table><tr><td>0.0078</td></tr><tr><td>0.0625</td></tr><tr><td>0.2188</td></tr><tr><td>0.4375</td></tr><tr><td>0.5469</td></tr><tr><td>0.4375</td></tr><tr><td>0.2188</td></tr><tr><td>0.0625</td></tr><tr><td>0.0078</td></tr></table>|
 
 
 ---
@@ -761,19 +782,17 @@ For more about the math see http://en.wikipedia.org/wiki/Scale_space_implementat
 
 ## Examples
 
-### aktive image kernel gauss discrete sigma 1
+|aktive image kernel gauss discrete sigma 1          |
+|---|
+|<table><tr><td>0.0082</td><td>0.0501</td><td>0.2084</td><td>0.4668</td><td>0.2084</td><td>0.0501</td><td>0.0082</td></tr></table>|
 
-<table><tr><td>0.0082</td><td>0.0501</td><td>0.2084</td><td>0.4668</td><td>0.2084</td><td>0.0501</td><td>0.0082</td></tr></table>
+|aktive image kernel gauss discrete sigma 2          |
+|---|
+|<table><tr><td>0.0028</td><td>0.0093</td><td>0.0260</td><td>0.0612</td><td>0.1179</td><td>0.1791</td><td>0.2074</td><td>0.1791</td><td>0.1179</td><td>0.0612</td><td>0.0260</td><td>0.0093</td><td>0.0028</td></tr></table>|
 
-
-### aktive image kernel gauss discrete sigma 2
-
-<table><tr><td>0.0028</td><td>0.0093</td><td>0.0260</td><td>0.0612</td><td>0.1179</td><td>0.1791</td><td>0.2074</td><td>0.1791</td><td>0.1179</td><td>0.0612</td><td>0.0260</td><td>0.0093</td><td>0.0028</td></tr></table>
-
-
-### aktive image kernel gauss discrete sigma 1 radius 6
-
-<table><tr><td>0.0000</td><td>0.0001</td><td>0.0010</td><td>0.0082</td><td>0.0499</td><td>0.2079</td><td>0.4658</td><td>0.2079</td><td>0.0499</td><td>0.0082</td><td>0.0010</td><td>0.0001</td><td>0.0000</td></tr></table>
+|aktive image kernel gauss discrete sigma 1 radius 6 |
+|---|
+|<table><tr><td>0.0000</td><td>0.0001</td><td>0.0010</td><td>0.0082</td><td>0.0499</td><td>0.2079</td><td>0.4658</td><td>0.2079</td><td>0.0499</td><td>0.0082</td><td>0.0010</td><td>0.0001</td><td>0.0000</td></tr></table>|
 
 
 ---
@@ -786,9 +805,9 @@ Returns convolution kernel for kirsch edge detection
 
 ## Examples
 
-### aktive image kernel kirsch md
-
-<table><tr><td>-3</td><td>5</td><td>5</td></tr><tr><td>-3</td><td>0</td><td>5</td></tr><tr><td>-3</td><td>-3</td><td>-3</td></tr></table>
+|aktive image kernel kirsch md |
+|---|
+|<table><tr><td>-3</td><td>5</td><td>5</td></tr><tr><td>-3</td><td>0</td><td>5</td></tr><tr><td>-3</td><td>-3</td><td>-3</td></tr></table>|
 
 
 ---
@@ -801,9 +820,9 @@ Returns convolution kernel for kirsch edge detection
 
 ## Examples
 
-### aktive image kernel kirsch sd
-
-<table><tr><td>5</td><td>5</td><td>-3</td></tr><tr><td>5</td><td>0</td><td>-3</td></tr><tr><td>-3</td><td>-3</td><td>-3</td></tr></table>
+|aktive image kernel kirsch sd |
+|---|
+|<table><tr><td>5</td><td>5</td><td>-3</td></tr><tr><td>5</td><td>0</td><td>-3</td></tr><tr><td>-3</td><td>-3</td><td>-3</td></tr></table>|
 
 
 ---
@@ -816,9 +835,9 @@ Returns convolution kernel for kirsch edge detection
 
 ## Examples
 
-### aktive image kernel kirsch x
-
-<table><tr><td>5</td><td>-3</td><td>-3</td></tr><tr><td>5</td><td>0</td><td>-3</td></tr><tr><td>5</td><td>-3</td><td>-3</td></tr></table>
+|aktive image kernel kirsch x |
+|---|
+|<table><tr><td>5</td><td>-3</td><td>-3</td></tr><tr><td>5</td><td>0</td><td>-3</td></tr><tr><td>5</td><td>-3</td><td>-3</td></tr></table>|
 
 
 ---
@@ -831,9 +850,9 @@ Returns convolution kernel for kirsch edge detection
 
 ## Examples
 
-### aktive image kernel kirsch y
-
-<table><tr><td>5</td><td>5</td><td>5</td></tr><tr><td>-3</td><td>0</td><td>-3</td></tr><tr><td>-3</td><td>-3</td><td>-3</td></tr></table>
+|aktive image kernel kirsch y |
+|---|
+|<table><tr><td>5</td><td>5</td><td>5</td></tr><tr><td>-3</td><td>0</td><td>-3</td></tr><tr><td>-3</td><td>-3</td><td>-3</td></tr></table>|
 
 
 ---
@@ -852,19 +871,17 @@ For more about the math see https://en.wikipedia.org/wiki/Lanczos_resampling#Lan
 
 ## Examples
 
-### aktive image kernel lanczos
+|aktive image kernel lanczos |
+|---|
+|<table><tr><td>-0.0000</td><td>0.0000</td><td>1.0000</td><td>0.0000</td><td>-0.0000</td></tr></table>|
 
-<table><tr><td>-0.0000</td><td>0.0000</td><td>1.0000</td><td>0.0000</td><td>-0.0000</td></tr></table>
+|aktive image kernel lanczos order 2           |
+|---|
+|<table><tr><td>0.0000</td><td>1.0000</td><td>0.0000</td></tr></table>|
 
-
-### aktive image kernel lanczos order 2
-
-<table><tr><td>0.0000</td><td>1.0000</td><td>0.0000</td></tr></table>
-
-
-### aktive image kernel lanczos order 2 step 0.25
-
-<table><tr><td>-0.0179</td><td>-0.0637</td><td>-0.0847</td><td>0.0000</td><td>0.2353</td><td>0.5732</td><td>0.8774</td><td>1.0000</td><td>0.8774</td><td>0.5732</td><td>0.2353</td><td>0.0000</td><td>-0.0847</td><td>-0.0637</td><td>-0.0179</td></tr></table>
+|aktive image kernel lanczos order 2 step 0.25 |
+|---|
+|<table><tr><td>-0.0179</td><td>-0.0637</td><td>-0.0847</td><td>0.0000</td><td>0.2353</td><td>0.5732</td><td>0.8774</td><td>1.0000</td><td>0.8774</td><td>0.5732</td><td>0.2353</td><td>0.0000</td><td>-0.0847</td><td>-0.0637</td><td>-0.0179</td></tr></table>|
 
 
 ---
@@ -877,9 +894,9 @@ Returns convolution kernel for laplacian edge detection
 
 ## Examples
 
-### aktive image kernel laplace 4
-
-<table><tr><td>0</td><td>-1</td><td>0</td></tr><tr><td>-1</td><td>4</td><td>-1</td></tr><tr><td>0</td><td>-1</td><td>0</td></tr></table>
+|aktive image kernel laplace 4 |
+|---|
+|<table><tr><td>0</td><td>-1</td><td>0</td></tr><tr><td>-1</td><td>4</td><td>-1</td></tr><tr><td>0</td><td>-1</td><td>0</td></tr></table>|
 
 
 ---
@@ -892,9 +909,9 @@ Returns convolution kernel for laplacian edge detection
 
 ## Examples
 
-### aktive image kernel laplace 8
-
-<table><tr><td>-1</td><td>-1</td><td>-1</td></tr><tr><td>-1</td><td>8</td><td>-1</td></tr><tr><td>-1</td><td>-1</td><td>-1</td></tr></table>
+|aktive image kernel laplace 8 |
+|---|
+|<table><tr><td>-1</td><td>-1</td><td>-1</td></tr><tr><td>-1</td><td>8</td><td>-1</td></tr><tr><td>-1</td><td>-1</td><td>-1</td></tr></table>|
 
 
 ---
@@ -907,9 +924,9 @@ Returns convolution kernel for laplacian edge detection
 
 ## Examples
 
-### aktive image kernel laplace X
-
-<table><tr><td>1</td><td>-2</td><td>1</td></tr><tr><td>-2</td><td>4</td><td>-2</td></tr><tr><td>1</td><td>-2</td><td>1</td></tr></table>
+|aktive image kernel laplace X |
+|---|
+|<table><tr><td>1</td><td>-2</td><td>1</td></tr><tr><td>-2</td><td>4</td><td>-2</td></tr><tr><td>1</td><td>-2</td><td>1</td></tr></table>|
 
 
 ---
@@ -922,9 +939,9 @@ Returns convolution kernel for prewitt edge detection
 
 ## Examples
 
-### aktive image kernel prewitt md
-
-<table><tr><td>0</td><td>1</td><td>1</td></tr><tr><td>-1</td><td>0</td><td>1</td></tr><tr><td>-1</td><td>-1</td><td>0</td></tr></table>
+|aktive image kernel prewitt md |
+|---|
+|<table><tr><td>0</td><td>1</td><td>1</td></tr><tr><td>-1</td><td>0</td><td>1</td></tr><tr><td>-1</td><td>-1</td><td>0</td></tr></table>|
 
 
 ---
@@ -937,9 +954,9 @@ Returns convolution kernel for prewitt edge detection
 
 ## Examples
 
-### aktive image kernel prewitt sd
-
-<table><tr><td>-1</td><td>-1</td><td>0</td></tr><tr><td>-1</td><td>0</td><td>1</td></tr><tr><td>0</td><td>1</td><td>1</td></tr></table>
+|aktive image kernel prewitt sd |
+|---|
+|<table><tr><td>-1</td><td>-1</td><td>0</td></tr><tr><td>-1</td><td>0</td><td>1</td></tr><tr><td>0</td><td>1</td><td>1</td></tr></table>|
 
 
 ---
@@ -952,9 +969,9 @@ Returns convolution kernel for prewitt edge detection
 
 ## Examples
 
-### aktive image kernel prewitt x
-
-<table><tr><td>-1</td><td>0</td><td>1</td></tr><tr><td>-1</td><td>0</td><td>1</td></tr><tr><td>-1</td><td>0</td><td>1</td></tr></table>
+|aktive image kernel prewitt x |
+|---|
+|<table><tr><td>-1</td><td>0</td><td>1</td></tr><tr><td>-1</td><td>0</td><td>1</td></tr><tr><td>-1</td><td>0</td><td>1</td></tr></table>|
 
 
 ---
@@ -967,9 +984,9 @@ Returns convolution kernel for prewitt edge detection
 
 ## Examples
 
-### aktive image kernel prewitt y
-
-<table><tr><td>-1</td><td>-1</td><td>-1</td></tr><tr><td>0</td><td>0</td><td>0</td></tr><tr><td>1</td><td>1</td><td>1</td></tr></table>
+|aktive image kernel prewitt y |
+|---|
+|<table><tr><td>-1</td><td>-1</td><td>-1</td></tr><tr><td>0</td><td>0</td><td>0</td></tr><tr><td>1</td><td>1</td><td>1</td></tr></table>|
 
 
 ---
@@ -982,9 +999,9 @@ Returns convolution kernel for roberts cross edge detection
 
 ## Examples
 
-### aktive image kernel roberts x
-
-<table><tr><td>0</td><td>-1</td><td>0</td></tr><tr><td>1</td><td>0</td><td>0</td></tr><tr><td>0</td><td>0</td><td>0</td></tr></table>
+|aktive image kernel roberts x |
+|---|
+|<table><tr><td>0</td><td>-1</td><td>0</td></tr><tr><td>1</td><td>0</td><td>0</td></tr><tr><td>0</td><td>0</td><td>0</td></tr></table>|
 
 
 ---
@@ -997,9 +1014,9 @@ Returns convolution kernel for roberts cross edge detection
 
 ## Examples
 
-### aktive image kernel roberts y
-
-<table><tr><td>-1</td><td>0</td><td>0</td></tr><tr><td>0</td><td>1</td><td>0</td></tr><tr><td>0</td><td>0</td><td>0</td></tr></table>
+|aktive image kernel roberts y |
+|---|
+|<table><tr><td>-1</td><td>0</td><td>0</td></tr><tr><td>0</td><td>1</td><td>0</td></tr><tr><td>0</td><td>0</td><td>0</td></tr></table>|
 
 
 ---
@@ -1012,9 +1029,9 @@ Returns convolution kernel for scharr edge detection
 
 ## Examples
 
-### aktive image kernel scharr x
-
-<table><tr><td>-3</td><td>0</td><td>3</td></tr><tr><td>-10</td><td>0</td><td>10</td></tr><tr><td>-3</td><td>0</td><td>3</td></tr></table>
+|aktive image kernel scharr x |
+|---|
+|<table><tr><td>-3</td><td>0</td><td>3</td></tr><tr><td>-10</td><td>0</td><td>10</td></tr><tr><td>-3</td><td>0</td><td>3</td></tr></table>|
 
 
 ---
@@ -1027,9 +1044,9 @@ Returns convolution kernel for scharr edge detection
 
 ## Examples
 
-### aktive image kernel scharr y
-
-<table><tr><td>-3</td><td>-10</td><td>-3</td></tr><tr><td>0</td><td>0</td><td>0</td></tr><tr><td>3</td><td>10</td><td>3</td></tr></table>
+|aktive image kernel scharr y |
+|---|
+|<table><tr><td>-3</td><td>-10</td><td>-3</td></tr><tr><td>0</td><td>0</td><td>0</td></tr><tr><td>3</td><td>10</td><td>3</td></tr></table>|
 
 
 ---
@@ -1042,9 +1059,9 @@ Returns convolution kernel for sharpening effect
 
 ## Examples
 
-### aktive image kernel sharp 4
-
-<table><tr><td>0</td><td>-1</td><td>0</td></tr><tr><td>-1</td><td>5</td><td>-1</td></tr><tr><td>0</td><td>-1</td><td>0</td></tr></table>
+|aktive image kernel sharp 4 |
+|---|
+|<table><tr><td>0</td><td>-1</td><td>0</td></tr><tr><td>-1</td><td>5</td><td>-1</td></tr><tr><td>0</td><td>-1</td><td>0</td></tr></table>|
 
 
 ---
@@ -1057,9 +1074,9 @@ Returns convolution kernel for sharpening effect
 
 ## Examples
 
-### aktive image kernel sharp 8
-
-<table><tr><td>-1</td><td>-1</td><td>-1</td></tr><tr><td>-1</td><td>9</td><td>-1</td></tr><tr><td>-1</td><td>-1</td><td>-1</td></tr></table>
+|aktive image kernel sharp 8 |
+|---|
+|<table><tr><td>-1</td><td>-1</td><td>-1</td></tr><tr><td>-1</td><td>9</td><td>-1</td></tr><tr><td>-1</td><td>-1</td><td>-1</td></tr></table>|
 
 
 ---
@@ -1072,9 +1089,9 @@ Returns convolution kernel for sharpening effect
 
 ## Examples
 
-### aktive image kernel sharp X
-
-<table><tr><td>1</td><td>-2</td><td>1</td></tr><tr><td>-2</td><td>5</td><td>-2</td></tr><tr><td>1</td><td>-2</td><td>1</td></tr></table>
+|aktive image kernel sharp X |
+|---|
+|<table><tr><td>1</td><td>-2</td><td>1</td></tr><tr><td>-2</td><td>5</td><td>-2</td></tr><tr><td>1</td><td>-2</td><td>1</td></tr></table>|
 
 
 ---
@@ -1087,9 +1104,9 @@ Returns convolution kernel for sobel edge detection
 
 ## Examples
 
-### aktive image kernel sobel md
-
-<table><tr><td>0</td><td>-1</td><td>-1</td></tr><tr><td>2</td><td>0</td><td>-2</td></tr><tr><td>1</td><td>1</td><td>0</td></tr></table>
+|aktive image kernel sobel md |
+|---|
+|<table><tr><td>0</td><td>-1</td><td>-1</td></tr><tr><td>2</td><td>0</td><td>-2</td></tr><tr><td>1</td><td>1</td><td>0</td></tr></table>|
 
 
 ---
@@ -1102,9 +1119,9 @@ Returns convolution kernel for sobel edge detection
 
 ## Examples
 
-### aktive image kernel sobel sd
-
-<table><tr><td>1</td><td>1</td><td>0</td></tr><tr><td>2</td><td>0</td><td>-2</td></tr><tr><td>0</td><td>-1</td><td>-1</td></tr></table>
+|aktive image kernel sobel sd |
+|---|
+|<table><tr><td>1</td><td>1</td><td>0</td></tr><tr><td>2</td><td>0</td><td>-2</td></tr><tr><td>0</td><td>-1</td><td>-1</td></tr></table>|
 
 
 ---
@@ -1117,9 +1134,9 @@ Returns convolution kernel for sobel edge detection
 
 ## Examples
 
-### aktive image kernel sobel x
-
-<table><tr><td>1</td><td>0</td><td>-1</td></tr><tr><td>2</td><td>0</td><td>-2</td></tr><tr><td>1</td><td>0</td><td>-1</td></tr></table>
+|aktive image kernel sobel x |
+|---|
+|<table><tr><td>1</td><td>0</td><td>-1</td></tr><tr><td>2</td><td>0</td><td>-2</td></tr><tr><td>1</td><td>0</td><td>-1</td></tr></table>|
 
 
 ---
@@ -1132,9 +1149,9 @@ Returns convolution kernel for sobel edge detection
 
 ## Examples
 
-### aktive image kernel sobel y
-
-<table><tr><td>1</td><td>2</td><td>1</td></tr><tr><td>0</td><td>0</td><td>0</td></tr><tr><td>-1</td><td>-2</td><td>-1</td></tr></table>
+|aktive image kernel sobel y |
+|---|
+|<table><tr><td>1</td><td>2</td><td>1</td></tr><tr><td>0</td><td>0</td><td>0</td></tr><tr><td>-1</td><td>-2</td><td>-1</td></tr></table>|
 
 
 ---
@@ -1155,13 +1172,14 @@ Returns image where pixels are set to random values drawn from a gaussian distri
 
 ## Examples
 
-### aktive image noise gauss width 256 height 256 depth 1 seed 703011174
+|aktive image noise gauss width 256 height 256 depth 1 seed 703011174|
+|---|
+|<img src='example-00084.gif' alt='aktive image noise gauss width 256 height 256 depth 1 seed 703011174' style='border:4px solid gold'>|
 
-<img src='example-00084.gif' alt='aktive image noise gauss width 256 height 256 depth 1 seed 703011174' style='border:4px solid gold'>
+|aktive image noise gauss width 256 height 256 depth 3 seed 703011174|
+|---|
+|<img src='example-00085.gif' alt='aktive image noise gauss width 256 height 256 depth 3 seed 703011174' style='border:4px solid gold'>|
 
-### aktive image noise gauss width 256 height 256 depth 3 seed 703011174
-
-<img src='example-00085.gif' alt='aktive image noise gauss width 256 height 256 depth 3 seed 703011174' style='border:4px solid gold'>
 
 ---
 ### <a name='image_noise_salt'></a> aktive image noise salt
@@ -1186,13 +1204,14 @@ The value of set pixels is fixed at 1.0
 
 ## Examples
 
-### aktive image noise salt width 256 height 256 depth 1 seed 703011174 threshold 0.02
+|aktive image noise salt width 256 height 256 depth 1 seed 703011174 threshold 0.02|
+|---|
+|<img src='example-00086.gif' alt='aktive image noise salt width 256 height 256 depth 1 seed 703011174 threshold 0.02' style='border:4px solid gold'>|
 
-<img src='example-00086.gif' alt='aktive image noise salt width 256 height 256 depth 1 seed 703011174 threshold 0.02' style='border:4px solid gold'>
+|aktive image noise salt width 256 height 256 depth 3 seed 703011174 threshold 0.02|
+|---|
+|<img src='example-00087.gif' alt='aktive image noise salt width 256 height 256 depth 3 seed 703011174 threshold 0.02' style='border:4px solid gold'>|
 
-### aktive image noise salt width 256 height 256 depth 3 seed 703011174 threshold 0.02
-
-<img src='example-00087.gif' alt='aktive image noise salt width 256 height 256 depth 3 seed 703011174 threshold 0.02' style='border:4px solid gold'>
 
 ---
 ### <a name='image_noise_uniform'></a> aktive image noise uniform
@@ -1210,13 +1229,14 @@ Returns image where pixels are set to random values drawn from a uniform distrib
 
 ## Examples
 
-### aktive image noise uniform width 256 height 256 depth 1 seed 703011174
+|aktive image noise uniform width 256 height 256 depth 1 seed 703011174|
+|---|
+|<img src='example-00088.gif' alt='aktive image noise uniform width 256 height 256 depth 1 seed 703011174' style='border:4px solid gold'>|
 
-<img src='example-00088.gif' alt='aktive image noise uniform width 256 height 256 depth 1 seed 703011174' style='border:4px solid gold'>
+|aktive image noise uniform width 256 height 256 depth 3 seed 703011174|
+|---|
+|<img src='example-00089.gif' alt='aktive image noise uniform width 256 height 256 depth 3 seed 703011174' style='border:4px solid gold'>|
 
-### aktive image noise uniform width 256 height 256 depth 3 seed 703011174
-
-<img src='example-00089.gif' alt='aktive image noise uniform width 256 height 256 depth 3 seed 703011174' style='border:4px solid gold'>
 
 ---
 ### <a name='image_palette_color'></a> aktive image palette color
@@ -1228,9 +1248,10 @@ Returns a 128x128 image containing a color palette.
 
 ## Examples
 
-### aktive image palette color
+|aktive image palette color |
+|---|
+|<img src='example-00090.gif' alt='aktive image palette color ' style='border:4px solid gold'>|
 
-<img src='example-00090.gif' alt='aktive image palette color' style='border:4px solid gold'>
 
 ---
 ### <a name='image_palette_grey'></a> aktive image palette grey
@@ -1242,9 +1263,10 @@ Returns a 128x128 image containing a gray palette.
 
 ## Examples
 
-### aktive image palette grey
+|aktive image palette grey |
+|---|
+|<img src='example-00091.gif' alt='aktive image palette grey ' style='border:4px solid gold'>|
 
-<img src='example-00091.gif' alt='aktive image palette grey' style='border:4px solid gold'>
 
 ---
 ### <a name='image_sines'></a> aktive image sines
@@ -1264,9 +1286,10 @@ The ratio between horizontal and vertical frequencies determines the angle of th
 
 ## Examples
 
-### aktive image sines width 256 height 256 hf 0.5 vf 0.6
+|aktive image sines width 256 height 256 hf 0.5 vf 0.6|
+|---|
+|<img src='example-00122.gif' alt='aktive image sines width 256 height 256 hf 0.5 vf 0.6' style='border:4px solid gold'>|
 
-<img src='example-00122.gif' alt='aktive image sines width 256 height 256 hf 0.5 vf 0.6' style='border:4px solid gold'>
 
 ---
 ### <a name='image_square'></a> aktive image square
@@ -1281,9 +1304,10 @@ Returns single-band white square with radius. Default radius 1.
 
 ## Examples
 
-### aktive image square radius 32
+|aktive image square radius 32|
+|---|
+|<img src='example-00123.gif' alt='aktive image square radius 32' style='border:4px solid gold'>|
 
-<img src='example-00123.gif' alt='aktive image square radius 32' style='border:4px solid gold'>
 
 ---
 ### <a name='image_stripes'></a> aktive image stripes
@@ -1302,17 +1326,18 @@ Returns image containing a series of vertical black/white stripes.
 
 ## Examples
 
-### aktive image stripes width 128 height 128
+|aktive image stripes width 128 height 128|
+|---|
+|<img src='example-00124.gif' alt='aktive image stripes width 128 height 128' style='border:4px solid gold'>|
 
-<img src='example-00124.gif' alt='aktive image stripes width 128 height 128' style='border:4px solid gold'>
+|aktive image stripes width 128 height 128 black 16 white 32|
+|---|
+|<img src='example-00125.gif' alt='aktive image stripes width 128 height 128 black 16 white 32' style='border:4px solid gold'>|
 
-### aktive image stripes width 128 height 128 black 16 white 32
+|aktive image stripes width 128 height 128 black 16 white 32 offset 8|
+|---|
+|<img src='example-00126.gif' alt='aktive image stripes width 128 height 128 black 16 white 32 offset 8' style='border:4px solid gold'>|
 
-<img src='example-00125.gif' alt='aktive image stripes width 128 height 128 black 16 white 32' style='border:4px solid gold'>
-
-### aktive image stripes width 128 height 128 black 16 white 32 offset 8
-
-<img src='example-00126.gif' alt='aktive image stripes width 128 height 128 black 16 white 32 offset 8' style='border:4px solid gold'>
 
 ---
 ### <a name='image_vbar'></a> aktive image vbar
@@ -1328,9 +1353,10 @@ Returns square single-band image containing a vertical bar. The image has size `
 
 ## Examples
 
-### aktive image vbar radius 32 width 8
+|aktive image vbar radius 32 width 8|
+|---|
+|<img src='example-00127.gif' alt='aktive image vbar radius 32 width 8' style='border:4px solid gold'>|
 
-<img src='example-00127.gif' alt='aktive image vbar radius 32 width 8' style='border:4px solid gold'>
 
 ---
 ### <a name='image_xcross'></a> aktive image xcross
@@ -1346,9 +1372,10 @@ Returns square single-band image containing a diagonal cross. The image has size
 
 ## Examples
 
-### aktive image xcross radius 32 width 8
+|aktive image xcross radius 32 width 8|
+|---|
+|<img src='example-00128.gif' alt='aktive image xcross radius 32 width 8' style='border:4px solid gold'>|
 
-<img src='example-00128.gif' alt='aktive image xcross radius 32 width 8' style='border:4px solid gold'>
 
 ---
 ### <a name='image_zone'></a> aktive image zone
@@ -1364,7 +1391,8 @@ Returns image containing a zone plate test pattern.
 
 ## Examples
 
-### aktive image zone width 256 height 256
+|aktive image zone width 256 height 256|
+|---|
+|<img src='example-00129.gif' alt='aktive image zone width 256 height 256' style='border:4px solid gold'>|
 
-<img src='example-00129.gif' alt='aktive image zone width 256 height 256' style='border:4px solid gold'>
 

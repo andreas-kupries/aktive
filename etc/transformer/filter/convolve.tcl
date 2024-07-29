@@ -15,15 +15,16 @@
 operator {
     op::convolve::xy
 } {
-    example \
-	{aktive op sdf 2image smooth [aktive op sdf ring [aktive image sdf triangle width 128 height 128 a {10 10} b {50 80} c {80 30}] thickness 4]} \
-	{aktive image kernel gauss9 x} \
-	{@2 @1}
-    example \
-	{aktive op sdf 2image smooth [aktive op sdf ring [aktive image sdf triangle width 128 height 128 a {10 10} b {50 80} c {80 30}] thickness 4]} \
-	{aktive image kernel gauss9 y} \
-	{@2 @1}
-
+    example {
+	aktive op sdf 2image smooth [aktive op sdf ring [aktive image sdf triangle width 128 height 128 a {10 10} b {50 80} c {80 30}] thickness 4]
+	aktive image kernel gauss9 x | -matrix
+	@2 @1
+    }
+    example {
+	aktive op sdf 2image smooth [aktive op sdf ring [aktive image sdf triangle width 128 height 128 a {10 10} b {50 80} c {80 30}] thickness 4]
+	aktive image kernel gauss9 y | -matrix
+	@2 @1
+    }
 
     # simplifications - none implemented (yet)
     ##

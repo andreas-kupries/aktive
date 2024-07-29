@@ -136,10 +136,8 @@ Returns a dictionary containing the input's meta data.
 
 ## Examples
 
-### aktive query meta @1
-
-|||
+|@1|aktive query meta 	@1 |
 |---|---|
-|@1|aktive query meta @1|
-|<img src='example-00335.gif' alt='aktive query meta @1' style='border:4px solid gold'>|`netpbm {maxval 255} path tests/assets/sines.ppm colorspace sRGB`|
+|<img src='example-00334.gif' alt='@1' style='border:4px solid gold'>|netpbm {maxval 255} path tests/assets/sines.ppm colorspace sRGB|
+
 

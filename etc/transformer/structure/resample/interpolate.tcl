@@ -8,9 +8,10 @@
 operator op::sample::interpolate::xy {
     section transform structure
 
-    example \
-	{aktive op sdf 2image smooth [aktive op sdf ring [aktive image sdf triangle width 128 height 128 a {10 10} b {50 80} c {80 30}] thickness 4]} \
-	{@1 by 4}
+    example {
+	aktive op sdf 2image smooth [aktive op sdf ring [aktive image sdf triangle width 128 height 128 a {10 10} b {50 80} c {80 30}] thickness 4]
+	@1 by 4
+    }
 
     note Returns image with the input interpolated along both x and y axes \
 	according to the interpolation factor (>= 1).
@@ -39,9 +40,10 @@ operator {coordinate dimension} {
 } {
     section transform structure
 
-    example \
-	{aktive op sdf 2image smooth [aktive op sdf ring [aktive image sdf triangle width 128 height 128 a {10 10} b {50 80} c {80 30}] thickness 4]} \
-	{@1 by 4}
+    example {
+	aktive op sdf 2image smooth [aktive op sdf ring [aktive image sdf triangle width 128 height 128 a {10 10} b {50 80} c {80 30}] thickness 4]
+	@1 by 4
+    }
 
     note Returns image with the input interpolated along the ${coordinate}-axis \
 	according to the interpolation factor (>= 1).
