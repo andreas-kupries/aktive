@@ -397,7 +397,7 @@ The image's width is the number of values.
 
 Syntax: __aktive image from sparse deltas__  (param value)...
 
-Returns single-band depth image where pixels are set to white at exactly the specified points. Differently to `sparse points` the points are specified as linear distances from the origin.
+Returns a single-band image where pixels are set to white at exactly the specified points. In contrast to `sparse points` the points are specified as linear distances from the origin.
 
 The height is infered from the points
 
@@ -426,7 +426,7 @@ Pixel value is fixed at 1.0
 
 Syntax: __aktive image from sparse points__  (param value)...
 
-Returns single-band image where pixels are set to white at exactly the specified coordinates.
+Returns a single-band image where pixels are set to white at exactly the specified coordinates.
 
 Generally, the bounding box specifies the geometry, especially also the image origin
 
