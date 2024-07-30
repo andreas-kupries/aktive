@@ -28,7 +28,7 @@ operator op::image::histogram {
 
     example {
 	aktive op sdf 2image smooth [aktive op sdf ring [aktive image sdf triangle width 128 height 128 a {10 10} b {50 80} c {80 30}] thickness 4]
-	@1 | -matrix -int
+	@1 bins 8 | -matrix -int
     }
 
     int? 256 bins \
@@ -214,7 +214,7 @@ operator oaxis {
 
     example {
 	aktive op sdf 2image smooth [aktive op sdf ring [aktive image sdf triangle width 32 height 32 a {10 10} b {30 80} c {80 30}] thickness 4]
-	@1 | -matrix -int
+	@1 bins 8 | -matrix -int
     }
 
     section transform statistics
