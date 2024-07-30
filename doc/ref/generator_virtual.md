@@ -368,7 +368,7 @@ Depth is fixed at 1.
 
 |aktive image from matrix width 16 height 16 values 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 |
 |---|
-|<table><trf><td valign='top'>times 8</td><td valign='top'><img src='example-00031.gif' alt='aktive image from matrix width 16 height 16 values 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 ' style='border:4px solid gold'></td></tr></table>|
+|<table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00031.gif' alt='aktive image from matrix width 16 height 16 values 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 ' style='border:4px solid gold'></td></tr></table>|
 
 
 ---
@@ -418,7 +418,7 @@ Pixel value is fixed at 1.0
 
 |aktive image from sparse deltas width 7 deltas 0 20 5 15 |
 |---|
-|<table><trf><td valign='top'>times 32</td><td valign='top'><img src='example-00033.gif' alt='aktive image from sparse deltas width 7 deltas 0 20 5 15 ' style='border:4px solid gold'></td></tr></table>|
+|<table><tr><td valign='top'><img src='example-00033.gif' alt='aktive image from sparse deltas width 7 deltas 0 20 5 15 ' style='border:4px solid gold'></td><td valign='top'>times 8</td><td valign='top'><img src='example-00034.gif' alt='aktive image from sparse deltas width 7 deltas 0 20 5 15 ' style='border:4px solid gold'></td></tr></table>|
 
 
 ---
@@ -446,7 +446,7 @@ Pixel value is fixed at 1.0
 
 |aktive image from sparse points coords {0 0} {4 3} {5 5} {6 2} |
 |---|
-|<table><trf><td valign='top'>times 32</td><td valign='top'><img src='example-00034.gif' alt='aktive image from sparse points coords {0 0} {4 3} {5 5} {6 2} ' style='border:4px solid gold'></td></tr></table>|
+|<table><tr><td valign='top'><img src='example-00035.gif' alt='aktive image from sparse points coords {0 0} {4 3} {5 5} {6 2} ' style='border:4px solid gold'></td><td valign='top'>times 8</td><td valign='top'><img src='example-00036.gif' alt='aktive image from sparse points coords {0 0} {4 3} {5 5} {6 2} ' style='border:4px solid gold'></td></tr></table>|
 
 
 ---
@@ -475,7 +475,7 @@ The image depth is fixed at 1, i.e. the result is single-band.
 
 |aktive image from sparse ranges ranges {1 24 30 1} {2 23 31 1} {3 22 32 1} {4 22 24 0.75} {4 30 32 0.75} {5 22 23 0.75} {5 31 32 0.75} {6 23 24 0.5} {6 30 31 0.5} {7 24 25 0.5} {7 29 30 0.5} |
 |---|
-|<table><trf><td valign='top'>times 32</td><td valign='top'><img src='example-00035.gif' alt='aktive image from sparse ranges ranges {1 24 30 1} {2 23 31 1} {3 22 32 1} {4 22 24 0.75} {4 30 32 0.75} {5 22 23 0.75} {5 31 32 0.75} {6 23 24 0.5} {6 30 31 0.5} {7 24 25 0.5} {7 29 30 0.5} ' style='border:4px solid gold'></td></tr></table>|
+|<table><tr><td valign='top'><img src='example-00037.gif' alt='aktive image from sparse ranges ranges {1 24 30 1} {2 23 31 1} {3 22 32 1} {4 22 24 0.75} {4 30 32 0.75} {5 22 23 0.75} {5 31 32 0.75} {6 23 24 0.5} {6 30 31 0.5} {7 24 25 0.5} {7 29 30 0.5} ' style='border:4px solid gold'></td><td valign='top'>times 8</td><td valign='top'><img src='example-00038.gif' alt='aktive image from sparse ranges ranges {1 24 30 1} {2 23 31 1} {3 22 32 1} {4 22 24 0.75} {4 30 32 0.75} {5 22 23 0.75} {5 31 32 0.75} {6 23 24 0.5} {6 30 31 0.5} {7 24 25 0.5} {7 29 30 0.5} ' style='border:4px solid gold'></td></tr></table>|
 
 
 ---
@@ -496,11 +496,11 @@ Returns image which has the same VALUE everywhere.
 
 |aktive image from value width 64 height 64 depth 1 value 0.5|
 |---|
-|<img src='example-00036.gif' alt='aktive image from value width 64 height 64 depth 1 value 0.5' style='border:4px solid gold'>|
+|<img src='example-00039.gif' alt='aktive image from value width 64 height 64 depth 1 value 0.5' style='border:4px solid gold'>|
 
 |aktive image from value width 64 height 64 depth 3 value 0.5|
 |---|
-|<img src='example-00037.gif' alt='aktive image from value width 64 height 64 depth 3 value 0.5' style='border:4px solid gold'>|
+|<img src='example-00040.gif' alt='aktive image from value width 64 height 64 depth 3 value 0.5' style='border:4px solid gold'>|
 
 
 ---
@@ -522,11 +522,11 @@ Returns image containing a linear gradient through all cells.
 
 |aktive image gradient width 256 height   1 depth 1 first 0 last 1 |
 |---|
-|<table><trf><td valign='top'>height-times 32</td><td valign='top'><img src='example-00038.gif' alt='aktive image gradient width 256 height   1 depth 1 first 0 last 1 ' style='border:4px solid gold'></td></tr></table>|
+|<table><tr><td valign='top'>height-times 32</td><td valign='top'><img src='example-00041.gif' alt='aktive image gradient width 256 height   1 depth 1 first 0 last 1 ' style='border:4px solid gold'></td></tr></table>|
 
 |aktive image gradient width 128 height 128 depth 1 first 0 last 1|
 |---|
-|<img src='example-00039.gif' alt='aktive image gradient width 128 height 128 depth 1 first 0 last 1' style='border:4px solid gold'>|
+|<img src='example-00042.gif' alt='aktive image gradient width 128 height 128 depth 1 first 0 last 1' style='border:4px solid gold'>|
 
 
 ---
@@ -545,7 +545,7 @@ Returns image containing a left to right black to white gradient.
 
 |aktive image grey width 256 height 32|
 |---|
-|<img src='example-00040.gif' alt='aktive image grey width 256 height 32' style='border:4px solid gold'>|
+|<img src='example-00043.gif' alt='aktive image grey width 256 height 32' style='border:4px solid gold'>|
 
 
 ---
@@ -567,15 +567,15 @@ Returns image containing an axis-aligned black/white grid with configurable stri
 
 |aktive image grid width 128 height 128|
 |---|
-|<img src='example-00041.gif' alt='aktive image grid width 128 height 128' style='border:4px solid gold'>|
+|<img src='example-00044.gif' alt='aktive image grid width 128 height 128' style='border:4px solid gold'>|
 
 |aktive image grid width 128 height 128 black 16 white 32|
 |---|
-|<img src='example-00042.gif' alt='aktive image grid width 128 height 128 black 16 white 32' style='border:4px solid gold'>|
+|<img src='example-00045.gif' alt='aktive image grid width 128 height 128 black 16 white 32' style='border:4px solid gold'>|
 
 |aktive image grid width 128 height 128 black 16 white 32 offset 8|
 |---|
-|<img src='example-00043.gif' alt='aktive image grid width 128 height 128 black 16 white 32 offset 8' style='border:4px solid gold'>|
+|<img src='example-00046.gif' alt='aktive image grid width 128 height 128 black 16 white 32 offset 8' style='border:4px solid gold'>|
 
 
 ---
@@ -594,7 +594,7 @@ Returns square single-band image containing a horizontal bar. The image has size
 
 |aktive image hbar radius 32 width 8|
 |---|
-|<img src='example-00044.gif' alt='aktive image hbar radius 32 width 8' style='border:4px solid gold'>|
+|<img src='example-00047.gif' alt='aktive image hbar radius 32 width 8' style='border:4px solid gold'>|
 
 
 ---
@@ -1174,11 +1174,11 @@ Returns image where pixels are set to random values drawn from a gaussian distri
 
 |aktive image noise gauss width 256 height 256 depth 1 seed 703011174|
 |---|
-|<img src='example-00084.gif' alt='aktive image noise gauss width 256 height 256 depth 1 seed 703011174' style='border:4px solid gold'>|
+|<img src='example-00087.gif' alt='aktive image noise gauss width 256 height 256 depth 1 seed 703011174' style='border:4px solid gold'>|
 
 |aktive image noise gauss width 256 height 256 depth 3 seed 703011174|
 |---|
-|<img src='example-00085.gif' alt='aktive image noise gauss width 256 height 256 depth 3 seed 703011174' style='border:4px solid gold'>|
+|<img src='example-00088.gif' alt='aktive image noise gauss width 256 height 256 depth 3 seed 703011174' style='border:4px solid gold'>|
 
 
 ---
@@ -1206,11 +1206,11 @@ The value of set pixels is fixed at 1.0
 
 |aktive image noise salt width 256 height 256 depth 1 seed 703011174 threshold 0.02|
 |---|
-|<img src='example-00086.gif' alt='aktive image noise salt width 256 height 256 depth 1 seed 703011174 threshold 0.02' style='border:4px solid gold'>|
+|<img src='example-00089.gif' alt='aktive image noise salt width 256 height 256 depth 1 seed 703011174 threshold 0.02' style='border:4px solid gold'>|
 
 |aktive image noise salt width 256 height 256 depth 3 seed 703011174 threshold 0.02|
 |---|
-|<img src='example-00087.gif' alt='aktive image noise salt width 256 height 256 depth 3 seed 703011174 threshold 0.02' style='border:4px solid gold'>|
+|<img src='example-00090.gif' alt='aktive image noise salt width 256 height 256 depth 3 seed 703011174 threshold 0.02' style='border:4px solid gold'>|
 
 
 ---
@@ -1231,11 +1231,11 @@ Returns image where pixels are set to random values drawn from a uniform distrib
 
 |aktive image noise uniform width 256 height 256 depth 1 seed 703011174|
 |---|
-|<img src='example-00088.gif' alt='aktive image noise uniform width 256 height 256 depth 1 seed 703011174' style='border:4px solid gold'>|
+|<img src='example-00091.gif' alt='aktive image noise uniform width 256 height 256 depth 1 seed 703011174' style='border:4px solid gold'>|
 
 |aktive image noise uniform width 256 height 256 depth 3 seed 703011174|
 |---|
-|<img src='example-00089.gif' alt='aktive image noise uniform width 256 height 256 depth 3 seed 703011174' style='border:4px solid gold'>|
+|<img src='example-00092.gif' alt='aktive image noise uniform width 256 height 256 depth 3 seed 703011174' style='border:4px solid gold'>|
 
 
 ---
@@ -1250,7 +1250,7 @@ Returns a 128x128 image containing a color palette.
 
 |aktive image palette color |
 |---|
-|<img src='example-00090.gif' alt='aktive image palette color ' style='border:4px solid gold'>|
+|<img src='example-00093.gif' alt='aktive image palette color ' style='border:4px solid gold'>|
 
 
 ---
@@ -1265,7 +1265,7 @@ Returns a 128x128 image containing a gray palette.
 
 |aktive image palette grey |
 |---|
-|<img src='example-00091.gif' alt='aktive image palette grey ' style='border:4px solid gold'>|
+|<img src='example-00094.gif' alt='aktive image palette grey ' style='border:4px solid gold'>|
 
 
 ---
@@ -1288,7 +1288,7 @@ The ratio between horizontal and vertical frequencies determines the angle of th
 
 |aktive image sines width 256 height 256 hf 0.5 vf 0.6|
 |---|
-|<img src='example-00122.gif' alt='aktive image sines width 256 height 256 hf 0.5 vf 0.6' style='border:4px solid gold'>|
+|<img src='example-00125.gif' alt='aktive image sines width 256 height 256 hf 0.5 vf 0.6' style='border:4px solid gold'>|
 
 
 ---
@@ -1306,7 +1306,7 @@ Returns single-band white square with radius. Default radius 1.
 
 |aktive image square radius 32|
 |---|
-|<img src='example-00123.gif' alt='aktive image square radius 32' style='border:4px solid gold'>|
+|<img src='example-00126.gif' alt='aktive image square radius 32' style='border:4px solid gold'>|
 
 
 ---
@@ -1328,15 +1328,15 @@ Returns image containing a series of vertical black/white stripes.
 
 |aktive image stripes width 128 height 128|
 |---|
-|<img src='example-00124.gif' alt='aktive image stripes width 128 height 128' style='border:4px solid gold'>|
+|<img src='example-00127.gif' alt='aktive image stripes width 128 height 128' style='border:4px solid gold'>|
 
 |aktive image stripes width 128 height 128 black 16 white 32|
 |---|
-|<img src='example-00125.gif' alt='aktive image stripes width 128 height 128 black 16 white 32' style='border:4px solid gold'>|
+|<img src='example-00128.gif' alt='aktive image stripes width 128 height 128 black 16 white 32' style='border:4px solid gold'>|
 
 |aktive image stripes width 128 height 128 black 16 white 32 offset 8|
 |---|
-|<img src='example-00126.gif' alt='aktive image stripes width 128 height 128 black 16 white 32 offset 8' style='border:4px solid gold'>|
+|<img src='example-00129.gif' alt='aktive image stripes width 128 height 128 black 16 white 32 offset 8' style='border:4px solid gold'>|
 
 
 ---
@@ -1355,7 +1355,7 @@ Returns square single-band image containing a vertical bar. The image has size `
 
 |aktive image vbar radius 32 width 8|
 |---|
-|<img src='example-00127.gif' alt='aktive image vbar radius 32 width 8' style='border:4px solid gold'>|
+|<img src='example-00130.gif' alt='aktive image vbar radius 32 width 8' style='border:4px solid gold'>|
 
 
 ---
@@ -1374,7 +1374,7 @@ Returns square single-band image containing a diagonal cross. The image has size
 
 |aktive image xcross radius 32 width 8|
 |---|
-|<img src='example-00128.gif' alt='aktive image xcross radius 32 width 8' style='border:4px solid gold'>|
+|<img src='example-00131.gif' alt='aktive image xcross radius 32 width 8' style='border:4px solid gold'>|
 
 
 ---
@@ -1393,6 +1393,6 @@ Returns image containing a zone plate test pattern.
 
 |aktive image zone width 256 height 256|
 |---|
-|<img src='example-00129.gif' alt='aktive image zone width 256 height 256' style='border:4px solid gold'>|
+|<img src='example-00132.gif' alt='aktive image zone width 256 height 256' style='border:4px solid gold'>|
 
 

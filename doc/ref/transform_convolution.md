@@ -45,10 +45,10 @@ The prefered embedding for convolution is `mirror`. It is chosen to have minimal
 
 |@1|@2|aktive op convolve xy 	@2 @1|
 |---|---|---|
-|<img src='example-00178.gif' alt='@1' style='border:4px solid gold'>|<table><tr><td>0.0078</td><td>0.0625</td><td>0.2188</td><td>0.4375</td><td>0.5469</td><td>0.4375</td><td>0.2188</td><td>0.0625</td><td>0.0078</td></tr></table>|<img src='example-00180.gif' alt='aktive op convolve xy 	@2 @1' style='border:4px solid gold'>|
+|<img src='example-00181.gif' alt='@1' style='border:4px solid gold'>|<table><tr><td>0.0078</td><td>0.0625</td><td>0.2188</td><td>0.4375</td><td>0.5469</td><td>0.4375</td><td>0.2188</td><td>0.0625</td><td>0.0078</td></tr></table>|<img src='example-00183.gif' alt='aktive op convolve xy 	@2 @1' style='border:4px solid gold'>|
 
 |@1|@2|aktive op convolve xy 	@2 @1|
 |---|---|---|
-|<img src='example-00181.gif' alt='@1' style='border:4px solid gold'>|<table><tr><td>0.0078</td></tr><tr><td>0.0625</td></tr><tr><td>0.2188</td></tr><tr><td>0.4375</td></tr><tr><td>0.5469</td></tr><tr><td>0.4375</td></tr><tr><td>0.2188</td></tr><tr><td>0.0625</td></tr><tr><td>0.0078</td></tr></table>|<img src='example-00183.gif' alt='aktive op convolve xy 	@2 @1' style='border:4px solid gold'>|
+|<img src='example-00184.gif' alt='@1' style='border:4px solid gold'>|<table><tr><td>0.0078</td></tr><tr><td>0.0625</td></tr><tr><td>0.2188</td></tr><tr><td>0.4375</td></tr><tr><td>0.5469</td></tr><tr><td>0.4375</td></tr><tr><td>0.2188</td></tr><tr><td>0.0625</td></tr><tr><td>0.0078</td></tr></table>|<img src='example-00186.gif' alt='aktive op convolve xy 	@2 @1' style='border:4px solid gold'>|
 
 

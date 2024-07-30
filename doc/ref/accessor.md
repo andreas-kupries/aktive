@@ -111,11 +111,11 @@ For an image without parameters the result is the empty dictionary.
 
 |@1|aktive query params 	@1 |
 |---|---|
-|<img src='example-00336.gif' alt='@1' style='border:4px solid gold'>|width 32 height 32|
+|<img src='example-00339.gif' alt='@1' style='border:4px solid gold'>|width 32 height 32|
 
 |@1|aktive query params 	@1 |
 |---|---|
-|<img src='example-00338.gif' alt='@1' style='border:4px solid gold'>|width 32 height 32 depth 1 first 0.0 last 1.0|
+|<img src='example-00341.gif' alt='@1' style='border:4px solid gold'>|width 32 height 32 depth 1 first 0.0 last 1.0|
 
 
 ---
@@ -132,11 +132,11 @@ This includes type, geometry, and parameters, if any. The inputs however are exc
 
 |@1|aktive query setup 	@1 |
 |---|---|
-|<img src='example-00348.gif' alt='@1' style='border:4px solid gold'>|type image::zone domain {x 0 y 0 width 32 height 32 depth 1} config {width 32 height 32}|
+|<img src='example-00351.gif' alt='@1' style='border:4px solid gold'>|type image::zone domain {x 0 y 0 width 32 height 32 depth 1} config {width 32 height 32}|
 
 |@1|aktive query setup 	@1 |
 |---|---|
-|<img src='example-00350.gif' alt='@1' style='border:4px solid gold'>|type image::gradient domain {x 0 y 0 width 32 height 32 depth 1} config {width 32 height 32 depth 1 first 0.0 last 1.0}|
+|<img src='example-00353.gif' alt='@1' style='border:4px solid gold'>|type image::gradient domain {x 0 y 0 width 32 height 32 depth 1} config {width 32 height 32 depth 1 first 0.0 last 1.0}|
 
 
 ---
@@ -151,10 +151,10 @@ Returns the input's type.
 
 |@1|aktive query type 	@1 |
 |---|---|
-|<img src='example-00356.gif' alt='@1' style='border:4px solid gold'>|image::zone|
+|<img src='example-00359.gif' alt='@1' style='border:4px solid gold'>|image::zone|
 
 |@1|aktive query type 	@1 |
 |---|---|
-|<img src='example-00358.gif' alt='@1' style='border:4px solid gold'>|image::gradient|
+|<img src='example-00361.gif' alt='@1' style='border:4px solid gold'>|image::gradient|
 
 
