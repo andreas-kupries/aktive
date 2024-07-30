@@ -1008,53 +1008,43 @@ proc dsl::writer::ExampleRender {op example} {
     # results :: list (result...)
     # result  :: list (show format dstfile)
 
-    # Table - example.len       => width
-    #         max (results.len) => height
+    set labels [lmap run $example { lindex $run 0 }]
+    set data   [lmap run $example { RR {*}$run }]
 
-    # render results into a matrix
-    struct::matrix M
-    M add columns [llength $example]
-    M add rows 1 ; # header
-
-    set col 0
-    foreach run $example {
-	lassign $run label results
-
-	if {([llength $results]+1) > [M rows]} {
-	    M add rows [expr {[llength $results] + 1 - [M rows]}]
-	}
-	M set cell $col 0 $label
-	set row 1
-	foreach result $results {
-	    lassign $result show format dst
-	    # cell type / formatting
-	    switch -exact -- $format {
-		text   -
-		matrix { set data "<!include: $dst>" }
-		image  { set data "<img src='$dst' alt='$label' style='border:4px solid gold'>" }
-	    }
-	    # transform wrap, if needed
-	    if {$show ne {}} {
-		set data "<table><trf><td valign='top'>$show</td><td valign='top'>$data</td></tr></table>"
-	    }
-	    # record
-	    M set cell $col $row $data
-	    incr row
-	}
-	incr col
-    }
-
-    # render matrix into a markdown table
-    lappend lines |[join [M get row 0] |]|
-    lappend lines |[string repeat ---| [M columns]]
-    for {set row 1} {$row < [M rows]} {incr row} {
-	lappend lines |[join [M get row $row] |]|
-    }
-    M destroy
+    lappend lines |[join $labels |]|
+    lappend lines |[string repeat ---| [llength $example]]
+    lappend lines |[join $data |]|
 
     # render complete
     return [join $lines \n]
 }
+
+proc dsl::writer::RR {label results} {
+    if {[llength $results] == 1} {
+	return [RR1 1 $label [lindex $results 0]]
+    }
+    return [TR1 [join [lmap res $results { RR1 0 $label $res }] {}]]
+}
+
+proc dsl::writer::RR1 {single label result} {
+    lassign $result show format dst
+    switch -exact -- $format {
+	text   -
+	matrix { set cell "<!include: $dst>" }
+	image  { set cell "<img src='$dst' alt='$label' style='border:4px solid gold'>" }
+    }
+
+    if {$single} {
+	if {$show eq {}} { return $cell }
+	return [TR1 [TD $show][TD $cell]]
+    }
+
+    if {$show eq {}} { return [TD $cell] }
+    return [TD $show][TD $cell]
+}
+
+proc dsl::writer::TR1 {row}  { return "<table><tr>$row</tr></table>" }
+proc dsl::writer::TD  {cell} { return "<td valign='top'>$cell</td>" }
 
 proc dsl::writer::ExampleScript {op stem id varmap gencmd showcmds format int} {
     # intro
