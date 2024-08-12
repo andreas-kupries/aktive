@@ -286,10 +286,13 @@ static int cc_neighbour_4 (aktive_cc_range* a, aktive_cc_range* b)
     // N4j  | A   |---|               |   yes
     //      | B |-------|             |
     // %%%%% %%%%%%%%%%%%%%%%%%%%%%%%% %%%%%%%%
+    // N4k  | A   |---|               |   yes
+    //      | B   |---|               |
+    // %%%%% %%%%%%%%%%%%%%%%%%%%%%%%% %%%%%%%%
 
     if (a->xmax < b->xmin) { TRACE_RETURN ("neighbour %d", 0); } // N4a
     if (a->xmin > b->xmax) { TRACE_RETURN ("neighbour %d", 0); } // N4b
-    TRACE_RETURN ("neighbour %d", 1);                            // N4[c-j]
+    TRACE_RETURN ("neighbour %d", 1);                            // N4[c-k]
 }
 
 /* Phase 2 task: Fuse two blocks by iterating over the ranges in the adjacent
@@ -348,17 +351,23 @@ static void cc_fuse_blocks (aktive_cc_block* a, aktive_cc_block* b)
 	// N4j  | A   |---|               | A
 	//      | B |-------|             |
 	// %%%%% %%%%%%%%%%%%%%%%%%%%%%%%% %%%%%%%%
+	// N4k  | A   |---|               | A
+	//      | B   |---|               |
+	// %%%%% %%%%%%%%%%%%%%%%%%%%%%%%% %%%%%%%%
 	//
 	// Step A :: A.xmax <= B.xmax
 	// Step B :: else
 	//
 	// The step action skips over the range which has the smallest reach
 	// into the future where more overlaps may be hidden with other range.
+	//
+	// In the case of N4k we expect that an N4b follows immediately,
+	// causing us to step over B as well.
 
 	if (ar->xmax <= br->xmax) {
-	    /* N4[acegj] Step A */ ar = ar->row_next;
+	    /* N4[acegjk] Step A */ ar = ar->row_next;
 	} else {
-	    /* N4[bdfhi] Step B */ br = br->row_next;
+	    /* N4[bdfhi]  Step B */ br = br->row_next;
 	}
     }
 
