@@ -678,7 +678,7 @@ aktive_blit_set (aktive_block* dst, aktive_point* location, double v)
  */
 
 extern void
-__aktive_block_dump (char* prefix, aktive_block* src) {
+__aktive_block_dump (const char* prefix, aktive_block* src) {
 
     TRACE ("%s %p = block {", prefix, src);
     TRACE ("  domain   = { %d..%d, %d..%d : %u x %u x %u }",

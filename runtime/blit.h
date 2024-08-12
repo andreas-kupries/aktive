@@ -146,7 +146,7 @@ extern void aktive_blit_set (aktive_block* dst, aktive_point* location, double v
  * - - -- --- ----- -------- -------------
  */
 
-extern void __aktive_block_dump (char* prefix, aktive_block* src);
+extern void __aktive_block_dump (const char* prefix, aktive_block* src);
 
 /*
  * - - -- --- ----- -------- -------------
