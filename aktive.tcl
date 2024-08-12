@@ -158,10 +158,16 @@ critcl::source   op/meta.tcl	;# meta data core set
 critcl::tsources meta.tcl	;# meta data dict wrapper
 
 # # ## ### ##### ######## ############# #####################
-## Versioning information and exposure, processor count
+## Versioning information and exposure, processor count set/get
 
-critcl::cconst  aktive::version    char* {"0.0"}
-critcl::cconst  aktive::processors int aktive_processors()
+critcl::cconst aktive::version char* {"0.0"}
+
+critcl::cproc aktive::processors {
+    aktive_uint {n 0}
+} aktive_uint {
+    if (has_n) aktive_set_processors (n);
+    return aktive_processors ();
+}
 
 # # ## ### ##### ######## ############# #####################
 ## Assemble Tcl level interface

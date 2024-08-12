@@ -18,9 +18,20 @@
  * - - -- --- ----- -------- -------------
  */
 
+static aktive_uint n = 0;	// Default: deliver actual CPU count
+
+extern void
+aktive_set_processors (aktive_uint np)
+{
+    n = np;
+}
+
 extern aktive_uint
 aktive_processors (void)
 {
+    if (n > 0) return n;
+
+    // n == 0 : Query system. OS dependent.
 #ifdef WIN32
     SYSTEM_INFO sysinfo;
     GetSystemInfo(&sysinfo);

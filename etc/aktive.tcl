@@ -208,7 +208,14 @@ operator processors {
     section miscellaneous
     external!
 
-    note Return number of processor cores available for concurrent operation.
+    uint? 0 n Set number of processor available for concurrent operation.
+
+    note Set/Return number of processor cores available for concurrent operation.
+
+    note Setting the default, `0`, causes the system to query the OS for the number \
+	of available processors and use the result. Anything else limits concurrency \
+	to the defined count. __Beware__ overcommit is possible, if more processors \
+	are declared for use than actually exist.
 }
 
 # # ## ### ##### ######## ############# #####################
