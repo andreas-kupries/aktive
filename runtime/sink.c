@@ -167,20 +167,23 @@ sink_worker (const sink_batch_state* state, aktive_rectangle* task, aktive_regio
 {
     TRACE_FUNC("((sink_batch_state*) %p, (task) %p, (ws) %p)", state, task, wstate);
 
-    // first call, initialize state - each worker has its own context
+    // worker ends, release state - that includes the context
+    // account for possibility that there is no worker state (first call is also EOF signal).
+    if (!task) {
+	if (*wstate) {
+	    aktive_context c = aktive_region_context (*wstate);
+	    aktive_region_destroy (*wstate);
+	    aktive_context_destroy (c);
+	}
+	TRACE_RETURN ("", 0);
+    }
+
+    // first call with a task, initialize state - each worker has its own context
     if (! *wstate) {
 	TRACE ("initialize wstate", 0);
 	aktive_context c = aktive_context_new ();
 	*wstate = aktive_region_new (state->image, c);
 	TRACE ("(region*) %p", *wstate);
-    }
-
-    // worker ends, release state - that includes the context
-    if (!task) {
-	aktive_context c = aktive_region_context (*wstate);
-	aktive_region_destroy (*wstate);
-	aktive_context_destroy (c);
-	TRACE_RETURN ("", 0);
     }
 
     TRACE_RECTANGLE (task);
