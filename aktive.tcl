@@ -54,7 +54,7 @@ critcl::subject {vector operations} {matrix operations}
 #::critcl::config trace on
 #::critcl::config lines off
 
-package require critcl::cutil
+package require critcl::cutil 0.5 ;# TRACE_THREAD_EXIT
 
 # critcl::config keepsrc 1
 

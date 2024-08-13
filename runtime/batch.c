@@ -30,10 +30,6 @@
 
 TRACE_OFF;
 
-#define TRACE_THREAD_EXIT \
-    TRACE_HEADER (1); TRACE_ADD ("THREAD EXIT %s", "(void)") ; \
-    TRACE_CLOSER ; TRACE_POP ; TCL_THREAD_CREATE_RETURN
-
 /*
  * - - -- --- ----- -------- -------------
  */
