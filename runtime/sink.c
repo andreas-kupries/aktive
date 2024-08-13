@@ -9,11 +9,6 @@
 
 TRACE_OFF;
 
-#define ALL   1		// single fetch all
-#define ROWS  2		// sequential fetch rows
-#define CROWS 3		// concurrent fetch rows
-#define MODE  CROWS
-
 /*
  * - - -- --- ----- -------- -------------
  */
@@ -41,6 +36,19 @@ static void          sink_completer (aktive_batch      __ignored,
 				     sink_batch_state* state,
 				     aktive_block*     result);
 
+static void          sink_concurrent (void*        state,
+				      aktive_sink* sink,
+				      aktive_image src);
+
+static void          sink_sequential (aktive_region rg,
+				      void*         state,
+				      aktive_sink*  sink,
+				      aktive_image  src);
+
+static void          sink_all        (aktive_region rg,
+				      void*         state,
+				      aktive_sink*  sink,
+				      aktive_image  src);
 /*
  * - - -- --- ----- -------- -------------
  */
@@ -73,10 +81,45 @@ aktive_sink_run (aktive_sink* sink,
 	TRACE_RETURN_VOID;
     }
 
-#if MODE == CROWS
-    aktive_region_destroy (rg);
+    // TODO :: heuristic to ignore threading based on
+    //         input image dimensions / #pixels to compute
+    //
+    // TODO :: heuristics to tile the input differently (rows, columns, tiles)
+
+    if (aktive_processors()) {
+	aktive_region_destroy (rg);
+	aktive_context_destroy (c);
+
+	sink_concurrent (state, sink, src);
+	goto done;
+    }
+
+    // No threading.
+    // TODO :: heuristic to make a single call over per-row
+    // sink_all (rg, state, sink, src);
+
+    sink_sequential (rg, state, sink, src);
+
+    aktive_region_destroy (rg); // Note that this invalidates `pixels` too.
     aktive_context_destroy (c);
 
+ done:
+    sink->final (state);
+
+    aktive_image_unref (src);
+
+    TRACE_RETURN_VOID;
+}
+
+/*
+ * - - -- --- ----- -------- -------------
+ */
+
+static void
+sink_concurrent (void*        state,
+		 aktive_sink* sink,
+		 aktive_image src)
+{
     aktive_rectangle_def_as (scan, aktive_image_get_domain (src));
     TRACE ("fetching pixels by rows, concurrently", 0);
 
@@ -94,8 +137,14 @@ aktive_sink_run (aktive_sink* sink,
 		      (aktive_batch_complete) sink_completer,
 		      sink->sequential,
 		      &batch);
+}
 
-#elif MODE == ROWS
+static void
+sink_sequential (aktive_region rg,
+		 void*         state,
+		 aktive_sink*  sink,
+		 aktive_image  src)
+{
     aktive_rectangle_def_as (scan, aktive_image_get_domain (src));
     TRACE ("fetching pixels by rows, sequentially", 0);
 
@@ -114,11 +163,14 @@ aktive_sink_run (aktive_sink* sink,
 
 	aktive_rectangle_move (&scan, 0, 1);
     }
+}
 
-    aktive_region_destroy (rg); // Note that this invalidates `pixels` too.
-    aktive_context_destroy (c);
-
-#elif MODE == ALL
+static void
+sink_all (aktive_region rg,
+	  void*         state,
+	  aktive_sink*  sink,
+	  aktive_image  src)
+{
     aktive_rectangle_def_as (scan, aktive_image_get_domain (src));
     TRACE ("fetching all pixels", 0);
 
@@ -126,16 +178,6 @@ aktive_sink_run (aktive_sink* sink,
 
     TRACE ("processing all pixels", 0);
     sink->process (state, pixels);
-
-    aktive_region_destroy (rg); // Note that this invalidates `pixels` too.
-    aktive_context_destroy (c);
-#endif
-
-    sink->final (state);
-
-    aktive_image_unref (src);
-
-    TRACE_RETURN_VOID;
 }
 
 /*

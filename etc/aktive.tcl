@@ -208,7 +208,7 @@ operator processors {
     section miscellaneous
     external!
 
-    uint? 0 n Set number of processor available for concurrent operation.
+    int? 0 n Set number of processor available for concurrent operation.
 
     note Set/Return number of processor cores available for concurrent operation.
 

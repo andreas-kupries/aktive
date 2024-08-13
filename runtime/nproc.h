@@ -16,17 +16,18 @@
  * - - -- --- ----- -------- -------------
  * Effect of setting the processor count on querying the same
  *
- * |n   |query behaviour        |
- * |---:|---                    |
- * | 0  |return actual CPU count|
- * |>0  |return `n`             |
+ * |n   |query behaviour                           |
+ * |---:|---                                       |
+ * | 0  |return actual CPU count                   |
+ * |>0  |return `n`                                |
+ * |<0  |return 0, concurrent execution is disabled|
  *
  * Note: It is possible to set an `n` > actual CPU count.
  * This will overcommit the CPU.
  */
 
 extern aktive_uint aktive_processors     (void);
-extern void        aktive_set_processors (aktive_uint n);
+extern void        aktive_set_processors (int n);
 
 /*
  * - - -- --- ----- -------- -------------

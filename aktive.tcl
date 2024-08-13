@@ -163,7 +163,7 @@ critcl::tsources meta.tcl	;# meta data dict wrapper
 critcl::cconst aktive::version char* {"0.0"}
 
 critcl::cproc aktive::processors {
-    aktive_uint {n 0}
+    int {n 0}
 } aktive_uint {
     if (has_n) aktive_set_processors (n);
     return aktive_processors ();

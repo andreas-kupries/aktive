@@ -18,10 +18,10 @@
  * - - -- --- ----- -------- -------------
  */
 
-static aktive_uint n = 0;	// Default: deliver actual CPU count
+static int n = 0;	// Default: deliver actual CPU count
 
 extern void
-aktive_set_processors (aktive_uint np)
+aktive_set_processors (int np)
 {
     n = np;
 }
@@ -29,6 +29,7 @@ aktive_set_processors (aktive_uint np)
 extern aktive_uint
 aktive_processors (void)
 {
+    if (n < 0) return 0;
     if (n > 0) return n;
 
     // n == 0 : Query system. OS dependent.
