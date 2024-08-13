@@ -38,12 +38,6 @@ TRACE_OFF;
  * - - -- --- ----- -------- -------------
  */
 
-#define AKTIVE_THREADS (6)	// TODO - query cpu, or app configurable
-
-/*
- * - - -- --- ----- -------- -------------
- */
-
 typedef struct aktive_batch {
     // -- read only configuration --
 
@@ -213,6 +207,7 @@ aktive_batch_run ( const  char*          name
 	aktive_queue_free (processor->results);
     }
     aktive_queue_free (processor->tasks);
+    ckfree (processor->wstate);
     ckfree (processor);
 
     // and fully done
@@ -298,6 +293,7 @@ task_completer (aktive_batch processor)
     TRACE ("results eof, done", 0);
     processor->completer (processor, processor->state, 0);
 
+    // __Not__ TRACE_THREAD_EXIT - The completer is not run in a spawned thread.
     TRACE_RETURN_VOID;
 }
 
