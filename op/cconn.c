@@ -90,6 +90,14 @@ static aktive_cc* cc_new (aktive_uint y, aktive_uint xmin, aktive_uint xmax)
     cc->xmax = xmax;
     cc->area = xmax - xmin + 1;
 
+    cc->xsum = (xmax == xmin)
+	? xmax
+	: (xmax*(xmax+1) - xmin*(xmin-1)) >> 1;
+    // -- sum(xmin,xmax) = sum(0,xmax)-sum(0,xmin-1)
+    // -- sum(0,n)       = n*(n+1)/2
+    // -- sum(x,x)       = (x*(x+1) - (x-1)*x)/2 = (x*x+x-x*x+x)/2 = 2x/2 = x
+    cc->ysum = y * cc->area;
+
     aktive_cc_range* range = cc_new_range (cc, y, xmin, xmax);
 
     cc->first = range;
@@ -211,7 +219,9 @@ static void cc_extend_block (aktive_cc_block* block, aktive_uint xmin, aktive_ui
     TRACE_RETURN_VOID;
 }
 
-/* Merge two CCs. The second CC, B, is freed after adding itself (ranges, area, bounding box) to A.
+/* Merge two CCs.
+ * The second CC, B, is freed after adding itself to A.
+ * where itself = (ranges, area, bounding box)
  */
 static void cc_merge (aktive_cc* a, aktive_cc* b)
 {
@@ -228,13 +238,17 @@ static void cc_merge (aktive_cc* a, aktive_cc* b)
     a->last->cc_next = b->first;
     a->last          = b->last;
 
-    // merge bounding boxes and areas
+    // merge bounding boxes, areas, and centroid data
 
     a->xmin = MIN (a->xmin, b->xmin);
     a->xmax = MAX (a->xmax, b->xmax);
     a->ymin = MIN (a->ymin, b->ymin);
     a->ymax = MAX (a->ymax, b->ymax);
+
     a->area += b->area;
+
+    a->xsum += b->xsum;
+    a->ysum += b->ysum;
 
     // release superfluous structure
     FREE (b);
@@ -688,7 +702,8 @@ aktive_cc_find (aktive_image src)
 
 #undef I
 #undef K
-#define I(x) Tcl_NewIntObj ((x)) // OK tcl9
+#define I(x) Tcl_NewIntObj    ((x)) // OK tcl9
+#define D(x) Tcl_NewDoubleObj ((x))
 #define K(s) Tcl_NewStringObj((s), TCL_AUTO_LENGTH) /* TODO :: Use enum */ /* OK tcl9 */
 
 /* Convert the block structure into a Tcl dictionary recording the same information.
@@ -716,12 +731,18 @@ aktive_cc_as_tcl_dict (Tcl_Interp* ip, aktive_cc_block* block)
 	Tcl_Obj* cco = Tcl_NewDictObj ();
 	Tcl_DictObjPut (ip, r, I (n), cco);
 
-	// Fill the CC dict (bounding box and area)
+	// Compute centroid
+	double cx = (double) cc->xsum / (double) cc->area;
+	double cy = (double) cc->ysum / (double) cc->area;
+
+	// Fill the CC dict (bounding box, area, centroid)
 	Tcl_DictObjPut (ip, cco, K ("xmin"), I (cc->xmin));
 	Tcl_DictObjPut (ip, cco, K ("xmax"), I (cc->xmax));
 	Tcl_DictObjPut (ip, cco, K ("ymin"), I (cc->ymin));
 	Tcl_DictObjPut (ip, cco, K ("ymax"), I (cc->ymax));
 	Tcl_DictObjPut (ip, cco, K ("area"), I (cc->area));
+	Tcl_DictObjPut (ip, cco, K ("cx"),   D (cx));
+	Tcl_DictObjPut (ip, cco, K ("cy"),   D (cy));
 
 	// Fill CC dict (rows and ranges)
 	//

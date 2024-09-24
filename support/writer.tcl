@@ -2654,6 +2654,8 @@ proc dsl::writer::stash-to {path} {
 		    set val [dict get $spec $el]
 		    switch -exact -- $el {
 			parts   { set val [lsort -dict $val] }
+			cx      { set val [format %.4f $val] }
+			cy      { set val [format %.4f $val] }
 			default {}
 		    }
 		    lappend new $el $val

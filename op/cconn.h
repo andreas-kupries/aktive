@@ -69,6 +69,9 @@ A_STRUCTURE(aktive_cc) {
     A_FIELD (aktive_uint,         ymin)  ; //   ditto
     A_FIELD (aktive_uint,         ymax)  ; //   ditto
     A_FIELD (aktive_uint,         area)  ; // Area in pixels
+    //                                     // Centroid precursor data
+    A_FIELD (aktive_uint,         xsum)  ; //   Sum of covered X coordinates
+    A_FIELD (aktive_uint,         ysum)  ; //   Sum of covered Y coordinates
     A_FIELD (aktive_cc_range_ptr, first) ; // First range in this CC
     A_FIELD (aktive_cc_range_ptr, last)  ; // Last range in this CC
     A_FIELD (aktive_cc_ptr,       prev)  ; // Previous CC in block
