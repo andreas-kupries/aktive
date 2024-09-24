@@ -55,7 +55,11 @@ proc aktive::op::embed::Tiles {dirs op src} {
 
     return [aktive op montage $op \
 		{*}[lmap inverted $dirs {
-		    expr {$inverted ? $isrc : $src}
+		    if {$inverted} {
+			set isrc
+		    } else {
+			set src
+		    }
 		}]]
 }
 
