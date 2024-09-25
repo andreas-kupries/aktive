@@ -1008,12 +1008,11 @@ proc dsl::writer::ExampleRender {op example} {
     # results :: list (result...)
     # result  :: list (show format dstfile)
 
-    set labels [lmap run $example { lindex $run 0 }]
+    set labels [lmap run $example { string trim [lindex $run 0] }]
     set data   [lmap run $example { RR {*}$run }]
 
-    lappend lines |[join $labels |]|
-    lappend lines |[string repeat ---| [llength $example]]
-    lappend lines |[join $data |]|
+    lappend lines "<table><tr><th>[join $labels "</th><th>"]</th></tr>"
+    lappend lines "<tr><td valign='top'>[join $data "</td><td valign='top'>"]</td></tr></table>"
 
     # render complete
     return [join $lines \n]
@@ -2618,10 +2617,14 @@ proc dsl::writer::TclHeader {text} {
 proc dsl::writer::stash-to {path} {
     variable stash
 
+    lappend map "\t\t\t\t" \t\t\t
+    lappend map "\t\t\t"   \t\t
+    lappend map "\t\t"     \t
+    lappend map "\t"       {}
     lappend s "#!/usr/bin/env/tclsh"
     lappend s "package require aktive"
     lappend s "package require fileutil"
-    lappend s [string map {\t {}} {
+    lappend s [string map $map {
 	proc cc.max {ccs} {
 	    # keep only the max sized cc's
 	    # find max
@@ -2654,8 +2657,6 @@ proc dsl::writer::stash-to {path} {
 		    set val [dict get $spec $el]
 		    switch -exact -- $el {
 			parts   { set val [lsort -dict $val] }
-			cx      { set val [format %.4f $val] }
-			cy      { set val [format %.4f $val] }
 			default {}
 		    }
 		    lappend new $el $val
@@ -2664,6 +2665,43 @@ proc dsl::writer::stash-to {path} {
 	    }
 	    return $norm
 	}
+	proc cc.pretty {ccs} {
+	    # convert the ccs dict into a prettily formatted standard form, easy to compare also
+	    # expects a html table context inside a markdown table => br instead of new-lines,
+	    # and non-breaking spaces for indenting
+	    set norm {}
+	    foreach id [lsort -dict [dict keys $ccs]] {
+		lappend norm "$id[s]\{"
+		set spec [dict get $ccs $id]
+		foreach el [lsort -dict [dict keys $spec]] {
+		    set val [dict get $spec $el]
+		    switch -exact -- $el {
+			parts   {
+			    lappend norm "[s 4]parts[s]\{"
+			    set line ""
+			    foreach range [lsort -dict $val] {
+				append line "[s][list $range]"
+				if {[string length $line] < 60} continue
+				lappend norm "[s 7]$line"
+				set line ""
+			    }
+			    if {$line ne ""} {
+				lappend norm "[s 7]$line"
+			    }
+			    lappend norm "[s 4]\}"
+			}
+			default {
+			    lappend norm "[s 4]$el[s][list $val]"
+			}
+		    }
+		}
+
+
+		lappend norm "\}"
+	    }
+	    return [join $norm "<br/>"]
+	}
+	proc s {{n 1}} { string repeat "&nbsp;" $n }
 	proc meta-of       {x}   { aktive query meta $x }
 	proc sdf-fit       {x}   { aktive op sdf 2image fit       $x }
 	proc sdf-smooth    {x}   { aktive op sdf 2image smooth    $x }
