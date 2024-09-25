@@ -43,10 +43,15 @@ Throw error with message and error code.
 ---
 ### <a name='processors'></a> aktive processors
 
-Syntax: __aktive processors__ 
+Syntax: __aktive processors__ n
 
-Return number of processor cores available for concurrent operation.
+Set/Return number of processor cores available for concurrent operation.
 
+Setting the default, `0`, causes the system to query the OS for the number of available processors and use the result. Anything else limits concurrency to the defined count. __Beware__ overcommit is possible, if more processors are declared for use than actually exist.
+
+|Parameter|Type|Default|Description|
+|:---|:---|:---|:---|
+|n|int|0|Set number of processor available for concurrent operation.|
 
 ---
 ### <a name='version'></a> aktive version
