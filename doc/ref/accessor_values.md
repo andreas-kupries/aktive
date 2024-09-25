@@ -62,9 +62,8 @@ This operator is __strict__ in its single input. The requested pixel is material
 
 ## Examples
 
-|@1|aktive query value at 	@1 x 0 y 1 |
-|---|---|
-|<table><tr><td valign='top'>times 16</td><td valign='top'><img src='example-00363.gif' alt='@1' style='border:4px solid gold'></td></tr></table>|0.6666666666666666|
+<table><tr><th>@1</th><th>aktive query value at 	@1 x 0 y 1</th></tr>
+<tr><td valign='top'><table><tr><td valign='top'>times 16</td><td valign='top'><img src='example-00406.gif' alt='@1' style='border:4px solid gold'></td></tr></table></td><td valign='top'>0.6666666666666666</td></tr></table>
 
 
 ---
@@ -83,8 +82,7 @@ This operator is __strict__ in its single input. The image is materialized in me
 
 ## Examples
 
-|@1|aktive query values 	@1 |
-|---|---|
-|<table><tr><td valign='top'>times 16</td><td valign='top'><img src='example-00365.gif' alt='@1' style='border:4px solid gold'></td></tr></table>|0.0 0.3333333333333333 0.6666666666666666 1.0|
+<table><tr><th>@1</th><th>aktive query values 	@1</th></tr>
+<tr><td valign='top'><table><tr><td valign='top'>times 16</td><td valign='top'><img src='example-00408.gif' alt='@1' style='border:4px solid gold'></td></tr></table></td><td valign='top'>0.0 0.3333333333333333 0.6666666666666666 1.0</td></tr></table>
 
 

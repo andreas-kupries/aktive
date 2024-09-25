@@ -49,17 +49,14 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 
 ## Examples
 
-|@1|aktive op connected-components labeled 	@1                                                        |
-|---|---|
-|<table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00175.gif' alt='@1' style='border:4px solid gold'></td></tr></table>|<table><tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr><tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>2</td><td>2</td><td>0</td><td>0</td><td>3</td><td>3</td><td>3</td><td>0</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>0</td><td>0</td><td>0</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>0</td><td>0</td></tr><tr><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>0</td><td>0</td><td>2</td><td>2</td><td>0</td><td>0</td><td>3</td><td>0</td><td>3</td><td>0</td><td>4</td><td>0</td><td>0</td><td>0</td><td>4</td><td>0</td><td>0</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>0</td></tr><tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>2</td><td>2</td><td>0</td><td>0</td><td>0</td><td>3</td><td>3</td><td>3</td><td>0</td><td>4</td><td>0</td><td>0</td><td>0</td><td>4</td><td>0</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td></tr><tr><td>0</td><td>2</td><td>2</td><td>2</td><td>2</td><td>2</td><td>2</td><td>2</td><td>0</td><td>6</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>4</td><td>0</td><td>0</td><td>0</td><td>4</td><td>0</td><td>5</td><td>5</td><td>5</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>5</td><td>5</td><td>5</td></tr><tr><td>0</td><td>2</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>6</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>4</td><td>0</td><td>0</td><td>0</td><td>4</td><td>0</td><td>5</td><td>5</td><td>0</td><td>0</td><td>0</td><td>7</td><td>0</td><td>0</td><td>0</td><td>5</td><td>5</td></tr><tr><td>0</td><td>2</td><td>0</td><td>6</td><td>6</td><td>6</td><td>6</td><td>6</td><td>6</td><td>6</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>0</td><td>0</td><td>5</td><td>5</td><td>0</td><td>0</td><td>7</td><td>0</td><td>0</td><td>5</td><td>5</td><td>0</td></tr><tr><td>0</td><td>0</td><td>6</td><td>6</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>5</td><td>5</td><td>0</td><td>7</td><td>0</td><td>5</td><td>5</td><td>0</td><td>0</td></tr><tr><td>0</td><td>6</td><td>6</td><td>0</td><td>0</td><td>8</td><td>8</td><td>8</td><td>8</td><td>8</td><td>8</td><td>0</td><td>9</td><td>9</td><td>9</td><td>9</td><td>9</td><td>9</td><td>9</td><td>9</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>7</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr><tr><td>0</td><td>6</td><td>6</td><td>0</td><td>0</td><td>8</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>9</td><td>9</td><td>9</td><td>9</td><td>9</td><td>9</td><td>9</td><td>9</td><td>0</td><td>0</td><td>7</td><td>7</td><td>7</td><td>7</td><td>7</td><td>7</td><td>7</td><td>7</td><td>7</td><td>7</td><td>7</td></tr><tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>8</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>9</td><td>9</td><td>0</td><td>0</td><td>0</td><td>0</td><td>9</td><td>9</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>7</td><td>7</td><td>7</td><td>0</td><td>0</td><td>0</td><td>0</td></tr></table>|
+<table><tr><th>@1</th><th>aktive op connected-components labeled 	@1</th></tr>
+<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00178.gif' alt='@1' style='border:4px solid gold'></td></tr></table></td><td valign='top'><table><tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr><tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>2</td><td>2</td><td>0</td><td>0</td><td>3</td><td>3</td><td>3</td><td>0</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>0</td><td>0</td><td>0</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>0</td><td>0</td></tr><tr><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>0</td><td>0</td><td>2</td><td>2</td><td>0</td><td>0</td><td>3</td><td>0</td><td>3</td><td>0</td><td>4</td><td>0</td><td>0</td><td>0</td><td>4</td><td>0</td><td>0</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>0</td></tr><tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>2</td><td>2</td><td>0</td><td>0</td><td>0</td><td>3</td><td>3</td><td>3</td><td>0</td><td>4</td><td>0</td><td>0</td><td>0</td><td>4</td><td>0</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td></tr><tr><td>0</td><td>2</td><td>2</td><td>2</td><td>2</td><td>2</td><td>2</td><td>2</td><td>0</td><td>6</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>4</td><td>0</td><td>0</td><td>0</td><td>4</td><td>0</td><td>5</td><td>5</td><td>5</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>5</td><td>5</td><td>5</td></tr><tr><td>0</td><td>2</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>6</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>4</td><td>0</td><td>0</td><td>0</td><td>4</td><td>0</td><td>5</td><td>5</td><td>0</td><td>0</td><td>0</td><td>7</td><td>0</td><td>0</td><td>0</td><td>5</td><td>5</td></tr><tr><td>0</td><td>2</td><td>0</td><td>6</td><td>6</td><td>6</td><td>6</td><td>6</td><td>6</td><td>6</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>0</td><td>0</td><td>5</td><td>5</td><td>0</td><td>0</td><td>7</td><td>0</td><td>0</td><td>5</td><td>5</td><td>0</td></tr><tr><td>0</td><td>0</td><td>6</td><td>6</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>5</td><td>5</td><td>0</td><td>7</td><td>0</td><td>5</td><td>5</td><td>0</td><td>0</td></tr><tr><td>0</td><td>6</td><td>6</td><td>0</td><td>0</td><td>8</td><td>8</td><td>8</td><td>8</td><td>8</td><td>8</td><td>0</td><td>9</td><td>9</td><td>9</td><td>9</td><td>9</td><td>9</td><td>9</td><td>9</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>7</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr><tr><td>0</td><td>6</td><td>6</td><td>0</td><td>0</td><td>8</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>9</td><td>9</td><td>9</td><td>9</td><td>9</td><td>9</td><td>9</td><td>9</td><td>0</td><td>0</td><td>7</td><td>7</td><td>7</td><td>7</td><td>7</td><td>7</td><td>7</td><td>7</td><td>7</td><td>7</td><td>7</td></tr><tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>8</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>9</td><td>9</td><td>0</td><td>0</td><td>0</td><td>0</td><td>9</td><td>9</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>7</td><td>7</td><td>7</td><td>0</td><td>0</td><td>0</td><td>0</td></tr></table></td></tr></table>
 
-|@1|aktive op connected-components labeled 	@1 transform cc.max                                       |
-|---|---|
-|<table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00177.gif' alt='@1' style='border:4px solid gold'></td></tr></table>|<table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00178.gif' alt='aktive op connected-components labeled 	@1 transform cc.max                                       ' style='border:4px solid gold'></td></tr></table>|
+<table><tr><th>@1</th><th>aktive op connected-components labeled 	@1 transform cc.max</th></tr>
+<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00180.gif' alt='@1' style='border:4px solid gold'></td></tr></table></td><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00181.gif' alt='aktive op connected-components labeled 	@1 transform cc.max                                       ' style='border:4px solid gold'></td></tr></table></td></tr></table>
 
-|@1|aktive op connected-components labeled 	@1 transform cc.max bbox 1                                |
-|---|---|
-|<table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00179.gif' alt='@1' style='border:4px solid gold'></td></tr></table>|<table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00180.gif' alt='aktive op connected-components labeled 	@1 transform cc.max bbox 1                                ' style='border:4px solid gold'></td></tr></table>|
+<table><tr><th>@1</th><th>aktive op connected-components labeled 	@1 transform cc.max bbox 1</th></tr>
+<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00182.gif' alt='@1' style='border:4px solid gold'></td></tr></table></td><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00183.gif' alt='aktive op connected-components labeled 	@1 transform cc.max bbox 1                                ' style='border:4px solid gold'></td></tr></table></td></tr></table>
 
 
 ---
@@ -74,6 +71,15 @@ Returns image containing the morphological closing of the input using a (2*radiu
 |radius|uint|1|Size of the structuring element to perform the operation with.|
 |embed|str|black|Embedding method to use before core operators to keep output from shrinking.|
 
+## Examples
+
+<table><tr><th>@1</th><th>aktive op morph close 	@1 radius 1</th></tr>
+<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00240.gif' alt='@1' style='border:4px solid gold'></td></tr></table></td><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00241.gif' alt='aktive op morph close 	@1 radius 1                                               ' style='border:4px solid gold'></td></tr></table></td></tr></table>
+
+<table><tr><th>@1</th><th>aktive op morph close 	@1 radius 1</th></tr>
+<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00242.gif' alt='@1' style='border:4px solid gold'></td></tr></table></td><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00243.gif' alt='aktive op morph close 	@1 radius 1                                               ' style='border:4px solid gold'></td></tr></table></td></tr></table>
+
+
 ---
 ### <a name='op_morph_dilate'></a> aktive op morph dilate
 
@@ -85,6 +91,15 @@ Returns image containing the morphological dilation of the input using a (2*radi
 |:---|:---|:---|:---|
 |radius|uint|1|Size of the structuring element to perform the operation with.|
 |embed|str|black|Embedding method to use before core operators to keep output from shrinking.|
+
+## Examples
+
+<table><tr><th>@1</th><th>aktive op morph dilate 	@1 radius 1</th></tr>
+<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00244.gif' alt='@1' style='border:4px solid gold'></td></tr></table></td><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00245.gif' alt='aktive op morph dilate 	@1 radius 1                                               ' style='border:4px solid gold'></td></tr></table></td></tr></table>
+
+<table><tr><th>@1</th><th>aktive op morph dilate 	@1 radius 1</th></tr>
+<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00246.gif' alt='@1' style='border:4px solid gold'></td></tr></table></td><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00247.gif' alt='aktive op morph dilate 	@1 radius 1                                               ' style='border:4px solid gold'></td></tr></table></td></tr></table>
+
 
 ---
 ### <a name='op_morph_erode'></a> aktive op morph erode
@@ -98,6 +113,15 @@ Returns image containing the morphological erosion of the input using a (2*radiu
 |radius|uint|1|Size of the structuring element to perform the operation with.|
 |embed|str|black|Embedding method to use before core operators to keep output from shrinking.|
 
+## Examples
+
+<table><tr><th>@1</th><th>aktive op morph erode 	@1 radius 1</th></tr>
+<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00248.gif' alt='@1' style='border:4px solid gold'></td></tr></table></td><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00249.gif' alt='aktive op morph erode 	@1 radius 1                                               ' style='border:4px solid gold'></td></tr></table></td></tr></table>
+
+<table><tr><th>@1</th><th>aktive op morph erode 	@1 radius 1</th></tr>
+<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00250.gif' alt='@1' style='border:4px solid gold'></td></tr></table></td><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00251.gif' alt='aktive op morph erode 	@1 radius 1                                               ' style='border:4px solid gold'></td></tr></table></td></tr></table>
+
+
 ---
 ### <a name='op_morph_gradient_all'></a> aktive op morph gradient all
 
@@ -109,6 +133,15 @@ Returns image containing the morphological gradient of the input using a (2*radi
 |:---|:---|:---|:---|
 |radius|uint|1|Size of the structuring element to perform the operation with.|
 |embed|str|black|Embedding method to use before core operators to keep output from shrinking.|
+
+## Examples
+
+<table><tr><th>@1</th><th>aktive op morph gradient all 	@1 radius 1</th></tr>
+<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00252.gif' alt='@1' style='border:4px solid gold'></td></tr></table></td><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00253.gif' alt='aktive op morph gradient all 	@1 radius 1                                               ' style='border:4px solid gold'></td></tr></table></td></tr></table>
+
+<table><tr><th>@1</th><th>aktive op morph gradient all 	@1 radius 1</th></tr>
+<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00254.gif' alt='@1' style='border:4px solid gold'></td></tr></table></td><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00255.gif' alt='aktive op morph gradient all 	@1 radius 1                                               ' style='border:4px solid gold'></td></tr></table></td></tr></table>
+
 
 ---
 ### <a name='op_morph_gradient_external'></a> aktive op morph gradient external
@@ -122,6 +155,15 @@ Returns image containing the morphological outer gradient of the input using a (
 |radius|uint|1|Size of the structuring element to perform the operation with.|
 |embed|str|black|Embedding method to use before core operators to keep output from shrinking.|
 
+## Examples
+
+<table><tr><th>@1</th><th>aktive op morph gradient external 	@1 radius 1</th></tr>
+<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00256.gif' alt='@1' style='border:4px solid gold'></td></tr></table></td><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00257.gif' alt='aktive op morph gradient external 	@1 radius 1                                               ' style='border:4px solid gold'></td></tr></table></td></tr></table>
+
+<table><tr><th>@1</th><th>aktive op morph gradient external 	@1 radius 1</th></tr>
+<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00258.gif' alt='@1' style='border:4px solid gold'></td></tr></table></td><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00259.gif' alt='aktive op morph gradient external 	@1 radius 1                                               ' style='border:4px solid gold'></td></tr></table></td></tr></table>
+
+
 ---
 ### <a name='op_morph_gradient_internal'></a> aktive op morph gradient internal
 
@@ -133,6 +175,15 @@ Returns image containing the morphological inner gradient of the input using a (
 |:---|:---|:---|:---|
 |radius|uint|1|Size of the structuring element to perform the operation with.|
 |embed|str|black|Embedding method to use before core operators to keep output from shrinking.|
+
+## Examples
+
+<table><tr><th>@1</th><th>aktive op morph gradient internal 	@1 radius 1</th></tr>
+<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00260.gif' alt='@1' style='border:4px solid gold'></td></tr></table></td><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00261.gif' alt='aktive op morph gradient internal 	@1 radius 1                                               ' style='border:4px solid gold'></td></tr></table></td></tr></table>
+
+<table><tr><th>@1</th><th>aktive op morph gradient internal 	@1 radius 1</th></tr>
+<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00262.gif' alt='@1' style='border:4px solid gold'></td></tr></table></td><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00263.gif' alt='aktive op morph gradient internal 	@1 radius 1                                               ' style='border:4px solid gold'></td></tr></table></td></tr></table>
+
 
 ---
 ### <a name='op_morph_open'></a> aktive op morph open
@@ -146,6 +197,15 @@ Returns image containing the morphological opening of the input using a (2*radiu
 |radius|uint|1|Size of the structuring element to perform the operation with.|
 |embed|str|black|Embedding method to use before core operators to keep output from shrinking.|
 
+## Examples
+
+<table><tr><th>@1</th><th>aktive op morph open 	@1 radius 1</th></tr>
+<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00264.gif' alt='@1' style='border:4px solid gold'></td></tr></table></td><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00265.gif' alt='aktive op morph open 	@1 radius 1                                               ' style='border:4px solid gold'></td></tr></table></td></tr></table>
+
+<table><tr><th>@1</th><th>aktive op morph open 	@1 radius 1</th></tr>
+<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00266.gif' alt='@1' style='border:4px solid gold'></td></tr></table></td><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00267.gif' alt='aktive op morph open 	@1 radius 1                                               ' style='border:4px solid gold'></td></tr></table></td></tr></table>
+
+
 ---
 ### <a name='op_morph_toggle'></a> aktive op morph toggle
 
@@ -157,6 +217,15 @@ Returns image containing the morphological toggle of the input using a (2*radius
 |:---|:---|:---|:---|
 |radius|uint|1|Size of the structuring element to perform the operation with.|
 |embed|str|black|Embedding method to use before core operators to keep output from shrinking.|
+
+## Examples
+
+<table><tr><th>@1</th><th>aktive op morph toggle 	@1 radius 1</th></tr>
+<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00268.gif' alt='@1' style='border:4px solid gold'></td></tr></table></td><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00269.gif' alt='aktive op morph toggle 	@1 radius 1                                               ' style='border:4px solid gold'></td></tr></table></td></tr></table>
+
+<table><tr><th>@1</th><th>aktive op morph toggle 	@1 radius 1</th></tr>
+<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00270.gif' alt='@1' style='border:4px solid gold'></td></tr></table></td><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00271.gif' alt='aktive op morph toggle 	@1 radius 1                                               ' style='border:4px solid gold'></td></tr></table></td></tr></table>
+
 
 ---
 ### <a name='op_morph_tophat_black'></a> aktive op morph tophat black
@@ -170,6 +239,15 @@ Returns image containing the morphological black tophat of the input using a (2*
 |radius|uint|1|Size of the structuring element to perform the operation with.|
 |embed|str|black|Embedding method to use before core operators to keep output from shrinking.|
 
+## Examples
+
+<table><tr><th>@1</th><th>aktive op morph tophat black 	@1 radius 1</th></tr>
+<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00272.gif' alt='@1' style='border:4px solid gold'></td></tr></table></td><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00273.gif' alt='aktive op morph tophat black 	@1 radius 1                                               ' style='border:4px solid gold'></td></tr></table></td></tr></table>
+
+<table><tr><th>@1</th><th>aktive op morph tophat black 	@1 radius 1</th></tr>
+<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00274.gif' alt='@1' style='border:4px solid gold'></td></tr></table></td><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00275.gif' alt='aktive op morph tophat black 	@1 radius 1                                               ' style='border:4px solid gold'></td></tr></table></td></tr></table>
+
+
 ---
 ### <a name='op_morph_tophat_white'></a> aktive op morph tophat white
 
@@ -181,4 +259,13 @@ Returns image containing the morphological white tophat of the input using a (2*
 |:---|:---|:---|:---|
 |radius|uint|1|Size of the structuring element to perform the operation with.|
 |embed|str|black|Embedding method to use before core operators to keep output from shrinking.|
+
+## Examples
+
+<table><tr><th>@1</th><th>aktive op morph tophat white 	@1 radius 1</th></tr>
+<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00276.gif' alt='@1' style='border:4px solid gold'></td></tr></table></td><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00277.gif' alt='aktive op morph tophat white 	@1 radius 1                                               ' style='border:4px solid gold'></td></tr></table></td></tr></table>
+
+<table><tr><th>@1</th><th>aktive op morph tophat white 	@1 radius 1</th></tr>
+<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00278.gif' alt='@1' style='border:4px solid gold'></td></tr></table></td><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00279.gif' alt='aktive op morph tophat white 	@1 radius 1                                               ' style='border:4px solid gold'></td></tr></table></td></tr></table>
+
 

@@ -39,13 +39,11 @@ Returns image with all inputs joined left to right along the x-axis.
 
 ## Examples
 
-|@1|@2|@3|aktive op montage x 	@1 @2 @3|
-|---|---|---|---|
-|<img src='example-00207.gif' alt='@1' style='border:4px solid gold'>|<img src='example-00208.gif' alt='@2' style='border:4px solid gold'>|<img src='example-00209.gif' alt='@3' style='border:4px solid gold'>|<img src='example-00210.gif' alt='aktive op montage x 	@1 @2 @3' style='border:4px solid gold'>|
+<table><tr><th>@1</th><th>@2</th><th>@3</th><th>aktive op montage x 	@1 @2 @3</th></tr>
+<tr><td valign='top'><img src='example-00210.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00211.gif' alt='@2' style='border:4px solid gold'></td><td valign='top'><img src='example-00212.gif' alt='@3' style='border:4px solid gold'></td><td valign='top'><img src='example-00213.gif' alt='aktive op montage x 	@1 @2 @3' style='border:4px solid gold'></td></tr></table>
 
-|@1|@2|@3|aktive op montage x 	@1 @2 @3|
-|---|---|---|---|
-|<img src='example-00211.gif' alt='@1' style='border:4px solid gold'>|<img src='example-00212.gif' alt='@2' style='border:4px solid gold'>|<img src='example-00213.gif' alt='@3' style='border:4px solid gold'>|<img src='example-00214.gif' alt='aktive op montage x 	@1 @2 @3' style='border:4px solid gold'>|
+<table><tr><th>@1</th><th>@2</th><th>@3</th><th>aktive op montage x 	@1 @2 @3</th></tr>
+<tr><td valign='top'><img src='example-00214.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00215.gif' alt='@2' style='border:4px solid gold'></td><td valign='top'><img src='example-00216.gif' alt='@3' style='border:4px solid gold'></td><td valign='top'><img src='example-00217.gif' alt='aktive op montage x 	@1 @2 @3' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -79,9 +77,8 @@ Returns image with input joined left to right with itself N times along the x-ax
 
 ## Examples
 
-|@1|aktive op montage x-rep 	@1 by 3|
-|---|---|
-|<img src='example-00215.gif' alt='@1' style='border:4px solid gold'>|<img src='example-00216.gif' alt='aktive op montage x-rep 	@1 by 3' style='border:4px solid gold'>|
+<table><tr><th>@1</th><th>aktive op montage x-rep 	@1 by 3</th></tr>
+<tr><td valign='top'><img src='example-00218.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00219.gif' alt='aktive op montage x-rep 	@1 by 3' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -94,13 +91,11 @@ Returns image with all inputs joined top to bottom along the y-axis.
 
 ## Examples
 
-|@1|@2|@3|aktive op montage y 	@1 @2 @3|
-|---|---|---|---|
-|<img src='example-00217.gif' alt='@1' style='border:4px solid gold'>|<img src='example-00218.gif' alt='@2' style='border:4px solid gold'>|<img src='example-00219.gif' alt='@3' style='border:4px solid gold'>|<img src='example-00220.gif' alt='aktive op montage y 	@1 @2 @3' style='border:4px solid gold'>|
+<table><tr><th>@1</th><th>@2</th><th>@3</th><th>aktive op montage y 	@1 @2 @3</th></tr>
+<tr><td valign='top'><img src='example-00220.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00221.gif' alt='@2' style='border:4px solid gold'></td><td valign='top'><img src='example-00222.gif' alt='@3' style='border:4px solid gold'></td><td valign='top'><img src='example-00223.gif' alt='aktive op montage y 	@1 @2 @3' style='border:4px solid gold'></td></tr></table>
 
-|@1|@2|@3|aktive op montage y 	@1 @2 @3|
-|---|---|---|---|
-|<img src='example-00221.gif' alt='@1' style='border:4px solid gold'>|<img src='example-00222.gif' alt='@2' style='border:4px solid gold'>|<img src='example-00223.gif' alt='@3' style='border:4px solid gold'>|<img src='example-00224.gif' alt='aktive op montage y 	@1 @2 @3' style='border:4px solid gold'>|
+<table><tr><th>@1</th><th>@2</th><th>@3</th><th>aktive op montage y 	@1 @2 @3</th></tr>
+<tr><td valign='top'><img src='example-00224.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00225.gif' alt='@2' style='border:4px solid gold'></td><td valign='top'><img src='example-00226.gif' alt='@3' style='border:4px solid gold'></td><td valign='top'><img src='example-00227.gif' alt='aktive op montage y 	@1 @2 @3' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -134,9 +129,8 @@ Returns image with input joined top to bottom with itself N times along the y-ax
 
 ## Examples
 
-|@1|aktive op montage y-rep 	@1 by 3|
-|---|---|
-|<img src='example-00225.gif' alt='@1' style='border:4px solid gold'>|<img src='example-00226.gif' alt='aktive op montage y-rep 	@1 by 3' style='border:4px solid gold'>|
+<table><tr><th>@1</th><th>aktive op montage y-rep 	@1 by 3</th></tr>
+<tr><td valign='top'><img src='example-00228.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00229.gif' alt='aktive op montage y-rep 	@1 by 3' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -149,13 +143,11 @@ Returns image with all inputs joined front to back along the z-axis.
 
 ## Examples
 
-|@1|@2|@3|aktive op montage z 	@1 @2 @3|
-|---|---|---|---|
-|<img src='example-00227.gif' alt='@1' style='border:4px solid gold'>|<img src='example-00228.gif' alt='@2' style='border:4px solid gold'>|<img src='example-00229.gif' alt='@3' style='border:4px solid gold'>|<img src='example-00230.gif' alt='aktive op montage z 	@1 @2 @3' style='border:4px solid gold'>|
+<table><tr><th>@1</th><th>@2</th><th>@3</th><th>aktive op montage z 	@1 @2 @3</th></tr>
+<tr><td valign='top'><img src='example-00230.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00231.gif' alt='@2' style='border:4px solid gold'></td><td valign='top'><img src='example-00232.gif' alt='@3' style='border:4px solid gold'></td><td valign='top'><img src='example-00233.gif' alt='aktive op montage z 	@1 @2 @3' style='border:4px solid gold'></td></tr></table>
 
-|@1|@2|@3|aktive op montage z 	@1 @2 @3|
-|---|---|---|---|
-|<img src='example-00231.gif' alt='@1' style='border:4px solid gold'>|<img src='example-00232.gif' alt='@2' style='border:4px solid gold'>|<img src='example-00233.gif' alt='@3' style='border:4px solid gold'>|<img src='example-00234.gif' alt='aktive op montage z 	@1 @2 @3' style='border:4px solid gold'>|
+<table><tr><th>@1</th><th>@2</th><th>@3</th><th>aktive op montage z 	@1 @2 @3</th></tr>
+<tr><td valign='top'><img src='example-00234.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00235.gif' alt='@2' style='border:4px solid gold'></td><td valign='top'><img src='example-00236.gif' alt='@3' style='border:4px solid gold'></td><td valign='top'><img src='example-00237.gif' alt='aktive op montage z 	@1 @2 @3' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -189,8 +181,7 @@ Returns image with input joined front to back with itself N times along the z-ax
 
 ## Examples
 
-|@1|aktive op montage z-rep 	@1 by 3|
-|---|---|
-|<img src='example-00235.gif' alt='@1' style='border:4px solid gold'>|<img src='example-00236.gif' alt='aktive op montage z-rep 	@1 by 3' style='border:4px solid gold'>|
+<table><tr><th>@1</th><th>aktive op montage z-rep 	@1 by 3</th></tr>
+<tr><td valign='top'><img src='example-00238.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00239.gif' alt='aktive op montage z-rep 	@1 by 3' style='border:4px solid gold'></td></tr></table>
 
 

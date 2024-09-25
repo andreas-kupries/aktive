@@ -136,8 +136,7 @@ Returns a dictionary containing the input's meta data.
 
 ## Examples
 
-|@1|aktive query meta 	@1 |
-|---|---|
-|<img src='example-00337.gif' alt='@1' style='border:4px solid gold'>|netpbm {maxval 255} path tests/assets/sines.ppm colorspace sRGB|
+<table><tr><th>@1</th><th>aktive query meta 	@1</th></tr>
+<tr><td valign='top'><img src='example-00380.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'>netpbm {maxval 255} path tests/assets/sines.ppm colorspace sRGB</td></tr></table>
 
 

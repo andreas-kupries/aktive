@@ -93,9 +93,8 @@ Returns image aligned to a border in a larger image.
 
 ## Examples
 
-|@1|aktive op align bottom 	@1 size 160 border mirror|
-|---|---|
-|<img src='example-00133.gif' alt='@1' style='border:4px solid gold'>|<img src='example-00134.gif' alt='aktive op align bottom 	@1 size 160 border mirror' style='border:4px solid gold'>|
+<table><tr><th>@1</th><th>aktive op align bottom 	@1 size 160 border mirror</th></tr>
+<tr><td valign='top'><img src='example-00133.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00134.gif' alt='aktive op align bottom 	@1 size 160 border mirror' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -112,9 +111,8 @@ Returns image aligned to a border in a larger image.
 
 ## Examples
 
-|@1|aktive op align left 	@1 size 160 border mirror|
-|---|---|
-|<img src='example-00135.gif' alt='@1' style='border:4px solid gold'>|<img src='example-00136.gif' alt='aktive op align left 	@1 size 160 border mirror' style='border:4px solid gold'>|
+<table><tr><th>@1</th><th>aktive op align left 	@1 size 160 border mirror</th></tr>
+<tr><td valign='top'><img src='example-00135.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00136.gif' alt='aktive op align left 	@1 size 160 border mirror' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -131,9 +129,8 @@ Returns image aligned to a border in a larger image.
 
 ## Examples
 
-|@1|aktive op align right 	@1 size 160 border mirror|
-|---|---|
-|<img src='example-00137.gif' alt='@1' style='border:4px solid gold'>|<img src='example-00138.gif' alt='aktive op align right 	@1 size 160 border mirror' style='border:4px solid gold'>|
+<table><tr><th>@1</th><th>aktive op align right 	@1 size 160 border mirror</th></tr>
+<tr><td valign='top'><img src='example-00137.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00138.gif' alt='aktive op align right 	@1 size 160 border mirror' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -150,9 +147,8 @@ Returns image aligned to a border in a larger image.
 
 ## Examples
 
-|@1|aktive op align top 	@1 size 160 border mirror|
-|---|---|
-|<img src='example-00139.gif' alt='@1' style='border:4px solid gold'>|<img src='example-00140.gif' alt='aktive op align top 	@1 size 160 border mirror' style='border:4px solid gold'>|
+<table><tr><th>@1</th><th>aktive op align top 	@1 size 160 border mirror</th></tr>
+<tr><td valign='top'><img src='example-00139.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00140.gif' alt='aktive op align top 	@1 size 160 border mirror' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -165,9 +161,8 @@ Returns image where the center column of the input is shifted to the origin of t
 
 ## Examples
 
-|@1|aktive op center-origin x 	    @1|
-|---|---|
-|<img src='example-00141.gif' alt='@1' style='border:4px solid gold'>|<img src='example-00142.gif' alt='aktive op center-origin x 	    @1' style='border:4px solid gold'>|
+<table><tr><th>@1</th><th>aktive op center-origin x 	    @1</th></tr>
+<tr><td valign='top'><img src='example-00141.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00142.gif' alt='aktive op center-origin x 	    @1' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -180,9 +175,8 @@ Returns image where the center pixel of the input is shifted to the origin.
 
 ## Examples
 
-|@1|aktive op center-origin xy 	@1|
-|---|---|
-|<img src='example-00143.gif' alt='@1' style='border:4px solid gold'>|<img src='example-00144.gif' alt='aktive op center-origin xy 	@1' style='border:4px solid gold'>|
+<table><tr><th>@1</th><th>aktive op center-origin xy 	@1</th></tr>
+<tr><td valign='top'><img src='example-00143.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00144.gif' alt='aktive op center-origin xy 	@1' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -195,9 +189,8 @@ Returns image where the center row of the input is shifted to the origin of the 
 
 ## Examples
 
-|@1|aktive op center-origin y 	    @1|
-|---|---|
-|<img src='example-00145.gif' alt='@1' style='border:4px solid gold'>|<img src='example-00146.gif' alt='aktive op center-origin y 	    @1' style='border:4px solid gold'>|
+<table><tr><th>@1</th><th>aktive op center-origin y 	    @1</th></tr>
+<tr><td valign='top'><img src='example-00145.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00146.gif' alt='aktive op center-origin y 	    @1' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -224,9 +217,8 @@ Returns image containing a rectangular subset of input, specified by the amount 
 
 ## Examples
 
-|@1|aktive op crop 	@1 left 10 right 20 top 30 bottom 50|
-|---|---|
-|<img src='example-00187.gif' alt='@1' style='border:4px solid gold'>|<img src='example-00188.gif' alt='aktive op crop 	@1 left 10 right 20 top 30 bottom 50' style='border:4px solid gold'>|
+<table><tr><th>@1</th><th>aktive op crop 	@1 left 10 right 20 top 30 bottom 50</th></tr>
+<tr><td valign='top'><img src='example-00190.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00191.gif' alt='aktive op crop 	@1 left 10 right 20 top 30 bottom 50' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -270,9 +262,8 @@ Returns image embedding the input into an arbitrarily colored border. The color 
 
 ## Examples
 
-|@1|aktive op embed bg 	@1 left 32 right 32 top 32 bottom 32 values 0.5|
-|---|---|
-|<img src='example-00189.gif' alt='@1' style='border:4px solid gold'>|<img src='example-00190.gif' alt='aktive op embed bg 	@1 left 32 right 32 top 32 bottom 32 values 0.5' style='border:4px solid gold'>|
+<table><tr><th>@1</th><th>aktive op embed bg 	@1 left 32 right 32 top 32 bottom 32 values 0.5</th></tr>
+<tr><td valign='top'><img src='example-00192.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00193.gif' alt='aktive op embed bg 	@1 left 32 right 32 top 32 bottom 32 values 0.5' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -291,9 +282,8 @@ Returns image embedding the input into a black border.
 
 ## Examples
 
-|@1|aktive op embed black 	@1 left 32 right 32 top 32 bottom 32|
-|---|---|
-|<img src='example-00191.gif' alt='@1' style='border:4px solid gold'>|<img src='example-00192.gif' alt='aktive op embed black 	@1 left 32 right 32 top 32 bottom 32' style='border:4px solid gold'>|
+<table><tr><th>@1</th><th>aktive op embed black 	@1 left 32 right 32 top 32 bottom 32</th></tr>
+<tr><td valign='top'><img src='example-00194.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00195.gif' alt='aktive op embed black 	@1 left 32 right 32 top 32 bottom 32' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -312,9 +302,8 @@ Returns image embedding the input into a border made from the replicated input e
 
 ## Examples
 
-|@1|aktive op embed copy 	@1 left 32 right 32 top 32 bottom 32|
-|---|---|
-|<img src='example-00193.gif' alt='@1' style='border:4px solid gold'>|<img src='example-00194.gif' alt='aktive op embed copy 	@1 left 32 right 32 top 32 bottom 32' style='border:4px solid gold'>|
+<table><tr><th>@1</th><th>aktive op embed copy 	@1 left 32 right 32 top 32 bottom 32</th></tr>
+<tr><td valign='top'><img src='example-00196.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00197.gif' alt='aktive op embed copy 	@1 left 32 right 32 top 32 bottom 32' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -333,9 +322,8 @@ Returns image embedding the input into a border made from the replicated mirrore
 
 ## Examples
 
-|@1|aktive op embed mirror 	@1 left 32 right 32 top 32 bottom 32|
-|---|---|
-|<img src='example-00195.gif' alt='@1' style='border:4px solid gold'>|<img src='example-00196.gif' alt='aktive op embed mirror 	@1 left 32 right 32 top 32 bottom 32' style='border:4px solid gold'>|
+<table><tr><th>@1</th><th>aktive op embed mirror 	@1 left 32 right 32 top 32 bottom 32</th></tr>
+<tr><td valign='top'><img src='example-00198.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00199.gif' alt='aktive op embed mirror 	@1 left 32 right 32 top 32 bottom 32' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -354,9 +342,8 @@ Returns image embedding the input into a border made from the replicated input.
 
 ## Examples
 
-|@1|aktive op embed tile 	@1 left 32 right 32 top 32 bottom 32|
-|---|---|
-|<img src='example-00197.gif' alt='@1' style='border:4px solid gold'>|<img src='example-00198.gif' alt='aktive op embed tile 	@1 left 32 right 32 top 32 bottom 32' style='border:4px solid gold'>|
+<table><tr><th>@1</th><th>aktive op embed tile 	@1 left 32 right 32 top 32 bottom 32</th></tr>
+<tr><td valign='top'><img src='example-00200.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00201.gif' alt='aktive op embed tile 	@1 left 32 right 32 top 32 bottom 32' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -375,9 +362,8 @@ Returns image embedding the input into a white border.
 
 ## Examples
 
-|@1|aktive op embed white 	@1 left 32 right 32 top 32 bottom 32|
-|---|---|
-|<img src='example-00199.gif' alt='@1' style='border:4px solid gold'>|<img src='example-00200.gif' alt='aktive op embed white 	@1 left 32 right 32 top 32 bottom 32' style='border:4px solid gold'>|
+<table><tr><th>@1</th><th>aktive op embed white 	@1 left 32 right 32 top 32 bottom 32</th></tr>
+<tr><td valign='top'><img src='example-00202.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00203.gif' alt='aktive op embed white 	@1 left 32 right 32 top 32 bottom 32' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -390,9 +376,8 @@ Returns image which mirrors the input along the x-axis.
 
 ## Examples
 
-|@1|aktive op flip x 	    @1|
-|---|---|
-|<img src='example-00201.gif' alt='@1' style='border:4px solid gold'>|<img src='example-00202.gif' alt='aktive op flip x 	    @1' style='border:4px solid gold'>|
+<table><tr><th>@1</th><th>aktive op flip x 	    @1</th></tr>
+<tr><td valign='top'><img src='example-00204.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00205.gif' alt='aktive op flip x 	    @1' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -405,9 +390,8 @@ Returns image which mirrors the input along the y-axis.
 
 ## Examples
 
-|@1|aktive op flip y 	    @1|
-|---|---|
-|<img src='example-00203.gif' alt='@1' style='border:4px solid gold'>|<img src='example-00204.gif' alt='aktive op flip y 	    @1' style='border:4px solid gold'>|
+<table><tr><th>@1</th><th>aktive op flip y 	    @1</th></tr>
+<tr><td valign='top'><img src='example-00206.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00207.gif' alt='aktive op flip y 	    @1' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -438,9 +422,8 @@ Returns image rotating the input 90 degrees counter clockwise
 
 ## Examples
 
-|@1|aktive op rotate ccw 	@1|
-|---|---|
-|<img src='example-00237.gif' alt='@1' style='border:4px solid gold'>|<img src='example-00238.gif' alt='aktive op rotate ccw 	@1' style='border:4px solid gold'>|
+<table><tr><th>@1</th><th>aktive op rotate ccw 	@1</th></tr>
+<tr><td valign='top'><img src='example-00280.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00281.gif' alt='aktive op rotate ccw 	@1' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -453,9 +436,8 @@ Returns image rotating the input 90 degrees clockwise.
 
 ## Examples
 
-|@1|aktive op rotate cw 	@1|
-|---|---|
-|<img src='example-00239.gif' alt='@1' style='border:4px solid gold'>|<img src='example-00240.gif' alt='aktive op rotate cw 	@1' style='border:4px solid gold'>|
+<table><tr><th>@1</th><th>aktive op rotate cw 	@1</th></tr>
+<tr><td valign='top'><img src='example-00282.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00283.gif' alt='aktive op rotate cw 	@1' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -468,9 +450,8 @@ Returns image rotating the input 180 degrees (counter) clockwise.
 
 ## Examples
 
-|@1|aktive op rotate half 	@1|
-|---|---|
-|<img src='example-00241.gif' alt='@1' style='border:4px solid gold'>|<img src='example-00242.gif' alt='aktive op rotate half 	@1' style='border:4px solid gold'>|
+<table><tr><th>@1</th><th>aktive op rotate half 	@1</th></tr>
+<tr><td valign='top'><img src='example-00284.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00285.gif' alt='aktive op rotate half 	@1' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -489,9 +470,8 @@ This is accomplished by sub sampling the result of a lowpass filter applied to t
 
 ## Examples
 
-|@1|aktive op sample decimate x 	@1 by 4|
-|---|---|
-|<img src='example-00269.gif' alt='@1' style='border:4px solid gold'>|<img src='example-00270.gif' alt='aktive op sample decimate x 	@1 by 4' style='border:4px solid gold'>|
+<table><tr><th>@1</th><th>aktive op sample decimate x 	@1 by 4</th></tr>
+<tr><td valign='top'><img src='example-00312.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00313.gif' alt='aktive op sample decimate x 	@1 by 4' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -508,9 +488,8 @@ Returns image with the input decimated along both x and y axes according to the 
 
 ## Examples
 
-|@1|aktive op sample decimate xy 	@1 by 4|
-|---|---|
-|<img src='example-00271.gif' alt='@1' style='border:4px solid gold'>|<img src='example-00272.gif' alt='aktive op sample decimate xy 	@1 by 4' style='border:4px solid gold'>|
+<table><tr><th>@1</th><th>aktive op sample decimate xy 	@1 by 4</th></tr>
+<tr><td valign='top'><img src='example-00314.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00315.gif' alt='aktive op sample decimate xy 	@1 by 4' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -529,9 +508,8 @@ This is accomplished by sub sampling the result of a lowpass filter applied to t
 
 ## Examples
 
-|@1|aktive op sample decimate y 	@1 by 4|
-|---|---|
-|<img src='example-00273.gif' alt='@1' style='border:4px solid gold'>|<img src='example-00274.gif' alt='aktive op sample decimate y 	@1 by 4' style='border:4px solid gold'>|
+<table><tr><th>@1</th><th>aktive op sample decimate y 	@1 by 4</th></tr>
+<tr><td valign='top'><img src='example-00316.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00317.gif' alt='aktive op sample decimate y 	@1 by 4' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -548,9 +526,8 @@ Returns image where the input is "zero-stuffed" along the x-axis according to th
 
 ## Examples
 
-|@1|aktive op sample fill x 	    @1 by 4 fill 0.5|
-|---|---|
-|<img src='example-00275.gif' alt='@1' style='border:4px solid gold'>|<img src='example-00276.gif' alt='aktive op sample fill x 	    @1 by 4 fill 0.5' style='border:4px solid gold'>|
+<table><tr><th>@1</th><th>aktive op sample fill x 	    @1 by 4 fill 0.5</th></tr>
+<tr><td valign='top'><img src='example-00318.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00319.gif' alt='aktive op sample fill x 	    @1 by 4 fill 0.5' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -567,9 +544,8 @@ Returns image where the input is "zero-stuffed" along both x and y axes accordin
 
 ## Examples
 
-|@1|aktive op sample fill xy 	@1 by 4 fill 0.5|
-|---|---|
-|<img src='example-00277.gif' alt='@1' style='border:4px solid gold'>|<img src='example-00278.gif' alt='aktive op sample fill xy 	@1 by 4 fill 0.5' style='border:4px solid gold'>|
+<table><tr><th>@1</th><th>aktive op sample fill xy 	@1 by 4 fill 0.5</th></tr>
+<tr><td valign='top'><img src='example-00320.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00321.gif' alt='aktive op sample fill xy 	@1 by 4 fill 0.5' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -586,9 +562,8 @@ Returns image where the input is "zero-stuffed" along the y-axis according to th
 
 ## Examples
 
-|@1|aktive op sample fill y 	    @1 by 4 fill 0.5|
-|---|---|
-|<img src='example-00279.gif' alt='@1' style='border:4px solid gold'>|<img src='example-00280.gif' alt='aktive op sample fill y 	    @1 by 4 fill 0.5' style='border:4px solid gold'>|
+<table><tr><th>@1</th><th>aktive op sample fill y 	    @1 by 4 fill 0.5</th></tr>
+<tr><td valign='top'><img src='example-00322.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00323.gif' alt='aktive op sample fill y 	    @1 by 4 fill 0.5' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -619,9 +594,8 @@ This is accomplished by low-pass filtering applied to the result of zero-stuffin
 
 ## Examples
 
-|@1|aktive op sample interpolate x 	@1 by 4|
-|---|---|
-|<img src='example-00281.gif' alt='@1' style='border:4px solid gold'>|<img src='example-00282.gif' alt='aktive op sample interpolate x 	@1 by 4' style='border:4px solid gold'>|
+<table><tr><th>@1</th><th>aktive op sample interpolate x 	@1 by 4</th></tr>
+<tr><td valign='top'><img src='example-00324.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00325.gif' alt='aktive op sample interpolate x 	@1 by 4' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -640,9 +614,8 @@ This is accomplished by low-pass filtering applied to the result of zero-stuffin
 
 ## Examples
 
-|@1|aktive op sample interpolate xy 	@1 by 4|
-|---|---|
-|<img src='example-00283.gif' alt='@1' style='border:4px solid gold'>|<img src='example-00284.gif' alt='aktive op sample interpolate xy 	@1 by 4' style='border:4px solid gold'>|
+<table><tr><th>@1</th><th>aktive op sample interpolate xy 	@1 by 4</th></tr>
+<tr><td valign='top'><img src='example-00326.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00327.gif' alt='aktive op sample interpolate xy 	@1 by 4' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -661,9 +634,8 @@ This is accomplished by low-pass filtering applied to the result of zero-stuffin
 
 ## Examples
 
-|@1|aktive op sample interpolate y 	@1 by 4|
-|---|---|
-|<img src='example-00285.gif' alt='@1' style='border:4px solid gold'>|<img src='example-00286.gif' alt='aktive op sample interpolate y 	@1 by 4' style='border:4px solid gold'>|
+<table><tr><th>@1</th><th>aktive op sample interpolate y 	@1 by 4</th></tr>
+<tr><td valign='top'><img src='example-00328.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00329.gif' alt='aktive op sample interpolate y 	@1 by 4' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -679,9 +651,8 @@ Returns image where the input is stretched along the x-axis according to the str
 
 ## Examples
 
-|@1|aktive op sample replicate x 	    @1 by 4|
-|---|---|
-|<img src='example-00287.gif' alt='@1' style='border:4px solid gold'>|<img src='example-00288.gif' alt='aktive op sample replicate x 	    @1 by 4' style='border:4px solid gold'>|
+<table><tr><th>@1</th><th>aktive op sample replicate x 	    @1 by 4</th></tr>
+<tr><td valign='top'><img src='example-00330.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00331.gif' alt='aktive op sample replicate x 	    @1 by 4' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -697,9 +668,8 @@ Returns image where the input is stretched along both x and y axes according to 
 
 ## Examples
 
-|@1|aktive op sample replicate xy 	@1 by 4|
-|---|---|
-|<img src='example-00289.gif' alt='@1' style='border:4px solid gold'>|<img src='example-00290.gif' alt='aktive op sample replicate xy 	@1 by 4' style='border:4px solid gold'>|
+<table><tr><th>@1</th><th>aktive op sample replicate xy 	@1 by 4</th></tr>
+<tr><td valign='top'><img src='example-00332.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00333.gif' alt='aktive op sample replicate xy 	@1 by 4' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -715,9 +685,8 @@ Returns image where the input is stretched along the y-axis according to the str
 
 ## Examples
 
-|@1|aktive op sample replicate y 	    @1 by 4|
-|---|---|
-|<img src='example-00291.gif' alt='@1' style='border:4px solid gold'>|<img src='example-00292.gif' alt='aktive op sample replicate y 	    @1 by 4' style='border:4px solid gold'>|
+<table><tr><th>@1</th><th>aktive op sample replicate y 	    @1 by 4</th></tr>
+<tr><td valign='top'><img src='example-00334.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00335.gif' alt='aktive op sample replicate y 	    @1 by 4' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -744,9 +713,8 @@ Returns image with the input sampled down along the x-axis according to the samp
 
 ## Examples
 
-|@1|aktive op sample sub x 	    @1 by 4|
-|---|---|
-|<img src='example-00293.gif' alt='@1' style='border:4px solid gold'>|<img src='example-00294.gif' alt='aktive op sample sub x 	    @1 by 4' style='border:4px solid gold'>|
+<table><tr><th>@1</th><th>aktive op sample sub x 	    @1 by 4</th></tr>
+<tr><td valign='top'><img src='example-00336.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00337.gif' alt='aktive op sample sub x 	    @1 by 4' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -762,9 +730,8 @@ Returns image with the input sampled down along both x and y axes according to t
 
 ## Examples
 
-|@1|aktive op sample sub xy 	@1 by 4|
-|---|---|
-|<img src='example-00295.gif' alt='@1' style='border:4px solid gold'>|<img src='example-00296.gif' alt='aktive op sample sub xy 	@1 by 4' style='border:4px solid gold'>|
+<table><tr><th>@1</th><th>aktive op sample sub xy 	@1 by 4</th></tr>
+<tr><td valign='top'><img src='example-00338.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00339.gif' alt='aktive op sample sub xy 	@1 by 4' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -780,9 +747,8 @@ Returns image with the input sampled down along the y-axis according to the samp
 
 ## Examples
 
-|@1|aktive op sample sub y 	    @1 by 4|
-|---|---|
-|<img src='example-00297.gif' alt='@1' style='border:4px solid gold'>|<img src='example-00298.gif' alt='aktive op sample sub y 	    @1 by 4' style='border:4px solid gold'>|
+<table><tr><th>@1</th><th>aktive op sample sub y 	    @1 by 4</th></tr>
+<tr><td valign='top'><img src='example-00340.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00341.gif' alt='aktive op sample sub y 	    @1 by 4' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -809,9 +775,8 @@ Returns image with the pixels of the input shifted along the x axis so that the 
 
 ## Examples
 
-|@1|aktive op scroll x 	    @1 offset 32|
-|---|---|
-|<img src='example-00299.gif' alt='@1' style='border:4px solid gold'>|<img src='example-00300.gif' alt='aktive op scroll x 	    @1 offset 32' style='border:4px solid gold'>|
+<table><tr><th>@1</th><th>aktive op scroll x 	    @1 offset 32</th></tr>
+<tr><td valign='top'><img src='example-00342.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00343.gif' alt='aktive op scroll x 	    @1 offset 32' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -827,9 +792,8 @@ Returns image with the pixels of the input shifted along the y axis so that the 
 
 ## Examples
 
-|@1|aktive op scroll y 	    @1 offset 32|
-|---|---|
-|<img src='example-00301.gif' alt='@1' style='border:4px solid gold'>|<img src='example-00302.gif' alt='aktive op scroll y 	    @1 offset 32' style='border:4px solid gold'>|
+<table><tr><th>@1</th><th>aktive op scroll y 	    @1 offset 32</th></tr>
+<tr><td valign='top'><img src='example-00344.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00345.gif' alt='aktive op scroll y 	    @1 offset 32' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -865,9 +829,8 @@ result is the location of the result.
 
 ## Examples
 
-|@1|aktive op select x 	    @1 from 20 to 50|
-|---|---|
-|<img src='example-00303.gif' alt='@1' style='border:4px solid gold'>|<img src='example-00304.gif' alt='aktive op select x 	    @1 from 20 to 50' style='border:4px solid gold'>|
+<table><tr><th>@1</th><th>aktive op select x 	    @1 from 20 to 50</th></tr>
+<tr><td valign='top'><img src='example-00346.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00347.gif' alt='aktive op select x 	    @1 from 20 to 50' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -892,9 +855,8 @@ result is the location of the result.
 
 ## Examples
 
-|@1|aktive op select y 	    @1 from 20 to 50|
-|---|---|
-|<img src='example-00305.gif' alt='@1' style='border:4px solid gold'>|<img src='example-00306.gif' alt='aktive op select y 	    @1 from 20 to 50' style='border:4px solid gold'>|
+<table><tr><th>@1</th><th>aktive op select y 	    @1 from 20 to 50</th></tr>
+<tr><td valign='top'><img src='example-00348.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00349.gif' alt='aktive op select y 	    @1 from 20 to 50' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -953,9 +915,8 @@ The location of the image is not changed.
 
 ## Examples
 
-|@1|aktive op swap xy 	    @1|
-|---|---|
-|<img src='example-00307.gif' alt='@1' style='border:4px solid gold'>|<img src='example-00308.gif' alt='aktive op swap xy 	    @1' style='border:4px solid gold'>|
+<table><tr><th>@1</th><th>aktive op swap xy 	    @1</th></tr>
+<tr><td valign='top'><img src='example-00350.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00351.gif' alt='aktive op swap xy 	    @1' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -1068,9 +1029,8 @@ This is an alias of `swap xy`.
 
 ## Examples
 
-|@1|aktive op transpose 	@1|
-|---|---|
-|<img src='example-00309.gif' alt='@1' style='border:4px solid gold'>|<img src='example-00310.gif' alt='aktive op transpose 	@1' style='border:4px solid gold'>|
+<table><tr><th>@1</th><th>aktive op transpose 	@1</th></tr>
+<tr><td valign='top'><img src='example-00352.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00353.gif' alt='aktive op transpose 	@1' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -1083,8 +1043,7 @@ Returns image with the input mirrored along the secondary diagonal.
 
 ## Examples
 
-|@1|aktive op transverse 	@1|
-|---|---|
-|<img src='example-00311.gif' alt='@1' style='border:4px solid gold'>|<img src='example-00312.gif' alt='aktive op transverse 	@1' style='border:4px solid gold'>|
+<table><tr><th>@1</th><th>aktive op transverse 	@1</th></tr>
+<tr><td valign='top'><img src='example-00354.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00355.gif' alt='aktive op transverse 	@1' style='border:4px solid gold'></td></tr></table>
 
 

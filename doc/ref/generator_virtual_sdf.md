@@ -52,9 +52,8 @@ The box is axis-aligned, of width `2*ewidth+1`, height `2*eheight+1`, and placed
 
 ## Examples
 
-|aktive image sdf box center {64 64} width 128 height 128 ewidth 32 eheight 32 |
-|---|
-|<table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00095.gif' alt='aktive image sdf box center {64 64} width 128 height 128 ewidth 32 eheight 32 ' style='border:4px solid gold'></td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00096.gif' alt='aktive image sdf box center {64 64} width 128 height 128 ewidth 32 eheight 32 ' style='border:4px solid gold'></td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00097.gif' alt='aktive image sdf box center {64 64} width 128 height 128 ewidth 32 eheight 32 ' style='border:4px solid gold'></td></tr></table>|
+<table><tr><th>aktive image sdf box center {64 64} width 128 height 128 ewidth 32 eheight 32</th></tr>
+<tr><td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00095.gif' alt='aktive image sdf box center {64 64} width 128 height 128 ewidth 32 eheight 32 ' style='border:4px solid gold'></td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00096.gif' alt='aktive image sdf box center {64 64} width 128 height 128 ewidth 32 eheight 32 ' style='border:4px solid gold'></td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00097.gif' alt='aktive image sdf box center {64 64} width 128 height 128 ewidth 32 eheight 32 ' style='border:4px solid gold'></td></tr></table></td></tr></table>
 
 
 ---
@@ -86,13 +85,11 @@ The radii default to 0, i.e. no rounded corners.
 
 ## Examples
 
-|aktive image sdf box-rounded center {64 64} width 128 height 128 ewidth 32 eheight 32 |
-|---|
-|<table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00098.gif' alt='aktive image sdf box-rounded center {64 64} width 128 height 128 ewidth 32 eheight 32 ' style='border:4px solid gold'></td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00099.gif' alt='aktive image sdf box-rounded center {64 64} width 128 height 128 ewidth 32 eheight 32 ' style='border:4px solid gold'></td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00100.gif' alt='aktive image sdf box-rounded center {64 64} width 128 height 128 ewidth 32 eheight 32 ' style='border:4px solid gold'></td></tr></table>|
+<table><tr><th>aktive image sdf box-rounded center {64 64} width 128 height 128 ewidth 32 eheight 32</th></tr>
+<tr><td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00098.gif' alt='aktive image sdf box-rounded center {64 64} width 128 height 128 ewidth 32 eheight 32 ' style='border:4px solid gold'></td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00099.gif' alt='aktive image sdf box-rounded center {64 64} width 128 height 128 ewidth 32 eheight 32 ' style='border:4px solid gold'></td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00100.gif' alt='aktive image sdf box-rounded center {64 64} width 128 height 128 ewidth 32 eheight 32 ' style='border:4px solid gold'></td></tr></table></td></tr></table>
 
-|aktive image sdf box-rounded center {64 64} width 128 height 128 ewidth 32 eheight 32 upleftradius 32 |
-|---|
-|<table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00101.gif' alt='aktive image sdf box-rounded center {64 64} width 128 height 128 ewidth 32 eheight 32 upleftradius 32 ' style='border:4px solid gold'></td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00102.gif' alt='aktive image sdf box-rounded center {64 64} width 128 height 128 ewidth 32 eheight 32 upleftradius 32 ' style='border:4px solid gold'></td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00103.gif' alt='aktive image sdf box-rounded center {64 64} width 128 height 128 ewidth 32 eheight 32 upleftradius 32 ' style='border:4px solid gold'></td></tr></table>|
+<table><tr><th>aktive image sdf box-rounded center {64 64} width 128 height 128 ewidth 32 eheight 32 upleftradius 32</th></tr>
+<tr><td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00101.gif' alt='aktive image sdf box-rounded center {64 64} width 128 height 128 ewidth 32 eheight 32 upleftradius 32 ' style='border:4px solid gold'></td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00102.gif' alt='aktive image sdf box-rounded center {64 64} width 128 height 128 ewidth 32 eheight 32 upleftradius 32 ' style='border:4px solid gold'></td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00103.gif' alt='aktive image sdf box-rounded center {64 64} width 128 height 128 ewidth 32 eheight 32 upleftradius 32 ' style='border:4px solid gold'></td></tr></table></td></tr></table>
 
 
 ---
@@ -117,9 +114,8 @@ The circle has the `radius`, and is placed at the specified center.
 
 ## Examples
 
-|aktive image sdf circle center {64 64} width 128 height 128 radius 32 |
-|---|
-|<table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00104.gif' alt='aktive image sdf circle center {64 64} width 128 height 128 radius 32 ' style='border:4px solid gold'></td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00105.gif' alt='aktive image sdf circle center {64 64} width 128 height 128 radius 32 ' style='border:4px solid gold'></td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00106.gif' alt='aktive image sdf circle center {64 64} width 128 height 128 radius 32 ' style='border:4px solid gold'></td></tr></table>|
+<table><tr><th>aktive image sdf circle center {64 64} width 128 height 128 radius 32</th></tr>
+<tr><td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00104.gif' alt='aktive image sdf circle center {64 64} width 128 height 128 radius 32 ' style='border:4px solid gold'></td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00105.gif' alt='aktive image sdf circle center {64 64} width 128 height 128 radius 32 ' style='border:4px solid gold'></td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00106.gif' alt='aktive image sdf circle center {64 64} width 128 height 128 radius 32 ' style='border:4px solid gold'></td></tr></table></td></tr></table>
 
 
 ---
@@ -144,9 +140,8 @@ The circles all have the same `radius`, and are placed at the specified centers.
 
 ## Examples
 
-|aktive image sdf circles width 128 height 128 radius 8 centers {10 10} {30 80} {80 30} |
-|---|
-|<table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00107.gif' alt='aktive image sdf circles width 128 height 128 radius 8 centers {10 10} {30 80} {80 30} ' style='border:4px solid gold'></td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00108.gif' alt='aktive image sdf circles width 128 height 128 radius 8 centers {10 10} {30 80} {80 30} ' style='border:4px solid gold'></td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00109.gif' alt='aktive image sdf circles width 128 height 128 radius 8 centers {10 10} {30 80} {80 30} ' style='border:4px solid gold'></td></tr></table>|
+<table><tr><th>aktive image sdf circles width 128 height 128 radius 8 centers {10 10} {30 80} {80 30}</th></tr>
+<tr><td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00107.gif' alt='aktive image sdf circles width 128 height 128 radius 8 centers {10 10} {30 80} {80 30} ' style='border:4px solid gold'></td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00108.gif' alt='aktive image sdf circles width 128 height 128 radius 8 centers {10 10} {30 80} {80 30} ' style='border:4px solid gold'></td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00109.gif' alt='aktive image sdf circles width 128 height 128 radius 8 centers {10 10} {30 80} {80 30} ' style='border:4px solid gold'></td></tr></table></td></tr></table>
 
 
 ---
@@ -171,9 +166,8 @@ The line connects the two specified locations.
 
 ## Examples
 
-|aktive image sdf line width 128 height 128 from {10 10} to {30 80} |
-|---|
-|<table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00110.gif' alt='aktive image sdf line width 128 height 128 from {10 10} to {30 80} ' style='border:4px solid gold'></td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00111.gif' alt='aktive image sdf line width 128 height 128 from {10 10} to {30 80} ' style='border:4px solid gold'></td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00112.gif' alt='aktive image sdf line width 128 height 128 from {10 10} to {30 80} ' style='border:4px solid gold'></td></tr></table>|
+<table><tr><th>aktive image sdf line width 128 height 128 from {10 10} to {30 80}</th></tr>
+<tr><td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00110.gif' alt='aktive image sdf line width 128 height 128 from {10 10} to {30 80} ' style='border:4px solid gold'></td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00111.gif' alt='aktive image sdf line width 128 height 128 from {10 10} to {30 80} ' style='border:4px solid gold'></td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00112.gif' alt='aktive image sdf line width 128 height 128 from {10 10} to {30 80} ' style='border:4px solid gold'></td></tr></table></td></tr></table>
 
 
 ---
@@ -200,9 +194,8 @@ The parallelogram is axis-aligned, of width `2*ewidth+1`, height `2*eheight+1`, 
 
 ## Examples
 
-|aktive image sdf parallelogram center {64 64} width 128 height 128 ewidth 32 eheight 32 eskew 8 |
-|---|
-|<table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00113.gif' alt='aktive image sdf parallelogram center {64 64} width 128 height 128 ewidth 32 eheight 32 eskew 8 ' style='border:4px solid gold'></td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00114.gif' alt='aktive image sdf parallelogram center {64 64} width 128 height 128 ewidth 32 eheight 32 eskew 8 ' style='border:4px solid gold'></td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00115.gif' alt='aktive image sdf parallelogram center {64 64} width 128 height 128 ewidth 32 eheight 32 eskew 8 ' style='border:4px solid gold'></td></tr></table>|
+<table><tr><th>aktive image sdf parallelogram center {64 64} width 128 height 128 ewidth 32 eheight 32 eskew 8</th></tr>
+<tr><td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00113.gif' alt='aktive image sdf parallelogram center {64 64} width 128 height 128 ewidth 32 eheight 32 eskew 8 ' style='border:4px solid gold'></td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00114.gif' alt='aktive image sdf parallelogram center {64 64} width 128 height 128 ewidth 32 eheight 32 eskew 8 ' style='border:4px solid gold'></td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00115.gif' alt='aktive image sdf parallelogram center {64 64} width 128 height 128 ewidth 32 eheight 32 eskew 8 ' style='border:4px solid gold'></td></tr></table></td></tr></table>
 
 
 ---
@@ -226,9 +219,8 @@ The lines form a polyline through the specified points.
 
 ## Examples
 
-|aktive image sdf polyline width 128 height 128 points {10 10} {30 80} {80 30} |
-|---|
-|<table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00116.gif' alt='aktive image sdf polyline width 128 height 128 points {10 10} {30 80} {80 30} ' style='border:4px solid gold'></td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00117.gif' alt='aktive image sdf polyline width 128 height 128 points {10 10} {30 80} {80 30} ' style='border:4px solid gold'></td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00118.gif' alt='aktive image sdf polyline width 128 height 128 points {10 10} {30 80} {80 30} ' style='border:4px solid gold'></td></tr></table>|
+<table><tr><th>aktive image sdf polyline width 128 height 128 points {10 10} {30 80} {80 30}</th></tr>
+<tr><td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00116.gif' alt='aktive image sdf polyline width 128 height 128 points {10 10} {30 80} {80 30} ' style='border:4px solid gold'></td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00117.gif' alt='aktive image sdf polyline width 128 height 128 points {10 10} {30 80} {80 30} ' style='border:4px solid gold'></td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00118.gif' alt='aktive image sdf polyline width 128 height 128 points {10 10} {30 80} {80 30} ' style='border:4px solid gold'></td></tr></table></td></tr></table>
 
 
 ---
@@ -254,9 +246,8 @@ The rhombus is axis-aligned, of width `2*ewidth+1`, height `2*eheight+1`, and pl
 
 ## Examples
 
-|aktive image sdf rhombus center {64 64} width 128 height 128 ewidth 32 eheight 32 |
-|---|
-|<table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00119.gif' alt='aktive image sdf rhombus center {64 64} width 128 height 128 ewidth 32 eheight 32 ' style='border:4px solid gold'></td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00120.gif' alt='aktive image sdf rhombus center {64 64} width 128 height 128 ewidth 32 eheight 32 ' style='border:4px solid gold'></td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00121.gif' alt='aktive image sdf rhombus center {64 64} width 128 height 128 ewidth 32 eheight 32 ' style='border:4px solid gold'></td></tr></table>|
+<table><tr><th>aktive image sdf rhombus center {64 64} width 128 height 128 ewidth 32 eheight 32</th></tr>
+<tr><td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00119.gif' alt='aktive image sdf rhombus center {64 64} width 128 height 128 ewidth 32 eheight 32 ' style='border:4px solid gold'></td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00120.gif' alt='aktive image sdf rhombus center {64 64} width 128 height 128 ewidth 32 eheight 32 ' style='border:4px solid gold'></td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00121.gif' alt='aktive image sdf rhombus center {64 64} width 128 height 128 ewidth 32 eheight 32 ' style='border:4px solid gold'></td></tr></table></td></tr></table>
 
 
 ---
@@ -282,8 +273,7 @@ The triangle connects the points A, B, and C, in this order.
 
 ## Examples
 
-|aktive image sdf triangle width 128 height 128 a {10 10} b {30 80} c {80 30} |
-|---|
-|<table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00122.gif' alt='aktive image sdf triangle width 128 height 128 a {10 10} b {30 80} c {80 30} ' style='border:4px solid gold'></td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00123.gif' alt='aktive image sdf triangle width 128 height 128 a {10 10} b {30 80} c {80 30} ' style='border:4px solid gold'></td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00124.gif' alt='aktive image sdf triangle width 128 height 128 a {10 10} b {30 80} c {80 30} ' style='border:4px solid gold'></td></tr></table>|
+<table><tr><th>aktive image sdf triangle width 128 height 128 a {10 10} b {30 80} c {80 30}</th></tr>
+<tr><td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00122.gif' alt='aktive image sdf triangle width 128 height 128 a {10 10} b {30 80} c {80 30} ' style='border:4px solid gold'></td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00123.gif' alt='aktive image sdf triangle width 128 height 128 a {10 10} b {30 80} c {80 30} ' style='border:4px solid gold'></td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00124.gif' alt='aktive image sdf triangle width 128 height 128 a {10 10} b {30 80} c {80 30} ' style='border:4px solid gold'></td></tr></table></td></tr></table>
 
 

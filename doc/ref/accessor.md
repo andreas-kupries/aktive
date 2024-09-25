@@ -109,13 +109,11 @@ For an image without parameters the result is the empty dictionary.
 
 ## Examples
 
-|@1|aktive query params 	@1 |
-|---|---|
-|<img src='example-00339.gif' alt='@1' style='border:4px solid gold'>|width 32 height 32|
+<table><tr><th>@1</th><th>aktive query params 	@1</th></tr>
+<tr><td valign='top'><img src='example-00382.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'>width 32 height 32</td></tr></table>
 
-|@1|aktive query params 	@1 |
-|---|---|
-|<img src='example-00341.gif' alt='@1' style='border:4px solid gold'>|width 32 height 32 depth 1 first 0.0 last 1.0|
+<table><tr><th>@1</th><th>aktive query params 	@1</th></tr>
+<tr><td valign='top'><img src='example-00384.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'>width 32 height 32 depth 1 first 0.0 last 1.0</td></tr></table>
 
 
 ---
@@ -130,13 +128,11 @@ This includes type, geometry, and parameters, if any. The inputs however are exc
 
 ## Examples
 
-|@1|aktive query setup 	@1 |
-|---|---|
-|<img src='example-00351.gif' alt='@1' style='border:4px solid gold'>|type image::zone domain {x 0 y 0 width 32 height 32 depth 1} config {width 32 height 32}|
+<table><tr><th>@1</th><th>aktive query setup 	@1</th></tr>
+<tr><td valign='top'><img src='example-00394.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'>type image::zone domain {x 0 y 0 width 32 height 32 depth 1} config {width 32 height 32}</td></tr></table>
 
-|@1|aktive query setup 	@1 |
-|---|---|
-|<img src='example-00353.gif' alt='@1' style='border:4px solid gold'>|type image::gradient domain {x 0 y 0 width 32 height 32 depth 1} config {width 32 height 32 depth 1 first 0.0 last 1.0}|
+<table><tr><th>@1</th><th>aktive query setup 	@1</th></tr>
+<tr><td valign='top'><img src='example-00396.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'>type image::gradient domain {x 0 y 0 width 32 height 32 depth 1} config {width 32 height 32 depth 1 first 0.0 last 1.0}</td></tr></table>
 
 
 ---
@@ -149,12 +145,10 @@ Returns the input's type.
 
 ## Examples
 
-|@1|aktive query type 	@1 |
-|---|---|
-|<img src='example-00359.gif' alt='@1' style='border:4px solid gold'>|image::zone|
+<table><tr><th>@1</th><th>aktive query type 	@1</th></tr>
+<tr><td valign='top'><img src='example-00402.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'>image::zone</td></tr></table>
 
-|@1|aktive query type 	@1 |
-|---|---|
-|<img src='example-00361.gif' alt='@1' style='border:4px solid gold'>|image::gradient|
+<table><tr><th>@1</th><th>aktive query type 	@1</th></tr>
+<tr><td valign='top'><img src='example-00404.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'>image::gradient</td></tr></table>
 
 
