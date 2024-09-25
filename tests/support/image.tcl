@@ -200,8 +200,6 @@ proc cc.norm {ccs} {
 	    set val [dict get $spec $el]
 	    switch -exact -- $el {
 		parts   { set val [lsort -dict $val] }
-		cx      { set val [format %.4f $val] }
-		cy      { set val [format %.4f $val] }
 		default {}
 	    }
 	    lappend new $el $val
@@ -209,6 +207,46 @@ proc cc.norm {ccs} {
 	lappend norm $id $new
     }
     return $norm
+}
+
+proc cc.pretty {ccs} {
+    # convert the ccs dict into a prettily formatted standard form, easy to compare also
+    set norm {}
+    foreach id [lsort -dict [dict keys $ccs]] {
+	lappend norm "$id \{"
+	set spec [dict get $ccs $id]
+	foreach el [lsort -dict [dict keys $spec]] {
+	    set val [dict get $spec $el]
+	    switch -exact -- $el {
+		parts   {
+		    lappend norm "    parts \{"
+		    set line ""
+		    foreach range [lsort -dict $val] {
+			append line " [list $range]"
+			if {[string length $line] < 60} continue
+			lappend norm "       $line"
+			set line ""
+		    }
+		    if {$line ne ""} {
+			lappend norm "       $line"
+		    }
+		    lappend norm "    \}"
+		}
+		centroid {
+		    lassign $val cx cy
+		    set val [list [format %.4f $cx] [format %.4f $cy]]
+		    lappend norm "    $el [list $val]"
+		}
+		default {
+		    lappend norm "    $el [list $val]"
+		}
+	    }
+	}
+
+
+	lappend norm "\}"
+    }
+    return [join $norm \n]
 }
 
 ##

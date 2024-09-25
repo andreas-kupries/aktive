@@ -727,37 +727,19 @@ aktive_cc_as_tcl_dict (Tcl_Interp* ip, aktive_cc_block* block)
     aktive_cc* cc;
     aktive_uint n; // Start at 1, 0 is reserved for non-component background
     for (n = 1, cc = block->cc_first; cc ; n++, cc = cc->next) {
-	// Sub dict to hold the current CC
-	Tcl_Obj* cco = Tcl_NewDictObj ();
-	Tcl_DictObjPut (ip, r, I (n), cco);
-
-	// Compute centroid
-	double cx = (double) cc->xsum / (double) cc->area;
-	double cy = (double) cc->ysum / (double) cc->area;
-
-	// Fill the CC dict (bounding box, area, centroid)
-	Tcl_DictObjPut (ip, cco, K ("xmin"), I (cc->xmin));
-	Tcl_DictObjPut (ip, cco, K ("xmax"), I (cc->xmax));
-	Tcl_DictObjPut (ip, cco, K ("ymin"), I (cc->ymin));
-	Tcl_DictObjPut (ip, cco, K ("ymax"), I (cc->ymax));
-	Tcl_DictObjPut (ip, cco, K ("area"), I (cc->area));
-	Tcl_DictObjPut (ip, cco, K ("cx"),   D (cx));
-	Tcl_DictObjPut (ip, cco, K ("cy"),   D (cy));
-
-	// Fill CC dict (rows and ranges)
+	// Assemble parts list (row ranges)
 	//
-	// Notes: Running over rows, and then the ranges in rows provides proper
-	// order for collecting of a row subdict with list of ranges. It also
-	// roughly takes O(image). Enumerating ranges by CC on the other hand is
-	// more complex as it will have to track which rows already have ranges,
-	// to either initialize or extend the dict structures.
+	// NOTE: Running over rows, and then the ranges in rows provides proper
+	//       order for collecting of a row subdict with list of ranges. It
+	//       also roughly takes O(image). Enumerating ranges by CC on the
+	//       other hand is more complex as it will have to track which
+	//       rows already have ranges, to either initialize or extend the
+	//       dict structures.
 	//
-	// Chosen: defer any kind of row ordering to Tcl level. Here just
-	// collect the ranges as unordered list.
+	// SOLUTION: Defer any kind of ordering to Tcl level.
+	//           Here just collect the ranges as unordered list.
 
 	Tcl_Obj* parts = Tcl_NewListObj (0, 0); // OK tcl9
-	Tcl_DictObjPut (ip, cco, K ("parts"), parts);
-
 	aktive_cc_range* range;
 	for (range = cc->first; range; range = range->cc_next) {
 	    Tcl_Obj* v[3];
@@ -767,6 +749,32 @@ aktive_cc_as_tcl_dict (Tcl_Interp* ip, aktive_cc_block* block)
 	    Tcl_Obj* part = Tcl_NewListObj (3, v); // OK tcl9
 	    Tcl_ListObjAppendElement (ip, parts, part);
 	}
+
+	// Assemble bounding box
+	Tcl_Obj* bv[4];
+	bv[0] = I (cc->xmin);
+	bv[1] = I (cc->xmax);
+	bv[2] = I (cc->ymin);
+	bv[3] = I (cc->ymax);
+	Tcl_Obj* box = Tcl_NewListObj (4, bv); // OK tcl9
+
+	// Assemble centroid
+	double cx = (double) cc->xsum / (double) cc->area;
+	double cy = (double) cc->ysum / (double) cc->area;
+	Tcl_Obj* cv[2];
+	cv[0] = D (cx);
+	cv[1] = D (cy);
+	Tcl_Obj* centroid = Tcl_NewListObj (2, cv); // OK tcl9
+
+	// Assemble sub dictionary to hold the current CC
+	Tcl_Obj* cco = Tcl_NewDictObj ();
+	Tcl_DictObjPut (ip, cco, K ("area"),     I (cc->area));
+	Tcl_DictObjPut (ip, cco, K ("box"),      box);
+	Tcl_DictObjPut (ip, cco, K ("centroid"), centroid);
+	Tcl_DictObjPut (ip, cco, K ("parts"),    parts);
+
+	// Add new CC to overall result
+	Tcl_DictObjPut (ip, r, I (n), cco);
     }
 
     TRACE_RETURN ("(Tcl_Obj*) %p", r);
