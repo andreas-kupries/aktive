@@ -2,7 +2,7 @@
 SUDO="$(sudoit)"
 PREFIX="test"
 
-${SUDO} ../k9 ./build.tcl uninstall
+${SUDO} ./build.tcl uninstall
 clear
 echo
 
@@ -14,8 +14,11 @@ rm -vf *.trace */*.trace
 find . -follow -name "core*" -exec rm "{}" \;
 pca
 
-( time ${SUDO} ../k9 ./build.tcl test \
-       --test-include "${HOME}/Development/Tcl/Core.Tcl-Lang.Org/1.TestSupport/9.0/Install/include/" \
+# include dir is sibling of bin dir
+headers="$(dirname $(dirname $(type tclsh | projection 3))/include)"
+
+( time ${SUDO} ./build.tcl test \
+       --test-include "${headers}" \
        --log   "${LOG}"/${PREFIX} \
        --color on \
        "$@"

@@ -18,7 +18,7 @@ rm doc/assets/aktive-logo-128-pipeline.png
 rm doc/assets/*.inc
 
 mkdir -p ../Logs
-( $K ./build.tcl uninstall install "$@" && \
+( ./build.tcl uninstall install "$@" && \
     tclsh examples.tcl && \
     tclsh tools/md-include \
 	  -x doc/ref/xref.tcl \
