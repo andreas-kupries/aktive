@@ -753,8 +753,8 @@ aktive_cc_as_tcl_dict (Tcl_Interp* ip, aktive_cc_block* block)
 	// Assemble bounding box
 	Tcl_Obj* bv[4];
 	bv[0] = I (cc->xmin);
-	bv[1] = I (cc->xmax);
-	bv[2] = I (cc->ymin);
+	bv[1] = I (cc->ymin);
+	bv[2] = I (cc->xmax);
 	bv[3] = I (cc->ymax);
 	Tcl_Obj* box = Tcl_NewListObj (4, bv); // OK tcl9
 
