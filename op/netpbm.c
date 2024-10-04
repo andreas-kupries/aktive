@@ -348,10 +348,19 @@ aktive_netpbm_read_header (Tcl_Channel src, aktive_netpbm_header* info)
     vcode -= '0';
     if ((vcode > 7) || !valid [vcode]) { TRACE_RETURN ("(Fail) %d: type", 0); }
 
+    aktive_uint isbinary = binary [vcode];
+
     //*** WARE - In byte data the first pixel byte may be a `#`. That is not a comment.
     TRY ("width",  aktive_read_uint_strcom (src, &info->width));
     TRY ("height", aktive_read_uint_strcom (src, &info->height));
-    TRY ("maxval", aktive_read_uint_str/*com*/ (src, &info->maxval));
+    if (isbinary) {
+	/* In binary mode the \n after the number stops the number.
+	 * Reading further than that will read into the pixel area.
+	 */
+	TRY ("maxval", aktive_read_uint_strsharp (src, &info->maxval));
+    } else {
+	TRY ("maxval", aktive_read_uint_str/*com*/ (src, &info->maxval));
+    }
 
     aktive_uint extended = (info->maxval > 255);
 
@@ -359,7 +368,7 @@ aktive_netpbm_read_header (Tcl_Channel src, aktive_netpbm_header* info)
     info->depth  = bands [vcode];
     info->reader = reader [(vcode << 1) + extended];
     info->scale  = 1.0 / info->maxval;
-    info->binary = binary [vcode];
+    info->binary = isbinary;
 
     TRACE ("width  %u", info->width);
     TRACE ("height %u", info->height);
