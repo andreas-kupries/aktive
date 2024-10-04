@@ -14,6 +14,18 @@ TRACE_OFF;
 
 /*
  * - - -- --- ----- -------- -------------
+ * _str functions, state space.
+ *
+ */
+
+static char* hmode[3] = {"leader","digits","trails"};
+
+#define LEADER (0)
+#define DIGITS (1)
+#define TRAILS (2)
+
+/*
+ * - - -- --- ----- -------- -------------
  */
 
 extern void
@@ -77,28 +89,26 @@ aktive_read_uint_str (Tcl_Channel src, aktive_uint* v)
     TRACE_FUNC ("((Channel) %p, (aktive_uint*) %p)", src, v);
 
     aktive_uint vl   = 0;		// Number buffer
-    aktive_uint mode = 0;		// DFA state
-    aktive_uint run  = 1;		// Fag: Continue
+    aktive_uint mode = LEADER;		// DFA state
+    aktive_uint run  = 1;		// Flag: Continue
     char        buf [2] = { 0, 0 };	// Character buffer
 
-    static char* hmode[3] = {"leader","digits","trails"};
-
     // Deterministic finite automaton
-    // State Input  To   Action           Notes
-    // ----- -----  --   ------           -----------------------
-    // 0     space  0    -                Skip leading whitespace
-    //       !digit FAIL                  Begin number accumulation
-    //       digit  1    accumulate digit
-    // 1     space  2    -                Accumulate Number
-    //       !digit FAIL
-    //       digit  1    accumulate digit
-    // 2     space  2    -                Skip trailing whitespace
-    //       !space STOP rewind, return
+    // State  Input  To     Action           Notes
+    // -----  -----  --     ------           -----------------------
+    // LEADER space  LEADER -                Skip leading whitespace
+    //        !digit FAIL                    Begin number accumulation
+    //        digit  DIGITS accumulate digit
+    // DIGITS space  TRAILS -                Accumulate Number
+    //        !digit FAIL
+    //        digit  DIGITS accumulate digit
+    // TRAILS space  TRAILS -                Skip trailing whitespace
+    //        !space STOP   rewind, return
 
     while (run) {
 	if (!aktive_read_string (src, buf, 1)) {
 	    // EOF reached
-	    if (mode > 0) {
+	    if (mode > LEADER) {
 		// Managed to read at least one digit. This is the number
 		*v = vl;
 		TRACE ("read number = %d", vl);
@@ -109,14 +119,14 @@ aktive_read_uint_str (Tcl_Channel src, aktive_uint* v)
 	TRACE ("read/%s = (%d) = '%c' ws=%d", hmode[mode], (int) *buf, *buf, isspace (*buf));
 
 	switch (mode) {
-	case 0:	// skip leading whitespace, if any
+	case LEADER:	// skip leading whitespace, if any
 	    if (isspace (*buf)) continue;
 	    // not whitespace, possible number start
-	    mode ++;
+	    mode = DIGITS;
 	    goto digit;
-	case 1:	// process digits
+	case DIGITS:	// process digits
 	    // post number whitespace - back skipping
-	    if (isspace (*buf)) { mode ++ ; continue; }
+	    if (isspace (*buf)) { mode = TRAILS ; continue; }
 	digit:
 	    // non-digit - syntax error - fail
 	    if ((*buf < '0') || (*buf > '9')) { TRACE_RETURN ("(FAIL not digit) %d", 0); }
@@ -124,14 +134,86 @@ aktive_read_uint_str (Tcl_Channel src, aktive_uint* v)
 	    vl = 10*vl + (*buf - '0');
 	    TRACE ("number = %d", vl);
 	    continue;
-	case 2: // skip trailing whitespace
+	case TRAILS: // skip trailing whitespace
 	    if (isspace (*buf)) continue;
 	    // end of whitespace, rewind for next call
 	    Tcl_Seek(src, -1, SEEK_CUR);
-	    run --;
+	    run = 0;
 	    break;
 	}
     }
+
+    *v = vl;
+    TRACE ("read number = %d", vl);
+    TRACE_RETURN ("(OK) %d", 1);
+}
+
+extern int
+aktive_read_uint_strsharp (Tcl_Channel src, aktive_uint* v)
+{
+    // This uint string reader differs from uint_str in that it stops at the
+    // first trailing whitespace it sees. This is necessary for the NetPBM
+    // binary formats. The maxval value ending their header ends in \n
+    // immediately followed by the pixel data. This cannot be treated as more
+    // white space.
+
+    TRACE_FUNC ("((Channel) %p, (aktive_uint*) %p)", src, v);
+
+    aktive_uint vl   = 0;		// Number buffer
+    aktive_uint mode = LEADER;		// DFA state
+    aktive_uint run  = 1;		// Flag: Continue
+    char        buf [2] = { 0, 0 };	// Character buffer
+
+    // Deterministic finite automaton
+    // State  Input  To     Action           Notes
+    // -----  -----  --     ------           -----------------------
+    // LEADER space  LEADER -                Skip leading whitespace
+    //        !digit FAIL                    Begin number accumulation
+    //        digit  DIGITS accumulate digit
+    // DIGITS space  STOP   -                Cannot have general trailing whitespace
+    //        !digit FAIL
+    //        digit  DIGITS accumulate digit
+
+    while (run) {
+	TRACE ("read next", 0);
+	if (!aktive_read_string (src, buf, 1)) {
+	    // EOF reached
+	    if (mode > LEADER) {
+		// Managed to read at least one digit. This is the number
+		*v = vl;
+		TRACE ("read number = %d", vl);
+		TRACE_RETURN ("(OK) %d", 1);
+	    }
+	    TRACE_RETURN ("(FAIL eof) %d", 0);
+	}
+	TRACE ("read/%s = (%d) = '%c' ws=%d", hmode[mode], (int) *buf, *buf, isspace (*buf));
+
+	switch (mode) {
+	case LEADER:	// skip leading whitespace, if any
+	    if (isspace (*buf)) continue;
+	    // not whitespace, possible number start
+	    mode = DIGITS;
+	    goto digit;
+	case DIGITS:	// process digits
+	    // post number whitespace - stop now
+	    if (isspace (*buf)) {
+		TRACE ("stop on whitespace", 0);
+		run = 0; break;
+	    }
+	    TRACE ("possible digit", 0);
+	digit:
+	    // non-digit - syntax error - fail
+	    if ((*buf < '0') || (*buf > '9')) { TRACE_RETURN ("(FAIL not digit) %d", 0); }
+	    // accumulate digit
+	    vl = 10*vl + (*buf - '0');
+	    TRACE ("number = %d", vl);
+	    continue;
+	case TRAILS: // at first trailing whitespace stop, immediately.
+	    ASSERT (0, "not reachable");
+	    break;
+	}
+    }
+    TRACE ("after loop", 0);
 
     *v = vl;
     TRACE ("read number = %d", vl);
@@ -144,33 +226,35 @@ aktive_read_uint_strcom (Tcl_Channel src, aktive_uint* v)
     TRACE_FUNC ("((Channel) %p, (aktive_uint*) %p)", src, v);
 
     aktive_uint vl   = 0;		// Number buffer
-    aktive_uint mode = 0;		// DFA state
+    aktive_uint mode = LEADER;		// DFA state
     aktive_uint skip = 0;		// Flag: In-comment
     aktive_uint run  = 1;		// Flag: Continue
     char        buf [2] = { 0, 0 };	// Character buffer
 
-    static char* hmode[3] = {"leader","digits","trails"};
-
     // Deterministic finite automaton
     // See `aktive_read_uint_str` for the core.
-    // Here seeing a `#` suspends the current state until '\n' seen.
-    // This handles #-based line comments embedded anywhere in the input.
+    //
+    // Here seeing a `#` suspends the current state until a '\n' is seen.
+    // This handles `#`-based line comments embedded anywhere in the input
+    // without having to change the automaton itself.
+    // See (comment handling) below.
 
-    // State Input  To   Action           Notes
-    // ----- -----  --   ------           -----------------------
-    // 0     space  0    -                Skip leading whitespace
-    //       !digit FAIL                  Begin number accumulation
-    //       digit  1    accumulate digit
-    // 1     space  2    -                Accumulate Number
-    //       !digit FAIL
-    //       digit  1    accumulate digit
-    // 2     space  2    -                Skip trailing whitespace
-    //       !space STOP rewind, return
+    // Deterministic finite automaton
+    // State  Input  To     Action           Notes
+    // -----  -----  --     ------           -----------------------
+    // LEADER space  LEADER -                Skip leading whitespace
+    //        !digit FAIL                    Begin number accumulation
+    //        digit  DIGITS accumulate digit
+    // DIGITS space  TRAILS -                Accumulate Number
+    //        !digit FAIL
+    //        digit  DIGITS accumulate digit
+    // TRAILS space  TRAILS -                Skip trailing whitespace
+    //        !space STOP   rewind, return
 
     while (run) {
 	if (!aktive_read_string (src, buf, 1)) {
 	    // EOF reached
-	    if (mode > 0) {
+	    if (mode > LEADER) {
 		// Managed to read at least one digit. This is the number
 		*v = vl;
 		TRACE ("read number = %d", vl);
@@ -181,11 +265,12 @@ aktive_read_uint_strcom (Tcl_Channel src, aktive_uint* v)
 	TRACE ("read/%s%s = (%d) = '%c' ws=%d", hmode[mode], skip ? "/skip" : "",
 	       (int) *buf, *buf, isspace (*buf));
 
+	// (comment handling)
 	if (skip) {
 	    // In comment. Skip all characters until EOL, including the EOL
 	    if (*buf == '\n') {
 		// EOL seen. Leave skip mode and process next character normally.
-		// Which may re-enter skip mode.
+		// Note, this may re-enter skip mode.
 		skip = 0;
 	    }
 	    continue;
@@ -196,14 +281,14 @@ aktive_read_uint_strcom (Tcl_Channel src, aktive_uint* v)
 	}
 
 	switch (mode) {
-	case 0:	// skip leading whitespace, if any
+	case LEADER:	// skip leading whitespace, if any
 	    if (isspace (*buf)) continue;
 	    // not whitespace, possible number start
-	    mode ++;
+	    mode = DIGITS;
 	    goto digit;
-	case 1:	// process digits
+	case DIGITS:	// process digits
 	    // post number whitespace - skip trailing whitespace
-	    if (isspace (*buf)) { mode ++ ; continue; }
+	    if (isspace (*buf)) { mode = TRAILS ; continue; }
 	digit:
 	    // non-digit - syntax error - fail
 	    if ((*buf < '0') || (*buf > '9')) { TRACE_RETURN ("(FAIL not digit) %d", 0); }
@@ -211,11 +296,11 @@ aktive_read_uint_strcom (Tcl_Channel src, aktive_uint* v)
 	    vl = 10*vl + (*buf - '0');
 	    TRACE ("number = %d", vl);
 	    continue;
-	case 2: // skip trailing whitespace
+	case TRAILS: // skip trailing whitespace
 	    if (isspace (*buf)) continue;
 	    // end of whitespace, rewind for next call
 	    Tcl_Seek(src, -1, SEEK_CUR);
-	    run --;
+	    run = 0;
 	    break;
 	}
     }
