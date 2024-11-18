@@ -5,16 +5,16 @@
 # # ## ### ##### ######## ############# #####################
 ##
 
-operator {dname} {
-    op::morph::erode              erosion
-    op::morph::dilate             dilation
-    op::morph::open               opening
-    op::morph::close              closing
-    op::morph::gradient::all      gradient
-    op::morph::gradient::internal {inner gradient}
-    op::morph::gradient::external {outer gradient}
-    op::morph::tophat::white      {white tophat}
-    op::morph::tophat::black      {black tophat}
+operator {dname description} {
+    op::morph::erode              erosion         erosion
+    op::morph::dilate             dilation        dilation
+    op::morph::open               opening        {opening (erode, then dilate)}
+    op::morph::close              closing        {closing (dilate, then erode)}
+    op::morph::gradient::all      gradient       {gradient (subtract eroded from dilated)}
+    op::morph::gradient::internal inner-gradient {inner gradient (subtract eroded from input)}
+    op::morph::gradient::external outer-gradient {outer gradient (subtract input from dilated)}
+    op::morph::tophat::white      white-tophat   {white tophat (subtract opening from input)}
+    op::morph::tophat::black      black-tophat   {black tophat (subtract input from closing)}
     op::morph::toggle             toggle
 } {
     section transform morphology
@@ -55,7 +55,7 @@ operator {dname} {
 	@1 radius 1                                               | times 8
     }]
 
-    note Returns image containing the morphological {*}$dname of the input \
+    note Returns image containing the morphological {*}$description of the input \
 	using a (2*radius+1)x(2*radius+1) square structuring element.
 
     # Note that the core operations, i.e. the min/max filtering used to erode/dilate are
@@ -89,19 +89,19 @@ operator {dname} {
 	    set e   [aktive op morph erode  $src radius $radius embed $embed]
 	    set src [aktive op math sub $d $e]
 	}
-	{inner gradient} {
+	inner-gradient {
 	    set e   [aktive op morph erode $src radius $radius embed $embed]
 	    set src [aktive op math sub $src $e]
 	}
-	{outer gradient} {
+	outer-gradient {
 	    set d   [aktive op morph dilate $src radius $radius embed $embed]
 	    set src [aktive op math sub $d $src]
 	}
-	{white tophat} {
+	white-tophat {
 	    set o   [aktive op morph open $src radius $radius embed $embed]
 	    set src [aktive op math sub $src $o]
 	}
-	{black tophat} {
+	black-tophat {
 	    set c   [aktive op morph close $src radius $radius embed $embed]
 	    set src [aktive op math sub $c $src]
 	}

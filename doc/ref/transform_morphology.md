@@ -64,7 +64,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 
 Syntax: __aktive op morph close__ src ?(param value)...?
 
-Returns image containing the morphological closing of the input using a (2*radius+1)x(2*radius+1) square structuring element.
+Returns image containing the morphological closing (dilate, then erode) of the input using a (2*radius+1)x(2*radius+1) square structuring element.
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -127,7 +127,7 @@ Returns image containing the morphological erosion of the input using a (2*radiu
 
 Syntax: __aktive op morph gradient all__ src ?(param value)...?
 
-Returns image containing the morphological gradient of the input using a (2*radius+1)x(2*radius+1) square structuring element.
+Returns image containing the morphological gradient (subtract eroded from dilated) of the input using a (2*radius+1)x(2*radius+1) square structuring element.
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -148,7 +148,7 @@ Returns image containing the morphological gradient of the input using a (2*radi
 
 Syntax: __aktive op morph gradient external__ src ?(param value)...?
 
-Returns image containing the morphological outer gradient of the input using a (2*radius+1)x(2*radius+1) square structuring element.
+Returns image containing the morphological outer gradient (subtract input from dilated) of the input using a (2*radius+1)x(2*radius+1) square structuring element.
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -169,7 +169,7 @@ Returns image containing the morphological outer gradient of the input using a (
 
 Syntax: __aktive op morph gradient internal__ src ?(param value)...?
 
-Returns image containing the morphological inner gradient of the input using a (2*radius+1)x(2*radius+1) square structuring element.
+Returns image containing the morphological inner gradient (subtract eroded from input) of the input using a (2*radius+1)x(2*radius+1) square structuring element.
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -190,7 +190,7 @@ Returns image containing the morphological inner gradient of the input using a (
 
 Syntax: __aktive op morph open__ src ?(param value)...?
 
-Returns image containing the morphological opening of the input using a (2*radius+1)x(2*radius+1) square structuring element.
+Returns image containing the morphological opening (erode, then dilate) of the input using a (2*radius+1)x(2*radius+1) square structuring element.
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -211,7 +211,7 @@ Returns image containing the morphological opening of the input using a (2*radiu
 
 Syntax: __aktive op morph toggle__ src ?(param value)...?
 
-Returns image containing the morphological toggle of the input using a (2*radius+1)x(2*radius+1) square structuring element.
+Returns image containing the morphological of the input using a (2*radius+1)x(2*radius+1) square structuring element.
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -232,7 +232,7 @@ Returns image containing the morphological toggle of the input using a (2*radius
 
 Syntax: __aktive op morph tophat black__ src ?(param value)...?
 
-Returns image containing the morphological black tophat of the input using a (2*radius+1)x(2*radius+1) square structuring element.
+Returns image containing the morphological black tophat (subtract input from closing) of the input using a (2*radius+1)x(2*radius+1) square structuring element.
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -253,7 +253,7 @@ Returns image containing the morphological black tophat of the input using a (2*
 
 Syntax: __aktive op morph tophat white__ src ?(param value)...?
 
-Returns image containing the morphological white tophat of the input using a (2*radius+1)x(2*radius+1) square structuring element.
+Returns image containing the morphological white tophat (subtract opening from input) of the input using a (2*radius+1)x(2*radius+1) square structuring element.
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
