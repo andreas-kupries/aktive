@@ -21,8 +21,7 @@ operator image::noise::gauss {
     double? 1 sigma   Sigma of the desired gauss distribution.
 
     uint? {[expr {int(4294967296*rand())}]}  seed    \
-	Randomizer seed. Needed only to force fixed \
-	results, or external random numbers.
+	Randomizer seed. Needed only to force fixed results.
 
     state -fields {
 	aktive_uint seed;

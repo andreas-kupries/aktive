@@ -24,8 +24,7 @@ operator image::noise::salt {
     double? 0.01 threshold  Noise threshold within {[0..1].}
 
     uint? {[expr {int(4294967296*rand())}]}  seed    \
-	Randomizer seed. Needed only to force fixed \
-	results, or external random numbers.
+	Randomizer seed. Needed only to force fixed results.
 
     state -fields {
 	aktive_uint seed;
