@@ -25,6 +25,126 @@ source [file join $tests support paths.tcl]
 
 # ------------------------------------------------------------------------------
 
+proc cc.max {ccs} {
+    # keep only the max sized cc's
+    # -- for perimeters this is the perimeter length
+    # -- this may not be the desired perimeter, if the longest is ... curdled (space filling).
+
+    # find max
+    set maxarea -1
+    dict for {id spec} $ccs {
+	set a [dict get $spec area] ; if {$a < $maxarea} continue ; set maxarea $a
+    }
+    # extract max
+    set single {}
+    dict for {id spec} $ccs {
+	if {[dict get $spec area] < $maxarea} continue
+	set single $id
+	dict set new $id $spec
+    }
+    # relabel if single
+    if {([dict size $new] == 1) && ($single != 1)} {
+	dict set new 1 [dict get $new $single]
+	dict unset new $single
+    }
+    # done
+    return $new
+}
+
+proc cc.bbox.max {ccs} {
+    # keep only the max sized bbox cc's
+    # find max
+    set bba {}
+    set maxarea -1
+    dict for {id spec} $ccs {
+	set box [dict get $spec box]
+	lassign $box xmin ymin xmax ymax
+	set w [expr {$xmax - $xmin}]
+	set h [expr {$ymax - $ymin}]
+	set a [expr {$w * $h}]
+	dict set bba $id $a
+	#puts BB($id)=$a\t($spec)
+	if {$a < $maxarea} continue
+	set maxarea $a
+    }
+
+    #puts MA.BBOX=|$maxarea|
+
+    # extract max
+    set single {}
+    dict for {id spec} $ccs {
+	if {[dict get $bba $id] < $maxarea} continue
+	set single $id
+	dict set new $id $spec
+	#puts MAX($id)=$spec
+    }
+    # relabel if single
+    if {([dict size $new] == 1) && ($single != 1)} {
+	dict set new 1 [dict get $new $single]
+	dict unset new $single
+    }
+    # done
+    return $new
+}
+
+proc pretty-print-cc {ccs} {
+    foreach id [lsort -integer [dict keys $ccs]] {
+	lappend lines "$id \{"
+	set cc [dict get $ccs $id] ; dict with cc {}
+	# xmin, ymin, xmax, ymax, area, parts
+	lappend lines "    bb   ($xmin $xmax / $ymin $ymax)"
+	lappend lines "    area $area"
+	lappend lines "    parts \{"
+
+	set last ""
+	set buf ""
+	foreach part [lsort -dict $parts] {
+	    lassign $part y xmin xmax
+	    if {$last eq $y} {
+		append buf ", $xmin..$xmax"
+	    } else {
+		if {$last ne {}} { lappend lines $buf ; set buf "" }
+		append buf "        @$y $xmin..$xmax"
+	    }
+	    set last $y
+	}
+	lappend lines $buf
+	lappend lines "    \}"
+	lappend lines "\}"
+    }
+    join $lines \n
+}
+
+proc pretty-print-ccp {ccp} {
+    foreach id [lsort -integer [dict keys $ccp]] {
+	lappend lines "$id \{"
+	set cc [dict get $ccp $id] ; dict with cc {}
+	# xmin, ymin, xmax, ymax, length, points, clockwise
+	lappend lines "    bb     ($xmin $xmax / $ymin $ymax)"
+	lappend lines "    clockw $clockwise"
+	lappend lines "    length $length"
+	lappend lines "    points \{"
+
+	set last ""
+	set buf ""
+	set n 0
+	foreach point $points {
+	    lassign $point x y
+	    append buf "($x,$y) "
+	    incr n;
+	    if {$n == 20} {
+		lappend lines "        [string trimright $buf]" ; unset n ; set buf ""
+	    }
+	}
+	lappend lines "        [string trimright $buf]"
+	lappend lines "    \}"
+	lappend lines "\}"
+    }
+    join $lines \n
+}
+
+# ------------------------------------------------------------------------------
+
 proc skip {args} {}
 
 # ------------------------------------------------------------------------------
@@ -42,6 +162,14 @@ proc smooth {i {s 13.3}} {
     set e [aktive op convolve xy $g $e]
     set e [aktive op convolve xy $t $e]
     return $e
+}
+
+proc smooth-s {series {s 13.3} {embed mirror}} {
+    set gs [gauss $s]
+    set r  [expr {([aktive query width $gs]-1)/2}]
+    2series [aktive op convolve xy \
+		 $gs [aktive op embed $embed \
+			  [2image $series] left $r right $r]]
 }
 
 proc threshold {i {r 7}} {
@@ -109,8 +237,103 @@ proc   exit {args} {
     __exit {*}$args
 }
 
+proc do {script} { uplevel 1 $script }
+
 # ------------------------------------------------------------------------------
 ## file mgmt
+
+proc base!    {path} { global __basepath ; set __basepath $path ; return }
+proc current! {id}   { global __cid      ; set __cid      $id   ; return }
+proc current {} { global __cid ; set __cid }
+
+proc find {stem {ext {}}} {
+    global __basepath
+    set found [glob -tails -directory $__basepath/$stem *$ext]
+    lsort -dict [lmap f $found { file rootname $f }]
+}
+
+proc phases {entry spec} {
+    set fmt %02d
+
+    set k 1
+    lappend srcs [format $fmt $k].$entry
+    foreach {cmd dst body} $spec {
+	incr k
+	set dst [format $fmt $k].$dst
+	switch -- $cmd {
+	    skip - / continue
+	    def - = {
+		phase [lindex $srcs end] $dst $body
+		lappend srcs $dst
+	    }
+	    pop - ^ {
+		set srcs [lrange $srcs 0 end-1]
+		phase [lindex $srcs end] $dst $body
+		lappend srcs $dst
+	    }
+	    default continue
+	}
+    }
+}
+
+proc phase {in out body} {
+    puts ($in)-->($out)
+    foreach file [find {*}$in] {
+	current! $file
+	if {[file exists [pathof {*}$out]]} continue
+	apply [list {in out} $body] $in $out
+    }
+}
+
+proc skipforfile {stem ext args} {
+    if {[file exists [pathof $stem $ext]]} return
+    uplevel 1 $args
+}
+
+proc pathof {stem ext} {
+    global __basepath __cid ; file mkdir $__basepath/$stem ; return $__basepath/$stem/$__cid$ext
+}
+
+proc inx {x} { ini {*}$x }
+proc ini {stem ext} { inv i $stem $ext ; return $i }
+proc inv {var stem ext} {
+    upvar 1 $var data
+    set reader [dict get {
+	.ppm    netpbm
+	.pgm    netpbm
+	.aktive aktive
+	.txt    text
+    } $ext]
+    puts "$var <-- $reader -- [pathof $stem $ext]"
+    set data [r/$reader [pathof $stem $ext]]
+    return
+}
+
+proc r/netpbm {path} { aktive read from netpbm path $path }
+proc r/aktive {path} { aktive read from aktive path $path }
+proc r/text   {path} { fileutil::cat $path }
+
+proc outx {x i} { outi $i {*}$x }
+proc outi {i stem ext} { outv i $stem $ext }
+proc outv {var stem ext} {
+    upvar 1 $var img
+    set writer [dict get {
+	.ppm    ppm
+	.pgm    pgm
+	.aktive aktive
+	.txt    text
+    } $ext]
+    w/$writer $img [pathof $stem $ext]
+    return
+}
+
+proc w/ppm    {i path} { to $path $i aktive format as ppm byte }
+proc w/pgm    {i path} { to $path $i aktive format as pgm byte }
+proc w/aktive {i path} { to $path $i aktive format as aktive }
+proc w/text   {i path} { fileutil::writeFile $path $i }
+
+package require fileutil
+# ------------------------------------------------------------------------------
 
 proc wr {path text} {
     puts "writing $path"
@@ -152,7 +375,7 @@ proc !jc {dstpath label} {
 }
 
 proc to {path src args} {
-    def $path
+    #def $path
     puts "[desc $src] --> $path"
     set dst [open $path w]
     lappend args 2chan $src into $dst
@@ -160,12 +383,13 @@ proc to {path src args} {
     close $dst
 }
 
-proc g {label} { append label .pgm    ; g* $label }
-proc c {label} { append label .ppm    ; c* $label }
+# ------------------------------------------------------------------------------
+
+proc g {label} { append label .pgm    ; p* $label }
+proc c {label} { append label .ppm    ; p* $label }
 proc a {label} { append label .aktive ; a* $label }
 
-proc g* {path} { puts "<-- $path" ; aktive read from netpbm path $path }
-proc c* {path} { puts "<-- $path" ; aktive read from netpbm path $path }
+proc p* {path} { puts "<-- $path" ; aktive read from netpbm path $path }
 proc a* {path} { puts "<-- $path" ; aktive read from aktive path $path }
 
 # ------------------------------------------------------------------------------
@@ -182,6 +406,7 @@ proc 2series  {image} { aktive query values $image }
 proc 2image   {series} { aktive op lut from values {*}$series }
 
 # ------------------------------------------------------------------------------
+## tmp file management
 
 set __tmps {}
 proc def {label} { global __tmps ; lappend __tmps $label }
@@ -192,30 +417,29 @@ on-exit apply {{} {
     foreach tmp [lsort -dict [lsort -unique $__tmps]] { file delete $tmp }
 }}
 
-proc desc {i} { return "[aktive query type $i] ([aktive query params $i])" }
-
 # ------------------------------------------------------------------------------
 ## Photo display support
 
 set ::__photo {} ;# last created photo for display
 
-proc pvs {is args} {
+if 0 {proc pvs {is args} {
     set itail [lassign $is   ifirst]
     set ntail [lassign $args nfirst]
     pv $ifirst $nfirst
     foreach n $ntail i $itail { pv+ $i $n }
     return
-}
+}}
 
-proc pv  {i {title {}}} { view/new [window/new ] $i $title }
-proc pv+ {i {title {}}} { view/new [window/last] $i $title }
+#proc pv  {i {title {}}} { window ; view $i $title }
+#proc pv+ {i {title {}}} {          view $i $title }
 
-proc view/new {w i title} {
+proc view {i title} {
     package require aktive::tk
 
     global __photo
     set    __photo [aktive tk photo $i]
 
+    set w [window/last]
     set n [id/new]
 
     ### TODO ### canvas based, auto-scrolling ### proper package
@@ -236,19 +460,13 @@ set ::__plots 1
 proc plots! {e} { set ::__plots $e ; return }
 proc plots? {}  { if {$::__plots} return ; return -code return }
 
-proc plot0 {} { plots? ; plot/new [window/new]  ; return }
-proc plotn {} { plots? ; plot/new [window/last] ; return }
+# ------------------------------------------------------------------------------
 
-proc plot    {series args} { plots? ; [plot/new [window/new ]] add $series {*}$args }
-proc plot/w+ {series args} { plots? ; [plot/new [window/last]] add $series {*}$args }
-#
-proc plot+   {series args} { plots? ; [plot/last]              add $series {*}$args }
-proc plot+v  {x h args}    { plots? ; [plot/last] vertical   $x 0 $h -color black {*}$args }
-proc plot+h  {y w args}    { plots? ; [plot/last] horizontal $y 0 $w -color black {*}$args }
-
-proc plot/new {w} {
+proc plot {} {
+    plots?
     package require aktive::plot
 
+    set w [window/last]
     set n [id/new]
 
     global __plot
@@ -263,12 +481,37 @@ proc plot/new {w} {
 proc plot/last {} { return $::__plot }
 
 # ------------------------------------------------------------------------------
+
+proc plot/series {series args} { plots? ; [plot/last] add        $series {*}$args }
+proc plot/xy     {points args} { plots? ; [plot/last] add-xy     $points {*}$args }
+proc plot/hline  {y w args}    { plots? ; [plot/last] horizontal $y 0 $w {*}$args }
+proc plot/vline  {x h args}    { plots? ; [plot/last] vertical   $x 0 $h {*}$args }
+proc plot/rect   {rect args}   { plots? ; [plot/last] add-rect   $rect   {*}$args }
+proc plot/marks  {points args} { plots? ; [plot/last] add-marks  $points {*}$args }
+
+# ------------------------------------------------------------------------------
+if 0 {
+    proc plot0 {} { plots? ; window/new ; plot/new ; return }
+    proc plotn {} { plots? ;              plot/new ; return }
+
+    proc plot    {series args} { plots? ; window/new  ; [plot/new] add $series {*}$args }
+    proc plot/w+ {series args} { plots? ;               [plot/new] add $series {*}$args }
+    proc plot+   {series args} { plots? ; [plot/last]              add $series {*}$args }
+    #
+    proc plotxy    {series args} { plots? ; window/new; [plot/new ] add-xy $series {*}$args }
+    proc plotxy/w+ {series args} { plots? ;             [plot/new ] add-xy $series {*}$args }
+    proc plotxy+   {series args} { plots? ;             [plot/last] add-xy $series {*}$args }
+    #
+    proc plot+v  {x h args}    { plots? ; [plot/last] vertical   $x 0 $h -color black {*}$args }
+    proc plot+h  {y w args}    { plots? ; [plot/last] horizontal $y 0 $w -color black {*}$args }
+}
+# ------------------------------------------------------------------------------
 ## Window support, used by photo and plot display
 
 set ::__wincount 0  ;# number of open windows
 set ::__winlast     {} ;# last created toplevel
 
-proc window/new {{title {}}} {
+proc window {{title {}}} {
     package require Tk
     wm withdraw .
 
@@ -280,8 +523,9 @@ proc window/new {{title {}}} {
     toplevel    $__winlast
     wm protocol $__winlast WM_DELETE_WINDOW [list window/done $__winlast]
 
-    if {$title ne {}} { wm title $__winlast $title }
-    return $__winlast
+    if {$title eq {}} return
+    wm title $__winlast $title
+    return
 }
 
 proc window/last {} { global __winlast ; return $__winlast }
@@ -322,6 +566,8 @@ proc perf {label sz args} {
     return $r
 }
 
+# ------------------------------------------------------------------------------
+
 proc null       {src} { aktive format as null   2string $src }
 proc nulls      {src} { aktive format as null-s 2string $src }
 proc ppm   {path src} { to $path $src aktive format as ppm byte }
@@ -337,6 +583,8 @@ proc ppms  {src} { aktive format as ppm text 2string $src }
 proc pgms  {src} { aktive format as pgm text 2string $src }
 proc akts  {src} { aktive format as aktive   2string $src }
 
+# ------------------------------------------------------------------------------
+
 proc rgb {r g b} { aktive op montage z $r $g $b }
 
 proc graybig  {} { aktive image gradient width 256 height 256 depth 1 first 0 last 1 }
@@ -346,7 +594,9 @@ proc sines {} { rgb \
 		    [aktive image sines width 256 height 256 hf 2   vf 0.5] \
 		    [aktive image sines width 256 height 256 hf 1   vf 3] }
 
-proc dots {i} { aktive op sample replicate xy $i by 8 }
+proc dots {i {n 8}} { aktive op sample replicate xy $i by $n }
+
+proc desc {i} { return "[aktive query type $i] ([aktive query params $i])" }
 
 proc showbasic {label i} {
     puts "$label = [aktive query id $i] [aktive query type $i] \{"
@@ -445,8 +695,6 @@ proc show {i {scale {}}} {
     puts "\}"
     puts ""
 }
-
-# ------------------------------------------------------------------------------
 
 # ------------------------------------------------------------------------------
 ## validate memory, if supported by the interpreter

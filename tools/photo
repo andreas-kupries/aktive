@@ -10,7 +10,8 @@ source [file join $top tools trial-base.tcl]
 
 # ------------------------------------------------------------------------------
 foreach p $argv {
-    pv [aktive read from netpbm path $p] $p
+    window
+    view [aktive read from netpbm path $p] $p
 }
 exit
 # ------------------------------------------------------------------------------

@@ -88,40 +88,71 @@ snit::widget aktive::plot {
     ## Add plots to the canvas
 
     method vertical {x lowy highy args} {
-	$self Options $args
-	# make options are available as scalar variables
-	dict with options {}
-
-	$self Setup ${-title}
-
-	set points [list $x $lowy $x $highy]
-	incr myseries
-	$myplot add_data series$myseries $points -color ${-color}
+	$self add-core [list $x $lowy $x $highy] {*}$args
 	return
     }
 
     method horizontal {y lowx highx args} {
-	$self Options $args
-	# make options are available as scalar variables
-	dict with options {}
-
-	$self Setup ${-title}
-
-	set points [list $lowx $y $highx $y]
-	incr myseries
-	$myplot add_data series$myseries $points -color ${-color}
+	$self add-core [list $lowx $y $highx $y] {*}$args
 	return
     }
 
     method add {series args} {
+	# convert series of (y-)values into a set of proper coordinates
+	lassign {0 {}} x points ; foreach y $series { lappend points $x $y ; incr x }
+
+	$self add-core $points {*}$args
+	return
+    }
+
+    method add-xy {points args} {
+	#puts xy=(($points))
+	# flatten the points
+	set points [concat {*}$points]
+
+	$self add-core $points {*}$args
+	return
+    }
+
+    method add-rect {rect args} {
+	lassign $rect xmin ymin xmax ymax
+	lappend points $xmin $ymin
+	lappend points $xmax $ymin
+	lappend points $xmax $ymax
+	lappend points $xmin $ymax
+	lappend points $xmin $ymin
+	$self add-core $points {*}$args
+	return
+    }
+
+    method add-marks {points args} {
+	#puts marks=(($points))
+	# convert each point into a rectangle around the point. fixed radius 5
+	# look into
+	# - configurable radius
+	set rad 0.5
+	# - configurable kind of marker (rect, diamond, circle, triangle (8 orientations))
+	foreach p $points {
+	    #puts <<$p>>
+	    lassign $p x y
+	    lappend rect [expr {$x - $rad}] [expr {$y - $rad}]
+	    lappend rect [expr {$x + $rad}] [expr {$y - $rad}]
+	    lappend rect [expr {$x + $rad}] [expr {$y + $rad}]
+	    lappend rect [expr {$x - $rad}] [expr {$y + $rad}]
+	    lappend rect [expr {$x - $rad}] [expr {$y - $rad}]
+	    $self add-core $rect {*}$args
+	    set rect {}
+	}
+	return
+    }
+
+    method add-core {points args} {
 	$self Options $args
-	# make options are available as scalar variables
+	# make options available as scalar variables
 	dict with options {}
 
 	$self Setup ${-title}
-
-	# convert to coordinates taken by xyplot
-	lassign {0 {}} x points ; foreach y $series { lappend points $x $y ; incr x }
+	#puts core=(($points))
 
 	incr myseries
 	$myplot add_data series$myseries $points -color ${-color}
@@ -135,7 +166,7 @@ snit::widget aktive::plot {
 	if {$myplot ne {}} return
 	set myplot [xyplot $win.xyp -xinteger 1 -xformat %d -title $title]
 	pack $myplot -in $win -expand 1 -fill both
-return
+	return
     }
 
     # # ## ### ##### ######## ############# #####################
