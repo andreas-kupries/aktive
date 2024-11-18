@@ -5,7 +5,11 @@
 operator image::indexed {
     section generator virtual
 
-    note Returns 2-band image where each pixel declares its own position
+    note Returns a 2-band image where each pixel declares its own position
+
+    note __Note__ that while the result is usable as a warp map for \
+	the "<!xref aktive op warp map>" operation, it will not do \
+	anything, as it represents the identity warping.
 
     example {width 5 height 5 | -int -matrix}
 
