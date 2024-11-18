@@ -763,7 +763,7 @@ proc dsl::writer::OperatorsStrict {spec} {
 	This means that these operators execute the image pipelines to calculate the
 	pixels of the input images they are strict in.
 
-	Note that this does necessarily mean that these inputs are fully materialized
+	Note that this does not necessarily mean that these inputs are fully materialized
 	in memory, only that the pixels are computed. These pixels may then be saved
 	to disk, or reduced by some statistical measure, or, yes, indeed materialized.
 
@@ -2722,7 +2722,7 @@ proc dsl::writer::stash-to {path} {
 	    return
 	}
 	proc emit-matrix {dst int src} {
-	    set chan [open $dst w]
+	    set chan   [open $dst w]
 	    set width  [aktive query width  $src]
 	    set values [aktive query values $src]
 	    if {$int} {
@@ -2752,6 +2752,8 @@ proc dsl::writer::stash-to {path} {
 	    puts -nonewline $chan </table>
 	    puts  $chan ""
 	    close $chan
+	    # debug
+	    puts |[join [split [fileutil::cat $dst] \n] "|\n|"]|
 	}
     }]
     lappend s ""
