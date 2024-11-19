@@ -984,12 +984,12 @@ proc dsl::writer::OpDoc {stem op spec} {
 	    set id 0
 	    set varmap {}
 	    + [ExampleRender $op [lmap run $example {
-		# run :: list (gencmd showcmds format int)
+		# run :: list (gencmd showcmds format int desc)
 		incr n -1 ; set islast [expr {$n == 0}]
 		incr id
 		set label   [expr {$islast ? "[lindex $run 0]" : "@$id"}]
 		lappend varmap @$id "\$x$id"
-		list $label [ExampleScript $op $stem $id $varmap {*}$run]
+		list $label {*}[ExampleScript $op $stem $id $varmap {*}$run]
 	    }]]
 	    + {}
 	}
@@ -1004,12 +1004,16 @@ proc dsl::writer::OpDoc {stem op spec} {
 
 proc dsl::writer::ExampleRender {op example} {
     # example :: list (run...)
-    # run     :: list (label results)
+    # run     :: list (label desc results)
     # results :: list (result...)
     # result  :: list (show format dstfile)
 
-    set labels [lmap run $example { string trim [lindex $run 0] }]
-    set data   [lmap run $example { RR {*}$run }]
+    set labels [lmap run $example {
+	lassign $run label desc
+	if {$desc ne {}} { append label " (" $desc ")" }
+	set label
+    }]
+    set data [lmap run $example { RR {*}$run }]
 
     lappend lines "<table><tr><th>[join $labels "</th><th>"]</th></tr>"
     lappend lines "<tr><td valign='top'>[join $data "</td><td valign='top'>"]</td></tr></table>"
@@ -1018,7 +1022,8 @@ proc dsl::writer::ExampleRender {op example} {
     return [join $lines \n]
 }
 
-proc dsl::writer::RR {label results} {
+proc dsl::writer::RR {label desc results} {
+    if {$desc ne {}} { append label " (" $desc ")" }
     if {[llength $results] == 1} {
 	return [RR1 1 $label [lindex $results 0]]
     }
@@ -1045,9 +1050,9 @@ proc dsl::writer::RR1 {single label result} {
 proc dsl::writer::TR1 {row}  { return "<table><tr>$row</tr></table>" }
 proc dsl::writer::TD  {cell} { return "<td valign='top'>$cell</td>" }
 
-proc dsl::writer::ExampleScript {op stem id varmap gencmd showcmds format int} {
+proc dsl::writer::ExampleScript {op stem id varmap gencmd showcmds format int desc} {
     # intro
-    lappend script "puts \{# Example: ($id) $gencmd\}"
+    lappend script "puts \{# Example: ($id) $gencmd ($desc)\}"
 
     # generation command
     set gencmd [string map $varmap $gencmd]
@@ -1055,7 +1060,7 @@ proc dsl::writer::ExampleScript {op stem id varmap gencmd showcmds format int} {
     lappend script "set x$id \[$gencmd\]"
 
     # show commands, plus final formatting
-    set results [lmap show $showcmds {
+    set results [list $desc [lmap show $showcmds {
     	set dst [File example- [dict get {
 	    image  .gif
 	    matrix .md
@@ -1068,12 +1073,12 @@ proc dsl::writer::ExampleScript {op stem id varmap gencmd showcmds format int} {
 	    lappend script "emit-$format ${stem}$dst $int \$x$id"
 	}
 	list $show $format $dst
-    }]
+    }]]
 
     # Save script for execution after compilation and installation
     Stash [join $script \n]
     return $results
-    # results :: list (list (show format dst)...)
+    # results :: list (list (show format dst desc)...)
 }
 
 proc dsl::writer::File {prefix ext} {
