@@ -1,17 +1,17 @@
 ## -*- mode: tcl ; fill-column: 90 -*-
 # # ## ### ##### ######## ############# #####################
-## Generators -- Virtual Image - Pixels proclaim their origin location
+## Generators -- Virtual Image - Origin maps based on noise - jitter
 
 operator warp::noise::uniform {
     section generator virtual warp
 
     example {width 5 height 5 seed 703011174 | -matrix}
 
-    note Returns a warp map derived from the identity map by \
-	application of uniform noise as displacement values
+    note Returns a origin map derived from the identity map \
+	by application of uniform noise as displacement values
 
     note The result is designed to be usable with the \
-	"<!xref aktive op warp>" operation.
+	"<!xref: aktive op warp bicubic>" operation and its relatives.
 
     note At the technical level the result is a 2-band image \
 	where each pixel declares its origin position.
@@ -39,11 +39,11 @@ operator warp::noise::gauss {
 
     example {width 5 height 5 seed 703011174 | -matrix}
 
-    note Returns a warp map derived from the identity map by \
-	application of gaussian noise as displacement values.
+    note Returns a origin map derived from the identity map \
+	by application of gaussian noise as displacement values.
 
     note The result is designed to be usable with the \
-	"<!xref aktive op warp>" operation.
+	"<!xref: aktive op warp bicubic>" operation and its relatives.
 
     note At the technical level the result is a 2-band image \
 	where each pixel declares its origin position.

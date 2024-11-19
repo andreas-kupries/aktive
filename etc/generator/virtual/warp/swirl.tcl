@@ -1,11 +1,11 @@
 ## -*- mode: tcl ; fill-column: 90 -*-
 # # ## ### ##### ######## ############# #####################
-## Generators -- Virtual Image - Pixels proclaim their origin location
+## Generators -- Virtual Image - Origin map of a swirl effect
 
 operator warp::swirl {
     section generator virtual warp
 
-    note Returns the warp map for a swirl effect around the \
+    note Returns the origin map for a swirl effect around the \
 	specified __center__, with fixed rotation __phi__, \
 	a __base__ rotation, and a __decay__ factor.
 
@@ -17,7 +17,7 @@ operator warp::swirl {
     note All parameter except for the center are optional.
 
     note The result is designed to be usable with the \
-	"<!xref aktive op warp>" operation.
+	"<!xref: aktive op warp bicubic>" operation and its relatives.
 
     note At the technical level the result is a 2-band image \
 	where each pixel declares its origin position.

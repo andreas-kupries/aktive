@@ -1,6 +1,6 @@
 ## -*- mode: tcl ; fill-column: 90 -*-
 # # ## ### ##### ######## ############# #####################
-## Generators -- Affine and projevtive transformation matrices
+## Generators -- Affine and projective transformations.
 
 # https://medium.com/@junfeng142857/
 #                    affine-transformation-why-3d-matrix-for-a-2d-transformation-8922b08bce75
@@ -372,6 +372,7 @@ operator transform::quad::quad {
 	compose [unit a $e b $f c $g d $h] [invert [unit a $a b $b c $c d $d]]
     }
 }
+
 operator transform::reflect::x {
     section generator virtual warp
 
