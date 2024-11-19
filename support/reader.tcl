@@ -515,16 +515,20 @@ proc dsl::reader::example {{spec {}}} { ;#puts [info level 0]
     Example [lmap run $runs {
 	# per run extract the generation command and its modifiers (formatting, display processing)
 	lassign [split $run |] gen modifiers
+	set gen       [string trim $gen]
+	set modifiers [string trim $modifiers]
 
-	# extend last generation part with command to demonstrate
+	# extend the last generation part with the command to demonstrate, except if
+	# overridden by spec
 	incr n -1
-	if {$n == 0} {
+	if {($n == 0) && ![string match {aktive *} $gen]} {
 	    set gen "aktive [string map {:: { }} [Get opname]] $gen"
 	}
 	# scan modifiers for result formatting, extract, remove
 	set show {}
 	set format image
 	set int  0
+	set label {}
 	foreach {m modcmd} {
 	    -matrix {set format matrix}
 	    -text   {set format text}
@@ -536,13 +540,17 @@ proc dsl::reader::example {{spec {}}} { ;#puts [info level 0]
 	set modifiers [string trim [string map {
 	    -matrix {} -text {} -int {}
 	} $modifiers]]
+	if {[regexp -- {-label (.*)$} $modifiers -> xlabel]} {
+	    set label $xlabel
+	    set modifiers [regsub -- {-label .*$} {} $modifiers]
+	}
 	# process remaining modifiers into display transforms
 	set showcmds [lmap s [split $modifiers \;] { string trim $s }]
 	# default show command, non transforming
 	if {![llength $showcmds]} { lappend showcmds {} }
 
 	# record parsed part
-	list $gen $showcmds $format $int
+	list $gen $showcmds $format $int $label
     }]
 }
 
