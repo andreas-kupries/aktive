@@ -38,11 +38,11 @@ Returns blurred input, per the specified blur radius.
 
 ## Examples
 
-<table><tr><th>@1</th><th>aktive effect blur 	@1 radius 16</th></tr>
-<tr><td valign='top'><img src='example-00001.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00002.gif' alt='aktive effect blur 	@1 radius 16' style='border:4px solid gold'></td></tr></table>
+<table><tr><th>@1</th><th>aktive effect blur @1 radius 16</th></tr>
+<tr><td valign='top'><img src='example-00001.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00002.gif' alt='aktive effect blur @1 radius 16' style='border:4px solid gold'></td></tr></table>
 
-<table><tr><th>@1</th><th>aktive effect blur 	@1 radius 16</th></tr>
-<tr><td valign='top'><img src='example-00003.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00004.gif' alt='aktive effect blur 	@1 radius 16' style='border:4px solid gold'></td></tr></table>
+<table><tr><th>@1</th><th>aktive effect blur @1 radius 16</th></tr>
+<tr><td valign='top'><img src='example-00003.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00004.gif' alt='aktive effect blur @1 radius 16' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -66,8 +66,8 @@ Returns embossed input.
 
 ## Examples
 
-<table><tr><th>@1</th><th>aktive effect emboss 	@1</th></tr>
-<tr><td valign='top'><img src='example-00005.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00006.gif' alt='aktive effect emboss 	@1' style='border:4px solid gold'></td></tr></table>
+<table><tr><th>@1</th><th>aktive effect emboss @1</th></tr>
+<tr><td valign='top'><img src='example-00005.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00006.gif' alt='aktive effect emboss @1' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -80,8 +80,8 @@ Returns sharpened input.
 
 ## Examples
 
-<table><tr><th>@1</th><th>aktive effect sharpen 	@1</th></tr>
-<tr><td valign='top'><img src='example-00007.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00008.gif' alt='aktive effect sharpen 	@1' style='border:4px solid gold'></td></tr></table>
+<table><tr><th>@1</th><th>aktive effect sharpen @1</th></tr>
+<tr><td valign='top'><img src='example-00007.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00008.gif' alt='aktive effect sharpen @1' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -94,10 +94,10 @@ Returns image with a general sketch of the input.
 
 ## Examples
 
-<table><tr><th>@1</th><th>aktive effect sketch 	@1</th></tr>
-<tr><td valign='top'><img src='example-00009.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00010.gif' alt='aktive effect sketch 	@1' style='border:4px solid gold'></td></tr></table>
+<table><tr><th>@1</th><th>aktive effect sketch @1</th></tr>
+<tr><td valign='top'><img src='example-00009.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00010.gif' alt='aktive effect sketch @1' style='border:4px solid gold'></td></tr></table>
 
-<table><tr><th>@1</th><th>aktive effect sketch 	@1</th></tr>
-<tr><td valign='top'><img src='example-00011.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00012.gif' alt='aktive effect sketch 	@1' style='border:4px solid gold'></td></tr></table>
+<table><tr><th>@1</th><th>aktive effect sketch @1</th></tr>
+<tr><td valign='top'><img src='example-00011.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00012.gif' alt='aktive effect sketch @1' style='border:4px solid gold'></td></tr></table>
 
 

@@ -8,9 +8,9 @@
 |---|---|---|---|---|---|---|---|
 |[Entry ↗](index.md)|&mdash;|[Sections ↘](bysection.md)|[Permuted Sections ↘](bypsection.md)|Names|[Permuted Names ↘](bypname.md)|[Strict ↘](strict.md)|[Implementations ↘](bylang.md)|
 
-||||||||||
-|---|---|---|---|---|---|---|---|---|
-|&nbsp;[e](#_e)&nbsp;|&nbsp;[f](#_f)&nbsp;|&nbsp;[i](#_i)&nbsp;|&nbsp;[m](#_m)&nbsp;|&nbsp;[o](#_o)&nbsp;|&nbsp;[p](#_p)&nbsp;|&nbsp;[q](#_q)&nbsp;|&nbsp;[r](#_r)&nbsp;|&nbsp;[v](#_v)&nbsp;|
+||||||||||||
+|---|---|---|---|---|---|---|---|---|---|---|
+|&nbsp;[e](#_e)&nbsp;|&nbsp;[f](#_f)&nbsp;|&nbsp;[i](#_i)&nbsp;|&nbsp;[m](#_m)&nbsp;|&nbsp;[o](#_o)&nbsp;|&nbsp;[p](#_p)&nbsp;|&nbsp;[q](#_q)&nbsp;|&nbsp;[r](#_r)&nbsp;|&nbsp;[t](#_t)&nbsp;|&nbsp;[v](#_v)&nbsp;|&nbsp;[w](#_w)&nbsp;|
 
 # Documentation -- Reference Pages -- Operators By Name
 
@@ -633,7 +633,32 @@
  - [aktive rectangle union](miscellaneous_geometry.md#rectangle_union)
  - [aktive rectangle zones](miscellaneous_geometry.md#rectangle_zones)
 
+## <a name='_t'></a> t
+
+ - [aktive transform affine](generator_virtual_warp.md#transform_affine)
+ - [aktive transform compose](generator_virtual_warp.md#transform_compose)
+ - [aktive transform compose-core](generator_virtual_warp.md#transform_compose_core)
+ - [aktive transform identity](generator_virtual_warp.md#transform_identity)
+ - [aktive transform invert](generator_virtual_warp.md#transform_invert)
+ - [aktive transform projective](generator_virtual_warp.md#transform_projective)
+ - [aktive transform quad quad](generator_virtual_warp.md#transform_quad_quad)
+ - [aktive transform quad unit](generator_virtual_warp.md#transform_quad_unit)
+ - [aktive transform reflect line](generator_virtual_warp.md#transform_reflect_line)
+ - [aktive transform reflect x](generator_virtual_warp.md#transform_reflect_x)
+ - [aktive transform reflect y](generator_virtual_warp.md#transform_reflect_y)
+ - [aktive transform rotate](generator_virtual_warp.md#transform_rotate)
+ - [aktive transform scale](generator_virtual_warp.md#transform_scale)
+ - [aktive transform shear](generator_virtual_warp.md#transform_shear)
+ - [aktive transform translate](generator_virtual_warp.md#transform_translate)
+
 ## <a name='_v'></a> v
 
  - [aktive version](miscellaneous.md#version)
+
+## <a name='_w'></a> w
+
+ - [aktive warp matrix](generator_virtual_warp.md#warp_matrix)
+ - [aktive warp noise gauss](generator_virtual_warp.md#warp_noise_gauss)
+ - [aktive warp noise uniform](generator_virtual_warp.md#warp_noise_uniform)
+ - [aktive warp swirl](generator_virtual_warp.md#warp_swirl)
 

@@ -8,9 +8,9 @@
 |---|---|---|---|---|---|---|---|
 |[Entry ↗](index.md)|&mdash;|[Sections ↘](bysection.md)|[Permuted Sections ↘](bypsection.md)|[Names ↘](byname.md)|[Permuted Names ↘](bypname.md)|Strict|[Implementations ↘](bylang.md)|
 
-|||||
-|---|---|---|---|
-|&nbsp;[f](#_f)&nbsp;|&nbsp;[i](#_i)&nbsp;|&nbsp;[o](#_o)&nbsp;|&nbsp;[q](#_q)&nbsp;|
+|||||||
+|---|---|---|---|---|---|
+|&nbsp;[f](#_f)&nbsp;|&nbsp;[i](#_i)&nbsp;|&nbsp;[o](#_o)&nbsp;|&nbsp;[q](#_q)&nbsp;|&nbsp;[t](#_t)&nbsp;|&nbsp;[w](#_w)&nbsp;|
 
 # Documentation -- Reference Pages -- StrictOperators
 
@@ -19,7 +19,7 @@ All operators listed here are strict in at least one of their image arguments.
 This means that these operators execute the image pipelines to calculate the
 pixels of the input images they are strict in.
 
-Note that this does necessarily mean that these inputs are fully materialized
+Note that this does not necessarily mean that these inputs are fully materialized
 in memory, only that the pixels are computed. These pixels may then be saved
 to disk, or reduced by some statistical measure, or, yes, indeed materialized.
 
@@ -89,4 +89,14 @@ It all depends on the details of the operator in question.
  - [aktive query value around](accessor_values.md#query_value_around)
  - [aktive query value at](accessor_values.md#query_value_at)
  - [aktive query values](accessor_values.md#query_values)
+
+## <a name='_t'></a> t
+
+ - [aktive transform compose](generator_virtual_warp.md#transform_compose)
+ - [aktive transform compose-core](generator_virtual_warp.md#transform_compose_core)
+ - [aktive transform invert](generator_virtual_warp.md#transform_invert)
+
+## <a name='_w'></a> w
+
+ - [aktive warp matrix](generator_virtual_warp.md#warp_matrix)
 
