@@ -186,6 +186,7 @@ critcl::tsources op/aggregate.tcl		;# Support for aggregation by binary reductio
 critcl::tsources op/asother.tcl			;# DAG conversion support (walker, emitters)
 critcl::tsources op/embed.tcl			;# `embed` argument validation
 critcl::tsources op/color.tcl			;# color conversion support (sRGB <-> scRGB)
+critcl::tsources op/transform.tcl		;# transform matrix support
 
 critcl::csources op/math.c
 
@@ -200,7 +201,8 @@ if {![critcl::load]} {
     error "Building and loading aktive failed."
 }
 
-# Save scripts stashed by the DSL writer for post-installation execution
+# Write the scripts stashed by the DSL writer into a file for
+# post-installation execution
 # - documentation examples
 dsl::writer::stash-to examples.tcl
 
