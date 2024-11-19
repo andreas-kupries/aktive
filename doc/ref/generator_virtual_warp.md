@@ -398,15 +398,15 @@ The result is suitable for use with [aktive warp matrix](generator_virtual_warp.
 
 Syntax: __aktive warp matrix__ src ?(param value)...?
 
-Returns the warp map for the general transformation specified by the 3x3x1 input matrix.
+Returns the origin map for the projective transformation specified by the 3x3x1 matrix (`src`) applied to an image of the given geometry and location.
 
-__Attention__. As a warp map declares origin positions for output pixels the matrix has to specify a __backward transformation__.
+__Attention__. As a origin map declares origin positions for output pixels the matrix has to specify a __backward transformation__.
 
 The operations [aktive transform affine](generator_virtual_warp.md#transform_affine), [aktive transform identity](generator_virtual_warp.md#transform_identity), [aktive transform projective](generator_virtual_warp.md#transform_projective), [aktive transform quad quad](generator_virtual_warp.md#transform_quad_quad), [aktive transform quad unit](generator_virtual_warp.md#transform_quad_unit), [aktive transform reflect line](generator_virtual_warp.md#transform_reflect_line), [aktive transform reflect x](generator_virtual_warp.md#transform_reflect_x), [aktive transform reflect y](generator_virtual_warp.md#transform_reflect_y), [aktive transform rotate](generator_virtual_warp.md#transform_rotate), [aktive transform scale](generator_virtual_warp.md#transform_scale), [aktive transform shear](generator_virtual_warp.md#transform_shear), and [aktive transform translate](generator_virtual_warp.md#transform_translate) all create matrices suitable as input to this operation.
 
 The operations [aktive transform compose](generator_virtual_warp.md#transform_compose) and [aktive transform invert](generator_virtual_warp.md#transform_invert) enable the composition of arbitrary transformations from simpler pieces, and the conversion between forward and backward transformations.
 
-The result is designed to be usable with the <!xref: aktive op warp> operation.
+The result is designed to be usable with the [aktive op warp bicubic](transform_structure_warp.md#op_warp_bicubic) operation and its relatives.
 
 At the technical level the result is a 2-band image where each pixel declares its origin position.
 
@@ -433,9 +433,9 @@ This operator is __strict__ in the 1st input. The projective matrix is materiali
 
 Syntax: __aktive warp noise gauss__  ?(param value)...?
 
-Returns a warp map derived from the identity map by application of gaussian noise as displacement values.
+Returns a origin map derived from the identity map by application of gaussian noise as displacement values.
 
-The result is designed to be usable with the <!xref aktive op warp> operation.
+The result is designed to be usable with the [aktive op warp bicubic](transform_structure_warp.md#op_warp_bicubic) operation and its relatives.
 
 At the technical level the result is a 2-band image where each pixel declares its origin position.
 
@@ -460,9 +460,9 @@ At the technical level the result is a 2-band image where each pixel declares it
 
 Syntax: __aktive warp noise uniform__  ?(param value)...?
 
-Returns a warp map derived from the identity map by application of uniform noise as displacement values
+Returns a origin map derived from the identity map by application of uniform noise as displacement values
 
-The result is designed to be usable with the <!xref aktive op warp> operation.
+The result is designed to be usable with the [aktive op warp bicubic](transform_structure_warp.md#op_warp_bicubic) operation and its relatives.
 
 At the technical level the result is a 2-band image where each pixel declares its origin position.
 
@@ -485,13 +485,13 @@ At the technical level the result is a 2-band image where each pixel declares it
 
 Syntax: __aktive warp swirl__  ?(param value)...?
 
-Returns the warp map for a swirl effect around the specified __center__, with fixed rotation __phi__, a __base__ rotation, and a __decay__ factor.
+Returns the origin map for a swirl effect around the specified __center__, with fixed rotation __phi__, a __base__ rotation, and a __decay__ factor.
 
 The rotation angle to add to a pixel is given by "__phi__ + __base__*exp(-__radius__/(__decay__^2))", where __radius__ is the distance of the pixel from the __center__.
 
 All parameter except for the center are optional.
 
-The result is designed to be usable with the <!xref aktive op warp> operation.
+The result is designed to be usable with the [aktive op warp bicubic](transform_structure_warp.md#op_warp_bicubic) operation and its relatives.
 
 At the technical level the result is a 2-band image where each pixel declares its origin position.
 
