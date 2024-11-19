@@ -5,20 +5,42 @@
 operator warp::matrix {
     section generator virtual warp
 
+    example {
+	aktive transform translate x 5 y 3 | -matrix -label translate x 5 y 3
+	@1 width 5 height 5                | -matrix
+    }
+    example {
+	aktive transform shear x 5 | -matrix -label shear x 5
+	@1 width 5 height 5        | -matrix
+    }
+
     note Returns the warp map for the general transformation specified \
 	by the 3x3x1 input matrix.
 
     note __Attention__. As a warp map declares origin positions for output \
 	pixels the matrix has to specify a __backward transformation__.
 
+    # TODO :: look into extended MD support - bullet list would be nice here.
     note The operations "<!xref: aktive transform affine>," \
+	"<!xref: aktive transform identity>," \
 	"<!xref: aktive transform projective>," \
+	"<!xref: aktive transform quad quad>," \
+	"<!xref: aktive transform quad unit>," \
+	"<!xref: aktive transform reflect line>," \
+	"<!xref: aktive transform reflect x>," \
+	"<!xref: aktive transform reflect y>," \
 	"<!xref: aktive transform rotate>," \
 	"<!xref: aktive transform scale>," \
-	"<!xref: aktive transform shear x>," \
-	"<!xref: aktive transform shear y>," \
-	and "<!xref: aktive transform translate>," \
+	"<!xref: aktive transform shear>," \
+	and "<!xref: aktive transform translate>" \
 	all create matrices suitable as input to this operation.
+
+    note The operations \
+	"<!xref: aktive transform compose>" and \
+	"<!xref: aktive transform invert>" \
+	enable the composition of arbitrary transformations \
+	from simpler pieces, and the conversion between forward \
+	and backward transformations.
 
     note The result is designed to be usable with the \
 	"<!xref: aktive op warp>" operation.
@@ -27,11 +49,6 @@ operator warp::matrix {
 	where each pixel declares its origin position.
 
     strict 1st The projective matrix is materialized and cached.
-
-    example {
-	aktive transform translate dx 5 dy 3 | -matrix
-	@1 width 5 height 5                  | -matrix
-    }
 
     input	;# projective transform matrix
 
