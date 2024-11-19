@@ -338,6 +338,8 @@ The operators listed here are implemented in C. We ignore supporting Tcl code.
  - [aktive rectangle subset](miscellaneous_geometry.md#rectangle_subset)
  - [aktive rectangle union](miscellaneous_geometry.md#rectangle_union)
  - [aktive rectangle zones](miscellaneous_geometry.md#rectangle_zones)
+ - [aktive warp matrix](generator_virtual_warp.md#warp_matrix)
+ - [aktive warp swirl](generator_virtual_warp.md#warp_swirl)
 
 ## <a name='_Tcl'></a> Tcl
 
@@ -595,6 +597,23 @@ The operators listed here are implemented wholly in Tcl.
  - [aktive op wiener](transform_wiener.md#op_wiener)
  - [aktive query value around](accessor_values.md#query_value_around)
  - [aktive query value at](accessor_values.md#query_value_at)
+ - [aktive transform affine](generator_virtual_warp.md#transform_affine)
+ - [aktive transform compose](generator_virtual_warp.md#transform_compose)
+ - [aktive transform compose-core](generator_virtual_warp.md#transform_compose_core)
+ - [aktive transform identity](generator_virtual_warp.md#transform_identity)
+ - [aktive transform invert](generator_virtual_warp.md#transform_invert)
+ - [aktive transform projective](generator_virtual_warp.md#transform_projective)
+ - [aktive transform quad quad](generator_virtual_warp.md#transform_quad_quad)
+ - [aktive transform quad unit](generator_virtual_warp.md#transform_quad_unit)
+ - [aktive transform reflect line](generator_virtual_warp.md#transform_reflect_line)
+ - [aktive transform reflect x](generator_virtual_warp.md#transform_reflect_x)
+ - [aktive transform reflect y](generator_virtual_warp.md#transform_reflect_y)
+ - [aktive transform rotate](generator_virtual_warp.md#transform_rotate)
+ - [aktive transform scale](generator_virtual_warp.md#transform_scale)
+ - [aktive transform shear](generator_virtual_warp.md#transform_shear)
+ - [aktive transform translate](generator_virtual_warp.md#transform_translate)
+ - [aktive warp noise gauss](generator_virtual_warp.md#warp_noise_gauss)
+ - [aktive warp noise uniform](generator_virtual_warp.md#warp_noise_uniform)
 
 ## <a name='_Direct'></a> Direct
 

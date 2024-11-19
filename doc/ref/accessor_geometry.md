@@ -43,10 +43,10 @@ Returns the input's depth.
 
 ## Examples
 
-<table><tr><th>@1</th><th>aktive query depth 	@1</th></tr>
+<table><tr><th>@1</th><th>aktive query depth @1</th></tr>
 <tr><td valign='top'><img src='example-00360.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'>1</td></tr></table>
 
-<table><tr><th>@1</th><th>aktive query depth 	@1</th></tr>
+<table><tr><th>@1</th><th>aktive query depth @1</th></tr>
 <tr><td valign='top'><img src='example-00362.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'>1</td></tr></table>
 
 
@@ -60,10 +60,10 @@ Returns the input's domain, a 2D rectangle. I.e. location, width, and height.
 
 ## Examples
 
-<table><tr><th>@1</th><th>aktive query domain 	@1</th></tr>
+<table><tr><th>@1</th><th>aktive query domain @1</th></tr>
 <tr><td valign='top'><img src='example-00364.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'>0 0 32 32</td></tr></table>
 
-<table><tr><th>@1</th><th>aktive query domain 	@1</th></tr>
+<table><tr><th>@1</th><th>aktive query domain @1</th></tr>
 <tr><td valign='top'><img src='example-00366.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'>0 0 32 32</td></tr></table>
 
 
@@ -77,10 +77,10 @@ Returns the input's full geometry, i.e. domain and depth.
 
 ## Examples
 
-<table><tr><th>@1</th><th>aktive query geometry 	@1</th></tr>
+<table><tr><th>@1</th><th>aktive query geometry @1</th></tr>
 <tr><td valign='top'><img src='example-00368.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'>0 0 32 32 1</td></tr></table>
 
-<table><tr><th>@1</th><th>aktive query geometry 	@1</th></tr>
+<table><tr><th>@1</th><th>aktive query geometry @1</th></tr>
 <tr><td valign='top'><img src='example-00370.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'>0 0 32 32 1</td></tr></table>
 
 
@@ -94,10 +94,10 @@ Returns the input's height.
 
 ## Examples
 
-<table><tr><th>@1</th><th>aktive query height 	@1</th></tr>
+<table><tr><th>@1</th><th>aktive query height @1</th></tr>
 <tr><td valign='top'><img src='example-00372.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'>32</td></tr></table>
 
-<table><tr><th>@1</th><th>aktive query height 	@1</th></tr>
+<table><tr><th>@1</th><th>aktive query height @1</th></tr>
 <tr><td valign='top'><img src='example-00374.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'>32</td></tr></table>
 
 
@@ -111,10 +111,10 @@ Returns the input's location, a 2D point.
 
 ## Examples
 
-<table><tr><th>@1</th><th>aktive query location 	@1</th></tr>
+<table><tr><th>@1</th><th>aktive query location @1</th></tr>
 <tr><td valign='top'><img src='example-00376.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'>0 0</td></tr></table>
 
-<table><tr><th>@1</th><th>aktive query location 	@1</th></tr>
+<table><tr><th>@1</th><th>aktive query location @1</th></tr>
 <tr><td valign='top'><img src='example-00378.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'>0 0</td></tr></table>
 
 
@@ -128,10 +128,10 @@ Returns the input's pitch, the number of values in a row, i.e. width times depth
 
 ## Examples
 
-<table><tr><th>@1</th><th>aktive query pitch 	@1</th></tr>
+<table><tr><th>@1</th><th>aktive query pitch @1</th></tr>
 <tr><td valign='top'><img src='example-00386.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'>32</td></tr></table>
 
-<table><tr><th>@1</th><th>aktive query pitch 	@1</th></tr>
+<table><tr><th>@1</th><th>aktive query pitch @1</th></tr>
 <tr><td valign='top'><img src='example-00388.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'>32</td></tr></table>
 
 
@@ -145,10 +145,10 @@ Returns the input's number of pixels.
 
 ## Examples
 
-<table><tr><th>@1</th><th>aktive query pixels 	@1</th></tr>
+<table><tr><th>@1</th><th>aktive query pixels @1</th></tr>
 <tr><td valign='top'><img src='example-00390.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'>1024</td></tr></table>
 
-<table><tr><th>@1</th><th>aktive query pixels 	@1</th></tr>
+<table><tr><th>@1</th><th>aktive query pixels @1</th></tr>
 <tr><td valign='top'><img src='example-00392.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'>1024</td></tr></table>
 
 
@@ -162,10 +162,10 @@ Returns the input's size, i.e. the number of pixels times depth.
 
 ## Examples
 
-<table><tr><th>@1</th><th>aktive query size 	@1</th></tr>
+<table><tr><th>@1</th><th>aktive query size @1</th></tr>
 <tr><td valign='top'><img src='example-00398.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'>1024</td></tr></table>
 
-<table><tr><th>@1</th><th>aktive query size 	@1</th></tr>
+<table><tr><th>@1</th><th>aktive query size @1</th></tr>
 <tr><td valign='top'><img src='example-00400.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'>1024</td></tr></table>
 
 
@@ -179,10 +179,10 @@ Returns the input's width.
 
 ## Examples
 
-<table><tr><th>@1</th><th>aktive query width 	@1</th></tr>
+<table><tr><th>@1</th><th>aktive query width @1</th></tr>
 <tr><td valign='top'><img src='example-00410.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'>32</td></tr></table>
 
-<table><tr><th>@1</th><th>aktive query width 	@1</th></tr>
+<table><tr><th>@1</th><th>aktive query width @1</th></tr>
 <tr><td valign='top'><img src='example-00412.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'>32</td></tr></table>
 
 
@@ -196,10 +196,10 @@ Returns the input's x location.
 
 ## Examples
 
-<table><tr><th>@1</th><th>aktive query x 	@1</th></tr>
+<table><tr><th>@1</th><th>aktive query x @1</th></tr>
 <tr><td valign='top'><img src='example-00414.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'>0</td></tr></table>
 
-<table><tr><th>@1</th><th>aktive query x 	@1</th></tr>
+<table><tr><th>@1</th><th>aktive query x @1</th></tr>
 <tr><td valign='top'><img src='example-00416.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'>0</td></tr></table>
 
 
@@ -213,10 +213,10 @@ Returns the input's maximum x location.
 
 ## Examples
 
-<table><tr><th>@1</th><th>aktive query xmax 	@1</th></tr>
+<table><tr><th>@1</th><th>aktive query xmax @1</th></tr>
 <tr><td valign='top'><img src='example-00418.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'>31</td></tr></table>
 
-<table><tr><th>@1</th><th>aktive query xmax 	@1</th></tr>
+<table><tr><th>@1</th><th>aktive query xmax @1</th></tr>
 <tr><td valign='top'><img src='example-00420.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'>31</td></tr></table>
 
 
@@ -230,10 +230,10 @@ Returns the input's y location.
 
 ## Examples
 
-<table><tr><th>@1</th><th>aktive query y 	@1</th></tr>
+<table><tr><th>@1</th><th>aktive query y @1</th></tr>
 <tr><td valign='top'><img src='example-00422.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'>0</td></tr></table>
 
-<table><tr><th>@1</th><th>aktive query y 	@1</th></tr>
+<table><tr><th>@1</th><th>aktive query y @1</th></tr>
 <tr><td valign='top'><img src='example-00424.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'>0</td></tr></table>
 
 
@@ -247,10 +247,10 @@ Returns the input's maximum y location.
 
 ## Examples
 
-<table><tr><th>@1</th><th>aktive query ymax 	@1</th></tr>
+<table><tr><th>@1</th><th>aktive query ymax @1</th></tr>
 <tr><td valign='top'><img src='example-00426.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'>31</td></tr></table>
 
-<table><tr><th>@1</th><th>aktive query ymax 	@1</th></tr>
+<table><tr><th>@1</th><th>aktive query ymax @1</th></tr>
 <tr><td valign='top'><img src='example-00428.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'>31</td></tr></table>
 
 
