@@ -149,6 +149,7 @@ import transformer/structure/split.tcl
 import transformer/structure/swap.tcl
 import transformer/structure/take.tcl
 import transformer/structure/transpose.tcl
+import transformer/structure/warp.tcl
 
 import transformer/structure/embed/bg.tcl
 import transformer/structure/embed/black.tcl
