@@ -174,6 +174,8 @@
   - [bernsen &mdash; image threshold](transform_threshold_generate.md#image_threshold_bernsen)
   - [bernsen &mdash; image threshold global](accessor_threshold_generate.md#image_threshold_global_bernsen)
   - [bg &mdash; op embed](transform_structure.md#op_embed_bg)
+  - [bicubic &mdash; op warp](transform_structure_warp.md#op_warp_bicubic)
+  - [bilinear &mdash; op warp](transform_structure_warp.md#op_warp_bilinear)
   - [black &mdash; op embed](transform_structure.md#op_embed_black)
   - [black &mdash; op embed band](transform_structure.md#op_embed_band_black)
   - [black &mdash; op morph tophat](transform_morphology.md#op_morph_tophat_black)
@@ -838,6 +840,7 @@
 
   - [labeled &mdash; op connected-components](transform_morphology.md#op_connected_components_labeled)
   - [lanczos &mdash; image kernel](generator_virtual.md#image_kernel_lanczos)
+  - [lanczos &mdash; op warp](transform_structure_warp.md#op_warp_lanczos)
   - [laplace &mdash; 4 image kernel](generator_virtual.md#image_kernel_laplace_4)
   - [laplace &mdash; 8 image kernel](generator_virtual.md#image_kernel_laplace_8)
   - [laplace &mdash; X image kernel](generator_virtual.md#image_kernel_laplace_X)
@@ -1102,6 +1105,7 @@
   - [nand &mdash; op math](transform_math_binary_logical.md#op_math_nand)
   - [ne &mdash; op math](transform_math_binary.md#op_math_ne)
   - [ne &mdash; op math1](transform_math_unary.md#op_math1_ne)
+  - [near-neighbour &mdash; op warp](transform_structure_warp.md#op_warp_near_neighbour)
   - [neg &mdash; op cmath](transform_math_complex_unary.md#op_cmath_neg)
   - [neg &mdash; op math1](transform_math_unary.md#op_math1_neg)
   - [neg-shift &mdash; op math1](transform_math_unary.md#op_math1_neg_shift)
@@ -1519,6 +1523,10 @@
   - [op &mdash; transpose](transform_structure.md#op_transpose)
   - [op &mdash; transverse](transform_structure.md#op_transverse)
   - [op &mdash; view](transform.md#op_view)
+  - [op &mdash; warp bicubic](transform_structure_warp.md#op_warp_bicubic)
+  - [op &mdash; warp bilinear](transform_structure_warp.md#op_warp_bilinear)
+  - [op &mdash; warp lanczos](transform_structure_warp.md#op_warp_lanczos)
+  - [op &mdash; warp near-neighbour](transform_structure_warp.md#op_warp_near_neighbour)
   - [op &mdash; wiener](transform_wiener.md#op_wiener)
   - [open &mdash; op morph](transform_morphology.md#op_morph_open)
   - [or &mdash; op math](transform_math_nary_logical.md#op_math_or)
@@ -2028,7 +2036,11 @@
 
 ## <a name='_w'></a> w
 
+  - [warp &mdash; bicubic op](transform_structure_warp.md#op_warp_bicubic)
+  - [warp &mdash; bilinear op](transform_structure_warp.md#op_warp_bilinear)
+  - [warp &mdash; lanczos op](transform_structure_warp.md#op_warp_lanczos)
   - [warp &mdash; matrix](generator_virtual_warp.md#warp_matrix)
+  - [warp &mdash; near-neighbour op](transform_structure_warp.md#op_warp_near_neighbour)
   - [warp &mdash; noise gauss](generator_virtual_warp.md#warp_noise_gauss)
   - [warp &mdash; noise uniform](generator_virtual_warp.md#warp_noise_uniform)
   - [warp &mdash; swirl](generator_virtual_warp.md#warp_swirl)

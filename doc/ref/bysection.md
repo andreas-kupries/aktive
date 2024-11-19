@@ -50,5 +50,6 @@
       - [combiner](transform_sdf_combiner.md)
     - [statistics](transform_statistics.md)
     - [structure](transform_structure.md)
+      - [warp](transform_structure_warp.md)
     - [wiener](transform_wiener.md)
 

@@ -584,6 +584,10 @@
  - [aktive op transpose](transform_structure.md#op_transpose)
  - [aktive op transverse](transform_structure.md#op_transverse)
  - [aktive op view](transform.md#op_view)
+ - [aktive op warp bicubic](transform_structure_warp.md#op_warp_bicubic)
+ - [aktive op warp bilinear](transform_structure_warp.md#op_warp_bilinear)
+ - [aktive op warp lanczos](transform_structure_warp.md#op_warp_lanczos)
+ - [aktive op warp near-neighbour](transform_structure_warp.md#op_warp_near_neighbour)
  - [aktive op wiener](transform_wiener.md#op_wiener)
 
 ## <a name='_p'></a> p
