@@ -93,6 +93,12 @@ extern aktive_context aktive_region_context    (aktive_region region);
 extern aktive_block*  aktive_region_fetch_area (aktive_region region, aktive_rectangle* request);
 extern void           aktive_region_export     (aktive_region region, aktive_block* dst);
 
+// core support for generic warping. interpolated fetch of pixels.
+extern void aktive_region_fetch_interpolated (aktive_region        region,
+					      aktive_interpolator* interpolator,
+					      aktive_uint          depth,
+					      double*              src,
+					      double*              dst);
 /*
  * - - -- --- ----- -------- -------------
  */
