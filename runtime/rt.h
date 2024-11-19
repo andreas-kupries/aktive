@@ -10,6 +10,7 @@
 #include <geometry.h>
 #include <geo_util.h>
 #include <blit.h>
+#include <interpolate.h>
 #include <region.h>
 #include <image.h>
 #include <writer.h>
