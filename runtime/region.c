@@ -334,6 +334,50 @@ aktive_region_fetch_area (aktive_region region, aktive_rectangle* request)
  * - - -- --- ----- -------- -------------
  */
 
+extern void
+aktive_region_fetch_interpolated (aktive_region        region,
+				  aktive_interpolator* interpolator,
+				  aktive_uint          depth,
+				  double*              src,
+				  double*              dst)
+{
+    TRACE_FUNC("(region %p, ispec %p, depth %ud, src %p, dst %p)",
+	       region, interpolator, depth, src, dst);
+
+    // Phases:
+    // 1. Compute the rectangle (window) to fetch from the input from which we
+    //    can interpolate the result pixel
+    // 2. Fetch the associated region
+    // 3. Run the interpolation. This copies the resulting pixel data to the destination.
+
+    // 1. Compute window
+    // 1a. desired pixel
+    double xf = src[0];
+    double yf = src[1];
+
+    // 1b. window location, and size, around the desired pixel
+    int sz     = interpolator->size;
+    int offset = interpolator->offset;
+    if (offset < 0) { offset = sz/2 - 1; }
+
+    int x = ((int) xf) - offset;
+    int y = ((int) yf) - offset;
+
+    // 1c. assemble ...
+    aktive_rectangle_def (request, x, y, sz, sz);
+
+    // 2. fetch
+    aktive_block* window = aktive_region_fetch_area (region, &request);
+
+    // 3. interpolate
+    interpolator->run (window, xf - x, yf - y, dst, depth);
+    TRACE_RETURN_VOID;
+}
+
+/*
+ * - - -- --- ----- -------- -------------
+ */
+
 /*
  * = = == === ===== ======== ============= =====================
  * Local Variables:
