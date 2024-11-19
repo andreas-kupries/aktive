@@ -1,6 +1,6 @@
 ## -*- mode: tcl ; fill-column: 90 -*-
 # # ## ### ##### ######## ############# #####################
-## Generators -- Virtual Image - Pixels proclaim their origin location
+## Generators -- Virtual Image - Origin map from projective transforms.
 
 operator warp::matrix {
     section generator virtual warp
@@ -14,10 +14,11 @@ operator warp::matrix {
 	@1 width 5 height 5        | -matrix
     }
 
-    note Returns the warp map for the general transformation specified \
-	by the 3x3x1 input matrix.
+    note Returns the origin map for the projective transformation \
+	specified by the 3x3x1 matrix (`src`) applied to an image \
+	of the given geometry and location.
 
-    note __Attention__. As a warp map declares origin positions for output \
+    note __Attention__. As a origin map declares origin positions for output \
 	pixels the matrix has to specify a __backward transformation__.
 
     # TODO :: look into extended MD support - bullet list would be nice here.
@@ -43,7 +44,7 @@ operator warp::matrix {
 	and backward transformations.
 
     note The result is designed to be usable with the \
-	"<!xref: aktive op warp>" operation.
+	"<!xref: aktive op warp bicubic>" operation and its relatives.
 
     note At the technical level the result is a 2-band image \
 	where each pixel declares its origin position.
