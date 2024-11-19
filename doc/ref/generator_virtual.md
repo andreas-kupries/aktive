@@ -20,6 +20,7 @@
 
  - [generator virtual drawing](generator_virtual_drawing.md) ↘
  - [generator virtual sdf](generator_virtual_sdf.md) ↘
+ - [generator virtual warp](generator_virtual_warp.md) ↘
 
 ### Operators
 
@@ -349,7 +350,7 @@ Depth is fixed at 1.
 ## Examples
 
 <table><tr><th>aktive image from matrix width 16 height 16 values 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0</th></tr>
-<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00031.gif' alt='aktive image from matrix width 16 height 16 values 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 ' style='border:4px solid gold'></td></tr></table></td></tr></table>
+<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00031.gif' alt='aktive image from matrix width 16 height 16 values 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0' style='border:4px solid gold'></td></tr></table></td></tr></table>
 
 
 ---
@@ -397,7 +398,7 @@ Pixel value is fixed at 1.0
 ## Examples
 
 <table><tr><th>aktive image from sparse deltas width 7 deltas 0 20 5 15</th></tr>
-<tr><td valign='top'><table><tr><td valign='top'><img src='example-00033.gif' alt='aktive image from sparse deltas width 7 deltas 0 20 5 15 ' style='border:4px solid gold'></td><td valign='top'>times 8</td><td valign='top'><img src='example-00034.gif' alt='aktive image from sparse deltas width 7 deltas 0 20 5 15 ' style='border:4px solid gold'></td></tr></table></td></tr></table>
+<tr><td valign='top'><table><tr><td valign='top'><img src='example-00033.gif' alt='aktive image from sparse deltas width 7 deltas 0 20 5 15' style='border:4px solid gold'></td><td valign='top'>times 8</td><td valign='top'><img src='example-00034.gif' alt='aktive image from sparse deltas width 7 deltas 0 20 5 15' style='border:4px solid gold'></td></tr></table></td></tr></table>
 
 
 ---
@@ -424,7 +425,7 @@ Pixel value is fixed at 1.0
 ## Examples
 
 <table><tr><th>aktive image from sparse points coords {0 0} {4 3} {5 5} {6 2}</th></tr>
-<tr><td valign='top'><table><tr><td valign='top'><img src='example-00035.gif' alt='aktive image from sparse points coords {0 0} {4 3} {5 5} {6 2} ' style='border:4px solid gold'></td><td valign='top'>times 8</td><td valign='top'><img src='example-00036.gif' alt='aktive image from sparse points coords {0 0} {4 3} {5 5} {6 2} ' style='border:4px solid gold'></td></tr></table></td></tr></table>
+<tr><td valign='top'><table><tr><td valign='top'><img src='example-00035.gif' alt='aktive image from sparse points coords {0 0} {4 3} {5 5} {6 2}' style='border:4px solid gold'></td><td valign='top'>times 8</td><td valign='top'><img src='example-00036.gif' alt='aktive image from sparse points coords {0 0} {4 3} {5 5} {6 2}' style='border:4px solid gold'></td></tr></table></td></tr></table>
 
 
 ---
@@ -452,7 +453,7 @@ The image depth is fixed at 1, i.e. the result is single-band.
 ## Examples
 
 <table><tr><th>aktive image from sparse ranges ranges {1 24 30 1} {2 23 31 1} {3 22 32 1} {4 22 24 0.75} {4 30 32 0.75} {5 22 23 0.75} {5 31 32 0.75} {6 23 24 0.5} {6 30 31 0.5} {7 24 25 0.5} {7 29 30 0.5}</th></tr>
-<tr><td valign='top'><table><tr><td valign='top'><img src='example-00037.gif' alt='aktive image from sparse ranges ranges {1 24 30 1} {2 23 31 1} {3 22 32 1} {4 22 24 0.75} {4 30 32 0.75} {5 22 23 0.75} {5 31 32 0.75} {6 23 24 0.5} {6 30 31 0.5} {7 24 25 0.5} {7 29 30 0.5} ' style='border:4px solid gold'></td><td valign='top'>times 8</td><td valign='top'><img src='example-00038.gif' alt='aktive image from sparse ranges ranges {1 24 30 1} {2 23 31 1} {3 22 32 1} {4 22 24 0.75} {4 30 32 0.75} {5 22 23 0.75} {5 31 32 0.75} {6 23 24 0.5} {6 30 31 0.5} {7 24 25 0.5} {7 29 30 0.5} ' style='border:4px solid gold'></td></tr></table></td></tr></table>
+<tr><td valign='top'><table><tr><td valign='top'><img src='example-00037.gif' alt='aktive image from sparse ranges ranges {1 24 30 1} {2 23 31 1} {3 22 32 1} {4 22 24 0.75} {4 30 32 0.75} {5 22 23 0.75} {5 31 32 0.75} {6 23 24 0.5} {6 30 31 0.5} {7 24 25 0.5} {7 29 30 0.5}' style='border:4px solid gold'></td><td valign='top'>times 8</td><td valign='top'><img src='example-00038.gif' alt='aktive image from sparse ranges ranges {1 24 30 1} {2 23 31 1} {3 22 32 1} {4 22 24 0.75} {4 30 32 0.75} {5 22 23 0.75} {5 31 32 0.75} {6 23 24 0.5} {6 30 31 0.5} {7 24 25 0.5} {7 29 30 0.5}' style='border:4px solid gold'></td></tr></table></td></tr></table>
 
 
 ---
@@ -496,7 +497,7 @@ Returns image containing a linear gradient through all cells.
 ## Examples
 
 <table><tr><th>aktive image gradient width 256 height   1 depth 1 first 0 last 1</th></tr>
-<tr><td valign='top'><table><tr><td valign='top'>height-times 32</td><td valign='top'><img src='example-00041.gif' alt='aktive image gradient width 256 height   1 depth 1 first 0 last 1 ' style='border:4px solid gold'></td></tr></table></td></tr></table>
+<tr><td valign='top'><table><tr><td valign='top'>height-times 32</td><td valign='top'><img src='example-00041.gif' alt='aktive image gradient width 256 height   1 depth 1 first 0 last 1' style='border:4px solid gold'></td></tr></table></td></tr></table>
 
 <table><tr><th>aktive image gradient width 128 height 128 depth 1 first 0 last 1</th></tr>
 <tr><td valign='top'><img src='example-00042.gif' alt='aktive image gradient width 128 height 128 depth 1 first 0 last 1' style='border:4px solid gold'></td></tr></table>
@@ -570,7 +571,9 @@ Returns square single-band image containing a horizontal bar. The image has size
 
 Syntax: __aktive image indexed__  (param value)...
 
-Returns 2-band image where each pixel declares its own position
+Returns a 2-band image where each pixel declares its own position
+
+__Note__ that while the result is usable as a warp map for the <!xref aktive op warp map> operation, it will not do anything, as it represents the identity warping.
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -593,7 +596,7 @@ Returns convolution kernel for embossing effect
 
 ## Examples
 
-<table><tr><th>aktive image kernel emboss</th></tr>
+<table><tr><th>aktive image kernel emboss </th></tr>
 <tr><td valign='top'><table><tr><td>2</td><td>0</td><td>0</td></tr><tr><td>0</td><td>-1</td><td>0</td></tr><tr><td>0</td><td>0</td><td>-1</td></tr></table></td></tr></table>
 
 
@@ -607,7 +610,7 @@ Returns convolution kernel for gauss3ian blur effect
 
 ## Examples
 
-<table><tr><th>aktive image kernel gauss3 x</th></tr>
+<table><tr><th>aktive image kernel gauss3 x </th></tr>
 <tr><td valign='top'><table><tr><td>0.2500</td><td>0.5000</td><td>0.2500</td></tr></table></td></tr></table>
 
 
@@ -621,7 +624,7 @@ Returns convolution kernel for gauss3ian blur effect
 
 ## Examples
 
-<table><tr><th>aktive image kernel gauss3 xy</th></tr>
+<table><tr><th>aktive image kernel gauss3 xy </th></tr>
 <tr><td valign='top'><table><tr><td>0.0625</td><td>0.1250</td><td>0.0625</td></tr><tr><td>0.1250</td><td>0.2500</td><td>0.1250</td></tr><tr><td>0.0625</td><td>0.1250</td><td>0.0625</td></tr></table></td></tr></table>
 
 
@@ -635,7 +638,7 @@ Returns convolution kernel for gauss3ian blur effect
 
 ## Examples
 
-<table><tr><th>aktive image kernel gauss3 y</th></tr>
+<table><tr><th>aktive image kernel gauss3 y </th></tr>
 <tr><td valign='top'><table><tr><td>0.2500</td></tr><tr><td>0.5000</td></tr><tr><td>0.2500</td></tr></table></td></tr></table>
 
 
@@ -649,7 +652,7 @@ Returns convolution kernel for gauss5ian blur effect
 
 ## Examples
 
-<table><tr><th>aktive image kernel gauss5 x</th></tr>
+<table><tr><th>aktive image kernel gauss5 x </th></tr>
 <tr><td valign='top'><table><tr><td>0.0625</td><td>0.2500</td><td>0.3750</td><td>0.2500</td><td>0.0625</td></tr></table></td></tr></table>
 
 
@@ -663,7 +666,7 @@ Returns convolution kernel for gauss5ian blur effect
 
 ## Examples
 
-<table><tr><th>aktive image kernel gauss5 y</th></tr>
+<table><tr><th>aktive image kernel gauss5 y </th></tr>
 <tr><td valign='top'><table><tr><td>0.0625</td></tr><tr><td>0.2500</td></tr><tr><td>0.3750</td></tr><tr><td>0.2500</td></tr><tr><td>0.0625</td></tr></table></td></tr></table>
 
 
@@ -677,7 +680,7 @@ Returns convolution kernel for gauss7ian blur effect
 
 ## Examples
 
-<table><tr><th>aktive image kernel gauss7 x</th></tr>
+<table><tr><th>aktive image kernel gauss7 x </th></tr>
 <tr><td valign='top'><table><tr><td>0.0156</td><td>0.0938</td><td>0.2344</td><td>0.3125</td><td>0.2344</td><td>0.0938</td><td>0.0156</td></tr></table></td></tr></table>
 
 
@@ -691,7 +694,7 @@ Returns convolution kernel for gauss7ian blur effect
 
 ## Examples
 
-<table><tr><th>aktive image kernel gauss7 y</th></tr>
+<table><tr><th>aktive image kernel gauss7 y </th></tr>
 <tr><td valign='top'><table><tr><td>0.0156</td></tr><tr><td>0.0938</td></tr><tr><td>0.2344</td></tr><tr><td>0.3125</td></tr><tr><td>0.2344</td></tr><tr><td>0.0938</td></tr><tr><td>0.0156</td></tr></table></td></tr></table>
 
 
@@ -705,7 +708,7 @@ Returns convolution kernel for gauss9ian blur effect
 
 ## Examples
 
-<table><tr><th>aktive image kernel gauss9 x</th></tr>
+<table><tr><th>aktive image kernel gauss9 x </th></tr>
 <tr><td valign='top'><table><tr><td>0.0078</td><td>0.0625</td><td>0.2188</td><td>0.4375</td><td>0.5469</td><td>0.4375</td><td>0.2188</td><td>0.0625</td><td>0.0078</td></tr></table></td></tr></table>
 
 
@@ -719,7 +722,7 @@ Returns convolution kernel for gauss9ian blur effect
 
 ## Examples
 
-<table><tr><th>aktive image kernel gauss9 y</th></tr>
+<table><tr><th>aktive image kernel gauss9 y </th></tr>
 <tr><td valign='top'><table><tr><td>0.0078</td></tr><tr><td>0.0625</td></tr><tr><td>0.2188</td></tr><tr><td>0.4375</td></tr><tr><td>0.5469</td></tr><tr><td>0.4375</td></tr><tr><td>0.2188</td></tr><tr><td>0.0625</td></tr><tr><td>0.0078</td></tr></table></td></tr></table>
 
 
@@ -759,7 +762,7 @@ Returns convolution kernel for kirsch edge detection
 
 ## Examples
 
-<table><tr><th>aktive image kernel kirsch md</th></tr>
+<table><tr><th>aktive image kernel kirsch md </th></tr>
 <tr><td valign='top'><table><tr><td>-3</td><td>5</td><td>5</td></tr><tr><td>-3</td><td>0</td><td>5</td></tr><tr><td>-3</td><td>-3</td><td>-3</td></tr></table></td></tr></table>
 
 
@@ -773,7 +776,7 @@ Returns convolution kernel for kirsch edge detection
 
 ## Examples
 
-<table><tr><th>aktive image kernel kirsch sd</th></tr>
+<table><tr><th>aktive image kernel kirsch sd </th></tr>
 <tr><td valign='top'><table><tr><td>5</td><td>5</td><td>-3</td></tr><tr><td>5</td><td>0</td><td>-3</td></tr><tr><td>-3</td><td>-3</td><td>-3</td></tr></table></td></tr></table>
 
 
@@ -787,7 +790,7 @@ Returns convolution kernel for kirsch edge detection
 
 ## Examples
 
-<table><tr><th>aktive image kernel kirsch x</th></tr>
+<table><tr><th>aktive image kernel kirsch x </th></tr>
 <tr><td valign='top'><table><tr><td>5</td><td>-3</td><td>-3</td></tr><tr><td>5</td><td>0</td><td>-3</td></tr><tr><td>5</td><td>-3</td><td>-3</td></tr></table></td></tr></table>
 
 
@@ -801,7 +804,7 @@ Returns convolution kernel for kirsch edge detection
 
 ## Examples
 
-<table><tr><th>aktive image kernel kirsch y</th></tr>
+<table><tr><th>aktive image kernel kirsch y </th></tr>
 <tr><td valign='top'><table><tr><td>5</td><td>5</td><td>5</td></tr><tr><td>-3</td><td>0</td><td>-3</td></tr><tr><td>-3</td><td>-3</td><td>-3</td></tr></table></td></tr></table>
 
 
@@ -821,7 +824,7 @@ For more about the math see https://en.wikipedia.org/wiki/Lanczos_resampling#Lan
 
 ## Examples
 
-<table><tr><th>aktive image kernel lanczos</th></tr>
+<table><tr><th>aktive image kernel lanczos </th></tr>
 <tr><td valign='top'><table><tr><td>-0.0000</td><td>0.0000</td><td>1.0000</td><td>0.0000</td><td>-0.0000</td></tr></table></td></tr></table>
 
 <table><tr><th>aktive image kernel lanczos order 2</th></tr>
@@ -841,7 +844,7 @@ Returns convolution kernel for laplacian edge detection
 
 ## Examples
 
-<table><tr><th>aktive image kernel laplace 4</th></tr>
+<table><tr><th>aktive image kernel laplace 4 </th></tr>
 <tr><td valign='top'><table><tr><td>0</td><td>-1</td><td>0</td></tr><tr><td>-1</td><td>4</td><td>-1</td></tr><tr><td>0</td><td>-1</td><td>0</td></tr></table></td></tr></table>
 
 
@@ -855,7 +858,7 @@ Returns convolution kernel for laplacian edge detection
 
 ## Examples
 
-<table><tr><th>aktive image kernel laplace 8</th></tr>
+<table><tr><th>aktive image kernel laplace 8 </th></tr>
 <tr><td valign='top'><table><tr><td>-1</td><td>-1</td><td>-1</td></tr><tr><td>-1</td><td>8</td><td>-1</td></tr><tr><td>-1</td><td>-1</td><td>-1</td></tr></table></td></tr></table>
 
 
@@ -869,7 +872,7 @@ Returns convolution kernel for laplacian edge detection
 
 ## Examples
 
-<table><tr><th>aktive image kernel laplace X</th></tr>
+<table><tr><th>aktive image kernel laplace X </th></tr>
 <tr><td valign='top'><table><tr><td>1</td><td>-2</td><td>1</td></tr><tr><td>-2</td><td>4</td><td>-2</td></tr><tr><td>1</td><td>-2</td><td>1</td></tr></table></td></tr></table>
 
 
@@ -883,7 +886,7 @@ Returns convolution kernel for prewitt edge detection
 
 ## Examples
 
-<table><tr><th>aktive image kernel prewitt md</th></tr>
+<table><tr><th>aktive image kernel prewitt md </th></tr>
 <tr><td valign='top'><table><tr><td>0</td><td>1</td><td>1</td></tr><tr><td>-1</td><td>0</td><td>1</td></tr><tr><td>-1</td><td>-1</td><td>0</td></tr></table></td></tr></table>
 
 
@@ -897,7 +900,7 @@ Returns convolution kernel for prewitt edge detection
 
 ## Examples
 
-<table><tr><th>aktive image kernel prewitt sd</th></tr>
+<table><tr><th>aktive image kernel prewitt sd </th></tr>
 <tr><td valign='top'><table><tr><td>-1</td><td>-1</td><td>0</td></tr><tr><td>-1</td><td>0</td><td>1</td></tr><tr><td>0</td><td>1</td><td>1</td></tr></table></td></tr></table>
 
 
@@ -911,7 +914,7 @@ Returns convolution kernel for prewitt edge detection
 
 ## Examples
 
-<table><tr><th>aktive image kernel prewitt x</th></tr>
+<table><tr><th>aktive image kernel prewitt x </th></tr>
 <tr><td valign='top'><table><tr><td>-1</td><td>0</td><td>1</td></tr><tr><td>-1</td><td>0</td><td>1</td></tr><tr><td>-1</td><td>0</td><td>1</td></tr></table></td></tr></table>
 
 
@@ -925,7 +928,7 @@ Returns convolution kernel for prewitt edge detection
 
 ## Examples
 
-<table><tr><th>aktive image kernel prewitt y</th></tr>
+<table><tr><th>aktive image kernel prewitt y </th></tr>
 <tr><td valign='top'><table><tr><td>-1</td><td>-1</td><td>-1</td></tr><tr><td>0</td><td>0</td><td>0</td></tr><tr><td>1</td><td>1</td><td>1</td></tr></table></td></tr></table>
 
 
@@ -939,7 +942,7 @@ Returns convolution kernel for roberts cross edge detection
 
 ## Examples
 
-<table><tr><th>aktive image kernel roberts x</th></tr>
+<table><tr><th>aktive image kernel roberts x </th></tr>
 <tr><td valign='top'><table><tr><td>0</td><td>-1</td><td>0</td></tr><tr><td>1</td><td>0</td><td>0</td></tr><tr><td>0</td><td>0</td><td>0</td></tr></table></td></tr></table>
 
 
@@ -953,7 +956,7 @@ Returns convolution kernel for roberts cross edge detection
 
 ## Examples
 
-<table><tr><th>aktive image kernel roberts y</th></tr>
+<table><tr><th>aktive image kernel roberts y </th></tr>
 <tr><td valign='top'><table><tr><td>-1</td><td>0</td><td>0</td></tr><tr><td>0</td><td>1</td><td>0</td></tr><tr><td>0</td><td>0</td><td>0</td></tr></table></td></tr></table>
 
 
@@ -967,7 +970,7 @@ Returns convolution kernel for scharr edge detection
 
 ## Examples
 
-<table><tr><th>aktive image kernel scharr x</th></tr>
+<table><tr><th>aktive image kernel scharr x </th></tr>
 <tr><td valign='top'><table><tr><td>-3</td><td>0</td><td>3</td></tr><tr><td>-10</td><td>0</td><td>10</td></tr><tr><td>-3</td><td>0</td><td>3</td></tr></table></td></tr></table>
 
 
@@ -981,7 +984,7 @@ Returns convolution kernel for scharr edge detection
 
 ## Examples
 
-<table><tr><th>aktive image kernel scharr y</th></tr>
+<table><tr><th>aktive image kernel scharr y </th></tr>
 <tr><td valign='top'><table><tr><td>-3</td><td>-10</td><td>-3</td></tr><tr><td>0</td><td>0</td><td>0</td></tr><tr><td>3</td><td>10</td><td>3</td></tr></table></td></tr></table>
 
 
@@ -995,7 +998,7 @@ Returns convolution kernel for sharpening effect
 
 ## Examples
 
-<table><tr><th>aktive image kernel sharp 4</th></tr>
+<table><tr><th>aktive image kernel sharp 4 </th></tr>
 <tr><td valign='top'><table><tr><td>0</td><td>-1</td><td>0</td></tr><tr><td>-1</td><td>5</td><td>-1</td></tr><tr><td>0</td><td>-1</td><td>0</td></tr></table></td></tr></table>
 
 
@@ -1009,7 +1012,7 @@ Returns convolution kernel for sharpening effect
 
 ## Examples
 
-<table><tr><th>aktive image kernel sharp 8</th></tr>
+<table><tr><th>aktive image kernel sharp 8 </th></tr>
 <tr><td valign='top'><table><tr><td>-1</td><td>-1</td><td>-1</td></tr><tr><td>-1</td><td>9</td><td>-1</td></tr><tr><td>-1</td><td>-1</td><td>-1</td></tr></table></td></tr></table>
 
 
@@ -1023,7 +1026,7 @@ Returns convolution kernel for sharpening effect
 
 ## Examples
 
-<table><tr><th>aktive image kernel sharp X</th></tr>
+<table><tr><th>aktive image kernel sharp X </th></tr>
 <tr><td valign='top'><table><tr><td>1</td><td>-2</td><td>1</td></tr><tr><td>-2</td><td>5</td><td>-2</td></tr><tr><td>1</td><td>-2</td><td>1</td></tr></table></td></tr></table>
 
 
@@ -1037,7 +1040,7 @@ Returns convolution kernel for sobel edge detection
 
 ## Examples
 
-<table><tr><th>aktive image kernel sobel md</th></tr>
+<table><tr><th>aktive image kernel sobel md </th></tr>
 <tr><td valign='top'><table><tr><td>0</td><td>-1</td><td>-1</td></tr><tr><td>2</td><td>0</td><td>-2</td></tr><tr><td>1</td><td>1</td><td>0</td></tr></table></td></tr></table>
 
 
@@ -1051,7 +1054,7 @@ Returns convolution kernel for sobel edge detection
 
 ## Examples
 
-<table><tr><th>aktive image kernel sobel sd</th></tr>
+<table><tr><th>aktive image kernel sobel sd </th></tr>
 <tr><td valign='top'><table><tr><td>1</td><td>1</td><td>0</td></tr><tr><td>2</td><td>0</td><td>-2</td></tr><tr><td>0</td><td>-1</td><td>-1</td></tr></table></td></tr></table>
 
 
@@ -1065,7 +1068,7 @@ Returns convolution kernel for sobel edge detection
 
 ## Examples
 
-<table><tr><th>aktive image kernel sobel x</th></tr>
+<table><tr><th>aktive image kernel sobel x </th></tr>
 <tr><td valign='top'><table><tr><td>1</td><td>0</td><td>-1</td></tr><tr><td>2</td><td>0</td><td>-2</td></tr><tr><td>1</td><td>0</td><td>-1</td></tr></table></td></tr></table>
 
 
@@ -1079,7 +1082,7 @@ Returns convolution kernel for sobel edge detection
 
 ## Examples
 
-<table><tr><th>aktive image kernel sobel y</th></tr>
+<table><tr><th>aktive image kernel sobel y </th></tr>
 <tr><td valign='top'><table><tr><td>1</td><td>2</td><td>1</td></tr><tr><td>0</td><td>0</td><td>0</td></tr><tr><td>-1</td><td>-2</td><td>-1</td></tr></table></td></tr></table>
 
 
@@ -1097,7 +1100,7 @@ Returns image where pixels are set to random values drawn from a gaussian distri
 |depth|uint||Depth of the returned image|
 |mean|double|0|Mean of the desired gauss distribution.|
 |sigma|double|1|Sigma of the desired gauss distribution.|
-|seed|uint|[expr {int(4294967296*rand())}]|Randomizer seed. Needed only to force fixed results, or external random numbers.|
+|seed|uint|[expr {int(4294967296*rand())}]|Randomizer seed. Needed only to force fixed results.|
 
 ## Examples
 
@@ -1127,7 +1130,7 @@ The value of set pixels is fixed at 1.0
 |height|uint||Height of the returned image|
 |depth|uint||Depth of the returned image|
 |threshold|double|0.01|Noise threshold within [0..1].|
-|seed|uint|[expr {int(4294967296*rand())}]|Randomizer seed. Needed only to force fixed results, or external random numbers.|
+|seed|uint|[expr {int(4294967296*rand())}]|Randomizer seed. Needed only to force fixed results.|
 
 ## Examples
 
@@ -1150,7 +1153,7 @@ Returns image where pixels are set to random values drawn from a uniform distrib
 |width|uint||Width of the returned image|
 |height|uint||Height of the returned image|
 |depth|uint||Depth of the returned image|
-|seed|uint|[expr {int(4294967296*rand())}]|Randomizer seed. Needed only to force fixed results, or external random numbers.|
+|seed|uint|[expr {int(4294967296*rand())}]|Randomizer seed. Needed only to force fixed results.|
 
 ## Examples
 
@@ -1171,7 +1174,7 @@ Returns a 128x128 image containing a color palette.
 
 ## Examples
 
-<table><tr><th>aktive image palette color</th></tr>
+<table><tr><th>aktive image palette color </th></tr>
 <tr><td valign='top'><img src='example-00093.gif' alt='aktive image palette color ' style='border:4px solid gold'></td></tr></table>
 
 
@@ -1185,7 +1188,7 @@ Returns a 128x128 image containing a gray palette.
 
 ## Examples
 
-<table><tr><th>aktive image palette grey</th></tr>
+<table><tr><th>aktive image palette grey </th></tr>
 <tr><td valign='top'><img src='example-00094.gif' alt='aktive image palette grey ' style='border:4px solid gold'></td></tr></table>
 
 

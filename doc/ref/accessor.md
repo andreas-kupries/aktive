@@ -109,10 +109,10 @@ For an image without parameters the result is the empty dictionary.
 
 ## Examples
 
-<table><tr><th>@1</th><th>aktive query params 	@1</th></tr>
+<table><tr><th>@1</th><th>aktive query params @1</th></tr>
 <tr><td valign='top'><img src='example-00382.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'>width 32 height 32</td></tr></table>
 
-<table><tr><th>@1</th><th>aktive query params 	@1</th></tr>
+<table><tr><th>@1</th><th>aktive query params @1</th></tr>
 <tr><td valign='top'><img src='example-00384.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'>width 32 height 32 depth 1 first 0.0 last 1.0</td></tr></table>
 
 
@@ -128,10 +128,10 @@ This includes type, geometry, and parameters, if any. The inputs however are exc
 
 ## Examples
 
-<table><tr><th>@1</th><th>aktive query setup 	@1</th></tr>
+<table><tr><th>@1</th><th>aktive query setup @1</th></tr>
 <tr><td valign='top'><img src='example-00394.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'>type image::zone domain {x 0 y 0 width 32 height 32 depth 1} config {width 32 height 32}</td></tr></table>
 
-<table><tr><th>@1</th><th>aktive query setup 	@1</th></tr>
+<table><tr><th>@1</th><th>aktive query setup @1</th></tr>
 <tr><td valign='top'><img src='example-00396.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'>type image::gradient domain {x 0 y 0 width 32 height 32 depth 1} config {width 32 height 32 depth 1 first 0.0 last 1.0}</td></tr></table>
 
 
@@ -145,10 +145,10 @@ Returns the input's type.
 
 ## Examples
 
-<table><tr><th>@1</th><th>aktive query type 	@1</th></tr>
+<table><tr><th>@1</th><th>aktive query type @1</th></tr>
 <tr><td valign='top'><img src='example-00402.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'>image::zone</td></tr></table>
 
-<table><tr><th>@1</th><th>aktive query type 	@1</th></tr>
+<table><tr><th>@1</th><th>aktive query type @1</th></tr>
 <tr><td valign='top'><img src='example-00404.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'>image::gradient</td></tr></table>
 
 

@@ -70,6 +70,7 @@
   - [add &mdash; op cmath](transform_math_complex_binary.md#op_cmath_add)
   - [add &mdash; op math](transform_math_nary.md#op_math_add)
   - [add &mdash; point](miscellaneous_geometry.md#point_add)
+  - [affine &mdash; transform](generator_virtual_warp.md#transform_affine)
   - [aktive &mdash; 2chan format as](sink_writer.md#format_as_aktive_2chan)
   - [aktive &mdash; 2file format as](sink_writer.md#format_as_aktive_2file)
   - [aktive &mdash; 2string format as](sink_writer.md#format_as_aktive_2string)
@@ -344,6 +345,8 @@
   - [compare &mdash; mse op](sink_statistics.md#op_compare_mse)
   - [compare &mdash; rmse op](sink_statistics.md#op_compare_rmse)
   - [compose &mdash; op lut](transform_lookup_indexed_compose.md#op_lut_compose)
+  - [compose &mdash; transform](generator_virtual_warp.md#transform_compose)
+  - [compose-core &mdash; transform](generator_virtual_warp.md#transform_compose_core)
   - [compress &mdash; op math1 gamma](transform_math_unary.md#op_math1_gamma_compress)
   - [conjugate &mdash; op cmath](transform_math_complex_unary.md#op_cmath_conjugate)
   - [connected-components &mdash; get op](accessor_morphology.md#op_connected_components_get)
@@ -514,6 +517,7 @@
   - [gamma &mdash; expand op math1](transform_math_unary.md#op_math1_gamma_expand)
   - [gauss &mdash; discrete image kernel](generator_virtual.md#image_kernel_gauss_discrete)
   - [gauss &mdash; image noise](generator_virtual.md#image_noise_gauss)
+  - [gauss &mdash; warp noise](generator_virtual_warp.md#warp_noise_gauss)
   - [gauss3 &mdash; x image kernel](generator_virtual.md#image_kernel_gauss3_x)
   - [gauss3 &mdash; xy image kernel](generator_virtual.md#image_kernel_gauss3_xy)
   - [gauss3 &mdash; y image kernel](generator_virtual.md#image_kernel_gauss3_y)
@@ -625,6 +629,7 @@
 ## <a name='_i'></a> i
 
   - [id &mdash; query](accessor.md#query_id)
+  - [identity &mdash; transform](generator_virtual_warp.md#transform_identity)
   - [if-then-else &mdash; op](transform_structure.md#op_if_then_else)
   - [image &mdash; cbar](generator_virtual.md#image_cbar)
   - [image &mdash; checkers](generator_virtual.md#image_checkers)
@@ -765,6 +770,7 @@
   - [interpolate &mdash; y op sample](transform_structure.md#op_sample_interpolate_y)
   - [intersect &mdash; rectangle](miscellaneous_geometry.md#rectangle_intersect)
   - [invert &mdash; op math1](transform_math_unary.md#op_math1_invert)
+  - [invert &mdash; transform](generator_virtual_warp.md#transform_invert)
 
 ## <a name='_k'></a> k
 
@@ -864,6 +870,7 @@
   - [line &mdash; image draw](generator_virtual_drawing.md#image_draw_line)
   - [line &mdash; image sdf](generator_virtual_sdf.md#image_sdf_line)
   - [line &mdash; on op draw](transform_drawing.md#op_draw_line_on)
+  - [line &mdash; transform reflect](generator_virtual_warp.md#transform_reflect_line)
   - [linear &mdash; op math](transform_math.md#op_math_linear)
   - [linear &mdash; op math1](transform_math_unary.md#op_math1_linear)
   - [local &mdash; op color correct greyworld](transform_color.md#op_color_correct_greyworld_local)
@@ -996,6 +1003,7 @@
   - [math1 &mdash; tanh op](transform_math_unary.md#op_math1_tanh)
   - [math1 &mdash; wrap op](transform_math_unary.md#op_math1_wrap)
   - [matrix &mdash; image from](generator_virtual.md#image_from_matrix)
+  - [matrix &mdash; warp](generator_virtual_warp.md#warp_matrix)
   - [max &mdash; op band](transform_statistics.md#op_band_max)
   - [max &mdash; op band arg](transform_statistics.md#op_band_arg_max)
   - [max &mdash; op column](transform_statistics.md#op_column_max)
@@ -1103,8 +1111,10 @@
   - [niblack &mdash; image threshold](transform_threshold_generate.md#image_threshold_niblack)
   - [niblack &mdash; image threshold global](accessor_threshold_generate.md#image_threshold_global_niblack)
   - [noise &mdash; gauss image](generator_virtual.md#image_noise_gauss)
+  - [noise &mdash; gauss warp](generator_virtual_warp.md#warp_noise_gauss)
   - [noise &mdash; salt image](generator_virtual.md#image_noise_salt)
   - [noise &mdash; uniform image](generator_virtual.md#image_noise_uniform)
+  - [noise &mdash; uniform warp](generator_virtual_warp.md#warp_noise_uniform)
   - [nor &mdash; op math](transform_math_binary_logical.md#op_math_nor)
   - [not &mdash; op math1](transform_math_unary_logical.md#op_math1_not)
   - [not &mdash; op sdf](transform_sdf.md#op_sdf_not)
@@ -1597,9 +1607,13 @@
   - [processors](miscellaneous.md#processors)
   - [profile &mdash; op column](transform_statistics.md#op_column_profile)
   - [profile &mdash; op row](transform_statistics.md#op_row_profile)
+  - [projective &mdash; transform](generator_virtual_warp.md#transform_projective)
 
 ## <a name='_q'></a> q
 
+  - [quad &mdash; quad transform](generator_virtual_warp.md#transform_quad_quad)
+  - [quad &mdash; transform quad](generator_virtual_warp.md#transform_quad_quad)
+  - [quad &mdash; unit transform](generator_virtual_warp.md#transform_quad_unit)
   - [query &mdash; colorspace op](accessor.md#op_query_colorspace)
   - [query &mdash; depth](accessor_geometry.md#query_depth)
   - [query &mdash; domain](accessor_geometry.md#query_domain)
@@ -1647,6 +1661,9 @@
   - [rectangle &mdash; subset](miscellaneous_geometry.md#rectangle_subset)
   - [rectangle &mdash; union](miscellaneous_geometry.md#rectangle_union)
   - [rectangle &mdash; zones](miscellaneous_geometry.md#rectangle_zones)
+  - [reflect &mdash; line transform](generator_virtual_warp.md#transform_reflect_line)
+  - [reflect &mdash; x transform](generator_virtual_warp.md#transform_reflect_x)
+  - [reflect &mdash; y transform](generator_virtual_warp.md#transform_reflect_y)
   - [remove &mdash; meta](transform_metadata.md#meta_remove)
   - [replace &mdash; meta](transform_metadata.md#meta_replace)
   - [replicate &mdash; x op sample](transform_structure.md#op_sample_replicate_x)
@@ -1664,6 +1681,7 @@
   - [rotate &mdash; ccw op](transform_structure.md#op_rotate_ccw)
   - [rotate &mdash; cw op](transform_structure.md#op_rotate_cw)
   - [rotate &mdash; half op](transform_structure.md#op_rotate_half)
+  - [rotate &mdash; transform](generator_virtual_warp.md#transform_rotate)
   - [round &mdash; op math1](transform_math_unary.md#op_math1_round)
   - [round &mdash; op sdf](transform_sdf.md#op_sdf_round)
   - [row &mdash; arg max op](transform_statistics.md#op_row_arg_max)
@@ -1709,6 +1727,7 @@
   - [sauvola &mdash; image threshold](transform_threshold_generate.md#image_threshold_sauvola)
   - [sauvola &mdash; image threshold global](accessor_threshold_generate.md#image_threshold_global_sauvola)
   - [scale &mdash; op math1](transform_math_unary.md#op_math1_scale)
+  - [scale &mdash; transform](generator_virtual_warp.md#transform_scale)
   - [scharr &mdash; x image kernel](generator_virtual.md#image_kernel_scharr_x)
   - [scharr &mdash; y image kernel](generator_virtual.md#image_kernel_scharr_y)
   - [screen &mdash; op math](transform_math_binary.md#op_math_screen)
@@ -1765,6 +1784,7 @@
   - [sharp &mdash; 8 image kernel](generator_virtual.md#image_kernel_sharp_8)
   - [sharp &mdash; X image kernel](generator_virtual.md#image_kernel_sharp_X)
   - [sharpen &mdash; effect](transform_effect.md#effect_sharpen)
+  - [shear &mdash; transform](generator_virtual_warp.md#transform_shear)
   - [shift &mdash; op math1](transform_math_unary.md#op_math1_shift)
   - [short &mdash; 2chan format as pgm](sink_writer.md#format_as_pgm_short_2chan)
   - [short &mdash; 2chan format as ppm](sink_writer.md#format_as_ppm_short_2chan)
@@ -1843,6 +1863,7 @@
   - [swap &mdash; xy op](transform_structure.md#op_swap_xy)
   - [swap &mdash; xz op](transform_structure.md#op_swap_xz)
   - [swap &mdash; yz op](transform_structure.md#op_swap_yz)
+  - [swirl &mdash; warp](generator_virtual_warp.md#warp_swirl)
 
 ## <a name='_t'></a> t
 
@@ -1957,6 +1978,22 @@
   - [tophat &mdash; black op morph](transform_morphology.md#op_morph_tophat_black)
   - [tophat &mdash; white op morph](transform_morphology.md#op_morph_tophat_white)
   - [topolar &mdash; op cmath](transform_math_complex_unary.md#op_cmath_topolar)
+  - [transform &mdash; affine](generator_virtual_warp.md#transform_affine)
+  - [transform &mdash; compose](generator_virtual_warp.md#transform_compose)
+  - [transform &mdash; compose-core](generator_virtual_warp.md#transform_compose_core)
+  - [transform &mdash; identity](generator_virtual_warp.md#transform_identity)
+  - [transform &mdash; invert](generator_virtual_warp.md#transform_invert)
+  - [transform &mdash; projective](generator_virtual_warp.md#transform_projective)
+  - [transform &mdash; quad quad](generator_virtual_warp.md#transform_quad_quad)
+  - [transform &mdash; quad unit](generator_virtual_warp.md#transform_quad_unit)
+  - [transform &mdash; reflect line](generator_virtual_warp.md#transform_reflect_line)
+  - [transform &mdash; reflect x](generator_virtual_warp.md#transform_reflect_x)
+  - [transform &mdash; reflect y](generator_virtual_warp.md#transform_reflect_y)
+  - [transform &mdash; rotate](generator_virtual_warp.md#transform_rotate)
+  - [transform &mdash; scale](generator_virtual_warp.md#transform_scale)
+  - [transform &mdash; shear](generator_virtual_warp.md#transform_shear)
+  - [transform &mdash; translate](generator_virtual_warp.md#transform_translate)
+  - [translate &mdash; transform](generator_virtual_warp.md#transform_translate)
   - [transpose &mdash; op](transform_structure.md#op_transpose)
   - [transverse &mdash; op](transform_structure.md#op_transverse)
   - [triangle &mdash; image draw](generator_virtual_drawing.md#image_draw_triangle)
@@ -1968,7 +2005,9 @@
 
   - [unfold &mdash; op geometry bands](transform_geometry.md#op_geometry_bands_unfold)
   - [uniform &mdash; image noise](generator_virtual.md#image_noise_uniform)
+  - [uniform &mdash; warp noise](generator_virtual_warp.md#warp_noise_uniform)
   - [union &mdash; rectangle](miscellaneous_geometry.md#rectangle_union)
+  - [unit &mdash; transform quad](generator_virtual_warp.md#transform_quad_unit)
   - [unset &mdash; meta](transform_metadata.md#meta_unset)
 
 ## <a name='_v'></a> v
@@ -1989,6 +2028,10 @@
 
 ## <a name='_w'></a> w
 
+  - [warp &mdash; matrix](generator_virtual_warp.md#warp_matrix)
+  - [warp &mdash; noise gauss](generator_virtual_warp.md#warp_noise_gauss)
+  - [warp &mdash; noise uniform](generator_virtual_warp.md#warp_noise_uniform)
+  - [warp &mdash; swirl](generator_virtual_warp.md#warp_swirl)
   - [white &mdash; op embed](transform_structure.md#op_embed_white)
   - [white &mdash; op morph tophat](transform_morphology.md#op_morph_tophat_white)
   - [width &mdash; query](accessor_geometry.md#query_width)
@@ -2035,6 +2078,7 @@
   - [x &mdash; op split](transform_structure.md#op_split_x)
   - [x &mdash; op take](transform_structure.md#op_take_x)
   - [x &mdash; query](accessor_geometry.md#query_x)
+  - [x &mdash; transform reflect](generator_virtual_warp.md#transform_reflect_x)
   - [x-core &mdash; op montage](composer.md#op_montage_x_core)
   - [x-rep &mdash; op montage](composer.md#op_montage_x_rep)
   - [xcross &mdash; image](generator_virtual.md#image_xcross)
@@ -2098,6 +2142,7 @@
   - [y &mdash; op split](transform_structure.md#op_split_y)
   - [y &mdash; op take](transform_structure.md#op_take_y)
   - [y &mdash; query](accessor_geometry.md#query_y)
+  - [y &mdash; transform reflect](generator_virtual_warp.md#transform_reflect_y)
   - [y-core &mdash; op montage](composer.md#op_montage_y_core)
   - [y-rep &mdash; op montage](composer.md#op_montage_y_rep)
   - [ymax &mdash; query](accessor_geometry.md#query_ymax)
