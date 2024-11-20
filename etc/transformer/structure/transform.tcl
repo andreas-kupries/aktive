@@ -19,8 +19,8 @@ operator op::transform::by {
 	@2 @1
     }
     example {
-	butterfly                    | -label assets/butterfly.ppm
-	aktive transform shear x 0.5 | -matrix -label shear x 0.5
+	butterfly                        | -label assets/butterfly.ppm
+	aktive transform shear x 20 y 10 | -matrix -label shear x 20 y 10
 	@2 @1
     }
     example {
@@ -34,7 +34,7 @@ operator op::transform::by {
 	aktive transform box @2 @1 | -text -label geometry
 	@2 @1
     }
-    # quad unit|quad
+    # quad unit
     # translate
     # reflect x|y
 

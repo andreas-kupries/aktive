@@ -266,22 +266,44 @@ operator transform::shear {
 	aktive transform compose @1 @2 | -matrix
     }
 
-    note Returns a single-band 3x3 image specifying a shearing along the axes.
+    note Returns a single-band 3x3 image specifying a shearing along the axes. \
+	When both X and Y angles are specified the result \
+	will shear X first, \
+	then shear Y.
+
+    note __Beware__ that angles at +/- 90 degrees are poles of infinity.
 
     note The result is suitable for use with "<!xref: aktive warp matrix>"
 
-    double? 0 x	Shear by this many pixels along the x-axis
-    double? 0 y	Shear by this many pixels along the y-axis
+    double? 0 x	Angle for shearing away from the x-axis. \
+	__Beware__ that +/- 90 degrees are poles of infinity.
 
-    # | XY+1 X 0 |
-    # | Y    1 0 |
-    # | 0    0 1 |
+    double? 0 y	Angle for shearing away from the y-axis. \
+	__Beware__ that +/- 90 degrees are poles of infinity.
+
     body {
-	set z [expr {1+$x*$y}]
-	BOXany \
-	    $z $x 0 \
-	    $y 1  0 \
-	    0  0  1
+	# note: atan(1)/45 is pi/180, given pi = 4*atan(1)
+	# convert angles to shear factors -> tan (angle in radians)
+	if {($x != 0) && ($y != 0)} {
+	    set m [compose [shear y $y] [shear x $x]]
+	} elseif {$x != 0} {
+	    set x [tan [* $x [/ [atan 1] 45]]]
+	    set m [BOXany \
+		       1 $x 0 \
+		       0 1  0 \
+		       0 0  1 ]
+	} elseif {$y != 0} {
+	    set y [tan [* $y [/ [atan 1] 45]]]
+	    set m [BOXany \
+		       1  0 0 \
+		       $y 1 0 \
+		       0  0 1 ]
+	} else {
+	    # no shear at all
+	    set m [identity]
+	}
+	#puts [PRINT ZZ\t[info level 0] [UNBOX _ $m]]
+	return $m
     }
 }
 

@@ -364,28 +364,30 @@ The result is suitable for use with [aktive warp matrix](generator_virtual_warp.
 
 Syntax: __aktive transform shear__  ?(param value)...?
 
-Returns a single-band 3x3 image specifying a shearing along the axes.
+Returns a single-band 3x3 image specifying a shearing along the axes. When both X and Y angles are specified the result will shear X first, then shear Y.
+
+__Beware__ that angles at +/- 90 degrees are poles of infinity.
 
 The result is suitable for use with [aktive warp matrix](generator_virtual_warp.md#warp_matrix)
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
-|x|double|0|Shear by this many pixels along the x-axis|
-|y|double|0|Shear by this many pixels along the y-axis|
+|x|double|0|Angle for shearing away from the x-axis. __Beware__ that +/- 90 degrees are poles of infinity.|
+|y|double|0|Angle for shearing away from the y-axis. __Beware__ that +/- 90 degrees are poles of infinity.|
 
 #### <a name='transform_shear__examples'></a> Examples
 
 <table><tr><th>aktive transform shear x 10</th></tr>
-<tr><td valign='top'><table><tr><td>1.0000</td><td>10.0000</td><td>0.0000</td></tr><tr><td>0.0000</td><td>1.0000</td><td>0.0000</td></tr><tr><td>0.0000</td><td>0.0000</td><td>1.0000</td></tr></table></td></tr></table>
+<tr><td valign='top'><table><tr><td>1.0000</td><td>0.1763</td><td>0.0000</td></tr><tr><td>0.0000</td><td>1.0000</td><td>0.0000</td></tr><tr><td>0.0000</td><td>0.0000</td><td>1.0000</td></tr></table></td></tr></table>
 
 <table><tr><th>aktive transform shear y 10</th></tr>
-<tr><td valign='top'><table><tr><td>1.0000</td><td>0.0000</td><td>0.0000</td></tr><tr><td>10.0000</td><td>1.0000</td><td>0.0000</td></tr><tr><td>0.0000</td><td>0.0000</td><td>1.0000</td></tr></table></td></tr></table>
+<tr><td valign='top'><table><tr><td>1.0000</td><td>0.0000</td><td>0.0000</td></tr><tr><td>0.1763</td><td>1.0000</td><td>0.0000</td></tr><tr><td>0.0000</td><td>0.0000</td><td>1.0000</td></tr></table></td></tr></table>
 
 <table><tr><th>aktive transform shear x 5 y 3</th></tr>
-<tr><td valign='top'><table><tr><td>16.0000</td><td>5.0000</td><td>0.0000</td></tr><tr><td>3.0000</td><td>1.0000</td><td>0.0000</td></tr><tr><td>0.0000</td><td>0.0000</td><td>1.0000</td></tr></table></td></tr></table>
+<tr><td valign='top'><table><tr><td>1.0000</td><td>0.0875</td><td>0.0000</td></tr><tr><td>0.0524</td><td>1.0046</td><td>0.0000</td></tr><tr><td>0.0000</td><td>0.0000</td><td>1.0000</td></tr></table></td></tr></table>
 
 <table><tr><th>@1 (shear x 5 y 3)</th><th>@2 (invert)</th><th>aktive transform compose @1 @2</th></tr>
-<tr><td valign='top'><table><tr><td>16.0000</td><td>5.0000</td><td>0.0000</td></tr><tr><td>3.0000</td><td>1.0000</td><td>0.0000</td></tr><tr><td>0.0000</td><td>0.0000</td><td>1.0000</td></tr></table></td><td valign='top'><table><tr><td>1.0000</td><td>-5.0000</td><td>0.0000</td></tr><tr><td>-3.0000</td><td>16.0000</td><td>-0.0000</td></tr><tr><td>0.0000</td><td>-0.0000</td><td>1.0000</td></tr></table></td><td valign='top'><table><tr><td>1.0000</td><td>0.0000</td><td>0.0000</td></tr><tr><td>0.0000</td><td>1.0000</td><td>0.0000</td></tr><tr><td>0.0000</td><td>0.0000</td><td>1.0000</td></tr></table></td></tr></table>
+<tr><td valign='top'><table><tr><td>1.0000</td><td>0.0875</td><td>0.0000</td></tr><tr><td>0.0524</td><td>1.0046</td><td>0.0000</td></tr><tr><td>0.0000</td><td>0.0000</td><td>1.0000</td></tr></table></td><td valign='top'><table><tr><td>1.0046</td><td>-0.0875</td><td>0.0000</td></tr><tr><td>-0.0524</td><td>1.0000</td><td>-0.0000</td></tr><tr><td>0.0000</td><td>-0.0000</td><td>1.0000</td></tr></table></td><td valign='top'><table><tr><td>1.0000</td><td>0.0000</td><td>0.0000</td></tr><tr><td>0.0000</td><td>1.0000</td><td>0.0000</td></tr><tr><td>0.0000</td><td>0.0000</td><td>1.0000</td></tr></table></td></tr></table>
 
 
 ---
@@ -443,7 +445,7 @@ This operator is __strict__ in the 1st input. The projective matrix is materiali
 <tr><td valign='top'><table><tr><td>1.0000</td><td>0.0000</td><td>5.0000</td></tr><tr><td>0.0000</td><td>1.0000</td><td>3.0000</td></tr><tr><td>0.0000</td><td>0.0000</td><td>1.0000</td></tr></table></td><td valign='top'><table><tr><td>(5.0000, 3.0000)</td><td>(6.0000, 3.0000)</td><td>(7.0000, 3.0000)</td><td>(8.0000, 3.0000)</td><td>(9.0000, 3.0000)</td></tr><tr><td>(5.0000, 4.0000)</td><td>(6.0000, 4.0000)</td><td>(7.0000, 4.0000)</td><td>(8.0000, 4.0000)</td><td>(9.0000, 4.0000)</td></tr><tr><td>(5.0000, 5.0000)</td><td>(6.0000, 5.0000)</td><td>(7.0000, 5.0000)</td><td>(8.0000, 5.0000)</td><td>(9.0000, 5.0000)</td></tr><tr><td>(5.0000, 6.0000)</td><td>(6.0000, 6.0000)</td><td>(7.0000, 6.0000)</td><td>(8.0000, 6.0000)</td><td>(9.0000, 6.0000)</td></tr><tr><td>(5.0000, 7.0000)</td><td>(6.0000, 7.0000)</td><td>(7.0000, 7.0000)</td><td>(8.0000, 7.0000)</td><td>(9.0000, 7.0000)</td></tr></table></td></tr></table>
 
 <table><tr><th>@1 (shear x 5)</th><th>aktive warp matrix @1 width 5 height 5</th></tr>
-<tr><td valign='top'><table><tr><td>1.0000</td><td>5.0000</td><td>0.0000</td></tr><tr><td>0.0000</td><td>1.0000</td><td>0.0000</td></tr><tr><td>0.0000</td><td>0.0000</td><td>1.0000</td></tr></table></td><td valign='top'><table><tr><td>(0.0000, 0.0000)</td><td>(1.0000, 0.0000)</td><td>(2.0000, 0.0000)</td><td>(3.0000, 0.0000)</td><td>(4.0000, 0.0000)</td></tr><tr><td>(5.0000, 1.0000)</td><td>(6.0000, 1.0000)</td><td>(7.0000, 1.0000)</td><td>(8.0000, 1.0000)</td><td>(9.0000, 1.0000)</td></tr><tr><td>(10.0000, 2.0000)</td><td>(11.0000, 2.0000)</td><td>(12.0000, 2.0000)</td><td>(13.0000, 2.0000)</td><td>(14.0000, 2.0000)</td></tr><tr><td>(15.0000, 3.0000)</td><td>(16.0000, 3.0000)</td><td>(17.0000, 3.0000)</td><td>(18.0000, 3.0000)</td><td>(19.0000, 3.0000)</td></tr><tr><td>(20.0000, 4.0000)</td><td>(21.0000, 4.0000)</td><td>(22.0000, 4.0000)</td><td>(23.0000, 4.0000)</td><td>(24.0000, 4.0000)</td></tr></table></td></tr></table>
+<tr><td valign='top'><table><tr><td>1.0000</td><td>0.0875</td><td>0.0000</td></tr><tr><td>0.0000</td><td>1.0000</td><td>0.0000</td></tr><tr><td>0.0000</td><td>0.0000</td><td>1.0000</td></tr></table></td><td valign='top'><table><tr><td>(0.0000, 0.0000)</td><td>(1.0000, 0.0000)</td><td>(2.0000, 0.0000)</td><td>(3.0000, 0.0000)</td><td>(4.0000, 0.0000)</td></tr><tr><td>(0.0875, 1.0000)</td><td>(1.0875, 1.0000)</td><td>(2.0875, 1.0000)</td><td>(3.0875, 1.0000)</td><td>(4.0875, 1.0000)</td></tr><tr><td>(0.1750, 2.0000)</td><td>(1.1750, 2.0000)</td><td>(2.1750, 2.0000)</td><td>(3.1750, 2.0000)</td><td>(4.1750, 2.0000)</td></tr><tr><td>(0.2625, 3.0000)</td><td>(1.2625, 3.0000)</td><td>(2.2625, 3.0000)</td><td>(3.2625, 3.0000)</td><td>(4.2625, 3.0000)</td></tr><tr><td>(0.3500, 4.0000)</td><td>(1.3500, 4.0000)</td><td>(2.3500, 4.0000)</td><td>(3.3500, 4.0000)</td><td>(4.3500, 4.0000)</td></tr></table></td></tr></table>
 
 
 ---
