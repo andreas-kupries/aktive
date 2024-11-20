@@ -69,8 +69,8 @@ operator warp::swirl {
 	// fprintf(stderr, "ZZ decay  %f\n", decay);
 	// fprintf(stderr, "ZZ center (%f, %f)\n", cx, cy);
 
-	#define DX    (srcx - cx)
-	#define DY    (srcy - cy)
+	#define DX    (((int) srcx) - cx)
+	#define DY    (((int) srcy) - cy)
 	#define THETA (atan2 (DY, DX))
 	#define RAD   (hypot (DX, DY))
 
