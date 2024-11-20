@@ -80,6 +80,8 @@ Syntax: __aktive effect jitter gauss__ src ?(param value)...?
 
 Returns the input with a jitter effect based on gaussian noise applied to it. Visually this looks like frosted glass.
 
+The underlying operation is [aktive warp noise gauss](generator_virtual_warp.md#warp_noise_gauss).
+
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |interpolate|str|bilinear|Interpolation method to use|
@@ -105,6 +107,8 @@ Returns the input with a jitter effect based on gaussian noise applied to it. Vi
 Syntax: __aktive effect jitter uniform__ src ?(param value)...?
 
 Returns the input with a jitter effect based on uniform noise applied to it. Visually this looks like frosted glass.
+
+The underlying operation is [aktive warp noise uniform](generator_virtual_warp.md#warp_noise_uniform).
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -168,6 +172,8 @@ This effect applies around the specified __center__, with fixed rotation __phi__
 The rotation angle added to a pixel is given by "__phi__ + __from__ * exp(-__radius__ * __decay__)", where __radius__ is the distance of the pixel from the __center__. A large decay reduces the swirl at shorter radii. A decay of zero disables the decay.
 
 All swirl parameters are optional.
+
+The underlying operation is [aktive warp swirl](generator_virtual_warp.md#warp_swirl).
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|

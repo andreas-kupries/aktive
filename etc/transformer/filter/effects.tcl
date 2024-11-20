@@ -35,6 +35,8 @@ operator effect::swirl {
 
     note All swirl parameters are optional.
 
+    note The underlying operation is "<!xref: aktive warp swirl>."
+
     str? bilinear interpolate   Interpolation method to use
 
     # swirl configuration
@@ -81,6 +83,8 @@ operator effect::jitter::uniform {
     note Returns the input with a jitter effect based on uniform noise \
 	applied to it. Visually this looks like frosted glass.
 
+    note The underlying operation is "<!xref: aktive warp noise uniform>."
+
     str? bilinear interpolate   Interpolation method to use
 
     # jitter configuration
@@ -120,6 +124,8 @@ operator effect::jitter::gauss {
 
     note Returns the input with a jitter effect based on gaussian noise \
 	applied to it. Visually this looks like frosted glass.
+
+    note The underlying operation is "<!xref: aktive warp noise gauss>."
 
     str? bilinear interpolate   Interpolation method to use
 
