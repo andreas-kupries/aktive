@@ -109,7 +109,7 @@ Returns square single-band image containing a cross diagonal bar. The image has 
 ## Examples
 
 <table><tr><th>aktive image cbar radius 32 width 8</th></tr>
-<tr><td valign='top'><img src='example-00013.gif' alt='aktive image cbar radius 32 width 8' style='border:4px solid gold'></td></tr></table>
+<tr><td valign='top'><img src='example-00031.gif' alt='aktive image cbar radius 32 width 8' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -130,13 +130,13 @@ Returns image containing a black/white checker board.
 ## Examples
 
 <table><tr><th>aktive image checkers width 128 height 128</th></tr>
-<tr><td valign='top'><img src='example-00014.gif' alt='aktive image checkers width 128 height 128' style='border:4px solid gold'></td></tr></table>
+<tr><td valign='top'><img src='example-00032.gif' alt='aktive image checkers width 128 height 128' style='border:4px solid gold'></td></tr></table>
 
 <table><tr><th>aktive image checkers width 128 height 128 black 16 white 32</th></tr>
-<tr><td valign='top'><img src='example-00015.gif' alt='aktive image checkers width 128 height 128 black 16 white 32' style='border:4px solid gold'></td></tr></table>
+<tr><td valign='top'><img src='example-00033.gif' alt='aktive image checkers width 128 height 128 black 16 white 32' style='border:4px solid gold'></td></tr></table>
 
 <table><tr><th>aktive image checkers width 128 height 128 black 16 white 32 offset 8</th></tr>
-<tr><td valign='top'><img src='example-00016.gif' alt='aktive image checkers width 128 height 128 black 16 white 32 offset 8' style='border:4px solid gold'></td></tr></table>
+<tr><td valign='top'><img src='example-00034.gif' alt='aktive image checkers width 128 height 128 black 16 white 32 offset 8' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -154,7 +154,7 @@ Returns square single-band image containing a circle (disc perimeter). The image
 ## Examples
 
 <table><tr><th>aktive image circle radius 32 width 8</th></tr>
-<tr><td valign='top'><img src='example-00017.gif' alt='aktive image circle radius 32 width 8' style='border:4px solid gold'></td></tr></table>
+<tr><td valign='top'><img src='example-00035.gif' alt='aktive image circle radius 32 width 8' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -172,7 +172,7 @@ Returns square single-band image containing a cross. The image has size `2*radiu
 ## Examples
 
 <table><tr><th>aktive image cross radius 32 width 8</th></tr>
-<tr><td valign='top'><img src='example-00018.gif' alt='aktive image cross radius 32 width 8' style='border:4px solid gold'></td></tr></table>
+<tr><td valign='top'><img src='example-00036.gif' alt='aktive image cross radius 32 width 8' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -190,7 +190,7 @@ Returns square single-band image containing a diagonal bar. The image has size `
 ## Examples
 
 <table><tr><th>aktive image dbar radius 32 width 8</th></tr>
-<tr><td valign='top'><img src='example-00019.gif' alt='aktive image dbar radius 32 width 8' style='border:4px solid gold'></td></tr></table>
+<tr><td valign='top'><img src='example-00037.gif' alt='aktive image dbar radius 32 width 8' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -211,13 +211,13 @@ Returns image containing a diagonal black/white grid with configurable stripes
 ## Examples
 
 <table><tr><th>aktive image dgrid width 128 height 128</th></tr>
-<tr><td valign='top'><img src='example-00020.gif' alt='aktive image dgrid width 128 height 128' style='border:4px solid gold'></td></tr></table>
+<tr><td valign='top'><img src='example-00038.gif' alt='aktive image dgrid width 128 height 128' style='border:4px solid gold'></td></tr></table>
 
 <table><tr><th>aktive image dgrid width 128 height 128 black 16 white 32</th></tr>
-<tr><td valign='top'><img src='example-00021.gif' alt='aktive image dgrid width 128 height 128 black 16 white 32' style='border:4px solid gold'></td></tr></table>
+<tr><td valign='top'><img src='example-00039.gif' alt='aktive image dgrid width 128 height 128 black 16 white 32' style='border:4px solid gold'></td></tr></table>
 
 <table><tr><th>aktive image dgrid width 128 height 128 black 16 white 32 offset 8</th></tr>
-<tr><td valign='top'><img src='example-00022.gif' alt='aktive image dgrid width 128 height 128 black 16 white 32 offset 8' style='border:4px solid gold'></td></tr></table>
+<tr><td valign='top'><img src='example-00040.gif' alt='aktive image dgrid width 128 height 128 black 16 white 32 offset 8' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -234,7 +234,7 @@ Returns square single-band image containing a filled disc. The image has size `2
 ## Examples
 
 <table><tr><th>aktive image disc radius 32</th></tr>
-<tr><td valign='top'><img src='example-00023.gif' alt='aktive image disc radius 32' style='border:4px solid gold'></td></tr></table>
+<tr><td valign='top'><img src='example-00041.gif' alt='aktive image disc radius 32' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -255,13 +255,13 @@ Returns image containing a series of diagonal black/white stripes.
 ## Examples
 
 <table><tr><th>aktive image dstripes width 128 height 128</th></tr>
-<tr><td valign='top'><img src='example-00024.gif' alt='aktive image dstripes width 128 height 128' style='border:4px solid gold'></td></tr></table>
+<tr><td valign='top'><img src='example-00042.gif' alt='aktive image dstripes width 128 height 128' style='border:4px solid gold'></td></tr></table>
 
 <table><tr><th>aktive image dstripes width 128 height 128 black 16 white 32</th></tr>
-<tr><td valign='top'><img src='example-00025.gif' alt='aktive image dstripes width 128 height 128 black 16 white 32' style='border:4px solid gold'></td></tr></table>
+<tr><td valign='top'><img src='example-00043.gif' alt='aktive image dstripes width 128 height 128 black 16 white 32' style='border:4px solid gold'></td></tr></table>
 
 <table><tr><th>aktive image dstripes width 128 height 128 black 16 white 32 offset 8</th></tr>
-<tr><td valign='top'><img src='example-00026.gif' alt='aktive image dstripes width 128 height 128 black 16 white 32 offset 8' style='border:4px solid gold'></td></tr></table>
+<tr><td valign='top'><img src='example-00044.gif' alt='aktive image dstripes width 128 height 128 black 16 white 32 offset 8' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -280,7 +280,7 @@ Returns image containing a test pattern with increasing spatial frequency from l
 ## Examples
 
 <table><tr><th>aktive image eye width 256 height 256 factor 0.8</th></tr>
-<tr><td valign='top'><img src='example-00027.gif' alt='aktive image eye width 256 height 256 factor 0.8' style='border:4px solid gold'></td></tr></table>
+<tr><td valign='top'><img src='example-00045.gif' alt='aktive image eye width 256 height 256 factor 0.8' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -301,10 +301,10 @@ Depth is len(value)
 ## Examples
 
 <table><tr><th>aktive image from band width 64 height 64 values 0.3</th></tr>
-<tr><td valign='top'><img src='example-00028.gif' alt='aktive image from band width 64 height 64 values 0.3' style='border:4px solid gold'></td></tr></table>
+<tr><td valign='top'><img src='example-00046.gif' alt='aktive image from band width 64 height 64 values 0.3' style='border:4px solid gold'></td></tr></table>
 
 <table><tr><th>aktive image from band width 64 height 64 values 0.3 0.5 0.7</th></tr>
-<tr><td valign='top'><img src='example-00029.gif' alt='aktive image from band width 64 height 64 values 0.3 0.5 0.7' style='border:4px solid gold'></td></tr></table>
+<tr><td valign='top'><img src='example-00047.gif' alt='aktive image from band width 64 height 64 values 0.3 0.5 0.7' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -324,7 +324,7 @@ The image's height is the number of values.
 ## Examples
 
 <table><tr><th>aktive image from column width 64 values 0 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 0.45 0.5 0.55 0.6 0.6 0.7 0.75 0.8 0.85 0.9 0.95 1</th></tr>
-<tr><td valign='top'><img src='example-00030.gif' alt='aktive image from column width 64 values 0 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 0.45 0.5 0.55 0.6 0.6 0.7 0.75 0.8 0.85 0.9 0.95 1' style='border:4px solid gold'></td></tr></table>
+<tr><td valign='top'><img src='example-00048.gif' alt='aktive image from column width 64 values 0 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 0.45 0.5 0.55 0.6 0.6 0.7 0.75 0.8 0.85 0.9 0.95 1' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -350,7 +350,7 @@ Depth is fixed at 1.
 ## Examples
 
 <table><tr><th>aktive image from matrix width 16 height 16 values 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0</th></tr>
-<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00031.gif' alt='aktive image from matrix width 16 height 16 values 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0' style='border:4px solid gold'></td></tr></table></td></tr></table>
+<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00049.gif' alt='aktive image from matrix width 16 height 16 values 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0' style='border:4px solid gold'></td></tr></table></td></tr></table>
 
 
 ---
@@ -370,7 +370,7 @@ The image's width is the number of values.
 ## Examples
 
 <table><tr><th>aktive image from row height 64 values 0 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 0.45 0.5 0.55 0.6 0.6 0.7 0.75 0.8 0.85 0.9 0.95 1</th></tr>
-<tr><td valign='top'><img src='example-00032.gif' alt='aktive image from row height 64 values 0 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 0.45 0.5 0.55 0.6 0.6 0.7 0.75 0.8 0.85 0.9 0.95 1' style='border:4px solid gold'></td></tr></table>
+<tr><td valign='top'><img src='example-00050.gif' alt='aktive image from row height 64 values 0 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 0.45 0.5 0.55 0.6 0.6 0.7 0.75 0.8 0.85 0.9 0.95 1' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -398,7 +398,7 @@ Pixel value is fixed at 1.0
 ## Examples
 
 <table><tr><th>aktive image from sparse deltas width 7 deltas 0 20 5 15</th></tr>
-<tr><td valign='top'><table><tr><td valign='top'><img src='example-00033.gif' alt='aktive image from sparse deltas width 7 deltas 0 20 5 15' style='border:4px solid gold'></td><td valign='top'>times 8</td><td valign='top'><img src='example-00034.gif' alt='aktive image from sparse deltas width 7 deltas 0 20 5 15' style='border:4px solid gold'></td></tr></table></td></tr></table>
+<tr><td valign='top'><table><tr><td valign='top'><img src='example-00051.gif' alt='aktive image from sparse deltas width 7 deltas 0 20 5 15' style='border:4px solid gold'></td><td valign='top'>times 8</td><td valign='top'><img src='example-00052.gif' alt='aktive image from sparse deltas width 7 deltas 0 20 5 15' style='border:4px solid gold'></td></tr></table></td></tr></table>
 
 
 ---
@@ -425,7 +425,7 @@ Pixel value is fixed at 1.0
 ## Examples
 
 <table><tr><th>aktive image from sparse points coords {0 0} {4 3} {5 5} {6 2}</th></tr>
-<tr><td valign='top'><table><tr><td valign='top'><img src='example-00035.gif' alt='aktive image from sparse points coords {0 0} {4 3} {5 5} {6 2}' style='border:4px solid gold'></td><td valign='top'>times 8</td><td valign='top'><img src='example-00036.gif' alt='aktive image from sparse points coords {0 0} {4 3} {5 5} {6 2}' style='border:4px solid gold'></td></tr></table></td></tr></table>
+<tr><td valign='top'><table><tr><td valign='top'><img src='example-00053.gif' alt='aktive image from sparse points coords {0 0} {4 3} {5 5} {6 2}' style='border:4px solid gold'></td><td valign='top'>times 8</td><td valign='top'><img src='example-00054.gif' alt='aktive image from sparse points coords {0 0} {4 3} {5 5} {6 2}' style='border:4px solid gold'></td></tr></table></td></tr></table>
 
 
 ---
@@ -453,7 +453,7 @@ The image depth is fixed at 1, i.e. the result is single-band.
 ## Examples
 
 <table><tr><th>aktive image from sparse ranges ranges {1 24 30 1} {2 23 31 1} {3 22 32 1} {4 22 24 0.75} {4 30 32 0.75} {5 22 23 0.75} {5 31 32 0.75} {6 23 24 0.5} {6 30 31 0.5} {7 24 25 0.5} {7 29 30 0.5}</th></tr>
-<tr><td valign='top'><table><tr><td valign='top'><img src='example-00037.gif' alt='aktive image from sparse ranges ranges {1 24 30 1} {2 23 31 1} {3 22 32 1} {4 22 24 0.75} {4 30 32 0.75} {5 22 23 0.75} {5 31 32 0.75} {6 23 24 0.5} {6 30 31 0.5} {7 24 25 0.5} {7 29 30 0.5}' style='border:4px solid gold'></td><td valign='top'>times 8</td><td valign='top'><img src='example-00038.gif' alt='aktive image from sparse ranges ranges {1 24 30 1} {2 23 31 1} {3 22 32 1} {4 22 24 0.75} {4 30 32 0.75} {5 22 23 0.75} {5 31 32 0.75} {6 23 24 0.5} {6 30 31 0.5} {7 24 25 0.5} {7 29 30 0.5}' style='border:4px solid gold'></td></tr></table></td></tr></table>
+<tr><td valign='top'><table><tr><td valign='top'><img src='example-00055.gif' alt='aktive image from sparse ranges ranges {1 24 30 1} {2 23 31 1} {3 22 32 1} {4 22 24 0.75} {4 30 32 0.75} {5 22 23 0.75} {5 31 32 0.75} {6 23 24 0.5} {6 30 31 0.5} {7 24 25 0.5} {7 29 30 0.5}' style='border:4px solid gold'></td><td valign='top'>times 8</td><td valign='top'><img src='example-00056.gif' alt='aktive image from sparse ranges ranges {1 24 30 1} {2 23 31 1} {3 22 32 1} {4 22 24 0.75} {4 30 32 0.75} {5 22 23 0.75} {5 31 32 0.75} {6 23 24 0.5} {6 30 31 0.5} {7 24 25 0.5} {7 29 30 0.5}' style='border:4px solid gold'></td></tr></table></td></tr></table>
 
 
 ---
@@ -473,10 +473,10 @@ Returns image which has the same VALUE everywhere.
 ## Examples
 
 <table><tr><th>aktive image from value width 64 height 64 depth 1 value 0.5</th></tr>
-<tr><td valign='top'><img src='example-00039.gif' alt='aktive image from value width 64 height 64 depth 1 value 0.5' style='border:4px solid gold'></td></tr></table>
+<tr><td valign='top'><img src='example-00057.gif' alt='aktive image from value width 64 height 64 depth 1 value 0.5' style='border:4px solid gold'></td></tr></table>
 
 <table><tr><th>aktive image from value width 64 height 64 depth 3 value 0.5</th></tr>
-<tr><td valign='top'><img src='example-00040.gif' alt='aktive image from value width 64 height 64 depth 3 value 0.5' style='border:4px solid gold'></td></tr></table>
+<tr><td valign='top'><img src='example-00058.gif' alt='aktive image from value width 64 height 64 depth 3 value 0.5' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -497,10 +497,10 @@ Returns image containing a linear gradient through all cells.
 ## Examples
 
 <table><tr><th>aktive image gradient width 256 height   1 depth 1 first 0 last 1</th></tr>
-<tr><td valign='top'><table><tr><td valign='top'>height-times 32</td><td valign='top'><img src='example-00041.gif' alt='aktive image gradient width 256 height   1 depth 1 first 0 last 1' style='border:4px solid gold'></td></tr></table></td></tr></table>
+<tr><td valign='top'><table><tr><td valign='top'>height-times 32</td><td valign='top'><img src='example-00059.gif' alt='aktive image gradient width 256 height   1 depth 1 first 0 last 1' style='border:4px solid gold'></td></tr></table></td></tr></table>
 
 <table><tr><th>aktive image gradient width 128 height 128 depth 1 first 0 last 1</th></tr>
-<tr><td valign='top'><img src='example-00042.gif' alt='aktive image gradient width 128 height 128 depth 1 first 0 last 1' style='border:4px solid gold'></td></tr></table>
+<tr><td valign='top'><img src='example-00060.gif' alt='aktive image gradient width 128 height 128 depth 1 first 0 last 1' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -518,7 +518,7 @@ Returns image containing a left to right black to white gradient.
 ## Examples
 
 <table><tr><th>aktive image grey width 256 height 32</th></tr>
-<tr><td valign='top'><img src='example-00043.gif' alt='aktive image grey width 256 height 32' style='border:4px solid gold'></td></tr></table>
+<tr><td valign='top'><img src='example-00061.gif' alt='aktive image grey width 256 height 32' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -539,13 +539,13 @@ Returns image containing an axis-aligned black/white grid with configurable stri
 ## Examples
 
 <table><tr><th>aktive image grid width 128 height 128</th></tr>
-<tr><td valign='top'><img src='example-00044.gif' alt='aktive image grid width 128 height 128' style='border:4px solid gold'></td></tr></table>
+<tr><td valign='top'><img src='example-00062.gif' alt='aktive image grid width 128 height 128' style='border:4px solid gold'></td></tr></table>
 
 <table><tr><th>aktive image grid width 128 height 128 black 16 white 32</th></tr>
-<tr><td valign='top'><img src='example-00045.gif' alt='aktive image grid width 128 height 128 black 16 white 32' style='border:4px solid gold'></td></tr></table>
+<tr><td valign='top'><img src='example-00063.gif' alt='aktive image grid width 128 height 128 black 16 white 32' style='border:4px solid gold'></td></tr></table>
 
 <table><tr><th>aktive image grid width 128 height 128 black 16 white 32 offset 8</th></tr>
-<tr><td valign='top'><img src='example-00046.gif' alt='aktive image grid width 128 height 128 black 16 white 32 offset 8' style='border:4px solid gold'></td></tr></table>
+<tr><td valign='top'><img src='example-00064.gif' alt='aktive image grid width 128 height 128 black 16 white 32 offset 8' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -563,7 +563,7 @@ Returns square single-band image containing a horizontal bar. The image has size
 ## Examples
 
 <table><tr><th>aktive image hbar radius 32 width 8</th></tr>
-<tr><td valign='top'><img src='example-00047.gif' alt='aktive image hbar radius 32 width 8' style='border:4px solid gold'></td></tr></table>
+<tr><td valign='top'><img src='example-00065.gif' alt='aktive image hbar radius 32 width 8' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -1105,10 +1105,10 @@ Returns image where pixels are set to random values drawn from a gaussian distri
 ## Examples
 
 <table><tr><th>aktive image noise gauss width 256 height 256 depth 1 seed 703011174</th></tr>
-<tr><td valign='top'><img src='example-00087.gif' alt='aktive image noise gauss width 256 height 256 depth 1 seed 703011174' style='border:4px solid gold'></td></tr></table>
+<tr><td valign='top'><img src='example-00105.gif' alt='aktive image noise gauss width 256 height 256 depth 1 seed 703011174' style='border:4px solid gold'></td></tr></table>
 
 <table><tr><th>aktive image noise gauss width 256 height 256 depth 3 seed 703011174</th></tr>
-<tr><td valign='top'><img src='example-00088.gif' alt='aktive image noise gauss width 256 height 256 depth 3 seed 703011174' style='border:4px solid gold'></td></tr></table>
+<tr><td valign='top'><img src='example-00106.gif' alt='aktive image noise gauss width 256 height 256 depth 3 seed 703011174' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -1135,10 +1135,10 @@ The value of set pixels is fixed at 1.0
 ## Examples
 
 <table><tr><th>aktive image noise salt width 256 height 256 depth 1 seed 703011174 threshold 0.02</th></tr>
-<tr><td valign='top'><img src='example-00089.gif' alt='aktive image noise salt width 256 height 256 depth 1 seed 703011174 threshold 0.02' style='border:4px solid gold'></td></tr></table>
+<tr><td valign='top'><img src='example-00107.gif' alt='aktive image noise salt width 256 height 256 depth 1 seed 703011174 threshold 0.02' style='border:4px solid gold'></td></tr></table>
 
 <table><tr><th>aktive image noise salt width 256 height 256 depth 3 seed 703011174 threshold 0.02</th></tr>
-<tr><td valign='top'><img src='example-00090.gif' alt='aktive image noise salt width 256 height 256 depth 3 seed 703011174 threshold 0.02' style='border:4px solid gold'></td></tr></table>
+<tr><td valign='top'><img src='example-00108.gif' alt='aktive image noise salt width 256 height 256 depth 3 seed 703011174 threshold 0.02' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -1158,10 +1158,10 @@ Returns image where pixels are set to random values drawn from a uniform distrib
 ## Examples
 
 <table><tr><th>aktive image noise uniform width 256 height 256 depth 1 seed 703011174</th></tr>
-<tr><td valign='top'><img src='example-00091.gif' alt='aktive image noise uniform width 256 height 256 depth 1 seed 703011174' style='border:4px solid gold'></td></tr></table>
+<tr><td valign='top'><img src='example-00109.gif' alt='aktive image noise uniform width 256 height 256 depth 1 seed 703011174' style='border:4px solid gold'></td></tr></table>
 
 <table><tr><th>aktive image noise uniform width 256 height 256 depth 3 seed 703011174</th></tr>
-<tr><td valign='top'><img src='example-00092.gif' alt='aktive image noise uniform width 256 height 256 depth 3 seed 703011174' style='border:4px solid gold'></td></tr></table>
+<tr><td valign='top'><img src='example-00110.gif' alt='aktive image noise uniform width 256 height 256 depth 3 seed 703011174' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -1175,7 +1175,7 @@ Returns a 128x128 image containing a color palette.
 ## Examples
 
 <table><tr><th>aktive image palette color </th></tr>
-<tr><td valign='top'><img src='example-00093.gif' alt='aktive image palette color ' style='border:4px solid gold'></td></tr></table>
+<tr><td valign='top'><img src='example-00111.gif' alt='aktive image palette color ' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -1189,7 +1189,7 @@ Returns a 128x128 image containing a gray palette.
 ## Examples
 
 <table><tr><th>aktive image palette grey </th></tr>
-<tr><td valign='top'><img src='example-00094.gif' alt='aktive image palette grey ' style='border:4px solid gold'></td></tr></table>
+<tr><td valign='top'><img src='example-00112.gif' alt='aktive image palette grey ' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -1211,7 +1211,7 @@ The ratio between horizontal and vertical frequencies determines the angle of th
 ## Examples
 
 <table><tr><th>aktive image sines width 256 height 256 hf 0.5 vf 0.6</th></tr>
-<tr><td valign='top'><img src='example-00125.gif' alt='aktive image sines width 256 height 256 hf 0.5 vf 0.6' style='border:4px solid gold'></td></tr></table>
+<tr><td valign='top'><img src='example-00143.gif' alt='aktive image sines width 256 height 256 hf 0.5 vf 0.6' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -1228,7 +1228,7 @@ Returns single-band white square with radius. Default radius 1.
 ## Examples
 
 <table><tr><th>aktive image square radius 32</th></tr>
-<tr><td valign='top'><img src='example-00126.gif' alt='aktive image square radius 32' style='border:4px solid gold'></td></tr></table>
+<tr><td valign='top'><img src='example-00144.gif' alt='aktive image square radius 32' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -1249,13 +1249,13 @@ Returns image containing a series of vertical black/white stripes.
 ## Examples
 
 <table><tr><th>aktive image stripes width 128 height 128</th></tr>
-<tr><td valign='top'><img src='example-00127.gif' alt='aktive image stripes width 128 height 128' style='border:4px solid gold'></td></tr></table>
+<tr><td valign='top'><img src='example-00145.gif' alt='aktive image stripes width 128 height 128' style='border:4px solid gold'></td></tr></table>
 
 <table><tr><th>aktive image stripes width 128 height 128 black 16 white 32</th></tr>
-<tr><td valign='top'><img src='example-00128.gif' alt='aktive image stripes width 128 height 128 black 16 white 32' style='border:4px solid gold'></td></tr></table>
+<tr><td valign='top'><img src='example-00146.gif' alt='aktive image stripes width 128 height 128 black 16 white 32' style='border:4px solid gold'></td></tr></table>
 
 <table><tr><th>aktive image stripes width 128 height 128 black 16 white 32 offset 8</th></tr>
-<tr><td valign='top'><img src='example-00129.gif' alt='aktive image stripes width 128 height 128 black 16 white 32 offset 8' style='border:4px solid gold'></td></tr></table>
+<tr><td valign='top'><img src='example-00147.gif' alt='aktive image stripes width 128 height 128 black 16 white 32 offset 8' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -1273,7 +1273,7 @@ Returns square single-band image containing a vertical bar. The image has size `
 ## Examples
 
 <table><tr><th>aktive image vbar radius 32 width 8</th></tr>
-<tr><td valign='top'><img src='example-00130.gif' alt='aktive image vbar radius 32 width 8' style='border:4px solid gold'></td></tr></table>
+<tr><td valign='top'><img src='example-00148.gif' alt='aktive image vbar radius 32 width 8' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -1291,7 +1291,7 @@ Returns square single-band image containing a diagonal cross. The image has size
 ## Examples
 
 <table><tr><th>aktive image xcross radius 32 width 8</th></tr>
-<tr><td valign='top'><img src='example-00131.gif' alt='aktive image xcross radius 32 width 8' style='border:4px solid gold'></td></tr></table>
+<tr><td valign='top'><img src='example-00149.gif' alt='aktive image xcross radius 32 width 8' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -1309,6 +1309,6 @@ Returns image containing a zone plate test pattern.
 ## Examples
 
 <table><tr><th>aktive image zone width 256 height 256</th></tr>
-<tr><td valign='top'><img src='example-00132.gif' alt='aktive image zone width 256 height 256' style='border:4px solid gold'></td></tr></table>
+<tr><td valign='top'><img src='example-00150.gif' alt='aktive image zone width 256 height 256' style='border:4px solid gold'></td></tr></table>
 
 
