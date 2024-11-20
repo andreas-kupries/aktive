@@ -569,9 +569,9 @@ Returns square single-band image containing a horizontal bar. The image has size
 ---
 ### <a name='image_indexed'></a> aktive image indexed
 
-Syntax: __aktive image indexed__  (param value)...
+Syntax: __aktive image indexed__  ?(param value)...?
 
-Returns a 2-band image where each pixel declares its own position
+Returns a 2-band image where each pixel declares its own position.
 
 __Note__ that while the result is usable as a warp map for the <!xref aktive op warp map> operation, it will not do anything, as it represents the identity warping.
 
@@ -579,11 +579,16 @@ __Note__ that while the result is usable as a warp map for the <!xref aktive op 
 |:---|:---|:---|:---|
 |width|uint||Width of the returned image|
 |height|uint||Height of the returned image|
+|x|int|0|X location of the returned image in the 2D plane|
+|y|int|0|Y location of the returned image in the 2D plane|
 
 #### <a name='image_indexed__examples'></a> Examples
 
 <table><tr><th>aktive image indexed width 5 height 5</th></tr>
 <tr><td valign='top'><table><tr><td>(0, 0)</td><td>(1, 0)</td><td>(2, 0)</td><td>(3, 0)</td><td>(4, 0)</td></tr><tr><td>(0, 1)</td><td>(1, 1)</td><td>(2, 1)</td><td>(3, 1)</td><td>(4, 1)</td></tr><tr><td>(0, 2)</td><td>(1, 2)</td><td>(2, 2)</td><td>(3, 2)</td><td>(4, 2)</td></tr><tr><td>(0, 3)</td><td>(1, 3)</td><td>(2, 3)</td><td>(3, 3)</td><td>(4, 3)</td></tr><tr><td>(0, 4)</td><td>(1, 4)</td><td>(2, 4)</td><td>(3, 4)</td><td>(4, 4)</td></tr></table></td></tr></table>
+
+<table><tr><th>aktive image indexed x -5 y -5 width 8 height 8</th></tr>
+<tr><td valign='top'><table><tr><td>(-5, -5)</td><td>(-4, -5)</td><td>(-3, -5)</td><td>(-2, -5)</td><td>(-1, -5)</td><td>(0, -5)</td><td>(1, -5)</td><td>(2, -5)</td></tr><tr><td>(-5, -4)</td><td>(-4, -4)</td><td>(-3, -4)</td><td>(-2, -4)</td><td>(-1, -4)</td><td>(0, -4)</td><td>(1, -4)</td><td>(2, -4)</td></tr><tr><td>(-5, -3)</td><td>(-4, -3)</td><td>(-3, -3)</td><td>(-2, -3)</td><td>(-1, -3)</td><td>(0, -3)</td><td>(1, -3)</td><td>(2, -3)</td></tr><tr><td>(-5, -2)</td><td>(-4, -2)</td><td>(-3, -2)</td><td>(-2, -2)</td><td>(-1, -2)</td><td>(0, -2)</td><td>(1, -2)</td><td>(2, -2)</td></tr><tr><td>(-5, -1)</td><td>(-4, -1)</td><td>(-3, -1)</td><td>(-2, -1)</td><td>(-1, -1)</td><td>(0, -1)</td><td>(1, -1)</td><td>(2, -1)</td></tr><tr><td>(-5, 0)</td><td>(-4, 0)</td><td>(-3, 0)</td><td>(-2, 0)</td><td>(-1, 0)</td><td>(0, 0)</td><td>(1, 0)</td><td>(2, 0)</td></tr><tr><td>(-5, 1)</td><td>(-4, 1)</td><td>(-3, 1)</td><td>(-2, 1)</td><td>(-1, 1)</td><td>(0, 1)</td><td>(1, 1)</td><td>(2, 1)</td></tr><tr><td>(-5, 2)</td><td>(-4, 2)</td><td>(-3, 2)</td><td>(-2, 2)</td><td>(-1, 2)</td><td>(0, 2)</td><td>(1, 2)</td><td>(2, 2)</td></tr></table></td></tr></table>
 
 
 ---
@@ -1105,10 +1110,10 @@ Returns image where pixels are set to random values drawn from a gaussian distri
 #### <a name='image_noise_gauss__examples'></a> Examples
 
 <table><tr><th>aktive image noise gauss width 256 height 256 depth 1 seed 703011174</th></tr>
-<tr><td valign='top'><img src='example-00105.gif' alt='aktive image noise gauss width 256 height 256 depth 1 seed 703011174' style='border:4px solid gold'></td></tr></table>
+<tr><td valign='top'><img src='example-00106.gif' alt='aktive image noise gauss width 256 height 256 depth 1 seed 703011174' style='border:4px solid gold'></td></tr></table>
 
 <table><tr><th>aktive image noise gauss width 256 height 256 depth 3 seed 703011174</th></tr>
-<tr><td valign='top'><img src='example-00106.gif' alt='aktive image noise gauss width 256 height 256 depth 3 seed 703011174' style='border:4px solid gold'></td></tr></table>
+<tr><td valign='top'><img src='example-00107.gif' alt='aktive image noise gauss width 256 height 256 depth 3 seed 703011174' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -1135,10 +1140,10 @@ The value of set pixels is fixed at 1.0
 #### <a name='image_noise_salt__examples'></a> Examples
 
 <table><tr><th>aktive image noise salt width 256 height 256 depth 1 seed 703011174 threshold 0.02</th></tr>
-<tr><td valign='top'><img src='example-00107.gif' alt='aktive image noise salt width 256 height 256 depth 1 seed 703011174 threshold 0.02' style='border:4px solid gold'></td></tr></table>
+<tr><td valign='top'><img src='example-00108.gif' alt='aktive image noise salt width 256 height 256 depth 1 seed 703011174 threshold 0.02' style='border:4px solid gold'></td></tr></table>
 
 <table><tr><th>aktive image noise salt width 256 height 256 depth 3 seed 703011174 threshold 0.02</th></tr>
-<tr><td valign='top'><img src='example-00108.gif' alt='aktive image noise salt width 256 height 256 depth 3 seed 703011174 threshold 0.02' style='border:4px solid gold'></td></tr></table>
+<tr><td valign='top'><img src='example-00109.gif' alt='aktive image noise salt width 256 height 256 depth 3 seed 703011174 threshold 0.02' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -1158,10 +1163,10 @@ Returns image where pixels are set to random values drawn from a uniform distrib
 #### <a name='image_noise_uniform__examples'></a> Examples
 
 <table><tr><th>aktive image noise uniform width 256 height 256 depth 1 seed 703011174</th></tr>
-<tr><td valign='top'><img src='example-00109.gif' alt='aktive image noise uniform width 256 height 256 depth 1 seed 703011174' style='border:4px solid gold'></td></tr></table>
+<tr><td valign='top'><img src='example-00110.gif' alt='aktive image noise uniform width 256 height 256 depth 1 seed 703011174' style='border:4px solid gold'></td></tr></table>
 
 <table><tr><th>aktive image noise uniform width 256 height 256 depth 3 seed 703011174</th></tr>
-<tr><td valign='top'><img src='example-00110.gif' alt='aktive image noise uniform width 256 height 256 depth 3 seed 703011174' style='border:4px solid gold'></td></tr></table>
+<tr><td valign='top'><img src='example-00111.gif' alt='aktive image noise uniform width 256 height 256 depth 3 seed 703011174' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -1175,7 +1180,7 @@ Returns a 128x128 image containing a color palette.
 #### <a name='image_palette_color__examples'></a> Examples
 
 <table><tr><th>aktive image palette color </th></tr>
-<tr><td valign='top'><img src='example-00111.gif' alt='aktive image palette color ' style='border:4px solid gold'></td></tr></table>
+<tr><td valign='top'><img src='example-00112.gif' alt='aktive image palette color ' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -1189,7 +1194,7 @@ Returns a 128x128 image containing a gray palette.
 #### <a name='image_palette_grey__examples'></a> Examples
 
 <table><tr><th>aktive image palette grey </th></tr>
-<tr><td valign='top'><img src='example-00112.gif' alt='aktive image palette grey ' style='border:4px solid gold'></td></tr></table>
+<tr><td valign='top'><img src='example-00113.gif' alt='aktive image palette grey ' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -1211,7 +1216,7 @@ The ratio between horizontal and vertical frequencies determines the angle of th
 #### <a name='image_sines__examples'></a> Examples
 
 <table><tr><th>aktive image sines width 256 height 256 hf 0.5 vf 0.6</th></tr>
-<tr><td valign='top'><img src='example-00143.gif' alt='aktive image sines width 256 height 256 hf 0.5 vf 0.6' style='border:4px solid gold'></td></tr></table>
+<tr><td valign='top'><img src='example-00144.gif' alt='aktive image sines width 256 height 256 hf 0.5 vf 0.6' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -1228,7 +1233,7 @@ Returns single-band white square with radius. Default radius 1.
 #### <a name='image_square__examples'></a> Examples
 
 <table><tr><th>aktive image square radius 32</th></tr>
-<tr><td valign='top'><img src='example-00144.gif' alt='aktive image square radius 32' style='border:4px solid gold'></td></tr></table>
+<tr><td valign='top'><img src='example-00145.gif' alt='aktive image square radius 32' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -1249,13 +1254,13 @@ Returns image containing a series of vertical black/white stripes.
 #### <a name='image_stripes__examples'></a> Examples
 
 <table><tr><th>aktive image stripes width 128 height 128</th></tr>
-<tr><td valign='top'><img src='example-00145.gif' alt='aktive image stripes width 128 height 128' style='border:4px solid gold'></td></tr></table>
+<tr><td valign='top'><img src='example-00146.gif' alt='aktive image stripes width 128 height 128' style='border:4px solid gold'></td></tr></table>
 
 <table><tr><th>aktive image stripes width 128 height 128 black 16 white 32</th></tr>
-<tr><td valign='top'><img src='example-00146.gif' alt='aktive image stripes width 128 height 128 black 16 white 32' style='border:4px solid gold'></td></tr></table>
+<tr><td valign='top'><img src='example-00147.gif' alt='aktive image stripes width 128 height 128 black 16 white 32' style='border:4px solid gold'></td></tr></table>
 
 <table><tr><th>aktive image stripes width 128 height 128 black 16 white 32 offset 8</th></tr>
-<tr><td valign='top'><img src='example-00147.gif' alt='aktive image stripes width 128 height 128 black 16 white 32 offset 8' style='border:4px solid gold'></td></tr></table>
+<tr><td valign='top'><img src='example-00148.gif' alt='aktive image stripes width 128 height 128 black 16 white 32 offset 8' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -1273,7 +1278,7 @@ Returns square single-band image containing a vertical bar. The image has size `
 #### <a name='image_vbar__examples'></a> Examples
 
 <table><tr><th>aktive image vbar radius 32 width 8</th></tr>
-<tr><td valign='top'><img src='example-00148.gif' alt='aktive image vbar radius 32 width 8' style='border:4px solid gold'></td></tr></table>
+<tr><td valign='top'><img src='example-00149.gif' alt='aktive image vbar radius 32 width 8' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -1291,7 +1296,7 @@ Returns square single-band image containing a diagonal cross. The image has size
 #### <a name='image_xcross__examples'></a> Examples
 
 <table><tr><th>aktive image xcross radius 32 width 8</th></tr>
-<tr><td valign='top'><img src='example-00149.gif' alt='aktive image xcross radius 32 width 8' style='border:4px solid gold'></td></tr></table>
+<tr><td valign='top'><img src='example-00150.gif' alt='aktive image xcross radius 32 width 8' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -1309,6 +1314,6 @@ Returns image containing a zone plate test pattern.
 #### <a name='image_zone__examples'></a> Examples
 
 <table><tr><th>aktive image zone width 256 height 256</th></tr>
-<tr><td valign='top'><img src='example-00150.gif' alt='aktive image zone width 256 height 256' style='border:4px solid gold'></td></tr></table>
+<tr><td valign='top'><img src='example-00151.gif' alt='aktive image zone width 256 height 256' style='border:4px solid gold'></td></tr></table>
 
 
