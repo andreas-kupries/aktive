@@ -5,16 +5,19 @@
 operator warp::swirl {
     section generator virtual warp
 
+    example {width 11 height 11 center {5 5} decay 1 | -matrix}
+
     note Returns the origin map for a swirl effect around the \
 	specified __center__, with fixed rotation __phi__, \
-	a __base__ rotation, and a __decay__ factor.
+	a base rotation __from__, and a __decay__ factor.
 
-    note The rotation angle to add to a pixel is given by \
-	\"__phi__ + __base__*exp(-__radius__/(__decay__^2))\", \
+    note The rotation angle added to a pixel is given by \
+	\"__phi__ + __from__ * exp(-__radius__ * __decay__)\", \
 	where __radius__ is the distance of the pixel from the \
-	__center__.
+	__center__. A large decay reduces the swirl at shorter \
+	radii. A decay of zero disables the decay.
 
-    note All parameter except for the center are optional.
+    note All parameters except for the center are optional.
 
     note The result is designed to be usable with the \
 	"<!xref: aktive op warp bicubic>" operation and its relatives.
@@ -24,8 +27,6 @@ operator warp::swirl {
 
     # Reference: https://juliaimages.org/previews/PR218/examples/transformations/operations/swirl/
 
-    example {width 11 height 11 center {5 5} decay 16 | -matrix}
-
     # image configuration
     uint       width   Width of the returned image
     uint       height  Height of the returned image
@@ -33,10 +34,12 @@ operator warp::swirl {
     int?     0 y       Y location of the returned image in the 2D plane
 
     # swirl configuration
-    point      center  Center of the swirl
-    double?  0 phi     In degrees, fixed rotation to apply.
-    double? 45 base    In degrees, swirl rotation at distance 0 from center.
-    double?  4 decay   Rotation decay with distance from center.
+    point        center Center of the swirl
+    double?   0  phi    In degrees, fixed rotation to apply.
+    double?  45  from   In degrees, swirl rotation at distance 0 from center.
+    double? 0.1  decay  Rotation decay with distance from center.
+
+    # see also effect::swirl, keep matching
 
     state -setup {
 	aktive_geometry_set (domain, param->x, param->y, param->width, param->height, 2);
@@ -46,9 +49,7 @@ operator warp::swirl {
 	{AH {y AY 1 up} {y SY 1 up}}
 	{AW {x AX 1 up} {x SX 1 up}}
 	{DD {z  0 1 up} {z  0 1 up}}
-    } {point {
-	(z == 0) ? (U) : (V)
-    }}
+    } {point { MAP }}
 
     pixels {
 	#define SD (idomain->depth)
@@ -58,22 +59,29 @@ operator warp::swirl {
         #define SY (request->y)
 
 	double phi   = param->phi   * M_PI / 180.0 ;
-	double base  = param->base  * M_PI / 180.0 ;
-	double decay = param->decay * param->decay;
+	double base  = param->from  * M_PI / 180.0 ;
+	double decay = param->decay;
 	double cx    = param->center.x;
 	double cy    = param->center.y;
+
+	// fprintf(stderr, "ZZ phi    %f\n", phi);
+	// fprintf(stderr, "ZZ base   %f\n", base);
+	// fprintf(stderr, "ZZ decay  %f\n", decay);
+	// fprintf(stderr, "ZZ center (%f, %f)\n", cx, cy);
 
 	#define DX    (srcx - cx)
 	#define DY    (srcy - cy)
 	#define THETA (atan2 (DY, DX))
 	#define RAD   (hypot (DX, DY))
 
-	#define ANGLE (THETA + phi + (base * exp(-RAD/decay)))
-	#define U     (cx + DX * cos (ANGLE) - DY * sin(ANGLE))
-	#define V     (cy + DY * sin (ANGLE) + DY * cos(ANGLE))
+	#define RHO   (THETA + phi + (base * exp(-RAD * decay)))
+	#define U     (cx + RAD * cos (RHO))
+	#define V     (cy + RAD * sin (RHO))
 
-	// Note: Let the compiler sort out all the common
-	// expressions in the equations for U and V.
+	#define MAP (srcz == 0) ? (U) : (V)
+
+	// Note: Let the compiler sort out all the common expressions
+	//       in the equations for U and V.
 
 	@@indexed@@
 
@@ -81,9 +89,10 @@ operator warp::swirl {
 	#undef DY
 	#undef THETA
 	#undef RAD
-	#undef ANGLE
+	#undef RHO
 	#undef U
 	#undef V
+	#undef MAP
     }
 }
 
