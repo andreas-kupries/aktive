@@ -2714,6 +2714,26 @@ proc dsl::writer::stash-to {path} {
 	proc height-times  {n x} { aktive op sample replicate y  $x by $n }
 	proc width-times   {n x} { aktive op sample replicate x  $x by $n }
 	proc times         {n x} { aktive op sample replicate xy $x by $n }
+	# asset access
+	proc butterfly {} { aktive read from netpbm path tests/assets/butterfly.ppm }
+	proc sines     {} { aktive read from netpbm path tests/assets/sines.ppm }
+	# place overlays on image, red dot/line
+	proc dot {p i} {
+	    lassign [aktive query geometry $i] _ _ w h d
+	    aktive op draw circle on $i color [over $d] radius 5 center $p
+	}
+	proc line {a b i} {
+	    lassign [aktive query geometry $i] _ _ w h d
+	    aktive op draw line on $i color [over $d] from $a to $b
+	}
+	proc poly {ps i} {
+	    lassign [aktive query geometry $i] _ _ w h d
+	    aktive op draw polyline on $i color [over $d] points {*}$ps
+	}
+	proc over {d} { dict get {
+	    1 1
+	    3 {1 0 0}
+	} $d }
 	proc emit-text {dst int src} {
 	    fileutil::writeFile $dst [string trim $src]
 	}

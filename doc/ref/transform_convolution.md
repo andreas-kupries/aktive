@@ -44,9 +44,9 @@ The prefered embedding for convolution is `mirror`. It is chosen to have minimal
 #### <a name='op_convolve_xy__examples'></a> Examples
 
 <table><tr><th>@1</th><th>@2</th><th>aktive op convolve xy @2 @1</th></tr>
-<tr><td valign='top'><img src='example-00202.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><table><tr><td>0.0078</td><td>0.0625</td><td>0.2188</td><td>0.4375</td><td>0.5469</td><td>0.4375</td><td>0.2188</td><td>0.0625</td><td>0.0078</td></tr></table></td><td valign='top'><img src='example-00204.gif' alt='aktive op convolve xy @2 @1' style='border:4px solid gold'></td></tr></table>
+<tr><td valign='top'><img src='example-00203.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><table><tr><td>0.0078</td><td>0.0625</td><td>0.2188</td><td>0.4375</td><td>0.5469</td><td>0.4375</td><td>0.2188</td><td>0.0625</td><td>0.0078</td></tr></table></td><td valign='top'><img src='example-00205.gif' alt='aktive op convolve xy @2 @1' style='border:4px solid gold'></td></tr></table>
 
 <table><tr><th>@1</th><th>@2</th><th>aktive op convolve xy @2 @1</th></tr>
-<tr><td valign='top'><img src='example-00205.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><table><tr><td>0.0078</td></tr><tr><td>0.0625</td></tr><tr><td>0.2188</td></tr><tr><td>0.4375</td></tr><tr><td>0.5469</td></tr><tr><td>0.4375</td></tr><tr><td>0.2188</td></tr><tr><td>0.0625</td></tr><tr><td>0.0078</td></tr></table></td><td valign='top'><img src='example-00207.gif' alt='aktive op convolve xy @2 @1' style='border:4px solid gold'></td></tr></table>
+<tr><td valign='top'><img src='example-00206.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><table><tr><td>0.0078</td></tr><tr><td>0.0625</td></tr><tr><td>0.2188</td></tr><tr><td>0.4375</td></tr><tr><td>0.5469</td></tr><tr><td>0.4375</td></tr><tr><td>0.2188</td></tr><tr><td>0.0625</td></tr><tr><td>0.0078</td></tr></table></td><td valign='top'><img src='example-00208.gif' alt='aktive op convolve xy @2 @1' style='border:4px solid gold'></td></tr></table>
 
 
