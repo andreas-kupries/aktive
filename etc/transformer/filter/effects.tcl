@@ -5,6 +5,143 @@
 # # ## ### ##### ######## ############# #####################
 ##
 
+operator effect::swirl {
+    section transform effect
+
+    example {
+	aktive op sdf 2image smooth [aktive op sdf ring [aktive image sdf triangle width 128 height 128 a {10 10} b {50 80} c {80 30}] thickness 4]
+	@1 decay 0.05 from 135
+    }
+    example {
+	aktive read from netpbm path tests/assets/sines.ppm
+	@1 decay 0.01 from 135
+    }
+    example {
+	aktive read from netpbm path tests/assets/butterfly.ppm
+	@1 decay 0.01 from 135
+    }
+
+    note Returns the input with a swirling effect applied to it.
+
+    note This effect applies around the specified __center__, \
+	with fixed rotation __phi__, a base rotation __from__, \
+	and a __decay__ factor.
+
+    note The rotation angle added to a pixel is given by \
+	\"__phi__ + __from__ * exp(-__radius__ * __decay__)\", \
+	where __radius__ is the distance of the pixel from the \
+	__center__. A large decay reduces the swirl at shorter \
+	radii. A decay of zero disables the decay.
+
+    note All swirl parameters are optional.
+
+    str? bilinear interpolate   Interpolation method to use
+
+    # swirl configuration
+    point?  {{}} center  Center of the swirl, default center of the image.
+    double?    0 phi     In degrees, fixed rotation to apply. Default none.
+    double?   45 from    In degrees, swirl rotation at distance 0 from center.
+    double?  0.1 decay   Rotation decay with distance from center.
+
+    # see also op::warp::swirl, keep matching
+
+    input
+
+    body {
+	lassign [aktive query domain $src] x y w h
+	# validate interpolation?
+
+	if {![llength $center]} {
+	    set center [list [expr {$x + $w/2}] [expr {$y + $h/2}]]
+	}
+
+	set map [aktive warp swirl \
+		     x $x y $y width $w height $h \
+		     center $center phi $phi decay $decay from $from]
+	aktive op warp $interpolate $map $src
+    }
+}
+
+operator effect::jitter::uniform {
+    section transform effect
+
+    example {
+	aktive op sdf 2image smooth [aktive op sdf ring [aktive image sdf triangle width 128 height 128 a {10 10} b {50 80} c {80 30}] thickness 4]
+	@1 min 1 max 6 seed 703011174
+    }
+    example {
+	aktive read from netpbm path tests/assets/sines.ppm
+	@1 min 1 max 6 seed 703011174
+    }
+    example {
+	aktive read from netpbm path tests/assets/butterfly.ppm
+	@1 min 1 max 6 seed 703011174
+    }
+
+    note Returns the input with a jitter effect based on uniform noise \
+	applied to it. Visually this looks like frosted glass.
+
+    str? bilinear interpolate   Interpolation method to use
+
+    # jitter configuration
+    uint? {[expr {int(4294967296*rand())}]} seed \
+	Randomizer seed. Needed only to force fixed results.
+
+    double? 0 min	Minimal noise value
+    double? 1 max	Maximal noise value
+
+    input
+
+    body {
+	lassign [aktive query domain $src] x y w h
+	# validate interpolation?
+	set map [aktive warp noise uniform \
+		     x $x y $y width $w height $h \
+		     seed $seed min $min max $max]
+	aktive op warp $interpolate $map $src
+    }
+}
+
+operator effect::jitter::gauss {
+    section transform effect
+
+    example {
+	aktive op sdf 2image smooth [aktive op sdf ring [aktive image sdf triangle width 128 height 128 a {10 10} b {50 80} c {80 30}] thickness 4]
+	@1 sigma 4 seed 703011174
+    }
+    example {
+	aktive read from netpbm path tests/assets/sines.ppm
+	@1 sigma 4 seed 703011174
+    }
+    example {
+	aktive read from netpbm path tests/assets/butterfly.ppm
+	@1 sigma 4 seed 703011174
+    }
+
+    note Returns the input with a jitter effect based on gaussian noise \
+	applied to it. Visually this looks like frosted glass.
+
+    str? bilinear interpolate   Interpolation method to use
+
+    # jitter configuration
+    uint? {[expr {int(4294967296*rand())}]} seed \
+	Randomizer seed. Needed only to force fixed results.
+
+    double? 0 mean    Mean of the desired gauss distribution.
+    double? 1 sigma   Sigma of the desired gauss distribution.
+
+    input
+
+    body {
+	lassign [aktive query domain $src] x y w h
+	# validate interpolation?
+	set map [aktive warp noise gauss \
+		     x $x y $y width $w height $h \
+		     seed $seed mean $mean sigma $sigma]
+	aktive op warp $interpolate $map $src
+    }
+}
+
 operator effect::emboss {
     section transform effect
 
