@@ -26,11 +26,16 @@ operator warp::noise::uniform {
     uint? {[expr {int(4294967296*rand())}]} seed \
 	Randomizer seed. Needed only to force fixed results.
 
+    double? 0 min	Minimal noise value
+    double? 1 max	Maximal noise value
+
     body {
-	aktive op math add \
-	    [aktive image indexed       width $width height $height] \
-	    [aktive image noise uniform width $width height $height depth 2 \
-		 seed $seed]
+	set scale [expr {$max - $min}]
+	set base  [aktive image indexed width $width height $height]
+	set noise [aktive image noise uniform width $width height $height depth 2 seed $seed]
+	set noise [aktive op math1 linear $noise scale $scale gain $min]
+
+	aktive op math add $base $noise
     }
 }
 
@@ -62,10 +67,10 @@ operator warp::noise::gauss {
     double? 1 sigma   Sigma of the desired gauss distribution.
 
     body {
-	aktive op math add \
-	    [aktive image indexed     width $width height $height] \
-	    [aktive image noise gauss width $width height $height depth 2 \
-		 seed $seed mean $mean sigma $sigma]
+	set base  [aktive image indexed     width $width height $height]
+	set noise [aktive image noise gauss width $width height $height depth 2 \
+		       seed $seed mean $mean sigma $sigma]
+	aktive op math add $base $noise
     }
 }
 
