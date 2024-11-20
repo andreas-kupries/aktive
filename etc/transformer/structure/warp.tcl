@@ -46,8 +46,8 @@ operator {
     # fetch from the second is input dependent, not a scan.
     # bands are not scanned. this is done by the interpolator.
     blit warp {
-	{AH {y AY 1 up} {y SX 1 up}}
-	{AW {x AX 1 up} {x SY 1 up}}
+	{AH {y AY 1 up} {y 0 1 up}}
+	{AW {x AX 1 up} {x 0 1 up}}
     } {raw interpolated-fetch {
 	aktive_region_fetch_interpolated (srcs->v[1],
 					  spec,
