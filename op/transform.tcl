@@ -39,6 +39,18 @@ proc aktive::transform::UNBOX {label src} {
     return
 }
 
+proc aktive::transform::MulVec {m v} {
+    lassign $m a b c d e f g h i
+    lassign $v x y
+
+    # unrolled matrix vector multiplication
+    set u [expr { $a*$x + $b*$y + $c*1 }]
+    set v [expr { $d*$x + $e*$y + $f*1 }]
+    set w [expr { $g*$x + $h*$y + $i*1 }]
+
+    list [/ $u $w] [/ $v $w]
+}
+
 proc aktive::transform::Mul {a b} {
     lassign $a aa ab ac ad ae af ag ah ai
     lassign $b ba bb bc bd be bf bg bh bi
@@ -62,9 +74,7 @@ proc aktive::transform::Mul {a b} {
 }
 
 proc aktive::transform::Invert {m} {
-    set inv [ScaleDown [Adjoint $m] [DET3 $m]]
-    puts [PRINT inv $inv]
-    set inv
+    ScaleDown [Adjoint $m] [DET3 $m]
 }
 
 proc aktive::transform::ScaleDown {m v} {
