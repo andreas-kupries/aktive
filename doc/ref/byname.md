@@ -584,6 +584,7 @@
  - [aktive op tile sum](transform_statistics.md#op_tile_sum)
  - [aktive op tile sumsquared](transform_statistics.md#op_tile_sumsquared)
  - [aktive op tile variance](transform_statistics.md#op_tile_variance)
+ - [aktive op transform by](transform_structure_warp.md#op_transform_by)
  - [aktive op transpose](transform_structure.md#op_transpose)
  - [aktive op transverse](transform_structure.md#op_transverse)
  - [aktive op view](transform.md#op_view)
@@ -643,6 +644,7 @@
 ## <a name='_t'></a> t
 
  - [aktive transform affine](generator_virtual_warp.md#transform_affine)
+ - [aktive transform box](generator_virtual_warp.md#transform_box)
  - [aktive transform compose](generator_virtual_warp.md#transform_compose)
  - [aktive transform compose-core](generator_virtual_warp.md#transform_compose_core)
  - [aktive transform identity](generator_virtual_warp.md#transform_identity)
