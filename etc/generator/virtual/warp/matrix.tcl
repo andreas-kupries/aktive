@@ -86,9 +86,7 @@ operator warp::matrix {
 	{AH {y AY 1 up} {y SY 1 up}}
 	{AW {x AX 1 up} {x SX 1 up}}
 	{DD {z  0 1 up} {z  0 1 up}}
-    } {point {
-	(z == 0) ? (U) : (V)
-    }}
+    } {point { MAP }}
 
     pixels {
 	#define SD (idomain->depth)
@@ -111,15 +109,18 @@ operator warp::matrix {
 	double h = istate->projective [7];
 	double i = istate->projective [8];
 
-	#define U ((srcx * a + srcy * b + 1 * c) / (W))
-	#define V ((srcx * d + srcy * e + 1 * f) / (W))
-	#define W  (   1 * g +    1 * h + 1 * i)
+	#define U ((((int) srcx) * a + ((int) srcy) * b + 1 * c) / (W))
+	#define V ((((int) srcx) * d + ((int) srcy) * e + 1 * f) / (W))
+	#define W  (((int) srcx) * g + ((int) srcy) * h + 1 * i)
+
+	#define MAP (srcz == 0) ? (U) : (V)
 
 	@@indexed@@
 
 	#undef U
 	#undef V
 	#undef W
+	#undef MAP
     }
 }
 
