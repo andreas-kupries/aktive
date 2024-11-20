@@ -57,7 +57,7 @@ The result is suitable for use with [aktive warp matrix](generator_virtual_warp.
 |e|double||Parameter e of the affine transform|
 |f|double||Parameter f of the affine transform|
 
-## Examples
+#### <a name='transform_affine__examples'></a> Examples
 
 <table><tr><th>aktive transform affine a 1 b 2 c 3 d 4 e 5 f 6</th></tr>
 <tr><td valign='top'><table><tr><td>1</td><td>2</td><td>3</td></tr><tr><td>4</td><td>5</td><td>6</td></tr><tr><td>0</td><td>0</td><td>1</td></tr></table></td></tr></table>
@@ -75,7 +75,7 @@ The result is suitable for use with [aktive warp matrix](generator_virtual_warp.
 This operator is __strict__ in all inputs. All projective matrices are materialized and immediately used to compute the composition.
 
 
-## Examples
+#### <a name='transform_compose__examples'></a> Examples
 
 <table><tr><th>@1 (translate x -5 y -6)</th><th>@2 (rotate by 45)</th><th>@3 (translate x 5 y 6)</th><th>aktive transform compose @1 @2 @3 (rotate 45 around (5,6))</th></tr>
 <tr><td valign='top'><table><tr><td>1.0000</td><td>0.0000</td><td>-5.0000</td></tr><tr><td>0.0000</td><td>1.0000</td><td>-6.0000</td></tr><tr><td>0.0000</td><td>0.0000</td><td>1.0000</td></tr></table></td><td valign='top'><table><tr><td>0.7071</td><td>-0.7071</td><td>0.0000</td></tr><tr><td>0.7071</td><td>0.7071</td><td>0.0000</td></tr><tr><td>0.0000</td><td>0.0000</td><td>1.0000</td></tr></table></td><td valign='top'><table><tr><td>1.0000</td><td>0.0000</td><td>5.0000</td></tr><tr><td>0.0000</td><td>1.0000</td><td>6.0000</td></tr><tr><td>0.0000</td><td>0.0000</td><td>1.0000</td></tr></table></td><td valign='top'><table><tr><td>0.7071</td><td>-0.7071</td><td>-5.7071</td></tr><tr><td>0.7071</td><td>0.7071</td><td>1.7782</td></tr><tr><td>0.0000</td><td>0.0000</td><td>1.0000</td></tr></table></td></tr></table>
@@ -93,7 +93,7 @@ The result is suitable for use with [aktive warp matrix](generator_virtual_warp.
 This operator is __strict__ in both inputs. The two projective matrices are materialized and immediately used to compute the composition A*B.
 
 
-## Examples
+#### <a name='transform_compose_core__examples'></a> Examples
 
 <table><tr><th>@1 (rotate)</th><th>@2 (translate)</th><th>aktive transform compose-core @1 @2 (rotate after translate)</th></tr>
 <tr><td valign='top'><table><tr><td>0.7071</td><td>-0.7071</td><td>0.0000</td></tr><tr><td>0.7071</td><td>0.7071</td><td>0.0000</td></tr><tr><td>0.0000</td><td>0.0000</td><td>1.0000</td></tr></table></td><td valign='top'><table><tr><td>1.0000</td><td>0.0000</td><td>5.0000</td></tr><tr><td>0.0000</td><td>1.0000</td><td>6.0000</td></tr><tr><td>0.0000</td><td>0.0000</td><td>1.0000</td></tr></table></td><td valign='top'><table><tr><td>0.7071</td><td>-0.7071</td><td>-0.7071</td></tr><tr><td>0.7071</td><td>0.7071</td><td>7.7782</td></tr><tr><td>0.0000</td><td>0.0000</td><td>1.0000</td></tr></table></td></tr></table>
@@ -112,7 +112,7 @@ Returns a single-band 3x3 image containing the identity transform.
 The result is suitable for use with [aktive warp matrix](generator_virtual_warp.md#warp_matrix)
 
 
-## Examples
+#### <a name='transform_identity__examples'></a> Examples
 
 <table><tr><th>aktive transform identity </th></tr>
 <tr><td valign='top'><table><tr><td>1.0000</td><td>0.0000</td><td>0.0000</td></tr><tr><td>0.0000</td><td>1.0000</td><td>0.0000</td></tr><tr><td>0.0000</td><td>0.0000</td><td>1.0000</td></tr></table></td></tr></table>
@@ -130,7 +130,7 @@ The result is suitable for use with [aktive warp matrix](generator_virtual_warp.
 This operator is __strict__ in the 1st input. The projective matrix is materialized and immediately used to compute the inversion.
 
 
-## Examples
+#### <a name='transform_invert__examples'></a> Examples
 
 <table><tr><th>@1 (translate x -5 y -6)</th><th>aktive transform invert @1</th></tr>
 <tr><td valign='top'><table><tr><td>1.0000</td><td>0.0000</td><td>-5.0000</td></tr><tr><td>0.0000</td><td>1.0000</td><td>-6.0000</td></tr><tr><td>0.0000</td><td>0.0000</td><td>1.0000</td></tr></table></td><td valign='top'><table><tr><td>1.0000</td><td>-0.0000</td><td>5.0000</td></tr><tr><td>-0.0000</td><td>1.0000</td><td>6.0000</td></tr><tr><td>0.0000</td><td>-0.0000</td><td>1.0000</td></tr></table></td></tr></table>
@@ -159,7 +159,7 @@ The result is suitable for use with [aktive warp matrix](generator_virtual_warp.
 |g|double||Parameter g of the projective transform|
 |h|double||Parameter h of the projective transform|
 
-## Examples
+#### <a name='transform_projective__examples'></a> Examples
 
 <table><tr><th>aktive transform projective a 1 b 2 c 3 d 4 e 5 f 6 g 7 h 8</th></tr>
 <tr><td valign='top'><table><tr><td>1</td><td>2</td><td>3</td></tr><tr><td>4</td><td>5</td><td>6</td></tr><tr><td>7</td><td>8</td><td>1</td></tr></table></td></tr></table>
@@ -187,7 +187,7 @@ The quadrilaterals are specified as 4 points A-B-C-D and E-F-G-H in counter cloc
 |g|point||Point C of the quadrilateral B|
 |h|point||Point D of the quadrilateral B|
 
-## Examples
+#### <a name='transform_quad_quad__examples'></a> Examples
 
 <table><tr><th>aktive transform quad quad a {1 2} b {6 1} c {7 6} d {2 7}   e {0 3} f {7 1} g {8 7} h {1 7}</th></tr>
 <tr><td valign='top'><table><tr><td>0.9377</td><td>0.0220</td><td>-0.9817</td></tr><tr><td>-0.2821</td><td>0.9231</td><td>1.4359</td></tr><tr><td>-0.0623</td><td>0.0220</td><td>1.0183</td></tr></table></td></tr></table>
@@ -216,7 +216,7 @@ To map between two arbitrary quadrilaterals A and B a composition of two transfo
 |c|point||Point C of the quadrilateral|
 |d|point||Point D of the quadrilateral|
 
-## Examples
+#### <a name='transform_quad_unit__examples'></a> Examples
 
 <table><tr><th>aktive transform quad unit a {1 2} b {6 1} c {7 6} d {2 7}</th></tr>
 <tr><td valign='top'><table><tr><td>5.0000</td><td>1.0000</td><td>1.0000</td></tr><tr><td>-1.0000</td><td>5.0000</td><td>2.0000</td></tr><tr><td>-0.0000</td><td>-0.0000</td><td>1.0000</td></tr></table></td></tr></table>
@@ -239,7 +239,7 @@ The result is suitable for use with [aktive warp matrix](generator_virtual_warp.
 |a|point||Point A of the line to reflect over|
 |b|point|{}|Point B of the line to reflect over. If not specified, the origin is used|
 
-## Examples
+#### <a name='transform_reflect_line__examples'></a> Examples
 
 <table><tr><th>aktive transform reflect line a {5 3}</th></tr>
 <tr><td valign='top'><table><tr><td>0.4706</td><td>0.8824</td><td>0.0000</td></tr><tr><td>0.8824</td><td>-0.4706</td><td>0.0000</td></tr><tr><td>0.0000</td><td>0.0000</td><td>1.0000</td></tr></table></td></tr></table>
@@ -266,7 +266,7 @@ The result is suitable for use with [aktive warp matrix](generator_virtual_warp.
 When not used as part of a chain of transformations then this is better done using [aktive op flip x](transform_structure.md#op_flip_x)
 
 
-## Examples
+#### <a name='transform_reflect_x__examples'></a> Examples
 
 <table><tr><th>aktive transform reflect x </th></tr>
 <tr><td valign='top'><table><tr><td>-1.0000</td><td>0.0000</td><td>0.0000</td></tr><tr><td>0.0000</td><td>1.0000</td><td>0.0000</td></tr><tr><td>0.0000</td><td>0.0000</td><td>1.0000</td></tr></table></td></tr></table>
@@ -287,7 +287,7 @@ The result is suitable for use with [aktive warp matrix](generator_virtual_warp.
 When not used as part of a chain of transformations then this is better done using [aktive op flip y](transform_structure.md#op_flip_y)
 
 
-## Examples
+#### <a name='transform_reflect_y__examples'></a> Examples
 
 <table><tr><th>aktive transform reflect y </th></tr>
 <tr><td valign='top'><table><tr><td>1.0000</td><td>0.0000</td><td>0.0000</td></tr><tr><td>0.0000</td><td>-1.0000</td><td>0.0000</td></tr><tr><td>0.0000</td><td>0.0000</td><td>1.0000</td></tr></table></td></tr></table>
@@ -309,7 +309,7 @@ The result is suitable for use with [aktive warp matrix](generator_virtual_warp.
 |:---|:---|:---|:---|
 |by|double||In degrees, angle to rotate|
 
-## Examples
+#### <a name='transform_rotate__examples'></a> Examples
 
 <table><tr><th>aktive transform rotate by 45</th></tr>
 <tr><td valign='top'><table><tr><td>0.7071</td><td>-0.7071</td><td>0.0000</td></tr><tr><td>0.7071</td><td>0.7071</td><td>0.0000</td></tr><tr><td>0.0000</td><td>0.0000</td><td>1.0000</td></tr></table></td></tr></table>
@@ -332,7 +332,7 @@ The result is suitable for use with [aktive warp matrix](generator_virtual_warp.
 |x|double|1|Scaling factor for x-axis|
 |y|double|1|Scaling factor for y-axis|
 
-## Examples
+#### <a name='transform_scale__examples'></a> Examples
 
 <table><tr><th>aktive transform scale x 3 y 0.5</th></tr>
 <tr><td valign='top'><table><tr><td>3.0000</td><td>0.0000</td><td>0.0000</td></tr><tr><td>0.0000</td><td>0.5000</td><td>0.0000</td></tr><tr><td>0.0000</td><td>0.0000</td><td>1.0000</td></tr></table></td></tr></table>
@@ -355,7 +355,7 @@ The result is suitable for use with [aktive warp matrix](generator_virtual_warp.
 |x|double|0|Shear by this many pixels along the x-axis|
 |y|double|0|Shear by this many pixels along the y-axis|
 
-## Examples
+#### <a name='transform_shear__examples'></a> Examples
 
 <table><tr><th>aktive transform shear x 10</th></tr>
 <tr><td valign='top'><table><tr><td>1.0000</td><td>10.0000</td><td>0.0000</td></tr><tr><td>0.0000</td><td>1.0000</td><td>0.0000</td></tr><tr><td>0.0000</td><td>0.0000</td><td>1.0000</td></tr></table></td></tr></table>
@@ -384,7 +384,7 @@ The result is suitable for use with [aktive warp matrix](generator_virtual_warp.
 |x|double|0|Translation offset for x-axis|
 |y|double|0|Translation offset for y-axis|
 
-## Examples
+#### <a name='transform_translate__examples'></a> Examples
 
 <table><tr><th>aktive transform translate x 3 y 1</th></tr>
 <tr><td valign='top'><table><tr><td>1.0000</td><td>0.0000</td><td>3.0000</td></tr><tr><td>0.0000</td><td>1.0000</td><td>1.0000</td></tr><tr><td>0.0000</td><td>0.0000</td><td>1.0000</td></tr></table></td></tr></table>
@@ -419,7 +419,7 @@ This operator is __strict__ in the 1st input. The projective matrix is materiali
 |x|int|0|X location of the returned image in the 2D plane|
 |y|int|0|Y location of the returned image in the 2D plane|
 
-## Examples
+#### <a name='warp_matrix__examples'></a> Examples
 
 <table><tr><th>@1 (translate x 5 y 3)</th><th>aktive warp matrix @1 width 5 height 5</th></tr>
 <tr><td valign='top'><table><tr><td>1.0000</td><td>0.0000</td><td>5.0000</td></tr><tr><td>0.0000</td><td>1.0000</td><td>3.0000</td></tr><tr><td>0.0000</td><td>0.0000</td><td>1.0000</td></tr></table></td><td valign='top'><table><tr><td>(5.0000, 3.0000)</td><td>(6.0000, 3.0000)</td><td>(7.0000, 3.0000)</td><td>(8.0000, 3.0000)</td><td>(9.0000, 3.0000)</td></tr><tr><td>(5.0000, 4.0000)</td><td>(6.0000, 4.0000)</td><td>(7.0000, 4.0000)</td><td>(8.0000, 4.0000)</td><td>(9.0000, 4.0000)</td></tr><tr><td>(5.0000, 5.0000)</td><td>(6.0000, 5.0000)</td><td>(7.0000, 5.0000)</td><td>(8.0000, 5.0000)</td><td>(9.0000, 5.0000)</td></tr><tr><td>(5.0000, 6.0000)</td><td>(6.0000, 6.0000)</td><td>(7.0000, 6.0000)</td><td>(8.0000, 6.0000)</td><td>(9.0000, 6.0000)</td></tr><tr><td>(5.0000, 7.0000)</td><td>(6.0000, 7.0000)</td><td>(7.0000, 7.0000)</td><td>(8.0000, 7.0000)</td><td>(9.0000, 7.0000)</td></tr></table></td></tr></table>
@@ -449,7 +449,7 @@ At the technical level the result is a 2-band image where each pixel declares it
 |mean|double|0|Mean of the desired gauss distribution.|
 |sigma|double|1|Sigma of the desired gauss distribution.|
 
-## Examples
+#### <a name='warp_noise_gauss__examples'></a> Examples
 
 <table><tr><th>aktive warp noise gauss width 5 height 5 seed 703011174</th></tr>
 <tr><td valign='top'><table><tr><td>(-2.0121, 1.5892)</td><td>(1.3499, 0.2499)</td><td>(2.7147, -0.1152)</td><td>(3.8782, -1.6135)</td><td>(5.1449, 0.2902)</td></tr><tr><td>(-0.6889, 2.2202)</td><td>(2.3416, -0.5845)</td><td>(1.2220, -0.3694)</td><td>(3.6195, 0.7493)</td><td>(4.7044, 0.2976)</td></tr><tr><td>(0.0954, 2.3508)</td><td>(-1.0648, 0.3407)</td><td>(1.7567, 1.7429)</td><td>(4.3928, 0.8721)</td><td>(3.1299, 2.1653)</td></tr><tr><td>(-0.1816, 2.7917)</td><td>(0.6991, 4.0203)</td><td>(3.5031, 2.0773)</td><td>(2.9707, 1.2286)</td><td>(2.6036, 4.7599)</td></tr><tr><td>(-1.3935, 4.7155)</td><td>(-0.9779, 3.3744)</td><td>(2.9045, 3.9337)</td><td>(5.0461, 5.1393)</td><td>(5.4505, 3.5626)</td></tr></table></td></tr></table>
@@ -476,7 +476,7 @@ At the technical level the result is a 2-band image where each pixel declares it
 |min|double|0|Minimal noise value|
 |max|double|1|Maximal noise value|
 
-## Examples
+#### <a name='warp_noise_uniform__examples'></a> Examples
 
 <table><tr><th>aktive warp noise uniform width 5 height 5 seed 703011174</th></tr>
 <tr><td valign='top'><table><tr><td>(0.8863, 0.8719)</td><td>(1.7793, 0.2554)</td><td>(2.4107, 0.5807)</td><td>(3.9289, 0.7495)</td><td>(4.3616, 0.7607)</td></tr><tr><td>(0.3324, 1.3431)</td><td>(1.1898, 1.9291)</td><td>(2.6310, 1.1222)</td><td>(3.3401, 1.4667)</td><td>(4.3098, 1.1832)</td></tr><tr><td>(0.5581, 2.0059)</td><td>(1.9649, 2.9972)</td><td>(2.6588, 2.9941)</td><td>(3.4623, 2.0973)</td><td>(4.0229, 2.5306)</td></tr><tr><td>(0.5197, 3.8011)</td><td>(1.9559, 3.6307)</td><td>(2.3224, 3.6220)</td><td>(3.8149, 3.1401)</td><td>(4.2486, 3.3354)</td></tr><tr><td>(0.5329, 4.0316)</td><td>(1.1691, 4.5186)</td><td>(2.8783, 4.5382)</td><td>(3.5672, 4.7050)</td><td>(4.2872, 4.0349)</td></tr></table></td></tr></table>
@@ -508,7 +508,7 @@ At the technical level the result is a 2-band image where each pixel declares it
 |from|double|45|In degrees, swirl rotation at distance 0 from center.|
 |decay|double|0.1|Rotation decay with distance from center.|
 
-## Examples
+#### <a name='warp_swirl__examples'></a> Examples
 
 <table><tr><th>aktive warp swirl width 11 height 11 center {5 5} decay 1</th></tr>
 <tr><td valign='top'><table><tr><td>(0.0033, -0.0033)</td><td>(1.0065, -0.0052)</td><td>(2.0115, -0.0069)</td><td>(3.0180, -0.0072)</td><td>(4.0240, -0.0047)</td><td>(5.0265, 0.0001)</td><td>(6.0240, 0.0049)</td><td>(7.0180, 0.0072)</td><td>(8.0115, 0.0069)</td><td>(9.0065, 0.0052)</td><td>(10.0033, 0.0033)</td></tr><tr><td>(0.0052, 0.9935)</td><td>(1.0110, 0.9890)</td><td>(2.0212, 0.9842)</td><td>(3.0360, 0.9822)</td><td>(4.0510, 0.9876)</td><td>(5.0575, 1.0004)</td><td>(6.0508, 1.0130)</td><td>(7.0358, 1.0181)</td><td>(8.0211, 1.0159)</td><td>(9.0110, 1.0110)</td><td>(10.0052, 1.0065)</td></tr><tr><td>(0.0069, 1.9885)</td><td>(1.0159, 1.9789)</td><td>(2.0340, 1.9663)</td><td>(3.0645, 1.9580)</td><td>(4.1003, 1.9684)</td><td>(5.1173, 2.0023)</td><td>(6.0992, 2.0349)</td><td>(7.0636, 2.0434)</td><td>(8.0337, 2.0340)</td><td>(9.0158, 2.0212)</td><td>(10.0069, 2.0115)</td></tr><tr><td>(0.0072, 2.9820)</td><td>(1.0181, 2.9642)</td><td>(2.0434, 2.9364)</td><td>(3.0950, 2.9093)</td><td>(4.1712, 2.9232)</td><td>(5.2122, 3.0113)</td><td>(6.1642, 3.0909)</td><td>(7.0907, 3.0950)</td><td>(8.0420, 3.0645)</td><td>(9.0178, 3.0360)</td><td>(10.0072, 3.0180)</td></tr><tr><td>(0.0049, 3.9760)</td><td>(1.0130, 3.9492)</td><td>(2.0349, 3.9008)</td><td>(3.0909, 3.8358)</td><td>(4.2080, 3.8284)</td><td>(5.2849, 4.0415)</td><td>(6.1716, 4.2080)</td><td>(7.0768, 4.1712)</td><td>(8.0316, 4.1003)</td><td>(9.0124, 4.0510)</td><td>(10.0047, 4.0240)</td></tr><tr><td>(0.0001, 4.9735)</td><td>(1.0004, 4.9425)</td><td>(2.0023, 4.8827)</td><td>(3.0113, 4.7878)</td><td>(4.0415, 4.7151)</td><td>(5.0000, 5.0000)</td><td>(5.9585, 5.2849)</td><td>(6.9887, 5.2122)</td><td>(7.9977, 5.1173)</td><td>(8.9996, 5.0575)</td><td>(9.9999, 5.0265)</td></tr><tr><td>(-0.0047, 5.9760)</td><td>(0.9876, 5.9490)</td><td>(1.9684, 5.8997)</td><td>(2.9232, 5.8288)</td><td>(3.8284, 5.7920)</td><td>(4.7151, 5.9585)</td><td>(5.7920, 6.1716)</td><td>(6.9091, 6.1642)</td><td>(7.9651, 6.0992)</td><td>(8.9870, 6.0508)</td><td>(9.9951, 6.0240)</td></tr><tr><td>(-0.0072, 6.9820)</td><td>(0.9822, 6.9640)</td><td>(1.9580, 6.9355)</td><td>(2.9093, 6.9050)</td><td>(3.8358, 6.9091)</td><td>(4.7878, 6.9887)</td><td>(5.8288, 7.0768)</td><td>(6.9050, 7.0907)</td><td>(7.9566, 7.0636)</td><td>(8.9819, 7.0358)</td><td>(9.9928, 7.0180)</td></tr><tr><td>(-0.0069, 7.9885)</td><td>(0.9842, 7.9788)</td><td>(1.9663, 7.9660)</td><td>(2.9364, 7.9566)</td><td>(3.9008, 7.9651)</td><td>(4.8827, 7.9977)</td><td>(5.8997, 8.0316)</td><td>(6.9355, 8.0420)</td><td>(7.9660, 8.0337)</td><td>(8.9841, 8.0211)</td><td>(9.9931, 8.0115)</td></tr><tr><td>(-0.0052, 8.9935)</td><td>(0.9890, 8.9890)</td><td>(1.9789, 8.9841)</td><td>(2.9642, 8.9819)</td><td>(3.9492, 8.9870)</td><td>(4.9425, 8.9996)</td><td>(5.9490, 9.0124)</td><td>(6.9640, 9.0178)</td><td>(7.9788, 9.0158)</td><td>(8.9890, 9.0110)</td><td>(9.9948, 9.0065)</td></tr><tr><td>(-0.0033, 9.9967)</td><td>(0.9935, 9.9948)</td><td>(1.9885, 9.9931)</td><td>(2.9820, 9.9928)</td><td>(3.9760, 9.9951)</td><td>(4.9735, 9.9999)</td><td>(5.9760, 10.0047)</td><td>(6.9820, 10.0072)</td><td>(7.9885, 10.0069)</td><td>(8.9935, 10.0052)</td><td>(9.9967, 10.0033)</td></tr></table></td></tr></table>

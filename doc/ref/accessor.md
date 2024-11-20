@@ -107,7 +107,7 @@ Returns a dictionary containing the input's parameters.
 For an image without parameters the result is the empty dictionary.
 
 
-## Examples
+#### <a name='query_params__examples'></a> Examples
 
 <table><tr><th>@1</th><th>aktive query params @1</th></tr>
 <tr><td valign='top'><img src='example-00400.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'>width 32 height 32</td></tr></table>
@@ -126,7 +126,7 @@ Returns a dictionary containing the input's setup.
 This includes type, geometry, and parameters, if any. The inputs however are excluded.
 
 
-## Examples
+#### <a name='query_setup__examples'></a> Examples
 
 <table><tr><th>@1</th><th>aktive query setup @1</th></tr>
 <tr><td valign='top'><img src='example-00412.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'>type image::zone domain {x 0 y 0 width 32 height 32 depth 1} config {width 32 height 32}</td></tr></table>
@@ -143,7 +143,7 @@ Syntax: __aktive query type__ src
 Returns the input's type.
 
 
-## Examples
+#### <a name='query_type__examples'></a> Examples
 
 <table><tr><th>@1</th><th>aktive query type @1</th></tr>
 <tr><td valign='top'><img src='example-00420.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'>image::zone</td></tr></table>

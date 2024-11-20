@@ -37,7 +37,7 @@ Syntax: __aktive op montage x__ srcs...
 Returns image with all inputs joined left to right along the x-axis.
 
 
-## Examples
+#### <a name='op_montage_x__examples'></a> Examples
 
 <table><tr><th>@1</th><th>@2</th><th>@3</th><th>aktive op montage x @1 @2 @3</th></tr>
 <tr><td valign='top'><img src='example-00228.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00229.gif' alt='@2' style='border:4px solid gold'></td><td valign='top'><img src='example-00230.gif' alt='@3' style='border:4px solid gold'></td><td valign='top'><img src='example-00231.gif' alt='aktive op montage x @1 @2 @3' style='border:4px solid gold'></td></tr></table>
@@ -75,7 +75,7 @@ Returns image with input joined left to right with itself N times along the x-ax
 |:---|:---|:---|:---|
 |by|uint||Replication factor|
 
-## Examples
+#### <a name='op_montage_x_rep__examples'></a> Examples
 
 <table><tr><th>@1</th><th>aktive op montage x-rep @1 by 3</th></tr>
 <tr><td valign='top'><img src='example-00236.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00237.gif' alt='aktive op montage x-rep @1 by 3' style='border:4px solid gold'></td></tr></table>
@@ -89,7 +89,7 @@ Syntax: __aktive op montage y__ srcs...
 Returns image with all inputs joined top to bottom along the y-axis.
 
 
-## Examples
+#### <a name='op_montage_y__examples'></a> Examples
 
 <table><tr><th>@1</th><th>@2</th><th>@3</th><th>aktive op montage y @1 @2 @3</th></tr>
 <tr><td valign='top'><img src='example-00238.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00239.gif' alt='@2' style='border:4px solid gold'></td><td valign='top'><img src='example-00240.gif' alt='@3' style='border:4px solid gold'></td><td valign='top'><img src='example-00241.gif' alt='aktive op montage y @1 @2 @3' style='border:4px solid gold'></td></tr></table>
@@ -127,7 +127,7 @@ Returns image with input joined top to bottom with itself N times along the y-ax
 |:---|:---|:---|:---|
 |by|uint||Replication factor|
 
-## Examples
+#### <a name='op_montage_y_rep__examples'></a> Examples
 
 <table><tr><th>@1</th><th>aktive op montage y-rep @1 by 3</th></tr>
 <tr><td valign='top'><img src='example-00246.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00247.gif' alt='aktive op montage y-rep @1 by 3' style='border:4px solid gold'></td></tr></table>
@@ -141,7 +141,7 @@ Syntax: __aktive op montage z__ srcs...
 Returns image with all inputs joined front to back along the z-axis.
 
 
-## Examples
+#### <a name='op_montage_z__examples'></a> Examples
 
 <table><tr><th>@1</th><th>@2</th><th>@3</th><th>aktive op montage z @1 @2 @3</th></tr>
 <tr><td valign='top'><img src='example-00248.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00249.gif' alt='@2' style='border:4px solid gold'></td><td valign='top'><img src='example-00250.gif' alt='@3' style='border:4px solid gold'></td><td valign='top'><img src='example-00251.gif' alt='aktive op montage z @1 @2 @3' style='border:4px solid gold'></td></tr></table>
@@ -179,7 +179,7 @@ Returns image with input joined front to back with itself N times along the z-ax
 |:---|:---|:---|:---|
 |by|uint||Replication factor|
 
-## Examples
+#### <a name='op_montage_z_rep__examples'></a> Examples
 
 <table><tr><th>@1</th><th>aktive op montage z-rep @1 by 3</th></tr>
 <tr><td valign='top'><img src='example-00256.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00257.gif' alt='aktive op montage z-rep @1 by 3' style='border:4px solid gold'></td></tr></table>

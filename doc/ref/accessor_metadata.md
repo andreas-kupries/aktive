@@ -134,7 +134,7 @@ Syntax: __aktive query meta__ src
 Returns a dictionary containing the input's meta data.
 
 
-## Examples
+#### <a name='query_meta__examples'></a> Examples
 
 <table><tr><th>@1</th><th>aktive query meta @1</th></tr>
 <tr><td valign='top'><img src='example-00398.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'>netpbm {maxval 255} path tests/assets/sines.ppm colorspace sRGB</td></tr></table>

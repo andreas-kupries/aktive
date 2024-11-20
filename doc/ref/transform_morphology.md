@@ -47,7 +47,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 |transform|str|{}|Command prefix to transform the CCs before creating an image from them. Executed in the global scope.|
 |bbox|bool|0|Flag controlling the result geometry. When false (default) the result has the same geometry as the input. Else the result's geometry is the bounding box containing all CCs (After transformation, if any).|
 
-## Examples
+#### <a name='op_connected_components_labeled__examples'></a> Examples
 
 <table><tr><th>@1</th><th>aktive op connected-components labeled @1</th></tr>
 <tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00196.gif' alt='@1' style='border:4px solid gold'></td></tr></table></td><td valign='top'><table><tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr><tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>2</td><td>2</td><td>0</td><td>0</td><td>3</td><td>3</td><td>3</td><td>0</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>0</td><td>0</td><td>0</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>0</td><td>0</td></tr><tr><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>0</td><td>0</td><td>2</td><td>2</td><td>0</td><td>0</td><td>3</td><td>0</td><td>3</td><td>0</td><td>4</td><td>0</td><td>0</td><td>0</td><td>4</td><td>0</td><td>0</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>0</td></tr><tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>2</td><td>2</td><td>0</td><td>0</td><td>0</td><td>3</td><td>3</td><td>3</td><td>0</td><td>4</td><td>0</td><td>0</td><td>0</td><td>4</td><td>0</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td></tr><tr><td>0</td><td>2</td><td>2</td><td>2</td><td>2</td><td>2</td><td>2</td><td>2</td><td>0</td><td>6</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>4</td><td>0</td><td>0</td><td>0</td><td>4</td><td>0</td><td>5</td><td>5</td><td>5</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>5</td><td>5</td><td>5</td></tr><tr><td>0</td><td>2</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>6</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>4</td><td>0</td><td>0</td><td>0</td><td>4</td><td>0</td><td>5</td><td>5</td><td>0</td><td>0</td><td>0</td><td>7</td><td>0</td><td>0</td><td>0</td><td>5</td><td>5</td></tr><tr><td>0</td><td>2</td><td>0</td><td>6</td><td>6</td><td>6</td><td>6</td><td>6</td><td>6</td><td>6</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>0</td><td>0</td><td>5</td><td>5</td><td>0</td><td>0</td><td>7</td><td>0</td><td>0</td><td>5</td><td>5</td><td>0</td></tr><tr><td>0</td><td>0</td><td>6</td><td>6</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>5</td><td>5</td><td>0</td><td>7</td><td>0</td><td>5</td><td>5</td><td>0</td><td>0</td></tr><tr><td>0</td><td>6</td><td>6</td><td>0</td><td>0</td><td>8</td><td>8</td><td>8</td><td>8</td><td>8</td><td>8</td><td>0</td><td>9</td><td>9</td><td>9</td><td>9</td><td>9</td><td>9</td><td>9</td><td>9</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>7</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr><tr><td>0</td><td>6</td><td>6</td><td>0</td><td>0</td><td>8</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>9</td><td>9</td><td>9</td><td>9</td><td>9</td><td>9</td><td>9</td><td>9</td><td>0</td><td>0</td><td>7</td><td>7</td><td>7</td><td>7</td><td>7</td><td>7</td><td>7</td><td>7</td><td>7</td><td>7</td><td>7</td></tr><tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>8</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>9</td><td>9</td><td>0</td><td>0</td><td>0</td><td>0</td><td>9</td><td>9</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>7</td><td>7</td><td>7</td><td>0</td><td>0</td><td>0</td><td>0</td></tr></table></td></tr></table>
@@ -71,7 +71,7 @@ Returns image containing the morphological closing (dilate, then erode) of the i
 |radius|uint|1|Size of the structuring element to perform the operation with.|
 |embed|str|black|Embedding method to use before core operators to keep output from shrinking.|
 
-## Examples
+#### <a name='op_morph_close__examples'></a> Examples
 
 <table><tr><th>@1</th><th>aktive op morph close @1 radius 1</th></tr>
 <tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00258.gif' alt='@1' style='border:4px solid gold'></td></tr></table></td><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00259.gif' alt='aktive op morph close @1 radius 1' style='border:4px solid gold'></td></tr></table></td></tr></table>
@@ -92,7 +92,7 @@ Returns image containing the morphological dilation of the input using a (2*radi
 |radius|uint|1|Size of the structuring element to perform the operation with.|
 |embed|str|black|Embedding method to use before core operators to keep output from shrinking.|
 
-## Examples
+#### <a name='op_morph_dilate__examples'></a> Examples
 
 <table><tr><th>@1</th><th>aktive op morph dilate @1 radius 1</th></tr>
 <tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00262.gif' alt='@1' style='border:4px solid gold'></td></tr></table></td><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00263.gif' alt='aktive op morph dilate @1 radius 1' style='border:4px solid gold'></td></tr></table></td></tr></table>
@@ -113,7 +113,7 @@ Returns image containing the morphological erosion of the input using a (2*radiu
 |radius|uint|1|Size of the structuring element to perform the operation with.|
 |embed|str|black|Embedding method to use before core operators to keep output from shrinking.|
 
-## Examples
+#### <a name='op_morph_erode__examples'></a> Examples
 
 <table><tr><th>@1</th><th>aktive op morph erode @1 radius 1</th></tr>
 <tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00266.gif' alt='@1' style='border:4px solid gold'></td></tr></table></td><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00267.gif' alt='aktive op morph erode @1 radius 1' style='border:4px solid gold'></td></tr></table></td></tr></table>
@@ -134,7 +134,7 @@ Returns image containing the morphological gradient (subtract eroded from dilate
 |radius|uint|1|Size of the structuring element to perform the operation with.|
 |embed|str|black|Embedding method to use before core operators to keep output from shrinking.|
 
-## Examples
+#### <a name='op_morph_gradient_all__examples'></a> Examples
 
 <table><tr><th>@1</th><th>aktive op morph gradient all @1 radius 1</th></tr>
 <tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00270.gif' alt='@1' style='border:4px solid gold'></td></tr></table></td><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00271.gif' alt='aktive op morph gradient all @1 radius 1' style='border:4px solid gold'></td></tr></table></td></tr></table>
@@ -155,7 +155,7 @@ Returns image containing the morphological outer gradient (subtract input from d
 |radius|uint|1|Size of the structuring element to perform the operation with.|
 |embed|str|black|Embedding method to use before core operators to keep output from shrinking.|
 
-## Examples
+#### <a name='op_morph_gradient_external__examples'></a> Examples
 
 <table><tr><th>@1</th><th>aktive op morph gradient external @1 radius 1</th></tr>
 <tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00274.gif' alt='@1' style='border:4px solid gold'></td></tr></table></td><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00275.gif' alt='aktive op morph gradient external @1 radius 1' style='border:4px solid gold'></td></tr></table></td></tr></table>
@@ -176,7 +176,7 @@ Returns image containing the morphological inner gradient (subtract eroded from 
 |radius|uint|1|Size of the structuring element to perform the operation with.|
 |embed|str|black|Embedding method to use before core operators to keep output from shrinking.|
 
-## Examples
+#### <a name='op_morph_gradient_internal__examples'></a> Examples
 
 <table><tr><th>@1</th><th>aktive op morph gradient internal @1 radius 1</th></tr>
 <tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00278.gif' alt='@1' style='border:4px solid gold'></td></tr></table></td><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00279.gif' alt='aktive op morph gradient internal @1 radius 1' style='border:4px solid gold'></td></tr></table></td></tr></table>
@@ -197,7 +197,7 @@ Returns image containing the morphological opening (erode, then dilate) of the i
 |radius|uint|1|Size of the structuring element to perform the operation with.|
 |embed|str|black|Embedding method to use before core operators to keep output from shrinking.|
 
-## Examples
+#### <a name='op_morph_open__examples'></a> Examples
 
 <table><tr><th>@1</th><th>aktive op morph open @1 radius 1</th></tr>
 <tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00282.gif' alt='@1' style='border:4px solid gold'></td></tr></table></td><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00283.gif' alt='aktive op morph open @1 radius 1' style='border:4px solid gold'></td></tr></table></td></tr></table>
@@ -218,7 +218,7 @@ Returns image containing the morphological of the input using a (2*radius+1)x(2*
 |radius|uint|1|Size of the structuring element to perform the operation with.|
 |embed|str|black|Embedding method to use before core operators to keep output from shrinking.|
 
-## Examples
+#### <a name='op_morph_toggle__examples'></a> Examples
 
 <table><tr><th>@1</th><th>aktive op morph toggle @1 radius 1</th></tr>
 <tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00286.gif' alt='@1' style='border:4px solid gold'></td></tr></table></td><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00287.gif' alt='aktive op morph toggle @1 radius 1' style='border:4px solid gold'></td></tr></table></td></tr></table>
@@ -239,7 +239,7 @@ Returns image containing the morphological black tophat (subtract input from clo
 |radius|uint|1|Size of the structuring element to perform the operation with.|
 |embed|str|black|Embedding method to use before core operators to keep output from shrinking.|
 
-## Examples
+#### <a name='op_morph_tophat_black__examples'></a> Examples
 
 <table><tr><th>@1</th><th>aktive op morph tophat black @1 radius 1</th></tr>
 <tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00290.gif' alt='@1' style='border:4px solid gold'></td></tr></table></td><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00291.gif' alt='aktive op morph tophat black @1 radius 1' style='border:4px solid gold'></td></tr></table></td></tr></table>
@@ -260,7 +260,7 @@ Returns image containing the morphological white tophat (subtract opening from i
 |radius|uint|1|Size of the structuring element to perform the operation with.|
 |embed|str|black|Embedding method to use before core operators to keep output from shrinking.|
 
-## Examples
+#### <a name='op_morph_tophat_white__examples'></a> Examples
 
 <table><tr><th>@1</th><th>aktive op morph tophat white @1 radius 1</th></tr>
 <tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00294.gif' alt='@1' style='border:4px solid gold'></td></tr></table></td><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00295.gif' alt='aktive op morph tophat white @1 radius 1' style='border:4px solid gold'></td></tr></table></td></tr></table>

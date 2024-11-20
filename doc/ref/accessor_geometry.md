@@ -41,7 +41,7 @@ Syntax: __aktive query depth__ src
 Returns the input's depth.
 
 
-## Examples
+#### <a name='query_depth__examples'></a> Examples
 
 <table><tr><th>@1</th><th>aktive query depth @1</th></tr>
 <tr><td valign='top'><img src='example-00378.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'>1</td></tr></table>
@@ -58,7 +58,7 @@ Syntax: __aktive query domain__ src
 Returns the input's domain, a 2D rectangle. I.e. location, width, and height.
 
 
-## Examples
+#### <a name='query_domain__examples'></a> Examples
 
 <table><tr><th>@1</th><th>aktive query domain @1</th></tr>
 <tr><td valign='top'><img src='example-00382.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'>0 0 32 32</td></tr></table>
@@ -75,7 +75,7 @@ Syntax: __aktive query geometry__ src
 Returns the input's full geometry, i.e. domain and depth.
 
 
-## Examples
+#### <a name='query_geometry__examples'></a> Examples
 
 <table><tr><th>@1</th><th>aktive query geometry @1</th></tr>
 <tr><td valign='top'><img src='example-00386.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'>0 0 32 32 1</td></tr></table>
@@ -92,7 +92,7 @@ Syntax: __aktive query height__ src
 Returns the input's height.
 
 
-## Examples
+#### <a name='query_height__examples'></a> Examples
 
 <table><tr><th>@1</th><th>aktive query height @1</th></tr>
 <tr><td valign='top'><img src='example-00390.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'>32</td></tr></table>
@@ -109,7 +109,7 @@ Syntax: __aktive query location__ src
 Returns the input's location, a 2D point.
 
 
-## Examples
+#### <a name='query_location__examples'></a> Examples
 
 <table><tr><th>@1</th><th>aktive query location @1</th></tr>
 <tr><td valign='top'><img src='example-00394.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'>0 0</td></tr></table>
@@ -126,7 +126,7 @@ Syntax: __aktive query pitch__ src
 Returns the input's pitch, the number of values in a row, i.e. width times depth.
 
 
-## Examples
+#### <a name='query_pitch__examples'></a> Examples
 
 <table><tr><th>@1</th><th>aktive query pitch @1</th></tr>
 <tr><td valign='top'><img src='example-00404.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'>32</td></tr></table>
@@ -143,7 +143,7 @@ Syntax: __aktive query pixels__ src
 Returns the input's number of pixels.
 
 
-## Examples
+#### <a name='query_pixels__examples'></a> Examples
 
 <table><tr><th>@1</th><th>aktive query pixels @1</th></tr>
 <tr><td valign='top'><img src='example-00408.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'>1024</td></tr></table>
@@ -160,7 +160,7 @@ Syntax: __aktive query size__ src
 Returns the input's size, i.e. the number of pixels times depth.
 
 
-## Examples
+#### <a name='query_size__examples'></a> Examples
 
 <table><tr><th>@1</th><th>aktive query size @1</th></tr>
 <tr><td valign='top'><img src='example-00416.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'>1024</td></tr></table>
@@ -177,7 +177,7 @@ Syntax: __aktive query width__ src
 Returns the input's width.
 
 
-## Examples
+#### <a name='query_width__examples'></a> Examples
 
 <table><tr><th>@1</th><th>aktive query width @1</th></tr>
 <tr><td valign='top'><img src='example-00428.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'>32</td></tr></table>
@@ -194,7 +194,7 @@ Syntax: __aktive query x__ src
 Returns the input's x location.
 
 
-## Examples
+#### <a name='query_x__examples'></a> Examples
 
 <table><tr><th>@1</th><th>aktive query x @1</th></tr>
 <tr><td valign='top'><img src='example-00432.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'>0</td></tr></table>
@@ -211,7 +211,7 @@ Syntax: __aktive query xmax__ src
 Returns the input's maximum x location.
 
 
-## Examples
+#### <a name='query_xmax__examples'></a> Examples
 
 <table><tr><th>@1</th><th>aktive query xmax @1</th></tr>
 <tr><td valign='top'><img src='example-00436.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'>31</td></tr></table>
@@ -228,7 +228,7 @@ Syntax: __aktive query y__ src
 Returns the input's y location.
 
 
-## Examples
+#### <a name='query_y__examples'></a> Examples
 
 <table><tr><th>@1</th><th>aktive query y @1</th></tr>
 <tr><td valign='top'><img src='example-00440.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'>0</td></tr></table>
@@ -245,7 +245,7 @@ Syntax: __aktive query ymax__ src
 Returns the input's maximum y location.
 
 
-## Examples
+#### <a name='query_ymax__examples'></a> Examples
 
 <table><tr><th>@1</th><th>aktive query ymax @1</th></tr>
 <tr><td valign='top'><img src='example-00444.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'>31</td></tr></table>
