@@ -94,11 +94,11 @@ The underlying operation is [aktive warp noise gauss](generator_virtual_warp.md#
 <table><tr><th>@1</th><th>aktive effect jitter gauss @1 sigma 4 seed 703011174</th></tr>
 <tr><td valign='top'><img src='example-00007.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00008.gif' alt='aktive effect jitter gauss @1 sigma 4 seed 703011174' style='border:4px solid gold'></td></tr></table>
 
-<table><tr><th>@1 (assets/sines.ppm)</th><th>aktive effect jitter gauss @1 sigma 4 seed 703011174</th></tr>
-<tr><td valign='top'><img src='example-00009.gif' alt='@1 (assets/sines.ppm)' style='border:4px solid gold'></td><td valign='top'><img src='example-00010.gif' alt='aktive effect jitter gauss @1 sigma 4 seed 703011174' style='border:4px solid gold'></td></tr></table>
+<table><tr><th>@1<br>(assets/sines.ppm)</th><th>aktive effect jitter gauss @1 sigma 4 seed 703011174</th></tr>
+<tr><td valign='top'><img src='example-00009.gif' alt='@1<br>(assets/sines.ppm)' style='border:4px solid gold'></td><td valign='top'><img src='example-00010.gif' alt='aktive effect jitter gauss @1 sigma 4 seed 703011174' style='border:4px solid gold'></td></tr></table>
 
-<table><tr><th>@1 (assets/butterfly.ppm)</th><th>aktive effect jitter gauss @1 sigma 4 seed 703011174</th></tr>
-<tr><td valign='top'><img src='example-00011.gif' alt='@1 (assets/butterfly.ppm)' style='border:4px solid gold'></td><td valign='top'><img src='example-00012.gif' alt='aktive effect jitter gauss @1 sigma 4 seed 703011174' style='border:4px solid gold'></td></tr></table>
+<table><tr><th>@1<br>(assets/butterfly.ppm)</th><th>aktive effect jitter gauss @1 sigma 4 seed 703011174</th></tr>
+<tr><td valign='top'><img src='example-00011.gif' alt='@1<br>(assets/butterfly.ppm)' style='border:4px solid gold'></td><td valign='top'><img src='example-00012.gif' alt='aktive effect jitter gauss @1 sigma 4 seed 703011174' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -122,11 +122,11 @@ The underlying operation is [aktive warp noise uniform](generator_virtual_warp.m
 <table><tr><th>@1</th><th>aktive effect jitter uniform @1 min 1 max 6 seed 703011174</th></tr>
 <tr><td valign='top'><img src='example-00013.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00014.gif' alt='aktive effect jitter uniform @1 min 1 max 6 seed 703011174' style='border:4px solid gold'></td></tr></table>
 
-<table><tr><th>@1 (assets/sines.ppm)</th><th>aktive effect jitter uniform @1 min 1 max 6 seed 703011174</th></tr>
-<tr><td valign='top'><img src='example-00015.gif' alt='@1 (assets/sines.ppm)' style='border:4px solid gold'></td><td valign='top'><img src='example-00016.gif' alt='aktive effect jitter uniform @1 min 1 max 6 seed 703011174' style='border:4px solid gold'></td></tr></table>
+<table><tr><th>@1<br>(assets/sines.ppm)</th><th>aktive effect jitter uniform @1 min 1 max 6 seed 703011174</th></tr>
+<tr><td valign='top'><img src='example-00015.gif' alt='@1<br>(assets/sines.ppm)' style='border:4px solid gold'></td><td valign='top'><img src='example-00016.gif' alt='aktive effect jitter uniform @1 min 1 max 6 seed 703011174' style='border:4px solid gold'></td></tr></table>
 
-<table><tr><th>@1 (assets/butterfly.ppm)</th><th>aktive effect jitter uniform @1 min 1 max 6 seed 703011174</th></tr>
-<tr><td valign='top'><img src='example-00017.gif' alt='@1 (assets/butterfly.ppm)' style='border:4px solid gold'></td><td valign='top'><img src='example-00018.gif' alt='aktive effect jitter uniform @1 min 1 max 6 seed 703011174' style='border:4px solid gold'></td></tr></table>
+<table><tr><th>@1<br>(assets/butterfly.ppm)</th><th>aktive effect jitter uniform @1 min 1 max 6 seed 703011174</th></tr>
+<tr><td valign='top'><img src='example-00017.gif' alt='@1<br>(assets/butterfly.ppm)' style='border:4px solid gold'></td><td valign='top'><img src='example-00018.gif' alt='aktive effect jitter uniform @1 min 1 max 6 seed 703011174' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -188,10 +188,10 @@ The underlying operation is [aktive warp swirl](generator_virtual_warp.md#warp_s
 <table><tr><th>@1</th><th>aktive effect swirl @1 decay 0.05 from 135</th></tr>
 <tr><td valign='top'><img src='example-00025.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00026.gif' alt='aktive effect swirl @1 decay 0.05 from 135' style='border:4px solid gold'></td></tr></table>
 
-<table><tr><th>@1 (assets/sines.ppm)</th><th>aktive effect swirl @1 decay 0.01 from 135</th></tr>
-<tr><td valign='top'><img src='example-00027.gif' alt='@1 (assets/sines.ppm)' style='border:4px solid gold'></td><td valign='top'><img src='example-00028.gif' alt='aktive effect swirl @1 decay 0.01 from 135' style='border:4px solid gold'></td></tr></table>
+<table><tr><th>@1<br>(assets/sines.ppm)</th><th>aktive effect swirl @1 decay 0.01 from 135</th></tr>
+<tr><td valign='top'><img src='example-00027.gif' alt='@1<br>(assets/sines.ppm)' style='border:4px solid gold'></td><td valign='top'><img src='example-00028.gif' alt='aktive effect swirl @1 decay 0.01 from 135' style='border:4px solid gold'></td></tr></table>
 
-<table><tr><th>@1 (assets/butterfly.ppm)</th><th>aktive effect swirl @1 decay 0.01 from 135</th></tr>
-<tr><td valign='top'><img src='example-00029.gif' alt='@1 (assets/butterfly.ppm)' style='border:4px solid gold'></td><td valign='top'><img src='example-00030.gif' alt='aktive effect swirl @1 decay 0.01 from 135' style='border:4px solid gold'></td></tr></table>
+<table><tr><th>@1<br>(assets/butterfly.ppm)</th><th>aktive effect swirl @1 decay 0.01 from 135</th></tr>
+<tr><td valign='top'><img src='example-00029.gif' alt='@1<br>(assets/butterfly.ppm)' style='border:4px solid gold'></td><td valign='top'><img src='example-00030.gif' alt='aktive effect swirl @1 decay 0.01 from 135' style='border:4px solid gold'></td></tr></table>
 
 

@@ -60,11 +60,13 @@ The location of the matrix image is ignored.
 
 Syntax: __aktive op view__ src (param value)...
 
-Returns image arbitrarily offset and shaped compared to the input domain. In other words, an arbitrary view (port) into the input.
+Returns image arbitrarily offset and sized compared to the input domain. In other words, an arbitrary rectangular view (port) into the input.
 
 Beware, the requested area may fall __anywhere__ with respect to the input's domain. Same, inside (subset), outside, partially overlapping, etc.
 
+This is useful to add after an application of [aktive op transform by](transform_structure_warp.md#op_transform_by), as a means of focusing on the desired part of the transformation's result.
+
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
-|port|rect||The specific area to view in the plane|
+|port|rect||The specific area to view in the plane. A rectangle of the form {x y w h}.|
 
