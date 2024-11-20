@@ -110,10 +110,10 @@ For an image without parameters the result is the empty dictionary.
 #### <a name='query_params__examples'></a> Examples
 
 <table><tr><th>@1</th><th>aktive query params @1</th></tr>
-<tr><td valign='top'><img src='example-00417.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'>width 32 height 32</td></tr></table>
+<tr><td valign='top'><img src='example-00434.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'>width 32 height 32</td></tr></table>
 
 <table><tr><th>@1</th><th>aktive query params @1</th></tr>
-<tr><td valign='top'><img src='example-00419.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'>width 32 height 32 depth 1 first 0.0 last 1.0</td></tr></table>
+<tr><td valign='top'><img src='example-00436.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'>width 32 height 32 depth 1 first 0.0 last 1.0</td></tr></table>
 
 
 ---
@@ -129,10 +129,10 @@ This includes type, geometry, and parameters, if any. The inputs however are exc
 #### <a name='query_setup__examples'></a> Examples
 
 <table><tr><th>@1</th><th>aktive query setup @1</th></tr>
-<tr><td valign='top'><img src='example-00429.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'>type image::zone domain {x 0 y 0 width 32 height 32 depth 1} config {width 32 height 32}</td></tr></table>
+<tr><td valign='top'><img src='example-00446.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'>type image::zone domain {x 0 y 0 width 32 height 32 depth 1} config {width 32 height 32}</td></tr></table>
 
 <table><tr><th>@1</th><th>aktive query setup @1</th></tr>
-<tr><td valign='top'><img src='example-00431.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'>type image::gradient domain {x 0 y 0 width 32 height 32 depth 1} config {width 32 height 32 depth 1 first 0.0 last 1.0}</td></tr></table>
+<tr><td valign='top'><img src='example-00448.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'>type image::gradient domain {x 0 y 0 width 32 height 32 depth 1} config {width 32 height 32 depth 1 first 0.0 last 1.0}</td></tr></table>
 
 
 ---
@@ -146,9 +146,9 @@ Returns the input's type.
 #### <a name='query_type__examples'></a> Examples
 
 <table><tr><th>@1</th><th>aktive query type @1</th></tr>
-<tr><td valign='top'><img src='example-00437.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'>image::zone</td></tr></table>
+<tr><td valign='top'><img src='example-00454.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'>image::zone</td></tr></table>
 
 <table><tr><th>@1</th><th>aktive query type @1</th></tr>
-<tr><td valign='top'><img src='example-00439.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'>image::gradient</td></tr></table>
+<tr><td valign='top'><img src='example-00456.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'>image::gradient</td></tr></table>
 
 

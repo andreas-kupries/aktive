@@ -36,10 +36,10 @@ Construct image from file content in the native AKTIVE format.
 #### <a name='read_from_aktive__examples'></a> Examples
 
 <table><tr><th>aktive read from aktive path tests/assets/results/format-colorbox.aktive</th></tr>
-<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00465.gif' alt='aktive read from aktive path tests/assets/results/format-colorbox.aktive' style='border:4px solid gold'></td></tr></table></td></tr></table>
+<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00482.gif' alt='aktive read from aktive path tests/assets/results/format-colorbox.aktive' style='border:4px solid gold'></td></tr></table></td></tr></table>
 
 <table><tr><th>aktive read from aktive path tests/assets/results/format-graybox.aktive</th></tr>
-<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00466.gif' alt='aktive read from aktive path tests/assets/results/format-graybox.aktive' style='border:4px solid gold'></td></tr></table></td></tr></table>
+<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00483.gif' alt='aktive read from aktive path tests/assets/results/format-graybox.aktive' style='border:4px solid gold'></td></tr></table></td></tr></table>
 
 
 ---
@@ -56,9 +56,9 @@ Construct image from file content in one of the NetPBM formats.
 #### <a name='read_from_netpbm__examples'></a> Examples
 
 <table><tr><th>aktive read from netpbm path tests/assets/sines.ppm</th></tr>
-<tr><td valign='top'><img src='example-00467.gif' alt='aktive read from netpbm path tests/assets/sines.ppm' style='border:4px solid gold'></td></tr></table>
+<tr><td valign='top'><img src='example-00484.gif' alt='aktive read from netpbm path tests/assets/sines.ppm' style='border:4px solid gold'></td></tr></table>
 
 <table><tr><th>aktive read from netpbm path tests/assets/crop.pgm</th></tr>
-<tr><td valign='top'><img src='example-00468.gif' alt='aktive read from netpbm path tests/assets/crop.pgm' style='border:4px solid gold'></td></tr></table>
+<tr><td valign='top'><img src='example-00485.gif' alt='aktive read from netpbm path tests/assets/crop.pgm' style='border:4px solid gold'></td></tr></table>
 
 
