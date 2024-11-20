@@ -31,10 +31,10 @@ operator warp::noise::uniform {
 
     body {
 	set scale [expr {$max - $min}]
-	set base  [aktive image indexed width $width height $height]
-	set noise [aktive image noise uniform width $width height $height depth 2 seed $seed]
+	set noise [aktive image noise uniform seed $seed depth 2 width $width height $height]
+	set noise [aktive op location move to $noise x $x y $y]
+	set base  [aktive image indexed              x $x y $y   width $width height $height]
 	set noise [aktive op math1 linear $noise scale $scale gain $min]
-
 	aktive op math add $base $noise
     }
 }
@@ -67,9 +67,10 @@ operator warp::noise::gauss {
     double? 1 sigma   Sigma of the desired gauss distribution.
 
     body {
-	set base  [aktive image indexed     width $width height $height]
-	set noise [aktive image noise gauss width $width height $height depth 2 \
-		       seed $seed mean $mean sigma $sigma]
+	set noise [aktive image noise gauss seed $seed depth 2 width $width height $height \
+		       mean $mean sigma $sigma]
+	set noise [aktive op location move to $noise x $x y $y]
+	set base  [aktive image indexed              x $x y $y width $width height $height]
 	aktive op math add $base $noise
     }
 }
