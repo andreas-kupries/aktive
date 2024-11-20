@@ -8,9 +8,9 @@
 |---|---|---|---|---|---|---|---|
 |[Entry ↗](index.md)|&mdash;|[Sections ↘](bysection.md)|[Permuted Sections ↘](bypsection.md)|[Names ↘](byname.md)|Permuted Names|[Strict ↘](strict.md)|[Implementations ↘](bylang.md)|
 
-||||||||||||||||||||||||||||||||||
-|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-|&nbsp;[2](#_2)&nbsp;|&nbsp;[4](#_4)&nbsp;|&nbsp;[8](#_8)&nbsp;|&nbsp;[a](#_a)&nbsp;|&nbsp;[b](#_b)&nbsp;|&nbsp;[c](#_c)&nbsp;|&nbsp;[d](#_d)&nbsp;|&nbsp;[e](#_e)&nbsp;|&nbsp;[f](#_f)&nbsp;|&nbsp;[G](#_G)&nbsp;|&nbsp;[g](#_g)&nbsp;|&nbsp;[H](#_H)&nbsp;|&nbsp;[h](#_h)&nbsp;|&nbsp;[i](#_i)&nbsp;|&nbsp;[k](#_k)&nbsp;|&nbsp;[L](#_L)&nbsp;|&nbsp;[l](#_l)&nbsp;|&nbsp;[m](#_m)&nbsp;|&nbsp;[n](#_n)&nbsp;|&nbsp;[o](#_o)&nbsp;|&nbsp;[p](#_p)&nbsp;|&nbsp;[q](#_q)&nbsp;|&nbsp;[r](#_r)&nbsp;|&nbsp;[s](#_s)&nbsp;|&nbsp;[t](#_t)&nbsp;|&nbsp;[u](#_u)&nbsp;|&nbsp;[v](#_v)&nbsp;|&nbsp;[w](#_w)&nbsp;|&nbsp;[X](#_X)&nbsp;|&nbsp;[x](#_x)&nbsp;|&nbsp;[Y](#_Y)&nbsp;|&nbsp;[y](#_y)&nbsp;|&nbsp;[z](#_z)&nbsp;|
+|||||||||||||||||||||||||||||||||||
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+|&nbsp;[2](#_2)&nbsp;|&nbsp;[4](#_4)&nbsp;|&nbsp;[8](#_8)&nbsp;|&nbsp;[a](#_a)&nbsp;|&nbsp;[b](#_b)&nbsp;|&nbsp;[c](#_c)&nbsp;|&nbsp;[d](#_d)&nbsp;|&nbsp;[e](#_e)&nbsp;|&nbsp;[f](#_f)&nbsp;|&nbsp;[G](#_G)&nbsp;|&nbsp;[g](#_g)&nbsp;|&nbsp;[H](#_H)&nbsp;|&nbsp;[h](#_h)&nbsp;|&nbsp;[i](#_i)&nbsp;|&nbsp;[j](#_j)&nbsp;|&nbsp;[k](#_k)&nbsp;|&nbsp;[L](#_L)&nbsp;|&nbsp;[l](#_l)&nbsp;|&nbsp;[m](#_m)&nbsp;|&nbsp;[n](#_n)&nbsp;|&nbsp;[o](#_o)&nbsp;|&nbsp;[p](#_p)&nbsp;|&nbsp;[q](#_q)&nbsp;|&nbsp;[r](#_r)&nbsp;|&nbsp;[s](#_s)&nbsp;|&nbsp;[t](#_t)&nbsp;|&nbsp;[u](#_u)&nbsp;|&nbsp;[v](#_v)&nbsp;|&nbsp;[w](#_w)&nbsp;|&nbsp;[X](#_X)&nbsp;|&nbsp;[x](#_x)&nbsp;|&nbsp;[Y](#_Y)&nbsp;|&nbsp;[y](#_y)&nbsp;|&nbsp;[z](#_z)&nbsp;|
 
 # Documentation -- Reference Pages -- Permuted Index Of Operator Names
 
@@ -413,8 +413,11 @@
   - [effect &mdash; blur](transform_effect.md#effect_blur)
   - [effect &mdash; charcoal](transform_effect.md#effect_charcoal)
   - [effect &mdash; emboss](transform_effect.md#effect_emboss)
+  - [effect &mdash; jitter gauss](transform_effect.md#effect_jitter_gauss)
+  - [effect &mdash; jitter uniform](transform_effect.md#effect_jitter_uniform)
   - [effect &mdash; sharpen](transform_effect.md#effect_sharpen)
   - [effect &mdash; sketch](transform_effect.md#effect_sketch)
+  - [effect &mdash; swirl](transform_effect.md#effect_swirl)
   - [embed &mdash; band black op](transform_structure.md#op_embed_band_black)
   - [embed &mdash; band copy op](transform_structure.md#op_embed_band_copy)
   - [embed &mdash; bg op](transform_structure.md#op_embed_bg)
@@ -518,6 +521,7 @@
   - [gamma &mdash; compress op math1](transform_math_unary.md#op_math1_gamma_compress)
   - [gamma &mdash; expand op math1](transform_math_unary.md#op_math1_gamma_expand)
   - [gauss &mdash; discrete image kernel](generator_virtual.md#image_kernel_gauss_discrete)
+  - [gauss &mdash; effect jitter](transform_effect.md#effect_jitter_gauss)
   - [gauss &mdash; image noise](generator_virtual.md#image_noise_gauss)
   - [gauss &mdash; warp noise](generator_virtual_warp.md#warp_noise_gauss)
   - [gauss3 &mdash; x image kernel](generator_virtual.md#image_kernel_gauss3_x)
@@ -773,6 +777,11 @@
   - [intersect &mdash; rectangle](miscellaneous_geometry.md#rectangle_intersect)
   - [invert &mdash; op math1](transform_math_unary.md#op_math1_invert)
   - [invert &mdash; transform](generator_virtual_warp.md#transform_invert)
+
+## <a name='_j'></a> j
+
+  - [jitter &mdash; gauss effect](transform_effect.md#effect_jitter_gauss)
+  - [jitter &mdash; uniform effect](transform_effect.md#effect_jitter_uniform)
 
 ## <a name='_k'></a> k
 
@@ -1871,6 +1880,7 @@
   - [swap &mdash; xy op](transform_structure.md#op_swap_xy)
   - [swap &mdash; xz op](transform_structure.md#op_swap_xz)
   - [swap &mdash; yz op](transform_structure.md#op_swap_yz)
+  - [swirl &mdash; effect](transform_effect.md#effect_swirl)
   - [swirl &mdash; warp](generator_virtual_warp.md#warp_swirl)
 
 ## <a name='_t'></a> t
@@ -2012,6 +2022,7 @@
 ## <a name='_u'></a> u
 
   - [unfold &mdash; op geometry bands](transform_geometry.md#op_geometry_bands_unfold)
+  - [uniform &mdash; effect jitter](transform_effect.md#effect_jitter_uniform)
   - [uniform &mdash; image noise](generator_virtual.md#image_noise_uniform)
   - [uniform &mdash; warp noise](generator_virtual_warp.md#warp_noise_uniform)
   - [union &mdash; rectangle](miscellaneous_geometry.md#rectangle_union)
