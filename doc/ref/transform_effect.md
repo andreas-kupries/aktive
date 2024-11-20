@@ -39,7 +39,7 @@ Returns blurred input, per the specified blur radius.
 |:---|:---|:---|:---|
 |radius|double|2|Blur kernel radius. Defaults to 2.|
 
-## Examples
+#### <a name='effect_blur__examples'></a> Examples
 
 <table><tr><th>@1</th><th>aktive effect blur @1 radius 16</th></tr>
 <tr><td valign='top'><img src='example-00001.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00002.gif' alt='aktive effect blur @1 radius 16' style='border:4px solid gold'></td></tr></table>
@@ -67,7 +67,7 @@ Syntax: __aktive effect emboss__ src
 Returns embossed input.
 
 
-## Examples
+#### <a name='effect_emboss__examples'></a> Examples
 
 <table><tr><th>@1</th><th>aktive effect emboss @1</th></tr>
 <tr><td valign='top'><img src='example-00005.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00006.gif' alt='aktive effect emboss @1' style='border:4px solid gold'></td></tr></table>
@@ -87,16 +87,16 @@ Returns the input with a jitter effect based on gaussian noise applied to it. Vi
 |mean|double|0|Mean of the desired gauss distribution.|
 |sigma|double|1|Sigma of the desired gauss distribution.|
 
-## Examples
+#### <a name='effect_jitter_gauss__examples'></a> Examples
 
 <table><tr><th>@1</th><th>aktive effect jitter gauss @1 sigma 4 seed 703011174</th></tr>
 <tr><td valign='top'><img src='example-00007.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00008.gif' alt='aktive effect jitter gauss @1 sigma 4 seed 703011174' style='border:4px solid gold'></td></tr></table>
 
-<table><tr><th>@1</th><th>aktive effect jitter gauss @1 sigma 4 seed 703011174</th></tr>
-<tr><td valign='top'><img src='example-00009.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00010.gif' alt='aktive effect jitter gauss @1 sigma 4 seed 703011174' style='border:4px solid gold'></td></tr></table>
+<table><tr><th>@1 (assets/sines.ppm)</th><th>aktive effect jitter gauss @1 sigma 4 seed 703011174</th></tr>
+<tr><td valign='top'><img src='example-00009.gif' alt='@1 (assets/sines.ppm)' style='border:4px solid gold'></td><td valign='top'><img src='example-00010.gif' alt='aktive effect jitter gauss @1 sigma 4 seed 703011174' style='border:4px solid gold'></td></tr></table>
 
-<table><tr><th>@1</th><th>aktive effect jitter gauss @1 sigma 4 seed 703011174</th></tr>
-<tr><td valign='top'><img src='example-00011.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00012.gif' alt='aktive effect jitter gauss @1 sigma 4 seed 703011174' style='border:4px solid gold'></td></tr></table>
+<table><tr><th>@1 (assets/butterfly.ppm)</th><th>aktive effect jitter gauss @1 sigma 4 seed 703011174</th></tr>
+<tr><td valign='top'><img src='example-00011.gif' alt='@1 (assets/butterfly.ppm)' style='border:4px solid gold'></td><td valign='top'><img src='example-00012.gif' alt='aktive effect jitter gauss @1 sigma 4 seed 703011174' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -113,16 +113,16 @@ Returns the input with a jitter effect based on uniform noise applied to it. Vis
 |min|double|0|Minimal noise value|
 |max|double|1|Maximal noise value|
 
-## Examples
+#### <a name='effect_jitter_uniform__examples'></a> Examples
 
 <table><tr><th>@1</th><th>aktive effect jitter uniform @1 min 1 max 6 seed 703011174</th></tr>
 <tr><td valign='top'><img src='example-00013.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00014.gif' alt='aktive effect jitter uniform @1 min 1 max 6 seed 703011174' style='border:4px solid gold'></td></tr></table>
 
-<table><tr><th>@1</th><th>aktive effect jitter uniform @1 min 1 max 6 seed 703011174</th></tr>
-<tr><td valign='top'><img src='example-00015.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00016.gif' alt='aktive effect jitter uniform @1 min 1 max 6 seed 703011174' style='border:4px solid gold'></td></tr></table>
+<table><tr><th>@1 (assets/sines.ppm)</th><th>aktive effect jitter uniform @1 min 1 max 6 seed 703011174</th></tr>
+<tr><td valign='top'><img src='example-00015.gif' alt='@1 (assets/sines.ppm)' style='border:4px solid gold'></td><td valign='top'><img src='example-00016.gif' alt='aktive effect jitter uniform @1 min 1 max 6 seed 703011174' style='border:4px solid gold'></td></tr></table>
 
-<table><tr><th>@1</th><th>aktive effect jitter uniform @1 min 1 max 6 seed 703011174</th></tr>
-<tr><td valign='top'><img src='example-00017.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00018.gif' alt='aktive effect jitter uniform @1 min 1 max 6 seed 703011174' style='border:4px solid gold'></td></tr></table>
+<table><tr><th>@1 (assets/butterfly.ppm)</th><th>aktive effect jitter uniform @1 min 1 max 6 seed 703011174</th></tr>
+<tr><td valign='top'><img src='example-00017.gif' alt='@1 (assets/butterfly.ppm)' style='border:4px solid gold'></td><td valign='top'><img src='example-00018.gif' alt='aktive effect jitter uniform @1 min 1 max 6 seed 703011174' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -133,7 +133,7 @@ Syntax: __aktive effect sharpen__ src
 Returns sharpened input.
 
 
-## Examples
+#### <a name='effect_sharpen__examples'></a> Examples
 
 <table><tr><th>@1</th><th>aktive effect sharpen @1</th></tr>
 <tr><td valign='top'><img src='example-00019.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00020.gif' alt='aktive effect sharpen @1' style='border:4px solid gold'></td></tr></table>
@@ -147,7 +147,7 @@ Syntax: __aktive effect sketch__ src
 Returns image with a general sketch of the input.
 
 
-## Examples
+#### <a name='effect_sketch__examples'></a> Examples
 
 <table><tr><th>@1</th><th>aktive effect sketch @1</th></tr>
 <tr><td valign='top'><img src='example-00021.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00022.gif' alt='aktive effect sketch @1' style='border:4px solid gold'></td></tr></table>
@@ -177,15 +177,15 @@ All swirl parameters are optional.
 |from|double|45|In degrees, swirl rotation at distance 0 from center.|
 |decay|double|0.1|Rotation decay with distance from center.|
 
-## Examples
+#### <a name='effect_swirl__examples'></a> Examples
 
 <table><tr><th>@1</th><th>aktive effect swirl @1 decay 0.05 from 135</th></tr>
 <tr><td valign='top'><img src='example-00025.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00026.gif' alt='aktive effect swirl @1 decay 0.05 from 135' style='border:4px solid gold'></td></tr></table>
 
-<table><tr><th>@1</th><th>aktive effect swirl @1 decay 0.01 from 135</th></tr>
-<tr><td valign='top'><img src='example-00027.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00028.gif' alt='aktive effect swirl @1 decay 0.01 from 135' style='border:4px solid gold'></td></tr></table>
+<table><tr><th>@1 (assets/sines.ppm)</th><th>aktive effect swirl @1 decay 0.01 from 135</th></tr>
+<tr><td valign='top'><img src='example-00027.gif' alt='@1 (assets/sines.ppm)' style='border:4px solid gold'></td><td valign='top'><img src='example-00028.gif' alt='aktive effect swirl @1 decay 0.01 from 135' style='border:4px solid gold'></td></tr></table>
 
-<table><tr><th>@1</th><th>aktive effect swirl @1 decay 0.01 from 135</th></tr>
-<tr><td valign='top'><img src='example-00029.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00030.gif' alt='aktive effect swirl @1 decay 0.01 from 135' style='border:4px solid gold'></td></tr></table>
+<table><tr><th>@1 (assets/butterfly.ppm)</th><th>aktive effect swirl @1 decay 0.01 from 135</th></tr>
+<tr><td valign='top'><img src='example-00029.gif' alt='@1 (assets/butterfly.ppm)' style='border:4px solid gold'></td><td valign='top'><img src='example-00030.gif' alt='aktive effect swirl @1 decay 0.01 from 135' style='border:4px solid gold'></td></tr></table>
 
 

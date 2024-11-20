@@ -60,7 +60,7 @@ This operator is __strict__ in its single input. The requested pixel is material
 |x|int||Physical x-coordinate of the pixel to query|
 |y|int||Physical y-coordinate of the pixel to query|
 
-## Examples
+#### <a name='query_value_at__examples'></a> Examples
 
 <table><tr><th>@1</th><th>aktive query value at @1 x 0 y 1</th></tr>
 <tr><td valign='top'><table><tr><td valign='top'>times 16</td><td valign='top'><img src='example-00424.gif' alt='@1' style='border:4px solid gold'></td></tr></table></td><td valign='top'>0.6666666666666666</td></tr></table>
@@ -80,7 +80,7 @@ The list has length "[aktive query size](accessor_geometry.md#query_size) \<src\
 This operator is __strict__ in its single input. The image is materialized in memory.
 
 
-## Examples
+#### <a name='query_values__examples'></a> Examples
 
 <table><tr><th>@1</th><th>aktive query values @1</th></tr>
 <tr><td valign='top'><table><tr><td valign='top'>times 16</td><td valign='top'><img src='example-00426.gif' alt='@1' style='border:4px solid gold'></td></tr></table></td><td valign='top'>0.0 0.3333333333333333 0.6666666666666666 1.0</td></tr></table>

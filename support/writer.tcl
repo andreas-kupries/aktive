@@ -973,7 +973,7 @@ proc dsl::writer::OpDoc {stem op spec} {
 
     if {[llength $examples]} {
 	+ {}
-	+ "## Examples"
+	+ "#### <a name='[OpKey $op]__examples'></a> Examples"
 	+ {}
 
 	# examples :: list (example...)

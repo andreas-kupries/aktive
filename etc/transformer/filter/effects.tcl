@@ -13,11 +13,11 @@ operator effect::swirl {
 	@1 decay 0.05 from 135
     }
     example {
-	aktive read from netpbm path tests/assets/sines.ppm
+	aktive read from netpbm path tests/assets/sines.ppm | -label assets/sines.ppm
 	@1 decay 0.01 from 135
     }
     example {
-	aktive read from netpbm path tests/assets/butterfly.ppm
+	aktive read from netpbm path tests/assets/butterfly.ppm | -label assets/butterfly.ppm
 	@1 decay 0.01 from 135
     }
 
@@ -70,11 +70,11 @@ operator effect::jitter::uniform {
 	@1 min 1 max 6 seed 703011174
     }
     example {
-	aktive read from netpbm path tests/assets/sines.ppm
+	aktive read from netpbm path tests/assets/sines.ppm | -label assets/sines.ppm
 	@1 min 1 max 6 seed 703011174
     }
     example {
-	aktive read from netpbm path tests/assets/butterfly.ppm
+	aktive read from netpbm path tests/assets/butterfly.ppm | -label assets/butterfly.ppm
 	@1 min 1 max 6 seed 703011174
     }
 
@@ -110,11 +110,11 @@ operator effect::jitter::gauss {
 	@1 sigma 4 seed 703011174
     }
     example {
-	aktive read from netpbm path tests/assets/sines.ppm
+	aktive read from netpbm path tests/assets/sines.ppm | -label assets/sines.ppm
 	@1 sigma 4 seed 703011174
     }
     example {
-	aktive read from netpbm path tests/assets/butterfly.ppm
+	aktive read from netpbm path tests/assets/butterfly.ppm | -label assets/butterfly.ppm
 	@1 sigma 4 seed 703011174
     }
 
