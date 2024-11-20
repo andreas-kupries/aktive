@@ -1010,7 +1010,7 @@ proc dsl::writer::ExampleRender {op example} {
 
     set labels [lmap run $example {
 	lassign $run label desc
-	if {$desc ne {}} { append label " (" $desc ")" }
+	if {$desc ne {}} { append label "<br>(" $desc ")" }
 	set label
     }]
     set data [lmap run $example { RR {*}$run }]
@@ -1023,7 +1023,7 @@ proc dsl::writer::ExampleRender {op example} {
 }
 
 proc dsl::writer::RR {label desc results} {
-    if {$desc ne {}} { append label " (" $desc ")" }
+    if {$desc ne {}} { append label "<br>(" $desc ")" }
     if {[llength $results] == 1} {
 	return [RR1 1 $label [lindex $results 0]]
     }
@@ -2707,6 +2707,7 @@ proc dsl::writer::stash-to {path} {
 	    return [join $norm "<br/>"]
 	}
 	proc s {{n 1}} { string repeat "&nbsp;" $n }
+	proc domain        {x}   { aktive query domain $x }
 	proc meta-of       {x}   { aktive query meta $x }
 	proc sdf-fit       {x}   { aktive op sdf 2image fit       $x }
 	proc sdf-smooth    {x}   { aktive op sdf 2image smooth    $x }
@@ -2718,21 +2719,25 @@ proc dsl::writer::stash-to {path} {
 	proc butterfly {} { aktive read from netpbm path tests/assets/butterfly.ppm }
 	proc sines     {} { aktive read from netpbm path tests/assets/sines.ppm }
 	# place overlays on image, red dot/line
-	proc dot {p i} {
+	proc dot {color p i} {
 	    lassign [aktive query geometry $i] _ _ w h d
-	    aktive op draw circle on $i color [over $d] radius 5 center $p
+	    aktive op draw circle on $i color [$color $d] radius 5 center $p
 	}
-	proc line {a b i} {
+	proc line {color a b i} {
 	    lassign [aktive query geometry $i] _ _ w h d
-	    aktive op draw line on $i color [over $d] from $a to $b
+	    aktive op draw line on $i color [$color $d] from $a to $b
 	}
-	proc poly {ps i} {
+	proc poly {color ps i} {
 	    lassign [aktive query geometry $i] _ _ w h d
-	    aktive op draw polyline on $i color [over $d] points {*}$ps
+	    aktive op draw polyline on $i color [$color $d] points {*}$ps
 	}
-	proc over {d} { dict get {
+	proc red {d} { dict get {
 	    1 1
 	    3 {1 0 0}
+	} $d }
+	proc blue {d} { dict get {
+	    1 1
+	    3 {0 0 1}
 	} $d }
 	proc emit-text {dst int src} {
 	    fileutil::writeFile $dst [string trim $src]
@@ -2750,10 +2755,18 @@ proc dsl::writer::stash-to {path} {
 	    set chan   [open $dst w]
 	    set width  [aktive query width  $src]
 	    set values [aktive query values $src]
-	    if {$int} {
-		set values [lmap v $values { format %.0f $v }]
-	    } else {
-		set values [lmap v $values { format %.4f $v }]
+	    switch -exact -- $int {
+		0 {
+		    # limited decimals
+		    set values [lmap v $values { format %.4f $v }]
+		}
+		1 {
+		    # no decimals
+		    set values [lmap v $values { format %.0f $v }]
+		}
+		2 {
+		    # all the decimals
+		}
 	    }
 	    # aggregate bands into cells, if needed
 	    set depth [aktive query depth $src]
