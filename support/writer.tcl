@@ -2731,14 +2731,9 @@ proc dsl::writer::stash-to {path} {
 	    lassign [aktive query geometry $i] _ _ w h d
 	    aktive op draw polyline on $i color [$color $d] points {*}$ps
 	}
-	proc red {d} { dict get {
-	    1 1
-	    3 {1 0 0}
-	} $d }
-	proc blue {d} { dict get {
-	    1 1
-	    3 {0 0 1}
-	} $d }
+	proc red   {d} { dict get { 1 1 3 {1 0 0} } $d }
+	proc green {d} { dict get { 1 1 3 {0 1 0} } $d }
+	proc blue  {d} { dict get { 1 1 3 {0 0 1} } $d }
 	proc emit-text {dst int src} {
 	    fileutil::writeFile $dst [string trim $src]
 	}

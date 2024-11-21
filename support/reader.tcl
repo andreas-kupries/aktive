@@ -533,12 +533,13 @@ proc dsl::reader::example {{spec {}}} { ;#puts [info level 0]
 	    -matrix {set format matrix}
 	    -text   {set format text}
 	    -int    {set int  1}
+	    -full   {set int  2}
 	} {
 	    if {![string match *${m}* $modifiers]} continue
 	    eval $modcmd
 	}
 	set modifiers [string trim [string map {
-	    -matrix {} -text {} -int {}
+	    -matrix {} -text {} -int {} -full {}
 	} $modifiers]]
 	if {[regexp -- {-label (.*)$} $modifiers -> xlabel]} {
 	    set label $xlabel
