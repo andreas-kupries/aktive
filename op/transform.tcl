@@ -19,7 +19,7 @@ namespace eval ::aktive::transform {
 
 proc aktive::transform::PRINT {label m} {
     lassign $m a b c d e f g h i
-    join [list ----$label "$a $b $c" "$d $e $f" "$g $h $i"] \n
+    join [list ----$label "$a\t$b\t$c" "$d\t$e\t$f" "$g\t$h\t$i"] \n
 }
 
 proc aktive::transform::BOXany {args} {
