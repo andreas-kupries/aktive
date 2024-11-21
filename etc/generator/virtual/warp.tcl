@@ -11,7 +11,7 @@ operator transform::point {
     section generator virtual warp
 
     example {
-	aktive transform quad unit2 a {1 2} b {6 1} c {7 6} d {2 7} | -matrix -full
+	aktive transform quad unit2 a {1 2} b {6 1} c {7 6} d {2 7} | -matrix
 	aktive transform point @1 at {0 0} | -text -label at 0 0
 	aktive transform point @1 at {0 1} | -text -label at 0 1
 	aktive transform point @1 at {1 1} | -text -label at 1 1
@@ -19,7 +19,7 @@ operator transform::point {
     }
 
     example {
-	aktive transform quad 2quad   a {1 2} b {6 1} c {7 6} d {2 7}   e {0 3} f {7 1} g {8 7} h {1 7} | -matrix -full
+	aktive transform quad 2quad   a {1 2} b {6 1} c {7 6} d {2 7}   e {0 3} f {7 1} g {8 7} h {1 7} | -matrix
 	aktive transform point @1 at {1 2} | -text -label at 1 2 => 0 3
 	aktive transform point @1 at {6 1} | -text -label at 6 1 => 7 1
 	aktive transform point @1 at {7 6} | -text -label at 7 6 => 8 7
@@ -391,11 +391,11 @@ operator transform::quad::unit2 {
     section generator virtual warp
 
     example {
-	a {1 2} b {6 1} c {7 6} d {2 7} | -matrix -full
+	a {1 2} b {6 1} c {7 6} d {2 7} | -matrix
     }
 
     example {
-	aktive transform quad unit2 a {1 2} b {6 1} c {7 6} d {2 7} | -matrix -full
+	aktive transform quad unit2 a {1 2} b {6 1} c {7 6} d {2 7} | -matrix
 	aktive transform point @1 at {0 0}                          | -text -label at 0 0
 	aktive transform point @1 at {0 1}                          | -text -label at 0 1
 	aktive transform point @1 at {1 1}                          | -text -label at 1 1
@@ -403,9 +403,9 @@ operator transform::quad::unit2 {
     }
 
     example {
-	aktive transform quad unit2 a {1 2} b {6 1} c {7 6} d {2 7} | -matrix -full
-	aktive transform invert @1                                  | -matrix -full -label invert
-    	aktive transform compose @1 @2                              | -matrix -full
+	aktive transform quad unit2 a {1 2} b {6 1} c {7 6} d {2 7} | -matrix
+	aktive transform invert @1                                  | -matrix -label invert
+    	aktive transform compose @1 @2                              | -matrix
     }
 
     note Returns a single-band 3x3 image transforming the unit square \
@@ -502,17 +502,17 @@ operator transform::quad::2quad {
     section generator virtual warp
 
     example {
-	a {1 2} b {6 1} c {7 6} d {2 7}   e {0 3} f {7 1} g {8 7} h {1 7} | -matrix -full
+	a {1 2} b {6 1} c {7 6} d {2 7}   e {0 3} f {7 1} g {8 7} h {1 7} | -matrix
     }
 
     example {
-	aktive transform quad 2quad a {1 2} b {6 1} c {7 6} d {2 7}   e {0 3} f {7 1} g {8 7} h {1 7} | -matrix -full
-	aktive transform invert @1     | -matrix -full -label invert
-    	aktive transform compose @1 @2 | -matrix -full
+	aktive transform quad 2quad a {1 2} b {6 1} c {7 6} d {2 7}   e {0 3} f {7 1} g {8 7} h {1 7} | -matrix
+	aktive transform invert @1     | -matrix -label invert
+    	aktive transform compose @1 @2 | -matrix
     }
 
     example {
-	aktive transform quad 2quad a {1 2} b {6 1} c {7 6} d {2 7}   e {0 3} f {7 1} g {8 7} h {1 7} | -matrix -full
+	aktive transform quad 2quad a {1 2} b {6 1} c {7 6} d {2 7}   e {0 3} f {7 1} g {8 7} h {1 7} | -matrix
 	aktive transform point @1 at {1 2}                         | -text -label at 1 2 => 0 3
 	aktive transform point @1 at {6 1}                         | -text -label at 6 1 => 7 1
 	aktive transform point @1 at {7 6}                         | -text -label at 7 6 => 8 7
@@ -520,12 +520,29 @@ operator transform::quad::2quad {
     }
 
     example {
-	aktive transform quad 2quad a {1 2} b {6 1} c {7 6} d {2 7}   e {0 3} f {7 1} g {8 7} h {1 7} | -matrix -full
-	aktive transform invert @1                                                                    | -matrix -full
+	aktive transform quad 2quad a {1 2} b {6 1} c {7 6} d {2 7}   e {0 3} f {7 1} g {8 7} h {1 7} | -matrix
+	aktive transform invert @1                                                                    | -matrix
 	aktive transform point @2 at {0 3}                         | -text -label at 0 3 => 1 2
 	aktive transform point @2 at {7 1}                         | -text -label at 7 1 => 6 1
 	aktive transform point @2 at {8 7}                         | -text -label at 8 7 => 7 6
 	aktive transform point @2 at {1 7}                         | -text -label at 1 7 => 2 7
+    }
+
+    example {
+	aktive transform quad 2quad   a {47 62} b {190 10} c {210 80} d {100 125}   e {0 0} f {100 0} g {100 100} h {0 100} | -matrix -label quadrilateral
+	aktive transform point @1 at { 47  62} | -text -label  47  62 =>   0   0
+	aktive transform point @1 at {100 125} | -text -label 100 125 =>   0 100
+	aktive transform point @1 at {210  80} | -text -label 210  80 => 100 100
+	aktive transform point @1 at {190  10} | -text -label 190  10 => 100   0
+    }
+
+    example {
+	aktive transform quad 2quad   a {47 62} b {190 10} c {210 80} d {100 125}   e {0 0} f {100 0} g {100 100} h {0 100} | -matrix -label quadrilateral
+	aktive transform invert @1                                                                                          | -matrix -label inverted
+	aktive transform point @2 at {0     0} | -text -label   0   0 =>  47  62
+	aktive transform point @2 at {0   100} | -text -label   0 100 => 100 125
+	aktive transform point @2 at {100 100} | -text -label 100 100 => 210  80
+	aktive transform point @2 at {100   0} | -text -label 100   0 => 190  10
     }
 
     note Returns a single-band 3x3 image transforming the specified \

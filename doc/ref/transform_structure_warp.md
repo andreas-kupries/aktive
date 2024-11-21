@@ -71,12 +71,6 @@ This operator is __strict__ in the 1st input. The projective matrix is materiali
 <table><tr><th>@1<br>(assets/butterfly.ppm)</th><th>@2<br>(quadrilateral)</th><th>@3</th><th>aktive op view @3 port {0 0 100 100}</th></tr>
 <tr><td valign='top'><img src='example-00389.gif' alt='@1<br>(assets/butterfly.ppm)' style='border:4px solid gold'></td><td valign='top'><table><tr><td>0.4944</td><td>-0.4159</td><td>2.5504</td></tr><tr><td>0.3440</td><td>0.9460</td><td>-74.8181</td></tr><tr><td>-0.0014</td><td>-0.0023</td><td>1.2110</td></tr></table></td><td valign='top'><img src='example-00391.gif' alt='@3' style='border:4px solid gold'></td><td valign='top'><img src='example-00392.gif' alt='aktive op view @3 port {0 0 100 100}' style='border:4px solid gold'></td></tr></table>
 
-<table><tr><th>@1<br>(quadrilateral)</th><th>@2<br>( 47  62 =>   0   0)</th><th>@3<br>(100 125 =>   0 100)</th><th>@4<br>(210  80 => 100 100)</th><th>aktive transform point @1 at {190  10}<br>(190  10 => 100   0)</th></tr>
-<tr><td valign='top'><table><tr><td>0.4944</td><td>-0.4159</td><td>2.5504</td></tr><tr><td>0.3440</td><td>0.9460</td><td>-74.8181</td></tr><tr><td>-0.0014</td><td>-0.0023</td><td>1.2110</td></tr></table></td><td valign='top'>-3.1086244689504383e-15 0.0</td><td valign='top'>-3.994220974639806e-15 100.00000000000001</td><td valign='top'>99.99999999999999 100.00000000000001</td><td valign='top'>99.99999999999999 0.0</td></tr></table>
-
-<table><tr><th>@1<br>(quadrilateral)</th><th>@2<br>(inverted)</th><th>@3<br>(  0   0 =>  47  62)</th><th>@4<br>(  0 100 => 100 125)</th><th>@5<br>(100 100 => 210  80)</th><th>aktive transform point @2 at {100   0}<br>(100   0 => 190  10)</th></tr>
-<tr><td valign='top'><table><tr><td>0.4944</td><td>-0.4159</td><td>2.5504</td></tr><tr><td>0.3440</td><td>0.9460</td><td>-74.8181</td></tr><tr><td>-0.0014</td><td>-0.0023</td><td>1.2110</td></tr></table></td><td valign='top'><table><tr><td>1.5880</td><td>0.8149</td><td>47.0000</td></tr><tr><td>-0.5117</td><td>0.9861</td><td>62.0000</td></tr><tr><td>0.0008</td><td>0.0028</td><td>1.0000</td></tr></table></td><td valign='top'>47.00000000000001 61.99999999999999</td><td valign='top'>100.0 125.0</td><td valign='top'>210.00000000000003 80.0</td><td valign='top'>190.0 10.0</td></tr></table>
-
 
 ---
 ### <a name='op_warp_bicubic'></a> aktive op warp bicubic

@@ -1035,7 +1035,7 @@ This is an alias of `swap xy`.
 #### <a name='op_transpose__examples'></a> Examples
 
 <table><tr><th>@1</th><th>aktive op transpose @1</th></tr>
-<tr><td valign='top'><img src='example-00404.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00405.gif' alt='aktive op transpose @1' style='border:4px solid gold'></td></tr></table>
+<tr><td valign='top'><img src='example-00393.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00394.gif' alt='aktive op transpose @1' style='border:4px solid gold'></td></tr></table>
 
 
 ---
@@ -1049,6 +1049,6 @@ Returns image with the input mirrored along the secondary diagonal.
 #### <a name='op_transverse__examples'></a> Examples
 
 <table><tr><th>@1</th><th>aktive op transverse @1</th></tr>
-<tr><td valign='top'><img src='example-00406.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00407.gif' alt='aktive op transverse @1' style='border:4px solid gold'></td></tr></table>
+<tr><td valign='top'><img src='example-00395.gif' alt='@1' style='border:4px solid gold'></td><td valign='top'><img src='example-00396.gif' alt='aktive op transverse @1' style='border:4px solid gold'></td></tr></table>
 
 
