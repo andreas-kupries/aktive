@@ -438,13 +438,15 @@ operator transform::quad::unit2 {
 	# By
 	#	Dong-Keun Kim, Byung-Tae Jang, Chi-Jung Hwang
 	# References
-	#	http://portal.acm.org/citation.cfm?id=884607
-	#	http://www.informatik.uni-trier.de/~ley/db/conf/ssiai/ssiai2002.html
-	#	http://www.decew.net/OSS/References/Quadrilateral%20mapping.pdf
+	# [1,OK]	http://portal.acm.org/citation.cfm?id=884607
+	# [2,OK]	http://www.decew.net/OSS/References/Quadrilateral%20mapping.pdf
+	# [3, OK]	https://raw.githubusercontent.com/JohnHardy/wiituio/refs/heads/master/WiiTUIO/WiiProvider/Warper.cs
+	# [4,GONE]	http://www.informatik.uni-trier.de/~ley/db/conf/ssiai/ssiai2002.html
 	#
-	# Errata:
-	# (a) Figure 1 in the paper has p2, p3 (p2', p3') swapped.
-	# (b) The transform matrix A is transposed (or written for left-multiplication).
+	# Errata [2]:
+	# (a) Figure 1 in the paper has p2, p3 (and p2', p3') swapped.
+	# (b) The transform matrix A is transposed (well, written for left-multiplication).
+	# (c) Eq a6 is wrong. See [3] for the correct equation, modulo var names.
 
 	# Map from top-left clock-wise for our y-axis.
 	# Flipped relative to regular.
@@ -453,7 +455,7 @@ operator transform::quad::unit2 {
 	# |d c|   |p3' p2'|
 	# |   | = |       |
 	# |a b|   |p0' p1'|
-	# *---*   *-------*
+	# O---*   *-------* O = origin = (0,0)
 
 	lassign $a ax ay ; # x0, y0
 	lassign $b bx by ; # x1, y1
@@ -473,7 +475,7 @@ operator transform::quad::unit2 {
 	#     | dxc dyc |
 	set D [expr {($dxb*$dyc - $dyb*$dxc)}]
 
-	set g [expr {($dxd*$dyd - $dxc*$dyd)/double($D)}] ; # a6
+	set g [expr {($dyc*$dxd - $dxc*$dyd)/double($D)}] ; # a6
 	set h [expr {($dxb*$dyd - $dyb*$dxd)/double($D)}] ; # a7
 
 	# note: a-d writes over the parameters now
@@ -549,7 +551,8 @@ operator transform::quad::2quad {
     body {
 	set ua [unit2 a $a b $b c $c d $d] ;# unit to A
 	set ub [unit2 a $e b $f c $g d $h] ;# unit to B
-	compose $ub [invert $ua]           ;# A to unit, unit to B
+	set au [invert $ua]                ;# A to unit
+	compose $ub $au ;# A to unit, unit to B
     }
 }
 
