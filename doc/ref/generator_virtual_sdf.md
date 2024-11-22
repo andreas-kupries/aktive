@@ -38,6 +38,8 @@ Returns an image with the given dimensions and location, containing the signed d
 
 Beware, the location and size of the box are independent of image location and dimensions. The operator is perfectly fine computing the SDF of a box located completely outside of the image domain.
 
+See also [aktive op draw box on](transform_drawing.md#op_draw_box_on) and [aktive image draw box](generator_virtual_drawing.md#image_draw_box).
+
 The box is axis-aligned, of width `2*ewidth+1`, height `2*eheight+1`, and placed at the specified center.
 
 |Parameter|Type|Default|Description|
@@ -55,9 +57,9 @@ The box is axis-aligned, of width `2*ewidth+1`, height `2*eheight+1`, and placed
 <table>
 <tr><th>aktive image sdf box center {64 64} width 128 height 128 ewidth 32 eheight 32
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00114.gif' alt='aktive image sdf box center {64 64} width 128 height 128 ewidth 32 eheight 32' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00115.gif' alt='aktive image sdf box center {64 64} width 128 height 128 ewidth 32 eheight 32' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00116.gif' alt='aktive image sdf box center {64 64} width 128 height 128 ewidth 32 eheight 32' style='border:4px solid gold'>
+<tr><td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00139.gif' alt='aktive image sdf box center {64 64} width 128 height 128 ewidth 32 eheight 32' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00140.gif' alt='aktive image sdf box center {64 64} width 128 height 128 ewidth 32 eheight 32' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00141.gif' alt='aktive image sdf box center {64 64} width 128 height 128 ewidth 32 eheight 32' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr></table></td></tr>
 </table>
 
@@ -70,6 +72,8 @@ Syntax: __aktive image sdf box-rounded__  ?(param value)...? [[→ definition](.
 Returns an image with the given dimensions and location, containing the signed distance field of a box.
 
 Beware, the location and size of the box are independent of image location and dimensions. The operator is perfectly fine computing the SDF of a box located completely outside of the image domain.
+
+See also [aktive op draw box-rounded on](transform_drawing.md#op_draw_box_rounded_on) and [aktive image draw box-rounded](generator_virtual_drawing.md#image_draw_box_rounded).
 
 The box is axis-aligned, of width `2*ewidth+1`, height `2*eheight+1`, with rounded corners per the radii, and placed at the specified center.
 
@@ -94,18 +98,18 @@ The radii default to 0, i.e. no rounded corners.
 <table>
 <tr><th>aktive image sdf box-rounded center {64 64} width 128 height 128 ewidth 32 eheight 32
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00117.gif' alt='aktive image sdf box-rounded center {64 64} width 128 height 128 ewidth 32 eheight 32' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00118.gif' alt='aktive image sdf box-rounded center {64 64} width 128 height 128 ewidth 32 eheight 32' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00119.gif' alt='aktive image sdf box-rounded center {64 64} width 128 height 128 ewidth 32 eheight 32' style='border:4px solid gold'>
+<tr><td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00142.gif' alt='aktive image sdf box-rounded center {64 64} width 128 height 128 ewidth 32 eheight 32' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00143.gif' alt='aktive image sdf box-rounded center {64 64} width 128 height 128 ewidth 32 eheight 32' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00144.gif' alt='aktive image sdf box-rounded center {64 64} width 128 height 128 ewidth 32 eheight 32' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr></table></td></tr>
 </table>
 
 <table>
 <tr><th>aktive image sdf box-rounded center {64 64} width 128 height 128 ewidth 32 eheight 32 upleftradius 32
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00120.gif' alt='aktive image sdf box-rounded center {64 64} width 128 height 128 ewidth 32 eheight 32 upleftradius 32' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00121.gif' alt='aktive image sdf box-rounded center {64 64} width 128 height 128 ewidth 32 eheight 32 upleftradius 32' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00122.gif' alt='aktive image sdf box-rounded center {64 64} width 128 height 128 ewidth 32 eheight 32 upleftradius 32' style='border:4px solid gold'>
+<tr><td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00145.gif' alt='aktive image sdf box-rounded center {64 64} width 128 height 128 ewidth 32 eheight 32 upleftradius 32' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00146.gif' alt='aktive image sdf box-rounded center {64 64} width 128 height 128 ewidth 32 eheight 32 upleftradius 32' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00147.gif' alt='aktive image sdf box-rounded center {64 64} width 128 height 128 ewidth 32 eheight 32 upleftradius 32' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr></table></td></tr>
 </table>
 
@@ -118,6 +122,8 @@ Syntax: __aktive image sdf circle__  ?(param value)...? [[→ definition](../../
 Returns an image with the given dimensions and location, containing the signed distance field of a circle.
 
 Beware, the location and size of the circle are independent of image location and dimensions. The operator is perfectly fine computing the SDF of a circle located completely outside of the image domain.
+
+See also [aktive op draw circle on](transform_drawing.md#op_draw_circle_on) and [aktive image draw circle](generator_virtual_drawing.md#image_draw_circle).
 
 The circle has the `radius`, and is placed at the specified center.
 
@@ -135,9 +141,9 @@ The circle has the `radius`, and is placed at the specified center.
 <table>
 <tr><th>aktive image sdf circle center {64 64} width 128 height 128 radius 32
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00123.gif' alt='aktive image sdf circle center {64 64} width 128 height 128 radius 32' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00124.gif' alt='aktive image sdf circle center {64 64} width 128 height 128 radius 32' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00125.gif' alt='aktive image sdf circle center {64 64} width 128 height 128 radius 32' style='border:4px solid gold'>
+<tr><td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00148.gif' alt='aktive image sdf circle center {64 64} width 128 height 128 radius 32' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00149.gif' alt='aktive image sdf circle center {64 64} width 128 height 128 radius 32' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00150.gif' alt='aktive image sdf circle center {64 64} width 128 height 128 radius 32' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr></table></td></tr>
 </table>
 
@@ -150,6 +156,8 @@ Syntax: __aktive image sdf circles__  ?(param value)...? [[→ definition](../..
 Returns an image with the given dimensions and location, containing the signed distance field of a set of circles.
 
 Beware, the location and size of the set of circles are independent of image location and dimensions. The operator is perfectly fine computing the SDF of a set of circles located completely outside of the image domain.
+
+See also [aktive op draw circles on](transform_drawing.md#op_draw_circles_on) and [aktive image draw circles](generator_virtual_drawing.md#image_draw_circles).
 
 The circles all have the same `radius`, and are placed at the specified centers.
 
@@ -167,9 +175,9 @@ The circles all have the same `radius`, and are placed at the specified centers.
 <table>
 <tr><th>aktive image sdf circles width 128 height 128 radius 8 centers {10 10} {30 80} {80 30}
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00126.gif' alt='aktive image sdf circles width 128 height 128 radius 8 centers {10 10} {30 80} {80 30}' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00127.gif' alt='aktive image sdf circles width 128 height 128 radius 8 centers {10 10} {30 80} {80 30}' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00128.gif' alt='aktive image sdf circles width 128 height 128 radius 8 centers {10 10} {30 80} {80 30}' style='border:4px solid gold'>
+<tr><td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00151.gif' alt='aktive image sdf circles width 128 height 128 radius 8 centers {10 10} {30 80} {80 30}' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00152.gif' alt='aktive image sdf circles width 128 height 128 radius 8 centers {10 10} {30 80} {80 30}' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00153.gif' alt='aktive image sdf circles width 128 height 128 radius 8 centers {10 10} {30 80} {80 30}' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr></table></td></tr>
 </table>
 
@@ -182,6 +190,8 @@ Syntax: __aktive image sdf line__  ?(param value)...? [[→ definition](../../..
 Returns an image with the given dimensions and location, containing the signed distance field of a line.
 
 Beware, the location and size of the line are independent of image location and dimensions. The operator is perfectly fine computing the SDF of a line located completely outside of the image domain.
+
+See also [aktive op draw line on](transform_drawing.md#op_draw_line_on) and [aktive image draw line](generator_virtual_drawing.md#image_draw_line).
 
 The line connects the two specified locations.
 
@@ -199,9 +209,9 @@ The line connects the two specified locations.
 <table>
 <tr><th>aktive image sdf line width 128 height 128 from {10 10} to {30 80}
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00129.gif' alt='aktive image sdf line width 128 height 128 from {10 10} to {30 80}' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00130.gif' alt='aktive image sdf line width 128 height 128 from {10 10} to {30 80}' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00131.gif' alt='aktive image sdf line width 128 height 128 from {10 10} to {30 80}' style='border:4px solid gold'>
+<tr><td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00154.gif' alt='aktive image sdf line width 128 height 128 from {10 10} to {30 80}' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00155.gif' alt='aktive image sdf line width 128 height 128 from {10 10} to {30 80}' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00156.gif' alt='aktive image sdf line width 128 height 128 from {10 10} to {30 80}' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr></table></td></tr>
 </table>
 
@@ -214,6 +224,8 @@ Syntax: __aktive image sdf parallelogram__  ?(param value)...? [[→ definition]
 Returns an image with the given dimensions and location, containing the signed distance field of a parallelogram.
 
 Beware, the location and size of the parallelogram are independent of image location and dimensions. The operator is perfectly fine computing the SDF of a parallelogram located completely outside of the image domain.
+
+See also [aktive op draw parallelogram on](transform_drawing.md#op_draw_parallelogram_on) and [aktive image draw parallelogram](generator_virtual_drawing.md#image_draw_parallelogram).
 
 The parallelogram is axis-aligned, of width `2*ewidth+1`, height `2*eheight+1`, skewed by `eskew`, and placed at the specified center.
 
@@ -233,9 +245,9 @@ The parallelogram is axis-aligned, of width `2*ewidth+1`, height `2*eheight+1`, 
 <table>
 <tr><th>aktive image sdf parallelogram center {64 64} width 128 height 128 ewidth 32 eheight 32 eskew 8
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00132.gif' alt='aktive image sdf parallelogram center {64 64} width 128 height 128 ewidth 32 eheight 32 eskew 8' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00133.gif' alt='aktive image sdf parallelogram center {64 64} width 128 height 128 ewidth 32 eheight 32 eskew 8' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00134.gif' alt='aktive image sdf parallelogram center {64 64} width 128 height 128 ewidth 32 eheight 32 eskew 8' style='border:4px solid gold'>
+<tr><td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00157.gif' alt='aktive image sdf parallelogram center {64 64} width 128 height 128 ewidth 32 eheight 32 eskew 8' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00158.gif' alt='aktive image sdf parallelogram center {64 64} width 128 height 128 ewidth 32 eheight 32 eskew 8' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00159.gif' alt='aktive image sdf parallelogram center {64 64} width 128 height 128 ewidth 32 eheight 32 eskew 8' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr></table></td></tr>
 </table>
 
@@ -248,6 +260,8 @@ Syntax: __aktive image sdf polyline__  ?(param value)...? [[→ definition](../.
 Returns an image with the given dimensions and location, containing the signed distance field of a set of lines.
 
 Beware, the location and size of the set of lines are independent of image location and dimensions. The operator is perfectly fine computing the SDF of a set of lines located completely outside of the image domain.
+
+See also [aktive op draw polyline on](transform_drawing.md#op_draw_polyline_on) and [aktive image draw polyline](generator_virtual_drawing.md#image_draw_polyline).
 
 The lines form a polyline through the specified points.
 
@@ -264,9 +278,9 @@ The lines form a polyline through the specified points.
 <table>
 <tr><th>aktive image sdf polyline width 128 height 128 points {10 10} {30 80} {80 30}
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00135.gif' alt='aktive image sdf polyline width 128 height 128 points {10 10} {30 80} {80 30}' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00136.gif' alt='aktive image sdf polyline width 128 height 128 points {10 10} {30 80} {80 30}' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00137.gif' alt='aktive image sdf polyline width 128 height 128 points {10 10} {30 80} {80 30}' style='border:4px solid gold'>
+<tr><td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00160.gif' alt='aktive image sdf polyline width 128 height 128 points {10 10} {30 80} {80 30}' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00161.gif' alt='aktive image sdf polyline width 128 height 128 points {10 10} {30 80} {80 30}' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00162.gif' alt='aktive image sdf polyline width 128 height 128 points {10 10} {30 80} {80 30}' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr></table></td></tr>
 </table>
 
@@ -279,6 +293,8 @@ Syntax: __aktive image sdf rhombus__  ?(param value)...? [[→ definition](../..
 Returns an image with the given dimensions and location, containing the signed distance field of a rhombus.
 
 Beware, the location and size of the rhombus are independent of image location and dimensions. The operator is perfectly fine computing the SDF of a rhombus located completely outside of the image domain.
+
+See also [aktive op draw rhombus on](transform_drawing.md#op_draw_rhombus_on) and [aktive image draw rhombus](generator_virtual_drawing.md#image_draw_rhombus).
 
 The rhombus is axis-aligned, of width `2*ewidth+1`, height `2*eheight+1`, and placed at the specified center.
 
@@ -297,9 +313,9 @@ The rhombus is axis-aligned, of width `2*ewidth+1`, height `2*eheight+1`, and pl
 <table>
 <tr><th>aktive image sdf rhombus center {64 64} width 128 height 128 ewidth 32 eheight 32
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00138.gif' alt='aktive image sdf rhombus center {64 64} width 128 height 128 ewidth 32 eheight 32' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00139.gif' alt='aktive image sdf rhombus center {64 64} width 128 height 128 ewidth 32 eheight 32' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00140.gif' alt='aktive image sdf rhombus center {64 64} width 128 height 128 ewidth 32 eheight 32' style='border:4px solid gold'>
+<tr><td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00163.gif' alt='aktive image sdf rhombus center {64 64} width 128 height 128 ewidth 32 eheight 32' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00164.gif' alt='aktive image sdf rhombus center {64 64} width 128 height 128 ewidth 32 eheight 32' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00165.gif' alt='aktive image sdf rhombus center {64 64} width 128 height 128 ewidth 32 eheight 32' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr></table></td></tr>
 </table>
 
@@ -312,6 +328,8 @@ Syntax: __aktive image sdf triangle__  ?(param value)...? [[→ definition](../.
 Returns an image with the given dimensions and location, containing the signed distance field of a triangle.
 
 Beware, the location and size of the triangle are independent of image location and dimensions. The operator is perfectly fine computing the SDF of a triangle located completely outside of the image domain.
+
+See also [aktive op draw triangle on](transform_drawing.md#op_draw_triangle_on) and [aktive image draw triangle](generator_virtual_drawing.md#image_draw_triangle).
 
 The triangle connects the points A, B, and C, in this order.
 
@@ -330,9 +348,9 @@ The triangle connects the points A, B, and C, in this order.
 <table>
 <tr><th>aktive image sdf triangle width 128 height 128 a {10 10} b {30 80} c {80 30}
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00141.gif' alt='aktive image sdf triangle width 128 height 128 a {10 10} b {30 80} c {80 30}' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00142.gif' alt='aktive image sdf triangle width 128 height 128 a {10 10} b {30 80} c {80 30}' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00143.gif' alt='aktive image sdf triangle width 128 height 128 a {10 10} b {30 80} c {80 30}' style='border:4px solid gold'>
+<tr><td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00166.gif' alt='aktive image sdf triangle width 128 height 128 a {10 10} b {30 80} c {80 30}' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00167.gif' alt='aktive image sdf triangle width 128 height 128 a {10 10} b {30 80} c {80 30}' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00168.gif' alt='aktive image sdf triangle width 128 height 128 a {10 10} b {30 80} c {80 30}' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr></table></td></tr>
 </table>
 
