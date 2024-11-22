@@ -7,6 +7,7 @@ namespace eval dsl::reader {
 
     variable state {}
     variable counter 0	;# counter for operator groups
+    variable topdir [file dirname [file dirname [file normalize [info script]]]]
 }
 
 # # ## ### ##### ######## #############
@@ -404,18 +405,31 @@ proc dsl::reader::Operator {vars ops specification} {
     }
 }
 
+proc dsl::reader::OpLoc {} {
+    variable topdir
+    set frame [info frame -5]   ;# OpLoc -> OpStart -> Operator -> operator -> (caller)
+    set line  [dict get $frame line]
+    set path  [dict get $frame file]
+    set path  [string range $path [string length $topdir]+1 end]
+
+    list $path $line
+}
+
 proc dsl::reader::OpStart {op key} {
     if {[Get opname] ne {}} { Abort "Nested operator definition `$op`" }
     if {[Has ops $op]}      {
-	variable state ; set old [dict get $state ops $op defloc]
+	variable state ; set old [join [dict get $state ops $op defloc] @]
 	Abort "Duplicate operator definition `$op`, original defined at $old"
     }
 
     Set opmode {}		;# Allow all commands at the beginning.
     Set opname $op		;# Current operator, lock against nesting
+    Set opspec defloc   [OpLoc]
 
-    set frame [info frame -4]   ;# OpStart -> Operator -> operator -> (caller)
-    Set opspec defloc   [dict get $frame file]@[dict get $frame line]
+    variable importing
+    incr     importing
+    puts     "[cyan Operator] [blue $op]"
+    incr     importing -1
 
     Set opspec key      $key    ;# Group code for multiple operators from one spec
     Set opspec notes    {}	;# Description
@@ -795,17 +809,12 @@ proc dsl::reader::Param {type mode dvalue name args} { ;#puts [info level 0]
 # # ## ### ##### ######## #############
 ## Messaging
 
-proc dsl::reader::red {message} {
-    string cat \033\[31m$message\033\[0m
-}
-
-proc dsl::reader::blue {message} {
-    string cat \033\[34m$message\033\[0m
-}
-
-proc dsl::reader::cyan {message} {
-    string cat \033\[36m$message\033\[0m
-}
+proc dsl::reader::red     {message} { string cat \033\[31m$message\033\[0m }
+proc dsl::reader::green   {message} { string cat \033\[32m$message\033\[0m }
+proc dsl::reader::yellow  {message} { string cat \033\[33m$message\033\[0m }
+proc dsl::reader::blue    {message} { string cat \033\[34m$message\033\[0m }
+proc dsl::reader::magenta {message} { string cat \033\[35m$message\033\[0m }
+proc dsl::reader::cyan    {message} { string cat \033\[36m$message\033\[0m }
 
 proc dsl::reader::puts {message} {
     variable importing
