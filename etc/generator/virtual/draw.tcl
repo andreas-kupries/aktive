@@ -116,7 +116,7 @@ operator [sdf-known op::draw:: ::on] {
 
 	if {$n != $d} { aktive error "Band mismatch, have $n, expected $d" }
 
-	set color [aktive image from band    width $w height $h values {*}$color]
+	set color [aktive image from band    width $w height $h x $x y $y values {*}$color]
 	set draw  [aktive image draw @@sdf@@ width $w height $h x $x y $y @@passthrough@@]
 
 	if {$antialiased} {
