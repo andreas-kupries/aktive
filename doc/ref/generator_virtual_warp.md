@@ -119,7 +119,7 @@ This operator is __strict__ in the 1st input. The projective matrix is materiali
 #### <a name='transform_domain__examples'></a> Examples
 
 <table><tr><th>@1<br>(assets/butterfly.ppm)</th><th>@2<br>(rotate by 30)</th><th>aktive transform domain @2 @1</th></tr>
-<tr><td valign='top'><img src='example-00496.gif' alt='@1<br>(assets/butterfly.ppm)' style='border:4px solid gold'></td><td valign='top'><table><tr><td>0.8660</td><td>-0.5000</td><td>0.0000</td></tr><tr><td>0.5000</td><td>0.8660</td><td>0.0000</td></tr><tr><td>0.0000</td><td>0.0000</td><td>1.0000</td></tr></table></td><td valign='top'>-124 0 454 407</td></tr></table>
+<tr><td valign='top'><img src='example-00506.gif' alt='@1<br>(assets/butterfly.ppm)' style='border:4px solid gold'><br>geometry(0 0 380 250 3)</td><td valign='top'><table><tr><td>0.8660</td><td>-0.5000</td><td>0.0000</td></tr><tr><td>0.5000</td><td>0.8660</td><td>0.0000</td></tr><tr><td>0.0000</td><td>0.0000</td><td>1.0000</td></tr></table></td><td valign='top'>-124 0 454 407</td></tr></table>
 
 
 ---

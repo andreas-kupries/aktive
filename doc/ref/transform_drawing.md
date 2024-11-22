@@ -36,7 +36,7 @@ Syntax: __aktive op draw box-rounded on__ src ?(param value)...?
 
 Returns an image where a box is drawn on the input image.
 
-Beware, the location and size of the box are independent of the image dimensions. The operator is perfectly fine computing the SDF of a box located completely outside of the image domain.
+Beware, the location and size of the box are independent of image location and dimensions. The operator is perfectly fine computing the SDF of a box located completely outside of the image domain.
 
 The box is axis-aligned, of width `2*ewidth+1`, height `2*eheight+1`, with rounded corners per the radii, and placed at the specified center.
 
@@ -62,7 +62,7 @@ Syntax: __aktive op draw box on__ src ?(param value)...?
 
 Returns an image where a box is drawn on the input image.
 
-Beware, the location and size of the box are independent of the image dimensions. The operator is perfectly fine computing the SDF of a box located completely outside of the image domain.
+Beware, the location and size of the box are independent of image location and dimensions. The operator is perfectly fine computing the SDF of a box located completely outside of the image domain.
 
 The box is axis-aligned, of width `2*ewidth+1`, height `2*eheight+1`, and placed at the specified center.
 
@@ -82,7 +82,7 @@ Syntax: __aktive op draw circle on__ src ?(param value)...?
 
 Returns an image where a circle is drawn on the input image.
 
-Beware, the location and size of the circle are independent of the image dimensions. The operator is perfectly fine computing the SDF of a circle located completely outside of the image domain.
+Beware, the location and size of the circle are independent of image location and dimensions. The operator is perfectly fine computing the SDF of a circle located completely outside of the image domain.
 
 The circle has the `radius`, and is placed at the specified center.
 
@@ -101,7 +101,7 @@ Syntax: __aktive op draw circles on__ src ?(param value)...?
 
 Returns an image where a set of circles is drawn on the input image.
 
-Beware, the location and size of the set of circles are independent of the image dimensions. The operator is perfectly fine computing the SDF of a set of circles located completely outside of the image domain.
+Beware, the location and size of the set of circles are independent of image location and dimensions. The operator is perfectly fine computing the SDF of a set of circles located completely outside of the image domain.
 
 The circles all have the same `radius`, and are placed at the specified centers.
 
@@ -120,7 +120,7 @@ Syntax: __aktive op draw line on__ src ?(param value)...?
 
 Returns an image where a line is drawn on the input image.
 
-Beware, the location and size of the line are independent of the image dimensions. The operator is perfectly fine computing the SDF of a line located completely outside of the image domain.
+Beware, the location and size of the line are independent of image location and dimensions. The operator is perfectly fine computing the SDF of a line located completely outside of the image domain.
 
 The line connects the two specified locations.
 
@@ -139,7 +139,7 @@ Syntax: __aktive op draw parallelogram on__ src ?(param value)...?
 
 Returns an image where a parallelogram is drawn on the input image.
 
-Beware, the location and size of the parallelogram are independent of the image dimensions. The operator is perfectly fine computing the SDF of a parallelogram located completely outside of the image domain.
+Beware, the location and size of the parallelogram are independent of image location and dimensions. The operator is perfectly fine computing the SDF of a parallelogram located completely outside of the image domain.
 
 The parallelogram is axis-aligned, of width `2*ewidth+1`, height `2*eheight+1`, skewed by `eskew`, and placed at the specified center.
 
@@ -160,7 +160,7 @@ Syntax: __aktive op draw polyline on__ src ?(param value)...?
 
 Returns an image where a set of lines is drawn on the input image.
 
-Beware, the location and size of the set of lines are independent of the image dimensions. The operator is perfectly fine computing the SDF of a set of lines located completely outside of the image domain.
+Beware, the location and size of the set of lines are independent of image location and dimensions. The operator is perfectly fine computing the SDF of a set of lines located completely outside of the image domain.
 
 The lines form a polyline through the specified points.
 
@@ -178,7 +178,7 @@ Syntax: __aktive op draw rhombus on__ src ?(param value)...?
 
 Returns an image where a rhombus is drawn on the input image.
 
-Beware, the location and size of the rhombus are independent of the image dimensions. The operator is perfectly fine computing the SDF of a rhombus located completely outside of the image domain.
+Beware, the location and size of the rhombus are independent of image location and dimensions. The operator is perfectly fine computing the SDF of a rhombus located completely outside of the image domain.
 
 The rhombus is axis-aligned, of width `2*ewidth+1`, height `2*eheight+1`, and placed at the specified center.
 
@@ -198,7 +198,7 @@ Syntax: __aktive op draw triangle on__ src ?(param value)...?
 
 Returns an image where a triangle is drawn on the input image.
 
-Beware, the location and size of the triangle are independent of the image dimensions. The operator is perfectly fine computing the SDF of a triangle located completely outside of the image domain.
+Beware, the location and size of the triangle are independent of image location and dimensions. The operator is perfectly fine computing the SDF of a triangle located completely outside of the image domain.
 
 The triangle connects the points A, B, and C, in this order.
 

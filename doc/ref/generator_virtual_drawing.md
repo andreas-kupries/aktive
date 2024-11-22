@@ -36,7 +36,7 @@ Syntax: __aktive image draw box__  ?(param value)...?
 
 Returns an image with the given dimensions and location, with a box drawn into it.
 
-Beware, the location and size of the box are independent of the image dimensions. The operator is perfectly fine computing the SDF of a box located completely outside of the image domain.
+Beware, the location and size of the box are independent of image location and dimensions. The operator is perfectly fine computing the SDF of a box located completely outside of the image domain.
 
 The returned image is always single-band. It is grey-scale when anti-aliasing is active, and black/white if not.
 
@@ -61,7 +61,7 @@ Syntax: __aktive image draw box-rounded__  ?(param value)...?
 
 Returns an image with the given dimensions and location, with a box drawn into it.
 
-Beware, the location and size of the box are independent of the image dimensions. The operator is perfectly fine computing the SDF of a box located completely outside of the image domain.
+Beware, the location and size of the box are independent of image location and dimensions. The operator is perfectly fine computing the SDF of a box located completely outside of the image domain.
 
 The returned image is always single-band. It is grey-scale when anti-aliasing is active, and black/white if not.
 
@@ -92,7 +92,7 @@ Syntax: __aktive image draw circle__  ?(param value)...?
 
 Returns an image with the given dimensions and location, with a circle drawn into it.
 
-Beware, the location and size of the circle are independent of the image dimensions. The operator is perfectly fine computing the SDF of a circle located completely outside of the image domain.
+Beware, the location and size of the circle are independent of image location and dimensions. The operator is perfectly fine computing the SDF of a circle located completely outside of the image domain.
 
 The returned image is always single-band. It is grey-scale when anti-aliasing is active, and black/white if not.
 
@@ -116,7 +116,7 @@ Syntax: __aktive image draw circles__  ?(param value)...?
 
 Returns an image with the given dimensions and location, with a set of circles drawn into it.
 
-Beware, the location and size of the set of circles are independent of the image dimensions. The operator is perfectly fine computing the SDF of a set of circles located completely outside of the image domain.
+Beware, the location and size of the set of circles are independent of image location and dimensions. The operator is perfectly fine computing the SDF of a set of circles located completely outside of the image domain.
 
 The returned image is always single-band. It is grey-scale when anti-aliasing is active, and black/white if not.
 
@@ -140,7 +140,7 @@ Syntax: __aktive image draw line__  ?(param value)...?
 
 Returns an image with the given dimensions and location, with a line drawn into it.
 
-Beware, the location and size of the line are independent of the image dimensions. The operator is perfectly fine computing the SDF of a line located completely outside of the image domain.
+Beware, the location and size of the line are independent of image location and dimensions. The operator is perfectly fine computing the SDF of a line located completely outside of the image domain.
 
 The returned image is always single-band. It is grey-scale when anti-aliasing is active, and black/white if not.
 
@@ -164,7 +164,7 @@ Syntax: __aktive image draw parallelogram__  ?(param value)...?
 
 Returns an image with the given dimensions and location, with a parallelogram drawn into it.
 
-Beware, the location and size of the parallelogram are independent of the image dimensions. The operator is perfectly fine computing the SDF of a parallelogram located completely outside of the image domain.
+Beware, the location and size of the parallelogram are independent of image location and dimensions. The operator is perfectly fine computing the SDF of a parallelogram located completely outside of the image domain.
 
 The returned image is always single-band. It is grey-scale when anti-aliasing is active, and black/white if not.
 
@@ -190,7 +190,7 @@ Syntax: __aktive image draw polyline__  ?(param value)...?
 
 Returns an image with the given dimensions and location, with a set of lines drawn into it.
 
-Beware, the location and size of the set of lines are independent of the image dimensions. The operator is perfectly fine computing the SDF of a set of lines located completely outside of the image domain.
+Beware, the location and size of the set of lines are independent of image location and dimensions. The operator is perfectly fine computing the SDF of a set of lines located completely outside of the image domain.
 
 The returned image is always single-band. It is grey-scale when anti-aliasing is active, and black/white if not.
 
@@ -213,7 +213,7 @@ Syntax: __aktive image draw rhombus__  ?(param value)...?
 
 Returns an image with the given dimensions and location, with a rhombus drawn into it.
 
-Beware, the location and size of the rhombus are independent of the image dimensions. The operator is perfectly fine computing the SDF of a rhombus located completely outside of the image domain.
+Beware, the location and size of the rhombus are independent of image location and dimensions. The operator is perfectly fine computing the SDF of a rhombus located completely outside of the image domain.
 
 The returned image is always single-band. It is grey-scale when anti-aliasing is active, and black/white if not.
 
@@ -238,7 +238,7 @@ Syntax: __aktive image draw triangle__  ?(param value)...?
 
 Returns an image with the given dimensions and location, with a triangle drawn into it.
 
-Beware, the location and size of the triangle are independent of the image dimensions. The operator is perfectly fine computing the SDF of a triangle located completely outside of the image domain.
+Beware, the location and size of the triangle are independent of image location and dimensions. The operator is perfectly fine computing the SDF of a triangle located completely outside of the image domain.
 
 The returned image is always single-band. It is grey-scale when anti-aliasing is active, and black/white if not.
 

@@ -511,6 +511,8 @@
  - [aktive op morph tophat white](transform_morphology.md#op_morph_tophat_white)
  - [aktive op pass](transform_identity.md#op_pass)
  - [aktive op query colorspace](accessor.md#op_query_colorspace)
+ - [aktive op resize](transform_structure.md#op_resize)
+ - [aktive op rotate any](transform_structure.md#op_rotate_any)
  - [aktive op rotate ccw](transform_structure.md#op_rotate_ccw)
  - [aktive op rotate cw](transform_structure.md#op_rotate_cw)
  - [aktive op rotate half](transform_structure.md#op_rotate_half)
