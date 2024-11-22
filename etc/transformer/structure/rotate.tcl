@@ -6,6 +6,7 @@
 ## Highlevel operations implemented on top of the C core
 #
 ## - Rotate in 90 degree increments
+## - Arbitrary rotation by affine transform.
 
 operator op::rotate::cw   {
     section transform structure
@@ -55,6 +56,33 @@ operator op::rotate::half {
 
     body {
 	aktive op flip x [aktive op flip y $src]
+    }
+}
+
+operator op::rotate::any   {
+    section transform structure
+
+    example {
+	dot green {32 32} [sines]
+	@1 by 33 around {32 32} | sframe
+    }
+
+    note Returns image rotating the input at an arbitrary angle around an arbitrary center. The default center is the image center.
+
+    note This is a convenience operator implemented on top of "<!xref: aktive op transform by>."
+
+    double      by     In degrees, angle to rotate
+    point? {{}} around Rotation center. Default is the origin
+
+    str? bilinear interpolate   Interpolation method to use
+
+    input
+
+    body {
+	aktive op transform by \
+	    [aktive transform rotate around $around by $by] \
+	    $src \
+	    interpolate $interpolate
     }
 }
 

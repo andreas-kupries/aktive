@@ -142,14 +142,15 @@ import transformer/structure/align.tcl
 import transformer/structure/band-geometry.tcl
 import transformer/structure/crop.tcl
 import transformer/structure/flip.tcl
+import transformer/structure/resize.tcl
 import transformer/structure/rotate.tcl
 import transformer/structure/scrolling.tcl
 import transformer/structure/select.tcl
 import transformer/structure/split.tcl
 import transformer/structure/swap.tcl
 import transformer/structure/take.tcl
-import transformer/structure/transpose.tcl
 import transformer/structure/transform.tcl
+import transformer/structure/transpose.tcl
 import transformer/structure/warp.tcl
 
 import transformer/structure/embed/bg.tcl
