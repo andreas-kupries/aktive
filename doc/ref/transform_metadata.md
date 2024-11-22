@@ -10,7 +10,7 @@
 
 # Documentation -- Reference Pages -- transform metadata
 
-## Table Of Contents
+## <anchor='top'> Table Of Contents
 
   - [transform](transform.md) ↗
 
@@ -34,7 +34,7 @@
 ## Operators
 
 ---
-### <a name='meta_append'></a> aktive meta append
+### [↑](#top) <a name='meta_append'></a> aktive meta append
 
 Syntax: __aktive meta append__ src args... [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/transformer/meta.tcl)]
 
@@ -48,7 +48,7 @@ Returns input with meta data dictionary modified by application of "dict append"
 |args|str...||Dict command arguments, except for dict value or variable.|
 
 ---
-### <a name='meta_create'></a> aktive meta create
+### [↑](#top) <a name='meta_create'></a> aktive meta create
 
 Syntax: __aktive meta create__ src args... [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/transformer/meta.tcl)]
 
@@ -62,7 +62,7 @@ Returns input with meta data dictionary modified by application of "dict create"
 |args|str...||Dict command arguments, except for dict value or variable.|
 
 ---
-### <a name='meta_filter'></a> aktive meta filter
+### [↑](#top) <a name='meta_filter'></a> aktive meta filter
 
 Syntax: __aktive meta filter__ src args... [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/transformer/meta.tcl)]
 
@@ -76,7 +76,7 @@ Returns input with meta data dictionary modified by application of "dict filter"
 |args|str...||Dict command arguments, except for dict value or variable.|
 
 ---
-### <a name='meta_incr'></a> aktive meta incr
+### [↑](#top) <a name='meta_incr'></a> aktive meta incr
 
 Syntax: __aktive meta incr__ src args... [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/transformer/meta.tcl)]
 
@@ -90,7 +90,7 @@ Returns input with meta data dictionary modified by application of "dict incr"
 |args|str...||Dict command arguments, except for dict value or variable.|
 
 ---
-### <a name='meta_lappend'></a> aktive meta lappend
+### [↑](#top) <a name='meta_lappend'></a> aktive meta lappend
 
 Syntax: __aktive meta lappend__ src args... [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/transformer/meta.tcl)]
 
@@ -104,7 +104,7 @@ Returns input with meta data dictionary modified by application of "dict lappend
 |args|str...||Dict command arguments, except for dict value or variable.|
 
 ---
-### <a name='meta_map'></a> aktive meta map
+### [↑](#top) <a name='meta_map'></a> aktive meta map
 
 Syntax: __aktive meta map__ src args... [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/transformer/meta.tcl)]
 
@@ -118,7 +118,7 @@ Returns input with meta data dictionary modified by application of "dict map"
 |args|str...||Dict command arguments, except for dict value or variable.|
 
 ---
-### <a name='meta_merge'></a> aktive meta merge
+### [↑](#top) <a name='meta_merge'></a> aktive meta merge
 
 Syntax: __aktive meta merge__ src args... [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/transformer/meta.tcl)]
 
@@ -132,7 +132,7 @@ Returns input with meta data dictionary modified by application of "dict merge"
 |args|str...||Dict command arguments, except for dict value or variable.|
 
 ---
-### <a name='meta_remove'></a> aktive meta remove
+### [↑](#top) <a name='meta_remove'></a> aktive meta remove
 
 Syntax: __aktive meta remove__ src args... [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/transformer/meta.tcl)]
 
@@ -146,7 +146,7 @@ Returns input with meta data dictionary modified by application of "dict remove"
 |args|str...||Dict command arguments, except for dict value or variable.|
 
 ---
-### <a name='meta_replace'></a> aktive meta replace
+### [↑](#top) <a name='meta_replace'></a> aktive meta replace
 
 Syntax: __aktive meta replace__ src args... [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/transformer/meta.tcl)]
 
@@ -160,7 +160,7 @@ Returns input with meta data dictionary modified by application of "dict replace
 |args|str...||Dict command arguments, except for dict value or variable.|
 
 ---
-### <a name='meta_set'></a> aktive meta set
+### [↑](#top) <a name='meta_set'></a> aktive meta set
 
 Syntax: __aktive meta set__ src args... [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/transformer/meta.tcl)]
 
@@ -174,7 +174,7 @@ Returns input with meta data dictionary modified by application of "dict set"
 |args|str...||Dict command arguments, except for dict value or variable.|
 
 ---
-### <a name='meta_unset'></a> aktive meta unset
+### [↑](#top) <a name='meta_unset'></a> aktive meta unset
 
 Syntax: __aktive meta unset__ src args... [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/transformer/meta.tcl)]
 
@@ -188,7 +188,7 @@ Returns input with meta data dictionary modified by application of "dict unset"
 |args|str...||Dict command arguments, except for dict value or variable.|
 
 ---
-### <a name='op_meta_clear'></a> aktive op meta clear
+### [↑](#top) <a name='op_meta_clear'></a> aktive op meta clear
 
 Syntax: __aktive op meta clear__ src [[→ definition](../../../../file?ci=trunk&ln=18&name=etc/transformer/meta.tcl)]
 
@@ -199,7 +199,7 @@ Returns input with all meta data cleared.
 |src|image||Input to modify|
 
 ---
-### <a name='op_meta_set'></a> aktive op meta set
+### [↑](#top) <a name='op_meta_set'></a> aktive op meta set
 
 Syntax: __aktive op meta set__ src meta [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/meta.tcl)]
 

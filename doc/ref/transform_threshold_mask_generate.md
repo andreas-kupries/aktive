@@ -10,7 +10,7 @@
 
 # Documentation -- Reference Pages -- transform threshold mask generate
 
-## Table Of Contents
+## <anchor='top'> Table Of Contents
 
   - [transform threshold mask](transform_threshold_mask.md) ↗
 
@@ -35,7 +35,7 @@
 ## Operators
 
 ---
-### <a name='image_mask_from_threshold'></a> aktive image mask from threshold
+### [↑](#top) <a name='image_mask_from_threshold'></a> aktive image mask from threshold
 
 Syntax: __aktive image mask from threshold__ src0 src1 [[→ definition](../../../../file?ci=trunk&ln=9&name=etc/transformer/thresholds/mask.tcl)]
 
@@ -47,7 +47,7 @@ The foreground pixels are indicated by white. Background by black.
 
 
 ---
-### <a name='image_mask_per_bernsen'></a> aktive image mask per bernsen
+### [↑](#top) <a name='image_mask_per_bernsen'></a> aktive image mask per bernsen
 
 Syntax: __aktive image mask per bernsen__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=29&name=etc/transformer/thresholds/mask.tcl)]
 
@@ -57,14 +57,41 @@ The foreground are the pixels falling under the threshold. IOW the input foregro
 
 The foreground pixels are indicated by white. Background by black.
 
+The local thresholds are computed using [aktive image threshold bernsen](transform_threshold_generate.md#image_threshold_bernsen).
+
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |radius|uint||Size of region to consider, as radius from center|
 
----
-### <a name='image_mask_per_global_bernsen'></a> aktive image mask per global bernsen
+#### <a name='image_mask_per_bernsen__examples'></a> Examples
 
-Syntax: __aktive image mask per global bernsen__ src [[→ definition](../../../../file?ci=trunk&ln=74&name=etc/transformer/thresholds/mask.tcl)]
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive image mask per bernsen @1 radius 7
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00146.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 300 200 1)</td>
+    <td valign='top'><img src='example-00147.gif' alt='aktive image mask per bernsen @1 radius 7' style='border:4px solid gold'>
+    <br>geometry(0 0 300 200 1)</td></tr>
+</table>
+
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive image mask per bernsen @1 radius 7
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00148.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 380 250 3)</td>
+    <td valign='top'><img src='example-00149.gif' alt='aktive image mask per bernsen @1 radius 7' style='border:4px solid gold'>
+    <br>geometry(0 0 380 250 3)</td></tr>
+</table>
+
+
+---
+### [↑](#top) <a name='image_mask_per_global_bernsen'></a> aktive image mask per global bernsen
+
+Syntax: __aktive image mask per global bernsen__ src [[→ definition](../../../../file?ci=trunk&ln=89&name=etc/transformer/thresholds/mask.tcl)]
 
 Return image foreground mask of input, using global Bernsen thresholding.
 
@@ -72,11 +99,38 @@ The foreground are the pixels falling under the threshold. IOW the input foregro
 
 The foreground pixels are indicated by white. Background by black.
 
+The threshold is computed using [aktive image threshold global bernsen](accessor_threshold_generate.md#image_threshold_global_bernsen).
+
+
+#### <a name='image_mask_per_global_bernsen__examples'></a> Examples
+
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive image mask per global bernsen @1
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00150.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 300 200 1)</td>
+    <td valign='top'><img src='example-00151.gif' alt='aktive image mask per global bernsen @1' style='border:4px solid gold'>
+    <br>geometry(0 0 300 200 1)</td></tr>
+</table>
+
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive image mask per global bernsen @1
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00152.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 380 250 3)</td>
+    <td valign='top'><img src='example-00153.gif' alt='aktive image mask per global bernsen @1' style='border:4px solid gold'>
+    <br>geometry(0 0 380 250 3)</td></tr>
+</table>
+
 
 ---
-### <a name='image_mask_per_global_mean'></a> aktive image mask per global mean
+### [↑](#top) <a name='image_mask_per_global_mean'></a> aktive image mask per global mean
 
-Syntax: __aktive image mask per global mean__ src [[→ definition](../../../../file?ci=trunk&ln=74&name=etc/transformer/thresholds/mask.tcl)]
+Syntax: __aktive image mask per global mean__ src [[→ definition](../../../../file?ci=trunk&ln=89&name=etc/transformer/thresholds/mask.tcl)]
 
 Return image foreground mask of input, using global Mean thresholding.
 
@@ -84,11 +138,38 @@ The foreground are the pixels falling under the threshold. IOW the input foregro
 
 The foreground pixels are indicated by white. Background by black.
 
+The threshold is computed using [aktive image threshold global mean](accessor_threshold_generate.md#image_threshold_global_mean).
+
+
+#### <a name='image_mask_per_global_mean__examples'></a> Examples
+
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive image mask per global mean @1
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00154.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 300 200 1)</td>
+    <td valign='top'><img src='example-00155.gif' alt='aktive image mask per global mean @1' style='border:4px solid gold'>
+    <br>geometry(0 0 300 200 1)</td></tr>
+</table>
+
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive image mask per global mean @1
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00156.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 380 250 3)</td>
+    <td valign='top'><img src='example-00157.gif' alt='aktive image mask per global mean @1' style='border:4px solid gold'>
+    <br>geometry(0 0 380 250 3)</td></tr>
+</table>
+
 
 ---
-### <a name='image_mask_per_global_niblack'></a> aktive image mask per global niblack
+### [↑](#top) <a name='image_mask_per_global_niblack'></a> aktive image mask per global niblack
 
-Syntax: __aktive image mask per global niblack__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=74&name=etc/transformer/thresholds/mask.tcl)]
+Syntax: __aktive image mask per global niblack__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=89&name=etc/transformer/thresholds/mask.tcl)]
 
 Return image foreground mask of input, using global Niblack thresholding.
 
@@ -96,14 +177,41 @@ The foreground are the pixels falling under the threshold. IOW the input foregro
 
 The foreground pixels are indicated by white. Background by black.
 
+The threshold is computed using [aktive image threshold global niblack](accessor_threshold_generate.md#image_threshold_global_niblack).
+
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |k|double|-0.2|niblack parameter|
 
----
-### <a name='image_mask_per_global_otsu'></a> aktive image mask per global otsu
+#### <a name='image_mask_per_global_niblack__examples'></a> Examples
 
-Syntax: __aktive image mask per global otsu__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=74&name=etc/transformer/thresholds/mask.tcl)]
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive image mask per global niblack @1
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00158.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 300 200 1)</td>
+    <td valign='top'><img src='example-00159.gif' alt='aktive image mask per global niblack @1' style='border:4px solid gold'>
+    <br>geometry(0 0 300 200 1)</td></tr>
+</table>
+
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive image mask per global niblack @1
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00160.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 380 250 3)</td>
+    <td valign='top'><img src='example-00161.gif' alt='aktive image mask per global niblack @1' style='border:4px solid gold'>
+    <br>geometry(0 0 380 250 3)</td></tr>
+</table>
+
+
+---
+### [↑](#top) <a name='image_mask_per_global_otsu'></a> aktive image mask per global otsu
+
+Syntax: __aktive image mask per global otsu__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=89&name=etc/transformer/thresholds/mask.tcl)]
 
 Return image foreground mask of input, using global Otsu thresholding.
 
@@ -111,20 +219,38 @@ The foreground are the pixels falling under the threshold. IOW the input foregro
 
 The foreground pixels are indicated by white. Background by black.
 
+The threshold is computed using [aktive image threshold global otsu](accessor_threshold_generate.md#image_threshold_global_otsu).
+
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |bins|int|256|otsu histogram parameter|
 
----
-### <a name='image_mask_per_global_phansalkar'></a> aktive image mask per global phansalkar
+#### <a name='image_mask_per_global_otsu__examples'></a> Examples
 
-Syntax: __aktive image mask per global phansalkar__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=74&name=etc/transformer/thresholds/mask.tcl)]
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive image mask per global otsu @1
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00162.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 300 200 1)</td>
+    <td valign='top'><img src='example-00163.gif' alt='aktive image mask per global otsu @1' style='border:4px solid gold'>
+    <br>geometry(0 0 300 200 1)</td></tr>
+</table>
+
+
+---
+### [↑](#top) <a name='image_mask_per_global_phansalkar'></a> aktive image mask per global phansalkar
+
+Syntax: __aktive image mask per global phansalkar__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=89&name=etc/transformer/thresholds/mask.tcl)]
 
 Return image foreground mask of input, using global Phansalkar thresholding.
 
 The foreground are the pixels falling under the threshold. IOW the input foreground is assumed to be darker than background. Invert the result otherwise.
 
 The foreground pixels are indicated by white. Background by black.
+
+The threshold is computed using [aktive image threshold global phansalkar](accessor_threshold_generate.md#image_threshold_global_phansalkar).
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -133,10 +259,35 @@ The foreground pixels are indicated by white. Background by black.
 |p|double|3|phansalkar parameter|
 |q|double|10|phansalkar parameter|
 
----
-### <a name='image_mask_per_global_sauvola'></a> aktive image mask per global sauvola
+#### <a name='image_mask_per_global_phansalkar__examples'></a> Examples
 
-Syntax: __aktive image mask per global sauvola__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=74&name=etc/transformer/thresholds/mask.tcl)]
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive image mask per global phansalkar @1
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00164.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 300 200 1)</td>
+    <td valign='top'><img src='example-00165.gif' alt='aktive image mask per global phansalkar @1' style='border:4px solid gold'>
+    <br>geometry(0 0 300 200 1)</td></tr>
+</table>
+
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive image mask per global phansalkar @1
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00166.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 380 250 3)</td>
+    <td valign='top'><img src='example-00167.gif' alt='aktive image mask per global phansalkar @1' style='border:4px solid gold'>
+    <br>geometry(0 0 380 250 3)</td></tr>
+</table>
+
+
+---
+### [↑](#top) <a name='image_mask_per_global_sauvola'></a> aktive image mask per global sauvola
+
+Syntax: __aktive image mask per global sauvola__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=89&name=etc/transformer/thresholds/mask.tcl)]
 
 Return image foreground mask of input, using global Sauvola thresholding.
 
@@ -144,13 +295,40 @@ The foreground are the pixels falling under the threshold. IOW the input foregro
 
 The foreground pixels are indicated by white. Background by black.
 
+The threshold is computed using [aktive image threshold global sauvola](accessor_threshold_generate.md#image_threshold_global_sauvola).
+
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |k|double|0.5|sauvola parameter|
 |R|double|128|sauvola parameter|
 
+#### <a name='image_mask_per_global_sauvola__examples'></a> Examples
+
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive image mask per global sauvola @1
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00168.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 300 200 1)</td>
+    <td valign='top'><img src='example-00169.gif' alt='aktive image mask per global sauvola @1' style='border:4px solid gold'>
+    <br>geometry(0 0 300 200 1)</td></tr>
+</table>
+
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive image mask per global sauvola @1
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00170.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 380 250 3)</td>
+    <td valign='top'><img src='example-00171.gif' alt='aktive image mask per global sauvola @1' style='border:4px solid gold'>
+    <br>geometry(0 0 380 250 3)</td></tr>
+</table>
+
+
 ---
-### <a name='image_mask_per_mean'></a> aktive image mask per mean
+### [↑](#top) <a name='image_mask_per_mean'></a> aktive image mask per mean
 
 Syntax: __aktive image mask per mean__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=29&name=etc/transformer/thresholds/mask.tcl)]
 
@@ -160,12 +338,39 @@ The foreground are the pixels falling under the threshold. IOW the input foregro
 
 The foreground pixels are indicated by white. Background by black.
 
+The local thresholds are computed using [aktive image threshold mean](transform_threshold_generate.md#image_threshold_mean).
+
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |radius|uint||Size of region to consider, as radius from center|
 
+#### <a name='image_mask_per_mean__examples'></a> Examples
+
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive image mask per mean @1 radius 7
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00172.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 300 200 1)</td>
+    <td valign='top'><img src='example-00173.gif' alt='aktive image mask per mean @1 radius 7' style='border:4px solid gold'>
+    <br>geometry(0 0 300 200 1)</td></tr>
+</table>
+
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive image mask per mean @1 radius 7
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00174.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 380 250 3)</td>
+    <td valign='top'><img src='example-00175.gif' alt='aktive image mask per mean @1 radius 7' style='border:4px solid gold'>
+    <br>geometry(0 0 380 250 3)</td></tr>
+</table>
+
+
 ---
-### <a name='image_mask_per_niblack'></a> aktive image mask per niblack
+### [↑](#top) <a name='image_mask_per_niblack'></a> aktive image mask per niblack
 
 Syntax: __aktive image mask per niblack__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=29&name=etc/transformer/thresholds/mask.tcl)]
 
@@ -175,13 +380,40 @@ The foreground are the pixels falling under the threshold. IOW the input foregro
 
 The foreground pixels are indicated by white. Background by black.
 
+The local thresholds are computed using [aktive image threshold niblack](transform_threshold_generate.md#image_threshold_niblack).
+
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |k|double|-0.2|niblack parameter|
 |radius|uint||Size of region to consider, as radius from center|
 
+#### <a name='image_mask_per_niblack__examples'></a> Examples
+
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive image mask per niblack @1 radius 7
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00176.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 300 200 1)</td>
+    <td valign='top'><img src='example-00177.gif' alt='aktive image mask per niblack @1 radius 7' style='border:4px solid gold'>
+    <br>geometry(0 0 300 200 1)</td></tr>
+</table>
+
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive image mask per niblack @1 radius 7
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00178.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 380 250 3)</td>
+    <td valign='top'><img src='example-00179.gif' alt='aktive image mask per niblack @1 radius 7' style='border:4px solid gold'>
+    <br>geometry(0 0 380 250 3)</td></tr>
+</table>
+
+
 ---
-### <a name='image_mask_per_otsu'></a> aktive image mask per otsu
+### [↑](#top) <a name='image_mask_per_otsu'></a> aktive image mask per otsu
 
 Syntax: __aktive image mask per otsu__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=29&name=etc/transformer/thresholds/mask.tcl)]
 
@@ -191,13 +423,29 @@ The foreground are the pixels falling under the threshold. IOW the input foregro
 
 The foreground pixels are indicated by white. Background by black.
 
+The local thresholds are computed using [aktive image threshold otsu](transform_threshold_generate.md#image_threshold_otsu).
+
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |bins|int|256|otsu histogram parameter|
 |radius|uint||Size of region to consider, as radius from center|
 
+#### <a name='image_mask_per_otsu__examples'></a> Examples
+
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive image mask per otsu @1 radius 7
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00180.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 300 200 1)</td>
+    <td valign='top'><img src='example-00181.gif' alt='aktive image mask per otsu @1 radius 7' style='border:4px solid gold'>
+    <br>geometry(0 0 300 200 1)</td></tr>
+</table>
+
+
 ---
-### <a name='image_mask_per_phansalkar'></a> aktive image mask per phansalkar
+### [↑](#top) <a name='image_mask_per_phansalkar'></a> aktive image mask per phansalkar
 
 Syntax: __aktive image mask per phansalkar__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=29&name=etc/transformer/thresholds/mask.tcl)]
 
@@ -207,6 +455,8 @@ The foreground are the pixels falling under the threshold. IOW the input foregro
 
 The foreground pixels are indicated by white. Background by black.
 
+The local thresholds are computed using [aktive image threshold phansalkar](transform_threshold_generate.md#image_threshold_phansalkar).
+
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |k|double|0.25|phansalkar parameter|
@@ -215,8 +465,33 @@ The foreground pixels are indicated by white. Background by black.
 |q|double|10|phansalkar parameter|
 |radius|uint||Size of region to consider, as radius from center|
 
+#### <a name='image_mask_per_phansalkar__examples'></a> Examples
+
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive image mask per phansalkar @1 radius 7
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00182.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 300 200 1)</td>
+    <td valign='top'><img src='example-00183.gif' alt='aktive image mask per phansalkar @1 radius 7' style='border:4px solid gold'>
+    <br>geometry(0 0 300 200 1)</td></tr>
+</table>
+
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive image mask per phansalkar @1 radius 7
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00184.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 380 250 3)</td>
+    <td valign='top'><img src='example-00185.gif' alt='aktive image mask per phansalkar @1 radius 7' style='border:4px solid gold'>
+    <br>geometry(0 0 380 250 3)</td></tr>
+</table>
+
+
 ---
-### <a name='image_mask_per_sauvola'></a> aktive image mask per sauvola
+### [↑](#top) <a name='image_mask_per_sauvola'></a> aktive image mask per sauvola
 
 Syntax: __aktive image mask per sauvola__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=29&name=etc/transformer/thresholds/mask.tcl)]
 
@@ -226,14 +501,41 @@ The foreground are the pixels falling under the threshold. IOW the input foregro
 
 The foreground pixels are indicated by white. Background by black.
 
+The local thresholds are computed using [aktive image threshold sauvola](transform_threshold_generate.md#image_threshold_sauvola).
+
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |k|double|0.5|sauvola parameter|
 |R|double|128|sauvola parameter|
 |radius|uint||Size of region to consider, as radius from center|
 
+#### <a name='image_mask_per_sauvola__examples'></a> Examples
+
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive image mask per sauvola @1 radius 7
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00186.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 300 200 1)</td>
+    <td valign='top'><img src='example-00187.gif' alt='aktive image mask per sauvola @1 radius 7' style='border:4px solid gold'>
+    <br>geometry(0 0 300 200 1)</td></tr>
+</table>
+
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive image mask per sauvola @1 radius 7
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00188.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 380 250 3)</td>
+    <td valign='top'><img src='example-00189.gif' alt='aktive image mask per sauvola @1 radius 7' style='border:4px solid gold'>
+    <br>geometry(0 0 380 250 3)</td></tr>
+</table>
+
+
 ---
-### <a name='image_mask_per_wolfjolion'></a> aktive image mask per wolfjolion
+### [↑](#top) <a name='image_mask_per_wolfjolion'></a> aktive image mask per wolfjolion
 
 Syntax: __aktive image mask per wolfjolion__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=29&name=etc/transformer/thresholds/mask.tcl)]
 
@@ -243,8 +545,35 @@ The foreground are the pixels falling under the threshold. IOW the input foregro
 
 The foreground pixels are indicated by white. Background by black.
 
+The local thresholds are computed using [aktive image threshold wolfjolion](transform_threshold_generate.md#image_threshold_wolfjolion).
+
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |k|double|0.5|wolfjolion parameter|
 |radius|uint||Size of region to consider, as radius from center|
+
+#### <a name='image_mask_per_wolfjolion__examples'></a> Examples
+
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive image mask per wolfjolion @1 radius 7
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00190.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 300 200 1)</td>
+    <td valign='top'><img src='example-00191.gif' alt='aktive image mask per wolfjolion @1 radius 7' style='border:4px solid gold'>
+    <br>geometry(0 0 300 200 1)</td></tr>
+</table>
+
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive image mask per wolfjolion @1 radius 7
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00192.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 380 250 3)</td>
+    <td valign='top'><img src='example-00193.gif' alt='aktive image mask per wolfjolion @1 radius 7' style='border:4px solid gold'>
+    <br>geometry(0 0 380 250 3)</td></tr>
+</table>
+
 

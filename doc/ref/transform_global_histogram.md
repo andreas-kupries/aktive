@@ -10,7 +10,7 @@
 
 # Documentation -- Reference Pages -- transform global histogram
 
-## Table Of Contents
+## <anchor='top'> Table Of Contents
 
   - [transform global](transform_global.md) ↗
 

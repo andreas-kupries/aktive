@@ -10,7 +10,7 @@
 
 # Documentation -- Reference Pages -- composer
 
-## Table Of Contents
+## <anchor='top'> Table Of Contents
 
   - [Roots](bysection.md) ↗
 
@@ -30,7 +30,7 @@
 ## Operators
 
 ---
-### <a name='op_montage_x'></a> aktive op montage x
+### [↑](#top) <a name='op_montage_x'></a> aktive op montage x
 
 Syntax: __aktive op montage x__ srcs... [[→ definition](../../../../file?ci=trunk&ln=40&name=etc/composer/montage.tcl)]
 
@@ -48,13 +48,13 @@ Returns image with all inputs joined left to right along the x-axis.
     <br>&nbsp;</th>
     <th>aktive op montage x @1 @2 @3
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00287.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00383.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
-    <td valign='top'><img src='example-00288.gif' alt='@2' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00384.gif' alt='@2' style='border:4px solid gold'>
     <br>geometry(0 0 64 64 1)</td>
-    <td valign='top'><img src='example-00289.gif' alt='@3' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00385.gif' alt='@3' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00290.gif' alt='aktive op montage x @1 @2 @3' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00386.gif' alt='aktive op montage x @1 @2 @3' style='border:4px solid gold'>
     <br>geometry(0 0 224 128 1)</td></tr>
 </table>
 
@@ -67,19 +67,19 @@ Returns image with all inputs joined left to right along the x-axis.
     <br>&nbsp;</th>
     <th>aktive op montage x @1 @2 @3
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00291.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00387.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 64 64 1)</td>
-    <td valign='top'><img src='example-00292.gif' alt='@2' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00388.gif' alt='@2' style='border:4px solid gold'>
     <br>geometry(0 0 64 64 1)</td>
-    <td valign='top'><img src='example-00293.gif' alt='@3' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00389.gif' alt='@3' style='border:4px solid gold'>
     <br>geometry(0 0 64 64 1)</td>
-    <td valign='top'><img src='example-00294.gif' alt='aktive op montage x @1 @2 @3' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00390.gif' alt='aktive op montage x @1 @2 @3' style='border:4px solid gold'>
     <br>geometry(0 0 192 64 1)</td></tr>
 </table>
 
 
 ---
-### <a name='op_montage_x_core'></a> aktive op montage x-core
+### [↑](#top) <a name='op_montage_x_core'></a> aktive op montage x-core
 
 Syntax: __aktive op montage x-core__ src0 src1 [[→ definition](../../../../file?ci=trunk&ln=72&name=etc/composer/montage.tcl)]
 
@@ -97,7 +97,7 @@ In the result the uncovered parts are zero (black)-filled.
 
 
 ---
-### <a name='op_montage_x_rep'></a> aktive op montage x-rep
+### [↑](#top) <a name='op_montage_x_rep'></a> aktive op montage x-rep
 
 Syntax: __aktive op montage x-rep__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=12&name=etc/composer/montage.tcl)]
 
@@ -114,15 +114,15 @@ Returns image with input joined left to right with itself N times along the x-ax
     <br>&nbsp;</th>
     <th>aktive op montage x-rep @1 by 3
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00295.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00391.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
-    <td valign='top'><img src='example-00296.gif' alt='aktive op montage x-rep @1 by 3' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00392.gif' alt='aktive op montage x-rep @1 by 3' style='border:4px solid gold'>
     <br>geometry(0 0 96 32 1)</td></tr>
 </table>
 
 
 ---
-### <a name='op_montage_y'></a> aktive op montage y
+### [↑](#top) <a name='op_montage_y'></a> aktive op montage y
 
 Syntax: __aktive op montage y__ srcs... [[→ definition](../../../../file?ci=trunk&ln=40&name=etc/composer/montage.tcl)]
 
@@ -140,13 +140,13 @@ Returns image with all inputs joined top to bottom along the y-axis.
     <br>&nbsp;</th>
     <th>aktive op montage y @1 @2 @3
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00297.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00393.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
-    <td valign='top'><img src='example-00298.gif' alt='@2' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00394.gif' alt='@2' style='border:4px solid gold'>
     <br>geometry(0 0 64 64 1)</td>
-    <td valign='top'><img src='example-00299.gif' alt='@3' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00395.gif' alt='@3' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00300.gif' alt='aktive op montage y @1 @2 @3' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00396.gif' alt='aktive op montage y @1 @2 @3' style='border:4px solid gold'>
     <br>geometry(0 0 128 224 1)</td></tr>
 </table>
 
@@ -159,19 +159,19 @@ Returns image with all inputs joined top to bottom along the y-axis.
     <br>&nbsp;</th>
     <th>aktive op montage y @1 @2 @3
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00301.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00397.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 64 64 1)</td>
-    <td valign='top'><img src='example-00302.gif' alt='@2' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00398.gif' alt='@2' style='border:4px solid gold'>
     <br>geometry(0 0 64 64 1)</td>
-    <td valign='top'><img src='example-00303.gif' alt='@3' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00399.gif' alt='@3' style='border:4px solid gold'>
     <br>geometry(0 0 64 64 1)</td>
-    <td valign='top'><img src='example-00304.gif' alt='aktive op montage y @1 @2 @3' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00400.gif' alt='aktive op montage y @1 @2 @3' style='border:4px solid gold'>
     <br>geometry(0 0 64 192 1)</td></tr>
 </table>
 
 
 ---
-### <a name='op_montage_y_core'></a> aktive op montage y-core
+### [↑](#top) <a name='op_montage_y_core'></a> aktive op montage y-core
 
 Syntax: __aktive op montage y-core__ src0 src1 [[→ definition](../../../../file?ci=trunk&ln=72&name=etc/composer/montage.tcl)]
 
@@ -189,7 +189,7 @@ In the result the uncovered parts are zero (black)-filled.
 
 
 ---
-### <a name='op_montage_y_rep'></a> aktive op montage y-rep
+### [↑](#top) <a name='op_montage_y_rep'></a> aktive op montage y-rep
 
 Syntax: __aktive op montage y-rep__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=12&name=etc/composer/montage.tcl)]
 
@@ -206,15 +206,15 @@ Returns image with input joined top to bottom with itself N times along the y-ax
     <br>&nbsp;</th>
     <th>aktive op montage y-rep @1 by 3
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00305.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00401.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
-    <td valign='top'><img src='example-00306.gif' alt='aktive op montage y-rep @1 by 3' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00402.gif' alt='aktive op montage y-rep @1 by 3' style='border:4px solid gold'>
     <br>geometry(0 0 32 96 1)</td></tr>
 </table>
 
 
 ---
-### <a name='op_montage_z'></a> aktive op montage z
+### [↑](#top) <a name='op_montage_z'></a> aktive op montage z
 
 Syntax: __aktive op montage z__ srcs... [[→ definition](../../../../file?ci=trunk&ln=40&name=etc/composer/montage.tcl)]
 
@@ -232,13 +232,13 @@ Returns image with all inputs joined front to back along the z-axis.
     <br>&nbsp;</th>
     <th>aktive op montage z @1 @2 @3
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00307.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00403.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
-    <td valign='top'><img src='example-00308.gif' alt='@2' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00404.gif' alt='@2' style='border:4px solid gold'>
     <br>geometry(0 0 64 64 1)</td>
-    <td valign='top'><img src='example-00309.gif' alt='@3' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00405.gif' alt='@3' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00310.gif' alt='aktive op montage z @1 @2 @3' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00406.gif' alt='aktive op montage z @1 @2 @3' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 3)</td></tr>
 </table>
 
@@ -251,19 +251,19 @@ Returns image with all inputs joined front to back along the z-axis.
     <br>&nbsp;</th>
     <th>aktive op montage z @1 @2 @3
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00311.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00407.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 64 64 1)</td>
-    <td valign='top'><img src='example-00312.gif' alt='@2' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00408.gif' alt='@2' style='border:4px solid gold'>
     <br>geometry(0 0 64 64 1)</td>
-    <td valign='top'><img src='example-00313.gif' alt='@3' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00409.gif' alt='@3' style='border:4px solid gold'>
     <br>geometry(0 0 64 64 1)</td>
-    <td valign='top'><img src='example-00314.gif' alt='aktive op montage z @1 @2 @3' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00410.gif' alt='aktive op montage z @1 @2 @3' style='border:4px solid gold'>
     <br>geometry(0 0 64 64 3)</td></tr>
 </table>
 
 
 ---
-### <a name='op_montage_z_core'></a> aktive op montage z-core
+### [↑](#top) <a name='op_montage_z_core'></a> aktive op montage z-core
 
 Syntax: __aktive op montage z-core__ src0 src1 [[→ definition](../../../../file?ci=trunk&ln=72&name=etc/composer/montage.tcl)]
 
@@ -281,7 +281,7 @@ In the result the uncovered parts are zero (black)-filled.
 
 
 ---
-### <a name='op_montage_z_rep'></a> aktive op montage z-rep
+### [↑](#top) <a name='op_montage_z_rep'></a> aktive op montage z-rep
 
 Syntax: __aktive op montage z-rep__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=12&name=etc/composer/montage.tcl)]
 
@@ -298,9 +298,9 @@ Returns image with input joined front to back with itself N times along the z-ax
     <br>&nbsp;</th>
     <th>aktive op montage z-rep @1 by 3
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00315.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00411.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
-    <td valign='top'><img src='example-00316.gif' alt='aktive op montage z-rep @1 by 3' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00412.gif' alt='aktive op montage z-rep @1 by 3' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 3)</td></tr>
 </table>
 

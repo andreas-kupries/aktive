@@ -10,7 +10,7 @@
 
 # Documentation -- Reference Pages -- miscellaneous geometry
 
-## Table Of Contents
+## <anchor='top'> Table Of Contents
 
   - [miscellaneous](miscellaneous.md) ↗
 
@@ -34,7 +34,7 @@
 ## Operators
 
 ---
-### <a name='point_add'></a> aktive point add
+### [↑](#top) <a name='point_add'></a> aktive point add
 
 Syntax: __aktive point add__ point delta [[→ definition](../../../../file?ci=trunk&ln=22&name=etc/other/point.tcl)]
 
@@ -55,7 +55,7 @@ Translate a 2D point by a specific amount given as 2D vector
 
 
 ---
-### <a name='point_box'></a> aktive point box
+### [↑](#top) <a name='point_box'></a> aktive point box
 
 Syntax: __aktive point box__ points... [[→ definition](../../../../file?ci=trunk&ln=59&name=etc/other/point.tcl)]
 
@@ -75,7 +75,7 @@ Compute minimum axis-aligned 2D rectangle enclosing the set of 2D points
 
 
 ---
-### <a name='point_make'></a> aktive point make
+### [↑](#top) <a name='point_make'></a> aktive point make
 
 Syntax: __aktive point make__ x y [[→ definition](../../../../file?ci=trunk&ln=6&name=etc/other/point.tcl)]
 
@@ -96,7 +96,7 @@ Construct a 2D point from x- and y-coordinates
 
 
 ---
-### <a name='point_move'></a> aktive point move
+### [↑](#top) <a name='point_move'></a> aktive point move
 
 Syntax: __aktive point move__ point dx dy [[→ definition](../../../../file?ci=trunk&ln=40&name=etc/other/point.tcl)]
 
@@ -118,7 +118,7 @@ Translate a 2D point by a specific amount given as separate x- and y-deltas
 
 
 ---
-### <a name='rectangle_empty'></a> aktive rectangle empty
+### [↑](#top) <a name='rectangle_empty'></a> aktive rectangle empty
 
 Syntax: __aktive rectangle empty__ rect [[→ definition](../../../../file?ci=trunk&ln=99&name=etc/other/rectangle.tcl)]
 
@@ -144,7 +144,7 @@ Test a 2D rectangle for emptiness
 
 
 ---
-### <a name='rectangle_equal'></a> aktive rectangle equal
+### [↑](#top) <a name='rectangle_equal'></a> aktive rectangle equal
 
 Syntax: __aktive rectangle equal__ a b [[→ definition](../../../../file?ci=trunk&ln=70&name=etc/other/rectangle.tcl)]
 
@@ -171,7 +171,7 @@ Test two 2D rectangles for equality (location and dimensions)
 
 
 ---
-### <a name='rectangle_grow'></a> aktive rectangle grow
+### [↑](#top) <a name='rectangle_grow'></a> aktive rectangle grow
 
 Syntax: __aktive rectangle grow__ rect left right top bottom [[→ definition](../../../../file?ci=trunk&ln=26&name=etc/other/rectangle.tcl)]
 
@@ -195,7 +195,7 @@ Modify 2D rectangle by moving its 4 borders by a specific amount
 
 
 ---
-### <a name='rectangle_intersect'></a> aktive rectangle intersect
+### [↑](#top) <a name='rectangle_intersect'></a> aktive rectangle intersect
 
 Syntax: __aktive rectangle intersect__ rects... [[→ definition](../../../../file?ci=trunk&ln=139&name=etc/other/rectangle.tcl)]
 
@@ -206,7 +206,7 @@ Compute the maximum axis-aligned 2D rectangle shared by all input rectangles
 |rects|rect...||Rectangles to intersect|
 
 ---
-### <a name='rectangle_make'></a> aktive rectangle make
+### [↑](#top) <a name='rectangle_make'></a> aktive rectangle make
 
 Syntax: __aktive rectangle make__ x y w h [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/other/rectangle.tcl)]
 
@@ -229,7 +229,7 @@ Construct a 2D rectangle from x- and y-coordinates and width/height dimensions
 
 
 ---
-### <a name='rectangle_move'></a> aktive rectangle move
+### [↑](#top) <a name='rectangle_move'></a> aktive rectangle move
 
 Syntax: __aktive rectangle move__ rect dx dy [[→ definition](../../../../file?ci=trunk&ln=49&name=etc/other/rectangle.tcl)]
 
@@ -251,7 +251,7 @@ Translate a 2D rectangle by a specific amount given as separate x- and y-deltas
 
 
 ---
-### <a name='rectangle_subset'></a> aktive rectangle subset
+### [↑](#top) <a name='rectangle_subset'></a> aktive rectangle subset
 
 Syntax: __aktive rectangle subset__ a b [[→ definition](../../../../file?ci=trunk&ln=84&name=etc/other/rectangle.tcl)]
 
@@ -284,7 +284,7 @@ Test if the first 2D rectangle is a subset of the second.
 
 
 ---
-### <a name='rectangle_union'></a> aktive rectangle union
+### [↑](#top) <a name='rectangle_union'></a> aktive rectangle union
 
 Syntax: __aktive rectangle union__ rects... [[→ definition](../../../../file?ci=trunk&ln=114&name=etc/other/rectangle.tcl)]
 
@@ -295,7 +295,7 @@ Compute the minimum axis-aligned 2D rectangle encompassing all input rectangles
 |rects|rect...||Rectangles to union|
 
 ---
-### <a name='rectangle_zones'></a> aktive rectangle zones
+### [↑](#top) <a name='rectangle_zones'></a> aktive rectangle zones
 
 Syntax: __aktive rectangle zones__ domain request [[→ definition](../../../../file?ci=trunk&ln=166&name=etc/other/rectangle.tcl)]
 

@@ -10,7 +10,7 @@
 
 # Documentation -- Reference Pages -- transform math unary
 
-## Table Of Contents
+## <anchor='top'> Table Of Contents
 
   - [transform math](transform_math.md) ↗
 
@@ -92,7 +92,7 @@
 ## Operators
 
 ---
-### <a name='op_math1_abs'></a> aktive op math1 abs
+### [↑](#top) <a name='op_math1_abs'></a> aktive op math1 abs
 
 Syntax: __aktive op math1 abs__ src [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/math/unary.tcl)]
 
@@ -102,7 +102,7 @@ The resulting image has the same geometry as the input.
 
 
 ---
-### <a name='op_math1_acos'></a> aktive op math1 acos
+### [↑](#top) <a name='op_math1_acos'></a> aktive op math1 acos
 
 Syntax: __aktive op math1 acos__ src [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/math/unary.tcl)]
 
@@ -112,7 +112,7 @@ The resulting image has the same geometry as the input.
 
 
 ---
-### <a name='op_math1_acosh'></a> aktive op math1 acosh
+### [↑](#top) <a name='op_math1_acosh'></a> aktive op math1 acosh
 
 Syntax: __aktive op math1 acosh__ src [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/math/unary.tcl)]
 
@@ -122,7 +122,7 @@ The resulting image has the same geometry as the input.
 
 
 ---
-### <a name='op_math1_asin'></a> aktive op math1 asin
+### [↑](#top) <a name='op_math1_asin'></a> aktive op math1 asin
 
 Syntax: __aktive op math1 asin__ src [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/math/unary.tcl)]
 
@@ -132,7 +132,7 @@ The resulting image has the same geometry as the input.
 
 
 ---
-### <a name='op_math1_asinh'></a> aktive op math1 asinh
+### [↑](#top) <a name='op_math1_asinh'></a> aktive op math1 asinh
 
 Syntax: __aktive op math1 asinh__ src [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/math/unary.tcl)]
 
@@ -142,7 +142,7 @@ The resulting image has the same geometry as the input.
 
 
 ---
-### <a name='op_math1_atan'></a> aktive op math1 atan
+### [↑](#top) <a name='op_math1_atan'></a> aktive op math1 atan
 
 Syntax: __aktive op math1 atan__ src [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/math/unary.tcl)]
 
@@ -152,7 +152,7 @@ The resulting image has the same geometry as the input.
 
 
 ---
-### <a name='op_math1_atan2'></a> aktive op math1 atan2
+### [↑](#top) <a name='op_math1_atan2'></a> aktive op math1 atan2
 
 Syntax: __aktive op math1 atan2__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=102&name=etc/transformer/math/unary.tcl)]
 
@@ -167,7 +167,7 @@ The resulting image has the same geometry as the input.
 |x|double||Atan by scalar x|
 
 ---
-### <a name='op_math1_atan2b'></a> aktive op math1 atan2b
+### [↑](#top) <a name='op_math1_atan2b'></a> aktive op math1 atan2b
 
 Syntax: __aktive op math1 atan2b__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=102&name=etc/transformer/math/unary.tcl)]
 
@@ -182,7 +182,7 @@ The resulting image has the same geometry as the input.
 |y|double||Atan by scalar y|
 
 ---
-### <a name='op_math1_atanh'></a> aktive op math1 atanh
+### [↑](#top) <a name='op_math1_atanh'></a> aktive op math1 atanh
 
 Syntax: __aktive op math1 atanh__ src [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/math/unary.tcl)]
 
@@ -192,7 +192,7 @@ The resulting image has the same geometry as the input.
 
 
 ---
-### <a name='op_math1_cbrt'></a> aktive op math1 cbrt
+### [↑](#top) <a name='op_math1_cbrt'></a> aktive op math1 cbrt
 
 Syntax: __aktive op math1 cbrt__ src [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/math/unary.tcl)]
 
@@ -202,7 +202,7 @@ The resulting image has the same geometry as the input.
 
 
 ---
-### <a name='op_math1_ceil'></a> aktive op math1 ceil
+### [↑](#top) <a name='op_math1_ceil'></a> aktive op math1 ceil
 
 Syntax: __aktive op math1 ceil__ src [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/math/unary.tcl)]
 
@@ -212,7 +212,7 @@ The resulting image has the same geometry as the input.
 
 
 ---
-### <a name='op_math1_clamp'></a> aktive op math1 clamp
+### [↑](#top) <a name='op_math1_clamp'></a> aktive op math1 clamp
 
 Syntax: __aktive op math1 clamp__ src [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/math/unary.tcl)]
 
@@ -222,7 +222,7 @@ The resulting image has the same geometry as the input.
 
 
 ---
-### <a name='op_math1_cos'></a> aktive op math1 cos
+### [↑](#top) <a name='op_math1_cos'></a> aktive op math1 cos
 
 Syntax: __aktive op math1 cos__ src [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/math/unary.tcl)]
 
@@ -232,7 +232,7 @@ The resulting image has the same geometry as the input.
 
 
 ---
-### <a name='op_math1_cosh'></a> aktive op math1 cosh
+### [↑](#top) <a name='op_math1_cosh'></a> aktive op math1 cosh
 
 Syntax: __aktive op math1 cosh__ src [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/math/unary.tcl)]
 
@@ -242,7 +242,7 @@ The resulting image has the same geometry as the input.
 
 
 ---
-### <a name='op_math1_eq'></a> aktive op math1 eq
+### [↑](#top) <a name='op_math1_eq'></a> aktive op math1 eq
 
 Syntax: __aktive op math1 eq__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=102&name=etc/transformer/math/unary.tcl)]
 
@@ -257,7 +257,7 @@ The resulting image has the same geometry as the input.
 |threshold|double||Indicate pixels equal to the scalar threshold|
 
 ---
-### <a name='op_math1_exp'></a> aktive op math1 exp
+### [↑](#top) <a name='op_math1_exp'></a> aktive op math1 exp
 
 Syntax: __aktive op math1 exp__ src [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/math/unary.tcl)]
 
@@ -267,7 +267,7 @@ The resulting image has the same geometry as the input.
 
 
 ---
-### <a name='op_math1_exp2'></a> aktive op math1 exp2
+### [↑](#top) <a name='op_math1_exp2'></a> aktive op math1 exp2
 
 Syntax: __aktive op math1 exp2__ src [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/math/unary.tcl)]
 
@@ -277,7 +277,7 @@ The resulting image has the same geometry as the input.
 
 
 ---
-### <a name='op_math1_exp10'></a> aktive op math1 exp10
+### [↑](#top) <a name='op_math1_exp10'></a> aktive op math1 exp10
 
 Syntax: __aktive op math1 exp10__ src [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/math/unary.tcl)]
 
@@ -287,7 +287,7 @@ The resulting image has the same geometry as the input.
 
 
 ---
-### <a name='op_math1_expx'></a> aktive op math1 expx
+### [↑](#top) <a name='op_math1_expx'></a> aktive op math1 expx
 
 Syntax: __aktive op math1 expx__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=102&name=etc/transformer/math/unary.tcl)]
 
@@ -302,7 +302,7 @@ The resulting image has the same geometry as the input.
 |base|double||Power by scalar base|
 
 ---
-### <a name='op_math1_fit_mean_stddev'></a> aktive op math1 fit mean-stddev
+### [↑](#top) <a name='op_math1_fit_mean_stddev'></a> aktive op math1 fit mean-stddev
 
 Syntax: __aktive op math1 fit mean-stddev__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=313&name=etc/transformer/math/unary.tcl)]
 
@@ -321,7 +321,7 @@ BEWARE, this means that construction incurs a computation cost on the input.
 |sigma|double|1.2|Interval around the input mean to fit into the min/max range.|
 
 ---
-### <a name='op_math1_fit_min_max'></a> aktive op math1 fit min-max
+### [↑](#top) <a name='op_math1_fit_min_max'></a> aktive op math1 fit min-max
 
 Syntax: __aktive op math1 fit min-max__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=285&name=etc/transformer/math/unary.tcl)]
 
@@ -341,7 +341,7 @@ BEWARE, this means that construction incurs a computation cost on the input.
 |lower|double|0|Lower percentile to apply to input min. Default is 0%|
 
 ---
-### <a name='op_math1_fit_stretch'></a> aktive op math1 fit stretch
+### [↑](#top) <a name='op_math1_fit_stretch'></a> aktive op math1 fit stretch
 
 Syntax: __aktive op math1 fit stretch__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=233&name=etc/transformer/math/unary.tcl)]
 
@@ -361,7 +361,7 @@ BEWARE, this means that construction incurs a computation cost on the input.
 |clamp|bool|1|Force clamping into result range.|
 
 ---
-### <a name='op_math1_floor'></a> aktive op math1 floor
+### [↑](#top) <a name='op_math1_floor'></a> aktive op math1 floor
 
 Syntax: __aktive op math1 floor__ src [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/math/unary.tcl)]
 
@@ -371,7 +371,7 @@ The resulting image has the same geometry as the input.
 
 
 ---
-### <a name='op_math1_gamma_compress'></a> aktive op math1 gamma compress
+### [↑](#top) <a name='op_math1_gamma_compress'></a> aktive op math1 gamma compress
 
 Syntax: __aktive op math1 gamma compress__ src [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/math/unary.tcl)]
 
@@ -381,7 +381,7 @@ The resulting image has the same geometry as the input.
 
 
 ---
-### <a name='op_math1_gamma_expand'></a> aktive op math1 gamma expand
+### [↑](#top) <a name='op_math1_gamma_expand'></a> aktive op math1 gamma expand
 
 Syntax: __aktive op math1 gamma expand__ src [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/math/unary.tcl)]
 
@@ -391,7 +391,7 @@ The resulting image has the same geometry as the input.
 
 
 ---
-### <a name='op_math1_ge'></a> aktive op math1 ge
+### [↑](#top) <a name='op_math1_ge'></a> aktive op math1 ge
 
 Syntax: __aktive op math1 ge__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=102&name=etc/transformer/math/unary.tcl)]
 
@@ -406,7 +406,7 @@ The resulting image has the same geometry as the input.
 |threshold|double||Indicate pixels greater or equal to the scalar threshold|
 
 ---
-### <a name='op_math1_gt'></a> aktive op math1 gt
+### [↑](#top) <a name='op_math1_gt'></a> aktive op math1 gt
 
 Syntax: __aktive op math1 gt__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=102&name=etc/transformer/math/unary.tcl)]
 
@@ -421,7 +421,7 @@ The resulting image has the same geometry as the input.
 |threshold|double||Indicate pixels greater than the scalar threshold|
 
 ---
-### <a name='op_math1_hypot'></a> aktive op math1 hypot
+### [↑](#top) <a name='op_math1_hypot'></a> aktive op math1 hypot
 
 Syntax: __aktive op math1 hypot__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=102&name=etc/transformer/math/unary.tcl)]
 
@@ -436,7 +436,7 @@ The resulting image has the same geometry as the input.
 |y|double||Hypot to scalar y|
 
 ---
-### <a name='op_math1_inside_cc'></a> aktive op math1 inside-cc
+### [↑](#top) <a name='op_math1_inside_cc'></a> aktive op math1 inside-cc
 
 Syntax: __aktive op math1 inside-cc__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=179&name=etc/transformer/math/unary.tcl)]
 
@@ -452,7 +452,7 @@ The resulting image has the same geometry as the input.
 |high|double||Upper closed boundary|
 
 ---
-### <a name='op_math1_inside_co'></a> aktive op math1 inside-co
+### [↑](#top) <a name='op_math1_inside_co'></a> aktive op math1 inside-co
 
 Syntax: __aktive op math1 inside-co__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=179&name=etc/transformer/math/unary.tcl)]
 
@@ -468,7 +468,7 @@ The resulting image has the same geometry as the input.
 |high|double||Upper open boundary|
 
 ---
-### <a name='op_math1_inside_oc'></a> aktive op math1 inside-oc
+### [↑](#top) <a name='op_math1_inside_oc'></a> aktive op math1 inside-oc
 
 Syntax: __aktive op math1 inside-oc__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=179&name=etc/transformer/math/unary.tcl)]
 
@@ -484,7 +484,7 @@ The resulting image has the same geometry as the input.
 |high|double||Upper closed boundary|
 
 ---
-### <a name='op_math1_inside_oo'></a> aktive op math1 inside-oo
+### [↑](#top) <a name='op_math1_inside_oo'></a> aktive op math1 inside-oo
 
 Syntax: __aktive op math1 inside-oo__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=179&name=etc/transformer/math/unary.tcl)]
 
@@ -500,7 +500,7 @@ The resulting image has the same geometry as the input.
 |high|double||Upper open boundary|
 
 ---
-### <a name='op_math1_invert'></a> aktive op math1 invert
+### [↑](#top) <a name='op_math1_invert'></a> aktive op math1 invert
 
 Syntax: __aktive op math1 invert__ src [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/math/unary.tcl)]
 
@@ -510,7 +510,7 @@ The resulting image has the same geometry as the input.
 
 
 ---
-### <a name='op_math1_le'></a> aktive op math1 le
+### [↑](#top) <a name='op_math1_le'></a> aktive op math1 le
 
 Syntax: __aktive op math1 le__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=102&name=etc/transformer/math/unary.tcl)]
 
@@ -525,7 +525,7 @@ The resulting image has the same geometry as the input.
 |threshold|double||Indicate pixels less or equal to the scalar threshold|
 
 ---
-### <a name='op_math1_linear'></a> aktive op math1 linear
+### [↑](#top) <a name='op_math1_linear'></a> aktive op math1 linear
 
 Syntax: __aktive op math1 linear__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=218&name=etc/transformer/math/unary.tcl)]
 
@@ -537,7 +537,7 @@ Returns image with the linear transform `(I*scale)+gain` applied to it.
 |gain|double||Post-scaling offset|
 
 ---
-### <a name='op_math1_log'></a> aktive op math1 log
+### [↑](#top) <a name='op_math1_log'></a> aktive op math1 log
 
 Syntax: __aktive op math1 log__ src [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/math/unary.tcl)]
 
@@ -547,7 +547,7 @@ The resulting image has the same geometry as the input.
 
 
 ---
-### <a name='op_math1_log2'></a> aktive op math1 log2
+### [↑](#top) <a name='op_math1_log2'></a> aktive op math1 log2
 
 Syntax: __aktive op math1 log2__ src [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/math/unary.tcl)]
 
@@ -557,7 +557,7 @@ The resulting image has the same geometry as the input.
 
 
 ---
-### <a name='op_math1_log10'></a> aktive op math1 log10
+### [↑](#top) <a name='op_math1_log10'></a> aktive op math1 log10
 
 Syntax: __aktive op math1 log10__ src [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/math/unary.tcl)]
 
@@ -567,7 +567,7 @@ The resulting image has the same geometry as the input.
 
 
 ---
-### <a name='op_math1_lt'></a> aktive op math1 lt
+### [↑](#top) <a name='op_math1_lt'></a> aktive op math1 lt
 
 Syntax: __aktive op math1 lt__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=102&name=etc/transformer/math/unary.tcl)]
 
@@ -582,7 +582,7 @@ The resulting image has the same geometry as the input.
 |threshold|double||Indicate pixels less than the scalar threshold|
 
 ---
-### <a name='op_math1_max'></a> aktive op math1 max
+### [↑](#top) <a name='op_math1_max'></a> aktive op math1 max
 
 Syntax: __aktive op math1 max__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=102&name=etc/transformer/math/unary.tcl)]
 
@@ -597,7 +597,7 @@ The resulting image has the same geometry as the input.
 |min|double||Limit to greater or equal a scalar min|
 
 ---
-### <a name='op_math1_min'></a> aktive op math1 min
+### [↑](#top) <a name='op_math1_min'></a> aktive op math1 min
 
 Syntax: __aktive op math1 min__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=102&name=etc/transformer/math/unary.tcl)]
 
@@ -612,7 +612,7 @@ The resulting image has the same geometry as the input.
 |max|double||Limit to less or equal a scalar max|
 
 ---
-### <a name='op_math1_mod'></a> aktive op math1 mod
+### [↑](#top) <a name='op_math1_mod'></a> aktive op math1 mod
 
 Syntax: __aktive op math1 mod__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=102&name=etc/transformer/math/unary.tcl)]
 
@@ -627,7 +627,7 @@ The resulting image has the same geometry as the input.
 |modulus|double||Remainder by scalar modulus|
 
 ---
-### <a name='op_math1_modb'></a> aktive op math1 modb
+### [↑](#top) <a name='op_math1_modb'></a> aktive op math1 modb
 
 Syntax: __aktive op math1 modb__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=102&name=etc/transformer/math/unary.tcl)]
 
@@ -642,7 +642,7 @@ The resulting image has the same geometry as the input.
 |numerator|double||Remainder by scalar numerator|
 
 ---
-### <a name='op_math1_ne'></a> aktive op math1 ne
+### [↑](#top) <a name='op_math1_ne'></a> aktive op math1 ne
 
 Syntax: __aktive op math1 ne__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=102&name=etc/transformer/math/unary.tcl)]
 
@@ -657,7 +657,7 @@ The resulting image has the same geometry as the input.
 |threshold|double||Indicate pixels different from the scalar threshold|
 
 ---
-### <a name='op_math1_neg'></a> aktive op math1 neg
+### [↑](#top) <a name='op_math1_neg'></a> aktive op math1 neg
 
 Syntax: __aktive op math1 neg__ src [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/math/unary.tcl)]
 
@@ -667,7 +667,7 @@ The resulting image has the same geometry as the input.
 
 
 ---
-### <a name='op_math1_neg_shift'></a> aktive op math1 neg-shift
+### [↑](#top) <a name='op_math1_neg_shift'></a> aktive op math1 neg-shift
 
 Syntax: __aktive op math1 neg-shift__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=102&name=etc/transformer/math/unary.tcl)]
 
@@ -682,7 +682,7 @@ The resulting image has the same geometry as the input.
 |offset|double||Subtract from scalar offset|
 
 ---
-### <a name='op_math1_outside_cc'></a> aktive op math1 outside-cc
+### [↑](#top) <a name='op_math1_outside_cc'></a> aktive op math1 outside-cc
 
 Syntax: __aktive op math1 outside-cc__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=179&name=etc/transformer/math/unary.tcl)]
 
@@ -698,7 +698,7 @@ The resulting image has the same geometry as the input.
 |high|double||Upper closed boundary|
 
 ---
-### <a name='op_math1_outside_co'></a> aktive op math1 outside-co
+### [↑](#top) <a name='op_math1_outside_co'></a> aktive op math1 outside-co
 
 Syntax: __aktive op math1 outside-co__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=179&name=etc/transformer/math/unary.tcl)]
 
@@ -714,7 +714,7 @@ The resulting image has the same geometry as the input.
 |high|double||Upper open boundary|
 
 ---
-### <a name='op_math1_outside_oc'></a> aktive op math1 outside-oc
+### [↑](#top) <a name='op_math1_outside_oc'></a> aktive op math1 outside-oc
 
 Syntax: __aktive op math1 outside-oc__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=179&name=etc/transformer/math/unary.tcl)]
 
@@ -730,7 +730,7 @@ The resulting image has the same geometry as the input.
 |high|double||Upper closed boundary|
 
 ---
-### <a name='op_math1_outside_oo'></a> aktive op math1 outside-oo
+### [↑](#top) <a name='op_math1_outside_oo'></a> aktive op math1 outside-oo
 
 Syntax: __aktive op math1 outside-oo__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=179&name=etc/transformer/math/unary.tcl)]
 
@@ -746,7 +746,7 @@ The resulting image has the same geometry as the input.
 |high|double||Upper open boundary|
 
 ---
-### <a name='op_math1_pow'></a> aktive op math1 pow
+### [↑](#top) <a name='op_math1_pow'></a> aktive op math1 pow
 
 Syntax: __aktive op math1 pow__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=102&name=etc/transformer/math/unary.tcl)]
 
@@ -761,7 +761,7 @@ The resulting image has the same geometry as the input.
 |exponent|double||Power by scalar exponent|
 
 ---
-### <a name='op_math1_reciproc'></a> aktive op math1 reciproc
+### [↑](#top) <a name='op_math1_reciproc'></a> aktive op math1 reciproc
 
 Syntax: __aktive op math1 reciproc__ src [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/math/unary.tcl)]
 
@@ -771,7 +771,7 @@ The resulting image has the same geometry as the input.
 
 
 ---
-### <a name='op_math1_reciproc_scale'></a> aktive op math1 reciproc-scale
+### [↑](#top) <a name='op_math1_reciproc_scale'></a> aktive op math1 reciproc-scale
 
 Syntax: __aktive op math1 reciproc-scale__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=102&name=etc/transformer/math/unary.tcl)]
 
@@ -786,7 +786,7 @@ The resulting image has the same geometry as the input.
 |factor|double||Divide from scalar factor|
 
 ---
-### <a name='op_math1_round'></a> aktive op math1 round
+### [↑](#top) <a name='op_math1_round'></a> aktive op math1 round
 
 Syntax: __aktive op math1 round__ src [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/math/unary.tcl)]
 
@@ -796,7 +796,7 @@ The resulting image has the same geometry as the input.
 
 
 ---
-### <a name='op_math1_scale'></a> aktive op math1 scale
+### [↑](#top) <a name='op_math1_scale'></a> aktive op math1 scale
 
 Syntax: __aktive op math1 scale__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=102&name=etc/transformer/math/unary.tcl)]
 
@@ -811,7 +811,7 @@ The resulting image has the same geometry as the input.
 |factor|double||Multiply by scalar factor|
 
 ---
-### <a name='op_math1_shift'></a> aktive op math1 shift
+### [↑](#top) <a name='op_math1_shift'></a> aktive op math1 shift
 
 Syntax: __aktive op math1 shift__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=102&name=etc/transformer/math/unary.tcl)]
 
@@ -826,7 +826,7 @@ The resulting image has the same geometry as the input.
 |offset|double||Add scalar offset|
 
 ---
-### <a name='op_math1_sign'></a> aktive op math1 sign
+### [↑](#top) <a name='op_math1_sign'></a> aktive op math1 sign
 
 Syntax: __aktive op math1 sign__ src [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/math/unary.tcl)]
 
@@ -836,7 +836,7 @@ The resulting image has the same geometry as the input.
 
 
 ---
-### <a name='op_math1_sign*'></a> aktive op math1 sign*
+### [↑](#top) <a name='op_math1_sign*'></a> aktive op math1 sign*
 
 Syntax: __aktive op math1 sign*__ src [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/math/unary.tcl)]
 
@@ -846,7 +846,7 @@ The resulting image has the same geometry as the input.
 
 
 ---
-### <a name='op_math1_sin'></a> aktive op math1 sin
+### [↑](#top) <a name='op_math1_sin'></a> aktive op math1 sin
 
 Syntax: __aktive op math1 sin__ src [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/math/unary.tcl)]
 
@@ -856,7 +856,7 @@ The resulting image has the same geometry as the input.
 
 
 ---
-### <a name='op_math1_sinh'></a> aktive op math1 sinh
+### [↑](#top) <a name='op_math1_sinh'></a> aktive op math1 sinh
 
 Syntax: __aktive op math1 sinh__ src [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/math/unary.tcl)]
 
@@ -866,7 +866,7 @@ The resulting image has the same geometry as the input.
 
 
 ---
-### <a name='op_math1_solarize'></a> aktive op math1 solarize
+### [↑](#top) <a name='op_math1_solarize'></a> aktive op math1 solarize
 
 Syntax: __aktive op math1 solarize__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=102&name=etc/transformer/math/unary.tcl)]
 
@@ -881,7 +881,7 @@ The resulting image has the same geometry as the input.
 |threshold|double||Solarize pixels per the threshold|
 
 ---
-### <a name='op_math1_sqrt'></a> aktive op math1 sqrt
+### [↑](#top) <a name='op_math1_sqrt'></a> aktive op math1 sqrt
 
 Syntax: __aktive op math1 sqrt__ src [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/math/unary.tcl)]
 
@@ -891,7 +891,7 @@ The resulting image has the same geometry as the input.
 
 
 ---
-### <a name='op_math1_square'></a> aktive op math1 square
+### [↑](#top) <a name='op_math1_square'></a> aktive op math1 square
 
 Syntax: __aktive op math1 square__ src [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/math/unary.tcl)]
 
@@ -901,7 +901,7 @@ The resulting image has the same geometry as the input.
 
 
 ---
-### <a name='op_math1_tan'></a> aktive op math1 tan
+### [↑](#top) <a name='op_math1_tan'></a> aktive op math1 tan
 
 Syntax: __aktive op math1 tan__ src [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/math/unary.tcl)]
 
@@ -911,7 +911,7 @@ The resulting image has the same geometry as the input.
 
 
 ---
-### <a name='op_math1_tanh'></a> aktive op math1 tanh
+### [↑](#top) <a name='op_math1_tanh'></a> aktive op math1 tanh
 
 Syntax: __aktive op math1 tanh__ src [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/math/unary.tcl)]
 
@@ -921,7 +921,7 @@ The resulting image has the same geometry as the input.
 
 
 ---
-### <a name='op_math1_wrap'></a> aktive op math1 wrap
+### [↑](#top) <a name='op_math1_wrap'></a> aktive op math1 wrap
 
 Syntax: __aktive op math1 wrap__ src [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/math/unary.tcl)]
 

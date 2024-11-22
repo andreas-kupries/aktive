@@ -37,6 +37,18 @@ operator {parameters} {
 } {
     op -> _ _ _ method
 
+    example {
+	scancrop
+	@1 radius 7
+    }
+
+    if {$method ne "otsu"} { ;# otsu does not handle color input
+	example {
+	    butterfly
+	    @1 radius 7
+	}
+    }
+
     section transform threshold mask generate
 
     note Return image foreground mask of input, \
@@ -47,6 +59,9 @@ operator {parameters} {
 	Invert the result otherwise.
 
     note The foreground pixels are indicated by white. Background by black.
+
+    note The local thresholds are computed using \
+	"<!xref: aktive image threshold ${method}>."
 
     foreach {n d} $parameters {
 	if {$n eq "bins"} {
@@ -81,6 +96,18 @@ operator {parameters} {
 } {
     op -> _ _ _ _ method
 
+    example {
+	scancrop
+	@1
+    }
+
+    if {$method ne "otsu"} { ;# otsu does not handle color input
+	example {
+	    butterfly
+	    @1
+	}
+    }
+
     section transform threshold mask generate
 
     note Return image foreground mask of input, \
@@ -91,6 +118,9 @@ operator {parameters} {
 	Invert the result otherwise.
 
     note The foreground pixels are indicated by white. Background by black.
+
+    note The threshold is computed using \
+	"<!xref: aktive image threshold global ${method}>."
 
     foreach {n d} $parameters {
 	if {$n eq "bins"} {

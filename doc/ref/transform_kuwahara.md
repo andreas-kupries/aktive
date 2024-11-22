@@ -10,7 +10,7 @@
 
 # Documentation -- Reference Pages -- transform kuwahara
 
-## Table Of Contents
+## <anchor='top'> Table Of Contents
 
   - [transform](transform.md) ↗
 
@@ -23,7 +23,7 @@
 ## Operators
 
 ---
-### <a name='op_kuwahara'></a> aktive op kuwahara
+### [↑](#top) <a name='op_kuwahara'></a> aktive op kuwahara
 
 Syntax: __aktive op kuwahara__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/filter/kuwahara.tcl)]
 
@@ -44,7 +44,7 @@ For images without known colorspace the last band is used as the luminance chann
 |k|uint|2|Filter radius. Actual window size is `2*k-1`. The default value is 2. This is also the minimum allowed value.|
 
 ---
-### <a name='op_kuwahara_core'></a> aktive op kuwahara-core
+### [↑](#top) <a name='op_kuwahara_core'></a> aktive op kuwahara-core
 
 Syntax: __aktive op kuwahara-core__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=101&name=etc/transformer/filter/kuwahara.tcl)]
 
