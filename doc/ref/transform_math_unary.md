@@ -94,7 +94,7 @@
 ---
 ### <a name='op_math1_abs'></a> aktive op math1 abs
 
-Syntax: __aktive op math1 abs__ src
+Syntax: __aktive op math1 abs__ src [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/math/unary.tcl)]
 
 Returns image with the unary function 'abs(I)' applied to all pixels of the input.
 
@@ -104,7 +104,7 @@ The resulting image has the same geometry as the input.
 ---
 ### <a name='op_math1_acos'></a> aktive op math1 acos
 
-Syntax: __aktive op math1 acos__ src
+Syntax: __aktive op math1 acos__ src [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/math/unary.tcl)]
 
 Returns image with the unary function 'acos(I)' applied to all pixels of the input.
 
@@ -114,7 +114,7 @@ The resulting image has the same geometry as the input.
 ---
 ### <a name='op_math1_acosh'></a> aktive op math1 acosh
 
-Syntax: __aktive op math1 acosh__ src
+Syntax: __aktive op math1 acosh__ src [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/math/unary.tcl)]
 
 Returns image with the unary function 'acosh(I)' applied to all pixels of the input.
 
@@ -124,7 +124,7 @@ The resulting image has the same geometry as the input.
 ---
 ### <a name='op_math1_asin'></a> aktive op math1 asin
 
-Syntax: __aktive op math1 asin__ src
+Syntax: __aktive op math1 asin__ src [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/math/unary.tcl)]
 
 Returns image with the unary function 'asin(I)' applied to all pixels of the input.
 
@@ -134,7 +134,7 @@ The resulting image has the same geometry as the input.
 ---
 ### <a name='op_math1_asinh'></a> aktive op math1 asinh
 
-Syntax: __aktive op math1 asinh__ src
+Syntax: __aktive op math1 asinh__ src [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/math/unary.tcl)]
 
 Returns image with the unary function 'asinh(I)' applied to all pixels of the input.
 
@@ -144,7 +144,7 @@ The resulting image has the same geometry as the input.
 ---
 ### <a name='op_math1_atan'></a> aktive op math1 atan
 
-Syntax: __aktive op math1 atan__ src
+Syntax: __aktive op math1 atan__ src [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/math/unary.tcl)]
 
 Returns image with the unary function 'atan(I)' applied to all pixels of the input.
 
@@ -154,7 +154,7 @@ The resulting image has the same geometry as the input.
 ---
 ### <a name='op_math1_atan2'></a> aktive op math1 atan2
 
-Syntax: __aktive op math1 atan2__ src (param value)...
+Syntax: __aktive op math1 atan2__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=102&name=etc/transformer/math/unary.tcl)]
 
 Returns image with the parameterized unary function 'atan2(I,x)' applied to all pixels of the input.
 
@@ -169,7 +169,7 @@ The resulting image has the same geometry as the input.
 ---
 ### <a name='op_math1_atan2b'></a> aktive op math1 atan2b
 
-Syntax: __aktive op math1 atan2b__ src (param value)...
+Syntax: __aktive op math1 atan2b__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=102&name=etc/transformer/math/unary.tcl)]
 
 Returns image with the parameterized unary function 'atan2(y,I)' applied to all pixels of the input.
 
@@ -184,7 +184,7 @@ The resulting image has the same geometry as the input.
 ---
 ### <a name='op_math1_atanh'></a> aktive op math1 atanh
 
-Syntax: __aktive op math1 atanh__ src
+Syntax: __aktive op math1 atanh__ src [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/math/unary.tcl)]
 
 Returns image with the unary function 'atanh(I)' applied to all pixels of the input.
 
@@ -194,7 +194,7 @@ The resulting image has the same geometry as the input.
 ---
 ### <a name='op_math1_cbrt'></a> aktive op math1 cbrt
 
-Syntax: __aktive op math1 cbrt__ src
+Syntax: __aktive op math1 cbrt__ src [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/math/unary.tcl)]
 
 Returns image with the unary function 'cbrt(I)' applied to all pixels of the input.
 
@@ -204,7 +204,7 @@ The resulting image has the same geometry as the input.
 ---
 ### <a name='op_math1_ceil'></a> aktive op math1 ceil
 
-Syntax: __aktive op math1 ceil__ src
+Syntax: __aktive op math1 ceil__ src [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/math/unary.tcl)]
 
 Returns image with the unary function 'ceil(I)' applied to all pixels of the input.
 
@@ -214,7 +214,7 @@ The resulting image has the same geometry as the input.
 ---
 ### <a name='op_math1_clamp'></a> aktive op math1 clamp
 
-Syntax: __aktive op math1 clamp__ src
+Syntax: __aktive op math1 clamp__ src [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/math/unary.tcl)]
 
 Returns image with the unary function 'clamp(I)' applied to all pixels of the input.
 
@@ -224,7 +224,7 @@ The resulting image has the same geometry as the input.
 ---
 ### <a name='op_math1_cos'></a> aktive op math1 cos
 
-Syntax: __aktive op math1 cos__ src
+Syntax: __aktive op math1 cos__ src [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/math/unary.tcl)]
 
 Returns image with the unary function 'cos(I)' applied to all pixels of the input.
 
@@ -234,7 +234,7 @@ The resulting image has the same geometry as the input.
 ---
 ### <a name='op_math1_cosh'></a> aktive op math1 cosh
 
-Syntax: __aktive op math1 cosh__ src
+Syntax: __aktive op math1 cosh__ src [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/math/unary.tcl)]
 
 Returns image with the unary function 'cosh(I)' applied to all pixels of the input.
 
@@ -244,7 +244,7 @@ The resulting image has the same geometry as the input.
 ---
 ### <a name='op_math1_eq'></a> aktive op math1 eq
 
-Syntax: __aktive op math1 eq__ src (param value)...
+Syntax: __aktive op math1 eq__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=102&name=etc/transformer/math/unary.tcl)]
 
 Returns image with the parameterized unary function 'I == threshold' applied to all pixels of the input.
 
@@ -259,7 +259,7 @@ The resulting image has the same geometry as the input.
 ---
 ### <a name='op_math1_exp'></a> aktive op math1 exp
 
-Syntax: __aktive op math1 exp__ src
+Syntax: __aktive op math1 exp__ src [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/math/unary.tcl)]
 
 Returns image with the unary function 'exp(I)' applied to all pixels of the input.
 
@@ -269,7 +269,7 @@ The resulting image has the same geometry as the input.
 ---
 ### <a name='op_math1_exp2'></a> aktive op math1 exp2
 
-Syntax: __aktive op math1 exp2__ src
+Syntax: __aktive op math1 exp2__ src [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/math/unary.tcl)]
 
 Returns image with the unary function 'exp2(I)' applied to all pixels of the input.
 
@@ -279,7 +279,7 @@ The resulting image has the same geometry as the input.
 ---
 ### <a name='op_math1_exp10'></a> aktive op math1 exp10
 
-Syntax: __aktive op math1 exp10__ src
+Syntax: __aktive op math1 exp10__ src [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/math/unary.tcl)]
 
 Returns image with the unary function 'exp10(I)' applied to all pixels of the input.
 
@@ -289,7 +289,7 @@ The resulting image has the same geometry as the input.
 ---
 ### <a name='op_math1_expx'></a> aktive op math1 expx
 
-Syntax: __aktive op math1 expx__ src (param value)...
+Syntax: __aktive op math1 expx__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=102&name=etc/transformer/math/unary.tcl)]
 
 Returns image with the parameterized unary function 'pow(base,I)' applied to all pixels of the input.
 
@@ -304,7 +304,7 @@ The resulting image has the same geometry as the input.
 ---
 ### <a name='op_math1_fit_mean_stddev'></a> aktive op math1 fit mean-stddev
 
-Syntax: __aktive op math1 fit mean-stddev__ src ?(param value)...?
+Syntax: __aktive op math1 fit mean-stddev__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=313&name=etc/transformer/math/unary.tcl)]
 
 Returns image fitted into the given range. Default range is 0..1.
 
@@ -323,7 +323,7 @@ BEWARE, this means that construction incurs a computation cost on the input.
 ---
 ### <a name='op_math1_fit_min_max'></a> aktive op math1 fit min-max
 
-Syntax: __aktive op math1 fit min-max__ src ?(param value)...?
+Syntax: __aktive op math1 fit min-max__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=285&name=etc/transformer/math/unary.tcl)]
 
 Returns image fitted into the given range. Default range is 0..1.
 
@@ -343,7 +343,7 @@ BEWARE, this means that construction incurs a computation cost on the input.
 ---
 ### <a name='op_math1_fit_stretch'></a> aktive op math1 fit stretch
 
-Syntax: __aktive op math1 fit stretch__ src ?(param value)...?
+Syntax: __aktive op math1 fit stretch__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=233&name=etc/transformer/math/unary.tcl)]
 
 Returns image fitted into the given range. Default range is 0..1.
 
@@ -363,7 +363,7 @@ BEWARE, this means that construction incurs a computation cost on the input.
 ---
 ### <a name='op_math1_floor'></a> aktive op math1 floor
 
-Syntax: __aktive op math1 floor__ src
+Syntax: __aktive op math1 floor__ src [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/math/unary.tcl)]
 
 Returns image with the unary function 'floor(I)' applied to all pixels of the input.
 
@@ -373,7 +373,7 @@ The resulting image has the same geometry as the input.
 ---
 ### <a name='op_math1_gamma_compress'></a> aktive op math1 gamma compress
 
-Syntax: __aktive op math1 gamma compress__ src
+Syntax: __aktive op math1 gamma compress__ src [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/math/unary.tcl)]
 
 Returns image with the unary function 'compress(I)' applied to all pixels of the input.
 
@@ -383,7 +383,7 @@ The resulting image has the same geometry as the input.
 ---
 ### <a name='op_math1_gamma_expand'></a> aktive op math1 gamma expand
 
-Syntax: __aktive op math1 gamma expand__ src
+Syntax: __aktive op math1 gamma expand__ src [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/math/unary.tcl)]
 
 Returns image with the unary function 'expand(I)' applied to all pixels of the input.
 
@@ -393,7 +393,7 @@ The resulting image has the same geometry as the input.
 ---
 ### <a name='op_math1_ge'></a> aktive op math1 ge
 
-Syntax: __aktive op math1 ge__ src (param value)...
+Syntax: __aktive op math1 ge__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=102&name=etc/transformer/math/unary.tcl)]
 
 Returns image with the parameterized unary function 'I >= threshold' applied to all pixels of the input.
 
@@ -408,7 +408,7 @@ The resulting image has the same geometry as the input.
 ---
 ### <a name='op_math1_gt'></a> aktive op math1 gt
 
-Syntax: __aktive op math1 gt__ src (param value)...
+Syntax: __aktive op math1 gt__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=102&name=etc/transformer/math/unary.tcl)]
 
 Returns image with the parameterized unary function 'I > threshold' applied to all pixels of the input.
 
@@ -423,7 +423,7 @@ The resulting image has the same geometry as the input.
 ---
 ### <a name='op_math1_hypot'></a> aktive op math1 hypot
 
-Syntax: __aktive op math1 hypot__ src (param value)...
+Syntax: __aktive op math1 hypot__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=102&name=etc/transformer/math/unary.tcl)]
 
 Returns image with the parameterized unary function 'hypot(I,y)' applied to all pixels of the input.
 
@@ -438,7 +438,7 @@ The resulting image has the same geometry as the input.
 ---
 ### <a name='op_math1_inside_cc'></a> aktive op math1 inside-cc
 
-Syntax: __aktive op math1 inside-cc__ src (param value)...
+Syntax: __aktive op math1 inside-cc__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=179&name=etc/transformer/math/unary.tcl)]
 
 Returns image with the double sided thresholding against the closed/closed interval given by the two boundaries applied to all pixels of the input.
 
@@ -454,7 +454,7 @@ The resulting image has the same geometry as the input.
 ---
 ### <a name='op_math1_inside_co'></a> aktive op math1 inside-co
 
-Syntax: __aktive op math1 inside-co__ src (param value)...
+Syntax: __aktive op math1 inside-co__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=179&name=etc/transformer/math/unary.tcl)]
 
 Returns image with the double sided thresholding against the closed/open interval given by the two boundaries applied to all pixels of the input.
 
@@ -470,7 +470,7 @@ The resulting image has the same geometry as the input.
 ---
 ### <a name='op_math1_inside_oc'></a> aktive op math1 inside-oc
 
-Syntax: __aktive op math1 inside-oc__ src (param value)...
+Syntax: __aktive op math1 inside-oc__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=179&name=etc/transformer/math/unary.tcl)]
 
 Returns image with the double sided thresholding against the open/closed interval given by the two boundaries applied to all pixels of the input.
 
@@ -486,7 +486,7 @@ The resulting image has the same geometry as the input.
 ---
 ### <a name='op_math1_inside_oo'></a> aktive op math1 inside-oo
 
-Syntax: __aktive op math1 inside-oo__ src (param value)...
+Syntax: __aktive op math1 inside-oo__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=179&name=etc/transformer/math/unary.tcl)]
 
 Returns image with the double sided thresholding against the open/open interval given by the two boundaries applied to all pixels of the input.
 
@@ -502,7 +502,7 @@ The resulting image has the same geometry as the input.
 ---
 ### <a name='op_math1_invert'></a> aktive op math1 invert
 
-Syntax: __aktive op math1 invert__ src
+Syntax: __aktive op math1 invert__ src [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/math/unary.tcl)]
 
 Returns image with the unary function '1-I' applied to all pixels of the input.
 
@@ -512,7 +512,7 @@ The resulting image has the same geometry as the input.
 ---
 ### <a name='op_math1_le'></a> aktive op math1 le
 
-Syntax: __aktive op math1 le__ src (param value)...
+Syntax: __aktive op math1 le__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=102&name=etc/transformer/math/unary.tcl)]
 
 Returns image with the parameterized unary function 'I <= threshold' applied to all pixels of the input.
 
@@ -527,7 +527,7 @@ The resulting image has the same geometry as the input.
 ---
 ### <a name='op_math1_linear'></a> aktive op math1 linear
 
-Syntax: __aktive op math1 linear__ src (param value)...
+Syntax: __aktive op math1 linear__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=218&name=etc/transformer/math/unary.tcl)]
 
 Returns image with the linear transform `(I*scale)+gain` applied to it.
 
@@ -539,7 +539,7 @@ Returns image with the linear transform `(I*scale)+gain` applied to it.
 ---
 ### <a name='op_math1_log'></a> aktive op math1 log
 
-Syntax: __aktive op math1 log__ src
+Syntax: __aktive op math1 log__ src [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/math/unary.tcl)]
 
 Returns image with the unary function 'log(I)' applied to all pixels of the input.
 
@@ -549,7 +549,7 @@ The resulting image has the same geometry as the input.
 ---
 ### <a name='op_math1_log2'></a> aktive op math1 log2
 
-Syntax: __aktive op math1 log2__ src
+Syntax: __aktive op math1 log2__ src [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/math/unary.tcl)]
 
 Returns image with the unary function 'log2(I)' applied to all pixels of the input.
 
@@ -559,7 +559,7 @@ The resulting image has the same geometry as the input.
 ---
 ### <a name='op_math1_log10'></a> aktive op math1 log10
 
-Syntax: __aktive op math1 log10__ src
+Syntax: __aktive op math1 log10__ src [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/math/unary.tcl)]
 
 Returns image with the unary function 'log10(I)' applied to all pixels of the input.
 
@@ -569,7 +569,7 @@ The resulting image has the same geometry as the input.
 ---
 ### <a name='op_math1_lt'></a> aktive op math1 lt
 
-Syntax: __aktive op math1 lt__ src (param value)...
+Syntax: __aktive op math1 lt__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=102&name=etc/transformer/math/unary.tcl)]
 
 Returns image with the parameterized unary function 'I < threshold' applied to all pixels of the input.
 
@@ -584,7 +584,7 @@ The resulting image has the same geometry as the input.
 ---
 ### <a name='op_math1_max'></a> aktive op math1 max
 
-Syntax: __aktive op math1 max__ src (param value)...
+Syntax: __aktive op math1 max__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=102&name=etc/transformer/math/unary.tcl)]
 
 Returns image with the parameterized unary function 'max(I,min)' applied to all pixels of the input.
 
@@ -599,7 +599,7 @@ The resulting image has the same geometry as the input.
 ---
 ### <a name='op_math1_min'></a> aktive op math1 min
 
-Syntax: __aktive op math1 min__ src (param value)...
+Syntax: __aktive op math1 min__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=102&name=etc/transformer/math/unary.tcl)]
 
 Returns image with the parameterized unary function 'min(I,max)' applied to all pixels of the input.
 
@@ -614,7 +614,7 @@ The resulting image has the same geometry as the input.
 ---
 ### <a name='op_math1_mod'></a> aktive op math1 mod
 
-Syntax: __aktive op math1 mod__ src (param value)...
+Syntax: __aktive op math1 mod__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=102&name=etc/transformer/math/unary.tcl)]
 
 Returns image with the parameterized unary function 'I % modulus' applied to all pixels of the input.
 
@@ -629,7 +629,7 @@ The resulting image has the same geometry as the input.
 ---
 ### <a name='op_math1_modb'></a> aktive op math1 modb
 
-Syntax: __aktive op math1 modb__ src (param value)...
+Syntax: __aktive op math1 modb__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=102&name=etc/transformer/math/unary.tcl)]
 
 Returns image with the parameterized unary function 'numerator % I' applied to all pixels of the input.
 
@@ -644,7 +644,7 @@ The resulting image has the same geometry as the input.
 ---
 ### <a name='op_math1_ne'></a> aktive op math1 ne
 
-Syntax: __aktive op math1 ne__ src (param value)...
+Syntax: __aktive op math1 ne__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=102&name=etc/transformer/math/unary.tcl)]
 
 Returns image with the parameterized unary function 'I != threshold' applied to all pixels of the input.
 
@@ -659,7 +659,7 @@ The resulting image has the same geometry as the input.
 ---
 ### <a name='op_math1_neg'></a> aktive op math1 neg
 
-Syntax: __aktive op math1 neg__ src
+Syntax: __aktive op math1 neg__ src [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/math/unary.tcl)]
 
 Returns image with the unary function '-I' applied to all pixels of the input.
 
@@ -669,7 +669,7 @@ The resulting image has the same geometry as the input.
 ---
 ### <a name='op_math1_neg_shift'></a> aktive op math1 neg-shift
 
-Syntax: __aktive op math1 neg-shift__ src (param value)...
+Syntax: __aktive op math1 neg-shift__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=102&name=etc/transformer/math/unary.tcl)]
 
 Returns image with the parameterized unary function 'offset-I' applied to all pixels of the input.
 
@@ -684,7 +684,7 @@ The resulting image has the same geometry as the input.
 ---
 ### <a name='op_math1_outside_cc'></a> aktive op math1 outside-cc
 
-Syntax: __aktive op math1 outside-cc__ src (param value)...
+Syntax: __aktive op math1 outside-cc__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=179&name=etc/transformer/math/unary.tcl)]
 
 Returns image with the double sided thresholding against the closed/closed interval given by the two boundaries applied to all pixels of the input.
 
@@ -700,7 +700,7 @@ The resulting image has the same geometry as the input.
 ---
 ### <a name='op_math1_outside_co'></a> aktive op math1 outside-co
 
-Syntax: __aktive op math1 outside-co__ src (param value)...
+Syntax: __aktive op math1 outside-co__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=179&name=etc/transformer/math/unary.tcl)]
 
 Returns image with the double sided thresholding against the closed/open interval given by the two boundaries applied to all pixels of the input.
 
@@ -716,7 +716,7 @@ The resulting image has the same geometry as the input.
 ---
 ### <a name='op_math1_outside_oc'></a> aktive op math1 outside-oc
 
-Syntax: __aktive op math1 outside-oc__ src (param value)...
+Syntax: __aktive op math1 outside-oc__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=179&name=etc/transformer/math/unary.tcl)]
 
 Returns image with the double sided thresholding against the open/closed interval given by the two boundaries applied to all pixels of the input.
 
@@ -732,7 +732,7 @@ The resulting image has the same geometry as the input.
 ---
 ### <a name='op_math1_outside_oo'></a> aktive op math1 outside-oo
 
-Syntax: __aktive op math1 outside-oo__ src (param value)...
+Syntax: __aktive op math1 outside-oo__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=179&name=etc/transformer/math/unary.tcl)]
 
 Returns image with the double sided thresholding against the open/open interval given by the two boundaries applied to all pixels of the input.
 
@@ -748,7 +748,7 @@ The resulting image has the same geometry as the input.
 ---
 ### <a name='op_math1_pow'></a> aktive op math1 pow
 
-Syntax: __aktive op math1 pow__ src (param value)...
+Syntax: __aktive op math1 pow__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=102&name=etc/transformer/math/unary.tcl)]
 
 Returns image with the parameterized unary function 'pow(I,exponent)' applied to all pixels of the input.
 
@@ -763,7 +763,7 @@ The resulting image has the same geometry as the input.
 ---
 ### <a name='op_math1_reciproc'></a> aktive op math1 reciproc
 
-Syntax: __aktive op math1 reciproc__ src
+Syntax: __aktive op math1 reciproc__ src [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/math/unary.tcl)]
 
 Returns image with the unary function '1/I' applied to all pixels of the input.
 
@@ -773,7 +773,7 @@ The resulting image has the same geometry as the input.
 ---
 ### <a name='op_math1_reciproc_scale'></a> aktive op math1 reciproc-scale
 
-Syntax: __aktive op math1 reciproc-scale__ src (param value)...
+Syntax: __aktive op math1 reciproc-scale__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=102&name=etc/transformer/math/unary.tcl)]
 
 Returns image with the parameterized unary function 'factor/I' applied to all pixels of the input.
 
@@ -788,7 +788,7 @@ The resulting image has the same geometry as the input.
 ---
 ### <a name='op_math1_round'></a> aktive op math1 round
 
-Syntax: __aktive op math1 round__ src
+Syntax: __aktive op math1 round__ src [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/math/unary.tcl)]
 
 Returns image with the unary function 'round(I)' applied to all pixels of the input.
 
@@ -798,7 +798,7 @@ The resulting image has the same geometry as the input.
 ---
 ### <a name='op_math1_scale'></a> aktive op math1 scale
 
-Syntax: __aktive op math1 scale__ src (param value)...
+Syntax: __aktive op math1 scale__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=102&name=etc/transformer/math/unary.tcl)]
 
 Returns image with the parameterized unary function 'I*factor' applied to all pixels of the input.
 
@@ -813,7 +813,7 @@ The resulting image has the same geometry as the input.
 ---
 ### <a name='op_math1_shift'></a> aktive op math1 shift
 
-Syntax: __aktive op math1 shift__ src (param value)...
+Syntax: __aktive op math1 shift__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=102&name=etc/transformer/math/unary.tcl)]
 
 Returns image with the parameterized unary function 'I+offset' applied to all pixels of the input.
 
@@ -828,7 +828,7 @@ The resulting image has the same geometry as the input.
 ---
 ### <a name='op_math1_sign'></a> aktive op math1 sign
 
-Syntax: __aktive op math1 sign__ src
+Syntax: __aktive op math1 sign__ src [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/math/unary.tcl)]
 
 Returns image with the unary function 'sign(I)' applied to all pixels of the input.
 
@@ -838,7 +838,7 @@ The resulting image has the same geometry as the input.
 ---
 ### <a name='op_math1_sign*'></a> aktive op math1 sign*
 
-Syntax: __aktive op math1 sign*__ src
+Syntax: __aktive op math1 sign*__ src [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/math/unary.tcl)]
 
 Returns image with the unary function 'sign*(I)' applied to all pixels of the input.
 
@@ -848,7 +848,7 @@ The resulting image has the same geometry as the input.
 ---
 ### <a name='op_math1_sin'></a> aktive op math1 sin
 
-Syntax: __aktive op math1 sin__ src
+Syntax: __aktive op math1 sin__ src [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/math/unary.tcl)]
 
 Returns image with the unary function 'sin(I)' applied to all pixels of the input.
 
@@ -858,7 +858,7 @@ The resulting image has the same geometry as the input.
 ---
 ### <a name='op_math1_sinh'></a> aktive op math1 sinh
 
-Syntax: __aktive op math1 sinh__ src
+Syntax: __aktive op math1 sinh__ src [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/math/unary.tcl)]
 
 Returns image with the unary function 'sinh(I)' applied to all pixels of the input.
 
@@ -868,7 +868,7 @@ The resulting image has the same geometry as the input.
 ---
 ### <a name='op_math1_solarize'></a> aktive op math1 solarize
 
-Syntax: __aktive op math1 solarize__ src (param value)...
+Syntax: __aktive op math1 solarize__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=102&name=etc/transformer/math/unary.tcl)]
 
 Returns image with the parameterized unary function 'solarize(I,threshold)' applied to all pixels of the input.
 
@@ -883,7 +883,7 @@ The resulting image has the same geometry as the input.
 ---
 ### <a name='op_math1_sqrt'></a> aktive op math1 sqrt
 
-Syntax: __aktive op math1 sqrt__ src
+Syntax: __aktive op math1 sqrt__ src [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/math/unary.tcl)]
 
 Returns image with the unary function 'sqrt(I)' applied to all pixels of the input.
 
@@ -893,7 +893,7 @@ The resulting image has the same geometry as the input.
 ---
 ### <a name='op_math1_square'></a> aktive op math1 square
 
-Syntax: __aktive op math1 square__ src
+Syntax: __aktive op math1 square__ src [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/math/unary.tcl)]
 
 Returns image with the unary function 'I**2' applied to all pixels of the input.
 
@@ -903,7 +903,7 @@ The resulting image has the same geometry as the input.
 ---
 ### <a name='op_math1_tan'></a> aktive op math1 tan
 
-Syntax: __aktive op math1 tan__ src
+Syntax: __aktive op math1 tan__ src [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/math/unary.tcl)]
 
 Returns image with the unary function 'tan(I)' applied to all pixels of the input.
 
@@ -913,7 +913,7 @@ The resulting image has the same geometry as the input.
 ---
 ### <a name='op_math1_tanh'></a> aktive op math1 tanh
 
-Syntax: __aktive op math1 tanh__ src
+Syntax: __aktive op math1 tanh__ src [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/math/unary.tcl)]
 
 Returns image with the unary function 'tanh(I)' applied to all pixels of the input.
 
@@ -923,7 +923,7 @@ The resulting image has the same geometry as the input.
 ---
 ### <a name='op_math1_wrap'></a> aktive op math1 wrap
 
-Syntax: __aktive op math1 wrap__ src
+Syntax: __aktive op math1 wrap__ src [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/math/unary.tcl)]
 
 Returns image with the unary function 'wrap(I)' applied to all pixels of the input.
 

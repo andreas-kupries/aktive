@@ -31,7 +31,7 @@
 ---
 ### <a name='op_lut_indexed'></a> aktive op lut indexed
 
-Syntax: __aktive op lut indexed__ src0 src1 ?(param value)...?
+Syntax: __aktive op lut indexed__ src0 src1 ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=84&name=etc/transformer/filter/lookup.tcl)]
 
 Map the input image (second argument) through the LUT image provided as the first arguments and return the result.
 
@@ -72,7 +72,7 @@ to interpolate linearly between the values at the LUT index, and the next index.
 ---
 ### <a name='op_lut_indexed_core'></a> aktive op lut indexed-core
 
-Syntax: __aktive op lut indexed-core__ src0 src1 ?(param value)...?
+Syntax: __aktive op lut indexed-core__ src0 src1 ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=126&name=etc/transformer/filter/lookup.tcl)]
 
 Map the input image (second argument) through the LUT image provided as the first arguments and return the result.
 

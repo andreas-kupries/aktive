@@ -24,7 +24,7 @@
 ---
 ### <a name='op_equalization_global'></a> aktive op equalization global
 
-Syntax: __aktive op equalization global__ src ?(param value)...?
+Syntax: __aktive op equalization global__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/filter/equalization.tcl)]
 
 Returns input with equalized global histogram.
 

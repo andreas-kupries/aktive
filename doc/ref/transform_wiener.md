@@ -24,7 +24,7 @@
 ---
 ### <a name='op_wiener'></a> aktive op wiener
 
-Syntax: __aktive op wiener__ src ?(param value)...?
+Syntax: __aktive op wiener__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=10&name=etc/transformer/filter/wiener.tcl)]
 
 Returns input with a Wiener reconstruction filter applied to it.
 

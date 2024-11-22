@@ -29,7 +29,7 @@
 ---
 ### <a name='image_threshold_global_bernsen'></a> aktive image threshold global bernsen
 
-Syntax: __aktive image threshold global bernsen__ src
+Syntax: __aktive image threshold global bernsen__ src [[→ definition](../../../../file?ci=trunk&ln=51&name=etc/accessor/thresholds.tcl)]
 
 Returns a global threshold for the input, according to [Bernsen](https://craftofcoding.wordpress.com/2021/10/27/thresholding-algorithms-bernsen-local)'s method.
 
@@ -39,7 +39,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 ---
 ### <a name='image_threshold_global_mean'></a> aktive image threshold global mean
 
-Syntax: __aktive image threshold global mean__ src
+Syntax: __aktive image threshold global mean__ src [[→ definition](../../../../file?ci=trunk&ln=19&name=etc/accessor/thresholds.tcl)]
 
 Returns a global threshold for the input, as the image mean.
 
@@ -51,7 +51,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 ---
 ### <a name='image_threshold_global_niblack'></a> aktive image threshold global niblack
 
-Syntax: __aktive image threshold global niblack__ src ?(param value)...?
+Syntax: __aktive image threshold global niblack__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=86&name=etc/accessor/thresholds.tcl)]
 
 Returns a global threshold for the input, according to [Niblack](https://craftofcoding.wordpress.com/2021/09/30/thresholding-algorithms-niblack-local)'s method.
 
@@ -64,7 +64,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 ---
 ### <a name='image_threshold_global_otsu'></a> aktive image threshold global otsu
 
-Syntax: __aktive image threshold global otsu__ src ?(param value)...?
+Syntax: __aktive image threshold global otsu__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=209&name=etc/accessor/thresholds.tcl)]
 
 Returns a global threshold for the input, according to [Otsu](https://en.wikipedia.org/wiki/Otsu%27s_method)'s method.
 
@@ -77,7 +77,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 ---
 ### <a name='image_threshold_global_phansalkar'></a> aktive image threshold global phansalkar
 
-Syntax: __aktive image threshold global phansalkar__ src ?(param value)...?
+Syntax: __aktive image threshold global phansalkar__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=165&name=etc/accessor/thresholds.tcl)]
 
 Returns a global threshold for the input, according to [Phansalkar](https://craftofcoding.wordpress.com/2021/09/28/thresholding-algorithms-phansalkar-local)'s method.
 
@@ -93,7 +93,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 ---
 ### <a name='image_threshold_global_sauvola'></a> aktive image threshold global sauvola
 
-Syntax: __aktive image threshold global sauvola__ src ?(param value)...?
+Syntax: __aktive image threshold global sauvola__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=125&name=etc/accessor/thresholds.tcl)]
 
 Returns a global threshold for the input, according to [Sauvola](https://craftofcoding.wordpress.com/2021/10/06/thresholding-algorithms-sauvola-local)'s method.
 

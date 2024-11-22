@@ -42,7 +42,7 @@
 ---
 ### <a name='op_math_atan2'></a> aktive op math atan2
 
-Syntax: __aktive op math atan2__ src0 src1
+Syntax: __aktive op math atan2__ src0 src1 [[→ definition](../../../../file?ci=trunk&ln=47&name=etc/transformer/math/binary.tcl)]
 
 Returns image with the binary operation 'atan2(A, B)' applied to all shared pixels of the two inputs.
 
@@ -52,7 +52,7 @@ The result geometry is the intersection of the inputs.
 ---
 ### <a name='op_math_difference'></a> aktive op math difference
 
-Syntax: __aktive op math difference__ src0 src1
+Syntax: __aktive op math difference__ src0 src1 [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/math/binary.tcl)]
 
 Returns image holding the absolute difference of the inputs.
 
@@ -60,7 +60,7 @@ Returns image holding the absolute difference of the inputs.
 ---
 ### <a name='op_math_div'></a> aktive op math div
 
-Syntax: __aktive op math div__ src0 src1
+Syntax: __aktive op math div__ src0 src1 [[→ definition](../../../../file?ci=trunk&ln=47&name=etc/transformer/math/binary.tcl)]
 
 Returns image with the binary operation 'A / B' applied to all shared pixels of the two inputs.
 
@@ -70,7 +70,7 @@ The result geometry is the intersection of the inputs.
 ---
 ### <a name='op_math_eq'></a> aktive op math eq
 
-Syntax: __aktive op math eq__ src0 src1
+Syntax: __aktive op math eq__ src0 src1 [[→ definition](../../../../file?ci=trunk&ln=47&name=etc/transformer/math/binary.tcl)]
 
 Returns image with the binary operation 'A == B' applied to all shared pixels of the two inputs.
 
@@ -80,7 +80,7 @@ The result geometry is the intersection of the inputs.
 ---
 ### <a name='op_math_ge'></a> aktive op math ge
 
-Syntax: __aktive op math ge__ src0 src1
+Syntax: __aktive op math ge__ src0 src1 [[→ definition](../../../../file?ci=trunk&ln=47&name=etc/transformer/math/binary.tcl)]
 
 Returns image with the binary operation 'A >= B' applied to all shared pixels of the two inputs.
 
@@ -90,7 +90,7 @@ The result geometry is the intersection of the inputs.
 ---
 ### <a name='op_math_gt'></a> aktive op math gt
 
-Syntax: __aktive op math gt__ src0 src1
+Syntax: __aktive op math gt__ src0 src1 [[→ definition](../../../../file?ci=trunk&ln=47&name=etc/transformer/math/binary.tcl)]
 
 Returns image with the binary operation 'A > B' applied to all shared pixels of the two inputs.
 
@@ -100,7 +100,7 @@ The result geometry is the intersection of the inputs.
 ---
 ### <a name='op_math_hypot'></a> aktive op math hypot
 
-Syntax: __aktive op math hypot__ src0 src1
+Syntax: __aktive op math hypot__ src0 src1 [[→ definition](../../../../file?ci=trunk&ln=47&name=etc/transformer/math/binary.tcl)]
 
 Returns image with the binary operation 'hypot (A, B)' applied to all shared pixels of the two inputs.
 
@@ -110,7 +110,7 @@ The result geometry is the intersection of the inputs.
 ---
 ### <a name='op_math_le'></a> aktive op math le
 
-Syntax: __aktive op math le__ src0 src1
+Syntax: __aktive op math le__ src0 src1 [[→ definition](../../../../file?ci=trunk&ln=47&name=etc/transformer/math/binary.tcl)]
 
 Returns image with the binary operation 'A <= B' applied to all shared pixels of the two inputs.
 
@@ -120,7 +120,7 @@ The result geometry is the intersection of the inputs.
 ---
 ### <a name='op_math_lt'></a> aktive op math lt
 
-Syntax: __aktive op math lt__ src0 src1
+Syntax: __aktive op math lt__ src0 src1 [[→ definition](../../../../file?ci=trunk&ln=47&name=etc/transformer/math/binary.tcl)]
 
 Returns image with the binary operation 'A < B' applied to all shared pixels of the two inputs.
 
@@ -130,7 +130,7 @@ The result geometry is the intersection of the inputs.
 ---
 ### <a name='op_math_mod'></a> aktive op math mod
 
-Syntax: __aktive op math mod__ src0 src1
+Syntax: __aktive op math mod__ src0 src1 [[→ definition](../../../../file?ci=trunk&ln=47&name=etc/transformer/math/binary.tcl)]
 
 Returns image with the binary operation 'A % B' applied to all shared pixels of the two inputs.
 
@@ -140,7 +140,7 @@ The result geometry is the intersection of the inputs.
 ---
 ### <a name='op_math_ne'></a> aktive op math ne
 
-Syntax: __aktive op math ne__ src0 src1
+Syntax: __aktive op math ne__ src0 src1 [[→ definition](../../../../file?ci=trunk&ln=47&name=etc/transformer/math/binary.tcl)]
 
 Returns image with the binary operation 'A != B' applied to all shared pixels of the two inputs.
 
@@ -150,7 +150,7 @@ The result geometry is the intersection of the inputs.
 ---
 ### <a name='op_math_pow'></a> aktive op math pow
 
-Syntax: __aktive op math pow__ src0 src1
+Syntax: __aktive op math pow__ src0 src1 [[→ definition](../../../../file?ci=trunk&ln=47&name=etc/transformer/math/binary.tcl)]
 
 Returns image with the binary operation 'pow (A, B)' applied to all shared pixels of the two inputs.
 
@@ -160,7 +160,7 @@ The result geometry is the intersection of the inputs.
 ---
 ### <a name='op_math_screen'></a> aktive op math screen
 
-Syntax: __aktive op math screen__ src0 src1
+Syntax: __aktive op math screen__ src0 src1 [[→ definition](../../../../file?ci=trunk&ln=21&name=etc/transformer/math/binary.tcl)]
 
 Returns image holding the `screen` of the inputs
 
@@ -168,7 +168,7 @@ Returns image holding the `screen` of the inputs
 ---
 ### <a name='op_math_sub'></a> aktive op math sub
 
-Syntax: __aktive op math sub__ src0 src1
+Syntax: __aktive op math sub__ src0 src1 [[→ definition](../../../../file?ci=trunk&ln=47&name=etc/transformer/math/binary.tcl)]
 
 Returns image with the binary operation 'A - B' applied to all shared pixels of the two inputs.
 

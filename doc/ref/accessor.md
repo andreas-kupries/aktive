@@ -40,7 +40,7 @@
 ---
 ### <a name='format_as_d2'></a> aktive format as d2
 
-Syntax: __aktive format as d2__ src
+Syntax: __aktive format as d2__ src [[→ definition](../../../../file?ci=trunk&ln=6&name=etc/sink/asother.tcl)]
 
 Converts the internal DAG representation of the image into a D2 graph format and returns the resulting string.
 
@@ -50,7 +50,7 @@ Despite the naming the operator is __not strict__. It does not access the input'
 ---
 ### <a name='format_as_markdown'></a> aktive format as markdown
 
-Syntax: __aktive format as markdown__ src
+Syntax: __aktive format as markdown__ src [[→ definition](../../../../file?ci=trunk&ln=6&name=etc/sink/asother.tcl)]
 
 Converts the internal DAG representation of the image into a Markdown table and returns the resulting string.
 
@@ -60,7 +60,7 @@ Despite the naming the operator is __not strict__. It does not access the input'
 ---
 ### <a name='format_as_tclscript'></a> aktive format as tclscript
 
-Syntax: __aktive format as tclscript__ src
+Syntax: __aktive format as tclscript__ src [[→ definition](../../../../file?ci=trunk&ln=6&name=etc/sink/asother.tcl)]
 
 Converts the internal DAG representation of the image into a Tcl script and returns the resulting string.
 
@@ -70,7 +70,7 @@ Despite the naming the operator is __not strict__. It does not access the input'
 ---
 ### <a name='op_query_colorspace'></a> aktive op query colorspace
 
-Syntax: __aktive op query colorspace__ src
+Syntax: __aktive op query colorspace__ src [[→ definition](../../../../file?ci=trunk&ln=5&name=etc/accessor/colorspace.tcl)]
 
 Returns the name of the color space the input is in.
 
@@ -82,7 +82,7 @@ For anything else an error is thrown instead of making assumptions.
 ---
 ### <a name='query_id'></a> aktive query id
 
-Syntax: __aktive query id__ src
+Syntax: __aktive query id__ src [[→ definition](../../../../file?ci=trunk&ln=5&name=etc/accessor/attributes.tcl)]
 
 Returns the input's implementation-specific image identity.
 
@@ -90,7 +90,7 @@ Returns the input's implementation-specific image identity.
 ---
 ### <a name='query_inputs'></a> aktive query inputs
 
-Syntax: __aktive query inputs__ src
+Syntax: __aktive query inputs__ src [[→ definition](../../../../file?ci=trunk&ln=169&name=etc/accessor/attributes.tcl)]
 
 Returns a list of the input's inputs.
 
@@ -100,7 +100,7 @@ For an image without inputs the result is the empty list.
 ---
 ### <a name='query_params'></a> aktive query params
 
-Syntax: __aktive query params__ src
+Syntax: __aktive query params__ src [[→ definition](../../../../file?ci=trunk&ln=194&name=etc/accessor/attributes.tcl)]
 
 Returns a dictionary containing the input's parameters.
 
@@ -109,17 +109,31 @@ For an image without parameters the result is the empty dictionary.
 
 #### <a name='query_params__examples'></a> Examples
 
-<table><tr><th>@1</th><th>aktive query params @1</th></tr>
-<tr><td valign='top'><img src='example-00433.gif' alt='@1' style='border:4px solid gold'><br>geometry(0 0 32 32 1)</td><td valign='top'>width 32 height 32</td></tr></table>
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive query params @1
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00433.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 32 32 1)</td>
+    <td valign='top'>width 32 height 32</td></tr>
+</table>
 
-<table><tr><th>@1</th><th>aktive query params @1</th></tr>
-<tr><td valign='top'><img src='example-00435.gif' alt='@1' style='border:4px solid gold'><br>geometry(0 0 32 32 1)</td><td valign='top'>width 32 height 32 depth 1 first 0.0 last 1.0</td></tr></table>
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive query params @1
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00435.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 32 32 1)</td>
+    <td valign='top'>width 32 height 32 depth 1 first 0.0 last 1.0</td></tr>
+</table>
 
 
 ---
 ### <a name='query_setup'></a> aktive query setup
 
-Syntax: __aktive query setup__ src
+Syntax: __aktive query setup__ src [[→ definition](../../../../file?ci=trunk&ln=219&name=etc/accessor/attributes.tcl)]
 
 Returns a dictionary containing the input's setup.
 
@@ -128,27 +142,55 @@ This includes type, geometry, and parameters, if any. The inputs however are exc
 
 #### <a name='query_setup__examples'></a> Examples
 
-<table><tr><th>@1</th><th>aktive query setup @1</th></tr>
-<tr><td valign='top'><img src='example-00445.gif' alt='@1' style='border:4px solid gold'><br>geometry(0 0 32 32 1)</td><td valign='top'>type image::zone domain {x 0 y 0 width 32 height 32 depth 1} config {width 32 height 32}</td></tr></table>
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive query setup @1
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00445.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 32 32 1)</td>
+    <td valign='top'>type image::zone domain {x 0 y 0 width 32 height 32 depth 1} config {width 32 height 32}</td></tr>
+</table>
 
-<table><tr><th>@1</th><th>aktive query setup @1</th></tr>
-<tr><td valign='top'><img src='example-00447.gif' alt='@1' style='border:4px solid gold'><br>geometry(0 0 32 32 1)</td><td valign='top'>type image::gradient domain {x 0 y 0 width 32 height 32 depth 1} config {width 32 height 32 depth 1 first 0.0 last 1.0}</td></tr></table>
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive query setup @1
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00447.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 32 32 1)</td>
+    <td valign='top'>type image::gradient domain {x 0 y 0 width 32 height 32 depth 1} config {width 32 height 32 depth 1 first 0.0 last 1.0}</td></tr>
+</table>
 
 
 ---
 ### <a name='query_type'></a> aktive query type
 
-Syntax: __aktive query type__ src
+Syntax: __aktive query type__ src [[→ definition](../../../../file?ci=trunk&ln=27&name=etc/accessor/attributes.tcl)]
 
 Returns the input's type.
 
 
 #### <a name='query_type__examples'></a> Examples
 
-<table><tr><th>@1</th><th>aktive query type @1</th></tr>
-<tr><td valign='top'><img src='example-00453.gif' alt='@1' style='border:4px solid gold'><br>geometry(0 0 32 32 1)</td><td valign='top'>image::zone</td></tr></table>
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive query type @1
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00453.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 32 32 1)</td>
+    <td valign='top'>image::zone</td></tr>
+</table>
 
-<table><tr><th>@1</th><th>aktive query type @1</th></tr>
-<tr><td valign='top'><img src='example-00455.gif' alt='@1' style='border:4px solid gold'><br>geometry(0 0 32 32 1)</td><td valign='top'>image::gradient</td></tr></table>
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive query type @1
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00455.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 32 32 1)</td>
+    <td valign='top'>image::gradient</td></tr>
+</table>
 
 

@@ -913,6 +913,8 @@ proc dsl::writer::Operators {} {
 
     set names [Operations]
     set nl    [Maxlength $names]
+    set ns    [Maxlength [lmap op $names { join [Get ops $op section] / }]]
+    set nd    [Maxlength [lmap op $names { join [Get ops $op defloc]  " @" }]]
 
     foreach op [lsort -dict $names] {
 	set kind [dict get {
@@ -922,7 +924,8 @@ proc dsl::writer::Operators {} {
 	} [Get ops $op lang]]
 	set notes   [join [lindex [Get ops $op notes] 0] { }]
 	set section [join [Get ops $op section] /]
-	+ "[PadR $nl $op] :: $kind $section :: $notes"
+	set loc     [join [Get ops $op defloc] " @"]
+	+ "[PadR $nl $op] :: [PadR 5 $kind] [PadR $ns $section] :: [PadR $nd $loc] :: $notes"
     }
     Done
 }
@@ -946,10 +949,11 @@ proc dsl::writer::OpDoc {stem op spec} {
 
     set sig [DocSignature $op $spec]
 
+    lassign [dict get $spec defloc] path line
     + "---"
     + "### <a name='[OpKey $op]'></a> [OpName $op]"
     + ""
-    + "Syntax: __[OpName $op]__ $sig"
+    + "Syntax: __[OpName $op]__ $sig \[\[\u2192 definition\](../../../../file?ci=trunk&ln=${line}&name=${path})\]"
     + ""
 
     foreach note $notes {
@@ -1010,13 +1014,14 @@ proc dsl::writer::ExampleRender {op example} {
 
     set labels [lmap run $example {
 	lassign $run label desc
-	if {$desc ne {}} { append label "<br>(" $desc ")" }
+	if {$desc eq {}} { set desc "&nbsp;" } else { set desc ($desc) }
+	append label "\n    <br>" $desc
 	set label
     }]
     set data [lmap run $example { RR {*}$run }]
 
-    lappend lines "<table><tr><th>[join $labels "</th><th>"]</th></tr>"
-    lappend lines "<tr><td valign='top'>[join $data "</td><td valign='top'>"]</td></tr></table>"
+    lappend lines "<table>\n<tr><th>[join $labels "</th>\n    <th>"]</th></tr>"
+    lappend lines "<tr><td valign='top'>[join $data "</td>\n    <td valign='top'>"]</td></tr>\n</table>"
 
     # render complete
     return [join $lines \n]
@@ -1036,9 +1041,8 @@ proc dsl::writer::RR1 {single label result} {
 	text   -
 	matrix { set cell "<!include: $dst>" }
 	image  {
-	    append cell "<img src='$dst' alt='$label' style='border:4px solid gold'>"
-	    append cell "<br><!include: ${dst}.txt>"
-	}
+	    set dlabel [string map {<br> { }} $label]
+	    set cell "<img src='$dst' alt='$dlabel' style='border:4px solid gold'>\n    <br><!include: ${dst}.txt>" }
     }
 
     if {$single} {
@@ -2792,7 +2796,7 @@ proc dsl::writer::stash-to {path} {
 		set values $cells
 	    }
 
-	    # emit data as a single-line HTML table - embeddable into markdown table!
+	    # emit data
 	    puts -nonewline $chan <table>
 	    while {[llength $values]} {
 		puts -nonewline $chan <tr>

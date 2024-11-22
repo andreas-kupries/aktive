@@ -37,7 +37,7 @@
 ---
 ### <a name='image_mask_from_threshold'></a> aktive image mask from threshold
 
-Syntax: __aktive image mask from threshold__ src0 src1
+Syntax: __aktive image mask from threshold__ src0 src1 [[→ definition](../../../../file?ci=trunk&ln=9&name=etc/transformer/thresholds/mask.tcl)]
 
 Return image foreground mask of input, as per threshold image. Note that the threshold is the first argument, and input the second.
 
@@ -49,7 +49,7 @@ The foreground pixels are indicated by white. Background by black.
 ---
 ### <a name='image_mask_per_bernsen'></a> aktive image mask per bernsen
 
-Syntax: __aktive image mask per bernsen__ src (param value)...
+Syntax: __aktive image mask per bernsen__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=29&name=etc/transformer/thresholds/mask.tcl)]
 
 Return image foreground mask of input, using Bernsen thresholding.
 
@@ -64,7 +64,7 @@ The foreground pixels are indicated by white. Background by black.
 ---
 ### <a name='image_mask_per_global_bernsen'></a> aktive image mask per global bernsen
 
-Syntax: __aktive image mask per global bernsen__ src
+Syntax: __aktive image mask per global bernsen__ src [[→ definition](../../../../file?ci=trunk&ln=74&name=etc/transformer/thresholds/mask.tcl)]
 
 Return image foreground mask of input, using global Bernsen thresholding.
 
@@ -76,7 +76,7 @@ The foreground pixels are indicated by white. Background by black.
 ---
 ### <a name='image_mask_per_global_mean'></a> aktive image mask per global mean
 
-Syntax: __aktive image mask per global mean__ src
+Syntax: __aktive image mask per global mean__ src [[→ definition](../../../../file?ci=trunk&ln=74&name=etc/transformer/thresholds/mask.tcl)]
 
 Return image foreground mask of input, using global Mean thresholding.
 
@@ -88,7 +88,7 @@ The foreground pixels are indicated by white. Background by black.
 ---
 ### <a name='image_mask_per_global_niblack'></a> aktive image mask per global niblack
 
-Syntax: __aktive image mask per global niblack__ src ?(param value)...?
+Syntax: __aktive image mask per global niblack__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=74&name=etc/transformer/thresholds/mask.tcl)]
 
 Return image foreground mask of input, using global Niblack thresholding.
 
@@ -103,7 +103,7 @@ The foreground pixels are indicated by white. Background by black.
 ---
 ### <a name='image_mask_per_global_otsu'></a> aktive image mask per global otsu
 
-Syntax: __aktive image mask per global otsu__ src ?(param value)...?
+Syntax: __aktive image mask per global otsu__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=74&name=etc/transformer/thresholds/mask.tcl)]
 
 Return image foreground mask of input, using global Otsu thresholding.
 
@@ -118,7 +118,7 @@ The foreground pixels are indicated by white. Background by black.
 ---
 ### <a name='image_mask_per_global_phansalkar'></a> aktive image mask per global phansalkar
 
-Syntax: __aktive image mask per global phansalkar__ src ?(param value)...?
+Syntax: __aktive image mask per global phansalkar__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=74&name=etc/transformer/thresholds/mask.tcl)]
 
 Return image foreground mask of input, using global Phansalkar thresholding.
 
@@ -136,7 +136,7 @@ The foreground pixels are indicated by white. Background by black.
 ---
 ### <a name='image_mask_per_global_sauvola'></a> aktive image mask per global sauvola
 
-Syntax: __aktive image mask per global sauvola__ src ?(param value)...?
+Syntax: __aktive image mask per global sauvola__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=74&name=etc/transformer/thresholds/mask.tcl)]
 
 Return image foreground mask of input, using global Sauvola thresholding.
 
@@ -152,7 +152,7 @@ The foreground pixels are indicated by white. Background by black.
 ---
 ### <a name='image_mask_per_mean'></a> aktive image mask per mean
 
-Syntax: __aktive image mask per mean__ src (param value)...
+Syntax: __aktive image mask per mean__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=29&name=etc/transformer/thresholds/mask.tcl)]
 
 Return image foreground mask of input, using Mean thresholding.
 
@@ -167,7 +167,7 @@ The foreground pixels are indicated by white. Background by black.
 ---
 ### <a name='image_mask_per_niblack'></a> aktive image mask per niblack
 
-Syntax: __aktive image mask per niblack__ src ?(param value)...?
+Syntax: __aktive image mask per niblack__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=29&name=etc/transformer/thresholds/mask.tcl)]
 
 Return image foreground mask of input, using Niblack thresholding.
 
@@ -183,7 +183,7 @@ The foreground pixels are indicated by white. Background by black.
 ---
 ### <a name='image_mask_per_otsu'></a> aktive image mask per otsu
 
-Syntax: __aktive image mask per otsu__ src ?(param value)...?
+Syntax: __aktive image mask per otsu__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=29&name=etc/transformer/thresholds/mask.tcl)]
 
 Return image foreground mask of input, using Otsu thresholding.
 
@@ -199,7 +199,7 @@ The foreground pixels are indicated by white. Background by black.
 ---
 ### <a name='image_mask_per_phansalkar'></a> aktive image mask per phansalkar
 
-Syntax: __aktive image mask per phansalkar__ src ?(param value)...?
+Syntax: __aktive image mask per phansalkar__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=29&name=etc/transformer/thresholds/mask.tcl)]
 
 Return image foreground mask of input, using Phansalkar thresholding.
 
@@ -218,7 +218,7 @@ The foreground pixels are indicated by white. Background by black.
 ---
 ### <a name='image_mask_per_sauvola'></a> aktive image mask per sauvola
 
-Syntax: __aktive image mask per sauvola__ src ?(param value)...?
+Syntax: __aktive image mask per sauvola__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=29&name=etc/transformer/thresholds/mask.tcl)]
 
 Return image foreground mask of input, using Sauvola thresholding.
 
@@ -235,7 +235,7 @@ The foreground pixels are indicated by white. Background by black.
 ---
 ### <a name='image_mask_per_wolfjolion'></a> aktive image mask per wolfjolion
 
-Syntax: __aktive image mask per wolfjolion__ src ?(param value)...?
+Syntax: __aktive image mask per wolfjolion__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=29&name=etc/transformer/thresholds/mask.tcl)]
 
 Return image foreground mask of input, using Wolfjolion thresholding.
 

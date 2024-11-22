@@ -44,7 +44,7 @@
 ---
 ### <a name='op_bands_recombine'></a> aktive op bands recombine
 
-Syntax: __aktive op bands recombine__ src0 src1
+Syntax: __aktive op bands recombine__ src0 src1 [[→ definition](../../../../file?ci=trunk&ln=5&name=etc/transformer/filter/recombine.tcl)]
 
 Returns image with the input's band information recombined through a matrix-vector multiplication.
 
@@ -58,7 +58,7 @@ The location of the matrix image is ignored.
 ---
 ### <a name='op_view'></a> aktive op view
 
-Syntax: __aktive op view__ src (param value)...
+Syntax: __aktive op view__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=5&name=etc/transformer/viewport.tcl)]
 
 Returns image arbitrarily offset and sized compared to the input domain. In other words, an arbitrary rectangular view (port) into the input.
 
@@ -72,13 +72,37 @@ This is useful to add after an application of [aktive op transform by](transform
 
 #### <a name='op_view__examples'></a> Examples
 
-<table><tr><th>@1</th><th>aktive op view @1 port {190 125 380 250}</th></tr>
-<tr><td valign='top'><img src='example-00401.gif' alt='@1' style='border:4px solid gold'><br>geometry(0 0 380 250 3)</td><td valign='top'><img src='example-00402.gif' alt='aktive op view @1 port {190 125 380 250}' style='border:4px solid gold'><br>geometry(190 125 380 250 3)</td></tr></table>
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive op view @1 port {190 125 380 250}
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00401.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 380 250 3)</td>
+    <td valign='top'><img src='example-00402.gif' alt='aktive op view @1 port {190 125 380 250}' style='border:4px solid gold'>
+    <br>geometry(190 125 380 250 3)</td></tr>
+</table>
 
-<table><tr><th>@1</th><th>aktive op view @1 port {-190 -125 380 250}</th></tr>
-<tr><td valign='top'><img src='example-00403.gif' alt='@1' style='border:4px solid gold'><br>geometry(0 0 380 250 3)</td><td valign='top'><img src='example-00404.gif' alt='aktive op view @1 port {-190 -125 380 250}' style='border:4px solid gold'><br>geometry(-190 -125 380 250 3)</td></tr></table>
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive op view @1 port {-190 -125 380 250}
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00403.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 380 250 3)</td>
+    <td valign='top'><img src='example-00404.gif' alt='aktive op view @1 port {-190 -125 380 250}' style='border:4px solid gold'>
+    <br>geometry(-190 -125 380 250 3)</td></tr>
+</table>
 
-<table><tr><th>@1</th><th>aktive op view @1 port {80 80 80 80}</th></tr>
-<tr><td valign='top'><img src='example-00405.gif' alt='@1' style='border:4px solid gold'><br>geometry(0 0 380 250 3)</td><td valign='top'><img src='example-00406.gif' alt='aktive op view @1 port {80 80 80 80}' style='border:4px solid gold'><br>geometry(80 80 80 80 3)</td></tr></table>
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive op view @1 port {80 80 80 80}
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00405.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 380 250 3)</td>
+    <td valign='top'><img src='example-00406.gif' alt='aktive op view @1 port {80 80 80 80}' style='border:4px solid gold'>
+    <br>geometry(80 80 80 80 3)</td></tr>
+</table>
 
 

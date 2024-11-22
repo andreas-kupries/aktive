@@ -31,7 +31,7 @@
 ---
 ### <a name='op_math_linear'></a> aktive op math linear
 
-Syntax: __aktive op math linear__ src0 src1 src2
+Syntax: __aktive op math linear__ src0 src1 src2 [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/math/other.tcl)]
 
 Blends first and second input under control of the third.
 

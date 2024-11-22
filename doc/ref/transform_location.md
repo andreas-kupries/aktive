@@ -25,7 +25,7 @@
 ---
 ### <a name='op_location_move_by'></a> aktive op location move by
 
-Syntax: __aktive op location move by__ src (param value)...
+Syntax: __aktive op location move by__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=64&name=etc/transformer/location.tcl)]
 
 Returns image translationally shifted along the x- and y-axes by a specific amount
 
@@ -37,7 +37,7 @@ Returns image translationally shifted along the x- and y-axes by a specific amou
 ---
 ### <a name='op_location_move_to'></a> aktive op location move to
 
-Syntax: __aktive op location move to__ src (param value)...
+Syntax: __aktive op location move to__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=7&name=etc/transformer/location.tcl)]
 
 Returns image translationally shifted along the x- and y-axes to a specific location
 

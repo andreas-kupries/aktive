@@ -25,7 +25,7 @@
 ---
 ### <a name='op_kuwahara'></a> aktive op kuwahara
 
-Syntax: __aktive op kuwahara__ src ?(param value)...?
+Syntax: __aktive op kuwahara__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/filter/kuwahara.tcl)]
 
 Returns input with a Kuwahara filter applied to it.
 
@@ -46,7 +46,7 @@ For images without known colorspace the last band is used as the luminance chann
 ---
 ### <a name='op_kuwahara_core'></a> aktive op kuwahara-core
 
-Syntax: __aktive op kuwahara-core__ src ?(param value)...?
+Syntax: __aktive op kuwahara-core__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=101&name=etc/transformer/filter/kuwahara.tcl)]
 
 Returns input with a Kuwahara filter applied to it.
 

@@ -28,7 +28,7 @@
 ---
 ### <a name='op_cmath_abs'></a> aktive op cmath abs
 
-Syntax: __aktive op cmath abs__ src
+Syntax: __aktive op cmath abs__ src [[→ definition](../../../../file?ci=trunk&ln=29&name=etc/transformer/math/complex/reduce.tcl)]
 
 Returns single-band image with the complex unary reduction function 'abs(I)' applied to all pixels of the complex-valued input.
 
@@ -38,7 +38,7 @@ The result geometry is the same as the input, except for depth, which becomes 1.
 ---
 ### <a name='op_cmath_arg'></a> aktive op cmath arg
 
-Syntax: __aktive op cmath arg__ src
+Syntax: __aktive op cmath arg__ src [[→ definition](../../../../file?ci=trunk&ln=29&name=etc/transformer/math/complex/reduce.tcl)]
 
 Returns single-band image with the complex unary reduction function 'phase-angle(I)' applied to all pixels of the complex-valued input.
 
@@ -48,7 +48,7 @@ The result geometry is the same as the input, except for depth, which becomes 1.
 ---
 ### <a name='op_cmath_imaginary'></a> aktive op cmath imaginary
 
-Syntax: __aktive op cmath imaginary__ src
+Syntax: __aktive op cmath imaginary__ src [[→ definition](../../../../file?ci=trunk&ln=11&name=etc/transformer/math/complex/reduce.tcl)]
 
 Returns single-band image containing the imaginary part of the complex-valued input.
 
@@ -56,7 +56,7 @@ Returns single-band image containing the imaginary part of the complex-valued in
 ---
 ### <a name='op_cmath_real'></a> aktive op cmath real
 
-Syntax: __aktive op cmath real__ src
+Syntax: __aktive op cmath real__ src [[→ definition](../../../../file?ci=trunk&ln=11&name=etc/transformer/math/complex/reduce.tcl)]
 
 Returns single-band image containing the real part of the complex-valued input.
 
@@ -64,7 +64,7 @@ Returns single-band image containing the real part of the complex-valued input.
 ---
 ### <a name='op_cmath_sqabs'></a> aktive op cmath sqabs
 
-Syntax: __aktive op cmath sqabs__ src
+Syntax: __aktive op cmath sqabs__ src [[→ definition](../../../../file?ci=trunk&ln=29&name=etc/transformer/math/complex/reduce.tcl)]
 
 Returns single-band image with the complex unary reduction function 'abs^2(I)' applied to all pixels of the complex-valued input.
 

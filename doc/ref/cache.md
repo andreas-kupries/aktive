@@ -24,7 +24,7 @@
 ---
 ### <a name='op_cache'></a> aktive op cache
 
-Syntax: __aktive op cache__ src
+Syntax: __aktive op cache__ src [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/cache.tcl)]
 
 Returns the unchanged input.
 

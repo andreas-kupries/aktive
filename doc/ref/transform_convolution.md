@@ -24,7 +24,7 @@
 ---
 ### <a name='op_convolve_xy'></a> aktive op convolve xy
 
-Syntax: __aktive op convolve xy__ src0 src1
+Syntax: __aktive op convolve xy__ src0 src1 [[→ definition](../../../../file?ci=trunk&ln=15&name=etc/transformer/filter/convolve.tcl)]
 
 Returns image of input (2nd argument) convolved with the matrix (1st argument).
 
@@ -43,10 +43,32 @@ The prefered embedding for convolution is `mirror`. It is chosen to have minimal
 
 #### <a name='op_convolve_xy__examples'></a> Examples
 
-<table><tr><th>@1</th><th>@2</th><th>aktive op convolve xy @2 @1</th></tr>
-<tr><td valign='top'><img src='example-00203.gif' alt='@1' style='border:4px solid gold'><br>geometry(0 0 128 128 1)</td><td valign='top'><table><tr><td>0.0078</td><td>0.0625</td><td>0.2188</td><td>0.4375</td><td>0.5469</td><td>0.4375</td><td>0.2188</td><td>0.0625</td><td>0.0078</td></tr></table></td><td valign='top'><img src='example-00205.gif' alt='aktive op convolve xy @2 @1' style='border:4px solid gold'><br>geometry(4 0 120 128 1)</td></tr></table>
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>@2
+    <br>&nbsp;</th>
+    <th>aktive op convolve xy @2 @1
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00203.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td>
+    <td valign='top'><table><tr><td>0.0078</td><td>0.0625</td><td>0.2188</td><td>0.4375</td><td>0.5469</td><td>0.4375</td><td>0.2188</td><td>0.0625</td><td>0.0078</td></tr></table></td>
+    <td valign='top'><img src='example-00205.gif' alt='aktive op convolve xy @2 @1' style='border:4px solid gold'>
+    <br>geometry(4 0 120 128 1)</td></tr>
+</table>
 
-<table><tr><th>@1</th><th>@2</th><th>aktive op convolve xy @2 @1</th></tr>
-<tr><td valign='top'><img src='example-00206.gif' alt='@1' style='border:4px solid gold'><br>geometry(0 0 128 128 1)</td><td valign='top'><table><tr><td>0.0078</td></tr><tr><td>0.0625</td></tr><tr><td>0.2188</td></tr><tr><td>0.4375</td></tr><tr><td>0.5469</td></tr><tr><td>0.4375</td></tr><tr><td>0.2188</td></tr><tr><td>0.0625</td></tr><tr><td>0.0078</td></tr></table></td><td valign='top'><img src='example-00208.gif' alt='aktive op convolve xy @2 @1' style='border:4px solid gold'><br>geometry(0 4 128 120 1)</td></tr></table>
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>@2
+    <br>&nbsp;</th>
+    <th>aktive op convolve xy @2 @1
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00206.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td>
+    <td valign='top'><table><tr><td>0.0078</td></tr><tr><td>0.0625</td></tr><tr><td>0.2188</td></tr><tr><td>0.4375</td></tr><tr><td>0.5469</td></tr><tr><td>0.4375</td></tr><tr><td>0.2188</td></tr><tr><td>0.0625</td></tr><tr><td>0.0078</td></tr></table></td>
+    <td valign='top'><img src='example-00208.gif' alt='aktive op convolve xy @2 @1' style='border:4px solid gold'>
+    <br>geometry(0 4 128 120 1)</td></tr>
+</table>
 
 

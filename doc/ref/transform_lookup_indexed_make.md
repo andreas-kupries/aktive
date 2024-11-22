@@ -24,7 +24,7 @@
 ---
 ### <a name='op_lut_from'></a> aktive op lut from
 
-Syntax: __aktive op lut from__  (param value)...
+Syntax: __aktive op lut from__  (param value)... [[→ definition](../../../../file?ci=trunk&ln=50&name=etc/transformer/filter/lookup.tcl)]
 
 Create a single-band indexed LUT from values
 

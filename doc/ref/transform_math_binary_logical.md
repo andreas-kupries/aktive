@@ -25,7 +25,7 @@
 ---
 ### <a name='op_math_nand'></a> aktive op math nand
 
-Syntax: __aktive op math nand__ src0 src1
+Syntax: __aktive op math nand__ src0 src1 [[→ definition](../../../../file?ci=trunk&ln=47&name=etc/transformer/math/binary.tcl)]
 
 Returns image with the binary operation '!(A && B)' applied to all shared pixels of the two inputs.
 
@@ -37,7 +37,7 @@ As a logical operation the inputs are trivially thresholded at 0.5. Values <= 0.
 ---
 ### <a name='op_math_nor'></a> aktive op math nor
 
-Syntax: __aktive op math nor__ src0 src1
+Syntax: __aktive op math nor__ src0 src1 [[→ definition](../../../../file?ci=trunk&ln=47&name=etc/transformer/math/binary.tcl)]
 
 Returns image with the binary operation '!(A || B)' applied to all shared pixels of the two inputs.
 
