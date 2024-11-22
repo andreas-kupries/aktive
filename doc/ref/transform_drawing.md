@@ -32,7 +32,7 @@
 ---
 ### <a name='op_draw_box_rounded_on'></a> aktive op draw box-rounded on
 
-Syntax: __aktive op draw box-rounded on__ src ?(param value)...?
+Syntax: __aktive op draw box-rounded on__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=92&name=etc/generator/virtual/draw.tcl)]
 
 Returns an image where a box is drawn on the input image.
 
@@ -58,7 +58,7 @@ The radii default to 0, i.e. no rounded corners.
 ---
 ### <a name='op_draw_box_on'></a> aktive op draw box on
 
-Syntax: __aktive op draw box on__ src ?(param value)...?
+Syntax: __aktive op draw box on__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=92&name=etc/generator/virtual/draw.tcl)]
 
 Returns an image where a box is drawn on the input image.
 
@@ -78,7 +78,7 @@ The box is axis-aligned, of width `2*ewidth+1`, height `2*eheight+1`, and placed
 ---
 ### <a name='op_draw_circle_on'></a> aktive op draw circle on
 
-Syntax: __aktive op draw circle on__ src ?(param value)...?
+Syntax: __aktive op draw circle on__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=92&name=etc/generator/virtual/draw.tcl)]
 
 Returns an image where a circle is drawn on the input image.
 
@@ -97,7 +97,7 @@ The circle has the `radius`, and is placed at the specified center.
 ---
 ### <a name='op_draw_circles_on'></a> aktive op draw circles on
 
-Syntax: __aktive op draw circles on__ src ?(param value)...?
+Syntax: __aktive op draw circles on__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=92&name=etc/generator/virtual/draw.tcl)]
 
 Returns an image where a set of circles is drawn on the input image.
 
@@ -116,7 +116,7 @@ The circles all have the same `radius`, and are placed at the specified centers.
 ---
 ### <a name='op_draw_line_on'></a> aktive op draw line on
 
-Syntax: __aktive op draw line on__ src ?(param value)...?
+Syntax: __aktive op draw line on__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=92&name=etc/generator/virtual/draw.tcl)]
 
 Returns an image where a line is drawn on the input image.
 
@@ -135,7 +135,7 @@ The line connects the two specified locations.
 ---
 ### <a name='op_draw_parallelogram_on'></a> aktive op draw parallelogram on
 
-Syntax: __aktive op draw parallelogram on__ src ?(param value)...?
+Syntax: __aktive op draw parallelogram on__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=92&name=etc/generator/virtual/draw.tcl)]
 
 Returns an image where a parallelogram is drawn on the input image.
 
@@ -156,7 +156,7 @@ The parallelogram is axis-aligned, of width `2*ewidth+1`, height `2*eheight+1`, 
 ---
 ### <a name='op_draw_polyline_on'></a> aktive op draw polyline on
 
-Syntax: __aktive op draw polyline on__ src ?(param value)...?
+Syntax: __aktive op draw polyline on__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=92&name=etc/generator/virtual/draw.tcl)]
 
 Returns an image where a set of lines is drawn on the input image.
 
@@ -174,7 +174,7 @@ The lines form a polyline through the specified points.
 ---
 ### <a name='op_draw_rhombus_on'></a> aktive op draw rhombus on
 
-Syntax: __aktive op draw rhombus on__ src ?(param value)...?
+Syntax: __aktive op draw rhombus on__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=92&name=etc/generator/virtual/draw.tcl)]
 
 Returns an image where a rhombus is drawn on the input image.
 
@@ -194,7 +194,7 @@ The rhombus is axis-aligned, of width `2*ewidth+1`, height `2*eheight+1`, and pl
 ---
 ### <a name='op_draw_triangle_on'></a> aktive op draw triangle on
 
-Syntax: __aktive op draw triangle on__ src ?(param value)...?
+Syntax: __aktive op draw triangle on__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=92&name=etc/generator/virtual/draw.tcl)]
 
 Returns an image where a triangle is drawn on the input image.
 

@@ -31,7 +31,7 @@
 ---
 ### <a name='effect_blur'></a> aktive effect blur
 
-Syntax: __aktive effect blur__ src ?(param value)...?
+Syntax: __aktive effect blur__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=187&name=etc/transformer/filter/effects.tcl)]
 
 Returns blurred input, per the specified blur radius.
 
@@ -41,17 +41,33 @@ Returns blurred input, per the specified blur radius.
 
 #### <a name='effect_blur__examples'></a> Examples
 
-<table><tr><th>@1</th><th>aktive effect blur @1 radius 16</th></tr>
-<tr><td valign='top'><img src='example-00001.gif' alt='@1' style='border:4px solid gold'><br>geometry(0 0 128 128 1)</td><td valign='top'><img src='example-00002.gif' alt='aktive effect blur @1 radius 16' style='border:4px solid gold'><br>geometry(16 0 96 128 1)</td></tr></table>
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive effect blur @1 radius 16
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00001.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td>
+    <td valign='top'><img src='example-00002.gif' alt='aktive effect blur @1 radius 16' style='border:4px solid gold'>
+    <br>geometry(16 0 96 128 1)</td></tr>
+</table>
 
-<table><tr><th>@1</th><th>aktive effect blur @1 radius 16</th></tr>
-<tr><td valign='top'><img src='example-00003.gif' alt='@1' style='border:4px solid gold'><br>geometry(0 0 128 128 1)</td><td valign='top'><img src='example-00004.gif' alt='aktive effect blur @1 radius 16' style='border:4px solid gold'><br>geometry(16 0 96 128 1)</td></tr></table>
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive effect blur @1 radius 16
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00003.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td>
+    <td valign='top'><img src='example-00004.gif' alt='aktive effect blur @1 radius 16' style='border:4px solid gold'>
+    <br>geometry(16 0 96 128 1)</td></tr>
+</table>
 
 
 ---
 ### <a name='effect_charcoal'></a> aktive effect charcoal
 
-Syntax: __aktive effect charcoal__ src ?(param value)...?
+Syntax: __aktive effect charcoal__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=232&name=etc/transformer/filter/effects.tcl)]
 
 Returns grey image with a charcoal-like sketch of the sRGB input.
 
@@ -62,21 +78,29 @@ Returns grey image with a charcoal-like sketch of the sRGB input.
 ---
 ### <a name='effect_emboss'></a> aktive effect emboss
 
-Syntax: __aktive effect emboss__ src
+Syntax: __aktive effect emboss__ src [[→ definition](../../../../file?ci=trunk&ln=151&name=etc/transformer/filter/effects.tcl)]
 
 Returns embossed input.
 
 
 #### <a name='effect_emboss__examples'></a> Examples
 
-<table><tr><th>@1</th><th>aktive effect emboss @1</th></tr>
-<tr><td valign='top'><img src='example-00005.gif' alt='@1' style='border:4px solid gold'><br>geometry(0 0 128 128 1)</td><td valign='top'><img src='example-00006.gif' alt='aktive effect emboss @1' style='border:4px solid gold'><br>geometry(1 1 126 126 1)</td></tr></table>
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive effect emboss @1
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00005.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td>
+    <td valign='top'><img src='example-00006.gif' alt='aktive effect emboss @1' style='border:4px solid gold'>
+    <br>geometry(1 1 126 126 1)</td></tr>
+</table>
 
 
 ---
 ### <a name='effect_jitter_gauss'></a> aktive effect jitter gauss
 
-Syntax: __aktive effect jitter gauss__ src ?(param value)...?
+Syntax: __aktive effect jitter gauss__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=109&name=etc/transformer/filter/effects.tcl)]
 
 Returns the input with a jitter effect based on gaussian noise applied to it. Visually this looks like frosted glass.
 
@@ -91,20 +115,44 @@ The underlying operation is [aktive warp noise gauss](generator_virtual_warp.md#
 
 #### <a name='effect_jitter_gauss__examples'></a> Examples
 
-<table><tr><th>@1</th><th>aktive effect jitter gauss @1 sigma 4 seed 703011174</th></tr>
-<tr><td valign='top'><img src='example-00007.gif' alt='@1' style='border:4px solid gold'><br>geometry(0 0 128 128 1)</td><td valign='top'><img src='example-00008.gif' alt='aktive effect jitter gauss @1 sigma 4 seed 703011174' style='border:4px solid gold'><br>geometry(0 0 128 128 1)</td></tr></table>
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive effect jitter gauss @1 sigma 4 seed 703011174
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00007.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td>
+    <td valign='top'><img src='example-00008.gif' alt='aktive effect jitter gauss @1 sigma 4 seed 703011174' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td></tr>
+</table>
 
-<table><tr><th>@1<br>(assets/sines.ppm)</th><th>aktive effect jitter gauss @1 sigma 4 seed 703011174</th></tr>
-<tr><td valign='top'><img src='example-00009.gif' alt='@1<br>(assets/sines.ppm)' style='border:4px solid gold'><br>geometry(0 0 256 256 3)</td><td valign='top'><img src='example-00010.gif' alt='aktive effect jitter gauss @1 sigma 4 seed 703011174' style='border:4px solid gold'><br>geometry(0 0 256 256 3)</td></tr></table>
+<table>
+<tr><th>@1
+    <br>(assets/sines.ppm)</th>
+    <th>aktive effect jitter gauss @1 sigma 4 seed 703011174
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00009.gif' alt='@1 (assets/sines.ppm)' style='border:4px solid gold'>
+    <br>geometry(0 0 256 256 3)</td>
+    <td valign='top'><img src='example-00010.gif' alt='aktive effect jitter gauss @1 sigma 4 seed 703011174' style='border:4px solid gold'>
+    <br>geometry(0 0 256 256 3)</td></tr>
+</table>
 
-<table><tr><th>@1<br>(assets/butterfly.ppm)</th><th>aktive effect jitter gauss @1 sigma 4 seed 703011174</th></tr>
-<tr><td valign='top'><img src='example-00011.gif' alt='@1<br>(assets/butterfly.ppm)' style='border:4px solid gold'><br>geometry(0 0 380 250 3)</td><td valign='top'><img src='example-00012.gif' alt='aktive effect jitter gauss @1 sigma 4 seed 703011174' style='border:4px solid gold'><br>geometry(0 0 380 250 3)</td></tr></table>
+<table>
+<tr><th>@1
+    <br>(assets/butterfly.ppm)</th>
+    <th>aktive effect jitter gauss @1 sigma 4 seed 703011174
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00011.gif' alt='@1 (assets/butterfly.ppm)' style='border:4px solid gold'>
+    <br>geometry(0 0 380 250 3)</td>
+    <td valign='top'><img src='example-00012.gif' alt='aktive effect jitter gauss @1 sigma 4 seed 703011174' style='border:4px solid gold'>
+    <br>geometry(0 0 380 250 3)</td></tr>
+</table>
 
 
 ---
 ### <a name='effect_jitter_uniform'></a> aktive effect jitter uniform
 
-Syntax: __aktive effect jitter uniform__ src ?(param value)...?
+Syntax: __aktive effect jitter uniform__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=67&name=etc/transformer/filter/effects.tcl)]
 
 Returns the input with a jitter effect based on uniform noise applied to it. Visually this looks like frosted glass.
 
@@ -119,51 +167,99 @@ The underlying operation is [aktive warp noise uniform](generator_virtual_warp.m
 
 #### <a name='effect_jitter_uniform__examples'></a> Examples
 
-<table><tr><th>@1</th><th>aktive effect jitter uniform @1 min 1 max 6 seed 703011174</th></tr>
-<tr><td valign='top'><img src='example-00013.gif' alt='@1' style='border:4px solid gold'><br>geometry(0 0 128 128 1)</td><td valign='top'><img src='example-00014.gif' alt='aktive effect jitter uniform @1 min 1 max 6 seed 703011174' style='border:4px solid gold'><br>geometry(0 0 128 128 1)</td></tr></table>
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive effect jitter uniform @1 min 1 max 6 seed 703011174
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00013.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td>
+    <td valign='top'><img src='example-00014.gif' alt='aktive effect jitter uniform @1 min 1 max 6 seed 703011174' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td></tr>
+</table>
 
-<table><tr><th>@1<br>(assets/sines.ppm)</th><th>aktive effect jitter uniform @1 min 1 max 6 seed 703011174</th></tr>
-<tr><td valign='top'><img src='example-00015.gif' alt='@1<br>(assets/sines.ppm)' style='border:4px solid gold'><br>geometry(0 0 256 256 3)</td><td valign='top'><img src='example-00016.gif' alt='aktive effect jitter uniform @1 min 1 max 6 seed 703011174' style='border:4px solid gold'><br>geometry(0 0 256 256 3)</td></tr></table>
+<table>
+<tr><th>@1
+    <br>(assets/sines.ppm)</th>
+    <th>aktive effect jitter uniform @1 min 1 max 6 seed 703011174
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00015.gif' alt='@1 (assets/sines.ppm)' style='border:4px solid gold'>
+    <br>geometry(0 0 256 256 3)</td>
+    <td valign='top'><img src='example-00016.gif' alt='aktive effect jitter uniform @1 min 1 max 6 seed 703011174' style='border:4px solid gold'>
+    <br>geometry(0 0 256 256 3)</td></tr>
+</table>
 
-<table><tr><th>@1<br>(assets/butterfly.ppm)</th><th>aktive effect jitter uniform @1 min 1 max 6 seed 703011174</th></tr>
-<tr><td valign='top'><img src='example-00017.gif' alt='@1<br>(assets/butterfly.ppm)' style='border:4px solid gold'><br>geometry(0 0 380 250 3)</td><td valign='top'><img src='example-00018.gif' alt='aktive effect jitter uniform @1 min 1 max 6 seed 703011174' style='border:4px solid gold'><br>geometry(0 0 380 250 3)</td></tr></table>
+<table>
+<tr><th>@1
+    <br>(assets/butterfly.ppm)</th>
+    <th>aktive effect jitter uniform @1 min 1 max 6 seed 703011174
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00017.gif' alt='@1 (assets/butterfly.ppm)' style='border:4px solid gold'>
+    <br>geometry(0 0 380 250 3)</td>
+    <td valign='top'><img src='example-00018.gif' alt='aktive effect jitter uniform @1 min 1 max 6 seed 703011174' style='border:4px solid gold'>
+    <br>geometry(0 0 380 250 3)</td></tr>
+</table>
 
 
 ---
 ### <a name='effect_sharpen'></a> aktive effect sharpen
 
-Syntax: __aktive effect sharpen__ src
+Syntax: __aktive effect sharpen__ src [[→ definition](../../../../file?ci=trunk&ln=170&name=etc/transformer/filter/effects.tcl)]
 
 Returns sharpened input.
 
 
 #### <a name='effect_sharpen__examples'></a> Examples
 
-<table><tr><th>@1</th><th>aktive effect sharpen @1</th></tr>
-<tr><td valign='top'><img src='example-00019.gif' alt='@1' style='border:4px solid gold'><br>geometry(0 0 128 128 1)</td><td valign='top'><img src='example-00020.gif' alt='aktive effect sharpen @1' style='border:4px solid gold'><br>geometry(1 1 126 126 1)</td></tr></table>
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive effect sharpen @1
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00019.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td>
+    <td valign='top'><img src='example-00020.gif' alt='aktive effect sharpen @1' style='border:4px solid gold'>
+    <br>geometry(1 1 126 126 1)</td></tr>
+</table>
 
 
 ---
 ### <a name='effect_sketch'></a> aktive effect sketch
 
-Syntax: __aktive effect sketch__ src
+Syntax: __aktive effect sketch__ src [[→ definition](../../../../file?ci=trunk&ln=210&name=etc/transformer/filter/effects.tcl)]
 
 Returns image with a general sketch of the input.
 
 
 #### <a name='effect_sketch__examples'></a> Examples
 
-<table><tr><th>@1</th><th>aktive effect sketch @1</th></tr>
-<tr><td valign='top'><img src='example-00021.gif' alt='@1' style='border:4px solid gold'><br>geometry(0 0 128 128 1)</td><td valign='top'><img src='example-00022.gif' alt='aktive effect sketch @1' style='border:4px solid gold'><br>geometry(0 0 128 128 1)</td></tr></table>
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive effect sketch @1
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00021.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td>
+    <td valign='top'><img src='example-00022.gif' alt='aktive effect sketch @1' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td></tr>
+</table>
 
-<table><tr><th>@1</th><th>aktive effect sketch @1</th></tr>
-<tr><td valign='top'><img src='example-00023.gif' alt='@1' style='border:4px solid gold'><br>geometry(0 0 128 128 1)</td><td valign='top'><img src='example-00024.gif' alt='aktive effect sketch @1' style='border:4px solid gold'><br>geometry(0 0 128 128 1)</td></tr></table>
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive effect sketch @1
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00023.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td>
+    <td valign='top'><img src='example-00024.gif' alt='aktive effect sketch @1' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td></tr>
+</table>
 
 
 ---
 ### <a name='effect_swirl'></a> aktive effect swirl
 
-Syntax: __aktive effect swirl__ src ?(param value)...?
+Syntax: __aktive effect swirl__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/filter/effects.tcl)]
 
 Returns the input with a swirling effect applied to it.
 
@@ -185,13 +281,37 @@ The underlying operation is [aktive warp swirl](generator_virtual_warp.md#warp_s
 
 #### <a name='effect_swirl__examples'></a> Examples
 
-<table><tr><th>@1</th><th>aktive effect swirl @1 decay 0.05 from 135</th></tr>
-<tr><td valign='top'><img src='example-00025.gif' alt='@1' style='border:4px solid gold'><br>geometry(0 0 128 128 1)</td><td valign='top'><img src='example-00026.gif' alt='aktive effect swirl @1 decay 0.05 from 135' style='border:4px solid gold'><br>geometry(0 0 128 128 1)</td></tr></table>
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive effect swirl @1 decay 0.05 from 135
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00025.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td>
+    <td valign='top'><img src='example-00026.gif' alt='aktive effect swirl @1 decay 0.05 from 135' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td></tr>
+</table>
 
-<table><tr><th>@1<br>(assets/sines.ppm)</th><th>aktive effect swirl @1 decay 0.01 from 135</th></tr>
-<tr><td valign='top'><img src='example-00027.gif' alt='@1<br>(assets/sines.ppm)' style='border:4px solid gold'><br>geometry(0 0 256 256 3)</td><td valign='top'><img src='example-00028.gif' alt='aktive effect swirl @1 decay 0.01 from 135' style='border:4px solid gold'><br>geometry(0 0 256 256 3)</td></tr></table>
+<table>
+<tr><th>@1
+    <br>(assets/sines.ppm)</th>
+    <th>aktive effect swirl @1 decay 0.01 from 135
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00027.gif' alt='@1 (assets/sines.ppm)' style='border:4px solid gold'>
+    <br>geometry(0 0 256 256 3)</td>
+    <td valign='top'><img src='example-00028.gif' alt='aktive effect swirl @1 decay 0.01 from 135' style='border:4px solid gold'>
+    <br>geometry(0 0 256 256 3)</td></tr>
+</table>
 
-<table><tr><th>@1<br>(assets/butterfly.ppm)</th><th>aktive effect swirl @1 decay 0.01 from 135</th></tr>
-<tr><td valign='top'><img src='example-00029.gif' alt='@1<br>(assets/butterfly.ppm)' style='border:4px solid gold'><br>geometry(0 0 380 250 3)</td><td valign='top'><img src='example-00030.gif' alt='aktive effect swirl @1 decay 0.01 from 135' style='border:4px solid gold'><br>geometry(0 0 380 250 3)</td></tr></table>
+<table>
+<tr><th>@1
+    <br>(assets/butterfly.ppm)</th>
+    <th>aktive effect swirl @1 decay 0.01 from 135
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00029.gif' alt='@1 (assets/butterfly.ppm)' style='border:4px solid gold'>
+    <br>geometry(0 0 380 250 3)</td>
+    <td valign='top'><img src='example-00030.gif' alt='aktive effect swirl @1 decay 0.01 from 135' style='border:4px solid gold'>
+    <br>geometry(0 0 380 250 3)</td></tr>
+</table>
 
 

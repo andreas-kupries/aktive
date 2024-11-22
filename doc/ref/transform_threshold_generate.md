@@ -30,7 +30,7 @@
 ---
 ### <a name='image_threshold_bernsen'></a> aktive image threshold bernsen
 
-Syntax: __aktive image threshold bernsen__ src (param value)...
+Syntax: __aktive image threshold bernsen__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=52&name=etc/transformer/thresholds/thresholds.tcl)]
 
 Returns image containing per-pixel thresholds for the input, as per Bernsen's method.
 
@@ -41,7 +41,7 @@ Returns image containing per-pixel thresholds for the input, as per Bernsen's me
 ---
 ### <a name='image_threshold_mean'></a> aktive image threshold mean
 
-Syntax: __aktive image threshold mean__ src (param value)...
+Syntax: __aktive image threshold mean__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=18&name=etc/transformer/thresholds/thresholds.tcl)]
 
 Returns image containing per-pixel thresholds for the input, as per the local mean.
 
@@ -54,7 +54,7 @@ There are better methods. Extensions to the simple mean, in order of creation (a
 ---
 ### <a name='image_threshold_niblack'></a> aktive image threshold niblack
 
-Syntax: __aktive image threshold niblack__ src ?(param value)...?
+Syntax: __aktive image threshold niblack__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=87&name=etc/transformer/thresholds/thresholds.tcl)]
 
 Returns image containing per-pixel thresholds for the input, as per Niblack's method.
 
@@ -66,7 +66,7 @@ Returns image containing per-pixel thresholds for the input, as per Niblack's me
 ---
 ### <a name='image_threshold_otsu'></a> aktive image threshold otsu
 
-Syntax: __aktive image threshold otsu__ src ?(param value)...?
+Syntax: __aktive image threshold otsu__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=218&name=etc/transformer/thresholds/thresholds.tcl)]
 
 Returns image containing per-pixel thresholds for the input, as per Otsu's method.
 
@@ -78,7 +78,7 @@ Returns image containing per-pixel thresholds for the input, as per Otsu's metho
 ---
 ### <a name='image_threshold_phansalkar'></a> aktive image threshold phansalkar
 
-Syntax: __aktive image threshold phansalkar__ src ?(param value)...?
+Syntax: __aktive image threshold phansalkar__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=166&name=etc/transformer/thresholds/thresholds.tcl)]
 
 Returns image containing per-pixel thresholds for the input, as per Phansalkar's method.
 
@@ -93,7 +93,7 @@ Returns image containing per-pixel thresholds for the input, as per Phansalkar's
 ---
 ### <a name='image_threshold_sauvola'></a> aktive image threshold sauvola
 
-Syntax: __aktive image threshold sauvola__ src ?(param value)...?
+Syntax: __aktive image threshold sauvola__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=125&name=etc/transformer/thresholds/thresholds.tcl)]
 
 Returns image containing per-pixel thresholds for the input, as per Sauvola's method.
 
@@ -106,7 +106,7 @@ Returns image containing per-pixel thresholds for the input, as per Sauvola's me
 ---
 ### <a name='image_threshold_wolfjolion'></a> aktive image threshold wolfjolion
 
-Syntax: __aktive image threshold wolfjolion__ src ?(param value)...?
+Syntax: __aktive image threshold wolfjolion__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=250&name=etc/transformer/thresholds/thresholds.tcl)]
 
 Returns image containing per-pixel thresholds for the input, as per Wolf+Jolion's method.
 

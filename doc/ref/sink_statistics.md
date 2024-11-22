@@ -34,7 +34,7 @@
 ---
 ### <a name='op_compare_mse'></a> aktive op compare mse
 
-Syntax: __aktive op compare mse__ src0 src1
+Syntax: __aktive op compare mse__ src0 src1 [[→ definition](../../../../file?ci=trunk&ln=5&name=etc/sink/compare.tcl)]
 
 Compares the two input images and returns the MSE metric for their difference
 
@@ -44,7 +44,7 @@ This operator is __strict__ in both inputs. The computed pixels are not material
 ---
 ### <a name='op_compare_rmse'></a> aktive op compare rmse
 
-Syntax: __aktive op compare rmse__ src0 src1
+Syntax: __aktive op compare rmse__ src0 src1 [[→ definition](../../../../file?ci=trunk&ln=5&name=etc/sink/compare.tcl)]
 
 Compares the two input images and returns the RMSE metric for their difference
 
@@ -54,7 +54,7 @@ This operator is __strict__ in both inputs. The computed pixels are not material
 ---
 ### <a name='op_image_max'></a> aktive op image max
 
-Syntax: __aktive op image max__ src
+Syntax: __aktive op image max__ src [[→ definition](../../../../file?ci=trunk&ln=11&name=etc/sink/statistics.tcl)]
 
 Returns a single value, the maximum of the values (across all rows, columns, and bands)
 
@@ -64,7 +64,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 ---
 ### <a name='op_image_mean'></a> aktive op image mean
 
-Syntax: __aktive op image mean__ src
+Syntax: __aktive op image mean__ src [[→ definition](../../../../file?ci=trunk&ln=11&name=etc/sink/statistics.tcl)]
 
 Returns a single value, the arithmetic mean of the values (across all rows, columns, and bands)
 
@@ -74,7 +74,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 ---
 ### <a name='op_image_mean_stddev'></a> aktive op image mean-stddev
 
-Syntax: __aktive op image mean-stddev__ src ?(param value)...?
+Syntax: __aktive op image mean-stddev__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=74&name=etc/sink/statistics.tcl)]
 
 Returns a 2-element list containing lower and upper bounds for the image values, based on the image's mean and a multiple of its standard deviation.
 
@@ -87,7 +87,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 ---
 ### <a name='op_image_min'></a> aktive op image min
 
-Syntax: __aktive op image min__ src
+Syntax: __aktive op image min__ src [[→ definition](../../../../file?ci=trunk&ln=11&name=etc/sink/statistics.tcl)]
 
 Returns a single value, the minimum of the values (across all rows, columns, and bands)
 
@@ -97,7 +97,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 ---
 ### <a name='op_image_min_max'></a> aktive op image min-max
 
-Syntax: __aktive op image min-max__ src ?(param value)...?
+Syntax: __aktive op image min-max__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=44&name=etc/sink/statistics.tcl)]
 
 Returns a 2-element list containing the min and max of the image, in this order.
 
@@ -113,7 +113,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 ---
 ### <a name='op_image_stddev'></a> aktive op image stddev
 
-Syntax: __aktive op image stddev__ src
+Syntax: __aktive op image stddev__ src [[→ definition](../../../../file?ci=trunk&ln=11&name=etc/sink/statistics.tcl)]
 
 Returns a single value, the standard deviation of the values (across all rows, columns, and bands)
 
@@ -123,7 +123,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 ---
 ### <a name='op_image_sum'></a> aktive op image sum
 
-Syntax: __aktive op image sum__ src
+Syntax: __aktive op image sum__ src [[→ definition](../../../../file?ci=trunk&ln=11&name=etc/sink/statistics.tcl)]
 
 Returns a single value, the sum of the values (across all rows, columns, and bands)
 
@@ -133,7 +133,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 ---
 ### <a name='op_image_sumsquared'></a> aktive op image sumsquared
 
-Syntax: __aktive op image sumsquared__ src
+Syntax: __aktive op image sumsquared__ src [[→ definition](../../../../file?ci=trunk&ln=11&name=etc/sink/statistics.tcl)]
 
 Returns a single value, the sum of the squared values (across all rows, columns, and bands)
 
@@ -143,7 +143,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 ---
 ### <a name='op_image_variance'></a> aktive op image variance
 
-Syntax: __aktive op image variance__ src
+Syntax: __aktive op image variance__ src [[→ definition](../../../../file?ci=trunk&ln=11&name=etc/sink/statistics.tcl)]
 
 Returns a single value, the variance of the values (across all rows, columns, and bands)
 

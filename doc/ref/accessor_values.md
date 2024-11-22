@@ -26,7 +26,7 @@
 ---
 ### <a name='query_value_around'></a> aktive query value around
 
-Syntax: __aktive query value around__ src ?(param value)...?
+Syntax: __aktive query value around__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=318&name=etc/accessor/attributes.tcl)]
 
 Returns the input's pixel values for the region around the specified 2D point, within the manhattan `radius`.
 
@@ -45,7 +45,7 @@ This operator is __strict__ in its single input. The requested pixel region is m
 ---
 ### <a name='query_value_at'></a> aktive query value at
 
-Syntax: __aktive query value at__ src (param value)...
+Syntax: __aktive query value at__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=288&name=etc/accessor/attributes.tcl)]
 
 Returns the input's pixel value(s) at the given 2D point.
 
@@ -62,14 +62,21 @@ This operator is __strict__ in its single input. The requested pixel is material
 
 #### <a name='query_value_at__examples'></a> Examples
 
-<table><tr><th>@1</th><th>aktive query value at @1 x 0 y 1</th></tr>
-<tr><td valign='top'><table><tr><td valign='top'>times 16</td><td valign='top'><img src='example-00457.gif' alt='@1' style='border:4px solid gold'><br>geometry(0 0 32 32 1)</td></tr></table></td><td valign='top'>0.6666666666666666</td></tr></table>
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive query value at @1 x 0 y 1
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><table><tr><td valign='top'>times 16</td><td valign='top'><img src='example-00457.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 32 32 1)</td></tr></table></td>
+    <td valign='top'>0.6666666666666666</td></tr>
+</table>
 
 
 ---
 ### <a name='query_values'></a> aktive query values
 
-Syntax: __aktive query values__ src
+Syntax: __aktive query values__ src [[→ definition](../../../../file?ci=trunk&ln=262&name=etc/accessor/attributes.tcl)]
 
 Returns a list containing the input's pixel values.
 
@@ -82,7 +89,14 @@ This operator is __strict__ in its single input. The image is materialized in me
 
 #### <a name='query_values__examples'></a> Examples
 
-<table><tr><th>@1</th><th>aktive query values @1</th></tr>
-<tr><td valign='top'><table><tr><td valign='top'>times 16</td><td valign='top'><img src='example-00459.gif' alt='@1' style='border:4px solid gold'><br>geometry(0 0 32 32 1)</td></tr></table></td><td valign='top'>0.0 0.3333333333333333 0.6666666666666666 1.0</td></tr></table>
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive query values @1
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><table><tr><td valign='top'>times 16</td><td valign='top'><img src='example-00459.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 32 32 1)</td></tr></table></td>
+    <td valign='top'>0.0 0.3333333333333333 0.6666666666666666 1.0</td></tr>
+</table>
 
 

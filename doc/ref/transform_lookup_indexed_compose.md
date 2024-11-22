@@ -24,7 +24,7 @@
 ---
 ### <a name='op_lut_compose'></a> aktive op lut compose
 
-Syntax: __aktive op lut compose__ src0 src1
+Syntax: __aktive op lut compose__ src0 src1 [[→ definition](../../../../file?ci=trunk&ln=64&name=etc/transformer/filter/lookup.tcl)]
 
 Taking two indexed LUTs A and B it returns the indexed LUT computing `res = A (B (src))`.
 
