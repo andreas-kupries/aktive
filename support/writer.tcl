@@ -1035,7 +1035,10 @@ proc dsl::writer::RR1 {single label result} {
     switch -exact -- $format {
 	text   -
 	matrix { set cell "<!include: $dst>" }
-	image  { set cell "<img src='$dst' alt='$label' style='border:4px solid gold'>" }
+	image  {
+	    append cell "<img src='$dst' alt='$label' style='border:4px solid gold'>"
+	    append cell "<br><!include: ${dst}.txt>"
+	}
     }
 
     if {$single} {
@@ -2707,6 +2710,9 @@ proc dsl::writer::stash-to {path} {
 	    return [join $norm "<br/>"]
 	}
 	proc s {{n 1}} { string repeat "&nbsp;" $n }
+	#
+	# show commands
+	#
 	proc domain        {x}   { aktive query domain $x }
 	proc meta-of       {x}   { aktive query meta $x }
 	proc sdf-fit       {x}   { aktive op sdf 2image fit       $x }
@@ -2715,10 +2721,17 @@ proc dsl::writer::stash-to {path} {
 	proc height-times  {n x} { aktive op sample replicate y  $x by $n }
 	proc width-times   {n x} { aktive op sample replicate x  $x by $n }
 	proc times         {n x} { aktive op sample replicate xy $x by $n }
+	#
 	# asset access
+	#
 	proc butterfly {} { aktive read from netpbm path tests/assets/butterfly.ppm }
 	proc sines     {} { aktive read from netpbm path tests/assets/sines.ppm }
-	# place overlays on image, red dot/line
+	#
+	# place overlays on images, dot/line/poly, red/green/blue - also show cmds!
+	#
+	proc bframe {x} { poly red   {{0 0} {379 0} {379 249} {0 249} {0 0}} $x }
+	proc sframe {x} { poly green {{0 0} {0 255} {255 255} {255 0} {0 0}} $x }
+	#
 	proc dot {color p i} {
 	    lassign [aktive query geometry $i] _ _ w h d
 	    aktive op draw circle on $i color [$color $d] radius 5 center $p
@@ -2734,6 +2747,9 @@ proc dsl::writer::stash-to {path} {
 	proc red   {d} { dict get { 1 1 3 {1 0 0} } $d }
 	proc green {d} { dict get { 1 1 3 {0 1 0} } $d }
 	proc blue  {d} { dict get { 1 1 3 {0 0 1} } $d }
+	#
+	# type specific result writers
+	#
 	proc emit-text {dst int src} {
 	    fileutil::writeFile $dst [string trim $src]
 	}
@@ -2743,6 +2759,8 @@ proc dsl::writer::stash-to {path} {
 	    close      [file tempfile tmp aktive-example]
 	    aktive format as $format byte 2file $src into $tmp
 	    exec convert $tmp $dst
+	    # save geometry as well
+	    fileutil::writeFile ${dst}.txt "geometry([string trim [aktive query geometry $src]])"
 	    file delete  $tmp
 	    return
 	}
