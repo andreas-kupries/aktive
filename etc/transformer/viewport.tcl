@@ -5,6 +5,20 @@
 operator op::view {
     section transform
 
+    example {
+	butterfly
+	@1 port {190 125 380 250}
+    }
+
+    example {
+	butterfly
+	@1 port {-190 -125 380 250}
+    }
+    example {
+	butterfly
+	@1 port {80 80 80 80}
+    }
+
     note Returns image arbitrarily offset and sized compared to the input domain. \
 	In other words, an arbitrary rectangular view (port) into the input.
 
