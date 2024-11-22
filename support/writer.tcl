@@ -1059,6 +1059,7 @@ proc dsl::writer::TD  {cell} { return "<td valign='top'>$cell</td>" }
 
 proc dsl::writer::ExampleScript {op stem id varmap gencmd showcmds format int desc} {
     # intro
+    if {$id == 1} { lappend script "puts \"\"" }
     lappend script "puts \{# Example: ($id) $gencmd ($desc)\}"
 
     # generation command
@@ -1173,6 +1174,7 @@ proc dsl::writer::NoExamples {} {
     if {![llength [Operations]]} return
 
     set names [Operations]
+    set nl    [Maxlength $names]
     set noexamples 0
     set examples   0
 
@@ -1180,7 +1182,8 @@ proc dsl::writer::NoExamples {} {
 	if {[llength [Get ops $op examples]]} {
 	    incr examples; continue
 	}
-	+ "$op"
+	set loc     [join [Get ops $op defloc] " @"]
+	+ "[PadR $nl $op] :: $loc"
 	incr noexamples
     }
 
@@ -2755,7 +2758,13 @@ proc dsl::writer::stash-to {path} {
 	# type specific result writers
 	#
 	proc emit-text {dst int src} {
-	    fileutil::writeFile $dst [string trim $src]
+	    lappend map * \\*
+	    lappend map "\\n" "\\\\n"
+	    lappend map \n "<br>&nbsp;"
+	    fileutil::writeFile $dst "&nbsp;[string map $map [string trim $src]]"
+	    # debug
+	    puts |[join [split [fileutil::cat $dst] \n] "|\n|"]|
+	    return
 	}
 	proc emit-image {dst int src} {
 	    set depth  [aktive query depth $src]
