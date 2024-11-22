@@ -19,7 +19,20 @@ def ref-otsu       \[Otsu\](https://en.wikipedia.org/wiki/Otsu%27s_method)
 operator image::threshold::global::mean {
     section accessor threshold generate
 
+    example {
+	scancrop
+	@1 | -text
+    }
+
+    example {
+	butterfly
+	@1 | -text
+    }
+
     note Returns a global threshold for the input, as the image mean.
+
+    note The operator "<!xref: aktive image mask per global mean>" \
+	uses this to generate a mask of the input.
 
     note There are better methods. Extensions to the simple mean, in order \
 	of creation (and complexity), are @@ref-sauvola@@, @@ref-niblack@@, and \
@@ -51,8 +64,21 @@ operator image::threshold::global::mean {
 operator image::threshold::global::bernsen {
     section accessor threshold generate
 
+    example {
+	scancrop
+	@1 | -text
+    }
+
+    example {
+	butterfly
+	@1 | -text
+    }
+
     note Returns a global threshold for the input, \
 	according to @@ref-bernsen@@'s method.
+
+    note The operator "<!xref: aktive image mask per global bernsen>" \
+	uses this to generate a mask of the input.
 
     input
 
@@ -86,8 +112,21 @@ operator image::threshold::global::bernsen {
 operator image::threshold::global::niblack {
     section accessor threshold generate
 
+    example {
+	scancrop
+	@1 | -text
+    }
+
+    example {
+	butterfly
+	@1 | -text
+    }
+
     note Returns a global threshold for the input, \
 	according to @@ref-niblack@@'s method.
+
+    note The operator "<!xref: aktive image mask per global niblack>" \
+	uses this to generate a mask of the input.
 
     double? -0.2 k	niblack parameter
 
@@ -125,8 +164,21 @@ operator image::threshold::global::niblack {
 operator image::threshold::global::sauvola {
     section accessor threshold generate
 
+    example {
+	scancrop
+	@1 | -text
+    }
+
+    example {
+	butterfly
+	@1 | -text
+    }
+
     note Returns a global threshold for the input, \
 	according to @@ref-sauvola@@'s method.
+
+    note The operator "<!xref: aktive image mask per global sauvola>" \
+	uses this to generate a mask of the input.
 
     double? 0.5 k	sauvola parameter
     double? 128 R	sauvola parameter
@@ -165,8 +217,21 @@ operator image::threshold::global::sauvola {
 operator image::threshold::global::phansalkar {
     section accessor threshold generate
 
+    example {
+	scancrop
+	@1 | -text
+    }
+
+    example {
+	butterfly
+	@1 | -text
+    }
+
     note Returns a global threshold for the input, \
 	according to @@ref-phansalkar@@'s method.
+
+    note The operator "<!xref: aktive image mask per global phansalkar>" \
+	uses this to generate a mask of the input.
 
     double? 0.25 k	phansalkar parameter
     double? 0.5  R	phansalkar parameter
@@ -209,8 +274,16 @@ operator image::threshold::global::phansalkar {
 operator image::threshold::global::otsu {
     section accessor threshold generate
 
+    example {
+	scancrop
+	@1 | -text
+    }
+
     note Returns a global threshold for the input, \
 	according to @@ref-otsu@@'s method.
+
+    note The operator "<!xref: aktive image mask per global otsu>" \
+	uses this to generate a mask of the input.
 
     int? 256 bins \
 	The number of bins used by the internal histogram. \

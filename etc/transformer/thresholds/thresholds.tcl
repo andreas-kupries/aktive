@@ -18,7 +18,20 @@
 operator image::threshold::mean {
     section transform threshold generate
 
+    example {
+	scancrop
+	@1 radius 7
+    }
+
+    example {
+	butterfly
+	@1 radius 7
+    }
+
     note Returns image containing per-pixel thresholds for the input, as per the local mean.
+
+    note The operator "<!xref: aktive image mask per mean>" \
+	uses this to generate a mask of the input.
 
     note There are better methods. Extensions to the simple mean, in order \
 	of creation (and complexity), are Sauvola, Niblack, and Phansalkar. \
@@ -52,7 +65,20 @@ operator image::threshold::mean {
 operator image::threshold::bernsen {
     section transform threshold generate
 
+    example {
+	scancrop
+	@1 radius 7
+    }
+
+    example {
+	butterfly
+	@1 radius 7
+    }
+
     note Returns image containing per-pixel thresholds for the input, as per Bernsen's method.
+
+    note The operator "<!xref: aktive image mask per bernsen>" \
+	uses this to generate a mask of the input.
 
     uint radius	Size of region to consider, as radius from center
 
@@ -87,7 +113,20 @@ operator image::threshold::bernsen {
 operator image::threshold::niblack {
     section transform threshold generate
 
+    example {
+	scancrop
+	@1 radius 7
+    }
+
+    example {
+	butterfly
+	@1 radius 7
+    }
+
     note Returns image containing per-pixel thresholds for the input, as per Niblack's method.
+
+    note The operator "<!xref: aktive image mask per niblack>" \
+	uses this to generate a mask of the input.
 
     double? -0.2 k	niblack parameter
     uint    radius	Size of region to consider, as radius from center
@@ -125,7 +164,20 @@ operator image::threshold::niblack {
 operator image::threshold::sauvola {
     section transform threshold generate
 
+    example {
+	scancrop
+	@1 radius 7
+    }
+
+    example {
+	butterfly
+	@1 radius 7
+    }
+
     note Returns image containing per-pixel thresholds for the input, as per Sauvola's method.
+
+    note The operator "<!xref: aktive image mask per sauvola>" \
+	uses this to generate a mask of the input.
 
     double? 0.5 k	sauvola parameter
     double? 128 R	sauvola parameter
@@ -166,7 +218,20 @@ operator image::threshold::sauvola {
 operator image::threshold::phansalkar {
     section transform threshold generate
 
+    example {
+	scancrop
+	@1 radius 7
+    }
+
+    example {
+	butterfly
+	@1 radius 7
+    }
+
     note Returns image containing per-pixel thresholds for the input, as per Phansalkar's method.
+
+    note The operator "<!xref: aktive image mask per phansalkar>" \
+	uses this to generate a mask of the input.
 
     double? 0.25 k	phansalkar parameter
     double? 0.5  R	phansalkar parameter
@@ -218,7 +283,15 @@ operator image::threshold::phansalkar {
 operator image::threshold::otsu {
     section transform threshold generate
 
+    example {
+	scancrop
+	@1 radius 7
+    }
+
     note Returns image containing per-pixel thresholds for the input, as per Otsu's method.
+
+    note The operator "<!xref: aktive image mask per otsu>" \
+	uses this to generate a mask of the input.
 
     uint radius	Size of region to consider, as radius from center
 
@@ -250,7 +323,20 @@ operator image::threshold::otsu {
 operator image::threshold::wolfjolion {
     section transform threshold generate
 
+    example {
+	scancrop
+	@1 radius 7
+    }
+
+    example {
+	butterfly
+	@1 radius 7
+    }
+
     note Returns image containing per-pixel thresholds for the input, as per Wolf+Jolion's method.
+
+    note The operator "<!xref: aktive image mask per wolfjolion>" \
+	uses this to generate a mask of the input.
 
     double? 0.5 k	wolfjolion parameter
     uint    radius	Size of region to consider, as radius from center

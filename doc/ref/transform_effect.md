@@ -10,7 +10,7 @@
 
 # Documentation -- Reference Pages -- transform effect
 
-## Table Of Contents
+## <anchor='top'> Table Of Contents
 
   - [transform](transform.md) ↗
 
@@ -29,7 +29,7 @@
 ## Operators
 
 ---
-### <a name='effect_blur'></a> aktive effect blur
+### [↑](#top) <a name='effect_blur'></a> aktive effect blur
 
 Syntax: __aktive effect blur__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=187&name=etc/transformer/filter/effects.tcl)]
 
@@ -65,7 +65,7 @@ Returns blurred input, per the specified blur radius.
 
 
 ---
-### <a name='effect_charcoal'></a> aktive effect charcoal
+### [↑](#top) <a name='effect_charcoal'></a> aktive effect charcoal
 
 Syntax: __aktive effect charcoal__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=232&name=etc/transformer/filter/effects.tcl)]
 
@@ -101,7 +101,7 @@ Returns a grey image with a charcoal-like sketch of the sRGB input.
 
 
 ---
-### <a name='effect_emboss'></a> aktive effect emboss
+### [↑](#top) <a name='effect_emboss'></a> aktive effect emboss
 
 Syntax: __aktive effect emboss__ src [[→ definition](../../../../file?ci=trunk&ln=151&name=etc/transformer/filter/effects.tcl)]
 
@@ -123,7 +123,7 @@ Returns embossed input.
 
 
 ---
-### <a name='effect_jitter_gauss'></a> aktive effect jitter gauss
+### [↑](#top) <a name='effect_jitter_gauss'></a> aktive effect jitter gauss
 
 Syntax: __aktive effect jitter gauss__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=109&name=etc/transformer/filter/effects.tcl)]
 
@@ -175,7 +175,7 @@ The underlying operation is [aktive warp noise gauss](generator_virtual_warp.md#
 
 
 ---
-### <a name='effect_jitter_uniform'></a> aktive effect jitter uniform
+### [↑](#top) <a name='effect_jitter_uniform'></a> aktive effect jitter uniform
 
 Syntax: __aktive effect jitter uniform__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=67&name=etc/transformer/filter/effects.tcl)]
 
@@ -227,7 +227,7 @@ The underlying operation is [aktive warp noise uniform](generator_virtual_warp.m
 
 
 ---
-### <a name='effect_sharpen'></a> aktive effect sharpen
+### [↑](#top) <a name='effect_sharpen'></a> aktive effect sharpen
 
 Syntax: __aktive effect sharpen__ src [[→ definition](../../../../file?ci=trunk&ln=170&name=etc/transformer/filter/effects.tcl)]
 
@@ -249,7 +249,7 @@ Returns sharpened input.
 
 
 ---
-### <a name='effect_sketch'></a> aktive effect sketch
+### [↑](#top) <a name='effect_sketch'></a> aktive effect sketch
 
 Syntax: __aktive effect sketch__ src [[→ definition](../../../../file?ci=trunk&ln=210&name=etc/transformer/filter/effects.tcl)]
 
@@ -282,7 +282,7 @@ Returns image with a general sketch of the input.
 
 
 ---
-### <a name='effect_swirl'></a> aktive effect swirl
+### [↑](#top) <a name='effect_swirl'></a> aktive effect swirl
 
 Syntax: __aktive effect swirl__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/filter/effects.tcl)]
 

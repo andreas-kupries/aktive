@@ -10,7 +10,7 @@
 
 # Documentation -- Reference Pages -- transform threshold mask
 
-## Table Of Contents
+## <anchor='top'> Table Of Contents
 
   - [transform threshold](transform_threshold.md) ↗
 

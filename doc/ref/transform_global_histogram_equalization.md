@@ -10,7 +10,7 @@
 
 # Documentation -- Reference Pages -- transform global histogram equalization
 
-## Table Of Contents
+## <anchor='top'> Table Of Contents
 
   - [transform global histogram](transform_global_histogram.md) ↗
 
@@ -22,7 +22,7 @@
 ## Operators
 
 ---
-### <a name='op_equalization_global'></a> aktive op equalization global
+### [↑](#top) <a name='op_equalization_global'></a> aktive op equalization global
 
 Syntax: __aktive op equalization global__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/filter/equalization.tcl)]
 

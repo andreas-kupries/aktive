@@ -10,7 +10,7 @@
 
 # Documentation -- Reference Pages -- miscellaneous
 
-## Table Of Contents
+## <anchor='top'> Table Of Contents
 
   - [Roots](bysection.md) ↗
 
@@ -29,7 +29,7 @@
 ## Operators
 
 ---
-### <a name='error'></a> aktive error
+### [↑](#top) <a name='error'></a> aktive error
 
 Syntax: __aktive error__ m args... [[→ definition](../../../../file?ci=trunk&ln=198&name=etc/aktive.tcl)]
 
@@ -41,7 +41,7 @@ Throw error with message and error code.
 |args|str...||Trappable error code suffix|
 
 ---
-### <a name='processors'></a> aktive processors
+### [↑](#top) <a name='processors'></a> aktive processors
 
 Syntax: __aktive processors__ n [[→ definition](../../../../file?ci=trunk&ln=215&name=etc/aktive.tcl)]
 
@@ -54,7 +54,7 @@ Setting the default, `0`, causes the system to query the OS for the number of av
 |n|int|0|Set number of processor available for concurrent operation.|
 
 ---
-### <a name='version'></a> aktive version
+### [↑](#top) <a name='version'></a> aktive version
 
 Syntax: __aktive version__  [[→ definition](../../../../file?ci=trunk&ln=208&name=etc/aktive.tcl)]
 

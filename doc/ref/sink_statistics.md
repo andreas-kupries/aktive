@@ -10,7 +10,7 @@
 
 # Documentation -- Reference Pages -- sink statistics
 
-## Table Of Contents
+## <anchor='top'> Table Of Contents
 
   - [sink](sink.md) ↗
 
@@ -32,7 +32,7 @@
 ## Operators
 
 ---
-### <a name='op_compare_mse'></a> aktive op compare mse
+### [↑](#top) <a name='op_compare_mse'></a> aktive op compare mse
 
 Syntax: __aktive op compare mse__ src0 src1 [[→ definition](../../../../file?ci=trunk&ln=5&name=etc/sink/compare.tcl)]
 
@@ -42,7 +42,7 @@ This operator is __strict__ in both inputs. The computed pixels are not material
 
 
 ---
-### <a name='op_compare_rmse'></a> aktive op compare rmse
+### [↑](#top) <a name='op_compare_rmse'></a> aktive op compare rmse
 
 Syntax: __aktive op compare rmse__ src0 src1 [[→ definition](../../../../file?ci=trunk&ln=5&name=etc/sink/compare.tcl)]
 
@@ -52,7 +52,7 @@ This operator is __strict__ in both inputs. The computed pixels are not material
 
 
 ---
-### <a name='op_image_max'></a> aktive op image max
+### [↑](#top) <a name='op_image_max'></a> aktive op image max
 
 Syntax: __aktive op image max__ src [[→ definition](../../../../file?ci=trunk&ln=11&name=etc/sink/statistics.tcl)]
 
@@ -62,7 +62,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 
 
 ---
-### <a name='op_image_mean'></a> aktive op image mean
+### [↑](#top) <a name='op_image_mean'></a> aktive op image mean
 
 Syntax: __aktive op image mean__ src [[→ definition](../../../../file?ci=trunk&ln=11&name=etc/sink/statistics.tcl)]
 
@@ -72,7 +72,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 
 
 ---
-### <a name='op_image_mean_stddev'></a> aktive op image mean-stddev
+### [↑](#top) <a name='op_image_mean_stddev'></a> aktive op image mean-stddev
 
 Syntax: __aktive op image mean-stddev__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=74&name=etc/sink/statistics.tcl)]
 
@@ -85,7 +85,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 |sigma|double|1.2|Interval around the mean to return.|
 
 ---
-### <a name='op_image_min'></a> aktive op image min
+### [↑](#top) <a name='op_image_min'></a> aktive op image min
 
 Syntax: __aktive op image min__ src [[→ definition](../../../../file?ci=trunk&ln=11&name=etc/sink/statistics.tcl)]
 
@@ -95,7 +95,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 
 
 ---
-### <a name='op_image_min_max'></a> aktive op image min-max
+### [↑](#top) <a name='op_image_min_max'></a> aktive op image min-max
 
 Syntax: __aktive op image min-max__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=44&name=etc/sink/statistics.tcl)]
 
@@ -111,7 +111,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 |lower|double|0|Lower percentile to apply to min. Default is 0%|
 
 ---
-### <a name='op_image_stddev'></a> aktive op image stddev
+### [↑](#top) <a name='op_image_stddev'></a> aktive op image stddev
 
 Syntax: __aktive op image stddev__ src [[→ definition](../../../../file?ci=trunk&ln=11&name=etc/sink/statistics.tcl)]
 
@@ -121,7 +121,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 
 
 ---
-### <a name='op_image_sum'></a> aktive op image sum
+### [↑](#top) <a name='op_image_sum'></a> aktive op image sum
 
 Syntax: __aktive op image sum__ src [[→ definition](../../../../file?ci=trunk&ln=11&name=etc/sink/statistics.tcl)]
 
@@ -131,7 +131,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 
 
 ---
-### <a name='op_image_sumsquared'></a> aktive op image sumsquared
+### [↑](#top) <a name='op_image_sumsquared'></a> aktive op image sumsquared
 
 Syntax: __aktive op image sumsquared__ src [[→ definition](../../../../file?ci=trunk&ln=11&name=etc/sink/statistics.tcl)]
 
@@ -141,7 +141,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 
 
 ---
-### <a name='op_image_variance'></a> aktive op image variance
+### [↑](#top) <a name='op_image_variance'></a> aktive op image variance
 
 Syntax: __aktive op image variance__ src [[→ definition](../../../../file?ci=trunk&ln=11&name=etc/sink/statistics.tcl)]
 

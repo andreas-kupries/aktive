@@ -10,7 +10,7 @@
 
 # Documentation -- Reference Pages -- transform geometry
 
-## Table Of Contents
+## <anchor='top'> Table Of Contents
 
   - [transform](transform.md) ↗
 
@@ -23,7 +23,7 @@
 ## Operators
 
 ---
-### <a name='op_geometry_bands_fold'></a> aktive op geometry bands fold
+### [↑](#top) <a name='op_geometry_bands_fold'></a> aktive op geometry bands fold
 
 Syntax: __aktive op geometry bands fold__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=12&name=etc/transformer/structure/band-geometry.tcl)]
 
@@ -36,7 +36,7 @@ The parameter k has to be a proper divisor of the input width. I.e. the input wi
 |by|uint||Folding factor. Range 2... Factor 1 is a nop-op.|
 
 ---
-### <a name='op_geometry_bands_unfold'></a> aktive op geometry bands unfold
+### [↑](#top) <a name='op_geometry_bands_unfold'></a> aktive op geometry bands unfold
 
 Syntax: __aktive op geometry bands unfold__ src [[→ definition](../../../../file?ci=trunk&ln=102&name=etc/transformer/structure/band-geometry.tcl)]
 
