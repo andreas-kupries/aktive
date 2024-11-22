@@ -50,10 +50,10 @@ The prefered embedding for convolution is `mirror`. It is chosen to have minimal
     <br>&nbsp;</th>
     <th>aktive op convolve xy @2 @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00228.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00243.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
     <td valign='top'><table><tr><td>0.0078</td><td>0.0625</td><td>0.2188</td><td>0.4375</td><td>0.5469</td><td>0.4375</td><td>0.2188</td><td>0.0625</td><td>0.0078</td></tr></table></td>
-    <td valign='top'><img src='example-00230.gif' alt='aktive op convolve xy @2 @1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00245.gif' alt='aktive op convolve xy @2 @1' style='border:4px solid gold'>
     <br>geometry(4 0 120 128 1)</td></tr>
 </table>
 
@@ -64,10 +64,10 @@ The prefered embedding for convolution is `mirror`. It is chosen to have minimal
     <br>&nbsp;</th>
     <th>aktive op convolve xy @2 @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00231.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00246.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
     <td valign='top'><table><tr><td>0.0078</td></tr><tr><td>0.0625</td></tr><tr><td>0.2188</td></tr><tr><td>0.4375</td></tr><tr><td>0.5469</td></tr><tr><td>0.4375</td></tr><tr><td>0.2188</td></tr><tr><td>0.0625</td></tr><tr><td>0.0078</td></tr></table></td>
-    <td valign='top'><img src='example-00233.gif' alt='aktive op convolve xy @2 @1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00248.gif' alt='aktive op convolve xy @2 @1' style='border:4px solid gold'>
     <br>geometry(0 4 128 120 1)</td></tr>
 </table>
 

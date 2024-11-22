@@ -12,7 +12,7 @@ if {$mode eq "sdf"} {
     # draw on
     example {
 	butterfly
-	@1 center {64 64} ewidth 32 eheight 32 outlined 1 color {1 0 0}
+	@1 center {64 64} ewidth 32 eheight 32 outlined 1 color {1 0 0} outlined 1
     }
 } else {
     # just draw
