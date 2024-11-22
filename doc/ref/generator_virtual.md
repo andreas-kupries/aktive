@@ -10,7 +10,7 @@
 
 # Documentation -- Reference Pages -- generator virtual
 
-## Table Of Contents
+## <anchor='top'> Table Of Contents
 
   - [generator](generator.md) ↗
 
@@ -95,7 +95,7 @@
 ## Operators
 
 ---
-### <a name='image_cbar'></a> aktive image cbar
+### [↑](#top) <a name='image_cbar'></a> aktive image cbar
 
 Syntax: __aktive image cbar__  ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=34&name=etc/generator/virtual/pattern/selements.tcl)]
 
@@ -117,7 +117,7 @@ Returns square single-band image containing a cross diagonal bar. The image has 
 
 
 ---
-### <a name='image_checkers'></a> aktive image checkers
+### [↑](#top) <a name='image_checkers'></a> aktive image checkers
 
 Syntax: __aktive image checkers__  ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=143&name=etc/generator/virtual/pattern/checkers.tcl)]
 
@@ -156,7 +156,7 @@ Returns image containing a black/white checker board.
 
 
 ---
-### <a name='image_circle'></a> aktive image circle
+### [↑](#top) <a name='image_circle'></a> aktive image circle
 
 Syntax: __aktive image circle__  ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=34&name=etc/generator/virtual/pattern/selements.tcl)]
 
@@ -178,7 +178,7 @@ Returns square single-band image containing a circle (disc perimeter). The image
 
 
 ---
-### <a name='image_cross'></a> aktive image cross
+### [↑](#top) <a name='image_cross'></a> aktive image cross
 
 Syntax: __aktive image cross__  ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=34&name=etc/generator/virtual/pattern/selements.tcl)]
 
@@ -200,7 +200,7 @@ Returns square single-band image containing a cross. The image has size `2*radiu
 
 
 ---
-### <a name='image_dbar'></a> aktive image dbar
+### [↑](#top) <a name='image_dbar'></a> aktive image dbar
 
 Syntax: __aktive image dbar__  ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=34&name=etc/generator/virtual/pattern/selements.tcl)]
 
@@ -222,7 +222,7 @@ Returns square single-band image containing a diagonal bar. The image has size `
 
 
 ---
-### <a name='image_dgrid'></a> aktive image dgrid
+### [↑](#top) <a name='image_dgrid'></a> aktive image dgrid
 
 Syntax: __aktive image dgrid__  ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=29&name=etc/generator/virtual/pattern/checkers.tcl)]
 
@@ -261,7 +261,7 @@ Returns image containing a diagonal black/white grid with configurable stripes
 
 
 ---
-### <a name='image_disc'></a> aktive image disc
+### [↑](#top) <a name='image_disc'></a> aktive image disc
 
 Syntax: __aktive image disc__  ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=34&name=etc/generator/virtual/pattern/selements.tcl)]
 
@@ -282,7 +282,7 @@ Returns square single-band image containing a filled disc. The image has size `2
 
 
 ---
-### <a name='image_dstripes'></a> aktive image dstripes
+### [↑](#top) <a name='image_dstripes'></a> aktive image dstripes
 
 Syntax: __aktive image dstripes__  ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=98&name=etc/generator/virtual/pattern/checkers.tcl)]
 
@@ -321,7 +321,7 @@ Returns image containing a series of diagonal black/white stripes.
 
 
 ---
-### <a name='image_eye'></a> aktive image eye
+### [↑](#top) <a name='image_eye'></a> aktive image eye
 
 Syntax: __aktive image eye__  (param value)... [[→ definition](../../../../file?ci=trunk&ln=5&name=etc/generator/virtual/pattern/eye.tcl)]
 
@@ -344,7 +344,7 @@ Returns image containing a test pattern with increasing spatial frequency from l
 
 
 ---
-### <a name='image_from_band'></a> aktive image from band
+### [↑](#top) <a name='image_from_band'></a> aktive image from band
 
 Syntax: __aktive image from band__  ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=29&name=etc/generator/virtual/constant.tcl)]
 
@@ -378,7 +378,7 @@ Depth is len(value)
 
 
 ---
-### <a name='image_from_column'></a> aktive image from column
+### [↑](#top) <a name='image_from_column'></a> aktive image from column
 
 Syntax: __aktive image from column__  ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=83&name=etc/generator/virtual/constant.tcl)]
 
@@ -404,7 +404,7 @@ The image's height is the number of values.
 
 
 ---
-### <a name='image_from_matrix'></a> aktive image from matrix
+### [↑](#top) <a name='image_from_matrix'></a> aktive image from matrix
 
 Syntax: __aktive image from matrix__  ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=109&name=etc/generator/virtual/constant.tcl)]
 
@@ -436,7 +436,7 @@ Depth is fixed at 1.
 
 
 ---
-### <a name='image_from_row'></a> aktive image from row
+### [↑](#top) <a name='image_from_row'></a> aktive image from row
 
 Syntax: __aktive image from row__  ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=57&name=etc/generator/virtual/constant.tcl)]
 
@@ -462,7 +462,7 @@ The image's width is the number of values.
 
 
 ---
-### <a name='image_from_sparse_deltas'></a> aktive image from sparse deltas
+### [↑](#top) <a name='image_from_sparse_deltas'></a> aktive image from sparse deltas
 
 Syntax: __aktive image from sparse deltas__  (param value)... [[→ definition](../../../../file?ci=trunk&ln=55&name=etc/generator/virtual/sparse.tcl)]
 
@@ -495,7 +495,7 @@ Pixel value is fixed at 1.0
 
 
 ---
-### <a name='image_from_sparse_points'></a> aktive image from sparse points
+### [↑](#top) <a name='image_from_sparse_points'></a> aktive image from sparse points
 
 Syntax: __aktive image from sparse points__  (param value)... [[→ definition](../../../../file?ci=trunk&ln=5&name=etc/generator/virtual/sparse.tcl)]
 
@@ -527,7 +527,7 @@ Pixel value is fixed at 1.0
 
 
 ---
-### <a name='image_from_sparse_ranges'></a> aktive image from sparse ranges
+### [↑](#top) <a name='image_from_sparse_ranges'></a> aktive image from sparse ranges
 
 Syntax: __aktive image from sparse ranges__  ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=126&name=etc/generator/virtual/sparse.tcl)]
 
@@ -560,7 +560,7 @@ The image depth is fixed at 1, i.e. the result is single-band.
 
 
 ---
-### <a name='image_from_value'></a> aktive image from value
+### [↑](#top) <a name='image_from_value'></a> aktive image from value
 
 Syntax: __aktive image from value__  ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=5&name=etc/generator/virtual/constant.tcl)]
 
@@ -593,7 +593,7 @@ Returns image which has the same VALUE everywhere.
 
 
 ---
-### <a name='image_gradient'></a> aktive image gradient
+### [↑](#top) <a name='image_gradient'></a> aktive image gradient
 
 Syntax: __aktive image gradient__  (param value)... [[→ definition](../../../../file?ci=trunk&ln=5&name=etc/generator/virtual/gradient.tcl)]
 
@@ -625,7 +625,7 @@ Returns image containing a linear gradient through all cells.
 
 
 ---
-### <a name='image_grey'></a> aktive image grey
+### [↑](#top) <a name='image_grey'></a> aktive image grey
 
 Syntax: __aktive image grey__  (param value)... [[→ definition](../../../../file?ci=trunk&ln=5&name=etc/generator/virtual/grey.tcl)]
 
@@ -647,7 +647,7 @@ Returns image containing a left to right black to white gradient.
 
 
 ---
-### <a name='image_grid'></a> aktive image grid
+### [↑](#top) <a name='image_grid'></a> aktive image grid
 
 Syntax: __aktive image grid__  ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=5&name=etc/generator/virtual/pattern/checkers.tcl)]
 
@@ -686,7 +686,7 @@ Returns image containing an axis-aligned black/white grid with configurable stri
 
 
 ---
-### <a name='image_hbar'></a> aktive image hbar
+### [↑](#top) <a name='image_hbar'></a> aktive image hbar
 
 Syntax: __aktive image hbar__  ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=34&name=etc/generator/virtual/pattern/selements.tcl)]
 
@@ -708,7 +708,7 @@ Returns square single-band image containing a horizontal bar. The image has size
 
 
 ---
-### <a name='image_indexed'></a> aktive image indexed
+### [↑](#top) <a name='image_indexed'></a> aktive image indexed
 
 Syntax: __aktive image indexed__  ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=5&name=etc/generator/virtual/indexed.tcl)]
 
@@ -739,7 +739,7 @@ __Note__ that while the result is usable as a warp map for the <!xref aktive op 
 
 
 ---
-### <a name='image_kernel_emboss'></a> aktive image kernel emboss
+### [↑](#top) <a name='image_kernel_emboss'></a> aktive image kernel emboss
 
 Syntax: __aktive image kernel emboss__  [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/generator/virtual/pattern/kernels.tcl)]
 
@@ -756,7 +756,7 @@ Returns convolution kernel for embossing effect
 
 
 ---
-### <a name='image_kernel_gauss3_x'></a> aktive image kernel gauss3 x
+### [↑](#top) <a name='image_kernel_gauss3_x'></a> aktive image kernel gauss3 x
 
 Syntax: __aktive image kernel gauss3 x__  [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/generator/virtual/pattern/kernels.tcl)]
 
@@ -773,7 +773,7 @@ Returns convolution kernel for gauss3ian blur effect
 
 
 ---
-### <a name='image_kernel_gauss3_xy'></a> aktive image kernel gauss3 xy
+### [↑](#top) <a name='image_kernel_gauss3_xy'></a> aktive image kernel gauss3 xy
 
 Syntax: __aktive image kernel gauss3 xy__  [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/generator/virtual/pattern/kernels.tcl)]
 
@@ -790,7 +790,7 @@ Returns convolution kernel for gauss3ian blur effect
 
 
 ---
-### <a name='image_kernel_gauss3_y'></a> aktive image kernel gauss3 y
+### [↑](#top) <a name='image_kernel_gauss3_y'></a> aktive image kernel gauss3 y
 
 Syntax: __aktive image kernel gauss3 y__  [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/generator/virtual/pattern/kernels.tcl)]
 
@@ -807,7 +807,7 @@ Returns convolution kernel for gauss3ian blur effect
 
 
 ---
-### <a name='image_kernel_gauss5_x'></a> aktive image kernel gauss5 x
+### [↑](#top) <a name='image_kernel_gauss5_x'></a> aktive image kernel gauss5 x
 
 Syntax: __aktive image kernel gauss5 x__  [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/generator/virtual/pattern/kernels.tcl)]
 
@@ -824,7 +824,7 @@ Returns convolution kernel for gauss5ian blur effect
 
 
 ---
-### <a name='image_kernel_gauss5_y'></a> aktive image kernel gauss5 y
+### [↑](#top) <a name='image_kernel_gauss5_y'></a> aktive image kernel gauss5 y
 
 Syntax: __aktive image kernel gauss5 y__  [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/generator/virtual/pattern/kernels.tcl)]
 
@@ -841,7 +841,7 @@ Returns convolution kernel for gauss5ian blur effect
 
 
 ---
-### <a name='image_kernel_gauss7_x'></a> aktive image kernel gauss7 x
+### [↑](#top) <a name='image_kernel_gauss7_x'></a> aktive image kernel gauss7 x
 
 Syntax: __aktive image kernel gauss7 x__  [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/generator/virtual/pattern/kernels.tcl)]
 
@@ -858,7 +858,7 @@ Returns convolution kernel for gauss7ian blur effect
 
 
 ---
-### <a name='image_kernel_gauss7_y'></a> aktive image kernel gauss7 y
+### [↑](#top) <a name='image_kernel_gauss7_y'></a> aktive image kernel gauss7 y
 
 Syntax: __aktive image kernel gauss7 y__  [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/generator/virtual/pattern/kernels.tcl)]
 
@@ -875,7 +875,7 @@ Returns convolution kernel for gauss7ian blur effect
 
 
 ---
-### <a name='image_kernel_gauss9_x'></a> aktive image kernel gauss9 x
+### [↑](#top) <a name='image_kernel_gauss9_x'></a> aktive image kernel gauss9 x
 
 Syntax: __aktive image kernel gauss9 x__  [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/generator/virtual/pattern/kernels.tcl)]
 
@@ -892,7 +892,7 @@ Returns convolution kernel for gauss9ian blur effect
 
 
 ---
-### <a name='image_kernel_gauss9_y'></a> aktive image kernel gauss9 y
+### [↑](#top) <a name='image_kernel_gauss9_y'></a> aktive image kernel gauss9 y
 
 Syntax: __aktive image kernel gauss9 y__  [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/generator/virtual/pattern/kernels.tcl)]
 
@@ -909,7 +909,7 @@ Returns convolution kernel for gauss9ian blur effect
 
 
 ---
-### <a name='image_kernel_gauss_discrete'></a> aktive image kernel gauss discrete
+### [↑](#top) <a name='image_kernel_gauss_discrete'></a> aktive image kernel gauss discrete
 
 Syntax: __aktive image kernel gauss discrete__  ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=99&name=etc/generator/virtual/pattern/kernels.tcl)]
 
@@ -944,7 +944,7 @@ For more about the math see http://en.wikipedia.org/wiki/Scale_space_implementat
 
 
 ---
-### <a name='image_kernel_kirsch_md'></a> aktive image kernel kirsch md
+### [↑](#top) <a name='image_kernel_kirsch_md'></a> aktive image kernel kirsch md
 
 Syntax: __aktive image kernel kirsch md__  [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/generator/virtual/pattern/kernels.tcl)]
 
@@ -961,7 +961,7 @@ Returns convolution kernel for kirsch edge detection
 
 
 ---
-### <a name='image_kernel_kirsch_sd'></a> aktive image kernel kirsch sd
+### [↑](#top) <a name='image_kernel_kirsch_sd'></a> aktive image kernel kirsch sd
 
 Syntax: __aktive image kernel kirsch sd__  [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/generator/virtual/pattern/kernels.tcl)]
 
@@ -978,7 +978,7 @@ Returns convolution kernel for kirsch edge detection
 
 
 ---
-### <a name='image_kernel_kirsch_x'></a> aktive image kernel kirsch x
+### [↑](#top) <a name='image_kernel_kirsch_x'></a> aktive image kernel kirsch x
 
 Syntax: __aktive image kernel kirsch x__  [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/generator/virtual/pattern/kernels.tcl)]
 
@@ -995,7 +995,7 @@ Returns convolution kernel for kirsch edge detection
 
 
 ---
-### <a name='image_kernel_kirsch_y'></a> aktive image kernel kirsch y
+### [↑](#top) <a name='image_kernel_kirsch_y'></a> aktive image kernel kirsch y
 
 Syntax: __aktive image kernel kirsch y__  [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/generator/virtual/pattern/kernels.tcl)]
 
@@ -1012,7 +1012,7 @@ Returns convolution kernel for kirsch edge detection
 
 
 ---
-### <a name='image_kernel_lanczos'></a> aktive image kernel lanczos
+### [↑](#top) <a name='image_kernel_lanczos'></a> aktive image kernel lanczos
 
 Syntax: __aktive image kernel lanczos__  ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=165&name=etc/generator/virtual/pattern/kernels.tcl)]
 
@@ -1047,7 +1047,7 @@ For more about the math see https://en.wikipedia.org/wiki/Lanczos_resampling#Lan
 
 
 ---
-### <a name='image_kernel_laplace_4'></a> aktive image kernel laplace 4
+### [↑](#top) <a name='image_kernel_laplace_4'></a> aktive image kernel laplace 4
 
 Syntax: __aktive image kernel laplace 4__  [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/generator/virtual/pattern/kernels.tcl)]
 
@@ -1064,7 +1064,7 @@ Returns convolution kernel for laplacian edge detection
 
 
 ---
-### <a name='image_kernel_laplace_8'></a> aktive image kernel laplace 8
+### [↑](#top) <a name='image_kernel_laplace_8'></a> aktive image kernel laplace 8
 
 Syntax: __aktive image kernel laplace 8__  [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/generator/virtual/pattern/kernels.tcl)]
 
@@ -1081,7 +1081,7 @@ Returns convolution kernel for laplacian edge detection
 
 
 ---
-### <a name='image_kernel_laplace_X'></a> aktive image kernel laplace X
+### [↑](#top) <a name='image_kernel_laplace_X'></a> aktive image kernel laplace X
 
 Syntax: __aktive image kernel laplace X__  [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/generator/virtual/pattern/kernels.tcl)]
 
@@ -1098,7 +1098,7 @@ Returns convolution kernel for laplacian edge detection
 
 
 ---
-### <a name='image_kernel_prewitt_md'></a> aktive image kernel prewitt md
+### [↑](#top) <a name='image_kernel_prewitt_md'></a> aktive image kernel prewitt md
 
 Syntax: __aktive image kernel prewitt md__  [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/generator/virtual/pattern/kernels.tcl)]
 
@@ -1115,7 +1115,7 @@ Returns convolution kernel for prewitt edge detection
 
 
 ---
-### <a name='image_kernel_prewitt_sd'></a> aktive image kernel prewitt sd
+### [↑](#top) <a name='image_kernel_prewitt_sd'></a> aktive image kernel prewitt sd
 
 Syntax: __aktive image kernel prewitt sd__  [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/generator/virtual/pattern/kernels.tcl)]
 
@@ -1132,7 +1132,7 @@ Returns convolution kernel for prewitt edge detection
 
 
 ---
-### <a name='image_kernel_prewitt_x'></a> aktive image kernel prewitt x
+### [↑](#top) <a name='image_kernel_prewitt_x'></a> aktive image kernel prewitt x
 
 Syntax: __aktive image kernel prewitt x__  [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/generator/virtual/pattern/kernels.tcl)]
 
@@ -1149,7 +1149,7 @@ Returns convolution kernel for prewitt edge detection
 
 
 ---
-### <a name='image_kernel_prewitt_y'></a> aktive image kernel prewitt y
+### [↑](#top) <a name='image_kernel_prewitt_y'></a> aktive image kernel prewitt y
 
 Syntax: __aktive image kernel prewitt y__  [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/generator/virtual/pattern/kernels.tcl)]
 
@@ -1166,7 +1166,7 @@ Returns convolution kernel for prewitt edge detection
 
 
 ---
-### <a name='image_kernel_roberts_x'></a> aktive image kernel roberts x
+### [↑](#top) <a name='image_kernel_roberts_x'></a> aktive image kernel roberts x
 
 Syntax: __aktive image kernel roberts x__  [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/generator/virtual/pattern/kernels.tcl)]
 
@@ -1183,7 +1183,7 @@ Returns convolution kernel for roberts cross edge detection
 
 
 ---
-### <a name='image_kernel_roberts_y'></a> aktive image kernel roberts y
+### [↑](#top) <a name='image_kernel_roberts_y'></a> aktive image kernel roberts y
 
 Syntax: __aktive image kernel roberts y__  [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/generator/virtual/pattern/kernels.tcl)]
 
@@ -1200,7 +1200,7 @@ Returns convolution kernel for roberts cross edge detection
 
 
 ---
-### <a name='image_kernel_scharr_x'></a> aktive image kernel scharr x
+### [↑](#top) <a name='image_kernel_scharr_x'></a> aktive image kernel scharr x
 
 Syntax: __aktive image kernel scharr x__  [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/generator/virtual/pattern/kernels.tcl)]
 
@@ -1217,7 +1217,7 @@ Returns convolution kernel for scharr edge detection
 
 
 ---
-### <a name='image_kernel_scharr_y'></a> aktive image kernel scharr y
+### [↑](#top) <a name='image_kernel_scharr_y'></a> aktive image kernel scharr y
 
 Syntax: __aktive image kernel scharr y__  [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/generator/virtual/pattern/kernels.tcl)]
 
@@ -1234,7 +1234,7 @@ Returns convolution kernel for scharr edge detection
 
 
 ---
-### <a name='image_kernel_sharp_4'></a> aktive image kernel sharp 4
+### [↑](#top) <a name='image_kernel_sharp_4'></a> aktive image kernel sharp 4
 
 Syntax: __aktive image kernel sharp 4__  [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/generator/virtual/pattern/kernels.tcl)]
 
@@ -1251,7 +1251,7 @@ Returns convolution kernel for sharpening effect
 
 
 ---
-### <a name='image_kernel_sharp_8'></a> aktive image kernel sharp 8
+### [↑](#top) <a name='image_kernel_sharp_8'></a> aktive image kernel sharp 8
 
 Syntax: __aktive image kernel sharp 8__  [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/generator/virtual/pattern/kernels.tcl)]
 
@@ -1268,7 +1268,7 @@ Returns convolution kernel for sharpening effect
 
 
 ---
-### <a name='image_kernel_sharp_X'></a> aktive image kernel sharp X
+### [↑](#top) <a name='image_kernel_sharp_X'></a> aktive image kernel sharp X
 
 Syntax: __aktive image kernel sharp X__  [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/generator/virtual/pattern/kernels.tcl)]
 
@@ -1285,7 +1285,7 @@ Returns convolution kernel for sharpening effect
 
 
 ---
-### <a name='image_kernel_sobel_md'></a> aktive image kernel sobel md
+### [↑](#top) <a name='image_kernel_sobel_md'></a> aktive image kernel sobel md
 
 Syntax: __aktive image kernel sobel md__  [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/generator/virtual/pattern/kernels.tcl)]
 
@@ -1302,7 +1302,7 @@ Returns convolution kernel for sobel edge detection
 
 
 ---
-### <a name='image_kernel_sobel_sd'></a> aktive image kernel sobel sd
+### [↑](#top) <a name='image_kernel_sobel_sd'></a> aktive image kernel sobel sd
 
 Syntax: __aktive image kernel sobel sd__  [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/generator/virtual/pattern/kernels.tcl)]
 
@@ -1319,7 +1319,7 @@ Returns convolution kernel for sobel edge detection
 
 
 ---
-### <a name='image_kernel_sobel_x'></a> aktive image kernel sobel x
+### [↑](#top) <a name='image_kernel_sobel_x'></a> aktive image kernel sobel x
 
 Syntax: __aktive image kernel sobel x__  [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/generator/virtual/pattern/kernels.tcl)]
 
@@ -1336,7 +1336,7 @@ Returns convolution kernel for sobel edge detection
 
 
 ---
-### <a name='image_kernel_sobel_y'></a> aktive image kernel sobel y
+### [↑](#top) <a name='image_kernel_sobel_y'></a> aktive image kernel sobel y
 
 Syntax: __aktive image kernel sobel y__  [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/generator/virtual/pattern/kernels.tcl)]
 
@@ -1353,7 +1353,7 @@ Returns convolution kernel for sobel edge detection
 
 
 ---
-### <a name='image_noise_gauss'></a> aktive image noise gauss
+### [↑](#top) <a name='image_noise_gauss'></a> aktive image noise gauss
 
 Syntax: __aktive image noise gauss__  ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=5&name=etc/generator/virtual/noise/gauss.tcl)]
 
@@ -1373,20 +1373,20 @@ Returns image where pixels are set to random values drawn from a gaussian distri
 <table>
 <tr><th>aktive image noise gauss width 256 height 256 depth 1 seed 703011174
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00146.gif' alt='aktive image noise gauss width 256 height 256 depth 1 seed 703011174' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00194.gif' alt='aktive image noise gauss width 256 height 256 depth 1 seed 703011174' style='border:4px solid gold'>
     <br>geometry(0 0 256 256 1)</td></tr>
 </table>
 
 <table>
 <tr><th>aktive image noise gauss width 256 height 256 depth 3 seed 703011174
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00147.gif' alt='aktive image noise gauss width 256 height 256 depth 3 seed 703011174' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00195.gif' alt='aktive image noise gauss width 256 height 256 depth 3 seed 703011174' style='border:4px solid gold'>
     <br>geometry(0 0 256 256 3)</td></tr>
 </table>
 
 
 ---
-### <a name='image_noise_salt'></a> aktive image noise salt
+### [↑](#top) <a name='image_noise_salt'></a> aktive image noise salt
 
 Syntax: __aktive image noise salt__  ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=7&name=etc/generator/virtual/noise/salt.tcl)]
 
@@ -1411,20 +1411,20 @@ The value of set pixels is fixed at 1.0
 <table>
 <tr><th>aktive image noise salt width 256 height 256 depth 1 seed 703011174 threshold 0.02
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00148.gif' alt='aktive image noise salt width 256 height 256 depth 1 seed 703011174 threshold 0.02' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00196.gif' alt='aktive image noise salt width 256 height 256 depth 1 seed 703011174 threshold 0.02' style='border:4px solid gold'>
     <br>geometry(0 0 256 256 1)</td></tr>
 </table>
 
 <table>
 <tr><th>aktive image noise salt width 256 height 256 depth 3 seed 703011174 threshold 0.02
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00149.gif' alt='aktive image noise salt width 256 height 256 depth 3 seed 703011174 threshold 0.02' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00197.gif' alt='aktive image noise salt width 256 height 256 depth 3 seed 703011174 threshold 0.02' style='border:4px solid gold'>
     <br>geometry(0 0 256 256 3)</td></tr>
 </table>
 
 
 ---
-### <a name='image_noise_uniform'></a> aktive image noise uniform
+### [↑](#top) <a name='image_noise_uniform'></a> aktive image noise uniform
 
 Syntax: __aktive image noise uniform__  ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=5&name=etc/generator/virtual/noise/uniform.tcl)]
 
@@ -1442,20 +1442,20 @@ Returns image where pixels are set to random values drawn from a uniform distrib
 <table>
 <tr><th>aktive image noise uniform width 256 height 256 depth 1 seed 703011174
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00150.gif' alt='aktive image noise uniform width 256 height 256 depth 1 seed 703011174' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00198.gif' alt='aktive image noise uniform width 256 height 256 depth 1 seed 703011174' style='border:4px solid gold'>
     <br>geometry(0 0 256 256 1)</td></tr>
 </table>
 
 <table>
 <tr><th>aktive image noise uniform width 256 height 256 depth 3 seed 703011174
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00151.gif' alt='aktive image noise uniform width 256 height 256 depth 3 seed 703011174' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00199.gif' alt='aktive image noise uniform width 256 height 256 depth 3 seed 703011174' style='border:4px solid gold'>
     <br>geometry(0 0 256 256 3)</td></tr>
 </table>
 
 
 ---
-### <a name='image_palette_color'></a> aktive image palette color
+### [↑](#top) <a name='image_palette_color'></a> aktive image palette color
 
 Syntax: __aktive image palette color__  [[→ definition](../../../../file?ci=trunk&ln=19&name=etc/generator/virtual/pattern/palette.tcl)]
 
@@ -1467,13 +1467,13 @@ Returns a 128x128 image containing a color palette.
 <table>
 <tr><th>aktive image palette color 
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00152.gif' alt='aktive image palette color ' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00200.gif' alt='aktive image palette color ' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 3)</td></tr>
 </table>
 
 
 ---
-### <a name='image_palette_grey'></a> aktive image palette grey
+### [↑](#top) <a name='image_palette_grey'></a> aktive image palette grey
 
 Syntax: __aktive image palette grey__  [[→ definition](../../../../file?ci=trunk&ln=5&name=etc/generator/virtual/pattern/palette.tcl)]
 
@@ -1485,13 +1485,13 @@ Returns a 128x128 image containing a gray palette.
 <table>
 <tr><th>aktive image palette grey 
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00153.gif' alt='aktive image palette grey ' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00201.gif' alt='aktive image palette grey ' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
 
 ---
-### <a name='image_sines'></a> aktive image sines
+### [↑](#top) <a name='image_sines'></a> aktive image sines
 
 Syntax: __aktive image sines__  (param value)... [[→ definition](../../../../file?ci=trunk&ln=5&name=etc/generator/virtual/pattern/sines.tcl)]
 
@@ -1511,13 +1511,13 @@ The ratio between horizontal and vertical frequencies determines the angle of th
 <table>
 <tr><th>aktive image sines width 256 height 256 hf 0.5 vf 0.6
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00184.gif' alt='aktive image sines width 256 height 256 hf 0.5 vf 0.6' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00232.gif' alt='aktive image sines width 256 height 256 hf 0.5 vf 0.6' style='border:4px solid gold'>
     <br>geometry(0 0 256 256 1)</td></tr>
 </table>
 
 
 ---
-### <a name='image_square'></a> aktive image square
+### [↑](#top) <a name='image_square'></a> aktive image square
 
 Syntax: __aktive image square__  ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=17&name=etc/generator/virtual/pattern/selements.tcl)]
 
@@ -1532,13 +1532,13 @@ Returns single-band white square with radius. Default radius 1.
 <table>
 <tr><th>aktive image square radius 32
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00185.gif' alt='aktive image square radius 32' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00233.gif' alt='aktive image square radius 32' style='border:4px solid gold'>
     <br>geometry(0 0 65 65 1)</td></tr>
 </table>
 
 
 ---
-### <a name='image_stripes'></a> aktive image stripes
+### [↑](#top) <a name='image_stripes'></a> aktive image stripes
 
 Syntax: __aktive image stripes__  ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=53&name=etc/generator/virtual/pattern/checkers.tcl)]
 
@@ -1557,27 +1557,27 @@ Returns image containing a series of vertical black/white stripes.
 <table>
 <tr><th>aktive image stripes width 128 height 128
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00186.gif' alt='aktive image stripes width 128 height 128' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00234.gif' alt='aktive image stripes width 128 height 128' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
 <table>
 <tr><th>aktive image stripes width 128 height 128 black 16 white 32
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00187.gif' alt='aktive image stripes width 128 height 128 black 16 white 32' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00235.gif' alt='aktive image stripes width 128 height 128 black 16 white 32' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
 <table>
 <tr><th>aktive image stripes width 128 height 128 black 16 white 32 offset 8
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00188.gif' alt='aktive image stripes width 128 height 128 black 16 white 32 offset 8' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00236.gif' alt='aktive image stripes width 128 height 128 black 16 white 32 offset 8' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
 
 ---
-### <a name='image_vbar'></a> aktive image vbar
+### [↑](#top) <a name='image_vbar'></a> aktive image vbar
 
 Syntax: __aktive image vbar__  ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=34&name=etc/generator/virtual/pattern/selements.tcl)]
 
@@ -1593,13 +1593,13 @@ Returns square single-band image containing a vertical bar. The image has size `
 <table>
 <tr><th>aktive image vbar radius 32 width 8
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00189.gif' alt='aktive image vbar radius 32 width 8' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00285.gif' alt='aktive image vbar radius 32 width 8' style='border:4px solid gold'>
     <br>geometry(0 0 65 65 1)</td></tr>
 </table>
 
 
 ---
-### <a name='image_xcross'></a> aktive image xcross
+### [↑](#top) <a name='image_xcross'></a> aktive image xcross
 
 Syntax: __aktive image xcross__  ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=34&name=etc/generator/virtual/pattern/selements.tcl)]
 
@@ -1615,13 +1615,13 @@ Returns square single-band image containing a diagonal cross. The image has size
 <table>
 <tr><th>aktive image xcross radius 32 width 8
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00190.gif' alt='aktive image xcross radius 32 width 8' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00286.gif' alt='aktive image xcross radius 32 width 8' style='border:4px solid gold'>
     <br>geometry(0 0 65 65 1)</td></tr>
 </table>
 
 
 ---
-### <a name='image_zone'></a> aktive image zone
+### [↑](#top) <a name='image_zone'></a> aktive image zone
 
 Syntax: __aktive image zone__  (param value)... [[→ definition](../../../../file?ci=trunk&ln=5&name=etc/generator/virtual/pattern/zone.tcl)]
 
@@ -1637,7 +1637,7 @@ Returns image containing a zone plate test pattern.
 <table>
 <tr><th>aktive image zone width 256 height 256
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00191.gif' alt='aktive image zone width 256 height 256' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00287.gif' alt='aktive image zone width 256 height 256' style='border:4px solid gold'>
     <br>geometry(0 0 256 256 1)</td></tr>
 </table>
 

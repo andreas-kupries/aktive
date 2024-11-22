@@ -10,7 +10,7 @@
 
 # Documentation -- Reference Pages -- transform structure
 
-## Table Of Contents
+## <anchor='top'> Table Of Contents
 
   - [transform](transform.md) ↗
 
@@ -87,7 +87,7 @@
 ## Operators
 
 ---
-### <a name='op_align_bottom'></a> aktive op align bottom
+### [↑](#top) <a name='op_align_bottom'></a> aktive op align bottom
 
 Syntax: __aktive op align bottom__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=7&name=etc/transformer/structure/align.tcl)]
 
@@ -105,15 +105,15 @@ Returns image aligned to a border in a larger image.
     <br>&nbsp;</th>
     <th>aktive op align bottom @1 size 160 border mirror
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00192.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00288.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00193.gif' alt='aktive op align bottom @1 size 160 border mirror' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00289.gif' alt='aktive op align bottom @1 size 160 border mirror' style='border:4px solid gold'>
     <br>geometry(0 -32 128 160 1)</td></tr>
 </table>
 
 
 ---
-### <a name='op_align_left'></a> aktive op align left
+### [↑](#top) <a name='op_align_left'></a> aktive op align left
 
 Syntax: __aktive op align left__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=7&name=etc/transformer/structure/align.tcl)]
 
@@ -131,15 +131,15 @@ Returns image aligned to a border in a larger image.
     <br>&nbsp;</th>
     <th>aktive op align left @1 size 160 border mirror
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00194.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00290.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00195.gif' alt='aktive op align left @1 size 160 border mirror' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00291.gif' alt='aktive op align left @1 size 160 border mirror' style='border:4px solid gold'>
     <br>geometry(0 0 160 128 1)</td></tr>
 </table>
 
 
 ---
-### <a name='op_align_right'></a> aktive op align right
+### [↑](#top) <a name='op_align_right'></a> aktive op align right
 
 Syntax: __aktive op align right__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=7&name=etc/transformer/structure/align.tcl)]
 
@@ -157,15 +157,15 @@ Returns image aligned to a border in a larger image.
     <br>&nbsp;</th>
     <th>aktive op align right @1 size 160 border mirror
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00196.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00292.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00197.gif' alt='aktive op align right @1 size 160 border mirror' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00293.gif' alt='aktive op align right @1 size 160 border mirror' style='border:4px solid gold'>
     <br>geometry(-32 0 160 128 1)</td></tr>
 </table>
 
 
 ---
-### <a name='op_align_top'></a> aktive op align top
+### [↑](#top) <a name='op_align_top'></a> aktive op align top
 
 Syntax: __aktive op align top__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=7&name=etc/transformer/structure/align.tcl)]
 
@@ -183,15 +183,15 @@ Returns image aligned to a border in a larger image.
     <br>&nbsp;</th>
     <th>aktive op align top @1 size 160 border mirror
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00198.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00294.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00199.gif' alt='aktive op align top @1 size 160 border mirror' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00295.gif' alt='aktive op align top @1 size 160 border mirror' style='border:4px solid gold'>
     <br>geometry(0 0 128 160 1)</td></tr>
 </table>
 
 
 ---
-### <a name='op_center_origin_x'></a> aktive op center-origin x
+### [↑](#top) <a name='op_center_origin_x'></a> aktive op center-origin x
 
 Syntax: __aktive op center-origin x__ src [[→ definition](../../../../file?ci=trunk&ln=48&name=etc/transformer/structure/scrolling.tcl)]
 
@@ -205,15 +205,15 @@ Returns image where the center column of the input is shifted to the origin of t
     <br>&nbsp;</th>
     <th>aktive op center-origin x @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00200.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00296.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00201.gif' alt='aktive op center-origin x @1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00297.gif' alt='aktive op center-origin x @1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
 
 ---
-### <a name='op_center_origin_xy'></a> aktive op center-origin xy
+### [↑](#top) <a name='op_center_origin_xy'></a> aktive op center-origin xy
 
 Syntax: __aktive op center-origin xy__ src [[→ definition](../../../../file?ci=trunk&ln=73&name=etc/transformer/structure/scrolling.tcl)]
 
@@ -227,15 +227,15 @@ Returns image where the center pixel of the input is shifted to the origin.
     <br>&nbsp;</th>
     <th>aktive op center-origin xy @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00202.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00298.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00203.gif' alt='aktive op center-origin xy @1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00299.gif' alt='aktive op center-origin xy @1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
 
 ---
-### <a name='op_center_origin_y'></a> aktive op center-origin y
+### [↑](#top) <a name='op_center_origin_y'></a> aktive op center-origin y
 
 Syntax: __aktive op center-origin y__ src [[→ definition](../../../../file?ci=trunk&ln=48&name=etc/transformer/structure/scrolling.tcl)]
 
@@ -249,15 +249,15 @@ Returns image where the center row of the input is shifted to the origin of the 
     <br>&nbsp;</th>
     <th>aktive op center-origin y @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00204.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00300.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00205.gif' alt='aktive op center-origin y @1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00301.gif' alt='aktive op center-origin y @1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
 
 ---
-### <a name='op_center_origin_z'></a> aktive op center-origin z
+### [↑](#top) <a name='op_center_origin_z'></a> aktive op center-origin z
 
 Syntax: __aktive op center-origin z__ src [[→ definition](../../../../file?ci=trunk&ln=48&name=etc/transformer/structure/scrolling.tcl)]
 
@@ -265,7 +265,7 @@ Returns image where the center band of the input is shifted to the origin of the
 
 
 ---
-### <a name='op_crop'></a> aktive op crop
+### [↑](#top) <a name='op_crop'></a> aktive op crop
 
 Syntax: __aktive op crop__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=10&name=etc/transformer/structure/crop.tcl)]
 
@@ -285,15 +285,15 @@ Returns image containing a rectangular subset of input, specified by the amount 
     <br>&nbsp;</th>
     <th>aktive op crop @1 left 10 right 20 top 30 bottom 50
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00249.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00345.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00250.gif' alt='aktive op crop @1 left 10 right 20 top 30 bottom 50' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00346.gif' alt='aktive op crop @1 left 10 right 20 top 30 bottom 50' style='border:4px solid gold'>
     <br>geometry(10 30 98 48 1)</td></tr>
 </table>
 
 
 ---
-### <a name='op_embed_band_black'></a> aktive op embed band black
+### [↑](#top) <a name='op_embed_band_black'></a> aktive op embed band black
 
 Syntax: __aktive op embed band black__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=9&name=etc/transformer/structure/embed/band/black.tcl)]
 
@@ -305,7 +305,7 @@ Returns image embedding the input into a set of black bands.
 |down|uint|0|Number of bands to add after the image bands|
 
 ---
-### <a name='op_embed_band_copy'></a> aktive op embed band copy
+### [↑](#top) <a name='op_embed_band_copy'></a> aktive op embed band copy
 
 Syntax: __aktive op embed band copy__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=9&name=etc/transformer/structure/embed/band/copy.tcl)]
 
@@ -317,7 +317,7 @@ Returns image embedding the input into a set of copied bands.
 |down|uint|0|Number of last band copies to add after the image bands|
 
 ---
-### <a name='op_embed_bg'></a> aktive op embed bg
+### [↑](#top) <a name='op_embed_bg'></a> aktive op embed bg
 
 Syntax: __aktive op embed bg__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=9&name=etc/transformer/structure/embed/bg.tcl)]
 
@@ -338,15 +338,15 @@ Returns image embedding the input into an arbitrarily colored border. The color 
     <br>&nbsp;</th>
     <th>aktive op embed bg @1 left 32 right 32 top 32 bottom 32 values 0.5
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00269.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00365.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00270.gif' alt='aktive op embed bg @1 left 32 right 32 top 32 bottom 32 values 0.5' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00366.gif' alt='aktive op embed bg @1 left 32 right 32 top 32 bottom 32 values 0.5' style='border:4px solid gold'>
     <br>geometry(-32 -32 192 192 1)</td></tr>
 </table>
 
 
 ---
-### <a name='op_embed_black'></a> aktive op embed black
+### [↑](#top) <a name='op_embed_black'></a> aktive op embed black
 
 Syntax: __aktive op embed black__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=9&name=etc/transformer/structure/embed/black.tcl)]
 
@@ -366,15 +366,15 @@ Returns image embedding the input into a black border.
     <br>&nbsp;</th>
     <th>aktive op embed black @1 left 32 right 32 top 32 bottom 32
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00271.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00367.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00272.gif' alt='aktive op embed black @1 left 32 right 32 top 32 bottom 32' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00368.gif' alt='aktive op embed black @1 left 32 right 32 top 32 bottom 32' style='border:4px solid gold'>
     <br>geometry(-32 -32 192 192 1)</td></tr>
 </table>
 
 
 ---
-### <a name='op_embed_copy'></a> aktive op embed copy
+### [↑](#top) <a name='op_embed_copy'></a> aktive op embed copy
 
 Syntax: __aktive op embed copy__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=9&name=etc/transformer/structure/embed/copy.tcl)]
 
@@ -394,15 +394,15 @@ Returns image embedding the input into a border made from the replicated input e
     <br>&nbsp;</th>
     <th>aktive op embed copy @1 left 32 right 32 top 32 bottom 32
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00273.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00369.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00274.gif' alt='aktive op embed copy @1 left 32 right 32 top 32 bottom 32' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00370.gif' alt='aktive op embed copy @1 left 32 right 32 top 32 bottom 32' style='border:4px solid gold'>
     <br>geometry(-32 -32 192 192 1)</td></tr>
 </table>
 
 
 ---
-### <a name='op_embed_mirror'></a> aktive op embed mirror
+### [↑](#top) <a name='op_embed_mirror'></a> aktive op embed mirror
 
 Syntax: __aktive op embed mirror__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=9&name=etc/transformer/structure/embed/mirror.tcl)]
 
@@ -422,15 +422,15 @@ Returns image embedding the input into a border made from the replicated mirrore
     <br>&nbsp;</th>
     <th>aktive op embed mirror @1 left 32 right 32 top 32 bottom 32
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00275.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00371.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00276.gif' alt='aktive op embed mirror @1 left 32 right 32 top 32 bottom 32' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00372.gif' alt='aktive op embed mirror @1 left 32 right 32 top 32 bottom 32' style='border:4px solid gold'>
     <br>geometry(-32 -32 192 192 1)</td></tr>
 </table>
 
 
 ---
-### <a name='op_embed_tile'></a> aktive op embed tile
+### [↑](#top) <a name='op_embed_tile'></a> aktive op embed tile
 
 Syntax: __aktive op embed tile__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=9&name=etc/transformer/structure/embed/tile.tcl)]
 
@@ -450,15 +450,15 @@ Returns image embedding the input into a border made from the replicated input.
     <br>&nbsp;</th>
     <th>aktive op embed tile @1 left 32 right 32 top 32 bottom 32
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00277.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00373.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00278.gif' alt='aktive op embed tile @1 left 32 right 32 top 32 bottom 32' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00374.gif' alt='aktive op embed tile @1 left 32 right 32 top 32 bottom 32' style='border:4px solid gold'>
     <br>geometry(-32 -32 192 192 1)</td></tr>
 </table>
 
 
 ---
-### <a name='op_embed_white'></a> aktive op embed white
+### [↑](#top) <a name='op_embed_white'></a> aktive op embed white
 
 Syntax: __aktive op embed white__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=9&name=etc/transformer/structure/embed/white.tcl)]
 
@@ -478,15 +478,15 @@ Returns image embedding the input into a white border.
     <br>&nbsp;</th>
     <th>aktive op embed white @1 left 32 right 32 top 32 bottom 32
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00279.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00375.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00280.gif' alt='aktive op embed white @1 left 32 right 32 top 32 bottom 32' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00376.gif' alt='aktive op embed white @1 left 32 right 32 top 32 bottom 32' style='border:4px solid gold'>
     <br>geometry(-32 -32 192 192 1)</td></tr>
 </table>
 
 
 ---
-### <a name='op_flip_x'></a> aktive op flip x
+### [↑](#top) <a name='op_flip_x'></a> aktive op flip x
 
 Syntax: __aktive op flip x__ src [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/structure/flip.tcl)]
 
@@ -500,15 +500,15 @@ Returns image which mirrors the input along the x-axis.
     <br>&nbsp;</th>
     <th>aktive op flip x @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00281.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00377.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00282.gif' alt='aktive op flip x @1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00378.gif' alt='aktive op flip x @1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
 
 ---
-### <a name='op_flip_y'></a> aktive op flip y
+### [↑](#top) <a name='op_flip_y'></a> aktive op flip y
 
 Syntax: __aktive op flip y__ src [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/structure/flip.tcl)]
 
@@ -522,15 +522,15 @@ Returns image which mirrors the input along the y-axis.
     <br>&nbsp;</th>
     <th>aktive op flip y @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00283.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00379.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00284.gif' alt='aktive op flip y @1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00380.gif' alt='aktive op flip y @1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
 
 ---
-### <a name='op_flip_z'></a> aktive op flip z
+### [↑](#top) <a name='op_flip_z'></a> aktive op flip z
 
 Syntax: __aktive op flip z__ src [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/structure/flip.tcl)]
 
@@ -538,7 +538,7 @@ Returns image which mirrors the input along the z-axis.
 
 
 ---
-### <a name='op_if_then_else'></a> aktive op if-then-else
+### [↑](#top) <a name='op_if_then_else'></a> aktive op if-then-else
 
 Syntax: __aktive op if-then-else__ src0 src1 src2 [[→ definition](../../../../file?ci=trunk&ln=149&name=etc/transformer/structure/take.tcl)]
 
@@ -548,7 +548,7 @@ All images have to have the same width and height. The selector image has to be 
 
 
 ---
-### <a name='op_resize'></a> aktive op resize
+### [↑](#top) <a name='op_resize'></a> aktive op resize
 
 Syntax: __aktive op resize__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=10&name=etc/transformer/structure/resize.tcl)]
 
@@ -569,15 +569,15 @@ This is a convenience operator implemented on top of [aktive op transform by](tr
     <br>&nbsp;</th>
     <th>aktive op resize @1 width 21 height 29
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00359.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00455.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 256 256 3)</td>
-    <td valign='top'><img src='example-00360.gif' alt='aktive op resize @1 width 21 height 29' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00456.gif' alt='aktive op resize @1 width 21 height 29' style='border:4px solid gold'>
     <br>geometry(0 0 21 29 3)</td></tr>
 </table>
 
 
 ---
-### <a name='op_rotate_any'></a> aktive op rotate any
+### [↑](#top) <a name='op_rotate_any'></a> aktive op rotate any
 
 Syntax: __aktive op rotate any__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=62&name=etc/transformer/structure/rotate.tcl)]
 
@@ -598,15 +598,15 @@ This is a convenience operator implemented on top of [aktive op transform by](tr
     <br>&nbsp;</th>
     <th>aktive op rotate any @1 by 33 around {32 32}
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00361.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00457.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 256 256 3)</td>
-    <td valign='top'><table><tr><td valign='top'>sframe</td><td valign='top'><img src='example-00362.gif' alt='aktive op rotate any @1 by 33 around {32 32}' style='border:4px solid gold'>
+    <td valign='top'><table><tr><td valign='top'>sframe</td><td valign='top'><img src='example-00458.gif' alt='aktive op rotate any @1 by 33 around {32 32}' style='border:4px solid gold'>
     <br>geometry(-116 -12 354 354 3)</td></tr></table></td></tr>
 </table>
 
 
 ---
-### <a name='op_rotate_ccw'></a> aktive op rotate ccw
+### [↑](#top) <a name='op_rotate_ccw'></a> aktive op rotate ccw
 
 Syntax: __aktive op rotate ccw__ src [[→ definition](../../../../file?ci=trunk&ln=28&name=etc/transformer/structure/rotate.tcl)]
 
@@ -620,15 +620,15 @@ Returns image rotating the input 90 degrees counter clockwise
     <br>&nbsp;</th>
     <th>aktive op rotate ccw @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00363.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00459.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00364.gif' alt='aktive op rotate ccw @1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00460.gif' alt='aktive op rotate ccw @1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
 
 ---
-### <a name='op_rotate_cw'></a> aktive op rotate cw
+### [↑](#top) <a name='op_rotate_cw'></a> aktive op rotate cw
 
 Syntax: __aktive op rotate cw__ src [[→ definition](../../../../file?ci=trunk&ln=11&name=etc/transformer/structure/rotate.tcl)]
 
@@ -642,15 +642,15 @@ Returns image rotating the input 90 degrees clockwise.
     <br>&nbsp;</th>
     <th>aktive op rotate cw @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00365.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00461.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00366.gif' alt='aktive op rotate cw @1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00462.gif' alt='aktive op rotate cw @1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
 
 ---
-### <a name='op_rotate_half'></a> aktive op rotate half
+### [↑](#top) <a name='op_rotate_half'></a> aktive op rotate half
 
 Syntax: __aktive op rotate half__ src [[→ definition](../../../../file?ci=trunk&ln=45&name=etc/transformer/structure/rotate.tcl)]
 
@@ -664,15 +664,15 @@ Returns image rotating the input 180 degrees (counter) clockwise.
     <br>&nbsp;</th>
     <th>aktive op rotate half @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00367.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00463.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00368.gif' alt='aktive op rotate half @1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00464.gif' alt='aktive op rotate half @1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
 
 ---
-### <a name='op_sample_decimate_x'></a> aktive op sample decimate x
+### [↑](#top) <a name='op_sample_decimate_x'></a> aktive op sample decimate x
 
 Syntax: __aktive op sample decimate x__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=33&name=etc/transformer/structure/resample/decimate.tcl)]
 
@@ -692,15 +692,15 @@ This is accomplished by sub sampling the result of a lowpass filter applied to t
     <br>&nbsp;</th>
     <th>aktive op sample decimate x @1 by 4
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00395.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00491.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00396.gif' alt='aktive op sample decimate x @1 by 4' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00492.gif' alt='aktive op sample decimate x @1 by 4' style='border:4px solid gold'>
     <br>geometry(0 0 32 128 1)</td></tr>
 </table>
 
 
 ---
-### <a name='op_sample_decimate_xy'></a> aktive op sample decimate xy
+### [↑](#top) <a name='op_sample_decimate_xy'></a> aktive op sample decimate xy
 
 Syntax: __aktive op sample decimate xy__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/structure/resample/decimate.tcl)]
 
@@ -718,15 +718,15 @@ Returns image with the input decimated along both x and y axes according to the 
     <br>&nbsp;</th>
     <th>aktive op sample decimate xy @1 by 4
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00397.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00493.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00398.gif' alt='aktive op sample decimate xy @1 by 4' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00494.gif' alt='aktive op sample decimate xy @1 by 4' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td></tr>
 </table>
 
 
 ---
-### <a name='op_sample_decimate_y'></a> aktive op sample decimate y
+### [↑](#top) <a name='op_sample_decimate_y'></a> aktive op sample decimate y
 
 Syntax: __aktive op sample decimate y__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=33&name=etc/transformer/structure/resample/decimate.tcl)]
 
@@ -746,15 +746,15 @@ This is accomplished by sub sampling the result of a lowpass filter applied to t
     <br>&nbsp;</th>
     <th>aktive op sample decimate y @1 by 4
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00399.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00495.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00400.gif' alt='aktive op sample decimate y @1 by 4' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00496.gif' alt='aktive op sample decimate y @1 by 4' style='border:4px solid gold'>
     <br>geometry(0 0 128 32 1)</td></tr>
 </table>
 
 
 ---
-### <a name='op_sample_fill_x'></a> aktive op sample fill x
+### [↑](#top) <a name='op_sample_fill_x'></a> aktive op sample fill x
 
 Syntax: __aktive op sample fill x__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=40&name=etc/transformer/structure/resample/fill.tcl)]
 
@@ -772,15 +772,15 @@ Returns image where the input is "zero-stuffed" along the x-axis according to th
     <br>&nbsp;</th>
     <th>aktive op sample fill x @1 by 4 fill 0.5
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00401.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00497.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00402.gif' alt='aktive op sample fill x @1 by 4 fill 0.5' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00498.gif' alt='aktive op sample fill x @1 by 4 fill 0.5' style='border:4px solid gold'>
     <br>geometry(0 0 512 128 1)</td></tr>
 </table>
 
 
 ---
-### <a name='op_sample_fill_xy'></a> aktive op sample fill xy
+### [↑](#top) <a name='op_sample_fill_xy'></a> aktive op sample fill xy
 
 Syntax: __aktive op sample fill xy__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=15&name=etc/transformer/structure/resample/fill.tcl)]
 
@@ -798,15 +798,15 @@ Returns image where the input is "zero-stuffed" along both x and y axes accordin
     <br>&nbsp;</th>
     <th>aktive op sample fill xy @1 by 4 fill 0.5
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00403.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00499.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00404.gif' alt='aktive op sample fill xy @1 by 4 fill 0.5' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00500.gif' alt='aktive op sample fill xy @1 by 4 fill 0.5' style='border:4px solid gold'>
     <br>geometry(0 0 512 512 1)</td></tr>
 </table>
 
 
 ---
-### <a name='op_sample_fill_y'></a> aktive op sample fill y
+### [↑](#top) <a name='op_sample_fill_y'></a> aktive op sample fill y
 
 Syntax: __aktive op sample fill y__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=40&name=etc/transformer/structure/resample/fill.tcl)]
 
@@ -824,15 +824,15 @@ Returns image where the input is "zero-stuffed" along the y-axis according to th
     <br>&nbsp;</th>
     <th>aktive op sample fill y @1 by 4 fill 0.5
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00405.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00501.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00406.gif' alt='aktive op sample fill y @1 by 4 fill 0.5' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00502.gif' alt='aktive op sample fill y @1 by 4 fill 0.5' style='border:4px solid gold'>
     <br>geometry(0 0 128 512 1)</td></tr>
 </table>
 
 
 ---
-### <a name='op_sample_fill_z'></a> aktive op sample fill z
+### [↑](#top) <a name='op_sample_fill_z'></a> aktive op sample fill z
 
 Syntax: __aktive op sample fill z__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=40&name=etc/transformer/structure/resample/fill.tcl)]
 
@@ -844,7 +844,7 @@ Returns image where the input is "zero-stuffed" along the z-axis according to th
 |fill|double|0|Pixel fill value|
 
 ---
-### <a name='op_sample_interpolate_x'></a> aktive op sample interpolate x
+### [↑](#top) <a name='op_sample_interpolate_x'></a> aktive op sample interpolate x
 
 Syntax: __aktive op sample interpolate x__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=37&name=etc/transformer/structure/resample/interpolate.tcl)]
 
@@ -864,15 +864,15 @@ This is accomplished by low-pass filtering applied to the result of zero-stuffin
     <br>&nbsp;</th>
     <th>aktive op sample interpolate x @1 by 4
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00407.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00503.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00408.gif' alt='aktive op sample interpolate x @1 by 4' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00504.gif' alt='aktive op sample interpolate x @1 by 4' style='border:4px solid gold'>
     <br>geometry(0 0 512 128 1)</td></tr>
 </table>
 
 
 ---
-### <a name='op_sample_interpolate_xy'></a> aktive op sample interpolate xy
+### [↑](#top) <a name='op_sample_interpolate_xy'></a> aktive op sample interpolate xy
 
 Syntax: __aktive op sample interpolate xy__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/structure/resample/interpolate.tcl)]
 
@@ -892,15 +892,15 @@ This is accomplished by low-pass filtering applied to the result of zero-stuffin
     <br>&nbsp;</th>
     <th>aktive op sample interpolate xy @1 by 4
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00409.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00505.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00410.gif' alt='aktive op sample interpolate xy @1 by 4' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00506.gif' alt='aktive op sample interpolate xy @1 by 4' style='border:4px solid gold'>
     <br>geometry(0 0 512 512 1)</td></tr>
 </table>
 
 
 ---
-### <a name='op_sample_interpolate_y'></a> aktive op sample interpolate y
+### [↑](#top) <a name='op_sample_interpolate_y'></a> aktive op sample interpolate y
 
 Syntax: __aktive op sample interpolate y__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=37&name=etc/transformer/structure/resample/interpolate.tcl)]
 
@@ -920,15 +920,15 @@ This is accomplished by low-pass filtering applied to the result of zero-stuffin
     <br>&nbsp;</th>
     <th>aktive op sample interpolate y @1 by 4
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00411.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00507.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00412.gif' alt='aktive op sample interpolate y @1 by 4' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00508.gif' alt='aktive op sample interpolate y @1 by 4' style='border:4px solid gold'>
     <br>geometry(0 0 128 512 1)</td></tr>
 </table>
 
 
 ---
-### <a name='op_sample_replicate_x'></a> aktive op sample replicate x
+### [↑](#top) <a name='op_sample_replicate_x'></a> aktive op sample replicate x
 
 Syntax: __aktive op sample replicate x__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/transformer/structure/resample/replicated.tcl)]
 
@@ -945,15 +945,15 @@ Returns image where the input is stretched along the x-axis according to the str
     <br>&nbsp;</th>
     <th>aktive op sample replicate x @1 by 4
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00413.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00509.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00414.gif' alt='aktive op sample replicate x @1 by 4' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00510.gif' alt='aktive op sample replicate x @1 by 4' style='border:4px solid gold'>
     <br>geometry(0 0 512 128 1)</td></tr>
 </table>
 
 
 ---
-### <a name='op_sample_replicate_xy'></a> aktive op sample replicate xy
+### [↑](#top) <a name='op_sample_replicate_xy'></a> aktive op sample replicate xy
 
 Syntax: __aktive op sample replicate xy__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/structure/resample/replicated.tcl)]
 
@@ -970,15 +970,15 @@ Returns image where the input is stretched along both x and y axes according to 
     <br>&nbsp;</th>
     <th>aktive op sample replicate xy @1 by 4
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00415.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00511.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00416.gif' alt='aktive op sample replicate xy @1 by 4' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00512.gif' alt='aktive op sample replicate xy @1 by 4' style='border:4px solid gold'>
     <br>geometry(0 0 512 512 1)</td></tr>
 </table>
 
 
 ---
-### <a name='op_sample_replicate_y'></a> aktive op sample replicate y
+### [↑](#top) <a name='op_sample_replicate_y'></a> aktive op sample replicate y
 
 Syntax: __aktive op sample replicate y__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/transformer/structure/resample/replicated.tcl)]
 
@@ -995,15 +995,15 @@ Returns image where the input is stretched along the y-axis according to the str
     <br>&nbsp;</th>
     <th>aktive op sample replicate y @1 by 4
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00417.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00513.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00418.gif' alt='aktive op sample replicate y @1 by 4' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00514.gif' alt='aktive op sample replicate y @1 by 4' style='border:4px solid gold'>
     <br>geometry(0 0 128 512 1)</td></tr>
 </table>
 
 
 ---
-### <a name='op_sample_replicate_z'></a> aktive op sample replicate z
+### [↑](#top) <a name='op_sample_replicate_z'></a> aktive op sample replicate z
 
 Syntax: __aktive op sample replicate z__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/transformer/structure/resample/replicated.tcl)]
 
@@ -1014,7 +1014,7 @@ Returns image where the input is stretched along the z-axis according to the str
 |by|uint||Stretch factor, range 2...|
 
 ---
-### <a name='op_sample_sub_x'></a> aktive op sample sub x
+### [↑](#top) <a name='op_sample_sub_x'></a> aktive op sample sub x
 
 Syntax: __aktive op sample sub x__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=61&name=etc/transformer/structure/resample/sub.tcl)]
 
@@ -1031,15 +1031,15 @@ Returns image with the input sampled down along the x-axis according to the samp
     <br>&nbsp;</th>
     <th>aktive op sample sub x @1 by 4
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00419.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00515.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00420.gif' alt='aktive op sample sub x @1 by 4' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00516.gif' alt='aktive op sample sub x @1 by 4' style='border:4px solid gold'>
     <br>geometry(0 0 32 128 1)</td></tr>
 </table>
 
 
 ---
-### <a name='op_sample_sub_xy'></a> aktive op sample sub xy
+### [↑](#top) <a name='op_sample_sub_xy'></a> aktive op sample sub xy
 
 Syntax: __aktive op sample sub xy__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=32&name=etc/transformer/structure/resample/sub.tcl)]
 
@@ -1056,15 +1056,15 @@ Returns image with the input sampled down along both x and y axes according to t
     <br>&nbsp;</th>
     <th>aktive op sample sub xy @1 by 4
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00421.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00517.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00422.gif' alt='aktive op sample sub xy @1 by 4' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00518.gif' alt='aktive op sample sub xy @1 by 4' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td></tr>
 </table>
 
 
 ---
-### <a name='op_sample_sub_y'></a> aktive op sample sub y
+### [↑](#top) <a name='op_sample_sub_y'></a> aktive op sample sub y
 
 Syntax: __aktive op sample sub y__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=61&name=etc/transformer/structure/resample/sub.tcl)]
 
@@ -1081,15 +1081,15 @@ Returns image with the input sampled down along the y-axis according to the samp
     <br>&nbsp;</th>
     <th>aktive op sample sub y @1 by 4
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00423.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00519.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00424.gif' alt='aktive op sample sub y @1 by 4' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00520.gif' alt='aktive op sample sub y @1 by 4' style='border:4px solid gold'>
     <br>geometry(0 0 128 32 1)</td></tr>
 </table>
 
 
 ---
-### <a name='op_sample_sub_z'></a> aktive op sample sub z
+### [↑](#top) <a name='op_sample_sub_z'></a> aktive op sample sub z
 
 Syntax: __aktive op sample sub z__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=61&name=etc/transformer/structure/resample/sub.tcl)]
 
@@ -1100,7 +1100,7 @@ Returns image with the input sampled down along the z-axis according to the samp
 |by|uint|2|Sampling factor, range 2...|
 
 ---
-### <a name='op_scroll_x'></a> aktive op scroll x
+### [↑](#top) <a name='op_scroll_x'></a> aktive op scroll x
 
 Syntax: __aktive op scroll x__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=14&name=etc/transformer/structure/scrolling.tcl)]
 
@@ -1117,15 +1117,15 @@ Returns image with the pixels of the input shifted along the x axis so that the 
     <br>&nbsp;</th>
     <th>aktive op scroll x @1 offset 32
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00425.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00521.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00426.gif' alt='aktive op scroll x @1 offset 32' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00522.gif' alt='aktive op scroll x @1 offset 32' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
 
 ---
-### <a name='op_scroll_y'></a> aktive op scroll y
+### [↑](#top) <a name='op_scroll_y'></a> aktive op scroll y
 
 Syntax: __aktive op scroll y__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=14&name=etc/transformer/structure/scrolling.tcl)]
 
@@ -1142,15 +1142,15 @@ Returns image with the pixels of the input shifted along the y axis so that the 
     <br>&nbsp;</th>
     <th>aktive op scroll y @1 offset 32
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00427.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00523.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00428.gif' alt='aktive op scroll y @1 offset 32' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00524.gif' alt='aktive op scroll y @1 offset 32' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
 
 ---
-### <a name='op_scroll_z'></a> aktive op scroll z
+### [↑](#top) <a name='op_scroll_z'></a> aktive op scroll z
 
 Syntax: __aktive op scroll z__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=14&name=etc/transformer/structure/scrolling.tcl)]
 
@@ -1161,7 +1161,7 @@ Returns image with the pixels of the input shifted along the z axis so that the 
 |offset|uint||z scroll offset|
 
 ---
-### <a name='op_select_x'></a> aktive op select x
+### [↑](#top) <a name='op_select_x'></a> aktive op select x
 
 Syntax: __aktive op select x__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/structure/select.tcl)]
 
@@ -1187,15 +1187,15 @@ result is the location of the result.
     <br>&nbsp;</th>
     <th>aktive op select x @1 from 20 to 50
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00470.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00575.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00471.gif' alt='aktive op select x @1 from 20 to 50' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00576.gif' alt='aktive op select x @1 from 20 to 50' style='border:4px solid gold'>
     <br>geometry(20 0 31 128 1)</td></tr>
 </table>
 
 
 ---
-### <a name='op_select_y'></a> aktive op select y
+### [↑](#top) <a name='op_select_y'></a> aktive op select y
 
 Syntax: __aktive op select y__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/structure/select.tcl)]
 
@@ -1221,15 +1221,15 @@ result is the location of the result.
     <br>&nbsp;</th>
     <th>aktive op select y @1 from 20 to 50
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00472.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00577.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00473.gif' alt='aktive op select y @1 from 20 to 50' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00578.gif' alt='aktive op select y @1 from 20 to 50' style='border:4px solid gold'>
     <br>geometry(0 20 128 31 1)</td></tr>
 </table>
 
 
 ---
-### <a name='op_select_z'></a> aktive op select z
+### [↑](#top) <a name='op_select_z'></a> aktive op select z
 
 Syntax: __aktive op select z__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/structure/select.tcl)]
 
@@ -1249,7 +1249,7 @@ result is the location of the result.
 |to|uint|from|The input's last band to be placed into the result. If not specified defaults to the first.|
 
 ---
-### <a name='op_split_x'></a> aktive op split x
+### [↑](#top) <a name='op_split_x'></a> aktive op split x
 
 Syntax: __aktive op split x__ src [[→ definition](../../../../file?ci=trunk&ln=10&name=etc/transformer/structure/split.tcl)]
 
@@ -1257,7 +1257,7 @@ Returns list containing each column of the input as separate image.
 
 
 ---
-### <a name='op_split_y'></a> aktive op split y
+### [↑](#top) <a name='op_split_y'></a> aktive op split y
 
 Syntax: __aktive op split y__ src [[→ definition](../../../../file?ci=trunk&ln=10&name=etc/transformer/structure/split.tcl)]
 
@@ -1265,7 +1265,7 @@ Returns list containing each row of the input as separate image.
 
 
 ---
-### <a name='op_split_z'></a> aktive op split z
+### [↑](#top) <a name='op_split_z'></a> aktive op split z
 
 Syntax: __aktive op split z__ src [[→ definition](../../../../file?ci=trunk&ln=10&name=etc/transformer/structure/split.tcl)]
 
@@ -1273,7 +1273,7 @@ Returns list containing each band of the input as separate image.
 
 
 ---
-### <a name='op_swap_xy'></a> aktive op swap xy
+### [↑](#top) <a name='op_swap_xy'></a> aktive op swap xy
 
 Syntax: __aktive op swap xy__ src [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/structure/swap.tcl)]
 
@@ -1289,15 +1289,15 @@ The location of the image is not changed.
     <br>&nbsp;</th>
     <th>aktive op swap xy @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00474.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00579.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00475.gif' alt='aktive op swap xy @1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00580.gif' alt='aktive op swap xy @1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
 
 ---
-### <a name='op_swap_xz'></a> aktive op swap xz
+### [↑](#top) <a name='op_swap_xz'></a> aktive op swap xz
 
 Syntax: __aktive op swap xz__ src [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/structure/swap.tcl)]
 
@@ -1307,7 +1307,7 @@ The location of the image is not changed.
 
 
 ---
-### <a name='op_swap_yz'></a> aktive op swap yz
+### [↑](#top) <a name='op_swap_yz'></a> aktive op swap yz
 
 Syntax: __aktive op swap yz__ src [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/structure/swap.tcl)]
 
@@ -1317,7 +1317,7 @@ The location of the image is not changed.
 
 
 ---
-### <a name='op_take_x'></a> aktive op take x
+### [↑](#top) <a name='op_take_x'></a> aktive op take x
 
 Syntax: __aktive op take x__ src0 src1 [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/structure/take.tcl)]
 
@@ -1343,7 +1343,7 @@ The resut is placed at the coordinate origin/zero.
 
 
 ---
-### <a name='op_take_y'></a> aktive op take y
+### [↑](#top) <a name='op_take_y'></a> aktive op take y
 
 Syntax: __aktive op take y__ src0 src1 [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/structure/take.tcl)]
 
@@ -1369,7 +1369,7 @@ The resut is placed at the coordinate origin/zero.
 
 
 ---
-### <a name='op_take_z'></a> aktive op take z
+### [↑](#top) <a name='op_take_z'></a> aktive op take z
 
 Syntax: __aktive op take z__ src0 src1 [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/structure/take.tcl)]
 
@@ -1395,7 +1395,7 @@ The resut is placed at the coordinate origin/zero.
 
 
 ---
-### <a name='op_transpose'></a> aktive op transpose
+### [↑](#top) <a name='op_transpose'></a> aktive op transpose
 
 Syntax: __aktive op transpose__ src [[→ definition](../../../../file?ci=trunk&ln=10&name=etc/transformer/structure/transpose.tcl)]
 
@@ -1411,15 +1411,15 @@ This is an alias of `swap xy`.
     <br>&nbsp;</th>
     <th>aktive op transpose @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00498.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00603.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00499.gif' alt='aktive op transpose @1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00604.gif' alt='aktive op transpose @1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
 
 ---
-### <a name='op_transverse'></a> aktive op transverse
+### [↑](#top) <a name='op_transverse'></a> aktive op transverse
 
 Syntax: __aktive op transverse__ src [[→ definition](../../../../file?ci=trunk&ln=29&name=etc/transformer/structure/transpose.tcl)]
 
@@ -1433,9 +1433,9 @@ Returns image with the input mirrored along the secondary diagonal.
     <br>&nbsp;</th>
     <th>aktive op transverse @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00500.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00605.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00501.gif' alt='aktive op transverse @1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00606.gif' alt='aktive op transverse @1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 

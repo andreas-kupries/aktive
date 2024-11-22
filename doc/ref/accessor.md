@@ -10,7 +10,7 @@
 
 # Documentation -- Reference Pages -- accessor
 
-## Table Of Contents
+## <anchor='top'> Table Of Contents
 
   - [Roots](bysection.md) ↗
 
@@ -38,7 +38,7 @@
 ## Operators
 
 ---
-### <a name='format_as_d2'></a> aktive format as d2
+### [↑](#top) <a name='format_as_d2'></a> aktive format as d2
 
 Syntax: __aktive format as d2__ src [[→ definition](../../../../file?ci=trunk&ln=6&name=etc/sink/asother.tcl)]
 
@@ -65,7 +65,7 @@ Despite the naming the operator is __not strict__. It does not access the input'
 
 
 ---
-### <a name='format_as_markdown'></a> aktive format as markdown
+### [↑](#top) <a name='format_as_markdown'></a> aktive format as markdown
 
 Syntax: __aktive format as markdown__ src [[→ definition](../../../../file?ci=trunk&ln=6&name=etc/sink/asother.tcl)]
 
@@ -92,7 +92,7 @@ Despite the naming the operator is __not strict__. It does not access the input'
 
 
 ---
-### <a name='format_as_tclscript'></a> aktive format as tclscript
+### [↑](#top) <a name='format_as_tclscript'></a> aktive format as tclscript
 
 Syntax: __aktive format as tclscript__ src [[→ definition](../../../../file?ci=trunk&ln=6&name=etc/sink/asother.tcl)]
 
@@ -119,7 +119,7 @@ Despite the naming the operator is __not strict__. It does not access the input'
 
 
 ---
-### <a name='op_query_colorspace'></a> aktive op query colorspace
+### [↑](#top) <a name='op_query_colorspace'></a> aktive op query colorspace
 
 Syntax: __aktive op query colorspace__ src [[→ definition](../../../../file?ci=trunk&ln=5&name=etc/accessor/colorspace.tcl)]
 
@@ -137,14 +137,14 @@ For anything else an error is thrown instead of making assumptions.
     <br>&nbsp;</th>
     <th>aktive op query colorspace @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00357.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00453.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 256 256 3)</td>
     <td valign='top'>&nbsp;sRGB</td></tr>
 </table>
 
 
 ---
-### <a name='query_id'></a> aktive query id
+### [↑](#top) <a name='query_id'></a> aktive query id
 
 Syntax: __aktive query id__ src [[→ definition](../../../../file?ci=trunk&ln=5&name=etc/accessor/attributes.tcl)]
 
@@ -152,7 +152,7 @@ Returns the input's implementation-specific image identity.
 
 
 ---
-### <a name='query_inputs'></a> aktive query inputs
+### [↑](#top) <a name='query_inputs'></a> aktive query inputs
 
 Syntax: __aktive query inputs__ src [[→ definition](../../../../file?ci=trunk&ln=169&name=etc/accessor/attributes.tcl)]
 
@@ -162,7 +162,7 @@ For an image without inputs the result is the empty list.
 
 
 ---
-### <a name='query_params'></a> aktive query params
+### [↑](#top) <a name='query_params'></a> aktive query params
 
 Syntax: __aktive query params__ src [[→ definition](../../../../file?ci=trunk&ln=194&name=etc/accessor/attributes.tcl)]
 
@@ -178,7 +178,7 @@ For an image without parameters the result is the empty dictionary.
     <br>(zone width 32 height 32)</th>
     <th>aktive query params @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00534.gif' alt='@1 (zone width 32 height 32)' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00639.gif' alt='@1 (zone width 32 height 32)' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;width 32 height 32</td></tr>
 </table>
@@ -188,14 +188,14 @@ For an image without parameters the result is the empty dictionary.
     <br>(gradient width 32 height 32 depth 1 first 0 last 1)</th>
     <th>aktive query params @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00536.gif' alt='@1 (gradient width 32 height 32 depth 1 first 0 last 1)' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00641.gif' alt='@1 (gradient width 32 height 32 depth 1 first 0 last 1)' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;width 32 height 32 depth 1 first 0.0 last 1.0</td></tr>
 </table>
 
 
 ---
-### <a name='query_setup'></a> aktive query setup
+### [↑](#top) <a name='query_setup'></a> aktive query setup
 
 Syntax: __aktive query setup__ src [[→ definition](../../../../file?ci=trunk&ln=219&name=etc/accessor/attributes.tcl)]
 
@@ -211,7 +211,7 @@ This includes type, geometry, and parameters, if any. The inputs however are exc
     <br>(zone width 32 height 32)</th>
     <th>aktive query setup @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00546.gif' alt='@1 (zone width 32 height 32)' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00651.gif' alt='@1 (zone width 32 height 32)' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;type image::zone domain {x 0 y 0 width 32 height 32 depth 1} config {width 32 height 32}</td></tr>
 </table>
@@ -221,14 +221,14 @@ This includes type, geometry, and parameters, if any. The inputs however are exc
     <br>&nbsp;</th>
     <th>aktive query setup @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00548.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00653.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;type image::gradient domain {x 0 y 0 width 32 height 32 depth 1} config {width 32 height 32 depth 1 first 0.0 last 1.0}</td></tr>
 </table>
 
 
 ---
-### <a name='query_type'></a> aktive query type
+### [↑](#top) <a name='query_type'></a> aktive query type
 
 Syntax: __aktive query type__ src [[→ definition](../../../../file?ci=trunk&ln=27&name=etc/accessor/attributes.tcl)]
 
@@ -242,7 +242,7 @@ Returns the input's type.
     <br>&nbsp;</th>
     <th>aktive query type @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00554.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00659.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;image::zone</td></tr>
 </table>
@@ -252,7 +252,7 @@ Returns the input's type.
     <br>&nbsp;</th>
     <th>aktive query type @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00556.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00661.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;image::gradient</td></tr>
 </table>

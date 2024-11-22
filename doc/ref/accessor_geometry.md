@@ -10,7 +10,7 @@
 
 # Documentation -- Reference Pages -- accessor geometry
 
-## Table Of Contents
+## <anchor='top'> Table Of Contents
 
   - [accessor](accessor.md) ↗
 
@@ -34,7 +34,7 @@
 ## Operators
 
 ---
-### <a name='query_depth'></a> aktive query depth
+### [↑](#top) <a name='query_depth'></a> aktive query depth
 
 Syntax: __aktive query depth__ src [[→ definition](../../../../file?ci=trunk&ln=139&name=etc/accessor/attributes.tcl)]
 
@@ -48,7 +48,7 @@ Returns the input's depth.
     <br>&nbsp;</th>
     <th>aktive query depth @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00512.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00617.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;1</td></tr>
 </table>
@@ -58,14 +58,14 @@ Returns the input's depth.
     <br>&nbsp;</th>
     <th>aktive query depth @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00514.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00619.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;1</td></tr>
 </table>
 
 
 ---
-### <a name='query_domain'></a> aktive query domain
+### [↑](#top) <a name='query_domain'></a> aktive query domain
 
 Syntax: __aktive query domain__ src [[→ definition](../../../../file?ci=trunk&ln=69&name=etc/accessor/attributes.tcl)]
 
@@ -79,7 +79,7 @@ Returns the input's domain, a 2D rectangle. I.e. location, width, and height.
     <br>&nbsp;</th>
     <th>aktive query domain @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00516.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00621.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;0 0 32 32</td></tr>
 </table>
@@ -89,14 +89,14 @@ Returns the input's domain, a 2D rectangle. I.e. location, width, and height.
     <br>&nbsp;</th>
     <th>aktive query domain @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00518.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00623.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;0 0 32 32</td></tr>
 </table>
 
 
 ---
-### <a name='query_geometry'></a> aktive query geometry
+### [↑](#top) <a name='query_geometry'></a> aktive query geometry
 
 Syntax: __aktive query geometry__ src [[→ definition](../../../../file?ci=trunk&ln=90&name=etc/accessor/attributes.tcl)]
 
@@ -110,7 +110,7 @@ Returns the input's full geometry, i.e. domain and depth.
     <br>&nbsp;</th>
     <th>aktive query geometry @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00520.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00625.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;0 0 32 32 1</td></tr>
 </table>
@@ -120,14 +120,14 @@ Returns the input's full geometry, i.e. domain and depth.
     <br>&nbsp;</th>
     <th>aktive query geometry @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00522.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00627.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;0 0 32 32 1</td></tr>
 </table>
 
 
 ---
-### <a name='query_height'></a> aktive query height
+### [↑](#top) <a name='query_height'></a> aktive query height
 
 Syntax: __aktive query height__ src [[→ definition](../../../../file?ci=trunk&ln=139&name=etc/accessor/attributes.tcl)]
 
@@ -141,7 +141,7 @@ Returns the input's height.
     <br>&nbsp;</th>
     <th>aktive query height @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00524.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00629.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;32</td></tr>
 </table>
@@ -151,14 +151,14 @@ Returns the input's height.
     <br>&nbsp;</th>
     <th>aktive query height @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00526.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00631.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;32</td></tr>
 </table>
 
 
 ---
-### <a name='query_location'></a> aktive query location
+### [↑](#top) <a name='query_location'></a> aktive query location
 
 Syntax: __aktive query location__ src [[→ definition](../../../../file?ci=trunk&ln=48&name=etc/accessor/attributes.tcl)]
 
@@ -172,7 +172,7 @@ Returns the input's location, a 2D point.
     <br>&nbsp;</th>
     <th>aktive query location @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00528.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00633.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;0 0</td></tr>
 </table>
@@ -182,14 +182,14 @@ Returns the input's location, a 2D point.
     <br>&nbsp;</th>
     <th>aktive query location @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00530.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00635.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;0 0</td></tr>
 </table>
 
 
 ---
-### <a name='query_pitch'></a> aktive query pitch
+### [↑](#top) <a name='query_pitch'></a> aktive query pitch
 
 Syntax: __aktive query pitch__ src [[→ definition](../../../../file?ci=trunk&ln=139&name=etc/accessor/attributes.tcl)]
 
@@ -203,7 +203,7 @@ Returns the input's pitch, the number of values in a row, i.e. width times depth
     <br>&nbsp;</th>
     <th>aktive query pitch @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00538.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00643.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;32</td></tr>
 </table>
@@ -213,14 +213,14 @@ Returns the input's pitch, the number of values in a row, i.e. width times depth
     <br>&nbsp;</th>
     <th>aktive query pitch @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00540.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00645.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;32</td></tr>
 </table>
 
 
 ---
-### <a name='query_pixels'></a> aktive query pixels
+### [↑](#top) <a name='query_pixels'></a> aktive query pixels
 
 Syntax: __aktive query pixels__ src [[→ definition](../../../../file?ci=trunk&ln=139&name=etc/accessor/attributes.tcl)]
 
@@ -234,7 +234,7 @@ Returns the input's number of pixels.
     <br>&nbsp;</th>
     <th>aktive query pixels @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00542.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00647.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;1024</td></tr>
 </table>
@@ -244,14 +244,14 @@ Returns the input's number of pixels.
     <br>&nbsp;</th>
     <th>aktive query pixels @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00544.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00649.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;1024</td></tr>
 </table>
 
 
 ---
-### <a name='query_size'></a> aktive query size
+### [↑](#top) <a name='query_size'></a> aktive query size
 
 Syntax: __aktive query size__ src [[→ definition](../../../../file?ci=trunk&ln=139&name=etc/accessor/attributes.tcl)]
 
@@ -265,7 +265,7 @@ Returns the input's size, i.e. the number of pixels times depth.
     <br>&nbsp;</th>
     <th>aktive query size @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00550.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00655.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;1024</td></tr>
 </table>
@@ -275,14 +275,14 @@ Returns the input's size, i.e. the number of pixels times depth.
     <br>&nbsp;</th>
     <th>aktive query size @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00552.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00657.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;1024</td></tr>
 </table>
 
 
 ---
-### <a name='query_width'></a> aktive query width
+### [↑](#top) <a name='query_width'></a> aktive query width
 
 Syntax: __aktive query width__ src [[→ definition](../../../../file?ci=trunk&ln=139&name=etc/accessor/attributes.tcl)]
 
@@ -296,7 +296,7 @@ Returns the input's width.
     <br>&nbsp;</th>
     <th>aktive query width @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00562.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00667.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;32</td></tr>
 </table>
@@ -306,14 +306,14 @@ Returns the input's width.
     <br>&nbsp;</th>
     <th>aktive query width @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00564.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00669.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;32</td></tr>
 </table>
 
 
 ---
-### <a name='query_x'></a> aktive query x
+### [↑](#top) <a name='query_x'></a> aktive query x
 
 Syntax: __aktive query x__ src [[→ definition](../../../../file?ci=trunk&ln=111&name=etc/accessor/attributes.tcl)]
 
@@ -327,7 +327,7 @@ Returns the input's x location.
     <br>&nbsp;</th>
     <th>aktive query x @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00566.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00671.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;0</td></tr>
 </table>
@@ -337,14 +337,14 @@ Returns the input's x location.
     <br>&nbsp;</th>
     <th>aktive query x @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00568.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00673.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;0</td></tr>
 </table>
 
 
 ---
-### <a name='query_xmax'></a> aktive query xmax
+### [↑](#top) <a name='query_xmax'></a> aktive query xmax
 
 Syntax: __aktive query xmax__ src [[→ definition](../../../../file?ci=trunk&ln=111&name=etc/accessor/attributes.tcl)]
 
@@ -358,7 +358,7 @@ Returns the input's maximum x location.
     <br>&nbsp;</th>
     <th>aktive query xmax @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00570.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00675.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;31</td></tr>
 </table>
@@ -368,14 +368,14 @@ Returns the input's maximum x location.
     <br>&nbsp;</th>
     <th>aktive query xmax @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00572.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00677.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;31</td></tr>
 </table>
 
 
 ---
-### <a name='query_y'></a> aktive query y
+### [↑](#top) <a name='query_y'></a> aktive query y
 
 Syntax: __aktive query y__ src [[→ definition](../../../../file?ci=trunk&ln=111&name=etc/accessor/attributes.tcl)]
 
@@ -389,7 +389,7 @@ Returns the input's y location.
     <br>&nbsp;</th>
     <th>aktive query y @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00574.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00679.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;0</td></tr>
 </table>
@@ -399,14 +399,14 @@ Returns the input's y location.
     <br>&nbsp;</th>
     <th>aktive query y @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00576.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00681.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;0</td></tr>
 </table>
 
 
 ---
-### <a name='query_ymax'></a> aktive query ymax
+### [↑](#top) <a name='query_ymax'></a> aktive query ymax
 
 Syntax: __aktive query ymax__ src [[→ definition](../../../../file?ci=trunk&ln=111&name=etc/accessor/attributes.tcl)]
 
@@ -420,7 +420,7 @@ Returns the input's maximum y location.
     <br>&nbsp;</th>
     <th>aktive query ymax @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00578.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00683.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;31</td></tr>
 </table>
@@ -430,7 +430,7 @@ Returns the input's maximum y location.
     <br>&nbsp;</th>
     <th>aktive query ymax @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00580.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00685.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;31</td></tr>
 </table>

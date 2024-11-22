@@ -10,7 +10,7 @@
 
 # Documentation -- Reference Pages -- transform threshold generate
 
-## Table Of Contents
+## <anchor='top'> Table Of Contents
 
   - [transform threshold](transform_threshold.md) ↗
 
@@ -28,22 +28,51 @@
 ## Operators
 
 ---
-### <a name='image_threshold_bernsen'></a> aktive image threshold bernsen
+### [↑](#top) <a name='image_threshold_bernsen'></a> aktive image threshold bernsen
 
-Syntax: __aktive image threshold bernsen__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=52&name=etc/transformer/thresholds/thresholds.tcl)]
+Syntax: __aktive image threshold bernsen__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=65&name=etc/transformer/thresholds/thresholds.tcl)]
 
 Returns image containing per-pixel thresholds for the input, as per Bernsen's method.
+
+The operator [aktive image mask per bernsen](transform_threshold_mask_generate.md#image_mask_per_bernsen) uses this to generate a mask of the input.
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |radius|uint||Size of region to consider, as radius from center|
 
+#### <a name='image_threshold_bernsen__examples'></a> Examples
+
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive image threshold bernsen @1 radius 7
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00237.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 300 200 1)</td>
+    <td valign='top'><img src='example-00238.gif' alt='aktive image threshold bernsen @1 radius 7' style='border:4px solid gold'>
+    <br>geometry(0 0 300 200 1)</td></tr>
+</table>
+
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive image threshold bernsen @1 radius 7
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00239.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 380 250 3)</td>
+    <td valign='top'><img src='example-00240.gif' alt='aktive image threshold bernsen @1 radius 7' style='border:4px solid gold'>
+    <br>geometry(0 0 380 250 3)</td></tr>
+</table>
+
+
 ---
-### <a name='image_threshold_mean'></a> aktive image threshold mean
+### [↑](#top) <a name='image_threshold_mean'></a> aktive image threshold mean
 
 Syntax: __aktive image threshold mean__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=18&name=etc/transformer/thresholds/thresholds.tcl)]
 
 Returns image containing per-pixel thresholds for the input, as per the local mean.
+
+The operator [aktive image mask per mean](transform_threshold_mask_generate.md#image_mask_per_mean) uses this to generate a mask of the input.
 
 There are better methods. Extensions to the simple mean, in order of creation (and complexity), are Sauvola, Niblack, and Phansalkar. Each of these modifies the plain mean with a bias based on a mix of standard deviation, parameters, and the mean itself.
 
@@ -51,36 +80,106 @@ There are better methods. Extensions to the simple mean, in order of creation (a
 |:---|:---|:---|:---|
 |radius|uint||Size of region to consider, as radius from center|
 
----
-### <a name='image_threshold_niblack'></a> aktive image threshold niblack
+#### <a name='image_threshold_mean__examples'></a> Examples
 
-Syntax: __aktive image threshold niblack__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=87&name=etc/transformer/thresholds/thresholds.tcl)]
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive image threshold mean @1 radius 7
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00263.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 300 200 1)</td>
+    <td valign='top'><img src='example-00264.gif' alt='aktive image threshold mean @1 radius 7' style='border:4px solid gold'>
+    <br>geometry(0 0 300 200 1)</td></tr>
+</table>
+
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive image threshold mean @1 radius 7
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00265.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 380 250 3)</td>
+    <td valign='top'><img src='example-00266.gif' alt='aktive image threshold mean @1 radius 7' style='border:4px solid gold'>
+    <br>geometry(0 0 380 250 3)</td></tr>
+</table>
+
+
+---
+### [↑](#top) <a name='image_threshold_niblack'></a> aktive image threshold niblack
+
+Syntax: __aktive image threshold niblack__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=113&name=etc/transformer/thresholds/thresholds.tcl)]
 
 Returns image containing per-pixel thresholds for the input, as per Niblack's method.
+
+The operator [aktive image mask per niblack](transform_threshold_mask_generate.md#image_mask_per_niblack) uses this to generate a mask of the input.
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |k|double|-0.2|niblack parameter|
 |radius|uint||Size of region to consider, as radius from center|
 
----
-### <a name='image_threshold_otsu'></a> aktive image threshold otsu
+#### <a name='image_threshold_niblack__examples'></a> Examples
 
-Syntax: __aktive image threshold otsu__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=218&name=etc/transformer/thresholds/thresholds.tcl)]
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive image threshold niblack @1 radius 7
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00267.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 300 200 1)</td>
+    <td valign='top'><img src='example-00268.gif' alt='aktive image threshold niblack @1 radius 7' style='border:4px solid gold'>
+    <br>geometry(0 0 300 200 1)</td></tr>
+</table>
+
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive image threshold niblack @1 radius 7
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00269.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 380 250 3)</td>
+    <td valign='top'><img src='example-00270.gif' alt='aktive image threshold niblack @1 radius 7' style='border:4px solid gold'>
+    <br>geometry(0 0 380 250 3)</td></tr>
+</table>
+
+
+---
+### [↑](#top) <a name='image_threshold_otsu'></a> aktive image threshold otsu
+
+Syntax: __aktive image threshold otsu__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=283&name=etc/transformer/thresholds/thresholds.tcl)]
 
 Returns image containing per-pixel thresholds for the input, as per Otsu's method.
+
+The operator [aktive image mask per otsu](transform_threshold_mask_generate.md#image_mask_per_otsu) uses this to generate a mask of the input.
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |radius|uint||Size of region to consider, as radius from center|
 |bins|int|256|The number of bins used by the internal histograms. The pixel values are quantized to fit. Only values in the range of [0..1] are considered valid. Values outside of that range are placed into the smallest/largest bin. The default quantizes the image values to 8-bit.|
 
----
-### <a name='image_threshold_phansalkar'></a> aktive image threshold phansalkar
+#### <a name='image_threshold_otsu__examples'></a> Examples
 
-Syntax: __aktive image threshold phansalkar__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=166&name=etc/transformer/thresholds/thresholds.tcl)]
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive image threshold otsu @1 radius 7
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00271.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 300 200 1)</td>
+    <td valign='top'><img src='example-00272.gif' alt='aktive image threshold otsu @1 radius 7' style='border:4px solid gold'>
+    <br>geometry(0 0 300 200 1)</td></tr>
+</table>
+
+
+---
+### [↑](#top) <a name='image_threshold_phansalkar'></a> aktive image threshold phansalkar
+
+Syntax: __aktive image threshold phansalkar__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=218&name=etc/transformer/thresholds/thresholds.tcl)]
 
 Returns image containing per-pixel thresholds for the input, as per Phansalkar's method.
+
+The operator [aktive image mask per phansalkar](transform_threshold_mask_generate.md#image_mask_per_phansalkar) uses this to generate a mask of the input.
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -90,12 +189,39 @@ Returns image containing per-pixel thresholds for the input, as per Phansalkar's
 |q|double|10|phansalkar parameter|
 |radius|uint||Size of region to consider, as radius from center|
 
----
-### <a name='image_threshold_sauvola'></a> aktive image threshold sauvola
+#### <a name='image_threshold_phansalkar__examples'></a> Examples
 
-Syntax: __aktive image threshold sauvola__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=125&name=etc/transformer/thresholds/thresholds.tcl)]
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive image threshold phansalkar @1 radius 7
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00273.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 300 200 1)</td>
+    <td valign='top'><img src='example-00274.gif' alt='aktive image threshold phansalkar @1 radius 7' style='border:4px solid gold'>
+    <br>geometry(0 0 300 200 1)</td></tr>
+</table>
+
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive image threshold phansalkar @1 radius 7
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00275.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 380 250 3)</td>
+    <td valign='top'><img src='example-00276.gif' alt='aktive image threshold phansalkar @1 radius 7' style='border:4px solid gold'>
+    <br>geometry(0 0 380 250 3)</td></tr>
+</table>
+
+
+---
+### [↑](#top) <a name='image_threshold_sauvola'></a> aktive image threshold sauvola
+
+Syntax: __aktive image threshold sauvola__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=164&name=etc/transformer/thresholds/thresholds.tcl)]
 
 Returns image containing per-pixel thresholds for the input, as per Sauvola's method.
+
+The operator [aktive image mask per sauvola](transform_threshold_mask_generate.md#image_mask_per_sauvola) uses this to generate a mask of the input.
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -103,15 +229,67 @@ Returns image containing per-pixel thresholds for the input, as per Sauvola's me
 |R|double|128|sauvola parameter|
 |radius|uint||Size of region to consider, as radius from center|
 
----
-### <a name='image_threshold_wolfjolion'></a> aktive image threshold wolfjolion
+#### <a name='image_threshold_sauvola__examples'></a> Examples
 
-Syntax: __aktive image threshold wolfjolion__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=250&name=etc/transformer/thresholds/thresholds.tcl)]
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive image threshold sauvola @1 radius 7
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00277.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 300 200 1)</td>
+    <td valign='top'><img src='example-00278.gif' alt='aktive image threshold sauvola @1 radius 7' style='border:4px solid gold'>
+    <br>geometry(0 0 300 200 1)</td></tr>
+</table>
+
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive image threshold sauvola @1 radius 7
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00279.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 380 250 3)</td>
+    <td valign='top'><img src='example-00280.gif' alt='aktive image threshold sauvola @1 radius 7' style='border:4px solid gold'>
+    <br>geometry(0 0 380 250 3)</td></tr>
+</table>
+
+
+---
+### [↑](#top) <a name='image_threshold_wolfjolion'></a> aktive image threshold wolfjolion
+
+Syntax: __aktive image threshold wolfjolion__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=323&name=etc/transformer/thresholds/thresholds.tcl)]
 
 Returns image containing per-pixel thresholds for the input, as per Wolf+Jolion's method.
+
+The operator [aktive image mask per wolfjolion](transform_threshold_mask_generate.md#image_mask_per_wolfjolion) uses this to generate a mask of the input.
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |k|double|0.5|wolfjolion parameter|
 |radius|uint||Size of region to consider, as radius from center|
+
+#### <a name='image_threshold_wolfjolion__examples'></a> Examples
+
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive image threshold wolfjolion @1 radius 7
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00281.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 300 200 1)</td>
+    <td valign='top'><img src='example-00282.gif' alt='aktive image threshold wolfjolion @1 radius 7' style='border:4px solid gold'>
+    <br>geometry(0 0 300 200 1)</td></tr>
+</table>
+
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive image threshold wolfjolion @1 radius 7
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00283.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 380 250 3)</td>
+    <td valign='top'><img src='example-00284.gif' alt='aktive image threshold wolfjolion @1 radius 7' style='border:4px solid gold'>
+    <br>geometry(0 0 380 250 3)</td></tr>
+</table>
+
 

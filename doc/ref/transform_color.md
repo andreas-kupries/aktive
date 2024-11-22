@@ -10,7 +10,7 @@
 
 # Documentation -- Reference Pages -- transform color
 
-## Table Of Contents
+## <anchor='top'> Table Of Contents
 
   - [transform](transform.md) ↗
 
@@ -88,7 +88,7 @@
 ## Operators
 
 ---
-### <a name='op_color_correct_greyworld_global'></a> aktive op color correct greyworld global
+### [↑](#top) <a name='op_color_correct_greyworld_global'></a> aktive op color correct greyworld global
 
 Syntax: __aktive op color correct greyworld global__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=9&name=etc/transformer/color/recast.tcl)]
 
@@ -103,7 +103,7 @@ The actual correction is always done in the `scRGB` space, i.e. with linear colo
 |mean|double|{}|Use as a fixed global mean, if specified. Else use the actual global mean for the input.|
 
 ---
-### <a name='op_color_correct_greyworld_local'></a> aktive op color correct greyworld local
+### [↑](#top) <a name='op_color_correct_greyworld_local'></a> aktive op color correct greyworld local
 
 Syntax: __aktive op color correct greyworld local__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=65&name=etc/transformer/color/recast.tcl)]
 
@@ -121,7 +121,7 @@ The size of the window/tile used to compute local conditions is set by radius. T
 |mean|double|{}|Use as a fixed xglobal mean, if specified. Else use the actual xglobal mean for the input.|
 
 ---
-### <a name='op_color_HSL_to_Grey'></a> aktive op color HSL to Grey
+### [↑](#top) <a name='op_color_HSL_to_Grey'></a> aktive op color HSL to Grey
 
 Syntax: __aktive op color HSL to Grey__ src [[→ definition](../../../../file?ci=trunk&ln=72&name=etc/transformer/color/non-core.tcl)]
 
@@ -129,7 +129,7 @@ Returns image in Grey colorspace, from input in HSL colorspace.
 
 
 ---
-### <a name='op_color_HSL_to_HSV'></a> aktive op color HSL to HSV
+### [↑](#top) <a name='op_color_HSL_to_HSV'></a> aktive op color HSL to HSV
 
 Syntax: __aktive op color HSL to HSV__ src [[→ definition](../../../../file?ci=trunk&ln=72&name=etc/transformer/color/non-core.tcl)]
 
@@ -137,7 +137,7 @@ Returns image in HSV colorspace, from input in HSL colorspace.
 
 
 ---
-### <a name='op_color_HSL_to_Lab'></a> aktive op color HSL to Lab
+### [↑](#top) <a name='op_color_HSL_to_Lab'></a> aktive op color HSL to Lab
 
 Syntax: __aktive op color HSL to Lab__ src [[→ definition](../../../../file?ci=trunk&ln=72&name=etc/transformer/color/non-core.tcl)]
 
@@ -145,7 +145,7 @@ Returns image in Lab colorspace, from input in HSL colorspace.
 
 
 ---
-### <a name='op_color_HSL_to_LCh'></a> aktive op color HSL to LCh
+### [↑](#top) <a name='op_color_HSL_to_LCh'></a> aktive op color HSL to LCh
 
 Syntax: __aktive op color HSL to LCh__ src [[→ definition](../../../../file?ci=trunk&ln=72&name=etc/transformer/color/non-core.tcl)]
 
@@ -153,7 +153,7 @@ Returns image in LCh colorspace, from input in HSL colorspace.
 
 
 ---
-### <a name='op_color_HSL_to_scRGB'></a> aktive op color HSL to scRGB
+### [↑](#top) <a name='op_color_HSL_to_scRGB'></a> aktive op color HSL to scRGB
 
 Syntax: __aktive op color HSL to scRGB__ src [[→ definition](../../../../file?ci=trunk&ln=72&name=etc/transformer/color/non-core.tcl)]
 
@@ -161,7 +161,7 @@ Returns image in scRGB colorspace, from input in HSL colorspace.
 
 
 ---
-### <a name='op_color_HSL_to_sRGB'></a> aktive op color HSL to sRGB
+### [↑](#top) <a name='op_color_HSL_to_sRGB'></a> aktive op color HSL to sRGB
 
 Syntax: __aktive op color HSL to sRGB__ src [[→ definition](../../../../file?ci=trunk&ln=90&name=etc/transformer/color/hsl-srgb.tcl)]
 
@@ -169,7 +169,7 @@ Returns image in sRGB colorspace, from input in HSL colorspace.
 
 
 ---
-### <a name='op_color_HSL_to_XYZ'></a> aktive op color HSL to XYZ
+### [↑](#top) <a name='op_color_HSL_to_XYZ'></a> aktive op color HSL to XYZ
 
 Syntax: __aktive op color HSL to XYZ__ src [[→ definition](../../../../file?ci=trunk&ln=72&name=etc/transformer/color/non-core.tcl)]
 
@@ -177,7 +177,7 @@ Returns image in XYZ colorspace, from input in HSL colorspace.
 
 
 ---
-### <a name='op_color_HSL_to_Yxy'></a> aktive op color HSL to Yxy
+### [↑](#top) <a name='op_color_HSL_to_Yxy'></a> aktive op color HSL to Yxy
 
 Syntax: __aktive op color HSL to Yxy__ src [[→ definition](../../../../file?ci=trunk&ln=72&name=etc/transformer/color/non-core.tcl)]
 
@@ -185,7 +185,7 @@ Returns image in Yxy colorspace, from input in HSL colorspace.
 
 
 ---
-### <a name='op_color_HSV_to_Grey'></a> aktive op color HSV to Grey
+### [↑](#top) <a name='op_color_HSV_to_Grey'></a> aktive op color HSV to Grey
 
 Syntax: __aktive op color HSV to Grey__ src [[→ definition](../../../../file?ci=trunk&ln=72&name=etc/transformer/color/non-core.tcl)]
 
@@ -193,7 +193,7 @@ Returns image in Grey colorspace, from input in HSV colorspace.
 
 
 ---
-### <a name='op_color_HSV_to_HSL'></a> aktive op color HSV to HSL
+### [↑](#top) <a name='op_color_HSV_to_HSL'></a> aktive op color HSV to HSL
 
 Syntax: __aktive op color HSV to HSL__ src [[→ definition](../../../../file?ci=trunk&ln=96&name=etc/transformer/color/non-core.tcl)]
 
@@ -201,7 +201,7 @@ Returns image in HSL colorspace, from input in HSV colorspace.
 
 
 ---
-### <a name='op_color_HSV_to_Lab'></a> aktive op color HSV to Lab
+### [↑](#top) <a name='op_color_HSV_to_Lab'></a> aktive op color HSV to Lab
 
 Syntax: __aktive op color HSV to Lab__ src [[→ definition](../../../../file?ci=trunk&ln=72&name=etc/transformer/color/non-core.tcl)]
 
@@ -209,7 +209,7 @@ Returns image in Lab colorspace, from input in HSV colorspace.
 
 
 ---
-### <a name='op_color_HSV_to_LCh'></a> aktive op color HSV to LCh
+### [↑](#top) <a name='op_color_HSV_to_LCh'></a> aktive op color HSV to LCh
 
 Syntax: __aktive op color HSV to LCh__ src [[→ definition](../../../../file?ci=trunk&ln=72&name=etc/transformer/color/non-core.tcl)]
 
@@ -217,7 +217,7 @@ Returns image in LCh colorspace, from input in HSV colorspace.
 
 
 ---
-### <a name='op_color_HSV_to_scRGB'></a> aktive op color HSV to scRGB
+### [↑](#top) <a name='op_color_HSV_to_scRGB'></a> aktive op color HSV to scRGB
 
 Syntax: __aktive op color HSV to scRGB__ src [[→ definition](../../../../file?ci=trunk&ln=72&name=etc/transformer/color/non-core.tcl)]
 
@@ -225,7 +225,7 @@ Returns image in scRGB colorspace, from input in HSV colorspace.
 
 
 ---
-### <a name='op_color_HSV_to_sRGB'></a> aktive op color HSV to sRGB
+### [↑](#top) <a name='op_color_HSV_to_sRGB'></a> aktive op color HSV to sRGB
 
 Syntax: __aktive op color HSV to sRGB__ src [[→ definition](../../../../file?ci=trunk&ln=87&name=etc/transformer/color/hsv-srgb.tcl)]
 
@@ -233,7 +233,7 @@ Returns image in sRGB colorspace, from input in HSV colorspace.
 
 
 ---
-### <a name='op_color_HSV_to_XYZ'></a> aktive op color HSV to XYZ
+### [↑](#top) <a name='op_color_HSV_to_XYZ'></a> aktive op color HSV to XYZ
 
 Syntax: __aktive op color HSV to XYZ__ src [[→ definition](../../../../file?ci=trunk&ln=72&name=etc/transformer/color/non-core.tcl)]
 
@@ -241,7 +241,7 @@ Returns image in XYZ colorspace, from input in HSV colorspace.
 
 
 ---
-### <a name='op_color_HSV_to_Yxy'></a> aktive op color HSV to Yxy
+### [↑](#top) <a name='op_color_HSV_to_Yxy'></a> aktive op color HSV to Yxy
 
 Syntax: __aktive op color HSV to Yxy__ src [[→ definition](../../../../file?ci=trunk&ln=72&name=etc/transformer/color/non-core.tcl)]
 
@@ -249,7 +249,7 @@ Returns image in Yxy colorspace, from input in HSV colorspace.
 
 
 ---
-### <a name='op_color_Lab_to_Grey'></a> aktive op color Lab to Grey
+### [↑](#top) <a name='op_color_Lab_to_Grey'></a> aktive op color Lab to Grey
 
 Syntax: __aktive op color Lab to Grey__ src [[→ definition](../../../../file?ci=trunk&ln=133&name=etc/transformer/color/xyz-lab.tcl)]
 
@@ -263,7 +263,7 @@ For a different whitepoint scale the greyscale by the associated illuminant valu
 
 
 ---
-### <a name='op_color_Lab_to_HSL'></a> aktive op color Lab to HSL
+### [↑](#top) <a name='op_color_Lab_to_HSL'></a> aktive op color Lab to HSL
 
 Syntax: __aktive op color Lab to HSL__ src [[→ definition](../../../../file?ci=trunk&ln=96&name=etc/transformer/color/non-core.tcl)]
 
@@ -271,7 +271,7 @@ Returns image in HSL colorspace, from input in Lab colorspace.
 
 
 ---
-### <a name='op_color_Lab_to_HSV'></a> aktive op color Lab to HSV
+### [↑](#top) <a name='op_color_Lab_to_HSV'></a> aktive op color Lab to HSV
 
 Syntax: __aktive op color Lab to HSV__ src [[→ definition](../../../../file?ci=trunk&ln=96&name=etc/transformer/color/non-core.tcl)]
 
@@ -279,7 +279,7 @@ Returns image in HSV colorspace, from input in Lab colorspace.
 
 
 ---
-### <a name='op_color_Lab_to_LCh'></a> aktive op color Lab to LCh
+### [↑](#top) <a name='op_color_Lab_to_LCh'></a> aktive op color Lab to LCh
 
 Syntax: __aktive op color Lab to LCh__ src [[→ definition](../../../../file?ci=trunk&ln=9&name=etc/transformer/color/lab-lch.tcl)]
 
@@ -289,7 +289,7 @@ The H coordinate is provided in degrees.
 
 
 ---
-### <a name='op_color_Lab_to_scRGB'></a> aktive op color Lab to scRGB
+### [↑](#top) <a name='op_color_Lab_to_scRGB'></a> aktive op color Lab to scRGB
 
 Syntax: __aktive op color Lab to scRGB__ src [[→ definition](../../../../file?ci=trunk&ln=96&name=etc/transformer/color/non-core.tcl)]
 
@@ -297,7 +297,7 @@ Returns image in scRGB colorspace, from input in Lab colorspace.
 
 
 ---
-### <a name='op_color_Lab_to_sRGB'></a> aktive op color Lab to sRGB
+### [↑](#top) <a name='op_color_Lab_to_sRGB'></a> aktive op color Lab to sRGB
 
 Syntax: __aktive op color Lab to sRGB__ src [[→ definition](../../../../file?ci=trunk&ln=96&name=etc/transformer/color/non-core.tcl)]
 
@@ -305,7 +305,7 @@ Returns image in sRGB colorspace, from input in Lab colorspace.
 
 
 ---
-### <a name='op_color_Lab_to_XYZ'></a> aktive op color Lab to XYZ
+### [↑](#top) <a name='op_color_Lab_to_XYZ'></a> aktive op color Lab to XYZ
 
 Syntax: __aktive op color Lab to XYZ__ src [[→ definition](../../../../file?ci=trunk&ln=9&name=etc/transformer/color/xyz-lab.tcl)]
 
@@ -317,7 +317,7 @@ For a different whitepoint scale the XYZ bands by the associated illuminant valu
 
 
 ---
-### <a name='op_color_Lab_to_Yxy'></a> aktive op color Lab to Yxy
+### [↑](#top) <a name='op_color_Lab_to_Yxy'></a> aktive op color Lab to Yxy
 
 Syntax: __aktive op color Lab to Yxy__ src [[→ definition](../../../../file?ci=trunk&ln=96&name=etc/transformer/color/non-core.tcl)]
 
@@ -325,7 +325,7 @@ Returns image in Yxy colorspace, from input in Lab colorspace.
 
 
 ---
-### <a name='op_color_LCh_to_Grey'></a> aktive op color LCh to Grey
+### [↑](#top) <a name='op_color_LCh_to_Grey'></a> aktive op color LCh to Grey
 
 Syntax: __aktive op color LCh to Grey__ src [[→ definition](../../../../file?ci=trunk&ln=72&name=etc/transformer/color/non-core.tcl)]
 
@@ -333,7 +333,7 @@ Returns image in Grey colorspace, from input in LCh colorspace.
 
 
 ---
-### <a name='op_color_LCh_to_HSL'></a> aktive op color LCh to HSL
+### [↑](#top) <a name='op_color_LCh_to_HSL'></a> aktive op color LCh to HSL
 
 Syntax: __aktive op color LCh to HSL__ src [[→ definition](../../../../file?ci=trunk&ln=96&name=etc/transformer/color/non-core.tcl)]
 
@@ -341,7 +341,7 @@ Returns image in HSL colorspace, from input in LCh colorspace.
 
 
 ---
-### <a name='op_color_LCh_to_HSV'></a> aktive op color LCh to HSV
+### [↑](#top) <a name='op_color_LCh_to_HSV'></a> aktive op color LCh to HSV
 
 Syntax: __aktive op color LCh to HSV__ src [[→ definition](../../../../file?ci=trunk&ln=96&name=etc/transformer/color/non-core.tcl)]
 
@@ -349,7 +349,7 @@ Returns image in HSV colorspace, from input in LCh colorspace.
 
 
 ---
-### <a name='op_color_LCh_to_Lab'></a> aktive op color LCh to Lab
+### [↑](#top) <a name='op_color_LCh_to_Lab'></a> aktive op color LCh to Lab
 
 Syntax: __aktive op color LCh to Lab__ src [[→ definition](../../../../file?ci=trunk&ln=64&name=etc/transformer/color/lab-lch.tcl)]
 
@@ -359,7 +359,7 @@ The H coordinate is expected to be in degrees.
 
 
 ---
-### <a name='op_color_LCh_to_scRGB'></a> aktive op color LCh to scRGB
+### [↑](#top) <a name='op_color_LCh_to_scRGB'></a> aktive op color LCh to scRGB
 
 Syntax: __aktive op color LCh to scRGB__ src [[→ definition](../../../../file?ci=trunk&ln=96&name=etc/transformer/color/non-core.tcl)]
 
@@ -367,7 +367,7 @@ Returns image in scRGB colorspace, from input in LCh colorspace.
 
 
 ---
-### <a name='op_color_LCh_to_sRGB'></a> aktive op color LCh to sRGB
+### [↑](#top) <a name='op_color_LCh_to_sRGB'></a> aktive op color LCh to sRGB
 
 Syntax: __aktive op color LCh to sRGB__ src [[→ definition](../../../../file?ci=trunk&ln=96&name=etc/transformer/color/non-core.tcl)]
 
@@ -375,7 +375,7 @@ Returns image in sRGB colorspace, from input in LCh colorspace.
 
 
 ---
-### <a name='op_color_LCh_to_XYZ'></a> aktive op color LCh to XYZ
+### [↑](#top) <a name='op_color_LCh_to_XYZ'></a> aktive op color LCh to XYZ
 
 Syntax: __aktive op color LCh to XYZ__ src [[→ definition](../../../../file?ci=trunk&ln=96&name=etc/transformer/color/non-core.tcl)]
 
@@ -383,7 +383,7 @@ Returns image in XYZ colorspace, from input in LCh colorspace.
 
 
 ---
-### <a name='op_color_LCh_to_Yxy'></a> aktive op color LCh to Yxy
+### [↑](#top) <a name='op_color_LCh_to_Yxy'></a> aktive op color LCh to Yxy
 
 Syntax: __aktive op color LCh to Yxy__ src [[→ definition](../../../../file?ci=trunk&ln=96&name=etc/transformer/color/non-core.tcl)]
 
@@ -391,7 +391,7 @@ Returns image in Yxy colorspace, from input in LCh colorspace.
 
 
 ---
-### <a name='op_color_scRGB_to_Grey'></a> aktive op color scRGB to Grey
+### [↑](#top) <a name='op_color_scRGB_to_Grey'></a> aktive op color scRGB to Grey
 
 Syntax: __aktive op color scRGB to Grey__ src [[→ definition](../../../../file?ci=trunk&ln=150&name=etc/transformer/color/scrgb-xyz.tcl)]
 
@@ -401,7 +401,7 @@ The gray data is just the Y channel of a conversion to XYZ colorspace. A separat
 
 
 ---
-### <a name='op_color_scRGB_to_HSL'></a> aktive op color scRGB to HSL
+### [↑](#top) <a name='op_color_scRGB_to_HSL'></a> aktive op color scRGB to HSL
 
 Syntax: __aktive op color scRGB to HSL__ src [[→ definition](../../../../file?ci=trunk&ln=96&name=etc/transformer/color/non-core.tcl)]
 
@@ -409,7 +409,7 @@ Returns image in HSL colorspace, from input in scRGB colorspace.
 
 
 ---
-### <a name='op_color_scRGB_to_HSV'></a> aktive op color scRGB to HSV
+### [↑](#top) <a name='op_color_scRGB_to_HSV'></a> aktive op color scRGB to HSV
 
 Syntax: __aktive op color scRGB to HSV__ src [[→ definition](../../../../file?ci=trunk&ln=96&name=etc/transformer/color/non-core.tcl)]
 
@@ -417,7 +417,7 @@ Returns image in HSV colorspace, from input in scRGB colorspace.
 
 
 ---
-### <a name='op_color_scRGB_to_Lab'></a> aktive op color scRGB to Lab
+### [↑](#top) <a name='op_color_scRGB_to_Lab'></a> aktive op color scRGB to Lab
 
 Syntax: __aktive op color scRGB to Lab__ src [[→ definition](../../../../file?ci=trunk&ln=72&name=etc/transformer/color/non-core.tcl)]
 
@@ -425,7 +425,7 @@ Returns image in Lab colorspace, from input in scRGB colorspace.
 
 
 ---
-### <a name='op_color_scRGB_to_LCh'></a> aktive op color scRGB to LCh
+### [↑](#top) <a name='op_color_scRGB_to_LCh'></a> aktive op color scRGB to LCh
 
 Syntax: __aktive op color scRGB to LCh__ src [[→ definition](../../../../file?ci=trunk&ln=72&name=etc/transformer/color/non-core.tcl)]
 
@@ -433,7 +433,7 @@ Returns image in LCh colorspace, from input in scRGB colorspace.
 
 
 ---
-### <a name='op_color_scRGB_to_sRGB'></a> aktive op color scRGB to sRGB
+### [↑](#top) <a name='op_color_scRGB_to_sRGB'></a> aktive op color scRGB to sRGB
 
 Syntax: __aktive op color scRGB to sRGB__ src [[→ definition](../../../../file?ci=trunk&ln=7&name=etc/transformer/color/srgb-scrgb.tcl)]
 
@@ -441,7 +441,7 @@ Returns image in sRGB colorspace, from input in scRGB colorspace. Linear light b
 
 
 ---
-### <a name='op_color_scRGB_to_XYZ'></a> aktive op color scRGB to XYZ
+### [↑](#top) <a name='op_color_scRGB_to_XYZ'></a> aktive op color scRGB to XYZ
 
 Syntax: __aktive op color scRGB to XYZ__ src [[→ definition](../../../../file?ci=trunk&ln=9&name=etc/transformer/color/scrgb-xyz.tcl)]
 
@@ -449,7 +449,7 @@ Returns image in XYZ colorspace, from input in scRGB colorspace.
 
 
 ---
-### <a name='op_color_scRGB_to_Yxy'></a> aktive op color scRGB to Yxy
+### [↑](#top) <a name='op_color_scRGB_to_Yxy'></a> aktive op color scRGB to Yxy
 
 Syntax: __aktive op color scRGB to Yxy__ src [[→ definition](../../../../file?ci=trunk&ln=72&name=etc/transformer/color/non-core.tcl)]
 
@@ -457,7 +457,7 @@ Returns image in Yxy colorspace, from input in scRGB colorspace.
 
 
 ---
-### <a name='op_color_set'></a> aktive op color set
+### [↑](#top) <a name='op_color_set'></a> aktive op color set
 
 Syntax: __aktive op color set__ src colorspace [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/color/non-core.tcl)]
 
@@ -469,7 +469,7 @@ Forcibly sets the colorspace attribute of the input image to the specified value
 |colorspace|str||New colorspace to assume|
 
 ---
-### <a name='op_color_sRGB_to_Grey'></a> aktive op color sRGB to Grey
+### [↑](#top) <a name='op_color_sRGB_to_Grey'></a> aktive op color sRGB to Grey
 
 Syntax: __aktive op color sRGB to Grey__ src [[→ definition](../../../../file?ci=trunk&ln=72&name=etc/transformer/color/non-core.tcl)]
 
@@ -477,7 +477,7 @@ Returns image in Grey colorspace, from input in sRGB colorspace.
 
 
 ---
-### <a name='op_color_sRGB_to_HSL'></a> aktive op color sRGB to HSL
+### [↑](#top) <a name='op_color_sRGB_to_HSL'></a> aktive op color sRGB to HSL
 
 Syntax: __aktive op color sRGB to HSL__ src [[→ definition](../../../../file?ci=trunk&ln=13&name=etc/transformer/color/hsl-srgb.tcl)]
 
@@ -485,7 +485,7 @@ Returns image in HSL colorspace, from input in sRGB colorspace.
 
 
 ---
-### <a name='op_color_sRGB_to_HSV'></a> aktive op color sRGB to HSV
+### [↑](#top) <a name='op_color_sRGB_to_HSV'></a> aktive op color sRGB to HSV
 
 Syntax: __aktive op color sRGB to HSV__ src [[→ definition](../../../../file?ci=trunk&ln=13&name=etc/transformer/color/hsv-srgb.tcl)]
 
@@ -493,7 +493,7 @@ Returns image in HSV colorspace, from input in sRGB colorspace.
 
 
 ---
-### <a name='op_color_sRGB_to_Lab'></a> aktive op color sRGB to Lab
+### [↑](#top) <a name='op_color_sRGB_to_Lab'></a> aktive op color sRGB to Lab
 
 Syntax: __aktive op color sRGB to Lab__ src [[→ definition](../../../../file?ci=trunk&ln=72&name=etc/transformer/color/non-core.tcl)]
 
@@ -501,7 +501,7 @@ Returns image in Lab colorspace, from input in sRGB colorspace.
 
 
 ---
-### <a name='op_color_sRGB_to_LCh'></a> aktive op color sRGB to LCh
+### [↑](#top) <a name='op_color_sRGB_to_LCh'></a> aktive op color sRGB to LCh
 
 Syntax: __aktive op color sRGB to LCh__ src [[→ definition](../../../../file?ci=trunk&ln=72&name=etc/transformer/color/non-core.tcl)]
 
@@ -509,7 +509,7 @@ Returns image in LCh colorspace, from input in sRGB colorspace.
 
 
 ---
-### <a name='op_color_sRGB_to_scRGB'></a> aktive op color sRGB to scRGB
+### [↑](#top) <a name='op_color_sRGB_to_scRGB'></a> aktive op color sRGB to scRGB
 
 Syntax: __aktive op color sRGB to scRGB__ src [[→ definition](../../../../file?ci=trunk&ln=22&name=etc/transformer/color/srgb-scrgb.tcl)]
 
@@ -517,7 +517,7 @@ Returns image in scRGB colorspace, from input in sRGB colorspace. (gamma) compre
 
 
 ---
-### <a name='op_color_sRGB_to_XYZ'></a> aktive op color sRGB to XYZ
+### [↑](#top) <a name='op_color_sRGB_to_XYZ'></a> aktive op color sRGB to XYZ
 
 Syntax: __aktive op color sRGB to XYZ__ src [[→ definition](../../../../file?ci=trunk&ln=72&name=etc/transformer/color/non-core.tcl)]
 
@@ -525,7 +525,7 @@ Returns image in XYZ colorspace, from input in sRGB colorspace.
 
 
 ---
-### <a name='op_color_sRGB_to_Yxy'></a> aktive op color sRGB to Yxy
+### [↑](#top) <a name='op_color_sRGB_to_Yxy'></a> aktive op color sRGB to Yxy
 
 Syntax: __aktive op color sRGB to Yxy__ src [[→ definition](../../../../file?ci=trunk&ln=72&name=etc/transformer/color/non-core.tcl)]
 
@@ -533,7 +533,7 @@ Returns image in Yxy colorspace, from input in sRGB colorspace.
 
 
 ---
-### <a name='op_color_XYZ_to_Grey'></a> aktive op color XYZ to Grey
+### [↑](#top) <a name='op_color_XYZ_to_Grey'></a> aktive op color XYZ to Grey
 
 Syntax: __aktive op color XYZ to Grey__ src [[→ definition](../../../../file?ci=trunk&ln=136&name=etc/transformer/color/scrgb-xyz.tcl)]
 
@@ -543,7 +543,7 @@ The gray data is just the Y channel of the input.
 
 
 ---
-### <a name='op_color_XYZ_to_HSL'></a> aktive op color XYZ to HSL
+### [↑](#top) <a name='op_color_XYZ_to_HSL'></a> aktive op color XYZ to HSL
 
 Syntax: __aktive op color XYZ to HSL__ src [[→ definition](../../../../file?ci=trunk&ln=96&name=etc/transformer/color/non-core.tcl)]
 
@@ -551,7 +551,7 @@ Returns image in HSL colorspace, from input in XYZ colorspace.
 
 
 ---
-### <a name='op_color_XYZ_to_HSV'></a> aktive op color XYZ to HSV
+### [↑](#top) <a name='op_color_XYZ_to_HSV'></a> aktive op color XYZ to HSV
 
 Syntax: __aktive op color XYZ to HSV__ src [[→ definition](../../../../file?ci=trunk&ln=96&name=etc/transformer/color/non-core.tcl)]
 
@@ -559,7 +559,7 @@ Returns image in HSV colorspace, from input in XYZ colorspace.
 
 
 ---
-### <a name='op_color_XYZ_to_Lab'></a> aktive op color XYZ to Lab
+### [↑](#top) <a name='op_color_XYZ_to_Lab'></a> aktive op color XYZ to Lab
 
 Syntax: __aktive op color XYZ to Lab__ src [[→ definition](../../../../file?ci=trunk&ln=71&name=etc/transformer/color/xyz-lab.tcl)]
 
@@ -571,7 +571,7 @@ For a different whitepoint divide the XYZ bands by the associated illuminant val
 
 
 ---
-### <a name='op_color_XYZ_to_LCh'></a> aktive op color XYZ to LCh
+### [↑](#top) <a name='op_color_XYZ_to_LCh'></a> aktive op color XYZ to LCh
 
 Syntax: __aktive op color XYZ to LCh__ src [[→ definition](../../../../file?ci=trunk&ln=72&name=etc/transformer/color/non-core.tcl)]
 
@@ -579,7 +579,7 @@ Returns image in LCh colorspace, from input in XYZ colorspace.
 
 
 ---
-### <a name='op_color_XYZ_to_scRGB'></a> aktive op color XYZ to scRGB
+### [↑](#top) <a name='op_color_XYZ_to_scRGB'></a> aktive op color XYZ to scRGB
 
 Syntax: __aktive op color XYZ to scRGB__ src [[→ definition](../../../../file?ci=trunk&ln=70&name=etc/transformer/color/scrgb-xyz.tcl)]
 
@@ -587,7 +587,7 @@ Returns image in scRGB colorspace, from input in XYZ colorspace.
 
 
 ---
-### <a name='op_color_XYZ_to_sRGB'></a> aktive op color XYZ to sRGB
+### [↑](#top) <a name='op_color_XYZ_to_sRGB'></a> aktive op color XYZ to sRGB
 
 Syntax: __aktive op color XYZ to sRGB__ src [[→ definition](../../../../file?ci=trunk&ln=96&name=etc/transformer/color/non-core.tcl)]
 
@@ -595,7 +595,7 @@ Returns image in sRGB colorspace, from input in XYZ colorspace.
 
 
 ---
-### <a name='op_color_XYZ_to_Yxy'></a> aktive op color XYZ to Yxy
+### [↑](#top) <a name='op_color_XYZ_to_Yxy'></a> aktive op color XYZ to Yxy
 
 Syntax: __aktive op color XYZ to Yxy__ src [[→ definition](../../../../file?ci=trunk&ln=65&name=etc/transformer/color/xyz-yxy.tcl)]
 
@@ -603,7 +603,7 @@ Returns image in Yxy colorspace, from input in XYZ colorspace.
 
 
 ---
-### <a name='op_color_Yxy_to_Grey'></a> aktive op color Yxy to Grey
+### [↑](#top) <a name='op_color_Yxy_to_Grey'></a> aktive op color Yxy to Grey
 
 Syntax: __aktive op color Yxy to Grey__ src [[→ definition](../../../../file?ci=trunk&ln=126&name=etc/transformer/color/xyz-yxy.tcl)]
 
@@ -613,7 +613,7 @@ The gray data is just the Y channel of a conversion to XYZ colorspace. A separat
 
 
 ---
-### <a name='op_color_Yxy_to_HSL'></a> aktive op color Yxy to HSL
+### [↑](#top) <a name='op_color_Yxy_to_HSL'></a> aktive op color Yxy to HSL
 
 Syntax: __aktive op color Yxy to HSL__ src [[→ definition](../../../../file?ci=trunk&ln=96&name=etc/transformer/color/non-core.tcl)]
 
@@ -621,7 +621,7 @@ Returns image in HSL colorspace, from input in Yxy colorspace.
 
 
 ---
-### <a name='op_color_Yxy_to_HSV'></a> aktive op color Yxy to HSV
+### [↑](#top) <a name='op_color_Yxy_to_HSV'></a> aktive op color Yxy to HSV
 
 Syntax: __aktive op color Yxy to HSV__ src [[→ definition](../../../../file?ci=trunk&ln=96&name=etc/transformer/color/non-core.tcl)]
 
@@ -629,7 +629,7 @@ Returns image in HSV colorspace, from input in Yxy colorspace.
 
 
 ---
-### <a name='op_color_Yxy_to_Lab'></a> aktive op color Yxy to Lab
+### [↑](#top) <a name='op_color_Yxy_to_Lab'></a> aktive op color Yxy to Lab
 
 Syntax: __aktive op color Yxy to Lab__ src [[→ definition](../../../../file?ci=trunk&ln=72&name=etc/transformer/color/non-core.tcl)]
 
@@ -637,7 +637,7 @@ Returns image in Lab colorspace, from input in Yxy colorspace.
 
 
 ---
-### <a name='op_color_Yxy_to_LCh'></a> aktive op color Yxy to LCh
+### [↑](#top) <a name='op_color_Yxy_to_LCh'></a> aktive op color Yxy to LCh
 
 Syntax: __aktive op color Yxy to LCh__ src [[→ definition](../../../../file?ci=trunk&ln=72&name=etc/transformer/color/non-core.tcl)]
 
@@ -645,7 +645,7 @@ Returns image in LCh colorspace, from input in Yxy colorspace.
 
 
 ---
-### <a name='op_color_Yxy_to_scRGB'></a> aktive op color Yxy to scRGB
+### [↑](#top) <a name='op_color_Yxy_to_scRGB'></a> aktive op color Yxy to scRGB
 
 Syntax: __aktive op color Yxy to scRGB__ src [[→ definition](../../../../file?ci=trunk&ln=96&name=etc/transformer/color/non-core.tcl)]
 
@@ -653,7 +653,7 @@ Returns image in scRGB colorspace, from input in Yxy colorspace.
 
 
 ---
-### <a name='op_color_Yxy_to_sRGB'></a> aktive op color Yxy to sRGB
+### [↑](#top) <a name='op_color_Yxy_to_sRGB'></a> aktive op color Yxy to sRGB
 
 Syntax: __aktive op color Yxy to sRGB__ src [[→ definition](../../../../file?ci=trunk&ln=96&name=etc/transformer/color/non-core.tcl)]
 
@@ -661,7 +661,7 @@ Returns image in sRGB colorspace, from input in Yxy colorspace.
 
 
 ---
-### <a name='op_color_Yxy_to_XYZ'></a> aktive op color Yxy to XYZ
+### [↑](#top) <a name='op_color_Yxy_to_XYZ'></a> aktive op color Yxy to XYZ
 
 Syntax: __aktive op color Yxy to XYZ__ src [[→ definition](../../../../file?ci=trunk&ln=11&name=etc/transformer/color/xyz-yxy.tcl)]
 

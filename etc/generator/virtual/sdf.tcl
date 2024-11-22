@@ -291,6 +291,12 @@ operator op::sdf::round {
 operator op::sdf::2image::fit {
     section transform sdf
 
+    example {
+	aktive image sdf circle center {80 80} width 128 height 128 radius 40
+	aktive image sdf box    center {48 48} width 128 height 128 ewidth 40 eheight 40
+	aktive op sdf and @1 @2 | sdf-fit
+    }
+
     note Compresses the input SDF into the range 0..1 and returns the resulting grayscale image.
 
     input
@@ -302,6 +308,12 @@ operator op::sdf::2image::fit {
 
 operator op::sdf::2image::smooth {
     section transform sdf
+
+    example {
+	aktive image sdf circle center {80 80} width 128 height 128 radius 40
+	aktive image sdf box    center {48 48} width 128 height 128 ewidth 40 eheight 40
+	aktive op sdf and @1 @2 | sdf-smooth
+    }
 
     note Converts the SDF into a grey-scale image with anti-aliased element borders.
 
@@ -315,6 +327,12 @@ operator op::sdf::2image::smooth {
 
 operator op::sdf::2image::pixelated {
     section transform sdf
+
+    example {
+	aktive image sdf circle center {80 80} width 128 height 128 radius 40
+	aktive image sdf box    center {48 48} width 128 height 128 ewidth 40 eheight 40
+	aktive op sdf and @1 @2 | sdf-pixelated
+    }
 
     note Converts the SDF into a black/white image with pixelated element borders.
 
