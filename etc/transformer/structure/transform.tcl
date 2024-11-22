@@ -9,9 +9,9 @@ operator op::transform::by {
     section transform structure warp
 
     example {
-	dot red {10 50} [butterfly]                  | -label assets/butterfly.ppm
+	bframe [dot red {10 50} [butterfly]]         | -label assets/butterfly.ppm
 	aktive transform rotate by 30 around {10 50} | -matrix -label rotate by 30 around {10 50}
-	@2 @1
+	@2 @1 | bframe
     }
     example {
 	butterfly                          | -label assets/butterfly.ppm
@@ -34,9 +34,9 @@ operator op::transform::by {
 	@2 @1
     }
     example {
-	line red {50 260} {150 -10} [butterfly]              | -label assets/butterfly.ppm
+	bframe [line red {50 260} {150 -10} [butterfly]]     | -label assets/butterfly.ppm
 	aktive transform reflect line a {50 260} b {150 -10} | -matrix -label reflect line {50 260} b {150 -10}
-	@2 @1
+	@2 @1 | bframe
     }
     example {
 	dot green {190 10} [dot blue {210 80} [dot red {47 62} [poly red {{47 62} {190 10} {210 80} {100 125} {47 62}} [butterfly]]]] | -label assets/butterfly.ppm
