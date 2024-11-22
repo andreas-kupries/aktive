@@ -35,7 +35,7 @@
 ---
 ### <a name='op_sdf_2image_fit'></a> aktive op sdf 2image fit
 
-Syntax: __aktive op sdf 2image fit__ src [[→ definition](../../../../file?ci=trunk&ln=241&name=etc/generator/virtual/sdf.tcl)]
+Syntax: __aktive op sdf 2image fit__ src [[→ definition](../../../../file?ci=trunk&ln=291&name=etc/generator/virtual/sdf.tcl)]
 
 Compresses the input SDF into the range 0..1 and returns the resulting grayscale image.
 
@@ -43,7 +43,7 @@ Compresses the input SDF into the range 0..1 and returns the resulting grayscale
 ---
 ### <a name='op_sdf_2image_pixelated'></a> aktive op sdf 2image pixelated
 
-Syntax: __aktive op sdf 2image pixelated__ src [[→ definition](../../../../file?ci=trunk&ln=266&name=etc/generator/virtual/sdf.tcl)]
+Syntax: __aktive op sdf 2image pixelated__ src [[→ definition](../../../../file?ci=trunk&ln=316&name=etc/generator/virtual/sdf.tcl)]
 
 Converts the SDF into a black/white image with pixelated element borders.
 
@@ -51,7 +51,7 @@ Converts the SDF into a black/white image with pixelated element borders.
 ---
 ### <a name='op_sdf_2image_smooth'></a> aktive op sdf 2image smooth
 
-Syntax: __aktive op sdf 2image smooth__ src [[→ definition](../../../../file?ci=trunk&ln=253&name=etc/generator/virtual/sdf.tcl)]
+Syntax: __aktive op sdf 2image smooth__ src [[→ definition](../../../../file?ci=trunk&ln=303&name=etc/generator/virtual/sdf.tcl)]
 
 Converts the SDF into a grey-scale image with anti-aliased element borders.
 
@@ -64,20 +64,52 @@ Syntax: __aktive op sdf not__ src [[→ definition](../../../../file?ci=trunk&ln
 Returns the inverted input SDF, where inside and outside changed places.
 
 
+#### <a name='op_sdf_not__examples'></a> Examples
+
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive op sdf not @1
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00434.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td>
+    <td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00435.gif' alt='aktive op sdf not @1' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00436.gif' alt='aktive op sdf not @1' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00437.gif' alt='aktive op sdf not @1' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td></tr></table></td></tr>
+</table>
+
+
 ---
 ### <a name='op_sdf_outline'></a> aktive op sdf outline
 
-Syntax: __aktive op sdf outline__ src [[→ definition](../../../../file?ci=trunk&ln=199&name=etc/generator/virtual/sdf.tcl)]
+Syntax: __aktive op sdf outline__ src [[→ definition](../../../../file?ci=trunk&ln=239&name=etc/generator/virtual/sdf.tcl)]
 
 Replaces the input SDF with an outlined form, and returns the result.
 
 This is implemented by taking the absolute of the input.
 
 
+#### <a name='op_sdf_outline__examples'></a> Examples
+
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive op sdf outline @1
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00443.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td>
+    <td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00444.gif' alt='aktive op sdf outline @1' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00445.gif' alt='aktive op sdf outline @1' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00446.gif' alt='aktive op sdf outline @1' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td></tr></table></td></tr>
+</table>
+
+
 ---
 ### <a name='op_sdf_ring'></a> aktive op sdf ring
 
-Syntax: __aktive op sdf ring__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=180&name=etc/generator/virtual/sdf.tcl)]
+Syntax: __aktive op sdf ring__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=215&name=etc/generator/virtual/sdf.tcl)]
 
 Combines outlining and rounding to replace the input SDF with an SDF tracing the border at some thickness and returns the result.
 
@@ -89,10 +121,26 @@ Note that a thickness of zero devolves this operation to a plain outline.
 |:---|:---|:---|:---|
 |thickness|uint||Desired border thickness.|
 
+#### <a name='op_sdf_ring__examples'></a> Examples
+
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive op sdf ring @1 thickness 4
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00447.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td>
+    <td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00448.gif' alt='aktive op sdf ring @1 thickness 4' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00449.gif' alt='aktive op sdf ring @1 thickness 4' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00450.gif' alt='aktive op sdf ring @1 thickness 4' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td></tr></table></td></tr>
+</table>
+
+
 ---
 ### <a name='op_sdf_round'></a> aktive op sdf round
 
-Syntax: __aktive op sdf round__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=213&name=etc/generator/virtual/sdf.tcl)]
+Syntax: __aktive op sdf round__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=258&name=etc/generator/virtual/sdf.tcl)]
 
 Replaces the input SDF with a more rounded form per the radius, and returns the result.
 
@@ -107,4 +155,20 @@ A radius of zero is ignored.
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |radius|uint||Expansion/Shrinkage radius for the SDF.|
+
+#### <a name='op_sdf_round__examples'></a> Examples
+
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive op sdf round @1 radius 20
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00451.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td>
+    <td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00452.gif' alt='aktive op sdf round @1 radius 20' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00453.gif' alt='aktive op sdf round @1 radius 20' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00454.gif' alt='aktive op sdf round @1 radius 20' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td></tr></table></td></tr>
+</table>
+
 
