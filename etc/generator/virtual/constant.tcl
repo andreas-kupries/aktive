@@ -10,13 +10,16 @@ operator image::from::value {
     example {width 64 height 64 depth 1 value 0.5}
     example {width 64 height 64 depth 3 value 0.5}
 
+    int? 0 x       Image location, X coordinate
+    int? 0 y       Image location, Y coordinate
     uint   width   Width of the returned image
     uint   height  Height of the returned image
     uint   depth   Depth of the returned image
     double value   Pixel value
 
     state -setup {
-	aktive_geometry_set (domain, 0, 0, param->width, param->height, param->depth);
+	aktive_geometry_set (domain, param->x, param->y,
+			     param->width, param->height, param->depth);
     }
     pixels {
 	aktive_blit_fill (block, dst, param->value);
@@ -33,13 +36,16 @@ operator image::from::band {
 
     note Depth is len(value)
 
+    int?    0 x       Image location, X coordinate
+    int?    0 y       Image location, Y coordinate
     uint      width   Width of the returned image
     uint      height  Height of the returned image
     double... values  Pixel band values
 
     state -setup {
 	// depth is number of band values
-	aktive_geometry_set (domain, 0, 0, param->width, param->height, param->values.c);
+	aktive_geometry_set (domain, param->x, param->y,
+			     param->width, param->height, param->values.c);
     }
     pixels {
 	// assert: param.values.c == block.geo.depth
@@ -58,12 +64,14 @@ operator image::from::row {
 	height 64 values 0 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 0.45 0.5 0.55 0.6 0.6 0.7 0.75 0.8 0.85 0.9 0.95 1
     }
 
+    int?    0 x       Image location, X coordinate
+    int?    0 y       Image location, Y coordinate
     uint      height  Height of the returned image
     double... values  Pixel row values
 
     state -setup {
 	// width is number of row values
-	aktive_geometry_set (domain, 0, 0, param->values.c, param->height, 1);
+	aktive_geometry_set (domain, param->x, param->y, param->values.c, param->height, 1);
     }
     pixels {
 	// assert: param.values.c == block.geo.width
@@ -82,12 +90,14 @@ operator image::from::column {
 	width 64 values 0 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 0.45 0.5 0.55 0.6 0.6 0.7 0.75 0.8 0.85 0.9 0.95 1
     }
 
+    int?    0 x       Image location, X coordinate
+    int?    0 y       Image location, Y coordinate
     uint      width   Width of the returned image
     double... values  Pixel column values
 
     state -setup {
 	// height is number of column values
-	aktive_geometry_set (domain, 0, 0, param->width, param->values.c, 1);
+	aktive_geometry_set (domain, param->x, param->y, param->width, param->values.c, 1);
     }
     pixels {
 	// assert: param.values.c == block.geo.width
@@ -107,6 +117,8 @@ operator image::from::matrix {
 
     example {width 16 height 16 values 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 | times 8}
 
+    int?    0 x       Image location, X coordinate
+    int?    0 y       Image location, Y coordinate
     uint      width   Width of the returned image
     uint      height  Height of the returned image
     double? 1 factor  Scaling factor
@@ -126,7 +138,7 @@ operator image::from::matrix {
 	// Note from the description that the `param.values` is allowed to not contain
 	// enough values for all the pixels. In that case the data is extended with zeroes.
 
-	aktive_geometry_set  (domain, 0, 0, param->width, param->height, 1);
+	aktive_geometry_set  (domain, param->x, param->y, param->width, param->height, 1);
 	aktive_geometry_copy (&state->src.domain, domain);
 	aktive_blit_setup    (&state->src, aktive_geometry_as_rectangle (domain));
 	memset (state->src.pixel, 0,               state->src.used * sizeof (double));
