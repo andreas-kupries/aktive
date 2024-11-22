@@ -34,7 +34,7 @@
 ---
 ### <a name='op_connected_components_labeled'></a> aktive op connected-components labeled
 
-Syntax: __aktive op connected-components labeled__ src ?(param value)...?
+Syntax: __aktive op connected-components labeled__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/cc.tcl)]
 
 Returns the input with labeled connected components.
 
@@ -49,20 +49,43 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 
 #### <a name='op_connected_components_labeled__examples'></a> Examples
 
-<table><tr><th>@1</th><th>aktive op connected-components labeled @1</th></tr>
-<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00197.gif' alt='@1' style='border:4px solid gold'><br>geometry(0 0 264 88 1)</td></tr></table></td><td valign='top'><table><tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr><tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>2</td><td>2</td><td>0</td><td>0</td><td>3</td><td>3</td><td>3</td><td>0</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>0</td><td>0</td><td>0</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>0</td><td>0</td></tr><tr><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>0</td><td>0</td><td>2</td><td>2</td><td>0</td><td>0</td><td>3</td><td>0</td><td>3</td><td>0</td><td>4</td><td>0</td><td>0</td><td>0</td><td>4</td><td>0</td><td>0</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>0</td></tr><tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>2</td><td>2</td><td>0</td><td>0</td><td>0</td><td>3</td><td>3</td><td>3</td><td>0</td><td>4</td><td>0</td><td>0</td><td>0</td><td>4</td><td>0</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td></tr><tr><td>0</td><td>2</td><td>2</td><td>2</td><td>2</td><td>2</td><td>2</td><td>2</td><td>0</td><td>6</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>4</td><td>0</td><td>0</td><td>0</td><td>4</td><td>0</td><td>5</td><td>5</td><td>5</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>5</td><td>5</td><td>5</td></tr><tr><td>0</td><td>2</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>6</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>4</td><td>0</td><td>0</td><td>0</td><td>4</td><td>0</td><td>5</td><td>5</td><td>0</td><td>0</td><td>0</td><td>7</td><td>0</td><td>0</td><td>0</td><td>5</td><td>5</td></tr><tr><td>0</td><td>2</td><td>0</td><td>6</td><td>6</td><td>6</td><td>6</td><td>6</td><td>6</td><td>6</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>0</td><td>0</td><td>5</td><td>5</td><td>0</td><td>0</td><td>7</td><td>0</td><td>0</td><td>5</td><td>5</td><td>0</td></tr><tr><td>0</td><td>0</td><td>6</td><td>6</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>5</td><td>5</td><td>0</td><td>7</td><td>0</td><td>5</td><td>5</td><td>0</td><td>0</td></tr><tr><td>0</td><td>6</td><td>6</td><td>0</td><td>0</td><td>8</td><td>8</td><td>8</td><td>8</td><td>8</td><td>8</td><td>0</td><td>9</td><td>9</td><td>9</td><td>9</td><td>9</td><td>9</td><td>9</td><td>9</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>7</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr><tr><td>0</td><td>6</td><td>6</td><td>0</td><td>0</td><td>8</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>9</td><td>9</td><td>9</td><td>9</td><td>9</td><td>9</td><td>9</td><td>9</td><td>0</td><td>0</td><td>7</td><td>7</td><td>7</td><td>7</td><td>7</td><td>7</td><td>7</td><td>7</td><td>7</td><td>7</td><td>7</td></tr><tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>8</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>9</td><td>9</td><td>0</td><td>0</td><td>0</td><td>0</td><td>9</td><td>9</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>7</td><td>7</td><td>7</td><td>0</td><td>0</td><td>0</td><td>0</td></tr></table></td></tr></table>
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive op connected-components labeled @1
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00197.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 264 88 1)</td></tr></table></td>
+    <td valign='top'><table><tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr><tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>2</td><td>2</td><td>0</td><td>0</td><td>3</td><td>3</td><td>3</td><td>0</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>0</td><td>0</td><td>0</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>0</td><td>0</td></tr><tr><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>0</td><td>0</td><td>2</td><td>2</td><td>0</td><td>0</td><td>3</td><td>0</td><td>3</td><td>0</td><td>4</td><td>0</td><td>0</td><td>0</td><td>4</td><td>0</td><td>0</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>0</td></tr><tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>2</td><td>2</td><td>0</td><td>0</td><td>0</td><td>3</td><td>3</td><td>3</td><td>0</td><td>4</td><td>0</td><td>0</td><td>0</td><td>4</td><td>0</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td></tr><tr><td>0</td><td>2</td><td>2</td><td>2</td><td>2</td><td>2</td><td>2</td><td>2</td><td>0</td><td>6</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>4</td><td>0</td><td>0</td><td>0</td><td>4</td><td>0</td><td>5</td><td>5</td><td>5</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>5</td><td>5</td><td>5</td></tr><tr><td>0</td><td>2</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>6</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>4</td><td>0</td><td>0</td><td>0</td><td>4</td><td>0</td><td>5</td><td>5</td><td>0</td><td>0</td><td>0</td><td>7</td><td>0</td><td>0</td><td>0</td><td>5</td><td>5</td></tr><tr><td>0</td><td>2</td><td>0</td><td>6</td><td>6</td><td>6</td><td>6</td><td>6</td><td>6</td><td>6</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>0</td><td>0</td><td>5</td><td>5</td><td>0</td><td>0</td><td>7</td><td>0</td><td>0</td><td>5</td><td>5</td><td>0</td></tr><tr><td>0</td><td>0</td><td>6</td><td>6</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>5</td><td>5</td><td>0</td><td>7</td><td>0</td><td>5</td><td>5</td><td>0</td><td>0</td></tr><tr><td>0</td><td>6</td><td>6</td><td>0</td><td>0</td><td>8</td><td>8</td><td>8</td><td>8</td><td>8</td><td>8</td><td>0</td><td>9</td><td>9</td><td>9</td><td>9</td><td>9</td><td>9</td><td>9</td><td>9</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>7</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr><tr><td>0</td><td>6</td><td>6</td><td>0</td><td>0</td><td>8</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>9</td><td>9</td><td>9</td><td>9</td><td>9</td><td>9</td><td>9</td><td>9</td><td>0</td><td>0</td><td>7</td><td>7</td><td>7</td><td>7</td><td>7</td><td>7</td><td>7</td><td>7</td><td>7</td><td>7</td><td>7</td></tr><tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>8</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>9</td><td>9</td><td>0</td><td>0</td><td>0</td><td>0</td><td>9</td><td>9</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>7</td><td>7</td><td>7</td><td>0</td><td>0</td><td>0</td><td>0</td></tr></table></td></tr>
+</table>
 
-<table><tr><th>@1</th><th>aktive op connected-components labeled @1 transform cc.max</th></tr>
-<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00199.gif' alt='@1' style='border:4px solid gold'><br>geometry(0 0 264 88 1)</td></tr></table></td><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00200.gif' alt='aktive op connected-components labeled @1 transform cc.max' style='border:4px solid gold'><br>geometry(0 0 264 88 1)</td></tr></table></td></tr></table>
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive op connected-components labeled @1 transform cc.max
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00199.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 264 88 1)</td></tr></table></td>
+    <td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00200.gif' alt='aktive op connected-components labeled @1 transform cc.max' style='border:4px solid gold'>
+    <br>geometry(0 0 264 88 1)</td></tr></table></td></tr>
+</table>
 
-<table><tr><th>@1</th><th>aktive op connected-components labeled @1 transform cc.max bbox 1</th></tr>
-<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00201.gif' alt='@1' style='border:4px solid gold'><br>geometry(0 0 264 88 1)</td></tr></table></td><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00202.gif' alt='aktive op connected-components labeled @1 transform cc.max bbox 1' style='border:4px solid gold'><br>geometry(22 1 88 56 1)</td></tr></table></td></tr></table>
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive op connected-components labeled @1 transform cc.max bbox 1
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00201.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 264 88 1)</td></tr></table></td>
+    <td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00202.gif' alt='aktive op connected-components labeled @1 transform cc.max bbox 1' style='border:4px solid gold'>
+    <br>geometry(22 1 88 56 1)</td></tr></table></td></tr>
+</table>
 
 
 ---
 ### <a name='op_morph_close'></a> aktive op morph close
 
-Syntax: __aktive op morph close__ src ?(param value)...?
+Syntax: __aktive op morph close__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/filter/morphology.tcl)]
 
 Returns image containing the morphological closing (dilate, then erode) of the input using a (2*radius+1)x(2*radius+1) square structuring element.
 
@@ -73,17 +96,33 @@ Returns image containing the morphological closing (dilate, then erode) of the i
 
 #### <a name='op_morph_close__examples'></a> Examples
 
-<table><tr><th>@1</th><th>aktive op morph close @1 radius 1</th></tr>
-<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00259.gif' alt='@1' style='border:4px solid gold'><br>geometry(0 0 264 88 1)</td></tr></table></td><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00260.gif' alt='aktive op morph close @1 radius 1' style='border:4px solid gold'><br>geometry(0 0 264 88 1)</td></tr></table></td></tr></table>
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive op morph close @1 radius 1
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00259.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 264 88 1)</td></tr></table></td>
+    <td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00260.gif' alt='aktive op morph close @1 radius 1' style='border:4px solid gold'>
+    <br>geometry(0 0 264 88 1)</td></tr></table></td></tr>
+</table>
 
-<table><tr><th>@1</th><th>aktive op morph close @1 radius 1</th></tr>
-<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00261.gif' alt='@1' style='border:4px solid gold'><br>geometry(0 0 200 104 1)</td></tr></table></td><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00262.gif' alt='aktive op morph close @1 radius 1' style='border:4px solid gold'><br>geometry(0 0 200 104 1)</td></tr></table></td></tr></table>
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive op morph close @1 radius 1
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00261.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 200 104 1)</td></tr></table></td>
+    <td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00262.gif' alt='aktive op morph close @1 radius 1' style='border:4px solid gold'>
+    <br>geometry(0 0 200 104 1)</td></tr></table></td></tr>
+</table>
 
 
 ---
 ### <a name='op_morph_dilate'></a> aktive op morph dilate
 
-Syntax: __aktive op morph dilate__ src ?(param value)...?
+Syntax: __aktive op morph dilate__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/filter/morphology.tcl)]
 
 Returns image containing the morphological dilation of the input using a (2*radius+1)x(2*radius+1) square structuring element.
 
@@ -94,17 +133,33 @@ Returns image containing the morphological dilation of the input using a (2*radi
 
 #### <a name='op_morph_dilate__examples'></a> Examples
 
-<table><tr><th>@1</th><th>aktive op morph dilate @1 radius 1</th></tr>
-<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00263.gif' alt='@1' style='border:4px solid gold'><br>geometry(0 0 264 88 1)</td></tr></table></td><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00264.gif' alt='aktive op morph dilate @1 radius 1' style='border:4px solid gold'><br>geometry(0 0 264 88 1)</td></tr></table></td></tr></table>
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive op morph dilate @1 radius 1
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00263.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 264 88 1)</td></tr></table></td>
+    <td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00264.gif' alt='aktive op morph dilate @1 radius 1' style='border:4px solid gold'>
+    <br>geometry(0 0 264 88 1)</td></tr></table></td></tr>
+</table>
 
-<table><tr><th>@1</th><th>aktive op morph dilate @1 radius 1</th></tr>
-<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00265.gif' alt='@1' style='border:4px solid gold'><br>geometry(0 0 200 104 1)</td></tr></table></td><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00266.gif' alt='aktive op morph dilate @1 radius 1' style='border:4px solid gold'><br>geometry(0 0 200 104 1)</td></tr></table></td></tr></table>
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive op morph dilate @1 radius 1
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00265.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 200 104 1)</td></tr></table></td>
+    <td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00266.gif' alt='aktive op morph dilate @1 radius 1' style='border:4px solid gold'>
+    <br>geometry(0 0 200 104 1)</td></tr></table></td></tr>
+</table>
 
 
 ---
 ### <a name='op_morph_erode'></a> aktive op morph erode
 
-Syntax: __aktive op morph erode__ src ?(param value)...?
+Syntax: __aktive op morph erode__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/filter/morphology.tcl)]
 
 Returns image containing the morphological erosion of the input using a (2*radius+1)x(2*radius+1) square structuring element.
 
@@ -115,17 +170,33 @@ Returns image containing the morphological erosion of the input using a (2*radiu
 
 #### <a name='op_morph_erode__examples'></a> Examples
 
-<table><tr><th>@1</th><th>aktive op morph erode @1 radius 1</th></tr>
-<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00267.gif' alt='@1' style='border:4px solid gold'><br>geometry(0 0 264 88 1)</td></tr></table></td><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00268.gif' alt='aktive op morph erode @1 radius 1' style='border:4px solid gold'><br>geometry(0 0 264 88 1)</td></tr></table></td></tr></table>
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive op morph erode @1 radius 1
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00267.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 264 88 1)</td></tr></table></td>
+    <td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00268.gif' alt='aktive op morph erode @1 radius 1' style='border:4px solid gold'>
+    <br>geometry(0 0 264 88 1)</td></tr></table></td></tr>
+</table>
 
-<table><tr><th>@1</th><th>aktive op morph erode @1 radius 1</th></tr>
-<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00269.gif' alt='@1' style='border:4px solid gold'><br>geometry(0 0 200 104 1)</td></tr></table></td><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00270.gif' alt='aktive op morph erode @1 radius 1' style='border:4px solid gold'><br>geometry(0 0 200 104 1)</td></tr></table></td></tr></table>
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive op morph erode @1 radius 1
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00269.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 200 104 1)</td></tr></table></td>
+    <td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00270.gif' alt='aktive op morph erode @1 radius 1' style='border:4px solid gold'>
+    <br>geometry(0 0 200 104 1)</td></tr></table></td></tr>
+</table>
 
 
 ---
 ### <a name='op_morph_gradient_all'></a> aktive op morph gradient all
 
-Syntax: __aktive op morph gradient all__ src ?(param value)...?
+Syntax: __aktive op morph gradient all__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/filter/morphology.tcl)]
 
 Returns image containing the morphological gradient (subtract eroded from dilated) of the input using a (2*radius+1)x(2*radius+1) square structuring element.
 
@@ -136,17 +207,33 @@ Returns image containing the morphological gradient (subtract eroded from dilate
 
 #### <a name='op_morph_gradient_all__examples'></a> Examples
 
-<table><tr><th>@1</th><th>aktive op morph gradient all @1 radius 1</th></tr>
-<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00271.gif' alt='@1' style='border:4px solid gold'><br>geometry(0 0 264 88 1)</td></tr></table></td><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00272.gif' alt='aktive op morph gradient all @1 radius 1' style='border:4px solid gold'><br>geometry(0 0 264 88 1)</td></tr></table></td></tr></table>
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive op morph gradient all @1 radius 1
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00271.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 264 88 1)</td></tr></table></td>
+    <td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00272.gif' alt='aktive op morph gradient all @1 radius 1' style='border:4px solid gold'>
+    <br>geometry(0 0 264 88 1)</td></tr></table></td></tr>
+</table>
 
-<table><tr><th>@1</th><th>aktive op morph gradient all @1 radius 1</th></tr>
-<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00273.gif' alt='@1' style='border:4px solid gold'><br>geometry(0 0 200 104 1)</td></tr></table></td><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00274.gif' alt='aktive op morph gradient all @1 radius 1' style='border:4px solid gold'><br>geometry(0 0 200 104 1)</td></tr></table></td></tr></table>
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive op morph gradient all @1 radius 1
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00273.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 200 104 1)</td></tr></table></td>
+    <td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00274.gif' alt='aktive op morph gradient all @1 radius 1' style='border:4px solid gold'>
+    <br>geometry(0 0 200 104 1)</td></tr></table></td></tr>
+</table>
 
 
 ---
 ### <a name='op_morph_gradient_external'></a> aktive op morph gradient external
 
-Syntax: __aktive op morph gradient external__ src ?(param value)...?
+Syntax: __aktive op morph gradient external__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/filter/morphology.tcl)]
 
 Returns image containing the morphological outer gradient (subtract input from dilated) of the input using a (2*radius+1)x(2*radius+1) square structuring element.
 
@@ -157,17 +244,33 @@ Returns image containing the morphological outer gradient (subtract input from d
 
 #### <a name='op_morph_gradient_external__examples'></a> Examples
 
-<table><tr><th>@1</th><th>aktive op morph gradient external @1 radius 1</th></tr>
-<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00275.gif' alt='@1' style='border:4px solid gold'><br>geometry(0 0 264 88 1)</td></tr></table></td><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00276.gif' alt='aktive op morph gradient external @1 radius 1' style='border:4px solid gold'><br>geometry(0 0 264 88 1)</td></tr></table></td></tr></table>
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive op morph gradient external @1 radius 1
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00275.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 264 88 1)</td></tr></table></td>
+    <td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00276.gif' alt='aktive op morph gradient external @1 radius 1' style='border:4px solid gold'>
+    <br>geometry(0 0 264 88 1)</td></tr></table></td></tr>
+</table>
 
-<table><tr><th>@1</th><th>aktive op morph gradient external @1 radius 1</th></tr>
-<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00277.gif' alt='@1' style='border:4px solid gold'><br>geometry(0 0 200 104 1)</td></tr></table></td><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00278.gif' alt='aktive op morph gradient external @1 radius 1' style='border:4px solid gold'><br>geometry(0 0 200 104 1)</td></tr></table></td></tr></table>
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive op morph gradient external @1 radius 1
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00277.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 200 104 1)</td></tr></table></td>
+    <td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00278.gif' alt='aktive op morph gradient external @1 radius 1' style='border:4px solid gold'>
+    <br>geometry(0 0 200 104 1)</td></tr></table></td></tr>
+</table>
 
 
 ---
 ### <a name='op_morph_gradient_internal'></a> aktive op morph gradient internal
 
-Syntax: __aktive op morph gradient internal__ src ?(param value)...?
+Syntax: __aktive op morph gradient internal__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/filter/morphology.tcl)]
 
 Returns image containing the morphological inner gradient (subtract eroded from input) of the input using a (2*radius+1)x(2*radius+1) square structuring element.
 
@@ -178,17 +281,33 @@ Returns image containing the morphological inner gradient (subtract eroded from 
 
 #### <a name='op_morph_gradient_internal__examples'></a> Examples
 
-<table><tr><th>@1</th><th>aktive op morph gradient internal @1 radius 1</th></tr>
-<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00279.gif' alt='@1' style='border:4px solid gold'><br>geometry(0 0 264 88 1)</td></tr></table></td><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00280.gif' alt='aktive op morph gradient internal @1 radius 1' style='border:4px solid gold'><br>geometry(0 0 264 88 1)</td></tr></table></td></tr></table>
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive op morph gradient internal @1 radius 1
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00279.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 264 88 1)</td></tr></table></td>
+    <td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00280.gif' alt='aktive op morph gradient internal @1 radius 1' style='border:4px solid gold'>
+    <br>geometry(0 0 264 88 1)</td></tr></table></td></tr>
+</table>
 
-<table><tr><th>@1</th><th>aktive op morph gradient internal @1 radius 1</th></tr>
-<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00281.gif' alt='@1' style='border:4px solid gold'><br>geometry(0 0 200 104 1)</td></tr></table></td><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00282.gif' alt='aktive op morph gradient internal @1 radius 1' style='border:4px solid gold'><br>geometry(0 0 200 104 1)</td></tr></table></td></tr></table>
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive op morph gradient internal @1 radius 1
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00281.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 200 104 1)</td></tr></table></td>
+    <td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00282.gif' alt='aktive op morph gradient internal @1 radius 1' style='border:4px solid gold'>
+    <br>geometry(0 0 200 104 1)</td></tr></table></td></tr>
+</table>
 
 
 ---
 ### <a name='op_morph_open'></a> aktive op morph open
 
-Syntax: __aktive op morph open__ src ?(param value)...?
+Syntax: __aktive op morph open__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/filter/morphology.tcl)]
 
 Returns image containing the morphological opening (erode, then dilate) of the input using a (2*radius+1)x(2*radius+1) square structuring element.
 
@@ -199,17 +318,33 @@ Returns image containing the morphological opening (erode, then dilate) of the i
 
 #### <a name='op_morph_open__examples'></a> Examples
 
-<table><tr><th>@1</th><th>aktive op morph open @1 radius 1</th></tr>
-<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00283.gif' alt='@1' style='border:4px solid gold'><br>geometry(0 0 264 88 1)</td></tr></table></td><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00284.gif' alt='aktive op morph open @1 radius 1' style='border:4px solid gold'><br>geometry(0 0 264 88 1)</td></tr></table></td></tr></table>
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive op morph open @1 radius 1
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00283.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 264 88 1)</td></tr></table></td>
+    <td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00284.gif' alt='aktive op morph open @1 radius 1' style='border:4px solid gold'>
+    <br>geometry(0 0 264 88 1)</td></tr></table></td></tr>
+</table>
 
-<table><tr><th>@1</th><th>aktive op morph open @1 radius 1</th></tr>
-<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00285.gif' alt='@1' style='border:4px solid gold'><br>geometry(0 0 200 104 1)</td></tr></table></td><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00286.gif' alt='aktive op morph open @1 radius 1' style='border:4px solid gold'><br>geometry(0 0 200 104 1)</td></tr></table></td></tr></table>
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive op morph open @1 radius 1
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00285.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 200 104 1)</td></tr></table></td>
+    <td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00286.gif' alt='aktive op morph open @1 radius 1' style='border:4px solid gold'>
+    <br>geometry(0 0 200 104 1)</td></tr></table></td></tr>
+</table>
 
 
 ---
 ### <a name='op_morph_toggle'></a> aktive op morph toggle
 
-Syntax: __aktive op morph toggle__ src ?(param value)...?
+Syntax: __aktive op morph toggle__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/filter/morphology.tcl)]
 
 Returns image containing the morphological of the input using a (2*radius+1)x(2*radius+1) square structuring element.
 
@@ -220,17 +355,33 @@ Returns image containing the morphological of the input using a (2*radius+1)x(2*
 
 #### <a name='op_morph_toggle__examples'></a> Examples
 
-<table><tr><th>@1</th><th>aktive op morph toggle @1 radius 1</th></tr>
-<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00287.gif' alt='@1' style='border:4px solid gold'><br>geometry(0 0 264 88 1)</td></tr></table></td><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00288.gif' alt='aktive op morph toggle @1 radius 1' style='border:4px solid gold'><br>geometry(0 0 264 88 1)</td></tr></table></td></tr></table>
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive op morph toggle @1 radius 1
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00287.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 264 88 1)</td></tr></table></td>
+    <td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00288.gif' alt='aktive op morph toggle @1 radius 1' style='border:4px solid gold'>
+    <br>geometry(0 0 264 88 1)</td></tr></table></td></tr>
+</table>
 
-<table><tr><th>@1</th><th>aktive op morph toggle @1 radius 1</th></tr>
-<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00289.gif' alt='@1' style='border:4px solid gold'><br>geometry(0 0 200 104 1)</td></tr></table></td><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00290.gif' alt='aktive op morph toggle @1 radius 1' style='border:4px solid gold'><br>geometry(0 0 200 104 1)</td></tr></table></td></tr></table>
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive op morph toggle @1 radius 1
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00289.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 200 104 1)</td></tr></table></td>
+    <td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00290.gif' alt='aktive op morph toggle @1 radius 1' style='border:4px solid gold'>
+    <br>geometry(0 0 200 104 1)</td></tr></table></td></tr>
+</table>
 
 
 ---
 ### <a name='op_morph_tophat_black'></a> aktive op morph tophat black
 
-Syntax: __aktive op morph tophat black__ src ?(param value)...?
+Syntax: __aktive op morph tophat black__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/filter/morphology.tcl)]
 
 Returns image containing the morphological black tophat (subtract input from closing) of the input using a (2*radius+1)x(2*radius+1) square structuring element.
 
@@ -241,17 +392,33 @@ Returns image containing the morphological black tophat (subtract input from clo
 
 #### <a name='op_morph_tophat_black__examples'></a> Examples
 
-<table><tr><th>@1</th><th>aktive op morph tophat black @1 radius 1</th></tr>
-<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00291.gif' alt='@1' style='border:4px solid gold'><br>geometry(0 0 264 88 1)</td></tr></table></td><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00292.gif' alt='aktive op morph tophat black @1 radius 1' style='border:4px solid gold'><br>geometry(0 0 264 88 1)</td></tr></table></td></tr></table>
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive op morph tophat black @1 radius 1
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00291.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 264 88 1)</td></tr></table></td>
+    <td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00292.gif' alt='aktive op morph tophat black @1 radius 1' style='border:4px solid gold'>
+    <br>geometry(0 0 264 88 1)</td></tr></table></td></tr>
+</table>
 
-<table><tr><th>@1</th><th>aktive op morph tophat black @1 radius 1</th></tr>
-<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00293.gif' alt='@1' style='border:4px solid gold'><br>geometry(0 0 200 104 1)</td></tr></table></td><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00294.gif' alt='aktive op morph tophat black @1 radius 1' style='border:4px solid gold'><br>geometry(0 0 200 104 1)</td></tr></table></td></tr></table>
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive op morph tophat black @1 radius 1
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00293.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 200 104 1)</td></tr></table></td>
+    <td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00294.gif' alt='aktive op morph tophat black @1 radius 1' style='border:4px solid gold'>
+    <br>geometry(0 0 200 104 1)</td></tr></table></td></tr>
+</table>
 
 
 ---
 ### <a name='op_morph_tophat_white'></a> aktive op morph tophat white
 
-Syntax: __aktive op morph tophat white__ src ?(param value)...?
+Syntax: __aktive op morph tophat white__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/filter/morphology.tcl)]
 
 Returns image containing the morphological white tophat (subtract opening from input) of the input using a (2*radius+1)x(2*radius+1) square structuring element.
 
@@ -262,10 +429,26 @@ Returns image containing the morphological white tophat (subtract opening from i
 
 #### <a name='op_morph_tophat_white__examples'></a> Examples
 
-<table><tr><th>@1</th><th>aktive op morph tophat white @1 radius 1</th></tr>
-<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00295.gif' alt='@1' style='border:4px solid gold'><br>geometry(0 0 264 88 1)</td></tr></table></td><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00296.gif' alt='aktive op morph tophat white @1 radius 1' style='border:4px solid gold'><br>geometry(0 0 264 88 1)</td></tr></table></td></tr></table>
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive op morph tophat white @1 radius 1
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00295.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 264 88 1)</td></tr></table></td>
+    <td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00296.gif' alt='aktive op morph tophat white @1 radius 1' style='border:4px solid gold'>
+    <br>geometry(0 0 264 88 1)</td></tr></table></td></tr>
+</table>
 
-<table><tr><th>@1</th><th>aktive op morph tophat white @1 radius 1</th></tr>
-<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00297.gif' alt='@1' style='border:4px solid gold'><br>geometry(0 0 200 104 1)</td></tr></table></td><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00298.gif' alt='aktive op morph tophat white @1 radius 1' style='border:4px solid gold'><br>geometry(0 0 200 104 1)</td></tr></table></td></tr></table>
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive op morph tophat white @1 radius 1
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00297.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 200 104 1)</td></tr></table></td>
+    <td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00298.gif' alt='aktive op morph tophat white @1 radius 1' style='border:4px solid gold'>
+    <br>geometry(0 0 200 104 1)</td></tr></table></td></tr>
+</table>
 
 

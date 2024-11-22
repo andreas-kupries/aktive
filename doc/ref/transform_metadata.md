@@ -36,7 +36,7 @@
 ---
 ### <a name='meta_append'></a> aktive meta append
 
-Syntax: __aktive meta append__ src args...
+Syntax: __aktive meta append__ src args... [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/transformer/meta.tcl)]
 
 Wraps the dict method "append" for image meta data management.
 
@@ -50,7 +50,7 @@ Returns input with meta data dictionary modified by application of "dict append"
 ---
 ### <a name='meta_create'></a> aktive meta create
 
-Syntax: __aktive meta create__ src args...
+Syntax: __aktive meta create__ src args... [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/transformer/meta.tcl)]
 
 Wraps the dict method "create" for image meta data management.
 
@@ -64,7 +64,7 @@ Returns input with meta data dictionary modified by application of "dict create"
 ---
 ### <a name='meta_filter'></a> aktive meta filter
 
-Syntax: __aktive meta filter__ src args...
+Syntax: __aktive meta filter__ src args... [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/transformer/meta.tcl)]
 
 Wraps the dict method "filter" for image meta data management.
 
@@ -78,7 +78,7 @@ Returns input with meta data dictionary modified by application of "dict filter"
 ---
 ### <a name='meta_incr'></a> aktive meta incr
 
-Syntax: __aktive meta incr__ src args...
+Syntax: __aktive meta incr__ src args... [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/transformer/meta.tcl)]
 
 Wraps the dict method "incr" for image meta data management.
 
@@ -92,7 +92,7 @@ Returns input with meta data dictionary modified by application of "dict incr"
 ---
 ### <a name='meta_lappend'></a> aktive meta lappend
 
-Syntax: __aktive meta lappend__ src args...
+Syntax: __aktive meta lappend__ src args... [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/transformer/meta.tcl)]
 
 Wraps the dict method "lappend" for image meta data management.
 
@@ -106,7 +106,7 @@ Returns input with meta data dictionary modified by application of "dict lappend
 ---
 ### <a name='meta_map'></a> aktive meta map
 
-Syntax: __aktive meta map__ src args...
+Syntax: __aktive meta map__ src args... [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/transformer/meta.tcl)]
 
 Wraps the dict method "map" for image meta data management.
 
@@ -120,7 +120,7 @@ Returns input with meta data dictionary modified by application of "dict map"
 ---
 ### <a name='meta_merge'></a> aktive meta merge
 
-Syntax: __aktive meta merge__ src args...
+Syntax: __aktive meta merge__ src args... [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/transformer/meta.tcl)]
 
 Wraps the dict method "merge" for image meta data management.
 
@@ -134,7 +134,7 @@ Returns input with meta data dictionary modified by application of "dict merge"
 ---
 ### <a name='meta_remove'></a> aktive meta remove
 
-Syntax: __aktive meta remove__ src args...
+Syntax: __aktive meta remove__ src args... [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/transformer/meta.tcl)]
 
 Wraps the dict method "remove" for image meta data management.
 
@@ -148,7 +148,7 @@ Returns input with meta data dictionary modified by application of "dict remove"
 ---
 ### <a name='meta_replace'></a> aktive meta replace
 
-Syntax: __aktive meta replace__ src args...
+Syntax: __aktive meta replace__ src args... [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/transformer/meta.tcl)]
 
 Wraps the dict method "replace" for image meta data management.
 
@@ -162,7 +162,7 @@ Returns input with meta data dictionary modified by application of "dict replace
 ---
 ### <a name='meta_set'></a> aktive meta set
 
-Syntax: __aktive meta set__ src args...
+Syntax: __aktive meta set__ src args... [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/transformer/meta.tcl)]
 
 Wraps the dict method "set" for image meta data management.
 
@@ -176,7 +176,7 @@ Returns input with meta data dictionary modified by application of "dict set"
 ---
 ### <a name='meta_unset'></a> aktive meta unset
 
-Syntax: __aktive meta unset__ src args...
+Syntax: __aktive meta unset__ src args... [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/transformer/meta.tcl)]
 
 Wraps the dict method "unset" for image meta data management.
 
@@ -190,7 +190,7 @@ Returns input with meta data dictionary modified by application of "dict unset"
 ---
 ### <a name='op_meta_clear'></a> aktive op meta clear
 
-Syntax: __aktive op meta clear__ src
+Syntax: __aktive op meta clear__ src [[→ definition](../../../../file?ci=trunk&ln=18&name=etc/transformer/meta.tcl)]
 
 Returns input with all meta data cleared.
 
@@ -201,7 +201,7 @@ Returns input with all meta data cleared.
 ---
 ### <a name='op_meta_set'></a> aktive op meta set
 
-Syntax: __aktive op meta set__ src meta
+Syntax: __aktive op meta set__ src meta [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/meta.tcl)]
 
 Returns input with specified meta data replacing the old.
 
