@@ -797,7 +797,7 @@ proc dsl::writer::OperatorSection {spec section} {
     + {}
     + "# Documentation -- Reference Pages -- $section"
     + {}
-    + "## Table Of Contents"
+    + "## <anchor='top'> Table Of Contents"
 
     # navigation up to parent section, or main (for roots)
     if {[llength $section] > 1} {
@@ -951,7 +951,7 @@ proc dsl::writer::OpDoc {stem op spec} {
 
     lassign [dict get $spec defloc] path line
     + "---"
-    + "### <a name='[OpKey $op]'></a> [OpName $op]"
+    + "### \[\u2191\](#top) <a name='[OpKey $op]'></a> [OpName $op]"
     + ""
     + "Syntax: __[OpName $op]__ $sig \[\[\u2192 definition\](../../../../file?ci=trunk&ln=${line}&name=${path})\]"
     + ""
@@ -2733,6 +2733,7 @@ proc dsl::writer::stash-to {path} {
 	#
 	proc butterfly {} { aktive read from netpbm path tests/assets/butterfly.ppm }
 	proc sines     {} { aktive read from netpbm path tests/assets/sines.ppm }
+	proc scancrop  {} { aktive read from netpbm path tests/assets/crop.pgm }
 	#
 	# place overlays on images, dot/line/poly, red/green/blue - also show cmds!
 	#
