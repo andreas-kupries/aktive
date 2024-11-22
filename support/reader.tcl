@@ -406,10 +406,17 @@ proc dsl::reader::Operator {vars ops specification} {
 
 proc dsl::reader::OpStart {op key} {
     if {[Get opname] ne {}} { Abort "Nested operator definition `$op`" }
-    if {[Has ops $op]}      { Abort "Duplicate operator definition" }
+    if {[Has ops $op]}      {
+	variable state ; set old [dict get $state ops $op defloc]
+	Abort "Duplicate operator definition `$op`, original defined at $old"
+    }
 
     Set opmode {}		;# Allow all commands at the beginning.
     Set opname $op		;# Current operator, lock against nesting
+
+    set frame [info frame -4]   ;# OpStart -> Operator -> operator -> (caller)
+    Set opspec defloc   [dict get $frame file]@[dict get $frame line]
+
     Set opspec key      $key    ;# Group code for multiple operators from one spec
     Set opspec notes    {}	;# Description
     Set opspec section  {}	;# Command category
@@ -953,6 +960,7 @@ proc dsl::reader::Next {} {
 ##  - finish     :: string
 ##
 ## opspec keys
+##  - defloc   :: definition location
 ##  - args     :: bool
 ##  - blocks   :: dict (name -> text-fragment)
 ##  - body     :: string	[presence indicates tcl operator]
