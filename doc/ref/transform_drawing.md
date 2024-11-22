@@ -32,11 +32,13 @@
 ---
 ### <a name='op_draw_box_rounded_on'></a> aktive op draw box-rounded on
 
-Syntax: __aktive op draw box-rounded on__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=92&name=etc/generator/virtual/draw.tcl)]
+Syntax: __aktive op draw box-rounded on__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=95&name=etc/generator/virtual/draw.tcl)]
 
 Returns an image where a box is drawn on the input image.
 
 Beware, the location and size of the box are independent of image location and dimensions. The operator is perfectly fine computing the SDF of a box located completely outside of the image domain.
+
+See also [aktive image draw box-rounded](generator_virtual_drawing.md#image_draw_box_rounded) and [aktive image sdf box-rounded](generator_virtual_sdf.md#image_sdf_box_rounded).
 
 The box is axis-aligned, of width `2*ewidth+1`, height `2*eheight+1`, with rounded corners per the radii, and placed at the specified center.
 
@@ -55,14 +57,30 @@ The radii default to 0, i.e. no rounded corners.
 |eheight|uint|1|Element height|
 |center|point||Element center|
 
+#### <a name='op_draw_box_rounded_on__examples'></a> Examples
+
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive op draw box-rounded on @1 center {64 64} ewidth 32 eheight 32 upleftradius 32 outlined 1 color {1 0 0}
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00236.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 380 250 3)</td>
+    <td valign='top'><img src='example-00237.gif' alt='aktive op draw box-rounded on @1 center {64 64} ewidth 32 eheight 32 upleftradius 32 outlined 1 color {1 0 0}' style='border:4px solid gold'>
+    <br>geometry(0 0 380 250 3)</td></tr>
+</table>
+
+
 ---
 ### <a name='op_draw_box_on'></a> aktive op draw box on
 
-Syntax: __aktive op draw box on__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=92&name=etc/generator/virtual/draw.tcl)]
+Syntax: __aktive op draw box on__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=95&name=etc/generator/virtual/draw.tcl)]
 
 Returns an image where a box is drawn on the input image.
 
 Beware, the location and size of the box are independent of image location and dimensions. The operator is perfectly fine computing the SDF of a box located completely outside of the image domain.
+
+See also [aktive image draw box](generator_virtual_drawing.md#image_draw_box) and [aktive image sdf box](generator_virtual_sdf.md#image_sdf_box).
 
 The box is axis-aligned, of width `2*ewidth+1`, height `2*eheight+1`, and placed at the specified center.
 
@@ -75,14 +93,30 @@ The box is axis-aligned, of width `2*ewidth+1`, height `2*eheight+1`, and placed
 |eheight|uint|1|Element height|
 |center|point||Element center|
 
+#### <a name='op_draw_box_on__examples'></a> Examples
+
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive op draw box on @1 center {64 64} ewidth 32 eheight 32 color {1 0 0}
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00238.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 380 250 3)</td>
+    <td valign='top'><img src='example-00239.gif' alt='aktive op draw box on @1 center {64 64} ewidth 32 eheight 32 color {1 0 0}' style='border:4px solid gold'>
+    <br>geometry(0 0 380 250 3)</td></tr>
+</table>
+
+
 ---
 ### <a name='op_draw_circle_on'></a> aktive op draw circle on
 
-Syntax: __aktive op draw circle on__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=92&name=etc/generator/virtual/draw.tcl)]
+Syntax: __aktive op draw circle on__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=95&name=etc/generator/virtual/draw.tcl)]
 
 Returns an image where a circle is drawn on the input image.
 
 Beware, the location and size of the circle are independent of image location and dimensions. The operator is perfectly fine computing the SDF of a circle located completely outside of the image domain.
+
+See also [aktive image draw circle](generator_virtual_drawing.md#image_draw_circle) and [aktive image sdf circle](generator_virtual_sdf.md#image_sdf_circle).
 
 The circle has the `radius`, and is placed at the specified center.
 
@@ -97,11 +131,13 @@ The circle has the `radius`, and is placed at the specified center.
 ---
 ### <a name='op_draw_circles_on'></a> aktive op draw circles on
 
-Syntax: __aktive op draw circles on__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=92&name=etc/generator/virtual/draw.tcl)]
+Syntax: __aktive op draw circles on__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=95&name=etc/generator/virtual/draw.tcl)]
 
 Returns an image where a set of circles is drawn on the input image.
 
 Beware, the location and size of the set of circles are independent of image location and dimensions. The operator is perfectly fine computing the SDF of a set of circles located completely outside of the image domain.
+
+See also [aktive image draw circles](generator_virtual_drawing.md#image_draw_circles) and [aktive image sdf circles](generator_virtual_sdf.md#image_sdf_circles).
 
 The circles all have the same `radius`, and are placed at the specified centers.
 
@@ -116,11 +152,13 @@ The circles all have the same `radius`, and are placed at the specified centers.
 ---
 ### <a name='op_draw_line_on'></a> aktive op draw line on
 
-Syntax: __aktive op draw line on__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=92&name=etc/generator/virtual/draw.tcl)]
+Syntax: __aktive op draw line on__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=95&name=etc/generator/virtual/draw.tcl)]
 
 Returns an image where a line is drawn on the input image.
 
 Beware, the location and size of the line are independent of image location and dimensions. The operator is perfectly fine computing the SDF of a line located completely outside of the image domain.
+
+See also [aktive image draw line](generator_virtual_drawing.md#image_draw_line) and [aktive image sdf line](generator_virtual_sdf.md#image_sdf_line).
 
 The line connects the two specified locations.
 
@@ -135,11 +173,13 @@ The line connects the two specified locations.
 ---
 ### <a name='op_draw_parallelogram_on'></a> aktive op draw parallelogram on
 
-Syntax: __aktive op draw parallelogram on__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=92&name=etc/generator/virtual/draw.tcl)]
+Syntax: __aktive op draw parallelogram on__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=95&name=etc/generator/virtual/draw.tcl)]
 
 Returns an image where a parallelogram is drawn on the input image.
 
 Beware, the location and size of the parallelogram are independent of image location and dimensions. The operator is perfectly fine computing the SDF of a parallelogram located completely outside of the image domain.
+
+See also [aktive image draw parallelogram](generator_virtual_drawing.md#image_draw_parallelogram) and [aktive image sdf parallelogram](generator_virtual_sdf.md#image_sdf_parallelogram).
 
 The parallelogram is axis-aligned, of width `2*ewidth+1`, height `2*eheight+1`, skewed by `eskew`, and placed at the specified center.
 
@@ -153,14 +193,30 @@ The parallelogram is axis-aligned, of width `2*ewidth+1`, height `2*eheight+1`, 
 |eheight|uint|1|Element height|
 |center|point||Element center|
 
+#### <a name='op_draw_parallelogram_on__examples'></a> Examples
+
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive op draw parallelogram on @1 center {64 64} ewidth 32 eheight 32 eskew 8 color {1 0 0}
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00240.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 380 250 3)</td>
+    <td valign='top'><img src='example-00241.gif' alt='aktive op draw parallelogram on @1 center {64 64} ewidth 32 eheight 32 eskew 8 color {1 0 0}' style='border:4px solid gold'>
+    <br>geometry(0 0 380 250 3)</td></tr>
+</table>
+
+
 ---
 ### <a name='op_draw_polyline_on'></a> aktive op draw polyline on
 
-Syntax: __aktive op draw polyline on__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=92&name=etc/generator/virtual/draw.tcl)]
+Syntax: __aktive op draw polyline on__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=95&name=etc/generator/virtual/draw.tcl)]
 
 Returns an image where a set of lines is drawn on the input image.
 
 Beware, the location and size of the set of lines are independent of image location and dimensions. The operator is perfectly fine computing the SDF of a set of lines located completely outside of the image domain.
+
+See also [aktive image draw polyline](generator_virtual_drawing.md#image_draw_polyline) and [aktive image sdf polyline](generator_virtual_sdf.md#image_sdf_polyline).
 
 The lines form a polyline through the specified points.
 
@@ -174,11 +230,13 @@ The lines form a polyline through the specified points.
 ---
 ### <a name='op_draw_rhombus_on'></a> aktive op draw rhombus on
 
-Syntax: __aktive op draw rhombus on__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=92&name=etc/generator/virtual/draw.tcl)]
+Syntax: __aktive op draw rhombus on__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=95&name=etc/generator/virtual/draw.tcl)]
 
 Returns an image where a rhombus is drawn on the input image.
 
 Beware, the location and size of the rhombus are independent of image location and dimensions. The operator is perfectly fine computing the SDF of a rhombus located completely outside of the image domain.
+
+See also [aktive image draw rhombus](generator_virtual_drawing.md#image_draw_rhombus) and [aktive image sdf rhombus](generator_virtual_sdf.md#image_sdf_rhombus).
 
 The rhombus is axis-aligned, of width `2*ewidth+1`, height `2*eheight+1`, and placed at the specified center.
 
@@ -191,14 +249,30 @@ The rhombus is axis-aligned, of width `2*ewidth+1`, height `2*eheight+1`, and pl
 |eheight|uint|1|Element height|
 |center|point||Element center|
 
+#### <a name='op_draw_rhombus_on__examples'></a> Examples
+
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive op draw rhombus on @1 center {64 64} ewidth 32 eheight 32 outlined 1 color {1 0 0}
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00242.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 380 250 3)</td>
+    <td valign='top'><img src='example-00243.gif' alt='aktive op draw rhombus on @1 center {64 64} ewidth 32 eheight 32 outlined 1 color {1 0 0}' style='border:4px solid gold'>
+    <br>geometry(0 0 380 250 3)</td></tr>
+</table>
+
+
 ---
 ### <a name='op_draw_triangle_on'></a> aktive op draw triangle on
 
-Syntax: __aktive op draw triangle on__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=92&name=etc/generator/virtual/draw.tcl)]
+Syntax: __aktive op draw triangle on__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=95&name=etc/generator/virtual/draw.tcl)]
 
 Returns an image where a triangle is drawn on the input image.
 
 Beware, the location and size of the triangle are independent of image location and dimensions. The operator is perfectly fine computing the SDF of a triangle located completely outside of the image domain.
+
+See also [aktive image draw triangle](generator_virtual_drawing.md#image_draw_triangle) and [aktive image sdf triangle](generator_virtual_sdf.md#image_sdf_triangle).
 
 The triangle connects the points A, B, and C, in this order.
 

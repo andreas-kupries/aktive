@@ -84,6 +84,9 @@ operator [sdf-known image::sdf::] {
 
     import sdf/note.tcl
 
+    note See also "<!xref: aktive op draw $sdf on>" \
+	and "<!xref: aktive image draw ${sdf}>."
+
     sdf-common-params
 
     import sdf/parameter/$sdf.tcl

@@ -40,6 +40,8 @@ Beware, the location and size of the box are independent of image location and d
 
 The returned image is always single-band. It is grey-scale when anti-aliasing is active, and black/white if not.
 
+See also [aktive op draw box on](transform_drawing.md#op_draw_box_on) and [aktive image sdf box](generator_virtual_sdf.md#image_sdf_box).
+
 The box is axis-aligned, of width `2*ewidth+1`, height `2*eheight+1`, and placed at the specified center.
 
 |Parameter|Type|Default|Description|
@@ -54,6 +56,30 @@ The box is axis-aligned, of width `2*ewidth+1`, height `2*eheight+1`, and placed
 |eheight|uint|1|Element height|
 |center|point||Element center|
 
+#### <a name='image_draw_box__examples'></a> Examples
+
+<table>
+<tr><th>aktive image draw box center {64 64} width 128 height 128 ewidth 32 eheight 32
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00055.gif' alt='aktive image draw box center {64 64} width 128 height 128 ewidth 32 eheight 32' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td></tr>
+</table>
+
+<table>
+<tr><th>aktive image draw box center {64 64} width 128 height 128 ewidth 32 eheight 32 outlined 1
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00056.gif' alt='aktive image draw box center {64 64} width 128 height 128 ewidth 32 eheight 32 outlined 1' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td></tr>
+</table>
+
+<table>
+<tr><th>aktive image draw box center {64 64} width 128 height 128 ewidth 32 eheight 32 antialiased 0
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00057.gif' alt='aktive image draw box center {64 64} width 128 height 128 ewidth 32 eheight 32 antialiased 0' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td></tr>
+</table>
+
+
 ---
 ### <a name='image_draw_box_rounded'></a> aktive image draw box-rounded
 
@@ -64,6 +90,8 @@ Returns an image with the given dimensions and location, with a box drawn into i
 Beware, the location and size of the box are independent of image location and dimensions. The operator is perfectly fine computing the SDF of a box located completely outside of the image domain.
 
 The returned image is always single-band. It is grey-scale when anti-aliasing is active, and black/white if not.
+
+See also [aktive op draw box-rounded on](transform_drawing.md#op_draw_box_rounded_on) and [aktive image sdf box-rounded](generator_virtual_sdf.md#image_sdf_box_rounded).
 
 The box is axis-aligned, of width `2*ewidth+1`, height `2*eheight+1`, with rounded corners per the radii, and placed at the specified center.
 
@@ -85,6 +113,30 @@ The radii default to 0, i.e. no rounded corners.
 |eheight|uint|1|Element height|
 |center|point||Element center|
 
+#### <a name='image_draw_box_rounded__examples'></a> Examples
+
+<table>
+<tr><th>aktive image draw box-rounded center {64 64} width 128 height 128 ewidth 32 eheight 32
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00058.gif' alt='aktive image draw box-rounded center {64 64} width 128 height 128 ewidth 32 eheight 32' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td></tr>
+</table>
+
+<table>
+<tr><th>aktive image draw box-rounded center {64 64} width 128 height 128 ewidth 32 eheight 32 upleftradius 32 outlined 1
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00059.gif' alt='aktive image draw box-rounded center {64 64} width 128 height 128 ewidth 32 eheight 32 upleftradius 32 outlined 1' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td></tr>
+</table>
+
+<table>
+<tr><th>aktive image draw box-rounded center {64 64} width 128 height 128 ewidth 32 eheight 32 upleftradius 32 antialiased 0
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00060.gif' alt='aktive image draw box-rounded center {64 64} width 128 height 128 ewidth 32 eheight 32 upleftradius 32 antialiased 0' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td></tr>
+</table>
+
+
 ---
 ### <a name='image_draw_circle'></a> aktive image draw circle
 
@@ -95,6 +147,8 @@ Returns an image with the given dimensions and location, with a circle drawn int
 Beware, the location and size of the circle are independent of image location and dimensions. The operator is perfectly fine computing the SDF of a circle located completely outside of the image domain.
 
 The returned image is always single-band. It is grey-scale when anti-aliasing is active, and black/white if not.
+
+See also [aktive op draw circle on](transform_drawing.md#op_draw_circle_on) and [aktive image sdf circle](generator_virtual_sdf.md#image_sdf_circle).
 
 The circle has the `radius`, and is placed at the specified center.
 
@@ -120,6 +174,8 @@ Beware, the location and size of the set of circles are independent of image loc
 
 The returned image is always single-band. It is grey-scale when anti-aliasing is active, and black/white if not.
 
+See also [aktive op draw circles on](transform_drawing.md#op_draw_circles_on) and [aktive image sdf circles](generator_virtual_sdf.md#image_sdf_circles).
+
 The circles all have the same `radius`, and are placed at the specified centers.
 
 |Parameter|Type|Default|Description|
@@ -143,6 +199,8 @@ Returns an image with the given dimensions and location, with a line drawn into 
 Beware, the location and size of the line are independent of image location and dimensions. The operator is perfectly fine computing the SDF of a line located completely outside of the image domain.
 
 The returned image is always single-band. It is grey-scale when anti-aliasing is active, and black/white if not.
+
+See also [aktive op draw line on](transform_drawing.md#op_draw_line_on) and [aktive image sdf line](generator_virtual_sdf.md#image_sdf_line).
 
 The line connects the two specified locations.
 
@@ -168,6 +226,8 @@ Beware, the location and size of the parallelogram are independent of image loca
 
 The returned image is always single-band. It is grey-scale when anti-aliasing is active, and black/white if not.
 
+See also [aktive op draw parallelogram on](transform_drawing.md#op_draw_parallelogram_on) and [aktive image sdf parallelogram](generator_virtual_sdf.md#image_sdf_parallelogram).
+
 The parallelogram is axis-aligned, of width `2*ewidth+1`, height `2*eheight+1`, skewed by `eskew`, and placed at the specified center.
 
 |Parameter|Type|Default|Description|
@@ -183,6 +243,30 @@ The parallelogram is axis-aligned, of width `2*ewidth+1`, height `2*eheight+1`, 
 |eheight|uint|1|Element height|
 |center|point||Element center|
 
+#### <a name='image_draw_parallelogram__examples'></a> Examples
+
+<table>
+<tr><th>aktive image draw parallelogram center {64 64} width 128 height 128 ewidth 32 eheight 32 eskew 8
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00061.gif' alt='aktive image draw parallelogram center {64 64} width 128 height 128 ewidth 32 eheight 32 eskew 8' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td></tr>
+</table>
+
+<table>
+<tr><th>aktive image draw parallelogram center {64 64} width 128 height 128 ewidth 32 eheight 32 eskew 8 outlined 1
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00062.gif' alt='aktive image draw parallelogram center {64 64} width 128 height 128 ewidth 32 eheight 32 eskew 8 outlined 1' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td></tr>
+</table>
+
+<table>
+<tr><th>aktive image draw parallelogram center {64 64} width 128 height 128 ewidth 32 eheight 32 eskew 8 antialiased 0
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00063.gif' alt='aktive image draw parallelogram center {64 64} width 128 height 128 ewidth 32 eheight 32 eskew 8 antialiased 0' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td></tr>
+</table>
+
+
 ---
 ### <a name='image_draw_polyline'></a> aktive image draw polyline
 
@@ -193,6 +277,8 @@ Returns an image with the given dimensions and location, with a set of lines dra
 Beware, the location and size of the set of lines are independent of image location and dimensions. The operator is perfectly fine computing the SDF of a set of lines located completely outside of the image domain.
 
 The returned image is always single-band. It is grey-scale when anti-aliasing is active, and black/white if not.
+
+See also [aktive op draw polyline on](transform_drawing.md#op_draw_polyline_on) and [aktive image sdf polyline](generator_virtual_sdf.md#image_sdf_polyline).
 
 The lines form a polyline through the specified points.
 
@@ -217,6 +303,8 @@ Beware, the location and size of the rhombus are independent of image location a
 
 The returned image is always single-band. It is grey-scale when anti-aliasing is active, and black/white if not.
 
+See also [aktive op draw rhombus on](transform_drawing.md#op_draw_rhombus_on) and [aktive image sdf rhombus](generator_virtual_sdf.md#image_sdf_rhombus).
+
 The rhombus is axis-aligned, of width `2*ewidth+1`, height `2*eheight+1`, and placed at the specified center.
 
 |Parameter|Type|Default|Description|
@@ -231,6 +319,30 @@ The rhombus is axis-aligned, of width `2*ewidth+1`, height `2*eheight+1`, and pl
 |eheight|uint|1|Element height|
 |center|point||Element center|
 
+#### <a name='image_draw_rhombus__examples'></a> Examples
+
+<table>
+<tr><th>aktive image draw rhombus center {64 64} width 128 height 128 ewidth 32 eheight 32
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00064.gif' alt='aktive image draw rhombus center {64 64} width 128 height 128 ewidth 32 eheight 32' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td></tr>
+</table>
+
+<table>
+<tr><th>aktive image draw rhombus center {64 64} width 128 height 128 ewidth 32 eheight 32 outlined 1
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00065.gif' alt='aktive image draw rhombus center {64 64} width 128 height 128 ewidth 32 eheight 32 outlined 1' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td></tr>
+</table>
+
+<table>
+<tr><th>aktive image draw rhombus center {64 64} width 128 height 128 ewidth 32 eheight 32 antialiased 0
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00066.gif' alt='aktive image draw rhombus center {64 64} width 128 height 128 ewidth 32 eheight 32 antialiased 0' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td></tr>
+</table>
+
+
 ---
 ### <a name='image_draw_triangle'></a> aktive image draw triangle
 
@@ -241,6 +353,8 @@ Returns an image with the given dimensions and location, with a triangle drawn i
 Beware, the location and size of the triangle are independent of image location and dimensions. The operator is perfectly fine computing the SDF of a triangle located completely outside of the image domain.
 
 The returned image is always single-band. It is grey-scale when anti-aliasing is active, and black/white if not.
+
+See also [aktive op draw triangle on](transform_drawing.md#op_draw_triangle_on) and [aktive image sdf triangle](generator_virtual_sdf.md#image_sdf_triangle).
 
 The triangle connects the points A, B, and C, in this order.
 

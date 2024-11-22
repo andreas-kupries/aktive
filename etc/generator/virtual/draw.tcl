@@ -52,7 +52,7 @@ proc draw-modifier {} {
 operator [sdf-known image::draw::] {
     section generator virtual drawing
 
-    op -> _ mode sdf
+    op -> _ mode sdf ; def on 0
 
     def element [sdf-label $sdf]
 
@@ -63,6 +63,9 @@ operator [sdf-known image::draw::] {
 
     note The returned image is always single-band. It is grey-scale \
 	when anti-aliasing is active, and black/white if not.
+
+    note See also "<!xref: aktive op draw $sdf on>" \
+	and "<!xref: aktive image sdf ${sdf}>."
 
     pass sdf-common-params
 
@@ -92,7 +95,7 @@ operator [sdf-known image::draw::] {
 operator [sdf-known op::draw:: ::on] {
     section transform drawing
 
-    op -> _ mode sdf _
+    op -> _ mode sdf _ ; def on 1
 
     input	;# image to draw on. i.e. the background for the drawing
 
@@ -101,6 +104,9 @@ operator [sdf-known op::draw:: ::on] {
     note Returns an image where a $element is drawn on the input image.
 
     import sdf/note.tcl
+
+    note See also "<!xref: aktive image draw ${sdf}>" \
+	and "<!xref: aktive image sdf ${sdf}>."
 
     pass bool? 1 antialiased		Draw with antialiasing for smoother contours (Default)
     pass draw-modifier

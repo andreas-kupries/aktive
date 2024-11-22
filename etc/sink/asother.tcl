@@ -8,6 +8,13 @@ operator {format} {
     format::as::d2        {D2 graph format}
     format::as::markdown  {Markdown table}
 } {
+
+    example {
+	butterfly                 | -label assets/butterfly.ppm
+	aktive effect charcoal @1 | -label charcoal
+	@2                        | -text
+    }
+
     section accessor
     op -> _ _ func
 

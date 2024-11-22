@@ -5,6 +5,11 @@
 operator op::query::colorspace {
     section accessor
 
+    example {
+	sines
+	@1 | -text
+    }
+
     note Returns the name of the color space the input is in.
 
     note If no colorspace is set then `sRGB` is assumed for 3-band images, \
