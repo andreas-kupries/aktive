@@ -195,11 +195,11 @@ operator query::params {
     section accessor
 
     example {
-	aktive image zone width 32 height 32
+	aktive image zone width 32 height 32 | -label zone width 32 height 32
 	@1 | -text
     }
     example {
-	aktive image gradient width 32 height 32 depth 1 first 0 last 1
+	aktive image gradient width 32 height 32 depth 1 first 0 last 1 | -label gradient width 32 height 32 depth 1 first 0 last 1
 	@1 | -text
     }
 
@@ -220,7 +220,7 @@ operator query::setup {
     section accessor
 
     example {
-	aktive image zone width 32 height 32
+	aktive image zone width 32 height 32 | -label zone width 32 height 32
 	@1 | -text
     }
     example {
@@ -244,7 +244,7 @@ operator query::meta {
     section accessor metadata
 
     example {
-	aktive read from netpbm path tests/assets/sines.ppm
+	sines
 	@1 | -text
     }
 

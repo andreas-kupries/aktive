@@ -17,7 +17,7 @@ operator effect::swirl {
 	@1 decay 0.01 from 135
     }
     example {
-	aktive read from netpbm path tests/assets/butterfly.ppm | -label assets/butterfly.ppm
+	butterfly | -label assets/butterfly.ppm
 	@1 decay 0.01 from 135
     }
 
@@ -232,7 +232,17 @@ operator effect::sketch {
 operator effect::charcoal {
     section transform effect
 
-    note Returns grey image with a charcoal-like sketch of the sRGB input.
+    example {
+	butterfly | -label assets/butterfly.ppm
+	@1
+    }
+
+    example {
+	butterfly | -label assets/butterfly.ppm
+	@1 light yes
+    }
+
+    note Returns a grey image with a charcoal-like sketch of the sRGB input.
 
     input
 

@@ -50,7 +50,7 @@ Translate a 2D point by a specific amount given as 2D vector
 <table>
 <tr><th>aktive point add {11 23} {-1 7}
     <br>&nbsp;</th></tr>
-<tr><td valign='top'>10 30</td></tr>
+<tr><td valign='top'>&nbsp;10 30</td></tr>
 </table>
 
 
@@ -70,7 +70,7 @@ Compute minimum axis-aligned 2D rectangle enclosing the set of 2D points
 <table>
 <tr><th>aktive point box {11 23} {45 5} {5 45}
     <br>&nbsp;</th></tr>
-<tr><td valign='top'>5 5 41 41</td></tr>
+<tr><td valign='top'>&nbsp;5 5 41 41</td></tr>
 </table>
 
 
@@ -91,7 +91,7 @@ Construct a 2D point from x- and y-coordinates
 <table>
 <tr><th>aktive point make 11 23
     <br>&nbsp;</th></tr>
-<tr><td valign='top'>11 23</td></tr>
+<tr><td valign='top'>&nbsp;11 23</td></tr>
 </table>
 
 
@@ -113,7 +113,7 @@ Translate a 2D point by a specific amount given as separate x- and y-deltas
 <table>
 <tr><th>aktive point move {11 23} -1 7
     <br>&nbsp;</th></tr>
-<tr><td valign='top'>10 30</td></tr>
+<tr><td valign='top'>&nbsp;10 30</td></tr>
 </table>
 
 
@@ -133,13 +133,13 @@ Test a 2D rectangle for emptiness
 <table>
 <tr><th>aktive rectangle empty {11 23 30 20}
     <br>&nbsp;</th></tr>
-<tr><td valign='top'>0</td></tr>
+<tr><td valign='top'>&nbsp;0</td></tr>
 </table>
 
 <table>
 <tr><th>aktive rectangle empty {11 23 0 0}
     <br>&nbsp;</th></tr>
-<tr><td valign='top'>1</td></tr>
+<tr><td valign='top'>&nbsp;1</td></tr>
 </table>
 
 
@@ -160,13 +160,13 @@ Test two 2D rectangles for equality (location and dimensions)
 <table>
 <tr><th>aktive rectangle equal {11 23 30 20} {11 23 30 20}
     <br>&nbsp;</th></tr>
-<tr><td valign='top'>1</td></tr>
+<tr><td valign='top'>&nbsp;1</td></tr>
 </table>
 
 <table>
 <tr><th>aktive rectangle equal {11 23 30 20} {11 23 10 20}
     <br>&nbsp;</th></tr>
-<tr><td valign='top'>0</td></tr>
+<tr><td valign='top'>&nbsp;0</td></tr>
 </table>
 
 
@@ -190,7 +190,7 @@ Modify 2D rectangle by moving its 4 borders by a specific amount
 <table>
 <tr><th>aktive rectangle grow {11 23 30 20} 1 7 5 10
     <br>&nbsp;</th></tr>
-<tr><td valign='top'>10 18 38 35</td></tr>
+<tr><td valign='top'>&nbsp;10 18 38 35</td></tr>
 </table>
 
 
@@ -224,7 +224,7 @@ Construct a 2D rectangle from x- and y-coordinates and width/height dimensions
 <table>
 <tr><th>aktive rectangle make 11 23 30 20
     <br>&nbsp;</th></tr>
-<tr><td valign='top'>11 23 30 20</td></tr>
+<tr><td valign='top'>&nbsp;11 23 30 20</td></tr>
 </table>
 
 
@@ -246,7 +246,7 @@ Translate a 2D rectangle by a specific amount given as separate x- and y-deltas
 <table>
 <tr><th>aktive rectangle move {11 23 30 20} -5 7
     <br>&nbsp;</th></tr>
-<tr><td valign='top'>6 30 30 20</td></tr>
+<tr><td valign='top'>&nbsp;6 30 30 20</td></tr>
 </table>
 
 
@@ -267,19 +267,19 @@ Test if the first 2D rectangle is a subset of the second.
 <table>
 <tr><th>aktive rectangle subset {11 23 30 20} {11 23 30 20}
     <br>&nbsp;</th></tr>
-<tr><td valign='top'>1</td></tr>
+<tr><td valign='top'>&nbsp;1</td></tr>
 </table>
 
 <table>
 <tr><th>aktive rectangle subset {11 23 30 20} {12 22 10 15}
     <br>&nbsp;</th></tr>
-<tr><td valign='top'>0</td></tr>
+<tr><td valign='top'>&nbsp;0</td></tr>
 </table>
 
 <table>
 <tr><th>aktive rectangle subset {11 23 30 20} {10 20 40 25}
     <br>&nbsp;</th></tr>
-<tr><td valign='top'>1</td></tr>
+<tr><td valign='top'>&nbsp;1</td></tr>
 </table>
 
 

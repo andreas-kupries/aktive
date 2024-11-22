@@ -28,7 +28,7 @@
 ---
 ### <a name='op_sdf_and'></a> aktive op sdf and
 
-Syntax: __aktive op sdf and__ srcs... [[→ definition](../../../../file?ci=trunk&ln=120&name=etc/generator/virtual/sdf.tcl)]
+Syntax: __aktive op sdf and__ srcs... [[→ definition](../../../../file?ci=trunk&ln=123&name=etc/generator/virtual/sdf.tcl)]
 
 Returns the intersection A and B and ... of the input SDFs
 
@@ -36,7 +36,7 @@ Returns the intersection A and B and ... of the input SDFs
 ---
 ### <a name='op_sdf_or'></a> aktive op sdf or
 
-Syntax: __aktive op sdf or__ srcs... [[→ definition](../../../../file?ci=trunk&ln=108&name=etc/generator/virtual/sdf.tcl)]
+Syntax: __aktive op sdf or__ srcs... [[→ definition](../../../../file?ci=trunk&ln=111&name=etc/generator/virtual/sdf.tcl)]
 
 Returns the union A or B or ... of the input SDFs
 
@@ -44,7 +44,7 @@ Returns the union A or B or ... of the input SDFs
 ---
 ### <a name='op_sdf_sub'></a> aktive op sdf sub
 
-Syntax: __aktive op sdf sub__ src0 src1 [[→ definition](../../../../file?ci=trunk&ln=132&name=etc/generator/virtual/sdf.tcl)]
+Syntax: __aktive op sdf sub__ src0 src1 [[→ definition](../../../../file?ci=trunk&ln=135&name=etc/generator/virtual/sdf.tcl)]
 
 Returns the difference A - B of the two input SDFs
 
@@ -52,7 +52,7 @@ Returns the difference A - B of the two input SDFs
 ---
 ### <a name='op_sdf_xor'></a> aktive op sdf xor
 
-Syntax: __aktive op sdf xor__ srcs... [[→ definition](../../../../file?ci=trunk&ln=146&name=etc/generator/virtual/sdf.tcl)]
+Syntax: __aktive op sdf xor__ srcs... [[→ definition](../../../../file?ci=trunk&ln=149&name=etc/generator/virtual/sdf.tcl)]
 
 Returns the symmetric difference of the input SDFs
 
@@ -60,7 +60,7 @@ Returns the symmetric difference of the input SDFs
 ---
 ### <a name='op_sdf_xor_core'></a> aktive op sdf xor-core
 
-Syntax: __aktive op sdf xor-core__ src0 src1 [[→ definition](../../../../file?ci=trunk&ln=160&name=etc/generator/virtual/sdf.tcl)]
+Syntax: __aktive op sdf xor-core__ src0 src1 [[→ definition](../../../../file?ci=trunk&ln=163&name=etc/generator/virtual/sdf.tcl)]
 
 Returns the symmetric difference of the two input SDFs
 
