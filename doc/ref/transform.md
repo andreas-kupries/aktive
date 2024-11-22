@@ -70,3 +70,15 @@ This is useful to add after an application of [aktive op transform by](transform
 |:---|:---|:---|:---|
 |port|rect||The specific area to view in the plane. A rectangle of the form {x y w h}.|
 
+#### <a name='op_view__examples'></a> Examples
+
+<table><tr><th>@1</th><th>aktive op view @1 port {190 125 380 250}</th></tr>
+<tr><td valign='top'><img src='example-00401.gif' alt='@1' style='border:4px solid gold'><br>geometry(0 0 380 250 3)</td><td valign='top'><img src='example-00402.gif' alt='aktive op view @1 port {190 125 380 250}' style='border:4px solid gold'><br>geometry(190 125 380 250 3)</td></tr></table>
+
+<table><tr><th>@1</th><th>aktive op view @1 port {-190 -125 380 250}</th></tr>
+<tr><td valign='top'><img src='example-00403.gif' alt='@1' style='border:4px solid gold'><br>geometry(0 0 380 250 3)</td><td valign='top'><img src='example-00404.gif' alt='aktive op view @1 port {-190 -125 380 250}' style='border:4px solid gold'><br>geometry(-190 -125 380 250 3)</td></tr></table>
+
+<table><tr><th>@1</th><th>aktive op view @1 port {80 80 80 80}</th></tr>
+<tr><td valign='top'><img src='example-00405.gif' alt='@1' style='border:4px solid gold'><br>geometry(0 0 380 250 3)</td><td valign='top'><img src='example-00406.gif' alt='aktive op view @1 port {80 80 80 80}' style='border:4px solid gold'><br>geometry(80 80 80 80 3)</td></tr></table>
+
+
