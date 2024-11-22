@@ -163,6 +163,30 @@ The circle has the `radius`, and is placed at the specified center.
 |radius|uint|1|Circle radius|
 |center|point||Element center|
 
+#### <a name='image_draw_circle__examples'></a> Examples
+
+<table>
+<tr><th>aktive image draw circle center {64 64} width 128 height 128 radius 32
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00061.gif' alt='aktive image draw circle center {64 64} width 128 height 128 radius 32' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td></tr>
+</table>
+
+<table>
+<tr><th>aktive image draw circle center {64 64} width 128 height 128 radius 32 outlined 1
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00062.gif' alt='aktive image draw circle center {64 64} width 128 height 128 radius 32 outlined 1' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td></tr>
+</table>
+
+<table>
+<tr><th>aktive image draw circle center {64 64} width 128 height 128 radius 32 antialiased 0
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00063.gif' alt='aktive image draw circle center {64 64} width 128 height 128 radius 32 antialiased 0' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td></tr>
+</table>
+
+
 ---
 ### <a name='image_draw_circles'></a> aktive image draw circles
 
@@ -189,6 +213,30 @@ The circles all have the same `radius`, and are placed at the specified centers.
 |radius|uint|1|Circle radius|
 |centers|point...||Circle centers|
 
+#### <a name='image_draw_circles__examples'></a> Examples
+
+<table>
+<tr><th>aktive image draw circles width 128 height 128 radius 8 centers {10 10} {30 80} {80 30}
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00064.gif' alt='aktive image draw circles width 128 height 128 radius 8 centers {10 10} {30 80} {80 30}' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td></tr>
+</table>
+
+<table>
+<tr><th>aktive image draw circles width 128 height 128 radius 8 outlined 1 centers {10 10} {30 80} {80 30}
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00065.gif' alt='aktive image draw circles width 128 height 128 radius 8 outlined 1 centers {10 10} {30 80} {80 30}' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td></tr>
+</table>
+
+<table>
+<tr><th>aktive image draw circles width 128 height 128 radius 8 antialiased 0 centers {10 10} {30 80} {80 30}
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00066.gif' alt='aktive image draw circles width 128 height 128 radius 8 antialiased 0 centers {10 10} {30 80} {80 30}' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td></tr>
+</table>
+
+
 ---
 ### <a name='image_draw_line'></a> aktive image draw line
 
@@ -214,6 +262,30 @@ The line connects the two specified locations.
 |strokewidth|uint|0|Stroke width. Lines are `2*strokewidth+1` wide.|
 |from|point||Starting location|
 |to|point||End location|
+
+#### <a name='image_draw_line__examples'></a> Examples
+
+<table>
+<tr><th>aktive image draw line width 128 height 128 from {10 10} to {30 80}
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00067.gif' alt='aktive image draw line width 128 height 128 from {10 10} to {30 80}' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td></tr>
+</table>
+
+<table>
+<tr><th>aktive image draw line width 128 height 128 from {10 10} to {30 80} strokewidth 1
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00068.gif' alt='aktive image draw line width 128 height 128 from {10 10} to {30 80} strokewidth 1' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td></tr>
+</table>
+
+<table>
+<tr><th>aktive image draw line width 128 height 128 from {10 10} to {30 80} antialiased 0
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00069.gif' alt='aktive image draw line width 128 height 128 from {10 10} to {30 80} antialiased 0' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td></tr>
+</table>
+
 
 ---
 ### <a name='image_draw_parallelogram'></a> aktive image draw parallelogram
@@ -248,21 +320,21 @@ The parallelogram is axis-aligned, of width `2*ewidth+1`, height `2*eheight+1`, 
 <table>
 <tr><th>aktive image draw parallelogram center {64 64} width 128 height 128 ewidth 32 eheight 32 eskew 8
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00061.gif' alt='aktive image draw parallelogram center {64 64} width 128 height 128 ewidth 32 eheight 32 eskew 8' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00070.gif' alt='aktive image draw parallelogram center {64 64} width 128 height 128 ewidth 32 eheight 32 eskew 8' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
 <table>
 <tr><th>aktive image draw parallelogram center {64 64} width 128 height 128 ewidth 32 eheight 32 eskew 8 outlined 1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00062.gif' alt='aktive image draw parallelogram center {64 64} width 128 height 128 ewidth 32 eheight 32 eskew 8 outlined 1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00071.gif' alt='aktive image draw parallelogram center {64 64} width 128 height 128 ewidth 32 eheight 32 eskew 8 outlined 1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
 <table>
 <tr><th>aktive image draw parallelogram center {64 64} width 128 height 128 ewidth 32 eheight 32 eskew 8 antialiased 0
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00063.gif' alt='aktive image draw parallelogram center {64 64} width 128 height 128 ewidth 32 eheight 32 eskew 8 antialiased 0' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00072.gif' alt='aktive image draw parallelogram center {64 64} width 128 height 128 ewidth 32 eheight 32 eskew 8 antialiased 0' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
@@ -291,6 +363,30 @@ The lines form a polyline through the specified points.
 |antialiased|bool|1|Draw with antialiasing for smoother contours (Default)|
 |strokewidth|uint|0|Stroke width. Lines are `2*strokewidth+1` wide.|
 |points|point...||Points of the poly-line|
+
+#### <a name='image_draw_polyline__examples'></a> Examples
+
+<table>
+<tr><th>aktive image draw polyline width 128 height 128 points {10 10} {30 80} {80 30}
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00073.gif' alt='aktive image draw polyline width 128 height 128 points {10 10} {30 80} {80 30}' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td></tr>
+</table>
+
+<table>
+<tr><th>aktive image draw polyline width 128 height 128 strokewidth 1 points {10 10} {30 80} {80 30}
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00074.gif' alt='aktive image draw polyline width 128 height 128 strokewidth 1 points {10 10} {30 80} {80 30}' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td></tr>
+</table>
+
+<table>
+<tr><th>aktive image draw polyline width 128 height 128 antialiased 0 points {10 10} {30 80} {80 30}
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00075.gif' alt='aktive image draw polyline width 128 height 128 antialiased 0 points {10 10} {30 80} {80 30}' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td></tr>
+</table>
+
 
 ---
 ### <a name='image_draw_rhombus'></a> aktive image draw rhombus
@@ -324,21 +420,21 @@ The rhombus is axis-aligned, of width `2*ewidth+1`, height `2*eheight+1`, and pl
 <table>
 <tr><th>aktive image draw rhombus center {64 64} width 128 height 128 ewidth 32 eheight 32
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00064.gif' alt='aktive image draw rhombus center {64 64} width 128 height 128 ewidth 32 eheight 32' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00076.gif' alt='aktive image draw rhombus center {64 64} width 128 height 128 ewidth 32 eheight 32' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
 <table>
 <tr><th>aktive image draw rhombus center {64 64} width 128 height 128 ewidth 32 eheight 32 outlined 1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00065.gif' alt='aktive image draw rhombus center {64 64} width 128 height 128 ewidth 32 eheight 32 outlined 1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00077.gif' alt='aktive image draw rhombus center {64 64} width 128 height 128 ewidth 32 eheight 32 outlined 1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
 <table>
 <tr><th>aktive image draw rhombus center {64 64} width 128 height 128 ewidth 32 eheight 32 antialiased 0
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00066.gif' alt='aktive image draw rhombus center {64 64} width 128 height 128 ewidth 32 eheight 32 antialiased 0' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00078.gif' alt='aktive image draw rhombus center {64 64} width 128 height 128 ewidth 32 eheight 32 antialiased 0' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
@@ -369,4 +465,28 @@ The triangle connects the points A, B, and C, in this order.
 |a|point||Triangle point A|
 |b|point||Triangle point B|
 |c|point||Triangle point C|
+
+#### <a name='image_draw_triangle__examples'></a> Examples
+
+<table>
+<tr><th>aktive image draw triangle width 128 height 128 a {10 10} b {30 80} c {80 30}
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00079.gif' alt='aktive image draw triangle width 128 height 128 a {10 10} b {30 80} c {80 30}' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td></tr>
+</table>
+
+<table>
+<tr><th>aktive image draw triangle width 128 height 128 a {10 10} b {30 80} c {80 30} outlined 1
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00080.gif' alt='aktive image draw triangle width 128 height 128 a {10 10} b {30 80} c {80 30} outlined 1' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td></tr>
+</table>
+
+<table>
+<tr><th>aktive image draw triangle width 128 height 128 a {10 10} b {30 80} c {80 30} antialiased 0
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00081.gif' alt='aktive image draw triangle width 128 height 128 a {10 10} b {30 80} c {80 30} antialiased 0' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td></tr>
+</table>
+
 

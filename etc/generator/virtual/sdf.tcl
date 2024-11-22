@@ -99,6 +99,11 @@ operator [sdf-known image::sdf::] {
 operator op::sdf::not {
     section transform sdf
 
+    example {
+	aktive image sdf circle center {80 80} width 128 height 128 radius 40
+	@1 | sdf-fit ; sdf-smooth ; sdf-pixelated
+    }
+
     note Returns the inverted input SDF, where inside and outside changed places.
 
     input
@@ -110,6 +115,12 @@ operator op::sdf::not {
 
 operator op::sdf::or {
     section transform sdf combiner
+
+    example {
+	aktive image sdf circle center {80 80} width 128 height 128 radius 40
+	aktive image sdf box    center {48 48} width 128 height 128 ewidth 40 eheight 40
+	@1 @2 | sdf-fit ; sdf-smooth ; sdf-pixelated
+    }
 
     note Returns the union A or B or ... of the input SDFs
 
@@ -123,6 +134,12 @@ operator op::sdf::or {
 operator op::sdf::and {
     section transform sdf combiner
 
+    example {
+	aktive image sdf circle center {80 80} width 128 height 128 radius 40
+	aktive image sdf box    center {48 48} width 128 height 128 ewidth 40 eheight 40
+	@1 @2 | sdf-fit ; sdf-smooth ; sdf-pixelated
+    }
+
     note Returns the intersection A and B and ... of the input SDFs
 
     input...
@@ -134,6 +151,12 @@ operator op::sdf::and {
 
 operator op::sdf::sub {
     section transform sdf combiner
+
+    example {
+	aktive image sdf circle center {80 80} width 128 height 128 radius 40
+	aktive image sdf box    center {48 48} width 128 height 128 ewidth 40 eheight 40
+	@1 @2 | sdf-fit ; sdf-smooth ; sdf-pixelated
+    }
 
     note Returns the difference A - B of the two input SDFs
 
@@ -149,6 +172,12 @@ operator op::sdf::sub {
 operator op::sdf::xor {
     section transform sdf combiner
 
+    example {
+	aktive image sdf circle center {80 80} width 128 height 128 radius 40
+	aktive image sdf box    center {48 48} width 128 height 128 ewidth 40 eheight 40
+	@1 @2 | sdf-fit ; sdf-smooth ; sdf-pixelated
+    }
+
     note Returns the symmetric difference of the input SDFs
 
     input...
@@ -162,6 +191,12 @@ operator op::sdf::xor {
 
 operator op::sdf::xor-core {
     section transform sdf combiner
+
+    example {
+	aktive image sdf circle center {80 80} width 128 height 128 radius 40
+	aktive image sdf box    center {48 48} width 128 height 128 ewidth 40 eheight 40
+	@1 @2 | sdf-fit ; sdf-smooth ; sdf-pixelated
+    }
 
     note Returns the symmetric difference of the two input SDFs
 
@@ -179,6 +214,11 @@ operator op::sdf::xor-core {
 
 operator op::sdf::ring {
     section transform sdf
+
+    example {
+	aktive image sdf circle center {80 80} width 128 height 128 radius 40
+	@1 thickness 4 | sdf-fit ; sdf-smooth ; sdf-pixelated
+    }
 
     note Combines outlining and rounding to replace the input SDF with \
 	an SDF tracing the border at some thickness and returns the result.
@@ -199,6 +239,11 @@ operator op::sdf::ring {
 operator op::sdf::outline {
     section transform sdf
 
+    example {
+	aktive image sdf circle center {80 80} width 128 height 128 radius 40
+	@1 | sdf-fit ; sdf-smooth ; sdf-pixelated
+    }
+
     note Replaces the input SDF with an outlined form, and returns the result.
 
     note This is implemented by taking the absolute of the input.
@@ -212,6 +257,11 @@ operator op::sdf::outline {
 
 operator op::sdf::round {
     section transform sdf
+
+    example {
+	aktive image sdf box center {64 64} width 128 height 128 ewidth 40 eheight 40
+	@1 radius 20 | sdf-fit ; sdf-smooth ; sdf-pixelated
+    }
 
     note Replaces the input SDF with a more rounded form per the radius, \
 	and returns the result.
