@@ -718,10 +718,10 @@ __Note__ that while the result is usable as a warp map for the <!xref aktive op 
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
-|width|uint||Width of the returned image|
-|height|uint||Height of the returned image|
 |x|int|0|X location of the returned image in the 2D plane|
 |y|int|0|Y location of the returned image in the 2D plane|
+|width|uint||Width of the returned image|
+|height|uint||Height of the returned image|
 
 #### <a name='image_indexed__examples'></a> Examples
 
