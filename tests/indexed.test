@@ -25,7 +25,7 @@ syntax {
 test aktive-image-indexed-2.0 "aktive image indexed" -body {
     astcl aktive image indexed width 3 height 4
 } -match image -result [makei image::indexed 0 0 3 4 2 {
-    width 3 height 4
+    x 0 y 0 width 3 height 4
 } {
     = 0 0 = 1 0 = 2 0 =
     = 0 1 = 1 1 = 2 1 =
@@ -74,7 +74,7 @@ test aktive-image-indexed-2.3 "aktive image indexed, super view" -body {
 
 test aktive-image-indexed-3.0 "aktive image indexed, dag" -body {
     dag aktive image indexed width 3 height 4
-} -match glob -result {image::indexed * {width 3 height 4}}
+} -match glob -result {image::indexed * {x 0 y 0 width 3 height 4}}
 
 # # ## ### ##### ######## ############# #####################
 cleanupTests

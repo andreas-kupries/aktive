@@ -24,13 +24,15 @@ syntax {
 
 test aktive-image-from-value-2.0 "aktive image from value, dag" -body {
     dag aktive image from value width 3 height 4 depth 2 value 5
-} -match glob -result {image::from::value * {width 3 height 4 depth 2 value 5.0}}
+} -match glob -result {image::from::value * {x 0 y 0 width 3 height 4 depth 2 value 5.0}}
 
 test aktive-image-from-value-2.1 "aktive image from value" -body {
     astcl aktive image from value width 3 height 4 depth 2 value 5
 } -match image -result {
     type   image::from::value
     config {
+	x 0
+	y 0
 	width 3
 	height 4
 	depth 2

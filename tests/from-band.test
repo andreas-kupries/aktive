@@ -27,6 +27,8 @@ test aktive-image-from-band-2.0 "aktive image from band" -body {
 } -match image -result {
     type   image::from::band
     config {
+	x 0
+	y 0
 	width 4
 	height 2
 	values {1.0 2.0 3.0}
@@ -46,7 +48,7 @@ test aktive-image-from-band-2.0 "aktive image from band" -body {
 
 test aktive-image-from-band-2.1 "aktive image from band, dag" -body {
     dag aktive image from band width 4 height 2 values 1 2 3
-} -match glob -result {image::from::band * {width 4 height 2 values {1.0 2.0 3.0}}}
+} -match glob -result {image::from::band * {x 0 y 0 width 4 height 2 values {1.0 2.0 3.0}}}
 
 # # ## ### ##### ######## ############# #####################
 cleanupTests

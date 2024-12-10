@@ -14,10 +14,10 @@ operator image::indexed {
 	the "<!xref aktive op warp map>" operation, it will not do \
 	anything, as it represents the identity warping.
 
-    uint   width  Width of the returned image
-    uint   height Height of the returned image
     int? 0 x      X location of the returned image in the 2D plane
     int? 0 y      Y location of the returned image in the 2D plane
+    uint   width  Width of the returned image
+    uint   height Height of the returned image
 
     state -setup {
 	aktive_geometry_set (domain, param->x, param->y, param->width, param->height, 2);
