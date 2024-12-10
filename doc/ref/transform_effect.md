@@ -22,6 +22,8 @@
  - [aktive effect emboss](#effect_emboss)
  - [aktive effect jitter gauss](#effect_jitter_gauss)
  - [aktive effect jitter uniform](#effect_jitter_uniform)
+ - [aktive effect max-rgb](#effect_max_rgb)
+ - [aktive effect min-rgb](#effect_min_rgb)
  - [aktive effect sharpen](#effect_sharpen)
  - [aktive effect sketch](#effect_sketch)
  - [aktive effect swirl](#effect_swirl)
@@ -227,6 +229,62 @@ The underlying operation is [aktive warp noise uniform](generator_virtual_warp.m
 
 
 ---
+### [↑](#top) <a name='effect_max_rgb'></a> aktive effect max-rgb
+
+Syntax: __aktive effect max-rgb__ src [[→ definition](../../../../file?ci=trunk&ln=282&name=etc/transformer/filter/effects.tcl)]
+
+Returns an image suppressing at each pixel of the input the bands not reaching the max of the bands at that location.
+
+For a single-band input this is a no-op.
+
+Despite the use of `rgb` in the operator name this operator works on all multi-band images, regardless of the exact number or their semantic interpretation.
+
+Idea from <https://docs.gimp.org/2.8/en/plug-in-max-rgb.html>
+
+
+#### <a name='effect_max_rgb__examples'></a> Examples
+
+<table>
+<tr><th>@1
+    <br>(assets/butterfly.ppm)</th>
+    <th>aktive effect max-rgb @1
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00023.gif' alt='@1 (assets/butterfly.ppm)' style='border:4px solid gold'>
+    <br>geometry(0 0 380 250 3)</td>
+    <td valign='top'><img src='example-00024.gif' alt='aktive effect max-rgb @1' style='border:4px solid gold'>
+    <br>geometry(0 0 380 250 3)</td></tr>
+</table>
+
+
+---
+### [↑](#top) <a name='effect_min_rgb'></a> aktive effect min-rgb
+
+Syntax: __aktive effect min-rgb__ src [[→ definition](../../../../file?ci=trunk&ln=282&name=etc/transformer/filter/effects.tcl)]
+
+Returns an image suppressing at each pixel of the input the bands not falling to the min of the bands at that location.
+
+For a single-band input this is a no-op.
+
+Despite the use of `rgb` in the operator name this operator works on all multi-band images, regardless of the exact number or their semantic interpretation.
+
+Idea from <https://docs.gimp.org/2.8/en/plug-in-max-rgb.html>
+
+
+#### <a name='effect_min_rgb__examples'></a> Examples
+
+<table>
+<tr><th>@1
+    <br>(assets/butterfly.ppm)</th>
+    <th>aktive effect min-rgb @1
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00025.gif' alt='@1 (assets/butterfly.ppm)' style='border:4px solid gold'>
+    <br>geometry(0 0 380 250 3)</td>
+    <td valign='top'><img src='example-00026.gif' alt='aktive effect min-rgb @1' style='border:4px solid gold'>
+    <br>geometry(0 0 380 250 3)</td></tr>
+</table>
+
+
+---
 ### [↑](#top) <a name='effect_sharpen'></a> aktive effect sharpen
 
 Syntax: __aktive effect sharpen__ src [[→ definition](../../../../file?ci=trunk&ln=170&name=etc/transformer/filter/effects.tcl)]
@@ -241,9 +299,9 @@ Returns sharpened input.
     <br>&nbsp;</th>
     <th>aktive effect sharpen @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00023.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00027.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00024.gif' alt='aktive effect sharpen @1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00028.gif' alt='aktive effect sharpen @1' style='border:4px solid gold'>
     <br>geometry(1 1 126 126 1)</td></tr>
 </table>
 
@@ -263,9 +321,9 @@ Returns image with a general sketch of the input.
     <br>&nbsp;</th>
     <th>aktive effect sketch @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00025.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00029.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00026.gif' alt='aktive effect sketch @1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00030.gif' alt='aktive effect sketch @1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
@@ -274,9 +332,9 @@ Returns image with a general sketch of the input.
     <br>&nbsp;</th>
     <th>aktive effect sketch @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00027.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00031.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00028.gif' alt='aktive effect sketch @1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00032.gif' alt='aktive effect sketch @1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
@@ -311,9 +369,9 @@ The underlying operation is [aktive warp swirl](generator_virtual_warp.md#warp_s
     <br>&nbsp;</th>
     <th>aktive effect swirl @1 decay 0.05 from 135
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00029.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00033.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00030.gif' alt='aktive effect swirl @1 decay 0.05 from 135' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00034.gif' alt='aktive effect swirl @1 decay 0.05 from 135' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
@@ -322,9 +380,9 @@ The underlying operation is [aktive warp swirl](generator_virtual_warp.md#warp_s
     <br>(assets/sines.ppm)</th>
     <th>aktive effect swirl @1 decay 0.01 from 135
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00031.gif' alt='@1 (assets/sines.ppm)' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00035.gif' alt='@1 (assets/sines.ppm)' style='border:4px solid gold'>
     <br>geometry(0 0 256 256 3)</td>
-    <td valign='top'><img src='example-00032.gif' alt='aktive effect swirl @1 decay 0.01 from 135' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00036.gif' alt='aktive effect swirl @1 decay 0.01 from 135' style='border:4px solid gold'>
     <br>geometry(0 0 256 256 3)</td></tr>
 </table>
 
@@ -333,9 +391,9 @@ The underlying operation is [aktive warp swirl](generator_virtual_warp.md#warp_s
     <br>(assets/butterfly.ppm)</th>
     <th>aktive effect swirl @1 decay 0.01 from 135
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00033.gif' alt='@1 (assets/butterfly.ppm)' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00037.gif' alt='@1 (assets/butterfly.ppm)' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
-    <td valign='top'><img src='example-00034.gif' alt='aktive effect swirl @1 decay 0.01 from 135' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00038.gif' alt='aktive effect swirl @1 decay 0.01 from 135' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td></tr>
 </table>
 
