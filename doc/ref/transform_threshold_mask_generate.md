@@ -70,9 +70,9 @@ The local thresholds are computed using [aktive image threshold bernsen](transfo
     <br>&nbsp;</th>
     <th>aktive image mask per bernsen @1 radius 7
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00146.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00150.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 300 200 1)</td>
-    <td valign='top'><img src='example-00147.gif' alt='aktive image mask per bernsen @1 radius 7' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00151.gif' alt='aktive image mask per bernsen @1 radius 7' style='border:4px solid gold'>
     <br>geometry(0 0 300 200 1)</td></tr>
 </table>
 
@@ -81,9 +81,9 @@ The local thresholds are computed using [aktive image threshold bernsen](transfo
     <br>&nbsp;</th>
     <th>aktive image mask per bernsen @1 radius 7
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00148.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00152.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
-    <td valign='top'><img src='example-00149.gif' alt='aktive image mask per bernsen @1 radius 7' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00153.gif' alt='aktive image mask per bernsen @1 radius 7' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td></tr>
 </table>
 
@@ -109,9 +109,9 @@ The threshold is computed using [aktive image threshold global bernsen](accessor
     <br>&nbsp;</th>
     <th>aktive image mask per global bernsen @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00150.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00154.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 300 200 1)</td>
-    <td valign='top'><img src='example-00151.gif' alt='aktive image mask per global bernsen @1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00155.gif' alt='aktive image mask per global bernsen @1' style='border:4px solid gold'>
     <br>geometry(0 0 300 200 1)</td></tr>
 </table>
 
@@ -120,9 +120,9 @@ The threshold is computed using [aktive image threshold global bernsen](accessor
     <br>&nbsp;</th>
     <th>aktive image mask per global bernsen @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00152.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00156.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
-    <td valign='top'><img src='example-00153.gif' alt='aktive image mask per global bernsen @1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00157.gif' alt='aktive image mask per global bernsen @1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td></tr>
 </table>
 
@@ -148,9 +148,9 @@ The threshold is computed using [aktive image threshold global mean](accessor_th
     <br>&nbsp;</th>
     <th>aktive image mask per global mean @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00154.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00158.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 300 200 1)</td>
-    <td valign='top'><img src='example-00155.gif' alt='aktive image mask per global mean @1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00159.gif' alt='aktive image mask per global mean @1' style='border:4px solid gold'>
     <br>geometry(0 0 300 200 1)</td></tr>
 </table>
 
@@ -159,9 +159,9 @@ The threshold is computed using [aktive image threshold global mean](accessor_th
     <br>&nbsp;</th>
     <th>aktive image mask per global mean @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00156.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00160.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
-    <td valign='top'><img src='example-00157.gif' alt='aktive image mask per global mean @1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00161.gif' alt='aktive image mask per global mean @1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td></tr>
 </table>
 
@@ -190,9 +190,9 @@ The threshold is computed using [aktive image threshold global niblack](accessor
     <br>&nbsp;</th>
     <th>aktive image mask per global niblack @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00158.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00162.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 300 200 1)</td>
-    <td valign='top'><img src='example-00159.gif' alt='aktive image mask per global niblack @1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00163.gif' alt='aktive image mask per global niblack @1' style='border:4px solid gold'>
     <br>geometry(0 0 300 200 1)</td></tr>
 </table>
 
@@ -201,9 +201,9 @@ The threshold is computed using [aktive image threshold global niblack](accessor
     <br>&nbsp;</th>
     <th>aktive image mask per global niblack @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00160.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00164.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
-    <td valign='top'><img src='example-00161.gif' alt='aktive image mask per global niblack @1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00165.gif' alt='aktive image mask per global niblack @1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td></tr>
 </table>
 
@@ -232,9 +232,9 @@ The threshold is computed using [aktive image threshold global otsu](accessor_th
     <br>&nbsp;</th>
     <th>aktive image mask per global otsu @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00162.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00166.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 300 200 1)</td>
-    <td valign='top'><img src='example-00163.gif' alt='aktive image mask per global otsu @1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00167.gif' alt='aktive image mask per global otsu @1' style='border:4px solid gold'>
     <br>geometry(0 0 300 200 1)</td></tr>
 </table>
 
@@ -266,9 +266,9 @@ The threshold is computed using [aktive image threshold global phansalkar](acces
     <br>&nbsp;</th>
     <th>aktive image mask per global phansalkar @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00164.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00168.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 300 200 1)</td>
-    <td valign='top'><img src='example-00165.gif' alt='aktive image mask per global phansalkar @1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00169.gif' alt='aktive image mask per global phansalkar @1' style='border:4px solid gold'>
     <br>geometry(0 0 300 200 1)</td></tr>
 </table>
 
@@ -277,9 +277,9 @@ The threshold is computed using [aktive image threshold global phansalkar](acces
     <br>&nbsp;</th>
     <th>aktive image mask per global phansalkar @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00166.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00170.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
-    <td valign='top'><img src='example-00167.gif' alt='aktive image mask per global phansalkar @1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00171.gif' alt='aktive image mask per global phansalkar @1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td></tr>
 </table>
 
@@ -309,9 +309,9 @@ The threshold is computed using [aktive image threshold global sauvola](accessor
     <br>&nbsp;</th>
     <th>aktive image mask per global sauvola @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00168.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00172.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 300 200 1)</td>
-    <td valign='top'><img src='example-00169.gif' alt='aktive image mask per global sauvola @1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00173.gif' alt='aktive image mask per global sauvola @1' style='border:4px solid gold'>
     <br>geometry(0 0 300 200 1)</td></tr>
 </table>
 
@@ -320,9 +320,9 @@ The threshold is computed using [aktive image threshold global sauvola](accessor
     <br>&nbsp;</th>
     <th>aktive image mask per global sauvola @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00170.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00174.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
-    <td valign='top'><img src='example-00171.gif' alt='aktive image mask per global sauvola @1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00175.gif' alt='aktive image mask per global sauvola @1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td></tr>
 </table>
 
@@ -351,9 +351,9 @@ The local thresholds are computed using [aktive image threshold mean](transform_
     <br>&nbsp;</th>
     <th>aktive image mask per mean @1 radius 7
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00172.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00176.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 300 200 1)</td>
-    <td valign='top'><img src='example-00173.gif' alt='aktive image mask per mean @1 radius 7' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00177.gif' alt='aktive image mask per mean @1 radius 7' style='border:4px solid gold'>
     <br>geometry(0 0 300 200 1)</td></tr>
 </table>
 
@@ -362,9 +362,9 @@ The local thresholds are computed using [aktive image threshold mean](transform_
     <br>&nbsp;</th>
     <th>aktive image mask per mean @1 radius 7
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00174.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00178.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
-    <td valign='top'><img src='example-00175.gif' alt='aktive image mask per mean @1 radius 7' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00179.gif' alt='aktive image mask per mean @1 radius 7' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td></tr>
 </table>
 
@@ -394,9 +394,9 @@ The local thresholds are computed using [aktive image threshold niblack](transfo
     <br>&nbsp;</th>
     <th>aktive image mask per niblack @1 radius 7
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00176.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00180.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 300 200 1)</td>
-    <td valign='top'><img src='example-00177.gif' alt='aktive image mask per niblack @1 radius 7' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00181.gif' alt='aktive image mask per niblack @1 radius 7' style='border:4px solid gold'>
     <br>geometry(0 0 300 200 1)</td></tr>
 </table>
 
@@ -405,9 +405,9 @@ The local thresholds are computed using [aktive image threshold niblack](transfo
     <br>&nbsp;</th>
     <th>aktive image mask per niblack @1 radius 7
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00178.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00182.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
-    <td valign='top'><img src='example-00179.gif' alt='aktive image mask per niblack @1 radius 7' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00183.gif' alt='aktive image mask per niblack @1 radius 7' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td></tr>
 </table>
 
@@ -437,9 +437,9 @@ The local thresholds are computed using [aktive image threshold otsu](transform_
     <br>&nbsp;</th>
     <th>aktive image mask per otsu @1 radius 7
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00180.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00184.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 300 200 1)</td>
-    <td valign='top'><img src='example-00181.gif' alt='aktive image mask per otsu @1 radius 7' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00185.gif' alt='aktive image mask per otsu @1 radius 7' style='border:4px solid gold'>
     <br>geometry(0 0 300 200 1)</td></tr>
 </table>
 
@@ -472,9 +472,9 @@ The local thresholds are computed using [aktive image threshold phansalkar](tran
     <br>&nbsp;</th>
     <th>aktive image mask per phansalkar @1 radius 7
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00182.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00186.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 300 200 1)</td>
-    <td valign='top'><img src='example-00183.gif' alt='aktive image mask per phansalkar @1 radius 7' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00187.gif' alt='aktive image mask per phansalkar @1 radius 7' style='border:4px solid gold'>
     <br>geometry(0 0 300 200 1)</td></tr>
 </table>
 
@@ -483,9 +483,9 @@ The local thresholds are computed using [aktive image threshold phansalkar](tran
     <br>&nbsp;</th>
     <th>aktive image mask per phansalkar @1 radius 7
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00184.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00188.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
-    <td valign='top'><img src='example-00185.gif' alt='aktive image mask per phansalkar @1 radius 7' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00189.gif' alt='aktive image mask per phansalkar @1 radius 7' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td></tr>
 </table>
 
@@ -516,9 +516,9 @@ The local thresholds are computed using [aktive image threshold sauvola](transfo
     <br>&nbsp;</th>
     <th>aktive image mask per sauvola @1 radius 7
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00186.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00190.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 300 200 1)</td>
-    <td valign='top'><img src='example-00187.gif' alt='aktive image mask per sauvola @1 radius 7' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00191.gif' alt='aktive image mask per sauvola @1 radius 7' style='border:4px solid gold'>
     <br>geometry(0 0 300 200 1)</td></tr>
 </table>
 
@@ -527,9 +527,9 @@ The local thresholds are computed using [aktive image threshold sauvola](transfo
     <br>&nbsp;</th>
     <th>aktive image mask per sauvola @1 radius 7
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00188.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00192.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
-    <td valign='top'><img src='example-00189.gif' alt='aktive image mask per sauvola @1 radius 7' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00193.gif' alt='aktive image mask per sauvola @1 radius 7' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td></tr>
 </table>
 
@@ -559,9 +559,9 @@ The local thresholds are computed using [aktive image threshold wolfjolion](tran
     <br>&nbsp;</th>
     <th>aktive image mask per wolfjolion @1 radius 7
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00190.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00194.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 300 200 1)</td>
-    <td valign='top'><img src='example-00191.gif' alt='aktive image mask per wolfjolion @1 radius 7' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00195.gif' alt='aktive image mask per wolfjolion @1 radius 7' style='border:4px solid gold'>
     <br>geometry(0 0 300 200 1)</td></tr>
 </table>
 
@@ -570,9 +570,9 @@ The local thresholds are computed using [aktive image threshold wolfjolion](tran
     <br>&nbsp;</th>
     <th>aktive image mask per wolfjolion @1 radius 7
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00192.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00196.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
-    <td valign='top'><img src='example-00193.gif' alt='aktive image mask per wolfjolion @1 radius 7' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00197.gif' alt='aktive image mask per wolfjolion @1 radius 7' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td></tr>
 </table>
 

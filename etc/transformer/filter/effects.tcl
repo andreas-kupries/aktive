@@ -279,6 +279,44 @@ operator effect::charcoal {
     }
 }
 
+operator {op compare desc1 desc2} {
+    effect::max-rgb max ge {reaches the max}  {reaching the max}
+    effect::min-rgb min le {falls to the min} {falling to the min}
+} {
+    section transform effect
+
+    example {
+	butterfly | -label assets/butterfly.ppm
+	@1
+    }
+
+    note Returns an image suppressing at each pixel of the input the bands \
+	not ${desc2} of the bands at that location.
+
+    note For a single-band input this is a no-op.
+
+    note Despite the use of `rgb` in the operator name this operator works \
+	on all multi-band images, regardless of the exact number or their \
+	semantic interpretation.
+
+    note Idea from <https://docs.gimp.org/2.8/en/plug-in-max-rgb.html>
+
+    input
+
+    body {
+	# for single-band this filter is a no-op
+	if {[aktive query depth $src] == 1} { return $src }
+
+        set mb [aktive op band @@op@@ $src]
+	aktive op montage z {*}[lmap band [aktive op split z $src] {
+	    # get mask which is 1 where the band value @@desc1@@, and 0 else
+	    set mask [aktive op math @@compare@@ $band $mb]
+	    # use the mask to set all values not @@desc2@@ to 0/black, and leave the rest as is.
+	    aktive op math mul $band $mask
+	}]
+    }
+}
+
 ##
 # # ## ### ##### ######## ############# #####################
 ::return

@@ -45,7 +45,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
     <br>&nbsp;</th>
     <th>aktive image threshold global bernsen @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00241.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00245.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 300 200 1)</td>
     <td valign='top'>&nbsp;0.33137254901960783</td></tr>
 </table>
@@ -55,7 +55,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
     <br>&nbsp;</th>
     <th>aktive image threshold global bernsen @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00243.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00247.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
     <td valign='top'>&nbsp;0.5078431372549019</td></tr>
 </table>
@@ -82,7 +82,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
     <br>&nbsp;</th>
     <th>aktive image threshold global mean @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00245.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00249.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 300 200 1)</td>
     <td valign='top'>&nbsp;0.46493130718954245</td></tr>
 </table>
@@ -92,7 +92,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
     <br>&nbsp;</th>
     <th>aktive image threshold global mean @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00247.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00251.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
     <td valign='top'>&nbsp;0.37447068455452354</td></tr>
 </table>
@@ -120,7 +120,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
     <br>&nbsp;</th>
     <th>aktive image threshold global niblack @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00249.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00253.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 300 200 1)</td>
     <td valign='top'>&nbsp;0.4461036579290674</td></tr>
 </table>
@@ -130,7 +130,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
     <br>&nbsp;</th>
     <th>aktive image threshold global niblack @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00251.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00255.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
     <td valign='top'>&nbsp;0.3194965780697608</td></tr>
 </table>
@@ -158,7 +158,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
     <br>&nbsp;</th>
     <th>aktive image threshold global otsu @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00253.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00257.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 300 200 1)</td>
     <td valign='top'>&nbsp;0.3515625</td></tr>
 </table>
@@ -189,7 +189,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
     <br>&nbsp;</th>
     <th>aktive image threshold global phansalkar @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00255.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00259.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 300 200 1)</td>
     <td valign='top'>&nbsp;0.3839280179396569</td></tr>
 </table>
@@ -199,7 +199,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
     <br>&nbsp;</th>
     <th>aktive image threshold global phansalkar @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00257.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00261.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
     <td valign='top'>&nbsp;0.35887882734383425</td></tr>
 </table>
@@ -228,7 +228,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
     <br>&nbsp;</th>
     <th>aktive image threshold global sauvola @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00259.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00263.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 300 200 1)</td>
     <td valign='top'>&nbsp;0.23263662163348175</td></tr>
 </table>
@@ -238,7 +238,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
     <br>&nbsp;</th>
     <th>aktive image threshold global sauvola @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00261.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00265.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
     <td valign='top'>&nbsp;0.18763741632585793</td></tr>
 </table>

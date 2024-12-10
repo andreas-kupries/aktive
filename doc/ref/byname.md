@@ -21,6 +21,8 @@
  - [aktive effect emboss](transform_effect.md#effect_emboss)
  - [aktive effect jitter gauss](transform_effect.md#effect_jitter_gauss)
  - [aktive effect jitter uniform](transform_effect.md#effect_jitter_uniform)
+ - [aktive effect max-rgb](transform_effect.md#effect_max_rgb)
+ - [aktive effect min-rgb](transform_effect.md#effect_min_rgb)
  - [aktive effect sharpen](transform_effect.md#effect_sharpen)
  - [aktive effect sketch](transform_effect.md#effect_sketch)
  - [aktive effect swirl](transform_effect.md#effect_swirl)

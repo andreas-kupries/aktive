@@ -56,9 +56,9 @@ Despite the naming the operator is __not strict__. It does not access the input'
     <br>(charcoal)</th>
     <th>aktive format as d2 @2
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00035.gif' alt='@1 (assets/butterfly.ppm)' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00039.gif' alt='@1 (assets/butterfly.ppm)' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
-    <td valign='top'><img src='example-00036.gif' alt='@2 (charcoal)' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00040.gif' alt='@2 (charcoal)' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 1)</td>
     <td valign='top'>&nbsp;# -\*- d2 -\*-<br>&nbsp;direction: left<br>&nbsp;1: "aktive read from netpbm\\n(path tests/assets/butterfly.ppm)"<br>&nbsp;1.shape: document<br>&nbsp;1.style.fill: lightgreen<br>&nbsp;2: "aktive op view\\n(port {-1 -1 382 252})"<br>&nbsp;2.shape: oval<br>&nbsp;1 -> 2<br>&nbsp;3: "aktive op tile max\\n(radius 1)"<br>&nbsp;3.shape: oval<br>&nbsp;2 -> 3<br>&nbsp;4: "aktive op view\\n(port {-1 -1 382 252})"<br>&nbsp;4.shape: oval<br>&nbsp;1 -> 4<br>&nbsp;5: "aktive op tile min\\n(radius 1)"<br>&nbsp;5.shape: oval<br>&nbsp;4 -> 5<br>&nbsp;6: "aktive op math sub"<br>&nbsp;6.shape: oval<br>&nbsp;3 -> 6<br>&nbsp;5 -> 6<br>&nbsp;7: "aktive op math1 invert"<br>&nbsp;7.shape: oval<br>&nbsp;6 -> 7<br>&nbsp;8: "aktive op math1 gamma expand"<br>&nbsp;8.shape: oval<br>&nbsp;7 -> 8<br>&nbsp;9: "aktive op color scRGB to Grey"<br>&nbsp;9.shape: oval<br>&nbsp;8 -> 9<br>&nbsp;10: "aktive op math1 scale\\n(factor 0.01)"<br>&nbsp;10.shape: oval<br>&nbsp;10.style.fill: orange<br>&nbsp;9 -> 10</td></tr>
 </table>
@@ -83,9 +83,9 @@ Despite the naming the operator is __not strict__. It does not access the input'
     <br>(charcoal)</th>
     <th>aktive format as markdown @2
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00038.gif' alt='@1 (assets/butterfly.ppm)' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00042.gif' alt='@1 (assets/butterfly.ppm)' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
-    <td valign='top'><img src='example-00039.gif' alt='@2 (charcoal)' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00043.gif' alt='@2 (charcoal)' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 1)</td>
     <td valign='top'>&nbsp;||Id|Command|Config|Inputs|Notes|<br>&nbsp;|:---|:---|:---|:---|:---|:---|<br>&nbsp;|__FILE__|1|aktive read from netpbm|path tests/assets/butterfly.ppm||FO(2): 2, 4|<br>&nbsp;||2|aktive op view|port {-1 -1 382 252}|1||<br>&nbsp;||3|aktive op tile max|radius 1|2||<br>&nbsp;||4|aktive op view|port {-1 -1 382 252}|1||<br>&nbsp;||5|aktive op tile min|radius 1|4||<br>&nbsp;||6|aktive op math sub||3, 5||<br>&nbsp;||7|aktive op math1 invert||6||<br>&nbsp;||8|aktive op math1 gamma expand||7||<br>&nbsp;||9|aktive op color scRGB to Grey||8||<br>&nbsp;|__OUT__|10|aktive op math1 scale|factor 0.01|9||</td></tr>
 </table>
@@ -110,9 +110,9 @@ Despite the naming the operator is __not strict__. It does not access the input'
     <br>(charcoal)</th>
     <th>aktive format as tclscript @2
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00041.gif' alt='@1 (assets/butterfly.ppm)' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00045.gif' alt='@1 (assets/butterfly.ppm)' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
-    <td valign='top'><img src='example-00042.gif' alt='@2 (charcoal)' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00046.gif' alt='@2 (charcoal)' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 1)</td>
     <td valign='top'>&nbsp;set file1 [aktive read from netpbm path tests/assets/butterfly.ppm]	;# FO(2): tmp2, tmp4<br>&nbsp;set tmp2 [aktive op view $file1 port {-1 -1 382 252}]<br>&nbsp;set tmp3 [aktive op tile max $tmp2 radius 1]<br>&nbsp;set tmp4 [aktive op view $file1 port {-1 -1 382 252}]<br>&nbsp;set tmp5 [aktive op tile min $tmp4 radius 1]<br>&nbsp;set tmp6 [aktive op math sub $tmp3 $tmp5]<br>&nbsp;set tmp7 [aktive op math1 invert $tmp6]<br>&nbsp;set tmp8 [aktive op math1 gamma expand $tmp7]<br>&nbsp;set tmp9 [aktive op color scRGB to Grey $tmp8]<br>&nbsp;set result [aktive op math1 scale $tmp9 factor 0.01]</td></tr>
 </table>
@@ -137,7 +137,7 @@ For anything else an error is thrown instead of making assumptions.
     <br>&nbsp;</th>
     <th>aktive op query colorspace @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00453.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00457.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 256 256 3)</td>
     <td valign='top'>&nbsp;sRGB</td></tr>
 </table>
@@ -178,7 +178,7 @@ For an image without parameters the result is the empty dictionary.
     <br>(zone width 32 height 32)</th>
     <th>aktive query params @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00639.gif' alt='@1 (zone width 32 height 32)' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00643.gif' alt='@1 (zone width 32 height 32)' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;width 32 height 32</td></tr>
 </table>
@@ -188,7 +188,7 @@ For an image without parameters the result is the empty dictionary.
     <br>(gradient width 32 height 32 depth 1 first 0 last 1)</th>
     <th>aktive query params @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00641.gif' alt='@1 (gradient width 32 height 32 depth 1 first 0 last 1)' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00645.gif' alt='@1 (gradient width 32 height 32 depth 1 first 0 last 1)' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;width 32 height 32 depth 1 first 0.0 last 1.0</td></tr>
 </table>
@@ -211,7 +211,7 @@ This includes type, geometry, and parameters, if any. The inputs however are exc
     <br>(zone width 32 height 32)</th>
     <th>aktive query setup @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00651.gif' alt='@1 (zone width 32 height 32)' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00655.gif' alt='@1 (zone width 32 height 32)' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;type image::zone domain {x 0 y 0 width 32 height 32 depth 1} config {width 32 height 32}</td></tr>
 </table>
@@ -221,7 +221,7 @@ This includes type, geometry, and parameters, if any. The inputs however are exc
     <br>&nbsp;</th>
     <th>aktive query setup @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00653.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00657.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;type image::gradient domain {x 0 y 0 width 32 height 32 depth 1} config {width 32 height 32 depth 1 first 0.0 last 1.0}</td></tr>
 </table>
@@ -242,7 +242,7 @@ Returns the input's type.
     <br>&nbsp;</th>
     <th>aktive query type @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00659.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00663.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;image::zone</td></tr>
 </table>
@@ -252,7 +252,7 @@ Returns the input's type.
     <br>&nbsp;</th>
     <th>aktive query type @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00661.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00665.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;image::gradient</td></tr>
 </table>
