@@ -228,7 +228,7 @@ foreach {op config expected} {
 		[aktive op band $op [grad] \
 		     {*}$params] \
 		{*}$params
-	} -match glob -result "image::from::value * {width 3 height 4 depth 1 value 0.0}"
+	} -match glob -result "image::from::value * {x 0 y 0 width 3 height 4 depth 1 value 0.0}"
     }
 }
 

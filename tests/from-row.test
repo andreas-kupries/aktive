@@ -27,6 +27,8 @@ test aktive-image-from-row-2.0 "aktive image from row" -body {
 } -match image -result {
     type   image::from::row
     config {
+	x 0
+	y 0
 	height 3
 	values {1.0 2.0 3.0 4.0 5.0 6.0}
     }
@@ -46,7 +48,7 @@ test aktive-image-from-row-2.0 "aktive image from row" -body {
 
 test aktive-image-from-row-2.1 "aktive image from row, dag" -body {
     dag aktive image from row height 4 values 1 2 3
-} -match glob -result {image::from::row * {height 4 values {1.0 2.0 3.0}}}
+} -match glob -result {image::from::row * {x 0 y 0 height 4 values {1.0 2.0 3.0}}}
 
 # # ## ### ##### ######## ############# #####################
 cleanupTests
