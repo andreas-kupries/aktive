@@ -73,10 +73,10 @@ aktive_rectangle_is_subset (aktive_rectangle* a, aktive_rectangle* b)
     TRACE_FUNC("((rect*) %p <= (rect*) %p)", a, b);
 
     int is_subset =
-	(a->x               >= b->x              ) &&
-	((a->x + a->width)  <= (b->x + b->width )) &&
-	(a->y               >= b->y              ) &&
-	((a->y + a->height) <= (b->y + b->height))
+	(a->x                     >= b->x                    ) &&
+	((a->x + (int) a->width)  <= (b->x + (int) b->width )) &&
+	(a->y                     >= b->y                    ) &&
+	((a->y + (int) a->height) <= (b->y + (int) b->height))
 	;
 
     TRACE_RETURN("(bool) %d", is_subset);
@@ -95,13 +95,21 @@ aktive_rectangle_is_empty  (aktive_rectangle* r)
 extern int
 aktive_rectangle_contains (aktive_rectangle* r, aktive_point* p)
 {
-    TRACE_FUNC("((rect*) %p contain? ((point*)) %p", r, p);
+    TRACE_FUNC("((rect*) %p (%d..%d, %d..%d) contain? "
+	       "((point*)) %p (%d, %d)",
+	       r, r->x, r->x + (int) r->width, r->y, r->y + (int) r->height,
+	       p, p->x, p->y);
+
+    // TRACE("px < rx     = %d", (p->x < r->x)               );
+    // TRACE("py < ry     = %d", (p->y < r->y)               );
+    // TRACE("px >= rx+rw = %d", (p->x >= (r->x + (int) r->width)) );
+    // TRACE("py >= ry+rh = %d", (p->y >= (r->y + (int) r->height)));
 
     int outside =
-	(p->x < r->x)               ||
-	(p->y < r->y)               ||
-	(p->x >= (r->x + r->width)) ||
-	(p->y >= (r->y + r->height));
+	(p->x <   r->x)                   ||
+	(p->y <   r->y)                   ||
+	(p->x >= (r->x + (int) r->width)) ||
+	(p->y >= (r->y + (int) r->height));
 
     TRACE_RETURN("(bool) %d", !outside);
 }
@@ -148,14 +156,13 @@ aktive_rectangle_union (aktive_rectangle* dst, aktive_rectangle* a, aktive_recta
     /*
      * Compute the bounding box first, as min and max of the individual
      * boundaries. The upper values are one too high, which is canceled when
-     * computing the dimensions. This is actually the dual of the intersection
-     * calculation.
+     * computing the dimensions. This is dual to the intersection calculation.
      */
 
-    int a_xmax = a->x + a->width;
-    int a_ymax = a->y + a->height;
-    int b_xmax = b->x + b->width;
-    int b_ymax = b->y + b->height;
+    int a_xmax = a->x + (int) a->width;
+    int a_ymax = a->y + (int) a->height;
+    int b_xmax = b->x + (int) b->width;
+    int b_ymax = b->y + (int) b->height;
 
     int nx    = MIN (b->x,   a->x);
     int ny    = MIN (b->y,   a->y);
@@ -194,14 +201,13 @@ aktive_rectangle_intersect (aktive_rectangle* dst, aktive_rectangle* a, aktive_r
     /* Compute boundaries of the intersection as the max and min of the
      * individual boundaries, and then compute the dimensions from that
      * again. The upper values are one too high, which is canceled when
-     * computing the dimensions. This is actually the dual of the union
-     * calculation.
+     * computing the dimensions. This is dual to the union calculation.
      */
 
-    int a_xmax = a->x + a->width;
-    int a_ymax = a->y + a->height;
-    int b_xmax = b->x + b->width;
-    int b_ymax = b->y + b->height;
+    int a_xmax = a->x + (int) a->width;
+    int a_ymax = a->y + (int) a->height;
+    int b_xmax = b->x + (int) b->width;
+    int b_ymax = b->y + (int) b->height;
 
     int nx    = MAX (b->x,   a->x);
     int ny    = MAX (b->y,   a->y);
@@ -240,7 +246,7 @@ aktive_rectangle_outzones (aktive_rectangle* domain, aktive_rectangle* request,
     aktive_uint count = 1;
 
     /* General case. Request has inside and outside parts (*). These parts can
-     * reside above, below, left, or right of the image, in all
+     * reside above, below, to the left, or right of the image, in all
      * combinations. The following code handles the above and below strips
      * first, and then looks at the left/right blocks at the some height as
      * the image.
@@ -266,7 +272,7 @@ aktive_rectangle_outzones (aktive_rectangle* domain, aktive_rectangle* request,
      * In other words, while the intersection is in the virtual coordinate system,
      * the zones are 0-based physical coordinates!
      *
-     * HADJ is the height adjustment needed for left/right when the top/bottom
+     * HADJ is the Height ADJustment needed for left/right when the top/bottom
      * stripes do not exist.
      *
      * TP is the similar adjustment of the left/right y-coordinate.
@@ -277,12 +283,12 @@ aktive_rectangle_outzones (aktive_rectangle* domain, aktive_rectangle* request,
     int left   = domain->x - request->x;
     int right  = request->width - domain->width - left;
 
-    TRACE ("D %3d %3d %3u %3u\n", domain->x,  domain->y,  domain->width,  domain->height);
-    TRACE ("R %3d %3d %3u %3u\n", request->x, request->y, request->width, request->height);
-    TRACE ("top    %d\n", top);
-    TRACE ("bottom %d\n", bottom);
-    TRACE ("left   %d\n", left);
-    TRACE ("right  %d\n", right);
+    TRACE ("D %3d %3d %3u %3u", domain->x,  domain->y,  domain->width,  domain->height);
+    TRACE ("R %3d %3d %3u %3u", request->x, request->y, request->width, request->height);
+    TRACE ("top    %d", top);
+    TRACE ("bottom %d", bottom);
+    TRACE ("left   %d", left);
+    TRACE ("right  %d", right);
 
 #define ARS  aktive_rectangle_set
 #define DST  &v[count]
