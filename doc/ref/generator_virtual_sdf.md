@@ -57,9 +57,9 @@ The box is axis-aligned, of width `2*ewidth+1`, height `2*eheight+1`, and placed
 <table>
 <tr><th>aktive image sdf box center {64 64} width 128 height 128 ewidth 32 eheight 32
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00206.gif' alt='aktive image sdf box center {64 64} width 128 height 128 ewidth 32 eheight 32' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00207.gif' alt='aktive image sdf box center {64 64} width 128 height 128 ewidth 32 eheight 32' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00208.gif' alt='aktive image sdf box center {64 64} width 128 height 128 ewidth 32 eheight 32' style='border:4px solid gold'>
+<tr><td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00208.gif' alt='aktive image sdf box center {64 64} width 128 height 128 ewidth 32 eheight 32' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00209.gif' alt='aktive image sdf box center {64 64} width 128 height 128 ewidth 32 eheight 32' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00210.gif' alt='aktive image sdf box center {64 64} width 128 height 128 ewidth 32 eheight 32' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr></table></td></tr>
 </table>
 
@@ -98,18 +98,18 @@ The radii default to 0, i.e. no rounded corners.
 <table>
 <tr><th>aktive image sdf box-rounded center {64 64} width 128 height 128 ewidth 32 eheight 32
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00209.gif' alt='aktive image sdf box-rounded center {64 64} width 128 height 128 ewidth 32 eheight 32' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00210.gif' alt='aktive image sdf box-rounded center {64 64} width 128 height 128 ewidth 32 eheight 32' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00211.gif' alt='aktive image sdf box-rounded center {64 64} width 128 height 128 ewidth 32 eheight 32' style='border:4px solid gold'>
+<tr><td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00211.gif' alt='aktive image sdf box-rounded center {64 64} width 128 height 128 ewidth 32 eheight 32' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00212.gif' alt='aktive image sdf box-rounded center {64 64} width 128 height 128 ewidth 32 eheight 32' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00213.gif' alt='aktive image sdf box-rounded center {64 64} width 128 height 128 ewidth 32 eheight 32' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr></table></td></tr>
 </table>
 
 <table>
 <tr><th>aktive image sdf box-rounded center {64 64} width 128 height 128 ewidth 32 eheight 32 upleftradius 32
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00212.gif' alt='aktive image sdf box-rounded center {64 64} width 128 height 128 ewidth 32 eheight 32 upleftradius 32' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00213.gif' alt='aktive image sdf box-rounded center {64 64} width 128 height 128 ewidth 32 eheight 32 upleftradius 32' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00214.gif' alt='aktive image sdf box-rounded center {64 64} width 128 height 128 ewidth 32 eheight 32 upleftradius 32' style='border:4px solid gold'>
+<tr><td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00214.gif' alt='aktive image sdf box-rounded center {64 64} width 128 height 128 ewidth 32 eheight 32 upleftradius 32' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00215.gif' alt='aktive image sdf box-rounded center {64 64} width 128 height 128 ewidth 32 eheight 32 upleftradius 32' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00216.gif' alt='aktive image sdf box-rounded center {64 64} width 128 height 128 ewidth 32 eheight 32 upleftradius 32' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr></table></td></tr>
 </table>
 
@@ -141,9 +141,9 @@ The circle has the `radius`, and is placed at the specified center.
 <table>
 <tr><th>aktive image sdf circle center {64 64} width 128 height 128 radius 32
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00215.gif' alt='aktive image sdf circle center {64 64} width 128 height 128 radius 32' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00216.gif' alt='aktive image sdf circle center {64 64} width 128 height 128 radius 32' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00217.gif' alt='aktive image sdf circle center {64 64} width 128 height 128 radius 32' style='border:4px solid gold'>
+<tr><td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00217.gif' alt='aktive image sdf circle center {64 64} width 128 height 128 radius 32' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00218.gif' alt='aktive image sdf circle center {64 64} width 128 height 128 radius 32' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00219.gif' alt='aktive image sdf circle center {64 64} width 128 height 128 radius 32' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr></table></td></tr>
 </table>
 
@@ -175,9 +175,9 @@ The circles all have the same `radius`, and are placed at the specified centers.
 <table>
 <tr><th>aktive image sdf circles width 128 height 128 radius 8 centers {10 10} {30 80} {80 30}
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00218.gif' alt='aktive image sdf circles width 128 height 128 radius 8 centers {10 10} {30 80} {80 30}' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00219.gif' alt='aktive image sdf circles width 128 height 128 radius 8 centers {10 10} {30 80} {80 30}' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00220.gif' alt='aktive image sdf circles width 128 height 128 radius 8 centers {10 10} {30 80} {80 30}' style='border:4px solid gold'>
+<tr><td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00220.gif' alt='aktive image sdf circles width 128 height 128 radius 8 centers {10 10} {30 80} {80 30}' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00221.gif' alt='aktive image sdf circles width 128 height 128 radius 8 centers {10 10} {30 80} {80 30}' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00222.gif' alt='aktive image sdf circles width 128 height 128 radius 8 centers {10 10} {30 80} {80 30}' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr></table></td></tr>
 </table>
 
@@ -209,9 +209,9 @@ The line connects the two specified locations.
 <table>
 <tr><th>aktive image sdf line width 128 height 128 from {10 10} to {30 80}
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00221.gif' alt='aktive image sdf line width 128 height 128 from {10 10} to {30 80}' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00222.gif' alt='aktive image sdf line width 128 height 128 from {10 10} to {30 80}' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00223.gif' alt='aktive image sdf line width 128 height 128 from {10 10} to {30 80}' style='border:4px solid gold'>
+<tr><td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00223.gif' alt='aktive image sdf line width 128 height 128 from {10 10} to {30 80}' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00224.gif' alt='aktive image sdf line width 128 height 128 from {10 10} to {30 80}' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00225.gif' alt='aktive image sdf line width 128 height 128 from {10 10} to {30 80}' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr></table></td></tr>
 </table>
 
@@ -245,9 +245,9 @@ The parallelogram is axis-aligned, of width `2*ewidth+1`, height `2*eheight+1`, 
 <table>
 <tr><th>aktive image sdf parallelogram center {64 64} width 128 height 128 ewidth 32 eheight 32 eskew 8
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00224.gif' alt='aktive image sdf parallelogram center {64 64} width 128 height 128 ewidth 32 eheight 32 eskew 8' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00225.gif' alt='aktive image sdf parallelogram center {64 64} width 128 height 128 ewidth 32 eheight 32 eskew 8' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00226.gif' alt='aktive image sdf parallelogram center {64 64} width 128 height 128 ewidth 32 eheight 32 eskew 8' style='border:4px solid gold'>
+<tr><td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00226.gif' alt='aktive image sdf parallelogram center {64 64} width 128 height 128 ewidth 32 eheight 32 eskew 8' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00227.gif' alt='aktive image sdf parallelogram center {64 64} width 128 height 128 ewidth 32 eheight 32 eskew 8' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00228.gif' alt='aktive image sdf parallelogram center {64 64} width 128 height 128 ewidth 32 eheight 32 eskew 8' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr></table></td></tr>
 </table>
 
@@ -278,9 +278,9 @@ The lines form a polyline through the specified points.
 <table>
 <tr><th>aktive image sdf polyline width 128 height 128 points {10 10} {30 80} {80 30}
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00227.gif' alt='aktive image sdf polyline width 128 height 128 points {10 10} {30 80} {80 30}' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00228.gif' alt='aktive image sdf polyline width 128 height 128 points {10 10} {30 80} {80 30}' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00229.gif' alt='aktive image sdf polyline width 128 height 128 points {10 10} {30 80} {80 30}' style='border:4px solid gold'>
+<tr><td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00229.gif' alt='aktive image sdf polyline width 128 height 128 points {10 10} {30 80} {80 30}' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00230.gif' alt='aktive image sdf polyline width 128 height 128 points {10 10} {30 80} {80 30}' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00231.gif' alt='aktive image sdf polyline width 128 height 128 points {10 10} {30 80} {80 30}' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr></table></td></tr>
 </table>
 
@@ -313,9 +313,9 @@ The rhombus is axis-aligned, of width `2*ewidth+1`, height `2*eheight+1`, and pl
 <table>
 <tr><th>aktive image sdf rhombus center {64 64} width 128 height 128 ewidth 32 eheight 32
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00230.gif' alt='aktive image sdf rhombus center {64 64} width 128 height 128 ewidth 32 eheight 32' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00231.gif' alt='aktive image sdf rhombus center {64 64} width 128 height 128 ewidth 32 eheight 32' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00232.gif' alt='aktive image sdf rhombus center {64 64} width 128 height 128 ewidth 32 eheight 32' style='border:4px solid gold'>
+<tr><td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00232.gif' alt='aktive image sdf rhombus center {64 64} width 128 height 128 ewidth 32 eheight 32' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00233.gif' alt='aktive image sdf rhombus center {64 64} width 128 height 128 ewidth 32 eheight 32' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00234.gif' alt='aktive image sdf rhombus center {64 64} width 128 height 128 ewidth 32 eheight 32' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr></table></td></tr>
 </table>
 
@@ -348,9 +348,9 @@ The triangle connects the points A, B, and C, in this order.
 <table>
 <tr><th>aktive image sdf triangle width 128 height 128 a {10 10} b {30 80} c {80 30}
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00233.gif' alt='aktive image sdf triangle width 128 height 128 a {10 10} b {30 80} c {80 30}' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00234.gif' alt='aktive image sdf triangle width 128 height 128 a {10 10} b {30 80} c {80 30}' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00235.gif' alt='aktive image sdf triangle width 128 height 128 a {10 10} b {30 80} c {80 30}' style='border:4px solid gold'>
+<tr><td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00235.gif' alt='aktive image sdf triangle width 128 height 128 a {10 10} b {30 80} c {80 30}' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00236.gif' alt='aktive image sdf triangle width 128 height 128 a {10 10} b {30 80} c {80 30}' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00237.gif' alt='aktive image sdf triangle width 128 height 128 a {10 10} b {30 80} c {80 30}' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr></table></td></tr>
 </table>
 

@@ -26,6 +26,7 @@
  - [aktive effect sharpen](transform_effect.md#effect_sharpen)
  - [aktive effect sketch](transform_effect.md#effect_sketch)
  - [aktive effect swirl](transform_effect.md#effect_swirl)
+ - [aktive effect wobble](transform_effect.md#effect_wobble)
  - [aktive error](miscellaneous.md#error)
 
 ## <a name='_f'></a> f
@@ -676,4 +677,5 @@
  - [aktive warp noise gauss](generator_virtual_warp.md#warp_noise_gauss)
  - [aktive warp noise uniform](generator_virtual_warp.md#warp_noise_uniform)
  - [aktive warp swirl](generator_virtual_warp.md#warp_swirl)
+ - [aktive warp wobble](generator_virtual_warp.md#warp_wobble)
 

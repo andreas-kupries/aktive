@@ -1,4 +1,6 @@
 #!/bin/bash
+# abort on error
+set -e
 
 ## inlined clean
 find . -name "*~" -print
@@ -19,11 +21,11 @@ rm doc/assets/*.inc
 
 mkdir -p ../Logs
 ( ./build.tcl uninstall install "$@" && \
-    tclsh examples.tcl && \
-    tclsh tools/md-include \
-	  -x doc/ref/xref.tcl \
-	  $(find doc -name '*.md' -a -not -name 'example-*') ) \
-    |& tee ../Logs/test.install
+  tclsh examples.tcl && \
+  tclsh tools/md-include \
+	-x doc/ref/xref.tcl \
+	$(find doc -name '*.md' -a -not -name 'example-*')
+) |& tee ../Logs/test.install
 
 rm -rf doc/parts
 rm -rf doc/dev/figures/*.d2
@@ -33,3 +35,11 @@ rm -rf doc/ref/*.tcl
 # squash inlined files (<!include: ...>)
 rm -rf doc/ref/example-*.md
 rm -rf doc/ref/example-*.txt
+
+# update fossil's knowledge of the checkout with the doc changes
+( fossil changes | grep doc/ref | grep MISS | projection 2 | xargs fossil rm
+  fossil add doc/ref
+) >> ../Logs/test.install 2>&1
+
+echo
+date

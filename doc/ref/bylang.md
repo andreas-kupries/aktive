@@ -360,6 +360,7 @@ The operators listed here are implemented wholly in Tcl.
  - [aktive effect sharpen](transform_effect.md#effect_sharpen)
  - [aktive effect sketch](transform_effect.md#effect_sketch)
  - [aktive effect swirl](transform_effect.md#effect_swirl)
+ - [aktive effect wobble](transform_effect.md#effect_wobble)
  - [aktive format as aktive 2file](sink_writer.md#format_as_aktive_2file)
  - [aktive format as d2](accessor.md#format_as_d2)
  - [aktive format as markdown](accessor.md#format_as_markdown)
@@ -629,6 +630,7 @@ The operators listed here are implemented wholly in Tcl.
  - [aktive transform translate](generator_virtual_warp.md#transform_translate)
  - [aktive warp noise gauss](generator_virtual_warp.md#warp_noise_gauss)
  - [aktive warp noise uniform](generator_virtual_warp.md#warp_noise_uniform)
+ - [aktive warp wobble](generator_virtual_warp.md#warp_wobble)
 
 ## <a name='_Direct'></a> Direct
 

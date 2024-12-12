@@ -38,6 +38,7 @@
  - [aktive warp noise gauss](#warp_noise_gauss)
  - [aktive warp noise uniform](#warp_noise_uniform)
  - [aktive warp swirl](#warp_swirl)
+ - [aktive warp wobble](#warp_wobble)
 
 ## Operators
 
@@ -169,7 +170,7 @@ This operator is __strict__ in the 1st input. The projective matrix is materiali
     <br>(rotate by 30)</th>
     <th>aktive transform domain @2 @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00739.gif' alt='@1 (assets/butterfly.ppm)' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00741.gif' alt='@1 (assets/butterfly.ppm)' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
     <td valign='top'><table><tr><td>0.8660</td><td>-0.5000</td><td>0.0000</td></tr><tr><td>0.5000</td><td>0.8660</td><td>0.0000</td></tr><tr><td>0.0000</td><td>0.0000</td><td>1.0000</td></tr></table></td>
     <td valign='top'>&nbsp;-124 0 454 407</td></tr>
@@ -885,7 +886,7 @@ Syntax: __aktive warp swirl__  ?(param value)...? [[→ definition](../../../../
 
 Returns the origin map for a swirl effect around the specified __center__, with fixed rotation __phi__, a base rotation __from__, and a __decay__ factor.
 
-The rotation angle added to a pixel is given by "__phi__ + __from__ * exp(-__radius__ * __decay__)", where __radius__ is the distance of the pixel from the __center__. A large decay reduces the swirl at shorter radii. A decay of zero disables the decay.
+The rotation angle added to a pixel is given by `phi + from * exp(-radius * decay)`, where __radius__ is the distance of the pixel from the __center__. A large decay reduces the swirl at shorter radii. A decay of zero disables the decay.
 
 All parameters except for the center are optional.
 
@@ -910,6 +911,40 @@ At the technical level the result is a 2-band image where each pixel declares it
 <tr><th>aktive warp swirl width 11 height 11 center {5 5} decay 1
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><table><tr><td>(0.0033, -0.0033)</td><td>(1.0065, -0.0052)</td><td>(2.0115, -0.0069)</td><td>(3.0180, -0.0072)</td><td>(4.0240, -0.0047)</td><td>(5.0265, 0.0001)</td><td>(6.0240, 0.0049)</td><td>(7.0180, 0.0072)</td><td>(8.0115, 0.0069)</td><td>(9.0065, 0.0052)</td><td>(10.0033, 0.0033)</td></tr><tr><td>(0.0052, 0.9935)</td><td>(1.0110, 0.9890)</td><td>(2.0212, 0.9842)</td><td>(3.0360, 0.9822)</td><td>(4.0510, 0.9876)</td><td>(5.0575, 1.0004)</td><td>(6.0508, 1.0130)</td><td>(7.0358, 1.0181)</td><td>(8.0211, 1.0159)</td><td>(9.0110, 1.0110)</td><td>(10.0052, 1.0065)</td></tr><tr><td>(0.0069, 1.9885)</td><td>(1.0159, 1.9789)</td><td>(2.0340, 1.9663)</td><td>(3.0645, 1.9580)</td><td>(4.1003, 1.9684)</td><td>(5.1173, 2.0023)</td><td>(6.0992, 2.0349)</td><td>(7.0636, 2.0434)</td><td>(8.0337, 2.0340)</td><td>(9.0158, 2.0212)</td><td>(10.0069, 2.0115)</td></tr><tr><td>(0.0072, 2.9820)</td><td>(1.0181, 2.9642)</td><td>(2.0434, 2.9364)</td><td>(3.0950, 2.9093)</td><td>(4.1712, 2.9232)</td><td>(5.2122, 3.0113)</td><td>(6.1642, 3.0909)</td><td>(7.0907, 3.0950)</td><td>(8.0420, 3.0645)</td><td>(9.0178, 3.0360)</td><td>(10.0072, 3.0180)</td></tr><tr><td>(0.0049, 3.9760)</td><td>(1.0130, 3.9492)</td><td>(2.0349, 3.9008)</td><td>(3.0909, 3.8358)</td><td>(4.2080, 3.8284)</td><td>(5.2849, 4.0415)</td><td>(6.1716, 4.2080)</td><td>(7.0768, 4.1712)</td><td>(8.0316, 4.1003)</td><td>(9.0124, 4.0510)</td><td>(10.0047, 4.0240)</td></tr><tr><td>(0.0001, 4.9735)</td><td>(1.0004, 4.9425)</td><td>(2.0023, 4.8827)</td><td>(3.0113, 4.7878)</td><td>(4.0415, 4.7151)</td><td>(5.0000, 5.0000)</td><td>(5.9585, 5.2849)</td><td>(6.9887, 5.2122)</td><td>(7.9977, 5.1173)</td><td>(8.9996, 5.0575)</td><td>(9.9999, 5.0265)</td></tr><tr><td>(-0.0047, 5.9760)</td><td>(0.9876, 5.9490)</td><td>(1.9684, 5.8997)</td><td>(2.9232, 5.8288)</td><td>(3.8284, 5.7920)</td><td>(4.7151, 5.9585)</td><td>(5.7920, 6.1716)</td><td>(6.9091, 6.1642)</td><td>(7.9651, 6.0992)</td><td>(8.9870, 6.0508)</td><td>(9.9951, 6.0240)</td></tr><tr><td>(-0.0072, 6.9820)</td><td>(0.9822, 6.9640)</td><td>(1.9580, 6.9355)</td><td>(2.9093, 6.9050)</td><td>(3.8358, 6.9091)</td><td>(4.7878, 6.9887)</td><td>(5.8288, 7.0768)</td><td>(6.9050, 7.0907)</td><td>(7.9566, 7.0636)</td><td>(8.9819, 7.0358)</td><td>(9.9928, 7.0180)</td></tr><tr><td>(-0.0069, 7.9885)</td><td>(0.9842, 7.9788)</td><td>(1.9663, 7.9660)</td><td>(2.9364, 7.9566)</td><td>(3.9008, 7.9651)</td><td>(4.8827, 7.9977)</td><td>(5.8997, 8.0316)</td><td>(6.9355, 8.0420)</td><td>(7.9660, 8.0337)</td><td>(8.9841, 8.0211)</td><td>(9.9931, 8.0115)</td></tr><tr><td>(-0.0052, 8.9935)</td><td>(0.9890, 8.9890)</td><td>(1.9789, 8.9841)</td><td>(2.9642, 8.9819)</td><td>(3.9492, 8.9870)</td><td>(4.9425, 8.9996)</td><td>(5.9490, 9.0124)</td><td>(6.9640, 9.0178)</td><td>(7.9788, 9.0158)</td><td>(8.9890, 9.0110)</td><td>(9.9948, 9.0065)</td></tr><tr><td>(-0.0033, 9.9967)</td><td>(0.9935, 9.9948)</td><td>(1.9885, 9.9931)</td><td>(2.9820, 9.9928)</td><td>(3.9760, 9.9951)</td><td>(4.9735, 9.9999)</td><td>(5.9760, 10.0047)</td><td>(6.9820, 10.0072)</td><td>(7.9885, 10.0069)</td><td>(8.9935, 10.0052)</td><td>(9.9967, 10.0033)</td></tr></table></td></tr>
+</table>
+
+
+---
+### [↑](#top) <a name='warp_wobble'></a> aktive warp wobble
+
+Syntax: __aktive warp wobble__  ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=5&name=etc/generator/virtual/warp/wobble.tcl)]
+
+Returns the origin map for a wobble effect around the specified __center__, with base __amplitude__, __frequency__, __chirp__, and __attenuation__ powers.
+
+The effect modulates the distance from the center based on the formula `sin (radius^chirp * frequency) * amplitude / (1+radius)^attenuation`, where `radius` is the original distance.
+
+All parameters, including the center are optional.
+
+The result is designed to be usable with the [aktive op warp bicubic](transform_structure_warp.md#op_warp_bicubic) operation and its relatives.
+
+At the technical level the result is a 2-band image where each pixel declares its origin position.
+
+|Parameter|Type|Default|Description|
+|:---|:---|:---|:---|
+|width|uint||Width of the returned image|
+|height|uint||Height of the returned image|
+|center|point|{}|Center of the wobble, relative to the origin. Defaults to the image center.|
+|amplitude|double|500|Base amplitude of the displacement.|
+|frequency|double|2|Base wave frequency.|
+|chirp|double|0.5|Chirp (power) factor modulating the frequency.|
+|attenuation|double|0.6|Power factor tweaking the base 1/x attenuation.|
+
+#### <a name='warp_wobble__examples'></a> Examples
+
+<table>
+<tr><th>aktive warp wobble width 11 height 11
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><table><tr><td>(62.2541, 62.2541)</td><td>(74.4622, 89.7871)</td><td>(75.8743, 116.0881)</td><td>(65.8213, 138.2069)</td><td>(45.9354, 153.7630)</td><td>(19.6927, 161.6197)</td><td>(-8.6927, 161.6197)</td><td>(-34.9354, 153.7630)</td><td>(-54.8213, 138.2069)</td><td>(-64.8743, 116.0881)</td><td>(-63.4622, 89.7871)</td></tr><tr><td>(89.7871, 74.4622)</td><td>(101.8444, 101.8444)</td><td>(99.8492, 126.8061)</td><td>(83.4264, 145.7675)</td><td>(55.9114, 156.7343)</td><td>(22.7654, 160.8884)</td><td>(-11.7654, 160.8884)</td><td>(-44.9114, 156.7343)</td><td>(-72.4264, 145.7675)</td><td>(-88.8492, 126.8061)</td><td>(-90.8444, 101.8444)</td></tr><tr><td>(116.0881, 75.8743)</td><td>(126.8061, 99.8492)</td><td>(119.1076, 119.1076)</td><td>(93.2554, 128.3576)</td><td>(56.9551, 125.5619)</td><td>(21.5618, 117.9327)</td><td>(-10.5618, 117.9327)</td><td>(-45.9551, 125.5619)</td><td>(-82.2554, 128.3576)</td><td>(-108.1076, 119.1076)</td><td>(-115.8061, 99.8492)</td></tr><tr><td>(138.2069, 65.8213)</td><td>(145.7675, 83.4264)</td><td>(128.3576, 93.2554)</td><td>(85.8090, 85.8090)</td><td>(34.6192, 54.0320)</td><td>(7.3762, 14.8811)</td><td>(3.6238, 14.8811)</td><td>(-23.6192, 54.0320)</td><td>(-74.8090, 85.8090)</td><td>(-117.3576, 93.2554)</td><td>(-134.7675, 83.4264)</td></tr><tr><td>(153.7630, 45.9354)</td><td>(156.7343, 55.9114)</td><td>(125.5619, 56.9551)</td><td>(54.0320, 34.6192)</td><td>(-36.4779, -36.4779)</td><td>(-47.4987, -153.4960)</td><td>(58.4987, -153.4960)</td><td>(47.4779, -36.4779)</td><td>(-43.0320, 34.6192)</td><td>(-114.5619, 56.9551)</td><td>(-145.7343, 55.9114)</td></tr><tr><td>(161.6197, 19.6927)</td><td>(160.8884, 22.7654)</td><td>(117.9327, 21.5618)</td><td>(14.8811, 7.3762)</td><td>(-153.4960, -47.4987)</td><td>(-249.9281, -249.9281)</td><td>(260.9281, -249.9281)</td><td>(164.4960, -47.4987)</td><td>(-3.8811, 7.3762)</td><td>(-106.9327, 21.5618)</td><td>(-149.8884, 22.7654)</td></tr><tr><td>(161.6197, -8.6927)</td><td>(160.8884, -11.7654)</td><td>(117.9327, -10.5618)</td><td>(14.8811, 3.6238)</td><td>(-153.4960, 58.4987)</td><td>(-249.9281, 260.9281)</td><td>(260.9281, 260.9281)</td><td>(164.4960, 58.4987)</td><td>(-3.8811, 3.6238)</td><td>(-106.9327, -10.5618)</td><td>(-149.8884, -11.7654)</td></tr><tr><td>(153.7630, -34.9354)</td><td>(156.7343, -44.9114)</td><td>(125.5619, -45.9551)</td><td>(54.0320, -23.6192)</td><td>(-36.4779, 47.4779)</td><td>(-47.4987, 164.4960)</td><td>(58.4987, 164.4960)</td><td>(47.4779, 47.4779)</td><td>(-43.0320, -23.6192)</td><td>(-114.5619, -45.9551)</td><td>(-145.7343, -44.9114)</td></tr><tr><td>(138.2069, -54.8213)</td><td>(145.7675, -72.4264)</td><td>(128.3576, -82.2554)</td><td>(85.8090, -74.8090)</td><td>(34.6192, -43.0320)</td><td>(7.3762, -3.8811)</td><td>(3.6238, -3.8811)</td><td>(-23.6192, -43.0320)</td><td>(-74.8090, -74.8090)</td><td>(-117.3576, -82.2554)</td><td>(-134.7675, -72.4264)</td></tr><tr><td>(116.0881, -64.8743)</td><td>(126.8061, -88.8492)</td><td>(119.1076, -108.1076)</td><td>(93.2554, -117.3576)</td><td>(56.9551, -114.5619)</td><td>(21.5618, -106.9327)</td><td>(-10.5618, -106.9327)</td><td>(-45.9551, -114.5619)</td><td>(-82.2554, -117.3576)</td><td>(-108.1076, -108.1076)</td><td>(-115.8061, -88.8492)</td></tr><tr><td>(89.7871, -63.4622)</td><td>(101.8444, -90.8444)</td><td>(99.8492, -115.8061)</td><td>(83.4264, -134.7675)</td><td>(55.9114, -145.7343)</td><td>(22.7654, -149.8884)</td><td>(-11.7654, -149.8884)</td><td>(-44.9114, -145.7343)</td><td>(-72.4264, -134.7675)</td><td>(-88.8492, -115.8061)</td><td>(-90.8444, -90.8444)</td></tr></table></td></tr>
 </table>
 
 
