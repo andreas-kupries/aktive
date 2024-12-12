@@ -9,17 +9,17 @@
 operator image::mask::from::threshold {
     section transform threshold mask generate
 
-    note Return image foreground mask of input, as per threshold image. \
-	Note that the threshold is the first argument, and input the second.
+    note Returns mask image indicating the foreground pixels of the input, \
+	as per the thresholds.
 
-    note The foreground are the pixels falling under the threshold. \
-	IOW the input foreground is assumed to be darker than background. \
-	Invert the result otherwise.
+    note The foreground are the pixels __less or equal__ to the threshold. \
+	IOW the input's foreground is assumed to be darker than the \
+	background. Invert the result otherwise.
 
     note The foreground pixels are indicated by white. Background by black.
 
-    input	;# t
-    input	;# src
+    input threshold	Per-pixel thresholds
+    input src		Image to threshold
 
     body {
 	return [aktive op math le $src1 $src0]
@@ -110,12 +110,12 @@ operator {parameters} {
 
     section transform threshold mask generate
 
-    note Return image foreground mask of input, \
-	using global [string totitle $method] thresholding.
+    note Returns mask image indicating the foreground pixels of the input, \
+	using global `[string totitle $method]` thresholding.
 
-    note The foreground are the pixels falling under the threshold. \
-	IOW the input foreground is assumed to be darker than background. \
-	Invert the result otherwise.
+    note The foreground are the pixels __less or equal__ to the threshold. \
+	IOW the input's foreground is assumed to be darker than the \
+	background. Invert the result otherwise.
 
     note The foreground pixels are indicated by white. Background by black.
 

@@ -14,7 +14,7 @@ operator {band part} {
 } {
     section transform math complex reduce
 
-    note Returns single-band image containing the $part part of the complex-valued input.
+    note Returns a single-band image containing the $part part of the complex-valued input.
 
     input
 
@@ -39,8 +39,8 @@ operator {cfunction dexpr} {
     if {$dexpr eq {}} { set dexpr [namespace tail $__op] }
     if {![string match *I* $dexpr]} { append dexpr "(I)" }
 
-    note Returns single-band image with the complex unary reduction \
-	function '$dexpr' applied to all pixels	of the complex-valued input.
+    note Returns single-band image with the complex unary reduction function `${dexpr}` \
+	applied to all pixels of the complex-valued input.
 
     note The result geometry is the same as the input, except for depth, which becomes 1.
 

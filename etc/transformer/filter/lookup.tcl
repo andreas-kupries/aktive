@@ -50,9 +50,9 @@
 operator {
     op::lut::from
 } {
-    section transform lookup indexed make
+    section transform lookup indexed
 
-    note Create a single-band indexed LUT from values
+    note Create a single-band, single-row indexed LUT from values
 
     double... values LUT values
 
@@ -64,12 +64,15 @@ operator {
 operator {
     op::lut::compose
 } {
-    section transform lookup indexed compose
+    section transform lookup indexed
 
-    input	;# LUT A
-    input	;# LUT B
+    input a	LUT A to compose
+    input b	LUT B to compose
 
-    note Taking two indexed LUTs A and B it returns the indexed LUT computing `res = A (B (src))`.
+    note Returns the composition `A*B` of the two indexed LUTs A and B. \
+	This composition is defined as `(A*B) (src) == A (B (src))`.
+
+    note Internally this is computed as applying LUT A to input B, i.e. `A (B)`.
 
     # This is a wrapper of convenience around `indexed` to self-document the different
     # meaning at call-sites.
@@ -77,7 +80,7 @@ operator {
     # The composed LUT is created by indexing B through A.
 
     body {
-	indexed $src0 $src1
+	indexed $a $b
     }
 }
 
@@ -86,40 +89,45 @@ operator {
 } {
     section transform lookup indexed
 
-    input	;# LUT !! materialized at cons time
-    input	;# image to process
+    input lut	The LUT to apply. Materialized at construction time.
+    input src	The image to apply the LUT to.
 
-    note Map the input image (second argument) through the LUT image \
-	provided as the first arguments and return the result.
+    note Returns the result of mapping the input through the LUT.
 
-    strict 1st The LUT to map through is materialized and cached.
+    strict 1st The LUT is materialized and cached.
 
     note The location of the LUT image is ignored.
 
-    note The LUT image has to be single-row, with multiple columns and bands.
-    note
-    note Each LUT band is applied to the corresponding image band.
-    note Excess LUT bands are ignored.
-    note If there are not enough LUT bands for the input the last LUT band is replicated.
-    note
-    note Input pixels are expected to be in the range 0...1.
-    note Values outside of that range are clamped to these.
-    note The clamped values are quantized per the LUT width to integer indices into the LUT.
-    note The LUT value becomes the result value for that pixel.
-    note
-    note When extended mode is active the fractional part of the input pixel is used
-    note to interpolate linearly between the values at the LUT index, and the next index.
+    note The LUT has to be single-row, with multiple columns and bands.
 
-    bool? false interpolate	Flag to activate value interpolation mode.
+    note Each LUT band is applied to the corresponding image band. \
+	The LUT's last band is replicated if the LUT has less bands than the image. \
+	Excess LUT bands are ignored.
+
+    note Input pixels are expected to be in the range `0..1`. \
+	Values outside of that range are clamped to these (saturated math). \
+	The LUT width is used to quantize the clamped values into integer \
+	indices suitable for the LUT. The so-addressed LUT value becomes \
+	the value for that pixel of the result.
+
+    note In interpolation mode (default: off) the fractional part of the input \
+	pixel is used to linearly interpolate between the values at the LUT index \
+	and the next index to determine the result.
+
+    note The difference between this operator and "<!xref: aktive op lut indexed-core>" \
+	is the handling of a LUT with less bands than the input. Here the LUT is \
+	extended by replicating the last band. The core op throwns an error instead.
+
+    bool? false interpolate	Flag to activate interpolation mode.
 
     body {
-	set ld [aktive query depth $src0]
-	set id [aktive query depth $src1]
+	set ld [aktive query depth $lut]
+	set id [aktive query depth $src]
 	if {$ld < $id} {
-	    set src0 [aktive op embed band copy $src0 down [expr {$id - $ld}]]
+	    set lut [aktive op embed band copy $lut down [expr {$id - $ld}]]
 	}
 
-	indexed-core $src0 $src1 interpolate $interpolate
+	indexed-core $lut $src interpolate $interpolate
     }
 }
 
@@ -128,27 +136,34 @@ operator {
 } {
     section transform lookup indexed
 
-    input	;# LUT !! materialized at cons time
-    input	;# image to process
+    input lut	The LUT to apply. Materialized at construction time.
+    input src	The image to apply the LUT to.
 
-    note Map the input image (second argument) through the LUT image \
-	provided as the first arguments and return the result.
+    note Returns the result of mapping the input through the LUT.
+
+    strict 1st The LUT is materialized and cached.
+
     note The location of the LUT image is ignored.
-    note The LUT is fully materialized at construction time.
 
-    note The LUT image has to be single-row, with multiple columns and bands.
-    note
-    note Each LUT band is applied to the corresponding image band.
-    note Excess LUT bands are ignored.
-    note If there are not enough LUT bands for the input an error is thrown
-    note
-    note Input pixels are expected to be in the range 0...1.
-    note Values outside of that range are clamped to these.
-    note The clamped values are quantized per the LUT width to integer indices into the LUT.
-    note The LUT value becomes the result value for that pixel.
-    note
-    note When extended mode is active the fractional part of the input pixel is used
-    note to interpolate linearly between the values at the LUT index, and the next index.
+    note The LUT has to be single-row, with multiple columns and bands.
+
+    note Each LUT band is applied to the corresponding image band. \
+	An error is thrown if the LUT has less bands than the image. \
+	Excess LUT bands are ignored.
+
+    note Input pixels are expected to be in the range `0..1`. \
+	Values outside of that range are clamped to these (saturated math). \
+	The LUT width is used to quantize the clamped values into integer \
+	indices suitable for the LUT. The so-addressed LUT value becomes \
+	the value for that pixel of the result.
+
+    note In interpolation mode (default: off) the fractional part of the input \
+	pixel is used to linearly interpolate between the values at the LUT index \
+	and the next index to determine the result.
+
+    note The difference between this operator and "<!xref: aktive op lut indexed>" \
+	is the handling of a LUT with less bands than the input. Here an error \
+	is thrown. The wrapper extends the LUT by replicating the last band instead.
 
     bool? false interpolate	Flag to activate value interpolation mode.
 

@@ -22,6 +22,11 @@ operator op::color::scRGB::to::sRGB {
 operator op::color::sRGB::to::scRGB {
     section transform color
 
+    example {
+	butterfly
+	@1
+    }
+
     # simplifications happen in the math1 gamma commands.
 
     note Returns image in scRGB colorspace, from input in sRGB colorspace. \

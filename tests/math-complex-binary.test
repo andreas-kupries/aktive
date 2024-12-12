@@ -16,11 +16,11 @@ kt source support/util.tcl
 ## Syntax
 
 syntax {
-    add	    {src0 src1}
-    div     {src0 src1}
-    mul	    {src0 src1}
-    sub	    {src0 src1}
-    pow	    {src0 src1}
+    add	    {a b}
+    div     {a b}
+    mul	    {a b}
+    sub	    {a b}
+    pow	    {a b}
 } {aktive op cmath}
 
 # # ## ### ##### ######## ############# #####################

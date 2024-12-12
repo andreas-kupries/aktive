@@ -13,25 +13,25 @@ operator {kind coordinate dimension other1 other2} {
     op -> _ _ direction
     section transform structure
 
-    note Select values of the input (2nd argument) under the control of the index.
+    note Selects $kind values from the source under the control of the single-${kind} index.
 
-    note Takes two inputs of the same $other1 and ${other2}.
-    note The first input, the index, is single-${kind}.
-    note Its $other1 and $other2 match the second input.
-    note The result image has the same geometry as the index.
+    note Takes two inputs of the same $other1 and ${other2}. \
+	The index is single-${kind}. \
+	Its $other1 and $other2 match the source. \
+	The result image has the same geometry as the index.
 
     note The stored indices select, per result pixel, the \
-	$kind value to take from the second input and \
-	place into the result.
+	$kind value to take from the source and place into \
+	the result.
 
-    note Indices are clamped to the interval 0 ... \#${kind}s of the second input.
-    note Fractional indices are rounded down to integer.
+    note Indices are clamped to the interval 0 ... \#(${kind}s-1) of the source. \
+	Fractional indices are rounded down to integer.
 
-    note The locations of index and data inputs are ignored.
-    note The resut is placed at the coordinate origin/zero.
+    note The locations of index and source are ignored. \
+	The result is placed at the coordinate origin/zero.
 
-    input	;# index
-    input	;# data source
+    input index	Indices selecting the per-pixel ${kind} of the source.
+    input src	Source the data is selected from.
 
     # Memory usage notes ...
     #
@@ -147,23 +147,29 @@ operator {kind coordinate dimension other1 other2} {
 ## Choose between two images based on a condition images / mask
 
 operator op::if-then-else {
-    input	;# selector
-    input	;# then	(selector == 1)
-    input	;# else (selector == 0)
+    input selector	Binary selections
+    input then		Image chosen where `selector == 1`.
+    input else		Image chosen where `selector == 0`.
 
     section transform structure
 
-    note Choose between second and third images based on the content \
-	of the first.
+    note Choose between inputs `then` and `else`, based on the content \
+	of the `selector`.
 
     note All images have to have the same width and height. \
-	The selector image has to be single-band. \
+	The `selector` has to be single-band. \
 	The other images may have arbitrary depth, as long as both have the same.
 
+    note The `selector` content is clamped to `0..1`, \
+	and fractional values are rounded down to integer. \
+	1-pixels in the `selector` pass the same pixel from `then` \
+	into the result, whereas 0-pixels in the `selector` pass the \
+	same pixel from `else` instead.
+
     body {
-	lassign [aktive query geometry $src0] _ _ ws hs ds
-	lassign [aktive query geometry $src1] _ _ wt ht dt
-	lassign [aktive query geometry $src2] _ _ we he de
+	lassign [aktive query geometry $selector] _ _ ws hs ds
+	lassign [aktive query geometry $then]     _ _ wt ht dt
+	lassign [aktive query geometry $else]     _ _ we he de
 
 	if {($ws != $wt) ||
 	    ($hs != $ht)} { aktive error "Domain mismatch selector/then" }
@@ -172,9 +178,9 @@ operator op::if-then-else {
 	if {($dt != $de)} { aktive error "Depth mismatch then/else" }
 	if {($ds != 1)}   { aktive error "Selector is not single-band" }
 
-	set selector $src0
-	set then     [aktive op split z $src1]
-	set else     [aktive op split z $src2]
+	set selector $selector
+	set then     [aktive op split z $then]
+	set else     [aktive op split z $else]
 
 	# band-wise application of choice, then rejoin the bands
 	set bands [lmap t $then e $else {

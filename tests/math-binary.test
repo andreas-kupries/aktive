@@ -18,26 +18,26 @@ kt source support/util.tcl
 syntax {
     add         args
     and         args
-    atan2      {src0 src1}
-    difference {src0 src1}
-    div        {src0 src1}
-    eq         {src0 src1}
-    ge         {src0 src1}
-    gt         {src0 src1}
-    hypot      {src0 src1}
-    le         {src0 src1}
-    lt         {src0 src1}
+    atan2      {a b}
+    difference {a b}
+    div        {a b}
+    eq         {a b}
+    ge         {a b}
+    gt         {a b}
+    hypot      {a b}
+    le         {a b}
+    lt         {a b}
     max         args
     min         args
-    mod        {src0 src1}
+    mod        {a b}
     mul         args
-    nand       {src0 src1}
-    ne         {src0 src1}
-    nor        {src0 src1}
+    nand       {a b}
+    ne         {a b}
+    nor        {a b}
     or          args
-    pow        {src0 src1}
-    screen     {src0 src1}
-    sub        {src0 src1}
+    pow        {a b}
+    screen     {a b}
+    sub        {a b}
     xor         args
 } {aktive op math}
 

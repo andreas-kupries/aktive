@@ -5,13 +5,20 @@
 operator op::bands::recombine {
     section transform
 
-    note Returns image with the input's band information \
+    example {
+	aktive image from matrix width 3 height 3 values 0.3588 0.7044 0.1368 0.2990 0.5870 0.1140 0.2392 0.4696 0.0912 | -matrix
+	butterfly
+	@1 @2
+    }
+
+    note Returns an image with the input's band information \
 	recombined through a matrix-vector multiplication.
 
-    note The band values of the input pixels are the vectors \
-	which are multiplied with the matrix specified as the \
-	first image argument. The input to be processed is \
-	the second image argument.
+    note The band values of the input's pixels are the vectors \
+	which are multiplied with the recombination matrix.
+
+    note The matrix is the first image argument. \
+	The input to be processed is the second image argument.
 
     note The matrix has to be single-band and its height has \
 	to match the depth of the input. The width of the \
@@ -19,8 +26,8 @@ operator op::bands::recombine {
 
     note The location of the matrix image is ignored.
 
-    input	;# matrix
-    input	;#
+    input matrix	Matrix to process the source's bands with.
+    input src		Image to process
 
     # Internal :: The matrix image is fully materialized on construction.
 

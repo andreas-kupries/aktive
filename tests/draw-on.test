@@ -27,15 +27,15 @@ foreach s {
     triangle
 } {
     syntax {
-	on {src args}
-	on {src args}
-	on {src args}
-	on {src args}
-	on {src args}
-	on {src args}
-	on {src args}
-	on {src args}
-	on {src args}
+	on {background args}
+	on {background args}
+	on {background args}
+	on {background args}
+	on {background args}
+	on {background args}
+	on {background args}
+	on {background args}
+	on {background args}
     } [list aktive op draw $s]
 }
 unset s

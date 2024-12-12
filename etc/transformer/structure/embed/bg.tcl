@@ -14,7 +14,7 @@ operator op::embed::bg {
 	@1 left 32 right 32 top 32 bottom 32 values 0.5
     }
 
-    note Returns image embedding the input into an arbitrarily colored border. \
+    note Returns an image embedding the input into an arbitrarily colored border. \
 	The color is specified through the band values.
 
     uint?    0 left	Number of columns to extend the left input border by

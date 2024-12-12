@@ -31,9 +31,9 @@ syntax {
     and       args
     not       src
     or        args
-    sub      {src0 src1}
+    sub      {a b}
     xor       args
-    xor-core {src0 src1}
+    xor-core {a b}
 
     outline  src
     ring    {src args}

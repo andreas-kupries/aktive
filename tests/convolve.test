@@ -16,7 +16,7 @@ kt source support/util.tcl
 ## Syntax
 
 syntax {
-    xy {src0 src1}
+    xy {kernel src}
 } {aktive op convolve}
 
 # # ## ### ##### ######## ############# #####################

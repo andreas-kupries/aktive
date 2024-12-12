@@ -97,7 +97,7 @@ operator [sdf-known op::draw:: ::on] {
 
     op -> _ mode sdf _ ; def on 1
 
-    input	;# image to draw on. i.e. the background for the drawing
+    input background	The image to draw on, i.e. the background for the drawing.
 
     def element [sdf-label $sdf]
 
@@ -117,7 +117,7 @@ operator [sdf-known op::draw:: ::on] {
     pass import sdf/parameter/$sdf.tcl
 
     body {
-	lassign [aktive query geometry $src] x y w h d
+	lassign [aktive query geometry $background] x y w h d
 	set n [llength $color]
 
 	if {$n != $d} { aktive error "Band mismatch, have $n, expected $d" }
@@ -126,10 +126,11 @@ operator [sdf-known op::draw:: ::on] {
 	set draw  [aktive image draw @@sdf@@ width $w height $h x $x y $y @@passthrough@@]
 
 	if {$antialiased} {
-	    #                              else then   if
-	    set sdf [aktive op math linear $src $color $draw]
+	    # grayscale ------------------ else        then   if
+	    set sdf [aktive op math linear $background $color $draw]
 	} else {
-	    set sdf [aktive op if-then-else $draw $color $src]
+	    # black/white ----------------- if    then   else
+	    set sdf [aktive op if-then-else $draw $color $background]
 	}
 	::return $sdf
     }

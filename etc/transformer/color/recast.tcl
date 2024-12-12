@@ -9,6 +9,16 @@
 operator op::color::correct::greyworld::global {
     section transform color
 
+    example {
+	aktive read from netpbm path tests/assets/watergarden.ppm
+	@1
+    }
+
+    example {
+	butterfly
+	@1
+    }
+
     note Corrects a color cast in the input using a global grey world assumption and returns the result.
     note Accepts inputs in the `sRGB` and `scRGB` color spaces, and returns a result in the same space.
     note The actual correction is always done in the `scRGB` space, i.e. with linear colors.

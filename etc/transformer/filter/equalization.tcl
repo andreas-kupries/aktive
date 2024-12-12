@@ -20,16 +20,16 @@ operator op::equalization::global {
 
     bool? 0 bandwise	Flag to process all bands of an image separately.
 
-    note Returns input with equalized global histogram.
-    note The location of the input is ignored, and passed to the result.
+    note Returns input with equalized global histogram. \
+	The location of the input is ignored, and passed to the result.
 
     note When bandwise is __not__ set (default) then
 
     note - Single-band inputs are processed as is.
 
-    note - Three-band with a known color space images have their equivalent \
-	of the luminance channel processed. RGB formats are converted into \
-	and out of a space where that is possible.
+    note - Three-band inputs with a known color space images have their \
+	equivalent of the luminance channel processed. Inputs using an \
+	RGB space are converted into and out of a space where that is possible.
 
     note - Anything else has just their last band processed.
 
