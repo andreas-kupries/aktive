@@ -52,6 +52,7 @@ import generator/virtual/warp.tcl
 import generator/virtual/warp/matrix.tcl
 import generator/virtual/warp/noise.tcl
 import generator/virtual/warp/swirl.tcl
+import generator/virtual/warp/wobble.tcl
 
 import generator/virtual/sdf/support.tcl
 import generator/virtual/sdf/definitions.tcl

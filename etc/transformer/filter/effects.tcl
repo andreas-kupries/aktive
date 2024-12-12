@@ -5,6 +5,52 @@
 # # ## ### ##### ######## ############# #####################
 ##
 
+operator effect::wobble {
+    section transform effect
+
+    example {
+	butterfly
+	@1 center {100 50}
+    }
+
+    note Returns the input with a swirling effect applied to it.
+
+    note This effect applies around the \
+	specified __center__, with base __amplitude__, __frequency__, \
+	__chirp__, and __attenuation__ powers.
+
+    note The effect modulates the distance from the center based on the \
+	formula	`sin (radius^chirp * frequency) * amplitude / (1+radius)^attenuation`, \
+	where `radius` is the original distance.
+
+    note All parameters, including the center are optional.
+
+    note The underlying operation is "<!xref: aktive warp wobble>."
+
+    # wobble configuration
+    point?   {{}} center	Center of the wobble, relative to the image location. \
+	Defaults to the image center.
+    double?  500  amplitude	Base amplitude of the displacement.
+    double?  2    frequency	Base wave frequency.
+    double?  0.5  chirp		Chirp (power) factor modulating the frequency.
+    double?  0.6  attenuation	Power factor tweaking the base 1/x attenuation.
+
+    str? bilinear interpolate   Interpolation method to use.
+
+    input
+
+    body {
+	lassign [aktive query domain $src] x y w h
+	set map [aktive warp wobble width $w height $h \
+		     center      $center     \
+		     amplitude   $amplitude  \
+		     frequency   $frequency  \
+		     chirp       $chirp      \
+		     attenuation $attenuation]
+	aktive op warp $interpolate $map $src
+    }
+}
+
 operator effect::swirl {
     section transform effect
 
@@ -28,7 +74,7 @@ operator effect::swirl {
 	and a __decay__ factor.
 
     note The rotation angle added to a pixel is given by \
-	\"__phi__ + __from__ * exp(-__radius__ * __decay__)\", \
+	`phi + from * exp(-radius * decay)`, \
 	where __radius__ is the distance of the pixel from the \
 	__center__. A large decay reduces the swirl at shorter \
 	radii. A decay of zero disables the decay.
@@ -37,7 +83,7 @@ operator effect::swirl {
 
     note The underlying operation is "<!xref: aktive warp swirl>."
 
-    str? bilinear interpolate   Interpolation method to use
+    str? bilinear interpolate   Interpolation method to use.
 
     # swirl configuration
     point?  {{}} center  Center of the swirl, default center of the image.
