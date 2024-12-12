@@ -27,40 +27,74 @@
 
 Syntax: __aktive op kuwahara__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/filter/kuwahara.tcl)]
 
-Returns input with a Kuwahara filter applied to it.
+Returns the input with a [Kuwahara](https://en.wikipedia.org/wiki/Kuwahara_filter) filter applied to it.
 
 The location of the input is ignored.
 
-The image is allowed to be multi-band.
+The result image is shrunken by `radius` relative to the input. An input smaller than that are rejected.
 
-For known colorspaces the core filter is applied to the luminance channel of the input.
+If shrinkage is not desired add a border to the input use the [aktive op embed bg](transform_structure.md#op_embed_bg) operator or one of its siblings before applying this operator.
 
-The image may be converted into and out of a colorspace with such a channel if it does not have one on its own.
+The source can be a multi-band image. For known colorspaces the core filter is applied to the luminance channel of the input. The image may be converted into and out of a colorspace with such a channel if it does not have one on its own. For images without a known colorspace the last band is used as the luminance channel.
 
-For images without known colorspace the last band is used as the luminance channel.
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
-|k|uint|2|Filter radius. Actual window size is `2*k-1`. The default value is 2. This is also the minimum allowed value.|
+|radius|uint|2|Filter radius. Actual window size is `2*radius-1`. The default value of `2` is the minimum allowed value.|
+
+#### <a name='op_kuwahara__examples'></a> Examples
+
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive op kuwahara @1 radius 4
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00402.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 380 250 3)</td>
+    <td valign='top'><img src='example-00403.gif' alt='aktive op kuwahara @1 radius 4' style='border:4px solid gold'>
+    <br>geometry(0 0 380 250 3)</td></tr>
+</table>
+
 
 ---
 ### [↑](#top) <a name='op_kuwahara_core'></a> aktive op kuwahara-core
 
-Syntax: __aktive op kuwahara-core__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=101&name=etc/transformer/filter/kuwahara.tcl)]
+Syntax: __aktive op kuwahara-core__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=118&name=etc/transformer/filter/kuwahara.tcl)]
 
-Returns input with a Kuwahara filter applied to it.
+Returns the input with a [Kuwahara](https://en.wikipedia.org/wiki/Kuwahara_filter) filter applied to it.
 
 The location of the input is ignored.
 
 The input is expected to be single-band.
 
-The result image is shrunken by `k` relative to the input. Inputs smaller than that are rejected.
+The result image is shrunken by `radius` relative to the input. An input smaller than that are rejected.
 
-If shrinkage is not desired add a border to the input using one of the `aktive op embed ...` operators before applying this operator.
+If shrinkage is not desired add a border to the input use the [aktive op embed bg](transform_structure.md#op_embed_bg) operator or one of its siblings before applying this operator.
 
 The prefered embedding for kuwahara is `mirror`. It is chosen to have minimal to no impact on results at the original input's borders.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
+
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
-|k|uint|2|Filter radius. Actual window size is `2*k-1`. The default value is 2. This is also the minimum allowed value.|
+|radius|uint|2|Filter radius. The actual window size is `2*radius-1`. The default value of `2` is the minimum allowed value.|
+
+#### <a name='op_kuwahara_core__examples'></a> Examples
+
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive op kuwahara-core @1 radius 4
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00404.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 380 250 1)</td>
+    <td valign='top'><img src='example-00405.gif' alt='aktive op kuwahara-core @1 radius 4' style='border:4px solid gold'>
+    <br>geometry(0 0 380 250 1)</td></tr>
+</table>
+
 

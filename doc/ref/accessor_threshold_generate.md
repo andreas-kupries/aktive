@@ -37,6 +37,9 @@ The operator [aktive image mask per global bernsen](transform_threshold_mask_gen
 
 This operator is __strict__ in its single input. The computed pixels are not materialized. They are immediately reduced to the threshold.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 #### <a name='image_threshold_global_bernsen__examples'></a> Examples
 
@@ -74,6 +77,9 @@ There are better methods. Extensions to the simple mean, in order of creation (a
 
 This operator is __strict__ in its single input. The computed pixels are not materialized. They are immediately reduced to the threshold.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 #### <a name='image_threshold_global_mean__examples'></a> Examples
 
@@ -108,6 +114,10 @@ Returns a global threshold for the input, according to [Niblack](https://craftof
 The operator [aktive image mask per global niblack](transform_threshold_mask_generate.md#image_mask_per_global_niblack) uses this to generate a mask of the input.
 
 This operator is __strict__ in its single input. The computed pixels are not materialized. They are immediately reduced to the threshold.
+
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -147,6 +157,10 @@ The operator [aktive image mask per global otsu](transform_threshold_mask_genera
 
 This operator is __strict__ in its single input. The computed pixels are not materialized. They are immediately reduced to the threshold.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
+
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |bins|int|256|The number of bins used by the internal histogram. The pixel values are quantized to fit. Only values in the range of `[0..1]` are considered valid. Values outside of that range are placed into the smallest/largest bins, respectively. The default quantizes the image values to 8-bit.|
@@ -174,6 +188,10 @@ Returns a global threshold for the input, according to [Phansalkar](https://craf
 The operator [aktive image mask per global phansalkar](transform_threshold_mask_generate.md#image_mask_per_global_phansalkar) uses this to generate a mask of the input.
 
 This operator is __strict__ in its single input. The computed pixels are not materialized. They are immediately reduced to the threshold.
+
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -215,6 +233,10 @@ Returns a global threshold for the input, according to [Sauvola](https://craftof
 The operator [aktive image mask per global sauvola](transform_threshold_mask_generate.md#image_mask_per_global_sauvola) uses this to generate a mask of the input.
 
 This operator is __strict__ in its single input. The computed pixels are not materialized. They are immediately reduced to the threshold.
+
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|

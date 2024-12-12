@@ -38,14 +38,14 @@ Construct image from file content in the native AKTIVE format.
 <table>
 <tr><th>aktive read from aktive path tests/assets/results/format-colorbox.aktive
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00691.gif' alt='aktive read from aktive path tests/assets/results/format-colorbox.aktive' style='border:4px solid gold'>
+<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00714.gif' alt='aktive read from aktive path tests/assets/results/format-colorbox.aktive' style='border:4px solid gold'>
     <br>geometry(0 0 64 64 3)</td></tr></table></td></tr>
 </table>
 
 <table>
 <tr><th>aktive read from aktive path tests/assets/results/format-graybox.aktive
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00692.gif' alt='aktive read from aktive path tests/assets/results/format-graybox.aktive' style='border:4px solid gold'>
+<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00715.gif' alt='aktive read from aktive path tests/assets/results/format-graybox.aktive' style='border:4px solid gold'>
     <br>geometry(0 0 64 64 1)</td></tr></table></td></tr>
 </table>
 
@@ -66,14 +66,14 @@ Construct image from file content in one of the NetPBM formats.
 <table>
 <tr><th>aktive read from netpbm path tests/assets/sines.ppm
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00693.gif' alt='aktive read from netpbm path tests/assets/sines.ppm' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00716.gif' alt='aktive read from netpbm path tests/assets/sines.ppm' style='border:4px solid gold'>
     <br>geometry(0 0 256 256 3)</td></tr>
 </table>
 
 <table>
 <tr><th>aktive read from netpbm path tests/assets/crop.pgm
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00694.gif' alt='aktive read from netpbm path tests/assets/crop.pgm' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00717.gif' alt='aktive read from netpbm path tests/assets/crop.pgm' style='border:4px solid gold'>
     <br>geometry(0 0 300 200 1)</td></tr>
 </table>
 

@@ -28,10 +28,13 @@
 ---
 ### [↑](#top) <a name='op_sdf_and'></a> aktive op sdf and
 
-Syntax: __aktive op sdf and__ srcs... [[→ definition](../../../../file?ci=trunk&ln=134&name=etc/generator/virtual/sdf.tcl)]
+Syntax: __aktive op sdf and__ srcs... [[→ definition](../../../../file?ci=trunk&ln=135&name=etc/generator/virtual/sdf.tcl)]
 
-Returns the intersection A and B and ... of the input SDFs
+Returns the intersection (`*`, `max`) of all input SDFs.
 
+|Input|Description|
+|:---|:---|
+|args...|Source images|
 
 #### <a name='op_sdf_and__examples'></a> Examples
 
@@ -42,13 +45,13 @@ Returns the intersection A and B and ... of the input SDFs
     <br>&nbsp;</th>
     <th>aktive op sdf and @1 @2
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00538.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00557.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00539.gif' alt='@2' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00558.gif' alt='@2' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00540.gif' alt='aktive op sdf and @1 @2' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00541.gif' alt='aktive op sdf and @1 @2' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00542.gif' alt='aktive op sdf and @1 @2' style='border:4px solid gold'>
+    <td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00559.gif' alt='aktive op sdf and @1 @2' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00560.gif' alt='aktive op sdf and @1 @2' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00561.gif' alt='aktive op sdf and @1 @2' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr></table></td></tr>
 </table>
 
@@ -56,10 +59,13 @@ Returns the intersection A and B and ... of the input SDFs
 ---
 ### [↑](#top) <a name='op_sdf_or'></a> aktive op sdf or
 
-Syntax: __aktive op sdf or__ srcs... [[→ definition](../../../../file?ci=trunk&ln=116&name=etc/generator/virtual/sdf.tcl)]
+Syntax: __aktive op sdf or__ srcs... [[→ definition](../../../../file?ci=trunk&ln=117&name=etc/generator/virtual/sdf.tcl)]
 
-Returns the union A or B or ... of the input SDFs
+Returns the union (`+`, `min`) of all input SDFs.
 
+|Input|Description|
+|:---|:---|
+|args...|Source images|
 
 #### <a name='op_sdf_or__examples'></a> Examples
 
@@ -70,13 +76,13 @@ Returns the union A or B or ... of the input SDFs
     <br>&nbsp;</th>
     <th>aktive op sdf or @1 @2
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00547.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00567.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00548.gif' alt='@2' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00568.gif' alt='@2' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00549.gif' alt='aktive op sdf or @1 @2' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00550.gif' alt='aktive op sdf or @1 @2' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00551.gif' alt='aktive op sdf or @1 @2' style='border:4px solid gold'>
+    <td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00569.gif' alt='aktive op sdf or @1 @2' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00570.gif' alt='aktive op sdf or @1 @2' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00571.gif' alt='aktive op sdf or @1 @2' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr></table></td></tr>
 </table>
 
@@ -84,10 +90,14 @@ Returns the union A or B or ... of the input SDFs
 ---
 ### [↑](#top) <a name='op_sdf_sub'></a> aktive op sdf sub
 
-Syntax: __aktive op sdf sub__ src0 src1 [[→ definition](../../../../file?ci=trunk&ln=152&name=etc/generator/virtual/sdf.tcl)]
+Syntax: __aktive op sdf sub__ a b [[→ definition](../../../../file?ci=trunk&ln=153&name=etc/generator/virtual/sdf.tcl)]
 
-Returns the difference A - B of the two input SDFs
+Returns the difference `A - B` of the two input SDFs. This is defined as `A * (not B)`.
 
+|Input|Description|
+|:---|:---|
+|a|SDF A|
+|b|SDF B|
 
 #### <a name='op_sdf_sub__examples'></a> Examples
 
@@ -98,13 +108,13 @@ Returns the difference A - B of the two input SDFs
     <br>&nbsp;</th>
     <th>aktive op sdf sub @1 @2
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00564.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00587.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00565.gif' alt='@2' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00588.gif' alt='@2' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00566.gif' alt='aktive op sdf sub @1 @2' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00567.gif' alt='aktive op sdf sub @1 @2' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00568.gif' alt='aktive op sdf sub @1 @2' style='border:4px solid gold'>
+    <td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00589.gif' alt='aktive op sdf sub @1 @2' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00590.gif' alt='aktive op sdf sub @1 @2' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00591.gif' alt='aktive op sdf sub @1 @2' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr></table></td></tr>
 </table>
 
@@ -112,10 +122,13 @@ Returns the difference A - B of the two input SDFs
 ---
 ### [↑](#top) <a name='op_sdf_xor'></a> aktive op sdf xor
 
-Syntax: __aktive op sdf xor__ srcs... [[→ definition](../../../../file?ci=trunk&ln=172&name=etc/generator/virtual/sdf.tcl)]
+Syntax: __aktive op sdf xor__ srcs... [[→ definition](../../../../file?ci=trunk&ln=174&name=etc/generator/virtual/sdf.tcl)]
 
-Returns the symmetric difference of the input SDFs
+Returns the symmetric difference of all input SDFs.
 
+|Input|Description|
+|:---|:---|
+|args...|Source images|
 
 #### <a name='op_sdf_xor__examples'></a> Examples
 
@@ -126,13 +139,13 @@ Returns the symmetric difference of the input SDFs
     <br>&nbsp;</th>
     <th>aktive op sdf xor @1 @2
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00569.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00592.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00570.gif' alt='@2' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00593.gif' alt='@2' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00571.gif' alt='aktive op sdf xor @1 @2' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00572.gif' alt='aktive op sdf xor @1 @2' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00573.gif' alt='aktive op sdf xor @1 @2' style='border:4px solid gold'>
+    <td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00594.gif' alt='aktive op sdf xor @1 @2' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00595.gif' alt='aktive op sdf xor @1 @2' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00596.gif' alt='aktive op sdf xor @1 @2' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr></table></td></tr>
 </table>
 
@@ -140,10 +153,14 @@ Returns the symmetric difference of the input SDFs
 ---
 ### [↑](#top) <a name='op_sdf_xor_core'></a> aktive op sdf xor-core
 
-Syntax: __aktive op sdf xor-core__ src0 src1 [[→ definition](../../../../file?ci=trunk&ln=192&name=etc/generator/virtual/sdf.tcl)]
+Syntax: __aktive op sdf xor-core__ a b [[→ definition](../../../../file?ci=trunk&ln=194&name=etc/generator/virtual/sdf.tcl)]
 
-Returns the symmetric difference of the two input SDFs
+Returns the symmetric difference of the two input SDFs. This is defined as `(A + B) - (A * B)`.
 
+|Input|Description|
+|:---|:---|
+|a|SDF A|
+|b|SDF B|
 
 #### <a name='op_sdf_xor_core__examples'></a> Examples
 
@@ -154,13 +171,13 @@ Returns the symmetric difference of the two input SDFs
     <br>&nbsp;</th>
     <th>aktive op sdf xor-core @1 @2
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00574.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00597.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00575.gif' alt='@2' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00598.gif' alt='@2' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00576.gif' alt='aktive op sdf xor-core @1 @2' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00577.gif' alt='aktive op sdf xor-core @1 @2' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00578.gif' alt='aktive op sdf xor-core @1 @2' style='border:4px solid gold'>
+    <td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00599.gif' alt='aktive op sdf xor-core @1 @2' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00600.gif' alt='aktive op sdf xor-core @1 @2' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00601.gif' alt='aktive op sdf xor-core @1 @2' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr></table></td></tr>
 </table>
 

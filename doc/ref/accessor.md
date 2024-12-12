@@ -46,6 +46,9 @@ Converts the internal DAG representation of the image into a D2 graph format and
 
 Despite the naming the operator is __not strict__. It does not access the input's pixels at all, only the meta information of the pipeline.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 #### <a name='format_as_d2__examples'></a> Examples
 
@@ -73,6 +76,9 @@ Converts the internal DAG representation of the image into a Markdown table and 
 
 Despite the naming the operator is __not strict__. It does not access the input's pixels at all, only the meta information of the pipeline.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 #### <a name='format_as_markdown__examples'></a> Examples
 
@@ -100,6 +106,9 @@ Converts the internal DAG representation of the image into a Tcl script and retu
 
 Despite the naming the operator is __not strict__. It does not access the input's pixels at all, only the meta information of the pipeline.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 #### <a name='format_as_tclscript__examples'></a> Examples
 
@@ -129,6 +138,9 @@ If no colorspace is set then `sRGB` is assumed for 3-band images, and `grey` for
 
 For anything else an error is thrown instead of making assumptions.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 #### <a name='op_query_colorspace__examples'></a> Examples
 
@@ -137,7 +149,7 @@ For anything else an error is thrown instead of making assumptions.
     <br>&nbsp;</th>
     <th>aktive op query colorspace @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00457.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00476.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 256 256 3)</td>
     <td valign='top'>&nbsp;sRGB</td></tr>
 </table>
@@ -150,6 +162,9 @@ Syntax: __aktive query id__ src [[→ definition](../../../../file?ci=trunk&ln=5
 
 Returns the input's implementation-specific image identity.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 ---
 ### [↑](#top) <a name='query_inputs'></a> aktive query inputs
@@ -160,6 +175,9 @@ Returns a list of the input's inputs.
 
 For an image without inputs the result is the empty list.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 ---
 ### [↑](#top) <a name='query_params'></a> aktive query params
@@ -170,6 +188,9 @@ Returns a dictionary containing the input's parameters.
 
 For an image without parameters the result is the empty dictionary.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 #### <a name='query_params__examples'></a> Examples
 
@@ -178,7 +199,7 @@ For an image without parameters the result is the empty dictionary.
     <br>(zone width 32 height 32)</th>
     <th>aktive query params @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00643.gif' alt='@1 (zone width 32 height 32)' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00666.gif' alt='@1 (zone width 32 height 32)' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;width 32 height 32</td></tr>
 </table>
@@ -188,7 +209,7 @@ For an image without parameters the result is the empty dictionary.
     <br>(gradient width 32 height 32 depth 1 first 0 last 1)</th>
     <th>aktive query params @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00645.gif' alt='@1 (gradient width 32 height 32 depth 1 first 0 last 1)' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00668.gif' alt='@1 (gradient width 32 height 32 depth 1 first 0 last 1)' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;width 32 height 32 depth 1 first 0.0 last 1.0</td></tr>
 </table>
@@ -203,6 +224,9 @@ Returns a dictionary containing the input's setup.
 
 This includes type, geometry, and parameters, if any. The inputs however are excluded.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 #### <a name='query_setup__examples'></a> Examples
 
@@ -211,7 +235,7 @@ This includes type, geometry, and parameters, if any. The inputs however are exc
     <br>(zone width 32 height 32)</th>
     <th>aktive query setup @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00655.gif' alt='@1 (zone width 32 height 32)' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00678.gif' alt='@1 (zone width 32 height 32)' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;type image::zone domain {x 0 y 0 width 32 height 32 depth 1} config {width 32 height 32}</td></tr>
 </table>
@@ -221,7 +245,7 @@ This includes type, geometry, and parameters, if any. The inputs however are exc
     <br>&nbsp;</th>
     <th>aktive query setup @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00657.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00680.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;type image::gradient domain {x 0 y 0 width 32 height 32 depth 1} config {width 32 height 32 depth 1 first 0.0 last 1.0}</td></tr>
 </table>
@@ -234,6 +258,9 @@ Syntax: __aktive query type__ src [[→ definition](../../../../file?ci=trunk&ln
 
 Returns the input's type.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 #### <a name='query_type__examples'></a> Examples
 
@@ -242,7 +269,7 @@ Returns the input's type.
     <br>&nbsp;</th>
     <th>aktive query type @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00663.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00686.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;image::zone</td></tr>
 </table>
@@ -252,7 +279,7 @@ Returns the input's type.
     <br>&nbsp;</th>
     <th>aktive query type @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00665.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00688.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;image::gradient</td></tr>
 </table>

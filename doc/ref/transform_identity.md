@@ -30,4 +30,7 @@ Returns unchanged input.
 
 This is useful for round-trip testing, to stop application of simplification rules which would otherwise eliminate or modify the chain of operations under test.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 

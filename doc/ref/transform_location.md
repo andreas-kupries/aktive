@@ -29,6 +29,10 @@ Syntax: __aktive op location move by__ src (param value)... [[→ definition](..
 
 Returns image translationally shifted along the x- and y-axes by a specific amount
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
+
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |dx|int||Shift amount for x location of image in the plane, positive to the right, negative left|
@@ -40,6 +44,10 @@ Returns image translationally shifted along the x- and y-axes by a specific amou
 Syntax: __aktive op location move to__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=7&name=etc/transformer/location.tcl)]
 
 Returns image translationally shifted along the x- and y-axes to a specific location
+
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|

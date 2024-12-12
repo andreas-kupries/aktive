@@ -32,6 +32,10 @@ The location of the input is ignored.
 
 The filter is applied to each band of the input separately.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
+
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |radius|uint|2|Filter radius. Actual window size is `2*k-1`. The default value is 2. This is also the minimum allowed value.|

@@ -37,14 +37,18 @@
 ---
 ### [↑](#top) <a name='image_mask_from_threshold'></a> aktive image mask from threshold
 
-Syntax: __aktive image mask from threshold__ src0 src1 [[→ definition](../../../../file?ci=trunk&ln=9&name=etc/transformer/thresholds/mask.tcl)]
+Syntax: __aktive image mask from threshold__ threshold src [[→ definition](../../../../file?ci=trunk&ln=9&name=etc/transformer/thresholds/mask.tcl)]
 
-Return image foreground mask of input, as per threshold image. Note that the threshold is the first argument, and input the second.
+Returns mask image indicating the foreground pixels of the input, as per the thresholds.
 
-The foreground are the pixels falling under the threshold. IOW the input foreground is assumed to be darker than background. Invert the result otherwise.
+The foreground are the pixels __less or equal__ to the threshold. IOW the input's foreground is assumed to be darker than the background. Invert the result otherwise.
 
 The foreground pixels are indicated by white. Background by black.
 
+|Input|Description|
+|:---|:---|
+|threshold|Per-pixel thresholds|
+|src|Image to threshold|
 
 ---
 ### [↑](#top) <a name='image_mask_per_bernsen'></a> aktive image mask per bernsen
@@ -58,6 +62,10 @@ The foreground are the pixels falling under the threshold. IOW the input foregro
 The foreground pixels are indicated by white. Background by black.
 
 The local thresholds are computed using [aktive image threshold bernsen](transform_threshold_generate.md#image_threshold_bernsen).
+
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -93,14 +101,17 @@ The local thresholds are computed using [aktive image threshold bernsen](transfo
 
 Syntax: __aktive image mask per global bernsen__ src [[→ definition](../../../../file?ci=trunk&ln=89&name=etc/transformer/thresholds/mask.tcl)]
 
-Return image foreground mask of input, using global Bernsen thresholding.
+Returns mask image indicating the foreground pixels of the input, using global `Bernsen` thresholding.
 
-The foreground are the pixels falling under the threshold. IOW the input foreground is assumed to be darker than background. Invert the result otherwise.
+The foreground are the pixels __less or equal__ to the threshold. IOW the input's foreground is assumed to be darker than the background. Invert the result otherwise.
 
 The foreground pixels are indicated by white. Background by black.
 
 The threshold is computed using [aktive image threshold global bernsen](accessor_threshold_generate.md#image_threshold_global_bernsen).
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 #### <a name='image_mask_per_global_bernsen__examples'></a> Examples
 
@@ -132,14 +143,17 @@ The threshold is computed using [aktive image threshold global bernsen](accessor
 
 Syntax: __aktive image mask per global mean__ src [[→ definition](../../../../file?ci=trunk&ln=89&name=etc/transformer/thresholds/mask.tcl)]
 
-Return image foreground mask of input, using global Mean thresholding.
+Returns mask image indicating the foreground pixels of the input, using global `Mean` thresholding.
 
-The foreground are the pixels falling under the threshold. IOW the input foreground is assumed to be darker than background. Invert the result otherwise.
+The foreground are the pixels __less or equal__ to the threshold. IOW the input's foreground is assumed to be darker than the background. Invert the result otherwise.
 
 The foreground pixels are indicated by white. Background by black.
 
 The threshold is computed using [aktive image threshold global mean](accessor_threshold_generate.md#image_threshold_global_mean).
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 #### <a name='image_mask_per_global_mean__examples'></a> Examples
 
@@ -171,13 +185,17 @@ The threshold is computed using [aktive image threshold global mean](accessor_th
 
 Syntax: __aktive image mask per global niblack__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=89&name=etc/transformer/thresholds/mask.tcl)]
 
-Return image foreground mask of input, using global Niblack thresholding.
+Returns mask image indicating the foreground pixels of the input, using global `Niblack` thresholding.
 
-The foreground are the pixels falling under the threshold. IOW the input foreground is assumed to be darker than background. Invert the result otherwise.
+The foreground are the pixels __less or equal__ to the threshold. IOW the input's foreground is assumed to be darker than the background. Invert the result otherwise.
 
 The foreground pixels are indicated by white. Background by black.
 
 The threshold is computed using [aktive image threshold global niblack](accessor_threshold_generate.md#image_threshold_global_niblack).
+
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -213,13 +231,17 @@ The threshold is computed using [aktive image threshold global niblack](accessor
 
 Syntax: __aktive image mask per global otsu__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=89&name=etc/transformer/thresholds/mask.tcl)]
 
-Return image foreground mask of input, using global Otsu thresholding.
+Returns mask image indicating the foreground pixels of the input, using global `Otsu` thresholding.
 
-The foreground are the pixels falling under the threshold. IOW the input foreground is assumed to be darker than background. Invert the result otherwise.
+The foreground are the pixels __less or equal__ to the threshold. IOW the input's foreground is assumed to be darker than the background. Invert the result otherwise.
 
 The foreground pixels are indicated by white. Background by black.
 
 The threshold is computed using [aktive image threshold global otsu](accessor_threshold_generate.md#image_threshold_global_otsu).
+
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -244,13 +266,17 @@ The threshold is computed using [aktive image threshold global otsu](accessor_th
 
 Syntax: __aktive image mask per global phansalkar__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=89&name=etc/transformer/thresholds/mask.tcl)]
 
-Return image foreground mask of input, using global Phansalkar thresholding.
+Returns mask image indicating the foreground pixels of the input, using global `Phansalkar` thresholding.
 
-The foreground are the pixels falling under the threshold. IOW the input foreground is assumed to be darker than background. Invert the result otherwise.
+The foreground are the pixels __less or equal__ to the threshold. IOW the input's foreground is assumed to be darker than the background. Invert the result otherwise.
 
 The foreground pixels are indicated by white. Background by black.
 
 The threshold is computed using [aktive image threshold global phansalkar](accessor_threshold_generate.md#image_threshold_global_phansalkar).
+
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -289,13 +315,17 @@ The threshold is computed using [aktive image threshold global phansalkar](acces
 
 Syntax: __aktive image mask per global sauvola__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=89&name=etc/transformer/thresholds/mask.tcl)]
 
-Return image foreground mask of input, using global Sauvola thresholding.
+Returns mask image indicating the foreground pixels of the input, using global `Sauvola` thresholding.
 
-The foreground are the pixels falling under the threshold. IOW the input foreground is assumed to be darker than background. Invert the result otherwise.
+The foreground are the pixels __less or equal__ to the threshold. IOW the input's foreground is assumed to be darker than the background. Invert the result otherwise.
 
 The foreground pixels are indicated by white. Background by black.
 
 The threshold is computed using [aktive image threshold global sauvola](accessor_threshold_generate.md#image_threshold_global_sauvola).
+
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -340,6 +370,10 @@ The foreground pixels are indicated by white. Background by black.
 
 The local thresholds are computed using [aktive image threshold mean](transform_threshold_generate.md#image_threshold_mean).
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
+
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |radius|uint||Size of region to consider, as radius from center|
@@ -381,6 +415,10 @@ The foreground are the pixels falling under the threshold. IOW the input foregro
 The foreground pixels are indicated by white. Background by black.
 
 The local thresholds are computed using [aktive image threshold niblack](transform_threshold_generate.md#image_threshold_niblack).
+
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -425,6 +463,10 @@ The foreground pixels are indicated by white. Background by black.
 
 The local thresholds are computed using [aktive image threshold otsu](transform_threshold_generate.md#image_threshold_otsu).
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
+
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |bins|int|256|otsu histogram parameter|
@@ -456,6 +498,10 @@ The foreground are the pixels falling under the threshold. IOW the input foregro
 The foreground pixels are indicated by white. Background by black.
 
 The local thresholds are computed using [aktive image threshold phansalkar](transform_threshold_generate.md#image_threshold_phansalkar).
+
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -503,6 +549,10 @@ The foreground pixels are indicated by white. Background by black.
 
 The local thresholds are computed using [aktive image threshold sauvola](transform_threshold_generate.md#image_threshold_sauvola).
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
+
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |k|double|0.5|sauvola parameter|
@@ -546,6 +596,10 @@ The foreground are the pixels falling under the threshold. IOW the input foregro
 The foreground pixels are indicated by white. Background by black.
 
 The local thresholds are computed using [aktive image threshold wolfjolion](transform_threshold_generate.md#image_threshold_wolfjolion).
+
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|

@@ -59,6 +59,10 @@ Writes image to the DST channel, serialized with the [AKTIVE](ff-aktive.md) form
 
 This operator is __strict__ in its single input. The computed pixels are not materialized. They are immediately saved to the destination channel.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
+
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |into|channel||Destination channel the image data is written to|
@@ -71,6 +75,10 @@ Syntax: __aktive format as aktive 2file__ src (param value)... [[→ definition]
 Writes image to the destination file, serialized with the [AKTIVE](ff-aktive.md) format.
 
 This operator is __strict__ in its single input. The computed pixels are not materialized. They are immediately saved to the destination file.
+
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -85,6 +93,9 @@ Returns byte array containing the image, serialized with the [AKTIVE](ff-aktive.
 
 This operator is __strict__ in its single input. The computed pixels __are__ materialized into the returned string.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 ---
 ### [↑](#top) <a name='format_as_null_s_2string'></a> aktive format as null-s 2string
@@ -95,6 +106,9 @@ Returns nothing, while triggering full pixel calculation for the input.
 
 This operator is __strict__ in its single input. The computed pixels are not materialized. They are ignored, immediately discarded.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 ---
 ### [↑](#top) <a name='format_as_null_2string'></a> aktive format as null 2string
@@ -105,6 +119,9 @@ Returns nothing, while triggering full pixel calculation for the input.
 
 This operator is __strict__ in its single input. The computed pixels are not materialized. They are ignored, immediately discarded.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 ---
 ### [↑](#top) <a name='format_as_pgm_byte_2chan'></a> aktive format as pgm byte 2chan
@@ -114,6 +131,10 @@ Syntax: __aktive format as pgm byte 2chan__ src (param value)... [[→ definitio
 Writes image to the destination channel, serialized with [PGM](ff-netpbm.md)'s byte format.
 
 This operator is __strict__ in its single input. The computed pixels are not materialized. They are immediately saved to the destination channel.
+
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -128,6 +149,10 @@ Writes image to the destination file, serialized with [PGM](ff-netpbm.md)'s byte
 
 This operator is __strict__ in its single input. The computed pixels are not materialized. They are immediately saved to the destination file.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
+
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |into|str||Destination file the pgm byte image data is written to.|
@@ -141,6 +166,9 @@ Returns byte array containing the image, serialized with [PGM](ff-netpbm.md)'s b
 
 This operator is __strict__ in its single input. The computed pixels __are__ materialized into the returned string.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 ---
 ### [↑](#top) <a name='format_as_pgm_etext_2chan'></a> aktive format as pgm etext 2chan
@@ -150,6 +178,10 @@ Syntax: __aktive format as pgm etext 2chan__ src (param value)... [[→ definiti
 Writes image to the destination channel, serialized with [PGM](ff-netpbm.md)'s etext format.
 
 This operator is __strict__ in its single input. The computed pixels are not materialized. They are immediately saved to the destination channel.
+
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -164,6 +196,10 @@ Writes image to the destination file, serialized with [PGM](ff-netpbm.md)'s etex
 
 This operator is __strict__ in its single input. The computed pixels are not materialized. They are immediately saved to the destination file.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
+
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |into|str||Destination file the pgm etext image data is written to.|
@@ -177,6 +213,9 @@ Returns byte array containing the image, serialized with [PGM](ff-netpbm.md)'s e
 
 This operator is __strict__ in its single input. The computed pixels __are__ materialized into the returned string.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 ---
 ### [↑](#top) <a name='format_as_pgm_short_2chan'></a> aktive format as pgm short 2chan
@@ -186,6 +225,10 @@ Syntax: __aktive format as pgm short 2chan__ src (param value)... [[→ definiti
 Writes image to the destination channel, serialized with [PGM](ff-netpbm.md)'s short format.
 
 This operator is __strict__ in its single input. The computed pixels are not materialized. They are immediately saved to the destination channel.
+
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -200,6 +243,10 @@ Writes image to the destination file, serialized with [PGM](ff-netpbm.md)'s shor
 
 This operator is __strict__ in its single input. The computed pixels are not materialized. They are immediately saved to the destination file.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
+
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |into|str||Destination file the pgm short image data is written to.|
@@ -213,6 +260,9 @@ Returns byte array containing the image, serialized with [PGM](ff-netpbm.md)'s s
 
 This operator is __strict__ in its single input. The computed pixels __are__ materialized into the returned string.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 ---
 ### [↑](#top) <a name='format_as_pgm_text_2chan'></a> aktive format as pgm text 2chan
@@ -222,6 +272,10 @@ Syntax: __aktive format as pgm text 2chan__ src (param value)... [[→ definitio
 Writes image to the destination channel, serialized with [PGM](ff-netpbm.md)'s text format.
 
 This operator is __strict__ in its single input. The computed pixels are not materialized. They are immediately saved to the destination channel.
+
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -236,6 +290,10 @@ Writes image to the destination file, serialized with [PGM](ff-netpbm.md)'s text
 
 This operator is __strict__ in its single input. The computed pixels are not materialized. They are immediately saved to the destination file.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
+
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |into|str||Destination file the pgm text image data is written to.|
@@ -249,6 +307,9 @@ Returns byte array containing the image, serialized with [PGM](ff-netpbm.md)'s t
 
 This operator is __strict__ in its single input. The computed pixels __are__ materialized into the returned string.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 ---
 ### [↑](#top) <a name='format_as_ppm_byte_2chan'></a> aktive format as ppm byte 2chan
@@ -258,6 +319,10 @@ Syntax: __aktive format as ppm byte 2chan__ src (param value)... [[→ definitio
 Writes image to the destination channel, serialized with [PPM](ff-netpbm.md)'s byte format.
 
 This operator is __strict__ in its single input. The computed pixels are not materialized. They are immediately saved to the destination channel.
+
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -272,6 +337,10 @@ Writes image to the destination file, serialized with [PPM](ff-netpbm.md)'s byte
 
 This operator is __strict__ in its single input. The computed pixels are not materialized. They are immediately saved to the destination file.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
+
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |into|str||Destination file the ppm byte image data is written to.|
@@ -285,6 +354,9 @@ Returns byte array containing the image, serialized with [PPM](ff-netpbm.md)'s b
 
 This operator is __strict__ in its single input. The computed pixels __are__ materialized into the returned string.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 ---
 ### [↑](#top) <a name='format_as_ppm_etext_2chan'></a> aktive format as ppm etext 2chan
@@ -294,6 +366,10 @@ Syntax: __aktive format as ppm etext 2chan__ src (param value)... [[→ definiti
 Writes image to the destination channel, serialized with [PPM](ff-netpbm.md)'s etext format.
 
 This operator is __strict__ in its single input. The computed pixels are not materialized. They are immediately saved to the destination channel.
+
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -308,6 +384,10 @@ Writes image to the destination file, serialized with [PPM](ff-netpbm.md)'s etex
 
 This operator is __strict__ in its single input. The computed pixels are not materialized. They are immediately saved to the destination file.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
+
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |into|str||Destination file the ppm etext image data is written to.|
@@ -321,6 +401,9 @@ Returns byte array containing the image, serialized with [PPM](ff-netpbm.md)'s e
 
 This operator is __strict__ in its single input. The computed pixels __are__ materialized into the returned string.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 ---
 ### [↑](#top) <a name='format_as_ppm_short_2chan'></a> aktive format as ppm short 2chan
@@ -330,6 +413,10 @@ Syntax: __aktive format as ppm short 2chan__ src (param value)... [[→ definiti
 Writes image to the destination channel, serialized with [PPM](ff-netpbm.md)'s short format.
 
 This operator is __strict__ in its single input. The computed pixels are not materialized. They are immediately saved to the destination channel.
+
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -344,6 +431,10 @@ Writes image to the destination file, serialized with [PPM](ff-netpbm.md)'s shor
 
 This operator is __strict__ in its single input. The computed pixels are not materialized. They are immediately saved to the destination file.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
+
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |into|str||Destination file the ppm short image data is written to.|
@@ -357,6 +448,9 @@ Returns byte array containing the image, serialized with [PPM](ff-netpbm.md)'s s
 
 This operator is __strict__ in its single input. The computed pixels __are__ materialized into the returned string.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 ---
 ### [↑](#top) <a name='format_as_ppm_text_2chan'></a> aktive format as ppm text 2chan
@@ -366,6 +460,10 @@ Syntax: __aktive format as ppm text 2chan__ src (param value)... [[→ definitio
 Writes image to the destination channel, serialized with [PPM](ff-netpbm.md)'s text format.
 
 This operator is __strict__ in its single input. The computed pixels are not materialized. They are immediately saved to the destination channel.
+
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -380,6 +478,10 @@ Writes image to the destination file, serialized with [PPM](ff-netpbm.md)'s text
 
 This operator is __strict__ in its single input. The computed pixels are not materialized. They are immediately saved to the destination file.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
+
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |into|str||Destination file the ppm text image data is written to.|
@@ -393,6 +495,9 @@ Returns byte array containing the image, serialized with [PPM](ff-netpbm.md)'s t
 
 This operator is __strict__ in its single input. The computed pixels __are__ materialized into the returned string.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 ---
 ### [↑](#top) <a name='format_as_tcl'></a> aktive format as tcl
@@ -403,4 +508,7 @@ Returns string containing the image serialized into readable Tcl structures. Dic
 
 This operator is __strict__ in its single input. The computed pixels __are__ materialized into the returned string.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 

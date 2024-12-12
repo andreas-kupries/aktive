@@ -31,6 +31,10 @@ Returns image with the input's columns folded into bands, reducing width. The re
 
 The parameter k has to be a proper divisor of the input width. I.e. the input width divided by k leaves no remainder.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
+
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |by|uint||Folding factor. Range 2... Factor 1 is a nop-op.|
@@ -42,4 +46,7 @@ Syntax: __aktive op geometry bands unfold__ src [[→ definition](../../../../fi
 
 Returns image with the input's bands unfolded and making it wider. The result is a single-band image wider by input depth times.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
