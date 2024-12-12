@@ -954,24 +954,50 @@ proc dsl::writer::OpDoc {stem op spec} {
     + "### \[\u2191\](#top) <a name='[OpKey $op]'></a> [OpName $op]"
     + ""
     + "Syntax: __[OpName $op]__ $sig \[\[\u2192 definition\](../../../../file?ci=trunk&ln=${line}&name=${path})\]"
-    + ""
 
     foreach note $notes {
-	+ [join $note { }]
 	+ ""
+	+ [join $note { }]
+    }
+
+    if {[llength $images]} {
+	+ {}
+	+ "|Input|Description|"
+	+ "|:---|:---|"
+
+	set single [expr {[llength $images] == 1}]
+	set id 0
+    	foreach i $images {
+	    dict with i {}
+	    # args name rcmode desc
+	    set n src$id ; incr id
+	    if {$single} { set n src }
+	    if {$name ne {}} { set n $name }
+	    if {$args} { set n args... }
+	    if {$desc eq "" && $single} {
+		set desc [dict get {
+		    0 {Source image}
+		    1 {Source images}
+		} $args]
+	    }
+	    + "|$n|$desc|"
+	    unset -nocomplain args name rcmode desc
+	}
     }
 
     if {[llength $params]} {
+	+ {}
 	+ "|Parameter|Type|Default|Description|"
 	+ "|:---|:---|:---|:---|"
 
 	foreach p $params {
 	    dict with p {}
+	    # args default desc name type
 	    if {![info exists default]} { set default {} }
 	    if {$args}   { append type ...  }
 	    if {$vector} { append type {[]} }
 	    + "|$name|$type|$default|$desc|"
-	    unset -nocomplain args default desc name type args
+	    unset -nocomplain args default desc name type
 	}
     }
 
@@ -1658,6 +1684,8 @@ proc dsl::writer::CprocArguments {spec} {
     foreach i $images {
 	set n src$id ; incr id
 	if {$single} { set n src }
+	set ni [dict get $i name]
+	if {$ni ne {}} { set n $ni }
 	set v [dict get $i args]
 	if {$v} { set n args }
 
@@ -1695,6 +1723,8 @@ proc dsl::writer::CprocBodyImages {spec} {
 	set m [dict get $i rcmode]
 	set n src$id ; incr id
 	if {$single} { set n src }
+	set ni [dict get $i name]
+	if {$ni ne {}} { set n $ni }
 	set v [dict get $i args]
 	if {$v} { set n args }
 
@@ -1766,8 +1796,11 @@ proc dsl::writer::CprocBody {op spec script} {
     set id 0
     foreach i $images {
 	set m [dict get $i rcmode]
+	# TODO - move name generation into a helper - TODO
 	set n src$id ; incr id
 	if {$single} { set n src }
+	set ni [dict get $i name]
+	if {$ni ne {}} { set n $ni }
 	set v [dict get $i args]
 	if {$v} { set n args }
 
@@ -1885,10 +1918,10 @@ proc dsl::writer::DocSignature {op spec} {
     foreach i $images {
 	set n src$id ; incr id
 	if {$single} { set n src }
+	set ni [dict get $i name]
+	if {$ni ne {}} { set n $ni }
 	set v [dict get $i args]
-	if {$v} {
-	    set n srcs...
-	}
+	if {$v} { set n srcs... }
 	lappend sig $n
     }
 
@@ -1915,12 +1948,12 @@ proc dsl::writer::FunctionDeclSignature {op spec} {
     set igtypes {}
 
     foreach i $images {
+	set it aktive_image
 	set m [dict get $i rcmode]
 	set n src$id ; incr id
-
-	set it aktive_image
-
 	if {$single} { set n src }
+	set ni [dict get $i name]
+	if {$ni ne {}} { set n $ni }
 	set v [dict get $i args]
 	if {$v} {
 	    set n  srcs
@@ -1972,11 +2005,12 @@ proc dsl::writer::FunctionCallSignature {spec} {
     foreach i $images {
 	set m [dict get $i rcmode]
 	set n src$id ; incr id
-
 	if {$single} { set n src }
+	set ni [dict get $i name]
+	if {$ni ne {}} { set n $ni }
 	set v [dict get $i args]
 	# ATTENTION: This assumes and REQUIRES that
-	# aktive_image_vector ==structurally critcl_variadic_aktive_image
+	# aktive_image_vector structurally/== critcl_variadic_aktive_image
 	if {$v} { set n "(aktive_image_vector*) &args" }
 
 	if {$m in {
@@ -2072,12 +2106,17 @@ proc dsl::writer::FunctionBodyImageConstructor {op spec} {
 		set prefix "  "
 		foreach i $images {
 		    set n src$id ; incr id
+		    set ni [dict get $i name]
+		    if {$ni ne {}} { set n $ni }
 		    + "    $prefix$n" ; set prefix ", "
 		}
 		+ "  \};"
 		set ref srci
 	    } else {
-		set ref &src
+		set n src
+		set ni [dict get [lindex $images 0] name]
+		if {$ni ne {}} { set n $ni }
+		set ref &$n
 	    }
 	    + "  aktive_image_vector srcs = \{"
 	    + "      .c = $arity"
@@ -2281,7 +2320,8 @@ proc dsl::writer::ProcImageArguments {spec} {
     foreach i $images {
 	set n src$id ; incr id
 	if {$single} { set n src }
-
+	set ni [dict get $i name]
+	if {$ni ne {}} { set n $ni }
 	set v [dict get $i args]
 	if {$v} { set n args }
 
@@ -2302,6 +2342,8 @@ proc dsl::writer::ProcImageCall {spec} {
     foreach i $images {
 	set n src$id ; incr id
 	if {$single} { set n src }
+	set ni [dict get $i name]
+	if {$ni ne {}} { set n $ni }
 	set v [dict get $i args]
 	if {$v} {
 	    set n "\{*\}\$args"
@@ -2739,6 +2781,9 @@ proc dsl::writer::stash-to {path} {
 	#
 	proc bframe {x} { poly red   {{0 0} {379 0} {379 249} {0 249} {0 0}} $x }
 	proc sframe {x} { poly green {{0 0} {0 255} {255 255} {255 0} {0 0}} $x }
+	proc oframe {w h x} {
+	    poly green [list {0 0} [list 0 $h] [list $w $h] [list $w 0] {0 0}] $x
+	}
 	#
 	proc dot {color p i} {
 	    lassign [aktive query geometry $i] _ _ w h d
