@@ -28,10 +28,10 @@ syntax {
 } {aktive op band}
 
 syntax {
-    ge    {src0 src1}
-    gt    {src0 src1}
-    le    {src0 src1}
-    lt    {src0 src1}
+    ge    {thresholds src}
+    gt    {thresholds src}
+    le    {thresholds src}
+    lt    {thresholds src}
     max    src
     min    src
 } {aktive op band arg}

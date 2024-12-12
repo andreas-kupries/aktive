@@ -21,8 +21,8 @@ kt source support/util.tcl
 
 syntax {
     from    {args}
-    indexed {src0 src1 args}
-    compose {src0 src1}
+    indexed {lut src args}
+    compose {a b}
 } {aktive op lut}
 
 # # ## ### ##### ######## ############# #####################

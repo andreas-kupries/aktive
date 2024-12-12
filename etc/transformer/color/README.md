@@ -44,9 +44,9 @@ Lab - L* defines black at 0 and white at 100.
 ```
 HSL <--> \                                       / <--> ICC (nyi, LittleCMS ?)
 HSV <--> sRGB <--> scRGB <--> XYZ <---------> Lab <---> LCh
-                        \     |  \ <--> Yxy  /
-                         \    v  / <--- /   /
-                          \-> Grey <-------/
+          |             \     |  \ <--> Yxy  /
+          v              \    v  / <--- /   /
+          gray            \-> Grey <-------/
 ```
 
 |A	|B	|Done	|
@@ -54,6 +54,7 @@ HSV <--> sRGB <--> scRGB <--> XYZ <---------> Lab <---> LCh
 |HSL	|sRGB	|ok	|
 |HSV	|sRGB	|ok	|
 |sRGB	|scRGB	|ok	|
+|sRGB	|gray	|ok	|
 |scRGB	|XYZ	|ok	|
 |XYZ	|Lab	|ok	|
 |XYZ	|Yxy	|ok	|

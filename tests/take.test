@@ -16,13 +16,13 @@ kt source support/util.tcl
 ## Syntax
 
 syntax {
-    x {src0 src1}
-    y {src0 src1}
-    z {src0 src1}
+    x {index src}
+    y {index src}
+    z {index src}
 } {aktive op take}
 
 syntax {
-    if-then-else {src0 src1 src2}
+    if-then-else {selector then else}
 } {aktive op}
 
 # # ## ### ##### ######## ############# #####################

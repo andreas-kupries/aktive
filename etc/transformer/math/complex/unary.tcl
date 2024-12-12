@@ -38,26 +38,6 @@ operator band {
     }
 }
 
-operator op::cmath::cons {
-    section transform math complex binary
-
-    note Returns complex-valued image constructed from the 2 single-band inputs. \
-	First input becomes the real part, second the imaginary.
-
-    input	;# re
-    input	;# im
-
-    body {
-	if {([aktive query depth $src0] != 1) ||
-	    ([aktive query depth $src1] != 1)} {
-	    aktive error "Unable to use image with multiple bands for complex result" \
-		CAST COMPLEX MULTI-BAND
-	}
-
-	return [aktive op montage z $src0 $src1]
-    }
-}
-
 # # ## ### ##### ######## ############# #####################
 ##
 
@@ -96,8 +76,19 @@ operator {cfunction dexpr} {
     if {$dexpr eq {}} { set dexpr [namespace tail $__op] }
     if {![string match *I* $dexpr]} { append dexpr (I) }
 
-    note Returns complex-valued image with the complex-valued unary \
-	function '$dexpr' applied to all pixels of the image.
+    note Returns complex-valued image with the complex-valued \
+	unary function `${dexpr}` applied to all pixels of the image.
+
+    switch -exact -- $cfunction {
+	aktive_cmath_cartesian {
+	    note It expects that the input's real band contains the distance information, \
+		while the imaginary band is expected to contain the angles.
+	}
+	aktive_cmath_polar {
+	    note The distance information is stored in the real band, \
+		while the angles are stores in the imaginary band.
+	}
+    }
 
     note The resulting image has the same geometry as the input.
 

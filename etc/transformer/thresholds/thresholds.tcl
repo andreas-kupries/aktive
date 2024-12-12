@@ -28,7 +28,8 @@ operator image::threshold::mean {
 	@1 radius 7
     }
 
-    note Returns image containing per-pixel thresholds for the input, as per the local mean.
+    note Returns an image containing per-pixel thresholds for the input, \
+	as per the local mean.
 
     note The operator "<!xref: aktive image mask per mean>" \
 	uses this to generate a mask of the input.
@@ -75,7 +76,8 @@ operator image::threshold::bernsen {
 	@1 radius 7
     }
 
-    note Returns image containing per-pixel thresholds for the input, as per Bernsen's method.
+    note Returns an image containing per-pixel thresholds for the input, \
+	as per Bernsen's method.
 
     note The operator "<!xref: aktive image mask per bernsen>" \
 	uses this to generate a mask of the input.
@@ -123,7 +125,8 @@ operator image::threshold::niblack {
 	@1 radius 7
     }
 
-    note Returns image containing per-pixel thresholds for the input, as per Niblack's method.
+    note Returns an image containing per-pixel thresholds for the input, \
+	as per Niblack's method.
 
     note The operator "<!xref: aktive image mask per niblack>" \
 	uses this to generate a mask of the input.
@@ -174,7 +177,8 @@ operator image::threshold::sauvola {
 	@1 radius 7
     }
 
-    note Returns image containing per-pixel thresholds for the input, as per Sauvola's method.
+    note Returns an image containing per-pixel thresholds for the input, \
+	as per Sauvola's method.
 
     note The operator "<!xref: aktive image mask per sauvola>" \
 	uses this to generate a mask of the input.
@@ -228,7 +232,8 @@ operator image::threshold::phansalkar {
 	@1 radius 7
     }
 
-    note Returns image containing per-pixel thresholds for the input, as per Phansalkar's method.
+    note Returns an image containing per-pixel thresholds for the input, \
+	as per Phansalkar's method.
 
     note The operator "<!xref: aktive image mask per phansalkar>" \
 	uses this to generate a mask of the input.
@@ -288,7 +293,8 @@ operator image::threshold::otsu {
 	@1 radius 7
     }
 
-    note Returns image containing per-pixel thresholds for the input, as per Otsu's method.
+    note Returns an image containing per-pixel thresholds for the input, \
+	as per Otsu's method.
 
     note The operator "<!xref: aktive image mask per otsu>" \
 	uses this to generate a mask of the input.
@@ -333,7 +339,8 @@ operator image::threshold::wolfjolion {
 	@1 radius 7
     }
 
-    note Returns image containing per-pixel thresholds for the input, as per Wolf+Jolion's method.
+    note Returns an image containing per-pixel thresholds for the input, \
+	as per Wolf+Jolion's method.
 
     note The operator "<!xref: aktive image mask per wolfjolion>" \
 	uses this to generate a mask of the input.

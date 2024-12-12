@@ -25,8 +25,8 @@ operator warp::matrix {
     note The operations "<!xref: aktive transform affine>," \
 	"<!xref: aktive transform identity>," \
 	"<!xref: aktive transform projective>," \
-	"<!xref: aktive transform quad quad>," \
-	"<!xref: aktive transform quad unit>," \
+	"<!xref: aktive transform quad 2quad>," \
+	"<!xref: aktive transform quad unit2>," \
 	"<!xref: aktive transform reflect line>," \
 	"<!xref: aktive transform reflect x>," \
 	"<!xref: aktive transform reflect y>," \
@@ -51,7 +51,7 @@ operator warp::matrix {
 
     strict 1st The projective matrix is materialized and cached.
 
-    input	;# projective transform matrix
+    input transform	Matrix of an affine transform.
 
     uint   width  Width  of the returned image
     uint   height Height of the returned image

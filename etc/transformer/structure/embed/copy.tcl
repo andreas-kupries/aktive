@@ -14,7 +14,7 @@ operator op::embed::copy {
 	@1 left 32 right 32 top 32 bottom 32
     }
 
-    note Returns image embedding the input into a border \
+    note Returns an image embedding the input into a border \
 	made from the replicated input edges.
 
     uint? 0 left	Number of columns to extend the left input border by

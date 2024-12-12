@@ -11,10 +11,10 @@ operator op::embed::mirror {
 
     example {
 	aktive op sdf 2image smooth [aktive op sdf ring [aktive image sdf triangle width 128 height 128 a {10 10} b {50 80} c {80 30}] thickness 4]
-	@1 left 32 right 32 top 32 bottom 32
+	@1 left 32 right 32 top 32 bottom 32 | oframe 128 128
     }
 
-    note Returns image embedding the input into a border \
+    note Returns an image embedding the input into a border \
 	made from the replicated mirrored input.
 
     uint? 0 left	Number of columns to extend the left input border by

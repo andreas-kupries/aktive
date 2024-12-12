@@ -27,7 +27,7 @@ set t [aktive image from matrix width 4 height 2 values \
 # # ## ### ##### ######## ############# #####################
 
 syntax {
-    linear {src0 src1 src2}
+    linear {a b t}
 } {aktive op math}
 
 # # ## ### ##### ######## ############# #####################

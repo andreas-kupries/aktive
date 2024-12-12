@@ -28,9 +28,9 @@ operator {dexpr attr} {
 
     import? ../simpler/stat_$fun.rules	;# queries kind !!
 
-    note Returns image with input bands compressed to a single value, \
-	the $dexpr of the {*}$attr band values. The result is a single-band \
-	image with width and height of the input.
+    note Returns an image with the input bands compressed to a single value, \
+	the ${dexpr} of the {*}$attr band values. The result is a single-band \
+	image with the same width and height as the input.
 
     input
 
@@ -70,18 +70,22 @@ operator {attr} {
 
     section transform statistics
 
-    note Returns the second image with its input bands compressed to a single value, \
-	the first index where the band value is $attr than the threshold provided by \
-	the first image. The result is a single-band image with width and height \
-	of the inputs.
+    note Returns the source image with its bands compressed to a single value, \
+	the first index where the band value is $attr than the threshold. \
+	The result is a single-band image with the same width and height as the \
+	inputs.
 
-    note If no band matches the condition the result is the depth of the data image.
+    note The result is suitable for use by "<!xref: aktive op take z>."
+
+    note At the pixels where no band matches the condition the result is the \
+	depth of the data image.
 
     note Both images have to have the same width and height.
+
     note The threshold image has to be single-band.
 
-    input	;# thresholds
-    input	;# data
+    input thresholds	Single-band image of thresholds.
+    input src		Source to scan and compress.
 
     state -setup {
 	aktive_image     thresholds = srcs->v[0];

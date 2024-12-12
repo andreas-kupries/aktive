@@ -14,7 +14,7 @@ operator op::embed::white {
 	@1 left 32 right 32 top 32 bottom 32
     }
 
-    note Returns image embedding the input into a white border.
+    note Returns an image embedding the input into a white border.
 
     uint? 0 left	Number of columns to extend the left input border by
     uint? 0 right	Number of columns to extend the right input border by

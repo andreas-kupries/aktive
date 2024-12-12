@@ -18,12 +18,12 @@ operator {cfunction dexpr} {
     if {![string match *A* $dexpr]} { append dexpr "(A, B)" }
 
     note Returns complex-valued image with the complex-valued binary \
-	operation '$dexpr' applied to all shared pixels of the two inputs.
+	operation `${dexpr}` applied to all shared pixels of the two inputs.
 
     note The result geometry is the intersection of the inputs.
 
-    input
-    input
+    input a	Complex image A
+    input b	Complex image B
 
     state -setup {
 	aktive_geometry* a = aktive_image_get_geometry (srcs->v[0]);
@@ -46,6 +46,28 @@ operator {cfunction dexpr} {
 	aktive_blit_cbinary (block, dst, @@cfunction@@,
 			     aktive_region_fetch_area (srcs->v[0], request),
 			     aktive_region_fetch_area (srcs->v[1], request));
+    }
+}
+
+# # ## ### ##### ######## ############# #####################
+## Constructing complex-valued images
+
+operator op::cmath::cons {
+    section transform math complex binary
+
+    note Returns a complex-valued image constructed from two single-band inputs.
+
+    input real		Single-band image becoming the real part of the complex result
+    input imaginary	Single-band image becoming the imaginary part of the complex result
+
+    body {
+	if {([aktive query depth $real] != 1) ||
+	    ([aktive query depth $imaginary] != 1)} {
+	    aktive error "Unable to use image with multiple bands for complex result" \
+		CAST COMPLEX MULTI-BAND
+	}
+
+	return [aktive op montage z $real $imaginary]
     }
 }
 

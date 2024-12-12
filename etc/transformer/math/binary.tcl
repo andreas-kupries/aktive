@@ -8,28 +8,27 @@
 operator op::math::difference {
     section transform math binary
 
-    note Returns image holding the absolute difference of the inputs.
+    note Returns image holding the absolute difference `abs(A-B)` of the inputs.
 
-    input
-    input
+    input a	Image A
+    input b	Image B
 
     body {
-	return [aktive op math1 abs [sub $src0 $src1]]
+	return [aktive op math1 abs [sub $a $b]]
     }
 }
 
 operator op::math::screen {
     section transform math binary
 
-    note Returns image holding the `screen` of the inputs
-    # TODO :: what is this operation exactly ?
+    note Returns image holding the `screen(A,B) = A+B-A*B = A*(1-B)+B` of the inputs.
 
-    input
-    input
+    input a	Image A
+    input b	Image B
 
     body {
 	# (a+b)-ab = a-ab+b = a(1-b)+b
-	return [sub [add $src0 $src1] [mul $src0 $src1]]
+	return [sub [add $a $b] [mul $a $b]]
     }
 }
 
@@ -63,7 +62,7 @@ operator {cfunction dexpr} {
 } {
     op -> _ _ fun
 
-    note Returns image with the binary operation '$dexpr' applied to \
+    note Returns image with the binary operation `${dexpr}` applied to \
 	all shared pixels of the two inputs.
 
     note The result geometry is the intersection of the inputs.
@@ -77,8 +76,8 @@ operator {cfunction dexpr} {
 	section transform math binary
     }
 
-    input
-    input
+    input a	Image A
+    input b	Image B
 
     state -setup {
 	aktive_geometry* a = aktive_image_get_geometry (srcs->v[0]);
@@ -126,7 +125,7 @@ operator {cfunction dexpr} {
     input...
 
     note Returns image aggregated from the application of the associative \
-	binary operation '$dexpr' to all shared pixels of all the inputs.
+	binary operation `${dexpr}` to all shared pixels of all the inputs.
 
     state -setup {
 	aktive_uint i;

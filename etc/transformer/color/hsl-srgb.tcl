@@ -13,6 +13,11 @@
 operator op::color::sRGB::to::HSL {
     section transform color
 
+    example {
+	butterfly
+	@1
+    }
+
     note Returns image in HSL colorspace, from input in sRGB colorspace.
 
     cc-reduce sRGB HSL

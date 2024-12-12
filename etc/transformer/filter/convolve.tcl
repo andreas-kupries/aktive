@@ -43,25 +43,25 @@ operator {
 
     section transform convolution
 
-    input	;# convolution matrix - internally materialized (See `op::band::recombine`).
-    input	;# input image (See `op::tile::rank` for analogous blit setup).
+    input kernel The convolution kernel. Internally materialized and cached. ;# (See op::band::recombine)
+    input src	 The image to convolve	;# (See `op::tile::rank` for analogous blit setup).
 
-    note Returns image of input (2nd argument) convolved with the matrix (1st argument).
+    note Returns the result of convolving the input with the convolution kernel.
 
     strict 1st The convolution kernel is materialized and cached.
 
-    note The location of the matrix image is ignored.
+    note The location of the kernel image is ignored.
 
-    note A matrix with even width and/or height is extended at the right/bottom to \
+    note A kernel with even width and/or height is extended at the right/bottom to \
 	be of odd width and height.
 
-    note Beware, the result image is shrunken by matrix `width-1` and `height-1` \
+    note Beware, the result image is shrunken by kernel `width-1` and `height-1` \
 	relative to the input. Inputs smaller than that are rejected.
 
     note If shrinkage is not desired add a border to the input using one of \
 	the `aktive op embed ...` operators before applying this operator.
 
-    note The prefered embedding for convolution is `mirror`. \
+    note The prefered embedding for convolutions is `mirror`. \
 	It is chosen to have minimal to no impact on results \
 	at the original input's borders.
 

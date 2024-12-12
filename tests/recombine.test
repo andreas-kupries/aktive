@@ -16,7 +16,7 @@ kt source support/util.tcl
 ## Syntax
 
 syntax {
-    recombine {src0 src1}
+    recombine {matrix src}
 } {aktive op bands}
 
 # # ## ### ##### ######## ############# #####################

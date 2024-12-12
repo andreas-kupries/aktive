@@ -101,10 +101,11 @@ operator op::sdf::not {
 
     example {
 	aktive image sdf circle center {80 80} width 128 height 128 radius 40
-	@1 | sdf-fit ; sdf-smooth ; sdf-pixelated
+	@1 | ; sdf-fit ; sdf-smooth ; sdf-pixelated
     }
 
-    note Returns the inverted input SDF, where inside and outside changed places.
+    note Returns the inverted input SDF, where inside and outside changed places. \
+	This is defined as `1 - SRC`.
 
     input
 
@@ -122,7 +123,7 @@ operator op::sdf::or {
 	@1 @2 | sdf-fit ; sdf-smooth ; sdf-pixelated
     }
 
-    note Returns the union A or B or ... of the input SDFs
+    note Returns the union (`+`, `min`) of all input SDFs.
 
     input...
 
@@ -140,7 +141,7 @@ operator op::sdf::and {
 	@1 @2 | sdf-fit ; sdf-smooth ; sdf-pixelated
     }
 
-    note Returns the intersection A and B and ... of the input SDFs
+    note Returns the intersection (`*`, `max`) of all input SDFs.
 
     input...
 
@@ -158,14 +159,15 @@ operator op::sdf::sub {
 	@1 @2 | sdf-fit ; sdf-smooth ; sdf-pixelated
     }
 
-    note Returns the difference A - B of the two input SDFs
+    note Returns the difference `A - B` of the two input SDFs. \
+	This is defined as `A * (not B)`.
 
-    input	;# A
-    input	;# B
+    input a	SDF A
+    input b	SDF B
 
     body {
-	# The difference A-B is the intersection of A and (not B)
-	and $src0 [not $src1]
+	# The difference `A-B is the intersection of `A` and `not B`
+	and $a [not $b]
     }
 }
 
@@ -178,7 +180,7 @@ operator op::sdf::xor {
 	@1 @2 | sdf-fit ; sdf-smooth ; sdf-pixelated
     }
 
-    note Returns the symmetric difference of the input SDFs
+    note Returns the symmetric difference of all input SDFs.
 
     input...
 
@@ -198,14 +200,15 @@ operator op::sdf::xor-core {
 	@1 @2 | sdf-fit ; sdf-smooth ; sdf-pixelated
     }
 
-    note Returns the symmetric difference of the two input SDFs
+    note Returns the symmetric difference of the two input SDFs. \
+	This is defined as `(A + B) - (A * B)`.
 
-    input
-    input
+    input a	SDF A
+    input b	SDF B
 
     body {
 	# The symmetric difference is the union minus the intersection
-	sub [or $src0 $src1] [and $src0 $src1]
+	sub [or $a $b] [and $a $b]
     }
 }
 
@@ -217,7 +220,7 @@ operator op::sdf::ring {
 
     example {
 	aktive image sdf circle center {80 80} width 128 height 128 radius 40
-	@1 thickness 4 | sdf-fit ; sdf-smooth ; sdf-pixelated
+	@1 thickness 4 | ; sdf-fit ; sdf-smooth ; sdf-pixelated
     }
 
     note Combines outlining and rounding to replace the input SDF with \
@@ -229,6 +232,7 @@ operator op::sdf::ring {
 	outline.
 
     input
+
     uint thickness Desired border thickness.
 
     body {
@@ -241,7 +245,7 @@ operator op::sdf::outline {
 
     example {
 	aktive image sdf circle center {80 80} width 128 height 128 radius 40
-	@1 | sdf-fit ; sdf-smooth ; sdf-pixelated
+	@1 | ; sdf-fit ; sdf-smooth ; sdf-pixelated
     }
 
     note Replaces the input SDF with an outlined form, and returns the result.
@@ -260,7 +264,7 @@ operator op::sdf::round {
 
     example {
 	aktive image sdf box center {64 64} width 128 height 128 ewidth 40 eheight 40
-	@1 radius 20 | sdf-fit ; sdf-smooth ; sdf-pixelated
+	@1 radius 20 | ; sdf-fit ; sdf-smooth ; sdf-pixelated
     }
 
     note Replaces the input SDF with a more rounded form per the radius, \

@@ -53,7 +53,7 @@ operator {                     cfunction             mathfunc     dexpr classes}
     if {$dexpr eq {}} { set dexpr [namespace tail $__op] }
     if {![string match *I* $dexpr]} { append dexpr (I) }
 
-    note Returns image with the unary function '$dexpr' applied to all pixels of the input.
+    note Returns image with the unary function `${dexpr}` applied to all pixels of the input.
 
     note The resulting image has the same geometry as the input.
 
@@ -141,7 +141,7 @@ operator {                    function      mathfunc flip dexpr      pname     p
     if {![string match *@* $dexpr]} { append dexpr (I,@) }
     set dexpr [string map [list @ $pname] $dexpr]
 
-    note Returns image with the parameterized unary function '$dexpr' applied to all \
+    note Returns image with the parameterized unary function `${dexpr}` applied to all \
 	pixels of the input.
 
     if {$flip} {
@@ -193,7 +193,7 @@ operator {function lowkind highkind mode} {
 	$lowkind/$highkind interval given by the two boundaries applied \
 	to all pixels of the input.
 
-    note Values $mode the interval are indicated in the result.
+    note Values $mode the interval are indicated as `1` in the result.
     note The resulting image has the same geometry as the input.
 
     input

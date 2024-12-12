@@ -9,11 +9,11 @@ operator op::math::linear {
     section transform math
 
     note Blends first and second input under control of the third.
-    note As an equation: `result = A + T*(B-A)`.
+    note As an equation: `result = A + T*(B-A) = A*(1-T)+T*B`.
 
-    input	;# A :: primary image to blend with
-    input	;# B :: secondary image to blend into/over
-    input	;# T :: blend factors
+    input a	Primary image A to blend
+    input b	Secondary image B to blend into A
+    input t	Per-pixel blending factors
 
     note All inputs are extended to matching depth.
     note - The images to blend are extended with black/zeros.
@@ -23,22 +23,22 @@ operator op::math::linear {
 	An error is thrown if they don't.
 
     body {
-	lassign [aktive query geometry $src0] _ _ w0 h0 d0
-	lassign [aktive query geometry $src1] _ _ w1 h1 d1
-	lassign [aktive query geometry $src2] _ _ w2 h2 d2
+	lassign [aktive query geometry $a] _ _ wa ha da
+	lassign [aktive query geometry $b] _ _ wb hb db
+	lassign [aktive query geometry $t] _ _ wt ht dt
 
-	if {($w0 != $w1) || ($w0 != $w2) ||
-	    ($h0 != $h1) || ($h0 != $h2)} { aktive error "Geometry mismatch" }
+	if {($wa != $wb) || ($wa != $wt) ||
+	    ($ha != $hb) || ($ha != $ht)} { aktive error "Geometry mismatch" }
 
-	set d  [expr {max($d0,$d1,$d2)}]
-	if {$d0 < $d} { set src0 [aktive op embed band black $src0 down [expr {$d-$d0}]] }
-	if {$d1 < $d} { set src1 [aktive op embed band black $src1 down [expr {$d-$d1}]] }
-	if {$d2 < $d} { set src2 [aktive op embed band copy  $src2 down [expr {$d-$d2}]] }
+	set d  [expr {max($da,$db,$dt)}]
+	if {$da < $d} { set a [aktive op embed band black $a down [expr {$d-$da}]] }
+	if {$db < $d} { set b [aktive op embed band black $b down [expr {$d-$db}]] }
+	if {$dt < $d} { set t [aktive op embed band copy  $t down [expr {$d-$dt}]] }
 
 	#      Z = A + T*(B-A)	Accesses: 1xT, 1xB, 2xA
 	# <==> Z = (1-T)*A+T*B  Accesses: 2xT, 1xB, 1xA
 
-	return [aktive op math add $src0 [aktive op math mul $src2 [aktive op math sub $src1 $src0]]]
+	return [aktive op math add $a [aktive op math mul $t [aktive op math sub $b $a]]]
     }
 }
 
