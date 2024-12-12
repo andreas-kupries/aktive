@@ -111,9 +111,11 @@ import transformer/color/hsl-srgb.tcl
 import transformer/color/hsv-srgb.tcl
 import transformer/color/lab-lch.tcl
 import transformer/color/scrgb-xyz.tcl
+import transformer/color/srgb-gray.tcl
 import transformer/color/srgb-scrgb.tcl
 import transformer/color/xyz-lab.tcl
 import transformer/color/xyz-yxy.tcl
+#
 import transformer/color/non-core.tcl
 import transformer/color/recast.tcl
 
