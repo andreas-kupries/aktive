@@ -93,6 +93,10 @@ Syntax: __aktive op align bottom__ src ?(param value)...? [[→ definition](../.
 
 Returns image aligned to a border in a larger image.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
+
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |size|uint||Desired size of the image along the y-axis.|
@@ -118,6 +122,10 @@ Returns image aligned to a border in a larger image.
 Syntax: __aktive op align left__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=7&name=etc/transformer/structure/align.tcl)]
 
 Returns image aligned to a border in a larger image.
+
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -145,6 +153,10 @@ Syntax: __aktive op align right__ src ?(param value)...? [[→ definition](../..
 
 Returns image aligned to a border in a larger image.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
+
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |size|uint||Desired size of the image along the x-axis.|
@@ -170,6 +182,10 @@ Returns image aligned to a border in a larger image.
 Syntax: __aktive op align top__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=7&name=etc/transformer/structure/align.tcl)]
 
 Returns image aligned to a border in a larger image.
+
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -197,6 +213,9 @@ Syntax: __aktive op center-origin x__ src [[→ definition](../../../../file?ci=
 
 Returns image where the center column of the input is shifted to the origin of the x axis.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 #### <a name='op_center_origin_x__examples'></a> Examples
 
@@ -205,9 +224,9 @@ Returns image where the center column of the input is shifted to the origin of t
     <br>&nbsp;</th>
     <th>aktive op center-origin x @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00300.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00303.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00301.gif' alt='aktive op center-origin x @1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00304.gif' alt='aktive op center-origin x @1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
@@ -219,6 +238,9 @@ Syntax: __aktive op center-origin xy__ src [[→ definition](../../../../file?ci
 
 Returns image where the center pixel of the input is shifted to the origin.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 #### <a name='op_center_origin_xy__examples'></a> Examples
 
@@ -227,9 +249,9 @@ Returns image where the center pixel of the input is shifted to the origin.
     <br>&nbsp;</th>
     <th>aktive op center-origin xy @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00302.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00305.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00303.gif' alt='aktive op center-origin xy @1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00306.gif' alt='aktive op center-origin xy @1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
@@ -241,6 +263,9 @@ Syntax: __aktive op center-origin y__ src [[→ definition](../../../../file?ci=
 
 Returns image where the center row of the input is shifted to the origin of the y axis.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 #### <a name='op_center_origin_y__examples'></a> Examples
 
@@ -249,9 +274,9 @@ Returns image where the center row of the input is shifted to the origin of the 
     <br>&nbsp;</th>
     <th>aktive op center-origin y @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00304.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00307.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00305.gif' alt='aktive op center-origin y @1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00308.gif' alt='aktive op center-origin y @1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
@@ -263,6 +288,9 @@ Syntax: __aktive op center-origin z__ src [[→ definition](../../../../file?ci=
 
 Returns image where the center band of the input is shifted to the origin of the z axis.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 ---
 ### [↑](#top) <a name='op_crop'></a> aktive op crop
@@ -270,6 +298,10 @@ Returns image where the center band of the input is shifted to the origin of the
 Syntax: __aktive op crop__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=10&name=etc/transformer/structure/crop.tcl)]
 
 Returns image containing a rectangular subset of input, specified by the amount of rows and columns to remove from the four borders.
+
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -285,9 +317,9 @@ Returns image containing a rectangular subset of input, specified by the amount 
     <br>&nbsp;</th>
     <th>aktive op crop @1 left 10 right 20 top 30 bottom 50
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00349.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00364.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00350.gif' alt='aktive op crop @1 left 10 right 20 top 30 bottom 50' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00365.gif' alt='aktive op crop @1 left 10 right 20 top 30 bottom 50' style='border:4px solid gold'>
     <br>geometry(10 30 98 48 1)</td></tr>
 </table>
 
@@ -298,6 +330,10 @@ Returns image containing a rectangular subset of input, specified by the amount 
 Syntax: __aktive op embed band black__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=9&name=etc/transformer/structure/embed/band/black.tcl)]
 
 Returns image embedding the input into a set of black bands.
+
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -311,6 +347,10 @@ Syntax: __aktive op embed band copy__ src ?(param value)...? [[→ definition](.
 
 Returns image embedding the input into a set of copied bands.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
+
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |up|uint|0|Number of first band copies to add before the image bands|
@@ -321,7 +361,11 @@ Returns image embedding the input into a set of copied bands.
 
 Syntax: __aktive op embed bg__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=9&name=etc/transformer/structure/embed/bg.tcl)]
 
-Returns image embedding the input into an arbitrarily colored border. The color is specified through the band values.
+Returns an image embedding the input into an arbitrarily colored border. The color is specified through the band values.
+
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -338,9 +382,9 @@ Returns image embedding the input into an arbitrarily colored border. The color 
     <br>&nbsp;</th>
     <th>aktive op embed bg @1 left 32 right 32 top 32 bottom 32 values 0.5
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00369.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00384.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00370.gif' alt='aktive op embed bg @1 left 32 right 32 top 32 bottom 32 values 0.5' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00385.gif' alt='aktive op embed bg @1 left 32 right 32 top 32 bottom 32 values 0.5' style='border:4px solid gold'>
     <br>geometry(-32 -32 192 192 1)</td></tr>
 </table>
 
@@ -350,7 +394,11 @@ Returns image embedding the input into an arbitrarily colored border. The color 
 
 Syntax: __aktive op embed black__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=9&name=etc/transformer/structure/embed/black.tcl)]
 
-Returns image embedding the input into a black border.
+Returns an image embedding the input into a black border.
+
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -366,9 +414,9 @@ Returns image embedding the input into a black border.
     <br>&nbsp;</th>
     <th>aktive op embed black @1 left 32 right 32 top 32 bottom 32
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00371.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00386.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00372.gif' alt='aktive op embed black @1 left 32 right 32 top 32 bottom 32' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00387.gif' alt='aktive op embed black @1 left 32 right 32 top 32 bottom 32' style='border:4px solid gold'>
     <br>geometry(-32 -32 192 192 1)</td></tr>
 </table>
 
@@ -378,7 +426,11 @@ Returns image embedding the input into a black border.
 
 Syntax: __aktive op embed copy__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=9&name=etc/transformer/structure/embed/copy.tcl)]
 
-Returns image embedding the input into a border made from the replicated input edges.
+Returns an image embedding the input into a border made from the replicated input edges.
+
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -394,9 +446,9 @@ Returns image embedding the input into a border made from the replicated input e
     <br>&nbsp;</th>
     <th>aktive op embed copy @1 left 32 right 32 top 32 bottom 32
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00373.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00388.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00374.gif' alt='aktive op embed copy @1 left 32 right 32 top 32 bottom 32' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00389.gif' alt='aktive op embed copy @1 left 32 right 32 top 32 bottom 32' style='border:4px solid gold'>
     <br>geometry(-32 -32 192 192 1)</td></tr>
 </table>
 
@@ -406,7 +458,11 @@ Returns image embedding the input into a border made from the replicated input e
 
 Syntax: __aktive op embed mirror__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=9&name=etc/transformer/structure/embed/mirror.tcl)]
 
-Returns image embedding the input into a border made from the replicated mirrored input.
+Returns an image embedding the input into a border made from the replicated mirrored input.
+
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -422,10 +478,10 @@ Returns image embedding the input into a border made from the replicated mirrore
     <br>&nbsp;</th>
     <th>aktive op embed mirror @1 left 32 right 32 top 32 bottom 32
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00375.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00390.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00376.gif' alt='aktive op embed mirror @1 left 32 right 32 top 32 bottom 32' style='border:4px solid gold'>
-    <br>geometry(-32 -32 192 192 1)</td></tr>
+    <td valign='top'><table><tr><td valign='top'>oframe 128 128</td><td valign='top'><img src='example-00391.gif' alt='aktive op embed mirror @1 left 32 right 32 top 32 bottom 32' style='border:4px solid gold'>
+    <br>geometry(-32 -32 192 192 1)</td></tr></table></td></tr>
 </table>
 
 
@@ -434,7 +490,11 @@ Returns image embedding the input into a border made from the replicated mirrore
 
 Syntax: __aktive op embed tile__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=9&name=etc/transformer/structure/embed/tile.tcl)]
 
-Returns image embedding the input into a border made from the replicated input.
+Returns an image embedding the input into a border made from the replicated input.
+
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -450,10 +510,10 @@ Returns image embedding the input into a border made from the replicated input.
     <br>&nbsp;</th>
     <th>aktive op embed tile @1 left 32 right 32 top 32 bottom 32
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00377.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00392.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00378.gif' alt='aktive op embed tile @1 left 32 right 32 top 32 bottom 32' style='border:4px solid gold'>
-    <br>geometry(-32 -32 192 192 1)</td></tr>
+    <td valign='top'><table><tr><td valign='top'>oframe 128 128</td><td valign='top'><img src='example-00393.gif' alt='aktive op embed tile @1 left 32 right 32 top 32 bottom 32' style='border:4px solid gold'>
+    <br>geometry(-32 -32 192 192 1)</td></tr></table></td></tr>
 </table>
 
 
@@ -462,7 +522,11 @@ Returns image embedding the input into a border made from the replicated input.
 
 Syntax: __aktive op embed white__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=9&name=etc/transformer/structure/embed/white.tcl)]
 
-Returns image embedding the input into a white border.
+Returns an image embedding the input into a white border.
+
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -478,9 +542,9 @@ Returns image embedding the input into a white border.
     <br>&nbsp;</th>
     <th>aktive op embed white @1 left 32 right 32 top 32 bottom 32
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00379.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00394.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00380.gif' alt='aktive op embed white @1 left 32 right 32 top 32 bottom 32' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00395.gif' alt='aktive op embed white @1 left 32 right 32 top 32 bottom 32' style='border:4px solid gold'>
     <br>geometry(-32 -32 192 192 1)</td></tr>
 </table>
 
@@ -492,6 +556,9 @@ Syntax: __aktive op flip x__ src [[→ definition](../../../../file?ci=trunk&ln=
 
 Returns image which mirrors the input along the x-axis.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 #### <a name='op_flip_x__examples'></a> Examples
 
@@ -500,9 +567,9 @@ Returns image which mirrors the input along the x-axis.
     <br>&nbsp;</th>
     <th>aktive op flip x @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00381.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00396.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00382.gif' alt='aktive op flip x @1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00397.gif' alt='aktive op flip x @1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
@@ -514,6 +581,9 @@ Syntax: __aktive op flip y__ src [[→ definition](../../../../file?ci=trunk&ln=
 
 Returns image which mirrors the input along the y-axis.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 #### <a name='op_flip_y__examples'></a> Examples
 
@@ -522,9 +592,9 @@ Returns image which mirrors the input along the y-axis.
     <br>&nbsp;</th>
     <th>aktive op flip y @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00383.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00398.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00384.gif' alt='aktive op flip y @1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00399.gif' alt='aktive op flip y @1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
@@ -536,16 +606,26 @@ Syntax: __aktive op flip z__ src [[→ definition](../../../../file?ci=trunk&ln=
 
 Returns image which mirrors the input along the z-axis.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 ---
 ### [↑](#top) <a name='op_if_then_else'></a> aktive op if-then-else
 
-Syntax: __aktive op if-then-else__ src0 src1 src2 [[→ definition](../../../../file?ci=trunk&ln=149&name=etc/transformer/structure/take.tcl)]
+Syntax: __aktive op if-then-else__ selector then else [[→ definition](../../../../file?ci=trunk&ln=149&name=etc/transformer/structure/take.tcl)]
 
-Choose between second and third images based on the content of the first.
+Choose between inputs `then` and `else`, based on the content of the `selector`.
 
-All images have to have the same width and height. The selector image has to be single-band. The other images may have arbitrary depth, as long as both have the same.
+All images have to have the same width and height. The `selector` has to be single-band. The other images may have arbitrary depth, as long as both have the same.
 
+The `selector` content is clamped to `0..1`, and fractional values are rounded down to integer. 1-pixels in the `selector` pass the same pixel from `then` into the result, whereas 0-pixels in the `selector` pass the same pixel from `else` instead.
+
+|Input|Description|
+|:---|:---|
+|selector|Binary selections|
+|then|Image chosen where `selector == 1`.|
+|else|Image chosen where `selector == 0`.|
 
 ---
 ### [↑](#top) <a name='op_resize'></a> aktive op resize
@@ -555,6 +635,10 @@ Syntax: __aktive op resize__ src ?(param value)...? [[→ definition](../../../.
 Returns image resized to the specified width and height.
 
 This is a convenience operator implemented on top of [aktive op transform by](transform_structure_warp.md#op_transform_by).
+
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -569,9 +653,9 @@ This is a convenience operator implemented on top of [aktive op transform by](tr
     <br>&nbsp;</th>
     <th>aktive op resize @1 width 21 height 29
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00459.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00478.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 256 256 3)</td>
-    <td valign='top'><img src='example-00460.gif' alt='aktive op resize @1 width 21 height 29' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00479.gif' alt='aktive op resize @1 width 21 height 29' style='border:4px solid gold'>
     <br>geometry(0 0 21 29 3)</td></tr>
 </table>
 
@@ -584,6 +668,10 @@ Syntax: __aktive op rotate any__ src ?(param value)...? [[→ definition](../../
 Returns image rotating the input at an arbitrary angle around an arbitrary center. The default center is the image center.
 
 This is a convenience operator implemented on top of [aktive op transform by](transform_structure_warp.md#op_transform_by).
+
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -598,9 +686,9 @@ This is a convenience operator implemented on top of [aktive op transform by](tr
     <br>&nbsp;</th>
     <th>aktive op rotate any @1 by 33 around {32 32}
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00461.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00480.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 256 256 3)</td>
-    <td valign='top'><table><tr><td valign='top'>sframe</td><td valign='top'><img src='example-00462.gif' alt='aktive op rotate any @1 by 33 around {32 32}' style='border:4px solid gold'>
+    <td valign='top'><table><tr><td valign='top'>sframe</td><td valign='top'><img src='example-00481.gif' alt='aktive op rotate any @1 by 33 around {32 32}' style='border:4px solid gold'>
     <br>geometry(-116 -12 354 354 3)</td></tr></table></td></tr>
 </table>
 
@@ -612,6 +700,9 @@ Syntax: __aktive op rotate ccw__ src [[→ definition](../../../../file?ci=trunk
 
 Returns image rotating the input 90 degrees counter clockwise
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 #### <a name='op_rotate_ccw__examples'></a> Examples
 
@@ -620,9 +711,9 @@ Returns image rotating the input 90 degrees counter clockwise
     <br>&nbsp;</th>
     <th>aktive op rotate ccw @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00463.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00482.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00464.gif' alt='aktive op rotate ccw @1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00483.gif' alt='aktive op rotate ccw @1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
@@ -634,6 +725,9 @@ Syntax: __aktive op rotate cw__ src [[→ definition](../../../../file?ci=trunk&
 
 Returns image rotating the input 90 degrees clockwise.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 #### <a name='op_rotate_cw__examples'></a> Examples
 
@@ -642,9 +736,9 @@ Returns image rotating the input 90 degrees clockwise.
     <br>&nbsp;</th>
     <th>aktive op rotate cw @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00465.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00484.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00466.gif' alt='aktive op rotate cw @1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00485.gif' alt='aktive op rotate cw @1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
@@ -656,6 +750,9 @@ Syntax: __aktive op rotate half__ src [[→ definition](../../../../file?ci=trun
 
 Returns image rotating the input 180 degrees (counter) clockwise.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 #### <a name='op_rotate_half__examples'></a> Examples
 
@@ -664,9 +761,9 @@ Returns image rotating the input 180 degrees (counter) clockwise.
     <br>&nbsp;</th>
     <th>aktive op rotate half @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00467.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00486.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00468.gif' alt='aktive op rotate half @1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00487.gif' alt='aktive op rotate half @1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
@@ -680,6 +777,10 @@ Returns image with the input decimated along the x-axis according to the decimat
 
 This is accomplished by sub sampling the result of a lowpass filter applied to the input.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
+
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |by|uint|2|Decimation factor, range 2...|
@@ -692,9 +793,9 @@ This is accomplished by sub sampling the result of a lowpass filter applied to t
     <br>&nbsp;</th>
     <th>aktive op sample decimate x @1 by 4
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00495.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00514.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00496.gif' alt='aktive op sample decimate x @1 by 4' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00515.gif' alt='aktive op sample decimate x @1 by 4' style='border:4px solid gold'>
     <br>geometry(0 0 32 128 1)</td></tr>
 </table>
 
@@ -705,6 +806,10 @@ This is accomplished by sub sampling the result of a lowpass filter applied to t
 Syntax: __aktive op sample decimate xy__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/structure/resample/decimate.tcl)]
 
 Returns image with the input decimated along both x and y axes according to the decimation factor (>= 1).
+
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -718,9 +823,9 @@ Returns image with the input decimated along both x and y axes according to the 
     <br>&nbsp;</th>
     <th>aktive op sample decimate xy @1 by 4
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00497.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00516.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00498.gif' alt='aktive op sample decimate xy @1 by 4' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00517.gif' alt='aktive op sample decimate xy @1 by 4' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td></tr>
 </table>
 
@@ -734,6 +839,10 @@ Returns image with the input decimated along the y-axis according to the decimat
 
 This is accomplished by sub sampling the result of a lowpass filter applied to the input.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
+
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |by|uint|2|Decimation factor, range 2...|
@@ -746,9 +855,9 @@ This is accomplished by sub sampling the result of a lowpass filter applied to t
     <br>&nbsp;</th>
     <th>aktive op sample decimate y @1 by 4
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00499.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00518.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00500.gif' alt='aktive op sample decimate y @1 by 4' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00519.gif' alt='aktive op sample decimate y @1 by 4' style='border:4px solid gold'>
     <br>geometry(0 0 128 32 1)</td></tr>
 </table>
 
@@ -759,6 +868,10 @@ This is accomplished by sub sampling the result of a lowpass filter applied to t
 Syntax: __aktive op sample fill x__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=40&name=etc/transformer/structure/resample/fill.tcl)]
 
 Returns image where the input is "zero-stuffed" along the x-axis according to the stuffing factor S (>= 1). The S-1 gaps in the result are set to the given fill value, with zero, i.e. 0, used by default.
+
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -772,9 +885,9 @@ Returns image where the input is "zero-stuffed" along the x-axis according to th
     <br>&nbsp;</th>
     <th>aktive op sample fill x @1 by 4 fill 0.5
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00501.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00520.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00502.gif' alt='aktive op sample fill x @1 by 4 fill 0.5' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00521.gif' alt='aktive op sample fill x @1 by 4 fill 0.5' style='border:4px solid gold'>
     <br>geometry(0 0 512 128 1)</td></tr>
 </table>
 
@@ -785,6 +898,10 @@ Returns image where the input is "zero-stuffed" along the x-axis according to th
 Syntax: __aktive op sample fill xy__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=15&name=etc/transformer/structure/resample/fill.tcl)]
 
 Returns image where the input is "zero-stuffed" along both x and y axes according to the stuffing factor S (>= 1). The S-1 gaps in the result are set to the given fill value, with zero, i.e. 0, used by default.
+
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -798,9 +915,9 @@ Returns image where the input is "zero-stuffed" along both x and y axes accordin
     <br>&nbsp;</th>
     <th>aktive op sample fill xy @1 by 4 fill 0.5
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00503.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00522.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00504.gif' alt='aktive op sample fill xy @1 by 4 fill 0.5' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00523.gif' alt='aktive op sample fill xy @1 by 4 fill 0.5' style='border:4px solid gold'>
     <br>geometry(0 0 512 512 1)</td></tr>
 </table>
 
@@ -811,6 +928,10 @@ Returns image where the input is "zero-stuffed" along both x and y axes accordin
 Syntax: __aktive op sample fill y__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=40&name=etc/transformer/structure/resample/fill.tcl)]
 
 Returns image where the input is "zero-stuffed" along the y-axis according to the stuffing factor S (>= 1). The S-1 gaps in the result are set to the given fill value, with zero, i.e. 0, used by default.
+
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -824,9 +945,9 @@ Returns image where the input is "zero-stuffed" along the y-axis according to th
     <br>&nbsp;</th>
     <th>aktive op sample fill y @1 by 4 fill 0.5
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00505.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00524.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00506.gif' alt='aktive op sample fill y @1 by 4 fill 0.5' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00525.gif' alt='aktive op sample fill y @1 by 4 fill 0.5' style='border:4px solid gold'>
     <br>geometry(0 0 128 512 1)</td></tr>
 </table>
 
@@ -837,6 +958,10 @@ Returns image where the input is "zero-stuffed" along the y-axis according to th
 Syntax: __aktive op sample fill z__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=40&name=etc/transformer/structure/resample/fill.tcl)]
 
 Returns image where the input is "zero-stuffed" along the z-axis according to the stuffing factor S (>= 1). The S-1 gaps in the result are set to the given fill value, with zero, i.e. 0, used by default.
+
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -852,6 +977,10 @@ Returns image with the input interpolated along the x-axis according to the inte
 
 This is accomplished by low-pass filtering applied to the result of zero-stuffing the input.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
+
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |by|uint|2|Interpolation factor, range 2...|
@@ -864,9 +993,9 @@ This is accomplished by low-pass filtering applied to the result of zero-stuffin
     <br>&nbsp;</th>
     <th>aktive op sample interpolate x @1 by 4
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00507.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00526.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00508.gif' alt='aktive op sample interpolate x @1 by 4' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00527.gif' alt='aktive op sample interpolate x @1 by 4' style='border:4px solid gold'>
     <br>geometry(0 0 512 128 1)</td></tr>
 </table>
 
@@ -880,6 +1009,10 @@ Returns image with the input interpolated along both x and y axes according to t
 
 This is accomplished by low-pass filtering applied to the result of zero-stuffing the input.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
+
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |by|uint|2|Interpolation factor, range 2...|
@@ -892,9 +1025,9 @@ This is accomplished by low-pass filtering applied to the result of zero-stuffin
     <br>&nbsp;</th>
     <th>aktive op sample interpolate xy @1 by 4
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00509.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00528.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00510.gif' alt='aktive op sample interpolate xy @1 by 4' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00529.gif' alt='aktive op sample interpolate xy @1 by 4' style='border:4px solid gold'>
     <br>geometry(0 0 512 512 1)</td></tr>
 </table>
 
@@ -908,6 +1041,10 @@ Returns image with the input interpolated along the y-axis according to the inte
 
 This is accomplished by low-pass filtering applied to the result of zero-stuffing the input.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
+
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |by|uint|2|Interpolation factor, range 2...|
@@ -920,9 +1057,9 @@ This is accomplished by low-pass filtering applied to the result of zero-stuffin
     <br>&nbsp;</th>
     <th>aktive op sample interpolate y @1 by 4
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00511.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00530.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00512.gif' alt='aktive op sample interpolate y @1 by 4' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00531.gif' alt='aktive op sample interpolate y @1 by 4' style='border:4px solid gold'>
     <br>geometry(0 0 128 512 1)</td></tr>
 </table>
 
@@ -933,6 +1070,10 @@ This is accomplished by low-pass filtering applied to the result of zero-stuffin
 Syntax: __aktive op sample replicate x__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/transformer/structure/resample/replicated.tcl)]
 
 Returns image where the input is stretched along the x-axis according to the stretching factor (>= 1), and the gaps are filled by replicating the preceding non-gap pixel.
+
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -945,9 +1086,9 @@ Returns image where the input is stretched along the x-axis according to the str
     <br>&nbsp;</th>
     <th>aktive op sample replicate x @1 by 4
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00513.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00532.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00514.gif' alt='aktive op sample replicate x @1 by 4' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00533.gif' alt='aktive op sample replicate x @1 by 4' style='border:4px solid gold'>
     <br>geometry(0 0 512 128 1)</td></tr>
 </table>
 
@@ -958,6 +1099,10 @@ Returns image where the input is stretched along the x-axis according to the str
 Syntax: __aktive op sample replicate xy__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/structure/resample/replicated.tcl)]
 
 Returns image where the input is stretched along both x and y axes according to the stretching factor (>= 1), and the gaps are filled by replicating the preceding non-gap pixel.
+
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -970,9 +1115,9 @@ Returns image where the input is stretched along both x and y axes according to 
     <br>&nbsp;</th>
     <th>aktive op sample replicate xy @1 by 4
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00515.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00534.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00516.gif' alt='aktive op sample replicate xy @1 by 4' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00535.gif' alt='aktive op sample replicate xy @1 by 4' style='border:4px solid gold'>
     <br>geometry(0 0 512 512 1)</td></tr>
 </table>
 
@@ -983,6 +1128,10 @@ Returns image where the input is stretched along both x and y axes according to 
 Syntax: __aktive op sample replicate y__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/transformer/structure/resample/replicated.tcl)]
 
 Returns image where the input is stretched along the y-axis according to the stretching factor (>= 1), and the gaps are filled by replicating the preceding non-gap pixel.
+
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -995,9 +1144,9 @@ Returns image where the input is stretched along the y-axis according to the str
     <br>&nbsp;</th>
     <th>aktive op sample replicate y @1 by 4
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00517.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00536.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00518.gif' alt='aktive op sample replicate y @1 by 4' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00537.gif' alt='aktive op sample replicate y @1 by 4' style='border:4px solid gold'>
     <br>geometry(0 0 128 512 1)</td></tr>
 </table>
 
@@ -1008,6 +1157,10 @@ Returns image where the input is stretched along the y-axis according to the str
 Syntax: __aktive op sample replicate z__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/transformer/structure/resample/replicated.tcl)]
 
 Returns image where the input is stretched along the z-axis according to the stretching factor (>= 1), and the gaps are filled by replicating the preceding non-gap pixel.
+
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -1020,6 +1173,10 @@ Syntax: __aktive op sample sub x__ src ?(param value)...? [[→ definition](../.
 
 Returns image with the input sampled down along the x-axis according to the sampling factor S (>= 1). The result keeps every S'th pixel of the input. S-1 pixels after every kept pixel are removed.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
+
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |by|uint|2|Sampling factor, range 2...|
@@ -1031,9 +1188,9 @@ Returns image with the input sampled down along the x-axis according to the samp
     <br>&nbsp;</th>
     <th>aktive op sample sub x @1 by 4
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00519.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00538.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00520.gif' alt='aktive op sample sub x @1 by 4' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00539.gif' alt='aktive op sample sub x @1 by 4' style='border:4px solid gold'>
     <br>geometry(0 0 32 128 1)</td></tr>
 </table>
 
@@ -1044,6 +1201,10 @@ Returns image with the input sampled down along the x-axis according to the samp
 Syntax: __aktive op sample sub xy__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=32&name=etc/transformer/structure/resample/sub.tcl)]
 
 Returns image with the input sampled down along both x and y axes according to the sampling factor S (>= 1). The result keeps every S'th pixel of the input. S-1 pixels after every kept pixel are removed.
+
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -1056,9 +1217,9 @@ Returns image with the input sampled down along both x and y axes according to t
     <br>&nbsp;</th>
     <th>aktive op sample sub xy @1 by 4
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00521.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00540.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00522.gif' alt='aktive op sample sub xy @1 by 4' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00541.gif' alt='aktive op sample sub xy @1 by 4' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td></tr>
 </table>
 
@@ -1069,6 +1230,10 @@ Returns image with the input sampled down along both x and y axes according to t
 Syntax: __aktive op sample sub y__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=61&name=etc/transformer/structure/resample/sub.tcl)]
 
 Returns image with the input sampled down along the y-axis according to the sampling factor S (>= 1). The result keeps every S'th pixel of the input. S-1 pixels after every kept pixel are removed.
+
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -1081,9 +1246,9 @@ Returns image with the input sampled down along the y-axis according to the samp
     <br>&nbsp;</th>
     <th>aktive op sample sub y @1 by 4
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00523.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00542.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00524.gif' alt='aktive op sample sub y @1 by 4' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00543.gif' alt='aktive op sample sub y @1 by 4' style='border:4px solid gold'>
     <br>geometry(0 0 128 32 1)</td></tr>
 </table>
 
@@ -1094,6 +1259,10 @@ Returns image with the input sampled down along the y-axis according to the samp
 Syntax: __aktive op sample sub z__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=61&name=etc/transformer/structure/resample/sub.tcl)]
 
 Returns image with the input sampled down along the z-axis according to the sampling factor S (>= 1). The result keeps every S'th pixel of the input. S-1 pixels after every kept pixel are removed.
+
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -1106,6 +1275,10 @@ Syntax: __aktive op scroll x__ src (param value)... [[→ definition](../../../.
 
 Returns image with the pixels of the input shifted along the x axis so that the N'th column becomes the origin on that axis.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
+
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |offset|uint||x scroll offset|
@@ -1117,9 +1290,9 @@ Returns image with the pixels of the input shifted along the x axis so that the 
     <br>&nbsp;</th>
     <th>aktive op scroll x @1 offset 32
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00525.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00544.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00526.gif' alt='aktive op scroll x @1 offset 32' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00545.gif' alt='aktive op scroll x @1 offset 32' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
@@ -1130,6 +1303,10 @@ Returns image with the pixels of the input shifted along the x axis so that the 
 Syntax: __aktive op scroll y__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=14&name=etc/transformer/structure/scrolling.tcl)]
 
 Returns image with the pixels of the input shifted along the y axis so that the N'th row becomes the origin on that axis.
+
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -1142,9 +1319,9 @@ Returns image with the pixels of the input shifted along the y axis so that the 
     <br>&nbsp;</th>
     <th>aktive op scroll y @1 offset 32
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00527.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00546.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00528.gif' alt='aktive op scroll y @1 offset 32' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00547.gif' alt='aktive op scroll y @1 offset 32' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
@@ -1155,6 +1332,10 @@ Returns image with the pixels of the input shifted along the y axis so that the 
 Syntax: __aktive op scroll z__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=14&name=etc/transformer/structure/scrolling.tcl)]
 
 Returns image with the pixels of the input shifted along the z axis so that the N'th band becomes the origin on that axis.
+
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -1175,6 +1356,10 @@ The 2D location of the first cell of the input going into the
 
 result is the location of the result.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
+
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |from|uint||The input's first column to be placed into the result.|
@@ -1187,9 +1372,9 @@ result is the location of the result.
     <br>&nbsp;</th>
     <th>aktive op select x @1 from 20 to 50
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00579.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00602.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00580.gif' alt='aktive op select x @1 from 20 to 50' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00603.gif' alt='aktive op select x @1 from 20 to 50' style='border:4px solid gold'>
     <br>geometry(20 0 31 128 1)</td></tr>
 </table>
 
@@ -1209,6 +1394,10 @@ The 2D location of the first cell of the input going into the
 
 result is the location of the result.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
+
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |from|uint||The input's first row to be placed into the result.|
@@ -1221,9 +1410,9 @@ result is the location of the result.
     <br>&nbsp;</th>
     <th>aktive op select y @1 from 20 to 50
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00581.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00604.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00582.gif' alt='aktive op select y @1 from 20 to 50' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00605.gif' alt='aktive op select y @1 from 20 to 50' style='border:4px solid gold'>
     <br>geometry(0 20 128 31 1)</td></tr>
 </table>
 
@@ -1243,6 +1432,10 @@ The 2D location of the first cell of the input going into the
 
 result is the location of the result.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
+
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |from|uint||The input's first band to be placed into the result.|
@@ -1255,6 +1448,9 @@ Syntax: __aktive op split x__ src [[→ definition](../../../../file?ci=trunk&ln
 
 Returns list containing each column of the input as separate image.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 ---
 ### [↑](#top) <a name='op_split_y'></a> aktive op split y
@@ -1263,6 +1459,9 @@ Syntax: __aktive op split y__ src [[→ definition](../../../../file?ci=trunk&ln
 
 Returns list containing each row of the input as separate image.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 ---
 ### [↑](#top) <a name='op_split_z'></a> aktive op split z
@@ -1271,6 +1470,9 @@ Syntax: __aktive op split z__ src [[→ definition](../../../../file?ci=trunk&ln
 
 Returns list containing each band of the input as separate image.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 ---
 ### [↑](#top) <a name='op_swap_xy'></a> aktive op swap xy
@@ -1281,6 +1483,9 @@ Returns image with the x- and y-axes of the input exchanged.
 
 The location of the image is not changed.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 #### <a name='op_swap_xy__examples'></a> Examples
 
@@ -1289,9 +1494,9 @@ The location of the image is not changed.
     <br>&nbsp;</th>
     <th>aktive op swap xy @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00583.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00606.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00584.gif' alt='aktive op swap xy @1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00607.gif' alt='aktive op swap xy @1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
@@ -1305,6 +1510,9 @@ Returns image with the x- and z-axes of the input exchanged.
 
 The location of the image is not changed.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 ---
 ### [↑](#top) <a name='op_swap_yz'></a> aktive op swap yz
@@ -1315,84 +1523,69 @@ Returns image with the y- and z-axes of the input exchanged.
 
 The location of the image is not changed.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 ---
 ### [↑](#top) <a name='op_take_x'></a> aktive op take x
 
-Syntax: __aktive op take x__ src0 src1 [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/structure/take.tcl)]
+Syntax: __aktive op take x__ index src [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/structure/take.tcl)]
 
-Select values of the input (2nd argument) under the control of the index.
+Selects column values from the source under the control of the single-column index.
 
-Takes two inputs of the same height and depth.
+Takes two inputs of the same height and depth. The index is single-column. Its height and depth match the source. The result image has the same geometry as the index.
 
-The first input, the index, is single-column.
+The stored indices select, per result pixel, the column value to take from the source and place into the result.
 
-Its height and depth match the second input.
+Indices are clamped to the interval 0 ... #(columns-1) of the source. Fractional indices are rounded down to integer.
 
-The result image has the same geometry as the index.
+The locations of index and source are ignored. The result is placed at the coordinate origin/zero.
 
-The stored indices select, per result pixel, the column value to take from the second input and place into the result.
-
-Indices are clamped to the interval 0 ... #columns of the second input.
-
-Fractional indices are rounded down to integer.
-
-The locations of index and data inputs are ignored.
-
-The resut is placed at the coordinate origin/zero.
-
+|Input|Description|
+|:---|:---|
+|index|Indices selecting the per-pixel column of the source.|
+|src|Source the data is selected from.|
 
 ---
 ### [↑](#top) <a name='op_take_y'></a> aktive op take y
 
-Syntax: __aktive op take y__ src0 src1 [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/structure/take.tcl)]
+Syntax: __aktive op take y__ index src [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/structure/take.tcl)]
 
-Select values of the input (2nd argument) under the control of the index.
+Selects row values from the source under the control of the single-row index.
 
-Takes two inputs of the same width and depth.
+Takes two inputs of the same width and depth. The index is single-row. Its width and depth match the source. The result image has the same geometry as the index.
 
-The first input, the index, is single-row.
+The stored indices select, per result pixel, the row value to take from the source and place into the result.
 
-Its width and depth match the second input.
+Indices are clamped to the interval 0 ... #(rows-1) of the source. Fractional indices are rounded down to integer.
 
-The result image has the same geometry as the index.
+The locations of index and source are ignored. The result is placed at the coordinate origin/zero.
 
-The stored indices select, per result pixel, the row value to take from the second input and place into the result.
-
-Indices are clamped to the interval 0 ... #rows of the second input.
-
-Fractional indices are rounded down to integer.
-
-The locations of index and data inputs are ignored.
-
-The resut is placed at the coordinate origin/zero.
-
+|Input|Description|
+|:---|:---|
+|index|Indices selecting the per-pixel row of the source.|
+|src|Source the data is selected from.|
 
 ---
 ### [↑](#top) <a name='op_take_z'></a> aktive op take z
 
-Syntax: __aktive op take z__ src0 src1 [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/structure/take.tcl)]
+Syntax: __aktive op take z__ index src [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/structure/take.tcl)]
 
-Select values of the input (2nd argument) under the control of the index.
+Selects band values from the source under the control of the single-band index.
 
-Takes two inputs of the same width and height.
+Takes two inputs of the same width and height. The index is single-band. Its width and height match the source. The result image has the same geometry as the index.
 
-The first input, the index, is single-band.
+The stored indices select, per result pixel, the band value to take from the source and place into the result.
 
-Its width and height match the second input.
+Indices are clamped to the interval 0 ... #(bands-1) of the source. Fractional indices are rounded down to integer.
 
-The result image has the same geometry as the index.
+The locations of index and source are ignored. The result is placed at the coordinate origin/zero.
 
-The stored indices select, per result pixel, the band value to take from the second input and place into the result.
-
-Indices are clamped to the interval 0 ... #bands of the second input.
-
-Fractional indices are rounded down to integer.
-
-The locations of index and data inputs are ignored.
-
-The resut is placed at the coordinate origin/zero.
-
+|Input|Description|
+|:---|:---|
+|index|Indices selecting the per-pixel band of the source.|
+|src|Source the data is selected from.|
 
 ---
 ### [↑](#top) <a name='op_transpose'></a> aktive op transpose
@@ -1403,6 +1596,9 @@ Returns image with the input mirrored along the primary diagonal.
 
 This is an alias of `swap xy`.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 #### <a name='op_transpose__examples'></a> Examples
 
@@ -1411,9 +1607,9 @@ This is an alias of `swap xy`.
     <br>&nbsp;</th>
     <th>aktive op transpose @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00607.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00630.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00608.gif' alt='aktive op transpose @1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00631.gif' alt='aktive op transpose @1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
@@ -1425,6 +1621,9 @@ Syntax: __aktive op transverse__ src [[→ definition](../../../../file?ci=trunk
 
 Returns image with the input mirrored along the secondary diagonal.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 #### <a name='op_transverse__examples'></a> Examples
 
@@ -1433,9 +1632,9 @@ Returns image with the input mirrored along the secondary diagonal.
     <br>&nbsp;</th>
     <th>aktive op transverse @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00609.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00632.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00610.gif' alt='aktive op transverse @1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00633.gif' alt='aktive op transverse @1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 

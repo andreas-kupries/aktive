@@ -40,6 +40,9 @@ Syntax: __aktive query depth__ src [[→ definition](../../../../file?ci=trunk&l
 
 Returns the input's depth.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 #### <a name='query_depth__examples'></a> Examples
 
@@ -48,7 +51,7 @@ Returns the input's depth.
     <br>&nbsp;</th>
     <th>aktive query depth @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00621.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00644.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;1</td></tr>
 </table>
@@ -58,7 +61,7 @@ Returns the input's depth.
     <br>&nbsp;</th>
     <th>aktive query depth @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00623.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00646.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;1</td></tr>
 </table>
@@ -71,6 +74,9 @@ Syntax: __aktive query domain__ src [[→ definition](../../../../file?ci=trunk&
 
 Returns the input's domain, a 2D rectangle. I.e. location, width, and height.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 #### <a name='query_domain__examples'></a> Examples
 
@@ -79,7 +85,7 @@ Returns the input's domain, a 2D rectangle. I.e. location, width, and height.
     <br>&nbsp;</th>
     <th>aktive query domain @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00625.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00648.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;0 0 32 32</td></tr>
 </table>
@@ -89,7 +95,7 @@ Returns the input's domain, a 2D rectangle. I.e. location, width, and height.
     <br>&nbsp;</th>
     <th>aktive query domain @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00627.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00650.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;0 0 32 32</td></tr>
 </table>
@@ -102,6 +108,9 @@ Syntax: __aktive query geometry__ src [[→ definition](../../../../file?ci=trun
 
 Returns the input's full geometry, i.e. domain and depth.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 #### <a name='query_geometry__examples'></a> Examples
 
@@ -110,7 +119,7 @@ Returns the input's full geometry, i.e. domain and depth.
     <br>&nbsp;</th>
     <th>aktive query geometry @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00629.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00652.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;0 0 32 32 1</td></tr>
 </table>
@@ -120,7 +129,7 @@ Returns the input's full geometry, i.e. domain and depth.
     <br>&nbsp;</th>
     <th>aktive query geometry @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00631.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00654.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;0 0 32 32 1</td></tr>
 </table>
@@ -133,6 +142,9 @@ Syntax: __aktive query height__ src [[→ definition](../../../../file?ci=trunk&
 
 Returns the input's height.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 #### <a name='query_height__examples'></a> Examples
 
@@ -141,7 +153,7 @@ Returns the input's height.
     <br>&nbsp;</th>
     <th>aktive query height @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00633.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00656.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;32</td></tr>
 </table>
@@ -151,7 +163,7 @@ Returns the input's height.
     <br>&nbsp;</th>
     <th>aktive query height @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00635.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00658.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;32</td></tr>
 </table>
@@ -164,6 +176,9 @@ Syntax: __aktive query location__ src [[→ definition](../../../../file?ci=trun
 
 Returns the input's location, a 2D point.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 #### <a name='query_location__examples'></a> Examples
 
@@ -172,7 +187,7 @@ Returns the input's location, a 2D point.
     <br>&nbsp;</th>
     <th>aktive query location @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00637.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00660.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;0 0</td></tr>
 </table>
@@ -182,7 +197,7 @@ Returns the input's location, a 2D point.
     <br>&nbsp;</th>
     <th>aktive query location @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00639.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00662.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;0 0</td></tr>
 </table>
@@ -195,6 +210,9 @@ Syntax: __aktive query pitch__ src [[→ definition](../../../../file?ci=trunk&l
 
 Returns the input's pitch, the number of values in a row, i.e. width times depth.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 #### <a name='query_pitch__examples'></a> Examples
 
@@ -203,7 +221,7 @@ Returns the input's pitch, the number of values in a row, i.e. width times depth
     <br>&nbsp;</th>
     <th>aktive query pitch @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00647.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00670.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;32</td></tr>
 </table>
@@ -213,7 +231,7 @@ Returns the input's pitch, the number of values in a row, i.e. width times depth
     <br>&nbsp;</th>
     <th>aktive query pitch @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00649.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00672.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;32</td></tr>
 </table>
@@ -226,6 +244,9 @@ Syntax: __aktive query pixels__ src [[→ definition](../../../../file?ci=trunk&
 
 Returns the input's number of pixels.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 #### <a name='query_pixels__examples'></a> Examples
 
@@ -234,7 +255,7 @@ Returns the input's number of pixels.
     <br>&nbsp;</th>
     <th>aktive query pixels @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00651.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00674.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;1024</td></tr>
 </table>
@@ -244,7 +265,7 @@ Returns the input's number of pixels.
     <br>&nbsp;</th>
     <th>aktive query pixels @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00653.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00676.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;1024</td></tr>
 </table>
@@ -257,6 +278,9 @@ Syntax: __aktive query size__ src [[→ definition](../../../../file?ci=trunk&ln
 
 Returns the input's size, i.e. the number of pixels times depth.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 #### <a name='query_size__examples'></a> Examples
 
@@ -265,7 +289,7 @@ Returns the input's size, i.e. the number of pixels times depth.
     <br>&nbsp;</th>
     <th>aktive query size @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00659.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00682.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;1024</td></tr>
 </table>
@@ -275,7 +299,7 @@ Returns the input's size, i.e. the number of pixels times depth.
     <br>&nbsp;</th>
     <th>aktive query size @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00661.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00684.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;1024</td></tr>
 </table>
@@ -288,6 +312,9 @@ Syntax: __aktive query width__ src [[→ definition](../../../../file?ci=trunk&l
 
 Returns the input's width.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 #### <a name='query_width__examples'></a> Examples
 
@@ -296,7 +323,7 @@ Returns the input's width.
     <br>&nbsp;</th>
     <th>aktive query width @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00671.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00694.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;32</td></tr>
 </table>
@@ -306,7 +333,7 @@ Returns the input's width.
     <br>&nbsp;</th>
     <th>aktive query width @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00673.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00696.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;32</td></tr>
 </table>
@@ -319,6 +346,9 @@ Syntax: __aktive query x__ src [[→ definition](../../../../file?ci=trunk&ln=11
 
 Returns the input's x location.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 #### <a name='query_x__examples'></a> Examples
 
@@ -327,7 +357,7 @@ Returns the input's x location.
     <br>&nbsp;</th>
     <th>aktive query x @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00675.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00698.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;0</td></tr>
 </table>
@@ -337,7 +367,7 @@ Returns the input's x location.
     <br>&nbsp;</th>
     <th>aktive query x @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00677.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00700.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;0</td></tr>
 </table>
@@ -350,6 +380,9 @@ Syntax: __aktive query xmax__ src [[→ definition](../../../../file?ci=trunk&ln
 
 Returns the input's maximum x location.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 #### <a name='query_xmax__examples'></a> Examples
 
@@ -358,7 +391,7 @@ Returns the input's maximum x location.
     <br>&nbsp;</th>
     <th>aktive query xmax @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00679.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00702.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;31</td></tr>
 </table>
@@ -368,7 +401,7 @@ Returns the input's maximum x location.
     <br>&nbsp;</th>
     <th>aktive query xmax @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00681.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00704.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;31</td></tr>
 </table>
@@ -381,6 +414,9 @@ Syntax: __aktive query y__ src [[→ definition](../../../../file?ci=trunk&ln=11
 
 Returns the input's y location.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 #### <a name='query_y__examples'></a> Examples
 
@@ -389,7 +425,7 @@ Returns the input's y location.
     <br>&nbsp;</th>
     <th>aktive query y @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00683.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00706.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;0</td></tr>
 </table>
@@ -399,7 +435,7 @@ Returns the input's y location.
     <br>&nbsp;</th>
     <th>aktive query y @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00685.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00708.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;0</td></tr>
 </table>
@@ -412,6 +448,9 @@ Syntax: __aktive query ymax__ src [[→ definition](../../../../file?ci=trunk&ln
 
 Returns the input's maximum y location.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 #### <a name='query_ymax__examples'></a> Examples
 
@@ -420,7 +459,7 @@ Returns the input's maximum y location.
     <br>&nbsp;</th>
     <th>aktive query ymax @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00687.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00710.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;31</td></tr>
 </table>
@@ -430,7 +469,7 @@ Returns the input's maximum y location.
     <br>&nbsp;</th>
     <th>aktive query ymax @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00689.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00712.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;31</td></tr>
 </table>

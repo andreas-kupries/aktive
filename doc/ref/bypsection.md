@@ -39,7 +39,6 @@
   - [complex &mdash; reduce transform math](transform_math_complex_reduce.md)
   - [complex &mdash; transform math](transform_math_complex.md)
   - [complex &mdash; unary transform math](transform_math_complex_unary.md)
-  - [compose &mdash; transform lookup indexed](transform_lookup_indexed_compose.md)
   - [composer](composer.md)
   - [convolution &mdash; transform](transform_convolution.md)
 
@@ -78,8 +77,6 @@
 ## <a name='_i'></a> i
 
   - [identity &mdash; transform](transform_identity.md)
-  - [indexed &mdash; compose transform lookup](transform_lookup_indexed_compose.md)
-  - [indexed &mdash; make transform lookup](transform_lookup_indexed_make.md)
   - [indexed &mdash; transform lookup](transform_lookup_indexed.md)
 
 ## <a name='_k'></a> k
@@ -92,14 +89,11 @@
   - [logical &mdash; transform math binary](transform_math_binary_logical.md)
   - [logical &mdash; transform math n-ary](transform_math_nary_logical.md)
   - [logical &mdash; transform math unary](transform_math_unary_logical.md)
-  - [lookup &mdash; indexed compose transform](transform_lookup_indexed_compose.md)
-  - [lookup &mdash; indexed make transform](transform_lookup_indexed_make.md)
   - [lookup &mdash; indexed transform](transform_lookup_indexed.md)
   - [lookup &mdash; transform](transform_lookup.md)
 
 ## <a name='_m'></a> m
 
-  - [make &mdash; transform lookup indexed](transform_lookup_indexed_make.md)
   - [mask &mdash; generate transform threshold](transform_threshold_mask_generate.md)
   - [mask &mdash; transform threshold](transform_threshold_mask.md)
   - [math &mdash; binary logical transform](transform_math_binary_logical.md)
@@ -164,8 +158,6 @@
   - [transform &mdash; location](transform_location.md)
   - [transform &mdash; lookup](transform_lookup.md)
   - [transform &mdash; lookup indexed](transform_lookup_indexed.md)
-  - [transform &mdash; lookup indexed compose](transform_lookup_indexed_compose.md)
-  - [transform &mdash; lookup indexed make](transform_lookup_indexed_make.md)
   - [transform &mdash; math](transform_math.md)
   - [transform &mdash; math binary](transform_math_binary.md)
   - [transform &mdash; math binary logical](transform_math_binary_logical.md)

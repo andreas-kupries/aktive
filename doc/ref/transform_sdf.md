@@ -35,10 +35,13 @@
 ---
 ### [↑](#top) <a name='op_sdf_2image_fit'></a> aktive op sdf 2image fit
 
-Syntax: __aktive op sdf 2image fit__ src [[→ definition](../../../../file?ci=trunk&ln=291&name=etc/generator/virtual/sdf.tcl)]
+Syntax: __aktive op sdf 2image fit__ src [[→ definition](../../../../file?ci=trunk&ln=295&name=etc/generator/virtual/sdf.tcl)]
 
 Compresses the input SDF into the range 0..1 and returns the resulting grayscale image.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 #### <a name='op_sdf_2image_fit__examples'></a> Examples
 
@@ -49,11 +52,11 @@ Compresses the input SDF into the range 0..1 and returns the resulting grayscale
     <br>&nbsp;</th>
     <th>aktive op sdf and @1 @2
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00529.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00548.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00530.gif' alt='@2' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00549.gif' alt='@2' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00531.gif' alt='aktive op sdf and @1 @2' style='border:4px solid gold'>
+    <td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00550.gif' alt='aktive op sdf and @1 @2' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr></table></td></tr>
 </table>
 
@@ -61,10 +64,13 @@ Compresses the input SDF into the range 0..1 and returns the resulting grayscale
 ---
 ### [↑](#top) <a name='op_sdf_2image_pixelated'></a> aktive op sdf 2image pixelated
 
-Syntax: __aktive op sdf 2image pixelated__ src [[→ definition](../../../../file?ci=trunk&ln=328&name=etc/generator/virtual/sdf.tcl)]
+Syntax: __aktive op sdf 2image pixelated__ src [[→ definition](../../../../file?ci=trunk&ln=332&name=etc/generator/virtual/sdf.tcl)]
 
 Converts the SDF into a black/white image with pixelated element borders.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 #### <a name='op_sdf_2image_pixelated__examples'></a> Examples
 
@@ -75,11 +81,11 @@ Converts the SDF into a black/white image with pixelated element borders.
     <br>&nbsp;</th>
     <th>aktive op sdf and @1 @2
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00532.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00551.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00533.gif' alt='@2' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00552.gif' alt='@2' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><table><tr><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00534.gif' alt='aktive op sdf and @1 @2' style='border:4px solid gold'>
+    <td valign='top'><table><tr><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00553.gif' alt='aktive op sdf and @1 @2' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr></table></td></tr>
 </table>
 
@@ -87,10 +93,13 @@ Converts the SDF into a black/white image with pixelated element borders.
 ---
 ### [↑](#top) <a name='op_sdf_2image_smooth'></a> aktive op sdf 2image smooth
 
-Syntax: __aktive op sdf 2image smooth__ src [[→ definition](../../../../file?ci=trunk&ln=309&name=etc/generator/virtual/sdf.tcl)]
+Syntax: __aktive op sdf 2image smooth__ src [[→ definition](../../../../file?ci=trunk&ln=313&name=etc/generator/virtual/sdf.tcl)]
 
 Converts the SDF into a grey-scale image with anti-aliased element borders.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 #### <a name='op_sdf_2image_smooth__examples'></a> Examples
 
@@ -101,11 +110,11 @@ Converts the SDF into a grey-scale image with anti-aliased element borders.
     <br>&nbsp;</th>
     <th>aktive op sdf and @1 @2
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00535.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00554.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00536.gif' alt='@2' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00555.gif' alt='@2' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><table><tr><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00537.gif' alt='aktive op sdf and @1 @2' style='border:4px solid gold'>
+    <td valign='top'><table><tr><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00556.gif' alt='aktive op sdf and @1 @2' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr></table></td></tr>
 </table>
 
@@ -115,8 +124,11 @@ Converts the SDF into a grey-scale image with anti-aliased element borders.
 
 Syntax: __aktive op sdf not__ src [[→ definition](../../../../file?ci=trunk&ln=99&name=etc/generator/virtual/sdf.tcl)]
 
-Returns the inverted input SDF, where inside and outside changed places.
+Returns the inverted input SDF, where inside and outside changed places. This is defined as `1 - SRC`.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 #### <a name='op_sdf_not__examples'></a> Examples
 
@@ -125,11 +137,12 @@ Returns the inverted input SDF, where inside and outside changed places.
     <br>&nbsp;</th>
     <th>aktive op sdf not @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00543.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00562.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00544.gif' alt='aktive op sdf not @1' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00545.gif' alt='aktive op sdf not @1' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00546.gif' alt='aktive op sdf not @1' style='border:4px solid gold'>
+    <td valign='top'><table><tr><td valign='top'><img src='example-00563.gif' alt='aktive op sdf not @1' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00564.gif' alt='aktive op sdf not @1' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00565.gif' alt='aktive op sdf not @1' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00566.gif' alt='aktive op sdf not @1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr></table></td></tr>
 </table>
 
@@ -137,12 +150,15 @@ Returns the inverted input SDF, where inside and outside changed places.
 ---
 ### [↑](#top) <a name='op_sdf_outline'></a> aktive op sdf outline
 
-Syntax: __aktive op sdf outline__ src [[→ definition](../../../../file?ci=trunk&ln=239&name=etc/generator/virtual/sdf.tcl)]
+Syntax: __aktive op sdf outline__ src [[→ definition](../../../../file?ci=trunk&ln=243&name=etc/generator/virtual/sdf.tcl)]
 
 Replaces the input SDF with an outlined form, and returns the result.
 
 This is implemented by taking the absolute of the input.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 #### <a name='op_sdf_outline__examples'></a> Examples
 
@@ -151,11 +167,12 @@ This is implemented by taking the absolute of the input.
     <br>&nbsp;</th>
     <th>aktive op sdf outline @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00552.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00572.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00553.gif' alt='aktive op sdf outline @1' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00554.gif' alt='aktive op sdf outline @1' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00555.gif' alt='aktive op sdf outline @1' style='border:4px solid gold'>
+    <td valign='top'><table><tr><td valign='top'><img src='example-00573.gif' alt='aktive op sdf outline @1' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00574.gif' alt='aktive op sdf outline @1' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00575.gif' alt='aktive op sdf outline @1' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00576.gif' alt='aktive op sdf outline @1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr></table></td></tr>
 </table>
 
@@ -163,13 +180,17 @@ This is implemented by taking the absolute of the input.
 ---
 ### [↑](#top) <a name='op_sdf_ring'></a> aktive op sdf ring
 
-Syntax: __aktive op sdf ring__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=215&name=etc/generator/virtual/sdf.tcl)]
+Syntax: __aktive op sdf ring__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=218&name=etc/generator/virtual/sdf.tcl)]
 
 Combines outlining and rounding to replace the input SDF with an SDF tracing the border at some thickness and returns the result.
 
 The result is annular, i.e. has a ring/onion-like structure.
 
 Note that a thickness of zero devolves this operation to a plain outline.
+
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -182,11 +203,12 @@ Note that a thickness of zero devolves this operation to a plain outline.
     <br>&nbsp;</th>
     <th>aktive op sdf ring @1 thickness 4
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00556.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00577.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00557.gif' alt='aktive op sdf ring @1 thickness 4' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00558.gif' alt='aktive op sdf ring @1 thickness 4' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00559.gif' alt='aktive op sdf ring @1 thickness 4' style='border:4px solid gold'>
+    <td valign='top'><table><tr><td valign='top'><img src='example-00578.gif' alt='aktive op sdf ring @1 thickness 4' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00579.gif' alt='aktive op sdf ring @1 thickness 4' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00580.gif' alt='aktive op sdf ring @1 thickness 4' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00581.gif' alt='aktive op sdf ring @1 thickness 4' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr></table></td></tr>
 </table>
 
@@ -194,7 +216,7 @@ Note that a thickness of zero devolves this operation to a plain outline.
 ---
 ### [↑](#top) <a name='op_sdf_round'></a> aktive op sdf round
 
-Syntax: __aktive op sdf round__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=258&name=etc/generator/virtual/sdf.tcl)]
+Syntax: __aktive op sdf round__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=262&name=etc/generator/virtual/sdf.tcl)]
 
 Replaces the input SDF with a more rounded form per the radius, and returns the result.
 
@@ -205,6 +227,10 @@ For a radius > 0 this expands the SDF, making the encoded element rounder. A rad
 To get a rounded SDF at the original size use a pre-shrunken/expanded SDF as the input to compensate the changes made by this operator.
 
 A radius of zero is ignored.
+
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -217,11 +243,12 @@ A radius of zero is ignored.
     <br>&nbsp;</th>
     <th>aktive op sdf round @1 radius 20
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00560.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00582.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00561.gif' alt='aktive op sdf round @1 radius 20' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00562.gif' alt='aktive op sdf round @1 radius 20' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00563.gif' alt='aktive op sdf round @1 radius 20' style='border:4px solid gold'>
+    <td valign='top'><table><tr><td valign='top'><img src='example-00583.gif' alt='aktive op sdf round @1 radius 20' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00584.gif' alt='aktive op sdf round @1 radius 20' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00585.gif' alt='aktive op sdf round @1 radius 20' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00586.gif' alt='aktive op sdf round @1 radius 20' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr></table></td></tr>
 </table>
 

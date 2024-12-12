@@ -26,10 +26,13 @@
 
 Syntax: __aktive op math1 not__ src [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/math/unary.tcl)]
 
-Returns image with the unary function '!I' applied to all pixels of the input.
+Returns image with the unary function `!I` applied to all pixels of the input.
 
 The resulting image has the same geometry as the input.
 
 As a logical operation the input image is implicitly trivially thresholded at 0.5. Values <= 0.5 are seen as false, else as true.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 

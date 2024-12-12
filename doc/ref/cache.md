@@ -32,4 +32,7 @@ However, this operator materializes and caches the input in memory, for fast ran
 
 This is useful to put in front of a computationally expensive pipeline, to avoid recomputing parts as upstream demands them. The trade-off here is, of course, memory for time.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 

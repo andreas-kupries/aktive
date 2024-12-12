@@ -29,58 +29,82 @@
 ---
 ### [↑](#top) <a name='op_cmath_add'></a> aktive op cmath add
 
-Syntax: __aktive op cmath add__ src0 src1 [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/math/complex/binary.tcl)]
+Syntax: __aktive op cmath add__ a b [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/math/complex/binary.tcl)]
 
-Returns complex-valued image with the complex-valued binary operation 'A + B' applied to all shared pixels of the two inputs.
+Returns complex-valued image with the complex-valued binary operation `A + B` applied to all shared pixels of the two inputs.
 
 The result geometry is the intersection of the inputs.
 
+|Input|Description|
+|:---|:---|
+|a|Complex image A|
+|b|Complex image B|
 
 ---
 ### [↑](#top) <a name='op_cmath_cons'></a> aktive op cmath cons
 
-Syntax: __aktive op cmath cons__ src0 src1 [[→ definition](../../../../file?ci=trunk&ln=41&name=etc/transformer/math/complex/unary.tcl)]
+Syntax: __aktive op cmath cons__ real imaginary [[→ definition](../../../../file?ci=trunk&ln=55&name=etc/transformer/math/complex/binary.tcl)]
 
-Returns complex-valued image constructed from the 2 single-band inputs. First input becomes the real part, second the imaginary.
+Returns a complex-valued image constructed from two single-band inputs.
 
+|Input|Description|
+|:---|:---|
+|real|Single-band image becoming the real part of the complex result|
+|imaginary|Single-band image becoming the imaginary part of the complex result|
 
 ---
 ### [↑](#top) <a name='op_cmath_div'></a> aktive op cmath div
 
-Syntax: __aktive op cmath div__ src0 src1 [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/math/complex/binary.tcl)]
+Syntax: __aktive op cmath div__ a b [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/math/complex/binary.tcl)]
 
-Returns complex-valued image with the complex-valued binary operation 'A / B' applied to all shared pixels of the two inputs.
+Returns complex-valued image with the complex-valued binary operation `A / B` applied to all shared pixels of the two inputs.
 
 The result geometry is the intersection of the inputs.
 
+|Input|Description|
+|:---|:---|
+|a|Complex image A|
+|b|Complex image B|
 
 ---
 ### [↑](#top) <a name='op_cmath_mul'></a> aktive op cmath mul
 
-Syntax: __aktive op cmath mul__ src0 src1 [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/math/complex/binary.tcl)]
+Syntax: __aktive op cmath mul__ a b [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/math/complex/binary.tcl)]
 
-Returns complex-valued image with the complex-valued binary operation 'A * B' applied to all shared pixels of the two inputs.
+Returns complex-valued image with the complex-valued binary operation `A * B` applied to all shared pixels of the two inputs.
 
 The result geometry is the intersection of the inputs.
 
+|Input|Description|
+|:---|:---|
+|a|Complex image A|
+|b|Complex image B|
 
 ---
 ### [↑](#top) <a name='op_cmath_pow'></a> aktive op cmath pow
 
-Syntax: __aktive op cmath pow__ src0 src1 [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/math/complex/binary.tcl)]
+Syntax: __aktive op cmath pow__ a b [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/math/complex/binary.tcl)]
 
-Returns complex-valued image with the complex-valued binary operation 'pow(A, B)' applied to all shared pixels of the two inputs.
+Returns complex-valued image with the complex-valued binary operation `pow(A, B)` applied to all shared pixels of the two inputs.
 
 The result geometry is the intersection of the inputs.
 
+|Input|Description|
+|:---|:---|
+|a|Complex image A|
+|b|Complex image B|
 
 ---
 ### [↑](#top) <a name='op_cmath_sub'></a> aktive op cmath sub
 
-Syntax: __aktive op cmath sub__ src0 src1 [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/math/complex/binary.tcl)]
+Syntax: __aktive op cmath sub__ a b [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/math/complex/binary.tcl)]
 
-Returns complex-valued image with the complex-valued binary operation 'A - B' applied to all shared pixels of the two inputs.
+Returns complex-valued image with the complex-valued binary operation `A - B` applied to all shared pixels of the two inputs.
 
 The result geometry is the intersection of the inputs.
 
+|Input|Description|
+|:---|:---|
+|a|Complex image A|
+|b|Complex image B|
 

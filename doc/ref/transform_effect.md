@@ -37,6 +37,10 @@ Syntax: __aktive effect blur__ src ?(param value)...? [[→ definition](../../..
 
 Returns blurred input, per the specified blur radius.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
+
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |radius|double|2|Blur kernel radius. Defaults to 2.|
@@ -72,6 +76,10 @@ Returns blurred input, per the specified blur radius.
 Syntax: __aktive effect charcoal__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=232&name=etc/transformer/filter/effects.tcl)]
 
 Returns a grey image with a charcoal-like sketch of the sRGB input.
+
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -109,6 +117,9 @@ Syntax: __aktive effect emboss__ src [[→ definition](../../../../file?ci=trunk
 
 Returns embossed input.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 #### <a name='effect_emboss__examples'></a> Examples
 
@@ -132,6 +143,10 @@ Syntax: __aktive effect jitter gauss__ src ?(param value)...? [[→ definition](
 Returns the input with a jitter effect based on gaussian noise applied to it. Visually this looks like frosted glass.
 
 The underlying operation is [aktive warp noise gauss](generator_virtual_warp.md#warp_noise_gauss).
+
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -184,6 +199,10 @@ Syntax: __aktive effect jitter uniform__ src ?(param value)...? [[→ definition
 Returns the input with a jitter effect based on uniform noise applied to it. Visually this looks like frosted glass.
 
 The underlying operation is [aktive warp noise uniform](generator_virtual_warp.md#warp_noise_uniform).
+
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -241,6 +260,9 @@ Despite the use of `rgb` in the operator name this operator works on all multi-b
 
 Idea from <https://docs.gimp.org/2.8/en/plug-in-max-rgb.html>
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 #### <a name='effect_max_rgb__examples'></a> Examples
 
@@ -269,6 +291,9 @@ Despite the use of `rgb` in the operator name this operator works on all multi-b
 
 Idea from <https://docs.gimp.org/2.8/en/plug-in-max-rgb.html>
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 #### <a name='effect_min_rgb__examples'></a> Examples
 
@@ -291,6 +316,9 @@ Syntax: __aktive effect sharpen__ src [[→ definition](../../../../file?ci=trun
 
 Returns sharpened input.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 #### <a name='effect_sharpen__examples'></a> Examples
 
@@ -313,6 +341,9 @@ Syntax: __aktive effect sketch__ src [[→ definition](../../../../file?ci=trunk
 
 Returns image with a general sketch of the input.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 #### <a name='effect_sketch__examples'></a> Examples
 
@@ -353,6 +384,10 @@ The rotation angle added to a pixel is given by "__phi__ + __from__ * exp(-__rad
 All swirl parameters are optional.
 
 The underlying operation is [aktive warp swirl](generator_virtual_warp.md#warp_swirl).
+
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|

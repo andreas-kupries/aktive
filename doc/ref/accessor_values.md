@@ -36,6 +36,10 @@ Beware that the coordinate domain is `0..width|height`, regardless of image loca
 
 This operator is __strict__ in its single input. The requested pixel region is materialized in memory.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
+
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |x|int||Physical x-coordinate of the pixel to query|
@@ -55,6 +59,10 @@ Beware that the coordinate domain is `0..width|height`, regardless of image loca
 
 This operator is __strict__ in its single input. The requested pixel is materialized in memory.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
+
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |x|int||Physical x-coordinate of the pixel to query|
@@ -67,7 +75,7 @@ This operator is __strict__ in its single input. The requested pixel is material
     <br>&nbsp;</th>
     <th>aktive query value at @1 x 0 y 1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><table><tr><td valign='top'>times 16</td><td valign='top'><img src='example-00667.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><table><tr><td valign='top'>times 16</td><td valign='top'><img src='example-00690.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td></tr></table></td>
     <td valign='top'>&nbsp;0.6666666666666666</td></tr>
 </table>
@@ -86,6 +94,9 @@ The list has length "[aktive query size](accessor_geometry.md#query_size) \<src\
 
 This operator is __strict__ in its single input. The image is materialized in memory.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 #### <a name='query_values__examples'></a> Examples
 
@@ -94,7 +105,7 @@ This operator is __strict__ in its single input. The image is materialized in me
     <br>&nbsp;</th>
     <th>aktive query values @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><table><tr><td valign='top'>times 16</td><td valign='top'><img src='example-00669.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><table><tr><td valign='top'>times 16</td><td valign='top'><img src='example-00692.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td></tr></table></td>
     <td valign='top'>&nbsp;0.0 0.3333333333333333 0.6666666666666666 1.0</td></tr>
 </table>

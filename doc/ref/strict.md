@@ -83,6 +83,7 @@ It all depends on the details of the operator in question.
  - [aktive op image sumsquared](sink_statistics.md#op_image_sumsquared)
  - [aktive op image variance](sink_statistics.md#op_image_variance)
  - [aktive op lut indexed](transform_lookup_indexed.md#op_lut_indexed)
+ - [aktive op lut indexed-core](transform_lookup_indexed.md#op_lut_indexed_core)
  - [aktive op transform by](transform_structure_warp.md#op_transform_by)
 
 ## <a name='_q'></a> q

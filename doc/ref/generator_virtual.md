@@ -745,7 +745,6 @@ Syntax: __aktive image kernel emboss__  [[→ definition](../../../../file?ci=tr
 
 Returns convolution kernel for embossing effect
 
-
 #### <a name='image_kernel_emboss__examples'></a> Examples
 
 <table>
@@ -761,7 +760,6 @@ Returns convolution kernel for embossing effect
 Syntax: __aktive image kernel gauss3 x__  [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/generator/virtual/pattern/kernels.tcl)]
 
 Returns convolution kernel for gauss3ian blur effect
-
 
 #### <a name='image_kernel_gauss3_x__examples'></a> Examples
 
@@ -779,7 +777,6 @@ Syntax: __aktive image kernel gauss3 xy__  [[→ definition](../../../../file?ci
 
 Returns convolution kernel for gauss3ian blur effect
 
-
 #### <a name='image_kernel_gauss3_xy__examples'></a> Examples
 
 <table>
@@ -795,7 +792,6 @@ Returns convolution kernel for gauss3ian blur effect
 Syntax: __aktive image kernel gauss3 y__  [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/generator/virtual/pattern/kernels.tcl)]
 
 Returns convolution kernel for gauss3ian blur effect
-
 
 #### <a name='image_kernel_gauss3_y__examples'></a> Examples
 
@@ -813,7 +809,6 @@ Syntax: __aktive image kernel gauss5 x__  [[→ definition](../../../../file?ci=
 
 Returns convolution kernel for gauss5ian blur effect
 
-
 #### <a name='image_kernel_gauss5_x__examples'></a> Examples
 
 <table>
@@ -829,7 +824,6 @@ Returns convolution kernel for gauss5ian blur effect
 Syntax: __aktive image kernel gauss5 y__  [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/generator/virtual/pattern/kernels.tcl)]
 
 Returns convolution kernel for gauss5ian blur effect
-
 
 #### <a name='image_kernel_gauss5_y__examples'></a> Examples
 
@@ -847,7 +841,6 @@ Syntax: __aktive image kernel gauss7 x__  [[→ definition](../../../../file?ci=
 
 Returns convolution kernel for gauss7ian blur effect
 
-
 #### <a name='image_kernel_gauss7_x__examples'></a> Examples
 
 <table>
@@ -863,7 +856,6 @@ Returns convolution kernel for gauss7ian blur effect
 Syntax: __aktive image kernel gauss7 y__  [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/generator/virtual/pattern/kernels.tcl)]
 
 Returns convolution kernel for gauss7ian blur effect
-
 
 #### <a name='image_kernel_gauss7_y__examples'></a> Examples
 
@@ -881,7 +873,6 @@ Syntax: __aktive image kernel gauss9 x__  [[→ definition](../../../../file?ci=
 
 Returns convolution kernel for gauss9ian blur effect
 
-
 #### <a name='image_kernel_gauss9_x__examples'></a> Examples
 
 <table>
@@ -897,7 +888,6 @@ Returns convolution kernel for gauss9ian blur effect
 Syntax: __aktive image kernel gauss9 y__  [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/generator/virtual/pattern/kernels.tcl)]
 
 Returns convolution kernel for gauss9ian blur effect
-
 
 #### <a name='image_kernel_gauss9_y__examples'></a> Examples
 
@@ -950,7 +940,6 @@ Syntax: __aktive image kernel kirsch md__  [[→ definition](../../../../file?ci
 
 Returns convolution kernel for kirsch edge detection
 
-
 #### <a name='image_kernel_kirsch_md__examples'></a> Examples
 
 <table>
@@ -966,7 +955,6 @@ Returns convolution kernel for kirsch edge detection
 Syntax: __aktive image kernel kirsch sd__  [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/generator/virtual/pattern/kernels.tcl)]
 
 Returns convolution kernel for kirsch edge detection
-
 
 #### <a name='image_kernel_kirsch_sd__examples'></a> Examples
 
@@ -984,7 +972,6 @@ Syntax: __aktive image kernel kirsch x__  [[→ definition](../../../../file?ci=
 
 Returns convolution kernel for kirsch edge detection
 
-
 #### <a name='image_kernel_kirsch_x__examples'></a> Examples
 
 <table>
@@ -1000,7 +987,6 @@ Returns convolution kernel for kirsch edge detection
 Syntax: __aktive image kernel kirsch y__  [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/generator/virtual/pattern/kernels.tcl)]
 
 Returns convolution kernel for kirsch edge detection
-
 
 #### <a name='image_kernel_kirsch_y__examples'></a> Examples
 
@@ -1053,7 +1039,6 @@ Syntax: __aktive image kernel laplace 4__  [[→ definition](../../../../file?ci
 
 Returns convolution kernel for laplacian edge detection
 
-
 #### <a name='image_kernel_laplace_4__examples'></a> Examples
 
 <table>
@@ -1069,7 +1054,6 @@ Returns convolution kernel for laplacian edge detection
 Syntax: __aktive image kernel laplace 8__  [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/generator/virtual/pattern/kernels.tcl)]
 
 Returns convolution kernel for laplacian edge detection
-
 
 #### <a name='image_kernel_laplace_8__examples'></a> Examples
 
@@ -1087,7 +1071,6 @@ Syntax: __aktive image kernel laplace X__  [[→ definition](../../../../file?ci
 
 Returns convolution kernel for laplacian edge detection
 
-
 #### <a name='image_kernel_laplace_X__examples'></a> Examples
 
 <table>
@@ -1103,7 +1086,6 @@ Returns convolution kernel for laplacian edge detection
 Syntax: __aktive image kernel prewitt md__  [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/generator/virtual/pattern/kernels.tcl)]
 
 Returns convolution kernel for prewitt edge detection
-
 
 #### <a name='image_kernel_prewitt_md__examples'></a> Examples
 
@@ -1121,7 +1103,6 @@ Syntax: __aktive image kernel prewitt sd__  [[→ definition](../../../../file?c
 
 Returns convolution kernel for prewitt edge detection
 
-
 #### <a name='image_kernel_prewitt_sd__examples'></a> Examples
 
 <table>
@@ -1137,7 +1118,6 @@ Returns convolution kernel for prewitt edge detection
 Syntax: __aktive image kernel prewitt x__  [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/generator/virtual/pattern/kernels.tcl)]
 
 Returns convolution kernel for prewitt edge detection
-
 
 #### <a name='image_kernel_prewitt_x__examples'></a> Examples
 
@@ -1155,7 +1135,6 @@ Syntax: __aktive image kernel prewitt y__  [[→ definition](../../../../file?ci
 
 Returns convolution kernel for prewitt edge detection
 
-
 #### <a name='image_kernel_prewitt_y__examples'></a> Examples
 
 <table>
@@ -1171,7 +1150,6 @@ Returns convolution kernel for prewitt edge detection
 Syntax: __aktive image kernel roberts x__  [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/generator/virtual/pattern/kernels.tcl)]
 
 Returns convolution kernel for roberts cross edge detection
-
 
 #### <a name='image_kernel_roberts_x__examples'></a> Examples
 
@@ -1189,7 +1167,6 @@ Syntax: __aktive image kernel roberts y__  [[→ definition](../../../../file?ci
 
 Returns convolution kernel for roberts cross edge detection
 
-
 #### <a name='image_kernel_roberts_y__examples'></a> Examples
 
 <table>
@@ -1205,7 +1182,6 @@ Returns convolution kernel for roberts cross edge detection
 Syntax: __aktive image kernel scharr x__  [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/generator/virtual/pattern/kernels.tcl)]
 
 Returns convolution kernel for scharr edge detection
-
 
 #### <a name='image_kernel_scharr_x__examples'></a> Examples
 
@@ -1223,7 +1199,6 @@ Syntax: __aktive image kernel scharr y__  [[→ definition](../../../../file?ci=
 
 Returns convolution kernel for scharr edge detection
 
-
 #### <a name='image_kernel_scharr_y__examples'></a> Examples
 
 <table>
@@ -1239,7 +1214,6 @@ Returns convolution kernel for scharr edge detection
 Syntax: __aktive image kernel sharp 4__  [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/generator/virtual/pattern/kernels.tcl)]
 
 Returns convolution kernel for sharpening effect
-
 
 #### <a name='image_kernel_sharp_4__examples'></a> Examples
 
@@ -1257,7 +1231,6 @@ Syntax: __aktive image kernel sharp 8__  [[→ definition](../../../../file?ci=t
 
 Returns convolution kernel for sharpening effect
 
-
 #### <a name='image_kernel_sharp_8__examples'></a> Examples
 
 <table>
@@ -1273,7 +1246,6 @@ Returns convolution kernel for sharpening effect
 Syntax: __aktive image kernel sharp X__  [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/generator/virtual/pattern/kernels.tcl)]
 
 Returns convolution kernel for sharpening effect
-
 
 #### <a name='image_kernel_sharp_X__examples'></a> Examples
 
@@ -1291,7 +1263,6 @@ Syntax: __aktive image kernel sobel md__  [[→ definition](../../../../file?ci=
 
 Returns convolution kernel for sobel edge detection
 
-
 #### <a name='image_kernel_sobel_md__examples'></a> Examples
 
 <table>
@@ -1307,7 +1278,6 @@ Returns convolution kernel for sobel edge detection
 Syntax: __aktive image kernel sobel sd__  [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/generator/virtual/pattern/kernels.tcl)]
 
 Returns convolution kernel for sobel edge detection
-
 
 #### <a name='image_kernel_sobel_sd__examples'></a> Examples
 
@@ -1325,7 +1295,6 @@ Syntax: __aktive image kernel sobel x__  [[→ definition](../../../../file?ci=t
 
 Returns convolution kernel for sobel edge detection
 
-
 #### <a name='image_kernel_sobel_x__examples'></a> Examples
 
 <table>
@@ -1341,7 +1310,6 @@ Returns convolution kernel for sobel edge detection
 Syntax: __aktive image kernel sobel y__  [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/generator/virtual/pattern/kernels.tcl)]
 
 Returns convolution kernel for sobel edge detection
-
 
 #### <a name='image_kernel_sobel_y__examples'></a> Examples
 
@@ -1461,7 +1429,6 @@ Syntax: __aktive image palette color__  [[→ definition](../../../../file?ci=tr
 
 Returns a 128x128 image containing a color palette.
 
-
 #### <a name='image_palette_color__examples'></a> Examples
 
 <table>
@@ -1478,7 +1445,6 @@ Returns a 128x128 image containing a color palette.
 Syntax: __aktive image palette grey__  [[→ definition](../../../../file?ci=trunk&ln=5&name=etc/generator/virtual/pattern/palette.tcl)]
 
 Returns a 128x128 image containing a gray palette.
-
 
 #### <a name='image_palette_grey__examples'></a> Examples
 

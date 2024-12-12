@@ -82,74 +82,104 @@
 ---
 ### [↑](#top) <a name='op_band_arg_ge'></a> aktive op band arg ge
 
-Syntax: __aktive op band arg ge__ src0 src1 [[→ definition](../../../../file?ci=trunk&ln=63&name=etc/transformer/statistics/by-bands.tcl)]
+Syntax: __aktive op band arg ge__ thresholds src [[→ definition](../../../../file?ci=trunk&ln=63&name=etc/transformer/statistics/by-bands.tcl)]
 
-Returns the second image with its input bands compressed to a single value, the first index where the band value is greater than or equal than the threshold provided by the first image. The result is a single-band image with width and height of the inputs.
+Returns the source image with its bands compressed to a single value, the first index where the band value is greater than or equal than the threshold. The result is a single-band image with the same width and height as the inputs.
 
-If no band matches the condition the result is the depth of the data image.
+The result is suitable for use by [aktive op take z](transform_structure.md#op_take_z).
+
+At the pixels where no band matches the condition the result is the depth of the data image.
 
 Both images have to have the same width and height.
 
 The threshold image has to be single-band.
 
+|Input|Description|
+|:---|:---|
+|thresholds|Single-band image of thresholds.|
+|src|Source to scan and compress.|
 
 ---
 ### [↑](#top) <a name='op_band_arg_gt'></a> aktive op band arg gt
 
-Syntax: __aktive op band arg gt__ src0 src1 [[→ definition](../../../../file?ci=trunk&ln=63&name=etc/transformer/statistics/by-bands.tcl)]
+Syntax: __aktive op band arg gt__ thresholds src [[→ definition](../../../../file?ci=trunk&ln=63&name=etc/transformer/statistics/by-bands.tcl)]
 
-Returns the second image with its input bands compressed to a single value, the first index where the band value is greater than than the threshold provided by the first image. The result is a single-band image with width and height of the inputs.
+Returns the source image with its bands compressed to a single value, the first index where the band value is greater than than the threshold. The result is a single-band image with the same width and height as the inputs.
 
-If no band matches the condition the result is the depth of the data image.
+The result is suitable for use by [aktive op take z](transform_structure.md#op_take_z).
+
+At the pixels where no band matches the condition the result is the depth of the data image.
 
 Both images have to have the same width and height.
 
 The threshold image has to be single-band.
 
+|Input|Description|
+|:---|:---|
+|thresholds|Single-band image of thresholds.|
+|src|Source to scan and compress.|
 
 ---
 ### [↑](#top) <a name='op_band_arg_le'></a> aktive op band arg le
 
-Syntax: __aktive op band arg le__ src0 src1 [[→ definition](../../../../file?ci=trunk&ln=63&name=etc/transformer/statistics/by-bands.tcl)]
+Syntax: __aktive op band arg le__ thresholds src [[→ definition](../../../../file?ci=trunk&ln=63&name=etc/transformer/statistics/by-bands.tcl)]
 
-Returns the second image with its input bands compressed to a single value, the first index where the band value is lesser than or equal than the threshold provided by the first image. The result is a single-band image with width and height of the inputs.
+Returns the source image with its bands compressed to a single value, the first index where the band value is lesser than or equal than the threshold. The result is a single-band image with the same width and height as the inputs.
 
-If no band matches the condition the result is the depth of the data image.
+The result is suitable for use by [aktive op take z](transform_structure.md#op_take_z).
+
+At the pixels where no band matches the condition the result is the depth of the data image.
 
 Both images have to have the same width and height.
 
 The threshold image has to be single-band.
 
+|Input|Description|
+|:---|:---|
+|thresholds|Single-band image of thresholds.|
+|src|Source to scan and compress.|
 
 ---
 ### [↑](#top) <a name='op_band_arg_lt'></a> aktive op band arg lt
 
-Syntax: __aktive op band arg lt__ src0 src1 [[→ definition](../../../../file?ci=trunk&ln=63&name=etc/transformer/statistics/by-bands.tcl)]
+Syntax: __aktive op band arg lt__ thresholds src [[→ definition](../../../../file?ci=trunk&ln=63&name=etc/transformer/statistics/by-bands.tcl)]
 
-Returns the second image with its input bands compressed to a single value, the first index where the band value is lesser than than the threshold provided by the first image. The result is a single-band image with width and height of the inputs.
+Returns the source image with its bands compressed to a single value, the first index where the band value is lesser than than the threshold. The result is a single-band image with the same width and height as the inputs.
 
-If no band matches the condition the result is the depth of the data image.
+The result is suitable for use by [aktive op take z](transform_structure.md#op_take_z).
+
+At the pixels where no band matches the condition the result is the depth of the data image.
 
 Both images have to have the same width and height.
 
 The threshold image has to be single-band.
 
+|Input|Description|
+|:---|:---|
+|thresholds|Single-band image of thresholds.|
+|src|Source to scan and compress.|
 
 ---
 ### [↑](#top) <a name='op_band_arg_max'></a> aktive op band arg max
 
 Syntax: __aktive op band arg max__ src [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/statistics/by-bands.tcl)]
 
-Returns image with input bands compressed to a single value, the first index of the maximal band values. The result is a single-band image with width and height of the input.
+Returns an image with the input bands compressed to a single value, the first index of the maximal band values. The result is a single-band image with the same width and height as the input.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 ---
 ### [↑](#top) <a name='op_band_arg_min'></a> aktive op band arg min
 
 Syntax: __aktive op band arg min__ src [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/statistics/by-bands.tcl)]
 
-Returns image with input bands compressed to a single value, the first index of the minimal band values. The result is a single-band image with width and height of the input.
+Returns an image with the input bands compressed to a single value, the first index of the minimal band values. The result is a single-band image with the same width and height as the input.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 ---
 ### [↑](#top) <a name='op_band_cumulative'></a> aktive op band cumulative
@@ -162,6 +192,9 @@ This means that each pixel in a band is the sum of the values in the bands befor
 
 The result has the same geometry as the input. Only the contents change.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 ---
 ### [↑](#top) <a name='op_band_histogram'></a> aktive op band histogram
@@ -172,6 +205,10 @@ Returns image with input bands transformed into a histogram of `bins` values.
 
 The result is an image of bin-sized histogram bands with width and height of the input
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
+
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |bins|int|256|The number of bins held by a single histogram. The pixel values are quantized to fit. Only values in the range of [0..1] are considered valid. Values outside of that range are placed into the smallest/largest bin. The default quantizes the image values to 8-bit.|
@@ -181,16 +218,22 @@ The result is an image of bin-sized histogram bands with width and height of the
 
 Syntax: __aktive op band max__ src [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/statistics/by-bands.tcl)]
 
-Returns image with input bands compressed to a single value, the maximum of the band values. The result is a single-band image with width and height of the input.
+Returns an image with the input bands compressed to a single value, the maximum of the band values. The result is a single-band image with the same width and height as the input.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 ---
 ### [↑](#top) <a name='op_band_mean'></a> aktive op band mean
 
 Syntax: __aktive op band mean__ src [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/statistics/by-bands.tcl)]
 
-Returns image with input bands compressed to a single value, the arithmetic mean of the band values. The result is a single-band image with width and height of the input.
+Returns an image with the input bands compressed to a single value, the arithmetic mean of the band values. The result is a single-band image with the same width and height as the input.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 ---
 ### [↑](#top) <a name='op_band_median'></a> aktive op band median
@@ -201,14 +244,20 @@ Returns image with input bands compressed to a single value, the median of the s
 
 The result is a single-band image with width and height of the input
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 ---
 ### [↑](#top) <a name='op_band_min'></a> aktive op band min
 
 Syntax: __aktive op band min__ src [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/statistics/by-bands.tcl)]
 
-Returns image with input bands compressed to a single value, the minimum of the band values. The result is a single-band image with width and height of the input.
+Returns an image with the input bands compressed to a single value, the minimum of the band values. The result is a single-band image with the same width and height as the input.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 ---
 ### [↑](#top) <a name='op_band_otsu'></a> aktive op band otsu
@@ -223,6 +272,9 @@ The result has the same width and height as the input.
 
 The result is single-band.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 ---
 ### [↑](#top) <a name='op_band_rank'></a> aktive op band rank
@@ -235,6 +287,10 @@ The result is a single-band image with width and height of the input
 
 Beware. While it is possible to use the rank filter for max/min extractions it is recommended to use the specific max/min operators instead, as they should be faster (linear scan of region, no gather, no sorting of the region).
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
+
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |rank|int|-1|Index of the sorted values to return. Default creates a median filter. 0 creates min-filter.|
@@ -244,32 +300,44 @@ Beware. While it is possible to use the rank filter for max/min extractions it i
 
 Syntax: __aktive op band stddev__ src [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/statistics/by-bands.tcl)]
 
-Returns image with input bands compressed to a single value, the standard deviation of the band values. The result is a single-band image with width and height of the input.
+Returns an image with the input bands compressed to a single value, the standard deviation of the band values. The result is a single-band image with the same width and height as the input.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 ---
 ### [↑](#top) <a name='op_band_sum'></a> aktive op band sum
 
 Syntax: __aktive op band sum__ src [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/statistics/by-bands.tcl)]
 
-Returns image with input bands compressed to a single value, the sum of the band values. The result is a single-band image with width and height of the input.
+Returns an image with the input bands compressed to a single value, the sum of the band values. The result is a single-band image with the same width and height as the input.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 ---
 ### [↑](#top) <a name='op_band_sumsquared'></a> aktive op band sumsquared
 
 Syntax: __aktive op band sumsquared__ src [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/statistics/by-bands.tcl)]
 
-Returns image with input bands compressed to a single value, the sum of the squared band values. The result is a single-band image with width and height of the input.
+Returns an image with the input bands compressed to a single value, the sum of the squared band values. The result is a single-band image with the same width and height as the input.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 ---
 ### [↑](#top) <a name='op_band_variance'></a> aktive op band variance
 
 Syntax: __aktive op band variance__ src [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/statistics/by-bands.tcl)]
 
-Returns image with input bands compressed to a single value, the variance of the band values. The result is a single-band image with width and height of the input.
+Returns an image with the input bands compressed to a single value, the variance of the band values. The result is a single-band image with the same width and height as the input.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 ---
 ### [↑](#top) <a name='op_column_arg_max'></a> aktive op column arg max
@@ -280,6 +348,9 @@ Returns image with input columns compressed to a single value, the first index o
 
 The part about the `depth of the input` means that the bands in each column are handled separately.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 #### <a name='op_column_arg_max__examples'></a> Examples
 
@@ -288,7 +359,7 @@ The part about the `depth of the input` means that the bands in each column are 
     <br>&nbsp;</th>
     <th>aktive op column arg max @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00306.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00321.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'><table><tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>10</td><td>8</td><td>7</td><td>7</td><td>6</td><td>7</td><td>7</td><td>7</td><td>7</td><td>8</td><td>8</td><td>8</td><td>9</td><td>9</td><td>9</td><td>9</td><td>10</td><td>10</td><td>10</td><td>11</td><td>11</td><td>11</td><td>11</td><td>12</td><td>12</td><td>12</td></tr></table></td></tr>
 </table>
@@ -303,6 +374,9 @@ Returns image with input columns compressed to a single value, the first index o
 
 The part about the `depth of the input` means that the bands in each column are handled separately.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 #### <a name='op_column_arg_min__examples'></a> Examples
 
@@ -311,7 +385,7 @@ The part about the `depth of the input` means that the bands in each column are 
     <br>&nbsp;</th>
     <th>aktive op column arg min @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00308.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00323.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'><table><tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr></table></td></tr>
 </table>
@@ -328,6 +402,9 @@ This means that each pixel in a column is the sum of the values in the row befor
 
 The result has the same geometry as the input. Only the contents change.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 #### <a name='op_column_cumulative__examples'></a> Examples
 
@@ -336,7 +413,7 @@ The result has the same geometry as the input. Only the contents change.
     <br>&nbsp;</th>
     <th>aktive op column cumulative @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00310.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00325.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'><table><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.5279</td><td>0.8769</td><td>1.0000</td><td>0.8769</td><td>0.6045</td><td>0.3297</td><td>0.0550</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.7574</td><td>1.5279</td><td>1.8769</td><td>2.0000</td><td>1.8769</td><td>1.6045</td><td>1.3297</td><td>1.0550</td><td>0.7418</td><td>0.4671</td><td>0.1924</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.5279</td><td>1.7574</td><td>2.5279</td><td>2.8769</td><td>3.0000</td><td>2.8769</td><td>2.6045</td><td>2.3297</td><td>2.0550</td><td>1.7418</td><td>1.4671</td><td>1.1924</td><td>0.8792</td><td>0.6045</td><td>0.3297</td><td>0.0550</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>1.4048</td><td>2.7574</td><td>3.5279</td><td>3.8769</td><td>4.0000</td><td>3.8769</td><td>3.6045</td><td>3.3297</td><td>3.0550</td><td>2.7418</td><td>2.4671</td><td>2.1924</td><td>1.8792</td><td>1.6045</td><td>1.3297</td><td>1.0550</td><td>0.7418</td><td>0.4671</td><td>0.1924</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>2.4048</td><td>3.7574</td><td>4.5279</td><td>4.8769</td><td>5.0000</td><td>4.8769</td><td>4.6045</td><td>4.3297</td><td>4.0550</td><td>3.7418</td><td>3.4671</td><td>3.1924</td><td>2.8792</td><td>2.6045</td><td>2.3297</td><td>2.0550</td><td>1.7418</td><td>1.4671</td><td>1.1924</td><td>0.8792</td><td>0.6045</td><td>0.3297</td><td>0.0550</td><td>0.0000</td><td>0.0000</td><td>0.0000</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>3.2817</td><td>4.7574</td><td>5.5279</td><td>5.8769</td><td>6.0000</td><td>5.8769</td><td>5.6045</td><td>5.3297</td><td>5.0550</td><td>4.7418</td><td>4.4671</td><td>4.1924</td><td>3.8792</td><td>3.6045</td><td>3.3297</td><td>3.0550</td><td>2.7418</td><td>2.4671</td><td>2.1924</td><td>1.8792</td><td>1.6045</td><td>1.3297</td><td>1.0550</td><td>0.7418</td><td>0.4671</td><td>0.1924</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>3.8095</td><td>5.7574</td><td>6.5279</td><td>6.8769</td><td>7.0000</td><td>6.8769</td><td>6.6045</td><td>6.3297</td><td>6.0550</td><td>5.7418</td><td>5.4671</td><td>5.1924</td><td>4.8792</td><td>4.6045</td><td>4.3297</td><td>4.0550</td><td>3.7418</td><td>3.4671</td><td>3.1924</td><td>2.8792</td><td>2.6045</td><td>2.3297</td><td>2.0550</td><td>1.7418</td><td>1.4671</td><td>1.1924</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>3.8481</td><td>6.6642</td><td>7.5279</td><td>7.8769</td><td>8.0000</td><td>7.8769</td><td>7.6045</td><td>7.3297</td><td>7.0550</td><td>6.7418</td><td>6.4671</td><td>6.1924</td><td>5.8792</td><td>5.6045</td><td>5.3297</td><td>5.0550</td><td>4.7418</td><td>4.4671</td><td>4.1924</td><td>3.8792</td><td>3.6045</td><td>3.3297</td><td>3.0550</td><td>2.7418</td><td>2.4671</td><td>2.1924</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>3.8481</td><td>7.0749</td><td>8.5279</td><td>8.8769</td><td>9.0000</td><td>8.8769</td><td>8.6045</td><td>8.3297</td><td>8.0550</td><td>7.7418</td><td>7.4671</td><td>7.1924</td><td>6.8792</td><td>6.6045</td><td>6.3297</td><td>6.0550</td><td>5.7418</td><td>5.4671</td><td>5.1924</td><td>4.8792</td><td>4.6045</td><td>4.3297</td><td>4.0550</td><td>3.7418</td><td>3.4671</td><td>3.1924</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>3.8481</td><td>7.0749</td><td>9.3107</td><td>9.8769</td><td>10.0000</td><td>9.8769</td><td>9.6045</td><td>9.3297</td><td>9.0550</td><td>8.7418</td><td>8.4671</td><td>8.1924</td><td>7.8792</td><td>7.6045</td><td>7.3297</td><td>7.0550</td><td>6.7418</td><td>6.4671</td><td>6.1924</td><td>5.8792</td><td>5.6045</td><td>5.3297</td><td>5.0550</td><td>4.7418</td><td>4.4671</td><td>4.1924</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>3.8481</td><td>7.0749</td><td>9.5974</td><td>10.8769</td><td>11.0000</td><td>10.8769</td><td>10.6045</td><td>10.3297</td><td>10.0550</td><td>9.7418</td><td>9.4671</td><td>9.1924</td><td>8.8792</td><td>8.6045</td><td>8.3297</td><td>8.0550</td><td>7.7418</td><td>7.4671</td><td>7.1924</td><td>6.8792</td><td>6.6045</td><td>6.3297</td><td>6.0550</td><td>5.7418</td><td>5.4671</td><td>5.1924</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>3.8481</td><td>7.0749</td><td>9.5974</td><td>11.5357</td><td>12.0000</td><td>11.8769</td><td>11.6045</td><td>11.3297</td><td>11.0550</td><td>10.7418</td><td>10.4671</td><td>10.1924</td><td>9.8792</td><td>9.3463</td><td>9.3297</td><td>9.0550</td><td>8.7418</td><td>8.4671</td><td>8.1924</td><td>7.8792</td><td>7.6045</td><td>7.3297</td><td>7.0550</td><td>6.7418</td><td>6.4671</td><td>6.1924</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>3.8481</td><td>7.0749</td><td>9.5974</td><td>11.6983</td><td>13.0000</td><td>12.8769</td><td>12.6045</td><td>12.3297</td><td>12.0550</td><td>11.7418</td><td>11.4671</td><td>11.1924</td><td>10.8792</td><td>10.3463</td><td>9.6164</td><td>9.3848</td><td>9.3463</td><td>9.3463</td><td>9.1924</td><td>8.8792</td><td>8.6045</td><td>8.3297</td><td>8.0550</td><td>7.7418</td><td>7.4671</td><td>7.1924</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>3.8481</td><td>7.0749</td><td>9.5974</td><td>11.6983</td><td>13.5347</td><td>13.8769</td><td>13.6045</td><td>13.3297</td><td>13.0550</td><td>12.7418</td><td>12.4671</td><td>12.1924</td><td>11.8792</td><td>11.3463</td><td>10.3992</td><td>9.3848</td><td>9.3463</td><td>9.3463</td><td>9.3848</td><td>9.3463</td><td>9.3463</td><td>9.3297</td><td>9.0550</td><td>8.7418</td><td>8.4671</td><td>8.1924</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>3.8481</td><td>7.0749</td><td>9.5974</td><td>11.6983</td><td>13.5734</td><td>14.7837</td><td>14.6045</td><td>14.3297</td><td>14.0550</td><td>13.7418</td><td>13.4671</td><td>13.1924</td><td>12.8792</td><td>12.3463</td><td>11.3992</td><td>9.7955</td><td>9.3463</td><td>9.3463</td><td>9.3848</td><td>9.3463</td><td>9.3463</td><td>9.3848</td><td>9.3848</td><td>9.3463</td><td>9.3463</td><td>9.1924</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>3.8481</td><td>7.0749</td><td>9.5974</td><td>11.6983</td><td>13.5734</td><td>15.1945</td><td>15.6045</td><td>15.3297</td><td>15.0550</td><td>14.7418</td><td>14.4671</td><td>14.1924</td><td>13.8792</td><td>13.3463</td><td>12.3992</td><td>10.7023</td><td>9.3849</td><td>9.3463</td><td>9.3848</td><td>9.3463</td><td>9.3463</td><td>9.3848</td><td>9.3848</td><td>9.3463</td><td>9.3463</td><td>9.3848</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>3.8481</td><td>7.0749</td><td>9.5974</td><td>11.6983</td><td>13.5734</td><td>15.1945</td><td>16.3873</td><td>16.3297</td><td>16.0550</td><td>15.7418</td><td>15.4671</td><td>15.1924</td><td>14.8792</td><td>14.3463</td><td>13.3992</td><td>11.7023</td><td>9.9196</td><td>9.3463</td><td>9.3848</td><td>9.3463</td><td>9.3463</td><td>9.3848</td><td>9.3848</td><td>9.3463</td><td>9.3463</td><td>9.3848</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>3.8481</td><td>7.0749</td><td>9.5974</td><td>11.6983</td><td>13.5734</td><td>15.1945</td><td>16.6740</td><td>17.3297</td><td>17.0550</td><td>16.7418</td><td>16.4671</td><td>16.1924</td><td>15.8792</td><td>15.3463</td><td>14.3992</td><td>12.7023</td><td>10.9196</td><td>9.5089</td><td>9.3848</td><td>9.3463</td><td>9.3463</td><td>9.3848</td><td>9.3848</td><td>9.3463</td><td>9.3463</td><td>9.3848</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>3.8481</td><td>7.0749</td><td>9.5974</td><td>11.6983</td><td>13.5734</td><td>15.1945</td><td>16.6740</td><td>17.9885</td><td>18.0550</td><td>17.7418</td><td>17.4671</td><td>17.1924</td><td>16.8792</td><td>16.3463</td><td>15.3992</td><td>13.7023</td><td>11.9196</td><td>10.1677</td><td>9.3848</td><td>9.3463</td><td>9.3463</td><td>9.3848</td><td>9.3848</td><td>9.3463</td><td>9.3463</td><td>9.3848</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>3.8481</td><td>7.0749</td><td>9.5974</td><td>11.6983</td><td>13.5734</td><td>15.1945</td><td>16.6740</td><td>18.1512</td><td>19.0550</td><td>18.7418</td><td>18.4671</td><td>18.1924</td><td>17.8792</td><td>17.3463</td><td>16.3992</td><td>14.7023</td><td>12.9196</td><td>11.1677</td><td>9.6714</td><td>9.3463</td><td>9.3463</td><td>9.3848</td><td>9.3848</td><td>9.3463</td><td>9.3463</td><td>9.3848</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>3.8481</td><td>7.0749</td><td>9.5974</td><td>11.6983</td><td>13.5734</td><td>15.1945</td><td>16.6740</td><td>18.1512</td><td>19.5898</td><td>19.7418</td><td>19.4671</td><td>19.1924</td><td>18.8792</td><td>18.3463</td><td>17.3992</td><td>15.7023</td><td>13.9196</td><td>12.1677</td><td>10.4543</td><td>9.3463</td><td>9.3463</td><td>9.3848</td><td>9.3848</td><td>9.3463</td><td>9.3463</td><td>9.3848</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>3.8481</td><td>7.0749</td><td>9.5974</td><td>11.6983</td><td>13.5734</td><td>15.1945</td><td>16.6740</td><td>18.1512</td><td>19.6284</td><td>20.6487</td><td>20.4671</td><td>20.1924</td><td>19.8792</td><td>19.3463</td><td>18.3992</td><td>16.7023</td><td>14.9196</td><td>13.1677</td><td>11.4543</td><td>9.7570</td><td>9.3463</td><td>9.3848</td><td>9.3848</td><td>9.3463</td><td>9.3463</td><td>9.3848</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>3.8481</td><td>7.0749</td><td>9.5974</td><td>11.6983</td><td>13.5734</td><td>15.1945</td><td>16.6740</td><td>18.1512</td><td>19.6284</td><td>21.0594</td><td>21.4671</td><td>21.1924</td><td>20.8792</td><td>20.3463</td><td>19.3992</td><td>17.7023</td><td>15.9196</td><td>14.1677</td><td>12.4543</td><td>10.6639</td><td>9.3849</td><td>9.3848</td><td>9.3848</td><td>9.3463</td><td>9.3463</td><td>9.3848</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>3.8481</td><td>7.0749</td><td>9.5974</td><td>11.6983</td><td>13.5734</td><td>15.1945</td><td>16.6740</td><td>18.1512</td><td>19.6284</td><td>21.0594</td><td>22.2499</td><td>22.1924</td><td>21.8792</td><td>21.3463</td><td>20.3992</td><td>18.7023</td><td>16.9196</td><td>15.1677</td><td>13.4543</td><td>11.6639</td><td>9.9196</td><td>9.3848</td><td>9.3848</td><td>9.3463</td><td>9.3463</td><td>9.3848</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>3.8481</td><td>7.0749</td><td>9.5974</td><td>11.6983</td><td>13.5734</td><td>15.1945</td><td>16.6740</td><td>18.1512</td><td>19.6284</td><td>21.0594</td><td>22.5366</td><td>23.1924</td><td>22.8792</td><td>22.3463</td><td>21.3992</td><td>19.7023</td><td>17.9196</td><td>16.1677</td><td>14.4543</td><td>12.6639</td><td>10.9196</td><td>9.5474</td><td>9.3848</td><td>9.3463</td><td>9.3463</td><td>9.3848</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>3.8481</td><td>7.0749</td><td>9.5974</td><td>11.6983</td><td>13.5734</td><td>15.1945</td><td>16.6740</td><td>18.1512</td><td>19.6284</td><td>21.0594</td><td>22.5366</td><td>23.8512</td><td>23.8792</td><td>23.3463</td><td>22.3992</td><td>20.7023</td><td>18.9196</td><td>17.1677</td><td>15.4543</td><td>13.6639</td><td>11.9196</td><td>10.2062</td><td>9.3848</td><td>9.3463</td><td>9.3463</td><td>9.3848</td></tr></table></td></tr>
 </table>
@@ -351,6 +428,10 @@ Returns image with input columns transformed into a histogram of `bins` values.
 
 The result is an image of `bins`-sized histogram columns with width and depth of the input.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
+
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |bins|int|256|The number of bins held by a single histogram. The pixel values are quantized to fit. Only values in the range of [0..1] are considered valid. Values outside of that range are placed into the smallest/largest bin. The default quantizes the image values to 8-bit.|
@@ -362,7 +443,7 @@ The result is an image of `bins`-sized histogram columns with width and depth of
     <br>&nbsp;</th>
     <th>aktive op column histogram @1 bins 8
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00312.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00327.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'><table><tr><td>32</td><td>32</td><td>32</td><td>32</td><td>32</td><td>32</td><td>26</td><td>21</td><td>17</td><td>13</td><td>10</td><td>6</td><td>6</td><td>6</td><td>7</td><td>7</td><td>7</td><td>7</td><td>11</td><td>14</td><td>18</td><td>21</td><td>22</td><td>22</td><td>21</td><td>22</td><td>22</td><td>22</td><td>22</td><td>22</td><td>22</td><td>21</td></tr><tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>2</td><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td>2</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>2</td></tr><tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>2</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td></tr><tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td></tr><tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>2</td><td>0</td><td>2</td><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>1</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td></tr><tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td><td>2</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td></tr><tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr><tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>3</td><td>7</td><td>12</td><td>16</td><td>20</td><td>23</td><td>25</td><td>25</td><td>25</td><td>24</td><td>24</td><td>21</td><td>18</td><td>13</td><td>11</td><td>9</td><td>8</td><td>9</td><td>9</td><td>9</td><td>8</td><td>9</td><td>9</td><td>8</td><td>9</td><td>9</td></tr></table></td></tr>
 </table>
@@ -377,6 +458,9 @@ Returns image with input columns compressed to a single value, the maximum of th
 
 The part about the `depth of the input` means that the bands in each column are handled separately.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 #### <a name='op_column_max__examples'></a> Examples
 
@@ -385,7 +469,7 @@ The part about the `depth of the input` means that the bands in each column are 
     <br>&nbsp;</th>
     <th>aktive op column max @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00314.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00329.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'><table><tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td></tr></table></td></tr>
 </table>
@@ -400,6 +484,9 @@ Returns image with input columns compressed to a single value, the arithmetic me
 
 The part about the `depth of the input` means that the bands in each column are handled separately.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 #### <a name='op_column_mean__examples'></a> Examples
 
@@ -408,7 +495,7 @@ The part about the `depth of the input` means that the bands in each column are 
     <br>&nbsp;</th>
     <th>aktive op column mean @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00316.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00331.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'><table><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.1203</td><td>0.2211</td><td>0.2999</td><td>0.3656</td><td>0.4242</td><td>0.4748</td><td>0.5211</td><td>0.5672</td><td>0.6134</td><td>0.6581</td><td>0.7043</td><td>0.7453</td><td>0.7462</td><td>0.7296</td><td>0.7000</td><td>0.6469</td><td>0.5912</td><td>0.5365</td><td>0.4829</td><td>0.4270</td><td>0.3725</td><td>0.3189</td><td>0.2933</td><td>0.2921</td><td>0.2921</td><td>0.2933</td></tr></table></td></tr>
 </table>
@@ -423,6 +510,9 @@ Returns image with input columns compressed to a single value, the median of the
 
 The result is a single-column image with height and depth of the input
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 ---
 ### [↑](#top) <a name='op_column_min'></a> aktive op column min
@@ -433,6 +523,9 @@ Returns image with input columns compressed to a single value, the minimum of th
 
 The part about the `depth of the input` means that the bands in each column are handled separately.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 #### <a name='op_column_min__examples'></a> Examples
 
@@ -441,7 +534,7 @@ The part about the `depth of the input` means that the bands in each column are 
     <br>&nbsp;</th>
     <th>aktive op column min @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00318.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00333.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'><table><tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr></table></td></tr>
 </table>
@@ -460,6 +553,9 @@ The result has the same width and depth as the input.
 
 The result has a single row.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 #### <a name='op_column_otsu__examples'></a> Examples
 
@@ -468,7 +564,7 @@ The result has a single row.
     <br>&nbsp;</th>
     <th>aktive op column otsu [aktive op column histogram @1]
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00320.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00335.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'><table><tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>85</td><td>120</td><td>85</td><td>120</td><td>85</td><td>120</td><td>1</td><td>85</td><td>15</td><td>1</td><td>120</td><td>120</td><td>120</td><td>120</td><td>85</td><td>85</td><td>1</td><td>120</td><td>50</td><td>120</td><td>1</td><td>85</td><td>85</td><td>1</td><td>120</td><td>50</td></tr></table></td></tr>
 </table>
@@ -487,6 +583,9 @@ from the top border of the input.
 
 The result is a single-row image with width and depth of the input.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 #### <a name='op_column_profile__examples'></a> Examples
 
@@ -495,7 +594,7 @@ The result is a single-row image with width and depth of the input.
     <br>&nbsp;</th>
     <th>aktive op column profile @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00322.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00337.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'><table><tr><td>32</td><td>32</td><td>32</td><td>32</td><td>32</td><td>32</td><td>8</td><td>7</td><td>6</td><td>6</td><td>6</td><td>6</td><td>6</td><td>6</td><td>6</td><td>7</td><td>7</td><td>7</td><td>8</td><td>8</td><td>8</td><td>8</td><td>9</td><td>9</td><td>9</td><td>10</td><td>10</td><td>10</td><td>10</td><td>11</td><td>11</td><td>11</td></tr></table></td></tr>
 </table>
@@ -512,6 +611,10 @@ The result is a single-row image with width and depth of the input
 
 Beware. While it is possible to use the rank filter for max/min extractions it is recommended to use the specific max/min operators instead, as they should be faster (linear scan of region, no gather, no sorting of the region).
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
+
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |rank|int|-1|Index of the sorted values to return. Default creates a median filter. 0 creates min-filter.|
@@ -525,6 +628,9 @@ Returns image with input columns compressed to a single value, the standard devi
 
 The part about the `depth of the input` means that the bands in each column are handled separately.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 #### <a name='op_column_stddev__examples'></a> Examples
 
@@ -533,7 +639,7 @@ The part about the `depth of the input` means that the bands in each column are 
     <br>&nbsp;</th>
     <th>aktive op column stddev @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00324.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00339.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'><table><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.2869</td><td>0.3953</td><td>0.4364</td><td>0.4661</td><td>0.4851</td><td>0.4856</td><td>0.4800</td><td>0.4768</td><td>0.4760</td><td>0.4570</td><td>0.4345</td><td>0.4218</td><td>0.4313</td><td>0.4288</td><td>0.4375</td><td>0.4579</td><td>0.4683</td><td>0.4757</td><td>0.4778</td><td>0.4726</td><td>0.4597</td><td>0.4443</td><td>0.4458</td><td>0.4397</td><td>0.4423</td><td>0.4445</td></tr></table></td></tr>
 </table>
@@ -548,6 +654,9 @@ Returns image with input columns compressed to a single value, the sum of the co
 
 The part about the `depth of the input` means that the bands in each column are handled separately.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 #### <a name='op_column_sum__examples'></a> Examples
 
@@ -556,7 +665,7 @@ The part about the `depth of the input` means that the bands in each column are 
     <br>&nbsp;</th>
     <th>aktive op column sum @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00326.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00341.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'><table><tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>4</td><td>7</td><td>10</td><td>12</td><td>14</td><td>15</td><td>17</td><td>18</td><td>20</td><td>21</td><td>23</td><td>24</td><td>24</td><td>23</td><td>22</td><td>21</td><td>19</td><td>17</td><td>15</td><td>14</td><td>12</td><td>10</td><td>9</td><td>9</td><td>9</td><td>9</td></tr></table></td></tr>
 </table>
@@ -571,6 +680,9 @@ Returns image with input columns compressed to a single value, the sum of the sq
 
 The part about the `depth of the input` means that the bands in each column are handled separately.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 #### <a name='op_column_sumsquared__examples'></a> Examples
 
@@ -579,7 +691,7 @@ The part about the `depth of the input` means that the bands in each column are 
     <br>&nbsp;</th>
     <th>aktive op column sumsquared @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00328.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00343.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'><table><tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>3</td><td>7</td><td>9</td><td>11</td><td>13</td><td>15</td><td>16</td><td>18</td><td>19</td><td>21</td><td>22</td><td>23</td><td>24</td><td>23</td><td>22</td><td>20</td><td>18</td><td>16</td><td>15</td><td>13</td><td>11</td><td>10</td><td>9</td><td>9</td><td>9</td><td>9</td></tr></table></td></tr>
 </table>
@@ -594,6 +706,9 @@ Returns image with input columns compressed to a single value, the variance of t
 
 The part about the `depth of the input` means that the bands in each column are handled separately.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 #### <a name='op_column_variance__examples'></a> Examples
 
@@ -602,7 +717,7 @@ The part about the `depth of the input` means that the bands in each column are 
     <br>&nbsp;</th>
     <th>aktive op column variance @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00330.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00345.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'><table><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0823</td><td>0.1563</td><td>0.1905</td><td>0.2173</td><td>0.2353</td><td>0.2358</td><td>0.2304</td><td>0.2273</td><td>0.2266</td><td>0.2088</td><td>0.1888</td><td>0.1779</td><td>0.1861</td><td>0.1838</td><td>0.1914</td><td>0.2097</td><td>0.2193</td><td>0.2263</td><td>0.2283</td><td>0.2234</td><td>0.2113</td><td>0.1974</td><td>0.1987</td><td>0.1933</td><td>0.1957</td><td>0.1976</td></tr></table></td></tr>
 </table>
@@ -615,6 +730,10 @@ Syntax: __aktive op image histogram__ src ?(param value)...? [[→ definition](.
 
 Returns image with the input transformed into a histogram of `bins` values.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
+
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |bins|int|256|The number of bins in the returned histogram. The pixel values are quantized to fit. Only values in the range of [0..1] are considered valid. Values outside of that range are placed into the smallest/largest bin. The default quantizes the image values to 8-bit.|
@@ -626,7 +745,7 @@ Returns image with the input transformed into a histogram of `bins` values.
     <br>&nbsp;</th>
     <th>aktive op image histogram @1 bins 8
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00385.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00400.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
     <td valign='top'><table><tr><td>14376</td><td>52</td><td>53</td><td>35</td><td>62</td><td>53</td><td>22</td><td>1731</td></tr></table></td></tr>
 </table>
@@ -641,6 +760,9 @@ Returns image with input rows compressed to a single value, the first index of t
 
 The part about the `depth of the input` means that the bands in each row are handled separately.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 #### <a name='op_row_arg_max__examples'></a> Examples
 
@@ -649,7 +771,7 @@ The part about the `depth of the input` means that the bands in each row are han
     <br>&nbsp;</th>
     <th>aktive op row arg max @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00469.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00488.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'><table><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>10</td></tr><tr><td>8</td></tr><tr><td>7</td></tr><tr><td>7</td></tr><tr><td>6</td></tr><tr><td>7</td></tr><tr><td>7</td></tr><tr><td>8</td></tr><tr><td>8</td></tr><tr><td>9</td></tr><tr><td>9</td></tr><tr><td>10</td></tr><tr><td>10</td></tr><tr><td>11</td></tr><tr><td>12</td></tr><tr><td>12</td></tr><tr><td>13</td></tr><tr><td>13</td></tr><tr><td>14</td></tr><tr><td>14</td></tr><tr><td>15</td></tr><tr><td>16</td></tr><tr><td>16</td></tr><tr><td>17</td></tr><tr><td>17</td></tr><tr><td>18</td></tr></table></td></tr>
 </table>
@@ -664,6 +786,9 @@ Returns image with input rows compressed to a single value, the first index of t
 
 The part about the `depth of the input` means that the bands in each row are handled separately.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 #### <a name='op_row_arg_min__examples'></a> Examples
 
@@ -672,7 +797,7 @@ The part about the `depth of the input` means that the bands in each row are han
     <br>&nbsp;</th>
     <th>aktive op row arg min @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00471.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00490.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'><table><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr></table></td></tr>
 </table>
@@ -689,6 +814,9 @@ This means that each pixel in a row is the sum of the values in the column befor
 
 The result has the same geometry as the input. Only the contents change.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 #### <a name='op_row_cumulative__examples'></a> Examples
 
@@ -697,7 +825,7 @@ The result has the same geometry as the input. Only the contents change.
     <br>&nbsp;</th>
     <th>aktive op row cumulative @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00473.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00492.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'><table><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.5279</td><td>1.4048</td><td>2.4048</td><td>3.2817</td><td>3.8861</td><td>4.2159</td><td>4.2709</td><td>4.2709</td><td>4.2709</td><td>4.2709</td><td>4.2709</td><td>4.2709</td><td>4.2709</td><td>4.2709</td><td>4.2709</td><td>4.2709</td><td>4.2709</td><td>4.2709</td><td>4.2709</td><td>4.2709</td><td>4.2709</td><td>4.2709</td><td>4.2709</td><td>4.2709</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.7574</td><td>1.7574</td><td>2.7574</td><td>3.7574</td><td>4.7574</td><td>5.7574</td><td>6.7574</td><td>7.7574</td><td>8.4992</td><td>8.9663</td><td>9.1587</td><td>9.1587</td><td>9.1587</td><td>9.1587</td><td>9.1587</td><td>9.1587</td><td>9.1587</td><td>9.1587</td><td>9.1587</td><td>9.1587</td><td>9.1587</td><td>9.1587</td><td>9.1587</td><td>9.1587</td><td>9.1587</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.5279</td><td>1.5279</td><td>2.5279</td><td>3.5279</td><td>4.5279</td><td>5.5279</td><td>6.5279</td><td>7.5279</td><td>8.5279</td><td>9.5279</td><td>10.5279</td><td>11.5279</td><td>12.4070</td><td>13.0115</td><td>13.3412</td><td>13.3963</td><td>13.3963</td><td>13.3963</td><td>13.3963</td><td>13.3963</td><td>13.3963</td><td>13.3963</td><td>13.3963</td><td>13.3963</td><td>13.3963</td><td>13.3963</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.8769</td><td>1.8769</td><td>2.8769</td><td>3.8769</td><td>4.8769</td><td>5.8769</td><td>6.8769</td><td>7.8769</td><td>8.8769</td><td>9.8769</td><td>10.8769</td><td>11.8769</td><td>12.8769</td><td>13.8769</td><td>14.8769</td><td>15.8769</td><td>16.6187</td><td>17.0858</td><td>17.2782</td><td>17.2782</td><td>17.2782</td><td>17.2782</td><td>17.2782</td><td>17.2782</td><td>17.2782</td><td>17.2782</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>1.0000</td><td>2.0000</td><td>3.0000</td><td>4.0000</td><td>5.0000</td><td>6.0000</td><td>7.0000</td><td>8.0000</td><td>9.0000</td><td>10.0000</td><td>11.0000</td><td>12.0000</td><td>13.0000</td><td>14.0000</td><td>15.0000</td><td>16.0000</td><td>17.0000</td><td>18.0000</td><td>19.0000</td><td>19.8792</td><td>20.4836</td><td>20.8134</td><td>20.8684</td><td>20.8684</td><td>20.8684</td><td>20.8684</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.8769</td><td>1.8769</td><td>2.8769</td><td>3.8769</td><td>4.8769</td><td>5.8769</td><td>6.8769</td><td>7.8769</td><td>8.8769</td><td>9.8769</td><td>10.8769</td><td>11.8769</td><td>12.8769</td><td>13.8769</td><td>14.8769</td><td>15.8769</td><td>16.8769</td><td>17.8769</td><td>18.8769</td><td>19.8769</td><td>20.8769</td><td>21.8769</td><td>22.8769</td><td>23.6187</td><td>24.0858</td><td>24.2782</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.5279</td><td>1.5279</td><td>2.5279</td><td>3.5279</td><td>4.5279</td><td>5.5279</td><td>6.5279</td><td>7.5279</td><td>8.5279</td><td>9.5279</td><td>10.5279</td><td>11.5279</td><td>12.5279</td><td>13.5279</td><td>14.5279</td><td>15.5279</td><td>16.5279</td><td>17.5279</td><td>18.5279</td><td>19.5279</td><td>20.5279</td><td>21.5279</td><td>22.5279</td><td>23.5279</td><td>24.5279</td><td>25.5279</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0386</td><td>0.9455</td><td>1.9455</td><td>2.9455</td><td>3.9455</td><td>4.9455</td><td>5.9455</td><td>6.9455</td><td>7.9455</td><td>8.9455</td><td>9.9455</td><td>10.9455</td><td>11.9455</td><td>12.9455</td><td>13.9455</td><td>14.9455</td><td>15.9455</td><td>16.9455</td><td>17.9455</td><td>18.9455</td><td>19.9455</td><td>20.9455</td><td>21.9455</td><td>22.9455</td><td>23.9455</td><td>24.9455</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.4107</td><td>1.4107</td><td>2.4107</td><td>3.4107</td><td>4.4107</td><td>5.4107</td><td>6.4107</td><td>7.4107</td><td>8.4107</td><td>9.4107</td><td>10.4107</td><td>11.4107</td><td>12.4107</td><td>13.4107</td><td>14.4107</td><td>15.4107</td><td>16.4107</td><td>17.4107</td><td>18.4107</td><td>19.4107</td><td>20.4107</td><td>21.4107</td><td>22.4107</td><td>23.4107</td><td>24.4107</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.7828</td><td>1.7828</td><td>2.7828</td><td>3.7828</td><td>4.7828</td><td>5.7828</td><td>6.7828</td><td>7.7828</td><td>8.7828</td><td>9.7828</td><td>10.7828</td><td>11.7828</td><td>12.7828</td><td>13.7828</td><td>14.7828</td><td>15.7828</td><td>16.7828</td><td>17.7828</td><td>18.7828</td><td>19.7828</td><td>20.7828</td><td>21.7828</td><td>22.7828</td><td>23.7828</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.2867</td><td>1.2867</td><td>2.2867</td><td>3.2867</td><td>4.2867</td><td>5.2867</td><td>6.2867</td><td>7.2867</td><td>8.2867</td><td>9.2867</td><td>10.2867</td><td>11.2867</td><td>12.2867</td><td>13.2867</td><td>14.2867</td><td>15.2867</td><td>16.2867</td><td>17.2867</td><td>18.2867</td><td>19.2867</td><td>20.2867</td><td>21.2867</td><td>22.2867</td><td>23.2867</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.6588</td><td>1.6588</td><td>2.6588</td><td>3.6588</td><td>4.6588</td><td>5.6588</td><td>6.6588</td><td>7.6588</td><td>8.6588</td><td>9.6588</td><td>10.4006</td><td>11.4006</td><td>12.4006</td><td>13.4006</td><td>14.4006</td><td>15.4006</td><td>16.4006</td><td>17.4006</td><td>18.4006</td><td>19.4006</td><td>20.4006</td><td>21.4006</td><td>22.4006</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.1626</td><td>1.1626</td><td>2.1626</td><td>3.1626</td><td>4.1626</td><td>5.1626</td><td>6.1626</td><td>7.1626</td><td>8.1626</td><td>9.1626</td><td>10.1626</td><td>10.4493</td><td>10.7791</td><td>11.3835</td><td>12.2627</td><td>13.2627</td><td>14.2627</td><td>15.2627</td><td>16.2627</td><td>17.2627</td><td>18.2627</td><td>19.2627</td><td>20.2627</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.5347</td><td>1.5347</td><td>2.5347</td><td>3.5347</td><td>4.5347</td><td>5.5347</td><td>6.5347</td><td>7.5347</td><td>8.5347</td><td>9.5347</td><td>10.3176</td><td>10.3176</td><td>10.3176</td><td>10.3176</td><td>10.5099</td><td>10.9771</td><td>11.7189</td><td>12.7189</td><td>13.7189</td><td>14.7189</td><td>15.7189</td><td>16.7189</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0386</td><td>0.9455</td><td>1.9455</td><td>2.9455</td><td>3.9455</td><td>4.9455</td><td>5.9455</td><td>6.9455</td><td>7.9455</td><td>8.9455</td><td>9.9455</td><td>10.3562</td><td>10.3562</td><td>10.3562</td><td>10.3562</td><td>10.3562</td><td>10.3562</td><td>10.4112</td><td>10.7409</td><td>11.3454</td><td>12.2246</td><td>13.2246</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.4107</td><td>1.4107</td><td>2.4107</td><td>3.4107</td><td>4.4107</td><td>5.4107</td><td>6.4107</td><td>7.4107</td><td>8.4107</td><td>9.4107</td><td>10.3176</td><td>10.3562</td><td>10.3562</td><td>10.3562</td><td>10.3562</td><td>10.3562</td><td>10.3562</td><td>10.3562</td><td>10.3562</td><td>10.3562</td><td>10.5486</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.7828</td><td>1.7828</td><td>2.7828</td><td>3.7828</td><td>4.7828</td><td>5.7828</td><td>6.7828</td><td>7.7828</td><td>8.7828</td><td>9.7828</td><td>10.3176</td><td>10.3176</td><td>10.3176</td><td>10.3176</td><td>10.3176</td><td>10.3176</td><td>10.3176</td><td>10.3176</td><td>10.3176</td><td>10.3176</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.2867</td><td>1.2867</td><td>2.2867</td><td>3.2867</td><td>4.2867</td><td>5.2867</td><td>6.2867</td><td>7.2867</td><td>8.2867</td><td>9.2867</td><td>10.2867</td><td>10.4493</td><td>10.4493</td><td>10.4493</td><td>10.4493</td><td>10.4493</td><td>10.4493</td><td>10.4493</td><td>10.4493</td><td>10.4493</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.6588</td><td>1.6588</td><td>2.6588</td><td>3.6588</td><td>4.6588</td><td>5.6588</td><td>6.6588</td><td>7.6588</td><td>8.6588</td><td>9.6588</td><td>10.3176</td><td>10.3176</td><td>10.3176</td><td>10.3176</td><td>10.3176</td><td>10.3176</td><td>10.3176</td><td>10.3176</td><td>10.3176</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.1626</td><td>1.1626</td><td>2.1626</td><td>3.1626</td><td>4.1626</td><td>5.1626</td><td>6.1626</td><td>7.1626</td><td>8.1626</td><td>9.1626</td><td>10.1626</td><td>10.4493</td><td>10.4493</td><td>10.4493</td><td>10.4493</td><td>10.4493</td><td>10.4493</td><td>10.4493</td><td>10.4493</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.5347</td><td>1.5347</td><td>2.5347</td><td>3.5347</td><td>4.5347</td><td>5.5347</td><td>6.5347</td><td>7.5347</td><td>8.5347</td><td>9.5347</td><td>10.3176</td><td>10.3176</td><td>10.3176</td><td>10.3176</td><td>10.3176</td><td>10.3176</td><td>10.3176</td><td>10.3176</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0386</td><td>0.9455</td><td>1.9455</td><td>2.9455</td><td>3.9455</td><td>4.9455</td><td>5.9455</td><td>6.9455</td><td>7.9455</td><td>8.9455</td><td>9.9455</td><td>10.3562</td><td>10.3562</td><td>10.3562</td><td>10.3562</td><td>10.3562</td><td>10.3562</td><td>10.3562</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.4107</td><td>1.4107</td><td>2.4107</td><td>3.4107</td><td>4.4107</td><td>5.4107</td><td>6.4107</td><td>7.4107</td><td>8.4107</td><td>9.4107</td><td>10.3176</td><td>10.3562</td><td>10.3562</td><td>10.3562</td><td>10.3562</td><td>10.3562</td><td>10.3562</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.7828</td><td>1.7828</td><td>2.7828</td><td>3.7828</td><td>4.7828</td><td>5.7828</td><td>6.7828</td><td>7.7828</td><td>8.7828</td><td>9.7828</td><td>10.3176</td><td>10.3176</td><td>10.3176</td><td>10.3176</td><td>10.3176</td><td>10.3176</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.2867</td><td>1.2867</td><td>2.2867</td><td>3.2867</td><td>4.2867</td><td>5.2867</td><td>6.2867</td><td>7.2867</td><td>8.2867</td><td>9.2867</td><td>10.2867</td><td>10.4493</td><td>10.4493</td><td>10.4493</td><td>10.4493</td><td>10.4493</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.6588</td><td>1.6588</td><td>2.6588</td><td>3.6588</td><td>4.6588</td><td>5.6588</td><td>6.6588</td><td>7.6588</td><td>8.6588</td><td>9.6588</td><td>10.3176</td><td>10.3176</td><td>10.3176</td><td>10.3176</td><td>10.3176</td></tr></table></td></tr>
 </table>
@@ -712,6 +840,10 @@ Returns image with input rows transformed into a histogram of `bins` values.
 
 The result is an image of `bins`-sized histogram rows with height and depth of the input.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
+
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |bins|int|256|The number of bins held by a single histogram. The pixel values are quantized to fit. Only values in the range of [0..1] are considered valid. Values outside of that range are placed into the smallest/largest bin. The default quantizes the image values to 8-bit.|
@@ -723,7 +855,7 @@ The result is an image of `bins`-sized histogram rows with height and depth of t
     <br>&nbsp;</th>
     <th>aktive op row histogram @1 bins 8
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00475.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00494.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'><table><tr><td>32</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr><tr><td>32</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr><tr><td>32</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr><tr><td>32</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr><tr><td>32</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr><tr><td>32</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr><tr><td>26</td><td>0</td><td>1</td><td>0</td><td>2</td><td>0</td><td>0</td><td>3</td></tr><tr><td>21</td><td>1</td><td>0</td><td>1</td><td>0</td><td>1</td><td>1</td><td>7</td></tr><tr><td>17</td><td>0</td><td>1</td><td>0</td><td>2</td><td>0</td><td>0</td><td>12</td></tr><tr><td>13</td><td>1</td><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td><td>16</td></tr><tr><td>10</td><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td>20</td></tr><tr><td>6</td><td>1</td><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td><td>23</td></tr><tr><td>6</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>25</td></tr><tr><td>6</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>25</td></tr><tr><td>7</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>25</td></tr><tr><td>7</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>24</td></tr><tr><td>7</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>24</td></tr><tr><td>7</td><td>2</td><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td><td>21</td></tr><tr><td>11</td><td>0</td><td>1</td><td>1</td><td>1</td><td>0</td><td>0</td><td>18</td></tr><tr><td>14</td><td>1</td><td>0</td><td>1</td><td>1</td><td>2</td><td>0</td><td>13</td></tr><tr><td>18</td><td>0</td><td>2</td><td>0</td><td>1</td><td>0</td><td>0</td><td>11</td></tr><tr><td>21</td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>9</td></tr><tr><td>22</td><td>0</td><td>0</td><td>0</td><td>1</td><td>1</td><td>0</td><td>8</td></tr><tr><td>22</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>9</td></tr><tr><td>21</td><td>2</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>9</td></tr><tr><td>22</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>9</td></tr><tr><td>22</td><td>0</td><td>0</td><td>0</td><td>1</td><td>1</td><td>0</td><td>8</td></tr><tr><td>22</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>9</td></tr><tr><td>22</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>9</td></tr><tr><td>22</td><td>0</td><td>0</td><td>0</td><td>1</td><td>1</td><td>0</td><td>8</td></tr><tr><td>22</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>9</td></tr><tr><td>21</td><td>2</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>9</td></tr></table></td></tr>
 </table>
@@ -738,6 +870,9 @@ Returns image with input rows compressed to a single value, the maximum of the r
 
 The part about the `depth of the input` means that the bands in each row are handled separately.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 #### <a name='op_row_max__examples'></a> Examples
 
@@ -746,7 +881,7 @@ The part about the `depth of the input` means that the bands in each row are han
     <br>&nbsp;</th>
     <th>aktive op row max @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00477.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00496.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'><table><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>1</td></tr><tr><td>1</td></tr><tr><td>1</td></tr><tr><td>1</td></tr><tr><td>1</td></tr><tr><td>1</td></tr><tr><td>1</td></tr><tr><td>1</td></tr><tr><td>1</td></tr><tr><td>1</td></tr><tr><td>1</td></tr><tr><td>1</td></tr><tr><td>1</td></tr><tr><td>1</td></tr><tr><td>1</td></tr><tr><td>1</td></tr><tr><td>1</td></tr><tr><td>1</td></tr><tr><td>1</td></tr><tr><td>1</td></tr><tr><td>1</td></tr><tr><td>1</td></tr><tr><td>1</td></tr><tr><td>1</td></tr><tr><td>1</td></tr><tr><td>1</td></tr></table></td></tr>
 </table>
@@ -761,6 +896,9 @@ Returns image with input rows compressed to a single value, the arithmetic mean 
 
 The part about the `depth of the input` means that the bands in each row are handled separately.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 #### <a name='op_row_mean__examples'></a> Examples
 
@@ -769,7 +907,7 @@ The part about the `depth of the input` means that the bands in each row are han
     <br>&nbsp;</th>
     <th>aktive op row mean @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00479.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00498.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'><table><tr><td>0.0000</td></tr><tr><td>0.0000</td></tr><tr><td>0.0000</td></tr><tr><td>0.0000</td></tr><tr><td>0.0000</td></tr><tr><td>0.0000</td></tr><tr><td>0.1335</td></tr><tr><td>0.2862</td></tr><tr><td>0.4186</td></tr><tr><td>0.5399</td></tr><tr><td>0.6521</td></tr><tr><td>0.7587</td></tr><tr><td>0.7977</td></tr><tr><td>0.7795</td></tr><tr><td>0.7628</td></tr><tr><td>0.7432</td></tr><tr><td>0.7277</td></tr><tr><td>0.7000</td></tr><tr><td>0.6332</td></tr><tr><td>0.5225</td></tr><tr><td>0.4133</td></tr><tr><td>0.3296</td></tr><tr><td>0.3224</td></tr><tr><td>0.3265</td></tr><tr><td>0.3224</td></tr><tr><td>0.3265</td></tr><tr><td>0.3224</td></tr><tr><td>0.3236</td></tr><tr><td>0.3236</td></tr><tr><td>0.3224</td></tr><tr><td>0.3265</td></tr><tr><td>0.3224</td></tr></table></td></tr>
 </table>
@@ -784,6 +922,9 @@ Returns image with input rows compressed to a single value, the median of the so
 
 The result is a single-row image with width and depth of the input
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 ---
 ### [↑](#top) <a name='op_row_min'></a> aktive op row min
@@ -794,6 +935,9 @@ Returns image with input rows compressed to a single value, the minimum of the r
 
 The part about the `depth of the input` means that the bands in each row are handled separately.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 #### <a name='op_row_min__examples'></a> Examples
 
@@ -802,7 +946,7 @@ The part about the `depth of the input` means that the bands in each row are han
     <br>&nbsp;</th>
     <th>aktive op row min @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00481.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00500.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'><table><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr></table></td></tr>
 </table>
@@ -821,6 +965,9 @@ The result has the same height and depth as the input.
 
 The result has a single column.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 #### <a name='op_row_otsu__examples'></a> Examples
 
@@ -829,7 +976,7 @@ The result has a single column.
     <br>&nbsp;</th>
     <th>aktive op row otsu [aktive op row histogram @1]
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00483.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00502.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'><table><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>85</td></tr><tr><td>120</td></tr><tr><td>85</td></tr><tr><td>120</td></tr><tr><td>85</td></tr><tr><td>120</td></tr><tr><td>1</td></tr><tr><td>10</td></tr><tr><td>106</td></tr><tr><td>1</td></tr><tr><td>74</td></tr><tr><td>1</td></tr><tr><td>85</td></tr><tr><td>120</td></tr><tr><td>106</td></tr><tr><td>106</td></tr><tr><td>1</td></tr><tr><td>74</td></tr><tr><td>1</td></tr><tr><td>74</td></tr><tr><td>1</td></tr><tr><td>106</td></tr><tr><td>106</td></tr><tr><td>1</td></tr><tr><td>74</td></tr><tr><td>1</td></tr></table></td></tr>
 </table>
@@ -848,6 +995,9 @@ from the left border of the input.
 
 The result is a single-column image with height and depth of the input.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 #### <a name='op_row_profile__examples'></a> Examples
 
@@ -856,7 +1006,7 @@ The result is a single-column image with height and depth of the input.
     <br>&nbsp;</th>
     <th>aktive op row profile @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00485.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00504.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'><table><tr><td>32</td></tr><tr><td>32</td></tr><tr><td>32</td></tr><tr><td>32</td></tr><tr><td>32</td></tr><tr><td>32</td></tr><tr><td>8</td></tr><tr><td>7</td></tr><tr><td>6</td></tr><tr><td>6</td></tr><tr><td>6</td></tr><tr><td>6</td></tr><tr><td>6</td></tr><tr><td>6</td></tr><tr><td>7</td></tr><tr><td>8</td></tr><tr><td>8</td></tr><tr><td>9</td></tr><tr><td>9</td></tr><tr><td>10</td></tr><tr><td>10</td></tr><tr><td>11</td></tr><tr><td>12</td></tr><tr><td>12</td></tr><tr><td>13</td></tr><tr><td>13</td></tr><tr><td>14</td></tr><tr><td>14</td></tr><tr><td>15</td></tr><tr><td>16</td></tr><tr><td>16</td></tr><tr><td>17</td></tr></table></td></tr>
 </table>
@@ -873,6 +1023,10 @@ The result is a single-column image with height and depth of the input
 
 Beware. While it is possible to use the rank filter for max/min extractions it is recommended to use the specific max/min operators instead, as they should be faster (linear scan of region, no gather, no sorting of the region).
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
+
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |rank|int|-1|Index of the sorted values to return. Default creates a median filter. 0 creates min-filter.|
@@ -886,6 +1040,9 @@ Returns image with input rows compressed to a single value, the standard deviati
 
 The part about the `depth of the input` means that the bands in each row are handled separately.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 #### <a name='op_row_stddev__examples'></a> Examples
 
@@ -894,7 +1051,7 @@ The part about the `depth of the input` means that the bands in each row are han
     <br>&nbsp;</th>
     <th>aktive op row stddev @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00487.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00506.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'><table><tr><td>0.0000</td></tr><tr><td>0.0000</td></tr><tr><td>0.0000</td></tr><tr><td>0.0000</td></tr><tr><td>0.0000</td></tr><tr><td>0.0000</td></tr><tr><td>0.2917</td></tr><tr><td>0.4242</td></tr><tr><td>0.4650</td></tr><tr><td>0.4758</td></tr><tr><td>0.4556</td></tr><tr><td>0.4014</td></tr><tr><td>0.3919</td></tr><tr><td>0.4099</td></tr><tr><td>0.4164</td></tr><tr><td>0.4307</td></tr><tr><td>0.4379</td></tr><tr><td>0.4438</td></tr><tr><td>0.4516</td></tr><tr><td>0.4667</td></tr><tr><td>0.4602</td></tr><tr><td>0.4525</td></tr><tr><td>0.4532</td></tr><tr><td>0.4575</td></tr><tr><td>0.4521</td></tr><tr><td>0.4575</td></tr><tr><td>0.4532</td></tr><tr><td>0.4556</td></tr><tr><td>0.4556</td></tr><tr><td>0.4532</td></tr><tr><td>0.4575</td></tr><tr><td>0.4521</td></tr></table></td></tr>
 </table>
@@ -909,6 +1066,9 @@ Returns image with input rows compressed to a single value, the sum of the row v
 
 The part about the `depth of the input` means that the bands in each row are handled separately.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 #### <a name='op_row_sum__examples'></a> Examples
 
@@ -917,7 +1077,7 @@ The part about the `depth of the input` means that the bands in each row are han
     <br>&nbsp;</th>
     <th>aktive op row sum @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00489.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00508.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'><table><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>4</td></tr><tr><td>9</td></tr><tr><td>13</td></tr><tr><td>17</td></tr><tr><td>21</td></tr><tr><td>24</td></tr><tr><td>26</td></tr><tr><td>25</td></tr><tr><td>24</td></tr><tr><td>24</td></tr><tr><td>23</td></tr><tr><td>22</td></tr><tr><td>20</td></tr><tr><td>17</td></tr><tr><td>13</td></tr><tr><td>11</td></tr><tr><td>10</td></tr><tr><td>10</td></tr><tr><td>10</td></tr><tr><td>10</td></tr><tr><td>10</td></tr><tr><td>10</td></tr><tr><td>10</td></tr><tr><td>10</td></tr><tr><td>10</td></tr><tr><td>10</td></tr></table></td></tr>
 </table>
@@ -932,6 +1092,9 @@ Returns image with input rows compressed to a single value, the sum of the squar
 
 The part about the `depth of the input` means that the bands in each row are handled separately.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 #### <a name='op_row_sumsquared__examples'></a> Examples
 
@@ -940,7 +1103,7 @@ The part about the `depth of the input` means that the bands in each row are han
     <br>&nbsp;</th>
     <th>aktive op row sumsquared @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00491.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00510.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'><table><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>3</td></tr><tr><td>8</td></tr><tr><td>13</td></tr><tr><td>17</td></tr><tr><td>20</td></tr><tr><td>24</td></tr><tr><td>25</td></tr><tr><td>25</td></tr><tr><td>24</td></tr><tr><td>24</td></tr><tr><td>23</td></tr><tr><td>22</td></tr><tr><td>19</td></tr><tr><td>16</td></tr><tr><td>12</td></tr><tr><td>10</td></tr><tr><td>10</td></tr><tr><td>10</td></tr><tr><td>10</td></tr><tr><td>10</td></tr><tr><td>10</td></tr><tr><td>10</td></tr><tr><td>10</td></tr><tr><td>10</td></tr><tr><td>10</td></tr><tr><td>10</td></tr></table></td></tr>
 </table>
@@ -955,6 +1118,9 @@ Returns image with input rows compressed to a single value, the variance of the 
 
 The part about the `depth of the input` means that the bands in each row are handled separately.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 #### <a name='op_row_variance__examples'></a> Examples
 
@@ -963,7 +1129,7 @@ The part about the `depth of the input` means that the bands in each row are han
     <br>&nbsp;</th>
     <th>aktive op row variance @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00493.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00512.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'><table><tr><td>0.0000</td></tr><tr><td>0.0000</td></tr><tr><td>0.0000</td></tr><tr><td>0.0000</td></tr><tr><td>0.0000</td></tr><tr><td>0.0000</td></tr><tr><td>0.0851</td></tr><tr><td>0.1799</td></tr><tr><td>0.2163</td></tr><tr><td>0.2264</td></tr><tr><td>0.2075</td></tr><tr><td>0.1611</td></tr><tr><td>0.1536</td></tr><tr><td>0.1681</td></tr><tr><td>0.1734</td></tr><tr><td>0.1855</td></tr><tr><td>0.1918</td></tr><tr><td>0.1970</td></tr><tr><td>0.2039</td></tr><tr><td>0.2178</td></tr><tr><td>0.2118</td></tr><tr><td>0.2048</td></tr><tr><td>0.2054</td></tr><tr><td>0.2093</td></tr><tr><td>0.2044</td></tr><tr><td>0.2093</td></tr><tr><td>0.2054</td></tr><tr><td>0.2075</td></tr><tr><td>0.2075</td></tr><tr><td>0.2054</td></tr><tr><td>0.2093</td></tr><tr><td>0.2044</td></tr></table></td></tr>
 </table>
@@ -985,6 +1151,10 @@ Beware, the result image is shrunken by 2*radius in width and height relative to
 If shrinkage is not desired add a border to the input using one of the `aktive op embed ...` operators before applying this operator.
 
 The prefered embedding for histogram is black. It is chosen to have minimal to no impact on the statistics at the original input's borders.
+
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -1008,6 +1178,10 @@ The prefered embedding for maximum is mirror. It is chosen to have minimal to no
 
 The input bands are handled separately.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
+
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |radius|uint||Tile size as radius from center. Full width and height of the tile are `2*radius+1`.|
@@ -1028,6 +1202,10 @@ If shrinkage is not desired add a border to the input using one of the `aktive o
 The prefered embedding for arithmetic mean is mirror. It is chosen to have minimal to no impact on the statistics at the original input's borders.
 
 The input bands are handled separately.
+
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -1050,6 +1228,10 @@ The prefered embedding for rank is mirror. It is chosen to have minimal to no im
 
 The input bands are handled separately.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
+
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |radius|uint||Tile size as radius from center. Full width and height of the tile are `2*radius+1`.|
@@ -1070,6 +1252,10 @@ If shrinkage is not desired add a border to the input using one of the `aktive o
 The prefered embedding for minimum is mirror. It is chosen to have minimal to no impact on the statistics at the original input's borders.
 
 The input bands are handled separately.
+
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -1094,6 +1280,10 @@ The input bands are handled separately.
 
 Beware. While it is possible to use the rank filter for max/min extractions it is recommended to use the specific max/min operators instead, as they should be faster (linear scan of region, no gather, no sorting of the region).
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
+
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |radius|uint||Tile size as radius from center. Full width and height of the tile are `2*radius+1`.|
@@ -1116,6 +1306,10 @@ The prefered embedding for standard deviation is mirror. It is chosen to have mi
 
 The input bands are handled separately.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
+
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |radius|uint||Tile size as radius from center. Full width and height of the tile are `2*radius+1`.|
@@ -1136,6 +1330,10 @@ If shrinkage is not desired add a border to the input using one of the `aktive o
 The prefered embedding for sum is black. It is chosen to have minimal to no impact on the statistics at the original input's borders.
 
 The input bands are handled separately.
+
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
@@ -1158,6 +1356,10 @@ The prefered embedding for sum is black. It is chosen to have minimal to no impa
 
 The input bands are handled separately.
 
+|Input|Description|
+|:---|:---|
+|src|Source image|
+
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |radius|uint||Tile size as radius from center. Full width and height of the tile are `2*radius+1`.|
@@ -1178,6 +1380,10 @@ If shrinkage is not desired add a border to the input using one of the `aktive o
 The prefered embedding for variance is mirror. It is chosen to have minimal to no impact on the statistics at the original input's borders.
 
 The input bands are handled separately.
+
+|Input|Description|
+|:---|:---|
+|src|Source image|
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|

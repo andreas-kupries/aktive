@@ -31,11 +31,11 @@
 ---
 ### [↑](#top) <a name='op_math_linear'></a> aktive op math linear
 
-Syntax: __aktive op math linear__ src0 src1 src2 [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/math/other.tcl)]
+Syntax: __aktive op math linear__ a b t [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/math/other.tcl)]
 
 Blends first and second input under control of the third.
 
-As an equation: `result = A + T*(B-A)`.
+As an equation: `result = A + T*(B-A) = A*(1-T)+T*B`.
 
 All inputs are extended to matching depth.
 
@@ -45,4 +45,9 @@ All inputs are extended to matching depth.
 
 The other dimensions of the inputs, i.e. width and height, have to match. An error is thrown if they don't.
 
+|Input|Description|
+|:---|:---|
+|a|Primary image A to blend|
+|b|Secondary image B to blend into A|
+|t|Per-pixel blending factors|
 
