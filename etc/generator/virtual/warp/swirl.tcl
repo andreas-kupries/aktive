@@ -12,7 +12,7 @@ operator warp::swirl {
 	a base rotation __from__, and a __decay__ factor.
 
     note The rotation angle added to a pixel is given by \
-	\"__phi__ + __from__ * exp(-__radius__ * __decay__)\", \
+	`phi + from * exp(-radius * decay)`, \
 	where __radius__ is the distance of the pixel from the \
 	__center__. A large decay reduces the swirl at shorter \
 	radii. A decay of zero disables the decay.
