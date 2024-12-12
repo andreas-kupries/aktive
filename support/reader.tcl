@@ -722,10 +722,10 @@ proc dsl::reader::simplify {args} {
     LappendX opspec overlays $args
 }
 
-proc dsl::reader::input... {} { Input ...      }
-proc dsl::reader::input    {} { Input required }
+proc dsl::reader::input... {}          { Input ...            }
+proc dsl::reader::input    {{name {}} args} { Input required $name $args}
 
-proc dsl::reader::Input {mode} { ;#puts [info level 0]
+proc dsl::reader::Input {mode {name {}} {desc {}}} { ;#puts [info level 0]
     OkModes {} C Tcl
     if {[Has opspec args] &&
 	[Get opspec args]} { Abort "Rejecting more image arguments, we have a variadic" }
@@ -734,6 +734,8 @@ proc dsl::reader::Input {mode} { ;#puts [info level 0]
 	required { dict set imspec args 0	                             }
 	...      { dict set imspec args 1 ; Set opspec args 1 ; vector image }
     }
+    dict set imspec name $name
+    dict set imspec desc $desc
 
     LappendX opspec images $imspec
 }
