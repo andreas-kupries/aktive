@@ -27,13 +27,14 @@
  - [aktive effect sharpen](#effect_sharpen)
  - [aktive effect sketch](#effect_sketch)
  - [aktive effect swirl](#effect_swirl)
+ - [aktive effect wobble](#effect_wobble)
 
 ## Operators
 
 ---
 ### [↑](#top) <a name='effect_blur'></a> aktive effect blur
 
-Syntax: __aktive effect blur__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=187&name=etc/transformer/filter/effects.tcl)]
+Syntax: __aktive effect blur__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=233&name=etc/transformer/filter/effects.tcl)]
 
 Returns blurred input, per the specified blur radius.
 
@@ -73,7 +74,7 @@ Returns blurred input, per the specified blur radius.
 ---
 ### [↑](#top) <a name='effect_charcoal'></a> aktive effect charcoal
 
-Syntax: __aktive effect charcoal__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=232&name=etc/transformer/filter/effects.tcl)]
+Syntax: __aktive effect charcoal__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=278&name=etc/transformer/filter/effects.tcl)]
 
 Returns a grey image with a charcoal-like sketch of the sRGB input.
 
@@ -113,7 +114,7 @@ Returns a grey image with a charcoal-like sketch of the sRGB input.
 ---
 ### [↑](#top) <a name='effect_emboss'></a> aktive effect emboss
 
-Syntax: __aktive effect emboss__ src [[→ definition](../../../../file?ci=trunk&ln=151&name=etc/transformer/filter/effects.tcl)]
+Syntax: __aktive effect emboss__ src [[→ definition](../../../../file?ci=trunk&ln=197&name=etc/transformer/filter/effects.tcl)]
 
 Returns embossed input.
 
@@ -138,7 +139,7 @@ Returns embossed input.
 ---
 ### [↑](#top) <a name='effect_jitter_gauss'></a> aktive effect jitter gauss
 
-Syntax: __aktive effect jitter gauss__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=109&name=etc/transformer/filter/effects.tcl)]
+Syntax: __aktive effect jitter gauss__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=155&name=etc/transformer/filter/effects.tcl)]
 
 Returns the input with a jitter effect based on gaussian noise applied to it. Visually this looks like frosted glass.
 
@@ -194,7 +195,7 @@ The underlying operation is [aktive warp noise gauss](generator_virtual_warp.md#
 ---
 ### [↑](#top) <a name='effect_jitter_uniform'></a> aktive effect jitter uniform
 
-Syntax: __aktive effect jitter uniform__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=67&name=etc/transformer/filter/effects.tcl)]
+Syntax: __aktive effect jitter uniform__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=113&name=etc/transformer/filter/effects.tcl)]
 
 Returns the input with a jitter effect based on uniform noise applied to it. Visually this looks like frosted glass.
 
@@ -250,7 +251,7 @@ The underlying operation is [aktive warp noise uniform](generator_virtual_warp.m
 ---
 ### [↑](#top) <a name='effect_max_rgb'></a> aktive effect max-rgb
 
-Syntax: __aktive effect max-rgb__ src [[→ definition](../../../../file?ci=trunk&ln=282&name=etc/transformer/filter/effects.tcl)]
+Syntax: __aktive effect max-rgb__ src [[→ definition](../../../../file?ci=trunk&ln=328&name=etc/transformer/filter/effects.tcl)]
 
 Returns an image suppressing at each pixel of the input the bands not reaching the max of the bands at that location.
 
@@ -281,7 +282,7 @@ Idea from <https://docs.gimp.org/2.8/en/plug-in-max-rgb.html>
 ---
 ### [↑](#top) <a name='effect_min_rgb'></a> aktive effect min-rgb
 
-Syntax: __aktive effect min-rgb__ src [[→ definition](../../../../file?ci=trunk&ln=282&name=etc/transformer/filter/effects.tcl)]
+Syntax: __aktive effect min-rgb__ src [[→ definition](../../../../file?ci=trunk&ln=328&name=etc/transformer/filter/effects.tcl)]
 
 Returns an image suppressing at each pixel of the input the bands not falling to the min of the bands at that location.
 
@@ -312,7 +313,7 @@ Idea from <https://docs.gimp.org/2.8/en/plug-in-max-rgb.html>
 ---
 ### [↑](#top) <a name='effect_sharpen'></a> aktive effect sharpen
 
-Syntax: __aktive effect sharpen__ src [[→ definition](../../../../file?ci=trunk&ln=170&name=etc/transformer/filter/effects.tcl)]
+Syntax: __aktive effect sharpen__ src [[→ definition](../../../../file?ci=trunk&ln=216&name=etc/transformer/filter/effects.tcl)]
 
 Returns sharpened input.
 
@@ -337,7 +338,7 @@ Returns sharpened input.
 ---
 ### [↑](#top) <a name='effect_sketch'></a> aktive effect sketch
 
-Syntax: __aktive effect sketch__ src [[→ definition](../../../../file?ci=trunk&ln=210&name=etc/transformer/filter/effects.tcl)]
+Syntax: __aktive effect sketch__ src [[→ definition](../../../../file?ci=trunk&ln=256&name=etc/transformer/filter/effects.tcl)]
 
 Returns image with a general sketch of the input.
 
@@ -373,13 +374,13 @@ Returns image with a general sketch of the input.
 ---
 ### [↑](#top) <a name='effect_swirl'></a> aktive effect swirl
 
-Syntax: __aktive effect swirl__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/filter/effects.tcl)]
+Syntax: __aktive effect swirl__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=54&name=etc/transformer/filter/effects.tcl)]
 
 Returns the input with a swirling effect applied to it.
 
 This effect applies around the specified __center__, with fixed rotation __phi__, a base rotation __from__, and a __decay__ factor.
 
-The rotation angle added to a pixel is given by "__phi__ + __from__ * exp(-__radius__ * __decay__)", where __radius__ is the distance of the pixel from the __center__. A large decay reduces the swirl at shorter radii. A decay of zero disables the decay.
+The rotation angle added to a pixel is given by `phi + from * exp(-radius * decay)`, where __radius__ is the distance of the pixel from the __center__. A large decay reduces the swirl at shorter radii. A decay of zero disables the decay.
 
 All swirl parameters are optional.
 
@@ -391,7 +392,7 @@ The underlying operation is [aktive warp swirl](generator_virtual_warp.md#warp_s
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
-|interpolate|str|bilinear|Interpolation method to use|
+|interpolate|str|bilinear|Interpolation method to use.|
 |center|point|{}|Center of the swirl, default center of the image.|
 |phi|double|0|In degrees, fixed rotation to apply. Default none.|
 |from|double|45|In degrees, swirl rotation at distance 0 from center.|
@@ -429,6 +430,48 @@ The underlying operation is [aktive warp swirl](generator_virtual_warp.md#warp_s
 <tr><td valign='top'><img src='example-00037.gif' alt='@1 (assets/butterfly.ppm)' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
     <td valign='top'><img src='example-00038.gif' alt='aktive effect swirl @1 decay 0.01 from 135' style='border:4px solid gold'>
+    <br>geometry(0 0 380 250 3)</td></tr>
+</table>
+
+
+---
+### [↑](#top) <a name='effect_wobble'></a> aktive effect wobble
+
+Syntax: __aktive effect wobble__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/filter/effects.tcl)]
+
+Returns the input with a swirling effect applied to it.
+
+This effect applies around the specified __center__, with base __amplitude__, __frequency__, __chirp__, and __attenuation__ powers.
+
+The effect modulates the distance from the center based on the formula `sin (radius^chirp * frequency) * amplitude / (1+radius)^attenuation`, where `radius` is the original distance.
+
+All parameters, including the center are optional.
+
+The underlying operation is [aktive warp wobble](generator_virtual_warp.md#warp_wobble).
+
+|Input|Description|
+|:---|:---|
+|src|Source image|
+
+|Parameter|Type|Default|Description|
+|:---|:---|:---|:---|
+|center|point|{}|Center of the wobble, relative to the image location. Defaults to the image center.|
+|amplitude|double|500|Base amplitude of the displacement.|
+|frequency|double|2|Base wave frequency.|
+|chirp|double|0.5|Chirp (power) factor modulating the frequency.|
+|attenuation|double|0.6|Power factor tweaking the base 1/x attenuation.|
+|interpolate|str|bilinear|Interpolation method to use.|
+
+#### <a name='effect_wobble__examples'></a> Examples
+
+<table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive effect wobble @1 center {100 50}
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00039.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 380 250 3)</td>
+    <td valign='top'><img src='example-00040.gif' alt='aktive effect wobble @1 center {100 50}' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td></tr>
 </table>
 
