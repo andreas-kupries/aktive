@@ -8,6 +8,7 @@
 operator op::connected-components::get {
     section accessor morphology
 
+    # !xref-mark labeled regions
     example [string map [list VALUES [string map [list \n { } \t {} _ {0 } * {1 }] {
 	_____*___________________________
 	_____*__**__***_*****___*******__
@@ -44,6 +45,7 @@ operator op::connected-components::get {
 	aktive op morph gradient internal @1 radius 1             | times 8
 	@2                                                        | -text cc.pretty
     }]
+    # !xref-mark /end
 
     note Returns a dictionary describing all the connected components of the single-band input.
 

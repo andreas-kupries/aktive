@@ -73,6 +73,7 @@ operator [sdf-known image::draw::] {
 
     draw-modifier
 
+    # !xref-mark draw pass
     pass import sdf/parameter/$sdf.tcl
 
     body {

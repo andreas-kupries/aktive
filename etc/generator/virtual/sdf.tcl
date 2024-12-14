@@ -99,10 +99,12 @@ operator [sdf-known image::sdf::] {
 operator op::sdf::not {
     section transform sdf
 
+    # !xref-mark sdf
     example {
 	aktive image sdf circle center {80 80} width 128 height 128 radius 40
 	@1 | ; sdf-fit ; sdf-smooth ; sdf-pixelated
     }
+    # !xref-mark /end
 
     note Returns the inverted input SDF, where inside and outside changed places. \
 	This is defined as `1 - SRC`.

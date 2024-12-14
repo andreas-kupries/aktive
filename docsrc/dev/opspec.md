@@ -1,16 +1,24 @@
-!include ../parts/topnav-dev-b.inc
+<img src='../assets/aktive-logo-128.png' style='float:right;'>
+
+||||
+|---|---|---|
+|[Project ↗](../../README.md)|[Documentation ↗](../index.md)|[Developer Index ↗](index.md)|
+
 
 # <a name='top'></a> Operator Specifications DSL
 
 ## Overview
 
-AKTIVE uses a Tcl-based domain-specific language to simplify the specification
-of image processing operators.
+AKTIVE uses a Tcl-based domain-specific language to simplify the
+specification of image processing operators.
 
 The implementation of the DSL translates the specifications into the
 
-  - Boilerplate C code embedding and linking the operator into AKTIVE's runtime framework.
-  - Operator documentation in Markdown, including examples (and underlying example Tcl code).
+  - Boilerplate code (C and Tcl) embedding and linking the operator
+    into AKTIVE's runtime framework.
+
+  - Operator documentation in Markdown, including examples
+    (and underlying example Tcl code).
 
 ## Implementation
 
@@ -18,9 +26,14 @@ The implementation of the DSL translates the specifications into the
 
 Files:
 
-  - [support/dsl.tcl](/file?ci=trunk&name=support/dsl.tcl)
-  - [support/reader.tcl](/file?ci=trunk&name=support/reader.tcl)
-  - [support/writer.tcl](/file?ci=trunk&name=support/writer.tcl)
+  - [Main](/file?ci=trunk&name=support/dsl.tcl)
+  - [Reader Frontend](/file?ci=trunk&name=support/reader.tcl)
+  - [Writer Backend](/file?ci=trunk&name=support/writer.tcl)
+  - [Example Support](/file?ci=trunk&name=support/esupport.tcl)
+  - [Blitter Generator](/file?ci=trunk&name=support/blit.tcl)
+  - [Reductor Generator](/file?ci=trunk&name=support/reduce.tcl)
+  - [Struct Parsing](/file?ci=trunk&name=support/structs.tcl)
+  - [Xref Parsing](/file?ci=trunk&name=support/xref.tcl)
 
 ## <a name='cmds'></a> Main commands
 
@@ -28,13 +41,13 @@ Files:
 
 |Command			|Description								|
 |:---				|:---									|
-|[def](#cmd-def)		|Define a sharable text block. Global or local to an operator		|
-|[import](#cmd-import)		|Import definitions from the specified file, fail for a mising file	|
-|[import?](#cmd-import)		|See above. However, ignore a missing file    	      	       		|
-|[nyi](#cmd-nyi)		|Disable the command it is a prefix of					|
-|[operator](#cmd-operator)	|Define a (set of) operators   	      	       	     			|
-|[type](#cmd-type)		|Define a type for use in parameter and results				|
-|[vector](#cmd-vector)		|Declare for which types we need vector/slice support			|
+|[def](#cmd-def)		|Defines a sharable text block. Global or local to an operator		|
+|[import](#cmd-import)		|Imports definitions from the specified file, fail for a mising file	|
+|[import?](#cmd-import)		|See above, except it ignores a missing file   	      	       		|
+|[nyi](#cmd-nyi)		|Disables the command it is a prefix of					|
+|[operator](#cmd-operator)	|Defines a (set of) operators  	      	       	     			|
+|[type](#cmd-type)		|Defines a type for use with parameters and results			|
+|[vector](#cmd-vector)		|Declares which types require vector/slice support			|
 
 ### <a name='cmd-def'></a> `def`
 
@@ -44,17 +57,19 @@ Files:
 |:---					|
 |`def NAME TEXT [(KEY VALUE)...]`	|
 
-This command creates a named sharable block of `text`, at either global level or
-local to an operator specification. The created block is usable wherever
-templating is performed.
+The command creates a named sharable block of `text`, either at global
+level or local to an operator specification. The created block is
+usable wherever templating is performed.
 
-The command further creates a Tcl variable of the same name in the calling scope
-also containing the `text`.
+The command further creates a Tcl variable of the same `name` in the
+calling scope, also containing the `text`.
 
-Note that this command applies templating to the `text` before it is saved. In
-other words, the definition of a block can reference blocks defined before it.
-Furthermore the optional set of `key` and `value` arguments serves as map of
-ultra-local placeholders to handle.
+__Note__ that this command applies templating to the `text` before it
+is saved.  In other words, the definition of a block can reference
+blocks defined before it.
+
+Furthermore the optional set of `key` and `value` arguments serves as
+map of ultra-local placeholders to use in the templating.
 
 ### <a name='cmd-import'></a> `import`, `import?`
 
@@ -65,11 +80,12 @@ ultra-local placeholders to handle.
 |`import PATH`	|
 |`import? PATH`	|
 
-Both commands read the referenced file and execute the commands in the context
-of the import. This can be global or within an operator specification.
+Both commands read the referenced file and execute the commands in the
+context of the import. This can be global or within an operator
+specification.
 
-The `import?` variant ignores a missing `PATH`, whereas `import` will throw an
-error in that case.
+The `import?` variant ignores a missing `PATH`, whereas `import` will
+throw an error in that case.
 
 ### <a name='cmd-nyi'></a> `nyi`
 
@@ -79,7 +95,8 @@ error in that case.
 |:---			|
 |`nyi [WORD...]`	|
 
-`nyi` is a prefix command whose use disables the command it is made a prefix of.
+The command is a prefix command whose use disables the command it is
+made a prefix of.
 
 The name stands for __not yet implemented__.
 
@@ -93,11 +110,11 @@ The name stands for __not yet implemented__.
 |`operator NAMELIST SPEC`	|
 |`operator VARLIST OPLIST SPEC`	|
 
-This command names and specifies one or more (related) image processing
+The command names and specifies one or more (related) image processing
 operators, using a suite of subordinate commands within its `spec`.
 
-Given the complexity it has [its own page](opspec-op.md) containing the full
-details.
+The [full details](opspec-op.md) abbout operator arguments and
+subordinate commands are found in [their own page](opspec-op.md).
 
 ### <a name='cmd-type'></a> `type`
 
@@ -107,10 +124,13 @@ details.
 |:---				|
 |`type ID CRITCL C CONVERTER`	|
 
-The command declares a type the DSL can use for operator parameter and results.
-Note that types have to be declared before their use.
+The command declares a type the DSL can use for operator parameters and
+results.
 
-The core types needed by AKTIVE's runtime framework itself are declared in
+__Note__ that types have to be declared before their use.
+
+The core types needed by AKTIVE's runtime framework itself are
+declared in
 
   - [etc/runtime.tcl](/file?ci=trunk&name=etc/runtime.tcl)
 
@@ -126,7 +146,9 @@ Arguments:
 Converter notes:
 
   - The fragment has to return a `Tcl_Obj*` value.
-  - The fragment expects to have access to a C variable `value` holding a pointer to the C value to convert
+
+  - The fragment expects to have access to a C variable `value`
+    holding a pointer to the C value to convert
 
 ### <a name='cmd-vector'></a> `vector`
 
@@ -134,11 +156,10 @@ Converter notes:
 
 |Syntax			|
 |:---			|
-|`vector [ID...]`	|
+|`vector [NAME...]`	|
 
-The command declares that we need vector/slice support for the types named in
-its arguments.
+The command declares that we need vector/slice support for the named types.
 
-In other words, it arranges for the generator to emit C code that provides the
-types and functions for the management of __dynamic arrays__ for values of this
-type.
+In other words, it arranges for the generator to emit C code that
+provides the types and functions for the management of __dynamic arrays__
+for values of this type.

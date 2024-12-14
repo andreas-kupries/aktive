@@ -78,11 +78,16 @@ critcl::ccode {
 
 critcl::source support/dsl.tcl
 
+# scan for markers the documentation can then reference.
+dsl xref scan \
+    /into doc/ref/xmark.tcl \
+    /from etc runtime
+
 # translate the operator specifications
 dsl generate runtime etc/runtime.tcl rtgen
 dsl generate aktive  etc/aktive.tcl  generated doc/ref
 
-# extract structure definitions for developer documentation
+# scan structure definitions for developer documentation and extract them
 dsl structs scan \
     /into doc/dev/figures/generated \
     /from runtime op rtgen generated

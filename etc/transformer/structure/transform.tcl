@@ -38,12 +38,15 @@ operator op::transform::by {
 	aktive transform reflect line a {50 260} b {150 -10} | -matrix -label reflect line {50 260} b {150 -10}
 	@2 @1 | bframe
     }
+    # !xref-mark affine location marker
+    # !xref-mark affine
     example {
 	dot green {190 10} [dot blue {210 80} [dot red {47 62} [poly red {{47 62} {190 10} {210 80} {100 125} {47 62}} [butterfly]]]] | -label assets/butterfly.ppm
 	aktive transform quad 2quad   a {47 62} b {190 10} c {210 80} d {100 125}   e {0 0} f {100 0} g {100 100} h {0 100}           | -matrix -label quadrilateral
 	aktive op transform by @2 @1
 	aktive op view @3 port {0 0 100 100}
     }
+    # !xref-mark /end
 
     note Applies the projective __forward__ `transform` to the source image, \
 	using some kind of pixel interpolation, and returns the result. \
