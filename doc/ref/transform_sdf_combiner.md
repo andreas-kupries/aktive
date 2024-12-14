@@ -28,7 +28,7 @@
 ---
 ### [↑](#top) <a name='op_sdf_and'></a> aktive op sdf and
 
-Syntax: __aktive op sdf and__ srcs... [[→ definition](../../../../file?ci=trunk&ln=135&name=etc/generator/virtual/sdf.tcl)]
+Syntax: __aktive op sdf and__ srcs... [[→ definition](../../../../file?ci=trunk&ln=137&name=etc/generator/virtual/sdf.tcl)]
 
 Returns the intersection (`*`, `max`) of all input SDFs.
 
@@ -59,7 +59,7 @@ Returns the intersection (`*`, `max`) of all input SDFs.
 ---
 ### [↑](#top) <a name='op_sdf_or'></a> aktive op sdf or
 
-Syntax: __aktive op sdf or__ srcs... [[→ definition](../../../../file?ci=trunk&ln=117&name=etc/generator/virtual/sdf.tcl)]
+Syntax: __aktive op sdf or__ srcs... [[→ definition](../../../../file?ci=trunk&ln=119&name=etc/generator/virtual/sdf.tcl)]
 
 Returns the union (`+`, `min`) of all input SDFs.
 
@@ -90,7 +90,7 @@ Returns the union (`+`, `min`) of all input SDFs.
 ---
 ### [↑](#top) <a name='op_sdf_sub'></a> aktive op sdf sub
 
-Syntax: __aktive op sdf sub__ a b [[→ definition](../../../../file?ci=trunk&ln=153&name=etc/generator/virtual/sdf.tcl)]
+Syntax: __aktive op sdf sub__ a b [[→ definition](../../../../file?ci=trunk&ln=155&name=etc/generator/virtual/sdf.tcl)]
 
 Returns the difference `A - B` of the two input SDFs. This is defined as `A * (not B)`.
 
@@ -122,7 +122,7 @@ Returns the difference `A - B` of the two input SDFs. This is defined as `A * (n
 ---
 ### [↑](#top) <a name='op_sdf_xor'></a> aktive op sdf xor
 
-Syntax: __aktive op sdf xor__ srcs... [[→ definition](../../../../file?ci=trunk&ln=174&name=etc/generator/virtual/sdf.tcl)]
+Syntax: __aktive op sdf xor__ srcs... [[→ definition](../../../../file?ci=trunk&ln=176&name=etc/generator/virtual/sdf.tcl)]
 
 Returns the symmetric difference of all input SDFs.
 
@@ -153,7 +153,7 @@ Returns the symmetric difference of all input SDFs.
 ---
 ### [↑](#top) <a name='op_sdf_xor_core'></a> aktive op sdf xor-core
 
-Syntax: __aktive op sdf xor-core__ a b [[→ definition](../../../../file?ci=trunk&ln=194&name=etc/generator/virtual/sdf.tcl)]
+Syntax: __aktive op sdf xor-core__ a b [[→ definition](../../../../file?ci=trunk&ln=196&name=etc/generator/virtual/sdf.tcl)]
 
 Returns the symmetric difference of the two input SDFs. This is defined as `(A + B) - (A * B)`.
 

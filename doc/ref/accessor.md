@@ -169,7 +169,7 @@ Returns the input's implementation-specific image identity.
 ---
 ### [↑](#top) <a name='query_inputs'></a> aktive query inputs
 
-Syntax: __aktive query inputs__ src [[→ definition](../../../../file?ci=trunk&ln=169&name=etc/accessor/attributes.tcl)]
+Syntax: __aktive query inputs__ src [[→ definition](../../../../file?ci=trunk&ln=171&name=etc/accessor/attributes.tcl)]
 
 Returns a list of the input's inputs.
 
@@ -182,7 +182,7 @@ For an image without inputs the result is the empty list.
 ---
 ### [↑](#top) <a name='query_params'></a> aktive query params
 
-Syntax: __aktive query params__ src [[→ definition](../../../../file?ci=trunk&ln=194&name=etc/accessor/attributes.tcl)]
+Syntax: __aktive query params__ src [[→ definition](../../../../file?ci=trunk&ln=196&name=etc/accessor/attributes.tcl)]
 
 Returns a dictionary containing the input's parameters.
 
@@ -218,7 +218,7 @@ For an image without parameters the result is the empty dictionary.
 ---
 ### [↑](#top) <a name='query_setup'></a> aktive query setup
 
-Syntax: __aktive query setup__ src [[→ definition](../../../../file?ci=trunk&ln=219&name=etc/accessor/attributes.tcl)]
+Syntax: __aktive query setup__ src [[→ definition](../../../../file?ci=trunk&ln=221&name=etc/accessor/attributes.tcl)]
 
 Returns a dictionary containing the input's setup.
 

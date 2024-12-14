@@ -129,7 +129,7 @@ Returns result of "dict values" applied to the input's meta data dictionary
 ---
 ### [↑](#top) <a name='query_meta'></a> aktive query meta
 
-Syntax: __aktive query meta__ src [[→ definition](../../../../file?ci=trunk&ln=243&name=etc/accessor/attributes.tcl)]
+Syntax: __aktive query meta__ src [[→ definition](../../../../file?ci=trunk&ln=245&name=etc/accessor/attributes.tcl)]
 
 Returns a dictionary containing the input's meta data.
 

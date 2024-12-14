@@ -184,7 +184,7 @@ Returns an image with the input bands compressed to a single value, the first in
 ---
 ### [↑](#top) <a name='op_band_cumulative'></a> aktive op band cumulative
 
-Syntax: __aktive op band cumulative__ src [[→ definition](../../../../file?ci=trunk&ln=40&name=etc/transformer/statistics/cumulation.tcl)]
+Syntax: __aktive op band cumulative__ src [[→ definition](../../../../file?ci=trunk&ln=41&name=etc/transformer/statistics/cumulation.tcl)]
 
 Returns image with the input bands transformed into cumulative sums.
 
