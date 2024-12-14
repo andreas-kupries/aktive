@@ -34,7 +34,7 @@
 ---
 ### [↑](#top) <a name='effect_blur'></a> aktive effect blur
 
-Syntax: __aktive effect blur__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=233&name=etc/transformer/filter/effects.tcl)]
+Syntax: __aktive effect blur__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=219&name=etc/transformer/filter/effects.tcl)]
 
 Returns blurred input, per the specified blur radius.
 
@@ -74,7 +74,7 @@ Returns blurred input, per the specified blur radius.
 ---
 ### [↑](#top) <a name='effect_charcoal'></a> aktive effect charcoal
 
-Syntax: __aktive effect charcoal__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=278&name=etc/transformer/filter/effects.tcl)]
+Syntax: __aktive effect charcoal__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=264&name=etc/transformer/filter/effects.tcl)]
 
 Returns a grey image with a charcoal-like sketch of the sRGB input.
 
@@ -114,7 +114,7 @@ Returns a grey image with a charcoal-like sketch of the sRGB input.
 ---
 ### [↑](#top) <a name='effect_emboss'></a> aktive effect emboss
 
-Syntax: __aktive effect emboss__ src [[→ definition](../../../../file?ci=trunk&ln=197&name=etc/transformer/filter/effects.tcl)]
+Syntax: __aktive effect emboss__ src [[→ definition](../../../../file?ci=trunk&ln=183&name=etc/transformer/filter/effects.tcl)]
 
 Returns embossed input.
 
@@ -139,7 +139,7 @@ Returns embossed input.
 ---
 ### [↑](#top) <a name='effect_jitter_gauss'></a> aktive effect jitter gauss
 
-Syntax: __aktive effect jitter gauss__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=155&name=etc/transformer/filter/effects.tcl)]
+Syntax: __aktive effect jitter gauss__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=141&name=etc/transformer/filter/effects.tcl)]
 
 Returns the input with a jitter effect based on gaussian noise applied to it. Visually this looks like frosted glass.
 
@@ -195,7 +195,7 @@ The underlying operation is [aktive warp noise gauss](generator_virtual_warp.md#
 ---
 ### [↑](#top) <a name='effect_jitter_uniform'></a> aktive effect jitter uniform
 
-Syntax: __aktive effect jitter uniform__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=113&name=etc/transformer/filter/effects.tcl)]
+Syntax: __aktive effect jitter uniform__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=99&name=etc/transformer/filter/effects.tcl)]
 
 Returns the input with a jitter effect based on uniform noise applied to it. Visually this looks like frosted glass.
 
@@ -251,7 +251,7 @@ The underlying operation is [aktive warp noise uniform](generator_virtual_warp.m
 ---
 ### [↑](#top) <a name='effect_max_rgb'></a> aktive effect max-rgb
 
-Syntax: __aktive effect max-rgb__ src [[→ definition](../../../../file?ci=trunk&ln=328&name=etc/transformer/filter/effects.tcl)]
+Syntax: __aktive effect max-rgb__ src [[→ definition](../../../../file?ci=trunk&ln=314&name=etc/transformer/filter/effects.tcl)]
 
 Returns an image suppressing at each pixel of the input the bands not reaching the max of the bands at that location.
 
@@ -282,7 +282,7 @@ Idea from <https://docs.gimp.org/2.8/en/plug-in-max-rgb.html>
 ---
 ### [↑](#top) <a name='effect_min_rgb'></a> aktive effect min-rgb
 
-Syntax: __aktive effect min-rgb__ src [[→ definition](../../../../file?ci=trunk&ln=328&name=etc/transformer/filter/effects.tcl)]
+Syntax: __aktive effect min-rgb__ src [[→ definition](../../../../file?ci=trunk&ln=314&name=etc/transformer/filter/effects.tcl)]
 
 Returns an image suppressing at each pixel of the input the bands not falling to the min of the bands at that location.
 
@@ -313,7 +313,7 @@ Idea from <https://docs.gimp.org/2.8/en/plug-in-max-rgb.html>
 ---
 ### [↑](#top) <a name='effect_sharpen'></a> aktive effect sharpen
 
-Syntax: __aktive effect sharpen__ src [[→ definition](../../../../file?ci=trunk&ln=216&name=etc/transformer/filter/effects.tcl)]
+Syntax: __aktive effect sharpen__ src [[→ definition](../../../../file?ci=trunk&ln=202&name=etc/transformer/filter/effects.tcl)]
 
 Returns sharpened input.
 
@@ -338,7 +338,7 @@ Returns sharpened input.
 ---
 ### [↑](#top) <a name='effect_sketch'></a> aktive effect sketch
 
-Syntax: __aktive effect sketch__ src [[→ definition](../../../../file?ci=trunk&ln=256&name=etc/transformer/filter/effects.tcl)]
+Syntax: __aktive effect sketch__ src [[→ definition](../../../../file?ci=trunk&ln=242&name=etc/transformer/filter/effects.tcl)]
 
 Returns image with a general sketch of the input.
 
@@ -374,7 +374,7 @@ Returns image with a general sketch of the input.
 ---
 ### [↑](#top) <a name='effect_swirl'></a> aktive effect swirl
 
-Syntax: __aktive effect swirl__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=54&name=etc/transformer/filter/effects.tcl)]
+Syntax: __aktive effect swirl__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=40&name=etc/transformer/filter/effects.tcl)]
 
 Returns the input with a swirling effect applied to it.
 
@@ -455,7 +455,7 @@ The underlying operation is [aktive warp wobble](generator_virtual_warp.md#warp_
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
-|center|point|{}|Center of the wobble, relative to the image location. Defaults to the image center.|
+|center|point|{}|Center of the wobble, relative to the origin. Defaults to the image center.|
 |amplitude|double|500|Base amplitude of the displacement.|
 |frequency|double|2|Base wave frequency.|
 |chirp|double|0.5|Chirp (power) factor modulating the frequency.|

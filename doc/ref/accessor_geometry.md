@@ -36,7 +36,7 @@
 ---
 ### [↑](#top) <a name='query_depth'></a> aktive query depth
 
-Syntax: __aktive query depth__ src [[→ definition](../../../../file?ci=trunk&ln=139&name=etc/accessor/attributes.tcl)]
+Syntax: __aktive query depth__ src [[→ definition](../../../../file?ci=trunk&ln=141&name=etc/accessor/attributes.tcl)]
 
 Returns the input's depth.
 
@@ -138,7 +138,7 @@ Returns the input's full geometry, i.e. domain and depth.
 ---
 ### [↑](#top) <a name='query_height'></a> aktive query height
 
-Syntax: __aktive query height__ src [[→ definition](../../../../file?ci=trunk&ln=139&name=etc/accessor/attributes.tcl)]
+Syntax: __aktive query height__ src [[→ definition](../../../../file?ci=trunk&ln=141&name=etc/accessor/attributes.tcl)]
 
 Returns the input's height.
 
@@ -206,7 +206,7 @@ Returns the input's location, a 2D point.
 ---
 ### [↑](#top) <a name='query_pitch'></a> aktive query pitch
 
-Syntax: __aktive query pitch__ src [[→ definition](../../../../file?ci=trunk&ln=139&name=etc/accessor/attributes.tcl)]
+Syntax: __aktive query pitch__ src [[→ definition](../../../../file?ci=trunk&ln=141&name=etc/accessor/attributes.tcl)]
 
 Returns the input's pitch, the number of values in a row, i.e. width times depth.
 
@@ -240,7 +240,7 @@ Returns the input's pitch, the number of values in a row, i.e. width times depth
 ---
 ### [↑](#top) <a name='query_pixels'></a> aktive query pixels
 
-Syntax: __aktive query pixels__ src [[→ definition](../../../../file?ci=trunk&ln=139&name=etc/accessor/attributes.tcl)]
+Syntax: __aktive query pixels__ src [[→ definition](../../../../file?ci=trunk&ln=141&name=etc/accessor/attributes.tcl)]
 
 Returns the input's number of pixels.
 
@@ -274,7 +274,7 @@ Returns the input's number of pixels.
 ---
 ### [↑](#top) <a name='query_size'></a> aktive query size
 
-Syntax: __aktive query size__ src [[→ definition](../../../../file?ci=trunk&ln=139&name=etc/accessor/attributes.tcl)]
+Syntax: __aktive query size__ src [[→ definition](../../../../file?ci=trunk&ln=141&name=etc/accessor/attributes.tcl)]
 
 Returns the input's size, i.e. the number of pixels times depth.
 
@@ -308,7 +308,7 @@ Returns the input's size, i.e. the number of pixels times depth.
 ---
 ### [↑](#top) <a name='query_width'></a> aktive query width
 
-Syntax: __aktive query width__ src [[→ definition](../../../../file?ci=trunk&ln=139&name=etc/accessor/attributes.tcl)]
+Syntax: __aktive query width__ src [[→ definition](../../../../file?ci=trunk&ln=141&name=etc/accessor/attributes.tcl)]
 
 Returns the input's width.
 
@@ -342,7 +342,7 @@ Returns the input's width.
 ---
 ### [↑](#top) <a name='query_x'></a> aktive query x
 
-Syntax: __aktive query x__ src [[→ definition](../../../../file?ci=trunk&ln=111&name=etc/accessor/attributes.tcl)]
+Syntax: __aktive query x__ src [[→ definition](../../../../file?ci=trunk&ln=113&name=etc/accessor/attributes.tcl)]
 
 Returns the input's x location.
 
@@ -376,7 +376,7 @@ Returns the input's x location.
 ---
 ### [↑](#top) <a name='query_xmax'></a> aktive query xmax
 
-Syntax: __aktive query xmax__ src [[→ definition](../../../../file?ci=trunk&ln=111&name=etc/accessor/attributes.tcl)]
+Syntax: __aktive query xmax__ src [[→ definition](../../../../file?ci=trunk&ln=113&name=etc/accessor/attributes.tcl)]
 
 Returns the input's maximum x location.
 
@@ -410,7 +410,7 @@ Returns the input's maximum x location.
 ---
 ### [↑](#top) <a name='query_y'></a> aktive query y
 
-Syntax: __aktive query y__ src [[→ definition](../../../../file?ci=trunk&ln=111&name=etc/accessor/attributes.tcl)]
+Syntax: __aktive query y__ src [[→ definition](../../../../file?ci=trunk&ln=113&name=etc/accessor/attributes.tcl)]
 
 Returns the input's y location.
 
@@ -444,7 +444,7 @@ Returns the input's y location.
 ---
 ### [↑](#top) <a name='query_ymax'></a> aktive query ymax
 
-Syntax: __aktive query ymax__ src [[→ definition](../../../../file?ci=trunk&ln=111&name=etc/accessor/attributes.tcl)]
+Syntax: __aktive query ymax__ src [[→ definition](../../../../file?ci=trunk&ln=113&name=etc/accessor/attributes.tcl)]
 
 Returns the input's maximum y location.
 

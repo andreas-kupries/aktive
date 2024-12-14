@@ -921,13 +921,13 @@ Syntax: __aktive warp wobble__  ?(param value)...? [[→ definition](../../../..
 
 Returns the origin map for a wobble effect around the specified __center__, with base __amplitude__, __frequency__, __chirp__, and __attenuation__ powers.
 
-The effect modulates the distance from the center based on the formula `sin (radius^chirp * frequency) * amplitude / (1+radius)^attenuation`, where `radius` is the original distance.
-
-All parameters, including the center are optional.
-
 The result is designed to be usable with the [aktive op warp bicubic](transform_structure_warp.md#op_warp_bicubic) operation and its relatives.
 
 At the technical level the result is a 2-band image where each pixel declares its origin position.
+
+The effect modulates the distance from the center based on the formula `sin (radius^chirp * frequency) * amplitude / (1+radius)^attenuation`, where `radius` is the original distance.
+
+All parameters, including the center are optional.
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
