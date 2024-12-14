@@ -471,6 +471,7 @@ __TODO FILL__
 __TODO FILL__ C code fragment context
 
 Arguments:
+
 |Name		|Description					|
 |:---		|---						|
 |`FETCH`	|C code fragment to serve a pixel request	|
