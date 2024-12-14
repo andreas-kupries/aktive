@@ -1,7 +1,7 @@
 # -*- mode: tcl ; fill-column: 90 -*-
 
 namespace eval ::dsl {
-    namespace export generate blit reduce structs
+    namespace export generate blit reduce structs xref
     namespace ensemble create
 }
 
@@ -22,5 +22,6 @@ apply {{selfdir} {
     source [file join $selfdir blit.tcl]
     source [file join $selfdir reduce.tcl]
     source [file join $selfdir structs.tcl]
+    source [file join $selfdir xref.tcl]
 }} [file dirname [file normalize [info script]]]
 return
