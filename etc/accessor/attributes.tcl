@@ -90,6 +90,7 @@ operator query::domain {
 operator query::geometry {
     section accessor geometry
 
+    # !xref-mark geometry
     example {
 	aktive image zone width 32 height 32
 	@1 | -text
@@ -98,6 +99,7 @@ operator query::geometry {
 	aktive image gradient width 32 height 32 depth 1 first 0 last 1
 	@1 | -text
     }
+    # !xref-mark /end
 
     note Returns the input's full geometry, i.e. domain and depth.
 

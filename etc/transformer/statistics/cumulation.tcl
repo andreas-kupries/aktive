@@ -32,6 +32,7 @@ operator okind {
 
     note The result has the same geometry as the input. Only the contents change.
 
+    # !xref-mark cumulation
     cached $kind cumulation AKTIVE_CSUM_FILL
 }
 

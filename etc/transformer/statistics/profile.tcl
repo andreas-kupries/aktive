@@ -30,6 +30,7 @@ operator {oaxis border okind} {
 
     note The result is a single-$okind image with $oaxis and depth of the input.
 
+    # !xref-mark profile
     cached $kind profile AKTIVE_PROFILE_FILL -rsize 1
 }
 

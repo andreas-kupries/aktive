@@ -11,12 +11,6 @@ operator warp::wobble {
 	specified __center__, with base __amplitude__, __frequency__, \
 	__chirp__, and __attenuation__ powers.
 
-    note The effect modulates the distance from the center based on the \
-	formula	`sin (radius^chirp * frequency) * amplitude / (1+radius)^attenuation`, \
-	where `radius` is the original distance.
-
-    note All parameters, including the center are optional.
-
     note The result is designed to be usable with the \
 	"<!xref: aktive op warp bicubic>" operation and its relatives.
 
@@ -29,13 +23,7 @@ operator warp::wobble {
     uint       width   Width of the returned image
     uint       height  Height of the returned image
 
-    # wobble configuration
-    point?   {{}} center	Center of the wobble, relative to the origin. \
-	Defaults to the image center.
-    double?  500  amplitude	Base amplitude of the displacement.
-    double?  2    frequency	Base wave frequency.
-    double?  0.5  chirp		Chirp (power) factor modulating the frequency.
-    double?  0.6  attenuation	Power factor tweaking the base 1/x attenuation.
+    import wobble-config.tcl
 
     body {
 	if {[llength $center]} {

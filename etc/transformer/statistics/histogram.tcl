@@ -230,6 +230,7 @@ operator oaxis {
 
     note The result is an image of `bins`-sized histogram ${kind}s with $oaxis and depth of the input.
 
+    # !xref-mark histogram
     cached $kind histogram AKTIVE_HISTOGRAM_FILL -fields {
 	aktive_histogram h;
     } -setup {
@@ -241,6 +242,7 @@ operator oaxis {
     } -cleanup {
 	ckfree (state->h.count);
     } -rsize "param->bins" -cdata "&state->h"
+    # !xref-mark /end
 }
 
 ##

@@ -70,8 +70,10 @@
 
 typedef struct aktive_iveccache_ *aktive_iveccache;
 
+// !xref-mark aktive_iveccache_fill
 typedef void (*aktive_iveccache_fill)(void* context, aktive_uint index, double* dst);
 
+// !xref-mark aktive_ivcache_context*
 typedef struct aktive_ivcache_context {
     aktive_uint         z;       // requested band
     aktive_uint         stride;  // delta between band groups
@@ -80,6 +82,7 @@ typedef struct aktive_ivcache_context {
     aktive_region       src;     // input region to pull from
     void*               client;  // function-specific context data
 } aktive_ivcache_context;
+// !xref-mark /end
 
 /*
  * - - -- --- ----- -------- -------------

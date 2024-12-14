@@ -5,8 +5,10 @@
 operator image::indexed {
     section generator virtual
 
+    # !xref-mark indexed
     example {          width 5 height 5 | -int -matrix}
     example {x -5 y -5 width 8 height 8 | -int -matrix}
+    # !xref-mark /end
 
     note Returns a 2-band image where each pixel declares its own position.
 
