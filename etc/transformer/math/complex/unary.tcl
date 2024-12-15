@@ -87,6 +87,8 @@ operator {cfunction dexpr} {
 	aktive_cmath_polar {
 	    note The distance information is stored in the real band, \
 		while the angles are stores in the imaginary band.
+
+	    note The returned angles are in the range of \[-pi,pi\].
 	}
     }
 

@@ -147,6 +147,8 @@ extern double complex aktive_cmath_cbrt       (double complex a) { return cpow (
 extern double complex aktive_cmath_exp10      (double complex a) { return cpow (10, a); }
 extern double complex aktive_cmath_exp2       (double complex a) { return cpow (2, a); }
 extern double complex aktive_cmath_reciprocal (double complex a) { return 1 / a; }
+
+//  The returned angles are in the range of [-pi,pi].
 extern double complex aktive_cmath_polar      (double complex a) { return CMPLX (cabs (a), carg (a)); }
 extern double complex aktive_cmath_cartesian  (double complex a) { return CMPLX (creal(a) * cos(cimag (a)),
 										 creal(a) * sin(cimag (a))); }
