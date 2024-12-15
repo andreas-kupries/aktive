@@ -953,8 +953,8 @@ proc dsl::writer::OpSectionKey {section} {
 
 proc dsl::writer::OpDoc {stem op spec} {
     dict with spec {}
-    # c:   examples notes section params images ...
-    # tcl: examples notes section args body
+    # c:   examples notes references section params images ...
+    # tcl: examples notes references section args body
 
     set sig [DocSignature $op $spec]
 
@@ -962,7 +962,7 @@ proc dsl::writer::OpDoc {stem op spec} {
     + "---"
     + "### \[\u2191\](#top) <a name='[OpKey $op]'></a> [OpName $op]"
     + ""
-    + "Syntax: __[OpName $op]__ $sig \[\[\u2192 definition\](../../../../file?ci=trunk&ln=${line}&name=${path})\]"
+    + "Syntax: __[OpName $op]__ $sig \[\[\u2192 definition\](/file?ci=trunk&ln=${line}&name=${path})\]"
 
     foreach note $notes {
 	+ ""
@@ -1034,8 +1034,15 @@ proc dsl::writer::OpDoc {stem op spec} {
 	}
     }
 
-    ## TODO :: dsl expansion to provide names, descriptions
-    ## foreach i $images { + "||image|||" }
+    if {[llength $references]} {
+    	+ {}
+	+ "#### <a name='[OpKey $op]__references'></a> References"
+
+	foreach ref $references {
+	    + {}
+	    + "  - <${ref}>"
+	}
+    }
 
     + ""
     Done
