@@ -16,6 +16,8 @@
 
 ## <a name='_2'></a> 2
 
+  - [2cartesian &mdash; effect](transform_effect.md#effect_2cartesian)
+  - [2cartesian &mdash; warp](generator_virtual_warp.md#warp_2cartesian)
   - [2chan &mdash; format as aktive](sink_writer.md#format_as_aktive_2chan)
   - [2chan &mdash; format as pgm byte](sink_writer.md#format_as_pgm_byte_2chan)
   - [2chan &mdash; format as pgm etext](sink_writer.md#format_as_pgm_etext_2chan)
@@ -37,6 +39,8 @@
   - [2image &mdash; fit op sdf](transform_sdf.md#op_sdf_2image_fit)
   - [2image &mdash; pixelated op sdf](transform_sdf.md#op_sdf_2image_pixelated)
   - [2image &mdash; smooth op sdf](transform_sdf.md#op_sdf_2image_smooth)
+  - [2polar &mdash; effect](transform_effect.md#effect_2polar)
+  - [2polar &mdash; warp](generator_virtual_warp.md#warp_2polar)
   - [2quad &mdash; transform quad](generator_virtual_warp.md#transform_quad_2quad)
   - [2string &mdash; format as aktive](sink_writer.md#format_as_aktive_2string)
   - [2string &mdash; format as null](sink_writer.md#format_as_null_2string)
@@ -415,6 +419,8 @@
 
 ## <a name='_e'></a> e
 
+  - [effect &mdash; 2cartesian](transform_effect.md#effect_2cartesian)
+  - [effect &mdash; 2polar](transform_effect.md#effect_2polar)
   - [effect &mdash; blur](transform_effect.md#effect_blur)
   - [effect &mdash; charcoal](transform_effect.md#effect_charcoal)
   - [effect &mdash; emboss](transform_effect.md#effect_emboss)
@@ -2069,6 +2075,8 @@
 
 ## <a name='_w'></a> w
 
+  - [warp &mdash; 2cartesian](generator_virtual_warp.md#warp_2cartesian)
+  - [warp &mdash; 2polar](generator_virtual_warp.md#warp_2polar)
   - [warp &mdash; bicubic op](transform_structure_warp.md#op_warp_bicubic)
   - [warp &mdash; bilinear op](transform_structure_warp.md#op_warp_bilinear)
   - [warp &mdash; lanczos op](transform_structure_warp.md#op_warp_lanczos)

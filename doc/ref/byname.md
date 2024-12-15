@@ -16,6 +16,8 @@
 
 ## <a name='_e'></a> e
 
+ - [aktive effect 2cartesian](transform_effect.md#effect_2cartesian)
+ - [aktive effect 2polar](transform_effect.md#effect_2polar)
  - [aktive effect blur](transform_effect.md#effect_blur)
  - [aktive effect charcoal](transform_effect.md#effect_charcoal)
  - [aktive effect emboss](transform_effect.md#effect_emboss)
@@ -673,6 +675,8 @@
 
 ## <a name='_w'></a> w
 
+ - [aktive warp 2cartesian](generator_virtual_warp.md#warp_2cartesian)
+ - [aktive warp 2polar](generator_virtual_warp.md#warp_2polar)
  - [aktive warp matrix](generator_virtual_warp.md#warp_matrix)
  - [aktive warp noise gauss](generator_virtual_warp.md#warp_noise_gauss)
  - [aktive warp noise uniform](generator_virtual_warp.md#warp_noise_uniform)

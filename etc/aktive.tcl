@@ -51,6 +51,7 @@ import generator/virtual/sparse.tcl
 import generator/virtual/warp.tcl
 import generator/virtual/warp/matrix.tcl
 import generator/virtual/warp/noise.tcl
+import generator/virtual/warp/polar-cart.tcl
 import generator/virtual/warp/swirl.tcl
 import generator/virtual/warp/wobble.tcl
 
