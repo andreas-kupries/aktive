@@ -431,13 +431,14 @@ proc dsl::reader::OpStart {op key} {
     puts     "[cyan Operator] [blue $op]"
     incr     importing -1
 
-    Set opspec key      $key    ;# Group code for multiple operators from one spec
-    Set opspec notes    {}	;# Description
-    Set opspec section  {}	;# Command category
-    Set opspec images   {}	;# Input images
-    Set opspec params   {}	;# Parameters
-    Set opspec overlays {}	;# Policy overlays - checks and simplifications
-    Set opspec strict   0	;# Strictness flag, default not.
+    Set opspec key        $key  ;# Group code for multiple operators from one spec
+    Set opspec notes      {}	;# Description
+    Set opspec references {}	;# References
+    Set opspec section    {}	;# Command category
+    Set opspec images     {}	;# Input images
+    Set opspec params     {}	;# Parameters
+    Set opspec overlays   {}	;# Policy overlays - checks and simplifications
+    Set opspec strict     0	;# Strictness flag, default not.
 
     Set opspec result   image	;# Return value
     Set opspec rcode    {}	;# C code fragment for non-image return (getter, doer)
@@ -522,6 +523,11 @@ proc dsl::reader::support {cfragment args} { ;#puts [info level 0]
 proc dsl::reader::note {args} { ;#puts [info level 0]
     OkModes {} C Tcl External
     LappendX opspec notes [lmap a $args { TemplateCode $a {} }]
+}
+
+proc dsl::reader::ref {link} { ;#puts [info level 0]
+    OkModes {} C Tcl External
+    LappendX opspec references $link
 }
 
 proc dsl::reader::example {{spec {}}} { ;#puts [info level 0]
@@ -971,21 +977,22 @@ proc dsl::reader::Next {} {
 ##  - finish     :: string
 ##
 ## opspec keys
-##  - defloc   :: definition location
-##  - args     :: bool
-##  - blocks   :: dict (name -> text-fragment)
-##  - body     :: string	[presence indicates tcl operator]
-##  - examples :: list (example-spec)
-##  - images   :: list (imspec)
-##  - lang     :: string	[auto set] C|Tcl
-##  - notes    :: list (string)
-##  - overlays :: list (overspec)
-##  - param    :: dict (string -> '.') [Only during collection]
-##  - params   :: list (argspec)
-##  - result   :: string
-##  - section  :: list (string)
-##  - strict   :: bool
-##  - support  :: list (string)
+##  - defloc     :: definition location
+##  - args       :: bool
+##  - blocks     :: dict (name -> text-fragment)
+##  - body       :: string	[presence indicates tcl operator]
+##  - examples   :: list (example-spec)
+##  - images     :: list (imspec)
+##  - lang       :: string	[auto set] C|Tcl
+##  - notes      :: list (string)
+##  - references :: list (string)
+##  - overlays   :: list (overspec)
+##  - param      :: dict (string -> '.') [Only during collection]
+##  - params     :: list (argspec)
+##  - result     :: string
+##  - section    :: list (string)
+##  - strict     :: bool
+##  - support    :: list (string)
 ##  - state/setup
 ##  - state/cleanup
 ##  - state/fields
