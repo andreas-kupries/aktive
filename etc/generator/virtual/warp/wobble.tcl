@@ -1,6 +1,6 @@
 ## -*- mode: tcl ; fill-column: 90 -*-
 # # ## ### ##### ######## ############# #####################
-## Generators -- Virtual Image - Origin map of a swirl effect
+## Generators -- Virtual Image - Origin map of a wobble/ripple effect
 
 operator warp::wobble {
     section generator virtual warp
