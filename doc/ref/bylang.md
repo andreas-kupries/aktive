@@ -350,6 +350,8 @@ The operators listed here are implemented in C. We ignore supporting Tcl code.
 
 The operators listed here are implemented wholly in Tcl.
 
+ - [aktive effect 2cartesian](transform_effect.md#effect_2cartesian)
+ - [aktive effect 2polar](transform_effect.md#effect_2polar)
  - [aktive effect blur](transform_effect.md#effect_blur)
  - [aktive effect charcoal](transform_effect.md#effect_charcoal)
  - [aktive effect emboss](transform_effect.md#effect_emboss)
@@ -628,6 +630,8 @@ The operators listed here are implemented wholly in Tcl.
  - [aktive transform scale](generator_virtual_warp.md#transform_scale)
  - [aktive transform shear](generator_virtual_warp.md#transform_shear)
  - [aktive transform translate](generator_virtual_warp.md#transform_translate)
+ - [aktive warp 2cartesian](generator_virtual_warp.md#warp_2cartesian)
+ - [aktive warp 2polar](generator_virtual_warp.md#warp_2polar)
  - [aktive warp noise gauss](generator_virtual_warp.md#warp_noise_gauss)
  - [aktive warp noise uniform](generator_virtual_warp.md#warp_noise_uniform)
  - [aktive warp wobble](generator_virtual_warp.md#warp_wobble)

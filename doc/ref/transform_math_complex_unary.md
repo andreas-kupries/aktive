@@ -406,6 +406,8 @@ Returns complex-valued image with the complex-valued unary function `topolar(I)`
 
 The distance information is stored in the real band, while the angles are stores in the imaginary band.
 
+The returned angles are in the range of [-pi,pi].
+
 The resulting image has the same geometry as the input.
 
 |Input|Description|

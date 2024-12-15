@@ -34,6 +34,8 @@
  - [aktive transform scale](#transform_scale)
  - [aktive transform shear](#transform_shear)
  - [aktive transform translate](#transform_translate)
+ - [aktive warp 2cartesian](#warp_2cartesian)
+ - [aktive warp 2polar](#warp_2polar)
  - [aktive warp matrix](#warp_matrix)
  - [aktive warp noise gauss](#warp_noise_gauss)
  - [aktive warp noise uniform](#warp_noise_uniform)
@@ -170,7 +172,7 @@ This operator is __strict__ in the 1st input. The projective matrix is materiali
     <br>(rotate by 30)</th>
     <th>aktive transform domain @2 @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00741.gif' alt='@1 (assets/butterfly.ppm)' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00749.gif' alt='@1 (assets/butterfly.ppm)' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
     <td valign='top'><table><tr><td>0.8660</td><td>-0.5000</td><td>0.0000</td></tr><tr><td>0.5000</td><td>0.8660</td><td>0.0000</td></tr><tr><td>0.0000</td><td>0.0000</td><td>1.0000</td></tr></table></td>
     <td valign='top'>&nbsp;-124 0 454 407</td></tr>
@@ -765,6 +767,60 @@ The result is suitable for use with [aktive warp matrix](generator_virtual_warp.
 <tr><td valign='top'><table><tr><td>1.0000</td><td>0.0000</td><td>3.0000</td></tr><tr><td>0.0000</td><td>1.0000</td><td>1.0000</td></tr><tr><td>0.0000</td><td>0.0000</td><td>1.0000</td></tr></table></td>
     <td valign='top'><table><tr><td>1.0000</td><td>-0.0000</td><td>-3.0000</td></tr><tr><td>-0.0000</td><td>1.0000</td><td>-1.0000</td></tr><tr><td>0.0000</td><td>-0.0000</td><td>1.0000</td></tr></table></td>
     <td valign='top'><table><tr><td>1.0000</td><td>0.0000</td><td>0.0000</td></tr><tr><td>0.0000</td><td>1.0000</td><td>0.0000</td></tr><tr><td>0.0000</td><td>0.0000</td><td>1.0000</td></tr></table></td></tr>
+</table>
+
+
+---
+### [↑](#top) <a name='warp_2cartesian'></a> aktive warp 2cartesian
+
+Syntax: __aktive warp 2cartesian__  (param value)... [[→ definition](../../../../file?ci=trunk&ln=53&name=etc/generator/virtual/warp/polar-cart.tcl)]
+
+Returns the origin map for a transformation to cartesian from a polar around the image center.
+
+The inverse transformation is created by [aktive warp 2polar](generator_virtual_warp.md#warp_2polar).
+
+The result is designed to be usable with [aktive op warp bicubic](transform_structure_warp.md#op_warp_bicubic) and its relatives.
+
+At the technical level the result is a 2-band image where each pixel declares its origin position.
+
+|Parameter|Type|Default|Description|
+|:---|:---|:---|:---|
+|width|uint||Width of the returned image|
+|height|uint||Height of the returned image|
+
+#### <a name='warp_2cartesian__examples'></a> Examples
+
+<table>
+<tr><th>aktive warp 2cartesian width 11 height 11
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><table><tr><td>(5.5000, 5.5000)</td><td>(5.0000, 5.5000)</td><td>(4.5000, 5.5000)</td><td>(4.0000, 5.5000)</td><td>(3.5000, 5.5000)</td><td>(3.0000, 5.5000)</td><td>(2.5000, 5.5000)</td><td>(2.0000, 5.5000)</td><td>(1.5000, 5.5000)</td><td>(1.0000, 5.5000)</td><td>(0.5000, 5.5000)</td></tr><tr><td>(5.5000, 5.5000)</td><td>(5.0955, 5.2061)</td><td>(4.6910, 4.9122)</td><td>(4.2865, 4.6183)</td><td>(3.8820, 4.3244)</td><td>(3.4775, 4.0305)</td><td>(3.0729, 3.7366)</td><td>(2.6684, 3.4428)</td><td>(2.2639, 3.1489)</td><td>(1.8594, 2.8550)</td><td>(1.4549, 2.5611)</td></tr><tr><td>(5.5000, 5.5000)</td><td>(5.3455, 5.0245)</td><td>(5.1910, 4.5489)</td><td>(5.0365, 4.0734)</td><td>(4.8820, 3.5979)</td><td>(4.7275, 3.1224)</td><td>(4.5729, 2.6468)</td><td>(4.4184, 2.1713)</td><td>(4.2639, 1.6958)</td><td>(4.1094, 1.2202)</td><td>(3.9549, 0.7447)</td></tr><tr><td>(5.5000, 5.5000)</td><td>(5.6545, 5.0245)</td><td>(5.8090, 4.5489)</td><td>(5.9635, 4.0734)</td><td>(6.1180, 3.5979)</td><td>(6.2725, 3.1224)</td><td>(6.4271, 2.6468)</td><td>(6.5816, 2.1713)</td><td>(6.7361, 1.6958)</td><td>(6.8906, 1.2202)</td><td>(7.0451, 0.7447)</td></tr><tr><td>(5.5000, 5.5000)</td><td>(5.9045, 5.2061)</td><td>(6.3090, 4.9122)</td><td>(6.7135, 4.6183)</td><td>(7.1180, 4.3244)</td><td>(7.5225, 4.0305)</td><td>(7.9271, 3.7366)</td><td>(8.3316, 3.4428)</td><td>(8.7361, 3.1489)</td><td>(9.1406, 2.8550)</td><td>(9.5451, 2.5611)</td></tr><tr><td>(5.5000, 5.5000)</td><td>(6.0000, 5.5000)</td><td>(6.5000, 5.5000)</td><td>(7.0000, 5.5000)</td><td>(7.5000, 5.5000)</td><td>(8.0000, 5.5000)</td><td>(8.5000, 5.5000)</td><td>(9.0000, 5.5000)</td><td>(9.5000, 5.5000)</td><td>(10.0000, 5.5000)</td><td>(10.5000, 5.5000)</td></tr><tr><td>(5.5000, 5.5000)</td><td>(5.9045, 5.7939)</td><td>(6.3090, 6.0878)</td><td>(6.7135, 6.3817)</td><td>(7.1180, 6.6756)</td><td>(7.5225, 6.9695)</td><td>(7.9271, 7.2634)</td><td>(8.3316, 7.5572)</td><td>(8.7361, 7.8511)</td><td>(9.1406, 8.1450)</td><td>(9.5451, 8.4389)</td></tr><tr><td>(5.5000, 5.5000)</td><td>(5.6545, 5.9755)</td><td>(5.8090, 6.4511)</td><td>(5.9635, 6.9266)</td><td>(6.1180, 7.4021)</td><td>(6.2725, 7.8776)</td><td>(6.4271, 8.3532)</td><td>(6.5816, 8.8287)</td><td>(6.7361, 9.3042)</td><td>(6.8906, 9.7798)</td><td>(7.0451, 10.2553)</td></tr><tr><td>(5.5000, 5.5000)</td><td>(5.3455, 5.9755)</td><td>(5.1910, 6.4511)</td><td>(5.0365, 6.9266)</td><td>(4.8820, 7.4021)</td><td>(4.7275, 7.8776)</td><td>(4.5729, 8.3532)</td><td>(4.4184, 8.8287)</td><td>(4.2639, 9.3042)</td><td>(4.1094, 9.7798)</td><td>(3.9549, 10.2553)</td></tr><tr><td>(5.5000, 5.5000)</td><td>(5.0955, 5.7939)</td><td>(4.6910, 6.0878)</td><td>(4.2865, 6.3817)</td><td>(3.8820, 6.6756)</td><td>(3.4775, 6.9695)</td><td>(3.0729, 7.2634)</td><td>(2.6684, 7.5572)</td><td>(2.2639, 7.8511)</td><td>(1.8594, 8.1450)</td><td>(1.4549, 8.4389)</td></tr><tr><td>(5.5000, 5.5000)</td><td>(5.0000, 5.5000)</td><td>(4.5000, 5.5000)</td><td>(4.0000, 5.5000)</td><td>(3.5000, 5.5000)</td><td>(3.0000, 5.5000)</td><td>(2.5000, 5.5000)</td><td>(2.0000, 5.5000)</td><td>(1.5000, 5.5000)</td><td>(1.0000, 5.5000)</td><td>(0.5000, 5.5000)</td></tr></table></td></tr>
+</table>
+
+
+---
+### [↑](#top) <a name='warp_2polar'></a> aktive warp 2polar
+
+Syntax: __aktive warp 2polar__  (param value)... [[→ definition](../../../../file?ci=trunk&ln=5&name=etc/generator/virtual/warp/polar-cart.tcl)]
+
+Returns the origin map for a transformation to polar around the image center.
+
+The inverse transformation is created by [aktive warp 2cartesian](generator_virtual_warp.md#warp_2cartesian).
+
+The result is designed to be usable with [aktive op warp bicubic](transform_structure_warp.md#op_warp_bicubic) and its relatives.
+
+At the technical level the result is a 2-band image where each pixel declares its origin position.
+
+|Parameter|Type|Default|Description|
+|:---|:---|:---|:---|
+|width|uint||Width of the returned image|
+|height|uint||Height of the returned image|
+
+#### <a name='warp_2polar__examples'></a> Examples
+
+<table>
+<tr><th>aktive warp 2polar width 11 height 11
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><table><tr><td>(15.5563, 1.2500)</td><td>(14.2127, 1.4086)</td><td>(13.0384, 1.5980)</td><td>(12.0830, 1.8210)</td><td>(11.4018, 2.0762)</td><td>(11.0454, 2.3557)</td><td>(11.0454, 2.6443)</td><td>(11.4018, 2.9238)</td><td>(12.0830, 3.1790)</td><td>(13.0384, 3.4020)</td><td>(14.2127, 3.5914)</td></tr><tr><td>(14.2127, 1.0914)</td><td>(12.7279, 1.2500)</td><td>(11.4018, 1.4479)</td><td>(10.2956, 1.6929)</td><td>(9.4868, 1.9879)</td><td>(9.0554, 2.3239)</td><td>(9.0554, 2.6761)</td><td>(9.4868, 3.0121)</td><td>(10.2956, 3.3071)</td><td>(11.4018, 3.5521)</td><td>(12.7279, 3.7500)</td></tr><tr><td>(13.0384, 0.9020)</td><td>(11.4018, 1.0521)</td><td>(9.8995, 1.2500)</td><td>(8.6023, 1.5128)</td><td>(7.6158, 1.8556)</td><td>(7.0711, 2.2742)</td><td>(7.0711, 2.7258)</td><td>(7.6158, 3.1444)</td><td>(8.6023, 3.4872)</td><td>(9.8995, 3.7500)</td><td>(11.4018, 3.9479)</td></tr><tr><td>(12.0830, 0.6790)</td><td>(10.2956, 0.8071)</td><td>(8.6023, 0.9872)</td><td>(7.0711, 1.2500)</td><td>(5.8310, 1.6399)</td><td>(5.0990, 2.1858)</td><td>(5.0990, 2.8142)</td><td>(5.8310, 3.3601)</td><td>(7.0711, 3.7500)</td><td>(8.6023, 4.0128)</td><td>(10.2956, 4.1929)</td></tr><tr><td>(11.4018, 0.4238)</td><td>(9.4868, 0.5121)</td><td>(7.6158, 0.6444)</td><td>(5.8310, 0.8601)</td><td>(4.2426, 1.2500)</td><td>(3.1623, 1.9879)</td><td>(3.1623, 3.0121)</td><td>(4.2426, 3.7500)</td><td>(5.8310, 4.1399)</td><td>(7.6158, 4.3556)</td><td>(9.4868, 4.4879)</td></tr><tr><td>(11.0454, 0.1443)</td><td>(9.0554, 0.1761)</td><td>(7.0711, 0.2258)</td><td>(5.0990, 0.3142)</td><td>(3.1623, 0.5121)</td><td>(1.4142, 1.2500)</td><td>(1.4142, 3.7500)</td><td>(3.1623, 4.4879)</td><td>(5.0990, 4.6858)</td><td>(7.0711, 4.7742)</td><td>(9.0554, 4.8239)</td></tr><tr><td>(11.0454, 9.8557)</td><td>(9.0554, 9.8239)</td><td>(7.0711, 9.7742)</td><td>(5.0990, 9.6858)</td><td>(3.1623, 9.4879)</td><td>(1.4142, 8.7500)</td><td>(1.4142, 6.2500)</td><td>(3.1623, 5.5121)</td><td>(5.0990, 5.3142)</td><td>(7.0711, 5.2258)</td><td>(9.0554, 5.1761)</td></tr><tr><td>(11.4018, 9.5762)</td><td>(9.4868, 9.4879)</td><td>(7.6158, 9.3556)</td><td>(5.8310, 9.1399)</td><td>(4.2426, 8.7500)</td><td>(3.1623, 8.0121)</td><td>(3.1623, 6.9879)</td><td>(4.2426, 6.2500)</td><td>(5.8310, 5.8601)</td><td>(7.6158, 5.6444)</td><td>(9.4868, 5.5121)</td></tr><tr><td>(12.0830, 9.3210)</td><td>(10.2956, 9.1929)</td><td>(8.6023, 9.0128)</td><td>(7.0711, 8.7500)</td><td>(5.8310, 8.3601)</td><td>(5.0990, 7.8142)</td><td>(5.0990, 7.1858)</td><td>(5.8310, 6.6399)</td><td>(7.0711, 6.2500)</td><td>(8.6023, 5.9872)</td><td>(10.2956, 5.8071)</td></tr><tr><td>(13.0384, 9.0980)</td><td>(11.4018, 8.9479)</td><td>(9.8995, 8.7500)</td><td>(8.6023, 8.4872)</td><td>(7.6158, 8.1444)</td><td>(7.0711, 7.7258)</td><td>(7.0711, 7.2742)</td><td>(7.6158, 6.8556)</td><td>(8.6023, 6.5128)</td><td>(9.8995, 6.2500)</td><td>(11.4018, 6.0521)</td></tr><tr><td>(14.2127, 8.9086)</td><td>(12.7279, 8.7500)</td><td>(11.4018, 8.5521)</td><td>(10.2956, 8.3071)</td><td>(9.4868, 8.0121)</td><td>(9.0554, 7.6761)</td><td>(9.0554, 7.3239)</td><td>(9.4868, 6.9879)</td><td>(10.2956, 6.6929)</td><td>(11.4018, 6.4479)</td><td>(12.7279, 6.2500)</td></tr></table></td></tr>
 </table>
 
 

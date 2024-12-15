@@ -1,9 +1,70 @@
 ## -*- mode: tcl ; fill-column: 90 -*-
 # # ## ### ##### ######## ############# #####################
-## Transformers -- Artistic effects
+## Transformers -- Artistic and other effects
 
 # # ## ### ##### ######## ############# #####################
 ##
+
+operator effect::2polar {
+    section transform effect
+
+    example {
+	butterfly
+	@1
+    }
+    example {
+	aktive effect 2cartesian [butterfly]
+	@1
+    }
+
+    note Returns the input transformed into polar representation.
+
+    note This transformation is undo by application of "<!xref: aktive effect 2cartesian>."
+
+    note The underlying operation is "<!xref: aktive warp 2polar>."
+
+    str? bilinear interpolate   Interpolation method to use.
+
+    input
+
+    body {
+	lassign [aktive query domain $src] x y w h
+	set map [aktive warp 2polar width $w height $h]
+	aktive op warp $interpolate $map $src
+    }
+}
+
+operator effect::2cartesian {
+    section transform effect
+
+    example {
+	aktive effect 2polar [butterfly]
+	@1
+    }
+    example {
+	butterfly
+	@1
+    }
+
+    note Returns the input transformed into cartesian representation.
+
+    note This transformation is the complement of "<!xref: aktive effect 2polar>."
+
+    note The underlying operation is "<!xref: aktive warp 2cartesian>."
+
+    str? bilinear interpolate   Interpolation method to use.
+
+    input
+
+    body {
+	lassign [aktive query domain $src] x y w h
+	set map [aktive warp 2cartesian width $w height $h]
+	aktive op warp $interpolate $map $src
+    }
+}
+
+# # ## ### ##### ######## ############# #####################
+## Various warping effects
 
 operator effect::wobble {
     section transform effect
@@ -15,7 +76,7 @@ operator effect::wobble {
     }
     # !xref-mark /end
 
-    note Returns the input with a swirling effect applied to it.
+    note Returns the input with a wobble/ripple effect applied to it.
 
     note This effect applies around the \
 	specified __center__, with base __amplitude__, __frequency__, \
@@ -179,6 +240,9 @@ operator effect::jitter::gauss {
 	aktive op warp $interpolate $map $src
     }
 }
+
+# # ## ### ##### ######## ############# #####################
+## Various convolution effects
 
 operator effect::emboss {
     section transform effect
