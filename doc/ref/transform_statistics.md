@@ -82,7 +82,7 @@
 ---
 ### [↑](#top) <a name='op_band_arg_ge'></a> aktive op band arg ge
 
-Syntax: __aktive op band arg ge__ thresholds src [[→ definition](../../../../file?ci=trunk&ln=63&name=etc/transformer/statistics/by-bands.tcl)]
+Syntax: __aktive op band arg ge__ thresholds src [[→ definition](/file?ci=trunk&ln=63&name=etc/transformer/statistics/by-bands.tcl)]
 
 Returns the source image with its bands compressed to a single value, the first index where the band value is greater than or equal than the threshold. The result is a single-band image with the same width and height as the inputs.
 
@@ -102,7 +102,7 @@ The threshold image has to be single-band.
 ---
 ### [↑](#top) <a name='op_band_arg_gt'></a> aktive op band arg gt
 
-Syntax: __aktive op band arg gt__ thresholds src [[→ definition](../../../../file?ci=trunk&ln=63&name=etc/transformer/statistics/by-bands.tcl)]
+Syntax: __aktive op band arg gt__ thresholds src [[→ definition](/file?ci=trunk&ln=63&name=etc/transformer/statistics/by-bands.tcl)]
 
 Returns the source image with its bands compressed to a single value, the first index where the band value is greater than than the threshold. The result is a single-band image with the same width and height as the inputs.
 
@@ -122,7 +122,7 @@ The threshold image has to be single-band.
 ---
 ### [↑](#top) <a name='op_band_arg_le'></a> aktive op band arg le
 
-Syntax: __aktive op band arg le__ thresholds src [[→ definition](../../../../file?ci=trunk&ln=63&name=etc/transformer/statistics/by-bands.tcl)]
+Syntax: __aktive op band arg le__ thresholds src [[→ definition](/file?ci=trunk&ln=63&name=etc/transformer/statistics/by-bands.tcl)]
 
 Returns the source image with its bands compressed to a single value, the first index where the band value is lesser than or equal than the threshold. The result is a single-band image with the same width and height as the inputs.
 
@@ -142,7 +142,7 @@ The threshold image has to be single-band.
 ---
 ### [↑](#top) <a name='op_band_arg_lt'></a> aktive op band arg lt
 
-Syntax: __aktive op band arg lt__ thresholds src [[→ definition](../../../../file?ci=trunk&ln=63&name=etc/transformer/statistics/by-bands.tcl)]
+Syntax: __aktive op band arg lt__ thresholds src [[→ definition](/file?ci=trunk&ln=63&name=etc/transformer/statistics/by-bands.tcl)]
 
 Returns the source image with its bands compressed to a single value, the first index where the band value is lesser than than the threshold. The result is a single-band image with the same width and height as the inputs.
 
@@ -162,7 +162,7 @@ The threshold image has to be single-band.
 ---
 ### [↑](#top) <a name='op_band_arg_max'></a> aktive op band arg max
 
-Syntax: __aktive op band arg max__ src [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/statistics/by-bands.tcl)]
+Syntax: __aktive op band arg max__ src [[→ definition](/file?ci=trunk&ln=8&name=etc/transformer/statistics/by-bands.tcl)]
 
 Returns an image with the input bands compressed to a single value, the first index of the maximal band values. The result is a single-band image with the same width and height as the input.
 
@@ -173,7 +173,7 @@ Returns an image with the input bands compressed to a single value, the first in
 ---
 ### [↑](#top) <a name='op_band_arg_min'></a> aktive op band arg min
 
-Syntax: __aktive op band arg min__ src [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/statistics/by-bands.tcl)]
+Syntax: __aktive op band arg min__ src [[→ definition](/file?ci=trunk&ln=8&name=etc/transformer/statistics/by-bands.tcl)]
 
 Returns an image with the input bands compressed to a single value, the first index of the minimal band values. The result is a single-band image with the same width and height as the input.
 
@@ -184,7 +184,7 @@ Returns an image with the input bands compressed to a single value, the first in
 ---
 ### [↑](#top) <a name='op_band_cumulative'></a> aktive op band cumulative
 
-Syntax: __aktive op band cumulative__ src [[→ definition](../../../../file?ci=trunk&ln=41&name=etc/transformer/statistics/cumulation.tcl)]
+Syntax: __aktive op band cumulative__ src [[→ definition](/file?ci=trunk&ln=41&name=etc/transformer/statistics/cumulation.tcl)]
 
 Returns image with the input bands transformed into cumulative sums.
 
@@ -199,7 +199,7 @@ The result has the same geometry as the input. Only the contents change.
 ---
 ### [↑](#top) <a name='op_band_histogram'></a> aktive op band histogram
 
-Syntax: __aktive op band histogram__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=73&name=etc/transformer/statistics/histogram.tcl)]
+Syntax: __aktive op band histogram__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=73&name=etc/transformer/statistics/histogram.tcl)]
 
 Returns image with input bands transformed into a histogram of `bins` values.
 
@@ -216,7 +216,7 @@ The result is an image of bin-sized histogram bands with width and height of the
 ---
 ### [↑](#top) <a name='op_band_max'></a> aktive op band max
 
-Syntax: __aktive op band max__ src [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/statistics/by-bands.tcl)]
+Syntax: __aktive op band max__ src [[→ definition](/file?ci=trunk&ln=8&name=etc/transformer/statistics/by-bands.tcl)]
 
 Returns an image with the input bands compressed to a single value, the maximum of the band values. The result is a single-band image with the same width and height as the input.
 
@@ -227,7 +227,7 @@ Returns an image with the input bands compressed to a single value, the maximum 
 ---
 ### [↑](#top) <a name='op_band_mean'></a> aktive op band mean
 
-Syntax: __aktive op band mean__ src [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/statistics/by-bands.tcl)]
+Syntax: __aktive op band mean__ src [[→ definition](/file?ci=trunk&ln=8&name=etc/transformer/statistics/by-bands.tcl)]
 
 Returns an image with the input bands compressed to a single value, the arithmetic mean of the band values. The result is a single-band image with the same width and height as the input.
 
@@ -238,7 +238,7 @@ Returns an image with the input bands compressed to a single value, the arithmet
 ---
 ### [↑](#top) <a name='op_band_median'></a> aktive op band median
 
-Syntax: __aktive op band median__ src [[→ definition](../../../../file?ci=trunk&ln=11&name=etc/transformer/statistics/rank-order.tcl)]
+Syntax: __aktive op band median__ src [[→ definition](/file?ci=trunk&ln=11&name=etc/transformer/statistics/rank-order.tcl)]
 
 Returns image with input bands compressed to a single value, the median of the sorted band values.
 
@@ -251,7 +251,7 @@ The result is a single-band image with width and height of the input
 ---
 ### [↑](#top) <a name='op_band_min'></a> aktive op band min
 
-Syntax: __aktive op band min__ src [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/statistics/by-bands.tcl)]
+Syntax: __aktive op band min__ src [[→ definition](/file?ci=trunk&ln=8&name=etc/transformer/statistics/by-bands.tcl)]
 
 Returns an image with the input bands compressed to a single value, the minimum of the band values. The result is a single-band image with the same width and height as the input.
 
@@ -262,7 +262,7 @@ Returns an image with the input bands compressed to a single value, the minimum 
 ---
 ### [↑](#top) <a name='op_band_otsu'></a> aktive op band otsu
 
-Syntax: __aktive op band otsu__ src [[→ definition](../../../../file?ci=trunk&ln=107&name=etc/transformer/statistics/otsu.tcl)]
+Syntax: __aktive op band otsu__ src [[→ definition](/file?ci=trunk&ln=107&name=etc/transformer/statistics/otsu.tcl)]
 
 Returns image with the input bands compressed into an otsu threshold.
 
@@ -279,7 +279,7 @@ The result is single-band.
 ---
 ### [↑](#top) <a name='op_band_rank'></a> aktive op band rank
 
-Syntax: __aktive op band rank__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=84&name=etc/transformer/statistics/rank-order.tcl)]
+Syntax: __aktive op band rank__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=84&name=etc/transformer/statistics/rank-order.tcl)]
 
 Returns image with input bands compressed to a single value, the chosen rank of the sorted band values.
 
@@ -298,7 +298,7 @@ Beware. While it is possible to use the rank filter for max/min extractions it i
 ---
 ### [↑](#top) <a name='op_band_stddev'></a> aktive op band stddev
 
-Syntax: __aktive op band stddev__ src [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/statistics/by-bands.tcl)]
+Syntax: __aktive op band stddev__ src [[→ definition](/file?ci=trunk&ln=8&name=etc/transformer/statistics/by-bands.tcl)]
 
 Returns an image with the input bands compressed to a single value, the standard deviation of the band values. The result is a single-band image with the same width and height as the input.
 
@@ -309,7 +309,7 @@ Returns an image with the input bands compressed to a single value, the standard
 ---
 ### [↑](#top) <a name='op_band_sum'></a> aktive op band sum
 
-Syntax: __aktive op band sum__ src [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/statistics/by-bands.tcl)]
+Syntax: __aktive op band sum__ src [[→ definition](/file?ci=trunk&ln=8&name=etc/transformer/statistics/by-bands.tcl)]
 
 Returns an image with the input bands compressed to a single value, the sum of the band values. The result is a single-band image with the same width and height as the input.
 
@@ -320,7 +320,7 @@ Returns an image with the input bands compressed to a single value, the sum of t
 ---
 ### [↑](#top) <a name='op_band_sumsquared'></a> aktive op band sumsquared
 
-Syntax: __aktive op band sumsquared__ src [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/statistics/by-bands.tcl)]
+Syntax: __aktive op band sumsquared__ src [[→ definition](/file?ci=trunk&ln=8&name=etc/transformer/statistics/by-bands.tcl)]
 
 Returns an image with the input bands compressed to a single value, the sum of the squared band values. The result is a single-band image with the same width and height as the input.
 
@@ -331,7 +331,7 @@ Returns an image with the input bands compressed to a single value, the sum of t
 ---
 ### [↑](#top) <a name='op_band_variance'></a> aktive op band variance
 
-Syntax: __aktive op band variance__ src [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/statistics/by-bands.tcl)]
+Syntax: __aktive op band variance__ src [[→ definition](/file?ci=trunk&ln=8&name=etc/transformer/statistics/by-bands.tcl)]
 
 Returns an image with the input bands compressed to a single value, the variance of the band values. The result is a single-band image with the same width and height as the input.
 
@@ -342,7 +342,7 @@ Returns an image with the input bands compressed to a single value, the variance
 ---
 ### [↑](#top) <a name='op_column_arg_max'></a> aktive op column arg max
 
-Syntax: __aktive op column arg max__ src [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/statistics/by-columns.tcl)]
+Syntax: __aktive op column arg max__ src [[→ definition](/file?ci=trunk&ln=8&name=etc/transformer/statistics/by-columns.tcl)]
 
 Returns image with input columns compressed to a single value, the first index of the maximal column values. The result is a single-row image with width and depth of the input.
 
@@ -368,7 +368,7 @@ The part about the `depth of the input` means that the bands in each column are 
 ---
 ### [↑](#top) <a name='op_column_arg_min'></a> aktive op column arg min
 
-Syntax: __aktive op column arg min__ src [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/statistics/by-columns.tcl)]
+Syntax: __aktive op column arg min__ src [[→ definition](/file?ci=trunk&ln=8&name=etc/transformer/statistics/by-columns.tcl)]
 
 Returns image with input columns compressed to a single value, the first index of the minimal column values. The result is a single-row image with width and depth of the input.
 
@@ -394,7 +394,7 @@ The part about the `depth of the input` means that the bands in each column are 
 ---
 ### [↑](#top) <a name='op_column_cumulative'></a> aktive op column cumulative
 
-Syntax: __aktive op column cumulative__ src [[→ definition](../../../../file?ci=trunk&ln=15&name=etc/transformer/statistics/cumulation.tcl)]
+Syntax: __aktive op column cumulative__ src [[→ definition](/file?ci=trunk&ln=15&name=etc/transformer/statistics/cumulation.tcl)]
 
 Returns image with the input columns transformed into cumulative sums.
 
@@ -422,7 +422,7 @@ The result has the same geometry as the input. Only the contents change.
 ---
 ### [↑](#top) <a name='op_column_histogram'></a> aktive op column histogram
 
-Syntax: __aktive op column histogram__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=209&name=etc/transformer/statistics/histogram.tcl)]
+Syntax: __aktive op column histogram__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=209&name=etc/transformer/statistics/histogram.tcl)]
 
 Returns image with input columns transformed into a histogram of `bins` values.
 
@@ -452,7 +452,7 @@ The result is an image of `bins`-sized histogram columns with width and depth of
 ---
 ### [↑](#top) <a name='op_column_max'></a> aktive op column max
 
-Syntax: __aktive op column max__ src [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/statistics/by-columns.tcl)]
+Syntax: __aktive op column max__ src [[→ definition](/file?ci=trunk&ln=8&name=etc/transformer/statistics/by-columns.tcl)]
 
 Returns image with input columns compressed to a single value, the maximum of the column values. The result is a single-row image with width and depth of the input.
 
@@ -478,7 +478,7 @@ The part about the `depth of the input` means that the bands in each column are 
 ---
 ### [↑](#top) <a name='op_column_mean'></a> aktive op column mean
 
-Syntax: __aktive op column mean__ src [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/statistics/by-columns.tcl)]
+Syntax: __aktive op column mean__ src [[→ definition](/file?ci=trunk&ln=8&name=etc/transformer/statistics/by-columns.tcl)]
 
 Returns image with input columns compressed to a single value, the arithmetic mean of the column values. The result is a single-row image with width and depth of the input.
 
@@ -504,7 +504,7 @@ The part about the `depth of the input` means that the bands in each column are 
 ---
 ### [↑](#top) <a name='op_column_median'></a> aktive op column median
 
-Syntax: __aktive op column median__ src [[→ definition](../../../../file?ci=trunk&ln=11&name=etc/transformer/statistics/rank-order.tcl)]
+Syntax: __aktive op column median__ src [[→ definition](/file?ci=trunk&ln=11&name=etc/transformer/statistics/rank-order.tcl)]
 
 Returns image with input columns compressed to a single value, the median of the sorted column values.
 
@@ -517,7 +517,7 @@ The result is a single-column image with height and depth of the input
 ---
 ### [↑](#top) <a name='op_column_min'></a> aktive op column min
 
-Syntax: __aktive op column min__ src [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/statistics/by-columns.tcl)]
+Syntax: __aktive op column min__ src [[→ definition](/file?ci=trunk&ln=8&name=etc/transformer/statistics/by-columns.tcl)]
 
 Returns image with input columns compressed to a single value, the minimum of the column values. The result is a single-row image with width and depth of the input.
 
@@ -543,7 +543,7 @@ The part about the `depth of the input` means that the bands in each column are 
 ---
 ### [↑](#top) <a name='op_column_otsu'></a> aktive op column otsu
 
-Syntax: __aktive op column otsu__ src [[→ definition](../../../../file?ci=trunk&ln=62&name=etc/transformer/statistics/otsu.tcl)]
+Syntax: __aktive op column otsu__ src [[→ definition](/file?ci=trunk&ln=62&name=etc/transformer/statistics/otsu.tcl)]
 
 Returns image with the input columns compressed into an otsu threshold.
 
@@ -573,7 +573,7 @@ The result has a single row.
 ---
 ### [↑](#top) <a name='op_column_profile'></a> aktive op column profile
 
-Syntax: __aktive op column profile__ src [[→ definition](../../../../file?ci=trunk&ln=14&name=etc/transformer/statistics/profile.tcl)]
+Syntax: __aktive op column profile__ src [[→ definition](/file?ci=trunk&ln=14&name=etc/transformer/statistics/profile.tcl)]
 
 Returns image with input columns transformed into a profile.
 
@@ -603,7 +603,7 @@ The result is a single-row image with width and depth of the input.
 ---
 ### [↑](#top) <a name='op_column_rank'></a> aktive op column rank
 
-Syntax: __aktive op column rank__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=84&name=etc/transformer/statistics/rank-order.tcl)]
+Syntax: __aktive op column rank__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=84&name=etc/transformer/statistics/rank-order.tcl)]
 
 Returns image with input columns compressed to a single value, the chosen rank of the sorted column values.
 
@@ -622,7 +622,7 @@ Beware. While it is possible to use the rank filter for max/min extractions it i
 ---
 ### [↑](#top) <a name='op_column_stddev'></a> aktive op column stddev
 
-Syntax: __aktive op column stddev__ src [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/statistics/by-columns.tcl)]
+Syntax: __aktive op column stddev__ src [[→ definition](/file?ci=trunk&ln=8&name=etc/transformer/statistics/by-columns.tcl)]
 
 Returns image with input columns compressed to a single value, the standard deviation of the column values. The result is a single-row image with width and depth of the input.
 
@@ -648,7 +648,7 @@ The part about the `depth of the input` means that the bands in each column are 
 ---
 ### [↑](#top) <a name='op_column_sum'></a> aktive op column sum
 
-Syntax: __aktive op column sum__ src [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/statistics/by-columns.tcl)]
+Syntax: __aktive op column sum__ src [[→ definition](/file?ci=trunk&ln=8&name=etc/transformer/statistics/by-columns.tcl)]
 
 Returns image with input columns compressed to a single value, the sum of the column values. The result is a single-row image with width and depth of the input.
 
@@ -674,7 +674,7 @@ The part about the `depth of the input` means that the bands in each column are 
 ---
 ### [↑](#top) <a name='op_column_sumsquared'></a> aktive op column sumsquared
 
-Syntax: __aktive op column sumsquared__ src [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/statistics/by-columns.tcl)]
+Syntax: __aktive op column sumsquared__ src [[→ definition](/file?ci=trunk&ln=8&name=etc/transformer/statistics/by-columns.tcl)]
 
 Returns image with input columns compressed to a single value, the sum of the squared column values. The result is a single-row image with width and depth of the input.
 
@@ -700,7 +700,7 @@ The part about the `depth of the input` means that the bands in each column are 
 ---
 ### [↑](#top) <a name='op_column_variance'></a> aktive op column variance
 
-Syntax: __aktive op column variance__ src [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/statistics/by-columns.tcl)]
+Syntax: __aktive op column variance__ src [[→ definition](/file?ci=trunk&ln=8&name=etc/transformer/statistics/by-columns.tcl)]
 
 Returns image with input columns compressed to a single value, the variance of the column values. The result is a single-row image with width and depth of the input.
 
@@ -726,7 +726,7 @@ The part about the `depth of the input` means that the bands in each column are 
 ---
 ### [↑](#top) <a name='op_image_histogram'></a> aktive op image histogram
 
-Syntax: __aktive op image histogram__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=26&name=etc/transformer/statistics/histogram.tcl)]
+Syntax: __aktive op image histogram__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=26&name=etc/transformer/statistics/histogram.tcl)]
 
 Returns image with the input transformed into a histogram of `bins` values.
 
@@ -754,7 +754,7 @@ Returns image with the input transformed into a histogram of `bins` values.
 ---
 ### [↑](#top) <a name='op_row_arg_max'></a> aktive op row arg max
 
-Syntax: __aktive op row arg max__ src [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/statistics/by-rows.tcl)]
+Syntax: __aktive op row arg max__ src [[→ definition](/file?ci=trunk&ln=8&name=etc/transformer/statistics/by-rows.tcl)]
 
 Returns image with input rows compressed to a single value, the first index of the maximal row values. The result is a single-column image with height and depth of the input.
 
@@ -780,7 +780,7 @@ The part about the `depth of the input` means that the bands in each row are han
 ---
 ### [↑](#top) <a name='op_row_arg_min'></a> aktive op row arg min
 
-Syntax: __aktive op row arg min__ src [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/statistics/by-rows.tcl)]
+Syntax: __aktive op row arg min__ src [[→ definition](/file?ci=trunk&ln=8&name=etc/transformer/statistics/by-rows.tcl)]
 
 Returns image with input rows compressed to a single value, the first index of the minimal row values. The result is a single-column image with height and depth of the input.
 
@@ -806,7 +806,7 @@ The part about the `depth of the input` means that the bands in each row are han
 ---
 ### [↑](#top) <a name='op_row_cumulative'></a> aktive op row cumulative
 
-Syntax: __aktive op row cumulative__ src [[→ definition](../../../../file?ci=trunk&ln=15&name=etc/transformer/statistics/cumulation.tcl)]
+Syntax: __aktive op row cumulative__ src [[→ definition](/file?ci=trunk&ln=15&name=etc/transformer/statistics/cumulation.tcl)]
 
 Returns image with the input rows transformed into cumulative sums.
 
@@ -834,7 +834,7 @@ The result has the same geometry as the input. Only the contents change.
 ---
 ### [↑](#top) <a name='op_row_histogram'></a> aktive op row histogram
 
-Syntax: __aktive op row histogram__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=209&name=etc/transformer/statistics/histogram.tcl)]
+Syntax: __aktive op row histogram__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=209&name=etc/transformer/statistics/histogram.tcl)]
 
 Returns image with input rows transformed into a histogram of `bins` values.
 
@@ -864,7 +864,7 @@ The result is an image of `bins`-sized histogram rows with height and depth of t
 ---
 ### [↑](#top) <a name='op_row_max'></a> aktive op row max
 
-Syntax: __aktive op row max__ src [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/statistics/by-rows.tcl)]
+Syntax: __aktive op row max__ src [[→ definition](/file?ci=trunk&ln=8&name=etc/transformer/statistics/by-rows.tcl)]
 
 Returns image with input rows compressed to a single value, the maximum of the row values. The result is a single-column image with height and depth of the input.
 
@@ -890,7 +890,7 @@ The part about the `depth of the input` means that the bands in each row are han
 ---
 ### [↑](#top) <a name='op_row_mean'></a> aktive op row mean
 
-Syntax: __aktive op row mean__ src [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/statistics/by-rows.tcl)]
+Syntax: __aktive op row mean__ src [[→ definition](/file?ci=trunk&ln=8&name=etc/transformer/statistics/by-rows.tcl)]
 
 Returns image with input rows compressed to a single value, the arithmetic mean of the row values. The result is a single-column image with height and depth of the input.
 
@@ -916,7 +916,7 @@ The part about the `depth of the input` means that the bands in each row are han
 ---
 ### [↑](#top) <a name='op_row_median'></a> aktive op row median
 
-Syntax: __aktive op row median__ src [[→ definition](../../../../file?ci=trunk&ln=11&name=etc/transformer/statistics/rank-order.tcl)]
+Syntax: __aktive op row median__ src [[→ definition](/file?ci=trunk&ln=11&name=etc/transformer/statistics/rank-order.tcl)]
 
 Returns image with input rows compressed to a single value, the median of the sorted row values.
 
@@ -929,7 +929,7 @@ The result is a single-row image with width and depth of the input
 ---
 ### [↑](#top) <a name='op_row_min'></a> aktive op row min
 
-Syntax: __aktive op row min__ src [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/statistics/by-rows.tcl)]
+Syntax: __aktive op row min__ src [[→ definition](/file?ci=trunk&ln=8&name=etc/transformer/statistics/by-rows.tcl)]
 
 Returns image with input rows compressed to a single value, the minimum of the row values. The result is a single-column image with height and depth of the input.
 
@@ -955,7 +955,7 @@ The part about the `depth of the input` means that the bands in each row are han
 ---
 ### [↑](#top) <a name='op_row_otsu'></a> aktive op row otsu
 
-Syntax: __aktive op row otsu__ src [[→ definition](../../../../file?ci=trunk&ln=17&name=etc/transformer/statistics/otsu.tcl)]
+Syntax: __aktive op row otsu__ src [[→ definition](/file?ci=trunk&ln=17&name=etc/transformer/statistics/otsu.tcl)]
 
 Returns image with the input rows compressed into an otsu threshold.
 
@@ -985,7 +985,7 @@ The result has a single column.
 ---
 ### [↑](#top) <a name='op_row_profile'></a> aktive op row profile
 
-Syntax: __aktive op row profile__ src [[→ definition](../../../../file?ci=trunk&ln=14&name=etc/transformer/statistics/profile.tcl)]
+Syntax: __aktive op row profile__ src [[→ definition](/file?ci=trunk&ln=14&name=etc/transformer/statistics/profile.tcl)]
 
 Returns image with input rows transformed into a profile.
 
@@ -1015,7 +1015,7 @@ The result is a single-column image with height and depth of the input.
 ---
 ### [↑](#top) <a name='op_row_rank'></a> aktive op row rank
 
-Syntax: __aktive op row rank__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=84&name=etc/transformer/statistics/rank-order.tcl)]
+Syntax: __aktive op row rank__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=84&name=etc/transformer/statistics/rank-order.tcl)]
 
 Returns image with input rows compressed to a single value, the chosen rank of the sorted row values.
 
@@ -1034,7 +1034,7 @@ Beware. While it is possible to use the rank filter for max/min extractions it i
 ---
 ### [↑](#top) <a name='op_row_stddev'></a> aktive op row stddev
 
-Syntax: __aktive op row stddev__ src [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/statistics/by-rows.tcl)]
+Syntax: __aktive op row stddev__ src [[→ definition](/file?ci=trunk&ln=8&name=etc/transformer/statistics/by-rows.tcl)]
 
 Returns image with input rows compressed to a single value, the standard deviation of the row values. The result is a single-column image with height and depth of the input.
 
@@ -1060,7 +1060,7 @@ The part about the `depth of the input` means that the bands in each row are han
 ---
 ### [↑](#top) <a name='op_row_sum'></a> aktive op row sum
 
-Syntax: __aktive op row sum__ src [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/statistics/by-rows.tcl)]
+Syntax: __aktive op row sum__ src [[→ definition](/file?ci=trunk&ln=8&name=etc/transformer/statistics/by-rows.tcl)]
 
 Returns image with input rows compressed to a single value, the sum of the row values. The result is a single-column image with height and depth of the input.
 
@@ -1086,7 +1086,7 @@ The part about the `depth of the input` means that the bands in each row are han
 ---
 ### [↑](#top) <a name='op_row_sumsquared'></a> aktive op row sumsquared
 
-Syntax: __aktive op row sumsquared__ src [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/statistics/by-rows.tcl)]
+Syntax: __aktive op row sumsquared__ src [[→ definition](/file?ci=trunk&ln=8&name=etc/transformer/statistics/by-rows.tcl)]
 
 Returns image with input rows compressed to a single value, the sum of the squared row values. The result is a single-column image with height and depth of the input.
 
@@ -1112,7 +1112,7 @@ The part about the `depth of the input` means that the bands in each row are han
 ---
 ### [↑](#top) <a name='op_row_variance'></a> aktive op row variance
 
-Syntax: __aktive op row variance__ src [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/statistics/by-rows.tcl)]
+Syntax: __aktive op row variance__ src [[→ definition](/file?ci=trunk&ln=8&name=etc/transformer/statistics/by-rows.tcl)]
 
 Returns image with input rows compressed to a single value, the variance of the row values. The result is a single-column image with height and depth of the input.
 
@@ -1138,7 +1138,7 @@ The part about the `depth of the input` means that the bands in each row are han
 ---
 ### [↑](#top) <a name='op_tile_histogram'></a> aktive op tile histogram
 
-Syntax: __aktive op tile histogram__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=73&name=etc/transformer/statistics/histogram.tcl)]
+Syntax: __aktive op tile histogram__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=73&name=etc/transformer/statistics/histogram.tcl)]
 
 Returns image with input tiles transformed into a histogram of `bins` values.
 
@@ -1164,7 +1164,7 @@ The prefered embedding for histogram is black. It is chosen to have minimal to n
 ---
 ### [↑](#top) <a name='op_tile_max'></a> aktive op tile max
 
-Syntax: __aktive op tile max__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/statistics/by-tiles.tcl)]
+Syntax: __aktive op tile max__ src (param value)... [[→ definition](/file?ci=trunk&ln=8&name=etc/transformer/statistics/by-tiles.tcl)]
 
 Returns image containing the maximum of the tile values, for all tiles of radius R in the input.
 
@@ -1189,7 +1189,7 @@ The input bands are handled separately.
 ---
 ### [↑](#top) <a name='op_tile_mean'></a> aktive op tile mean
 
-Syntax: __aktive op tile mean__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/statistics/by-tiles.tcl)]
+Syntax: __aktive op tile mean__ src (param value)... [[→ definition](/file?ci=trunk&ln=8&name=etc/transformer/statistics/by-tiles.tcl)]
 
 Returns image containing the arithmetic mean of the tile values, for all tiles of radius R in the input.
 
@@ -1214,7 +1214,7 @@ The input bands are handled separately.
 ---
 ### [↑](#top) <a name='op_tile_median'></a> aktive op tile median
 
-Syntax: __aktive op tile median__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=11&name=etc/transformer/statistics/rank-order.tcl)]
+Syntax: __aktive op tile median__ src (param value)... [[→ definition](/file?ci=trunk&ln=11&name=etc/transformer/statistics/rank-order.tcl)]
 
 Returns image with input tiles compressed to a single value, the median of the sorted tile values.
 
@@ -1239,7 +1239,7 @@ The input bands are handled separately.
 ---
 ### [↑](#top) <a name='op_tile_min'></a> aktive op tile min
 
-Syntax: __aktive op tile min__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/statistics/by-tiles.tcl)]
+Syntax: __aktive op tile min__ src (param value)... [[→ definition](/file?ci=trunk&ln=8&name=etc/transformer/statistics/by-tiles.tcl)]
 
 Returns image containing the minimum of the tile values, for all tiles of radius R in the input.
 
@@ -1264,7 +1264,7 @@ The input bands are handled separately.
 ---
 ### [↑](#top) <a name='op_tile_rank'></a> aktive op tile rank
 
-Syntax: __aktive op tile rank__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=84&name=etc/transformer/statistics/rank-order.tcl)]
+Syntax: __aktive op tile rank__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=84&name=etc/transformer/statistics/rank-order.tcl)]
 
 Returns image with input tiles compressed to a single value, the chosen rank of the sorted tile values.
 
@@ -1292,7 +1292,7 @@ Beware. While it is possible to use the rank filter for max/min extractions it i
 ---
 ### [↑](#top) <a name='op_tile_stddev'></a> aktive op tile stddev
 
-Syntax: __aktive op tile stddev__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/statistics/by-tiles.tcl)]
+Syntax: __aktive op tile stddev__ src (param value)... [[→ definition](/file?ci=trunk&ln=8&name=etc/transformer/statistics/by-tiles.tcl)]
 
 Returns image containing the standard deviation of the tile values, for all tiles of radius R in the input.
 
@@ -1317,7 +1317,7 @@ The input bands are handled separately.
 ---
 ### [↑](#top) <a name='op_tile_sum'></a> aktive op tile sum
 
-Syntax: __aktive op tile sum__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/statistics/by-tiles.tcl)]
+Syntax: __aktive op tile sum__ src (param value)... [[→ definition](/file?ci=trunk&ln=8&name=etc/transformer/statistics/by-tiles.tcl)]
 
 Returns image containing the sum of the tile values, for all tiles of radius R in the input.
 
@@ -1342,7 +1342,7 @@ The input bands are handled separately.
 ---
 ### [↑](#top) <a name='op_tile_sumsquared'></a> aktive op tile sumsquared
 
-Syntax: __aktive op tile sumsquared__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/statistics/by-tiles.tcl)]
+Syntax: __aktive op tile sumsquared__ src (param value)... [[→ definition](/file?ci=trunk&ln=8&name=etc/transformer/statistics/by-tiles.tcl)]
 
 Returns image containing the sum of the squared tile values, for all tiles of radius R in the input.
 
@@ -1367,7 +1367,7 @@ The input bands are handled separately.
 ---
 ### [↑](#top) <a name='op_tile_variance'></a> aktive op tile variance
 
-Syntax: __aktive op tile variance__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/statistics/by-tiles.tcl)]
+Syntax: __aktive op tile variance__ src (param value)... [[→ definition](/file?ci=trunk&ln=8&name=etc/transformer/statistics/by-tiles.tcl)]
 
 Returns image containing the variance of the tile values, for all tiles of radius R in the input.
 

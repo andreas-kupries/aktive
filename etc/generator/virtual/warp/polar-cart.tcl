@@ -11,14 +11,16 @@ operator warp::2polar {
 
     note The inverse transformation is created by "<!xref: aktive warp 2cartesian>."
 
+    note Inspired by <http://libvips.blogspot.com/2015/11/fancy-transforms.html>
+
+    ref  http://libvips.blogspot.com/2015/11/fancy-transforms.html
+
     note The result is designed to be usable with \
 	"<!xref: aktive op warp bicubic>" \
 	and its relatives.
 
     note At the technical level the result is a 2-band image \
 	where each pixel declares its origin position.
-
-    # Reference: http://libvips.blogspot.com/2015/11/fancy-transforms.html
 
     # image configuration
     uint       width   Width of the returned image
@@ -60,14 +62,16 @@ operator warp::2cartesian {
 
     note The inverse transformation is created by "<!xref: aktive warp 2polar>."
 
+    note Inspired by <http://libvips.blogspot.com/2015/11/fancy-transforms.html>
+
+    ref  http://libvips.blogspot.com/2015/11/fancy-transforms.html
+
     note The result is designed to be usable with \
 	"<!xref: aktive op warp bicubic>" \
 	and its relatives.
 
     note At the technical level the result is a 2-band image \
 	where each pixel declares its origin position.
-
-    # Reference: http://libvips.blogspot.com/2015/11/fancy-transforms.html
 
     # image configuration
     uint       width   Width of the returned image

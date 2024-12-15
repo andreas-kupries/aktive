@@ -1,16 +1,6 @@
 ## -*- mode: tcl ; fill-column: 90 -*-
 # # ## ### ##### ######## ############# #####################
 ## Transformers -- Threshold generation - Local / Adaptive
-#
-# References
-# - https://craftofcoding.wordpress.com/2021/10/27/thresholding-algorithms-bernsen-local/
-# - https://craftofcoding.wordpress.com/2021/09/30/thresholding-algorithms-niblack-local/
-# - https://craftofcoding.wordpress.com/2021/10/06/thresholding-algorithms-sauvola-local/
-# - https://craftofcoding.wordpress.com/2021/09/28/thresholding-algorithms-phansalkar-local/
-#
-# - https://github.com/chriswolfvision/local_adaptive_binarization/blob/HASH/binarizewolfjolion.cpp#L182
-#   where HASH = 2eb51465a917297910f2795fc149abafc96e657f
-# - http://liris.cnrs.fr/christian.wolf/papers/icpr2002v.pdf
 
 # # ## ### ##### ######## ############# #####################
 ## Mean
@@ -77,7 +67,11 @@ operator image::threshold::bernsen {
     }
 
     note Returns an image containing per-pixel thresholds for the input, \
-	as per Bernsen's method.
+	as per \
+	"\[Bernsen's\](https://craftofcoding.wordpress.com/2021/10/27/thresholding-algorithms-bernsen-local)" \
+	method.
+
+    ref https://craftofcoding.wordpress.com/2021/10/27/thresholding-algorithms-bernsen-local
 
     note The operator "<!xref: aktive image mask per bernsen>" \
 	uses this to generate a mask of the input.
@@ -126,7 +120,11 @@ operator image::threshold::niblack {
     }
 
     note Returns an image containing per-pixel thresholds for the input, \
-	as per Niblack's method.
+	as per \
+	"\[Niblack's\](https://craftofcoding.wordpress.com/2021/09/30/thresholding-algorithms-niblack-local)" \
+	method.
+
+    ref https://craftofcoding.wordpress.com/2021/09/30/thresholding-algorithms-niblack-local
 
     note The operator "<!xref: aktive image mask per niblack>" \
 	uses this to generate a mask of the input.
@@ -178,7 +176,11 @@ operator image::threshold::sauvola {
     }
 
     note Returns an image containing per-pixel thresholds for the input, \
-	as per Sauvola's method.
+	as per \
+	"\[Sauvola's\](https://craftofcoding.wordpress.com/2021/10/06/thresholding-algorithms-sauvola-local)" \
+	method.
+
+    ref https://craftofcoding.wordpress.com/2021/10/06/thresholding-algorithms-sauvola-local
 
     note The operator "<!xref: aktive image mask per sauvola>" \
 	uses this to generate a mask of the input.
@@ -233,7 +235,11 @@ operator image::threshold::phansalkar {
     }
 
     note Returns an image containing per-pixel thresholds for the input, \
-	as per Phansalkar's method.
+	as per \
+	"\[Phansalkar's\](https://craftofcoding.wordpress.com/2021/09/28/thresholding-algorithms-phansalkar-local)" \
+	method.
+
+    ref https://craftofcoding.wordpress.com/2021/09/28/thresholding-algorithms-phansalkar-local
 
     note The operator "<!xref: aktive image mask per phansalkar>" \
 	uses this to generate a mask of the input.
@@ -294,7 +300,12 @@ operator image::threshold::otsu {
     }
 
     note Returns an image containing per-pixel thresholds for the input, \
-	as per Otsu's method.
+	as per \
+	"\[Otsu's\](https://en.wikipedia.org/wiki/Otsu%27s_method)" \
+	method.
+
+    ref https://en.wikipedia.org/wiki/Otsu%27s_method
+    ref http://www.labbookpages.co.uk/software/imgProc/otsuThreshold.html
 
     note The operator "<!xref: aktive image mask per otsu>" \
 	uses this to generate a mask of the input.
@@ -324,7 +335,7 @@ operator image::threshold::otsu {
 }
 
 # # ## ### ##### ######## ############# #####################
-## Wolfjolion - Christian Wolf + J. M. Jolion - At core a variant of Sauvola
+## Wolfjolion - Christian Wolf + J. M. Jolion - At core a variant of Niblack and Sauvola
 
 operator image::threshold::wolfjolion {
     section transform threshold generate
@@ -340,7 +351,15 @@ operator image::threshold::wolfjolion {
     }
 
     note Returns an image containing per-pixel thresholds for the input, \
-	as per Wolf+Jolion's method.
+	as per \
+	"\[Wolf+Jolion's\](https://chriswolfvision.github.io/www/software/binarize/index.html)" \
+	method.
+
+    ref https://chriswolfvision.github.io/www/software/binarize/index.html
+    ref https://chriswolfvision.github.io/www/papers/icpr2002v.pdf
+    ref https://github.com/chriswolfvision/local_adaptive_binarization
+    # ref https://github.com/chriswolfvision/local_adaptive_binarization
+    #       /blob/2eb51465a917297910f2795fc149abafc96e657f/binarizewolfjolion.cpp#L182
 
     note The operator "<!xref: aktive image mask per wolfjolion>" \
 	uses this to generate a mask of the input.

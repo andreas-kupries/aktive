@@ -10,7 +10,7 @@ operator {format} {
 } {
 
     example {
-	butterfly                 | -label assets/butterfly.ppm
+	butterfly
 	aktive effect charcoal @1 | -label charcoal
 	@2                        | -text
     }

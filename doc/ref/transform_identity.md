@@ -24,7 +24,7 @@
 ---
 ### [↑](#top) <a name='op_pass'></a> aktive op pass
 
-Syntax: __aktive op pass__ src [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/identity.tcl)]
+Syntax: __aktive op pass__ src [[→ definition](/file?ci=trunk&ln=8&name=etc/transformer/identity.tcl)]
 
 Returns unchanged input.
 

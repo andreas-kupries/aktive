@@ -73,6 +73,7 @@ parameters, documentation, and examples.
 |:---				|:---		|
 |[example](#cmd-example)	|Define an operator example		|
 |[note](#cmd-note)		|Operator description / documentation	|
+|[ref](#cmd-ref)		|Reference to relevant external page	|
 |[section](#cmd-section)	|Documentation section for operator	|
 |[strict](#cmd-strict)		|Strictness information	   		|
 
@@ -274,8 +275,8 @@ Some examples:
   - [geometry](/file?ci=trunk&name=etc/accessor/attributes.tcl&ln=94-101)
   - [indexed](/file?ci=trunk&name=etc/generator/virtual/indexed.tcl&ln=9-10)
   - [labeled regions](/file?ci=trunk&name=etc/accessor/cc.tcl&ln=12-47)
-  - [sdf](/file?ci=trunk&name=etc/generator/virtual/sdf.tcl&ln=103-106)
-  - [wobble](/file?ci=trunk&name=etc/transformer/filter/effects.tcl&ln=12-15)
+  - [sdf](/file?ci=trunk&name=etc/generator/virtual/sdf.tcl&ln=105-108)
+  - [wobble](/file?ci=trunk&name=etc/transformer/filter/effects.tcl&ln=81-84)
 
 ### <a name='cmd-note'></a> Documentation
 
@@ -333,6 +334,17 @@ Currently two kinds of reference targets are supported.
 
 References to unknown locations and operators are not touched.
 As an example of that see the above examples.
+
+### <a name='cmd-ref'></a> References
+
+[Up ↑](#general)
+
+|Syntax		|
+|:---		|
+|`ref LINK`	|
+
+The command records a link to some external web site relevant to the
+operator.
 
 ### <a name='cmd-op'></a> Operator name access
 
@@ -741,4 +753,4 @@ set of parameters.
 See for example
 
   - [draw pass](/file?ci=trunk&name=etc/generator/virtual/draw.tcl&ln=77)
-  - [wobble pass](/file?ci=trunk&name=etc/transformer/filter/effects.tcl&ln=25)
+  - [wobble pass](/file?ci=trunk&name=etc/transformer/filter/effects.tcl&ln=98)

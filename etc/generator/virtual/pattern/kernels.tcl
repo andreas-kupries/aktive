@@ -11,17 +11,6 @@
 ## - scharr  (x, y)
 ## - sobel   (x, y, md, sd)
 ## - sharp   (4, 8, X)
-#
-## References
-#
-## - http://www.holoborodko.com/pavel/image-processing/edge-detection/
-## - https://wiki.tcl-lang.org/page/TkPhotoLab
-## - https://en.wikipedia.org/wiki/Prewitt_operator
-## - https://en.wikipedia.org/wiki/Roberts_cross
-## - https://en.wikipedia.org/wiki/Sobel_operator
-## - https://en.wikipedia.org/wiki/Scharr_operator
-#
-## - https://en.wikipedia.org/wiki/Scale_space_implementation#The_discrete_Gaussian_kernel
 
 # # ## ### ##### ######## ############# #####################
 ## md = main diagonal
@@ -72,6 +61,21 @@ operator {w h description factor kernel} {
     op -> _ _ ref _
     set description [string map [list @ $ref] $description]
 
+    switch -exact -- $ref {
+	prewitt { ref https://en.wikipedia.org/wiki/Prewitt_operator }
+	sobel   { ref https://en.wikipedia.org/wiki/Sobel_operator   }
+	scharr  { ref https://en.wikipedia.org/wiki/Scharr_operator  }
+	roberts { ref https://en.wikipedia.org/wiki/Roberts_cross    }
+    }
+    switch -exact -- $ref {
+	prewitt -
+	sobel   -
+	scharr  -
+	roberts -
+	laplace { ref http://www.holoborodko.com/pavel/image-processing/edge-detection }
+    }
+    ref https://wiki.tcl-lang.org/page/TkPhotoLab
+
     if {$factor ne {}} {
 	set factor [expr $factor]
 	def scale "factor $factor"
@@ -99,7 +103,7 @@ operator {w h description factor kernel} {
 operator image::kernel::gauss::discrete {
     section generator virtual
 
-    # Reference: http://en.wikipedia.org/wiki/Scale_space_implementation#The_discrete_Gaussian_kernel
+    ref http://en.wikipedia.org/wiki/Scale_space_implementation#The_discrete_Gaussian_kernel
     # G(x,sigma) = exp(-t)*I_x(t), where t = sigma^2
     # and I_x = Modified Bessel function of Order x
 
@@ -113,9 +117,6 @@ operator image::kernel::gauss::discrete {
     note Returns the 1D discrete gaussian convolution kernel, for the specified sigma and radius. \
 	By default sigma is 1. \
 	By default the radius is max(1,ceil(3*sigma)).
-
-    note For more about the math see \
-	http://en.wikipedia.org/wiki/Scale_space_implementation#The_discrete_Gaussian_kernel
 
     body {
 	package require math::special
@@ -169,7 +170,7 @@ operator image::kernel::lanczos {
     example {order 2           | -matrix }
     example {order 2 step 0.25 | -matrix }
 
-    # Reference: https://en.wikipedia.org/wiki/Lanczos_resampling#Lanczos_kernel
+    ref https://en.wikipedia.org/wiki/Lanczos_resampling#Lanczos_kernel
 
     uint?   3 order Order of the lanczos kernel. Acceptable minimum is 2.
     double? 1 step  X-delta between kernel elements.
@@ -177,9 +178,6 @@ operator image::kernel::lanczos {
     note Returns lanczos convolution kernel of the specified order. \
 	The default order is 3. Step expands the kernel to the given \
 	resolution (default 1).
-
-    note For more about the math see \
-	https://en.wikipedia.org/wiki/Lanczos_resampling#Lanczos_kernel
 
     body {
 	if {$order < 2} { aktive error "Invalid order $order, expected a value >= 2" }

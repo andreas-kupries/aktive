@@ -26,16 +26,23 @@ operator image::mask::from::threshold {
     }
 }
 
-operator {parameters} {
-    image::mask::per::mean       {}
-    image::mask::per::bernsen    {}
-    image::mask::per::niblack    { k -0.2 }
-    image::mask::per::sauvola    { k 0.5  R 128 }
-    image::mask::per::phansalkar { k 0.25 R 0.5 p 3 q 10 }
-    image::mask::per::otsu       { bins 256 }
-    image::mask::per::wolfjolion { k 0.5 }
+operator {parameters link} {
+    image::mask::per::mean       {}                         {}
+    image::mask::per::bernsen    {}			    https://craftofcoding.wordpress.com/2021/10/27/thresholding-algorithms-bernsen-local
+    image::mask::per::niblack    { k -0.2 }		    https://craftofcoding.wordpress.com/2021/09/30/thresholding-algorithms-niblack-local
+    image::mask::per::sauvola    { k 0.5  R 128 }	    https://craftofcoding.wordpress.com/2021/10/06/thresholding-algorithms-sauvola-local
+    image::mask::per::phansalkar { k 0.25 R 0.5 p 3 q 10 }  https://craftofcoding.wordpress.com/2021/09/28/thresholding-algorithms-phansalkar-local
+    image::mask::per::otsu       { bins 256 }               https://en.wikipedia.org/wiki/Otsu%27s_method
+    image::mask::per::wolfjolion { k 0.5 }		    https://chriswolfvision.github.io/www/software/binarize/index.html
 } {
     op -> _ _ _ method
+
+    def methodname    [string totitle $method]
+    def mainmethodref [if {$link eq {}} {
+	set _ "`${methodname}`"
+    } else {
+	set _ "\[$methodname\]($link)"
+    }]
 
     example {
 	scancrop
@@ -51,8 +58,22 @@ operator {parameters} {
 
     section transform threshold mask generate
 
-    note Return image foreground mask of input, \
-	using [string totitle $method] thresholding.
+    note Return image foreground mask of input, using $mainmethodref thresholding.
+
+    if {$link ne {}} {
+	ref $link
+	switch -exact -- $method {
+	    otsu {
+		ref http://www.labbookpages.co.uk/software/imgProc/otsuThreshold.html
+	    }
+	    wolfjolion {
+		ref https://chriswolfvision.github.io/www/papers/icpr2002v.pdf
+		ref https://github.com/chriswolfvision/local_adaptive_binarization
+		# ref https://github.com/chriswolfvision/local_adaptive_binarization
+		#       /blob/2eb51465a917297910f2795fc149abafc96e657f/binarizewolfjolion.cpp#L182
+	    }
+	}
+    }
 
     note The foreground are the pixels falling under the threshold. \
 	IOW the input foreground is assumed to be darker than background. \
@@ -86,15 +107,22 @@ operator {parameters} {
 # # ## ### ##### ######## ############# #####################
 ## Masks from global thresholds
 
-operator {parameters} {
-    image::mask::per::global::mean       {}
-    image::mask::per::global::bernsen    {}
-    image::mask::per::global::niblack    { k -0.2 }
-    image::mask::per::global::phansalkar { k 0.25 R 0.5 p 3 q 10 }
-    image::mask::per::global::sauvola    { k 0.5  R 128 }
-    image::mask::per::global::otsu       { bins 256 }
+operator {parameters link} {
+    image::mask::per::global::mean       {}                        {}
+    image::mask::per::global::bernsen    {}			   https://craftofcoding.wordpress.com/2021/10/27/thresholding-algorithms-bernsen-local
+    image::mask::per::global::niblack    { k -0.2 }		   https://craftofcoding.wordpress.com/2021/09/30/thresholding-algorithms-niblack-local
+    image::mask::per::global::phansalkar { k 0.25 R 0.5 p 3 q 10 } https://craftofcoding.wordpress.com/2021/10/06/thresholding-algorithms-sauvola-local
+    image::mask::per::global::sauvola    { k 0.5  R 128 }	   https://craftofcoding.wordpress.com/2021/09/28/thresholding-algorithms-phansalkar-local
+    image::mask::per::global::otsu       { bins 256 }		   https://en.wikipedia.org/wiki/Otsu%27s_method
 } {
     op -> _ _ _ _ method
+
+    def methodname    [string totitle $method]
+    def mainmethodref [if {$link eq {}} {
+	set _ "`${methodname}`"
+    } else {
+	set _ "\[$methodname\]($link)"
+    }]
 
     example {
 	scancrop
@@ -111,7 +139,16 @@ operator {parameters} {
     section transform threshold mask generate
 
     note Returns mask image indicating the foreground pixels of the input, \
-	using global `[string totitle $method]` thresholding.
+	using global $mainmethodref thresholding.
+
+    if {$link ne {}} {
+	ref $link
+	switch -exact -- $method {
+	    otsu {
+		ref http://www.labbookpages.co.uk/software/imgProc/otsuThreshold.html
+	    }
+	}
+    }
 
     note The foreground are the pixels __less or equal__ to the threshold. \
 	IOW the input's foreground is assumed to be darker than the \

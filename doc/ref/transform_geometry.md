@@ -25,7 +25,7 @@
 ---
 ### [↑](#top) <a name='op_geometry_bands_fold'></a> aktive op geometry bands fold
 
-Syntax: __aktive op geometry bands fold__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=12&name=etc/transformer/structure/band-geometry.tcl)]
+Syntax: __aktive op geometry bands fold__ src (param value)... [[→ definition](/file?ci=trunk&ln=12&name=etc/transformer/structure/band-geometry.tcl)]
 
 Returns image with the input's columns folded into bands, reducing width. The result is a (input depth * k)-band image and input width divided by k.
 
@@ -42,7 +42,7 @@ The parameter k has to be a proper divisor of the input width. I.e. the input wi
 ---
 ### [↑](#top) <a name='op_geometry_bands_unfold'></a> aktive op geometry bands unfold
 
-Syntax: __aktive op geometry bands unfold__ src [[→ definition](../../../../file?ci=trunk&ln=102&name=etc/transformer/structure/band-geometry.tcl)]
+Syntax: __aktive op geometry bands unfold__ src [[→ definition](/file?ci=trunk&ln=102&name=etc/transformer/structure/band-geometry.tcl)]
 
 Returns image with the input's bands unfolded and making it wider. The result is a single-band image wider by input depth times.
 

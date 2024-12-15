@@ -24,7 +24,7 @@
 ---
 ### [↑](#top) <a name='op_equalization_global'></a> aktive op equalization global
 
-Syntax: __aktive op equalization global__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/filter/equalization.tcl)]
+Syntax: __aktive op equalization global__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=7&name=etc/transformer/filter/equalization.tcl)]
 
 Returns input with equalized global histogram. The location of the input is ignored, and passed to the result.
 
@@ -43,4 +43,14 @@ When bandwise is __not__ set (default) then
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |bandwise|bool|0|Flag to process all bands of an image separately.|
+
+#### <a name='op_equalization_global__references'></a> References
+
+  - <https://en.wikipedia.org/wiki/Histogram_equalization>
+
+  - <https://towardsdatascience.com/histogram-equalization-5d1013626e64>
+
+  - <https://docs.opencv.org/4.x/d4/d1b/tutorial_histogram_equalization.html>
+
+  - <https://docs.opencv.org/4.x/d5/daf/tutorial_py_histogram_equalization.html>
 

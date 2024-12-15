@@ -1,15 +1,6 @@
 ## -*- mode: tcl ; fill-column: 90 -*-
 # # ## ### ##### ######## ############# #####################
 ## Transformers -- Histogram equalization
-#
-## References
-#
-# - https://en.wikipedia.org/wiki/Histogram_equalization
-# - https://towardsdatascience.com/histogram-equalization-5d1013626e64
-# - https://docs.opencv.org/4.x/d4/d1b/tutorial_histogram_equalization.html
-# - https://docs.opencv.org/4.x/d5/daf/tutorial_py_histogram_equalization.html
-# -
-# -
 
 # # ## ### ##### ######## ############# #####################
 
@@ -32,6 +23,11 @@ operator op::equalization::global {
 	RGB space are converted into and out of a space where that is possible.
 
     note - Anything else has just their last band processed.
+
+    ref https://en.wikipedia.org/wiki/Histogram_equalization
+    ref https://towardsdatascience.com/histogram-equalization-5d1013626e64
+    ref https://docs.opencv.org/4.x/d4/d1b/tutorial_histogram_equalization.html
+    ref https://docs.opencv.org/4.x/d5/daf/tutorial_py_histogram_equalization.html
 
     body {
 	set n  [aktive query depth $src]

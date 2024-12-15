@@ -12,10 +12,10 @@
 
 /*
  * - - -- --- ----- -------- ------------ ----------------------
- * SDF main reference is
+ * See
  *	https://iquilezles.org/articles/distfunctions2d
  *
- * Sub references at shadertoys, youtube, ...
+ * and at shadertoys, youtube, ...
  *	https://www.youtube.com/@InigoQuilez
  *
  * If no position is specified the element is centered in the origin.

@@ -5,13 +5,26 @@
 # # ## ### ##### ######## ############# #####################
 ## Generic warping by means of an origin map and a pixel interpolator.
 
-operator {description spec} {
-    op::warp::bicubic         bicubic		  bicubic
-    op::warp::bilinear	      bilinear	  	  bilinear
-    op::warp::lanczos	     {order-3 lanczos}    lanczos
-    op::warp::near-neighbour {nearest neighbour}  nneighbour
+operator {description spec refs} {
+    op::warp::bicubic         bicubic		  bicubic {
+	http://en.wikipedia.org/wiki/Bicubic_interpolation
+	http://www.paulinternet.nl/?page=bicubic
+    }
+    op::warp::bilinear	      bilinear	  	  bilinear {
+	 https://en.wikipedia.org/wiki/Bilinear_interpolation
+    }
+    op::warp::lanczos	     {order-3 lanczos}    lanczos {
+	https://mazzo.li/posts/lanczos.html
+	https://en.wikipedia.org/wiki/Lanczos_resampling
+	https://github.com/jeffboody/Lanczos
+    }
+    op::warp::near-neighbour {nearest neighbour}  nneighbour {
+	https://en.wikipedia.org/wiki/Nearest-neighbor_interpolation
+    }
 } {
     op -> _ _ interpolation
+
+    foreach r $refs { ref $r }
 
     section transform structure warp
 

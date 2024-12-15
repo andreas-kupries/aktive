@@ -37,7 +37,7 @@
 ---
 ### [↑](#top) <a name='image_mask_from_threshold'></a> aktive image mask from threshold
 
-Syntax: __aktive image mask from threshold__ threshold src [[→ definition](../../../../file?ci=trunk&ln=9&name=etc/transformer/thresholds/mask.tcl)]
+Syntax: __aktive image mask from threshold__ threshold src [[→ definition](/file?ci=trunk&ln=9&name=etc/transformer/thresholds/mask.tcl)]
 
 Returns mask image indicating the foreground pixels of the input, as per the thresholds.
 
@@ -53,9 +53,9 @@ The foreground pixels are indicated by white. Background by black.
 ---
 ### [↑](#top) <a name='image_mask_per_bernsen'></a> aktive image mask per bernsen
 
-Syntax: __aktive image mask per bernsen__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=29&name=etc/transformer/thresholds/mask.tcl)]
+Syntax: __aktive image mask per bernsen__ src (param value)... [[→ definition](/file?ci=trunk&ln=29&name=etc/transformer/thresholds/mask.tcl)]
 
-Return image foreground mask of input, using Bernsen thresholding.
+Return image foreground mask of input, using [Bernsen](https://craftofcoding.wordpress.com/2021/10/27/thresholding-algorithms-bernsen-local) thresholding.
 
 The foreground are the pixels falling under the threshold. IOW the input foreground is assumed to be darker than background. Invert the result otherwise.
 
@@ -96,12 +96,16 @@ The local thresholds are computed using [aktive image threshold bernsen](transfo
 </table>
 
 
+#### <a name='image_mask_per_bernsen__references'></a> References
+
+  - <https://craftofcoding.wordpress.com/2021/10/27/thresholding-algorithms-bernsen-local>
+
 ---
 ### [↑](#top) <a name='image_mask_per_global_bernsen'></a> aktive image mask per global bernsen
 
-Syntax: __aktive image mask per global bernsen__ src [[→ definition](../../../../file?ci=trunk&ln=89&name=etc/transformer/thresholds/mask.tcl)]
+Syntax: __aktive image mask per global bernsen__ src [[→ definition](/file?ci=trunk&ln=110&name=etc/transformer/thresholds/mask.tcl)]
 
-Returns mask image indicating the foreground pixels of the input, using global `Bernsen` thresholding.
+Returns mask image indicating the foreground pixels of the input, using global [Bernsen](https://craftofcoding.wordpress.com/2021/10/27/thresholding-algorithms-bernsen-local) thresholding.
 
 The foreground are the pixels __less or equal__ to the threshold. IOW the input's foreground is assumed to be darker than the background. Invert the result otherwise.
 
@@ -138,10 +142,14 @@ The threshold is computed using [aktive image threshold global bernsen](accessor
 </table>
 
 
+#### <a name='image_mask_per_global_bernsen__references'></a> References
+
+  - <https://craftofcoding.wordpress.com/2021/10/27/thresholding-algorithms-bernsen-local>
+
 ---
 ### [↑](#top) <a name='image_mask_per_global_mean'></a> aktive image mask per global mean
 
-Syntax: __aktive image mask per global mean__ src [[→ definition](../../../../file?ci=trunk&ln=89&name=etc/transformer/thresholds/mask.tcl)]
+Syntax: __aktive image mask per global mean__ src [[→ definition](/file?ci=trunk&ln=110&name=etc/transformer/thresholds/mask.tcl)]
 
 Returns mask image indicating the foreground pixels of the input, using global `Mean` thresholding.
 
@@ -183,9 +191,9 @@ The threshold is computed using [aktive image threshold global mean](accessor_th
 ---
 ### [↑](#top) <a name='image_mask_per_global_niblack'></a> aktive image mask per global niblack
 
-Syntax: __aktive image mask per global niblack__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=89&name=etc/transformer/thresholds/mask.tcl)]
+Syntax: __aktive image mask per global niblack__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=110&name=etc/transformer/thresholds/mask.tcl)]
 
-Returns mask image indicating the foreground pixels of the input, using global `Niblack` thresholding.
+Returns mask image indicating the foreground pixels of the input, using global [Niblack](https://craftofcoding.wordpress.com/2021/09/30/thresholding-algorithms-niblack-local) thresholding.
 
 The foreground are the pixels __less or equal__ to the threshold. IOW the input's foreground is assumed to be darker than the background. Invert the result otherwise.
 
@@ -226,12 +234,16 @@ The threshold is computed using [aktive image threshold global niblack](accessor
 </table>
 
 
+#### <a name='image_mask_per_global_niblack__references'></a> References
+
+  - <https://craftofcoding.wordpress.com/2021/09/30/thresholding-algorithms-niblack-local>
+
 ---
 ### [↑](#top) <a name='image_mask_per_global_otsu'></a> aktive image mask per global otsu
 
-Syntax: __aktive image mask per global otsu__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=89&name=etc/transformer/thresholds/mask.tcl)]
+Syntax: __aktive image mask per global otsu__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=110&name=etc/transformer/thresholds/mask.tcl)]
 
-Returns mask image indicating the foreground pixels of the input, using global `Otsu` thresholding.
+Returns mask image indicating the foreground pixels of the input, using global [Otsu](https://en.wikipedia.org/wiki/Otsu%27s_method) thresholding.
 
 The foreground are the pixels __less or equal__ to the threshold. IOW the input's foreground is assumed to be darker than the background. Invert the result otherwise.
 
@@ -261,12 +273,18 @@ The threshold is computed using [aktive image threshold global otsu](accessor_th
 </table>
 
 
+#### <a name='image_mask_per_global_otsu__references'></a> References
+
+  - <https://en.wikipedia.org/wiki/Otsu%27s_method>
+
+  - <http://www.labbookpages.co.uk/software/imgProc/otsuThreshold.html>
+
 ---
 ### [↑](#top) <a name='image_mask_per_global_phansalkar'></a> aktive image mask per global phansalkar
 
-Syntax: __aktive image mask per global phansalkar__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=89&name=etc/transformer/thresholds/mask.tcl)]
+Syntax: __aktive image mask per global phansalkar__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=110&name=etc/transformer/thresholds/mask.tcl)]
 
-Returns mask image indicating the foreground pixels of the input, using global `Phansalkar` thresholding.
+Returns mask image indicating the foreground pixels of the input, using global [Phansalkar](https://craftofcoding.wordpress.com/2021/10/06/thresholding-algorithms-sauvola-local) thresholding.
 
 The foreground are the pixels __less or equal__ to the threshold. IOW the input's foreground is assumed to be darker than the background. Invert the result otherwise.
 
@@ -310,12 +328,16 @@ The threshold is computed using [aktive image threshold global phansalkar](acces
 </table>
 
 
+#### <a name='image_mask_per_global_phansalkar__references'></a> References
+
+  - <https://craftofcoding.wordpress.com/2021/10/06/thresholding-algorithms-sauvola-local>
+
 ---
 ### [↑](#top) <a name='image_mask_per_global_sauvola'></a> aktive image mask per global sauvola
 
-Syntax: __aktive image mask per global sauvola__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=89&name=etc/transformer/thresholds/mask.tcl)]
+Syntax: __aktive image mask per global sauvola__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=110&name=etc/transformer/thresholds/mask.tcl)]
 
-Returns mask image indicating the foreground pixels of the input, using global `Sauvola` thresholding.
+Returns mask image indicating the foreground pixels of the input, using global [Sauvola](https://craftofcoding.wordpress.com/2021/09/28/thresholding-algorithms-phansalkar-local) thresholding.
 
 The foreground are the pixels __less or equal__ to the threshold. IOW the input's foreground is assumed to be darker than the background. Invert the result otherwise.
 
@@ -357,12 +379,16 @@ The threshold is computed using [aktive image threshold global sauvola](accessor
 </table>
 
 
+#### <a name='image_mask_per_global_sauvola__references'></a> References
+
+  - <https://craftofcoding.wordpress.com/2021/09/28/thresholding-algorithms-phansalkar-local>
+
 ---
 ### [↑](#top) <a name='image_mask_per_mean'></a> aktive image mask per mean
 
-Syntax: __aktive image mask per mean__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=29&name=etc/transformer/thresholds/mask.tcl)]
+Syntax: __aktive image mask per mean__ src (param value)... [[→ definition](/file?ci=trunk&ln=29&name=etc/transformer/thresholds/mask.tcl)]
 
-Return image foreground mask of input, using Mean thresholding.
+Return image foreground mask of input, using `Mean` thresholding.
 
 The foreground are the pixels falling under the threshold. IOW the input foreground is assumed to be darker than background. Invert the result otherwise.
 
@@ -406,9 +432,9 @@ The local thresholds are computed using [aktive image threshold mean](transform_
 ---
 ### [↑](#top) <a name='image_mask_per_niblack'></a> aktive image mask per niblack
 
-Syntax: __aktive image mask per niblack__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=29&name=etc/transformer/thresholds/mask.tcl)]
+Syntax: __aktive image mask per niblack__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=29&name=etc/transformer/thresholds/mask.tcl)]
 
-Return image foreground mask of input, using Niblack thresholding.
+Return image foreground mask of input, using [Niblack](https://craftofcoding.wordpress.com/2021/09/30/thresholding-algorithms-niblack-local) thresholding.
 
 The foreground are the pixels falling under the threshold. IOW the input foreground is assumed to be darker than background. Invert the result otherwise.
 
@@ -450,12 +476,16 @@ The local thresholds are computed using [aktive image threshold niblack](transfo
 </table>
 
 
+#### <a name='image_mask_per_niblack__references'></a> References
+
+  - <https://craftofcoding.wordpress.com/2021/09/30/thresholding-algorithms-niblack-local>
+
 ---
 ### [↑](#top) <a name='image_mask_per_otsu'></a> aktive image mask per otsu
 
-Syntax: __aktive image mask per otsu__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=29&name=etc/transformer/thresholds/mask.tcl)]
+Syntax: __aktive image mask per otsu__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=29&name=etc/transformer/thresholds/mask.tcl)]
 
-Return image foreground mask of input, using Otsu thresholding.
+Return image foreground mask of input, using [Otsu](https://en.wikipedia.org/wiki/Otsu%27s_method) thresholding.
 
 The foreground are the pixels falling under the threshold. IOW the input foreground is assumed to be darker than background. Invert the result otherwise.
 
@@ -486,12 +516,18 @@ The local thresholds are computed using [aktive image threshold otsu](transform_
 </table>
 
 
+#### <a name='image_mask_per_otsu__references'></a> References
+
+  - <https://en.wikipedia.org/wiki/Otsu%27s_method>
+
+  - <http://www.labbookpages.co.uk/software/imgProc/otsuThreshold.html>
+
 ---
 ### [↑](#top) <a name='image_mask_per_phansalkar'></a> aktive image mask per phansalkar
 
-Syntax: __aktive image mask per phansalkar__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=29&name=etc/transformer/thresholds/mask.tcl)]
+Syntax: __aktive image mask per phansalkar__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=29&name=etc/transformer/thresholds/mask.tcl)]
 
-Return image foreground mask of input, using Phansalkar thresholding.
+Return image foreground mask of input, using [Phansalkar](https://craftofcoding.wordpress.com/2021/09/28/thresholding-algorithms-phansalkar-local) thresholding.
 
 The foreground are the pixels falling under the threshold. IOW the input foreground is assumed to be darker than background. Invert the result otherwise.
 
@@ -536,12 +572,16 @@ The local thresholds are computed using [aktive image threshold phansalkar](tran
 </table>
 
 
+#### <a name='image_mask_per_phansalkar__references'></a> References
+
+  - <https://craftofcoding.wordpress.com/2021/09/28/thresholding-algorithms-phansalkar-local>
+
 ---
 ### [↑](#top) <a name='image_mask_per_sauvola'></a> aktive image mask per sauvola
 
-Syntax: __aktive image mask per sauvola__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=29&name=etc/transformer/thresholds/mask.tcl)]
+Syntax: __aktive image mask per sauvola__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=29&name=etc/transformer/thresholds/mask.tcl)]
 
-Return image foreground mask of input, using Sauvola thresholding.
+Return image foreground mask of input, using [Sauvola](https://craftofcoding.wordpress.com/2021/10/06/thresholding-algorithms-sauvola-local) thresholding.
 
 The foreground are the pixels falling under the threshold. IOW the input foreground is assumed to be darker than background. Invert the result otherwise.
 
@@ -584,12 +624,16 @@ The local thresholds are computed using [aktive image threshold sauvola](transfo
 </table>
 
 
+#### <a name='image_mask_per_sauvola__references'></a> References
+
+  - <https://craftofcoding.wordpress.com/2021/10/06/thresholding-algorithms-sauvola-local>
+
 ---
 ### [↑](#top) <a name='image_mask_per_wolfjolion'></a> aktive image mask per wolfjolion
 
-Syntax: __aktive image mask per wolfjolion__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=29&name=etc/transformer/thresholds/mask.tcl)]
+Syntax: __aktive image mask per wolfjolion__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=29&name=etc/transformer/thresholds/mask.tcl)]
 
-Return image foreground mask of input, using Wolfjolion thresholding.
+Return image foreground mask of input, using [Wolfjolion](https://chriswolfvision.github.io/www/software/binarize/index.html) thresholding.
 
 The foreground are the pixels falling under the threshold. IOW the input foreground is assumed to be darker than background. Invert the result otherwise.
 
@@ -630,4 +674,12 @@ The local thresholds are computed using [aktive image threshold wolfjolion](tran
     <br>geometry(0 0 380 250 3)</td></tr>
 </table>
 
+
+#### <a name='image_mask_per_wolfjolion__references'></a> References
+
+  - <https://chriswolfvision.github.io/www/software/binarize/index.html>
+
+  - <https://chriswolfvision.github.io/www/papers/icpr2002v.pdf>
+
+  - <https://github.com/chriswolfvision/local_adaptive_binarization>
 

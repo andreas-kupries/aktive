@@ -43,7 +43,7 @@ operator transform::domain {
     section generator virtual warp
 
     example {
-	butterfly                     | -label assets/butterfly.ppm
+	butterfly
 	aktive transform rotate by 30 | -matrix -label rotate by 30
 	@2 @1 | -text
     }
@@ -429,6 +429,10 @@ operator transform::quad::unit2 {
     point c Point C of the quadrilateral
     point d Point D of the quadrilateral
 
+    ref https://raw.githubusercontent.com/JohnHardy/wiituio/refs/heads/master/WiiTUIO/WiiProvider/Warper.cs
+    ref http://portal.acm.org/citation.cfm?id=884607
+    ref http://www.decew.net/OSS/References/Quadrilateral%20mapping.pdf
+
     body {
 	# Calculate the transform from the unit rectangle to the specified quad.
 
@@ -437,11 +441,11 @@ operator transform::quad::unit2 {
 	#	and Rectangle-to-Quadrilateral Mapping
 	# By
 	#	Dong-Keun Kim, Byung-Tae Jang, Chi-Jung Hwang
-	# References
-	# [1,OK]	http://portal.acm.org/citation.cfm?id=884607
-	# [2,OK]	http://www.decew.net/OSS/References/Quadrilateral%20mapping.pdf
-	# [3, OK]	https://raw.githubusercontent.com/JohnHardy/wiituio/refs/heads/master/WiiTUIO/WiiProvider/Warper.cs
-	# [4,GONE]	http://www.informatik.uni-trier.de/~ley/db/conf/ssiai/ssiai2002.html
+	#
+	# [1][OK]   http://portal.acm.org/citation.cfm?id=884607
+	# [2][OK]   http://www.decew.net/OSS/References/Quadrilateral%20mapping.pdf
+	# [3][OK]   https://raw.githubusercontent.com/JohnHardy/wiituio/refs/heads/master/WiiTUIO/WiiProvider/Warper.cs
+	# [4][GONE] http://www.informatik.uni-trier.de/~ley/db/conf/ssiai/ssiai2002.html
 	#
 	# Errata [2]:
 	# (a) Figure 1 in the paper has p2, p3 (and p2', p3') swapped.
@@ -555,6 +559,11 @@ operator transform::quad::2quad {
 	maps A to E and then the other points in counter clockwise \
 	order.
 
+    note It is implemented by chaining a regular and an inverted \
+	"<!xref: aktive transform quad unit2>" \
+	to transform A-B-C-D to a unit square \
+	and from there then to E-F-G-H.
+
     point a Point A of the quadrilateral A
     point b Point B of the quadrilateral A
     point c Point C of the quadrilateral A
@@ -566,10 +575,10 @@ operator transform::quad::2quad {
     point h Point D of the quadrilateral B
 
     body {
-	set ua [unit2 a $a b $b c $c d $d] ;# unit to A
-	set ub [unit2 a $e b $f c $g d $h] ;# unit to B
-	set au [invert $ua]                ;# A to unit
-	compose $ub $au ;# A to unit, unit to B
+	set ua [unit2 a $a b $b c $c d $d] ;# unit to ABCD
+	set ub [unit2 a $e b $f c $g d $h] ;# unit to EFGH
+	set au [invert $ua]                ;# ABCD to unit
+	compose $ub $au ;# ABCD to unit, unit to EFGH
     }
 }
 

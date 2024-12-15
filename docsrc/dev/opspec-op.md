@@ -73,6 +73,7 @@ parameters, documentation, and examples.
 |:---				|:---		|
 |[example](#cmd-example)	|Define an operator example		|
 |[note](#cmd-note)		|Operator description / documentation	|
+|[ref](#cmd-ref)		|Reference to relevant external page	|
 |[section](#cmd-section)	|Documentation section for operator	|
 |[strict](#cmd-strict)		|Strictness information	   		|
 
@@ -333,6 +334,17 @@ Currently two kinds of reference targets are supported.
 
 References to unknown locations and operators are not touched.
 As an example of that see the above examples.
+
+### <a name='cmd-ref'></a> References
+
+[Up ↑](#general)
+
+|Syntax		|
+|:---		|
+|`ref LINK`	|
+
+The command records a link to some external web site relevant to the
+operator.
 
 ### <a name='cmd-op'></a> Operator name access
 

@@ -24,7 +24,7 @@
 ---
 ### [↑](#top) <a name='op_convolve_xy'></a> aktive op convolve xy
 
-Syntax: __aktive op convolve xy__ kernel src [[→ definition](../../../../file?ci=trunk&ln=15&name=etc/transformer/filter/convolve.tcl)]
+Syntax: __aktive op convolve xy__ kernel src [[→ definition](/file?ci=trunk&ln=7&name=etc/transformer/filter/convolve.tcl)]
 
 Returns the result of convolving the input with the convolution kernel.
 
@@ -75,4 +75,16 @@ The prefered embedding for convolutions is `mirror`. It is chosen to have minima
     <br>geometry(0 4 128 120 1)</td></tr>
 </table>
 
+
+#### <a name='op_convolve_xy__references'></a> References
+
+  - <https://en.wikipedia.org/wiki/Convolution>
+
+  - <https://betterexplained.com/articles/intuitive-convolution/>
+
+  - <http://www.dspguide.com/ch24/6.htm>
+
+  - <https://micro.magnet.fsu.edu/primer/java/digitalimaging/processing/kernelmaskoperation/>
+
+  - <https://archive.org/details/Lectures_on_Image_Processing>
 

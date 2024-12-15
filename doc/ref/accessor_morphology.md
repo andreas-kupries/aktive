@@ -24,7 +24,7 @@
 ---
 ### [↑](#top) <a name='op_connected_components_get'></a> aktive op connected-components get
 
-Syntax: __aktive op connected-components get__ src [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/accessor/cc.tcl)]
+Syntax: __aktive op connected-components get__ src [[→ definition](/file?ci=trunk&ln=8&name=etc/accessor/cc.tcl)]
 
 Returns a dictionary describing all the connected components of the single-band input.
 

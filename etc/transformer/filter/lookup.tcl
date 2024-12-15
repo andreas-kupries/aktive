@@ -2,8 +2,6 @@
 # # ## ### ##### ######## ############# #####################
 ## Transformers -- Application of lookup tables
 #
-## References
-#
 ## Notes
 #
 # Two types of LUTs are supported.

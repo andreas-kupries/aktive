@@ -44,7 +44,7 @@
 ---
 ### [↑](#top) <a name='op_bands_recombine'></a> aktive op bands recombine
 
-Syntax: __aktive op bands recombine__ matrix src [[→ definition](../../../../file?ci=trunk&ln=5&name=etc/transformer/filter/recombine.tcl)]
+Syntax: __aktive op bands recombine__ matrix src [[→ definition](/file?ci=trunk&ln=5&name=etc/transformer/filter/recombine.tcl)]
 
 Returns an image with the input's band information recombined through a matrix-vector multiplication.
 
@@ -81,7 +81,7 @@ The location of the matrix image is ignored.
 ---
 ### [↑](#top) <a name='op_view'></a> aktive op view
 
-Syntax: __aktive op view__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=5&name=etc/transformer/viewport.tcl)]
+Syntax: __aktive op view__ src (param value)... [[→ definition](/file?ci=trunk&ln=5&name=etc/transformer/viewport.tcl)]
 
 Returns image arbitrarily offset and sized compared to the input domain. In other words, an arbitrary rectangular view (port) into the input.
 
