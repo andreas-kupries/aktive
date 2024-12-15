@@ -89,7 +89,7 @@
 ---
 ### [↑](#top) <a name='op_align_bottom'></a> aktive op align bottom
 
-Syntax: __aktive op align bottom__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=7&name=etc/transformer/structure/align.tcl)]
+Syntax: __aktive op align bottom__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=7&name=etc/transformer/structure/align.tcl)]
 
 Returns image aligned to a border in a larger image.
 
@@ -119,7 +119,7 @@ Returns image aligned to a border in a larger image.
 ---
 ### [↑](#top) <a name='op_align_left'></a> aktive op align left
 
-Syntax: __aktive op align left__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=7&name=etc/transformer/structure/align.tcl)]
+Syntax: __aktive op align left__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=7&name=etc/transformer/structure/align.tcl)]
 
 Returns image aligned to a border in a larger image.
 
@@ -149,7 +149,7 @@ Returns image aligned to a border in a larger image.
 ---
 ### [↑](#top) <a name='op_align_right'></a> aktive op align right
 
-Syntax: __aktive op align right__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=7&name=etc/transformer/structure/align.tcl)]
+Syntax: __aktive op align right__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=7&name=etc/transformer/structure/align.tcl)]
 
 Returns image aligned to a border in a larger image.
 
@@ -179,7 +179,7 @@ Returns image aligned to a border in a larger image.
 ---
 ### [↑](#top) <a name='op_align_top'></a> aktive op align top
 
-Syntax: __aktive op align top__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=7&name=etc/transformer/structure/align.tcl)]
+Syntax: __aktive op align top__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=7&name=etc/transformer/structure/align.tcl)]
 
 Returns image aligned to a border in a larger image.
 
@@ -209,7 +209,7 @@ Returns image aligned to a border in a larger image.
 ---
 ### [↑](#top) <a name='op_center_origin_x'></a> aktive op center-origin x
 
-Syntax: __aktive op center-origin x__ src [[→ definition](../../../../file?ci=trunk&ln=48&name=etc/transformer/structure/scrolling.tcl)]
+Syntax: __aktive op center-origin x__ src [[→ definition](/file?ci=trunk&ln=48&name=etc/transformer/structure/scrolling.tcl)]
 
 Returns image where the center column of the input is shifted to the origin of the x axis.
 
@@ -234,7 +234,7 @@ Returns image where the center column of the input is shifted to the origin of t
 ---
 ### [↑](#top) <a name='op_center_origin_xy'></a> aktive op center-origin xy
 
-Syntax: __aktive op center-origin xy__ src [[→ definition](../../../../file?ci=trunk&ln=73&name=etc/transformer/structure/scrolling.tcl)]
+Syntax: __aktive op center-origin xy__ src [[→ definition](/file?ci=trunk&ln=73&name=etc/transformer/structure/scrolling.tcl)]
 
 Returns image where the center pixel of the input is shifted to the origin.
 
@@ -259,7 +259,7 @@ Returns image where the center pixel of the input is shifted to the origin.
 ---
 ### [↑](#top) <a name='op_center_origin_y'></a> aktive op center-origin y
 
-Syntax: __aktive op center-origin y__ src [[→ definition](../../../../file?ci=trunk&ln=48&name=etc/transformer/structure/scrolling.tcl)]
+Syntax: __aktive op center-origin y__ src [[→ definition](/file?ci=trunk&ln=48&name=etc/transformer/structure/scrolling.tcl)]
 
 Returns image where the center row of the input is shifted to the origin of the y axis.
 
@@ -284,7 +284,7 @@ Returns image where the center row of the input is shifted to the origin of the 
 ---
 ### [↑](#top) <a name='op_center_origin_z'></a> aktive op center-origin z
 
-Syntax: __aktive op center-origin z__ src [[→ definition](../../../../file?ci=trunk&ln=48&name=etc/transformer/structure/scrolling.tcl)]
+Syntax: __aktive op center-origin z__ src [[→ definition](/file?ci=trunk&ln=48&name=etc/transformer/structure/scrolling.tcl)]
 
 Returns image where the center band of the input is shifted to the origin of the z axis.
 
@@ -295,7 +295,7 @@ Returns image where the center band of the input is shifted to the origin of the
 ---
 ### [↑](#top) <a name='op_crop'></a> aktive op crop
 
-Syntax: __aktive op crop__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=10&name=etc/transformer/structure/crop.tcl)]
+Syntax: __aktive op crop__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=10&name=etc/transformer/structure/crop.tcl)]
 
 Returns image containing a rectangular subset of input, specified by the amount of rows and columns to remove from the four borders.
 
@@ -327,7 +327,7 @@ Returns image containing a rectangular subset of input, specified by the amount 
 ---
 ### [↑](#top) <a name='op_embed_band_black'></a> aktive op embed band black
 
-Syntax: __aktive op embed band black__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=9&name=etc/transformer/structure/embed/band/black.tcl)]
+Syntax: __aktive op embed band black__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=9&name=etc/transformer/structure/embed/band/black.tcl)]
 
 Returns image embedding the input into a set of black bands.
 
@@ -343,7 +343,7 @@ Returns image embedding the input into a set of black bands.
 ---
 ### [↑](#top) <a name='op_embed_band_copy'></a> aktive op embed band copy
 
-Syntax: __aktive op embed band copy__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=9&name=etc/transformer/structure/embed/band/copy.tcl)]
+Syntax: __aktive op embed band copy__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=9&name=etc/transformer/structure/embed/band/copy.tcl)]
 
 Returns image embedding the input into a set of copied bands.
 
@@ -359,7 +359,7 @@ Returns image embedding the input into a set of copied bands.
 ---
 ### [↑](#top) <a name='op_embed_bg'></a> aktive op embed bg
 
-Syntax: __aktive op embed bg__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=9&name=etc/transformer/structure/embed/bg.tcl)]
+Syntax: __aktive op embed bg__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=9&name=etc/transformer/structure/embed/bg.tcl)]
 
 Returns an image embedding the input into an arbitrarily colored border. The color is specified through the band values.
 
@@ -392,7 +392,7 @@ Returns an image embedding the input into an arbitrarily colored border. The col
 ---
 ### [↑](#top) <a name='op_embed_black'></a> aktive op embed black
 
-Syntax: __aktive op embed black__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=9&name=etc/transformer/structure/embed/black.tcl)]
+Syntax: __aktive op embed black__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=9&name=etc/transformer/structure/embed/black.tcl)]
 
 Returns an image embedding the input into a black border.
 
@@ -424,7 +424,7 @@ Returns an image embedding the input into a black border.
 ---
 ### [↑](#top) <a name='op_embed_copy'></a> aktive op embed copy
 
-Syntax: __aktive op embed copy__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=9&name=etc/transformer/structure/embed/copy.tcl)]
+Syntax: __aktive op embed copy__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=9&name=etc/transformer/structure/embed/copy.tcl)]
 
 Returns an image embedding the input into a border made from the replicated input edges.
 
@@ -456,7 +456,7 @@ Returns an image embedding the input into a border made from the replicated inpu
 ---
 ### [↑](#top) <a name='op_embed_mirror'></a> aktive op embed mirror
 
-Syntax: __aktive op embed mirror__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=9&name=etc/transformer/structure/embed/mirror.tcl)]
+Syntax: __aktive op embed mirror__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=9&name=etc/transformer/structure/embed/mirror.tcl)]
 
 Returns an image embedding the input into a border made from the replicated mirrored input.
 
@@ -488,7 +488,7 @@ Returns an image embedding the input into a border made from the replicated mirr
 ---
 ### [↑](#top) <a name='op_embed_tile'></a> aktive op embed tile
 
-Syntax: __aktive op embed tile__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=9&name=etc/transformer/structure/embed/tile.tcl)]
+Syntax: __aktive op embed tile__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=9&name=etc/transformer/structure/embed/tile.tcl)]
 
 Returns an image embedding the input into a border made from the replicated input.
 
@@ -520,7 +520,7 @@ Returns an image embedding the input into a border made from the replicated inpu
 ---
 ### [↑](#top) <a name='op_embed_white'></a> aktive op embed white
 
-Syntax: __aktive op embed white__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=9&name=etc/transformer/structure/embed/white.tcl)]
+Syntax: __aktive op embed white__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=9&name=etc/transformer/structure/embed/white.tcl)]
 
 Returns an image embedding the input into a white border.
 
@@ -552,7 +552,7 @@ Returns an image embedding the input into a white border.
 ---
 ### [↑](#top) <a name='op_flip_x'></a> aktive op flip x
 
-Syntax: __aktive op flip x__ src [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/structure/flip.tcl)]
+Syntax: __aktive op flip x__ src [[→ definition](/file?ci=trunk&ln=8&name=etc/transformer/structure/flip.tcl)]
 
 Returns image which mirrors the input along the x-axis.
 
@@ -577,7 +577,7 @@ Returns image which mirrors the input along the x-axis.
 ---
 ### [↑](#top) <a name='op_flip_y'></a> aktive op flip y
 
-Syntax: __aktive op flip y__ src [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/structure/flip.tcl)]
+Syntax: __aktive op flip y__ src [[→ definition](/file?ci=trunk&ln=8&name=etc/transformer/structure/flip.tcl)]
 
 Returns image which mirrors the input along the y-axis.
 
@@ -602,7 +602,7 @@ Returns image which mirrors the input along the y-axis.
 ---
 ### [↑](#top) <a name='op_flip_z'></a> aktive op flip z
 
-Syntax: __aktive op flip z__ src [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/structure/flip.tcl)]
+Syntax: __aktive op flip z__ src [[→ definition](/file?ci=trunk&ln=8&name=etc/transformer/structure/flip.tcl)]
 
 Returns image which mirrors the input along the z-axis.
 
@@ -613,7 +613,7 @@ Returns image which mirrors the input along the z-axis.
 ---
 ### [↑](#top) <a name='op_if_then_else'></a> aktive op if-then-else
 
-Syntax: __aktive op if-then-else__ selector then else [[→ definition](../../../../file?ci=trunk&ln=149&name=etc/transformer/structure/take.tcl)]
+Syntax: __aktive op if-then-else__ selector then else [[→ definition](/file?ci=trunk&ln=149&name=etc/transformer/structure/take.tcl)]
 
 Choose between inputs `then` and `else`, based on the content of the `selector`.
 
@@ -630,7 +630,7 @@ The `selector` content is clamped to `0..1`, and fractional values are rounded d
 ---
 ### [↑](#top) <a name='op_resize'></a> aktive op resize
 
-Syntax: __aktive op resize__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=10&name=etc/transformer/structure/resize.tcl)]
+Syntax: __aktive op resize__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=10&name=etc/transformer/structure/resize.tcl)]
 
 Returns image resized to the specified width and height.
 
@@ -663,7 +663,7 @@ This is a convenience operator implemented on top of [aktive op transform by](tr
 ---
 ### [↑](#top) <a name='op_rotate_any'></a> aktive op rotate any
 
-Syntax: __aktive op rotate any__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=62&name=etc/transformer/structure/rotate.tcl)]
+Syntax: __aktive op rotate any__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=62&name=etc/transformer/structure/rotate.tcl)]
 
 Returns image rotating the input at an arbitrary angle around an arbitrary center. The default center is the image center.
 
@@ -696,7 +696,7 @@ This is a convenience operator implemented on top of [aktive op transform by](tr
 ---
 ### [↑](#top) <a name='op_rotate_ccw'></a> aktive op rotate ccw
 
-Syntax: __aktive op rotate ccw__ src [[→ definition](../../../../file?ci=trunk&ln=28&name=etc/transformer/structure/rotate.tcl)]
+Syntax: __aktive op rotate ccw__ src [[→ definition](/file?ci=trunk&ln=28&name=etc/transformer/structure/rotate.tcl)]
 
 Returns image rotating the input 90 degrees counter clockwise
 
@@ -721,7 +721,7 @@ Returns image rotating the input 90 degrees counter clockwise
 ---
 ### [↑](#top) <a name='op_rotate_cw'></a> aktive op rotate cw
 
-Syntax: __aktive op rotate cw__ src [[→ definition](../../../../file?ci=trunk&ln=11&name=etc/transformer/structure/rotate.tcl)]
+Syntax: __aktive op rotate cw__ src [[→ definition](/file?ci=trunk&ln=11&name=etc/transformer/structure/rotate.tcl)]
 
 Returns image rotating the input 90 degrees clockwise.
 
@@ -746,7 +746,7 @@ Returns image rotating the input 90 degrees clockwise.
 ---
 ### [↑](#top) <a name='op_rotate_half'></a> aktive op rotate half
 
-Syntax: __aktive op rotate half__ src [[→ definition](../../../../file?ci=trunk&ln=45&name=etc/transformer/structure/rotate.tcl)]
+Syntax: __aktive op rotate half__ src [[→ definition](/file?ci=trunk&ln=45&name=etc/transformer/structure/rotate.tcl)]
 
 Returns image rotating the input 180 degrees (counter) clockwise.
 
@@ -771,7 +771,7 @@ Returns image rotating the input 180 degrees (counter) clockwise.
 ---
 ### [↑](#top) <a name='op_sample_decimate_x'></a> aktive op sample decimate x
 
-Syntax: __aktive op sample decimate x__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=33&name=etc/transformer/structure/resample/decimate.tcl)]
+Syntax: __aktive op sample decimate x__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=33&name=etc/transformer/structure/resample/decimate.tcl)]
 
 Returns image with the input decimated along the x-axis according to the decimation factor (>= 1).
 
@@ -803,7 +803,7 @@ This is accomplished by sub sampling the result of a lowpass filter applied to t
 ---
 ### [↑](#top) <a name='op_sample_decimate_xy'></a> aktive op sample decimate xy
 
-Syntax: __aktive op sample decimate xy__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/structure/resample/decimate.tcl)]
+Syntax: __aktive op sample decimate xy__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=8&name=etc/transformer/structure/resample/decimate.tcl)]
 
 Returns image with the input decimated along both x and y axes according to the decimation factor (>= 1).
 
@@ -833,7 +833,7 @@ Returns image with the input decimated along both x and y axes according to the 
 ---
 ### [↑](#top) <a name='op_sample_decimate_y'></a> aktive op sample decimate y
 
-Syntax: __aktive op sample decimate y__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=33&name=etc/transformer/structure/resample/decimate.tcl)]
+Syntax: __aktive op sample decimate y__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=33&name=etc/transformer/structure/resample/decimate.tcl)]
 
 Returns image with the input decimated along the y-axis according to the decimation factor (>= 1).
 
@@ -865,7 +865,7 @@ This is accomplished by sub sampling the result of a lowpass filter applied to t
 ---
 ### [↑](#top) <a name='op_sample_fill_x'></a> aktive op sample fill x
 
-Syntax: __aktive op sample fill x__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=40&name=etc/transformer/structure/resample/fill.tcl)]
+Syntax: __aktive op sample fill x__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=40&name=etc/transformer/structure/resample/fill.tcl)]
 
 Returns image where the input is "zero-stuffed" along the x-axis according to the stuffing factor S (>= 1). The S-1 gaps in the result are set to the given fill value, with zero, i.e. 0, used by default.
 
@@ -895,7 +895,7 @@ Returns image where the input is "zero-stuffed" along the x-axis according to th
 ---
 ### [↑](#top) <a name='op_sample_fill_xy'></a> aktive op sample fill xy
 
-Syntax: __aktive op sample fill xy__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=15&name=etc/transformer/structure/resample/fill.tcl)]
+Syntax: __aktive op sample fill xy__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=15&name=etc/transformer/structure/resample/fill.tcl)]
 
 Returns image where the input is "zero-stuffed" along both x and y axes according to the stuffing factor S (>= 1). The S-1 gaps in the result are set to the given fill value, with zero, i.e. 0, used by default.
 
@@ -925,7 +925,7 @@ Returns image where the input is "zero-stuffed" along both x and y axes accordin
 ---
 ### [↑](#top) <a name='op_sample_fill_y'></a> aktive op sample fill y
 
-Syntax: __aktive op sample fill y__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=40&name=etc/transformer/structure/resample/fill.tcl)]
+Syntax: __aktive op sample fill y__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=40&name=etc/transformer/structure/resample/fill.tcl)]
 
 Returns image where the input is "zero-stuffed" along the y-axis according to the stuffing factor S (>= 1). The S-1 gaps in the result are set to the given fill value, with zero, i.e. 0, used by default.
 
@@ -955,7 +955,7 @@ Returns image where the input is "zero-stuffed" along the y-axis according to th
 ---
 ### [↑](#top) <a name='op_sample_fill_z'></a> aktive op sample fill z
 
-Syntax: __aktive op sample fill z__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=40&name=etc/transformer/structure/resample/fill.tcl)]
+Syntax: __aktive op sample fill z__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=40&name=etc/transformer/structure/resample/fill.tcl)]
 
 Returns image where the input is "zero-stuffed" along the z-axis according to the stuffing factor S (>= 1). The S-1 gaps in the result are set to the given fill value, with zero, i.e. 0, used by default.
 
@@ -971,7 +971,7 @@ Returns image where the input is "zero-stuffed" along the z-axis according to th
 ---
 ### [↑](#top) <a name='op_sample_interpolate_x'></a> aktive op sample interpolate x
 
-Syntax: __aktive op sample interpolate x__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=37&name=etc/transformer/structure/resample/interpolate.tcl)]
+Syntax: __aktive op sample interpolate x__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=37&name=etc/transformer/structure/resample/interpolate.tcl)]
 
 Returns image with the input interpolated along the x-axis according to the interpolation factor (>= 1).
 
@@ -1003,7 +1003,7 @@ This is accomplished by low-pass filtering applied to the result of zero-stuffin
 ---
 ### [↑](#top) <a name='op_sample_interpolate_xy'></a> aktive op sample interpolate xy
 
-Syntax: __aktive op sample interpolate xy__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/structure/resample/interpolate.tcl)]
+Syntax: __aktive op sample interpolate xy__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=8&name=etc/transformer/structure/resample/interpolate.tcl)]
 
 Returns image with the input interpolated along both x and y axes according to the interpolation factor (>= 1).
 
@@ -1035,7 +1035,7 @@ This is accomplished by low-pass filtering applied to the result of zero-stuffin
 ---
 ### [↑](#top) <a name='op_sample_interpolate_y'></a> aktive op sample interpolate y
 
-Syntax: __aktive op sample interpolate y__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=37&name=etc/transformer/structure/resample/interpolate.tcl)]
+Syntax: __aktive op sample interpolate y__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=37&name=etc/transformer/structure/resample/interpolate.tcl)]
 
 Returns image with the input interpolated along the y-axis according to the interpolation factor (>= 1).
 
@@ -1067,7 +1067,7 @@ This is accomplished by low-pass filtering applied to the result of zero-stuffin
 ---
 ### [↑](#top) <a name='op_sample_replicate_x'></a> aktive op sample replicate x
 
-Syntax: __aktive op sample replicate x__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/transformer/structure/resample/replicated.tcl)]
+Syntax: __aktive op sample replicate x__ src (param value)... [[→ definition](/file?ci=trunk&ln=30&name=etc/transformer/structure/resample/replicated.tcl)]
 
 Returns image where the input is stretched along the x-axis according to the stretching factor (>= 1), and the gaps are filled by replicating the preceding non-gap pixel.
 
@@ -1096,7 +1096,7 @@ Returns image where the input is stretched along the x-axis according to the str
 ---
 ### [↑](#top) <a name='op_sample_replicate_xy'></a> aktive op sample replicate xy
 
-Syntax: __aktive op sample replicate xy__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/structure/resample/replicated.tcl)]
+Syntax: __aktive op sample replicate xy__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=8&name=etc/transformer/structure/resample/replicated.tcl)]
 
 Returns image where the input is stretched along both x and y axes according to the stretching factor (>= 1), and the gaps are filled by replicating the preceding non-gap pixel.
 
@@ -1125,7 +1125,7 @@ Returns image where the input is stretched along both x and y axes according to 
 ---
 ### [↑](#top) <a name='op_sample_replicate_y'></a> aktive op sample replicate y
 
-Syntax: __aktive op sample replicate y__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/transformer/structure/resample/replicated.tcl)]
+Syntax: __aktive op sample replicate y__ src (param value)... [[→ definition](/file?ci=trunk&ln=30&name=etc/transformer/structure/resample/replicated.tcl)]
 
 Returns image where the input is stretched along the y-axis according to the stretching factor (>= 1), and the gaps are filled by replicating the preceding non-gap pixel.
 
@@ -1154,7 +1154,7 @@ Returns image where the input is stretched along the y-axis according to the str
 ---
 ### [↑](#top) <a name='op_sample_replicate_z'></a> aktive op sample replicate z
 
-Syntax: __aktive op sample replicate z__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=30&name=etc/transformer/structure/resample/replicated.tcl)]
+Syntax: __aktive op sample replicate z__ src (param value)... [[→ definition](/file?ci=trunk&ln=30&name=etc/transformer/structure/resample/replicated.tcl)]
 
 Returns image where the input is stretched along the z-axis according to the stretching factor (>= 1), and the gaps are filled by replicating the preceding non-gap pixel.
 
@@ -1169,7 +1169,7 @@ Returns image where the input is stretched along the z-axis according to the str
 ---
 ### [↑](#top) <a name='op_sample_sub_x'></a> aktive op sample sub x
 
-Syntax: __aktive op sample sub x__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=61&name=etc/transformer/structure/resample/sub.tcl)]
+Syntax: __aktive op sample sub x__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=61&name=etc/transformer/structure/resample/sub.tcl)]
 
 Returns image with the input sampled down along the x-axis according to the sampling factor S (>= 1). The result keeps every S'th pixel of the input. S-1 pixels after every kept pixel are removed.
 
@@ -1198,7 +1198,7 @@ Returns image with the input sampled down along the x-axis according to the samp
 ---
 ### [↑](#top) <a name='op_sample_sub_xy'></a> aktive op sample sub xy
 
-Syntax: __aktive op sample sub xy__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=32&name=etc/transformer/structure/resample/sub.tcl)]
+Syntax: __aktive op sample sub xy__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=32&name=etc/transformer/structure/resample/sub.tcl)]
 
 Returns image with the input sampled down along both x and y axes according to the sampling factor S (>= 1). The result keeps every S'th pixel of the input. S-1 pixels after every kept pixel are removed.
 
@@ -1227,7 +1227,7 @@ Returns image with the input sampled down along both x and y axes according to t
 ---
 ### [↑](#top) <a name='op_sample_sub_y'></a> aktive op sample sub y
 
-Syntax: __aktive op sample sub y__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=61&name=etc/transformer/structure/resample/sub.tcl)]
+Syntax: __aktive op sample sub y__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=61&name=etc/transformer/structure/resample/sub.tcl)]
 
 Returns image with the input sampled down along the y-axis according to the sampling factor S (>= 1). The result keeps every S'th pixel of the input. S-1 pixels after every kept pixel are removed.
 
@@ -1256,7 +1256,7 @@ Returns image with the input sampled down along the y-axis according to the samp
 ---
 ### [↑](#top) <a name='op_sample_sub_z'></a> aktive op sample sub z
 
-Syntax: __aktive op sample sub z__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=61&name=etc/transformer/structure/resample/sub.tcl)]
+Syntax: __aktive op sample sub z__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=61&name=etc/transformer/structure/resample/sub.tcl)]
 
 Returns image with the input sampled down along the z-axis according to the sampling factor S (>= 1). The result keeps every S'th pixel of the input. S-1 pixels after every kept pixel are removed.
 
@@ -1271,7 +1271,7 @@ Returns image with the input sampled down along the z-axis according to the samp
 ---
 ### [↑](#top) <a name='op_scroll_x'></a> aktive op scroll x
 
-Syntax: __aktive op scroll x__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=14&name=etc/transformer/structure/scrolling.tcl)]
+Syntax: __aktive op scroll x__ src (param value)... [[→ definition](/file?ci=trunk&ln=14&name=etc/transformer/structure/scrolling.tcl)]
 
 Returns image with the pixels of the input shifted along the x axis so that the N'th column becomes the origin on that axis.
 
@@ -1300,7 +1300,7 @@ Returns image with the pixels of the input shifted along the x axis so that the 
 ---
 ### [↑](#top) <a name='op_scroll_y'></a> aktive op scroll y
 
-Syntax: __aktive op scroll y__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=14&name=etc/transformer/structure/scrolling.tcl)]
+Syntax: __aktive op scroll y__ src (param value)... [[→ definition](/file?ci=trunk&ln=14&name=etc/transformer/structure/scrolling.tcl)]
 
 Returns image with the pixels of the input shifted along the y axis so that the N'th row becomes the origin on that axis.
 
@@ -1329,7 +1329,7 @@ Returns image with the pixels of the input shifted along the y axis so that the 
 ---
 ### [↑](#top) <a name='op_scroll_z'></a> aktive op scroll z
 
-Syntax: __aktive op scroll z__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=14&name=etc/transformer/structure/scrolling.tcl)]
+Syntax: __aktive op scroll z__ src (param value)... [[→ definition](/file?ci=trunk&ln=14&name=etc/transformer/structure/scrolling.tcl)]
 
 Returns image with the pixels of the input shifted along the z axis so that the N'th band becomes the origin on that axis.
 
@@ -1344,7 +1344,7 @@ Returns image with the pixels of the input shifted along the z axis so that the 
 ---
 ### [↑](#top) <a name='op_select_x'></a> aktive op select x
 
-Syntax: __aktive op select x__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/structure/select.tcl)]
+Syntax: __aktive op select x__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=8&name=etc/transformer/structure/select.tcl)]
 
 Returns image containing a contiguous subset of the input's columns.
 
@@ -1382,7 +1382,7 @@ result is the location of the result.
 ---
 ### [↑](#top) <a name='op_select_y'></a> aktive op select y
 
-Syntax: __aktive op select y__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/structure/select.tcl)]
+Syntax: __aktive op select y__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=8&name=etc/transformer/structure/select.tcl)]
 
 Returns image containing a contiguous subset of the input's rows.
 
@@ -1420,7 +1420,7 @@ result is the location of the result.
 ---
 ### [↑](#top) <a name='op_select_z'></a> aktive op select z
 
-Syntax: __aktive op select z__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/structure/select.tcl)]
+Syntax: __aktive op select z__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=8&name=etc/transformer/structure/select.tcl)]
 
 Returns image containing a contiguous subset of the input's bands.
 
@@ -1444,7 +1444,7 @@ result is the location of the result.
 ---
 ### [↑](#top) <a name='op_split_x'></a> aktive op split x
 
-Syntax: __aktive op split x__ src [[→ definition](../../../../file?ci=trunk&ln=10&name=etc/transformer/structure/split.tcl)]
+Syntax: __aktive op split x__ src [[→ definition](/file?ci=trunk&ln=10&name=etc/transformer/structure/split.tcl)]
 
 Returns list containing each column of the input as separate image.
 
@@ -1455,7 +1455,7 @@ Returns list containing each column of the input as separate image.
 ---
 ### [↑](#top) <a name='op_split_y'></a> aktive op split y
 
-Syntax: __aktive op split y__ src [[→ definition](../../../../file?ci=trunk&ln=10&name=etc/transformer/structure/split.tcl)]
+Syntax: __aktive op split y__ src [[→ definition](/file?ci=trunk&ln=10&name=etc/transformer/structure/split.tcl)]
 
 Returns list containing each row of the input as separate image.
 
@@ -1466,7 +1466,7 @@ Returns list containing each row of the input as separate image.
 ---
 ### [↑](#top) <a name='op_split_z'></a> aktive op split z
 
-Syntax: __aktive op split z__ src [[→ definition](../../../../file?ci=trunk&ln=10&name=etc/transformer/structure/split.tcl)]
+Syntax: __aktive op split z__ src [[→ definition](/file?ci=trunk&ln=10&name=etc/transformer/structure/split.tcl)]
 
 Returns list containing each band of the input as separate image.
 
@@ -1477,7 +1477,7 @@ Returns list containing each band of the input as separate image.
 ---
 ### [↑](#top) <a name='op_swap_xy'></a> aktive op swap xy
 
-Syntax: __aktive op swap xy__ src [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/structure/swap.tcl)]
+Syntax: __aktive op swap xy__ src [[→ definition](/file?ci=trunk&ln=8&name=etc/transformer/structure/swap.tcl)]
 
 Returns image with the x- and y-axes of the input exchanged.
 
@@ -1504,7 +1504,7 @@ The location of the image is not changed.
 ---
 ### [↑](#top) <a name='op_swap_xz'></a> aktive op swap xz
 
-Syntax: __aktive op swap xz__ src [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/structure/swap.tcl)]
+Syntax: __aktive op swap xz__ src [[→ definition](/file?ci=trunk&ln=8&name=etc/transformer/structure/swap.tcl)]
 
 Returns image with the x- and z-axes of the input exchanged.
 
@@ -1517,7 +1517,7 @@ The location of the image is not changed.
 ---
 ### [↑](#top) <a name='op_swap_yz'></a> aktive op swap yz
 
-Syntax: __aktive op swap yz__ src [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/structure/swap.tcl)]
+Syntax: __aktive op swap yz__ src [[→ definition](/file?ci=trunk&ln=8&name=etc/transformer/structure/swap.tcl)]
 
 Returns image with the y- and z-axes of the input exchanged.
 
@@ -1530,7 +1530,7 @@ The location of the image is not changed.
 ---
 ### [↑](#top) <a name='op_take_x'></a> aktive op take x
 
-Syntax: __aktive op take x__ index src [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/structure/take.tcl)]
+Syntax: __aktive op take x__ index src [[→ definition](/file?ci=trunk&ln=8&name=etc/transformer/structure/take.tcl)]
 
 Selects column values from the source under the control of the single-column index.
 
@@ -1550,7 +1550,7 @@ The locations of index and source are ignored. The result is placed at the coord
 ---
 ### [↑](#top) <a name='op_take_y'></a> aktive op take y
 
-Syntax: __aktive op take y__ index src [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/structure/take.tcl)]
+Syntax: __aktive op take y__ index src [[→ definition](/file?ci=trunk&ln=8&name=etc/transformer/structure/take.tcl)]
 
 Selects row values from the source under the control of the single-row index.
 
@@ -1570,7 +1570,7 @@ The locations of index and source are ignored. The result is placed at the coord
 ---
 ### [↑](#top) <a name='op_take_z'></a> aktive op take z
 
-Syntax: __aktive op take z__ index src [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/structure/take.tcl)]
+Syntax: __aktive op take z__ index src [[→ definition](/file?ci=trunk&ln=8&name=etc/transformer/structure/take.tcl)]
 
 Selects band values from the source under the control of the single-band index.
 
@@ -1590,7 +1590,7 @@ The locations of index and source are ignored. The result is placed at the coord
 ---
 ### [↑](#top) <a name='op_transpose'></a> aktive op transpose
 
-Syntax: __aktive op transpose__ src [[→ definition](../../../../file?ci=trunk&ln=10&name=etc/transformer/structure/transpose.tcl)]
+Syntax: __aktive op transpose__ src [[→ definition](/file?ci=trunk&ln=10&name=etc/transformer/structure/transpose.tcl)]
 
 Returns image with the input mirrored along the primary diagonal.
 
@@ -1617,7 +1617,7 @@ This is an alias of `swap xy`.
 ---
 ### [↑](#top) <a name='op_transverse'></a> aktive op transverse
 
-Syntax: __aktive op transverse__ src [[→ definition](../../../../file?ci=trunk&ln=29&name=etc/transformer/structure/transpose.tcl)]
+Syntax: __aktive op transverse__ src [[→ definition](/file?ci=trunk&ln=29&name=etc/transformer/structure/transpose.tcl)]
 
 Returns image with the input mirrored along the secondary diagonal.
 

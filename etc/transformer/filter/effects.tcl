@@ -19,7 +19,11 @@ operator effect::2polar {
 
     note Returns the input transformed into polar representation.
 
-    note This transformation is undo by application of "<!xref: aktive effect 2cartesian>."
+    note This transformation is undone by application of "<!xref: aktive effect 2cartesian>."
+
+    note Inspired by <http://libvips.blogspot.com/2015/11/fancy-transforms.html>
+
+    ref  http://libvips.blogspot.com/2015/11/fancy-transforms.html
 
     note The underlying operation is "<!xref: aktive warp 2polar>."
 
@@ -49,6 +53,10 @@ operator effect::2cartesian {
     note Returns the input transformed into cartesian representation.
 
     note This transformation is the complement of "<!xref: aktive effect 2polar>."
+
+    note Inspired by <http://libvips.blogspot.com/2015/11/fancy-transforms.html>
+
+    ref  http://libvips.blogspot.com/2015/11/fancy-transforms.html
 
     note The underlying operation is "<!xref: aktive warp 2cartesian>."
 
@@ -82,6 +90,10 @@ operator effect::wobble {
 	specified __center__, with base __amplitude__, __frequency__, \
 	__chirp__, and __attenuation__ powers.
 
+    note Inspired by <http://libvips.blogspot.com/2015/11/fancy-transforms.html>
+
+    ref  http://libvips.blogspot.com/2015/11/fancy-transforms.html
+
     # !xref-mark wobble pass
     pass import ../../generator/virtual/warp/wobble-config.tcl
 
@@ -106,11 +118,11 @@ operator effect::swirl {
 	@1 decay 0.05 from 135
     }
     example {
-	aktive read from netpbm path tests/assets/sines.ppm | -label assets/sines.ppm
+	sines
 	@1 decay 0.01 from 135
     }
     example {
-	butterfly | -label assets/butterfly.ppm
+	butterfly
 	@1 decay 0.01 from 135
     }
 
@@ -165,11 +177,11 @@ operator effect::jitter::uniform {
 	@1 min 1 max 6 seed 703011174
     }
     example {
-	aktive read from netpbm path tests/assets/sines.ppm | -label assets/sines.ppm
+	sines
 	@1 min 1 max 6 seed 703011174
     }
     example {
-	aktive read from netpbm path tests/assets/butterfly.ppm | -label assets/butterfly.ppm
+	butterfly
 	@1 min 1 max 6 seed 703011174
     }
 
@@ -207,11 +219,11 @@ operator effect::jitter::gauss {
 	@1 sigma 4 seed 703011174
     }
     example {
-	aktive read from netpbm path tests/assets/sines.ppm | -label assets/sines.ppm
+	sines
 	@1 sigma 4 seed 703011174
     }
     example {
-	aktive read from netpbm path tests/assets/butterfly.ppm | -label assets/butterfly.ppm
+	butterfly
 	@1 sigma 4 seed 703011174
     }
 
@@ -329,12 +341,12 @@ operator effect::charcoal {
     section transform effect
 
     example {
-	butterfly | -label assets/butterfly.ppm
+	butterfly
 	@1
     }
 
     example {
-	butterfly | -label assets/butterfly.ppm
+	butterfly
 	@1 light yes
     }
 
@@ -382,7 +394,7 @@ operator {op compare desc1 desc2} {
     section transform effect
 
     example {
-	butterfly | -label assets/butterfly.ppm
+	butterfly
 	@1
     }
 

@@ -1,15 +1,6 @@
 ## -*- mode: tcl ; fill-column: 90 -*-
 # # ## ### ##### ######## ############# #####################
 ## Transformers -- Kuwahara filtering, Spatial
-#
-## References
-#
-# - http://www.mathworks.com/matlabcentral/fileexchange/15027-faster-kuwahara-filter
-#   MatLab, done by Luca Balbi
-# - https://github.com/adussault/python-kuwahara/blob/master/Kuwahara.py
-#   Same, translated to NumPy.
-# - https://en.wikipedia.org/wiki/Kuwahara_filter
-# -
 
 # # ## ### ##### ######## ############# #####################
 
@@ -21,7 +12,7 @@ operator op::kuwahara {
 	@1 radius 4
     }
 
-    input	;# input image (See `op::tile::rank` for analogous blit setup).
+    input ;# See `op::tile::rank` for analogous blit setup.
 
     uint? 2 radius	Filter radius. Actual window size is `2*radius-1`. \
 	The default value of `2` is the minimum allowed value.
@@ -29,6 +20,10 @@ operator op::kuwahara {
     note Returns the input with a \
 	"\[Kuwahara\](https://en.wikipedia.org/wiki/Kuwahara_filter)" \
 	filter applied to it.
+
+    ref http://www.mathworks.com/matlabcentral/fileexchange/15027-faster-kuwahara-filter
+    ref https://github.com/adussault/python-kuwahara/blob/master/Kuwahara.py
+    ref https://en.wikipedia.org/wiki/Kuwahara_filter
 
     note The location of the input is ignored.
 
@@ -131,6 +126,10 @@ operator op::kuwahara-core {
     note Returns the input with a \
 	"\[Kuwahara\](https://en.wikipedia.org/wiki/Kuwahara_filter)" \
 	filter applied to it.
+
+    ref http://www.mathworks.com/matlabcentral/fileexchange/15027-faster-kuwahara-filter
+    ref https://github.com/adussault/python-kuwahara/blob/master/Kuwahara.py
+    ref https://en.wikipedia.org/wiki/Kuwahara_filter
 
     note The location of the input is ignored.
 

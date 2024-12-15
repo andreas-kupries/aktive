@@ -82,6 +82,8 @@ operator [sdf-known image::sdf::] {
     note Returns an image with the given dimensions and location, \
 	containing the signed distance field of a $element.
 
+    ref https://iquilezles.org/articles/distfunctions2d
+
     import sdf/note.tcl
 
     note See also "<!xref: aktive op draw $sdf on>" \
@@ -109,6 +111,8 @@ operator op::sdf::not {
     note Returns the inverted input SDF, where inside and outside changed places. \
 	This is defined as `1 - SRC`.
 
+    ref https://iquilezles.org/articles/distfunctions2d
+
     input
 
     body {
@@ -126,6 +130,8 @@ operator op::sdf::or {
     }
 
     note Returns the union (`+`, `min`) of all input SDFs.
+
+    ref https://iquilezles.org/articles/distfunctions2d
 
     input...
 
@@ -145,6 +151,8 @@ operator op::sdf::and {
 
     note Returns the intersection (`*`, `max`) of all input SDFs.
 
+    ref https://iquilezles.org/articles/distfunctions2d
+
     input...
 
     body {
@@ -163,6 +171,8 @@ operator op::sdf::sub {
 
     note Returns the difference `A - B` of the two input SDFs. \
 	This is defined as `A * (not B)`.
+
+    ref https://iquilezles.org/articles/distfunctions2d
 
     input a	SDF A
     input b	SDF B
@@ -184,6 +194,8 @@ operator op::sdf::xor {
 
     note Returns the symmetric difference of all input SDFs.
 
+    ref https://iquilezles.org/articles/distfunctions2d
+
     input...
 
     body {
@@ -204,6 +216,8 @@ operator op::sdf::xor-core {
 
     note Returns the symmetric difference of the two input SDFs. \
 	This is defined as `(A + B) - (A * B)`.
+
+    ref https://iquilezles.org/articles/distfunctions2d
 
     input a	SDF A
     input b	SDF B
@@ -233,6 +247,8 @@ operator op::sdf::ring {
     note Note that a thickness of zero devolves this operation to a plain \
 	outline.
 
+    ref https://iquilezles.org/articles/distfunctions2d
+
     input
 
     uint thickness Desired border thickness.
@@ -253,6 +269,8 @@ operator op::sdf::outline {
     note Replaces the input SDF with an outlined form, and returns the result.
 
     note This is implemented by taking the absolute of the input.
+
+    ref https://iquilezles.org/articles/distfunctions2d
 
     input
 
@@ -282,6 +300,8 @@ operator op::sdf::round {
 
     note A radius of zero is ignored.
 
+    ref https://iquilezles.org/articles/distfunctions2d
+
     input
     uint radius Expansion/Shrinkage radius for the SDF.
 
@@ -305,6 +325,8 @@ operator op::sdf::2image::fit {
 
     note Compresses the input SDF into the range 0..1 and returns the resulting grayscale image.
 
+    ref https://iquilezles.org/articles/distfunctions2d
+
     input
 
     body {
@@ -322,6 +344,8 @@ operator op::sdf::2image::smooth {
     }
 
     note Converts the SDF into a grey-scale image with anti-aliased element borders.
+
+    ref https://iquilezles.org/articles/distfunctions2d
 
     input
 
@@ -341,6 +365,8 @@ operator op::sdf::2image::pixelated {
     }
 
     note Converts the SDF into a black/white image with pixelated element borders.
+
+    ref https://iquilezles.org/articles/distfunctions2d
 
     input
 

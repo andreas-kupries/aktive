@@ -24,7 +24,7 @@
 ---
 ### [↑](#top) <a name='op_math1_not'></a> aktive op math1 not
 
-Syntax: __aktive op math1 not__ src [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/math/unary.tcl)]
+Syntax: __aktive op math1 not__ src [[→ definition](/file?ci=trunk&ln=16&name=etc/transformer/math/unary.tcl)]
 
 Returns image with the unary function `!I` applied to all pixels of the input.
 

@@ -32,7 +32,7 @@
 ---
 ### [↑](#top) <a name='image_sdf_box'></a> aktive image sdf box
 
-Syntax: __aktive image sdf box__  ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=75&name=etc/generator/virtual/sdf.tcl)]
+Syntax: __aktive image sdf box__  ?(param value)...? [[→ definition](/file?ci=trunk&ln=75&name=etc/generator/virtual/sdf.tcl)]
 
 Returns an image with the given dimensions and location, containing the signed distance field of a box.
 
@@ -64,10 +64,14 @@ The box is axis-aligned, of width `2*ewidth+1`, height `2*eheight+1`, and placed
 </table>
 
 
+#### <a name='image_sdf_box__references'></a> References
+
+  - <https://iquilezles.org/articles/distfunctions2d>
+
 ---
 ### [↑](#top) <a name='image_sdf_box_rounded'></a> aktive image sdf box-rounded
 
-Syntax: __aktive image sdf box-rounded__  ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=75&name=etc/generator/virtual/sdf.tcl)]
+Syntax: __aktive image sdf box-rounded__  ?(param value)...? [[→ definition](/file?ci=trunk&ln=75&name=etc/generator/virtual/sdf.tcl)]
 
 Returns an image with the given dimensions and location, containing the signed distance field of a box.
 
@@ -114,10 +118,14 @@ The radii default to 0, i.e. no rounded corners.
 </table>
 
 
+#### <a name='image_sdf_box_rounded__references'></a> References
+
+  - <https://iquilezles.org/articles/distfunctions2d>
+
 ---
 ### [↑](#top) <a name='image_sdf_circle'></a> aktive image sdf circle
 
-Syntax: __aktive image sdf circle__  ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=75&name=etc/generator/virtual/sdf.tcl)]
+Syntax: __aktive image sdf circle__  ?(param value)...? [[→ definition](/file?ci=trunk&ln=75&name=etc/generator/virtual/sdf.tcl)]
 
 Returns an image with the given dimensions and location, containing the signed distance field of a circle.
 
@@ -148,10 +156,14 @@ The circle has the `radius`, and is placed at the specified center.
 </table>
 
 
+#### <a name='image_sdf_circle__references'></a> References
+
+  - <https://iquilezles.org/articles/distfunctions2d>
+
 ---
 ### [↑](#top) <a name='image_sdf_circles'></a> aktive image sdf circles
 
-Syntax: __aktive image sdf circles__  ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=75&name=etc/generator/virtual/sdf.tcl)]
+Syntax: __aktive image sdf circles__  ?(param value)...? [[→ definition](/file?ci=trunk&ln=75&name=etc/generator/virtual/sdf.tcl)]
 
 Returns an image with the given dimensions and location, containing the signed distance field of a set of circles.
 
@@ -182,10 +194,14 @@ The circles all have the same `radius`, and are placed at the specified centers.
 </table>
 
 
+#### <a name='image_sdf_circles__references'></a> References
+
+  - <https://iquilezles.org/articles/distfunctions2d>
+
 ---
 ### [↑](#top) <a name='image_sdf_line'></a> aktive image sdf line
 
-Syntax: __aktive image sdf line__  ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=75&name=etc/generator/virtual/sdf.tcl)]
+Syntax: __aktive image sdf line__  ?(param value)...? [[→ definition](/file?ci=trunk&ln=75&name=etc/generator/virtual/sdf.tcl)]
 
 Returns an image with the given dimensions and location, containing the signed distance field of a line.
 
@@ -216,10 +232,14 @@ The line connects the two specified locations.
 </table>
 
 
+#### <a name='image_sdf_line__references'></a> References
+
+  - <https://iquilezles.org/articles/distfunctions2d>
+
 ---
 ### [↑](#top) <a name='image_sdf_parallelogram'></a> aktive image sdf parallelogram
 
-Syntax: __aktive image sdf parallelogram__  ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=75&name=etc/generator/virtual/sdf.tcl)]
+Syntax: __aktive image sdf parallelogram__  ?(param value)...? [[→ definition](/file?ci=trunk&ln=75&name=etc/generator/virtual/sdf.tcl)]
 
 Returns an image with the given dimensions and location, containing the signed distance field of a parallelogram.
 
@@ -252,10 +272,14 @@ The parallelogram is axis-aligned, of width `2*ewidth+1`, height `2*eheight+1`, 
 </table>
 
 
+#### <a name='image_sdf_parallelogram__references'></a> References
+
+  - <https://iquilezles.org/articles/distfunctions2d>
+
 ---
 ### [↑](#top) <a name='image_sdf_polyline'></a> aktive image sdf polyline
 
-Syntax: __aktive image sdf polyline__  ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=75&name=etc/generator/virtual/sdf.tcl)]
+Syntax: __aktive image sdf polyline__  ?(param value)...? [[→ definition](/file?ci=trunk&ln=75&name=etc/generator/virtual/sdf.tcl)]
 
 Returns an image with the given dimensions and location, containing the signed distance field of a set of lines.
 
@@ -285,10 +309,14 @@ The lines form a polyline through the specified points.
 </table>
 
 
+#### <a name='image_sdf_polyline__references'></a> References
+
+  - <https://iquilezles.org/articles/distfunctions2d>
+
 ---
 ### [↑](#top) <a name='image_sdf_rhombus'></a> aktive image sdf rhombus
 
-Syntax: __aktive image sdf rhombus__  ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=75&name=etc/generator/virtual/sdf.tcl)]
+Syntax: __aktive image sdf rhombus__  ?(param value)...? [[→ definition](/file?ci=trunk&ln=75&name=etc/generator/virtual/sdf.tcl)]
 
 Returns an image with the given dimensions and location, containing the signed distance field of a rhombus.
 
@@ -320,10 +348,14 @@ The rhombus is axis-aligned, of width `2*ewidth+1`, height `2*eheight+1`, and pl
 </table>
 
 
+#### <a name='image_sdf_rhombus__references'></a> References
+
+  - <https://iquilezles.org/articles/distfunctions2d>
+
 ---
 ### [↑](#top) <a name='image_sdf_triangle'></a> aktive image sdf triangle
 
-Syntax: __aktive image sdf triangle__  ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=75&name=etc/generator/virtual/sdf.tcl)]
+Syntax: __aktive image sdf triangle__  ?(param value)...? [[→ definition](/file?ci=trunk&ln=75&name=etc/generator/virtual/sdf.tcl)]
 
 Returns an image with the given dimensions and location, containing the signed distance field of a triangle.
 
@@ -354,4 +386,8 @@ The triangle connects the points A, B, and C, in this order.
     <br>geometry(0 0 128 128 1)</td></tr></table></td></tr>
 </table>
 
+
+#### <a name='image_sdf_triangle__references'></a> References
+
+  - <https://iquilezles.org/articles/distfunctions2d>
 

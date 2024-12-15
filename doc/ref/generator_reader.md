@@ -25,7 +25,7 @@
 ---
 ### [↑](#top) <a name='read_from_aktive'></a> aktive read from aktive
 
-Syntax: __aktive read from aktive__  (param value)... [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/generator/reader/aktive.tcl)]
+Syntax: __aktive read from aktive__  (param value)... [[→ definition](/file?ci=trunk&ln=8&name=etc/generator/reader/aktive.tcl)]
 
 Construct image from file content in the native AKTIVE format.
 
@@ -53,7 +53,7 @@ Construct image from file content in the native AKTIVE format.
 ---
 ### [↑](#top) <a name='read_from_netpbm'></a> aktive read from netpbm
 
-Syntax: __aktive read from netpbm__  (param value)... [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/generator/reader/netpbm.tcl)]
+Syntax: __aktive read from netpbm__  (param value)... [[→ definition](/file?ci=trunk&ln=8&name=etc/generator/reader/netpbm.tcl)]
 
 Construct image from file content in one of the NetPBM formats.
 

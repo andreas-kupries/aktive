@@ -28,7 +28,7 @@
 ---
 ### [↑](#top) <a name='op_sdf_and'></a> aktive op sdf and
 
-Syntax: __aktive op sdf and__ srcs... [[→ definition](../../../../file?ci=trunk&ln=137&name=etc/generator/virtual/sdf.tcl)]
+Syntax: __aktive op sdf and__ srcs... [[→ definition](/file?ci=trunk&ln=143&name=etc/generator/virtual/sdf.tcl)]
 
 Returns the intersection (`*`, `max`) of all input SDFs.
 
@@ -56,10 +56,14 @@ Returns the intersection (`*`, `max`) of all input SDFs.
 </table>
 
 
+#### <a name='op_sdf_and__references'></a> References
+
+  - <https://iquilezles.org/articles/distfunctions2d>
+
 ---
 ### [↑](#top) <a name='op_sdf_or'></a> aktive op sdf or
 
-Syntax: __aktive op sdf or__ srcs... [[→ definition](../../../../file?ci=trunk&ln=119&name=etc/generator/virtual/sdf.tcl)]
+Syntax: __aktive op sdf or__ srcs... [[→ definition](/file?ci=trunk&ln=123&name=etc/generator/virtual/sdf.tcl)]
 
 Returns the union (`+`, `min`) of all input SDFs.
 
@@ -87,10 +91,14 @@ Returns the union (`+`, `min`) of all input SDFs.
 </table>
 
 
+#### <a name='op_sdf_or__references'></a> References
+
+  - <https://iquilezles.org/articles/distfunctions2d>
+
 ---
 ### [↑](#top) <a name='op_sdf_sub'></a> aktive op sdf sub
 
-Syntax: __aktive op sdf sub__ a b [[→ definition](../../../../file?ci=trunk&ln=155&name=etc/generator/virtual/sdf.tcl)]
+Syntax: __aktive op sdf sub__ a b [[→ definition](/file?ci=trunk&ln=163&name=etc/generator/virtual/sdf.tcl)]
 
 Returns the difference `A - B` of the two input SDFs. This is defined as `A * (not B)`.
 
@@ -119,10 +127,14 @@ Returns the difference `A - B` of the two input SDFs. This is defined as `A * (n
 </table>
 
 
+#### <a name='op_sdf_sub__references'></a> References
+
+  - <https://iquilezles.org/articles/distfunctions2d>
+
 ---
 ### [↑](#top) <a name='op_sdf_xor'></a> aktive op sdf xor
 
-Syntax: __aktive op sdf xor__ srcs... [[→ definition](../../../../file?ci=trunk&ln=176&name=etc/generator/virtual/sdf.tcl)]
+Syntax: __aktive op sdf xor__ srcs... [[→ definition](/file?ci=trunk&ln=186&name=etc/generator/virtual/sdf.tcl)]
 
 Returns the symmetric difference of all input SDFs.
 
@@ -150,10 +162,14 @@ Returns the symmetric difference of all input SDFs.
 </table>
 
 
+#### <a name='op_sdf_xor__references'></a> References
+
+  - <https://iquilezles.org/articles/distfunctions2d>
+
 ---
 ### [↑](#top) <a name='op_sdf_xor_core'></a> aktive op sdf xor-core
 
-Syntax: __aktive op sdf xor-core__ a b [[→ definition](../../../../file?ci=trunk&ln=196&name=etc/generator/virtual/sdf.tcl)]
+Syntax: __aktive op sdf xor-core__ a b [[→ definition](/file?ci=trunk&ln=208&name=etc/generator/virtual/sdf.tcl)]
 
 Returns the symmetric difference of the two input SDFs. This is defined as `(A + B) - (A * B)`.
 
@@ -181,4 +197,8 @@ Returns the symmetric difference of the two input SDFs. This is defined as `(A +
     <br>geometry(0 0 128 128 1)</td></tr></table></td></tr>
 </table>
 
+
+#### <a name='op_sdf_xor_core__references'></a> References
+
+  - <https://iquilezles.org/articles/distfunctions2d>
 

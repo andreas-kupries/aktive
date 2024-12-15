@@ -28,7 +28,7 @@
 ---
 ### [↑](#top) <a name='op_transform_by'></a> aktive op transform by
 
-Syntax: __aktive op transform by__ transform src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/structure/transform.tcl)]
+Syntax: __aktive op transform by__ transform src ?(param value)...? [[→ definition](/file?ci=trunk&ln=8&name=etc/transformer/structure/transform.tcl)]
 
 Applies the projective __forward__ `transform` to the source image, using some kind of pixel interpolation, and returns the result. The default interpolation is `bilinear`.
 
@@ -46,7 +46,7 @@ This operator is __strict__ in the 1st input. The projective matrix is materiali
 
 |Input|Description|
 |:---|:---|
-|transform|Transformation matrix, a forward transform|
+|transform|Affine forward transformation.|
 |src|The image to transform.|
 
 |Parameter|Type|Default|Description|
@@ -57,12 +57,12 @@ This operator is __strict__ in the 1st input. The projective matrix is materiali
 
 <table>
 <tr><th>@1
-    <br>(assets/butterfly.ppm)</th>
+    <br>&nbsp;</th>
     <th>@2
     <br>(rotate by 30 around {10 50})</th>
     <th>aktive op transform by @2 @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00618.gif' alt='@1 (assets/butterfly.ppm)' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00618.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
     <td valign='top'><table><tr><td>0.8660</td><td>-0.5000</td><td>26.3397</td></tr><tr><td>0.5000</td><td>0.8660</td><td>1.6987</td></tr><tr><td>0.0000</td><td>0.0000</td><td>1.0000</td></tr></table></td>
     <td valign='top'><table><tr><td valign='top'>bframe</td><td valign='top'><img src='example-00620.gif' alt='aktive op transform by @2 @1' style='border:4px solid gold'>
@@ -71,12 +71,12 @@ This operator is __strict__ in the 1st input. The projective matrix is materiali
 
 <table>
 <tr><th>@1
-    <br>(assets/butterfly.ppm)</th>
+    <br>&nbsp;</th>
     <th>@2
     <br>(scale x 0.5 y 1.5)</th>
     <th>aktive op transform by @2 @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00621.gif' alt='@1 (assets/butterfly.ppm)' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00621.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
     <td valign='top'><table><tr><td>0.5000</td><td>0.0000</td><td>0.0000</td></tr><tr><td>0.0000</td><td>1.5000</td><td>0.0000</td></tr><tr><td>0.0000</td><td>0.0000</td><td>1.0000</td></tr></table></td>
     <td valign='top'><img src='example-00623.gif' alt='aktive op transform by @2 @1' style='border:4px solid gold'>
@@ -85,12 +85,12 @@ This operator is __strict__ in the 1st input. The projective matrix is materiali
 
 <table>
 <tr><th>@1
-    <br>(assets/butterfly.ppm)</th>
+    <br>&nbsp;</th>
     <th>@2
     <br>(shear x 20 y 10)</th>
     <th>aktive op transform by @2 @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00624.gif' alt='@1 (assets/butterfly.ppm)' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00624.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
     <td valign='top'><table><tr><td>1.0000</td><td>0.3640</td><td>0.0000</td></tr><tr><td>0.1763</td><td>1.0642</td><td>0.0000</td></tr><tr><td>0.0000</td><td>0.0000</td><td>1.0000</td></tr></table></td>
     <td valign='top'><img src='example-00626.gif' alt='aktive op transform by @2 @1' style='border:4px solid gold'>
@@ -99,12 +99,12 @@ This operator is __strict__ in the 1st input. The projective matrix is materiali
 
 <table>
 <tr><th>@1
-    <br>(assets/butterfly.ppm)</th>
+    <br>&nbsp;</th>
     <th>@2
     <br>(reflect x)</th>
     <th>aktive op transform by @2 @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00627.gif' alt='@1 (assets/butterfly.ppm)' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00627.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
     <td valign='top'><table><tr><td>-1.0000</td><td>0.0000</td><td>0.0000</td></tr><tr><td>0.0000</td><td>1.0000</td><td>0.0000</td></tr><tr><td>0.0000</td><td>0.0000</td><td>1.0000</td></tr></table></td>
     <td valign='top'><img src='example-00629.gif' alt='aktive op transform by @2 @1' style='border:4px solid gold'>
@@ -113,12 +113,12 @@ This operator is __strict__ in the 1st input. The projective matrix is materiali
 
 <table>
 <tr><th>@1
-    <br>(assets/butterfly.ppm)</th>
+    <br>&nbsp;</th>
     <th>@2
     <br>(reflect y)</th>
     <th>aktive op transform by @2 @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00630.gif' alt='@1 (assets/butterfly.ppm)' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00630.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
     <td valign='top'><table><tr><td>1.0000</td><td>0.0000</td><td>0.0000</td></tr><tr><td>0.0000</td><td>-1.0000</td><td>0.0000</td></tr><tr><td>0.0000</td><td>0.0000</td><td>1.0000</td></tr></table></td>
     <td valign='top'><img src='example-00632.gif' alt='aktive op transform by @2 @1' style='border:4px solid gold'>
@@ -127,12 +127,12 @@ This operator is __strict__ in the 1st input. The projective matrix is materiali
 
 <table>
 <tr><th>@1
-    <br>(assets/butterfly.ppm)</th>
+    <br>&nbsp;</th>
     <th>@2
     <br>(reflect line {50 260} b {150 -10})</th>
     <th>aktive op transform by @2 @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00633.gif' alt='@1 (assets/butterfly.ppm)' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00633.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
     <td valign='top'><table><tr><td>-0.7587</td><td>-0.6514</td><td>257.2979</td></tr><tr><td>-0.6514</td><td>0.7587</td><td>95.2955</td></tr><tr><td>0.0000</td><td>0.0000</td><td>1.0000</td></tr></table></td>
     <td valign='top'><table><tr><td valign='top'>bframe</td><td valign='top'><img src='example-00635.gif' alt='aktive op transform by @2 @1' style='border:4px solid gold'>
@@ -141,14 +141,14 @@ This operator is __strict__ in the 1st input. The projective matrix is materiali
 
 <table>
 <tr><th>@1
-    <br>(assets/butterfly.ppm)</th>
+    <br>&nbsp;</th>
     <th>@2
     <br>(quadrilateral)</th>
     <th>@3
     <br>&nbsp;</th>
     <th>aktive op view @3 port {0 0 100 100}
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00636.gif' alt='@1 (assets/butterfly.ppm)' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00636.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
     <td valign='top'><table><tr><td>0.4944</td><td>-0.4159</td><td>2.5504</td></tr><tr><td>0.3440</td><td>0.9460</td><td>-74.8181</td></tr><tr><td>-0.0014</td><td>-0.0023</td><td>1.2110</td></tr></table></td>
     <td valign='top'><img src='example-00638.gif' alt='@3' style='border:4px solid gold'>
@@ -161,7 +161,7 @@ This operator is __strict__ in the 1st input. The projective matrix is materiali
 ---
 ### [↑](#top) <a name='op_warp_bicubic'></a> aktive op warp bicubic
 
-Syntax: __aktive op warp bicubic__ origins src [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/structure/warp.tcl)]
+Syntax: __aktive op warp bicubic__ origins src [[→ definition](/file?ci=trunk&ln=8&name=etc/transformer/structure/warp.tcl)]
 
 Returns an image generated by the application of the origin map to the image, with bicubic interpolation.
 
@@ -174,10 +174,16 @@ See [aktive transform affine](generator_virtual_warp.md#transform_affine) and it
 |origins|Origin map to wrap the `src` by.|
 |src|Image to warp by the `origin`.|
 
+#### <a name='op_warp_bicubic__references'></a> References
+
+  - <http://en.wikipedia.org/wiki/Bicubic_interpolation>
+
+  - <http://www.paulinternet.nl/?page=bicubic>
+
 ---
 ### [↑](#top) <a name='op_warp_bilinear'></a> aktive op warp bilinear
 
-Syntax: __aktive op warp bilinear__ origins src [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/structure/warp.tcl)]
+Syntax: __aktive op warp bilinear__ origins src [[→ definition](/file?ci=trunk&ln=8&name=etc/transformer/structure/warp.tcl)]
 
 Returns an image generated by the application of the origin map to the image, with bilinear interpolation.
 
@@ -190,10 +196,14 @@ See [aktive transform affine](generator_virtual_warp.md#transform_affine) and it
 |origins|Origin map to wrap the `src` by.|
 |src|Image to warp by the `origin`.|
 
+#### <a name='op_warp_bilinear__references'></a> References
+
+  - <https://en.wikipedia.org/wiki/Bilinear_interpolation>
+
 ---
 ### [↑](#top) <a name='op_warp_lanczos'></a> aktive op warp lanczos
 
-Syntax: __aktive op warp lanczos__ origins src [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/structure/warp.tcl)]
+Syntax: __aktive op warp lanczos__ origins src [[→ definition](/file?ci=trunk&ln=8&name=etc/transformer/structure/warp.tcl)]
 
 Returns an image generated by the application of the origin map to the image, with order-3 lanczos interpolation.
 
@@ -206,10 +216,18 @@ See [aktive transform affine](generator_virtual_warp.md#transform_affine) and it
 |origins|Origin map to wrap the `src` by.|
 |src|Image to warp by the `origin`.|
 
+#### <a name='op_warp_lanczos__references'></a> References
+
+  - <https://mazzo.li/posts/lanczos.html>
+
+  - <https://en.wikipedia.org/wiki/Lanczos_resampling>
+
+  - <https://github.com/jeffboody/Lanczos>
+
 ---
 ### [↑](#top) <a name='op_warp_near_neighbour'></a> aktive op warp near-neighbour
 
-Syntax: __aktive op warp near-neighbour__ origins src [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/structure/warp.tcl)]
+Syntax: __aktive op warp near-neighbour__ origins src [[→ definition](/file?ci=trunk&ln=8&name=etc/transformer/structure/warp.tcl)]
 
 Returns an image generated by the application of the origin map to the image, with nearest neighbour interpolation.
 
@@ -221,4 +239,8 @@ See [aktive transform affine](generator_virtual_warp.md#transform_affine) and it
 |:---|:---|
 |origins|Origin map to wrap the `src` by.|
 |src|Image to warp by the `origin`.|
+
+#### <a name='op_warp_near_neighbour__references'></a> References
+
+  - <https://en.wikipedia.org/wiki/Nearest-neighbor_interpolation>
 

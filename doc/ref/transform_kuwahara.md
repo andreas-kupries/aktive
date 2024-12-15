@@ -25,7 +25,7 @@
 ---
 ### [↑](#top) <a name='op_kuwahara'></a> aktive op kuwahara
 
-Syntax: __aktive op kuwahara__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=16&name=etc/transformer/filter/kuwahara.tcl)]
+Syntax: __aktive op kuwahara__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=7&name=etc/transformer/filter/kuwahara.tcl)]
 
 Returns the input with a [Kuwahara](https://en.wikipedia.org/wiki/Kuwahara_filter) filter applied to it.
 
@@ -59,10 +59,18 @@ The source can be a multi-band image. For known colorspaces the core filter is a
 </table>
 
 
+#### <a name='op_kuwahara__references'></a> References
+
+  - <http://www.mathworks.com/matlabcentral/fileexchange/15027-faster-kuwahara-filter>
+
+  - <https://github.com/adussault/python-kuwahara/blob/master/Kuwahara.py>
+
+  - <https://en.wikipedia.org/wiki/Kuwahara_filter>
+
 ---
 ### [↑](#top) <a name='op_kuwahara_core'></a> aktive op kuwahara-core
 
-Syntax: __aktive op kuwahara-core__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=118&name=etc/transformer/filter/kuwahara.tcl)]
+Syntax: __aktive op kuwahara-core__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=113&name=etc/transformer/filter/kuwahara.tcl)]
 
 Returns the input with a [Kuwahara](https://en.wikipedia.org/wiki/Kuwahara_filter) filter applied to it.
 
@@ -97,4 +105,12 @@ The prefered embedding for kuwahara is `mirror`. It is chosen to have minimal to
     <br>geometry(0 0 380 250 1)</td></tr>
 </table>
 
+
+#### <a name='op_kuwahara_core__references'></a> References
+
+  - <http://www.mathworks.com/matlabcentral/fileexchange/15027-faster-kuwahara-filter>
+
+  - <https://github.com/adussault/python-kuwahara/blob/master/Kuwahara.py>
+
+  - <https://en.wikipedia.org/wiki/Kuwahara_filter>
 

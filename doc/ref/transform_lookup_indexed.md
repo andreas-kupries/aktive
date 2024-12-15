@@ -27,7 +27,7 @@
 ---
 ### [↑](#top) <a name='op_lut_compose'></a> aktive op lut compose
 
-Syntax: __aktive op lut compose__ a b [[→ definition](../../../../file?ci=trunk&ln=64&name=etc/transformer/filter/lookup.tcl)]
+Syntax: __aktive op lut compose__ a b [[→ definition](/file?ci=trunk&ln=62&name=etc/transformer/filter/lookup.tcl)]
 
 Returns the composition `A*B` of the two indexed LUTs A and B. This composition is defined as `(A*B) (src) == A (B (src))`.
 
@@ -41,7 +41,7 @@ Internally this is computed as applying LUT A to input B, i.e. `A (B)`.
 ---
 ### [↑](#top) <a name='op_lut_from'></a> aktive op lut from
 
-Syntax: __aktive op lut from__  (param value)... [[→ definition](../../../../file?ci=trunk&ln=50&name=etc/transformer/filter/lookup.tcl)]
+Syntax: __aktive op lut from__  (param value)... [[→ definition](/file?ci=trunk&ln=48&name=etc/transformer/filter/lookup.tcl)]
 
 Create a single-band, single-row indexed LUT from values
 
@@ -52,7 +52,7 @@ Create a single-band, single-row indexed LUT from values
 ---
 ### [↑](#top) <a name='op_lut_indexed'></a> aktive op lut indexed
 
-Syntax: __aktive op lut indexed__ lut src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=87&name=etc/transformer/filter/lookup.tcl)]
+Syntax: __aktive op lut indexed__ lut src ?(param value)...? [[→ definition](/file?ci=trunk&ln=85&name=etc/transformer/filter/lookup.tcl)]
 
 Returns the result of mapping the input through the LUT.
 
@@ -82,7 +82,7 @@ The difference between this operator and [aktive op lut indexed-core](transform_
 ---
 ### [↑](#top) <a name='op_lut_indexed_core'></a> aktive op lut indexed-core
 
-Syntax: __aktive op lut indexed-core__ lut src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=134&name=etc/transformer/filter/lookup.tcl)]
+Syntax: __aktive op lut indexed-core__ lut src ?(param value)...? [[→ definition](/file?ci=trunk&ln=132&name=etc/transformer/filter/lookup.tcl)]
 
 Returns the result of mapping the input through the LUT.
 

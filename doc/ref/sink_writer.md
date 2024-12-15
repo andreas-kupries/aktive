@@ -53,7 +53,7 @@
 ---
 ### [↑](#top) <a name='format_as_aktive_2chan'></a> aktive format as aktive 2chan
 
-Syntax: __aktive format as aktive 2chan__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=29&name=etc/sink/aktive.tcl)]
+Syntax: __aktive format as aktive 2chan__ src (param value)... [[→ definition](/file?ci=trunk&ln=29&name=etc/sink/aktive.tcl)]
 
 Writes image to the DST channel, serialized with the [AKTIVE](ff-aktive.md) format.
 
@@ -70,7 +70,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 ---
 ### [↑](#top) <a name='format_as_aktive_2file'></a> aktive format as aktive 2file
 
-Syntax: __aktive format as aktive 2file__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=7&name=etc/sink/aktive.tcl)]
+Syntax: __aktive format as aktive 2file__ src (param value)... [[→ definition](/file?ci=trunk&ln=7&name=etc/sink/aktive.tcl)]
 
 Writes image to the destination file, serialized with the [AKTIVE](ff-aktive.md) format.
 
@@ -87,7 +87,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 ---
 ### [↑](#top) <a name='format_as_aktive_2string'></a> aktive format as aktive 2string
 
-Syntax: __aktive format as aktive 2string__ src [[→ definition](../../../../file?ci=trunk&ln=58&name=etc/sink/aktive.tcl)]
+Syntax: __aktive format as aktive 2string__ src [[→ definition](/file?ci=trunk&ln=58&name=etc/sink/aktive.tcl)]
 
 Returns byte array containing the image, serialized with the [AKTIVE](ff-aktive.md) format.
 
@@ -100,7 +100,7 @@ This operator is __strict__ in its single input. The computed pixels __are__ mat
 ---
 ### [↑](#top) <a name='format_as_null_s_2string'></a> aktive format as null-s 2string
 
-Syntax: __aktive format as null-s 2string__ src [[→ definition](../../../../file?ci=trunk&ln=7&name=etc/sink/null.tcl)]
+Syntax: __aktive format as null-s 2string__ src [[→ definition](/file?ci=trunk&ln=7&name=etc/sink/null.tcl)]
 
 Returns nothing, while triggering full pixel calculation for the input.
 
@@ -113,7 +113,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 ---
 ### [↑](#top) <a name='format_as_null_2string'></a> aktive format as null 2string
 
-Syntax: __aktive format as null 2string__ src [[→ definition](../../../../file?ci=trunk&ln=7&name=etc/sink/null.tcl)]
+Syntax: __aktive format as null 2string__ src [[→ definition](/file?ci=trunk&ln=7&name=etc/sink/null.tcl)]
 
 Returns nothing, while triggering full pixel calculation for the input.
 
@@ -126,7 +126,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 ---
 ### [↑](#top) <a name='format_as_pgm_byte_2chan'></a> aktive format as pgm byte 2chan
 
-Syntax: __aktive format as pgm byte 2chan__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=38&name=etc/sink/netpbm.tcl)]
+Syntax: __aktive format as pgm byte 2chan__ src (param value)... [[→ definition](/file?ci=trunk&ln=38&name=etc/sink/netpbm.tcl)]
 
 Writes image to the destination channel, serialized with [PGM](ff-netpbm.md)'s byte format.
 
@@ -143,7 +143,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 ---
 ### [↑](#top) <a name='format_as_pgm_byte_2file'></a> aktive format as pgm byte 2file
 
-Syntax: __aktive format as pgm byte 2file__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=7&name=etc/sink/netpbm.tcl)]
+Syntax: __aktive format as pgm byte 2file__ src (param value)... [[→ definition](/file?ci=trunk&ln=7&name=etc/sink/netpbm.tcl)]
 
 Writes image to the destination file, serialized with [PGM](ff-netpbm.md)'s byte format.
 
@@ -160,7 +160,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 ---
 ### [↑](#top) <a name='format_as_pgm_byte_2string'></a> aktive format as pgm byte 2string
 
-Syntax: __aktive format as pgm byte 2string__ src [[→ definition](../../../../file?ci=trunk&ln=84&name=etc/sink/netpbm.tcl)]
+Syntax: __aktive format as pgm byte 2string__ src [[→ definition](/file?ci=trunk&ln=84&name=etc/sink/netpbm.tcl)]
 
 Returns byte array containing the image, serialized with [PGM](ff-netpbm.md)'s byte format.
 
@@ -173,7 +173,7 @@ This operator is __strict__ in its single input. The computed pixels __are__ mat
 ---
 ### [↑](#top) <a name='format_as_pgm_etext_2chan'></a> aktive format as pgm etext 2chan
 
-Syntax: __aktive format as pgm etext 2chan__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=38&name=etc/sink/netpbm.tcl)]
+Syntax: __aktive format as pgm etext 2chan__ src (param value)... [[→ definition](/file?ci=trunk&ln=38&name=etc/sink/netpbm.tcl)]
 
 Writes image to the destination channel, serialized with [PGM](ff-netpbm.md)'s etext format.
 
@@ -190,7 +190,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 ---
 ### [↑](#top) <a name='format_as_pgm_etext_2file'></a> aktive format as pgm etext 2file
 
-Syntax: __aktive format as pgm etext 2file__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=7&name=etc/sink/netpbm.tcl)]
+Syntax: __aktive format as pgm etext 2file__ src (param value)... [[→ definition](/file?ci=trunk&ln=7&name=etc/sink/netpbm.tcl)]
 
 Writes image to the destination file, serialized with [PGM](ff-netpbm.md)'s etext format.
 
@@ -207,7 +207,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 ---
 ### [↑](#top) <a name='format_as_pgm_etext_2string'></a> aktive format as pgm etext 2string
 
-Syntax: __aktive format as pgm etext 2string__ src [[→ definition](../../../../file?ci=trunk&ln=84&name=etc/sink/netpbm.tcl)]
+Syntax: __aktive format as pgm etext 2string__ src [[→ definition](/file?ci=trunk&ln=84&name=etc/sink/netpbm.tcl)]
 
 Returns byte array containing the image, serialized with [PGM](ff-netpbm.md)'s etext format.
 
@@ -220,7 +220,7 @@ This operator is __strict__ in its single input. The computed pixels __are__ mat
 ---
 ### [↑](#top) <a name='format_as_pgm_short_2chan'></a> aktive format as pgm short 2chan
 
-Syntax: __aktive format as pgm short 2chan__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=38&name=etc/sink/netpbm.tcl)]
+Syntax: __aktive format as pgm short 2chan__ src (param value)... [[→ definition](/file?ci=trunk&ln=38&name=etc/sink/netpbm.tcl)]
 
 Writes image to the destination channel, serialized with [PGM](ff-netpbm.md)'s short format.
 
@@ -237,7 +237,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 ---
 ### [↑](#top) <a name='format_as_pgm_short_2file'></a> aktive format as pgm short 2file
 
-Syntax: __aktive format as pgm short 2file__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=7&name=etc/sink/netpbm.tcl)]
+Syntax: __aktive format as pgm short 2file__ src (param value)... [[→ definition](/file?ci=trunk&ln=7&name=etc/sink/netpbm.tcl)]
 
 Writes image to the destination file, serialized with [PGM](ff-netpbm.md)'s short format.
 
@@ -254,7 +254,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 ---
 ### [↑](#top) <a name='format_as_pgm_short_2string'></a> aktive format as pgm short 2string
 
-Syntax: __aktive format as pgm short 2string__ src [[→ definition](../../../../file?ci=trunk&ln=84&name=etc/sink/netpbm.tcl)]
+Syntax: __aktive format as pgm short 2string__ src [[→ definition](/file?ci=trunk&ln=84&name=etc/sink/netpbm.tcl)]
 
 Returns byte array containing the image, serialized with [PGM](ff-netpbm.md)'s short format.
 
@@ -267,7 +267,7 @@ This operator is __strict__ in its single input. The computed pixels __are__ mat
 ---
 ### [↑](#top) <a name='format_as_pgm_text_2chan'></a> aktive format as pgm text 2chan
 
-Syntax: __aktive format as pgm text 2chan__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=38&name=etc/sink/netpbm.tcl)]
+Syntax: __aktive format as pgm text 2chan__ src (param value)... [[→ definition](/file?ci=trunk&ln=38&name=etc/sink/netpbm.tcl)]
 
 Writes image to the destination channel, serialized with [PGM](ff-netpbm.md)'s text format.
 
@@ -284,7 +284,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 ---
 ### [↑](#top) <a name='format_as_pgm_text_2file'></a> aktive format as pgm text 2file
 
-Syntax: __aktive format as pgm text 2file__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=7&name=etc/sink/netpbm.tcl)]
+Syntax: __aktive format as pgm text 2file__ src (param value)... [[→ definition](/file?ci=trunk&ln=7&name=etc/sink/netpbm.tcl)]
 
 Writes image to the destination file, serialized with [PGM](ff-netpbm.md)'s text format.
 
@@ -301,7 +301,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 ---
 ### [↑](#top) <a name='format_as_pgm_text_2string'></a> aktive format as pgm text 2string
 
-Syntax: __aktive format as pgm text 2string__ src [[→ definition](../../../../file?ci=trunk&ln=84&name=etc/sink/netpbm.tcl)]
+Syntax: __aktive format as pgm text 2string__ src [[→ definition](/file?ci=trunk&ln=84&name=etc/sink/netpbm.tcl)]
 
 Returns byte array containing the image, serialized with [PGM](ff-netpbm.md)'s text format.
 
@@ -314,7 +314,7 @@ This operator is __strict__ in its single input. The computed pixels __are__ mat
 ---
 ### [↑](#top) <a name='format_as_ppm_byte_2chan'></a> aktive format as ppm byte 2chan
 
-Syntax: __aktive format as ppm byte 2chan__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=38&name=etc/sink/netpbm.tcl)]
+Syntax: __aktive format as ppm byte 2chan__ src (param value)... [[→ definition](/file?ci=trunk&ln=38&name=etc/sink/netpbm.tcl)]
 
 Writes image to the destination channel, serialized with [PPM](ff-netpbm.md)'s byte format.
 
@@ -331,7 +331,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 ---
 ### [↑](#top) <a name='format_as_ppm_byte_2file'></a> aktive format as ppm byte 2file
 
-Syntax: __aktive format as ppm byte 2file__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=7&name=etc/sink/netpbm.tcl)]
+Syntax: __aktive format as ppm byte 2file__ src (param value)... [[→ definition](/file?ci=trunk&ln=7&name=etc/sink/netpbm.tcl)]
 
 Writes image to the destination file, serialized with [PPM](ff-netpbm.md)'s byte format.
 
@@ -348,7 +348,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 ---
 ### [↑](#top) <a name='format_as_ppm_byte_2string'></a> aktive format as ppm byte 2string
 
-Syntax: __aktive format as ppm byte 2string__ src [[→ definition](../../../../file?ci=trunk&ln=84&name=etc/sink/netpbm.tcl)]
+Syntax: __aktive format as ppm byte 2string__ src [[→ definition](/file?ci=trunk&ln=84&name=etc/sink/netpbm.tcl)]
 
 Returns byte array containing the image, serialized with [PPM](ff-netpbm.md)'s byte format.
 
@@ -361,7 +361,7 @@ This operator is __strict__ in its single input. The computed pixels __are__ mat
 ---
 ### [↑](#top) <a name='format_as_ppm_etext_2chan'></a> aktive format as ppm etext 2chan
 
-Syntax: __aktive format as ppm etext 2chan__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=38&name=etc/sink/netpbm.tcl)]
+Syntax: __aktive format as ppm etext 2chan__ src (param value)... [[→ definition](/file?ci=trunk&ln=38&name=etc/sink/netpbm.tcl)]
 
 Writes image to the destination channel, serialized with [PPM](ff-netpbm.md)'s etext format.
 
@@ -378,7 +378,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 ---
 ### [↑](#top) <a name='format_as_ppm_etext_2file'></a> aktive format as ppm etext 2file
 
-Syntax: __aktive format as ppm etext 2file__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=7&name=etc/sink/netpbm.tcl)]
+Syntax: __aktive format as ppm etext 2file__ src (param value)... [[→ definition](/file?ci=trunk&ln=7&name=etc/sink/netpbm.tcl)]
 
 Writes image to the destination file, serialized with [PPM](ff-netpbm.md)'s etext format.
 
@@ -395,7 +395,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 ---
 ### [↑](#top) <a name='format_as_ppm_etext_2string'></a> aktive format as ppm etext 2string
 
-Syntax: __aktive format as ppm etext 2string__ src [[→ definition](../../../../file?ci=trunk&ln=84&name=etc/sink/netpbm.tcl)]
+Syntax: __aktive format as ppm etext 2string__ src [[→ definition](/file?ci=trunk&ln=84&name=etc/sink/netpbm.tcl)]
 
 Returns byte array containing the image, serialized with [PPM](ff-netpbm.md)'s etext format.
 
@@ -408,7 +408,7 @@ This operator is __strict__ in its single input. The computed pixels __are__ mat
 ---
 ### [↑](#top) <a name='format_as_ppm_short_2chan'></a> aktive format as ppm short 2chan
 
-Syntax: __aktive format as ppm short 2chan__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=38&name=etc/sink/netpbm.tcl)]
+Syntax: __aktive format as ppm short 2chan__ src (param value)... [[→ definition](/file?ci=trunk&ln=38&name=etc/sink/netpbm.tcl)]
 
 Writes image to the destination channel, serialized with [PPM](ff-netpbm.md)'s short format.
 
@@ -425,7 +425,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 ---
 ### [↑](#top) <a name='format_as_ppm_short_2file'></a> aktive format as ppm short 2file
 
-Syntax: __aktive format as ppm short 2file__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=7&name=etc/sink/netpbm.tcl)]
+Syntax: __aktive format as ppm short 2file__ src (param value)... [[→ definition](/file?ci=trunk&ln=7&name=etc/sink/netpbm.tcl)]
 
 Writes image to the destination file, serialized with [PPM](ff-netpbm.md)'s short format.
 
@@ -442,7 +442,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 ---
 ### [↑](#top) <a name='format_as_ppm_short_2string'></a> aktive format as ppm short 2string
 
-Syntax: __aktive format as ppm short 2string__ src [[→ definition](../../../../file?ci=trunk&ln=84&name=etc/sink/netpbm.tcl)]
+Syntax: __aktive format as ppm short 2string__ src [[→ definition](/file?ci=trunk&ln=84&name=etc/sink/netpbm.tcl)]
 
 Returns byte array containing the image, serialized with [PPM](ff-netpbm.md)'s short format.
 
@@ -455,7 +455,7 @@ This operator is __strict__ in its single input. The computed pixels __are__ mat
 ---
 ### [↑](#top) <a name='format_as_ppm_text_2chan'></a> aktive format as ppm text 2chan
 
-Syntax: __aktive format as ppm text 2chan__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=38&name=etc/sink/netpbm.tcl)]
+Syntax: __aktive format as ppm text 2chan__ src (param value)... [[→ definition](/file?ci=trunk&ln=38&name=etc/sink/netpbm.tcl)]
 
 Writes image to the destination channel, serialized with [PPM](ff-netpbm.md)'s text format.
 
@@ -472,7 +472,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 ---
 ### [↑](#top) <a name='format_as_ppm_text_2file'></a> aktive format as ppm text 2file
 
-Syntax: __aktive format as ppm text 2file__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=7&name=etc/sink/netpbm.tcl)]
+Syntax: __aktive format as ppm text 2file__ src (param value)... [[→ definition](/file?ci=trunk&ln=7&name=etc/sink/netpbm.tcl)]
 
 Writes image to the destination file, serialized with [PPM](ff-netpbm.md)'s text format.
 
@@ -489,7 +489,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 ---
 ### [↑](#top) <a name='format_as_ppm_text_2string'></a> aktive format as ppm text 2string
 
-Syntax: __aktive format as ppm text 2string__ src [[→ definition](../../../../file?ci=trunk&ln=84&name=etc/sink/netpbm.tcl)]
+Syntax: __aktive format as ppm text 2string__ src [[→ definition](/file?ci=trunk&ln=84&name=etc/sink/netpbm.tcl)]
 
 Returns byte array containing the image, serialized with [PPM](ff-netpbm.md)'s text format.
 
@@ -502,7 +502,7 @@ This operator is __strict__ in its single input. The computed pixels __are__ mat
 ---
 ### [↑](#top) <a name='format_as_tcl'></a> aktive format as tcl
 
-Syntax: __aktive format as tcl__ src [[→ definition](../../../../file?ci=trunk&ln=7&name=etc/sink/astcl.tcl)]
+Syntax: __aktive format as tcl__ src [[→ definition](/file?ci=trunk&ln=7&name=etc/sink/astcl.tcl)]
 
 Returns string containing the image serialized into readable Tcl structures. Dictionary with flat pixel list.
 

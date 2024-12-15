@@ -25,7 +25,7 @@ operator warp::swirl {
     note At the technical level the result is a 2-band image \
 	where each pixel declares its origin position.
 
-    # Reference: https://juliaimages.org/previews/PR218/examples/transformations/operations/swirl/
+    ref https://juliaimages.org/previews/PR218/examples/transformations/operations/swirl/
 
     # image configuration
     uint       width   Width of the returned image

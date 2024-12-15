@@ -26,7 +26,7 @@
 ---
 ### [↑](#top) <a name='query_value_around'></a> aktive query value around
 
-Syntax: __aktive query value around__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=320&name=etc/accessor/attributes.tcl)]
+Syntax: __aktive query value around__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=320&name=etc/accessor/attributes.tcl)]
 
 Returns the input's pixel values for the region around the specified 2D point, within the manhattan `radius`.
 
@@ -49,7 +49,7 @@ This operator is __strict__ in its single input. The requested pixel region is m
 ---
 ### [↑](#top) <a name='query_value_at'></a> aktive query value at
 
-Syntax: __aktive query value at__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=290&name=etc/accessor/attributes.tcl)]
+Syntax: __aktive query value at__ src (param value)... [[→ definition](/file?ci=trunk&ln=290&name=etc/accessor/attributes.tcl)]
 
 Returns the input's pixel value(s) at the given 2D point.
 
@@ -84,7 +84,7 @@ This operator is __strict__ in its single input. The requested pixel is material
 ---
 ### [↑](#top) <a name='query_values'></a> aktive query values
 
-Syntax: __aktive query values__ src [[→ definition](../../../../file?ci=trunk&ln=264&name=etc/accessor/attributes.tcl)]
+Syntax: __aktive query values__ src [[→ definition](/file?ci=trunk&ln=264&name=etc/accessor/attributes.tcl)]
 
 Returns a list containing the input's pixel values.
 

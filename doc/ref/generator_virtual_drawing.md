@@ -32,7 +32,7 @@
 ---
 ### [↑](#top) <a name='image_draw_box'></a> aktive image draw box
 
-Syntax: __aktive image draw box__  ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=52&name=etc/generator/virtual/draw.tcl)]
+Syntax: __aktive image draw box__  ?(param value)...? [[→ definition](/file?ci=trunk&ln=52&name=etc/generator/virtual/draw.tcl)]
 
 Returns an image with the given dimensions and location, with a box drawn into it.
 
@@ -83,7 +83,7 @@ The box is axis-aligned, of width `2*ewidth+1`, height `2*eheight+1`, and placed
 ---
 ### [↑](#top) <a name='image_draw_box_rounded'></a> aktive image draw box-rounded
 
-Syntax: __aktive image draw box-rounded__  ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=52&name=etc/generator/virtual/draw.tcl)]
+Syntax: __aktive image draw box-rounded__  ?(param value)...? [[→ definition](/file?ci=trunk&ln=52&name=etc/generator/virtual/draw.tcl)]
 
 Returns an image with the given dimensions and location, with a box drawn into it.
 
@@ -140,7 +140,7 @@ The radii default to 0, i.e. no rounded corners.
 ---
 ### [↑](#top) <a name='image_draw_circle'></a> aktive image draw circle
 
-Syntax: __aktive image draw circle__  ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=52&name=etc/generator/virtual/draw.tcl)]
+Syntax: __aktive image draw circle__  ?(param value)...? [[→ definition](/file?ci=trunk&ln=52&name=etc/generator/virtual/draw.tcl)]
 
 Returns an image with the given dimensions and location, with a circle drawn into it.
 
@@ -190,7 +190,7 @@ The circle has the `radius`, and is placed at the specified center.
 ---
 ### [↑](#top) <a name='image_draw_circles'></a> aktive image draw circles
 
-Syntax: __aktive image draw circles__  ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=52&name=etc/generator/virtual/draw.tcl)]
+Syntax: __aktive image draw circles__  ?(param value)...? [[→ definition](/file?ci=trunk&ln=52&name=etc/generator/virtual/draw.tcl)]
 
 Returns an image with the given dimensions and location, with a set of circles drawn into it.
 
@@ -240,7 +240,7 @@ The circles all have the same `radius`, and are placed at the specified centers.
 ---
 ### [↑](#top) <a name='image_draw_line'></a> aktive image draw line
 
-Syntax: __aktive image draw line__  ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=52&name=etc/generator/virtual/draw.tcl)]
+Syntax: __aktive image draw line__  ?(param value)...? [[→ definition](/file?ci=trunk&ln=52&name=etc/generator/virtual/draw.tcl)]
 
 Returns an image with the given dimensions and location, with a line drawn into it.
 
@@ -290,7 +290,7 @@ The line connects the two specified locations.
 ---
 ### [↑](#top) <a name='image_draw_parallelogram'></a> aktive image draw parallelogram
 
-Syntax: __aktive image draw parallelogram__  ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=52&name=etc/generator/virtual/draw.tcl)]
+Syntax: __aktive image draw parallelogram__  ?(param value)...? [[→ definition](/file?ci=trunk&ln=52&name=etc/generator/virtual/draw.tcl)]
 
 Returns an image with the given dimensions and location, with a parallelogram drawn into it.
 
@@ -342,7 +342,7 @@ The parallelogram is axis-aligned, of width `2*ewidth+1`, height `2*eheight+1`, 
 ---
 ### [↑](#top) <a name='image_draw_polyline'></a> aktive image draw polyline
 
-Syntax: __aktive image draw polyline__  ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=52&name=etc/generator/virtual/draw.tcl)]
+Syntax: __aktive image draw polyline__  ?(param value)...? [[→ definition](/file?ci=trunk&ln=52&name=etc/generator/virtual/draw.tcl)]
 
 Returns an image with the given dimensions and location, with a set of lines drawn into it.
 
@@ -391,7 +391,7 @@ The lines form a polyline through the specified points.
 ---
 ### [↑](#top) <a name='image_draw_rhombus'></a> aktive image draw rhombus
 
-Syntax: __aktive image draw rhombus__  ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=52&name=etc/generator/virtual/draw.tcl)]
+Syntax: __aktive image draw rhombus__  ?(param value)...? [[→ definition](/file?ci=trunk&ln=52&name=etc/generator/virtual/draw.tcl)]
 
 Returns an image with the given dimensions and location, with a rhombus drawn into it.
 
@@ -442,7 +442,7 @@ The rhombus is axis-aligned, of width `2*ewidth+1`, height `2*eheight+1`, and pl
 ---
 ### [↑](#top) <a name='image_draw_triangle'></a> aktive image draw triangle
 
-Syntax: __aktive image draw triangle__  ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=52&name=etc/generator/virtual/draw.tcl)]
+Syntax: __aktive image draw triangle__  ?(param value)...? [[→ definition](/file?ci=trunk&ln=52&name=etc/generator/virtual/draw.tcl)]
 
 Returns an image with the given dimensions and location, with a triangle drawn into it.
 

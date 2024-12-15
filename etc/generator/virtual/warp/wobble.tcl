@@ -11,13 +11,15 @@ operator warp::wobble {
 	specified __center__, with base __amplitude__, __frequency__, \
 	__chirp__, and __attenuation__ powers.
 
+    note Inspired by <http://libvips.blogspot.com/2015/11/fancy-transforms.html>
+
+    ref  http://libvips.blogspot.com/2015/11/fancy-transforms.html
+
     note The result is designed to be usable with the \
 	"<!xref: aktive op warp bicubic>" operation and its relatives.
 
     note At the technical level the result is a 2-band image \
 	where each pixel declares its origin position.
-
-    # Reference: http://libvips.blogspot.com/2015/11/fancy-transforms.html
 
     # image configuration
     uint       width   Width of the returned image

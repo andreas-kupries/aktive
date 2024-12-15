@@ -34,7 +34,7 @@
 ---
 ### [↑](#top) <a name='op_connected_components_labeled'></a> aktive op connected-components labeled
 
-Syntax: __aktive op connected-components labeled__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/cc.tcl)]
+Syntax: __aktive op connected-components labeled__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=8&name=etc/transformer/cc.tcl)]
 
 Returns the input with labeled connected components.
 
@@ -89,7 +89,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 ---
 ### [↑](#top) <a name='op_morph_close'></a> aktive op morph close
 
-Syntax: __aktive op morph close__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/filter/morphology.tcl)]
+Syntax: __aktive op morph close__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=8&name=etc/transformer/filter/morphology.tcl)]
 
 Returns image containing the morphological closing (dilate, then erode) of the input using a (2*radius+1)x(2*radius+1) square structuring element.
 
@@ -130,7 +130,7 @@ Returns image containing the morphological closing (dilate, then erode) of the i
 ---
 ### [↑](#top) <a name='op_morph_dilate'></a> aktive op morph dilate
 
-Syntax: __aktive op morph dilate__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/filter/morphology.tcl)]
+Syntax: __aktive op morph dilate__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=8&name=etc/transformer/filter/morphology.tcl)]
 
 Returns image containing the morphological dilation of the input using a (2*radius+1)x(2*radius+1) square structuring element.
 
@@ -171,7 +171,7 @@ Returns image containing the morphological dilation of the input using a (2*radi
 ---
 ### [↑](#top) <a name='op_morph_erode'></a> aktive op morph erode
 
-Syntax: __aktive op morph erode__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/filter/morphology.tcl)]
+Syntax: __aktive op morph erode__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=8&name=etc/transformer/filter/morphology.tcl)]
 
 Returns image containing the morphological erosion of the input using a (2*radius+1)x(2*radius+1) square structuring element.
 
@@ -212,7 +212,7 @@ Returns image containing the morphological erosion of the input using a (2*radiu
 ---
 ### [↑](#top) <a name='op_morph_gradient_all'></a> aktive op morph gradient all
 
-Syntax: __aktive op morph gradient all__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/filter/morphology.tcl)]
+Syntax: __aktive op morph gradient all__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=8&name=etc/transformer/filter/morphology.tcl)]
 
 Returns image containing the morphological gradient (subtract eroded from dilated) of the input using a (2*radius+1)x(2*radius+1) square structuring element.
 
@@ -253,7 +253,7 @@ Returns image containing the morphological gradient (subtract eroded from dilate
 ---
 ### [↑](#top) <a name='op_morph_gradient_external'></a> aktive op morph gradient external
 
-Syntax: __aktive op morph gradient external__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/filter/morphology.tcl)]
+Syntax: __aktive op morph gradient external__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=8&name=etc/transformer/filter/morphology.tcl)]
 
 Returns image containing the morphological outer gradient (subtract input from dilated) of the input using a (2*radius+1)x(2*radius+1) square structuring element.
 
@@ -294,7 +294,7 @@ Returns image containing the morphological outer gradient (subtract input from d
 ---
 ### [↑](#top) <a name='op_morph_gradient_internal'></a> aktive op morph gradient internal
 
-Syntax: __aktive op morph gradient internal__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/filter/morphology.tcl)]
+Syntax: __aktive op morph gradient internal__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=8&name=etc/transformer/filter/morphology.tcl)]
 
 Returns image containing the morphological inner gradient (subtract eroded from input) of the input using a (2*radius+1)x(2*radius+1) square structuring element.
 
@@ -335,7 +335,7 @@ Returns image containing the morphological inner gradient (subtract eroded from 
 ---
 ### [↑](#top) <a name='op_morph_open'></a> aktive op morph open
 
-Syntax: __aktive op morph open__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/filter/morphology.tcl)]
+Syntax: __aktive op morph open__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=8&name=etc/transformer/filter/morphology.tcl)]
 
 Returns image containing the morphological opening (erode, then dilate) of the input using a (2*radius+1)x(2*radius+1) square structuring element.
 
@@ -376,7 +376,7 @@ Returns image containing the morphological opening (erode, then dilate) of the i
 ---
 ### [↑](#top) <a name='op_morph_toggle'></a> aktive op morph toggle
 
-Syntax: __aktive op morph toggle__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/filter/morphology.tcl)]
+Syntax: __aktive op morph toggle__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=8&name=etc/transformer/filter/morphology.tcl)]
 
 Returns image containing the morphological of the input using a (2*radius+1)x(2*radius+1) square structuring element.
 
@@ -417,7 +417,7 @@ Returns image containing the morphological of the input using a (2*radius+1)x(2*
 ---
 ### [↑](#top) <a name='op_morph_tophat_black'></a> aktive op morph tophat black
 
-Syntax: __aktive op morph tophat black__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/filter/morphology.tcl)]
+Syntax: __aktive op morph tophat black__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=8&name=etc/transformer/filter/morphology.tcl)]
 
 Returns image containing the morphological black tophat (subtract input from closing) of the input using a (2*radius+1)x(2*radius+1) square structuring element.
 
@@ -458,7 +458,7 @@ Returns image containing the morphological black tophat (subtract input from clo
 ---
 ### [↑](#top) <a name='op_morph_tophat_white'></a> aktive op morph tophat white
 
-Syntax: __aktive op morph tophat white__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=8&name=etc/transformer/filter/morphology.tcl)]
+Syntax: __aktive op morph tophat white__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=8&name=etc/transformer/filter/morphology.tcl)]
 
 Returns image containing the morphological white tophat (subtract opening from input) of the input using a (2*radius+1)x(2*radius+1) square structuring element.
 

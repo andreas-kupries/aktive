@@ -18,6 +18,8 @@ TRACE_OFF;
 /*
  * - - -- --- ----- -------- -------------
  * Nearest neighbour interpolation
+ * See
+ * - https://en.wikipedia.org/wiki/Nearest-neighbor_interpolation
  */
 
 static void
@@ -45,6 +47,8 @@ aktive_interpolator_nneighbour (void)
 /*
  * - - -- --- ----- -------- -------------
  * Bilinear interpolation
+ * See
+ * - https://en.wikipedia.org/wiki/Bilinear_interpolation
  */
 
 #define LINEAR(a,b,t)            ((1-(t))*(a) + (t)*(b))
@@ -93,7 +97,7 @@ aktive_interpolator_bilinear (void)
 /*
  * - - -- --- ----- -------- -------------
  * Bicubic interpolation.
- * References
+ * See
  * (1) http://en.wikipedia.org/wiki/Bicubic_interpolation
  * (2) http://www.paulinternet.nl/?page=bicubic
  */
@@ -190,6 +194,10 @@ aktive_interpolator_bicubic (void)
 
 /*
  * - - -- --- ----- -------- -------------
+ * See
+ * - [1] https://mazzo.li/posts/lanczos.html
+ * - [2] https://en.wikipedia.org/wiki/Lanczos_resampling
+ * - [3] https://github.com/jeffboody/Lanczos
  */
 
 static double

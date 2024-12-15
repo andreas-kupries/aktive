@@ -40,7 +40,7 @@
 ---
 ### [↑](#top) <a name='format_as_d2'></a> aktive format as d2
 
-Syntax: __aktive format as d2__ src [[→ definition](../../../../file?ci=trunk&ln=6&name=etc/sink/asother.tcl)]
+Syntax: __aktive format as d2__ src [[→ definition](/file?ci=trunk&ln=6&name=etc/sink/asother.tcl)]
 
 Converts the internal DAG representation of the image into a D2 graph format and returns the resulting string.
 
@@ -54,12 +54,12 @@ Despite the naming the operator is __not strict__. It does not access the input'
 
 <table>
 <tr><th>@1
-    <br>(assets/butterfly.ppm)</th>
+    <br>&nbsp;</th>
     <th>@2
     <br>(charcoal)</th>
     <th>aktive format as d2 @2
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00049.gif' alt='@1 (assets/butterfly.ppm)' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00049.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
     <td valign='top'><img src='example-00050.gif' alt='@2 (charcoal)' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 1)</td>
@@ -70,7 +70,7 @@ Despite the naming the operator is __not strict__. It does not access the input'
 ---
 ### [↑](#top) <a name='format_as_markdown'></a> aktive format as markdown
 
-Syntax: __aktive format as markdown__ src [[→ definition](../../../../file?ci=trunk&ln=6&name=etc/sink/asother.tcl)]
+Syntax: __aktive format as markdown__ src [[→ definition](/file?ci=trunk&ln=6&name=etc/sink/asother.tcl)]
 
 Converts the internal DAG representation of the image into a Markdown table and returns the resulting string.
 
@@ -84,12 +84,12 @@ Despite the naming the operator is __not strict__. It does not access the input'
 
 <table>
 <tr><th>@1
-    <br>(assets/butterfly.ppm)</th>
+    <br>&nbsp;</th>
     <th>@2
     <br>(charcoal)</th>
     <th>aktive format as markdown @2
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00052.gif' alt='@1 (assets/butterfly.ppm)' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00052.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
     <td valign='top'><img src='example-00053.gif' alt='@2 (charcoal)' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 1)</td>
@@ -100,7 +100,7 @@ Despite the naming the operator is __not strict__. It does not access the input'
 ---
 ### [↑](#top) <a name='format_as_tclscript'></a> aktive format as tclscript
 
-Syntax: __aktive format as tclscript__ src [[→ definition](../../../../file?ci=trunk&ln=6&name=etc/sink/asother.tcl)]
+Syntax: __aktive format as tclscript__ src [[→ definition](/file?ci=trunk&ln=6&name=etc/sink/asother.tcl)]
 
 Converts the internal DAG representation of the image into a Tcl script and returns the resulting string.
 
@@ -114,12 +114,12 @@ Despite the naming the operator is __not strict__. It does not access the input'
 
 <table>
 <tr><th>@1
-    <br>(assets/butterfly.ppm)</th>
+    <br>&nbsp;</th>
     <th>@2
     <br>(charcoal)</th>
     <th>aktive format as tclscript @2
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00055.gif' alt='@1 (assets/butterfly.ppm)' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00055.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
     <td valign='top'><img src='example-00056.gif' alt='@2 (charcoal)' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 1)</td>
@@ -130,7 +130,7 @@ Despite the naming the operator is __not strict__. It does not access the input'
 ---
 ### [↑](#top) <a name='op_query_colorspace'></a> aktive op query colorspace
 
-Syntax: __aktive op query colorspace__ src [[→ definition](../../../../file?ci=trunk&ln=5&name=etc/accessor/colorspace.tcl)]
+Syntax: __aktive op query colorspace__ src [[→ definition](/file?ci=trunk&ln=5&name=etc/accessor/colorspace.tcl)]
 
 Returns the name of the color space the input is in.
 
@@ -158,7 +158,7 @@ For anything else an error is thrown instead of making assumptions.
 ---
 ### [↑](#top) <a name='query_id'></a> aktive query id
 
-Syntax: __aktive query id__ src [[→ definition](../../../../file?ci=trunk&ln=5&name=etc/accessor/attributes.tcl)]
+Syntax: __aktive query id__ src [[→ definition](/file?ci=trunk&ln=5&name=etc/accessor/attributes.tcl)]
 
 Returns the input's implementation-specific image identity.
 
@@ -169,7 +169,7 @@ Returns the input's implementation-specific image identity.
 ---
 ### [↑](#top) <a name='query_inputs'></a> aktive query inputs
 
-Syntax: __aktive query inputs__ src [[→ definition](../../../../file?ci=trunk&ln=171&name=etc/accessor/attributes.tcl)]
+Syntax: __aktive query inputs__ src [[→ definition](/file?ci=trunk&ln=171&name=etc/accessor/attributes.tcl)]
 
 Returns a list of the input's inputs.
 
@@ -182,7 +182,7 @@ For an image without inputs the result is the empty list.
 ---
 ### [↑](#top) <a name='query_params'></a> aktive query params
 
-Syntax: __aktive query params__ src [[→ definition](../../../../file?ci=trunk&ln=196&name=etc/accessor/attributes.tcl)]
+Syntax: __aktive query params__ src [[→ definition](/file?ci=trunk&ln=196&name=etc/accessor/attributes.tcl)]
 
 Returns a dictionary containing the input's parameters.
 
@@ -218,7 +218,7 @@ For an image without parameters the result is the empty dictionary.
 ---
 ### [↑](#top) <a name='query_setup'></a> aktive query setup
 
-Syntax: __aktive query setup__ src [[→ definition](../../../../file?ci=trunk&ln=221&name=etc/accessor/attributes.tcl)]
+Syntax: __aktive query setup__ src [[→ definition](/file?ci=trunk&ln=221&name=etc/accessor/attributes.tcl)]
 
 Returns a dictionary containing the input's setup.
 
@@ -254,7 +254,7 @@ This includes type, geometry, and parameters, if any. The inputs however are exc
 ---
 ### [↑](#top) <a name='query_type'></a> aktive query type
 
-Syntax: __aktive query type__ src [[→ definition](../../../../file?ci=trunk&ln=27&name=etc/accessor/attributes.tcl)]
+Syntax: __aktive query type__ src [[→ definition](/file?ci=trunk&ln=27&name=etc/accessor/attributes.tcl)]
 
 Returns the input's type.
 

@@ -30,9 +30,9 @@
 ---
 ### [↑](#top) <a name='image_threshold_bernsen'></a> aktive image threshold bernsen
 
-Syntax: __aktive image threshold bernsen__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=66&name=etc/transformer/thresholds/thresholds.tcl)]
+Syntax: __aktive image threshold bernsen__ src (param value)... [[→ definition](/file?ci=trunk&ln=56&name=etc/transformer/thresholds/thresholds.tcl)]
 
-Returns an image containing per-pixel thresholds for the input, as per Bernsen's method.
+Returns an image containing per-pixel thresholds for the input, as per [Bernsen's](https://craftofcoding.wordpress.com/2021/10/27/thresholding-algorithms-bernsen-local) method.
 
 The operator [aktive image mask per bernsen](transform_threshold_mask_generate.md#image_mask_per_bernsen) uses this to generate a mask of the input.
 
@@ -69,10 +69,14 @@ The operator [aktive image mask per bernsen](transform_threshold_mask_generate.m
 </table>
 
 
+#### <a name='image_threshold_bernsen__references'></a> References
+
+  - <https://craftofcoding.wordpress.com/2021/10/27/thresholding-algorithms-bernsen-local>
+
 ---
 ### [↑](#top) <a name='image_threshold_mean'></a> aktive image threshold mean
 
-Syntax: __aktive image threshold mean__ src (param value)... [[→ definition](../../../../file?ci=trunk&ln=18&name=etc/transformer/thresholds/thresholds.tcl)]
+Syntax: __aktive image threshold mean__ src (param value)... [[→ definition](/file?ci=trunk&ln=8&name=etc/transformer/thresholds/thresholds.tcl)]
 
 Returns an image containing per-pixel thresholds for the input, as per the local mean.
 
@@ -116,9 +120,9 @@ There are better methods. Extensions to the simple mean, in order of creation (a
 ---
 ### [↑](#top) <a name='image_threshold_niblack'></a> aktive image threshold niblack
 
-Syntax: __aktive image threshold niblack__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=115&name=etc/transformer/thresholds/thresholds.tcl)]
+Syntax: __aktive image threshold niblack__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=109&name=etc/transformer/thresholds/thresholds.tcl)]
 
-Returns an image containing per-pixel thresholds for the input, as per Niblack's method.
+Returns an image containing per-pixel thresholds for the input, as per [Niblack's](https://craftofcoding.wordpress.com/2021/09/30/thresholding-algorithms-niblack-local) method.
 
 The operator [aktive image mask per niblack](transform_threshold_mask_generate.md#image_mask_per_niblack) uses this to generate a mask of the input.
 
@@ -156,12 +160,16 @@ The operator [aktive image mask per niblack](transform_threshold_mask_generate.m
 </table>
 
 
+#### <a name='image_threshold_niblack__references'></a> References
+
+  - <https://craftofcoding.wordpress.com/2021/09/30/thresholding-algorithms-niblack-local>
+
 ---
 ### [↑](#top) <a name='image_threshold_otsu'></a> aktive image threshold otsu
 
-Syntax: __aktive image threshold otsu__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=288&name=etc/transformer/thresholds/thresholds.tcl)]
+Syntax: __aktive image threshold otsu__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=294&name=etc/transformer/thresholds/thresholds.tcl)]
 
-Returns an image containing per-pixel thresholds for the input, as per Otsu's method.
+Returns an image containing per-pixel thresholds for the input, as per [Otsu's](https://en.wikipedia.org/wiki/Otsu%27s_method) method.
 
 The operator [aktive image mask per otsu](transform_threshold_mask_generate.md#image_mask_per_otsu) uses this to generate a mask of the input.
 
@@ -188,12 +196,18 @@ The operator [aktive image mask per otsu](transform_threshold_mask_generate.md#i
 </table>
 
 
+#### <a name='image_threshold_otsu__references'></a> References
+
+  - <https://en.wikipedia.org/wiki/Otsu%27s_method>
+
+  - <http://www.labbookpages.co.uk/software/imgProc/otsuThreshold.html>
+
 ---
 ### [↑](#top) <a name='image_threshold_phansalkar'></a> aktive image threshold phansalkar
 
-Syntax: __aktive image threshold phansalkar__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=222&name=etc/transformer/thresholds/thresholds.tcl)]
+Syntax: __aktive image threshold phansalkar__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=224&name=etc/transformer/thresholds/thresholds.tcl)]
 
-Returns an image containing per-pixel thresholds for the input, as per Phansalkar's method.
+Returns an image containing per-pixel thresholds for the input, as per [Phansalkar's](https://craftofcoding.wordpress.com/2021/09/28/thresholding-algorithms-phansalkar-local) method.
 
 The operator [aktive image mask per phansalkar](transform_threshold_mask_generate.md#image_mask_per_phansalkar) uses this to generate a mask of the input.
 
@@ -234,12 +248,16 @@ The operator [aktive image mask per phansalkar](transform_threshold_mask_generat
 </table>
 
 
+#### <a name='image_threshold_phansalkar__references'></a> References
+
+  - <https://craftofcoding.wordpress.com/2021/09/28/thresholding-algorithms-phansalkar-local>
+
 ---
 ### [↑](#top) <a name='image_threshold_sauvola'></a> aktive image threshold sauvola
 
-Syntax: __aktive image threshold sauvola__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=167&name=etc/transformer/thresholds/thresholds.tcl)]
+Syntax: __aktive image threshold sauvola__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=165&name=etc/transformer/thresholds/thresholds.tcl)]
 
-Returns an image containing per-pixel thresholds for the input, as per Sauvola's method.
+Returns an image containing per-pixel thresholds for the input, as per [Sauvola's](https://craftofcoding.wordpress.com/2021/10/06/thresholding-algorithms-sauvola-local) method.
 
 The operator [aktive image mask per sauvola](transform_threshold_mask_generate.md#image_mask_per_sauvola) uses this to generate a mask of the input.
 
@@ -278,12 +296,16 @@ The operator [aktive image mask per sauvola](transform_threshold_mask_generate.m
 </table>
 
 
+#### <a name='image_threshold_sauvola__references'></a> References
+
+  - <https://craftofcoding.wordpress.com/2021/10/06/thresholding-algorithms-sauvola-local>
+
 ---
 ### [↑](#top) <a name='image_threshold_wolfjolion'></a> aktive image threshold wolfjolion
 
-Syntax: __aktive image threshold wolfjolion__ src ?(param value)...? [[→ definition](../../../../file?ci=trunk&ln=329&name=etc/transformer/thresholds/thresholds.tcl)]
+Syntax: __aktive image threshold wolfjolion__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=340&name=etc/transformer/thresholds/thresholds.tcl)]
 
-Returns an image containing per-pixel thresholds for the input, as per Wolf+Jolion's method.
+Returns an image containing per-pixel thresholds for the input, as per [Wolf+Jolion's](https://chriswolfvision.github.io/www/software/binarize/index.html) method.
 
 The operator [aktive image mask per wolfjolion](transform_threshold_mask_generate.md#image_mask_per_wolfjolion) uses this to generate a mask of the input.
 
@@ -320,4 +342,12 @@ The operator [aktive image mask per wolfjolion](transform_threshold_mask_generat
     <br>geometry(0 0 380 250 3)</td></tr>
 </table>
 
+
+#### <a name='image_threshold_wolfjolion__references'></a> References
+
+  - <https://chriswolfvision.github.io/www/software/binarize/index.html>
+
+  - <https://chriswolfvision.github.io/www/papers/icpr2002v.pdf>
+
+  - <https://github.com/chriswolfvision/local_adaptive_binarization>
 

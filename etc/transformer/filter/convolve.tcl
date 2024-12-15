@@ -1,14 +1,6 @@
 ## -*- mode: tcl ; fill-column: 90 -*-
 # # ## ### ##### ######## ############# #####################
 ## Transformers -- Convolution, Spatial
-#
-## References
-#
-# - https://en.wikipedia.org/wiki/Convolution
-# - https://betterexplained.com/articles/intuitive-convolution/
-# - http://www.dspguide.com/ch24/6.htm
-# - https://micro.magnet.fsu.edu/primer/java/digitalimaging/processing/kernelmaskoperation/
-# - https://archive.org/details/Lectures_on_Image_Processing
 
 # # ## ### ##### ######## ############# #####################
 
@@ -64,6 +56,12 @@ operator {
     note The prefered embedding for convolutions is `mirror`. \
 	It is chosen to have minimal to no impact on results \
 	at the original input's borders.
+
+    ref https://en.wikipedia.org/wiki/Convolution
+    ref https://betterexplained.com/articles/intuitive-convolution/
+    ref http://www.dspguide.com/ch24/6.htm
+    ref https://micro.magnet.fsu.edu/primer/java/digitalimaging/processing/kernelmaskoperation/
+    ref https://archive.org/details/Lectures_on_Image_Processing
 
     state -fields {
 	aktive_region matrix;	// region to hold materialized convolution matrix

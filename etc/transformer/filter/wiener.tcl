@@ -1,9 +1,6 @@
 ## -*- mode: tcl ; fill-column: 90 -*-
 # # ## ### ##### ######## ############# #####################
 ## Transformers -- Wiener filtering, Spatial
-#
-## References
-#
 
 # # ## ### ##### ######## ############# #####################
 
@@ -19,7 +16,12 @@ operator op::wiener {
 	mean/variance information. The default, mirror, is chosen to not \
 	affect the result as much as possible.
 
-    note Returns input with a Wiener reconstruction  filter applied to it.
+    note Returns the input with a \
+	"\[Wiener reconstruction filter\](https://en.wikipedia.org/wiki/Wiener_filter)" \
+	applied to it.
+
+    ref https://en.wikipedia.org/wiki/Wiener_filter
+
     note The location of the input is ignored.
 
     note The filter is applied to each band of the input separately.
