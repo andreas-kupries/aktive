@@ -24,6 +24,7 @@ mkdir -p ../Logs
   tclsh examples.tcl && \
   tclsh tools/md-include \
 	-x doc/ref/xref.tcl \
+	-x doc/ref/xmark.tcl \
 	$(find doc -name '*.md' -a -not -name 'example-*')
 ) |& tee ../Logs/test.install
 
@@ -35,11 +36,6 @@ rm -rf doc/ref/*.tcl
 # squash inlined files (<!include: ...>)
 rm -rf doc/ref/example-*.md
 rm -rf doc/ref/example-*.txt
-
-# update fossil's knowledge of the checkout with the doc changes
-( fossil changes | grep doc/ref | grep MISS | projection 2 | xargs fossil rm
-  fossil add doc/ref
-) >> ../Logs/test.install 2>&1
 
 echo
 date

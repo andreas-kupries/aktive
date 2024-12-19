@@ -1,0 +1,10 @@
+#!/bin/bash
+
+## inlined clean
+find . -name "*~" -print
+find . -name "*~" -exec rm "{}" \;
+find . -follow -name "core*" -exec rm "{}" \;
+rm -f *.trace
+
+mkdir -p ../Logs
+( ./build.tcl uninstall debug "$@" ) |& tee ../Logs/test.install
