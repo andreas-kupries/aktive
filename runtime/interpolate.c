@@ -198,15 +198,26 @@ aktive_interpolator_bicubic (void)
  * - [1] https://mazzo.li/posts/lanczos.html
  * - [2] https://en.wikipedia.org/wiki/Lanczos_resampling
  * - [3] https://github.com/jeffboody/Lanczos
+ * - [4] https://en.wikipedia.org/wiki/Sinc_function
  */
 
 static double
 lanczos3 (double x)
 {
+    //         l(x) = sinc(x)*sinc(x/a)                  |x| < a
+    //              = 0                                  else
+    //
+    // [2] <=> l(x) = a*sin(pi*x)*sin(pi*x/a)/(pi*x)^2   |x| < a, x != 0
+    //              = 1                                  x == 0
+    //              = 0                                  else
+    //
+    // [4] sinc(x) = sin(pi*x)/(pi*x)	"normalized" sinc.
+
     const double a = 3;	// order
     if (x <  0) x = -x;
     if (x >= a) return 0;
     if (x == 0) return 1;
+
     x *= M_PI;
     double r = a * sin(x) * sin(x/a) / (x*x);
     return r;
@@ -225,7 +236,12 @@ static double lanczos (double a, double b, double c, double d, double e, double 
     double we = lanczos3 ( 2-t);
     double wf = lanczos3 ( 3-t);
 
-    return a*wa + b* wb + c*wc + d*wd + e*we + f*wf;
+    return a * wa
+	+  b * wb
+	+  c * wc
+	+  d * wd
+	+  e * we
+	+  f * wf;
 }
 
 static void
