@@ -138,6 +138,8 @@ Syntax: __aktive op sdf xor__ srcs... [[→ definition](/file?ci=trunk&ln=186&na
 
 Returns the symmetric difference of all input SDFs.
 
+A single input is passed through unchanged.
+
 |Input|Description|
 |:---|:---|
 |args...|Source images|
@@ -169,7 +171,7 @@ Returns the symmetric difference of all input SDFs.
 ---
 ### [↑](#top) <a name='op_sdf_xor_core'></a> aktive op sdf xor-core
 
-Syntax: __aktive op sdf xor-core__ a b [[→ definition](/file?ci=trunk&ln=208&name=etc/generator/virtual/sdf.tcl)]
+Syntax: __aktive op sdf xor-core__ a b [[→ definition](/file?ci=trunk&ln=210&name=etc/generator/virtual/sdf.tcl)]
 
 Returns the symmetric difference of the two input SDFs. This is defined as `(A + B) - (A * B)`.
 

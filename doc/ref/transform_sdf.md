@@ -35,7 +35,7 @@
 ---
 ### [↑](#top) <a name='op_sdf_2image_fit'></a> aktive op sdf 2image fit
 
-Syntax: __aktive op sdf 2image fit__ src [[→ definition](/file?ci=trunk&ln=317&name=etc/generator/virtual/sdf.tcl)]
+Syntax: __aktive op sdf 2image fit__ src [[→ definition](/file?ci=trunk&ln=319&name=etc/generator/virtual/sdf.tcl)]
 
 Compresses the input SDF into the range 0..1 and returns the resulting grayscale image.
 
@@ -68,7 +68,7 @@ Compresses the input SDF into the range 0..1 and returns the resulting grayscale
 ---
 ### [↑](#top) <a name='op_sdf_2image_pixelated'></a> aktive op sdf 2image pixelated
 
-Syntax: __aktive op sdf 2image pixelated__ src [[→ definition](/file?ci=trunk&ln=358&name=etc/generator/virtual/sdf.tcl)]
+Syntax: __aktive op sdf 2image pixelated__ src [[→ definition](/file?ci=trunk&ln=360&name=etc/generator/virtual/sdf.tcl)]
 
 Converts the SDF into a black/white image with pixelated element borders.
 
@@ -101,7 +101,7 @@ Converts the SDF into a black/white image with pixelated element borders.
 ---
 ### [↑](#top) <a name='op_sdf_2image_smooth'></a> aktive op sdf 2image smooth
 
-Syntax: __aktive op sdf 2image smooth__ src [[→ definition](/file?ci=trunk&ln=337&name=etc/generator/virtual/sdf.tcl)]
+Syntax: __aktive op sdf 2image smooth__ src [[→ definition](/file?ci=trunk&ln=339&name=etc/generator/virtual/sdf.tcl)]
 
 Converts the SDF into a grey-scale image with anti-aliased element borders.
 
@@ -166,7 +166,7 @@ Returns the inverted input SDF, where inside and outside changed places. This is
 ---
 ### [↑](#top) <a name='op_sdf_outline'></a> aktive op sdf outline
 
-Syntax: __aktive op sdf outline__ src [[→ definition](/file?ci=trunk&ln=261&name=etc/generator/virtual/sdf.tcl)]
+Syntax: __aktive op sdf outline__ src [[→ definition](/file?ci=trunk&ln=263&name=etc/generator/virtual/sdf.tcl)]
 
 Replaces the input SDF with an outlined form, and returns the result.
 
@@ -200,7 +200,7 @@ This is implemented by taking the absolute of the input.
 ---
 ### [↑](#top) <a name='op_sdf_ring'></a> aktive op sdf ring
 
-Syntax: __aktive op sdf ring__ src (param value)... [[→ definition](/file?ci=trunk&ln=234&name=etc/generator/virtual/sdf.tcl)]
+Syntax: __aktive op sdf ring__ src (param value)... [[→ definition](/file?ci=trunk&ln=236&name=etc/generator/virtual/sdf.tcl)]
 
 Combines outlining and rounding to replace the input SDF with an SDF tracing the border at some thickness and returns the result.
 
@@ -240,7 +240,7 @@ Note that a thickness of zero devolves this operation to a plain outline.
 ---
 ### [↑](#top) <a name='op_sdf_round'></a> aktive op sdf round
 
-Syntax: __aktive op sdf round__ src (param value)... [[→ definition](/file?ci=trunk&ln=282&name=etc/generator/virtual/sdf.tcl)]
+Syntax: __aktive op sdf round__ src (param value)... [[→ definition](/file?ci=trunk&ln=284&name=etc/generator/virtual/sdf.tcl)]
 
 Replaces the input SDF with a more rounded form per the radius, and returns the result.
 
