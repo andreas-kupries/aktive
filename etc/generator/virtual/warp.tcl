@@ -169,6 +169,8 @@ operator transform::compose {
 
     note The result is suitable for use with "<!xref: aktive warp matrix>"
 
+    note A single matrix is passed through unchanged. And not materialized either.
+
     strict all \
 	All projective matrices are materialized and \
 	immediately used to compute the composition.
@@ -176,7 +178,9 @@ operator transform::compose {
     input...
 
     body {
-	aktive::aggregate {aktive transform compose-core} $args
+	aktive::aggregate-or-pass {
+	    aktive transform compose-core
+	} $args
     }
 }
 

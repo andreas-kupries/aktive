@@ -60,10 +60,12 @@ operator {coordinate layout} {
 
     note Returns image with all inputs joined $layout along the ${coordinate}-axis.
 
+    note A single input is passed through unchanged.
+
     input...
 
     body {
-	aktive::aggregate {
+	aktive::aggregate-or-pass {
 	    aktive op montage @@coordinate@@-core
 	} $args
     }

@@ -17,12 +17,19 @@ debug prefix aktive/aggregate {<[pid]> | }
 namespace eval aktive {}
 
 # # ## ### ##### ######## ############# #####################
-## Helper to combine a series of images with an associative binary
+## Helpers to combine a series of images with an associative binary
 ## command. Because of the expected associativity the aggregation
 ## constructs a binary tree.
 
+proc aktive::aggregate-or-pass {cmdprefix parts} {
+    if {[llength $parts]  < 1} { aktive error "not enough inputs, expected 1 or more" }
+    if {[llength $parts] == 1} { return [lindex $parts 0] }
+    aggregate $cmdprefix $parts
+}
+
 proc aktive::aggregate {cmdprefix parts} {
     debug.aktive/aggregate {}
+    if {[llength $parts] < 2} { aktive error "not enough inputs, expected 2 or more" }
 
     # combine the images through a binary tree reduction
     while {[llength $parts] >= 2} {

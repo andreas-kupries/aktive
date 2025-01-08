@@ -194,12 +194,14 @@ operator op::sdf::xor {
 
     note Returns the symmetric difference of all input SDFs.
 
+    note A single input is passed through unchanged.
+
     ref https://iquilezles.org/articles/distfunctions2d
 
     input...
 
     body {
-	aktive::aggregate {
+	aktive::aggregate-or-pass {
 	    aktive op sdf xor-core
 	} $args
     }
