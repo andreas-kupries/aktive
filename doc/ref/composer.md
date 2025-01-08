@@ -36,6 +36,8 @@ Syntax: __aktive op montage x__ srcs... [[→ definition](/file?ci=trunk&ln=40&n
 
 Returns image with all inputs joined left to right along the x-axis.
 
+A single input is passed through unchanged.
+
 |Input|Description|
 |:---|:---|
 |args...|Source images|
@@ -84,7 +86,7 @@ Returns image with all inputs joined left to right along the x-axis.
 ---
 ### [↑](#top) <a name='op_montage_x_core'></a> aktive op montage x-core
 
-Syntax: __aktive op montage x-core__ src0 src1 [[→ definition](/file?ci=trunk&ln=72&name=etc/composer/montage.tcl)]
+Syntax: __aktive op montage x-core__ src0 src1 [[→ definition](/file?ci=trunk&ln=74&name=etc/composer/montage.tcl)]
 
 Returns image with the 2 inputs joined left to right along the x-axis.
 
@@ -139,6 +141,8 @@ Syntax: __aktive op montage y__ srcs... [[→ definition](/file?ci=trunk&ln=40&n
 
 Returns image with all inputs joined top to bottom along the y-axis.
 
+A single input is passed through unchanged.
+
 |Input|Description|
 |:---|:---|
 |args...|Source images|
@@ -187,7 +191,7 @@ Returns image with all inputs joined top to bottom along the y-axis.
 ---
 ### [↑](#top) <a name='op_montage_y_core'></a> aktive op montage y-core
 
-Syntax: __aktive op montage y-core__ src0 src1 [[→ definition](/file?ci=trunk&ln=72&name=etc/composer/montage.tcl)]
+Syntax: __aktive op montage y-core__ src0 src1 [[→ definition](/file?ci=trunk&ln=74&name=etc/composer/montage.tcl)]
 
 Returns image with the 2 inputs joined top to bottom along the y-axis.
 
@@ -242,6 +246,8 @@ Syntax: __aktive op montage z__ srcs... [[→ definition](/file?ci=trunk&ln=40&n
 
 Returns image with all inputs joined front to back along the z-axis.
 
+A single input is passed through unchanged.
+
 |Input|Description|
 |:---|:---|
 |args...|Source images|
@@ -290,7 +296,7 @@ Returns image with all inputs joined front to back along the z-axis.
 ---
 ### [↑](#top) <a name='op_montage_z_core'></a> aktive op montage z-core
 
-Syntax: __aktive op montage z-core__ src0 src1 [[→ definition](/file?ci=trunk&ln=72&name=etc/composer/montage.tcl)]
+Syntax: __aktive op montage z-core__ src0 src1 [[→ definition](/file?ci=trunk&ln=74&name=etc/composer/montage.tcl)]
 
 Returns image with the 2 inputs joined front to back along the z-axis.
 
