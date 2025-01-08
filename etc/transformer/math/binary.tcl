@@ -127,7 +127,13 @@ operator {cfunction dexpr} {
     note Returns image aggregated from the application of the associative \
 	binary operation `${dexpr}` to all shared pixels of all the inputs.
 
+    note Expects 2 or more input images. Throws an error if there are less.
+
+    ## TODO: Accept and pass a single input unchanged - simplifier rule
+
     state -setup {
+	if (srcs->c < 1) aktive_fail ("not enough inputs, expected 2 or more");
+
 	aktive_uint i;
 	aktive_geometry* g = aktive_image_get_geometry (srcs->v[0]);
 
