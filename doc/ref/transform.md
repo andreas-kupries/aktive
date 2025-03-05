@@ -63,7 +63,7 @@ The location of the matrix image is ignored.
 
 #### <a name='op_bands_recombine__examples'></a> Examples
 
-<table>
+<a name='op_bands_recombine__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>@2
@@ -99,7 +99,7 @@ This is useful to add after an application of [aktive op transform by](transform
 
 #### <a name='op_view__examples'></a> Examples
 
-<table>
+<a name='op_view__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op view @1 port {190 125 380 250}
@@ -110,7 +110,7 @@ This is useful to add after an application of [aktive op transform by](transform
     <br>geometry(190 125 380 250 3)</td></tr>
 </table>
 
-<table>
+<a name='op_view__examples__e2'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op view @1 port {-190 -125 380 250}
@@ -121,7 +121,7 @@ This is useful to add after an application of [aktive op transform by](transform
     <br>geometry(-190 -125 380 250 3)</td></tr>
 </table>
 
-<table>
+<a name='op_view__examples__e3'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op view @1 port {80 80 80 80}

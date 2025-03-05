@@ -54,7 +54,7 @@ The box is axis-aligned, of width `2*ewidth+1`, height `2*eheight+1`, and placed
 
 #### <a name='image_sdf_box__examples'></a> Examples
 
-<table>
+<a name='image_sdf_box__examples__e1'></a><table>
 <tr><th>aktive image sdf box center {64 64} width 128 height 128 ewidth 32 eheight 32
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00216.gif' alt='aktive image sdf box center {64 64} width 128 height 128 ewidth 32 eheight 32' style='border:4px solid gold'>
@@ -99,7 +99,7 @@ The radii default to 0, i.e. no rounded corners.
 
 #### <a name='image_sdf_box_rounded__examples'></a> Examples
 
-<table>
+<a name='image_sdf_box_rounded__examples__e1'></a><table>
 <tr><th>aktive image sdf box-rounded center {64 64} width 128 height 128 ewidth 32 eheight 32
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00219.gif' alt='aktive image sdf box-rounded center {64 64} width 128 height 128 ewidth 32 eheight 32' style='border:4px solid gold'>
@@ -108,7 +108,7 @@ The radii default to 0, i.e. no rounded corners.
     <br>geometry(0 0 128 128 1)</td></tr></table></td></tr>
 </table>
 
-<table>
+<a name='image_sdf_box_rounded__examples__e2'></a><table>
 <tr><th>aktive image sdf box-rounded center {64 64} width 128 height 128 ewidth 32 eheight 32 upleftradius 32
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00222.gif' alt='aktive image sdf box-rounded center {64 64} width 128 height 128 ewidth 32 eheight 32 upleftradius 32' style='border:4px solid gold'>
@@ -146,7 +146,7 @@ The circle has the `radius`, and is placed at the specified center.
 
 #### <a name='image_sdf_circle__examples'></a> Examples
 
-<table>
+<a name='image_sdf_circle__examples__e1'></a><table>
 <tr><th>aktive image sdf circle center {64 64} width 128 height 128 radius 32
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00225.gif' alt='aktive image sdf circle center {64 64} width 128 height 128 radius 32' style='border:4px solid gold'>
@@ -184,7 +184,7 @@ The circles all have the same `radius`, and are placed at the specified centers.
 
 #### <a name='image_sdf_circles__examples'></a> Examples
 
-<table>
+<a name='image_sdf_circles__examples__e1'></a><table>
 <tr><th>aktive image sdf circles width 128 height 128 radius 8 centers {10 10} {30 80} {80 30}
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00228.gif' alt='aktive image sdf circles width 128 height 128 radius 8 centers {10 10} {30 80} {80 30}' style='border:4px solid gold'>
@@ -222,7 +222,7 @@ The line connects the two specified locations.
 
 #### <a name='image_sdf_line__examples'></a> Examples
 
-<table>
+<a name='image_sdf_line__examples__e1'></a><table>
 <tr><th>aktive image sdf line width 128 height 128 from {10 10} to {30 80}
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00231.gif' alt='aktive image sdf line width 128 height 128 from {10 10} to {30 80}' style='border:4px solid gold'>
@@ -262,7 +262,7 @@ The parallelogram is axis-aligned, of width `2*ewidth+1`, height `2*eheight+1`, 
 
 #### <a name='image_sdf_parallelogram__examples'></a> Examples
 
-<table>
+<a name='image_sdf_parallelogram__examples__e1'></a><table>
 <tr><th>aktive image sdf parallelogram center {64 64} width 128 height 128 ewidth 32 eheight 32 eskew 8
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00234.gif' alt='aktive image sdf parallelogram center {64 64} width 128 height 128 ewidth 32 eheight 32 eskew 8' style='border:4px solid gold'>
@@ -299,7 +299,7 @@ The lines form a polyline through the specified points.
 
 #### <a name='image_sdf_polyline__examples'></a> Examples
 
-<table>
+<a name='image_sdf_polyline__examples__e1'></a><table>
 <tr><th>aktive image sdf polyline width 128 height 128 points {10 10} {30 80} {80 30}
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00237.gif' alt='aktive image sdf polyline width 128 height 128 points {10 10} {30 80} {80 30}' style='border:4px solid gold'>
@@ -338,7 +338,7 @@ The rhombus is axis-aligned, of width `2*ewidth+1`, height `2*eheight+1`, and pl
 
 #### <a name='image_sdf_rhombus__examples'></a> Examples
 
-<table>
+<a name='image_sdf_rhombus__examples__e1'></a><table>
 <tr><th>aktive image sdf rhombus center {64 64} width 128 height 128 ewidth 32 eheight 32
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00240.gif' alt='aktive image sdf rhombus center {64 64} width 128 height 128 ewidth 32 eheight 32' style='border:4px solid gold'>
@@ -377,7 +377,7 @@ The triangle connects the points A, B, and C, in this order.
 
 #### <a name='image_sdf_triangle__examples'></a> Examples
 
-<table>
+<a name='image_sdf_triangle__examples__e1'></a><table>
 <tr><th>aktive image sdf triangle width 128 height 128 a {10 10} b {30 80} c {80 30}
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00243.gif' alt='aktive image sdf triangle width 128 height 128 a {10 10} b {30 80} c {80 30}' style='border:4px solid gold'>

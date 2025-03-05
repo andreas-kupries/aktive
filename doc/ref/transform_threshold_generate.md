@@ -46,7 +46,7 @@ The operator [aktive image mask per bernsen](transform_threshold_mask_generate.m
 
 #### <a name='image_threshold_bernsen__examples'></a> Examples
 
-<table>
+<a name='image_threshold_bernsen__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive image threshold bernsen @1 radius 7
@@ -57,7 +57,7 @@ The operator [aktive image mask per bernsen](transform_threshold_mask_generate.m
     <br>geometry(0 0 300 200 1)</td></tr>
 </table>
 
-<table>
+<a name='image_threshold_bernsen__examples__e2'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive image threshold bernsen @1 radius 7
@@ -94,7 +94,7 @@ There are better methods. Extensions to the simple mean, in order of creation (a
 
 #### <a name='image_threshold_mean__examples'></a> Examples
 
-<table>
+<a name='image_threshold_mean__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive image threshold mean @1 radius 7
@@ -105,7 +105,7 @@ There are better methods. Extensions to the simple mean, in order of creation (a
     <br>geometry(0 0 300 200 1)</td></tr>
 </table>
 
-<table>
+<a name='image_threshold_mean__examples__e2'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive image threshold mean @1 radius 7
@@ -137,7 +137,7 @@ The operator [aktive image mask per niblack](transform_threshold_mask_generate.m
 
 #### <a name='image_threshold_niblack__examples'></a> Examples
 
-<table>
+<a name='image_threshold_niblack__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive image threshold niblack @1 radius 7
@@ -148,7 +148,7 @@ The operator [aktive image mask per niblack](transform_threshold_mask_generate.m
     <br>geometry(0 0 300 200 1)</td></tr>
 </table>
 
-<table>
+<a name='image_threshold_niblack__examples__e2'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive image threshold niblack @1 radius 7
@@ -184,7 +184,7 @@ The operator [aktive image mask per otsu](transform_threshold_mask_generate.md#i
 
 #### <a name='image_threshold_otsu__examples'></a> Examples
 
-<table>
+<a name='image_threshold_otsu__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive image threshold otsu @1 radius 7
@@ -225,7 +225,7 @@ The operator [aktive image mask per phansalkar](transform_threshold_mask_generat
 
 #### <a name='image_threshold_phansalkar__examples'></a> Examples
 
-<table>
+<a name='image_threshold_phansalkar__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive image threshold phansalkar @1 radius 7
@@ -236,7 +236,7 @@ The operator [aktive image mask per phansalkar](transform_threshold_mask_generat
     <br>geometry(0 0 300 200 1)</td></tr>
 </table>
 
-<table>
+<a name='image_threshold_phansalkar__examples__e2'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive image threshold phansalkar @1 radius 7
@@ -273,7 +273,7 @@ The operator [aktive image mask per sauvola](transform_threshold_mask_generate.m
 
 #### <a name='image_threshold_sauvola__examples'></a> Examples
 
-<table>
+<a name='image_threshold_sauvola__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive image threshold sauvola @1 radius 7
@@ -284,7 +284,7 @@ The operator [aktive image mask per sauvola](transform_threshold_mask_generate.m
     <br>geometry(0 0 300 200 1)</td></tr>
 </table>
 
-<table>
+<a name='image_threshold_sauvola__examples__e2'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive image threshold sauvola @1 radius 7
@@ -320,7 +320,7 @@ The operator [aktive image mask per wolfjolion](transform_threshold_mask_generat
 
 #### <a name='image_threshold_wolfjolion__examples'></a> Examples
 
-<table>
+<a name='image_threshold_wolfjolion__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive image threshold wolfjolion @1 radius 7
@@ -331,7 +331,7 @@ The operator [aktive image mask per wolfjolion](transform_threshold_mask_generat
     <br>geometry(0 0 300 200 1)</td></tr>
 </table>
 
-<table>
+<a name='image_threshold_wolfjolion__examples__e2'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive image threshold wolfjolion @1 radius 7

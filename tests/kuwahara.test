@@ -23,7 +23,7 @@ syntax {
 # # ## ### ##### ######## ############# #####################
 ##
 
-set in [aktive read from netpbm path [A crop.pgm]]
+set in [aktive read from netpbm file path [A crop.pgm]]
 
 test aktive-op-kuwahara-core-2.0 "aktive op kuwahara-core" -body {
     save-to test.kuwahara-core.pgm \
@@ -35,7 +35,7 @@ test aktive-op-kuwahara-core-2.0 "aktive op kuwahara-core" -body {
 
 # # ## ### ##### ######## ############# #####################
 
-set in [aktive read from netpbm path [A butterfly.ppm]]
+set in [aktive read from netpbm file path [A butterfly.ppm]]
 
 test aktive-op-kuwahara-2.0 "aktive op kuwahara" -body {
     save-to test.kuwahara.ppm \

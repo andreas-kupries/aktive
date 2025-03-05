@@ -47,7 +47,7 @@ The prefered embedding for convolutions is `mirror`. It is chosen to have minima
 
 #### <a name='op_convolve_xy__examples'></a> Examples
 
-<table>
+<a name='op_convolve_xy__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>@2
@@ -61,7 +61,7 @@ The prefered embedding for convolutions is `mirror`. It is chosen to have minima
     <br>geometry(4 0 120 128 1)</td></tr>
 </table>
 
-<table>
+<a name='op_convolve_xy__examples__e2'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>@2

@@ -28,7 +28,7 @@ foreach path {
     butterfly.ppm
     watergarden.ppm
 } {
-    set in  [aktive read from netpbm path [A $path]]
+    set in  [aktive read from netpbm file path [A $path]]
     set ext [string range [file ext $path] 1 end]
 
     test aktive-op-equalization-global-2.[incr k] "aktive op equalization global" -body {

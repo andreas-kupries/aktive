@@ -104,7 +104,7 @@ Returns image aligned to a border in a larger image.
 
 #### <a name='op_align_bottom__examples'></a> Examples
 
-<table>
+<a name='op_align_bottom__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op align bottom @1 size 160 border mirror
@@ -134,7 +134,7 @@ Returns image aligned to a border in a larger image.
 
 #### <a name='op_align_left__examples'></a> Examples
 
-<table>
+<a name='op_align_left__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op align left @1 size 160 border mirror
@@ -164,7 +164,7 @@ Returns image aligned to a border in a larger image.
 
 #### <a name='op_align_right__examples'></a> Examples
 
-<table>
+<a name='op_align_right__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op align right @1 size 160 border mirror
@@ -194,7 +194,7 @@ Returns image aligned to a border in a larger image.
 
 #### <a name='op_align_top__examples'></a> Examples
 
-<table>
+<a name='op_align_top__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op align top @1 size 160 border mirror
@@ -219,7 +219,7 @@ Returns image where the center column of the input is shifted to the origin of t
 
 #### <a name='op_center_origin_x__examples'></a> Examples
 
-<table>
+<a name='op_center_origin_x__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op center-origin x @1
@@ -244,7 +244,7 @@ Returns image where the center pixel of the input is shifted to the origin.
 
 #### <a name='op_center_origin_xy__examples'></a> Examples
 
-<table>
+<a name='op_center_origin_xy__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op center-origin xy @1
@@ -269,7 +269,7 @@ Returns image where the center row of the input is shifted to the origin of the 
 
 #### <a name='op_center_origin_y__examples'></a> Examples
 
-<table>
+<a name='op_center_origin_y__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op center-origin y @1
@@ -312,7 +312,7 @@ Returns image containing a rectangular subset of input, specified by the amount 
 
 #### <a name='op_crop__examples'></a> Examples
 
-<table>
+<a name='op_crop__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op crop @1 left 10 right 20 top 30 bottom 50
@@ -377,7 +377,7 @@ Returns an image embedding the input into an arbitrarily colored border. The col
 
 #### <a name='op_embed_bg__examples'></a> Examples
 
-<table>
+<a name='op_embed_bg__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op embed bg @1 left 32 right 32 top 32 bottom 32 values 0.5
@@ -409,7 +409,7 @@ Returns an image embedding the input into a black border.
 
 #### <a name='op_embed_black__examples'></a> Examples
 
-<table>
+<a name='op_embed_black__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op embed black @1 left 32 right 32 top 32 bottom 32
@@ -441,7 +441,7 @@ Returns an image embedding the input into a border made from the replicated inpu
 
 #### <a name='op_embed_copy__examples'></a> Examples
 
-<table>
+<a name='op_embed_copy__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op embed copy @1 left 32 right 32 top 32 bottom 32
@@ -473,7 +473,7 @@ Returns an image embedding the input into a border made from the replicated mirr
 
 #### <a name='op_embed_mirror__examples'></a> Examples
 
-<table>
+<a name='op_embed_mirror__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op embed mirror @1 left 32 right 32 top 32 bottom 32
@@ -505,7 +505,7 @@ Returns an image embedding the input into a border made from the replicated inpu
 
 #### <a name='op_embed_tile__examples'></a> Examples
 
-<table>
+<a name='op_embed_tile__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op embed tile @1 left 32 right 32 top 32 bottom 32
@@ -537,7 +537,7 @@ Returns an image embedding the input into a white border.
 
 #### <a name='op_embed_white__examples'></a> Examples
 
-<table>
+<a name='op_embed_white__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op embed white @1 left 32 right 32 top 32 bottom 32
@@ -562,7 +562,7 @@ Returns image which mirrors the input along the x-axis.
 
 #### <a name='op_flip_x__examples'></a> Examples
 
-<table>
+<a name='op_flip_x__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op flip x @1
@@ -587,7 +587,7 @@ Returns image which mirrors the input along the y-axis.
 
 #### <a name='op_flip_y__examples'></a> Examples
 
-<table>
+<a name='op_flip_y__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op flip y @1
@@ -648,7 +648,7 @@ This is a convenience operator implemented on top of [aktive op transform by](tr
 
 #### <a name='op_resize__examples'></a> Examples
 
-<table>
+<a name='op_resize__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op resize @1 width 21 height 29
@@ -681,7 +681,7 @@ This is a convenience operator implemented on top of [aktive op transform by](tr
 
 #### <a name='op_rotate_any__examples'></a> Examples
 
-<table>
+<a name='op_rotate_any__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op rotate any @1 by 33 around {32 32}
@@ -706,7 +706,7 @@ Returns image rotating the input 90 degrees counter clockwise
 
 #### <a name='op_rotate_ccw__examples'></a> Examples
 
-<table>
+<a name='op_rotate_ccw__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op rotate ccw @1
@@ -731,7 +731,7 @@ Returns image rotating the input 90 degrees clockwise.
 
 #### <a name='op_rotate_cw__examples'></a> Examples
 
-<table>
+<a name='op_rotate_cw__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op rotate cw @1
@@ -756,7 +756,7 @@ Returns image rotating the input 180 degrees (counter) clockwise.
 
 #### <a name='op_rotate_half__examples'></a> Examples
 
-<table>
+<a name='op_rotate_half__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op rotate half @1
@@ -788,7 +788,7 @@ This is accomplished by sub sampling the result of a lowpass filter applied to t
 
 #### <a name='op_sample_decimate_x__examples'></a> Examples
 
-<table>
+<a name='op_sample_decimate_x__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op sample decimate x @1 by 4
@@ -818,7 +818,7 @@ Returns image with the input decimated along both x and y axes according to the 
 
 #### <a name='op_sample_decimate_xy__examples'></a> Examples
 
-<table>
+<a name='op_sample_decimate_xy__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op sample decimate xy @1 by 4
@@ -850,7 +850,7 @@ This is accomplished by sub sampling the result of a lowpass filter applied to t
 
 #### <a name='op_sample_decimate_y__examples'></a> Examples
 
-<table>
+<a name='op_sample_decimate_y__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op sample decimate y @1 by 4
@@ -880,7 +880,7 @@ Returns image where the input is "zero-stuffed" along the x-axis according to th
 
 #### <a name='op_sample_fill_x__examples'></a> Examples
 
-<table>
+<a name='op_sample_fill_x__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op sample fill x @1 by 4 fill 0.5
@@ -910,7 +910,7 @@ Returns image where the input is "zero-stuffed" along both x and y axes accordin
 
 #### <a name='op_sample_fill_xy__examples'></a> Examples
 
-<table>
+<a name='op_sample_fill_xy__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op sample fill xy @1 by 4 fill 0.5
@@ -940,7 +940,7 @@ Returns image where the input is "zero-stuffed" along the y-axis according to th
 
 #### <a name='op_sample_fill_y__examples'></a> Examples
 
-<table>
+<a name='op_sample_fill_y__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op sample fill y @1 by 4 fill 0.5
@@ -988,7 +988,7 @@ This is accomplished by low-pass filtering applied to the result of zero-stuffin
 
 #### <a name='op_sample_interpolate_x__examples'></a> Examples
 
-<table>
+<a name='op_sample_interpolate_x__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op sample interpolate x @1 by 4
@@ -1020,7 +1020,7 @@ This is accomplished by low-pass filtering applied to the result of zero-stuffin
 
 #### <a name='op_sample_interpolate_xy__examples'></a> Examples
 
-<table>
+<a name='op_sample_interpolate_xy__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op sample interpolate xy @1 by 4
@@ -1052,7 +1052,7 @@ This is accomplished by low-pass filtering applied to the result of zero-stuffin
 
 #### <a name='op_sample_interpolate_y__examples'></a> Examples
 
-<table>
+<a name='op_sample_interpolate_y__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op sample interpolate y @1 by 4
@@ -1081,7 +1081,7 @@ Returns image where the input is stretched along the x-axis according to the str
 
 #### <a name='op_sample_replicate_x__examples'></a> Examples
 
-<table>
+<a name='op_sample_replicate_x__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op sample replicate x @1 by 4
@@ -1110,7 +1110,7 @@ Returns image where the input is stretched along both x and y axes according to 
 
 #### <a name='op_sample_replicate_xy__examples'></a> Examples
 
-<table>
+<a name='op_sample_replicate_xy__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op sample replicate xy @1 by 4
@@ -1139,7 +1139,7 @@ Returns image where the input is stretched along the y-axis according to the str
 
 #### <a name='op_sample_replicate_y__examples'></a> Examples
 
-<table>
+<a name='op_sample_replicate_y__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op sample replicate y @1 by 4
@@ -1183,7 +1183,7 @@ Returns image with the input sampled down along the x-axis according to the samp
 
 #### <a name='op_sample_sub_x__examples'></a> Examples
 
-<table>
+<a name='op_sample_sub_x__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op sample sub x @1 by 4
@@ -1212,7 +1212,7 @@ Returns image with the input sampled down along both x and y axes according to t
 
 #### <a name='op_sample_sub_xy__examples'></a> Examples
 
-<table>
+<a name='op_sample_sub_xy__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op sample sub xy @1 by 4
@@ -1241,7 +1241,7 @@ Returns image with the input sampled down along the y-axis according to the samp
 
 #### <a name='op_sample_sub_y__examples'></a> Examples
 
-<table>
+<a name='op_sample_sub_y__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op sample sub y @1 by 4
@@ -1285,7 +1285,7 @@ Returns image with the pixels of the input shifted along the x axis so that the 
 
 #### <a name='op_scroll_x__examples'></a> Examples
 
-<table>
+<a name='op_scroll_x__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op scroll x @1 offset 32
@@ -1314,7 +1314,7 @@ Returns image with the pixels of the input shifted along the y axis so that the 
 
 #### <a name='op_scroll_y__examples'></a> Examples
 
-<table>
+<a name='op_scroll_y__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op scroll y @1 offset 32
@@ -1367,7 +1367,7 @@ result is the location of the result.
 
 #### <a name='op_select_x__examples'></a> Examples
 
-<table>
+<a name='op_select_x__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op select x @1 from 20 to 50
@@ -1405,7 +1405,7 @@ result is the location of the result.
 
 #### <a name='op_select_y__examples'></a> Examples
 
-<table>
+<a name='op_select_y__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op select y @1 from 20 to 50
@@ -1489,7 +1489,7 @@ The location of the image is not changed.
 
 #### <a name='op_swap_xy__examples'></a> Examples
 
-<table>
+<a name='op_swap_xy__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op swap xy @1
@@ -1602,7 +1602,7 @@ This is an alias of `swap xy`.
 
 #### <a name='op_transpose__examples'></a> Examples
 
-<table>
+<a name='op_transpose__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op transpose @1
@@ -1627,7 +1627,7 @@ Returns image with the input mirrored along the secondary diagonal.
 
 #### <a name='op_transverse__examples'></a> Examples
 
-<table>
+<a name='op_transverse__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op transverse @1

@@ -637,8 +637,10 @@
 
 ## <a name='_r'></a> r
 
- - [aktive read from aktive](generator_reader.md#read_from_aktive)
- - [aktive read from netpbm](generator_reader.md#read_from_netpbm)
+ - [aktive read from aktive file](generator_reader.md#read_from_aktive_file)
+ - [aktive read from aktive string](generator_reader.md#read_from_aktive_string)
+ - [aktive read from netpbm file](generator_reader.md#read_from_netpbm_file)
+ - [aktive read from netpbm string](generator_reader.md#read_from_netpbm_string)
  - [aktive rectangle empty](miscellaneous_geometry.md#rectangle_empty)
  - [aktive rectangle equal](miscellaneous_geometry.md#rectangle_equal)
  - [aktive rectangle grow](miscellaneous_geometry.md#rectangle_grow)

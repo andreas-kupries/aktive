@@ -56,7 +56,7 @@ The underlying operation is [aktive warp 2cartesian](generator_virtual_warp.md#w
 
 #### <a name='effect_2cartesian__examples'></a> Examples
 
-<table>
+<a name='effect_2cartesian__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive effect 2cartesian @1
@@ -67,7 +67,7 @@ The underlying operation is [aktive warp 2cartesian](generator_virtual_warp.md#w
     <br>geometry(0 0 380 250 3)</td></tr>
 </table>
 
-<table>
+<a name='effect_2cartesian__examples__e2'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive effect 2cartesian @1
@@ -106,7 +106,7 @@ The underlying operation is [aktive warp 2polar](generator_virtual_warp.md#warp_
 
 #### <a name='effect_2polar__examples'></a> Examples
 
-<table>
+<a name='effect_2polar__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive effect 2polar @1
@@ -117,7 +117,7 @@ The underlying operation is [aktive warp 2polar](generator_virtual_warp.md#warp_
     <br>geometry(0 0 380 250 3)</td></tr>
 </table>
 
-<table>
+<a name='effect_2polar__examples__e2'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive effect 2polar @1
@@ -150,7 +150,7 @@ Returns blurred input, per the specified blur radius.
 
 #### <a name='effect_blur__examples'></a> Examples
 
-<table>
+<a name='effect_blur__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive effect blur @1 radius 16
@@ -161,7 +161,7 @@ Returns blurred input, per the specified blur radius.
     <br>geometry(16 0 96 128 1)</td></tr>
 </table>
 
-<table>
+<a name='effect_blur__examples__e2'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive effect blur @1 radius 16
@@ -190,7 +190,7 @@ Returns a grey image with a charcoal-like sketch of the sRGB input.
 
 #### <a name='effect_charcoal__examples'></a> Examples
 
-<table>
+<a name='effect_charcoal__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive effect charcoal @1
@@ -201,7 +201,7 @@ Returns a grey image with a charcoal-like sketch of the sRGB input.
     <br>geometry(0 0 380 250 1)</td></tr>
 </table>
 
-<table>
+<a name='effect_charcoal__examples__e2'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive effect charcoal @1 light yes
@@ -226,7 +226,7 @@ Returns embossed input.
 
 #### <a name='effect_emboss__examples'></a> Examples
 
-<table>
+<a name='effect_emboss__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive effect emboss @1
@@ -260,7 +260,7 @@ The underlying operation is [aktive warp noise gauss](generator_virtual_warp.md#
 
 #### <a name='effect_jitter_gauss__examples'></a> Examples
 
-<table>
+<a name='effect_jitter_gauss__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive effect jitter gauss @1 sigma 4 seed 703011174
@@ -271,7 +271,7 @@ The underlying operation is [aktive warp noise gauss](generator_virtual_warp.md#
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
-<table>
+<a name='effect_jitter_gauss__examples__e2'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive effect jitter gauss @1 sigma 4 seed 703011174
@@ -282,7 +282,7 @@ The underlying operation is [aktive warp noise gauss](generator_virtual_warp.md#
     <br>geometry(0 0 256 256 3)</td></tr>
 </table>
 
-<table>
+<a name='effect_jitter_gauss__examples__e3'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive effect jitter gauss @1 sigma 4 seed 703011174
@@ -316,7 +316,7 @@ The underlying operation is [aktive warp noise uniform](generator_virtual_warp.m
 
 #### <a name='effect_jitter_uniform__examples'></a> Examples
 
-<table>
+<a name='effect_jitter_uniform__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive effect jitter uniform @1 min 1 max 6 seed 703011174
@@ -327,7 +327,7 @@ The underlying operation is [aktive warp noise uniform](generator_virtual_warp.m
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
-<table>
+<a name='effect_jitter_uniform__examples__e2'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive effect jitter uniform @1 min 1 max 6 seed 703011174
@@ -338,7 +338,7 @@ The underlying operation is [aktive warp noise uniform](generator_virtual_warp.m
     <br>geometry(0 0 256 256 3)</td></tr>
 </table>
 
-<table>
+<a name='effect_jitter_uniform__examples__e3'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive effect jitter uniform @1 min 1 max 6 seed 703011174
@@ -369,7 +369,7 @@ Idea from <https://docs.gimp.org/2.8/en/plug-in-max-rgb.html>
 
 #### <a name='effect_max_rgb__examples'></a> Examples
 
-<table>
+<a name='effect_max_rgb__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive effect max-rgb @1
@@ -400,7 +400,7 @@ Idea from <https://docs.gimp.org/2.8/en/plug-in-max-rgb.html>
 
 #### <a name='effect_min_rgb__examples'></a> Examples
 
-<table>
+<a name='effect_min_rgb__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive effect min-rgb @1
@@ -425,7 +425,7 @@ Returns sharpened input.
 
 #### <a name='effect_sharpen__examples'></a> Examples
 
-<table>
+<a name='effect_sharpen__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive effect sharpen @1
@@ -450,7 +450,7 @@ Returns image with a general sketch of the input.
 
 #### <a name='effect_sketch__examples'></a> Examples
 
-<table>
+<a name='effect_sketch__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive effect sketch @1
@@ -461,7 +461,7 @@ Returns image with a general sketch of the input.
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
-<table>
+<a name='effect_sketch__examples__e2'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive effect sketch @1
@@ -502,7 +502,7 @@ The underlying operation is [aktive warp swirl](generator_virtual_warp.md#warp_s
 
 #### <a name='effect_swirl__examples'></a> Examples
 
-<table>
+<a name='effect_swirl__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive effect swirl @1 decay 0.05 from 135
@@ -513,7 +513,7 @@ The underlying operation is [aktive warp swirl](generator_virtual_warp.md#warp_s
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
-<table>
+<a name='effect_swirl__examples__e2'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive effect swirl @1 decay 0.01 from 135
@@ -524,7 +524,7 @@ The underlying operation is [aktive warp swirl](generator_virtual_warp.md#warp_s
     <br>geometry(0 0 256 256 3)</td></tr>
 </table>
 
-<table>
+<a name='effect_swirl__examples__e3'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive effect swirl @1 decay 0.01 from 135
@@ -568,7 +568,7 @@ The underlying operation is [aktive warp wobble](generator_virtual_warp.md#warp_
 
 #### <a name='effect_wobble__examples'></a> Examples
 
-<table>
+<a name='effect_wobble__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive effect wobble @1 center {100 50}

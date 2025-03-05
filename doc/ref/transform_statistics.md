@@ -354,7 +354,7 @@ The part about the `depth of the input` means that the bands in each column are 
 
 #### <a name='op_column_arg_max__examples'></a> Examples
 
-<table>
+<a name='op_column_arg_max__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op column arg max @1
@@ -380,7 +380,7 @@ The part about the `depth of the input` means that the bands in each column are 
 
 #### <a name='op_column_arg_min__examples'></a> Examples
 
-<table>
+<a name='op_column_arg_min__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op column arg min @1
@@ -408,7 +408,7 @@ The result has the same geometry as the input. Only the contents change.
 
 #### <a name='op_column_cumulative__examples'></a> Examples
 
-<table>
+<a name='op_column_cumulative__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op column cumulative @1
@@ -438,7 +438,7 @@ The result is an image of `bins`-sized histogram columns with width and depth of
 
 #### <a name='op_column_histogram__examples'></a> Examples
 
-<table>
+<a name='op_column_histogram__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op column histogram @1 bins 8
@@ -464,7 +464,7 @@ The part about the `depth of the input` means that the bands in each column are 
 
 #### <a name='op_column_max__examples'></a> Examples
 
-<table>
+<a name='op_column_max__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op column max @1
@@ -490,7 +490,7 @@ The part about the `depth of the input` means that the bands in each column are 
 
 #### <a name='op_column_mean__examples'></a> Examples
 
-<table>
+<a name='op_column_mean__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op column mean @1
@@ -529,7 +529,7 @@ The part about the `depth of the input` means that the bands in each column are 
 
 #### <a name='op_column_min__examples'></a> Examples
 
-<table>
+<a name='op_column_min__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op column min @1
@@ -559,7 +559,7 @@ The result has a single row.
 
 #### <a name='op_column_otsu__examples'></a> Examples
 
-<table>
+<a name='op_column_otsu__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op column otsu [aktive op column histogram @1]
@@ -589,7 +589,7 @@ The result is a single-row image with width and depth of the input.
 
 #### <a name='op_column_profile__examples'></a> Examples
 
-<table>
+<a name='op_column_profile__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op column profile @1
@@ -634,7 +634,7 @@ The part about the `depth of the input` means that the bands in each column are 
 
 #### <a name='op_column_stddev__examples'></a> Examples
 
-<table>
+<a name='op_column_stddev__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op column stddev @1
@@ -660,7 +660,7 @@ The part about the `depth of the input` means that the bands in each column are 
 
 #### <a name='op_column_sum__examples'></a> Examples
 
-<table>
+<a name='op_column_sum__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op column sum @1
@@ -686,7 +686,7 @@ The part about the `depth of the input` means that the bands in each column are 
 
 #### <a name='op_column_sumsquared__examples'></a> Examples
 
-<table>
+<a name='op_column_sumsquared__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op column sumsquared @1
@@ -712,7 +712,7 @@ The part about the `depth of the input` means that the bands in each column are 
 
 #### <a name='op_column_variance__examples'></a> Examples
 
-<table>
+<a name='op_column_variance__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op column variance @1
@@ -740,7 +740,7 @@ Returns image with the input transformed into a histogram of `bins` values.
 
 #### <a name='op_image_histogram__examples'></a> Examples
 
-<table>
+<a name='op_image_histogram__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op image histogram @1 bins 8
@@ -766,7 +766,7 @@ The part about the `depth of the input` means that the bands in each row are han
 
 #### <a name='op_row_arg_max__examples'></a> Examples
 
-<table>
+<a name='op_row_arg_max__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op row arg max @1
@@ -792,7 +792,7 @@ The part about the `depth of the input` means that the bands in each row are han
 
 #### <a name='op_row_arg_min__examples'></a> Examples
 
-<table>
+<a name='op_row_arg_min__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op row arg min @1
@@ -820,7 +820,7 @@ The result has the same geometry as the input. Only the contents change.
 
 #### <a name='op_row_cumulative__examples'></a> Examples
 
-<table>
+<a name='op_row_cumulative__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op row cumulative @1
@@ -850,7 +850,7 @@ The result is an image of `bins`-sized histogram rows with height and depth of t
 
 #### <a name='op_row_histogram__examples'></a> Examples
 
-<table>
+<a name='op_row_histogram__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op row histogram @1 bins 8
@@ -876,7 +876,7 @@ The part about the `depth of the input` means that the bands in each row are han
 
 #### <a name='op_row_max__examples'></a> Examples
 
-<table>
+<a name='op_row_max__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op row max @1
@@ -902,7 +902,7 @@ The part about the `depth of the input` means that the bands in each row are han
 
 #### <a name='op_row_mean__examples'></a> Examples
 
-<table>
+<a name='op_row_mean__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op row mean @1
@@ -941,7 +941,7 @@ The part about the `depth of the input` means that the bands in each row are han
 
 #### <a name='op_row_min__examples'></a> Examples
 
-<table>
+<a name='op_row_min__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op row min @1
@@ -971,7 +971,7 @@ The result has a single column.
 
 #### <a name='op_row_otsu__examples'></a> Examples
 
-<table>
+<a name='op_row_otsu__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op row otsu [aktive op row histogram @1]
@@ -1001,7 +1001,7 @@ The result is a single-column image with height and depth of the input.
 
 #### <a name='op_row_profile__examples'></a> Examples
 
-<table>
+<a name='op_row_profile__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op row profile @1
@@ -1046,7 +1046,7 @@ The part about the `depth of the input` means that the bands in each row are han
 
 #### <a name='op_row_stddev__examples'></a> Examples
 
-<table>
+<a name='op_row_stddev__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op row stddev @1
@@ -1072,7 +1072,7 @@ The part about the `depth of the input` means that the bands in each row are han
 
 #### <a name='op_row_sum__examples'></a> Examples
 
-<table>
+<a name='op_row_sum__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op row sum @1
@@ -1098,7 +1098,7 @@ The part about the `depth of the input` means that the bands in each row are han
 
 #### <a name='op_row_sumsquared__examples'></a> Examples
 
-<table>
+<a name='op_row_sumsquared__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op row sumsquared @1
@@ -1124,7 +1124,7 @@ The part about the `depth of the input` means that the bands in each row are han
 
 #### <a name='op_row_variance__examples'></a> Examples
 
-<table>
+<a name='op_row_variance__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op row variance @1

@@ -63,7 +63,7 @@ The radii default to 0, i.e. no rounded corners.
 
 #### <a name='op_draw_box_rounded_on__examples'></a> Examples
 
-<table>
+<a name='op_draw_box_rounded_on__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op draw box-rounded on @1 center {64 64} ewidth 32 eheight 32 upleftradius 32 outlined 1 color {1 0 0}
@@ -103,7 +103,7 @@ The box is axis-aligned, of width `2*ewidth+1`, height `2*eheight+1`, and placed
 
 #### <a name='op_draw_box_on__examples'></a> Examples
 
-<table>
+<a name='op_draw_box_on__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op draw box on @1 center {64 64} ewidth 32 eheight 32 color {1 0 0} outlined 1
@@ -142,7 +142,7 @@ The circle has the `radius`, and is placed at the specified center.
 
 #### <a name='op_draw_circle_on__examples'></a> Examples
 
-<table>
+<a name='op_draw_circle_on__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op draw circle on @1 center {64 64} radius 32 color {1 0 0} outlined 1
@@ -181,7 +181,7 @@ The circles all have the same `radius`, and are placed at the specified centers.
 
 #### <a name='op_draw_circles_on__examples'></a> Examples
 
-<table>
+<a name='op_draw_circles_on__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op draw circles on @1 radius 8 color {1 0 0} outlined 1 centers {10 10} {30 80} {80 30}
@@ -220,7 +220,7 @@ The line connects the two specified locations.
 
 #### <a name='op_draw_line_on__examples'></a> Examples
 
-<table>
+<a name='op_draw_line_on__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op draw line on @1 from {10 10} to {30 80} color {1 0 0} strokewidth 1
@@ -261,7 +261,7 @@ The parallelogram is axis-aligned, of width `2*ewidth+1`, height `2*eheight+1`, 
 
 #### <a name='op_draw_parallelogram_on__examples'></a> Examples
 
-<table>
+<a name='op_draw_parallelogram_on__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op draw parallelogram on @1 center {64 64} ewidth 32 eheight 32 eskew 8 color {1 0 0} outlined 1
@@ -299,7 +299,7 @@ The lines form a polyline through the specified points.
 
 #### <a name='op_draw_polyline_on__examples'></a> Examples
 
-<table>
+<a name='op_draw_polyline_on__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op draw polyline on @1 color {1 0 0} strokewidth 1 points {10 10} {30 80} {80 30}
@@ -339,7 +339,7 @@ The rhombus is axis-aligned, of width `2*ewidth+1`, height `2*eheight+1`, and pl
 
 #### <a name='op_draw_rhombus_on__examples'></a> Examples
 
-<table>
+<a name='op_draw_rhombus_on__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op draw rhombus on @1 center {64 64} ewidth 32 eheight 32 outlined 1 color {1 0 0} outlined 1
@@ -379,7 +379,7 @@ The triangle connects the points A, B, and C, in this order.
 
 #### <a name='op_draw_triangle_on__examples'></a> Examples
 
-<table>
+<a name='op_draw_triangle_on__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op draw triangle on @1 a {10 10} b {30 80} c {80 30} color {1 0 0} outlined 1

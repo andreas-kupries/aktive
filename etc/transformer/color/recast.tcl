@@ -10,7 +10,7 @@ operator op::color::correct::greyworld::global {
     section transform color
 
     example {
-	aktive read from netpbm path tests/assets/watergarden.ppm
+	aktive read from netpbm file path tests/assets/watergarden.ppm
 	@1
     }
 

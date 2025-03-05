@@ -90,7 +90,7 @@ static void netpbm_short (aktive_netpbm_control* info, aktive_block* src);
 
 /*
  * - - -- --- ----- -------- -------------
- * Reader internals
+ * Reader & getter internals
  */
 
 #define D(name)						\
@@ -101,7 +101,17 @@ static void netpbm_short (aktive_netpbm_control* info, aktive_block* src);
 			  aktive_uint           y,	\
 			  aktive_uint           w,	\
 			  Tcl_Channel           chan,	\
-			  double*               v)
+			  double*               v);	\
+							\
+    static void						\
+    netpbm_get_ ## name (void**                cache,	\
+			 aktive_netpbm_header* info,	\
+			 aktive_uint           x,	\
+			 aktive_uint           y,	\
+			 aktive_uint           w,	\
+			 char*                 inbytes,	\
+			 Tcl_Size              inmax,	\
+			 double*               v)
 
 D (pgm_byte);
 D (pgm_short);
@@ -111,6 +121,8 @@ D (ppm_byte);
 D (ppm_short);
 D (ppm_text);
 D (ppm_etext);
+
+#undef D
 
 /*
  * - - -- --- ----- -------- -------------
@@ -163,6 +175,23 @@ static aktive_netpbm_reader reader[] = {
 	/* 11 5/extended */ (aktive_netpbm_reader) netpbm_read_pgm_short,
 	/* 12 6          */ (aktive_netpbm_reader) netpbm_read_ppm_byte,
 	/* 13 6/extended */ (aktive_netpbm_reader) netpbm_read_ppm_short,
+};
+
+static aktive_netpbm_getter getter[] = {
+	/*  0 0          */ 0,
+	/*  1 0/extended */ 0,
+	/*  2 1          */ 0,
+	/*  3 1/extended */ 0,
+	/*  4 2          */ (aktive_netpbm_getter) netpbm_get_pgm_text,
+	/*  5 2/extended */ (aktive_netpbm_getter) netpbm_get_pgm_etext,
+	/*  6 3          */ (aktive_netpbm_getter) netpbm_get_ppm_text,
+	/*  7 3/extended */ (aktive_netpbm_getter) netpbm_get_ppm_etext,
+	/*  8 4          */ 0,
+	/*  9 4/extended */ 0,
+	/* 10 5          */ (aktive_netpbm_getter) netpbm_get_pgm_byte,
+	/* 11 5/extended */ (aktive_netpbm_getter) netpbm_get_pgm_short,
+	/* 12 6          */ (aktive_netpbm_getter) netpbm_get_ppm_byte,
+	/* 13 6/extended */ (aktive_netpbm_getter) netpbm_get_ppm_short,
 };
 
 /*
@@ -334,7 +363,7 @@ netpbm_short (aktive_netpbm_control* info, aktive_block* src)
  */
 
 extern int
-aktive_netpbm_read_header (Tcl_Channel src, aktive_netpbm_header* info)
+aktive_netpbm_header_read (Tcl_Channel src, aktive_netpbm_read_header* info)
 {
     TRACE_FUNC ("((Channel) %p, (header*) %p)", src, info);
 
@@ -351,32 +380,33 @@ aktive_netpbm_read_header (Tcl_Channel src, aktive_netpbm_header* info)
     aktive_uint isbinary = binary [vcode];
 
     //*** WARE - In byte data the first pixel byte may be a `#`. That is not a comment.
-    TRY ("width",  aktive_read_uint_strcom (src, &info->width));
-    TRY ("height", aktive_read_uint_strcom (src, &info->height));
+    TRY ("width",  aktive_read_uint_strcom (src, &info->base.width));
+    TRY ("height", aktive_read_uint_strcom (src, &info->base.height));
     if (isbinary) {
 	/* In binary mode the \n after the number stops the number.
 	 * Reading further than that will read into the pixel area.
 	 */
-	TRY ("maxval", aktive_read_uint_strsharp (src, &info->maxval));
+	TRY ("maxval", aktive_read_uint_strsharp (src, &info->base.maxval));
     } else {
-	TRY ("maxval", aktive_read_uint_str/*com*/ (src, &info->maxval));
+	TRY ("maxval", aktive_read_uint_str/*com*/ (src, &info->base.maxval));
     }
 
-    aktive_uint extended = (info->maxval > 255);
+    aktive_uint extended = (info->base.maxval > 255);
 
-    info->base   = Tcl_Tell (src);
-    info->depth  = bands [vcode];
-    info->reader = reader [(vcode << 1) + extended];
-    info->scale  = 1.0 / info->maxval;
-    info->binary = isbinary;
+    info->reader      = reader [(vcode << 1) + extended];
 
-    TRACE ("width  %u", info->width);
-    TRACE ("height %u", info->height);
-    TRACE ("depth  %u", info->depth);
-    TRACE ("maxv   %u", info->maxval);
-    TRACE ("data@  %u", info->base);
-    TRACE ("scale  %f", info->scale);
-    TRACE ("binary %u", info->binary);
+    info->base.base   = Tcl_Tell (src);
+    info->base.depth  = bands [vcode];
+    info->base.scale  = 1.0 / info->base.maxval;
+    info->base.binary = isbinary;
+
+    TRACE ("width  %u", info->base.width);
+    TRACE ("height %u", info->base.height);
+    TRACE ("depth  %u", info->base.depth);
+    TRACE ("maxv   %u", info->base.maxval);
+    TRACE ("data@  %u", info->base.base);
+    TRACE ("scale  %f", info->base.scale);
+    TRACE ("binary %u", info->base.binary);
 
 #undef TRY
     TRACE_RETURN ("(OK) %d", 1);
@@ -387,14 +417,14 @@ aktive_netpbm_read_header (Tcl_Channel src, aktive_netpbm_header* info)
  ** Reader support. Text format. Vector cache context and fill function.
  */
 
-typedef struct rowfill {
+typedef struct rowfill_read {
     Tcl_Channel chan;	// Channel to read pixels from
     aktive_uint count;	// Number of pixels to read
     double      scale;	// Scaling factor to apply
-} rowfill;
+} rowfill_read;
 
 static aktive_uint
-rowfiller (rowfill* param, aktive_uint start, double* v)
+rowfiller_read (rowfill_read* param, aktive_uint start, double* v)
 {
     TRACE_FUNC("(chan %p, count %u, scale %f, start %u, dst %p)",
 	       param->chan, param->count, param->scale, start, v);
@@ -416,6 +446,16 @@ rowfiller (rowfill* param, aktive_uint start, double* v)
     TRACE_RETURN ("next %d", Tcl_Tell(param->chan));
 }
 
+#define D(name)						\
+    static void						\
+    netpbm_read_ ## name (void**                cache,	\
+			  aktive_netpbm_header* info,	\
+			  aktive_uint           x,	\
+			  aktive_uint           y,	\
+			  aktive_uint           w,	\
+			  Tcl_Channel           chan,	\
+			  double*               v)
+
 /*
  * - - -- --- ----- -------- -------------
  ** Reader support. Header, pixels
@@ -425,7 +465,7 @@ D (pgm_byte)	// single band, binary, byte
 {
 #define BANDS    1
 #define BANDCODE 1
-#include <netpbm_binread.h>
+#include <netpbm_binary_read.h>
 }
 
 D (pgm_short)	// single band, binary, short
@@ -433,7 +473,7 @@ D (pgm_short)	// single band, binary, short
 #define BANDS      1
 #define BANDCODE   2
 #define PROCESS(x) x = SWAP16 (x)
-#include <netpbm_binread.h>
+#include <netpbm_binary_read.h>
 }
 
 D (pgm_text) // single band, text // cache is vector cache of all rows
@@ -441,11 +481,10 @@ D (pgm_text) // single band, text // cache is vector cache of all rows
     TRACE_FUNC ("((void**) %p, (info*) %p, (%u x %u), (Chan) %p, (double*) %p [%u]) [%u %f]",
 	    cache, info, x, y, chan, v, w, info->width, info->scale);
 
-    rowfill param = { chan, info->width, info->scale };
-
-    double* src = aktive_veccache_get (*cache, y,
-				       (aktive_veccache_fill) rowfiller,
-					&param);
+    rowfill_read param = { chan, info->width, info->scale };
+    double*      src   = aktive_veccache_get (*cache, y,
+					      (aktive_veccache_fill) rowfiller_read,
+					      &param);
 
     // src is owned by the cache. read-only!
     memcpy (v, src + x, w * sizeof(double));
@@ -462,28 +501,28 @@ D (ppm_byte)	// 3 band, binary, byte
 {
 #define BANDS      3
 #define BANDCODE   1
-#include <netpbm_binread.h>
+#include <netpbm_binary_read.h>
 }
 
-D (ppm_short)	// 3 band, binary, short // cache is vector cache of all rows
+D (ppm_short)	// 3 band, binary, short
 {
 #define BANDS      3
 #define BANDCODE   2
 #define PROCESS(x) x = SWAP16 (x)
-#include <netpbm_binread.h>
+#include <netpbm_binary_read.h>
 }
 
-D (ppm_text) // 3 band, text
+D (ppm_text) // 3 band, text // cache is vector cache of all rows
 {
     TRACE_FUNC ("((void**) %p, (info*) %p, (%u x %u), (Chan) %p, (double*) %p [%u]) [%u %f]",
 	    cache, info, x, y, chan, v, w, info->width, info->scale);
 
     // *cache, info, x, y, w, chan, v [3*w]
 
-    rowfill param = { chan, 3*info->width, info->scale };
-    double* src = aktive_veccache_get (*cache, y,
-				       (aktive_veccache_fill) rowfiller,
-				       &param);
+    rowfill_read param = { chan, 3*info->width, info->scale };
+    double*      src   = aktive_veccache_get (*cache, y,
+					      (aktive_veccache_fill) rowfiller_read,
+					      &param);
 
     // src is owned by the cache. read-only!
     memcpy (v, src + 3*x, 3*w * sizeof(double));
@@ -494,6 +533,188 @@ D (ppm_text) // 3 band, text
 D (ppm_etext) // 3 band, extended text - handle as text
 {
     netpbm_read_ppm_text (cache, info, x, y, w, chan, v);
+}
+
+#undef D
+
+/*
+ * - - -- --- ----- -------- -------------
+ ** Getter support. Header, pixels
+ */
+
+extern int
+aktive_netpbm_header_get (char* inbytes, Tcl_Size inmax, aktive_netpbm_get_header* info)
+{
+    TRACE_FUNC ("((char*) %p [%d], (header*) %p)", inbytes, inmax, info);
+
+#define TRY(m, cmd) if (!(cmd)) { TRACE_RETURN ("(Fail) %d: " m, 0); }
+#define MAGIC "P"
+
+    Tcl_Size pos = 0;
+    TRY ("magic1", aktive_get_match (inbytes, inmax, &pos, MAGIC, sizeof (MAGIC)-1));
+
+    aktive_uint vcode;
+    TRY ("magic2", aktive_get_uint8 (inbytes, inmax, &pos, &vcode));
+    vcode -= '0';
+    if ((vcode > 7) || !valid [vcode]) { TRACE_RETURN ("(Fail) %d: type", 0); }
+
+    aktive_uint isbinary = binary [vcode];
+
+    //*** WARE - In byte data the first pixel byte may be a `#`. That is not a comment.
+    TRY ("width",  aktive_get_uint_strcom (inbytes, inmax, &pos, &info->base.width));
+    TRY ("height", aktive_get_uint_strcom (inbytes, inmax, &pos, &info->base.height));
+    if (isbinary) {
+	/* In binary mode the \n after the number stops the number.
+	 * Reading further than that will read into the pixel area.
+	 */
+	TRY ("maxval", aktive_get_uint_strsharp (inbytes, inmax, &pos, &info->base.maxval));
+    } else {
+	TRY ("maxval", aktive_get_uint_str/*com*/ (inbytes, inmax, &pos, &info->base.maxval));
+    }
+
+    aktive_uint extended = (info->base.maxval > 255);
+
+    info->getter = getter [(vcode << 1) + extended];
+
+    info->base.base   = pos;
+    info->base.depth  = bands [vcode];
+    info->base.scale  = 1.0 / info->base.maxval;
+    info->base.binary = isbinary;
+
+    TRACE ("width  %u", info->base.width);
+    TRACE ("height %u", info->base.height);
+    TRACE ("depth  %u", info->base.depth);
+    TRACE ("maxv   %u", info->base.maxval);
+    TRACE ("data@  %u", info->base.base);
+    TRACE ("scale  %f", info->base.scale);
+    TRACE ("binary %u", info->base.binary);
+
+#undef TRY
+    TRACE_RETURN ("(OK) %d", 1);
+}
+
+/*
+ * - - -- --- ----- -------- -------------
+ ** Getter support. Text format. Vector cache context and fill function.
+ */
+
+typedef struct rowfill_get {
+    char*       inbytes; // memory buffer to read from
+    Tcl_Size    inmax;   // and its length, in bytes
+    aktive_uint count;   // number of pixels to read
+    double      scale;   // scaling factor to apply
+} rowfill_get;
+
+static aktive_uint
+rowfiller_get (rowfill_get* param, aktive_uint start, double* v)
+{
+    TRACE_FUNC("(bytes %p [%d], count %u, scale %f, start %u, dst %p)",
+	       param->inbytes, param->inmax, param->count, param->scale, start, v);
+
+    Tcl_Size pos = start;
+    aktive_uint k;
+    for (k = 0; k < param->count; k++) {
+	aktive_uint value;
+	int ok = aktive_get_uint_strcom (param->inbytes, param->inmax, &pos, &value);
+	if (!ok) { TRACE ("v[%u] READ FAIL", k); break; }
+	// NOTE: This not only leaves the requested row short.
+	// NOTE: It also forces all rows after to the same place,
+	// NOTE: shorting them further (empty).
+	v[k] = ((double) value) * param->scale;
+	TRACE ("v[%u] = %f", k, v[k]);
+    }
+
+    TRACE_RETURN ("next %d", pos);
+}
+
+#define D(name)						\
+    static void						\
+    netpbm_get_ ## name (void**                cache,	\
+			 aktive_netpbm_header* info,	\
+			 aktive_uint           x,	\
+			 aktive_uint           y,	\
+			 aktive_uint           w,	\
+			 char*                 inbytes,	\
+			 Tcl_Size              inmax,	\
+			 double*               v)
+
+/*
+ * - - -- --- ----- -------- -------------
+ ** Getter support. Header, pixels
+ */
+
+D (pgm_byte)	// single band, binary, byte
+{
+#define BANDS    1
+#define BANDCODE 1
+#include <netpbm_binary_get.h>
+}
+
+D (pgm_short)	// single band, binary, short
+{
+#define BANDS      1
+#define BANDCODE   2
+#define PROCESS(x) x = SWAP16 (x)
+#include <netpbm_binary_get.h>
+}
+
+D (pgm_text) // single band, text // cache is vector cache of all rows
+{
+    TRACE_FUNC ("((void**) %p, (info*) %p, (%u x %u), (char*) %p [%d], (double*) %p [%u]) [%u %f]",
+		cache, info, x, y, inbytes, inmax, v, w, info->width, info->scale);
+
+    rowfill_get param = { inbytes, inmax, info->width, info->scale };
+    double*     src   = aktive_veccache_get (*cache, y,
+					     (aktive_veccache_fill) rowfiller_get,
+					     &param);
+
+    // src is owned by the cache. read-only!
+    memcpy (v, src + x, w * sizeof(double));
+
+    TRACE_RETURN_VOID;
+}
+
+D (pgm_etext) // single band, extended text - handle as text
+{
+    netpbm_get_pgm_text (cache, info, x, y, w, inbytes, inmax, v);
+}
+
+D (ppm_byte)	// 3 band, binary, byte
+{
+#define BANDS      3
+#define BANDCODE   1
+#include <netpbm_binary_get.h>
+}
+
+D (ppm_short)	// 3 band, binary, short
+{
+#define BANDS      3
+#define BANDCODE   2
+#define PROCESS(x) x = SWAP16 (x)
+#include <netpbm_binary_get.h>
+}
+
+D (ppm_text) // 3 band, text // cache is vector cache of all rows
+{
+    TRACE_FUNC ("((void**) %p, (info*) %p, (%u x %u), (char*) %p [%d], (double*) %p [%u]) [%u %f]",
+		cache, info, x, y, inbytes, inmax, v, w, info->width, info->scale);
+
+    // *cache, info, x, y, w, chan, v [3*w]
+
+    rowfill_get param = { inbytes, inmax, 3*info->width, info->scale };
+    double*     src   = aktive_veccache_get (*cache, y,
+					     (aktive_veccache_fill) rowfiller_get,
+					     &param);
+
+    // src is owned by the cache. read-only!
+    memcpy (v, src + 3*x, 3*w * sizeof(double));
+
+    TRACE_RETURN_VOID;
+}
+
+D (ppm_etext) // 3 band, extended text - handle as text
+{
+    netpbm_get_pgm_text (cache, info, x, y, w, inbytes, inmax, v);
 }
 
 #undef D

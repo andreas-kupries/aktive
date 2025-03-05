@@ -1,5 +1,5 @@
 # -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
-## (c) 2023,2024 Andreas Kupries
+## (c) 2023-2025 Andreas Kupries
 # # ## ### ##### ######## ############# #####################
 ## AKTIVE. Reading AKTIVE
 
@@ -16,8 +16,9 @@ kt source support/util.tcl
 ## Syntax
 
 syntax {
-    aktive args
-} {aktive read from}
+    file   args
+    string args
+} {aktive read from aktive}
 
 # # ## ### ##### ######## ############# #####################
 ##
@@ -52,15 +53,24 @@ foreach {k d cons expected} {
 	=  0.9524 0.4921 0.0476 = 0.9683 0.3651 0.0317 = 0.9841 0.2381 0.0159 = 1      0.1111 0
     }
 } {
-    set rpath  [R format-$cons.aktive]
-    set config [dict create path $rpath]
-    set meta   [dict create path $rpath label $cons]
+    set rpath   [R format-$cons.aktive]
 
-    test aktive-read-from-aktive-2chan-2.$k "aktive read from aktive, $cons" -body {
-	astcl aktive read from aktive path [R format-$cons.aktive]
-    } -match image -result [makei read::from::aktive 0 0 8 8 $d $config $expected $meta]
+    set pconfig [dict create path $rpath]
+    set pmeta   [dict create path $rpath label $cons]
 
-    unset rpath config meta
+    set data    [cat $rpath]
+    set dconfig [dict create value $data]
+    set dmeta   [dict create label $cons]
+
+    test aktive-read-from-aktive-2.$k "aktive read from aktive file, $cons" -body {
+	astcl aktive read from aktive file path $rpath
+    } -match image -result [makei read::from::aktive::file 0 0 8 8 $d $pconfig $expected $pmeta]
+
+    test aktive-read-from-aktive-3.$k "aktive read from aktive string, $cons" -body {
+	astcl aktive read from aktive string value $data
+    } -match image -result [makei read::from::aktive::string 0 0 8 8 $d $dconfig $expected $dmeta]
+
+    unset rpath pconfig pmeta data dconfig dmeta
 }
 
 # # ## ### ##### ######## ############# #####################

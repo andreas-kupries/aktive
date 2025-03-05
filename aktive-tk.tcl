@@ -1,6 +1,6 @@
 ## -*- tcl -*-
 # # ## ### ##### ######## ############# #####################
-## (c) 2023 Andreas Kupries
+## (c) 2023-2025 Andreas Kupries
 
 # @@ Meta Begin
 # Package aktive::tk 0
@@ -52,39 +52,29 @@ namespace eval ::aktive::tk {
 ## from which any region can then be shown quickly. A full-image cache,
 ## essentially.
 #
-## NOTE: Instead of connecting to AKTIVE on the C level in some way the image is
-##       passing through a temp file, in formats Tk understands. These are the
-##       NETPBM ppm and pgm formats.
+## NOTE: Instead of connecting to AKTIVE on the C level in some way
+##       the image is passed through a memory buffer (i.e. a byte
+##       array), using a format Tk understands. These are the NETPBM
+##       ppm and pgm formats.
 #
 ## TODO: Consider using PNG to have an alpha channel as well. Note however that
 ##       AKTIVE has to be extended to support writing PNG. Tk already supports
 ##       reading PNG.
 
 proc ::aktive::tk::image {photo} {
-    set    chan [file tempfile thefile __aktive_photo_[pid]_]
-    close $chan
-    $photo write $thefile -format ppm
-
-    set image [aktive read from netpbm path $thefile]
-    # TODO // attach a script-level destructor to the image to clean up the temp file.
-    return $image
+    return [aktive read from netpbm string value [$photo data -format ppm]
 }
 
 proc ::aktive::tk::photo {image} {
-    set temp  [TempFile $image]
-    set photo [::image create photo -file $temp]
-    file delete $temp
-    return $photo
+    return [::image create photo -data [String $image]
 }
 
 proc ::aktive::tk::photo= {photo image} {
-    set temp [TempFile $image]
-    $photo read $temp
-    file delete $temp
+    $photo data [String $image]
     return
 }
 
-proc ::aktive::tk::TempFile {image} {
+proc ::aktive::tk::String {image} {
     set bands [aktive query depth $image]
     set convert {
 	1 {pgm byte}
@@ -95,12 +85,7 @@ proc ::aktive::tk::TempFile {image} {
 	    "Unable to convert/show image with $bands bands"
     }
     set format [dict get $convert $bands]
-
-    set chan [file tempfile thefile __aktive_photo_[pid]_]
-    aktive format as {*}$format 2chan $image into $chan
-    close $chan
-
-    return $thefile
+    return [aktive format as {*}$format 2string $image]
 }
 
 # # ## ### ##### ######## ############# #####################

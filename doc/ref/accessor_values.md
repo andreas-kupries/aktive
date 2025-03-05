@@ -70,7 +70,7 @@ This operator is __strict__ in its single input. The requested pixel is material
 
 #### <a name='query_value_at__examples'></a> Examples
 
-<table>
+<a name='query_value_at__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive query value at @1 x 0 y 1
@@ -100,7 +100,7 @@ This operator is __strict__ in its single input. The image is materialized in me
 
 #### <a name='query_values__examples'></a> Examples
 
-<table>
+<a name='query_values__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive query values @1

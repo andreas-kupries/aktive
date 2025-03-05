@@ -47,7 +47,7 @@ The source can be a multi-band image. For known colorspaces the core filter is a
 
 #### <a name='op_kuwahara__examples'></a> Examples
 
-<table>
+<a name='op_kuwahara__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op kuwahara @1 radius 4
@@ -94,7 +94,7 @@ The prefered embedding for kuwahara is `mirror`. It is chosen to have minimal to
 
 #### <a name='op_kuwahara_core__examples'></a> Examples
 
-<table>
+<a name='op_kuwahara_core__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op kuwahara-core @1 radius 4

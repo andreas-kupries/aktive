@@ -1,5 +1,5 @@
 # -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
-## (c) 2023,2024 Andreas Kupries
+## (c) 2023-2025 Andreas Kupries
 # # ## ### ##### ######## ############# #####################
 ## NETPBM. Reading NETPBM
 
@@ -16,8 +16,9 @@ kt source support/util.tcl
 ## Syntax
 
 syntax {
-    netpbm args
-} {aktive read from}
+    file   args
+    string args
+} {aktive read from netpbm}
 
 # # ## ### ##### ######## ############# #####################
 ##
@@ -122,17 +123,27 @@ foreach {k name expected} {
     set type [file rootname $name]
     lassign  [dict get $bands [file extension $name]] depth colors
 
-    set config [dict create path $rpath]
-    set meta {}
-    dict set meta netpbm maxval [dict get $maxv $type]
-    dict set meta path $rpath
-    dict set meta colorspace $colors
+    set      pconfig [dict create path $rpath]
+    set      pmeta {}
+    dict set pmeta netpbm maxval [dict get $maxv $type]
+    dict set pmeta path $rpath
+    dict set pmeta colorspace $colors
 
-    test aktive-read-from-netpbm-2.$k-${type}-$depth "aktive read from netpbm ($type, depth $depth)" -body {
-	astcl aktive read from netpbm path $rpath
-    } -match image -result [makei read::from::netpbm 0 0 $w $h $depth $config $expected $meta]
+    set      data    [cat $rpath]
+    set      dconfig [dict create value $data]
+    set      dmeta {}
+    dict set dmeta netpbm maxval [dict get $maxv $type]
+    dict set dmeta colorspace $colors
 
-    unset type depth colors rpath config meta
+    test aktive-read-from-netpbm-2.$k-${type}-$depth "aktive read from netpbm file ($type, depth $depth)" -body {
+	astcl aktive read from netpbm file path $rpath
+    } -match image -result [makei read::from::netpbm::file 0 0 $w $h $depth $pconfig $expected $pmeta]
+
+    test aktive-read-from-netpbm-4.$k-${type}-$depth "aktive read from netpbm string ($type, depth $depth)" -body {
+	astcl aktive read from netpbm string value $data
+    } -match image -result [makei read::from::netpbm::string 0 0 $w $h $depth $dconfig $expected $dmeta]
+
+    unset type depth colors rpath pconfig pmeta data dconfig dmeta
 }
 
 # # ## ### ##### ######## ############# #####################
@@ -140,12 +151,12 @@ foreach {k name expected} {
 ## - internal vector cache has to read full lines, even when selecting down later
 ## - color selection was not accounting for triplets
 
-test aktive-read-from-netpbm-3.0 "aktive read from netpbm, grey, text format, partial lines" -body {
-    aspgm aktive op select x [aktive read from netpbm path [A text.pgm]] from 32 to 47
+test aktive-read-from-netpbm-3.0 "aktive read from netpbm file, grey, text format, partial lines" -body {
+    aspgm aktive op select x [aktive read from netpbm file path [A text.pgm]] from 32 to 47
 } -match content/string -result [R text-out.pgm]
 
-test aktive-read-from-netpbm-3.1 "aktive read from netpbm, color, text format, partial lines" -body {
-    asppm aktive op select x [aktive read from netpbm path [A ctext.ppm]] from 32 to 47
+test aktive-read-from-netpbm-3.1 "aktive read from netpbm file, color, text format, partial lines" -body {
+    asppm aktive op select x [aktive read from netpbm file path [A ctext.ppm]] from 32 to 47
 } -match content/string -result [R ctext-out.ppm]
 
 # # ## ### ##### ######## ############# #####################

@@ -53,7 +53,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 
 #### <a name='op_connected_components_labeled__examples'></a> Examples
 
-<table>
+<a name='op_connected_components_labeled__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op connected-components labeled @1
@@ -63,7 +63,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
     <td valign='top'><table><tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr><tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>2</td><td>2</td><td>0</td><td>0</td><td>3</td><td>3</td><td>3</td><td>0</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>0</td><td>0</td><td>0</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>0</td><td>0</td></tr><tr><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>0</td><td>0</td><td>2</td><td>2</td><td>0</td><td>0</td><td>3</td><td>0</td><td>3</td><td>0</td><td>4</td><td>0</td><td>0</td><td>0</td><td>4</td><td>0</td><td>0</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>0</td></tr><tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>2</td><td>2</td><td>0</td><td>0</td><td>0</td><td>3</td><td>3</td><td>3</td><td>0</td><td>4</td><td>0</td><td>0</td><td>0</td><td>4</td><td>0</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td></tr><tr><td>0</td><td>2</td><td>2</td><td>2</td><td>2</td><td>2</td><td>2</td><td>2</td><td>0</td><td>6</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>4</td><td>0</td><td>0</td><td>0</td><td>4</td><td>0</td><td>5</td><td>5</td><td>5</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>5</td><td>5</td><td>5</td></tr><tr><td>0</td><td>2</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>6</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>4</td><td>0</td><td>0</td><td>0</td><td>4</td><td>0</td><td>5</td><td>5</td><td>0</td><td>0</td><td>0</td><td>7</td><td>0</td><td>0</td><td>0</td><td>5</td><td>5</td></tr><tr><td>0</td><td>2</td><td>0</td><td>6</td><td>6</td><td>6</td><td>6</td><td>6</td><td>6</td><td>6</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>0</td><td>0</td><td>5</td><td>5</td><td>0</td><td>0</td><td>7</td><td>0</td><td>0</td><td>5</td><td>5</td><td>0</td></tr><tr><td>0</td><td>0</td><td>6</td><td>6</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>5</td><td>5</td><td>0</td><td>7</td><td>0</td><td>5</td><td>5</td><td>0</td><td>0</td></tr><tr><td>0</td><td>6</td><td>6</td><td>0</td><td>0</td><td>8</td><td>8</td><td>8</td><td>8</td><td>8</td><td>8</td><td>0</td><td>9</td><td>9</td><td>9</td><td>9</td><td>9</td><td>9</td><td>9</td><td>9</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>7</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr><tr><td>0</td><td>6</td><td>6</td><td>0</td><td>0</td><td>8</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>9</td><td>9</td><td>9</td><td>9</td><td>9</td><td>9</td><td>9</td><td>9</td><td>0</td><td>0</td><td>7</td><td>7</td><td>7</td><td>7</td><td>7</td><td>7</td><td>7</td><td>7</td><td>7</td><td>7</td><td>7</td></tr><tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>8</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>9</td><td>9</td><td>0</td><td>0</td><td>0</td><td>0</td><td>9</td><td>9</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>7</td><td>7</td><td>7</td><td>0</td><td>0</td><td>0</td><td>0</td></tr></table></td></tr>
 </table>
 
-<table>
+<a name='op_connected_components_labeled__examples__e2'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op connected-components labeled @1 transform cc.max
@@ -74,7 +74,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
     <br>geometry(0 0 264 88 1)</td></tr></table></td></tr>
 </table>
 
-<table>
+<a name='op_connected_components_labeled__examples__e3'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op connected-components labeled @1 transform cc.max bbox 1
@@ -104,7 +104,7 @@ Returns image containing the morphological closing (dilate, then erode) of the i
 
 #### <a name='op_morph_close__examples'></a> Examples
 
-<table>
+<a name='op_morph_close__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op morph close @1 radius 1
@@ -115,7 +115,7 @@ Returns image containing the morphological closing (dilate, then erode) of the i
     <br>geometry(0 0 264 88 1)</td></tr></table></td></tr>
 </table>
 
-<table>
+<a name='op_morph_close__examples__e2'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op morph close @1 radius 1
@@ -145,7 +145,7 @@ Returns image containing the morphological dilation of the input using a (2*radi
 
 #### <a name='op_morph_dilate__examples'></a> Examples
 
-<table>
+<a name='op_morph_dilate__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op morph dilate @1 radius 1
@@ -156,7 +156,7 @@ Returns image containing the morphological dilation of the input using a (2*radi
     <br>geometry(0 0 264 88 1)</td></tr></table></td></tr>
 </table>
 
-<table>
+<a name='op_morph_dilate__examples__e2'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op morph dilate @1 radius 1
@@ -186,7 +186,7 @@ Returns image containing the morphological erosion of the input using a (2*radiu
 
 #### <a name='op_morph_erode__examples'></a> Examples
 
-<table>
+<a name='op_morph_erode__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op morph erode @1 radius 1
@@ -197,7 +197,7 @@ Returns image containing the morphological erosion of the input using a (2*radiu
     <br>geometry(0 0 264 88 1)</td></tr></table></td></tr>
 </table>
 
-<table>
+<a name='op_morph_erode__examples__e2'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op morph erode @1 radius 1
@@ -227,7 +227,7 @@ Returns image containing the morphological gradient (subtract eroded from dilate
 
 #### <a name='op_morph_gradient_all__examples'></a> Examples
 
-<table>
+<a name='op_morph_gradient_all__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op morph gradient all @1 radius 1
@@ -238,7 +238,7 @@ Returns image containing the morphological gradient (subtract eroded from dilate
     <br>geometry(0 0 264 88 1)</td></tr></table></td></tr>
 </table>
 
-<table>
+<a name='op_morph_gradient_all__examples__e2'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op morph gradient all @1 radius 1
@@ -268,7 +268,7 @@ Returns image containing the morphological outer gradient (subtract input from d
 
 #### <a name='op_morph_gradient_external__examples'></a> Examples
 
-<table>
+<a name='op_morph_gradient_external__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op morph gradient external @1 radius 1
@@ -279,7 +279,7 @@ Returns image containing the morphological outer gradient (subtract input from d
     <br>geometry(0 0 264 88 1)</td></tr></table></td></tr>
 </table>
 
-<table>
+<a name='op_morph_gradient_external__examples__e2'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op morph gradient external @1 radius 1
@@ -309,7 +309,7 @@ Returns image containing the morphological inner gradient (subtract eroded from 
 
 #### <a name='op_morph_gradient_internal__examples'></a> Examples
 
-<table>
+<a name='op_morph_gradient_internal__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op morph gradient internal @1 radius 1
@@ -320,7 +320,7 @@ Returns image containing the morphological inner gradient (subtract eroded from 
     <br>geometry(0 0 264 88 1)</td></tr></table></td></tr>
 </table>
 
-<table>
+<a name='op_morph_gradient_internal__examples__e2'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op morph gradient internal @1 radius 1
@@ -350,7 +350,7 @@ Returns image containing the morphological opening (erode, then dilate) of the i
 
 #### <a name='op_morph_open__examples'></a> Examples
 
-<table>
+<a name='op_morph_open__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op morph open @1 radius 1
@@ -361,7 +361,7 @@ Returns image containing the morphological opening (erode, then dilate) of the i
     <br>geometry(0 0 264 88 1)</td></tr></table></td></tr>
 </table>
 
-<table>
+<a name='op_morph_open__examples__e2'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op morph open @1 radius 1
@@ -391,7 +391,7 @@ Returns image containing the morphological of the input using a (2*radius+1)x(2*
 
 #### <a name='op_morph_toggle__examples'></a> Examples
 
-<table>
+<a name='op_morph_toggle__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op morph toggle @1 radius 1
@@ -402,7 +402,7 @@ Returns image containing the morphological of the input using a (2*radius+1)x(2*
     <br>geometry(0 0 264 88 1)</td></tr></table></td></tr>
 </table>
 
-<table>
+<a name='op_morph_toggle__examples__e2'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op morph toggle @1 radius 1
@@ -432,7 +432,7 @@ Returns image containing the morphological black tophat (subtract input from clo
 
 #### <a name='op_morph_tophat_black__examples'></a> Examples
 
-<table>
+<a name='op_morph_tophat_black__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op morph tophat black @1 radius 1
@@ -443,7 +443,7 @@ Returns image containing the morphological black tophat (subtract input from clo
     <br>geometry(0 0 264 88 1)</td></tr></table></td></tr>
 </table>
 
-<table>
+<a name='op_morph_tophat_black__examples__e2'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op morph tophat black @1 radius 1
@@ -473,7 +473,7 @@ Returns image containing the morphological white tophat (subtract opening from i
 
 #### <a name='op_morph_tophat_white__examples'></a> Examples
 
-<table>
+<a name='op_morph_tophat_white__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op morph tophat white @1 radius 1
@@ -484,7 +484,7 @@ Returns image containing the morphological white tophat (subtract opening from i
     <br>geometry(0 0 264 88 1)</td></tr></table></td></tr>
 </table>
 
-<table>
+<a name='op_morph_tophat_white__examples__e2'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op morph tophat white @1 radius 1

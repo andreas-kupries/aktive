@@ -44,7 +44,7 @@ A single input is passed through unchanged.
 
 #### <a name='op_montage_x__examples'></a> Examples
 
-<table>
+<a name='op_montage_x__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>@2
@@ -63,7 +63,7 @@ A single input is passed through unchanged.
     <br>geometry(0 0 224 128 1)</td></tr>
 </table>
 
-<table>
+<a name='op_montage_x__examples__e2'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>@2
@@ -122,7 +122,7 @@ Returns image with input joined left to right with itself N times along the x-ax
 
 #### <a name='op_montage_x_rep__examples'></a> Examples
 
-<table>
+<a name='op_montage_x_rep__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op montage x-rep @1 by 3
@@ -149,7 +149,7 @@ A single input is passed through unchanged.
 
 #### <a name='op_montage_y__examples'></a> Examples
 
-<table>
+<a name='op_montage_y__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>@2
@@ -168,7 +168,7 @@ A single input is passed through unchanged.
     <br>geometry(0 0 128 224 1)</td></tr>
 </table>
 
-<table>
+<a name='op_montage_y__examples__e2'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>@2
@@ -227,7 +227,7 @@ Returns image with input joined top to bottom with itself N times along the y-ax
 
 #### <a name='op_montage_y_rep__examples'></a> Examples
 
-<table>
+<a name='op_montage_y_rep__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op montage y-rep @1 by 3
@@ -254,7 +254,7 @@ A single input is passed through unchanged.
 
 #### <a name='op_montage_z__examples'></a> Examples
 
-<table>
+<a name='op_montage_z__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>@2
@@ -273,7 +273,7 @@ A single input is passed through unchanged.
     <br>geometry(0 0 128 128 3)</td></tr>
 </table>
 
-<table>
+<a name='op_montage_z__examples__e2'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>@2
@@ -332,7 +332,7 @@ Returns image with input joined front to back with itself N times along the z-ax
 
 #### <a name='op_montage_z_rep__examples'></a> Examples
 
-<table>
+<a name='op_montage_z_rep__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op montage z-rep @1 by 3
