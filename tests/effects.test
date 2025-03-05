@@ -25,7 +25,7 @@ syntax {
 # # ## ### ##### ######## ############# #####################
 ##
 
-set in [aktive read from netpbm path [A butterfly.ppm]]
+set in [aktive read from netpbm file path [A butterfly.ppm]]
 
 test aktive-effect-sketch-2.0 "aktive effect sketch" -body {
     asppm aktive effect sketch $in

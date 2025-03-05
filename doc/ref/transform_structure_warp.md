@@ -55,7 +55,7 @@ This operator is __strict__ in the 1st input. The projective matrix is materiali
 
 #### <a name='op_transform_by__examples'></a> Examples
 
-<table>
+<a name='op_transform_by__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>@2
@@ -69,7 +69,7 @@ This operator is __strict__ in the 1st input. The projective matrix is materiali
     <br>geometry(-98 1 454 407 3)</td></tr></table></td></tr>
 </table>
 
-<table>
+<a name='op_transform_by__examples__e2'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>@2
@@ -83,7 +83,7 @@ This operator is __strict__ in the 1st input. The projective matrix is materiali
     <br>geometry(0 0 191 375 3)</td></tr>
 </table>
 
-<table>
+<a name='op_transform_by__examples__e3'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>@2
@@ -97,7 +97,7 @@ This operator is __strict__ in the 1st input. The projective matrix is materiali
     <br>geometry(0 0 471 333 3)</td></tr>
 </table>
 
-<table>
+<a name='op_transform_by__examples__e4'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>@2
@@ -111,7 +111,7 @@ This operator is __strict__ in the 1st input. The projective matrix is materiali
     <br>geometry(-379 0 380 250 3)</td></tr>
 </table>
 
-<table>
+<a name='op_transform_by__examples__e5'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>@2
@@ -125,7 +125,7 @@ This operator is __strict__ in the 1st input. The projective matrix is materiali
     <br>geometry(0 -249 380 250 3)</td></tr>
 </table>
 
-<table>
+<a name='op_transform_by__examples__e6'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>@2
@@ -139,7 +139,7 @@ This operator is __strict__ in the 1st input. The projective matrix is materiali
     <br>geometry(-192 -151 451 437 3)</td></tr></table></td></tr>
 </table>
 
-<table>
+<a name='op_transform_by__examples__e7'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>@2

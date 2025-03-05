@@ -1,11 +1,149 @@
 ## -*- mode: tcl ; fill-column: 90 -*-
 # # ## ### ##### ######## ############# #####################
-## Generators -- File Reader - AKTIVE format
+## Generators -- Reader -- AKTIVE format -- Files and memory buffers (string)
 
 # # ## ### ##### ######## ############# #####################
-## PPM, PGM format
+## AKTIVE format
 
-operator read::from::aktive {
+operator read::from::aktive::string {
+
+    section generator reader
+
+    note Construct image from a Tcl byte array value in the native AKTIVE format.
+
+    object value \
+	Tcl value holding the AKTIVE image data to read
+
+    state -fields {
+	int         x;
+	int         y;
+	aktive_uint pix;	// offset to first pixel in the value
+	char*       bytes;	// memory buffer holding the image
+	Tcl_Size    size;	// length of the above buffer, in bytes
+    } -setup {
+	// Read header
+
+	Tcl_Size fsize;
+	char* bytes  = Tcl_GetBytesFromObj (interp, param->value, &fsize);
+	state->bytes = bytes;
+
+	#define TRY(m, cmd) if (!(cmd)) aktive_fail ("failed to read header: " m);
+	int x, y;
+	aktive_uint w, h, d, metac;
+	Tcl_Size pos = 0;
+
+	TRY ("magic",   aktive_get_match    (bytes, fsize, &pos, MAGIC,   sizeof (MAGIC)-1));
+	TRY ("version", aktive_get_match    (bytes, fsize, &pos, VERSION, sizeof (VERSION)-1));
+	TRY ("x",       aktive_get_int32be  (bytes, fsize, &pos, &x));
+	TRY ("y",       aktive_get_int32be  (bytes, fsize, &pos, &y));
+	TRY ("w",       aktive_get_uint32be (bytes, fsize, &pos, &w));
+	TRY ("h",       aktive_get_uint32be (bytes, fsize, &pos, &h));
+	TRY ("d",       aktive_get_uint32be (bytes, fsize, &pos, &d));
+	TRY ("metac",   aktive_get_uint32be (bytes, fsize, &pos, &metac));
+	if (metac) {
+	    char* buf = NALLOC (char, metac);
+	    if (!aktive_get_string (bytes, fsize, &pos, buf, metac)) {
+		ckfree (buf);
+		aktive_fail ("failed to read header: metadata");
+	    }
+	    *meta = Tcl_NewStringObj (buf, metac);
+	    ckfree (buf);
+	}
+	TRY ("magic2", aktive_get_match (bytes, fsize, &pos, MAGIC2, sizeof (MAGIC2)-1));
+	#undef TRY
+
+	// Check found versus expected file size
+	Tcl_WideInt esize = (sizeof (MAGIC)-1)         // 1st magic
+	                  + (sizeof (VERSION)-1)       // version
+			  + 6 * 4                      // x, y, w, h, d, meta size
+			  + metac                      // meta data
+	                  + (sizeof (MAGIC2)-1)        // 2nd magic
+                          + w * h * d * sizeof(double) // pixels
+                          ;
+        if (esize != fsize) aktive_failf ("bad size, expected %lld, got %lld", esize, fsize);
+
+	state->pix  = pos;
+	state->x    = x;
+	state->y    = y;
+	state->size = fsize;
+
+	aktive_geometry_set (domain, x, y, w, h, d);
+    }
+
+    pixels -state {
+        char*    pixels;  // in-memory pixel buffer ATTENTION: access is READ-ONLY, thread shared
+        Tcl_Size size;    // length of the pixel buffer, in bytes
+        int      x;       // local copy of the image location
+        int      y;       // s.a.
+    } -setup {
+        // NOTE how the pixel buffer is pointed to after the data header, and the size accordingly less
+        state->pixels = istate->bytes + istate->pix;
+        state->size   = istate->size  - istate->pix;
+        state->x      = istate->x;
+        state->y      = istate->y;
+    } {
+        // custom blit, position to row start on each row
+        // failure to read results in 0.0
+
+	// idomain	image geometry
+	// request	image area to get the pixels of
+	// block.domain storage geometry (ignoring location)
+	// dst		storage area to write the pixels to
+	//
+	// r.width      == dst.width  <= idomain.width  (Note: < possible)
+	// r.height     == dst.height <= idomain.height (Note: < possible)
+	// domain.depth == idomain.depth
+
+	aktive_uint stride = block->domain.depth;
+	aktive_uint pitch  = block->domain.width * stride;
+
+	aktive_uint dstpos, dsty, dstx, dstz;
+	aktive_uint srcpos, srcy, srcx;
+	aktive_uint row, col, band;
+
+	// Translate logical request location to physical 0-based location into the pixel block
+	aktive_uint sy = request->y - state->y;
+	aktive_uint sx = request->x - state->x;
+
+	// Unoptimized loop nest to read pixel data and write to storage
+	TRACE ("dy  dx  dz  | out | @@@ | val", 0);
+
+	#define ITER_ROW  for (srcy = sy, dsty = dst->y, row  = 0; row  < request->height; srcy ++, dsty ++, row ++)
+	#define ITER_COL  for (srcx = sx, dstx = dst->x, col  = 0; col  < request->width;  srcx ++, dstx ++, col ++)
+	#define ITER_BAND for (           dstz = 0,      band = 0; band < idomain->depth;           dstz ++, band ++)
+
+	char*    pixels = state->pixels;
+	Tcl_Size size   = state->size;
+
+	ITER_ROW {
+	    Tcl_WideInt rowat = sizeof(double) * (srcy * pitch + sx * stride);
+	    TRACE ("%3d %3d     |     | %3lld | off %d %d %d", srcy, sx, rowat, istate->pix, pitch, stride);
+	    ASSERT (rowat >= 0, "read before pixel data");
+
+	    Tcl_Size pos = rowat;
+	    ITER_COL {
+		ITER_BAND {
+		    dstpos = dsty * pitch + dstx * stride + dstz;
+		    ASSERT (pos >= 0, "read before channel");
+
+		    double value = 0.0;
+		    (void) aktive_get_float64be (pixels, size, &pos, &value);
+
+		    TRACE ("%3d %3d %3d | %3d | %3lld | %.2f", dsty, dstx, dstz, dstpos, pos, value);
+		    ASSERT (dstpos < block->used, "read/write out of bounds");
+
+		    block->pixel [dstpos] = value;
+		}
+	    }
+	}
+
+	#undef ITER_ROW
+	#undef ITER_COL
+	#undef ITER_BAND
+    }
+}
+
+operator read::from::aktive::file {
 
     example {path tests/assets/results/format-colorbox.aktive | times 8}
     example {path tests/assets/results/format-graybox.aktive  | times 8}
@@ -60,7 +198,7 @@ operator read::from::aktive {
 	    *meta = Tcl_NewStringObj (buf, metac);
 	    ckfree (buf);
 	}
-	TRY ("magic2",  aktive_read_match    (src, MAGIC2, sizeof (MAGIC2)-1));
+	TRY ("magic2",  aktive_read_match (src, MAGIC2, sizeof (MAGIC2)-1));
 	pix = Tcl_Tell (src);
 	#undef TRY
 
@@ -80,8 +218,7 @@ operator read::from::aktive {
 	state->x    = x;
 	state->y    = y;
 
-	aktive_meta_set  (meta, "path",   param->path);
-
+	aktive_meta_set  (meta, "path", param->path);
 	aktive_path_copy (&state->path, param->path);
 
 	aktive_geometry_set (domain, x, y, w, h, d);

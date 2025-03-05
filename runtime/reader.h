@@ -66,6 +66,33 @@ extern void        aktive_path_free (aktive_path* dst);
 extern Tcl_Channel aktive_path_open (aktive_path* dst);
 
 /*
+ * - - -- --- ----- -------- -------------
+ *
+ * All get functions (*) stay at the current location should they fail to read
+ * enough bytes for their expected result.
+ *
+ * (*) The getters are `read from byte array`, i.e. in memory.
+ *     Position information is tracked outside.
+ */
+
+extern int aktive_get_string        (char* inbytes, Tcl_Size inmax, Tcl_Size* pos, char* buf, aktive_uint n);
+extern int aktive_get_match         (char* inbytes, Tcl_Size inmax, Tcl_Size* pos, char* buf, aktive_uint n);
+extern int aktive_get_uint8         (char* inbytes, Tcl_Size inmax, Tcl_Size* pos, aktive_uint* v);
+extern int aktive_get_uint16be      (char* inbytes, Tcl_Size inmax, Tcl_Size* pos, aktive_uint* v);
+extern int aktive_get_uint32be      (char* inbytes, Tcl_Size inmax, Tcl_Size* pos, aktive_uint* v);
+extern int aktive_get_uint64be      (char* inbytes, Tcl_Size inmax, Tcl_Size* pos, Tcl_WideInt* v);
+extern int aktive_get_uint_str      (char* inbytes, Tcl_Size inmax, Tcl_Size* pos, aktive_uint* v);
+extern int aktive_get_uint_strsharp (char* inbytes, Tcl_Size inmax, Tcl_Size* pos, aktive_uint* v);
+extern int aktive_get_uint_strcom   (char* inbytes, Tcl_Size inmax, Tcl_Size* pos, aktive_uint* v);
+extern int aktive_get_int8          (char* inbytes, Tcl_Size inmax, Tcl_Size* pos, int*         v);
+extern int aktive_get_int16be       (char* inbytes, Tcl_Size inmax, Tcl_Size* pos, int*         v);
+extern int aktive_get_int32be       (char* inbytes, Tcl_Size inmax, Tcl_Size* pos, int*         v);
+extern int aktive_get_int64be       (char* inbytes, Tcl_Size inmax, Tcl_Size* pos, Tcl_WideInt* v);
+extern int aktive_get_int_str       (char* inbytes, Tcl_Size inmax, Tcl_Size* pos, int*         v);
+extern int aktive_get_int_strcom    (char* inbytes, Tcl_Size inmax, Tcl_Size* pos, int*         v);
+extern int aktive_get_float64be     (char* inbytes, Tcl_Size inmax, Tcl_Size* pos, double*      v);
+
+/*
  * = = == === ===== ======== ============= =====================
  * Local Variables:
  * mode: c

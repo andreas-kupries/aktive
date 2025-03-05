@@ -43,7 +43,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 
 #### <a name='image_threshold_global_bernsen__examples'></a> Examples
 
-<table>
+<a name='image_threshold_global_bernsen__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive image threshold global bernsen @1
@@ -53,7 +53,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
     <td valign='top'>&nbsp;0.33137254901960783</td></tr>
 </table>
 
-<table>
+<a name='image_threshold_global_bernsen__examples__e2'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive image threshold global bernsen @1
@@ -83,7 +83,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 
 #### <a name='image_threshold_global_mean__examples'></a> Examples
 
-<table>
+<a name='image_threshold_global_mean__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive image threshold global mean @1
@@ -93,7 +93,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
     <td valign='top'>&nbsp;0.46493130718954245</td></tr>
 </table>
 
-<table>
+<a name='image_threshold_global_mean__examples__e2'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive image threshold global mean @1
@@ -125,7 +125,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 
 #### <a name='image_threshold_global_niblack__examples'></a> Examples
 
-<table>
+<a name='image_threshold_global_niblack__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive image threshold global niblack @1
@@ -135,7 +135,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
     <td valign='top'>&nbsp;0.4461036579290674</td></tr>
 </table>
 
-<table>
+<a name='image_threshold_global_niblack__examples__e2'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive image threshold global niblack @1
@@ -167,7 +167,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 
 #### <a name='image_threshold_global_otsu__examples'></a> Examples
 
-<table>
+<a name='image_threshold_global_otsu__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive image threshold global otsu @1
@@ -202,7 +202,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 
 #### <a name='image_threshold_global_phansalkar__examples'></a> Examples
 
-<table>
+<a name='image_threshold_global_phansalkar__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive image threshold global phansalkar @1
@@ -212,7 +212,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
     <td valign='top'>&nbsp;0.3839280179396569</td></tr>
 </table>
 
-<table>
+<a name='image_threshold_global_phansalkar__examples__e2'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive image threshold global phansalkar @1
@@ -245,7 +245,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 
 #### <a name='image_threshold_global_sauvola__examples'></a> Examples
 
-<table>
+<a name='image_threshold_global_sauvola__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive image threshold global sauvola @1
@@ -255,7 +255,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
     <td valign='top'>&nbsp;0.23263662163348175</td></tr>
 </table>
 
-<table>
+<a name='image_threshold_global_sauvola__examples__e2'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive image threshold global sauvola @1

@@ -32,7 +32,7 @@ foreach {cmd asset} {
     } -match image -result \
 	[astcl/ [aktive op meta clear \
 		     [aktive op sample replicate xy \
-			  [aktive read from aktive path [R format-${asset}.aktive ]] \
+			  [aktive read from aktive file path [R format-${asset}.aktive ]] \
 			  by 16]]]
 }
 

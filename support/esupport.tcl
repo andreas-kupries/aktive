@@ -92,9 +92,9 @@ proc times         {n x} { aktive op sample replicate xy $x by $n }
 #
 # asset access
 #
-proc butterfly {} { aktive read from netpbm path tests/assets/butterfly.ppm }
-proc sines     {} { aktive read from netpbm path tests/assets/sines.ppm }
-proc scancrop  {} { aktive read from netpbm path tests/assets/crop.pgm }
+proc butterfly {} { aktive read from netpbm file path tests/assets/butterfly.ppm }
+proc sines     {} { aktive read from netpbm file path tests/assets/sines.ppm }
+proc scancrop  {} { aktive read from netpbm file path tests/assets/crop.pgm }
 #
 # place overlays on images, dot/line/poly, red/green/blue - also show cmds!
 #

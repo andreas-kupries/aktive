@@ -27,31 +27,28 @@
 
 // = = == === ===== ======== ============= =====================
 
-TRACE_FUNC ("((void**) %p, (info*) %p, (%u x %u), (Chan) %p, (double*) %p [3*%u]) [%u %f]",
-	    cache, info, x, y, chan, v, w, info->width, info->scale);
+TRACE_FUNC ("((info*) %p, (%u x %u), (char*) %p [%d], (double*) %p [3*%u]) [%u %f]",
+	    info, x, y, inbytes, inmax, v, w, info->width, info->scale);
 TRACE("Bands %d x %s [%d]", BANDS, XS(BANDTYPE), BYTES);
 
-// Create cache able to hold a full row of raw shorts
+// No row cache. The data is already fully in memory.
 
-if (!*cache) {
-    *cache = NALLOC (char, info->width * BYTES);
-}
-TRACE ("Cache %p [%d]", *cache, info->width * BYTES);
-
-BANDTYPE* raw   = (BANDTYPE*) *cache;
+BANDTYPE* raw;
 double    scale = info->scale;
 
 TRACE ("Scale %f", scale);
 
-// Determine where to read in the file.
+// Determine where to look in the buffer.
 
 aktive_uint offset = info->base + BYTES * (y * info->width + x);
 TRACE ("Goto %d+%d*(%d*%d+%d) = %u", info->base, BYTES, y, info->width, x, offset);
-Tcl_Seek (chan, offset, SEEK_SET);
 
-// Read the (partial) row, then convert to destination
+// Get the (partial) row, then convert to destination
 
-int i, got = Tcl_Read (chan, (char*) raw, w * BYTES);
+int stop = offset + w * BYTES;
+stop     = (stop > inmax) ? inmax : stop;
+int got  = stop - offset;
+raw      = (BANDTYPE*) (inbytes + offset);
 
 TRACE ("request %8d, got %8d [bytes]", w*BYTES, got);
 
@@ -69,11 +66,12 @@ TRACE ("request %8d, got %8d [values]", w, got);
 double* vbase = v;
 
 #if BYTE_ORDER == LITTLE_ENDIAN
-#define E "le"
+#define ENDIAN "le"
 #else
-#define E "be"
+#define ENDIAN "be"
 #endif
 
+int i;
 for (i = 0; i < got; i++, v++, raw++) {
     BANDTYPE vr = *raw;
 #if BANDCODE == 1
@@ -88,7 +86,7 @@ for (i = 0; i < got; i++, v++, raw++) {
     PROCESS (vr);
     *v = vr * scale;
 
-    TRACE ("ingest [%8d] %5u -> %f (%s) [%02x %02x]", i, vr, *v, E, (int)((char*)&vr)[0], (int)((char*)&vr)[1]);
+    TRACE ("ingest [%8d] %5u -> %f (%s) [%02x %02x]", i, vr, *v, ENDIAN, (int)((char*)&vr)[0], (int)((char*)&vr)[1]);
 #endif
 }
 for (     ; i < w;   i++, v++) { *v = 0.0; }

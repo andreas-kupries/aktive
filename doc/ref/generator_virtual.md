@@ -108,7 +108,7 @@ Returns square single-band image containing a cross diagonal bar. The image has 
 
 #### <a name='image_cbar__examples'></a> Examples
 
-<table>
+<a name='image_cbar__examples__e1'></a><table>
 <tr><th>aktive image cbar radius 32 width 8
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><img src='example-00058.gif' alt='aktive image cbar radius 32 width 8' style='border:4px solid gold'>
@@ -133,21 +133,21 @@ Returns image containing a black/white checker board.
 
 #### <a name='image_checkers__examples'></a> Examples
 
-<table>
+<a name='image_checkers__examples__e1'></a><table>
 <tr><th>aktive image checkers width 128 height 128
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><img src='example-00059.gif' alt='aktive image checkers width 128 height 128' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
-<table>
+<a name='image_checkers__examples__e2'></a><table>
 <tr><th>aktive image checkers width 128 height 128 black 16 white 32
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><img src='example-00060.gif' alt='aktive image checkers width 128 height 128 black 16 white 32' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
-<table>
+<a name='image_checkers__examples__e3'></a><table>
 <tr><th>aktive image checkers width 128 height 128 black 16 white 32 offset 8
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><img src='example-00061.gif' alt='aktive image checkers width 128 height 128 black 16 white 32 offset 8' style='border:4px solid gold'>
@@ -169,7 +169,7 @@ Returns square single-band image containing a circle (disc perimeter). The image
 
 #### <a name='image_circle__examples'></a> Examples
 
-<table>
+<a name='image_circle__examples__e1'></a><table>
 <tr><th>aktive image circle radius 32 width 8
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><img src='example-00062.gif' alt='aktive image circle radius 32 width 8' style='border:4px solid gold'>
@@ -191,7 +191,7 @@ Returns square single-band image containing a cross. The image has size `2*radiu
 
 #### <a name='image_cross__examples'></a> Examples
 
-<table>
+<a name='image_cross__examples__e1'></a><table>
 <tr><th>aktive image cross radius 32 width 8
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><img src='example-00063.gif' alt='aktive image cross radius 32 width 8' style='border:4px solid gold'>
@@ -213,7 +213,7 @@ Returns square single-band image containing a diagonal bar. The image has size `
 
 #### <a name='image_dbar__examples'></a> Examples
 
-<table>
+<a name='image_dbar__examples__e1'></a><table>
 <tr><th>aktive image dbar radius 32 width 8
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><img src='example-00064.gif' alt='aktive image dbar radius 32 width 8' style='border:4px solid gold'>
@@ -238,21 +238,21 @@ Returns image containing a diagonal black/white grid with configurable stripes
 
 #### <a name='image_dgrid__examples'></a> Examples
 
-<table>
+<a name='image_dgrid__examples__e1'></a><table>
 <tr><th>aktive image dgrid width 128 height 128
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><img src='example-00065.gif' alt='aktive image dgrid width 128 height 128' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
-<table>
+<a name='image_dgrid__examples__e2'></a><table>
 <tr><th>aktive image dgrid width 128 height 128 black 16 white 32
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><img src='example-00066.gif' alt='aktive image dgrid width 128 height 128 black 16 white 32' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
-<table>
+<a name='image_dgrid__examples__e3'></a><table>
 <tr><th>aktive image dgrid width 128 height 128 black 16 white 32 offset 8
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><img src='example-00067.gif' alt='aktive image dgrid width 128 height 128 black 16 white 32 offset 8' style='border:4px solid gold'>
@@ -273,7 +273,7 @@ Returns square single-band image containing a filled disc. The image has size `2
 
 #### <a name='image_disc__examples'></a> Examples
 
-<table>
+<a name='image_disc__examples__e1'></a><table>
 <tr><th>aktive image disc radius 32
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><img src='example-00068.gif' alt='aktive image disc radius 32' style='border:4px solid gold'>
@@ -298,21 +298,21 @@ Returns image containing a series of diagonal black/white stripes.
 
 #### <a name='image_dstripes__examples'></a> Examples
 
-<table>
+<a name='image_dstripes__examples__e1'></a><table>
 <tr><th>aktive image dstripes width 128 height 128
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><img src='example-00096.gif' alt='aktive image dstripes width 128 height 128' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
-<table>
+<a name='image_dstripes__examples__e2'></a><table>
 <tr><th>aktive image dstripes width 128 height 128 black 16 white 32
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><img src='example-00097.gif' alt='aktive image dstripes width 128 height 128 black 16 white 32' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
-<table>
+<a name='image_dstripes__examples__e3'></a><table>
 <tr><th>aktive image dstripes width 128 height 128 black 16 white 32 offset 8
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><img src='example-00098.gif' alt='aktive image dstripes width 128 height 128 black 16 white 32 offset 8' style='border:4px solid gold'>
@@ -335,7 +335,7 @@ Returns image containing a test pattern with increasing spatial frequency from l
 
 #### <a name='image_eye__examples'></a> Examples
 
-<table>
+<a name='image_eye__examples__e1'></a><table>
 <tr><th>aktive image eye width 256 height 256 factor 0.8
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><img src='example-00099.gif' alt='aktive image eye width 256 height 256 factor 0.8' style='border:4px solid gold'>
@@ -362,14 +362,14 @@ Depth is len(value)
 
 #### <a name='image_from_band__examples'></a> Examples
 
-<table>
+<a name='image_from_band__examples__e1'></a><table>
 <tr><th>aktive image from band width 64 height 64 values 0.3
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><img src='example-00100.gif' alt='aktive image from band width 64 height 64 values 0.3' style='border:4px solid gold'>
     <br>geometry(0 0 64 64 1)</td></tr>
 </table>
 
-<table>
+<a name='image_from_band__examples__e2'></a><table>
 <tr><th>aktive image from band width 64 height 64 values 0.3 0.5 0.7
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><img src='example-00101.gif' alt='aktive image from band width 64 height 64 values 0.3 0.5 0.7' style='border:4px solid gold'>
@@ -395,7 +395,7 @@ The image's height is the number of values.
 
 #### <a name='image_from_column__examples'></a> Examples
 
-<table>
+<a name='image_from_column__examples__e1'></a><table>
 <tr><th>aktive image from column width 64 values 0 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 0.45 0.5 0.55 0.6 0.6 0.7 0.75 0.8 0.85 0.9 0.95 1
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><img src='example-00102.gif' alt='aktive image from column width 64 values 0 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 0.45 0.5 0.55 0.6 0.6 0.7 0.75 0.8 0.85 0.9 0.95 1' style='border:4px solid gold'>
@@ -427,7 +427,7 @@ Depth is fixed at 1.
 
 #### <a name='image_from_matrix__examples'></a> Examples
 
-<table>
+<a name='image_from_matrix__examples__e1'></a><table>
 <tr><th>aktive image from matrix width 16 height 16 values 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00103.gif' alt='aktive image from matrix width 16 height 16 values 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0' style='border:4px solid gold'>
@@ -453,7 +453,7 @@ The image's width is the number of values.
 
 #### <a name='image_from_row__examples'></a> Examples
 
-<table>
+<a name='image_from_row__examples__e1'></a><table>
 <tr><th>aktive image from row height 64 values 0 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 0.45 0.5 0.55 0.6 0.6 0.7 0.75 0.8 0.85 0.9 0.95 1
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><img src='example-00104.gif' alt='aktive image from row height 64 values 0 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 0.45 0.5 0.55 0.6 0.6 0.7 0.75 0.8 0.85 0.9 0.95 1' style='border:4px solid gold'>
@@ -485,7 +485,7 @@ Pixel value is fixed at 1.0
 
 #### <a name='image_from_sparse_deltas__examples'></a> Examples
 
-<table>
+<a name='image_from_sparse_deltas__examples__e1'></a><table>
 <tr><th>aktive image from sparse deltas width 7 deltas 0 20 5 15
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><table><tr><td valign='top'><img src='example-00105.gif' alt='aktive image from sparse deltas width 7 deltas 0 20 5 15' style='border:4px solid gold'>
@@ -517,7 +517,7 @@ Pixel value is fixed at 1.0
 
 #### <a name='image_from_sparse_points__examples'></a> Examples
 
-<table>
+<a name='image_from_sparse_points__examples__e1'></a><table>
 <tr><th>aktive image from sparse points coords {0 0} {4 3} {5 5} {6 2}
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><table><tr><td valign='top'><img src='example-00107.gif' alt='aktive image from sparse points coords {0 0} {4 3} {5 5} {6 2}' style='border:4px solid gold'>
@@ -550,7 +550,7 @@ The image depth is fixed at 1, i.e. the result is single-band.
 
 #### <a name='image_from_sparse_ranges__examples'></a> Examples
 
-<table>
+<a name='image_from_sparse_ranges__examples__e1'></a><table>
 <tr><th>aktive image from sparse ranges ranges {1 24 30 1} {2 23 31 1} {3 22 32 1} {4 22 24 0.75} {4 30 32 0.75} {5 22 23 0.75} {5 31 32 0.75} {6 23 24 0.5} {6 30 31 0.5} {7 24 25 0.5} {7 29 30 0.5}
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><table><tr><td valign='top'><img src='example-00109.gif' alt='aktive image from sparse ranges ranges {1 24 30 1} {2 23 31 1} {3 22 32 1} {4 22 24 0.75} {4 30 32 0.75} {5 22 23 0.75} {5 31 32 0.75} {6 23 24 0.5} {6 30 31 0.5} {7 24 25 0.5} {7 29 30 0.5}' style='border:4px solid gold'>
@@ -577,14 +577,14 @@ Returns image which has the same VALUE everywhere.
 
 #### <a name='image_from_value__examples'></a> Examples
 
-<table>
+<a name='image_from_value__examples__e1'></a><table>
 <tr><th>aktive image from value width 64 height 64 depth 1 value 0.5
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><img src='example-00111.gif' alt='aktive image from value width 64 height 64 depth 1 value 0.5' style='border:4px solid gold'>
     <br>geometry(0 0 64 64 1)</td></tr>
 </table>
 
-<table>
+<a name='image_from_value__examples__e2'></a><table>
 <tr><th>aktive image from value width 64 height 64 depth 3 value 0.5
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><img src='example-00112.gif' alt='aktive image from value width 64 height 64 depth 3 value 0.5' style='border:4px solid gold'>
@@ -609,14 +609,14 @@ Returns image containing a linear gradient through all cells.
 
 #### <a name='image_gradient__examples'></a> Examples
 
-<table>
+<a name='image_gradient__examples__e1'></a><table>
 <tr><th>aktive image gradient width 256 height   1 depth 1 first 0 last 1
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><table><tr><td valign='top'>height-times 32</td><td valign='top'><img src='example-00113.gif' alt='aktive image gradient width 256 height   1 depth 1 first 0 last 1' style='border:4px solid gold'>
     <br>geometry(0 0 256 32 1)</td></tr></table></td></tr>
 </table>
 
-<table>
+<a name='image_gradient__examples__e2'></a><table>
 <tr><th>aktive image gradient width 128 height 128 depth 1 first 0 last 1
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><img src='example-00114.gif' alt='aktive image gradient width 128 height 128 depth 1 first 0 last 1' style='border:4px solid gold'>
@@ -638,7 +638,7 @@ Returns image containing a left to right black to white gradient.
 
 #### <a name='image_grey__examples'></a> Examples
 
-<table>
+<a name='image_grey__examples__e1'></a><table>
 <tr><th>aktive image grey width 256 height 32
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><img src='example-00115.gif' alt='aktive image grey width 256 height 32' style='border:4px solid gold'>
@@ -663,21 +663,21 @@ Returns image containing an axis-aligned black/white grid with configurable stri
 
 #### <a name='image_grid__examples'></a> Examples
 
-<table>
+<a name='image_grid__examples__e1'></a><table>
 <tr><th>aktive image grid width 128 height 128
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><img src='example-00116.gif' alt='aktive image grid width 128 height 128' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
-<table>
+<a name='image_grid__examples__e2'></a><table>
 <tr><th>aktive image grid width 128 height 128 black 16 white 32
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><img src='example-00117.gif' alt='aktive image grid width 128 height 128 black 16 white 32' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
-<table>
+<a name='image_grid__examples__e3'></a><table>
 <tr><th>aktive image grid width 128 height 128 black 16 white 32 offset 8
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><img src='example-00118.gif' alt='aktive image grid width 128 height 128 black 16 white 32 offset 8' style='border:4px solid gold'>
@@ -699,7 +699,7 @@ Returns square single-band image containing a horizontal bar. The image has size
 
 #### <a name='image_hbar__examples'></a> Examples
 
-<table>
+<a name='image_hbar__examples__e1'></a><table>
 <tr><th>aktive image hbar radius 32 width 8
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><img src='example-00119.gif' alt='aktive image hbar radius 32 width 8' style='border:4px solid gold'>
@@ -725,13 +725,13 @@ __Note__ that while the result is usable as a warp map for the <!xref aktive op 
 
 #### <a name='image_indexed__examples'></a> Examples
 
-<table>
+<a name='image_indexed__examples__e1'></a><table>
 <tr><th>aktive image indexed width 5 height 5
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><table><tr><td>(0, 0)</td><td>(1, 0)</td><td>(2, 0)</td><td>(3, 0)</td><td>(4, 0)</td></tr><tr><td>(0, 1)</td><td>(1, 1)</td><td>(2, 1)</td><td>(3, 1)</td><td>(4, 1)</td></tr><tr><td>(0, 2)</td><td>(1, 2)</td><td>(2, 2)</td><td>(3, 2)</td><td>(4, 2)</td></tr><tr><td>(0, 3)</td><td>(1, 3)</td><td>(2, 3)</td><td>(3, 3)</td><td>(4, 3)</td></tr><tr><td>(0, 4)</td><td>(1, 4)</td><td>(2, 4)</td><td>(3, 4)</td><td>(4, 4)</td></tr></table></td></tr>
 </table>
 
-<table>
+<a name='image_indexed__examples__e2'></a><table>
 <tr><th>aktive image indexed x -5 y -5 width 8 height 8
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><table><tr><td>(-5, -5)</td><td>(-4, -5)</td><td>(-3, -5)</td><td>(-2, -5)</td><td>(-1, -5)</td><td>(0, -5)</td><td>(1, -5)</td><td>(2, -5)</td></tr><tr><td>(-5, -4)</td><td>(-4, -4)</td><td>(-3, -4)</td><td>(-2, -4)</td><td>(-1, -4)</td><td>(0, -4)</td><td>(1, -4)</td><td>(2, -4)</td></tr><tr><td>(-5, -3)</td><td>(-4, -3)</td><td>(-3, -3)</td><td>(-2, -3)</td><td>(-1, -3)</td><td>(0, -3)</td><td>(1, -3)</td><td>(2, -3)</td></tr><tr><td>(-5, -2)</td><td>(-4, -2)</td><td>(-3, -2)</td><td>(-2, -2)</td><td>(-1, -2)</td><td>(0, -2)</td><td>(1, -2)</td><td>(2, -2)</td></tr><tr><td>(-5, -1)</td><td>(-4, -1)</td><td>(-3, -1)</td><td>(-2, -1)</td><td>(-1, -1)</td><td>(0, -1)</td><td>(1, -1)</td><td>(2, -1)</td></tr><tr><td>(-5, 0)</td><td>(-4, 0)</td><td>(-3, 0)</td><td>(-2, 0)</td><td>(-1, 0)</td><td>(0, 0)</td><td>(1, 0)</td><td>(2, 0)</td></tr><tr><td>(-5, 1)</td><td>(-4, 1)</td><td>(-3, 1)</td><td>(-2, 1)</td><td>(-1, 1)</td><td>(0, 1)</td><td>(1, 1)</td><td>(2, 1)</td></tr><tr><td>(-5, 2)</td><td>(-4, 2)</td><td>(-3, 2)</td><td>(-2, 2)</td><td>(-1, 2)</td><td>(0, 2)</td><td>(1, 2)</td><td>(2, 2)</td></tr></table></td></tr>
@@ -747,7 +747,7 @@ Returns convolution kernel for embossing effect
 
 #### <a name='image_kernel_emboss__examples'></a> Examples
 
-<table>
+<a name='image_kernel_emboss__examples__e1'></a><table>
 <tr><th>aktive image kernel emboss 
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><table><tr><td>2</td><td>0</td><td>0</td></tr><tr><td>0</td><td>-1</td><td>0</td></tr><tr><td>0</td><td>0</td><td>-1</td></tr></table></td></tr>
@@ -767,7 +767,7 @@ Returns convolution kernel for gauss3ian blur effect
 
 #### <a name='image_kernel_gauss3_x__examples'></a> Examples
 
-<table>
+<a name='image_kernel_gauss3_x__examples__e1'></a><table>
 <tr><th>aktive image kernel gauss3 x 
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><table><tr><td>0.2500</td><td>0.5000</td><td>0.2500</td></tr></table></td></tr>
@@ -787,7 +787,7 @@ Returns convolution kernel for gauss3ian blur effect
 
 #### <a name='image_kernel_gauss3_xy__examples'></a> Examples
 
-<table>
+<a name='image_kernel_gauss3_xy__examples__e1'></a><table>
 <tr><th>aktive image kernel gauss3 xy 
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><table><tr><td>0.0625</td><td>0.1250</td><td>0.0625</td></tr><tr><td>0.1250</td><td>0.2500</td><td>0.1250</td></tr><tr><td>0.0625</td><td>0.1250</td><td>0.0625</td></tr></table></td></tr>
@@ -807,7 +807,7 @@ Returns convolution kernel for gauss3ian blur effect
 
 #### <a name='image_kernel_gauss3_y__examples'></a> Examples
 
-<table>
+<a name='image_kernel_gauss3_y__examples__e1'></a><table>
 <tr><th>aktive image kernel gauss3 y 
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><table><tr><td>0.2500</td></tr><tr><td>0.5000</td></tr><tr><td>0.2500</td></tr></table></td></tr>
@@ -827,7 +827,7 @@ Returns convolution kernel for gauss5ian blur effect
 
 #### <a name='image_kernel_gauss5_x__examples'></a> Examples
 
-<table>
+<a name='image_kernel_gauss5_x__examples__e1'></a><table>
 <tr><th>aktive image kernel gauss5 x 
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><table><tr><td>0.0625</td><td>0.2500</td><td>0.3750</td><td>0.2500</td><td>0.0625</td></tr></table></td></tr>
@@ -847,7 +847,7 @@ Returns convolution kernel for gauss5ian blur effect
 
 #### <a name='image_kernel_gauss5_y__examples'></a> Examples
 
-<table>
+<a name='image_kernel_gauss5_y__examples__e1'></a><table>
 <tr><th>aktive image kernel gauss5 y 
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><table><tr><td>0.0625</td></tr><tr><td>0.2500</td></tr><tr><td>0.3750</td></tr><tr><td>0.2500</td></tr><tr><td>0.0625</td></tr></table></td></tr>
@@ -867,7 +867,7 @@ Returns convolution kernel for gauss7ian blur effect
 
 #### <a name='image_kernel_gauss7_x__examples'></a> Examples
 
-<table>
+<a name='image_kernel_gauss7_x__examples__e1'></a><table>
 <tr><th>aktive image kernel gauss7 x 
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><table><tr><td>0.0156</td><td>0.0938</td><td>0.2344</td><td>0.3125</td><td>0.2344</td><td>0.0938</td><td>0.0156</td></tr></table></td></tr>
@@ -887,7 +887,7 @@ Returns convolution kernel for gauss7ian blur effect
 
 #### <a name='image_kernel_gauss7_y__examples'></a> Examples
 
-<table>
+<a name='image_kernel_gauss7_y__examples__e1'></a><table>
 <tr><th>aktive image kernel gauss7 y 
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><table><tr><td>0.0156</td></tr><tr><td>0.0938</td></tr><tr><td>0.2344</td></tr><tr><td>0.3125</td></tr><tr><td>0.2344</td></tr><tr><td>0.0938</td></tr><tr><td>0.0156</td></tr></table></td></tr>
@@ -907,7 +907,7 @@ Returns convolution kernel for gauss9ian blur effect
 
 #### <a name='image_kernel_gauss9_x__examples'></a> Examples
 
-<table>
+<a name='image_kernel_gauss9_x__examples__e1'></a><table>
 <tr><th>aktive image kernel gauss9 x 
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><table><tr><td>0.0078</td><td>0.0625</td><td>0.2188</td><td>0.4375</td><td>0.5469</td><td>0.4375</td><td>0.2188</td><td>0.0625</td><td>0.0078</td></tr></table></td></tr>
@@ -927,7 +927,7 @@ Returns convolution kernel for gauss9ian blur effect
 
 #### <a name='image_kernel_gauss9_y__examples'></a> Examples
 
-<table>
+<a name='image_kernel_gauss9_y__examples__e1'></a><table>
 <tr><th>aktive image kernel gauss9 y 
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><table><tr><td>0.0078</td></tr><tr><td>0.0625</td></tr><tr><td>0.2188</td></tr><tr><td>0.4375</td></tr><tr><td>0.5469</td></tr><tr><td>0.4375</td></tr><tr><td>0.2188</td></tr><tr><td>0.0625</td></tr><tr><td>0.0078</td></tr></table></td></tr>
@@ -952,19 +952,19 @@ Returns the 1D discrete gaussian convolution kernel, for the specified sigma and
 
 #### <a name='image_kernel_gauss_discrete__examples'></a> Examples
 
-<table>
+<a name='image_kernel_gauss_discrete__examples__e1'></a><table>
 <tr><th>aktive image kernel gauss discrete sigma 1
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><table><tr><td>0.0082</td><td>0.0501</td><td>0.2084</td><td>0.4668</td><td>0.2084</td><td>0.0501</td><td>0.0082</td></tr></table></td></tr>
 </table>
 
-<table>
+<a name='image_kernel_gauss_discrete__examples__e2'></a><table>
 <tr><th>aktive image kernel gauss discrete sigma 2
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><table><tr><td>0.0028</td><td>0.0093</td><td>0.0260</td><td>0.0612</td><td>0.1179</td><td>0.1791</td><td>0.2074</td><td>0.1791</td><td>0.1179</td><td>0.0612</td><td>0.0260</td><td>0.0093</td><td>0.0028</td></tr></table></td></tr>
 </table>
 
-<table>
+<a name='image_kernel_gauss_discrete__examples__e3'></a><table>
 <tr><th>aktive image kernel gauss discrete sigma 1 radius 6
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><table><tr><td>0.0000</td><td>0.0001</td><td>0.0010</td><td>0.0082</td><td>0.0499</td><td>0.2079</td><td>0.4658</td><td>0.2079</td><td>0.0499</td><td>0.0082</td><td>0.0010</td><td>0.0001</td><td>0.0000</td></tr></table></td></tr>
@@ -984,7 +984,7 @@ Returns convolution kernel for kirsch edge detection
 
 #### <a name='image_kernel_kirsch_md__examples'></a> Examples
 
-<table>
+<a name='image_kernel_kirsch_md__examples__e1'></a><table>
 <tr><th>aktive image kernel kirsch md 
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><table><tr><td>-3</td><td>5</td><td>5</td></tr><tr><td>-3</td><td>0</td><td>5</td></tr><tr><td>-3</td><td>-3</td><td>-3</td></tr></table></td></tr>
@@ -1004,7 +1004,7 @@ Returns convolution kernel for kirsch edge detection
 
 #### <a name='image_kernel_kirsch_sd__examples'></a> Examples
 
-<table>
+<a name='image_kernel_kirsch_sd__examples__e1'></a><table>
 <tr><th>aktive image kernel kirsch sd 
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><table><tr><td>5</td><td>5</td><td>-3</td></tr><tr><td>5</td><td>0</td><td>-3</td></tr><tr><td>-3</td><td>-3</td><td>-3</td></tr></table></td></tr>
@@ -1024,7 +1024,7 @@ Returns convolution kernel for kirsch edge detection
 
 #### <a name='image_kernel_kirsch_x__examples'></a> Examples
 
-<table>
+<a name='image_kernel_kirsch_x__examples__e1'></a><table>
 <tr><th>aktive image kernel kirsch x 
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><table><tr><td>5</td><td>-3</td><td>-3</td></tr><tr><td>5</td><td>0</td><td>-3</td></tr><tr><td>5</td><td>-3</td><td>-3</td></tr></table></td></tr>
@@ -1044,7 +1044,7 @@ Returns convolution kernel for kirsch edge detection
 
 #### <a name='image_kernel_kirsch_y__examples'></a> Examples
 
-<table>
+<a name='image_kernel_kirsch_y__examples__e1'></a><table>
 <tr><th>aktive image kernel kirsch y 
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><table><tr><td>5</td><td>5</td><td>5</td></tr><tr><td>-3</td><td>0</td><td>-3</td></tr><tr><td>-3</td><td>-3</td><td>-3</td></tr></table></td></tr>
@@ -1069,19 +1069,19 @@ Returns lanczos convolution kernel of the specified order. The default order is 
 
 #### <a name='image_kernel_lanczos__examples'></a> Examples
 
-<table>
+<a name='image_kernel_lanczos__examples__e1'></a><table>
 <tr><th>aktive image kernel lanczos 
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><table><tr><td>-0.0000</td><td>0.0000</td><td>1.0000</td><td>0.0000</td><td>-0.0000</td></tr></table></td></tr>
 </table>
 
-<table>
+<a name='image_kernel_lanczos__examples__e2'></a><table>
 <tr><th>aktive image kernel lanczos order 2
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><table><tr><td>0.0000</td><td>1.0000</td><td>0.0000</td></tr></table></td></tr>
 </table>
 
-<table>
+<a name='image_kernel_lanczos__examples__e3'></a><table>
 <tr><th>aktive image kernel lanczos order 2 step 0.25
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><table><tr><td>-0.0179</td><td>-0.0637</td><td>-0.0847</td><td>0.0000</td><td>0.2353</td><td>0.5732</td><td>0.8774</td><td>1.0000</td><td>0.8774</td><td>0.5732</td><td>0.2353</td><td>0.0000</td><td>-0.0847</td><td>-0.0637</td><td>-0.0179</td></tr></table></td></tr>
@@ -1101,7 +1101,7 @@ Returns convolution kernel for laplacian edge detection
 
 #### <a name='image_kernel_laplace_4__examples'></a> Examples
 
-<table>
+<a name='image_kernel_laplace_4__examples__e1'></a><table>
 <tr><th>aktive image kernel laplace 4 
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><table><tr><td>0</td><td>-1</td><td>0</td></tr><tr><td>-1</td><td>4</td><td>-1</td></tr><tr><td>0</td><td>-1</td><td>0</td></tr></table></td></tr>
@@ -1123,7 +1123,7 @@ Returns convolution kernel for laplacian edge detection
 
 #### <a name='image_kernel_laplace_8__examples'></a> Examples
 
-<table>
+<a name='image_kernel_laplace_8__examples__e1'></a><table>
 <tr><th>aktive image kernel laplace 8 
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><table><tr><td>-1</td><td>-1</td><td>-1</td></tr><tr><td>-1</td><td>8</td><td>-1</td></tr><tr><td>-1</td><td>-1</td><td>-1</td></tr></table></td></tr>
@@ -1145,7 +1145,7 @@ Returns convolution kernel for laplacian edge detection
 
 #### <a name='image_kernel_laplace_X__examples'></a> Examples
 
-<table>
+<a name='image_kernel_laplace_X__examples__e1'></a><table>
 <tr><th>aktive image kernel laplace X 
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><table><tr><td>1</td><td>-2</td><td>1</td></tr><tr><td>-2</td><td>4</td><td>-2</td></tr><tr><td>1</td><td>-2</td><td>1</td></tr></table></td></tr>
@@ -1167,7 +1167,7 @@ Returns convolution kernel for prewitt edge detection
 
 #### <a name='image_kernel_prewitt_md__examples'></a> Examples
 
-<table>
+<a name='image_kernel_prewitt_md__examples__e1'></a><table>
 <tr><th>aktive image kernel prewitt md 
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><table><tr><td>0</td><td>1</td><td>1</td></tr><tr><td>-1</td><td>0</td><td>1</td></tr><tr><td>-1</td><td>-1</td><td>0</td></tr></table></td></tr>
@@ -1191,7 +1191,7 @@ Returns convolution kernel for prewitt edge detection
 
 #### <a name='image_kernel_prewitt_sd__examples'></a> Examples
 
-<table>
+<a name='image_kernel_prewitt_sd__examples__e1'></a><table>
 <tr><th>aktive image kernel prewitt sd 
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><table><tr><td>-1</td><td>-1</td><td>0</td></tr><tr><td>-1</td><td>0</td><td>1</td></tr><tr><td>0</td><td>1</td><td>1</td></tr></table></td></tr>
@@ -1215,7 +1215,7 @@ Returns convolution kernel for prewitt edge detection
 
 #### <a name='image_kernel_prewitt_x__examples'></a> Examples
 
-<table>
+<a name='image_kernel_prewitt_x__examples__e1'></a><table>
 <tr><th>aktive image kernel prewitt x 
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><table><tr><td>-1</td><td>0</td><td>1</td></tr><tr><td>-1</td><td>0</td><td>1</td></tr><tr><td>-1</td><td>0</td><td>1</td></tr></table></td></tr>
@@ -1239,7 +1239,7 @@ Returns convolution kernel for prewitt edge detection
 
 #### <a name='image_kernel_prewitt_y__examples'></a> Examples
 
-<table>
+<a name='image_kernel_prewitt_y__examples__e1'></a><table>
 <tr><th>aktive image kernel prewitt y 
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><table><tr><td>-1</td><td>-1</td><td>-1</td></tr><tr><td>0</td><td>0</td><td>0</td></tr><tr><td>1</td><td>1</td><td>1</td></tr></table></td></tr>
@@ -1263,7 +1263,7 @@ Returns convolution kernel for roberts cross edge detection
 
 #### <a name='image_kernel_roberts_x__examples'></a> Examples
 
-<table>
+<a name='image_kernel_roberts_x__examples__e1'></a><table>
 <tr><th>aktive image kernel roberts x 
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><table><tr><td>0</td><td>-1</td><td>0</td></tr><tr><td>1</td><td>0</td><td>0</td></tr><tr><td>0</td><td>0</td><td>0</td></tr></table></td></tr>
@@ -1287,7 +1287,7 @@ Returns convolution kernel for roberts cross edge detection
 
 #### <a name='image_kernel_roberts_y__examples'></a> Examples
 
-<table>
+<a name='image_kernel_roberts_y__examples__e1'></a><table>
 <tr><th>aktive image kernel roberts y 
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><table><tr><td>-1</td><td>0</td><td>0</td></tr><tr><td>0</td><td>1</td><td>0</td></tr><tr><td>0</td><td>0</td><td>0</td></tr></table></td></tr>
@@ -1311,7 +1311,7 @@ Returns convolution kernel for scharr edge detection
 
 #### <a name='image_kernel_scharr_x__examples'></a> Examples
 
-<table>
+<a name='image_kernel_scharr_x__examples__e1'></a><table>
 <tr><th>aktive image kernel scharr x 
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><table><tr><td>-3</td><td>0</td><td>3</td></tr><tr><td>-10</td><td>0</td><td>10</td></tr><tr><td>-3</td><td>0</td><td>3</td></tr></table></td></tr>
@@ -1335,7 +1335,7 @@ Returns convolution kernel for scharr edge detection
 
 #### <a name='image_kernel_scharr_y__examples'></a> Examples
 
-<table>
+<a name='image_kernel_scharr_y__examples__e1'></a><table>
 <tr><th>aktive image kernel scharr y 
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><table><tr><td>-3</td><td>-10</td><td>-3</td></tr><tr><td>0</td><td>0</td><td>0</td></tr><tr><td>3</td><td>10</td><td>3</td></tr></table></td></tr>
@@ -1359,7 +1359,7 @@ Returns convolution kernel for sharpening effect
 
 #### <a name='image_kernel_sharp_4__examples'></a> Examples
 
-<table>
+<a name='image_kernel_sharp_4__examples__e1'></a><table>
 <tr><th>aktive image kernel sharp 4 
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><table><tr><td>0</td><td>-1</td><td>0</td></tr><tr><td>-1</td><td>5</td><td>-1</td></tr><tr><td>0</td><td>-1</td><td>0</td></tr></table></td></tr>
@@ -1379,7 +1379,7 @@ Returns convolution kernel for sharpening effect
 
 #### <a name='image_kernel_sharp_8__examples'></a> Examples
 
-<table>
+<a name='image_kernel_sharp_8__examples__e1'></a><table>
 <tr><th>aktive image kernel sharp 8 
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><table><tr><td>-1</td><td>-1</td><td>-1</td></tr><tr><td>-1</td><td>9</td><td>-1</td></tr><tr><td>-1</td><td>-1</td><td>-1</td></tr></table></td></tr>
@@ -1399,7 +1399,7 @@ Returns convolution kernel for sharpening effect
 
 #### <a name='image_kernel_sharp_X__examples'></a> Examples
 
-<table>
+<a name='image_kernel_sharp_X__examples__e1'></a><table>
 <tr><th>aktive image kernel sharp X 
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><table><tr><td>1</td><td>-2</td><td>1</td></tr><tr><td>-2</td><td>5</td><td>-2</td></tr><tr><td>1</td><td>-2</td><td>1</td></tr></table></td></tr>
@@ -1419,7 +1419,7 @@ Returns convolution kernel for sobel edge detection
 
 #### <a name='image_kernel_sobel_md__examples'></a> Examples
 
-<table>
+<a name='image_kernel_sobel_md__examples__e1'></a><table>
 <tr><th>aktive image kernel sobel md 
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><table><tr><td>0</td><td>-1</td><td>-1</td></tr><tr><td>2</td><td>0</td><td>-2</td></tr><tr><td>1</td><td>1</td><td>0</td></tr></table></td></tr>
@@ -1443,7 +1443,7 @@ Returns convolution kernel for sobel edge detection
 
 #### <a name='image_kernel_sobel_sd__examples'></a> Examples
 
-<table>
+<a name='image_kernel_sobel_sd__examples__e1'></a><table>
 <tr><th>aktive image kernel sobel sd 
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><table><tr><td>1</td><td>1</td><td>0</td></tr><tr><td>2</td><td>0</td><td>-2</td></tr><tr><td>0</td><td>-1</td><td>-1</td></tr></table></td></tr>
@@ -1467,7 +1467,7 @@ Returns convolution kernel for sobel edge detection
 
 #### <a name='image_kernel_sobel_x__examples'></a> Examples
 
-<table>
+<a name='image_kernel_sobel_x__examples__e1'></a><table>
 <tr><th>aktive image kernel sobel x 
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><table><tr><td>1</td><td>0</td><td>-1</td></tr><tr><td>2</td><td>0</td><td>-2</td></tr><tr><td>1</td><td>0</td><td>-1</td></tr></table></td></tr>
@@ -1491,7 +1491,7 @@ Returns convolution kernel for sobel edge detection
 
 #### <a name='image_kernel_sobel_y__examples'></a> Examples
 
-<table>
+<a name='image_kernel_sobel_y__examples__e1'></a><table>
 <tr><th>aktive image kernel sobel y 
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><table><tr><td>1</td><td>2</td><td>1</td></tr><tr><td>0</td><td>0</td><td>0</td></tr><tr><td>-1</td><td>-2</td><td>-1</td></tr></table></td></tr>
@@ -1524,14 +1524,14 @@ Returns image where pixels are set to random values drawn from a gaussian distri
 
 #### <a name='image_noise_gauss__examples'></a> Examples
 
-<table>
+<a name='image_noise_gauss__examples__e1'></a><table>
 <tr><th>aktive image noise gauss width 256 height 256 depth 1 seed 703011174
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><img src='example-00208.gif' alt='aktive image noise gauss width 256 height 256 depth 1 seed 703011174' style='border:4px solid gold'>
     <br>geometry(0 0 256 256 1)</td></tr>
 </table>
 
-<table>
+<a name='image_noise_gauss__examples__e2'></a><table>
 <tr><th>aktive image noise gauss width 256 height 256 depth 3 seed 703011174
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><img src='example-00209.gif' alt='aktive image noise gauss width 256 height 256 depth 3 seed 703011174' style='border:4px solid gold'>
@@ -1562,14 +1562,14 @@ The value of set pixels is fixed at 1.0
 
 #### <a name='image_noise_salt__examples'></a> Examples
 
-<table>
+<a name='image_noise_salt__examples__e1'></a><table>
 <tr><th>aktive image noise salt width 256 height 256 depth 1 seed 703011174 threshold 0.02
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><img src='example-00210.gif' alt='aktive image noise salt width 256 height 256 depth 1 seed 703011174 threshold 0.02' style='border:4px solid gold'>
     <br>geometry(0 0 256 256 1)</td></tr>
 </table>
 
-<table>
+<a name='image_noise_salt__examples__e2'></a><table>
 <tr><th>aktive image noise salt width 256 height 256 depth 3 seed 703011174 threshold 0.02
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><img src='example-00211.gif' alt='aktive image noise salt width 256 height 256 depth 3 seed 703011174 threshold 0.02' style='border:4px solid gold'>
@@ -1593,14 +1593,14 @@ Returns image where pixels are set to random values drawn from a uniform distrib
 
 #### <a name='image_noise_uniform__examples'></a> Examples
 
-<table>
+<a name='image_noise_uniform__examples__e1'></a><table>
 <tr><th>aktive image noise uniform width 256 height 256 depth 1 seed 703011174
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><img src='example-00212.gif' alt='aktive image noise uniform width 256 height 256 depth 1 seed 703011174' style='border:4px solid gold'>
     <br>geometry(0 0 256 256 1)</td></tr>
 </table>
 
-<table>
+<a name='image_noise_uniform__examples__e2'></a><table>
 <tr><th>aktive image noise uniform width 256 height 256 depth 3 seed 703011174
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><img src='example-00213.gif' alt='aktive image noise uniform width 256 height 256 depth 3 seed 703011174' style='border:4px solid gold'>
@@ -1617,7 +1617,7 @@ Returns a 128x128 image containing a color palette.
 
 #### <a name='image_palette_color__examples'></a> Examples
 
-<table>
+<a name='image_palette_color__examples__e1'></a><table>
 <tr><th>aktive image palette color 
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><img src='example-00214.gif' alt='aktive image palette color ' style='border:4px solid gold'>
@@ -1634,7 +1634,7 @@ Returns a 128x128 image containing a gray palette.
 
 #### <a name='image_palette_grey__examples'></a> Examples
 
-<table>
+<a name='image_palette_grey__examples__e1'></a><table>
 <tr><th>aktive image palette grey 
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><img src='example-00215.gif' alt='aktive image palette grey ' style='border:4px solid gold'>
@@ -1660,7 +1660,7 @@ The ratio between horizontal and vertical frequencies determines the angle of th
 
 #### <a name='image_sines__examples'></a> Examples
 
-<table>
+<a name='image_sines__examples__e1'></a><table>
 <tr><th>aktive image sines width 256 height 256 hf 0.5 vf 0.6
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><img src='example-00246.gif' alt='aktive image sines width 256 height 256 hf 0.5 vf 0.6' style='border:4px solid gold'>
@@ -1681,7 +1681,7 @@ Returns single-band white square with radius. Default radius 1.
 
 #### <a name='image_square__examples'></a> Examples
 
-<table>
+<a name='image_square__examples__e1'></a><table>
 <tr><th>aktive image square radius 32
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><img src='example-00247.gif' alt='aktive image square radius 32' style='border:4px solid gold'>
@@ -1706,21 +1706,21 @@ Returns image containing a series of vertical black/white stripes.
 
 #### <a name='image_stripes__examples'></a> Examples
 
-<table>
+<a name='image_stripes__examples__e1'></a><table>
 <tr><th>aktive image stripes width 128 height 128
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><img src='example-00248.gif' alt='aktive image stripes width 128 height 128' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
-<table>
+<a name='image_stripes__examples__e2'></a><table>
 <tr><th>aktive image stripes width 128 height 128 black 16 white 32
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><img src='example-00249.gif' alt='aktive image stripes width 128 height 128 black 16 white 32' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
-<table>
+<a name='image_stripes__examples__e3'></a><table>
 <tr><th>aktive image stripes width 128 height 128 black 16 white 32 offset 8
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><img src='example-00250.gif' alt='aktive image stripes width 128 height 128 black 16 white 32 offset 8' style='border:4px solid gold'>
@@ -1742,7 +1742,7 @@ Returns square single-band image containing a vertical bar. The image has size `
 
 #### <a name='image_vbar__examples'></a> Examples
 
-<table>
+<a name='image_vbar__examples__e1'></a><table>
 <tr><th>aktive image vbar radius 32 width 8
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><img src='example-00299.gif' alt='aktive image vbar radius 32 width 8' style='border:4px solid gold'>
@@ -1764,7 +1764,7 @@ Returns square single-band image containing a diagonal cross. The image has size
 
 #### <a name='image_xcross__examples'></a> Examples
 
-<table>
+<a name='image_xcross__examples__e1'></a><table>
 <tr><th>aktive image xcross radius 32 width 8
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><img src='example-00300.gif' alt='aktive image xcross radius 32 width 8' style='border:4px solid gold'>
@@ -1786,7 +1786,7 @@ Returns image containing a zone plate test pattern.
 
 #### <a name='image_zone__examples'></a> Examples
 
-<table>
+<a name='image_zone__examples__e1'></a><table>
 <tr><th>aktive image zone width 256 height 256
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><img src='example-00301.gif' alt='aktive image zone width 256 height 256' style='border:4px solid gold'>

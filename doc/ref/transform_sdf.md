@@ -45,7 +45,7 @@ Compresses the input SDF into the range 0..1 and returns the resulting grayscale
 
 #### <a name='op_sdf_2image_fit__examples'></a> Examples
 
-<table>
+<a name='op_sdf_2image_fit__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>@2
@@ -78,7 +78,7 @@ Converts the SDF into a black/white image with pixelated element borders.
 
 #### <a name='op_sdf_2image_pixelated__examples'></a> Examples
 
-<table>
+<a name='op_sdf_2image_pixelated__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>@2
@@ -111,7 +111,7 @@ Converts the SDF into a grey-scale image with anti-aliased element borders.
 
 #### <a name='op_sdf_2image_smooth__examples'></a> Examples
 
-<table>
+<a name='op_sdf_2image_smooth__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>@2
@@ -144,7 +144,7 @@ Returns the inverted input SDF, where inside and outside changed places. This is
 
 #### <a name='op_sdf_not__examples'></a> Examples
 
-<table>
+<a name='op_sdf_not__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op sdf not @1
@@ -178,7 +178,7 @@ This is implemented by taking the absolute of the input.
 
 #### <a name='op_sdf_outline__examples'></a> Examples
 
-<table>
+<a name='op_sdf_outline__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op sdf outline @1
@@ -218,7 +218,7 @@ Note that a thickness of zero devolves this operation to a plain outline.
 
 #### <a name='op_sdf_ring__examples'></a> Examples
 
-<table>
+<a name='op_sdf_ring__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op sdf ring @1 thickness 4
@@ -262,7 +262,7 @@ A radius of zero is ignored.
 
 #### <a name='op_sdf_round__examples'></a> Examples
 
-<table>
+<a name='op_sdf_round__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op sdf round @1 radius 20

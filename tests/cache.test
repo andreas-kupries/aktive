@@ -56,7 +56,7 @@ foreach {k d cons expected} {
     set meta   [dict create label $cons path $rpath]
 
     test aktive-op-cache-2.$k "aktive op cache, $cons" -body {
-	astcl aktive op cache [aktive read from aktive path [R format-$cons.aktive]]
+	astcl aktive op cache [aktive read from aktive file path [R format-$cons.aktive]]
     } -match image -result [makei op::cache 0 0 8 8 $d {} $expected $meta]
 
     unset rpath meta

@@ -73,7 +73,7 @@ The local thresholds are computed using [aktive image threshold bernsen](transfo
 
 #### <a name='image_mask_per_bernsen__examples'></a> Examples
 
-<table>
+<a name='image_mask_per_bernsen__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive image mask per bernsen @1 radius 7
@@ -84,7 +84,7 @@ The local thresholds are computed using [aktive image threshold bernsen](transfo
     <br>geometry(0 0 300 200 1)</td></tr>
 </table>
 
-<table>
+<a name='image_mask_per_bernsen__examples__e2'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive image mask per bernsen @1 radius 7
@@ -119,7 +119,7 @@ The threshold is computed using [aktive image threshold global bernsen](accessor
 
 #### <a name='image_mask_per_global_bernsen__examples'></a> Examples
 
-<table>
+<a name='image_mask_per_global_bernsen__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive image mask per global bernsen @1
@@ -130,7 +130,7 @@ The threshold is computed using [aktive image threshold global bernsen](accessor
     <br>geometry(0 0 300 200 1)</td></tr>
 </table>
 
-<table>
+<a name='image_mask_per_global_bernsen__examples__e2'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive image mask per global bernsen @1
@@ -165,7 +165,7 @@ The threshold is computed using [aktive image threshold global mean](accessor_th
 
 #### <a name='image_mask_per_global_mean__examples'></a> Examples
 
-<table>
+<a name='image_mask_per_global_mean__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive image mask per global mean @1
@@ -176,7 +176,7 @@ The threshold is computed using [aktive image threshold global mean](accessor_th
     <br>geometry(0 0 300 200 1)</td></tr>
 </table>
 
-<table>
+<a name='image_mask_per_global_mean__examples__e2'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive image mask per global mean @1
@@ -211,7 +211,7 @@ The threshold is computed using [aktive image threshold global niblack](accessor
 
 #### <a name='image_mask_per_global_niblack__examples'></a> Examples
 
-<table>
+<a name='image_mask_per_global_niblack__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive image mask per global niblack @1
@@ -222,7 +222,7 @@ The threshold is computed using [aktive image threshold global niblack](accessor
     <br>geometry(0 0 300 200 1)</td></tr>
 </table>
 
-<table>
+<a name='image_mask_per_global_niblack__examples__e2'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive image mask per global niblack @1
@@ -261,7 +261,7 @@ The threshold is computed using [aktive image threshold global otsu](accessor_th
 
 #### <a name='image_mask_per_global_otsu__examples'></a> Examples
 
-<table>
+<a name='image_mask_per_global_otsu__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive image mask per global otsu @1
@@ -305,7 +305,7 @@ The threshold is computed using [aktive image threshold global phansalkar](acces
 
 #### <a name='image_mask_per_global_phansalkar__examples'></a> Examples
 
-<table>
+<a name='image_mask_per_global_phansalkar__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive image mask per global phansalkar @1
@@ -316,7 +316,7 @@ The threshold is computed using [aktive image threshold global phansalkar](acces
     <br>geometry(0 0 300 200 1)</td></tr>
 </table>
 
-<table>
+<a name='image_mask_per_global_phansalkar__examples__e2'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive image mask per global phansalkar @1
@@ -356,7 +356,7 @@ The threshold is computed using [aktive image threshold global sauvola](accessor
 
 #### <a name='image_mask_per_global_sauvola__examples'></a> Examples
 
-<table>
+<a name='image_mask_per_global_sauvola__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive image mask per global sauvola @1
@@ -367,7 +367,7 @@ The threshold is computed using [aktive image threshold global sauvola](accessor
     <br>geometry(0 0 300 200 1)</td></tr>
 </table>
 
-<table>
+<a name='image_mask_per_global_sauvola__examples__e2'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive image mask per global sauvola @1
@@ -406,7 +406,7 @@ The local thresholds are computed using [aktive image threshold mean](transform_
 
 #### <a name='image_mask_per_mean__examples'></a> Examples
 
-<table>
+<a name='image_mask_per_mean__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive image mask per mean @1 radius 7
@@ -417,7 +417,7 @@ The local thresholds are computed using [aktive image threshold mean](transform_
     <br>geometry(0 0 300 200 1)</td></tr>
 </table>
 
-<table>
+<a name='image_mask_per_mean__examples__e2'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive image mask per mean @1 radius 7
@@ -453,7 +453,7 @@ The local thresholds are computed using [aktive image threshold niblack](transfo
 
 #### <a name='image_mask_per_niblack__examples'></a> Examples
 
-<table>
+<a name='image_mask_per_niblack__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive image mask per niblack @1 radius 7
@@ -464,7 +464,7 @@ The local thresholds are computed using [aktive image threshold niblack](transfo
     <br>geometry(0 0 300 200 1)</td></tr>
 </table>
 
-<table>
+<a name='image_mask_per_niblack__examples__e2'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive image mask per niblack @1 radius 7
@@ -504,7 +504,7 @@ The local thresholds are computed using [aktive image threshold otsu](transform_
 
 #### <a name='image_mask_per_otsu__examples'></a> Examples
 
-<table>
+<a name='image_mask_per_otsu__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive image mask per otsu @1 radius 7
@@ -549,7 +549,7 @@ The local thresholds are computed using [aktive image threshold phansalkar](tran
 
 #### <a name='image_mask_per_phansalkar__examples'></a> Examples
 
-<table>
+<a name='image_mask_per_phansalkar__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive image mask per phansalkar @1 radius 7
@@ -560,7 +560,7 @@ The local thresholds are computed using [aktive image threshold phansalkar](tran
     <br>geometry(0 0 300 200 1)</td></tr>
 </table>
 
-<table>
+<a name='image_mask_per_phansalkar__examples__e2'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive image mask per phansalkar @1 radius 7
@@ -601,7 +601,7 @@ The local thresholds are computed using [aktive image threshold sauvola](transfo
 
 #### <a name='image_mask_per_sauvola__examples'></a> Examples
 
-<table>
+<a name='image_mask_per_sauvola__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive image mask per sauvola @1 radius 7
@@ -612,7 +612,7 @@ The local thresholds are computed using [aktive image threshold sauvola](transfo
     <br>geometry(0 0 300 200 1)</td></tr>
 </table>
 
-<table>
+<a name='image_mask_per_sauvola__examples__e2'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive image mask per sauvola @1 radius 7
@@ -652,7 +652,7 @@ The local thresholds are computed using [aktive image threshold wolfjolion](tran
 
 #### <a name='image_mask_per_wolfjolion__examples'></a> Examples
 
-<table>
+<a name='image_mask_per_wolfjolion__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive image mask per wolfjolion @1 radius 7
@@ -663,7 +663,7 @@ The local thresholds are computed using [aktive image threshold wolfjolion](tran
     <br>geometry(0 0 300 200 1)</td></tr>
 </table>
 
-<table>
+<a name='image_mask_per_wolfjolion__examples__e2'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive image mask per wolfjolion @1 radius 7

@@ -58,21 +58,21 @@ The box is axis-aligned, of width `2*ewidth+1`, height `2*eheight+1`, and placed
 
 #### <a name='image_draw_box__examples'></a> Examples
 
-<table>
+<a name='image_draw_box__examples__e1'></a><table>
 <tr><th>aktive image draw box center {64 64} width 128 height 128 ewidth 32 eheight 32
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><img src='example-00069.gif' alt='aktive image draw box center {64 64} width 128 height 128 ewidth 32 eheight 32' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
-<table>
+<a name='image_draw_box__examples__e2'></a><table>
 <tr><th>aktive image draw box center {64 64} width 128 height 128 ewidth 32 eheight 32 outlined 1
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><img src='example-00070.gif' alt='aktive image draw box center {64 64} width 128 height 128 ewidth 32 eheight 32 outlined 1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
-<table>
+<a name='image_draw_box__examples__e3'></a><table>
 <tr><th>aktive image draw box center {64 64} width 128 height 128 ewidth 32 eheight 32 antialiased 0
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><img src='example-00071.gif' alt='aktive image draw box center {64 64} width 128 height 128 ewidth 32 eheight 32 antialiased 0' style='border:4px solid gold'>
@@ -115,21 +115,21 @@ The radii default to 0, i.e. no rounded corners.
 
 #### <a name='image_draw_box_rounded__examples'></a> Examples
 
-<table>
+<a name='image_draw_box_rounded__examples__e1'></a><table>
 <tr><th>aktive image draw box-rounded center {64 64} width 128 height 128 ewidth 32 eheight 32
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><img src='example-00072.gif' alt='aktive image draw box-rounded center {64 64} width 128 height 128 ewidth 32 eheight 32' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
-<table>
+<a name='image_draw_box_rounded__examples__e2'></a><table>
 <tr><th>aktive image draw box-rounded center {64 64} width 128 height 128 ewidth 32 eheight 32 upleftradius 32 outlined 1
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><img src='example-00073.gif' alt='aktive image draw box-rounded center {64 64} width 128 height 128 ewidth 32 eheight 32 upleftradius 32 outlined 1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
-<table>
+<a name='image_draw_box_rounded__examples__e3'></a><table>
 <tr><th>aktive image draw box-rounded center {64 64} width 128 height 128 ewidth 32 eheight 32 upleftradius 32 antialiased 0
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><img src='example-00074.gif' alt='aktive image draw box-rounded center {64 64} width 128 height 128 ewidth 32 eheight 32 upleftradius 32 antialiased 0' style='border:4px solid gold'>
@@ -165,21 +165,21 @@ The circle has the `radius`, and is placed at the specified center.
 
 #### <a name='image_draw_circle__examples'></a> Examples
 
-<table>
+<a name='image_draw_circle__examples__e1'></a><table>
 <tr><th>aktive image draw circle center {64 64} width 128 height 128 radius 32
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><img src='example-00075.gif' alt='aktive image draw circle center {64 64} width 128 height 128 radius 32' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
-<table>
+<a name='image_draw_circle__examples__e2'></a><table>
 <tr><th>aktive image draw circle center {64 64} width 128 height 128 radius 32 outlined 1
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><img src='example-00076.gif' alt='aktive image draw circle center {64 64} width 128 height 128 radius 32 outlined 1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
-<table>
+<a name='image_draw_circle__examples__e3'></a><table>
 <tr><th>aktive image draw circle center {64 64} width 128 height 128 radius 32 antialiased 0
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><img src='example-00077.gif' alt='aktive image draw circle center {64 64} width 128 height 128 radius 32 antialiased 0' style='border:4px solid gold'>
@@ -215,21 +215,21 @@ The circles all have the same `radius`, and are placed at the specified centers.
 
 #### <a name='image_draw_circles__examples'></a> Examples
 
-<table>
+<a name='image_draw_circles__examples__e1'></a><table>
 <tr><th>aktive image draw circles width 128 height 128 radius 8 centers {10 10} {30 80} {80 30}
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><img src='example-00078.gif' alt='aktive image draw circles width 128 height 128 radius 8 centers {10 10} {30 80} {80 30}' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
-<table>
+<a name='image_draw_circles__examples__e2'></a><table>
 <tr><th>aktive image draw circles width 128 height 128 radius 8 outlined 1 centers {10 10} {30 80} {80 30}
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><img src='example-00079.gif' alt='aktive image draw circles width 128 height 128 radius 8 outlined 1 centers {10 10} {30 80} {80 30}' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
-<table>
+<a name='image_draw_circles__examples__e3'></a><table>
 <tr><th>aktive image draw circles width 128 height 128 radius 8 antialiased 0 centers {10 10} {30 80} {80 30}
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><img src='example-00080.gif' alt='aktive image draw circles width 128 height 128 radius 8 antialiased 0 centers {10 10} {30 80} {80 30}' style='border:4px solid gold'>
@@ -265,21 +265,21 @@ The line connects the two specified locations.
 
 #### <a name='image_draw_line__examples'></a> Examples
 
-<table>
+<a name='image_draw_line__examples__e1'></a><table>
 <tr><th>aktive image draw line width 128 height 128 from {10 10} to {30 80}
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><img src='example-00081.gif' alt='aktive image draw line width 128 height 128 from {10 10} to {30 80}' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
-<table>
+<a name='image_draw_line__examples__e2'></a><table>
 <tr><th>aktive image draw line width 128 height 128 from {10 10} to {30 80} strokewidth 1
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><img src='example-00082.gif' alt='aktive image draw line width 128 height 128 from {10 10} to {30 80} strokewidth 1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
-<table>
+<a name='image_draw_line__examples__e3'></a><table>
 <tr><th>aktive image draw line width 128 height 128 from {10 10} to {30 80} antialiased 0
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><img src='example-00083.gif' alt='aktive image draw line width 128 height 128 from {10 10} to {30 80} antialiased 0' style='border:4px solid gold'>
@@ -317,21 +317,21 @@ The parallelogram is axis-aligned, of width `2*ewidth+1`, height `2*eheight+1`, 
 
 #### <a name='image_draw_parallelogram__examples'></a> Examples
 
-<table>
+<a name='image_draw_parallelogram__examples__e1'></a><table>
 <tr><th>aktive image draw parallelogram center {64 64} width 128 height 128 ewidth 32 eheight 32 eskew 8
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><img src='example-00084.gif' alt='aktive image draw parallelogram center {64 64} width 128 height 128 ewidth 32 eheight 32 eskew 8' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
-<table>
+<a name='image_draw_parallelogram__examples__e2'></a><table>
 <tr><th>aktive image draw parallelogram center {64 64} width 128 height 128 ewidth 32 eheight 32 eskew 8 outlined 1
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><img src='example-00085.gif' alt='aktive image draw parallelogram center {64 64} width 128 height 128 ewidth 32 eheight 32 eskew 8 outlined 1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
-<table>
+<a name='image_draw_parallelogram__examples__e3'></a><table>
 <tr><th>aktive image draw parallelogram center {64 64} width 128 height 128 ewidth 32 eheight 32 eskew 8 antialiased 0
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><img src='example-00086.gif' alt='aktive image draw parallelogram center {64 64} width 128 height 128 ewidth 32 eheight 32 eskew 8 antialiased 0' style='border:4px solid gold'>
@@ -366,21 +366,21 @@ The lines form a polyline through the specified points.
 
 #### <a name='image_draw_polyline__examples'></a> Examples
 
-<table>
+<a name='image_draw_polyline__examples__e1'></a><table>
 <tr><th>aktive image draw polyline width 128 height 128 points {10 10} {30 80} {80 30}
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><img src='example-00087.gif' alt='aktive image draw polyline width 128 height 128 points {10 10} {30 80} {80 30}' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
-<table>
+<a name='image_draw_polyline__examples__e2'></a><table>
 <tr><th>aktive image draw polyline width 128 height 128 strokewidth 1 points {10 10} {30 80} {80 30}
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><img src='example-00088.gif' alt='aktive image draw polyline width 128 height 128 strokewidth 1 points {10 10} {30 80} {80 30}' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
-<table>
+<a name='image_draw_polyline__examples__e3'></a><table>
 <tr><th>aktive image draw polyline width 128 height 128 antialiased 0 points {10 10} {30 80} {80 30}
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><img src='example-00089.gif' alt='aktive image draw polyline width 128 height 128 antialiased 0 points {10 10} {30 80} {80 30}' style='border:4px solid gold'>
@@ -417,21 +417,21 @@ The rhombus is axis-aligned, of width `2*ewidth+1`, height `2*eheight+1`, and pl
 
 #### <a name='image_draw_rhombus__examples'></a> Examples
 
-<table>
+<a name='image_draw_rhombus__examples__e1'></a><table>
 <tr><th>aktive image draw rhombus center {64 64} width 128 height 128 ewidth 32 eheight 32
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><img src='example-00090.gif' alt='aktive image draw rhombus center {64 64} width 128 height 128 ewidth 32 eheight 32' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
-<table>
+<a name='image_draw_rhombus__examples__e2'></a><table>
 <tr><th>aktive image draw rhombus center {64 64} width 128 height 128 ewidth 32 eheight 32 outlined 1
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><img src='example-00091.gif' alt='aktive image draw rhombus center {64 64} width 128 height 128 ewidth 32 eheight 32 outlined 1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
-<table>
+<a name='image_draw_rhombus__examples__e3'></a><table>
 <tr><th>aktive image draw rhombus center {64 64} width 128 height 128 ewidth 32 eheight 32 antialiased 0
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><img src='example-00092.gif' alt='aktive image draw rhombus center {64 64} width 128 height 128 ewidth 32 eheight 32 antialiased 0' style='border:4px solid gold'>
@@ -468,21 +468,21 @@ The triangle connects the points A, B, and C, in this order.
 
 #### <a name='image_draw_triangle__examples'></a> Examples
 
-<table>
+<a name='image_draw_triangle__examples__e1'></a><table>
 <tr><th>aktive image draw triangle width 128 height 128 a {10 10} b {30 80} c {80 30}
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><img src='example-00093.gif' alt='aktive image draw triangle width 128 height 128 a {10 10} b {30 80} c {80 30}' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
-<table>
+<a name='image_draw_triangle__examples__e2'></a><table>
 <tr><th>aktive image draw triangle width 128 height 128 a {10 10} b {30 80} c {80 30} outlined 1
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><img src='example-00094.gif' alt='aktive image draw triangle width 128 height 128 a {10 10} b {30 80} c {80 30} outlined 1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
-<table>
+<a name='image_draw_triangle__examples__e3'></a><table>
 <tr><th>aktive image draw triangle width 128 height 128 a {10 10} b {30 80} c {80 30} antialiased 0
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><img src='example-00095.gif' alt='aktive image draw triangle width 128 height 128 a {10 10} b {30 80} c {80 30} antialiased 0' style='border:4px solid gold'>

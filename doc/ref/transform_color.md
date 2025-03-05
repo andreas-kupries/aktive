@@ -109,7 +109,7 @@ The actual correction is always done in the `scRGB` space, i.e. with linear colo
 
 #### <a name='op_color_correct_greyworld_global__examples'></a> Examples
 
-<table>
+<a name='op_color_correct_greyworld_global__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op color correct greyworld global @1
@@ -120,7 +120,7 @@ The actual correction is always done in the `scRGB` space, i.e. with linear colo
     <br>geometry(0 0 294 92 3)</td></tr>
 </table>
 
-<table>
+<a name='op_color_correct_greyworld_global__examples__e2'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op color correct greyworld global @1
@@ -637,7 +637,7 @@ This conversion uses the NTSC conversion formula.
 
 #### <a name='op_color_sRGB_to_gray__examples'></a> Examples
 
-<table>
+<a name='op_color_sRGB_to_gray__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op color sRGB to gray @1
@@ -673,7 +673,7 @@ Returns image in HSL colorspace, from input in sRGB colorspace.
 
 #### <a name='op_color_sRGB_to_HSL__examples'></a> Examples
 
-<table>
+<a name='op_color_sRGB_to_HSL__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op color sRGB to HSL @1
@@ -698,7 +698,7 @@ Returns image in HSV colorspace, from input in sRGB colorspace.
 
 #### <a name='op_color_sRGB_to_HSV__examples'></a> Examples
 
-<table>
+<a name='op_color_sRGB_to_HSV__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op color sRGB to HSV @1
@@ -745,7 +745,7 @@ Returns image in scRGB colorspace, from input in sRGB colorspace. (gamma) compre
 
 #### <a name='op_color_sRGB_to_scRGB__examples'></a> Examples
 
-<table>
+<a name='op_color_sRGB_to_scRGB__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive op color sRGB to scRGB @1

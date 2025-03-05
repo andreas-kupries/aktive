@@ -54,7 +54,7 @@ syntax {
 # # ## ### ##### ######## ############# #####################
 ##
 
-set in [aktive read from netpbm path [A crop.pgm]]
+set in [aktive read from netpbm file path [A crop.pgm]]
 
 foreach {mp expected} {
     {bernsen}                            0.3314

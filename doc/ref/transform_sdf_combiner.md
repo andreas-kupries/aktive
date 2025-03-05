@@ -38,7 +38,7 @@ Returns the intersection (`*`, `max`) of all input SDFs.
 
 #### <a name='op_sdf_and__examples'></a> Examples
 
-<table>
+<a name='op_sdf_and__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>@2
@@ -73,7 +73,7 @@ Returns the union (`+`, `min`) of all input SDFs.
 
 #### <a name='op_sdf_or__examples'></a> Examples
 
-<table>
+<a name='op_sdf_or__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>@2
@@ -109,7 +109,7 @@ Returns the difference `A - B` of the two input SDFs. This is defined as `A * (n
 
 #### <a name='op_sdf_sub__examples'></a> Examples
 
-<table>
+<a name='op_sdf_sub__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>@2
@@ -146,7 +146,7 @@ A single input is passed through unchanged.
 
 #### <a name='op_sdf_xor__examples'></a> Examples
 
-<table>
+<a name='op_sdf_xor__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>@2
@@ -182,7 +182,7 @@ Returns the symmetric difference of the two input SDFs. This is defined as `(A +
 
 #### <a name='op_sdf_xor_core__examples'></a> Examples
 
-<table>
+<a name='op_sdf_xor_core__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>@2

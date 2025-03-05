@@ -47,7 +47,7 @@ Translate a 2D point by a specific amount given as 2D vector
 
 #### <a name='point_add__examples'></a> Examples
 
-<table>
+<a name='point_add__examples__e1'></a><table>
 <tr><th>aktive point add {11 23} {-1 7}
     <br>&nbsp;</th></tr>
 <tr><td valign='top'>&nbsp;10 30</td></tr>
@@ -67,7 +67,7 @@ Compute minimum axis-aligned 2D rectangle enclosing the set of 2D points
 
 #### <a name='point_box__examples'></a> Examples
 
-<table>
+<a name='point_box__examples__e1'></a><table>
 <tr><th>aktive point box {11 23} {45 5} {5 45}
     <br>&nbsp;</th></tr>
 <tr><td valign='top'>&nbsp;5 5 41 41</td></tr>
@@ -88,7 +88,7 @@ Construct a 2D point from x- and y-coordinates
 
 #### <a name='point_make__examples'></a> Examples
 
-<table>
+<a name='point_make__examples__e1'></a><table>
 <tr><th>aktive point make 11 23
     <br>&nbsp;</th></tr>
 <tr><td valign='top'>&nbsp;11 23</td></tr>
@@ -110,7 +110,7 @@ Translate a 2D point by a specific amount given as separate x- and y-deltas
 
 #### <a name='point_move__examples'></a> Examples
 
-<table>
+<a name='point_move__examples__e1'></a><table>
 <tr><th>aktive point move {11 23} -1 7
     <br>&nbsp;</th></tr>
 <tr><td valign='top'>&nbsp;10 30</td></tr>
@@ -130,13 +130,13 @@ Test a 2D rectangle for emptiness
 
 #### <a name='rectangle_empty__examples'></a> Examples
 
-<table>
+<a name='rectangle_empty__examples__e1'></a><table>
 <tr><th>aktive rectangle empty {11 23 30 20}
     <br>&nbsp;</th></tr>
 <tr><td valign='top'>&nbsp;0</td></tr>
 </table>
 
-<table>
+<a name='rectangle_empty__examples__e2'></a><table>
 <tr><th>aktive rectangle empty {11 23 0 0}
     <br>&nbsp;</th></tr>
 <tr><td valign='top'>&nbsp;1</td></tr>
@@ -157,13 +157,13 @@ Test two 2D rectangles for equality (location and dimensions)
 
 #### <a name='rectangle_equal__examples'></a> Examples
 
-<table>
+<a name='rectangle_equal__examples__e1'></a><table>
 <tr><th>aktive rectangle equal {11 23 30 20} {11 23 30 20}
     <br>&nbsp;</th></tr>
 <tr><td valign='top'>&nbsp;1</td></tr>
 </table>
 
-<table>
+<a name='rectangle_equal__examples__e2'></a><table>
 <tr><th>aktive rectangle equal {11 23 30 20} {11 23 10 20}
     <br>&nbsp;</th></tr>
 <tr><td valign='top'>&nbsp;0</td></tr>
@@ -187,7 +187,7 @@ Modify 2D rectangle by moving its 4 borders by a specific amount
 
 #### <a name='rectangle_grow__examples'></a> Examples
 
-<table>
+<a name='rectangle_grow__examples__e1'></a><table>
 <tr><th>aktive rectangle grow {11 23 30 20} 1 7 5 10
     <br>&nbsp;</th></tr>
 <tr><td valign='top'>&nbsp;10 18 38 35</td></tr>
@@ -221,7 +221,7 @@ Construct a 2D rectangle from x- and y-coordinates and width/height dimensions
 
 #### <a name='rectangle_make__examples'></a> Examples
 
-<table>
+<a name='rectangle_make__examples__e1'></a><table>
 <tr><th>aktive rectangle make 11 23 30 20
     <br>&nbsp;</th></tr>
 <tr><td valign='top'>&nbsp;11 23 30 20</td></tr>
@@ -243,7 +243,7 @@ Translate a 2D rectangle by a specific amount given as separate x- and y-deltas
 
 #### <a name='rectangle_move__examples'></a> Examples
 
-<table>
+<a name='rectangle_move__examples__e1'></a><table>
 <tr><th>aktive rectangle move {11 23 30 20} -5 7
     <br>&nbsp;</th></tr>
 <tr><td valign='top'>&nbsp;6 30 30 20</td></tr>
@@ -264,19 +264,19 @@ Test if the first 2D rectangle is a subset of the second.
 
 #### <a name='rectangle_subset__examples'></a> Examples
 
-<table>
+<a name='rectangle_subset__examples__e1'></a><table>
 <tr><th>aktive rectangle subset {11 23 30 20} {11 23 30 20}
     <br>&nbsp;</th></tr>
 <tr><td valign='top'>&nbsp;1</td></tr>
 </table>
 
-<table>
+<a name='rectangle_subset__examples__e2'></a><table>
 <tr><th>aktive rectangle subset {11 23 30 20} {12 22 10 15}
     <br>&nbsp;</th></tr>
 <tr><td valign='top'>&nbsp;0</td></tr>
 </table>
 
-<table>
+<a name='rectangle_subset__examples__e3'></a><table>
 <tr><th>aktive rectangle subset {11 23 30 20} {10 20 40 25}
     <br>&nbsp;</th></tr>
 <tr><td valign='top'>&nbsp;1</td></tr>

@@ -46,7 +46,7 @@ Returns the input's depth.
 
 #### <a name='query_depth__examples'></a> Examples
 
-<table>
+<a name='query_depth__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive query depth @1
@@ -56,7 +56,7 @@ Returns the input's depth.
     <td valign='top'>&nbsp;1</td></tr>
 </table>
 
-<table>
+<a name='query_depth__examples__e2'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive query depth @1
@@ -80,7 +80,7 @@ Returns the input's domain, a 2D rectangle. I.e. location, width, and height.
 
 #### <a name='query_domain__examples'></a> Examples
 
-<table>
+<a name='query_domain__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive query domain @1
@@ -90,7 +90,7 @@ Returns the input's domain, a 2D rectangle. I.e. location, width, and height.
     <td valign='top'>&nbsp;0 0 32 32</td></tr>
 </table>
 
-<table>
+<a name='query_domain__examples__e2'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive query domain @1
@@ -114,7 +114,7 @@ Returns the input's full geometry, i.e. domain and depth.
 
 #### <a name='query_geometry__examples'></a> Examples
 
-<table>
+<a name='query_geometry__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive query geometry @1
@@ -124,7 +124,7 @@ Returns the input's full geometry, i.e. domain and depth.
     <td valign='top'>&nbsp;0 0 32 32 1</td></tr>
 </table>
 
-<table>
+<a name='query_geometry__examples__e2'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive query geometry @1
@@ -148,7 +148,7 @@ Returns the input's height.
 
 #### <a name='query_height__examples'></a> Examples
 
-<table>
+<a name='query_height__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive query height @1
@@ -158,7 +158,7 @@ Returns the input's height.
     <td valign='top'>&nbsp;32</td></tr>
 </table>
 
-<table>
+<a name='query_height__examples__e2'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive query height @1
@@ -182,7 +182,7 @@ Returns the input's location, a 2D point.
 
 #### <a name='query_location__examples'></a> Examples
 
-<table>
+<a name='query_location__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive query location @1
@@ -192,7 +192,7 @@ Returns the input's location, a 2D point.
     <td valign='top'>&nbsp;0 0</td></tr>
 </table>
 
-<table>
+<a name='query_location__examples__e2'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive query location @1
@@ -216,7 +216,7 @@ Returns the input's pitch, the number of values in a row, i.e. width times depth
 
 #### <a name='query_pitch__examples'></a> Examples
 
-<table>
+<a name='query_pitch__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive query pitch @1
@@ -226,7 +226,7 @@ Returns the input's pitch, the number of values in a row, i.e. width times depth
     <td valign='top'>&nbsp;32</td></tr>
 </table>
 
-<table>
+<a name='query_pitch__examples__e2'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive query pitch @1
@@ -250,7 +250,7 @@ Returns the input's number of pixels.
 
 #### <a name='query_pixels__examples'></a> Examples
 
-<table>
+<a name='query_pixels__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive query pixels @1
@@ -260,7 +260,7 @@ Returns the input's number of pixels.
     <td valign='top'>&nbsp;1024</td></tr>
 </table>
 
-<table>
+<a name='query_pixels__examples__e2'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive query pixels @1
@@ -284,7 +284,7 @@ Returns the input's size, i.e. the number of pixels times depth.
 
 #### <a name='query_size__examples'></a> Examples
 
-<table>
+<a name='query_size__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive query size @1
@@ -294,7 +294,7 @@ Returns the input's size, i.e. the number of pixels times depth.
     <td valign='top'>&nbsp;1024</td></tr>
 </table>
 
-<table>
+<a name='query_size__examples__e2'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive query size @1
@@ -318,7 +318,7 @@ Returns the input's width.
 
 #### <a name='query_width__examples'></a> Examples
 
-<table>
+<a name='query_width__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive query width @1
@@ -328,7 +328,7 @@ Returns the input's width.
     <td valign='top'>&nbsp;32</td></tr>
 </table>
 
-<table>
+<a name='query_width__examples__e2'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive query width @1
@@ -352,7 +352,7 @@ Returns the input's x location.
 
 #### <a name='query_x__examples'></a> Examples
 
-<table>
+<a name='query_x__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive query x @1
@@ -362,7 +362,7 @@ Returns the input's x location.
     <td valign='top'>&nbsp;0</td></tr>
 </table>
 
-<table>
+<a name='query_x__examples__e2'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive query x @1
@@ -386,7 +386,7 @@ Returns the input's maximum x location.
 
 #### <a name='query_xmax__examples'></a> Examples
 
-<table>
+<a name='query_xmax__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive query xmax @1
@@ -396,7 +396,7 @@ Returns the input's maximum x location.
     <td valign='top'>&nbsp;31</td></tr>
 </table>
 
-<table>
+<a name='query_xmax__examples__e2'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive query xmax @1
@@ -420,7 +420,7 @@ Returns the input's y location.
 
 #### <a name='query_y__examples'></a> Examples
 
-<table>
+<a name='query_y__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive query y @1
@@ -430,7 +430,7 @@ Returns the input's y location.
     <td valign='top'>&nbsp;0</td></tr>
 </table>
 
-<table>
+<a name='query_y__examples__e2'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive query y @1
@@ -454,7 +454,7 @@ Returns the input's maximum y location.
 
 #### <a name='query_ymax__examples'></a> Examples
 
-<table>
+<a name='query_ymax__examples__e1'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive query ymax @1
@@ -464,7 +464,7 @@ Returns the input's maximum y location.
     <td valign='top'>&nbsp;31</td></tr>
 </table>
 
-<table>
+<a name='query_ymax__examples__e2'></a><table>
 <tr><th>@1
     <br>&nbsp;</th>
     <th>aktive query ymax @1

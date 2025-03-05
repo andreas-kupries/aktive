@@ -37,7 +37,7 @@ foreach mp {
 	butterfly
 	watergarden
     } {
-	set in [aktive read from netpbm path [A $im.ppm]]
+	set in [aktive read from netpbm file path [A $im.ppm]]
 
 	test aktive-op-color-correct-greyworld-${m}-2.$k "aktive op color correct greyworld $mp $im" -body {
 	    save-to test.gw-${m}.ppm \
