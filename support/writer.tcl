@@ -1018,11 +1018,12 @@ proc dsl::writer::OpDoc {stem op spec} {
 	# examples :: list (example...)
 	foreach example $examples {
 	    # example :: list (run...)
-
+	    incr k
 	    set n [llength $example]
 	    set id 0
 	    set varmap {}
-	    + [ExampleRender $op [lmap run $example {
+	    set ref "<a name='[OpKey $op]__examples__e${k}'></a>"
+	    + ${ref}[ExampleRender $op [lmap run $example {
 		# run :: list (gencmd showcmds format int desc)
 		incr n -1 ; set islast [expr {$n == 0}]
 		incr id
