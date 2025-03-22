@@ -171,7 +171,7 @@ test aktive-image-sdf-triangle-2.0 "aktive image sdf triangle" -body {
 
 test aktive-image-sdf-circles-2.0 "aktive image sdf circles" -body {
     astclx 11 aktive image sdf circles {*}$base radius 1 centers {2 2} {7 3} {5 7}
-} -match image -result [makei op::math::min 0 0 11 11 1 {} {
+} -match image -result [makei image::sdf::circles 0 0 11 11 1 {width 11 height 11 x 0 y 0 radius 1 centers {{2 2} {7 3} {5 7}}} {
     1.8284 1.2361  1      1.2361 1.8284  2.6056 2.1623  2      2.1623 2.6056 3.2426
     1.2361 0.4142  0      0.4142 1.2361  1.8284 1.2361  1      1.2361 1.8284 2.6056
     1      0      -1      0      1       1.2361 0.4142  0      0.4142 1.2361 2.1623
@@ -187,7 +187,7 @@ test aktive-image-sdf-circles-2.0 "aktive image sdf circles" -body {
 
 test aktive-image-sdf-polyline-2.0 "aktive image sdf polyline" -body {
     astclx 11 aktive image sdf polyline {*}$base points {2 2} {7 3} {5 7}
-} -match image -result [makei op::math::min 0 0 11 11 1 {} {
+} -match image -result [makei image::sdf::polyline 0 0 11 11 1 {width 11 height 11 x 0 y 0 points {{2 2} {7 3} {5 7}}} {
     2.8284 2.2361 2      2.1573 2.3534 2.5495 2.7456 2.9417 3.1623 3.6056 4.2426
     2.2361 1.4142 1      1.1767 1.3728 1.5689 1.7650 1.9612 2.2361 2.8284 3.6056
     2      1      0      0.1961 0.3922 0.5883 0.7845 0.9806 1.4142 2.2361 3.1623
