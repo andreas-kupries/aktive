@@ -93,6 +93,18 @@ double aktive_sdf_circle (double x, double y, double radius)
     return VLENGTH (x, y) - radius;
 }
 
+double aktive_sdf_polycircle (double x, double y, double radius, aktive_point_vector* centers)
+{
+    double mindist = INFINITY;
+    aktive_uint k;
+    for (k = 0; k < centers->c; k++) {
+    	double d = aktive_sdf_circle (aktive_sdf_translate (x, y, centers->v[k].x, centers->v[k].y),
+				      radius);
+	mindist = MIN (mindist, d);
+    }
+    return mindist;
+}
+
 double aktive_sdf_parallelogram (double x, double y, double w, double h, double skew)
 {
     // https://www.shadertoy.com/view/7dlGRf
@@ -166,6 +178,17 @@ double aktive_sdf_segment (double x, double y, AP from, AP to)
     double h   = CLAMP (DOT(pax,pay,dx,dy) / DOTSELF(dx,dy));
 
     return VLENGTH (pax - dx*h, pay - dy*h);
+}
+
+double aktive_sdf_polysegment_precoded (double x, double y, aktive_uint n, aktive_segment_spec* seg)
+{
+    double mindist = INFINITY;
+    aktive_uint k;
+    for (k=0; k < n; k++) {
+	double d = aktive_sdf_segment_precoded (x, y, &seg[k]);
+	mindist = MIN (mindist, d);
+    }
+    return mindist;
 }
 
 double aktive_sdf_segment_precoded (double x, double y, aktive_segment_spec* seg)

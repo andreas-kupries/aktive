@@ -73,14 +73,16 @@ typedef struct aktive_triangle_spec {
 // R = /c -s\  | /x'\ = /c -s\ * /x\  | x' =  x*c - y*s
 //     \s  c/  | \y'/   \s  c/   \y/  | y' =  x*s + y*c
 
-double aktive_sdf_box               (double x, double y, double w, double h);
-double aktive_sdf_box_rounded       (double x, double y, double w, double h, double r[4]);
-double aktive_sdf_circle            (double x, double y, double radius);
-double aktive_sdf_parallelogram     (double x, double y, double w, double h, double skew);
-double aktive_sdf_rhombus           (double x, double y, double w, double h);
-double aktive_sdf_segment           (double x, double y, AP from, AP to);
-double aktive_sdf_segment_precoded  (double x, double y, aktive_segment_spec* seg);
-double aktive_sdf_triangle_precoded (double x, double y, aktive_triangle_spec* tri);
+double aktive_sdf_box                  (double x, double y, double w, double h);
+double aktive_sdf_box_rounded          (double x, double y, double w, double h, double r[4]);
+double aktive_sdf_circle               (double x, double y, double radius);
+double aktive_sdf_polycircle           (double x, double y, double radius, aktive_point_vector* centers);
+double aktive_sdf_parallelogram        (double x, double y, double w, double h, double skew);
+double aktive_sdf_rhombus              (double x, double y, double w, double h);
+double aktive_sdf_segment              (double x, double y, AP from, AP to);
+double aktive_sdf_segment_precoded     (double x, double y, aktive_segment_spec* seg);
+double aktive_sdf_polysegment_precoded (double x, double y, aktive_uint n, aktive_segment_spec* seg);
+double aktive_sdf_triangle_precoded    (double x, double y, aktive_triangle_spec* tri);
 
 // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
