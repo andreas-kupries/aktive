@@ -241,6 +241,64 @@ extern Tcl_Obj* aktive_new_geometry_obj (aktive_geometry* r);
 #define AKTIVE_SWIVEL(s,a,b) { aktive_uint tmp = (s)->a ; (s)->a = (s)->b ; (s)->b = tmp; }
 
 /*
+ * - - -- --- ----- -------- -------------
+ * Variants of points and rectangles supporting (f)ractional locations.
+ *
+ * -- Points	 :: 2D location
+ * -- Rectangles :: 2D area   (location + dimensions)
+ *
+ * NOTE
+ *
+ *  - How `aktive_fpoint` is a proper prefix of `aktive_frectangle`
+ */
+
+A_STRUCTURE (aktive_fpoint) {
+    A_FIELD (double, x) ; // X coordinate, increasing to the right
+    A_FIELD (double, y) ; // Y coordinate, increasing downward
+} A_END (aktive_fpoint);
+
+A_STRUCTURE (aktive_frectangle) {
+    A_FIELD (double, x)      ; // X coordinate, increasing to the right
+    A_FIELD (double, y)      ; // Y coordinate, increasing downward
+    A_FIELD (double, width)  ; // Number of columns
+    A_FIELD (double, height) ; // Number of rows
+} A_END (aktive_frectangle);
+
+/*
+ * - - -- --- ----- -------- -------------
+ */
+
+extern Tcl_Obj* aktive_new_fpoint_obj (aktive_fpoint* p);
+
+#define aktive_fpoint_def(varname,xv,yv) \
+    aktive_fpoint varname = { .x = (xv), .y = (yv) }
+
+#define aktive_fpoint_def_as(varname,src) \
+    aktive_fpoint_def(varname, (src)->x, (src)->y)
+
+#define aktive_fpoint_set(dst,xv,yv)         { (dst)->x = (xv) ; (dst)->y = (yv); }
+#define aktive_fpoint_copy(dst,src)          aktive_fpoint_set (dst, (src)->x, (src)->y)
+#define aktive_fpoint_from_rect(dst,src)     aktive_fpoint_copy (dst, src)
+#define aktive_fpoint_from_geometry(dst,src) aktive_fpoint_copy (dst, src)
+#define aktive_fpoint_move(dst,dx,dy)        { (dst)->x += (dx) ; (dst)->y += (dy) ; }
+#define aktive_fpoint_add(dst,delta)         aktive_fpoint_move(dst, (delta)->x, (delta)->y)
+#define aktive_fpoint_sub(dst,delta)         aktive_fpoint_move(dst, - (delta)->x, - (delta)->y)
+#define aktive_fpoint_neg(dst)               { (dst)->x = - (dst)->x ; (dst)->y = - (dst)->y ; }
+#define aktive_fpoint_conj(dst)              { (dst)->y = - (dst)->y ; }
+
+/*
+ * - - -- --- ----- -------- -------------
+ */
+
+extern Tcl_Obj* aktive_new_frectangle_obj (aktive_frectangle* r);
+
+#define aktive_frectangle_def(varname,xv,yv,wv,hv) \
+    aktive_frectangle varname = { .x = (xv), .y = (yv), .width = (wv), .height = (hv) }
+
+#define aktive_frectangle_def_as(varname,src) \
+    aktive_frectangle_def(varname, (src)->x, (src)->y, (src)->width, (src)->height)
+
+/*
  * = = == === ===== ======== ============= =====================
  * Local Variables:
  * mode: c

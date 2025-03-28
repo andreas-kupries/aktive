@@ -343,6 +343,21 @@ __aktive_rectangle_dump (char* prefix, aktive_rectangle* r) {
  * - - -- --- ----- -------- -------------
  */
 
+extern Tcl_Obj* aktive_new_frectangle_obj(aktive_frectangle* r) {
+    Tcl_Obj* el[4];
+
+    el[0] = Tcl_NewDoubleObj (r->x);
+    el[1] = Tcl_NewDoubleObj (r->y);
+    el[2] = Tcl_NewDoubleObj (r->width);
+    el[3] = Tcl_NewDoubleObj (r->height);
+
+    return Tcl_NewListObj (4, el); /* OK tcl9 */
+}
+
+/*
+ * - - -- --- ----- -------- -------------
+ */
+
 /*
  * = = == === ===== ======== ============= =====================
  * Local Variables:
