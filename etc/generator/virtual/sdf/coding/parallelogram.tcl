@@ -1,5 +1,7 @@
 
 state -setup {
+    if (param->ewidth  <= 0) aktive_fail("expected element width > 0");
+    if (param->eheight <= 0) aktive_fail("expected element height > 0");
     aktive_geometry_set (domain, param->x, param->y, param->width, param->height, 1);
 }
 
@@ -17,10 +19,10 @@ pixels {
     double cx   = param->center.x;
     double cy   = param->center.y;
 
-    TRACE("center               = @%d,%d", param->center.x, param->center.y);
-    TRACE("parallelogram width  =  %d", param->ewidth);
-    TRACE("parallelogram height =  %d", param->eheight);
-    TRACE("parallelogram skew   =  %d", param->eskew);
+    TRACE("center               = @%f,%f", param->center.x, param->center.y);
+    TRACE("parallelogram width  =  %f", param->ewidth);
+    TRACE("parallelogram height =  %f", param->eheight);
+    TRACE("parallelogram skew   =  %f", param->eskew);
 
     #define PARALLELOGRAM(x,y) aktive_sdf_parallelogram \
 	(aktive_sdf_translate (x, y, cx, cy), \

@@ -52,7 +52,7 @@ set base {width 11 height 11 x 0 y 0}
 
 test aktive-image-sdf-box-2.0 "aktive image sdf box" -body {
     astclx 11 aktive image sdf box {*}$base ewidth 5 eheight 3 center {5 5}
-} -match image -result [makei image::sdf::box 0 0 11 11 1 "$base ewidth 5 eheight 3 center {5 5}" {
+} -match image -result [makei image::sdf::box 0 0 11 11 1 "$base ewidth 5.0 eheight 3.0 center {5.0 5.0}" {
     	2  2  2  2  2  2  2  2  2  2 2
 	1  1  1  1  1  1  1  1  1  1 1
 	0  0  0  0  0  0  0  0  0  0 0
@@ -70,7 +70,7 @@ test aktive-image-sdf-box-rounded-2.0 "aktive image sdf box-rounded" -body {
     astclx 11 aktive image sdf box-rounded {*}$base \
 	upleftradius 1 uprightradius 1 downleftradius 1 downrightradius 1 \
 	ewidth 5 eheight 3 center {5 5}
-} -match image -result [makei image::sdf::box-rounded 0 0 11 11 1 "$base upleftradius 1 uprightradius 1 downleftradius 1 downrightradius 1 ewidth 5 eheight 3 center {5 5}" {
+} -match image -result [makei image::sdf::box-rounded 0 0 11 11 1 "$base upleftradius 1.0 uprightradius 1.0 downleftradius 1.0 downrightradius 1.0 ewidth 5.0 eheight 3.0 center {5.0 5.0}" {
 
     2.1623  2      2       2       2       2       2       2       2       2      2.1623
     1.2361  1      1       1       1       1       1       1       1       1      1.2361
@@ -88,7 +88,7 @@ test aktive-image-sdf-box-rounded-2.0 "aktive image sdf box-rounded" -body {
 
 test aktive-image-sdf-circle-2.0 "aktive image sdf circle" -body {
     astclx 11 aktive image sdf circle {*}$base radius 3 center {5 5}
-} -match image -result [makei image::sdf::circle 0 0 11 11 1 "$base radius 3 center {5 5}" {
+} -match image -result [makei image::sdf::circle 0 0 11 11 1 "$base radius 3.0 center {5.0 5.0}" {
     4.0711 3.4031 2.8310  2.3852  2.0990  2       2.0990  2.3852 2.8310 3.4031 4.0711
     3.4031 2.6569 2       1.4721  1.1231  1       1.1231  1.4721 2      2.6569 3.4031
     2.8310 2      1.2426  0.6056  0.1623  0       0.1623  0.6056 1.2426 2      2.8310
@@ -104,7 +104,7 @@ test aktive-image-sdf-circle-2.0 "aktive image sdf circle" -body {
 
 test aktive-image-sdf-parallelogram-2.0 "aktive image sdf parallelogram" -body {
     astclx 11 aktive image sdf parallelogram {*}$base ewidth 5 eheight 3 eskew 1 center {5 5}
-} -match image -result [makei image::sdf::parallelogram 0 0 11 11 1 "$base ewidth 5 eheight 3 eskew 1 center {5 5}" {
+} -match image -result [makei image::sdf::parallelogram 0 0 11 11 1 "$base ewidth 5.0 eheight 3.0 eskew 1.0 center {5.0 5.0}" {
     =  2       2       2       2       2       2       2       2       2       2       2.2361
     =  1       1       1       1       1       1       1       1       1       1       1.4142
     =  0       0       0       0       0       0       0       0       0       0       0.9487
@@ -120,7 +120,7 @@ test aktive-image-sdf-parallelogram-2.0 "aktive image sdf parallelogram" -body {
 
 test aktive-image-sdf-rhombus-2.0 "aktive image sdf rhombus" -body {
     astclx 11 aktive image sdf rhombus {*}$base ewidth 5 eheight 3 center {5 5}
-} -match image -result [makei image::sdf::rhombus 0 0 11 11 1 "$base ewidth 5 eheight 3 center {5 5}" {
+} -match image -result [makei image::sdf::rhombus 0 0 11 11 1 "$base ewidth 5.0 eheight 3.0 center {5.0 5.0}" {
     4.2875  3.7730  3.2585  2.7440  2.2361  2       2.2361  2.7440  3.2585  3.7730 4.2875
     3.4300  2.9155  2.4010  1.8865  1.3720  1       1.3720  1.8865  2.4010  2.9155 3.4300
     2.5725  2.0580  1.5435  1.0290  0.5145  0       0.5145  1.0290  1.5435  2.0580 2.5725
@@ -136,7 +136,7 @@ test aktive-image-sdf-rhombus-2.0 "aktive image sdf rhombus" -body {
 
 test aktive-image-sdf-line-2.0 "aktive image sdf line" -body {
     astclx 11 aktive image sdf line {*}$base from {1 2} to {8 9}
-} -match image -result [makei image::sdf::line 0 0 11 11 1 "$base from {1 2} to {8 9}" {
+} -match image -result [makei image::sdf::line 0 0 11 11 1 "$base from {1.0 2.0} to {8.0 9.0}" {
 
     2.2361 2      2.2361 2.8284 3.5355 4.2426 4.9497 5.6569 6.3640 7.0711 7.7782
     1.4142 1      1.4142 2.1213 2.8284 3.5355 4.2426 4.9497 5.6569 6.3640 7.0711
@@ -153,7 +153,7 @@ test aktive-image-sdf-line-2.0 "aktive image sdf line" -body {
 
 test aktive-image-sdf-triangle-2.0 "aktive image sdf triangle" -body {
     astclx 11 aktive image sdf triangle {*}$base a {1 1} b {3 8} c {8 3}
-} -match image -result [makei image::sdf::triangle 0 0 11 11 1 "$base a {1 1} b {3 8} c {8 3}" {
+} -match image -result [makei image::sdf::triangle 0 0 11 11 1 "$base a {1.0 1.0} b {3.0 8.0} c {8.0 3.0}" {
     1.4142  1       1.2362  1.5110  1.7857  2.0604  2.3351  2.6099  2.8846 3.1623 3.6056
     1      -0       0.2747  0.5494  0.8242  1.0989  1.3736  1.6483  1.9230 2.2361 2.8284
     1.2362  0.2747 -0.6868 -0.4121 -0.1374  0.1374  0.4121  0.6868  0.9615 1.4142 2.2361
@@ -171,7 +171,7 @@ test aktive-image-sdf-triangle-2.0 "aktive image sdf triangle" -body {
 
 test aktive-image-sdf-circles-2.0 "aktive image sdf circles" -body {
     astclx 11 aktive image sdf circles {*}$base radius 1 centers {2 2} {7 3} {5 7}
-} -match image -result [makei image::sdf::circles 0 0 11 11 1 {width 11 height 11 x 0 y 0 radius 1 centers {{2 2} {7 3} {5 7}}} {
+} -match image -result [makei image::sdf::circles 0 0 11 11 1 {width 11 height 11 x 0 y 0 radius 1.0 centers {{2.0 2.0} {7.0 3.0} {5.0 7.0}}} {
     1.8284 1.2361  1      1.2361 1.8284  2.6056 2.1623  2      2.1623 2.6056 3.2426
     1.2361 0.4142  0      0.4142 1.2361  1.8284 1.2361  1      1.2361 1.8284 2.6056
     1      0      -1      0      1       1.2361 0.4142  0      0.4142 1.2361 2.1623
@@ -187,7 +187,7 @@ test aktive-image-sdf-circles-2.0 "aktive image sdf circles" -body {
 
 test aktive-image-sdf-polyline-2.0 "aktive image sdf polyline" -body {
     astclx 11 aktive image sdf polyline {*}$base points {2 2} {7 3} {5 7}
-} -match image -result [makei image::sdf::polyline 0 0 11 11 1 {width 11 height 11 x 0 y 0 points {{2 2} {7 3} {5 7}}} {
+} -match image -result [makei image::sdf::polyline 0 0 11 11 1 {width 11 height 11 x 0 y 0 points {{2.0 2.0} {7.0 3.0} {5.0 7.0}}} {
     2.8284 2.2361 2      2.1573 2.3534 2.5495 2.7456 2.9417 3.1623 3.6056 4.2426
     2.2361 1.4142 1      1.1767 1.3728 1.5689 1.7650 1.9612 2.2361 2.8284 3.6056
     2      1      0      0.1961 0.3922 0.5883 0.7845 0.9806 1.4142 2.2361 3.1623

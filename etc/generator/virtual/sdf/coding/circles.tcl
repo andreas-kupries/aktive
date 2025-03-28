@@ -10,6 +10,7 @@ if 0 {
 }
 
 state -setup {
+    if (param->radius <= 0) aktive_fail("expected radius > 0");
     aktive_geometry_set (domain, param->x, param->y, param->width, param->height, 1);
 }
 

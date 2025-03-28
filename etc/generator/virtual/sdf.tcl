@@ -253,7 +253,7 @@ operator op::sdf::ring {
 
     input
 
-    uint thickness Desired border thickness.
+    double thickness Desired border thickness.
 
     body {
 	round [outline $src] radius $thickness
@@ -305,7 +305,7 @@ operator op::sdf::round {
     ref https://iquilezles.org/articles/distfunctions2d
 
     input
-    uint radius Expansion/Shrinkage radius for the SDF.
+    double radius Expansion/Shrinkage radius for the SDF.
 
     body {
 	if {$radius == 0} { return $src }

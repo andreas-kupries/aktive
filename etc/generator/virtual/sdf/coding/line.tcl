@@ -24,8 +24,8 @@ blit segment-sdf {
 }}
 
 pixels {
-    TRACE("from      = @%d,%d", param->from.x, param->from.y);
-    TRACE("to        = @%d,%d", param->to.x,   param->to.y);
+    TRACE("from      = @%f,%f", param->from.x, param->from.y);
+    TRACE("to        = @%f,%f", param->to.x,   param->to.y);
     TRACE("delta     = %f, %f", istate->spec.delta.x, istate->spec.delta.y);
     TRACE("dot.delta = %f",     istate->spec.ddot);
 
