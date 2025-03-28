@@ -1,5 +1,12 @@
 
 state -setup {
+    if (param->ewidth          <= 0) aktive_fail("expected element width > 0");
+    if (param->eheight         <= 0) aktive_fail("expected element height > 0");
+    if (param->downrightradius  < 0) aktive_fail("expected down right radius >= 0");
+    if (param->uprightradius    < 0) aktive_fail("expected up right radius >= 0");
+    if (param->downleftradius   < 0) aktive_fail("expected down left radius >= 0");
+    if (param->upleftradius     < 0) aktive_fail("expected up left radius >= 0");
+
     aktive_geometry_set (domain, param->x, param->y, param->width, param->height, 1);
 }
 
@@ -22,13 +29,13 @@ pixels {
     r[2] = param->downleftradius;
     r[3] = param->upleftradius;
 
-    TRACE("center            = @%d,%d", param->center.x, param->center.y);
-    TRACE("box width         =  %d", param->ewidth);
-    TRACE("box height        =  %d", param->eheight);
-    TRACE("up   left  radius =  %d", param->upleftradius);
-    TRACE("up   right radius =  %d", param->uprightradius);
-    TRACE("down left  radius =  %d", param->downleftradius);
-    TRACE("down right radius =  %d", param->downrightradius);
+    TRACE("center            = @%f,%f", param->center.x, param->center.y);
+    TRACE("box width         =  %f", param->ewidth);
+    TRACE("box height        =  %f", param->eheight);
+    TRACE("up   left  radius =  %f", param->upleftradius);
+    TRACE("up   right radius =  %f", param->uprightradius);
+    TRACE("down left  radius =  %f", param->downleftradius);
+    TRACE("down right radius =  %f", param->downrightradius);
 
     #define BOX(x,y) aktive_sdf_box_rounded (aktive_sdf_translate (x, y, cx, cy), w, h, r)
     #define SD         (idomain->depth)

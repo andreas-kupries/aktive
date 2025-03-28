@@ -1,6 +1,6 @@
 /*
  * - - -- --- ----- -------- -------------
- ** (c) 2024 Andreas Kupries http://wiki.tcl.tk/andreas%20kupries
+ ** (c) 2024-2025 Andreas Kupries http://wiki.tcl.tk/andreas%20kupries
  *
  * -- signed distance functions
  */
@@ -93,7 +93,7 @@ double aktive_sdf_circle (double x, double y, double radius)
     return VLENGTH (x, y) - radius;
 }
 
-double aktive_sdf_polycircle (double x, double y, double radius, aktive_point_vector* centers)
+double aktive_sdf_polycircle (double x, double y, double radius, aktive_fpoint_vector* centers)
 {
     double mindist = INFINITY;
     aktive_uint k;
@@ -160,7 +160,7 @@ double aktive_sdf_rhombus (double x, double y, double w, double h)
     return d * aktive_sign ( x*h + y*w - w*h );
 }
 
-double aktive_sdf_segment (double x, double y, AP from, AP to)
+double aktive_sdf_segment (double x, double y, APD from, APD to)
 {
     // ref https://www.shadertoy.com/view/3tdSDj
     // ref https://www.youtube.com/watch?v=PMltMdi1Wzg

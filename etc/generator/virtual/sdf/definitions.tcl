@@ -17,13 +17,13 @@ sdf-def triangle
 # # ## ### ##### ######## ############# #####################
 
 proc sdf-whc {} {
-    uint? 1  ewidth   Element width
-    uint? 1  eheight  Element height
+    double? 1 ewidth   Element width
+    double? 1 eheight  Element height
     sdf-centered
 }
 
 proc sdf-centered {} {
-    point    center   Element center
+    fpoint   center   Element center
     # TODO: rotation, scaling
 }
 

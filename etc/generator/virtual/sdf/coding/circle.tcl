@@ -1,4 +1,5 @@
 state -setup {
+    if (param->radius <= 0) aktive_fail("expected radius > 0");
     aktive_geometry_set (domain, param->x, param->y, param->width, param->height, 1);
 }
 
@@ -10,7 +11,7 @@ blit circle-sdf {
 }}
 
 pixels {
-    double r  = param->radius;	// early cast to the type need during blit
+    double r  = param->radius;		// early cast to the type need during blit
     double cx = param->center.x;	// ditto
     double cy = param->center.y;	// ditto
 
