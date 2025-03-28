@@ -365,7 +365,7 @@ The resulting image has the same geometry as the input.
 ---
 ### [↑](#top) <a name='op_math1_fit_mean_stddev'></a> aktive op math1 fit mean-stddev
 
-Syntax: __aktive op math1 fit mean-stddev__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=313&name=etc/transformer/math/unary.tcl)]
+Syntax: __aktive op math1 fit mean-stddev__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=338&name=etc/transformer/math/unary.tcl)]
 
 Returns image fitted into the given range. Default range is 0..1.
 
@@ -388,7 +388,7 @@ BEWARE, this means that construction incurs a computation cost on the input.
 ---
 ### [↑](#top) <a name='op_math1_fit_min_max'></a> aktive op math1 fit min-max
 
-Syntax: __aktive op math1 fit min-max__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=285&name=etc/transformer/math/unary.tcl)]
+Syntax: __aktive op math1 fit min-max__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=310&name=etc/transformer/math/unary.tcl)]
 
 Returns image fitted into the given range. Default range is 0..1.
 
@@ -420,7 +420,9 @@ Each band of the image is fitted separately.
 
 The (image statistics) method `<by>` is used to determine the range of the image band values to fit into the destination range. The method is expected to return a list of two values, the min and the max to fit, in this order.
 
-BEWARE, this means that construction incurs a computation cost on the input.
+__Beware__, this means that construction incurs a computation cost on the input.
+
+This cost somewhat offset by providing these `min` and `max` values to the caller. It is done by storing the values in the sub-dictionary `stretch` of the meta data dictionary. `stretch` also contains the calculated `scale` and `gain` parameters of the linear mapping. This enables the mapping of fitted values back to the original domain.
 
 |Input|Description|
 |:---|:---|

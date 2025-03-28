@@ -214,7 +214,7 @@ Note that a thickness of zero devolves this operation to a plain outline.
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
-|thickness|uint||Desired border thickness.|
+|thickness|double||Desired border thickness.|
 
 #### <a name='op_sdf_ring__examples'></a> Examples
 
@@ -258,7 +258,7 @@ A radius of zero is ignored.
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
-|radius|uint||Expansion/Shrinkage radius for the SDF.|
+|radius|double||Expansion/Shrinkage radius for the SDF.|
 
 #### <a name='op_sdf_round__examples'></a> Examples
 
