@@ -36,7 +36,7 @@ Syntax: __aktive image draw box__  ?(param value)...? [[→ definition](/file?ci
 
 Returns an image with the given dimensions and location, with a box drawn into it.
 
-Beware, the location and size of the box are independent of image location and dimensions. The operator is perfectly fine computing the SDF of a box located completely outside of the image domain.
+__Beware__. The location and size of the box are independent of image location and dimensions. The operator is perfectly fine computing the SDF of a box located completely outside of the image domain.
 
 The returned image is always single-band. It is grey-scale when anti-aliasing is active, and black/white if not.
 
@@ -51,31 +51,31 @@ The box is axis-aligned, of width `2*ewidth+1`, height `2*eheight+1`, and placed
 |x|int|0|Image location, X coordinate|
 |y|int|0|Image location, Y coordinate|
 |antialiased|bool|1|Draw with antialiasing for smoother contours (Default)|
-|outlined|uint|0|Outline thickness. Draw filled if zero (Default).|
-|ewidth|uint|1|Element width|
-|eheight|uint|1|Element height|
-|center|point||Element center|
+|outlined|double|0|Outline thickness. Draw filled if zero (Default).|
+|ewidth|double|1|Element width|
+|eheight|double|1|Element height|
+|center|fpoint||Element center|
 
 #### <a name='image_draw_box__examples'></a> Examples
 
 <a name='image_draw_box__examples__e1'></a><table>
-<tr><th>aktive image draw box center {64 64} width 128 height 128 ewidth 32 eheight 32
+<tr><th>aktive image draw box center {64.25 64.75} width 128 height 128 ewidth 32.2 eheight 32.8
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00069.gif' alt='aktive image draw box center {64 64} width 128 height 128 ewidth 32 eheight 32' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00069.gif' alt='aktive image draw box center {64.25 64.75} width 128 height 128 ewidth 32.2 eheight 32.8' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
 <a name='image_draw_box__examples__e2'></a><table>
-<tr><th>aktive image draw box center {64 64} width 128 height 128 ewidth 32 eheight 32 outlined 1
+<tr><th>aktive image draw box center {64.25 64.75} width 128 height 128 ewidth 32.2 eheight 32.8 outlined 1.1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00070.gif' alt='aktive image draw box center {64 64} width 128 height 128 ewidth 32 eheight 32 outlined 1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00070.gif' alt='aktive image draw box center {64.25 64.75} width 128 height 128 ewidth 32.2 eheight 32.8 outlined 1.1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
 <a name='image_draw_box__examples__e3'></a><table>
-<tr><th>aktive image draw box center {64 64} width 128 height 128 ewidth 32 eheight 32 antialiased 0
+<tr><th>aktive image draw box center {64.25 64.75} width 128 height 128 ewidth 32.2 eheight 32.8 antialiased 0
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00071.gif' alt='aktive image draw box center {64 64} width 128 height 128 ewidth 32 eheight 32 antialiased 0' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00071.gif' alt='aktive image draw box center {64.25 64.75} width 128 height 128 ewidth 32.2 eheight 32.8 antialiased 0' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
@@ -87,7 +87,7 @@ Syntax: __aktive image draw box-rounded__  ?(param value)...? [[→ definition](
 
 Returns an image with the given dimensions and location, with a box drawn into it.
 
-Beware, the location and size of the box are independent of image location and dimensions. The operator is perfectly fine computing the SDF of a box located completely outside of the image domain.
+__Beware__. The location and size of the box are independent of image location and dimensions. The operator is perfectly fine computing the SDF of a box located completely outside of the image domain.
 
 The returned image is always single-band. It is grey-scale when anti-aliasing is active, and black/white if not.
 
@@ -104,35 +104,35 @@ The radii default to 0, i.e. no rounded corners.
 |x|int|0|Image location, X coordinate|
 |y|int|0|Image location, Y coordinate|
 |antialiased|bool|1|Draw with antialiasing for smoother contours (Default)|
-|outlined|uint|0|Outline thickness. Draw filled if zero (Default).|
-|upleftradius|uint|0|Radius of element at upper left corner|
-|uprightradius|uint|0|Radius of element at upper right corner|
-|downleftradius|uint|0|Radius of element at lower left corner|
-|downrightradius|uint|0|Radius of element at lower right corner|
-|ewidth|uint|1|Element width|
-|eheight|uint|1|Element height|
-|center|point||Element center|
+|outlined|double|0|Outline thickness. Draw filled if zero (Default).|
+|upleftradius|double|0|Radius of element at upper left corner|
+|uprightradius|double|0|Radius of element at upper right corner|
+|downleftradius|double|0|Radius of element at lower left corner|
+|downrightradius|double|0|Radius of element at lower right corner|
+|ewidth|double|1|Element width|
+|eheight|double|1|Element height|
+|center|fpoint||Element center|
 
 #### <a name='image_draw_box_rounded__examples'></a> Examples
 
 <a name='image_draw_box_rounded__examples__e1'></a><table>
-<tr><th>aktive image draw box-rounded center {64 64} width 128 height 128 ewidth 32 eheight 32
+<tr><th>aktive image draw box-rounded center {64.25 64.75} width 128 height 128 ewidth 32.2 eheight 32.8
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00072.gif' alt='aktive image draw box-rounded center {64 64} width 128 height 128 ewidth 32 eheight 32' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00072.gif' alt='aktive image draw box-rounded center {64.25 64.75} width 128 height 128 ewidth 32.2 eheight 32.8' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
 <a name='image_draw_box_rounded__examples__e2'></a><table>
-<tr><th>aktive image draw box-rounded center {64 64} width 128 height 128 ewidth 32 eheight 32 upleftradius 32 outlined 1
+<tr><th>aktive image draw box-rounded center {64.25 64.75} width 128 height 128 ewidth 32.2 eheight 32.8 upleftradius 32.32 outlined 1.1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00073.gif' alt='aktive image draw box-rounded center {64 64} width 128 height 128 ewidth 32 eheight 32 upleftradius 32 outlined 1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00073.gif' alt='aktive image draw box-rounded center {64.25 64.75} width 128 height 128 ewidth 32.2 eheight 32.8 upleftradius 32.32 outlined 1.1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
 <a name='image_draw_box_rounded__examples__e3'></a><table>
-<tr><th>aktive image draw box-rounded center {64 64} width 128 height 128 ewidth 32 eheight 32 upleftradius 32 antialiased 0
+<tr><th>aktive image draw box-rounded center {64.25 64.75} width 128 height 128 ewidth 32.2 eheight 32.8 upleftradius 32.32 antialiased 0
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00074.gif' alt='aktive image draw box-rounded center {64 64} width 128 height 128 ewidth 32 eheight 32 upleftradius 32 antialiased 0' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00074.gif' alt='aktive image draw box-rounded center {64.25 64.75} width 128 height 128 ewidth 32.2 eheight 32.8 upleftradius 32.32 antialiased 0' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
@@ -144,7 +144,7 @@ Syntax: __aktive image draw circle__  ?(param value)...? [[→ definition](/file
 
 Returns an image with the given dimensions and location, with a circle drawn into it.
 
-Beware, the location and size of the circle are independent of image location and dimensions. The operator is perfectly fine computing the SDF of a circle located completely outside of the image domain.
+__Beware__. The location and size of the circle are independent of image location and dimensions. The operator is perfectly fine computing the SDF of a circle located completely outside of the image domain.
 
 The returned image is always single-band. It is grey-scale when anti-aliasing is active, and black/white if not.
 
@@ -159,30 +159,30 @@ The circle has the `radius`, and is placed at the specified center.
 |x|int|0|Image location, X coordinate|
 |y|int|0|Image location, Y coordinate|
 |antialiased|bool|1|Draw with antialiasing for smoother contours (Default)|
-|outlined|uint|0|Outline thickness. Draw filled if zero (Default).|
-|radius|uint|1|Circle radius|
-|center|point||Element center|
+|outlined|double|0|Outline thickness. Draw filled if zero (Default).|
+|radius|double|1|Circle radius|
+|center|fpoint||Element center|
 
 #### <a name='image_draw_circle__examples'></a> Examples
 
 <a name='image_draw_circle__examples__e1'></a><table>
-<tr><th>aktive image draw circle center {64 64} width 128 height 128 radius 32
+<tr><th>aktive image draw circle center {64.25 64.75} width 128 height 128 radius 32.5
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00075.gif' alt='aktive image draw circle center {64 64} width 128 height 128 radius 32' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00075.gif' alt='aktive image draw circle center {64.25 64.75} width 128 height 128 radius 32.5' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
 <a name='image_draw_circle__examples__e2'></a><table>
-<tr><th>aktive image draw circle center {64 64} width 128 height 128 radius 32 outlined 1
+<tr><th>aktive image draw circle center {64.25 64.75} width 128 height 128 radius 32.5 outlined 1.1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00076.gif' alt='aktive image draw circle center {64 64} width 128 height 128 radius 32 outlined 1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00076.gif' alt='aktive image draw circle center {64.25 64.75} width 128 height 128 radius 32.5 outlined 1.1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
 <a name='image_draw_circle__examples__e3'></a><table>
-<tr><th>aktive image draw circle center {64 64} width 128 height 128 radius 32 antialiased 0
+<tr><th>aktive image draw circle center {64.25 64.75} width 128 height 128 radius 32.5 antialiased 0
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00077.gif' alt='aktive image draw circle center {64 64} width 128 height 128 radius 32 antialiased 0' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00077.gif' alt='aktive image draw circle center {64.25 64.75} width 128 height 128 radius 32.5 antialiased 0' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
@@ -194,7 +194,7 @@ Syntax: __aktive image draw circles__  ?(param value)...? [[→ definition](/fil
 
 Returns an image with the given dimensions and location, with a set of circles drawn into it.
 
-Beware, the location and size of the set of circles are independent of image location and dimensions. The operator is perfectly fine computing the SDF of a set of circles located completely outside of the image domain.
+__Beware__. The location and size of the set of circles are independent of image location and dimensions. The operator is perfectly fine computing the SDF of a set of circles located completely outside of the image domain.
 
 The returned image is always single-band. It is grey-scale when anti-aliasing is active, and black/white if not.
 
@@ -209,30 +209,30 @@ The circles all have the same `radius`, and are placed at the specified centers.
 |x|int|0|Image location, X coordinate|
 |y|int|0|Image location, Y coordinate|
 |antialiased|bool|1|Draw with antialiasing for smoother contours (Default)|
-|outlined|uint|0|Outline thickness. Draw filled if zero (Default).|
-|radius|uint|1|Circle radius|
-|centers|point...||Circle centers|
+|outlined|double|0|Outline thickness. Draw filled if zero (Default).|
+|radius|double|1|Circle radius|
+|centers|fpoint...||Circle centers|
 
 #### <a name='image_draw_circles__examples'></a> Examples
 
 <a name='image_draw_circles__examples__e1'></a><table>
-<tr><th>aktive image draw circles width 128 height 128 radius 8 centers {10 10} {30 80} {80 30}
+<tr><th>aktive image draw circles width 128 height 128 radius 8 centers {10.25 10.75} {30.3 80.6} {80.1 30.9}
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00078.gif' alt='aktive image draw circles width 128 height 128 radius 8 centers {10 10} {30 80} {80 30}' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00078.gif' alt='aktive image draw circles width 128 height 128 radius 8 centers {10.25 10.75} {30.3 80.6} {80.1 30.9}' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
 <a name='image_draw_circles__examples__e2'></a><table>
-<tr><th>aktive image draw circles width 128 height 128 radius 8 outlined 1 centers {10 10} {30 80} {80 30}
+<tr><th>aktive image draw circles width 128 height 128 radius 8 outlined 1.1 centers {10.25 10.75} {30.3 80.6} {80.1 30.9}
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00079.gif' alt='aktive image draw circles width 128 height 128 radius 8 outlined 1 centers {10 10} {30 80} {80 30}' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00079.gif' alt='aktive image draw circles width 128 height 128 radius 8 outlined 1.1 centers {10.25 10.75} {30.3 80.6} {80.1 30.9}' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
 <a name='image_draw_circles__examples__e3'></a><table>
-<tr><th>aktive image draw circles width 128 height 128 radius 8 antialiased 0 centers {10 10} {30 80} {80 30}
+<tr><th>aktive image draw circles width 128 height 128 radius 8 antialiased 0 centers {10.25 10.75} {30.3 80.6} {80.1 30.9}
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00080.gif' alt='aktive image draw circles width 128 height 128 radius 8 antialiased 0 centers {10 10} {30 80} {80 30}' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00080.gif' alt='aktive image draw circles width 128 height 128 radius 8 antialiased 0 centers {10.25 10.75} {30.3 80.6} {80.1 30.9}' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
@@ -244,7 +244,7 @@ Syntax: __aktive image draw line__  ?(param value)...? [[→ definition](/file?c
 
 Returns an image with the given dimensions and location, with a line drawn into it.
 
-Beware, the location and size of the line are independent of image location and dimensions. The operator is perfectly fine computing the SDF of a line located completely outside of the image domain.
+__Beware__. The location and size of the line are independent of image location and dimensions. The operator is perfectly fine computing the SDF of a line located completely outside of the image domain.
 
 The returned image is always single-band. It is grey-scale when anti-aliasing is active, and black/white if not.
 
@@ -259,30 +259,30 @@ The line connects the two specified locations.
 |x|int|0|Image location, X coordinate|
 |y|int|0|Image location, Y coordinate|
 |antialiased|bool|1|Draw with antialiasing for smoother contours (Default)|
-|strokewidth|uint|0|Stroke width. Lines are `2*strokewidth+1` wide.|
-|from|point||Starting location|
-|to|point||End location|
+|strokewidth|double|0|Stroke width. Lines are `2*strokewidth+1` wide.|
+|from|fpoint||Starting location|
+|to|fpoint||End location|
 
 #### <a name='image_draw_line__examples'></a> Examples
 
 <a name='image_draw_line__examples__e1'></a><table>
-<tr><th>aktive image draw line width 128 height 128 from {10 10} to {30 80}
+<tr><th>aktive image draw line width 128 height 128 from {10.1 10.9} to {30.3 80.6}
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00081.gif' alt='aktive image draw line width 128 height 128 from {10 10} to {30 80}' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00081.gif' alt='aktive image draw line width 128 height 128 from {10.1 10.9} to {30.3 80.6}' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
 <a name='image_draw_line__examples__e2'></a><table>
-<tr><th>aktive image draw line width 128 height 128 from {10 10} to {30 80} strokewidth 1
+<tr><th>aktive image draw line width 128 height 128 from {10.1 10.9} to {30.3 80.6} strokewidth 1.1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00082.gif' alt='aktive image draw line width 128 height 128 from {10 10} to {30 80} strokewidth 1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00082.gif' alt='aktive image draw line width 128 height 128 from {10.1 10.9} to {30.3 80.6} strokewidth 1.1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
 <a name='image_draw_line__examples__e3'></a><table>
-<tr><th>aktive image draw line width 128 height 128 from {10 10} to {30 80} antialiased 0
+<tr><th>aktive image draw line width 128 height 128 from {10.1 10.9} to {30.3 80.6} antialiased 0
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00083.gif' alt='aktive image draw line width 128 height 128 from {10 10} to {30 80} antialiased 0' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00083.gif' alt='aktive image draw line width 128 height 128 from {10.1 10.9} to {30.3 80.6} antialiased 0' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
@@ -294,7 +294,7 @@ Syntax: __aktive image draw parallelogram__  ?(param value)...? [[→ definition
 
 Returns an image with the given dimensions and location, with a parallelogram drawn into it.
 
-Beware, the location and size of the parallelogram are independent of image location and dimensions. The operator is perfectly fine computing the SDF of a parallelogram located completely outside of the image domain.
+__Beware__. The location and size of the parallelogram are independent of image location and dimensions. The operator is perfectly fine computing the SDF of a parallelogram located completely outside of the image domain.
 
 The returned image is always single-band. It is grey-scale when anti-aliasing is active, and black/white if not.
 
@@ -309,32 +309,32 @@ The parallelogram is axis-aligned, of width `2*ewidth+1`, height `2*eheight+1`, 
 |x|int|0|Image location, X coordinate|
 |y|int|0|Image location, Y coordinate|
 |antialiased|bool|1|Draw with antialiasing for smoother contours (Default)|
-|outlined|uint|0|Outline thickness. Draw filled if zero (Default).|
-|eskew|uint|1|Element skew|
-|ewidth|uint|1|Element width|
-|eheight|uint|1|Element height|
-|center|point||Element center|
+|outlined|double|0|Outline thickness. Draw filled if zero (Default).|
+|eskew|double|1|Element skew|
+|ewidth|double|1|Element width|
+|eheight|double|1|Element height|
+|center|fpoint||Element center|
 
 #### <a name='image_draw_parallelogram__examples'></a> Examples
 
 <a name='image_draw_parallelogram__examples__e1'></a><table>
-<tr><th>aktive image draw parallelogram center {64 64} width 128 height 128 ewidth 32 eheight 32 eskew 8
+<tr><th>aktive image draw parallelogram center {64.25 64.75} width 128 height 128 ewidth 32.2 eheight 32.8 eskew 8.1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00084.gif' alt='aktive image draw parallelogram center {64 64} width 128 height 128 ewidth 32 eheight 32 eskew 8' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00084.gif' alt='aktive image draw parallelogram center {64.25 64.75} width 128 height 128 ewidth 32.2 eheight 32.8 eskew 8.1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
 <a name='image_draw_parallelogram__examples__e2'></a><table>
-<tr><th>aktive image draw parallelogram center {64 64} width 128 height 128 ewidth 32 eheight 32 eskew 8 outlined 1
+<tr><th>aktive image draw parallelogram center {64.25 64.75} width 128 height 128 ewidth 32.2 eheight 32.8 eskew 8.1 outlined 1.1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00085.gif' alt='aktive image draw parallelogram center {64 64} width 128 height 128 ewidth 32 eheight 32 eskew 8 outlined 1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00085.gif' alt='aktive image draw parallelogram center {64.25 64.75} width 128 height 128 ewidth 32.2 eheight 32.8 eskew 8.1 outlined 1.1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
 <a name='image_draw_parallelogram__examples__e3'></a><table>
-<tr><th>aktive image draw parallelogram center {64 64} width 128 height 128 ewidth 32 eheight 32 eskew 8 antialiased 0
+<tr><th>aktive image draw parallelogram center {64.25 64.75} width 128 height 128 ewidth 32.2 eheight 32.8 eskew 8.1 antialiased 0
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00086.gif' alt='aktive image draw parallelogram center {64 64} width 128 height 128 ewidth 32 eheight 32 eskew 8 antialiased 0' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00086.gif' alt='aktive image draw parallelogram center {64.25 64.75} width 128 height 128 ewidth 32.2 eheight 32.8 eskew 8.1 antialiased 0' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
@@ -346,7 +346,7 @@ Syntax: __aktive image draw polyline__  ?(param value)...? [[→ definition](/fi
 
 Returns an image with the given dimensions and location, with a set of lines drawn into it.
 
-Beware, the location and size of the set of lines are independent of image location and dimensions. The operator is perfectly fine computing the SDF of a set of lines located completely outside of the image domain.
+__Beware__. The location and size of the set of lines are independent of image location and dimensions. The operator is perfectly fine computing the SDF of a set of lines located completely outside of the image domain.
 
 The returned image is always single-band. It is grey-scale when anti-aliasing is active, and black/white if not.
 
@@ -361,29 +361,29 @@ The lines form a polyline through the specified points.
 |x|int|0|Image location, X coordinate|
 |y|int|0|Image location, Y coordinate|
 |antialiased|bool|1|Draw with antialiasing for smoother contours (Default)|
-|strokewidth|uint|0|Stroke width. Lines are `2*strokewidth+1` wide.|
-|points|point...||Points of the poly-line|
+|strokewidth|double|0|Stroke width. Lines are `2*strokewidth+1` wide.|
+|points|fpoint...||Points of the poly-line|
 
 #### <a name='image_draw_polyline__examples'></a> Examples
 
 <a name='image_draw_polyline__examples__e1'></a><table>
-<tr><th>aktive image draw polyline width 128 height 128 points {10 10} {30 80} {80 30}
+<tr><th>aktive image draw polyline width 128 height 128 points {10.25 10.75} {30.3 80.6} {80.1 30.9}
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00087.gif' alt='aktive image draw polyline width 128 height 128 points {10 10} {30 80} {80 30}' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00087.gif' alt='aktive image draw polyline width 128 height 128 points {10.25 10.75} {30.3 80.6} {80.1 30.9}' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
 <a name='image_draw_polyline__examples__e2'></a><table>
-<tr><th>aktive image draw polyline width 128 height 128 strokewidth 1 points {10 10} {30 80} {80 30}
+<tr><th>aktive image draw polyline width 128 height 128 strokewidth 1.1 points {10.25 10.75} {30.3 80.6} {80.1 30.9}
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00088.gif' alt='aktive image draw polyline width 128 height 128 strokewidth 1 points {10 10} {30 80} {80 30}' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00088.gif' alt='aktive image draw polyline width 128 height 128 strokewidth 1.1 points {10.25 10.75} {30.3 80.6} {80.1 30.9}' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
 <a name='image_draw_polyline__examples__e3'></a><table>
-<tr><th>aktive image draw polyline width 128 height 128 antialiased 0 points {10 10} {30 80} {80 30}
+<tr><th>aktive image draw polyline width 128 height 128 antialiased 0 points {10.25 10.75} {30.3 80.6} {80.1 30.9}
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00089.gif' alt='aktive image draw polyline width 128 height 128 antialiased 0 points {10 10} {30 80} {80 30}' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00089.gif' alt='aktive image draw polyline width 128 height 128 antialiased 0 points {10.25 10.75} {30.3 80.6} {80.1 30.9}' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
@@ -395,7 +395,7 @@ Syntax: __aktive image draw rhombus__  ?(param value)...? [[→ definition](/fil
 
 Returns an image with the given dimensions and location, with a rhombus drawn into it.
 
-Beware, the location and size of the rhombus are independent of image location and dimensions. The operator is perfectly fine computing the SDF of a rhombus located completely outside of the image domain.
+__Beware__. The location and size of the rhombus are independent of image location and dimensions. The operator is perfectly fine computing the SDF of a rhombus located completely outside of the image domain.
 
 The returned image is always single-band. It is grey-scale when anti-aliasing is active, and black/white if not.
 
@@ -410,31 +410,31 @@ The rhombus is axis-aligned, of width `2*ewidth+1`, height `2*eheight+1`, and pl
 |x|int|0|Image location, X coordinate|
 |y|int|0|Image location, Y coordinate|
 |antialiased|bool|1|Draw with antialiasing for smoother contours (Default)|
-|outlined|uint|0|Outline thickness. Draw filled if zero (Default).|
-|ewidth|uint|1|Element width|
-|eheight|uint|1|Element height|
-|center|point||Element center|
+|outlined|double|0|Outline thickness. Draw filled if zero (Default).|
+|ewidth|double|1|Element width|
+|eheight|double|1|Element height|
+|center|fpoint||Element center|
 
 #### <a name='image_draw_rhombus__examples'></a> Examples
 
 <a name='image_draw_rhombus__examples__e1'></a><table>
-<tr><th>aktive image draw rhombus center {64 64} width 128 height 128 ewidth 32 eheight 32
+<tr><th>aktive image draw rhombus center {64.25 64.75} width 128 height 128 ewidth 32.2 eheight 32.8
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00090.gif' alt='aktive image draw rhombus center {64 64} width 128 height 128 ewidth 32 eheight 32' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00090.gif' alt='aktive image draw rhombus center {64.25 64.75} width 128 height 128 ewidth 32.2 eheight 32.8' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
 <a name='image_draw_rhombus__examples__e2'></a><table>
-<tr><th>aktive image draw rhombus center {64 64} width 128 height 128 ewidth 32 eheight 32 outlined 1
+<tr><th>aktive image draw rhombus center {64.25 64.75} width 128 height 128 ewidth 32.2 eheight 32.8 outlined 1.1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00091.gif' alt='aktive image draw rhombus center {64 64} width 128 height 128 ewidth 32 eheight 32 outlined 1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00091.gif' alt='aktive image draw rhombus center {64.25 64.75} width 128 height 128 ewidth 32.2 eheight 32.8 outlined 1.1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
 <a name='image_draw_rhombus__examples__e3'></a><table>
-<tr><th>aktive image draw rhombus center {64 64} width 128 height 128 ewidth 32 eheight 32 antialiased 0
+<tr><th>aktive image draw rhombus center {64.25 64.75} width 128 height 128 ewidth 32.2 eheight 32.8 antialiased 0
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00092.gif' alt='aktive image draw rhombus center {64 64} width 128 height 128 ewidth 32 eheight 32 antialiased 0' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00092.gif' alt='aktive image draw rhombus center {64.25 64.75} width 128 height 128 ewidth 32.2 eheight 32.8 antialiased 0' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
@@ -446,7 +446,7 @@ Syntax: __aktive image draw triangle__  ?(param value)...? [[→ definition](/fi
 
 Returns an image with the given dimensions and location, with a triangle drawn into it.
 
-Beware, the location and size of the triangle are independent of image location and dimensions. The operator is perfectly fine computing the SDF of a triangle located completely outside of the image domain.
+__Beware__. The location and size of the triangle are independent of image location and dimensions. The operator is perfectly fine computing the SDF of a triangle located completely outside of the image domain.
 
 The returned image is always single-band. It is grey-scale when anti-aliasing is active, and black/white if not.
 
@@ -461,31 +461,31 @@ The triangle connects the points A, B, and C, in this order.
 |x|int|0|Image location, X coordinate|
 |y|int|0|Image location, Y coordinate|
 |antialiased|bool|1|Draw with antialiasing for smoother contours (Default)|
-|outlined|uint|0|Outline thickness. Draw filled if zero (Default).|
-|a|point||Triangle point A|
-|b|point||Triangle point B|
-|c|point||Triangle point C|
+|outlined|double|0|Outline thickness. Draw filled if zero (Default).|
+|a|fpoint||Triangle point A|
+|b|fpoint||Triangle point B|
+|c|fpoint||Triangle point C|
 
 #### <a name='image_draw_triangle__examples'></a> Examples
 
 <a name='image_draw_triangle__examples__e1'></a><table>
-<tr><th>aktive image draw triangle width 128 height 128 a {10 10} b {30 80} c {80 30}
+<tr><th>aktive image draw triangle width 128 height 128 a {10.25 10.75} b {30.2 80.6} c {80.1 30.9}
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00093.gif' alt='aktive image draw triangle width 128 height 128 a {10 10} b {30 80} c {80 30}' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00093.gif' alt='aktive image draw triangle width 128 height 128 a {10.25 10.75} b {30.2 80.6} c {80.1 30.9}' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
 <a name='image_draw_triangle__examples__e2'></a><table>
-<tr><th>aktive image draw triangle width 128 height 128 a {10 10} b {30 80} c {80 30} outlined 1
+<tr><th>aktive image draw triangle width 128 height 128 a {10.25 10.75} b {30.2 80.6} c {80.1 30.9} outlined 1.1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00094.gif' alt='aktive image draw triangle width 128 height 128 a {10 10} b {30 80} c {80 30} outlined 1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00094.gif' alt='aktive image draw triangle width 128 height 128 a {10.25 10.75} b {30.2 80.6} c {80.1 30.9} outlined 1.1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
 <a name='image_draw_triangle__examples__e3'></a><table>
-<tr><th>aktive image draw triangle width 128 height 128 a {10 10} b {30 80} c {80 30} antialiased 0
+<tr><th>aktive image draw triangle width 128 height 128 a {10.25 10.75} b {30.2 80.6} c {80.1 30.9} antialiased 0
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00095.gif' alt='aktive image draw triangle width 128 height 128 a {10 10} b {30 80} c {80 30} antialiased 0' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00095.gif' alt='aktive image draw triangle width 128 height 128 a {10.25 10.75} b {30.2 80.6} c {80.1 30.9} antialiased 0' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
