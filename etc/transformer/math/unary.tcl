@@ -241,8 +241,14 @@ operator op::math1::fit::stretch {
 	The method is expected to return a list of two values, \
 	the min and the max to fit, in this order.
 
-    note BEWARE, this means that construction incurs a computation \
+    note __Beware__, this means that construction incurs a computation \
 	cost on the input.
+
+    note This cost somewhat offset by providing these `min` and `max` values \
+	to the caller. It is done by storing the values in the sub-dictionary \
+	`stretch` of the meta data dictionary. `stretch` also contains the \
+	calculated `scale` and `gain` parameters of the linear mapping. This \
+	enables the mapping of fitted values back to the original domain.
 
     double? 0 min	Destination minimum value to fit the image into
     double? 1 max	Destination maximum value to fit the image into
@@ -263,9 +269,20 @@ operator op::math1::fit::stretch {
 	    # =>  gain                = min - scale * srclow
 	    # =>  gain                = max - scale * srchigh
 
-	    set scale [expr {double($max-$min)/double($srchigh-$srclow)}]
-	    set gain  [expr {$min - ($scale * $srclow)}]
-	    set src   [aktive op math1 linear $band scale $scale gain $gain]
+	    # special case:
+	    # - srclow == srchigh -> cannot fit to both min and max.
+	    # - choose min
+	    # - scale = 1, gain = min - srclow
+
+	    if {$srchigh == $srclow} {
+		set scale 1
+		set gain [expr {$min - $srclow}]
+	    } else {
+		set scale [expr {double($max-$min)/double($srchigh-$srclow)}]
+		set gain  [expr {$min - ($scale * $srclow)}]
+	    }
+
+	    set src [aktive op math1 linear $band scale $scale gain $gain]
 
 	    if {$clamp} {
 		# The max and min operations ensure that the result is indeed limited to the
@@ -277,6 +294,14 @@ operator op::math1::fit::stretch {
 		set src [aktive op math1 max $src min $min]
 		set src [aktive op math1 min $src max $max]
 	    }
+
+	    # export the stretch configuration. this supports mapping of fitted values
+	    # back into the original domain
+	    set src [aktive meta set $src stretch min   $srclow]
+	    set src [aktive meta set $src stretch max   $srchigh]
+	    set src [aktive meta set $src stretch scale $scale]
+	    set src [aktive meta set $src stretch gain  $gain]
+
 	    set src
 	}]
     }
