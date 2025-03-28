@@ -81,6 +81,20 @@ aktive_point_union (aktive_rectangle* dst, aktive_uint c, aktive_point* v)
  * - - -- --- ----- -------- -------------
  */
 
+extern Tcl_Obj*
+aktive_new_fpoint_obj(aktive_fpoint* p) {
+    Tcl_Obj* el[2];
+
+    el[0] = Tcl_NewDoubleObj (p->x);
+    el[1] = Tcl_NewDoubleObj (p->y);
+
+    return Tcl_NewListObj (2, el); /* OK tcl9 */
+}
+
+/*
+ * - - -- --- ----- -------- -------------
+ */
+
 /*
  * = = == === ===== ======== ============= =====================
  * Local Variables:

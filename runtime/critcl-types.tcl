@@ -155,4 +155,60 @@ critcl::resulttype aktive_image {
 } aktive_image
 
 # # ## ### ##### ######## #############
+## 2d points - fractional variant
+
+critcl::argtype aktive_fpoint {
+    Tcl_Size  c;
+    Tcl_Obj** v;
+
+    if (Tcl_ListObjGetElements (interp, @@, &c, (Tcl_Obj***) &v) != TCL_OK) { /* OK tcl9 */
+	return TCL_ERROR;
+    }
+    if (c != 2) {
+	Tcl_SetResult (interp, "Bad #elements for point", TCL_STATIC);
+	return TCL_ERROR;
+    }
+
+    double x, y;
+    if (Tcl_GetDoubleFromObj (interp, v[0], &x) != TCL_OK) { return TCL_ERROR; }
+    if (Tcl_GetDoubleFromObj (interp, v[1], &y) != TCL_OK) { return TCL_ERROR; }
+
+    aktive_fpoint_set (&@A, x, y);
+} aktive_fpoint aktive_fpoint
+
+critcl::resulttype aktive_fpoint {
+    Tcl_SetObjResult (interp, aktive_new_fpoint_obj(&rv));
+    return TCL_OK;
+} aktive_fpoint
+
+# # ## ### ##### ######## #############
+## 2d rectangle - fractional variant
+
+critcl::argtype aktive_frectangle {
+    Tcl_Size  c;
+    Tcl_Obj** v;
+
+    if (Tcl_ListObjGetElements (interp, @@, &c, (Tcl_Obj***) &v) != TCL_OK) { /* OK tcl9 */
+	return TCL_ERROR;
+    }
+    if (c != 4) {
+	Tcl_SetResult (interp, "Bad #elements for rectangle", TCL_STATIC);
+	return TCL_ERROR;
+    }
+
+    double x, y, w, h;
+    if (Tcl_GetDoubleFromObj (interp, v[0], &x) != TCL_OK) { return TCL_ERROR; }
+    if (Tcl_GetDoubleFromObj (interp, v[1], &y) != TCL_OK) { return TCL_ERROR; }
+    if (Tcl_GetDoubleFromObj (interp, v[2], &w) != TCL_OK) { return TCL_ERROR; }
+    if (Tcl_GetDoubleFromObj (interp, v[3], &h) != TCL_OK) { return TCL_ERROR; }
+
+    aktive_frectangle_set (&@A, x, y, w, h);
+} aktive_frectangle aktive_frectangle
+
+critcl::resulttype aktive_frectangle {
+    Tcl_SetObjResult (interp, aktive_new_frectangle_obj(&rv));
+    return TCL_OK;
+} aktive_frectangle
+
+# # ## ### ##### ######## #############
 return

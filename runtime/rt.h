@@ -31,7 +31,7 @@
  * - - -- --- ----- -------- -------------
  */
 
-extern Tcl_Obj* aktive_new_uint_obj (aktive_uint x);
+extern Tcl_Obj* aktive_new_uint_obj    (aktive_uint x);
 
 /*
  * - - -- --- ----- -------- -------------
