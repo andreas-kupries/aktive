@@ -15,6 +15,8 @@ state -fields {
 } -cleanup {
   ckfree (state->spec);
 } -setup {
+      if (param->points.c < 2) aktive_fail ("not enough points, at least 2 are required");
+
       aktive_geometry_set (domain, param->x, param->y, param->width, param->height, 1);
 
       // Precompute common values for the SDF calculation
