@@ -627,7 +627,7 @@ Forcibly sets the colorspace attribute of the input image to the specified value
 
 Syntax: __aktive op color sRGB to gray__ src [[→ definition](/file?ci=trunk&ln=9&name=etc/transformer/color/srgb-gray.tcl)]
 
-Returns image in grayscale, from input in scRGB colorspace.
+Returns image in grayscale, from input in sRGB colorspace.
 
 This conversion uses the NTSC conversion formula.
 
