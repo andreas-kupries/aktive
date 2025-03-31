@@ -14,7 +14,7 @@ operator op::color::sRGB::to::gray {
 	@1
     }
 
-    note Returns image in grayscale, from input in scRGB colorspace.
+    note Returns image in grayscale, from input in sRGB colorspace.
 
     note This conversion uses the NTSC conversion formula.
 
