@@ -6,11 +6,13 @@
 ## Compress rows down to a statistic
 
 operator {dexpr attr} {
-    op::row::arg::max     {first index}        maximal
-    op::row::arg::min     {first index}        minimal
+    op::row::arg::max    {first index}        maximal
+    op::row::arg::min    {first index}        minimal
     op::row::max         maximum              {}
     op::row::mean        {arithmetic mean}    {}
     op::row::min         minimum              {}
+    op::row::profile     {left profile}       {}
+    op::row::rprofile    {right profile}      {}
     op::row::stddev      {standard deviation} {}
     op::row::sum         sum                  {}
     op::row::sumsquared  sum                  squared
@@ -32,12 +34,26 @@ operator {dexpr attr} {
     ## - min, max, mean, sum :: elide (idempotent), and for input width == 1
     ## - sumsquared          :: op math1 pow 2 (power chaining)
     ## - variance, stddev    :: const 0
+    ## - profile, rprofile   :: NONE
 
     import? ../simpler/stat_$fun.rules	;# queries kind !!
 
     note Returns image with input rows compressed to a single value, \
 	the $dexpr of the {*}$attr row values. The result is a single-column \
 	image with height and depth of the input.
+
+    switch -exact -- $fun {
+	profile {
+	    note The __left__ profile of each row is the index of the \
+		__first__ column with a __non-zero__ value. Or the \
+		width of the image, if there are no such in the row.
+	}
+	rprofile {
+	    note The __right__ profile of each row is the index of the \
+		__last__ column with a __non-zero__ value. Or `-1`, if \
+		there are no such in the row.
+	}
+    }
 
     note The part about the `depth of the input` means that the bands \
 	in each row are handled separately.

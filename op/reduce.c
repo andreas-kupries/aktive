@@ -292,6 +292,27 @@ aktive_reduce_histogram (double* v, aktive_uint n, aktive_uint stride, void* __c
     TRACE_RETURN_VOID;
 }
 
+extern double
+aktive_reduce_profile (double* v, aktive_uint n, aktive_uint stride, void* __client__ /* ignored */)
+{
+    for (aktive_uint k = 0; k < n; k++, v += stride) {
+	if (*v == 0) continue;
+	return (double) k;
+    }
+    return (double) n;
+}
+
+extern double
+aktive_reduce_rprofile (double* v, aktive_uint n, aktive_uint stride, void* __client__ /* ignored */)
+{
+    v += (n-1)*stride;
+    for (aktive_uint k = n; k > 0; k--, v -= stride) {
+	if (*v == 0) continue;
+	return (double) (k-1);
+    }
+    return (double) -1;
+}
+
 /*
  * - - -- --- ----- -------- -------------
  * Region reductions, used in per-tile statistics
