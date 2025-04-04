@@ -22,6 +22,7 @@
  - [aktive image draw circle](#image_draw_circle)
  - [aktive image draw circles](#image_draw_circles)
  - [aktive image draw line](#image_draw_line)
+ - [aktive image draw lines](#image_draw_lines)
  - [aktive image draw parallelogram](#image_draw_parallelogram)
  - [aktive image draw polyline](#image_draw_polyline)
  - [aktive image draw rhombus](#image_draw_rhombus)
@@ -32,7 +33,7 @@
 ---
 ### [↑](#top) <a name='image_draw_box'></a> aktive image draw box
 
-Syntax: __aktive image draw box__  ?(param value)...? [[→ definition](/file?ci=trunk&ln=52&name=etc/generator/virtual/draw.tcl)]
+Syntax: __aktive image draw box__  ?(param value)...? [[→ definition](/file?ci=trunk&ln=54&name=etc/generator/virtual/draw.tcl)]
 
 Returns an image with the given dimensions and location, with a box drawn into it.
 
@@ -83,7 +84,7 @@ The box is axis-aligned, of width `2*ewidth+1`, height `2*eheight+1`, and placed
 ---
 ### [↑](#top) <a name='image_draw_box_rounded'></a> aktive image draw box-rounded
 
-Syntax: __aktive image draw box-rounded__  ?(param value)...? [[→ definition](/file?ci=trunk&ln=52&name=etc/generator/virtual/draw.tcl)]
+Syntax: __aktive image draw box-rounded__  ?(param value)...? [[→ definition](/file?ci=trunk&ln=54&name=etc/generator/virtual/draw.tcl)]
 
 Returns an image with the given dimensions and location, with a box drawn into it.
 
@@ -140,7 +141,7 @@ The radii default to 0, i.e. no rounded corners.
 ---
 ### [↑](#top) <a name='image_draw_circle'></a> aktive image draw circle
 
-Syntax: __aktive image draw circle__  ?(param value)...? [[→ definition](/file?ci=trunk&ln=52&name=etc/generator/virtual/draw.tcl)]
+Syntax: __aktive image draw circle__  ?(param value)...? [[→ definition](/file?ci=trunk&ln=54&name=etc/generator/virtual/draw.tcl)]
 
 Returns an image with the given dimensions and location, with a circle drawn into it.
 
@@ -190,7 +191,7 @@ The circle has the `radius`, and is placed at the specified center.
 ---
 ### [↑](#top) <a name='image_draw_circles'></a> aktive image draw circles
 
-Syntax: __aktive image draw circles__  ?(param value)...? [[→ definition](/file?ci=trunk&ln=52&name=etc/generator/virtual/draw.tcl)]
+Syntax: __aktive image draw circles__  ?(param value)...? [[→ definition](/file?ci=trunk&ln=54&name=etc/generator/virtual/draw.tcl)]
 
 Returns an image with the given dimensions and location, with a set of circles drawn into it.
 
@@ -240,7 +241,7 @@ The circles all have the same `radius`, and are placed at the specified centers.
 ---
 ### [↑](#top) <a name='image_draw_line'></a> aktive image draw line
 
-Syntax: __aktive image draw line__  ?(param value)...? [[→ definition](/file?ci=trunk&ln=52&name=etc/generator/virtual/draw.tcl)]
+Syntax: __aktive image draw line__  ?(param value)...? [[→ definition](/file?ci=trunk&ln=54&name=etc/generator/virtual/draw.tcl)]
 
 Returns an image with the given dimensions and location, with a line drawn into it.
 
@@ -288,9 +289,58 @@ The line connects the two specified locations.
 
 
 ---
+### [↑](#top) <a name='image_draw_lines'></a> aktive image draw lines
+
+Syntax: __aktive image draw lines__  ?(param value)...? [[→ definition](/file?ci=trunk&ln=54&name=etc/generator/virtual/draw.tcl)]
+
+Returns an image with the given dimensions and location, with a set of independent lines drawn into it.
+
+__Beware__. The location and size of the set of independent lines are independent of image location and dimensions. The operator is perfectly fine computing the SDF of a set of independent lines located completely outside of the image domain.
+
+The returned image is always single-band. It is grey-scale when anti-aliasing is active, and black/white if not.
+
+See also [aktive op draw lines on](transform_drawing.md#op_draw_lines_on) and [aktive image sdf lines](generator_virtual_sdf.md#image_sdf_lines).
+
+Each line connects two locations.
+
+|Parameter|Type|Default|Description|
+|:---|:---|:---|:---|
+|width|uint||Image width|
+|height|uint||Image height|
+|x|int|0|Image location, X coordinate|
+|y|int|0|Image location, Y coordinate|
+|antialiased|bool|1|Draw with antialiasing for smoother contours (Default)|
+|strokewidth|double|0|Stroke width. Lines are `2*strokewidth+1` wide.|
+|segments|str...||Line segments|
+
+#### <a name='image_draw_lines__examples'></a> Examples
+
+<a name='image_draw_lines__examples__e1'></a><table>
+<tr><th>aktive image draw lines width 128 height 128 segments {{10.1 10.9} {30.3 80.6}} {{10.1 80.6} {30.3 10.9}}
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00084.gif' alt='aktive image draw lines width 128 height 128 segments {{10.1 10.9} {30.3 80.6}} {{10.1 80.6} {30.3 10.9}}' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td></tr>
+</table>
+
+<a name='image_draw_lines__examples__e2'></a><table>
+<tr><th>aktive image draw lines width 128 height 128 strokewidth 1.1 segments {{10.1 10.9} {30.3 80.6}} {{10.1 80.6} {30.3 10.9}}
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00085.gif' alt='aktive image draw lines width 128 height 128 strokewidth 1.1 segments {{10.1 10.9} {30.3 80.6}} {{10.1 80.6} {30.3 10.9}}' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td></tr>
+</table>
+
+<a name='image_draw_lines__examples__e3'></a><table>
+<tr><th>aktive image draw lines width 128 height 128 antialiased 0 segments {{10.1 10.9} {30.3 80.6}} {{10.1 80.6} {30.3 10.9}}
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00086.gif' alt='aktive image draw lines width 128 height 128 antialiased 0 segments {{10.1 10.9} {30.3 80.6}} {{10.1 80.6} {30.3 10.9}}' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td></tr>
+</table>
+
+
+---
 ### [↑](#top) <a name='image_draw_parallelogram'></a> aktive image draw parallelogram
 
-Syntax: __aktive image draw parallelogram__  ?(param value)...? [[→ definition](/file?ci=trunk&ln=52&name=etc/generator/virtual/draw.tcl)]
+Syntax: __aktive image draw parallelogram__  ?(param value)...? [[→ definition](/file?ci=trunk&ln=54&name=etc/generator/virtual/draw.tcl)]
 
 Returns an image with the given dimensions and location, with a parallelogram drawn into it.
 
@@ -320,21 +370,21 @@ The parallelogram is axis-aligned, of width `2*ewidth+1`, height `2*eheight+1`, 
 <a name='image_draw_parallelogram__examples__e1'></a><table>
 <tr><th>aktive image draw parallelogram center {64.25 64.75} width 128 height 128 ewidth 32.2 eheight 32.8 eskew 8.1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00084.gif' alt='aktive image draw parallelogram center {64.25 64.75} width 128 height 128 ewidth 32.2 eheight 32.8 eskew 8.1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00087.gif' alt='aktive image draw parallelogram center {64.25 64.75} width 128 height 128 ewidth 32.2 eheight 32.8 eskew 8.1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
 <a name='image_draw_parallelogram__examples__e2'></a><table>
 <tr><th>aktive image draw parallelogram center {64.25 64.75} width 128 height 128 ewidth 32.2 eheight 32.8 eskew 8.1 outlined 1.1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00085.gif' alt='aktive image draw parallelogram center {64.25 64.75} width 128 height 128 ewidth 32.2 eheight 32.8 eskew 8.1 outlined 1.1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00088.gif' alt='aktive image draw parallelogram center {64.25 64.75} width 128 height 128 ewidth 32.2 eheight 32.8 eskew 8.1 outlined 1.1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
 <a name='image_draw_parallelogram__examples__e3'></a><table>
 <tr><th>aktive image draw parallelogram center {64.25 64.75} width 128 height 128 ewidth 32.2 eheight 32.8 eskew 8.1 antialiased 0
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00086.gif' alt='aktive image draw parallelogram center {64.25 64.75} width 128 height 128 ewidth 32.2 eheight 32.8 eskew 8.1 antialiased 0' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00089.gif' alt='aktive image draw parallelogram center {64.25 64.75} width 128 height 128 ewidth 32.2 eheight 32.8 eskew 8.1 antialiased 0' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
@@ -342,11 +392,11 @@ The parallelogram is axis-aligned, of width `2*ewidth+1`, height `2*eheight+1`, 
 ---
 ### [↑](#top) <a name='image_draw_polyline'></a> aktive image draw polyline
 
-Syntax: __aktive image draw polyline__  ?(param value)...? [[→ definition](/file?ci=trunk&ln=52&name=etc/generator/virtual/draw.tcl)]
+Syntax: __aktive image draw polyline__  ?(param value)...? [[→ definition](/file?ci=trunk&ln=54&name=etc/generator/virtual/draw.tcl)]
 
-Returns an image with the given dimensions and location, with a set of lines drawn into it.
+Returns an image with the given dimensions and location, with a set of connected lines drawn into it.
 
-__Beware__. The location and size of the set of lines are independent of image location and dimensions. The operator is perfectly fine computing the SDF of a set of lines located completely outside of the image domain.
+__Beware__. The location and size of the set of connected lines are independent of image location and dimensions. The operator is perfectly fine computing the SDF of a set of connected lines located completely outside of the image domain.
 
 The returned image is always single-band. It is grey-scale when anti-aliasing is active, and black/white if not.
 
@@ -369,21 +419,21 @@ The lines form a polyline through the specified points.
 <a name='image_draw_polyline__examples__e1'></a><table>
 <tr><th>aktive image draw polyline width 128 height 128 points {10.25 10.75} {30.3 80.6} {80.1 30.9}
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00087.gif' alt='aktive image draw polyline width 128 height 128 points {10.25 10.75} {30.3 80.6} {80.1 30.9}' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00090.gif' alt='aktive image draw polyline width 128 height 128 points {10.25 10.75} {30.3 80.6} {80.1 30.9}' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
 <a name='image_draw_polyline__examples__e2'></a><table>
 <tr><th>aktive image draw polyline width 128 height 128 strokewidth 1.1 points {10.25 10.75} {30.3 80.6} {80.1 30.9}
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00088.gif' alt='aktive image draw polyline width 128 height 128 strokewidth 1.1 points {10.25 10.75} {30.3 80.6} {80.1 30.9}' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00091.gif' alt='aktive image draw polyline width 128 height 128 strokewidth 1.1 points {10.25 10.75} {30.3 80.6} {80.1 30.9}' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
 <a name='image_draw_polyline__examples__e3'></a><table>
 <tr><th>aktive image draw polyline width 128 height 128 antialiased 0 points {10.25 10.75} {30.3 80.6} {80.1 30.9}
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00089.gif' alt='aktive image draw polyline width 128 height 128 antialiased 0 points {10.25 10.75} {30.3 80.6} {80.1 30.9}' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00092.gif' alt='aktive image draw polyline width 128 height 128 antialiased 0 points {10.25 10.75} {30.3 80.6} {80.1 30.9}' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
@@ -391,7 +441,7 @@ The lines form a polyline through the specified points.
 ---
 ### [↑](#top) <a name='image_draw_rhombus'></a> aktive image draw rhombus
 
-Syntax: __aktive image draw rhombus__  ?(param value)...? [[→ definition](/file?ci=trunk&ln=52&name=etc/generator/virtual/draw.tcl)]
+Syntax: __aktive image draw rhombus__  ?(param value)...? [[→ definition](/file?ci=trunk&ln=54&name=etc/generator/virtual/draw.tcl)]
 
 Returns an image with the given dimensions and location, with a rhombus drawn into it.
 
@@ -420,21 +470,21 @@ The rhombus is axis-aligned, of width `2*ewidth+1`, height `2*eheight+1`, and pl
 <a name='image_draw_rhombus__examples__e1'></a><table>
 <tr><th>aktive image draw rhombus center {64.25 64.75} width 128 height 128 ewidth 32.2 eheight 32.8
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00090.gif' alt='aktive image draw rhombus center {64.25 64.75} width 128 height 128 ewidth 32.2 eheight 32.8' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00093.gif' alt='aktive image draw rhombus center {64.25 64.75} width 128 height 128 ewidth 32.2 eheight 32.8' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
 <a name='image_draw_rhombus__examples__e2'></a><table>
 <tr><th>aktive image draw rhombus center {64.25 64.75} width 128 height 128 ewidth 32.2 eheight 32.8 outlined 1.1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00091.gif' alt='aktive image draw rhombus center {64.25 64.75} width 128 height 128 ewidth 32.2 eheight 32.8 outlined 1.1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00094.gif' alt='aktive image draw rhombus center {64.25 64.75} width 128 height 128 ewidth 32.2 eheight 32.8 outlined 1.1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
 <a name='image_draw_rhombus__examples__e3'></a><table>
 <tr><th>aktive image draw rhombus center {64.25 64.75} width 128 height 128 ewidth 32.2 eheight 32.8 antialiased 0
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00092.gif' alt='aktive image draw rhombus center {64.25 64.75} width 128 height 128 ewidth 32.2 eheight 32.8 antialiased 0' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00095.gif' alt='aktive image draw rhombus center {64.25 64.75} width 128 height 128 ewidth 32.2 eheight 32.8 antialiased 0' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
@@ -442,7 +492,7 @@ The rhombus is axis-aligned, of width `2*ewidth+1`, height `2*eheight+1`, and pl
 ---
 ### [↑](#top) <a name='image_draw_triangle'></a> aktive image draw triangle
 
-Syntax: __aktive image draw triangle__  ?(param value)...? [[→ definition](/file?ci=trunk&ln=52&name=etc/generator/virtual/draw.tcl)]
+Syntax: __aktive image draw triangle__  ?(param value)...? [[→ definition](/file?ci=trunk&ln=54&name=etc/generator/virtual/draw.tcl)]
 
 Returns an image with the given dimensions and location, with a triangle drawn into it.
 
@@ -471,21 +521,21 @@ The triangle connects the points A, B, and C, in this order.
 <a name='image_draw_triangle__examples__e1'></a><table>
 <tr><th>aktive image draw triangle width 128 height 128 a {10.25 10.75} b {30.2 80.6} c {80.1 30.9}
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00093.gif' alt='aktive image draw triangle width 128 height 128 a {10.25 10.75} b {30.2 80.6} c {80.1 30.9}' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00096.gif' alt='aktive image draw triangle width 128 height 128 a {10.25 10.75} b {30.2 80.6} c {80.1 30.9}' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
 <a name='image_draw_triangle__examples__e2'></a><table>
 <tr><th>aktive image draw triangle width 128 height 128 a {10.25 10.75} b {30.2 80.6} c {80.1 30.9} outlined 1.1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00094.gif' alt='aktive image draw triangle width 128 height 128 a {10.25 10.75} b {30.2 80.6} c {80.1 30.9} outlined 1.1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00097.gif' alt='aktive image draw triangle width 128 height 128 a {10.25 10.75} b {30.2 80.6} c {80.1 30.9} outlined 1.1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
 <a name='image_draw_triangle__examples__e3'></a><table>
 <tr><th>aktive image draw triangle width 128 height 128 a {10.25 10.75} b {30.2 80.6} c {80.1 30.9} antialiased 0
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00095.gif' alt='aktive image draw triangle width 128 height 128 a {10.25 10.75} b {30.2 80.6} c {80.1 30.9} antialiased 0' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00098.gif' alt='aktive image draw triangle width 128 height 128 a {10.25 10.75} b {30.2 80.6} c {80.1 30.9} antialiased 0' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 

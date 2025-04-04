@@ -45,13 +45,13 @@ Returns the intersection (`*`, `max`) of all input SDFs.
     <br>&nbsp;</th>
     <th>aktive op sdf and @1 @2
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00567.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00577.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00568.gif' alt='@2' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00578.gif' alt='@2' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00569.gif' alt='aktive op sdf and @1 @2' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00570.gif' alt='aktive op sdf and @1 @2' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00571.gif' alt='aktive op sdf and @1 @2' style='border:4px solid gold'>
+    <td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00579.gif' alt='aktive op sdf and @1 @2' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00580.gif' alt='aktive op sdf and @1 @2' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00581.gif' alt='aktive op sdf and @1 @2' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr></table></td></tr>
 </table>
 
@@ -80,13 +80,13 @@ Returns the union (`+`, `min`) of all input SDFs.
     <br>&nbsp;</th>
     <th>aktive op sdf or @1 @2
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00577.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00587.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00578.gif' alt='@2' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00588.gif' alt='@2' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00579.gif' alt='aktive op sdf or @1 @2' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00580.gif' alt='aktive op sdf or @1 @2' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00581.gif' alt='aktive op sdf or @1 @2' style='border:4px solid gold'>
+    <td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00589.gif' alt='aktive op sdf or @1 @2' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00590.gif' alt='aktive op sdf or @1 @2' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00591.gif' alt='aktive op sdf or @1 @2' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr></table></td></tr>
 </table>
 
@@ -116,13 +116,13 @@ Returns the difference `A - B` of the two input SDFs. This is defined as `A * (n
     <br>&nbsp;</th>
     <th>aktive op sdf sub @1 @2
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00597.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00607.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00598.gif' alt='@2' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00608.gif' alt='@2' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00599.gif' alt='aktive op sdf sub @1 @2' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00600.gif' alt='aktive op sdf sub @1 @2' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00601.gif' alt='aktive op sdf sub @1 @2' style='border:4px solid gold'>
+    <td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00609.gif' alt='aktive op sdf sub @1 @2' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00610.gif' alt='aktive op sdf sub @1 @2' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00611.gif' alt='aktive op sdf sub @1 @2' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr></table></td></tr>
 </table>
 
@@ -153,13 +153,13 @@ A single input is passed through unchanged.
     <br>&nbsp;</th>
     <th>aktive op sdf xor @1 @2
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00602.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00612.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00603.gif' alt='@2' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00613.gif' alt='@2' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00604.gif' alt='aktive op sdf xor @1 @2' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00605.gif' alt='aktive op sdf xor @1 @2' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00606.gif' alt='aktive op sdf xor @1 @2' style='border:4px solid gold'>
+    <td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00614.gif' alt='aktive op sdf xor @1 @2' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00615.gif' alt='aktive op sdf xor @1 @2' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00616.gif' alt='aktive op sdf xor @1 @2' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr></table></td></tr>
 </table>
 
@@ -189,13 +189,13 @@ Returns the symmetric difference of the two input SDFs. This is defined as `(A +
     <br>&nbsp;</th>
     <th>aktive op sdf xor-core @1 @2
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00607.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00617.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00608.gif' alt='@2' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00618.gif' alt='@2' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00609.gif' alt='aktive op sdf xor-core @1 @2' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00610.gif' alt='aktive op sdf xor-core @1 @2' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00611.gif' alt='aktive op sdf xor-core @1 @2' style='border:4px solid gold'>
+    <td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00619.gif' alt='aktive op sdf xor-core @1 @2' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00620.gif' alt='aktive op sdf xor-core @1 @2' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00621.gif' alt='aktive op sdf xor-core @1 @2' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr></table></td></tr>
 </table>
 

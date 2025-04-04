@@ -174,7 +174,7 @@ This operator is __strict__ in the 1st input. The projective matrix is materiali
     <br>(rotate by 30)</th>
     <th>aktive transform domain @2 @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00749.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00759.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
     <td valign='top'><table><tr><td>0.8660</td><td>-0.5000</td><td>0.0000</td></tr><tr><td>0.5000</td><td>0.8660</td><td>0.0000</td></tr><tr><td>0.0000</td><td>0.0000</td><td>1.0000</td></tr></table></td>
     <td valign='top'>&nbsp;-124 0 454 407</td></tr>

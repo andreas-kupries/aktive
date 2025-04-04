@@ -144,7 +144,7 @@ Returns a dictionary containing the input's meta data.
     <br>&nbsp;</th>
     <th>aktive query meta @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00674.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00684.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 256 256 3)</td>
     <td valign='top'>&nbsp;netpbm {maxval 255} path tests/assets/sines.ppm colorspace sRGB</td></tr>
 </table>
