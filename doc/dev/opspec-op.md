@@ -460,7 +460,7 @@ Examples
 
  - [cumulation](/file?ci=trunk&name=etc/transformer/statistics/cumulation.tcl&ln=36)
  - [histogram](/file?ci=trunk&name=etc/transformer/statistics/histogram.tcl&ln=234-244)
- - [profile](/file?ci=trunk&name=etc/transformer/statistics/profile.tcl&ln=34)
+ - [profile](/file?ci=trunk&name=etc/transformer/statistics/profile.tcl&ln=33)
 
 ### <a name='cmd-blit'></a> Blitting
 
@@ -752,5 +752,5 @@ set of parameters.
 
 See for example
 
-  - [draw pass](/file?ci=trunk&name=etc/generator/virtual/draw.tcl&ln=77)
+  - [draw pass](/file?ci=trunk&name=etc/generator/virtual/draw.tcl&ln=79)
   - [wobble pass](/file?ci=trunk&name=etc/transformer/filter/effects.tcl&ln=98)
