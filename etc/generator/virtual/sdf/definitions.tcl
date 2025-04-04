@@ -9,8 +9,9 @@ sdf-def box-rounded box
 sdf-def circle
 sdf-def circles {set of circles}
 sdf-def line
+sdf-def lines {set of independent lines}
 sdf-def parallelogram
-sdf-def polyline {set of lines}
+sdf-def polyline {set of connected lines}
 sdf-def rhombus
 sdf-def triangle
 

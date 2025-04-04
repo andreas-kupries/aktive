@@ -21,6 +21,7 @@ syntax {
     circle        args
     circles       args
     line          args
+    lines         args
     parallelogram args
     polyline      args
     rhombus       args
@@ -363,6 +364,22 @@ test aktive-image-draw-rhombus-2.3 "aktive image draw rhombus, pixelated, outlin
 
 test aktive-image-draw-line-2.0 "aktive image draw line" -body {
     astclx 11 aktive image draw line {*}$base from {1 2} to {8 9}
+} -match image -result [makei op::math1::invert 0 0 11 11 1 {} {
+    0      0      0      0      0      0      0      0      0      0      0
+    0      0      0      0      0      0      0      0      0      0      0
+    0      1      0.2929 0      0      0      0      0      0      0      0
+    0      0.2929 1      0.2929 0      0      0      0      0      0      0
+    0      0      0.2929 1      0.2929 0      0      0      0      0      0
+    0      0      0      0.2929 1      0.2929 0      0      0      0      0
+    0      0      0      0      0.2929 1      0.2929 0      0      0      0
+    0      0      0      0      0      0.2929 1      0.2929 0      0      0
+    0      0      0      0      0      0      0.2929 1      0.2929 0      0
+    0      0      0      0      0      0      0      0.2929 1      0      0
+    0      0      0      0      0      0      0      0      0      0      0
+}]
+
+test aktive-image-draw-lines-2.0 "aktive image draw line" -body {
+    astclx 11 aktive image draw lines {*}$base segments {{1 2} {8 9}}
 } -match image -result [makei op::math1::invert 0 0 11 11 1 {} {
     0      0      0      0      0      0      0      0      0      0      0
     0      0      0      0      0      0      0      0      0      0      0
