@@ -3,7 +3,7 @@
 ## Generators -- Basic 2D geometry primitives
 #
 ## At the core of the implementation are signed distance functions.
-## See these in the sdf.tcl file, wih runtime support in op/sdf.[ch].
+## See these in the sdf.tcl file, with runtime support in op/sdf.[ch].
 #
 ## Instead of having to explicitly set each pixel of the primitive based on some
 ## drawing algorithm (bresenham, variants, etc.) here each pixel computes the
@@ -15,8 +15,9 @@
 ## threaded setup used in AKTIVE (see [VIPS](https://www.libvips.org) for the
 ## inspiring system).
 #
-## [..] Box
-## [..] Box with rounded corners
+## [..] Bezier
+## [ok] Box
+## [ok] Box with rounded corners
 ## [ok] Circle
 ## [..] Circle arc(s)
 ## [..] Circle segment(s)
@@ -24,11 +25,11 @@
 ## [..] Ellipse
 ## [ok] Line segment
 ## [ok] Line segments (poly-line)
-## [..] Line segments (separate, scattered)
-## [..] Parallelogram
-## [..] Rhombus
+## [ok] Line segments (separate, scattered)
+## [ok] Parallelogram
+## [ok] Rhombus
 ## [..] Rotated ellipse(s)
-## [..] Triangle
+## [ok] Triangle
 ## [..] ...
 
 # # ## ### ##### ######## ############# #####################
@@ -36,11 +37,12 @@
 proc draw-modifier {} {
     uplevel 1 {
 	if {$sdf in {
-	    line
-	    polyline
+	    line lines polyline
 	}} {
+	    # line element
 	    import sdf/parameter/strokewidth.tcl
 	} else {
+	    # area element
 	    import sdf/parameter/outlined.tcl
 	}
     }
