@@ -2,9 +2,9 @@
 # # ## ### ##### ######## ############# #####################
 ## Transformers -- Profiles
 #
-## Compute the row/column-based left/top profile of the input image.  The profile returns
-## an image whose pixel values contain the distance of the first pixel != 0 from left/top
-## border of the row/column. This is best applied to b/w images with clean edges.
+## Compute the column-based top profile of the input image.  The profile returns
+## an image whose pixel values contain the distance of the first pixel != 0 from top
+## border of the column. This is best applied to b/w images with clean edges.
 #
 ## While caching is technically not needed it does make both specification and
 ## implementation much simpler.
@@ -12,7 +12,6 @@
 # # ## ### ##### ######## ############# #####################
 
 operator {oaxis border okind} {
-    op::row::profile    height left column
     op::column::profile width  top  row
 } {
     op -> _ kind _
