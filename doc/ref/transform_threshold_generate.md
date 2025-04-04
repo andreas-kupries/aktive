@@ -51,9 +51,9 @@ The operator [aktive image mask per bernsen](transform_threshold_mask_generate.m
     <br>&nbsp;</th>
     <th>aktive image threshold bernsen @1 radius 7
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00251.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00257.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 300 200 1)</td>
-    <td valign='top'><img src='example-00252.gif' alt='aktive image threshold bernsen @1 radius 7' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00258.gif' alt='aktive image threshold bernsen @1 radius 7' style='border:4px solid gold'>
     <br>geometry(0 0 300 200 1)</td></tr>
 </table>
 
@@ -62,9 +62,9 @@ The operator [aktive image mask per bernsen](transform_threshold_mask_generate.m
     <br>&nbsp;</th>
     <th>aktive image threshold bernsen @1 radius 7
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00253.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00259.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
-    <td valign='top'><img src='example-00254.gif' alt='aktive image threshold bernsen @1 radius 7' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00260.gif' alt='aktive image threshold bernsen @1 radius 7' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td></tr>
 </table>
 
@@ -99,9 +99,9 @@ There are better methods. Extensions to the simple mean, in order of creation (a
     <br>&nbsp;</th>
     <th>aktive image threshold mean @1 radius 7
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00277.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00283.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 300 200 1)</td>
-    <td valign='top'><img src='example-00278.gif' alt='aktive image threshold mean @1 radius 7' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00284.gif' alt='aktive image threshold mean @1 radius 7' style='border:4px solid gold'>
     <br>geometry(0 0 300 200 1)</td></tr>
 </table>
 
@@ -110,9 +110,9 @@ There are better methods. Extensions to the simple mean, in order of creation (a
     <br>&nbsp;</th>
     <th>aktive image threshold mean @1 radius 7
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00279.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00285.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
-    <td valign='top'><img src='example-00280.gif' alt='aktive image threshold mean @1 radius 7' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00286.gif' alt='aktive image threshold mean @1 radius 7' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td></tr>
 </table>
 
@@ -142,9 +142,9 @@ The operator [aktive image mask per niblack](transform_threshold_mask_generate.m
     <br>&nbsp;</th>
     <th>aktive image threshold niblack @1 radius 7
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00281.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00287.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 300 200 1)</td>
-    <td valign='top'><img src='example-00282.gif' alt='aktive image threshold niblack @1 radius 7' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00288.gif' alt='aktive image threshold niblack @1 radius 7' style='border:4px solid gold'>
     <br>geometry(0 0 300 200 1)</td></tr>
 </table>
 
@@ -153,9 +153,9 @@ The operator [aktive image mask per niblack](transform_threshold_mask_generate.m
     <br>&nbsp;</th>
     <th>aktive image threshold niblack @1 radius 7
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00283.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00289.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
-    <td valign='top'><img src='example-00284.gif' alt='aktive image threshold niblack @1 radius 7' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00290.gif' alt='aktive image threshold niblack @1 radius 7' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td></tr>
 </table>
 
@@ -189,9 +189,9 @@ The operator [aktive image mask per otsu](transform_threshold_mask_generate.md#i
     <br>&nbsp;</th>
     <th>aktive image threshold otsu @1 radius 7
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00285.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00291.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 300 200 1)</td>
-    <td valign='top'><img src='example-00286.gif' alt='aktive image threshold otsu @1 radius 7' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00292.gif' alt='aktive image threshold otsu @1 radius 7' style='border:4px solid gold'>
     <br>geometry(0 0 300 200 1)</td></tr>
 </table>
 
@@ -230,9 +230,9 @@ The operator [aktive image mask per phansalkar](transform_threshold_mask_generat
     <br>&nbsp;</th>
     <th>aktive image threshold phansalkar @1 radius 7
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00287.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00293.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 300 200 1)</td>
-    <td valign='top'><img src='example-00288.gif' alt='aktive image threshold phansalkar @1 radius 7' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00294.gif' alt='aktive image threshold phansalkar @1 radius 7' style='border:4px solid gold'>
     <br>geometry(0 0 300 200 1)</td></tr>
 </table>
 
@@ -241,9 +241,9 @@ The operator [aktive image mask per phansalkar](transform_threshold_mask_generat
     <br>&nbsp;</th>
     <th>aktive image threshold phansalkar @1 radius 7
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00289.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00295.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
-    <td valign='top'><img src='example-00290.gif' alt='aktive image threshold phansalkar @1 radius 7' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00296.gif' alt='aktive image threshold phansalkar @1 radius 7' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td></tr>
 </table>
 
@@ -278,9 +278,9 @@ The operator [aktive image mask per sauvola](transform_threshold_mask_generate.m
     <br>&nbsp;</th>
     <th>aktive image threshold sauvola @1 radius 7
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00291.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00297.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 300 200 1)</td>
-    <td valign='top'><img src='example-00292.gif' alt='aktive image threshold sauvola @1 radius 7' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00298.gif' alt='aktive image threshold sauvola @1 radius 7' style='border:4px solid gold'>
     <br>geometry(0 0 300 200 1)</td></tr>
 </table>
 
@@ -289,9 +289,9 @@ The operator [aktive image mask per sauvola](transform_threshold_mask_generate.m
     <br>&nbsp;</th>
     <th>aktive image threshold sauvola @1 radius 7
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00293.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00299.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
-    <td valign='top'><img src='example-00294.gif' alt='aktive image threshold sauvola @1 radius 7' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00300.gif' alt='aktive image threshold sauvola @1 radius 7' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td></tr>
 </table>
 
@@ -325,9 +325,9 @@ The operator [aktive image mask per wolfjolion](transform_threshold_mask_generat
     <br>&nbsp;</th>
     <th>aktive image threshold wolfjolion @1 radius 7
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00295.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00301.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 300 200 1)</td>
-    <td valign='top'><img src='example-00296.gif' alt='aktive image threshold wolfjolion @1 radius 7' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00302.gif' alt='aktive image threshold wolfjolion @1 radius 7' style='border:4px solid gold'>
     <br>geometry(0 0 300 200 1)</td></tr>
 </table>
 
@@ -336,9 +336,9 @@ The operator [aktive image mask per wolfjolion](transform_threshold_mask_generat
     <br>&nbsp;</th>
     <th>aktive image threshold wolfjolion @1 radius 7
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00297.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00303.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
-    <td valign='top'><img src='example-00298.gif' alt='aktive image threshold wolfjolion @1 radius 7' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00304.gif' alt='aktive image threshold wolfjolion @1 radius 7' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td></tr>
 </table>
 
