@@ -2270,6 +2270,8 @@ proc dsl::writer::ProcArgumentSetup {spec} {
 	set a [dict get $argspec args]
 	list $n $a
     }]]
+    + ""
+    + "    # ___ begin generated glue code ___ ___ ___"
     + "    ::aktive parameter validate         $all"
 
     set required [lmap argspec $params {
@@ -2294,6 +2296,9 @@ proc dsl::writer::ProcArgumentSetup {spec} {
     if {[llength $optional]} {
 	+ "    ::aktive parameter collect optional $optional"
     }
+
+    + "    # ___ end generated glue code _ ___ ___ ___"
+    + ""
 }
 
 proc dsl::writer::ProcArguments {spec} {
