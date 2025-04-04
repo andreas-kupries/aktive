@@ -30,8 +30,8 @@ state -fields {
 	  double dy   = param->points.v[k+1].y - param->points.v[k].y;
 	  double ddot = dx*dx + dy*dy;
 
-	  state->spec[k].from.x  = (double) param->points.v[k].x;
-	  state->spec[k].from.y  = (double) param->points.v[k].y;
+	  state->spec[k].from.x  = param->points.v[k].x;
+	  state->spec[k].from.y  = param->points.v[k].y;
 	  state->spec[k].delta.x = dx;
 	  state->spec[k].delta.y = dy;
 	  state->spec[k].ddot    = ddot;
