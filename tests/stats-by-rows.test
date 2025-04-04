@@ -20,7 +20,9 @@ syntax {
     mean       src
     median     src
     min        src
+    profile    src
     rank      {src args}
+    rprofile   src
     stddev     src
     sum        src
     sumsquared src
