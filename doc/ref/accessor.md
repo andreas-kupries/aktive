@@ -149,7 +149,7 @@ For anything else an error is thrown instead of making assumptions.
     <br>&nbsp;</th>
     <th>aktive op query colorspace @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00486.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00494.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 256 256 3)</td>
     <td valign='top'>&nbsp;sRGB</td></tr>
 </table>
@@ -199,7 +199,7 @@ For an image without parameters the result is the empty dictionary.
     <br>(zone width 32 height 32)</th>
     <th>aktive query params @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00676.gif' alt='@1 (zone width 32 height 32)' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00686.gif' alt='@1 (zone width 32 height 32)' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;width 32 height 32</td></tr>
 </table>
@@ -209,7 +209,7 @@ For an image without parameters the result is the empty dictionary.
     <br>(gradient width 32 height 32 depth 1 first 0 last 1)</th>
     <th>aktive query params @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00678.gif' alt='@1 (gradient width 32 height 32 depth 1 first 0 last 1)' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00688.gif' alt='@1 (gradient width 32 height 32 depth 1 first 0 last 1)' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;width 32 height 32 depth 1 first 0.0 last 1.0</td></tr>
 </table>
@@ -235,7 +235,7 @@ This includes type, geometry, and parameters, if any. The inputs however are exc
     <br>(zone width 32 height 32)</th>
     <th>aktive query setup @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00688.gif' alt='@1 (zone width 32 height 32)' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00698.gif' alt='@1 (zone width 32 height 32)' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;type image::zone domain {x 0 y 0 width 32 height 32 depth 1} config {width 32 height 32}</td></tr>
 </table>
@@ -245,7 +245,7 @@ This includes type, geometry, and parameters, if any. The inputs however are exc
     <br>&nbsp;</th>
     <th>aktive query setup @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00690.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00700.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;type image::gradient domain {x 0 y 0 width 32 height 32 depth 1} config {width 32 height 32 depth 1 first 0.0 last 1.0}</td></tr>
 </table>
@@ -269,7 +269,7 @@ Returns the input's type.
     <br>&nbsp;</th>
     <th>aktive query type @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00696.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00706.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;image::zone</td></tr>
 </table>
@@ -279,7 +279,7 @@ Returns the input's type.
     <br>&nbsp;</th>
     <th>aktive query type @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00698.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00708.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;image::gradient</td></tr>
 </table>

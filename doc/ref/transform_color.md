@@ -114,9 +114,9 @@ The actual correction is always done in the `scRGB` space, i.e. with linear colo
     <br>&nbsp;</th>
     <th>aktive op color correct greyworld global @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00319.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00325.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 294 92 3)</td>
-    <td valign='top'><img src='example-00320.gif' alt='aktive op color correct greyworld global @1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00326.gif' alt='aktive op color correct greyworld global @1' style='border:4px solid gold'>
     <br>geometry(0 0 294 92 3)</td></tr>
 </table>
 
@@ -125,9 +125,9 @@ The actual correction is always done in the `scRGB` space, i.e. with linear colo
     <br>&nbsp;</th>
     <th>aktive op color correct greyworld global @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00321.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00327.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
-    <td valign='top'><img src='example-00322.gif' alt='aktive op color correct greyworld global @1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00328.gif' alt='aktive op color correct greyworld global @1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td></tr>
 </table>
 
@@ -642,9 +642,9 @@ This conversion uses the NTSC conversion formula.
     <br>&nbsp;</th>
     <th>aktive op color sRGB to gray @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00323.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00329.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
-    <td valign='top'><img src='example-00324.gif' alt='aktive op color sRGB to gray @1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00330.gif' alt='aktive op color sRGB to gray @1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 1)</td></tr>
 </table>
 
@@ -678,9 +678,9 @@ Returns image in HSL colorspace, from input in sRGB colorspace.
     <br>&nbsp;</th>
     <th>aktive op color sRGB to HSL @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00325.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00331.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
-    <td valign='top'><img src='example-00326.gif' alt='aktive op color sRGB to HSL @1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00332.gif' alt='aktive op color sRGB to HSL @1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td></tr>
 </table>
 
@@ -703,9 +703,9 @@ Returns image in HSV colorspace, from input in sRGB colorspace.
     <br>&nbsp;</th>
     <th>aktive op color sRGB to HSV @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00327.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00333.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
-    <td valign='top'><img src='example-00328.gif' alt='aktive op color sRGB to HSV @1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00334.gif' alt='aktive op color sRGB to HSV @1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td></tr>
 </table>
 
@@ -750,9 +750,9 @@ Returns image in scRGB colorspace, from input in sRGB colorspace. (gamma) compre
     <br>&nbsp;</th>
     <th>aktive op color sRGB to scRGB @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00329.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00335.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
-    <td valign='top'><img src='example-00330.gif' alt='aktive op color sRGB to scRGB @1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00336.gif' alt='aktive op color sRGB to scRGB @1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td></tr>
 </table>
 

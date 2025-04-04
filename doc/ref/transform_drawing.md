@@ -22,6 +22,7 @@
  - [aktive op draw circle on](#op_draw_circle_on)
  - [aktive op draw circles on](#op_draw_circles_on)
  - [aktive op draw line on](#op_draw_line_on)
+ - [aktive op draw lines on](#op_draw_lines_on)
  - [aktive op draw parallelogram on](#op_draw_parallelogram_on)
  - [aktive op draw polyline on](#op_draw_polyline_on)
  - [aktive op draw rhombus on](#op_draw_rhombus_on)
@@ -32,7 +33,7 @@
 ---
 ### [↑](#top) <a name='op_draw_box_rounded_on'></a> aktive op draw box-rounded on
 
-Syntax: __aktive op draw box-rounded on__ background ?(param value)...? [[→ definition](/file?ci=trunk&ln=96&name=etc/generator/virtual/draw.tcl)]
+Syntax: __aktive op draw box-rounded on__ background ?(param value)...? [[→ definition](/file?ci=trunk&ln=98&name=etc/generator/virtual/draw.tcl)]
 
 Returns an image where a box is drawn on the input image.
 
@@ -68,9 +69,9 @@ The radii default to 0, i.e. no rounded corners.
     <br>&nbsp;</th>
     <th>aktive op draw box-rounded on @1 center {64.25 64.75} ewidth 32.2 eheight 32.8 upleftradius 32.32 outlined 1.1 color {1 0 0}
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00376.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00382.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
-    <td valign='top'><img src='example-00377.gif' alt='aktive op draw box-rounded on @1 center {64.25 64.75} ewidth 32.2 eheight 32.8 upleftradius 32.32 outlined 1.1 color {1 0 0}' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00383.gif' alt='aktive op draw box-rounded on @1 center {64.25 64.75} ewidth 32.2 eheight 32.8 upleftradius 32.32 outlined 1.1 color {1 0 0}' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td></tr>
 </table>
 
@@ -78,7 +79,7 @@ The radii default to 0, i.e. no rounded corners.
 ---
 ### [↑](#top) <a name='op_draw_box_on'></a> aktive op draw box on
 
-Syntax: __aktive op draw box on__ background ?(param value)...? [[→ definition](/file?ci=trunk&ln=96&name=etc/generator/virtual/draw.tcl)]
+Syntax: __aktive op draw box on__ background ?(param value)...? [[→ definition](/file?ci=trunk&ln=98&name=etc/generator/virtual/draw.tcl)]
 
 Returns an image where a box is drawn on the input image.
 
@@ -108,9 +109,9 @@ The box is axis-aligned, of width `2*ewidth+1`, height `2*eheight+1`, and placed
     <br>&nbsp;</th>
     <th>aktive op draw box on @1 center {64.25 64.75} ewidth 32.2 eheight 32.8 outlined 1.1 color {1 0 0}
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00378.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00384.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
-    <td valign='top'><img src='example-00379.gif' alt='aktive op draw box on @1 center {64.25 64.75} ewidth 32.2 eheight 32.8 outlined 1.1 color {1 0 0}' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00385.gif' alt='aktive op draw box on @1 center {64.25 64.75} ewidth 32.2 eheight 32.8 outlined 1.1 color {1 0 0}' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td></tr>
 </table>
 
@@ -118,7 +119,7 @@ The box is axis-aligned, of width `2*ewidth+1`, height `2*eheight+1`, and placed
 ---
 ### [↑](#top) <a name='op_draw_circle_on'></a> aktive op draw circle on
 
-Syntax: __aktive op draw circle on__ background ?(param value)...? [[→ definition](/file?ci=trunk&ln=96&name=etc/generator/virtual/draw.tcl)]
+Syntax: __aktive op draw circle on__ background ?(param value)...? [[→ definition](/file?ci=trunk&ln=98&name=etc/generator/virtual/draw.tcl)]
 
 Returns an image where a circle is drawn on the input image.
 
@@ -147,9 +148,9 @@ The circle has the `radius`, and is placed at the specified center.
     <br>&nbsp;</th>
     <th>aktive op draw circle on @1 center {64.25 64.75} radius 32.5 color {1 0 0} outlined 1.1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00380.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00386.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
-    <td valign='top'><img src='example-00381.gif' alt='aktive op draw circle on @1 center {64.25 64.75} radius 32.5 color {1 0 0} outlined 1.1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00387.gif' alt='aktive op draw circle on @1 center {64.25 64.75} radius 32.5 color {1 0 0} outlined 1.1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td></tr>
 </table>
 
@@ -157,7 +158,7 @@ The circle has the `radius`, and is placed at the specified center.
 ---
 ### [↑](#top) <a name='op_draw_circles_on'></a> aktive op draw circles on
 
-Syntax: __aktive op draw circles on__ background ?(param value)...? [[→ definition](/file?ci=trunk&ln=96&name=etc/generator/virtual/draw.tcl)]
+Syntax: __aktive op draw circles on__ background ?(param value)...? [[→ definition](/file?ci=trunk&ln=98&name=etc/generator/virtual/draw.tcl)]
 
 Returns an image where a set of circles is drawn on the input image.
 
@@ -186,9 +187,9 @@ The circles all have the same `radius`, and are placed at the specified centers.
     <br>&nbsp;</th>
     <th>aktive op draw circles on @1 radius 8 color {1 0 0} outlined 1.1 centers {10.25 10.75} {30.3 80.6} {80.1 30.9}
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00382.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00388.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
-    <td valign='top'><img src='example-00383.gif' alt='aktive op draw circles on @1 radius 8 color {1 0 0} outlined 1.1 centers {10.25 10.75} {30.3 80.6} {80.1 30.9}' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00389.gif' alt='aktive op draw circles on @1 radius 8 color {1 0 0} outlined 1.1 centers {10.25 10.75} {30.3 80.6} {80.1 30.9}' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td></tr>
 </table>
 
@@ -196,7 +197,7 @@ The circles all have the same `radius`, and are placed at the specified centers.
 ---
 ### [↑](#top) <a name='op_draw_line_on'></a> aktive op draw line on
 
-Syntax: __aktive op draw line on__ background ?(param value)...? [[→ definition](/file?ci=trunk&ln=96&name=etc/generator/virtual/draw.tcl)]
+Syntax: __aktive op draw line on__ background ?(param value)...? [[→ definition](/file?ci=trunk&ln=98&name=etc/generator/virtual/draw.tcl)]
 
 Returns an image where a line is drawn on the input image.
 
@@ -225,9 +226,47 @@ The line connects the two specified locations.
     <br>&nbsp;</th>
     <th>aktive op draw line on @1 from {10.1 10.9} to {30.3 80.6} color {1 0 0} strokewidth 1.1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00384.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00390.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
-    <td valign='top'><img src='example-00385.gif' alt='aktive op draw line on @1 from {10.1 10.9} to {30.3 80.6} color {1 0 0} strokewidth 1.1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00391.gif' alt='aktive op draw line on @1 from {10.1 10.9} to {30.3 80.6} color {1 0 0} strokewidth 1.1' style='border:4px solid gold'>
+    <br>geometry(0 0 380 250 3)</td></tr>
+</table>
+
+
+---
+### [↑](#top) <a name='op_draw_lines_on'></a> aktive op draw lines on
+
+Syntax: __aktive op draw lines on__ background ?(param value)...? [[→ definition](/file?ci=trunk&ln=98&name=etc/generator/virtual/draw.tcl)]
+
+Returns an image where a set of independent lines is drawn on the input image.
+
+__Beware__. The location and size of the set of independent lines are independent of image location and dimensions. The operator is perfectly fine computing the SDF of a set of independent lines located completely outside of the image domain.
+
+See also [aktive image draw lines](generator_virtual_drawing.md#image_draw_lines) and [aktive image sdf lines](generator_virtual_sdf.md#image_sdf_lines).
+
+Each line connects two locations.
+
+|Input|Description|
+|:---|:---|
+|background|The image to draw on, i.e. the background for the drawing.|
+
+|Parameter|Type|Default|Description|
+|:---|:---|:---|:---|
+|antialiased|bool|1|Draw with antialiasing for smoother contours (Default)|
+|strokewidth|double|0|Stroke width. Lines are `2*strokewidth+1` wide.|
+|color|str||List of band values, color of the drawn set of independent lines. Their number has to match the input's depth.|
+|segments|str...||Line segments|
+
+#### <a name='op_draw_lines_on__examples'></a> Examples
+
+<a name='op_draw_lines_on__examples__e1'></a><table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive op draw lines on @1 color {1 0 0} strokewidth 1.1 segments {{10.1 10.9} {30.3 80.6}} {{10.1 80.6} {30.3 10.9}}
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00392.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 380 250 3)</td>
+    <td valign='top'><img src='example-00393.gif' alt='aktive op draw lines on @1 color {1 0 0} strokewidth 1.1 segments {{10.1 10.9} {30.3 80.6}} {{10.1 80.6} {30.3 10.9}}' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td></tr>
 </table>
 
@@ -235,7 +274,7 @@ The line connects the two specified locations.
 ---
 ### [↑](#top) <a name='op_draw_parallelogram_on'></a> aktive op draw parallelogram on
 
-Syntax: __aktive op draw parallelogram on__ background ?(param value)...? [[→ definition](/file?ci=trunk&ln=96&name=etc/generator/virtual/draw.tcl)]
+Syntax: __aktive op draw parallelogram on__ background ?(param value)...? [[→ definition](/file?ci=trunk&ln=98&name=etc/generator/virtual/draw.tcl)]
 
 Returns an image where a parallelogram is drawn on the input image.
 
@@ -266,9 +305,9 @@ The parallelogram is axis-aligned, of width `2*ewidth+1`, height `2*eheight+1`, 
     <br>&nbsp;</th>
     <th>aktive op draw parallelogram on @1 center {64.25 64.75} ewidth 32.2 eheight 32.8 eskew 8.1 color {1 0 0} outlined 1.1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00386.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00394.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
-    <td valign='top'><img src='example-00387.gif' alt='aktive op draw parallelogram on @1 center {64.25 64.75} ewidth 32.2 eheight 32.8 eskew 8.1 color {1 0 0} outlined 1.1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00395.gif' alt='aktive op draw parallelogram on @1 center {64.25 64.75} ewidth 32.2 eheight 32.8 eskew 8.1 color {1 0 0} outlined 1.1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td></tr>
 </table>
 
@@ -276,11 +315,11 @@ The parallelogram is axis-aligned, of width `2*ewidth+1`, height `2*eheight+1`, 
 ---
 ### [↑](#top) <a name='op_draw_polyline_on'></a> aktive op draw polyline on
 
-Syntax: __aktive op draw polyline on__ background ?(param value)...? [[→ definition](/file?ci=trunk&ln=96&name=etc/generator/virtual/draw.tcl)]
+Syntax: __aktive op draw polyline on__ background ?(param value)...? [[→ definition](/file?ci=trunk&ln=98&name=etc/generator/virtual/draw.tcl)]
 
-Returns an image where a set of lines is drawn on the input image.
+Returns an image where a set of connected lines is drawn on the input image.
 
-__Beware__. The location and size of the set of lines are independent of image location and dimensions. The operator is perfectly fine computing the SDF of a set of lines located completely outside of the image domain.
+__Beware__. The location and size of the set of connected lines are independent of image location and dimensions. The operator is perfectly fine computing the SDF of a set of connected lines located completely outside of the image domain.
 
 See also [aktive image draw polyline](generator_virtual_drawing.md#image_draw_polyline) and [aktive image sdf polyline](generator_virtual_sdf.md#image_sdf_polyline).
 
@@ -294,7 +333,7 @@ The lines form a polyline through the specified points.
 |:---|:---|:---|:---|
 |antialiased|bool|1|Draw with antialiasing for smoother contours (Default)|
 |strokewidth|double|0|Stroke width. Lines are `2*strokewidth+1` wide.|
-|color|str||List of band values, color of the drawn set of lines. Their number has to match the input's depth.|
+|color|str||List of band values, color of the drawn set of connected lines. Their number has to match the input's depth.|
 |points|fpoint...||Points of the poly-line|
 
 #### <a name='op_draw_polyline_on__examples'></a> Examples
@@ -304,9 +343,9 @@ The lines form a polyline through the specified points.
     <br>&nbsp;</th>
     <th>aktive op draw polyline on @1 color {1 0 0} strokewidth 1.1 points {10.25 10.75} {30.3 80.6} {80.1 30.9}
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00388.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00396.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
-    <td valign='top'><img src='example-00389.gif' alt='aktive op draw polyline on @1 color {1 0 0} strokewidth 1.1 points {10.25 10.75} {30.3 80.6} {80.1 30.9}' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00397.gif' alt='aktive op draw polyline on @1 color {1 0 0} strokewidth 1.1 points {10.25 10.75} {30.3 80.6} {80.1 30.9}' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td></tr>
 </table>
 
@@ -314,7 +353,7 @@ The lines form a polyline through the specified points.
 ---
 ### [↑](#top) <a name='op_draw_rhombus_on'></a> aktive op draw rhombus on
 
-Syntax: __aktive op draw rhombus on__ background ?(param value)...? [[→ definition](/file?ci=trunk&ln=96&name=etc/generator/virtual/draw.tcl)]
+Syntax: __aktive op draw rhombus on__ background ?(param value)...? [[→ definition](/file?ci=trunk&ln=98&name=etc/generator/virtual/draw.tcl)]
 
 Returns an image where a rhombus is drawn on the input image.
 
@@ -344,9 +383,9 @@ The rhombus is axis-aligned, of width `2*ewidth+1`, height `2*eheight+1`, and pl
     <br>&nbsp;</th>
     <th>aktive op draw rhombus on @1 center {64.25 64.75} ewidth 32.2 eheight 32.8 outlined 1.1 color {1 0 0} outlined 1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00390.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00398.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
-    <td valign='top'><img src='example-00391.gif' alt='aktive op draw rhombus on @1 center {64.25 64.75} ewidth 32.2 eheight 32.8 outlined 1.1 color {1 0 0} outlined 1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00399.gif' alt='aktive op draw rhombus on @1 center {64.25 64.75} ewidth 32.2 eheight 32.8 outlined 1.1 color {1 0 0} outlined 1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td></tr>
 </table>
 
@@ -354,7 +393,7 @@ The rhombus is axis-aligned, of width `2*ewidth+1`, height `2*eheight+1`, and pl
 ---
 ### [↑](#top) <a name='op_draw_triangle_on'></a> aktive op draw triangle on
 
-Syntax: __aktive op draw triangle on__ background ?(param value)...? [[→ definition](/file?ci=trunk&ln=96&name=etc/generator/virtual/draw.tcl)]
+Syntax: __aktive op draw triangle on__ background ?(param value)...? [[→ definition](/file?ci=trunk&ln=98&name=etc/generator/virtual/draw.tcl)]
 
 Returns an image where a triangle is drawn on the input image.
 
@@ -384,9 +423,9 @@ The triangle connects the points A, B, and C, in this order.
     <br>&nbsp;</th>
     <th>aktive op draw triangle on @1 a {10.25 10.75} b {30.2 80.6} c {80.1 30.9} color {1 0 0} outlined 1.1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00392.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00400.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
-    <td valign='top'><img src='example-00393.gif' alt='aktive op draw triangle on @1 a {10.25 10.75} b {30.2 80.6} c {80.1 30.9} color {1 0 0} outlined 1.1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00401.gif' alt='aktive op draw triangle on @1 a {10.25 10.75} b {30.2 80.6} c {80.1 30.9} color {1 0 0} outlined 1.1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td></tr>
 </table>
 
