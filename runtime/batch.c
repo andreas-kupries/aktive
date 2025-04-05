@@ -377,7 +377,8 @@ result_get (aktive_batch processor)
 		if (!processor->workers) goto restart;
 
 		loops ++;
-		ASSERT (loops < MAXLOOPS, "waiting over 10 seconds, likely hung")
+		ASSERT_VA (loops < MAXLOOPS, "waiting over 10 seconds, likely hung",
+			   " (%s)", processor->name);
 	    }
 	    TRACE ("received has result", 0);
 
