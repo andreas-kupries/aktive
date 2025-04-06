@@ -1505,10 +1505,10 @@ proc dsl::writer::OperatorFunctionForOp {op} {
 	    if {$hasimages} { + "  [PadR $tl aktive_region_vector*] srcs    = [PadR $tlx ""] &info->srcs;" }
 	    +                   "  [PadR $tl aktive_geometry*] idomain = [PadR $tlx ""] info->domain;"
 	    +                   "  TRACE_GEOMETRY_M  (\"idomain\", idomain);"
-	    + "TRACE(\"block (init %d cap %d used %d)\", block->initialized, block->capacity, block->used);"
-	    + "TRACE(\"block region   %p\", block->region);"
-	    + "TRACE_POINT_M(\"block location\", &block->location);"
-	    + "TRACE_GEOMETRY_M(\"block geometry\", &block->domain);"
+	    + "  TRACE(\"block (init %d cap %d used %d)\", block->initialized, block->capacity, block->used);"
+	    + "  TRACE(\"block region   %p\", block->region);"
+	    + "  TRACE_POINT_M(\"block location\", &block->location);"
+	    + "  TRACE_GEOMETRY_M(\"block geometry\", &block->domain);"
 
 	    # Show parameter values going into the fetch.
 	    ParamTracing $params
@@ -1557,7 +1557,7 @@ proc dsl::writer::ParamTracing {params} {
     }]
 
     foreach p $pnames t $ptypes {
-	+ "  TRACE (\"param \[[PadR $pnl $p]] = %$t\", param->$p);"
+	+ "  TRACE(\"param \[[PadR $pnl $p]] = %$t\", param->$p);"
     }
 }
 
