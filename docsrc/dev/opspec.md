@@ -113,7 +113,7 @@ The name stands for __not yet implemented__.
 The command names and specifies one or more (related) image processing
 operators, using a suite of subordinate commands within its `spec`.
 
-The [full details](opspec-op.md) abbout operator arguments and
+The [full details](opspec-op.md) about operator arguments and
 subordinate commands are found in [their own page](opspec-op.md).
 
 ### <a name='cmd-type'></a> `type`
