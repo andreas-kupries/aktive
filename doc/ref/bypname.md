@@ -349,6 +349,7 @@
   - [column &mdash; otsu op](transform_statistics.md#op_column_otsu)
   - [column &mdash; profile op](transform_statistics.md#op_column_profile)
   - [column &mdash; rank op](transform_statistics.md#op_column_rank)
+  - [column &mdash; rprofile op](transform_statistics.md#op_column_rprofile)
   - [column &mdash; stddev op](transform_statistics.md#op_column_stddev)
   - [column &mdash; sum op](transform_statistics.md#op_column_sum)
   - [column &mdash; sumsquared op](transform_statistics.md#op_column_sumsquared)
@@ -1322,6 +1323,7 @@
   - [op &mdash; column otsu](transform_statistics.md#op_column_otsu)
   - [op &mdash; column profile](transform_statistics.md#op_column_profile)
   - [op &mdash; column rank](transform_statistics.md#op_column_rank)
+  - [op &mdash; column rprofile](transform_statistics.md#op_column_rprofile)
   - [op &mdash; column stddev](transform_statistics.md#op_column_stddev)
   - [op &mdash; column sum](transform_statistics.md#op_column_sum)
   - [op &mdash; column sumsquared](transform_statistics.md#op_column_sumsquared)
@@ -1759,6 +1761,7 @@
   - [row &mdash; sum op](transform_statistics.md#op_row_sum)
   - [row &mdash; sumsquared op](transform_statistics.md#op_row_sumsquared)
   - [row &mdash; variance op](transform_statistics.md#op_row_variance)
+  - [rprofile &mdash; op column](transform_statistics.md#op_column_rprofile)
   - [rprofile &mdash; op row](transform_statistics.md#op_row_rprofile)
 
 ## <a name='_s'></a> s

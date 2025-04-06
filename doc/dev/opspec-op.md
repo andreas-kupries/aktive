@@ -460,7 +460,7 @@ Examples
 
  - [cumulation](/file?ci=trunk&name=etc/transformer/statistics/cumulation.tcl&ln=36)
  - [histogram](/file?ci=trunk&name=etc/transformer/statistics/histogram.tcl&ln=234-244)
- - [profile](/file?ci=trunk&name=etc/transformer/statistics/profile.tcl&ln=33)
+ - <!xref: src profile>
 
 ### <a name='cmd-blit'></a> Blitting
 
