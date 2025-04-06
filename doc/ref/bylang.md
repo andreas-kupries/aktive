@@ -155,6 +155,7 @@ The operators listed here are implemented in C. We ignore supporting Tcl code.
  - [aktive op column otsu](transform_statistics.md#op_column_otsu)
  - [aktive op column profile](transform_statistics.md#op_column_profile)
  - [aktive op column rank](transform_statistics.md#op_column_rank)
+ - [aktive op column rprofile](transform_statistics.md#op_column_rprofile)
  - [aktive op column stddev](transform_statistics.md#op_column_stddev)
  - [aktive op column sum](transform_statistics.md#op_column_sum)
  - [aktive op column sumsquared](transform_statistics.md#op_column_sumsquared)

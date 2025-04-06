@@ -52,9 +52,9 @@ The source can be a multi-band image. For known colorspaces the core filter is a
     <br>&nbsp;</th>
     <th>aktive op kuwahara @1 radius 4
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00420.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00422.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
-    <td valign='top'><img src='example-00421.gif' alt='aktive op kuwahara @1 radius 4' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00423.gif' alt='aktive op kuwahara @1 radius 4' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td></tr>
 </table>
 
@@ -99,9 +99,9 @@ The prefered embedding for kuwahara is `mirror`. It is chosen to have minimal to
     <br>&nbsp;</th>
     <th>aktive op kuwahara-core @1 radius 4
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00422.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00424.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 1)</td>
-    <td valign='top'><img src='example-00423.gif' alt='aktive op kuwahara-core @1 radius 4' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00425.gif' alt='aktive op kuwahara-core @1 radius 4' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 1)</td></tr>
 </table>
 

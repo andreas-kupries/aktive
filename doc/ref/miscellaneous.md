@@ -31,7 +31,7 @@
 ---
 ### [↑](#top) <a name='error'></a> aktive error
 
-Syntax: __aktive error__ m args... [[→ definition](/file?ci=trunk&ln=202&name=etc/aktive.tcl)]
+Syntax: __aktive error__ m args... [[→ definition](/file?ci=trunk&ln=201&name=etc/aktive.tcl)]
 
 Throw error with message and error code.
 
@@ -43,7 +43,7 @@ Throw error with message and error code.
 ---
 ### [↑](#top) <a name='processors'></a> aktive processors
 
-Syntax: __aktive processors__ n [[→ definition](/file?ci=trunk&ln=219&name=etc/aktive.tcl)]
+Syntax: __aktive processors__ n [[→ definition](/file?ci=trunk&ln=218&name=etc/aktive.tcl)]
 
 Set/Return number of processor cores available for concurrent operation.
 
@@ -56,7 +56,7 @@ Setting the default, `0`, causes the system to query the OS for the number of av
 ---
 ### [↑](#top) <a name='version'></a> aktive version
 
-Syntax: __aktive version__  [[→ definition](/file?ci=trunk&ln=212&name=etc/aktive.tcl)]
+Syntax: __aktive version__  [[→ definition](/file?ci=trunk&ln=211&name=etc/aktive.tcl)]
 
 Return package version number.
 

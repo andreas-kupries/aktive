@@ -46,6 +46,7 @@
  - [aktive op column otsu](#op_column_otsu)
  - [aktive op column profile](#op_column_profile)
  - [aktive op column rank](#op_column_rank)
+ - [aktive op column rprofile](#op_column_rprofile)
  - [aktive op column stddev](#op_column_stddev)
  - [aktive op column sum](#op_column_sum)
  - [aktive op column sumsquared](#op_column_sumsquared)
@@ -574,15 +575,11 @@ The result has a single row.
 ---
 ### [↑](#top) <a name='op_column_profile'></a> aktive op column profile
 
-Syntax: __aktive op column profile__ src [[→ definition](/file?ci=trunk&ln=14&name=etc/transformer/statistics/profile.tcl)]
+Syntax: __aktive op column profile__ src [[→ definition](/file?ci=trunk&ln=77&name=etc/transformer/statistics/by-columns.tcl)]
 
-Returns image with input columns transformed into a profile.
+Returns image with input columns compressed to a single value, the top profile of the column values. The result is a single-row image with width and depth of the input. The bands of the image are handled independently.
 
-Where a profile contains, per column, the distance of the first pixel != 0
-
-from the top border of the input.
-
-The result is a single-row image with width and depth of the input.
+The __top__ profile of each column is the index of the __first__ row with a __non-zero__ value. Or the height of the image, if there are no such in the column.
 
 |Input|Description|
 |:---|:---|
@@ -621,6 +618,32 @@ Beware. While it is possible to use the rank filter for max/min extractions it i
 |rank|int|-1|Index of the sorted values to return. Default creates a median filter. 0 creates min-filter.|
 
 ---
+### [↑](#top) <a name='op_column_rprofile'></a> aktive op column rprofile
+
+Syntax: __aktive op column rprofile__ src [[→ definition](/file?ci=trunk&ln=77&name=etc/transformer/statistics/by-columns.tcl)]
+
+Returns image with input columns compressed to a single value, the bottom profile of the column values. The result is a single-row image with width and depth of the input. The bands of the image are handled independently.
+
+The __bottom__ profile of each column is the index of the __last__ row with a __non-zero__ value. Or `-1`, if there are no such in the column.
+
+|Input|Description|
+|:---|:---|
+|src|Source image|
+
+#### <a name='op_column_rprofile__examples'></a> Examples
+
+<a name='op_column_rprofile__examples__e1'></a><table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive op column rprofile @1
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00355.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 32 32 1)</td>
+    <td valign='top'><table><tr><td>-1</td><td>-1</td><td>-1</td><td>-1</td><td>-1</td><td>-1</td><td>13</td><td>14</td><td>16</td><td>18</td><td>20</td><td>21</td><td>23</td><td>25</td><td>27</td><td>28</td><td>30</td><td>31</td><td>31</td><td>31</td><td>31</td><td>31</td><td>31</td><td>31</td><td>31</td><td>31</td><td>31</td><td>31</td><td>20</td><td>20</td><td>20</td><td>21</td></tr></table></td></tr>
+</table>
+
+
+---
 ### [↑](#top) <a name='op_column_stddev'></a> aktive op column stddev
 
 Syntax: __aktive op column stddev__ src [[→ definition](/file?ci=trunk&ln=8&name=etc/transformer/statistics/by-columns.tcl)]
@@ -640,7 +663,7 @@ The part about the `depth of the input` means that the bands in each column are 
     <br>&nbsp;</th>
     <th>aktive op column stddev @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00355.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00357.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'><table><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.2869</td><td>0.3953</td><td>0.4364</td><td>0.4661</td><td>0.4851</td><td>0.4856</td><td>0.4800</td><td>0.4768</td><td>0.4760</td><td>0.4570</td><td>0.4345</td><td>0.4218</td><td>0.4313</td><td>0.4288</td><td>0.4375</td><td>0.4579</td><td>0.4683</td><td>0.4757</td><td>0.4778</td><td>0.4726</td><td>0.4597</td><td>0.4443</td><td>0.4458</td><td>0.4397</td><td>0.4423</td><td>0.4445</td></tr></table></td></tr>
 </table>
@@ -666,7 +689,7 @@ The part about the `depth of the input` means that the bands in each column are 
     <br>&nbsp;</th>
     <th>aktive op column sum @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00357.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00359.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'><table><tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>4</td><td>7</td><td>10</td><td>12</td><td>14</td><td>15</td><td>17</td><td>18</td><td>20</td><td>21</td><td>23</td><td>24</td><td>24</td><td>23</td><td>22</td><td>21</td><td>19</td><td>17</td><td>15</td><td>14</td><td>12</td><td>10</td><td>9</td><td>9</td><td>9</td><td>9</td></tr></table></td></tr>
 </table>
@@ -692,7 +715,7 @@ The part about the `depth of the input` means that the bands in each column are 
     <br>&nbsp;</th>
     <th>aktive op column sumsquared @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00359.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00361.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'><table><tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>3</td><td>7</td><td>9</td><td>11</td><td>13</td><td>15</td><td>16</td><td>18</td><td>19</td><td>21</td><td>22</td><td>23</td><td>24</td><td>23</td><td>22</td><td>20</td><td>18</td><td>16</td><td>15</td><td>13</td><td>11</td><td>10</td><td>9</td><td>9</td><td>9</td><td>9</td></tr></table></td></tr>
 </table>
@@ -718,7 +741,7 @@ The part about the `depth of the input` means that the bands in each column are 
     <br>&nbsp;</th>
     <th>aktive op column variance @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00361.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00363.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'><table><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0823</td><td>0.1563</td><td>0.1905</td><td>0.2173</td><td>0.2353</td><td>0.2358</td><td>0.2304</td><td>0.2273</td><td>0.2266</td><td>0.2088</td><td>0.1888</td><td>0.1779</td><td>0.1861</td><td>0.1838</td><td>0.1914</td><td>0.2097</td><td>0.2193</td><td>0.2263</td><td>0.2283</td><td>0.2234</td><td>0.2113</td><td>0.1974</td><td>0.1987</td><td>0.1933</td><td>0.1957</td><td>0.1976</td></tr></table></td></tr>
 </table>
@@ -746,7 +769,7 @@ Returns image with the input transformed into a histogram of `bins` values.
     <br>&nbsp;</th>
     <th>aktive op image histogram @1 bins 8
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00418.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00420.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
     <td valign='top'><table><tr><td>14376</td><td>52</td><td>53</td><td>35</td><td>62</td><td>53</td><td>22</td><td>1731</td></tr></table></td></tr>
 </table>
@@ -772,7 +795,7 @@ The part about the `depth of the input` means that the bands in each row are han
     <br>&nbsp;</th>
     <th>aktive op row arg max @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00506.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00508.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'><table><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>10</td></tr><tr><td>8</td></tr><tr><td>7</td></tr><tr><td>7</td></tr><tr><td>6</td></tr><tr><td>7</td></tr><tr><td>7</td></tr><tr><td>8</td></tr><tr><td>8</td></tr><tr><td>9</td></tr><tr><td>9</td></tr><tr><td>10</td></tr><tr><td>10</td></tr><tr><td>11</td></tr><tr><td>12</td></tr><tr><td>12</td></tr><tr><td>13</td></tr><tr><td>13</td></tr><tr><td>14</td></tr><tr><td>14</td></tr><tr><td>15</td></tr><tr><td>16</td></tr><tr><td>16</td></tr><tr><td>17</td></tr><tr><td>17</td></tr><tr><td>18</td></tr></table></td></tr>
 </table>
@@ -798,7 +821,7 @@ The part about the `depth of the input` means that the bands in each row are han
     <br>&nbsp;</th>
     <th>aktive op row arg min @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00508.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00510.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'><table><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr></table></td></tr>
 </table>
@@ -826,7 +849,7 @@ The result has the same geometry as the input. Only the contents change.
     <br>&nbsp;</th>
     <th>aktive op row cumulative @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00510.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00512.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'><table><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.5279</td><td>1.4048</td><td>2.4048</td><td>3.2817</td><td>3.8861</td><td>4.2159</td><td>4.2709</td><td>4.2709</td><td>4.2709</td><td>4.2709</td><td>4.2709</td><td>4.2709</td><td>4.2709</td><td>4.2709</td><td>4.2709</td><td>4.2709</td><td>4.2709</td><td>4.2709</td><td>4.2709</td><td>4.2709</td><td>4.2709</td><td>4.2709</td><td>4.2709</td><td>4.2709</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.7574</td><td>1.7574</td><td>2.7574</td><td>3.7574</td><td>4.7574</td><td>5.7574</td><td>6.7574</td><td>7.7574</td><td>8.4992</td><td>8.9663</td><td>9.1587</td><td>9.1587</td><td>9.1587</td><td>9.1587</td><td>9.1587</td><td>9.1587</td><td>9.1587</td><td>9.1587</td><td>9.1587</td><td>9.1587</td><td>9.1587</td><td>9.1587</td><td>9.1587</td><td>9.1587</td><td>9.1587</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.5279</td><td>1.5279</td><td>2.5279</td><td>3.5279</td><td>4.5279</td><td>5.5279</td><td>6.5279</td><td>7.5279</td><td>8.5279</td><td>9.5279</td><td>10.5279</td><td>11.5279</td><td>12.4070</td><td>13.0115</td><td>13.3412</td><td>13.3963</td><td>13.3963</td><td>13.3963</td><td>13.3963</td><td>13.3963</td><td>13.3963</td><td>13.3963</td><td>13.3963</td><td>13.3963</td><td>13.3963</td><td>13.3963</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.8769</td><td>1.8769</td><td>2.8769</td><td>3.8769</td><td>4.8769</td><td>5.8769</td><td>6.8769</td><td>7.8769</td><td>8.8769</td><td>9.8769</td><td>10.8769</td><td>11.8769</td><td>12.8769</td><td>13.8769</td><td>14.8769</td><td>15.8769</td><td>16.6187</td><td>17.0858</td><td>17.2782</td><td>17.2782</td><td>17.2782</td><td>17.2782</td><td>17.2782</td><td>17.2782</td><td>17.2782</td><td>17.2782</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>1.0000</td><td>2.0000</td><td>3.0000</td><td>4.0000</td><td>5.0000</td><td>6.0000</td><td>7.0000</td><td>8.0000</td><td>9.0000</td><td>10.0000</td><td>11.0000</td><td>12.0000</td><td>13.0000</td><td>14.0000</td><td>15.0000</td><td>16.0000</td><td>17.0000</td><td>18.0000</td><td>19.0000</td><td>19.8792</td><td>20.4836</td><td>20.8134</td><td>20.8684</td><td>20.8684</td><td>20.8684</td><td>20.8684</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.8769</td><td>1.8769</td><td>2.8769</td><td>3.8769</td><td>4.8769</td><td>5.8769</td><td>6.8769</td><td>7.8769</td><td>8.8769</td><td>9.8769</td><td>10.8769</td><td>11.8769</td><td>12.8769</td><td>13.8769</td><td>14.8769</td><td>15.8769</td><td>16.8769</td><td>17.8769</td><td>18.8769</td><td>19.8769</td><td>20.8769</td><td>21.8769</td><td>22.8769</td><td>23.6187</td><td>24.0858</td><td>24.2782</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.5279</td><td>1.5279</td><td>2.5279</td><td>3.5279</td><td>4.5279</td><td>5.5279</td><td>6.5279</td><td>7.5279</td><td>8.5279</td><td>9.5279</td><td>10.5279</td><td>11.5279</td><td>12.5279</td><td>13.5279</td><td>14.5279</td><td>15.5279</td><td>16.5279</td><td>17.5279</td><td>18.5279</td><td>19.5279</td><td>20.5279</td><td>21.5279</td><td>22.5279</td><td>23.5279</td><td>24.5279</td><td>25.5279</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0386</td><td>0.9455</td><td>1.9455</td><td>2.9455</td><td>3.9455</td><td>4.9455</td><td>5.9455</td><td>6.9455</td><td>7.9455</td><td>8.9455</td><td>9.9455</td><td>10.9455</td><td>11.9455</td><td>12.9455</td><td>13.9455</td><td>14.9455</td><td>15.9455</td><td>16.9455</td><td>17.9455</td><td>18.9455</td><td>19.9455</td><td>20.9455</td><td>21.9455</td><td>22.9455</td><td>23.9455</td><td>24.9455</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.4107</td><td>1.4107</td><td>2.4107</td><td>3.4107</td><td>4.4107</td><td>5.4107</td><td>6.4107</td><td>7.4107</td><td>8.4107</td><td>9.4107</td><td>10.4107</td><td>11.4107</td><td>12.4107</td><td>13.4107</td><td>14.4107</td><td>15.4107</td><td>16.4107</td><td>17.4107</td><td>18.4107</td><td>19.4107</td><td>20.4107</td><td>21.4107</td><td>22.4107</td><td>23.4107</td><td>24.4107</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.7828</td><td>1.7828</td><td>2.7828</td><td>3.7828</td><td>4.7828</td><td>5.7828</td><td>6.7828</td><td>7.7828</td><td>8.7828</td><td>9.7828</td><td>10.7828</td><td>11.7828</td><td>12.7828</td><td>13.7828</td><td>14.7828</td><td>15.7828</td><td>16.7828</td><td>17.7828</td><td>18.7828</td><td>19.7828</td><td>20.7828</td><td>21.7828</td><td>22.7828</td><td>23.7828</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.2867</td><td>1.2867</td><td>2.2867</td><td>3.2867</td><td>4.2867</td><td>5.2867</td><td>6.2867</td><td>7.2867</td><td>8.2867</td><td>9.2867</td><td>10.2867</td><td>11.2867</td><td>12.2867</td><td>13.2867</td><td>14.2867</td><td>15.2867</td><td>16.2867</td><td>17.2867</td><td>18.2867</td><td>19.2867</td><td>20.2867</td><td>21.2867</td><td>22.2867</td><td>23.2867</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.6588</td><td>1.6588</td><td>2.6588</td><td>3.6588</td><td>4.6588</td><td>5.6588</td><td>6.6588</td><td>7.6588</td><td>8.6588</td><td>9.6588</td><td>10.4006</td><td>11.4006</td><td>12.4006</td><td>13.4006</td><td>14.4006</td><td>15.4006</td><td>16.4006</td><td>17.4006</td><td>18.4006</td><td>19.4006</td><td>20.4006</td><td>21.4006</td><td>22.4006</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.1626</td><td>1.1626</td><td>2.1626</td><td>3.1626</td><td>4.1626</td><td>5.1626</td><td>6.1626</td><td>7.1626</td><td>8.1626</td><td>9.1626</td><td>10.1626</td><td>10.4493</td><td>10.7791</td><td>11.3835</td><td>12.2627</td><td>13.2627</td><td>14.2627</td><td>15.2627</td><td>16.2627</td><td>17.2627</td><td>18.2627</td><td>19.2627</td><td>20.2627</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.5347</td><td>1.5347</td><td>2.5347</td><td>3.5347</td><td>4.5347</td><td>5.5347</td><td>6.5347</td><td>7.5347</td><td>8.5347</td><td>9.5347</td><td>10.3176</td><td>10.3176</td><td>10.3176</td><td>10.3176</td><td>10.5099</td><td>10.9771</td><td>11.7189</td><td>12.7189</td><td>13.7189</td><td>14.7189</td><td>15.7189</td><td>16.7189</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0386</td><td>0.9455</td><td>1.9455</td><td>2.9455</td><td>3.9455</td><td>4.9455</td><td>5.9455</td><td>6.9455</td><td>7.9455</td><td>8.9455</td><td>9.9455</td><td>10.3562</td><td>10.3562</td><td>10.3562</td><td>10.3562</td><td>10.3562</td><td>10.3562</td><td>10.4112</td><td>10.7409</td><td>11.3454</td><td>12.2246</td><td>13.2246</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.4107</td><td>1.4107</td><td>2.4107</td><td>3.4107</td><td>4.4107</td><td>5.4107</td><td>6.4107</td><td>7.4107</td><td>8.4107</td><td>9.4107</td><td>10.3176</td><td>10.3562</td><td>10.3562</td><td>10.3562</td><td>10.3562</td><td>10.3562</td><td>10.3562</td><td>10.3562</td><td>10.3562</td><td>10.3562</td><td>10.5486</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.7828</td><td>1.7828</td><td>2.7828</td><td>3.7828</td><td>4.7828</td><td>5.7828</td><td>6.7828</td><td>7.7828</td><td>8.7828</td><td>9.7828</td><td>10.3176</td><td>10.3176</td><td>10.3176</td><td>10.3176</td><td>10.3176</td><td>10.3176</td><td>10.3176</td><td>10.3176</td><td>10.3176</td><td>10.3176</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.2867</td><td>1.2867</td><td>2.2867</td><td>3.2867</td><td>4.2867</td><td>5.2867</td><td>6.2867</td><td>7.2867</td><td>8.2867</td><td>9.2867</td><td>10.2867</td><td>10.4493</td><td>10.4493</td><td>10.4493</td><td>10.4493</td><td>10.4493</td><td>10.4493</td><td>10.4493</td><td>10.4493</td><td>10.4493</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.6588</td><td>1.6588</td><td>2.6588</td><td>3.6588</td><td>4.6588</td><td>5.6588</td><td>6.6588</td><td>7.6588</td><td>8.6588</td><td>9.6588</td><td>10.3176</td><td>10.3176</td><td>10.3176</td><td>10.3176</td><td>10.3176</td><td>10.3176</td><td>10.3176</td><td>10.3176</td><td>10.3176</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.1626</td><td>1.1626</td><td>2.1626</td><td>3.1626</td><td>4.1626</td><td>5.1626</td><td>6.1626</td><td>7.1626</td><td>8.1626</td><td>9.1626</td><td>10.1626</td><td>10.4493</td><td>10.4493</td><td>10.4493</td><td>10.4493</td><td>10.4493</td><td>10.4493</td><td>10.4493</td><td>10.4493</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.5347</td><td>1.5347</td><td>2.5347</td><td>3.5347</td><td>4.5347</td><td>5.5347</td><td>6.5347</td><td>7.5347</td><td>8.5347</td><td>9.5347</td><td>10.3176</td><td>10.3176</td><td>10.3176</td><td>10.3176</td><td>10.3176</td><td>10.3176</td><td>10.3176</td><td>10.3176</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0386</td><td>0.9455</td><td>1.9455</td><td>2.9455</td><td>3.9455</td><td>4.9455</td><td>5.9455</td><td>6.9455</td><td>7.9455</td><td>8.9455</td><td>9.9455</td><td>10.3562</td><td>10.3562</td><td>10.3562</td><td>10.3562</td><td>10.3562</td><td>10.3562</td><td>10.3562</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.4107</td><td>1.4107</td><td>2.4107</td><td>3.4107</td><td>4.4107</td><td>5.4107</td><td>6.4107</td><td>7.4107</td><td>8.4107</td><td>9.4107</td><td>10.3176</td><td>10.3562</td><td>10.3562</td><td>10.3562</td><td>10.3562</td><td>10.3562</td><td>10.3562</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.7828</td><td>1.7828</td><td>2.7828</td><td>3.7828</td><td>4.7828</td><td>5.7828</td><td>6.7828</td><td>7.7828</td><td>8.7828</td><td>9.7828</td><td>10.3176</td><td>10.3176</td><td>10.3176</td><td>10.3176</td><td>10.3176</td><td>10.3176</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.2867</td><td>1.2867</td><td>2.2867</td><td>3.2867</td><td>4.2867</td><td>5.2867</td><td>6.2867</td><td>7.2867</td><td>8.2867</td><td>9.2867</td><td>10.2867</td><td>10.4493</td><td>10.4493</td><td>10.4493</td><td>10.4493</td><td>10.4493</td></tr><tr><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.6588</td><td>1.6588</td><td>2.6588</td><td>3.6588</td><td>4.6588</td><td>5.6588</td><td>6.6588</td><td>7.6588</td><td>8.6588</td><td>9.6588</td><td>10.3176</td><td>10.3176</td><td>10.3176</td><td>10.3176</td><td>10.3176</td></tr></table></td></tr>
 </table>
@@ -856,7 +879,7 @@ The result is an image of `bins`-sized histogram rows with height and depth of t
     <br>&nbsp;</th>
     <th>aktive op row histogram @1 bins 8
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00512.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00514.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'><table><tr><td>32</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr><tr><td>32</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr><tr><td>32</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr><tr><td>32</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr><tr><td>32</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr><tr><td>32</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr><tr><td>26</td><td>0</td><td>1</td><td>0</td><td>2</td><td>0</td><td>0</td><td>3</td></tr><tr><td>21</td><td>1</td><td>0</td><td>1</td><td>0</td><td>1</td><td>1</td><td>7</td></tr><tr><td>17</td><td>0</td><td>1</td><td>0</td><td>2</td><td>0</td><td>0</td><td>12</td></tr><tr><td>13</td><td>1</td><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td><td>16</td></tr><tr><td>10</td><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td>20</td></tr><tr><td>6</td><td>1</td><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td><td>23</td></tr><tr><td>6</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>25</td></tr><tr><td>6</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>25</td></tr><tr><td>7</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>25</td></tr><tr><td>7</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>24</td></tr><tr><td>7</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>24</td></tr><tr><td>7</td><td>2</td><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td><td>21</td></tr><tr><td>11</td><td>0</td><td>1</td><td>1</td><td>1</td><td>0</td><td>0</td><td>18</td></tr><tr><td>14</td><td>1</td><td>0</td><td>1</td><td>1</td><td>2</td><td>0</td><td>13</td></tr><tr><td>18</td><td>0</td><td>2</td><td>0</td><td>1</td><td>0</td><td>0</td><td>11</td></tr><tr><td>21</td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>9</td></tr><tr><td>22</td><td>0</td><td>0</td><td>0</td><td>1</td><td>1</td><td>0</td><td>8</td></tr><tr><td>22</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>9</td></tr><tr><td>21</td><td>2</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>9</td></tr><tr><td>22</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>9</td></tr><tr><td>22</td><td>0</td><td>0</td><td>0</td><td>1</td><td>1</td><td>0</td><td>8</td></tr><tr><td>22</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>9</td></tr><tr><td>22</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>9</td></tr><tr><td>22</td><td>0</td><td>0</td><td>0</td><td>1</td><td>1</td><td>0</td><td>8</td></tr><tr><td>22</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>9</td></tr><tr><td>21</td><td>2</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>9</td></tr></table></td></tr>
 </table>
@@ -882,7 +905,7 @@ The part about the `depth of the input` means that the bands in each row are han
     <br>&nbsp;</th>
     <th>aktive op row max @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00514.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00516.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'><table><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>1</td></tr><tr><td>1</td></tr><tr><td>1</td></tr><tr><td>1</td></tr><tr><td>1</td></tr><tr><td>1</td></tr><tr><td>1</td></tr><tr><td>1</td></tr><tr><td>1</td></tr><tr><td>1</td></tr><tr><td>1</td></tr><tr><td>1</td></tr><tr><td>1</td></tr><tr><td>1</td></tr><tr><td>1</td></tr><tr><td>1</td></tr><tr><td>1</td></tr><tr><td>1</td></tr><tr><td>1</td></tr><tr><td>1</td></tr><tr><td>1</td></tr><tr><td>1</td></tr><tr><td>1</td></tr><tr><td>1</td></tr><tr><td>1</td></tr><tr><td>1</td></tr></table></td></tr>
 </table>
@@ -908,7 +931,7 @@ The part about the `depth of the input` means that the bands in each row are han
     <br>&nbsp;</th>
     <th>aktive op row mean @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00516.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00518.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'><table><tr><td>0.0000</td></tr><tr><td>0.0000</td></tr><tr><td>0.0000</td></tr><tr><td>0.0000</td></tr><tr><td>0.0000</td></tr><tr><td>0.0000</td></tr><tr><td>0.1335</td></tr><tr><td>0.2862</td></tr><tr><td>0.4186</td></tr><tr><td>0.5399</td></tr><tr><td>0.6521</td></tr><tr><td>0.7587</td></tr><tr><td>0.7977</td></tr><tr><td>0.7795</td></tr><tr><td>0.7628</td></tr><tr><td>0.7432</td></tr><tr><td>0.7277</td></tr><tr><td>0.7000</td></tr><tr><td>0.6332</td></tr><tr><td>0.5225</td></tr><tr><td>0.4133</td></tr><tr><td>0.3296</td></tr><tr><td>0.3224</td></tr><tr><td>0.3265</td></tr><tr><td>0.3224</td></tr><tr><td>0.3265</td></tr><tr><td>0.3224</td></tr><tr><td>0.3236</td></tr><tr><td>0.3236</td></tr><tr><td>0.3224</td></tr><tr><td>0.3265</td></tr><tr><td>0.3224</td></tr></table></td></tr>
 </table>
@@ -947,7 +970,7 @@ The part about the `depth of the input` means that the bands in each row are han
     <br>&nbsp;</th>
     <th>aktive op row min @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00518.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00520.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'><table><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr></table></td></tr>
 </table>
@@ -977,7 +1000,7 @@ The result has a single column.
     <br>&nbsp;</th>
     <th>aktive op row otsu [aktive op row histogram @1]
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00520.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00522.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'><table><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>85</td></tr><tr><td>120</td></tr><tr><td>85</td></tr><tr><td>120</td></tr><tr><td>85</td></tr><tr><td>120</td></tr><tr><td>1</td></tr><tr><td>10</td></tr><tr><td>106</td></tr><tr><td>1</td></tr><tr><td>74</td></tr><tr><td>1</td></tr><tr><td>85</td></tr><tr><td>120</td></tr><tr><td>106</td></tr><tr><td>106</td></tr><tr><td>1</td></tr><tr><td>74</td></tr><tr><td>1</td></tr><tr><td>74</td></tr><tr><td>1</td></tr><tr><td>106</td></tr><tr><td>106</td></tr><tr><td>1</td></tr><tr><td>74</td></tr><tr><td>1</td></tr></table></td></tr>
 </table>
@@ -1005,7 +1028,7 @@ The part about the `depth of the input` means that the bands in each row are han
     <br>&nbsp;</th>
     <th>aktive op row profile @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00522.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00524.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'><table><tr><td>32</td></tr><tr><td>32</td></tr><tr><td>32</td></tr><tr><td>32</td></tr><tr><td>32</td></tr><tr><td>32</td></tr><tr><td>8</td></tr><tr><td>7</td></tr><tr><td>6</td></tr><tr><td>6</td></tr><tr><td>6</td></tr><tr><td>6</td></tr><tr><td>6</td></tr><tr><td>6</td></tr><tr><td>7</td></tr><tr><td>8</td></tr><tr><td>8</td></tr><tr><td>9</td></tr><tr><td>9</td></tr><tr><td>10</td></tr><tr><td>10</td></tr><tr><td>11</td></tr><tr><td>12</td></tr><tr><td>12</td></tr><tr><td>13</td></tr><tr><td>13</td></tr><tr><td>14</td></tr><tr><td>14</td></tr><tr><td>15</td></tr><tr><td>16</td></tr><tr><td>16</td></tr><tr><td>17</td></tr></table></td></tr>
 </table>
@@ -1052,7 +1075,7 @@ The part about the `depth of the input` means that the bands in each row are han
     <br>&nbsp;</th>
     <th>aktive op row rprofile @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00524.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00526.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'><table><tr><td>-1</td></tr><tr><td>-1</td></tr><tr><td>-1</td></tr><tr><td>-1</td></tr><tr><td>-1</td></tr><tr><td>-1</td></tr><tr><td>14</td></tr><tr><td>17</td></tr><tr><td>21</td></tr><tr><td>24</td></tr><tr><td>28</td></tr><tr><td>31</td></tr><tr><td>31</td></tr><tr><td>31</td></tr><tr><td>31</td></tr><tr><td>31</td></tr><tr><td>31</td></tr><tr><td>31</td></tr><tr><td>31</td></tr><tr><td>31</td></tr><tr><td>31</td></tr><tr><td>31</td></tr><tr><td>22</td></tr><tr><td>23</td></tr><tr><td>23</td></tr><tr><td>24</td></tr><tr><td>24</td></tr><tr><td>25</td></tr><tr><td>26</td></tr><tr><td>26</td></tr><tr><td>27</td></tr><tr><td>27</td></tr></table></td></tr>
 </table>
@@ -1078,7 +1101,7 @@ The part about the `depth of the input` means that the bands in each row are han
     <br>&nbsp;</th>
     <th>aktive op row stddev @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00526.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00528.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'><table><tr><td>0.0000</td></tr><tr><td>0.0000</td></tr><tr><td>0.0000</td></tr><tr><td>0.0000</td></tr><tr><td>0.0000</td></tr><tr><td>0.0000</td></tr><tr><td>0.2917</td></tr><tr><td>0.4242</td></tr><tr><td>0.4650</td></tr><tr><td>0.4758</td></tr><tr><td>0.4556</td></tr><tr><td>0.4014</td></tr><tr><td>0.3919</td></tr><tr><td>0.4099</td></tr><tr><td>0.4164</td></tr><tr><td>0.4307</td></tr><tr><td>0.4379</td></tr><tr><td>0.4438</td></tr><tr><td>0.4516</td></tr><tr><td>0.4667</td></tr><tr><td>0.4602</td></tr><tr><td>0.4525</td></tr><tr><td>0.4532</td></tr><tr><td>0.4575</td></tr><tr><td>0.4521</td></tr><tr><td>0.4575</td></tr><tr><td>0.4532</td></tr><tr><td>0.4556</td></tr><tr><td>0.4556</td></tr><tr><td>0.4532</td></tr><tr><td>0.4575</td></tr><tr><td>0.4521</td></tr></table></td></tr>
 </table>
@@ -1104,7 +1127,7 @@ The part about the `depth of the input` means that the bands in each row are han
     <br>&nbsp;</th>
     <th>aktive op row sum @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00528.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00530.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'><table><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>4</td></tr><tr><td>9</td></tr><tr><td>13</td></tr><tr><td>17</td></tr><tr><td>21</td></tr><tr><td>24</td></tr><tr><td>26</td></tr><tr><td>25</td></tr><tr><td>24</td></tr><tr><td>24</td></tr><tr><td>23</td></tr><tr><td>22</td></tr><tr><td>20</td></tr><tr><td>17</td></tr><tr><td>13</td></tr><tr><td>11</td></tr><tr><td>10</td></tr><tr><td>10</td></tr><tr><td>10</td></tr><tr><td>10</td></tr><tr><td>10</td></tr><tr><td>10</td></tr><tr><td>10</td></tr><tr><td>10</td></tr><tr><td>10</td></tr><tr><td>10</td></tr></table></td></tr>
 </table>
@@ -1130,7 +1153,7 @@ The part about the `depth of the input` means that the bands in each row are han
     <br>&nbsp;</th>
     <th>aktive op row sumsquared @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00530.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00532.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'><table><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>3</td></tr><tr><td>8</td></tr><tr><td>13</td></tr><tr><td>17</td></tr><tr><td>20</td></tr><tr><td>24</td></tr><tr><td>25</td></tr><tr><td>25</td></tr><tr><td>24</td></tr><tr><td>24</td></tr><tr><td>23</td></tr><tr><td>22</td></tr><tr><td>19</td></tr><tr><td>16</td></tr><tr><td>12</td></tr><tr><td>10</td></tr><tr><td>10</td></tr><tr><td>10</td></tr><tr><td>10</td></tr><tr><td>10</td></tr><tr><td>10</td></tr><tr><td>10</td></tr><tr><td>10</td></tr><tr><td>10</td></tr><tr><td>10</td></tr><tr><td>10</td></tr></table></td></tr>
 </table>
@@ -1156,7 +1179,7 @@ The part about the `depth of the input` means that the bands in each row are han
     <br>&nbsp;</th>
     <th>aktive op row variance @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00532.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00534.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'><table><tr><td>0.0000</td></tr><tr><td>0.0000</td></tr><tr><td>0.0000</td></tr><tr><td>0.0000</td></tr><tr><td>0.0000</td></tr><tr><td>0.0000</td></tr><tr><td>0.0851</td></tr><tr><td>0.1799</td></tr><tr><td>0.2163</td></tr><tr><td>0.2264</td></tr><tr><td>0.2075</td></tr><tr><td>0.1611</td></tr><tr><td>0.1536</td></tr><tr><td>0.1681</td></tr><tr><td>0.1734</td></tr><tr><td>0.1855</td></tr><tr><td>0.1918</td></tr><tr><td>0.1970</td></tr><tr><td>0.2039</td></tr><tr><td>0.2178</td></tr><tr><td>0.2118</td></tr><tr><td>0.2048</td></tr><tr><td>0.2054</td></tr><tr><td>0.2093</td></tr><tr><td>0.2044</td></tr><tr><td>0.2093</td></tr><tr><td>0.2054</td></tr><tr><td>0.2075</td></tr><tr><td>0.2075</td></tr><tr><td>0.2054</td></tr><tr><td>0.2093</td></tr><tr><td>0.2044</td></tr></table></td></tr>
 </table>
