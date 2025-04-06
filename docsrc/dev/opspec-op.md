@@ -460,7 +460,6 @@ Examples
 
  - <!xref: src cumulation>
  - <!xref: src histogram>
- - <!xref: src profile>
 
 ### <a name='cmd-blit'></a> Blitting
 
