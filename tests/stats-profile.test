@@ -1,7 +1,7 @@
 # -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
-## (c) 2024 Andreas Kupries
+## (c) 2024-2025 Andreas Kupries
 # # ## ### ##### ######## ############# #####################
-## AKTIVE. Row statistics (profile)
+## AKTIVE. Row/column statistics (profile, rprofile)
 
 kt check Tcl     8.6 9
 kt check tcltest 2
@@ -16,11 +16,13 @@ kt source support/util.tcl
 ## Syntax
 
 syntax {
-    profile src
+    profile  src
+    rprofile src
 } {aktive op row}
 
 syntax {
-    profile src
+    profile  src
+    rprofile src
 } {aktive op column}
 
 # # ## ### ##### ######## ############# #####################
@@ -35,15 +37,60 @@ set src [aktive image from matrix width 8 height 8 values \
 	     0 0 0 0 1 0 0 0 \
 	     0 0 0 0 0 0 0 0 ]
 
+set multi [aktive op montage z \
+	       [aktive image from matrix width 8 height 8 values \
+		    0 0 0 0 0 0 0 0 \
+		    0 0 0 0 0 0 0 0 \
+		    0 1 1 0 0 0 0 0 \
+		    0 0 0 0 0 0 1 0 \
+		    0 0 0 1 0 0 0 0 \
+		    0 0 0 0 0 1 0 0 \
+		    0 0 0 0 1 0 0 0 \
+		    0 0 0 0 0 0 0 0 ] \
+	       [aktive image from matrix width 8 height 8 values \
+		    0 0 0 0 0 0 0 0 \
+		    0 0 0 0 0 0 0 0 \
+		    0 0 1 0 0 0 0 0 \
+		    0 1 1 0 0 1 1 0 \
+		    0 0 0 1 1 0 1 0 \
+		    0 0 0 1 0 1 0 0 \
+		    0 0 0 0 1 0 0 0 \
+		    0 0 0 0 0 0 0 0 ]]
+
 # # ## ### ##### ######## ############# #####################
 
-foreach {op expected} {
-    row    {8.0 8.0 1.0 6.0 3.0 5.0 4.0 8.0}
-    column {8.0 2.0 2.0 4.0 6.0 5.0 3.0 8.0}
+foreach {kind op expected} {
+    column profile  {8.0 2.0 2.0 4.0 6.0 5.0 3.0 8.0}
+    column rprofile {-1.0 2.0 2.0 4.0 6.0 5.0 3.0 -1.0}
+    row    profile  {8.0 8.0 1.0 6.0 3.0 5.0 4.0 8.0}
+    row    rprofile {-1.0 -1.0 2.0 6.0 3.0 5.0 4.0 -1.0}
 } {
-    test aktive-op-${op}-profile-2.0 "aktive op $op profile" -body {
-	pixels aktive op $op profile $src
+    test aktive-op-${kind}-${op}-2.0 "aktive op $kind $op, base" -body {
+	pixels aktive op $kind $op $src
     } -result $expected
+
+    set direction [dict get {column x row y} $kind]
+
+    test aktive-op-${kind}-${op}-2.1 "aktive op $kind $op, base, subset" -body {
+	pixels aktive op select $direction [aktive op $kind $op $src] from 2 to 5
+    } -result [lrange $expected 2 5]
+}
+
+foreach {kind op expected} {
+    row    profile  {8.0 8.0 8.0 8.0 1.0 2.0 6.0 1.0 3.0 3.0 5.0 3.0 4.0 4.0 8.0 8.0}
+    row    rprofile {-1.0 -1.0 -1.0 -1.0 2.0 2.0 6.0 6.0 3.0 6.0 5.0 5.0 4.0 4.0 -1.0 -1.0}
+    column profile  {8.0 8.0 2.0 3.0 2.0 2.0 4.0 4.0 6.0 4.0 5.0 3.0 3.0 3.0 8.0 8.0}
+    column rprofile {-1.0 -1.0 2.0 3.0 2.0 3.0 4.0 5.0 6.0 6.0 5.0 5.0 3.0 4.0 -1.0 -1.0}
+} {
+    test aktive-op-${kind}-${op}-2.2 "aktive op $kind $op, multi-band" -body {
+	pixels aktive op $kind $op $multi
+    } -result $expected
+
+    set direction [dict get {column x row y} $kind]
+
+    test aktive-op-${kind}-${op}-2.3 "aktive op $kind $op, multi-band, subset" -body {
+	pixels aktive op select $direction [aktive op $kind $op $multi] from 2 to 5
+    } -result [lrange $expected 4 11]
 }
 
 # # ## ### ##### ######## ############# #####################

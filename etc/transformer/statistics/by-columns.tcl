@@ -6,8 +6,8 @@
 ## Compress columns down to a statistic
 
 operator {dexpr attr} {
-    op::column::arg::max   {first index}        maximal
-    op::column::arg::min   {first index}        minimal
+    op::column::arg::max    {first index}        maximal
+    op::column::arg::min    {first index}        minimal
     op::column::max         maximum              {}
     op::column::mean        {arithmetic mean}    {}
     op::column::min         minimum              {}
@@ -72,6 +72,64 @@ operator {dexpr attr} {
 	@@reducer@@
 	#undef REDUCE
     }
+}
+
+operator {edge} {
+    op::column::profile  top
+    op::column::rprofile bottom
+} {
+
+    example {
+	aktive op sdf 2image smooth [aktive op sdf ring [aktive image sdf triangle width 32 height 32 a {10 10} b {50 80} c {80 30}] thickness 4]
+	@1 | -matrix -int
+    }
+
+    section transform statistics
+
+    note Returns image with input columns compressed to a single value, \
+	the $edge profile of the column values. The result is a single-row \
+	image with width and depth of the input. The bands of the image are \
+	handled independently.
+
+    switch -exact -- $edge {
+	top {
+	    def bottom 0
+	    note The __top__ profile of each column is the index of the \
+		__first__ row with a __non-zero__ value. Or the height of \
+		the image, if there are no such in the column.
+	}
+	bottom {
+	    def bottom 1
+	    note The __bottom__ profile of each column is the index of the \
+		__last__ row with a __non-zero__ value. Or `-1`, if there \
+		are no such in the column.
+	}
+    }
+
+    input
+
+    state -setup {
+	aktive_geometry_copy (domain, aktive_image_get_geometry (srcs->v[0]));
+	domain->height = 1;
+    }
+
+    pixels -state {
+	aktive_image src;
+    } -setup {
+	state->src = aktive_region_owner (srcs->v[0]);
+    } {
+	aktive_cprofile* cprofile = aktive_cprofile_find (state->src, @@bottom@@, request);
+
+	TRACE ("cprofile [%d]", cprofile->n);
+
+	ASSERT (block->used == cprofile->n, "block/profile mismatch");
+
+	// blitting profile into result block
+	memcpy (block->pixel, cprofile->profile, cprofile->n * sizeof(double));
+
+	aktive_cprofile_release (cprofile);
+    }
+
 }
 
 ##
