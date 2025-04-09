@@ -55,7 +55,15 @@ For the full details please read the [command reference](/doc/trunk/doc/ref/inde
 
 Last time it was checked the sources (after code generation) were split into
 
-  - 2% DSL implementation/converter (Tcl),
-  - 8% runtime (C),
-  - 13% operator specifications (Tcl DSL), and
-  - 77% generated code (C).
+|Section|Lines|Percent|
+|:---|---:|---:|
+|Runtime|__9617__|__9.42__|
+|→ C|8895|8.71|
+|→ Tcl|722|0.71|
+|DSL|__5100__|__5.00__|
+|Operators|__15414__|__15.10__|
+|Generated|__69504__|__68.09__|
+|→ C|52403|51.33|
+|→ Tcl|17101|16.75|
+|Doc Source|__2447__|__2.40__|
+|Total|102082|100.00|
