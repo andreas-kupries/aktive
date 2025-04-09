@@ -95,6 +95,50 @@ dsl structs scan \
 # render the main figures, these include the generated definitions as needed
 dsl structs render doc/dev/figures
 
+# # ## ### ##### ######## ############# #####################
+## color database
+
+apply {{} {
+    # read color table
+    set chan [open data/cssNamedColors.csv r]
+    set colors [lrange [split [string trim [read $chan]] \n] 1 end]
+    close $chan
+
+    # create database (dict)
+    foreach color $colors {
+	lassign [split $color ,] _ name hex
+
+	set code [expr 0x[string range $hex 1 end]] ;#note: not braced
+
+	set red   [expr {double(($code >> 16) & 0xFF)/255}]
+	set green [expr {double(($code >>  8) & 0xFF)/255}]
+	set blue  [expr {double(($code >>  0) & 0xFF)/255}]
+	set rgb   [list $red $green $blue]
+
+	lappend map "\t    $name\t[list $rgb]"
+    }
+    set map [join $map \n]
+
+    # save database together with its access command
+
+    set   chan [open generated/color.tcl w]
+    puts $chan [string map [list "\n\t" "\n" "\n    " "\n" @@@@ $map] {
+	proc aktive::color::css {name} {
+	    try {
+		return [dict get {
+	@@@@
+		} $name]
+	    } on error {e} {
+		return -code error "Unknown color '$name', expected a valid CSS color name"
+	    }
+	}
+    }]
+    close $chan
+    return
+}}
+
+# # ## ### ##### ######## ############# #####################
+
 critcl::source etc/runtime/blitter.tcl
 critcl::source etc/sink/statistics-c.tcl
 
@@ -182,6 +226,7 @@ critcl::source   generated/glue.tcl             ;# Tcl-level operator constructi
 #
 critcl::tsources generated/overlay.tcl		;# Peep-hole optimizer overlays
 critcl::tsources generated/ensemble.tcl         ;# Command hierarchy for preceding
+critcl::tsources generated/color.tcl            ;# Color database commands
 #                                               ;# Pure Tcl commands
 critcl::tsources generated/ops.tcl              ;# - Operators built in Tcl
 critcl::tsources simplifier.tcl			;# - Simplifier runtime used by overlay.tcl

@@ -26,6 +26,28 @@ operator image::from::value {
     }
 }
 
+operator image::from::color {
+    section generator virtual
+
+    note Returns image where all pixels have the same color
+
+    example {width 64 height 64 color lime}
+    example {width 64 height 64 color khaki}
+    example {width 64 height 64 color plum}
+
+    note Depth is 3. Because colors are RGB.
+
+    pass int?    0 x       Image location, X coordinate
+    pass int?    0 y       Image location, Y coordinate
+    pass uint      width   Width of the returned image
+    pass uint      height  Height of the returned image
+    str            color   Name of pixel color
+
+    body {
+	band @@passthrough@@ values {*}[aktive color css $color]
+    }
+}
+
 operator image::from::band {
     section generator virtual
 
