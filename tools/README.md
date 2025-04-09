@@ -9,6 +9,5 @@
 |re					|Re-install AKTIVE into the system. Removes trace and core files. Configurable via `K` variable for the Kettle to use (i.e. Tcl 8.6 / 9). Use the `k*` links in the parent of the top dir	|
 |trial-base.tcl				|Common support code for the trial.tcl and pv helper apps		|
 |trial.tcl				|Mini app (framework) for ops trialing, edit as needed			|
-|trun86					|Run the tests against Tcl 8.6. Assumes presence of a `k86` command in the parent of the top dir	|
-|trun9					|See above, for Tcl 9, and assuming presence of a `k9`			|
+|trun					|Run the tests against Tcl in PATH	     				|
 |webcolor-setup.tcl			|Script to create the `webcolors-*` asset files				|
