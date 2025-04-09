@@ -38,6 +38,7 @@ vector int
 
 import other/point.tcl
 import other/rectangle.tcl
+import other/color.tcl
 
 import generator/reader/aktive.tcl
 import generator/reader/netpbm.tcl
