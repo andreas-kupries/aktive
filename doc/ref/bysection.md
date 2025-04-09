@@ -16,6 +16,7 @@
     - [morphology](accessor_morphology.md)
     - [values](accessor_values.md)
   - [cache](cache.md)
+  - [color](color.md)
   - [composer](composer.md)
   - [generator](generator.md)
     - [reader](generator_reader.md)

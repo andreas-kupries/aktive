@@ -392,6 +392,7 @@ The operators listed here are implemented wholly in Tcl.
  - [aktive image draw polyline](generator_virtual_drawing.md#image_draw_polyline)
  - [aktive image draw rhombus](generator_virtual_drawing.md#image_draw_rhombus)
  - [aktive image draw triangle](generator_virtual_drawing.md#image_draw_triangle)
+ - [aktive image from color](generator_virtual.md#image_from_color)
  - [aktive image grid](generator_virtual.md#image_grid)
  - [aktive image kernel emboss](generator_virtual.md#image_kernel_emboss)
  - [aktive image kernel gauss3 x](generator_virtual.md#image_kernel_gauss3_x)
@@ -647,6 +648,7 @@ The operators listed here are implemented wholly in Tcl.
 
 The commands listed here are implemented outside of the operator framework.
 
+ - [aktive color css](color.md#color_css)
  - [aktive error](miscellaneous.md#error)
  - [aktive meta append](transform_metadata.md#meta_append)
  - [aktive meta create](transform_metadata.md#meta_create)
