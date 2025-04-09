@@ -8,11 +8,15 @@
 |---|---|---|---|---|---|---|---|
 |[Entry ↗](index.md)|&mdash;|[Sections ↘](bysection.md)|[Permuted Sections ↘](bypsection.md)|Names|[Permuted Names ↘](bypname.md)|[Strict ↘](strict.md)|[Implementations ↘](bylang.md)|
 
-||||||||||||
-|---|---|---|---|---|---|---|---|---|---|---|
-|&nbsp;[e](#_e)&nbsp;|&nbsp;[f](#_f)&nbsp;|&nbsp;[i](#_i)&nbsp;|&nbsp;[m](#_m)&nbsp;|&nbsp;[o](#_o)&nbsp;|&nbsp;[p](#_p)&nbsp;|&nbsp;[q](#_q)&nbsp;|&nbsp;[r](#_r)&nbsp;|&nbsp;[t](#_t)&nbsp;|&nbsp;[v](#_v)&nbsp;|&nbsp;[w](#_w)&nbsp;|
+|||||||||||||
+|---|---|---|---|---|---|---|---|---|---|---|---|
+|&nbsp;[c](#_c)&nbsp;|&nbsp;[e](#_e)&nbsp;|&nbsp;[f](#_f)&nbsp;|&nbsp;[i](#_i)&nbsp;|&nbsp;[m](#_m)&nbsp;|&nbsp;[o](#_o)&nbsp;|&nbsp;[p](#_p)&nbsp;|&nbsp;[q](#_q)&nbsp;|&nbsp;[r](#_r)&nbsp;|&nbsp;[t](#_t)&nbsp;|&nbsp;[v](#_v)&nbsp;|&nbsp;[w](#_w)&nbsp;|
 
 # Documentation -- Reference Pages -- Operators By Name
+
+## <a name='_c'></a> c
+
+ - [aktive color css](color.md#color_css)
 
 ## <a name='_e'></a> e
 
@@ -89,6 +93,7 @@
  - [aktive image dstripes](generator_virtual.md#image_dstripes)
  - [aktive image eye](generator_virtual.md#image_eye)
  - [aktive image from band](generator_virtual.md#image_from_band)
+ - [aktive image from color](generator_virtual.md#image_from_color)
  - [aktive image from column](generator_virtual.md#image_from_column)
  - [aktive image from matrix](generator_virtual.md#image_from_matrix)
  - [aktive image from row](generator_virtual.md#image_from_row)

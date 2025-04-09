@@ -69,9 +69,9 @@ The radii default to 0, i.e. no rounded corners.
     <br>&nbsp;</th>
     <th>aktive op draw box-rounded on @1 center {64.25 64.75} ewidth 32.2 eheight 32.8 upleftradius 32.32 outlined 1.1 color {1 0 0}
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00384.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00387.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
-    <td valign='top'><img src='example-00385.gif' alt='aktive op draw box-rounded on @1 center {64.25 64.75} ewidth 32.2 eheight 32.8 upleftradius 32.32 outlined 1.1 color {1 0 0}' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00388.gif' alt='aktive op draw box-rounded on @1 center {64.25 64.75} ewidth 32.2 eheight 32.8 upleftradius 32.32 outlined 1.1 color {1 0 0}' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td></tr>
 </table>
 
@@ -109,9 +109,9 @@ The box is axis-aligned, of width `2*ewidth+1`, height `2*eheight+1`, and placed
     <br>&nbsp;</th>
     <th>aktive op draw box on @1 center {64.25 64.75} ewidth 32.2 eheight 32.8 outlined 1.1 color {1 0 0}
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00386.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00389.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
-    <td valign='top'><img src='example-00387.gif' alt='aktive op draw box on @1 center {64.25 64.75} ewidth 32.2 eheight 32.8 outlined 1.1 color {1 0 0}' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00390.gif' alt='aktive op draw box on @1 center {64.25 64.75} ewidth 32.2 eheight 32.8 outlined 1.1 color {1 0 0}' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td></tr>
 </table>
 
@@ -148,9 +148,9 @@ The circle has the `radius`, and is placed at the specified center.
     <br>&nbsp;</th>
     <th>aktive op draw circle on @1 center {64.25 64.75} radius 32.5 color {1 0 0} outlined 1.1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00388.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00391.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
-    <td valign='top'><img src='example-00389.gif' alt='aktive op draw circle on @1 center {64.25 64.75} radius 32.5 color {1 0 0} outlined 1.1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00392.gif' alt='aktive op draw circle on @1 center {64.25 64.75} radius 32.5 color {1 0 0} outlined 1.1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td></tr>
 </table>
 
@@ -187,9 +187,9 @@ The circles all have the same `radius`, and are placed at the specified centers.
     <br>&nbsp;</th>
     <th>aktive op draw circles on @1 radius 8 color {1 0 0} outlined 1.1 centers {10.25 10.75} {30.3 80.6} {80.1 30.9}
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00390.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00393.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
-    <td valign='top'><img src='example-00391.gif' alt='aktive op draw circles on @1 radius 8 color {1 0 0} outlined 1.1 centers {10.25 10.75} {30.3 80.6} {80.1 30.9}' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00394.gif' alt='aktive op draw circles on @1 radius 8 color {1 0 0} outlined 1.1 centers {10.25 10.75} {30.3 80.6} {80.1 30.9}' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td></tr>
 </table>
 
@@ -226,9 +226,9 @@ The line connects the two specified locations.
     <br>&nbsp;</th>
     <th>aktive op draw line on @1 from {10.1 10.9} to {30.3 80.6} color {1 0 0} strokewidth 1.1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00392.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00395.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
-    <td valign='top'><img src='example-00393.gif' alt='aktive op draw line on @1 from {10.1 10.9} to {30.3 80.6} color {1 0 0} strokewidth 1.1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00396.gif' alt='aktive op draw line on @1 from {10.1 10.9} to {30.3 80.6} color {1 0 0} strokewidth 1.1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td></tr>
 </table>
 
@@ -264,9 +264,9 @@ Each line connects two locations.
     <br>&nbsp;</th>
     <th>aktive op draw lines on @1 color {1 0 0} strokewidth 1.1 segments {{10.1 10.9} {30.3 80.6}} {{10.1 80.6} {30.3 10.9}}
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00394.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00397.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
-    <td valign='top'><img src='example-00395.gif' alt='aktive op draw lines on @1 color {1 0 0} strokewidth 1.1 segments {{10.1 10.9} {30.3 80.6}} {{10.1 80.6} {30.3 10.9}}' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00398.gif' alt='aktive op draw lines on @1 color {1 0 0} strokewidth 1.1 segments {{10.1 10.9} {30.3 80.6}} {{10.1 80.6} {30.3 10.9}}' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td></tr>
 </table>
 
@@ -305,9 +305,9 @@ The parallelogram is axis-aligned, of width `2*ewidth+1`, height `2*eheight+1`, 
     <br>&nbsp;</th>
     <th>aktive op draw parallelogram on @1 center {64.25 64.75} ewidth 32.2 eheight 32.8 eskew 8.1 color {1 0 0} outlined 1.1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00396.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00399.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
-    <td valign='top'><img src='example-00397.gif' alt='aktive op draw parallelogram on @1 center {64.25 64.75} ewidth 32.2 eheight 32.8 eskew 8.1 color {1 0 0} outlined 1.1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00400.gif' alt='aktive op draw parallelogram on @1 center {64.25 64.75} ewidth 32.2 eheight 32.8 eskew 8.1 color {1 0 0} outlined 1.1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td></tr>
 </table>
 
@@ -343,9 +343,9 @@ The lines form a polyline through the specified points.
     <br>&nbsp;</th>
     <th>aktive op draw polyline on @1 color {1 0 0} strokewidth 1.1 points {10.25 10.75} {30.3 80.6} {80.1 30.9}
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00398.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00401.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
-    <td valign='top'><img src='example-00399.gif' alt='aktive op draw polyline on @1 color {1 0 0} strokewidth 1.1 points {10.25 10.75} {30.3 80.6} {80.1 30.9}' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00402.gif' alt='aktive op draw polyline on @1 color {1 0 0} strokewidth 1.1 points {10.25 10.75} {30.3 80.6} {80.1 30.9}' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td></tr>
 </table>
 
@@ -383,9 +383,9 @@ The rhombus is axis-aligned, of width `2*ewidth+1`, height `2*eheight+1`, and pl
     <br>&nbsp;</th>
     <th>aktive op draw rhombus on @1 center {64.25 64.75} ewidth 32.2 eheight 32.8 outlined 1.1 color {1 0 0} outlined 1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00400.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00403.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
-    <td valign='top'><img src='example-00401.gif' alt='aktive op draw rhombus on @1 center {64.25 64.75} ewidth 32.2 eheight 32.8 outlined 1.1 color {1 0 0} outlined 1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00404.gif' alt='aktive op draw rhombus on @1 center {64.25 64.75} ewidth 32.2 eheight 32.8 outlined 1.1 color {1 0 0} outlined 1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td></tr>
 </table>
 
@@ -423,9 +423,9 @@ The triangle connects the points A, B, and C, in this order.
     <br>&nbsp;</th>
     <th>aktive op draw triangle on @1 a {10.25 10.75} b {30.2 80.6} c {80.1 30.9} color {1 0 0} outlined 1.1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00402.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00405.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
-    <td valign='top'><img src='example-00403.gif' alt='aktive op draw triangle on @1 a {10.25 10.75} b {30.2 80.6} c {80.1 30.9} color {1 0 0} outlined 1.1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00406.gif' alt='aktive op draw triangle on @1 a {10.25 10.75} b {30.2 80.6} c {80.1 30.9} color {1 0 0} outlined 1.1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td></tr>
 </table>
 
