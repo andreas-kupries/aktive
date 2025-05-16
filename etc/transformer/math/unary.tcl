@@ -244,8 +244,8 @@ operator op::math1::fit::stretch {
     note __Beware__, this means that construction incurs a computation \
 	cost on the input.
 
-    note This cost somewhat offset by providing these `min` and `max` values \
-	to the caller. It is done by storing the values in the sub-dictionary \
+    note This cost is somewhat offset by returning these `min` and `max` values \
+	to the caller. This is done by storing the values in the sub-dictionary \
 	`stretch` of the meta data dictionary. `stretch` also contains the \
 	calculated `scale` and `gain` parameters of the linear mapping. This \
 	enables the mapping of fitted values back to the original domain.
