@@ -74,9 +74,9 @@ operator {dexpr attr} {
     }
 }
 
-operator {edge} {
-    op::column::profile  top
-    op::column::rprofile bottom
+operator {edge which out} {
+    op::column::profile  top    first {the height of the image}
+    op::column::rprofile bottom last  {`-1`}
 } {
 
     example {
@@ -91,20 +91,9 @@ operator {edge} {
 	image with width and depth of the input. The bands of the image are \
 	handled independently.
 
-    switch -exact -- $edge {
-	top {
-	    def bottom 0
-	    note The __top__ profile of each column is the index of the \
-		__first__ row with a __non-zero__ value. Or the height of \
-		the image, if there are no such in the column.
-	}
-	bottom {
-	    def bottom 1
-	    note The __bottom__ profile of each column is the index of the \
-		__last__ row with a __non-zero__ value. Or `-1`, if there \
-		are no such in the column.
-	}
-    }
+    note The __${edge}__ profile of each column is the index of the \
+	__${which}__ row with a __non-zero__ value. Or the ${out}, \
+	if there are no such in the column.
 
     input
 
@@ -113,12 +102,14 @@ operator {edge} {
 	domain->height = 1;
     }
 
+    def isbottom [string equal $edge bottom]
+
     pixels -state {
 	aktive_image src;
     } -setup {
 	state->src = aktive_region_owner (srcs->v[0]);
     } {
-	aktive_cprofile* cprofile = aktive_cprofile_find (state->src, @@bottom@@, request);
+	aktive_cprofile* cprofile = aktive_cprofile_find (state->src, @@isbottom@@, request);
 
 	TRACE ("cprofile [%d]", cprofile->n);
 

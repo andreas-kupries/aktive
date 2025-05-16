@@ -44,7 +44,8 @@ operator image::from::color {
     str            color   Name of pixel color
 
     body {
-	band @@passthrough@@ values {*}[aktive color css $color]
+	set values [aktive color css $color]
+	band @@passthrough@@ values {*}$values
     }
 }
 
