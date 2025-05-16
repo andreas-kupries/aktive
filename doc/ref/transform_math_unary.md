@@ -422,7 +422,7 @@ The (image statistics) method `<by>` is used to determine the range of the image
 
 __Beware__, this means that construction incurs a computation cost on the input.
 
-This cost somewhat offset by providing these `min` and `max` values to the caller. It is done by storing the values in the sub-dictionary `stretch` of the meta data dictionary. `stretch` also contains the calculated `scale` and `gain` parameters of the linear mapping. This enables the mapping of fitted values back to the original domain.
+This cost is somewhat offset by returning these `min` and `max` values to the caller. This is done by storing the values in the sub-dictionary `stretch` of the meta data dictionary. `stretch` also contains the calculated `scale` and `gain` parameters of the linear mapping. This enables the mapping of fitted values back to the original domain.
 
 |Input|Description|
 |:---|:---|

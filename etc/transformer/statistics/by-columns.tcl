@@ -92,7 +92,7 @@ operator {edge which out} {
 	handled independently.
 
     note The __${edge}__ profile of each column is the index of the \
-	__${which}__ row with a __non-zero__ value. Or the ${out}, \
+	__${which}__ row with a __non-zero__ value. Or ${out}, \
 	if there are no such in the column.
 
     input

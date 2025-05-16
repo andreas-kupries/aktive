@@ -28,7 +28,7 @@
 
 Syntax: __aktive op math and__ srcs... [[→ definition](/file?ci=trunk&ln=106&name=etc/transformer/math/binary.tcl)]
 
-As a logical operation the inputs are trivially thresholded at 0.5. Values <= 0.5 are seen as false, else as true.
+As a logical operation the inputs are trivially thresholded at 0.5. Values <= 0.5 are seen as `false`, else as `true`.
 
 Returns image aggregated from the application of the associative binary operation `A && B` to all shared pixels of all the inputs.
 
@@ -43,7 +43,7 @@ Expects 2 or more input images. Throws an error if there are less.
 
 Syntax: __aktive op math or__ srcs... [[→ definition](/file?ci=trunk&ln=106&name=etc/transformer/math/binary.tcl)]
 
-As a logical operation the inputs are trivially thresholded at 0.5. Values <= 0.5 are seen as false, else as true.
+As a logical operation the inputs are trivially thresholded at 0.5. Values <= 0.5 are seen as `false`, else as `true`.
 
 Returns image aggregated from the application of the associative binary operation `A || B` to all shared pixels of all the inputs.
 
@@ -58,7 +58,7 @@ Expects 2 or more input images. Throws an error if there are less.
 
 Syntax: __aktive op math xor__ srcs... [[→ definition](/file?ci=trunk&ln=106&name=etc/transformer/math/binary.tcl)]
 
-As a logical operation the inputs are trivially thresholded at 0.5. Values <= 0.5 are seen as false, else as true.
+As a logical operation the inputs are trivially thresholded at 0.5. Values <= 0.5 are seen as `false`, else as `true`.
 
 Returns image aggregated from the application of the associative binary operation `A ^^ B` to all shared pixels of all the inputs.
 

@@ -347,7 +347,7 @@ Returns image containing a test pattern with increasing spatial frequency from l
 ---
 ### [↑](#top) <a name='image_from_band'></a> aktive image from band
 
-Syntax: __aktive image from band__  ?(param value)...? [[→ definition](/file?ci=trunk&ln=51&name=etc/generator/virtual/constant.tcl)]
+Syntax: __aktive image from band__  ?(param value)...? [[→ definition](/file?ci=trunk&ln=52&name=etc/generator/virtual/constant.tcl)]
 
 Returns image where all pixels have the same band values.
 
@@ -422,7 +422,7 @@ Depth is 3. Because colors are RGB.
 ---
 ### [↑](#top) <a name='image_from_column'></a> aktive image from column
 
-Syntax: __aktive image from column__  ?(param value)...? [[→ definition](/file?ci=trunk&ln=105&name=etc/generator/virtual/constant.tcl)]
+Syntax: __aktive image from column__  ?(param value)...? [[→ definition](/file?ci=trunk&ln=106&name=etc/generator/virtual/constant.tcl)]
 
 Returns image of the specified width where all columns have the same set of values.
 
@@ -448,7 +448,7 @@ The image's height is the number of values.
 ---
 ### [↑](#top) <a name='image_from_matrix'></a> aktive image from matrix
 
-Syntax: __aktive image from matrix__  ?(param value)...? [[→ definition](/file?ci=trunk&ln=131&name=etc/generator/virtual/constant.tcl)]
+Syntax: __aktive image from matrix__  ?(param value)...? [[→ definition](/file?ci=trunk&ln=132&name=etc/generator/virtual/constant.tcl)]
 
 Returns single-band image with the pixel VALUEs.
 
@@ -480,7 +480,7 @@ Depth is fixed at 1.
 ---
 ### [↑](#top) <a name='image_from_row'></a> aktive image from row
 
-Syntax: __aktive image from row__  ?(param value)...? [[→ definition](/file?ci=trunk&ln=79&name=etc/generator/virtual/constant.tcl)]
+Syntax: __aktive image from row__  ?(param value)...? [[→ definition](/file?ci=trunk&ln=80&name=etc/generator/virtual/constant.tcl)]
 
 Returns image of the specified height where all rows have the same set of values.
 
