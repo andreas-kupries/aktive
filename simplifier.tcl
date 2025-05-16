@@ -2,7 +2,7 @@
 ##
 # AKTIVE -- Andreas Kupries's Tcl Image/Vector Extension
 #
-# (c) 2023 Andreas Kupries http://wiki.tcl.tk/andreas%20kupries
+# (c) 2023,2025 Andreas Kupries http://wiki.tcl.tk/andreas%20kupries
 
 # # ## ### ##### ######## ############# #####################
 
@@ -34,7 +34,7 @@ namespace eval aktive::simplify {
 	\
 	input/count src/value src/attr src/pop calc \
 	\
-	/src /src/child /const /constv /op /unary0 /unary1 /unary2 \
+	/first /src /src/child /const /constv /op /unary0 /unary1 /unary2 \
 	/fold/constant/0 /fold/constant/1 /fold/constant/2 \
 
     namespace ensemble create
@@ -133,8 +133,8 @@ proc aktive::simplify::iff {expr args} {
 proc aktive::simplify::input/count {varname args} {
     debug.aktive/simplifier {input/count -> $varname}
 
-    upvar 1 $varname dst
-    set dst [llength $args]
+    upvar 1 $varname dst args srcs
+    set dst [llength $srcs]
     uplevel 1 [list aktive simplify {*}$args]
 }
 
@@ -292,6 +292,13 @@ proc aktive::simplify::/src {} {
 
     upvar 1 src src
     return $src
+}
+
+proc aktive::simplify::/first {} {
+    debug.aktive/simplifier {[debug caller]}
+
+    upvar 1 args args
+    return [lindex $args 0]
 }
 
 proc aktive::simplify::/src/child {} {

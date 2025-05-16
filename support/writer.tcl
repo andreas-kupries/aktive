@@ -2221,6 +2221,10 @@ proc dsl::writer::TranslateHint {cmd args} {
 	    } $relation]
 	    return "param/$relation $name $value [TranslateHint {*}$action]"
 	}
+	call/arity {
+	    set action [lassign $args relation value]
+	    return "input/count __ic iff \{\$__ic $relation $value\} [TranslateHint {*}$action]"
+	}
 	if {
 	    set action [lassign $args expr]
 	    return "iff [list $expr] [TranslateHint {*}$action]"
@@ -2248,6 +2252,7 @@ proc dsl::writer::TranslateHint {cmd args} {
 	    set action [lassign $args var expr]
 	    return "calc $var [list $expr] [TranslateHint {*}$action]"
 	}
+	first     -
 	src       -
 	src/child -
 	op        -
