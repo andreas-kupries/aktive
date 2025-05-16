@@ -117,7 +117,7 @@ operator {cfunction dexpr} {
 	section transform math n-ary logical
 
 	note As a logical operation the inputs are trivially thresholded at 0.5. \
-	    Values <= 0.5 are seen as false, else as true.
+	    Values <= 0.5 are seen as `false`, else as `true`.
     } else {
 	section transform math n-ary
     }
@@ -129,7 +129,8 @@ operator {cfunction dexpr} {
 
     note Expects 2 or more input images. Throws an error if there are less.
 
-    ## TODO: Accept and pass a single input unchanged - simplifier rule
+    # A single input is accepted, and passed unchanged
+    simplify for   call/arity == 1   returns first
 
     state -setup {
 	if (srcs->c < 1) aktive_fail ("not enough inputs, expected 2 or more");

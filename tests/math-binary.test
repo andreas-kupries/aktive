@@ -89,16 +89,13 @@ foreach {op expected} {
 	puts   "XX EXP.. $expected\n"
     }
 
-    set cop $op
-    #if {$op in {and or xor add mul min max}} { append cop -core }
-
     test aktive-op-math-${op}-2.0 "aktive op math $op, core" -body {
 	set x [astcl aktive op math $op $in [aktive op flip x $in]]
 	dict unset x pixels
 	set x
     } -cleanup {
 	unset x
-    } -result "type op::math::$cop domain {x 0 y 0 width 20 height 1 depth 1}"
+    } -result "type op::math::$op domain {x 0 y 0 width 20 height 1 depth 1}"
 
     test aktive-op-math-${op}-2.1 "aktive op math $op, pixels" -body {
 	pixels aktive op select x [aktive op math $op $in [aktive op flip x $in]] from 0 to 18
@@ -106,7 +103,16 @@ foreach {op expected} {
 
     test aktive-op-math-${op}-2.2 "aktive op math $op, dag" -body {
 	dag aktive op math $op $in [aktive op flip x $in]
-    } -match glob -result "op::math::$cop * {} {$it *} {*}"
+    } -match glob -result "op::math::$op * {} {$it *} {*}"
+
+    # arity/1 calls of these are pass-through
+    if {$op in {
+	and or xor add mul min max
+    }} {
+	test aktive-op-math-${op}-2.3 "aktive op math $op, call arity 1, passthrough" -body {
+	    tcl::mathop::== [aktive query id $in] [aktive query id [aktive op math $op $in]]
+	} -result 1
+    }
 
     unset in
 }
