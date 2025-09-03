@@ -22,7 +22,7 @@
  * |>0  |return `n`                                |
  * |<0  |return 0, concurrent execution is disabled|
  *
- * Note: It is possible to set an `n` > actual CPU count.
+ * Note: It is possible to set an `n` greather than the actual CPU core count.
  * This will overcommit the CPU.
  */
 

@@ -29,8 +29,8 @@ aktive_set_processors (int np)
 extern aktive_uint
 aktive_processors (void)
 {
-    if (n < 0) return 0;
-    if (n > 0) return n;
+    if (n < 0) return 0;	// disabled
+    if (n > 0) return n;	// this many cores
 
     // n == 0 : Query system. OS dependent.
 #ifdef WIN32
