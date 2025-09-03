@@ -129,8 +129,11 @@ aktive_batch_run ( const  char*          name
 {
     TRACE_FUNC ("((char*) '%s')", name);
 
+    // note 1: use 2 workers less than processors, to have space for maker and completer
+    // note 2: at least use one worker.
     Tcl_ThreadId id;
-    aktive_uint  wcount = aktive_processors ();
+    aktive_uint  cores  = aktive_processors ();
+    aktive_uint  wcount = (cores <= 2) ? 1 : (cores - 2);
 
     aktive_batch processor = ALLOC (struct aktive_batch);
     memset (processor, 0, sizeof(struct aktive_batch));
