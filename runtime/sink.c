@@ -70,7 +70,7 @@ aktive_sink_run (aktive_sink* sink,
     // (through their regions) during completion.
     aktive_image_ref (src);
 
-    // Scan image by rows      -- TODO FUTURE -- ask image for prefered method
+    // Scan image by rows      -- TODO FUTURE -- ask pipeline for prefered method
     // Scan image sequentially -- TODO FUTURE -- spread over multiple threads
 
     aktive_context c = aktive_context_new ();
@@ -81,10 +81,9 @@ aktive_sink_run (aktive_sink* sink,
 	TRACE_RETURN_VOID;
     }
 
-    // TODO :: heuristic to ignore threading based on
-    //         input image dimensions / #pixels to compute
-    //
+    // TODO :: heuristic to ignore threading based on shape and size
     // TODO :: heuristics to tile the input differently (rows, columns, tiles)
+    //         based on size, shape, and hints
 
     if (aktive_processors()) {
 	aktive_region_destroy (rg);
@@ -95,7 +94,7 @@ aktive_sink_run (aktive_sink* sink,
     }
 
     // No threading.
-    // TODO :: heuristic to make a single call over per-row
+    // TODO :: heuristic to decide between single call vs. per-row vs tiles.
     // sink_all (rg, state, sink, src);
 
     sink_sequential (rg, state, sink, src);
