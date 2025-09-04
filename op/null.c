@@ -48,7 +48,7 @@ aktive_null_sink (aktive_uint sequential)
     info->size     = 0;
     info->written  = 0;
 
-    sink->name       = "null";
+    sink->name       = sequential ? "null-sequential" : "null-unordered";
     sink->setup      = (aktive_sink_setup)   null_header;
     sink->final      = (aktive_sink_final)   null_final;
     sink->process    = (aktive_sink_process) null_pixels;
