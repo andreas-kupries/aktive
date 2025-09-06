@@ -1437,6 +1437,7 @@ proc dsl::writer::OperatorFunctionForOp {op} {
 	+ [FormatCode ${state/cleanup}]
 	+ {}
 	Comment {- - -- --- ----- -------- ------------- ---------------------} {  }
+	+ "  TRACE_RETURN_VOID;"
 	+ "\}"
 	+ {}
     }

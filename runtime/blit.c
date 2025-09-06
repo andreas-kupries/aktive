@@ -22,6 +22,7 @@ extern void
 aktive_blit_raw_copy (double* dst, aktive_uint num, aktive_uint stride, double* src)
 {
     TRACE_FUNC("((dst) %p, (num) %u, (stride) %u, (src) %p)", dst, num, stride, src);
+
     double* dhead = dst;
     double* shead = src;
 
@@ -235,6 +236,8 @@ aktive_blit_fill_bands (aktive_block* dst, aktive_rectangle* area, aktive_double
 	    memcpy (cell, bandv->v, d * sizeof(double));
 	}
     }
+
+    TRACE_RETURN_VOID;
 }
 
 extern void
@@ -264,6 +267,9 @@ aktive_blit_fill_rows (aktive_block* dst, aktive_rectangle* area, int x, aktive_
 	// partial blit of single line
 	memcpy (start, rowv->v + x, width * sizeof(double));
     }
+
+
+    TRACE_RETURN_VOID;
 }
 
 extern void
@@ -299,6 +305,8 @@ aktive_blit_fill_columns (aktive_block* dst, aktive_rectangle* area, int y, akti
 	    *cell = columnv->v [y + row];
 	}
     }
+
+    TRACE_RETURN_VOID;
 }
 
 extern void
