@@ -1,0 +1,27 @@
+down
+
+H: box "HSL"	;	line invisible
+   box "HSV"
+
+right		;	line <->
+R: box "sRGB"	;	line <->
+S: box "scRGB"	;	line <->
+X: box "XYZ"	;	line <->
+L: box "Lab"	;	line <->
+   box "LCh"
+
+down
+
+line -> from R.s
+box "gray"
+
+line <-> from X.s
+box "Yxy"
+line ->
+G: box "Grey"
+
+arrow  -> from L.s then to (L.s, G.e) to G.e
+arrow  -> from S.s then to (S.s, G.w) to G.w
+arrow <-> from R.n then to (R.n, H.e) to H.e
+
+

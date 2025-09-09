@@ -2,11 +2,14 @@
 # abort on error
 set -e
 
-## inlined clean
+## inlined clean (backup files, crash dumps, debug traces)
 find . -name "*~" -print
 find . -name "*~" -exec rm "{}" \;
 find . -follow -name "core*" -exec rm "{}" \;
 rm -f *.trace
+
+operation=install
+#operation=debug
 
 ## inlined/integrated doc
 rm -rf        doc
@@ -18,9 +21,12 @@ rm doc/assets/aktive-logo-128.ppm
 rm doc/assets/aktive-logo-128-pipeline.d2
 rm doc/assets/aktive-logo-128-pipeline.png
 rm doc/assets/*.inc
+# pikchr conversion
+pikchr --svg-only doc/assets/cc.pikchr > doc/assets/cc.svg
+rm doc/assets/cc.pikchr
 
 mkdir -p ../Logs
-( ./build.tcl uninstall install "$@" && \
+( ./build.tcl uninstall $operation "$@" && \
   tclsh examples.tcl && \
   tclsh tools/md-include \
 	-x doc/ref/xref.tcl \
