@@ -204,7 +204,7 @@ operator image::from::sparse::ranges {
 	}
 
 	// no rows overlapping the request
-	if (i >= istate->isize) return;
+	if (i >= istate->isize) TRACE_RETURN_VOID;
 
 	// iterate over the ranges until we fall out of the request, row-wise, or run out of ranges
 	for ( ; (param->ranges.v[k].y <= ymax) &&
