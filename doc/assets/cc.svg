@@ -1,0 +1,52 @@
+<svg xmlns='http://www.w3.org/2000/svg' class="pikchr" viewBox="0 0 1012.32 508.32">
+<path d="M2,74L110,74L110,2L2,2Z"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<text x="56" y="38" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">HSL</text>
+<path d="M2,218L110,218L110,146L2,146Z"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<text x="56" y="182" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">HSV</text>
+<polygon points="110,182 121,177 121,186" style="fill:rgb(0,0,0)"/>
+<polygon points="182,182 170,186 170,177" style="fill:rgb(0,0,0)"/>
+<path d="M115,182L176,182"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<path d="M182,218L290,218L290,146L182,146Z"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<text x="236" y="182" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">sRGB</text>
+<polygon points="290,182 301,177 301,186" style="fill:rgb(0,0,0)"/>
+<polygon points="362,182 350,186 350,177" style="fill:rgb(0,0,0)"/>
+<path d="M295,182L356,182"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<path d="M362,218L470,218L470,146L362,146Z"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<text x="416" y="182" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">scRGB</text>
+<polygon points="470,182 481,177 481,186" style="fill:rgb(0,0,0)"/>
+<polygon points="542,182 530,186 530,177" style="fill:rgb(0,0,0)"/>
+<path d="M475,182L536,182"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<path d="M542,218L650,218L650,146L542,146Z"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<text x="596" y="182" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">XYZ</text>
+<polygon points="650,182 661,177 661,186" style="fill:rgb(0,0,0)"/>
+<polygon points="722,182 710,186 710,177" style="fill:rgb(0,0,0)"/>
+<path d="M655,182L716,182"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<path d="M722,218L830,218L830,146L722,146Z"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<text x="776" y="182" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">Lab</text>
+<polygon points="830,182 841,177 841,186" style="fill:rgb(0,0,0)"/>
+<polygon points="902,182 890,186 890,177" style="fill:rgb(0,0,0)"/>
+<path d="M835,182L896,182"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<path d="M902,218L1010,218L1010,146L902,146Z"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<text x="956" y="182" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">LCh</text>
+<polygon points="236,290 231,278 240,278" style="fill:rgb(0,0,0)"/>
+<path d="M236,218L236,284"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<path d="M182,362L290,362L290,290L182,290Z"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<text x="236" y="326" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">gray</text>
+<polygon points="596,218 600,229 591,229" style="fill:rgb(0,0,0)"/>
+<polygon points="596,290 591,278 600,278" style="fill:rgb(0,0,0)"/>
+<path d="M596,223L596,284"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<path d="M542,362L650,362L650,290L542,290Z"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<text x="596" y="326" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">Yxy</text>
+<polygon points="596,434 591,422 600,422" style="fill:rgb(0,0,0)"/>
+<path d="M596,362L596,428"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<path d="M542,506L650,506L650,434L542,434Z"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<text x="596" y="470" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">Grey</text>
+<polygon points="650,470 661,465 661,474" style="fill:rgb(0,0,0)"/>
+<path d="M776,218L776,470L655,470"  style="fill:none;stroke-width:2.16;stroke-linejoin:round;stroke:rgb(0,0,0);" />
+<polygon points="542,470 530,474 530,465" style="fill:rgb(0,0,0)"/>
+<path d="M416,218L416,470L536,470"  style="fill:none;stroke-width:2.16;stroke-linejoin:round;stroke:rgb(0,0,0);" />
+<polygon points="236,146 231,134 240,134" style="fill:rgb(0,0,0)"/>
+<polygon points="110,38 121,33 121,42" style="fill:rgb(0,0,0)"/>
+<path d="M236,140L236,38L115,38"  style="fill:none;stroke-width:2.16;stroke-linejoin:round;stroke:rgb(0,0,0);" />
+</svg>
+

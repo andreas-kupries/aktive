@@ -41,13 +41,7 @@ Lab - L* defines black at 0 and white at 100.
 
 ## Core conversions
 
-```
-HSL <--> \                                       / <--> ICC (nyi, LittleCMS ?)
-HSV <--> sRGB <--> scRGB <--> XYZ <---------> Lab <---> LCh
-          |             \     |  \ <--> Yxy  /
-          v              \    v  / <--- /   /
-          gray            \-> Grey <-------/
-```
+<img src='../../../doc/assets/cc.svg'>
 
 |A	|B	|Done	|
 |---	|---	|---	|
