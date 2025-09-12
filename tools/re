@@ -22,8 +22,12 @@ rm doc/assets/aktive-logo-128-pipeline.d2
 rm doc/assets/aktive-logo-128-pipeline.png
 rm doc/assets/*.inc
 # pikchr conversion
-pikchr --svg-only doc/assets/cc.pikchr > doc/assets/cc.svg
-rm doc/assets/cc.pikchr
+for i in doc/assets/*.pikchr
+do
+    pikchr --svg-only "$i" > "doc/assets/$(basename "$i" .pikchr).svg"
+    rm "$i"
+done
+
 
 mkdir -p ../Logs
 ( ./build.tcl uninstall $operation "$@" && \
