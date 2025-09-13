@@ -1,0 +1,28 @@
+#!/bin/bash
+SUDO="$(sudoit)"
+PREFIX="bench"
+#TRACE="-trace"
+
+${SUDO} ./build.tcl uninstall
+clear
+echo
+
+mkdir -p "${LOG}"
+rm    -f "${LOG}/${PREFIX}".*
+
+# Cleanups
+rm -vf *.trace */*.trace
+find . -follow -name "core*" -exec rm "{}" \;
+pca
+
+# include dir is sibling of bin dir
+headers="$(dirname $(dirname $(type tclsh | projection 3))/include)"
+
+( time ${SUDO} ./build.tcl $TRACE bench \
+       --log   "${LOG}"/${PREFIX} \
+       --color on \
+       "$@"
+
+) 2>&1 | tee "${LOG}"/${PREFIX}.stderr
+
+#less -rf "${LOG}"/${PREFIX}.stderr

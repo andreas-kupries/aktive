@@ -77,7 +77,7 @@ proc resolve {path chain} {
 	    # work from the back, this keeps the indices correct as replacements happen.
 	    foreach match [lreverse $matches] {
 		set cmd [string range $line {*}$match]
-		puts "    ($cmd)@($match)"
+		#puts "    ($cmd)@($match)"
 		regexp {<!include: ([^>]*)>} $cmd -> include
 		set include [find $path $include]
 		#puts i(($include))
@@ -113,12 +113,12 @@ proc resolve {path chain} {
 	    # work from the back, this keeps the indices correct as replacements happen.
 	    foreach match [lreverse $matches] {
 		set cmd [string range $line {*}$match]
-		puts "    ($cmd)@($match)"
+		#puts "    ($cmd)@($match)"
 		regexp {<!xref: ([^>]*)>} $cmd -> reference
 
 		if {![dict exists $xr $reference]} continue
 		set replacement [dict get $xr $reference]
-		
+		#puts "    ($cmd)@($match) --> (($replacement))"
 		#puts r(($include))
 		set line [string replace $line {*}$match $replacement]
 	    }
