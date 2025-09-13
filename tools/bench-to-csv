@@ -1,0 +1,54 @@
+#!/usr/bin/env tclsh
+
+lassign $argv infile outfile
+
+set chan [open $infile  r]
+set dst  [open $outfile w]
+
+# input file is CSV formatted
+#
+# why is this then a conversion, given that the output file is CSV
+# formatted as well ?
+#
+#  the difference is in the field structure. Of the 12 technical
+#  fields found in the six actual fields of the input we need only
+#  ten, and seven of them have to extracted from a single field of the
+#  input.
+#
+# INPUT :: shell shell-version benchmark-file round label microseconds
+# LABEL :: command sink cores image-size image-aspect image-width image-height
+#
+# Ignored in the output: shell, round
+
+puts $dst "version,suite,name,sink,threads,size,aspect,width,height,micros"
+
+while {![eof $chan]} {
+	puts -nonewline \r\033\[K[incr num] ; flush stdout
+	
+    if {[gets $chan line] < 0} continue
+    if {[string match *tcl-version* $line]} continue
+
+    set line [split $line ,]
+    set line [lmap field $line { string trim $field \" }]
+
+    lassign $line shell version suite round label micros
+
+    set suite [file join {*}[lrange [file split $suite] end-1 end]]
+
+    lassign $label name sink thread size aspect w h __
+    
+    if 1 {
+	set thread  [string range $thread  1 end]
+	set size    [string range $size    2 end]
+	set aspect  [string range $aspect  1 end]
+	set w       [string range $w       1 end]
+	set h       [string range $h       1 end]
+    }
+
+    puts $dst [join [list $version $suite $name $sink $thread $size $aspect $w $h $micros] ,]
+}
+
+puts ""
+close $chan
+close $dst
+exit

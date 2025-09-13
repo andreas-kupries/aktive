@@ -11,7 +11,7 @@ rm -f *.trace
 operation=install
 #operation=debug
 
-## inlined/integrated doc
+# setup of inlined/integrated doc
 rm -rf        doc
 cp -rf docsrc doc
 mkdir -p      doc/ref
@@ -21,23 +21,27 @@ rm doc/assets/aktive-logo-128.ppm
 rm doc/assets/aktive-logo-128-pipeline.d2
 rm doc/assets/aktive-logo-128-pipeline.png
 rm doc/assets/*.inc
-# pikchr conversion
+
+# pikchr conversion for docs
 for i in doc/assets/*.pikchr
 do
     pikchr --svg-only "$i" > "doc/assets/$(basename "$i" .pikchr).svg"
     rm "$i"
 done
 
-
+# main build, including examples, and doc/example integration
 mkdir -p ../Logs
 ( ./build.tcl uninstall $operation "$@" && \
-  tclsh examples.tcl && \
-  tclsh tools/md-include \
-	-x doc/ref/xref.tcl \
-	-x doc/ref/xmark.tcl \
-	$(find doc -name '*.md' -a -not -name 'example-*')
+      \
+      tclsh examples.tcl && \
+      \
+      tclsh tools/md-include \
+	    -x doc/ref/xref.tcl \
+	    -x doc/ref/xmark.tcl \
+	    $(find doc -name '*.md' -a -not -name 'example-*')
 ) |& tee ../Logs/test.install
 
+# doc cleanup
 rm -rf doc/parts
 rm -rf doc/dev/figures/*.d2
 rm -rf doc/dev/figures/generated

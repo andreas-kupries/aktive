@@ -1,0 +1,21 @@
+# -*- tcl -*- tcl.tk//DSL tclbench-generate//EN// Tcl Benchmark Generator File
+#
+# This file contains a number of benchmark __generators__ for AKTIVE commands.
+#
+# (c) 2025 Andreas Kupries <andreas_kupries@users.sourceforge.net>
+##
+# ### ### ### ######### ######### ######### ###########################
+## Utilities
+
+source ../support/bench-gen-utilities.tcl
+
+# ### ### ### ######### ######### ######### ###########################
+## Benchmark Generators.
+
+op-bench {
+    aktive image from value // width %W height %H depth 1 value 0.5
+}
+
+# ### ### ### ######### ######### ######### ###########################
+## Complete
+return

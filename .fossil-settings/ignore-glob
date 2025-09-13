@@ -5,3 +5,5 @@ rtgen*/*
 tmp/*
 *~
 examples.tcl
+bench/generated*/*
+bench/results*/*
