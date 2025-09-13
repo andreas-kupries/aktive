@@ -1,0 +1,109 @@
+
+# # ## ### ##### ######## ############# #####################
+## general structure is
+## - create several simple series
+## - merge the series into a side by side comparison
+
+# # ## ### ##### ######## ############# #####################
+## overall unordered vs sequential
+
+chart unordered {
+    only {name = 'aktive image from value'}
+    only {sink = 'null'}
+
+    range id
+    nodump
+}
+
+chart sequential {
+    only {name = 'aktive image from value'}
+    only {sink = 'null-s'}
+
+    range id
+    nodump
+}
+
+chart unordered-vs-sequential {
+    side-by-side unordered sequential
+}
+
+# # ## ### ##### ######## ############# #####################
+## overall unordered tall images 
+
+chart unordered-single-column {
+    only {name = 'aktive image from value'}
+    only {sink = 'null'}
+    only {iwidth = 1}
+
+    over  threads
+    range iheight
+    nodump
+}
+
+chart unordered-single-column-threads {
+    side-by-side {*}[match unordered-single-column.thread*]
+}
+
+# # ## ### ##### ######## ############# #####################
+## overall unordered wide images 
+
+chart unordered-single-row {
+    only {name = 'aktive image from value'}
+    only {sink = 'null'}
+    only {iheight = 1}
+
+    over  threads
+    range iheight
+    nodump
+}
+
+chart unordered-single-row-threads {
+    side-by-side {*}[match unordered-single-row.thread*]
+}
+
+# # ## ### ##### ######## ############# #####################
+## overall unordered square
+
+chart unordered-square {
+    only {name = 'aktive image from value'}
+    only {sink = 'null'}
+    only {iaspect = '1:1'}
+
+    over  threads
+    range isize
+    nodump
+}
+
+chart unordered-square-threads {
+    side-by-side {*}[match unordered-square.thread*]
+}
+
+
+
+
+
+
+
+
+# # ## ### ##### ######## ############# #####################
+return
+
+chart sequential-single-column {
+    only {name = 'aktive image from value'}
+    only {sink = 'null-s'}
+    only {iwidth = 1}
+
+    over  threads
+    range iheight
+    plot  micros
+}
+
+chart sequential-single-row {
+    only {name = 'aktive image from value'}
+    only {sink = 'null-s'}
+    only {iheight = 1}
+
+    over  threads
+    range iwidth
+    plot  micros
+}

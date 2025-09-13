@@ -1,0 +1,154 @@
+#!/usr/bin/env tclsh
+
+package require sqlite3
+
+# # ## ### ##### ######## ############# #####################
+## 
+
+proc main {} {
+    do {*}[cmdline]
+}
+
+proc cmdline {} {
+    global argv
+    if {[llength $argv] < 2} usage
+    return $argv
+}
+
+proc usage {} {
+    global argv0
+    puts stderr "Usage: $argv0 database chartspec..."
+    exit 1
+}
+
+proc do {db args} {
+    sqlite3 DB $db
+
+    foreach spec $args { source $spec }
+    DB close
+}
+
+proc dump {label series titles} {
+    set __out [open $label.csv w]
+    emit $titles
+    # the series stride is implied in the length of the titles list
+    foreach $titles $series {
+	emit [lmap t $titles { set $t }]
+    }
+    close $__out
+    return
+}
+
+proc emit {words} {
+    upvar 1 __out out
+    puts $out [join $words ,]
+    return
+}
+
+# # ## ### ##### ######## ############# #####################
+## chart DSL commands
+
+proc chart {label script} {
+    set chart {plot micros only {} nodump 0 merge {} over {}}
+    eval $script
+
+    dict with chart {} ; unset chart
+    # --> only, over, range, plot, nodump, merge
+
+    global series
+    
+    if {[llength $merge]} {
+	# place multiple series side-by-side
+	# 2 column (x, y)
+
+	set titles [list id {*}$merge]
+	foreach s $merge {
+	    set id 0
+	    foreach {_ y} [dict get $series $s] {
+		dict lappend m $id $y
+		incr id
+	    }
+	}
+	set points {}
+	foreach id [lsort -dict [dict keys $m]] {
+	    lappend points $id {*}[dict get $m $id]
+	}
+	dump $label $points $titles
+	return
+    }
+
+    foreach key {range only} {
+	if {![info exists $key]} { return -code error "missing: $key" }
+    }
+
+    set clauses ([join $only ")\nAND   ("])
+    if {$over eq {}} {
+	set titles {x y}
+	set points [DB eval [map {
+	    SELECT %range% AS x
+	    ,      %plot%  AS y
+	    FROM  micros
+	    WHERE %clauses%
+	    ORDER BY x
+	} \
+	  %range%    $range   \
+	  %plot%     $plot    \
+	  %clauses%  $clauses \
+	  "\n\t    " "\n"     \
+	]]
+
+	dict set series $label $points
+	if {$nodump} return
+	dump $label $points $titles
+    } else {
+	# over z -> many series
+	set titles {x y}
+	foreach z [values $over] {
+	    set points [DB eval [map {
+		SELECT %range% AS x
+		,      %plot%  AS y
+		FROM  micros
+		WHERE %clauses%
+		AND   (%over% = %z%)
+		ORDER BY x
+	    } \
+	     %range%   $range   \
+	     %plot%    $plot    \
+	     %clauses% $clauses \
+	     %over%    $over    \
+	     %z%       $z       \
+	     "\n\t\t"  "\n"     \
+	    ]]
+
+	    dict set series $label.$over$z $points
+	    if {$nodump} continue
+	    dump ${label}.$over$z $points $titles
+	}
+    }
+
+    return
+}
+
+proc values {column} {
+    DB eval "SELECT DISTINCT $column FROM micros ORDER BY $column ASC"
+}
+
+proc only   {clause} { upvar 1 chart chart ; dict lappend chart only  $clause }
+proc over   {column} { upvar 1 chart chart ; dict set     chart over  $column }
+proc range  {column} { upvar 1 chart chart ; dict set     chart range $column }
+proc plot   {column} { upvar 1 chart chart ; dict set     chart plot  $column }
+proc nodump {}       { upvar 1 chart chart ; dict set     chart nodump 1 }
+
+proc map {s args} { string map $args $s }
+
+proc side-by-side {args} { upvar 1 chart chart ; dict set chart merge $args }
+
+proc match {pattern} {
+    global series
+    dict keys $series $pattern
+}
+
+
+# # ## ### ##### ######## ############# #####################
+
+main

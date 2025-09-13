@@ -25,4 +25,20 @@ headers="$(dirname $(dirname $(type tclsh | projection 3))/include)"
 
 ) 2>&1 | tee "${LOG}"/${PREFIX}.stderr
 
+# post-processing
+# I.  convert into a .sqlite database
+# II. generate a number of extracts and charts
+
+bench-to-sqlite \
+    "${LOG}"/${PREFIX}.results \
+    "${LOG}"/${PREFIX}.sqlite 
+
+bench-charts \
+    "${LOG}"/${PREFIX}.sqlite \
+    bench/image-from-value.charts
+
+gnuplot bench/image-from-value.gnuplot
+
+mv *.csv image-from-value.ps bench/plots
+
 #less -rf "${LOG}"/${PREFIX}.stderr
