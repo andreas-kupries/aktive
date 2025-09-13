@@ -1,0 +1,52 @@
+right
+
+M: circle "maker"
+arrow
+T: [ down
+T1: box "tasks" "3" fit
+box invisible "..."
+T2: box "tasks" "3" fit
+right
+]
+line invisible
+W: [ down
+W1: circle "worker"
+box invisible "..."
+W2: circle "worker"
+right
+]
+line invisible
+R: [ down
+R1: box "results" "#workers" fit
+box invisible "..."
+R2: box "results" "#workers" fit
+right
+]
+arrow
+C: circle "completer"
+
+arrow from M.c to T.T1.w chop
+arrow from M.c to T.T2.w chop
+
+arrow from T.T1.e to W.W1.c chop
+arrow from T.T2.e to W.W2.c chop
+
+arrow from W.W1.c to R.R1.w chop
+arrow from W.W2.c to R.R2.w chop
+
+arrow from R.R1.e to C.c chop
+arrow from R.R2.e to C.c chop
+
+line invisible from W.W2.s down
+O: box "workorder" "#workers" fit
+
+arrow from M.s to (M.s, O.w) then to O.w radius 10
+arrow from O.e to (C.s, O.e) then to C.s radius 10
+
+line invisible from T.T1.n up
+I: box "idle" "#workers + 2" fit
+
+arrow from W.W1.nw to I.se chop
+arrow from W.W2.nw to I.se chop
+
+arrow from I.sw to M.ne

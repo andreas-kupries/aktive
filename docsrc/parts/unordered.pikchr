@@ -1,0 +1,25 @@
+
+right
+
+circle "maker"
+arrow
+T: box "tasks" "#workers" fit
+arrow
+
+W: [ down
+W1: circle "worker"
+box invisible "..."
+W2: circle "worker"
+right
+]
+
+arrow
+R: box "results" "#workers" fit
+arrow
+circle "completer"
+
+arrow from T.c to W.W1.c chop
+arrow from T.c to W.W2.c chop
+
+arrow from W.W1.c to R.c chop
+arrow from W.W2.c to R.c chop

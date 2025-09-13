@@ -1,0 +1,34 @@
+<svg xmlns='http://www.w3.org/2000/svg' class="pikchr" viewBox="0 0 736.992 220.32">
+<circle cx="38" cy="110" r="36"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<text x="38" y="110" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">maker</text>
+<polygon points="146,110 134,114 134,105" style="fill:rgb(0,0,0)"/>
+<path d="M74,110L140,110"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<path d="M146,135L239,135L239,84L146,84Z"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<text x="192" y="100" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">tasks</text>
+<text x="192" y="120" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">#workers</text>
+<polygon points="311,110 299,114 299,105" style="fill:rgb(0,0,0)"/>
+<path d="M239,110L305,110"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<circle cx="365" cy="38" r="36"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<text x="365" y="38" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">worker</text>
+<text x="365" y="110" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">...</text>
+<circle cx="365" cy="182" r="36"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<text x="365" y="182" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">worker</text>
+<polygon points="491,110 479,114 479,105" style="fill:rgb(0,0,0)"/>
+<path d="M419,110L485,110"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<path d="M491,135L584,135L584,84L491,84Z"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<text x="537" y="100" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">results</text>
+<text x="537" y="120" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">#workers</text>
+<polygon points="656,110 644,114 644,105" style="fill:rgb(0,0,0)"/>
+<path d="M584,110L650,110"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<circle cx="692" cy="110" r="36"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<text x="692" y="110" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">completer</text>
+<polygon points="332,52 322,59 319,51" style="fill:rgb(0,0,0)"/>
+<path d="M239,84L326,53"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<polygon points="332,168 319,168 322,160" style="fill:rgb(0,0,0)"/>
+<path d="M239,135L326,166"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<polygon points="491,84 478,84 481,76" style="fill:rgb(0,0,0)"/>
+<path d="M398,50L485,82"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<polygon points="491,135 481,143 478,135" style="fill:rgb(0,0,0)"/>
+<path d="M398,169L485,137"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+</svg>
+
