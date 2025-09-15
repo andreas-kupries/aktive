@@ -24,11 +24,16 @@ proc usage {} {
 proc do {db args} {
     sqlite3 DB $db
 
-    foreach spec $args { source $spec }
+    foreach spec $args {
+	puts "reading $spec ..."
+	source $spec
+    }
     DB close
 }
 
 proc dump {label series titles} {
+    puts "\t\twriting"
+    
     set __out [open $label.csv w]
     emit $titles
     # the series stride is implied in the length of the titles list
@@ -49,6 +54,8 @@ proc emit {words} {
 ## chart DSL commands
 
 proc chart {label script} {
+    puts "\t$label ..."
+    
     set chart {plot micros only {} nodump 0 merge {} over {}}
     eval $script
 

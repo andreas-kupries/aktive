@@ -33,6 +33,9 @@ bench-to-sqlite \
     "${LOG}"/${PREFIX}.results \
     "${LOG}"/${PREFIX}.sqlite 
 
+########################################
+exit
+
 bench-charts \
     "${LOG}"/${PREFIX}.sqlite \
     bench/image-from-value.charts

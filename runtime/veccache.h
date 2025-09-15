@@ -11,18 +11,18 @@
  *
  *    Vector was chosen as generic name, applying to both image rows, and columns.
  *
- *    Access to the vectorcache from multiple concurrent threads is safe.
+ *    Access to the vector cache from multiple concurrent threads is safe.
  *
  * EXAMPLE USER
  *
- *	NETPBM reader for the "text" and "etext" formats. These formats do not
- *	allow direct seeking to a specific pixel, as each pixel is stored as
- *	text, with arbitrary whitespace and comments before and within it.
+ *	The NETPBM reader for the "text" and "etext" formats. These formats do
+ *	not allow direct seeking to a specific pixel, because each pixel is
+ *	stored as text, with arbitrary whitespace and comments before and
+ *	within it.
  *
  *      Reading of data has to be row-sequential. Putting a vector cache in
- *      front of it then allows arbitrary access to rows and columns, while
- *      the caches ensures initial row-sequential access and then row access
- *      of the input.
+ *      front of it then allows arbitrary access to rows and columns, with
+ *      the caches ensuring initial row-sequential access of the input.
  *
  * API
  *

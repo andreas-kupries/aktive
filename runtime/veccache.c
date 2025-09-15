@@ -44,15 +44,15 @@ TRACE_OFF;
  * Locking is only required for `area == NULL`, to ensure that the vector is
  * only created by a single thread, once. Note however that the condition
  * `area == NULL` has to be re-checked after entering, as some other thread
- * may have raced the the first check and entering the section.
+ * may have raced the first check and passed the section.
  *
  * Similar conditions apply to the `start` field of entries. I.e. when the
  * condition `start > 0` is true, it will be immutable. Further, creation of
- * `area[k]` ensures setting of `start[k+1]`.
+ * `area[k]` ensures that `start[k+1]` is set.
  *
  * Note: To make this work the vector table has a sentinel entry at the end
- * giving the last vector `n-1` a place to store the returned offset. No need
- * to have special case code for it.
+ * giving the last vector `n-1` a place to store the returned offset. This
+ * eliminates the need for special case code.
  */
 
 typedef struct vecentry {
@@ -128,7 +128,7 @@ aktive_veccache_get (aktive_veccache      cache,
 	    // See [x] for why this recursion will stop.
 	    (void) aktive_veccache_get (cache, index-1, filler, context);
 	}
-	// looping, as the thread may not immediatey see the updated value for `start`.
+	// we loop because the thread may not immediately see the updated value for `start`.
 
 	TRACE ("2. [%u] = (%u, %p)", index, cache->vec[index].start, cache->vec[index].area);
 	ASSERT_VA (cache->vec[index].start, "recursion failed to provide start offset",
@@ -140,8 +140,8 @@ aktive_veccache_get (aktive_veccache      cache,
 	TRACE_RUN (aktive_uint entrywait = aktive_now() - start);
 	TRACE("micro index %u wait on entry %u", index, entrywait);
 
-	// remember however, another thread may have raced us and created the
-	// vector. i.e. recheck the condition.
+	// remember however, another thread may have raced us to here and
+	// created the vector already. i.e. recheck the condition.
 	TRACE ("3. [%u] = (%u, %p)", index, cache->vec[index].start, cache->vec[index].area);
 	if (!cache->vec[index].area) {
 	    double*     area  = TR_NALLOC (double, cache->nelems);
