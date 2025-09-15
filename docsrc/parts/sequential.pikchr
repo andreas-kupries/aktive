@@ -3,9 +3,9 @@ right
 M: circle "maker"
 arrow
 T: [ down
-T1: box "tasks" "3" fit
+T1: box "tasks" "#3" fit
 box invisible "..."
-T2: box "tasks" "3" fit
+T2: box "tasks" "#3" fit
 right
 ]
 line invisible
@@ -38,13 +38,13 @@ arrow from R.R1.e to C.c chop
 arrow from R.R2.e to C.c chop
 
 line invisible from W.W2.s down
-O: box "workorder" "#workers" fit
+O: box "pickup" "#workers" fit
 
 arrow from M.s to (M.s, O.w) then to O.w radius 10
 arrow from O.e to (C.s, O.e) then to C.s radius 10
 
 line invisible from T.T1.n up
-I: box "idle" "#workers + 2" fit
+I: box "idle" "#workers" fit
 
 arrow from W.W1.nw to I.se chop
 arrow from W.W2.nw to I.se chop
