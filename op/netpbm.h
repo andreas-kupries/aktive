@@ -27,6 +27,9 @@
  * | 6       | > 255  | PPM    | binary | short   |
  *
  * Note: maxval has to be less than 65536.
+ *
+ * The binary formats provide random access to the pixel data.  The text
+ * formats support random access only through a sequentially filled row cache
  */
 
 extern aktive_sink*
@@ -36,7 +39,7 @@ aktive_netpbm_sink (aktive_writer* writer,
 
 /*
  * - - -- --- ----- -------- ------------- ---------------------
- * Base header structure holding the image information
+ * Base header structure holding the image metadata
  */
 
 typedef struct aktive_netpbm_header {
@@ -51,7 +54,7 @@ typedef struct aktive_netpbm_header {
 
 /*
  * - - -- --- ----- -------- ------------- ---------------------
- * Structures and types for reading from a channel
+ * Structures and types for reading the image from a channel
  */
 
 typedef void (*aktive_netpbm_reader) (void**                cache, // row cache, reader dependent
@@ -74,7 +77,7 @@ extern int aktive_netpbm_header_read (Tcl_Channel src, aktive_netpbm_read_header
 
 /*
  * - - -- --- ----- -------- ------------- ---------------------
- * Structures and types for getting from a byte array
+ * Structures and types for getting the image from a byte array, i.e text/binary string
  */
 
 typedef void (*aktive_netpbm_getter) (void**                cache,   // row cache, reader dependent
