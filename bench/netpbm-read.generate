@@ -1,0 +1,118 @@
+# -*- tcl -*- tcl.tk//DSL tclbench-generate//EN// Tcl Benchmark Generator File
+#
+# This file contains a number of benchmark __generators__ for AKTIVE commands.
+#
+# (c) 2025 Andreas Kupries <andreas_kupries@users.sourceforge.net>
+#
+# reading a PPM image, in binary and text formats, using unordered and
+# sequential modes, for various levels of concurrency, both iterated
+# (cache filled), and single-shot (cache empty)
+##
+# ### ### ### ######### ######### ######### ##########################
+## Utilities
+
+source ../support/bench-gen-utilities.tcl
+
+package require math::numtheory
+package require aktive
+
+# # ## ### ##### ######## ############# #####################
+
+set cmd  {aktive read from netpbm file}
+set base [file root [info script]]
+
+# ### ### ### ######### ######### ######### ###########################
+## Benchmark Generators.
+
+foreach {imagepath format} {
+    ../tests/assets/butterfly-medium.ppm      binary
+    ../tests/assets/butterfly-medium-text.ppm text
+} {
+    set image  [{*}$cmd path $imagepath]
+    lassign    [aktive query domain $image] x y w h d
+    unset image ;# ===================================
+    set size     [expr {$w * $h}]
+    set gcd      [::math::numtheory::gcd $w $h]
+    set aspect   [expr {$w/$gcd}]:[expr {$h/$gcd}]
+    set labelcmd [list {*}$cmd [file tail $imagepath]]
+    
+    foreach sink {
+	null
+	null-s
+    } {    
+	foreach cores {
+	    -1 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16
+	} {
+	    set liter [lreplace $labelcmd end-1 end-1 file/iter]
+	    set label [list $liter $sink $cores $size $aspect $w $h]
+
+	    set     map {}
+	    lappend map \
+		%sink%       $sink   \
+		%cores%      $cores  \
+		%w%          $w      \
+		%h%          $h      \
+		%d%          $d      \
+		%size%       $size   \
+		%aspect%     $aspect \
+		%cmd%        "$cmd path $imagepath" \
+		"\n\t\t    " "\n" \
+		"\n\t\t\t"   "\n    "
+	    
+	    generate generated/$base/iter_${format}_${sink}_cpu${cores}_w${w}_h${h}.bench \
+		[map {
+		    aktive processor %cores%
+		    
+		    bench_puts "WIDTH  = %w%"
+		    bench_puts "HEIGHT = %h%"
+		    bench_puts "DEPTH  = %d%"
+		    bench_puts "SIZE   = %size%"
+		    bench_puts "ASPECT = %aspect%"
+
+		    ## a single image is used for all iterations of
+		    ## the test => any cache the image may have
+		    ## internally is essentially filled
+
+		    bench -iter 1000 -desc {%label%} -pre {
+			set image [%cmd%]
+		    } -body {
+			aktive format as %sink% 2string $image
+		    } -post {
+			unset image
+		    }
+		} {*}$map %label% $label]
+
+
+	    set lshot [lreplace $labelcmd end-1 end-1 file/shot]
+	    set label [list $lshot $sink $cores $size $aspect $w $h]
+
+	    set iter 1000
+	    if {$format eq "text"} { set iter 10 } ;# around 3 seconds pr iteration
+
+	    generate generated/$base/shot_${format}_${sink}_cpu${cores}_w${w}_h${h}.bench \
+		[map {
+		    aktive processor %cores%
+		    
+		    bench_puts "WIDTH  = %w%"
+		    bench_puts "HEIGHT = %h%"
+		    bench_puts "DEPTH  = %d%"
+		    bench_puts "SIZE   = %size%"
+		    bench_puts "ASPECT = %aspect%"
+		    bench_puts "ITER   = %iter%"
+
+		    ## a new image is used in each iteration => any
+		    ## cache it may internally have is never filled,
+		    ## and we measure the time to fill it as part of
+		    ## the operation
+
+		    bench -iter %iter% -desc {%label%} -body {
+			set image [%cmd%]
+			aktive format as %sink% 2string $image
+			unset image
+		    }
+		} {*}$map %label% $label %iter% $iter]
+	}
+    }
+}
+
+return

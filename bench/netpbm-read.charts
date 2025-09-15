@@ -1,0 +1,148 @@
+# -*- tcl -*-
+# # ## ### ##### ######## ############# #####################
+## general structure is
+## - create several simple series
+## - merge the series into a side by side comparison
+
+##
+## The benchmarks falls into two classes:
+##
+## - `/iter`: Iterated reading of the same image
+## - `/shot`: Iterated reading of a new image in each iteration
+##
+## The `/iter` class measures reading when reusing an image, when any
+## cache the image may have internaly is filled. `/shot` on the other
+## hand measures reading of a fresh image, where the cache is not
+## filled, and thus measures cache fill time as well.
+##
+## The difference between `/iter` and `/shot` is cache fill time.
+##
+## Inside of each class we are then looking at 2x2 groups, namely
+## reading a binary or text file, in either unordered or sequential
+## mode.
+##
+
+# # ## ### ##### ######## ############# #####################
+## /iter binary
+
+chart ppm-iter-binary-unordered {
+    only {name = 'aktive read from netpbm file/iter butterfly-medium.ppm'}
+    only {sink = 'null'}
+
+    range threads
+    nodump
+}
+chart ppm-iter-binary-sequential {
+    only {name = 'aktive read from netpbm file/iter butterfly-medium.ppm'}
+    only {sink = 'null-s'}
+
+    range threads
+    nodump
+}
+chart ppm-iter-binary-unordered-vs-sequential {
+    side-by-side \
+	ppm-iter-binary-unordered \
+	ppm-iter-binary-sequential
+}
+
+# # ## ### ##### ######## ############# #####################
+## /iter text
+
+chart ppm-iter-text-unordered {
+    only {name = 'aktive read from netpbm file/iter butterfly-medium-text.ppm'}
+    only {sink = 'null'}
+
+    range threads
+    nodump
+}
+chart ppm-iter-text-sequential {
+    only {name = 'aktive read from netpbm file/iter butterfly-medium-text.ppm'}
+    only {sink = 'null-s'}
+
+    range threads
+    nodump
+}
+chart ppm-iter-text-unordered-vs-sequential {
+    side-by-side \
+	ppm-iter-text-unordered \
+	ppm-iter-text-sequential
+}
+
+# # ## ### ##### ######## ############# #####################
+## /shot binary
+
+chart ppm-shot-binary-unordered {
+    only {name = 'aktive read from netpbm file/shot butterfly-medium.ppm'}
+    only {sink = 'null'}
+
+    range threads
+    nodump
+}
+chart ppm-shot-binary-sequential {
+    only {name = 'aktive read from netpbm file/shot butterfly-medium.ppm'}
+    only {sink = 'null-s'}
+
+    range threads
+    nodump
+}
+chart ppm-shot-binary-unordered-vs-sequential {
+    side-by-side \
+	ppm-shot-binary-unordered \
+	ppm-shot-binary-sequential
+}
+
+# # ## ### ##### ######## ############# #####################
+## /shot text
+
+chart ppm-shot-text-unordered {
+    only {name = 'aktive read from netpbm file/shot butterfly-medium-text.ppm'}
+    only {sink = 'null'}
+
+    range threads
+    nodump
+}
+chart ppm-shot-text-sequential {
+    only {name = 'aktive read from netpbm file/shot butterfly-medium-text.ppm'}
+    only {sink = 'null-s'}
+
+    range threads
+    nodump
+}
+chart ppm-shot-text-unordered-vs-sequential {
+    side-by-side \
+	ppm-shot-text-unordered \
+	ppm-shot-text-sequential
+}
+
+# # ## ### ##### ######## ############# #####################
+## /iter vs /shot combinations
+
+# text - row cache
+chart ppm-iter-shot-text-unordered {
+    side-by-side \
+	ppm-iter-text-unordered \
+	ppm-shot-text-unordered
+}
+
+chart ppm-iter-shot-text-sequential {
+    side-by-side \
+	ppm-iter-text-sequential \
+	ppm-shot-text-sequential
+}
+
+# binary - no cache
+chart ppm-iter-shot-binary-unordered {
+    side-by-side \
+	ppm-iter-binary-unordered \
+	ppm-shot-binary-unordered
+}
+
+chart ppm-iter-shot-binary-sequential {
+    side-by-side \
+	ppm-iter-binary-sequential \
+	ppm-shot-binary-sequential
+}
+
+# # ## ### ##### ######## ############# #####################
+
+return
