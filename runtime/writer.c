@@ -167,13 +167,9 @@ aktive_write_here_uint16be (aktive_writer* writer, aktive_uint v)
 {
     TRACE_FUNC ("((writer*) %p, value %d)", writer, v);
 
-    char buf [2];
-    buf [0] = MSB (v);
-    buf [1] = LSB (v);
-
-    TRACE ("BE %02x %02x", (int)buf[0], (int)buf[1]);
-
-    aktive_write_here (writer, buf, 2);
+    uint16_t vin = v;
+    SWAP16 (vin);
+    aktive_write_here (writer, (char*) &vin, sizeof(vin));
 
     TRACE_RETURN_VOID;
 }
@@ -183,12 +179,9 @@ aktive_write_here_uint32be (aktive_writer* writer, aktive_uint v)
 {
     TRACE_FUNC ("((writer*) %p, value %d)", writer, v);
 
-    char buf [4];
-    buf [0] = (v >> 24) & 0xFF;
-    buf [1] = (v >> 16) & 0xFF;
-    buf [2] = (v >>  8) & 0xFF;
-    buf [3] = (v      ) & 0xFF;
-    aktive_write_here (writer, buf, 4);
+    uint32_t vin = v;
+    SWAP32 (vin);
+    aktive_write_here (writer, (char*) &vin, sizeof(vin));
 
     TRACE_RETURN_VOID;
 }
@@ -198,16 +191,9 @@ aktive_write_here_uint64be (aktive_writer* writer, Tcl_WideInt v)
 {
     TRACE_FUNC ("((writer*) %p, value %ld)", writer, v);
 
-    char buf [8];
-    buf [0] = (v >> 56) & 0xFF;
-    buf [1] = (v >> 48) & 0xFF;
-    buf [2] = (v >> 40) & 0xFF;
-    buf [3] = (v >> 32) & 0xFF;
-    buf [4] = (v >> 24) & 0xFF;
-    buf [5] = (v >> 16) & 0xFF;
-    buf [6] = (v >>  8) & 0xFF;
-    buf [7] = (v      ) & 0xFF;
-    aktive_write_here (writer, buf, 8);
+    uint64_t vin = v;
+    SWAP64 (vin);
+    aktive_write_here (writer, (char*) &vin, sizeof(vin));
 
     TRACE_RETURN_VOID;
 }
@@ -247,13 +233,9 @@ aktive_write_here_int16be (aktive_writer* writer, int v)
 {
     TRACE_FUNC ("((writer*) %p, value %d)", writer, v);
 
-    char buf [2];
-    buf [0] = MSB (v);
-    buf [1] = LSB (v);
-
-    TRACE ("BE %02x %02x", (int)buf[0], (int)buf[1]);
-
-    aktive_write_here (writer, buf, 2);
+    int16_t vin = v;
+    SWAP16 (vin);
+    aktive_write_here (writer, (char*) &vin, sizeof(vin));
 
     TRACE_RETURN_VOID;
 }
@@ -263,12 +245,9 @@ aktive_write_here_int32be (aktive_writer* writer, int v)
 {
     TRACE_FUNC ("((writer*) %p, value %d)", writer, v);
 
-    char buf [4];
-    buf [0] = (v >> 24) & 0xFF;
-    buf [1] = (v >> 16) & 0xFF;
-    buf [2] = (v >>  8) & 0xFF;
-    buf [3] = (v      ) & 0xFF;
-    aktive_write_here (writer, buf, 4);
+    int32_t vin = v;
+    SWAP32 (vin);
+    aktive_write_here (writer, (char*) &vin, sizeof(vin));
 
     TRACE_RETURN_VOID;
 }
@@ -278,16 +257,9 @@ aktive_write_here_int64be (aktive_writer* writer, Tcl_WideInt v)
 {
     TRACE_FUNC ("((writer*) %p, value %ld)", writer, v);
 
-    char buf [8];
-    buf [0] = (v >> 56) & 0xFF;
-    buf [1] = (v >> 48) & 0xFF;
-    buf [2] = (v >> 40) & 0xFF;
-    buf [3] = (v >> 32) & 0xFF;
-    buf [4] = (v >> 24) & 0xFF;
-    buf [5] = (v >> 16) & 0xFF;
-    buf [6] = (v >>  8) & 0xFF;
-    buf [7] = (v      ) & 0xFF;
-    aktive_write_here (writer, buf, 8);
+    int64_t vin = v;
+    SWAP64 (vin);
+    aktive_write_here (writer, (char*) &vin, sizeof(vin));
 
     TRACE_RETURN_VOID;
 }
@@ -315,15 +287,9 @@ aktive_write_here_float64be (aktive_writer* writer, double v)
 {
     TRACE_FUNC ("((writer*) %p, value %f)", writer, v);
 
-    union {
-	double        v;
-	uint64_t      vi;
-	unsigned char buf [sizeof(double)];
-    } cast;
-
-    cast.v = v;
-    cast.vi = SWAP64 (cast.vi);
-    aktive_write_here (writer, cast.buf, sizeof(double));
+    uint64_t* vin = (uint64_t*) &v;
+    SWAP64 (*vin);
+    aktive_write_here (writer, (char*) &v, sizeof(v));
 
     TRACE_RETURN_VOID;
 }

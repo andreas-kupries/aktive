@@ -316,7 +316,7 @@ aktive_read_uint8 (Tcl_Channel src, aktive_uint* v)
     TRACE_FUNC ("((Tcl_Channel) %p, *value %p)", src, v);
 
     unsigned char buf [1];
-    int ok = aktive_read_string (src, (char*) buf, 1);
+    int           ok = aktive_read_string (src, (char*) buf, 1);
     if (ok) {
 	*v = buf[0];
 	TRACE ("got %u", *v);
@@ -330,11 +330,11 @@ aktive_read_uint16be (Tcl_Channel src, aktive_uint* v)
 {
     TRACE_FUNC ("((Tcl_Channel) %p, *value %p)", src, v);
 
-    unsigned char buf [2];
-    int ok = aktive_read_string (src, (char*) buf, 2);
+    uint16_t vin;
+    int      ok = aktive_read_string (src, (char*) &vin, sizeof(vin));
     if (ok) {
-	*v =  (buf [0] << 8)
-	    | (buf [1]     );
+	SWAP16 (vin);
+	*v = vin;
 	TRACE ("got %u", *v);
     }
 
@@ -346,13 +346,11 @@ aktive_read_uint32be (Tcl_Channel src, aktive_uint* v)
 {
     TRACE_FUNC ("((Tcl_Channel) %p, *value %p)", src, v);
 
-    unsigned char buf [4];
-    int ok = aktive_read_string (src, (char*) buf, 4);
+    uint32_t vin;
+    int      ok = aktive_read_string (src, (char*) &vin, sizeof(vin));
     if (ok) {
-	*v =  (buf [0] << 24)
-	    | (buf [1] << 16)
-	    | (buf [2] <<  8)
-	    | (buf [3]      );
+	SWAP32 (vin);
+	*v = vin;
 	TRACE ("got %u", *v);
     }
 
@@ -364,17 +362,11 @@ aktive_read_uint64be (Tcl_Channel src, Tcl_WideInt* v)
 {
     TRACE_FUNC ("((Tcl_Channel) %p, *value %p)", src, v);
 
-    unsigned char buf [8];
-    int ok = aktive_read_string (src, (char*) buf, 8);
+    uint64_t vin;
+    int      ok = aktive_read_string (src, (char*) &vin, sizeof(vin));
     if (ok) {
-	*v =  (((Tcl_WideInt) buf [0]) << 56)
-	    | (((Tcl_WideInt) buf [1]) << 48)
-	    | (((Tcl_WideInt) buf [2]) << 40)
-	    | (((Tcl_WideInt) buf [3]) << 32)
-	    | (((Tcl_WideInt) buf [4]) << 24)
-	    | (((Tcl_WideInt) buf [5]) << 16)
-	    | (((Tcl_WideInt) buf [6]) <<  8)
-	    | (((Tcl_WideInt) buf [7])      );
+	SWAP64 (vin);
+	*v = vin;
 	TRACE ("got %llu", *v);
     }
 
@@ -391,7 +383,7 @@ aktive_read_int8 (Tcl_Channel src, int* v)
     TRACE_FUNC ("((Tcl_Channel) %p, *value %p)", src, v);
 
     char buf [1];
-    int ok = aktive_read_string (src, buf, 1);
+    int  ok = aktive_read_string (src, buf, 1);
     if (ok) {
 	*v = buf[0];
 	TRACE ("got %d", *v);
@@ -405,11 +397,11 @@ aktive_read_int16be (Tcl_Channel src, int* v)
 {
     TRACE_FUNC ("((Tcl_Channel) %p, *value %p)", src, v);
 
-    char buf [2];
-    int ok = aktive_read_string (src, buf, 2);
+    int16_t vin;
+    int     ok = aktive_read_string (src, (char*) &vin, sizeof(vin));
     if (ok) {
-	*v =  (buf [0] << 8)
-	    | (buf [1]     );
+	SWAP16 (vin);
+	*v = vin;
 	TRACE ("got %d", *v);
     }
 
@@ -421,13 +413,11 @@ aktive_read_int32be (Tcl_Channel src, int* v)
 {
     TRACE_FUNC ("((Tcl_Channel) %p, *value %p)", src, v);
 
-    char buf [4];
-    int ok = aktive_read_string (src, buf, 4);
+    int32_t vin;
+    int     ok = aktive_read_string (src, (char*) &vin, sizeof(vin));
     if (ok) {
-	*v =  (buf [0] << 24)
-	    | (buf [1] << 16)
-	    | (buf [2] <<  8)
-	    | (buf [3]      );
+	SWAP32 (vin);
+	*v = vin;
 	TRACE ("got %d", *v);
     }
 
@@ -437,19 +427,13 @@ aktive_read_int32be (Tcl_Channel src, int* v)
 extern int
 aktive_read_int64be (Tcl_Channel src, Tcl_WideInt* v)
 {
-    TRACE_FUNC ("((Tcl_Channel) %p, *value %p)", src, v);
+    TRACE_FUNC ("((Tcl_Channel) %p, (int64_t*) %p)", src, v);
 
-    char buf [8];
-    int ok = aktive_read_string (src, buf, 8);
+    int64_t vin;
+    int     ok = aktive_read_string (src, (char*) &vin, sizeof(vin));
     if (ok) {
-	*v =  (((Tcl_WideInt) buf [0]) << 56)
-	    | (((Tcl_WideInt) buf [1]) << 48)
-	    | (((Tcl_WideInt) buf [2]) << 40)
-	    | (((Tcl_WideInt) buf [3]) << 32)
-	    | (((Tcl_WideInt) buf [4]) << 24)
-	    | (((Tcl_WideInt) buf [5]) << 16)
-	    | (((Tcl_WideInt) buf [6]) <<  8)
-	    | (((Tcl_WideInt) buf [7])      );
+	SWAP64 (vin);
+	*v = vin;
 	TRACE ("got %lld", *v);
     }
 
@@ -463,18 +447,12 @@ aktive_read_int64be (Tcl_Channel src, Tcl_WideInt* v)
 extern int
 aktive_read_float64be (Tcl_Channel src, double* v)
 {
-    TRACE_FUNC ("((Tcl_Channel) %p, *value %p)", src, v);
+    TRACE_FUNC ("((Tcl_Channel) %p, (double*) %p)", src, v);
 
-    union {
-	double        v;
-	uint64_t      vi;
-	unsigned char buf [sizeof(double)];
-    } cast;
-
-    int ok = aktive_read_string (src, cast.buf, sizeof(double));
+    int ok = aktive_read_string (src, (char*) v, sizeof(*v));
     if (ok) {
-	cast.vi = SWAP64 (cast.vi);
-	*v = cast.v;
+	uint64_t* vin = (uint64_t*) v;
+	SWAP64 (*vin);
 	TRACE ("got %f", *v);
     }
 
@@ -760,7 +738,7 @@ aktive_get_uint8 (char* inbytes, Tcl_Size inmax, Tcl_Size* pos, aktive_uint* v)
     TRACE_FUNC ("((char*) %p [%d] @ %d, *value %p)", inbytes, inmax, *pos, v);
 
     unsigned char buf [1];
-    int ok = aktive_get_string (inbytes, inmax, pos, (char*) buf, 1);
+    int           ok = aktive_get_string (inbytes, inmax, pos, (char*) buf, 1);
     if (ok) {
 	*v = buf[0];
 	TRACE ("got %u", *v);
@@ -774,11 +752,12 @@ aktive_get_uint16be (char* inbytes, Tcl_Size inmax, Tcl_Size* pos, aktive_uint* 
 {
     TRACE_FUNC ("((char*) %p [%d] @ %d, *value %p)", inbytes, inmax, *pos, v);
 
-    unsigned char buf [2];
-    int ok = aktive_get_string (inbytes, inmax, pos, (char*) buf, 2);
+    uint16_t vin;
+    int      ok = aktive_get_string (inbytes, inmax, pos,
+				     (char*) &vin, sizeof(vin));
     if (ok) {
-	*v =  (buf [0] << 8)
-	    | (buf [1]     );
+	SWAP16 (vin);
+	*v = vin;
 	TRACE ("got %u", *v);
     }
 
@@ -790,13 +769,12 @@ aktive_get_uint32be (char* inbytes, Tcl_Size inmax, Tcl_Size* pos, aktive_uint* 
 {
     TRACE_FUNC ("((char*) %p [%d] @ %d, *value %p)", inbytes, inmax, *pos, v);
 
-    unsigned char buf [4];
-    int ok = aktive_get_string (inbytes, inmax, pos, (char*) buf, 4);
+    uint32_t vin;
+    int      ok = aktive_get_string (inbytes, inmax, pos,
+				     (char*) &vin, sizeof(vin));
     if (ok) {
-	*v =  (buf [0] << 24)
-	    | (buf [1] << 16)
-	    | (buf [2] <<  8)
-	    | (buf [3]      );
+	SWAP32 (vin);
+	*v = vin;
 	TRACE ("got %u", *v);
     }
 
@@ -808,17 +786,12 @@ aktive_get_uint64be (char* inbytes, Tcl_Size inmax, Tcl_Size* pos, Tcl_WideInt* 
 {
     TRACE_FUNC ("((char*) %p [%d] @ %d, *value %p)", inbytes, inmax, *pos, v);
 
-    unsigned char buf [8];
-    int ok = aktive_get_string (inbytes, inmax, pos, (char*) buf, 8);
+    uint64_t vin;
+    int      ok = aktive_get_string (inbytes, inmax, pos,
+				     (char*) &vin, sizeof(vin));
     if (ok) {
-	*v =  (((Tcl_WideInt) buf [0]) << 56)
-	    | (((Tcl_WideInt) buf [1]) << 48)
-	    | (((Tcl_WideInt) buf [2]) << 40)
-	    | (((Tcl_WideInt) buf [3]) << 32)
-	    | (((Tcl_WideInt) buf [4]) << 24)
-	    | (((Tcl_WideInt) buf [5]) << 16)
-	    | (((Tcl_WideInt) buf [6]) <<  8)
-	    | (((Tcl_WideInt) buf [7])      );
+	SWAP64 (vin);
+	*v = vin;
 	TRACE ("got %llu", *v);
     }
 
@@ -835,7 +808,7 @@ aktive_get_int8 (char* inbytes, Tcl_Size inmax, Tcl_Size* pos, int* v)
     TRACE_FUNC ("((char*) %p [%d] @ %d, *value %p)", inbytes, inmax, *pos, v);
 
     char buf [1];
-    int ok = aktive_get_string (inbytes, inmax, pos, buf, 1);
+    int  ok = aktive_get_string (inbytes, inmax, pos, buf, 1);
     if (ok) {
 	*v = buf[0];
 	TRACE ("got %d", *v);
@@ -849,11 +822,12 @@ aktive_get_int16be (char* inbytes, Tcl_Size inmax, Tcl_Size* pos, int* v)
 {
     TRACE_FUNC ("((char*) %p [%d] @ %d, *value %p)", inbytes, inmax, *pos, v);
 
-    char buf [2];
-    int ok = aktive_get_string (inbytes, inmax, pos, buf, 2);
+    int16_t vin;
+    int     ok = aktive_get_string (inbytes, inmax, pos,
+				    (char*) &vin, sizeof(vin));
     if (ok) {
-	*v =  (buf [0] << 8)
-	    | (buf [1]     );
+	SWAP16 (vin);
+	*v = vin;
 	TRACE ("got %d", *v);
     }
 
@@ -865,13 +839,12 @@ aktive_get_int32be (char* inbytes, Tcl_Size inmax, Tcl_Size* pos, int* v)
 {
     TRACE_FUNC ("((char*) %p [%d] @ %d, *value %p)", inbytes, inmax, *pos, v);
 
-    char buf [4];
-    int ok = aktive_get_string (inbytes, inmax, pos, buf, 4);
+    int32_t vin;
+    int     ok = aktive_get_string (inbytes, inmax, pos,
+				    (char*) &vin, sizeof(vin));
     if (ok) {
-	*v =  (buf [0] << 24)
-	    | (buf [1] << 16)
-	    | (buf [2] <<  8)
-	    | (buf [3]      );
+	SWAP32 (vin);
+	*v = vin;
 	TRACE ("got %d", *v);
     }
 
@@ -883,17 +856,12 @@ aktive_get_int64be (char* inbytes, Tcl_Size inmax, Tcl_Size* pos, Tcl_WideInt* v
 {
     TRACE_FUNC ("((char*) %p [%d] @ %d, *value %p)", inbytes, inmax, *pos, v);
 
-    char buf [8];
-    int ok = aktive_get_string (inbytes, inmax, pos, buf, 8);
+    int64_t vin;
+    int     ok = aktive_get_string (inbytes, inmax, pos,
+				    (char*) &vin, sizeof(vin));
     if (ok) {
-	*v =  (((Tcl_WideInt) buf [0]) << 56)
-	    | (((Tcl_WideInt) buf [1]) << 48)
-	    | (((Tcl_WideInt) buf [2]) << 40)
-	    | (((Tcl_WideInt) buf [3]) << 32)
-	    | (((Tcl_WideInt) buf [4]) << 24)
-	    | (((Tcl_WideInt) buf [5]) << 16)
-	    | (((Tcl_WideInt) buf [6]) <<  8)
-	    | (((Tcl_WideInt) buf [7])      );
+	SWAP64 (vin);
+	*v = vin;
 	TRACE ("got %lld", *v);
     }
 
@@ -915,10 +883,11 @@ aktive_get_float64be (char* inbytes, Tcl_Size inmax, Tcl_Size* pos, double* v)
 	unsigned char buf [sizeof(double)];
     } cast;
 
-    int ok = aktive_get_string (inbytes, inmax, pos, cast.buf, sizeof(double));
+    int ok = aktive_get_string (inbytes, inmax, pos,
+				(char*) v, sizeof(*v));
     if (ok) {
-	cast.vi = SWAP64 (cast.vi);
-	*v = cast.v;
+	uint64_t* vin = (uint64_t*) v;
+	SWAP64 (*vin);
 	TRACE ("got %f", *v);
     }
 
