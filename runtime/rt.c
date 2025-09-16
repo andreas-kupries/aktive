@@ -53,7 +53,7 @@ aktive_error_set (Tcl_Interp* interp) {
 
     ThreadSpecificData *tsdPtr = TCL_TSD_INIT(&rtDataKey);
 
-    if (!tsdPtr->error) return;
+    if (!tsdPtr->error) TRACE_RETURN_VOID;
 
     TRACE ("report '%s'", Tcl_GetString (tsdPtr->error));
 
