@@ -41,7 +41,8 @@ extern int aktive_read_int64be     (Tcl_Channel src, Tcl_WideInt* v);
 extern int aktive_read_int_str     (Tcl_Channel src, int*         v);
 extern int aktive_read_int_strcom  (Tcl_Channel src, int*         v);
 
-extern int aktive_read_float64be   (Tcl_Channel src, double*      v);
+extern int aktive_read_float64be   (Tcl_Channel src,                double* v);
+extern int aktive_read_float64be_n (Tcl_Channel src, aktive_uint n, double* v);
 
 /*
  * - - -- --- ----- -------- -------------
@@ -77,6 +78,7 @@ extern Tcl_Channel aktive_path_open (aktive_path* dst);
 
 extern int aktive_get_string        (char* inbytes, Tcl_Size inmax, Tcl_Size* pos, char* buf, aktive_uint n);
 extern int aktive_get_match         (char* inbytes, Tcl_Size inmax, Tcl_Size* pos, char* buf, aktive_uint n);
+
 extern int aktive_get_uint8         (char* inbytes, Tcl_Size inmax, Tcl_Size* pos, aktive_uint* v);
 extern int aktive_get_uint16be      (char* inbytes, Tcl_Size inmax, Tcl_Size* pos, aktive_uint* v);
 extern int aktive_get_uint32be      (char* inbytes, Tcl_Size inmax, Tcl_Size* pos, aktive_uint* v);
@@ -84,13 +86,16 @@ extern int aktive_get_uint64be      (char* inbytes, Tcl_Size inmax, Tcl_Size* po
 extern int aktive_get_uint_str      (char* inbytes, Tcl_Size inmax, Tcl_Size* pos, aktive_uint* v);
 extern int aktive_get_uint_strsharp (char* inbytes, Tcl_Size inmax, Tcl_Size* pos, aktive_uint* v);
 extern int aktive_get_uint_strcom   (char* inbytes, Tcl_Size inmax, Tcl_Size* pos, aktive_uint* v);
+
 extern int aktive_get_int8          (char* inbytes, Tcl_Size inmax, Tcl_Size* pos, int*         v);
 extern int aktive_get_int16be       (char* inbytes, Tcl_Size inmax, Tcl_Size* pos, int*         v);
 extern int aktive_get_int32be       (char* inbytes, Tcl_Size inmax, Tcl_Size* pos, int*         v);
 extern int aktive_get_int64be       (char* inbytes, Tcl_Size inmax, Tcl_Size* pos, Tcl_WideInt* v);
 extern int aktive_get_int_str       (char* inbytes, Tcl_Size inmax, Tcl_Size* pos, int*         v);
 extern int aktive_get_int_strcom    (char* inbytes, Tcl_Size inmax, Tcl_Size* pos, int*         v);
-extern int aktive_get_float64be     (char* inbytes, Tcl_Size inmax, Tcl_Size* pos, double*      v);
+
+extern int aktive_get_float64be     (char* inbytes, Tcl_Size inmax, Tcl_Size* pos,                double* v);
+extern int aktive_get_float64be_n   (char* inbytes, Tcl_Size inmax, Tcl_Size* pos, aktive_uint n, double* v);
 
 /*
  * = = == === ===== ======== ============= =====================

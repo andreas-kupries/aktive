@@ -20,14 +20,22 @@
  */
 
 #if BYTE_ORDER == LITTLE_ENDIAN
-#define SWAP16(x) x = bswap_16 (x)
-#define SWAP32(x) x = bswap_32 (x)
-#define SWAP64(x) x = bswap_64 (x)
-#define BE_SWAP
+
+#  define SWAP16(x) x = bswap_16 (x)
+#  define SWAP32(x) x = bswap_32 (x)
+#  define SWAP64(x) x = bswap_64 (x)
+
+#  define BE_SWAP
+#  define ENDIAN "le"
+
 #else
-#define SWAP16(x)
-#define SWAP32(x)
-#define SWAP64(x)
+
+#  define SWAP16(x)
+#  define SWAP32(x)
+#  define SWAP64(x)
+
+#  define ENDIAN "be"
+
 #endif
 
 /*

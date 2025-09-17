@@ -459,6 +459,25 @@ aktive_read_float64be (Tcl_Channel src, double* v)
     TRACE_RETURN ("(OK) %d", ok);
 }
 
+extern int
+aktive_read_float64be_n (Tcl_Channel src, aktive_uint n, double* v)
+{
+    TRACE_FUNC ("((Tcl_Channel) %p, (double*) %p [%d])", src, v, n);
+
+    // read directly into the buffer
+    int ok = aktive_read_string (src, (char*) v, n * sizeof(*v));
+
+    // if needed perform endian conversion - vectorize-able ?!
+#ifdef BE_SWAP
+    if (ok) {
+	uint64_t* vi = (uint64_t*) v;
+	aktive_uint i; for (i = 0; i < n; i++, vi++) { SWAP64 (*vi); }
+    }
+#endif
+
+    TRACE_RETURN ("(OK) %d", ok);
+}
+
 /*
  * - - -- --- ----- -------- -------------
  */
@@ -877,19 +896,31 @@ aktive_get_float64be (char* inbytes, Tcl_Size inmax, Tcl_Size* pos, double* v)
 {
     TRACE_FUNC ("((char*) %p [%d] @ %d, *value %p)", inbytes, inmax, *pos, v);
 
-    union {
-	double        v;
-	uint64_t      vi;
-	unsigned char buf [sizeof(double)];
-    } cast;
-
-    int ok = aktive_get_string (inbytes, inmax, pos,
-				(char*) v, sizeof(*v));
+    int ok = aktive_get_string (inbytes, inmax, pos, (char*) v, sizeof(*v));
     if (ok) {
 	uint64_t* vin = (uint64_t*) v;
 	SWAP64 (*vin);
 	TRACE ("got %f", *v);
     }
+
+    TRACE_RETURN ("(OK) %d", ok);
+}
+
+extern int
+aktive_get_float64be_n (char* inbytes, Tcl_Size inmax, Tcl_Size* pos, aktive_uint n, double* v)
+{
+    TRACE_FUNC ("((char*) %p [%d] @ %d, (double*) %p [%d])", inbytes, inmax, *pos, v, n);
+
+    // read directly into the buffer
+    int ok = aktive_get_string (inbytes, inmax, pos, (char*) v, n * sizeof(*v));
+
+    // if needed perform endian conversion - vectorize-able ?!
+#ifdef BE_SWAP
+    if (ok) {
+	uint64_t* vi = (uint64_t*) v;
+	aktive_uint i; for (i = 0; i < n; i++, vi++) { SWAP64 (*vi); }
+    }
+#endif
 
     TRACE_RETURN ("(OK) %d", ok);
 }

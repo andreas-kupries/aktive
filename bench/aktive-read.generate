@@ -35,8 +35,10 @@ set gcd      [::math::numtheory::gcd $w $h]
 set aspect   [expr {$w/$gcd}]:[expr {$h/$gcd}]
 
 foreach {origin param sourcevar} {
-    file   path  ipath
-    string value idata
+    file      path  ipath
+    fileold   path  ipath
+    string    value idata
+    stringold value idata
 } {
     set labelcmd [list {*}$cmd $origin $param [file tail $ipath]]
 
@@ -59,7 +61,9 @@ foreach {origin param sourcevar} {
 
 	set cat  ""
 	set data ""
-	if {$origin in {string}} {
+	if {$origin in {
+	    string stringold
+	}} {
 	    set cat  "kb::source $catfile"
 	    set data "set idata \[cat \$ipath]"
 	}

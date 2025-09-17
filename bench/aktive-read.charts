@@ -12,6 +12,14 @@ chart aktive-file {
     nodump
 }
 
+chart aktive-fileold {
+    only {name = 'aktive read from aktive fileold path butterfly.aktive'}
+    only {sink = 'null'}
+
+    range threads
+    nodump
+}
+
 chart aktive-string {
     only {name = 'aktive read from aktive string value butterfly.aktive'}
     only {sink = 'null'}
@@ -20,10 +28,20 @@ chart aktive-string {
     nodump
 }
 
+chart aktive-stringold {
+    only {name = 'aktive read from aktive stringold value butterfly.aktive'}
+    only {sink = 'null'}
+
+    range threads
+    nodump
+}
+
 chart aktive-file-vs-string {
-    side-by-side    \
-	aktive-file \
-	aktive-string
+    side-by-side        \
+	aktive-file     \
+	aktive-fileold  \
+	aktive-string   \
+	aktive-stringold
 }
 
 return

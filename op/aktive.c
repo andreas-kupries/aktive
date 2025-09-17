@@ -39,6 +39,158 @@ TRACE_OFF;
 
 /*
  * - - -- --- ----- -------- -------------
+ ** Reader support
+ */
+
+static int         header_esize (aktive_aktive_header* info, Tcl_Size inmax);
+static Tcl_WideInt slice_offset (aktive_aktive_header* info, aktive_uint x, aktive_uint y, aktive_uint n);
+
+#define TRY(m, cmd) \
+    if (!(cmd)) { aktive_fail ("failed to read header: " m); goto fail; }
+
+int
+aktive_aktive_header_read (Tcl_Channel src, Tcl_Size inmax, aktive_aktive_header* info)
+{
+#define TRYF(field,cmd) \
+    if (!(cmd (src, &info->field))) { aktive_fail ("failed to read header: " #field); goto fail; } \
+    TRACE ("HEADER (" #field ") = %d", info->field)
+
+    TRACE_FUNC("((Channel) %p, (aktive_header*) %p)", src, info);
+
+    TRY  ("magic",       aktive_read_match   (src, MAGIC,   sizeof (MAGIC)  -1));
+    TRY  ("version",     aktive_read_match   (src, VERSION, sizeof (VERSION)-1));
+    TRYF (domain.x,      aktive_read_int32be );
+    TRYF (domain.y,      aktive_read_int32be );
+    TRYF (domain.width,  aktive_read_uint32be);
+    TRYF (domain.height, aktive_read_uint32be);
+    TRYF (domain.depth,  aktive_read_uint32be);
+    TRYF (metac,         aktive_read_uint32be);
+    if (info->metac) {
+	info->meta = NALLOC (char, info->metac);
+	if (!aktive_read_string (src, info->meta, info->metac)) { aktive_fail ("failed to read header: metad"); goto fail; }
+    }
+    TRY ("magic2", aktive_read_match (src, MAGIC2, sizeof (MAGIC2)-1));
+    info->pix = Tcl_Tell (src);
+
+    if (!header_esize (info, inmax)) goto fail;
+
+    TRACE_RETURN ("(ok) %d", 1);
+ fail:
+    if (info->meta) ckfree (info->meta);
+    TRACE_RETURN ("(fail) %d", 0);
+
+#undef TRYF
+}
+
+int
+aktive_aktive_header_get (char* inbytes, Tcl_Size inmax, aktive_aktive_header* info)
+{
+#define TRYF(field,cmd)							\
+    if (!(cmd (inbytes, inmax, &pos, &info->field))) { aktive_fail ("failed to read header: " #field); goto fail; } \
+    TRACE ("HEADER (" #field ") = %d", info->field)
+
+    TRACE_FUNC("((byte*) %p [%d], (aktive_header*) %p)", inbytes, inmax, info);
+
+    Tcl_Size pos = 0;
+
+    TRY  ("magic",       aktive_get_match   (inbytes, inmax, &pos, MAGIC,   sizeof (MAGIC)-1));
+    TRY  ("version",     aktive_get_match   (inbytes, inmax, &pos, VERSION, sizeof (VERSION)-1));
+    TRYF (domain.x,      aktive_get_int32be );
+    TRYF (domain.y,      aktive_get_int32be );
+    TRYF (domain.width,  aktive_get_uint32be);
+    TRYF (domain.height, aktive_get_uint32be);
+    TRYF (domain.depth,  aktive_get_uint32be);
+    TRYF (metac,         aktive_get_uint32be);
+    if (info->metac) {
+	info->meta = NALLOC (char, info->metac);
+	if (!aktive_get_string (inbytes, inmax, &pos, info->meta, info->metac)) {
+	    aktive_fail ("failed to read header: metadata");
+	    goto fail;
+	}
+    }
+    TRY ("magic2", aktive_get_match (inbytes, inmax, &pos, MAGIC2, sizeof (MAGIC2)-1));
+    info->pix = pos;
+
+    if (!header_esize (info, inmax)) goto fail;
+
+    TRACE_RETURN ("(ok) %d", 1);
+ fail:
+    if (info->meta) ckfree (info->meta);
+    TRACE_RETURN ("(fail) %d", 0);
+}
+
+#undef TRY
+#undef TRYF
+
+int
+aktive_aktive_slice_read (Tcl_Channel src, aktive_aktive_header* info, aktive_uint x, aktive_uint y, aktive_uint n, double* rowbuf)
+{
+    TRACE_FUNC ("((Channel) %p, (header*) %p, x=%d, y=%d, double[%d] %p)",
+		src, info, x, y, n, rowbuf);
+
+    Tcl_Seek (src, slice_offset (info, x, y, n), SEEK_SET);
+    int ok = aktive_read_float64be_n (src, n, rowbuf);
+
+    TRACE_RETURN ("(ok?) %d", ok);
+}
+
+int
+aktive_aktive_slice_get  (char* inbytes, aktive_aktive_header* info, aktive_uint x, aktive_uint y, aktive_uint n, double* rowbuf)
+{
+    TRACE_FUNC ("((byte*) %p, (header*) %p, x=%d, y=%d, double[%d] %p)",
+		inbytes, info, x, y, n, rowbuf);
+
+    Tcl_Size pos = slice_offset (info, x, y, n);
+    int ok = aktive_get_float64be_n (inbytes, info->esize, &pos, n, rowbuf);
+
+    TRACE_RETURN ("(ok?) %d", ok);
+}
+
+static int
+header_esize (aktive_aktive_header* info, Tcl_Size inmax)
+{
+    TRACE_FUNC("((aktive_header*) %p)", info);
+
+    TRACE_GEOMETRY (&info->domain);
+
+    info->pitch = aktive_geometry_get_pitch (&info->domain);
+    info->esize
+	= (sizeof (MAGIC)-1)                                        // 1st magic
+	+ (sizeof (VERSION)-1)                                      // version
+	+ 6 * sizeof(aktive_uint)                                   // x, y, w, h, d, meta size
+	+ info->metac                                               // meta data
+	+ (sizeof (MAGIC2)-1)                                       // 2nd magic
+	+ aktive_geometry_get_size (&info->domain) * sizeof(double) // pixels
+	;
+
+    int ok = inmax == info->esize;
+
+    TRACE ("pitch = %d (values)", info->pitch);
+    TRACE ("size  = %d (bytes)", info->esize);
+
+    if (!ok) aktive_failf ("bad size, expected %lld, got %lld", info->esize, inmax);
+
+    TRACE_RETURN ("(size ok?) %d", ok);
+}
+
+static Tcl_WideInt
+slice_offset (aktive_aktive_header* info, aktive_uint x, aktive_uint y, aktive_uint n)
+{
+    TRACE_FUNC("((header*) %p, x=%d, y=%d)", info, x, y);
+
+    Tcl_WideInt offset = info->pix
+	+ sizeof(double) * (  (y - info->domain.y) * info->pitch
+			    + (x - info->domain.x) * info->domain.depth);
+
+    ASSERT (offset                      >= info->pix,   "read before pixel data");
+    ASSERT (offset + n * sizeof(double) <= info->esize, "read after end of data");
+
+    TRACE_RETURN ("(offset) %d", offset);
+}
+
+/*
+ * - - -- --- ----- -------- -------------
+ ** Sink / Writer
  */
 
 typedef struct aktive_aktive_control {
