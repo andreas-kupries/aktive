@@ -1,0 +1,19 @@
+#!/bin/bash
+# abort on error
+set -e
+
+## inlined clean (backup files, crash dumps, debug traces)
+find . -name "*~" -print
+find . -name "*~" -exec rm "{}" \;
+find . -follow -name "core*" -exec rm "{}" \;
+rm -f *.trace
+
+operation=install
+#operation=debug
+
+# main build, including examples, and doc/example integration
+mkdir -p ../Logs
+( ./build.tcl uninstall $operation "$@" ) |& tee ../Logs/test.install
+
+echo
+date

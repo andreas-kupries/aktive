@@ -27,7 +27,7 @@
 ---
 ### [↑](#top) <a name='read_from_aktive_file'></a> aktive read from aktive file
 
-Syntax: __aktive read from aktive file__  (param value)... [[→ definition](/file?ci=trunk&ln=146&name=etc/generator/reader/aktive.tcl)]
+Syntax: __aktive read from aktive file__  (param value)... [[→ definition](/file?ci=trunk&ln=75&name=etc/generator/reader/aktive.tcl)]
 
 Construct image from file content in the native AKTIVE format.
 

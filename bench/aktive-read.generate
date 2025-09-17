@@ -36,9 +36,7 @@ set aspect   [expr {$w/$gcd}]:[expr {$h/$gcd}]
 
 foreach {origin param sourcevar} {
     file      path  ipath
-    fileold   path  ipath
     string    value idata
-    stringold value idata
 } {
     set labelcmd [list {*}$cmd $origin $param [file tail $ipath]]
 
