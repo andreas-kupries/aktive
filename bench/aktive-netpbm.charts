@@ -1,0 +1,29 @@
+# -*- tcl -*-
+# # ## ### ##### ######## ############# #####################
+## general structure is
+## - create several simple series
+## - merge the series into a side by side comparison
+
+chart aktive-file {
+    only {name = 'aktive read from aktive file path butterfly.aktive'}
+    only {sink = 'null'}
+
+    range threads
+    nodump
+}
+
+chart netpbm-file {
+    only {name = 'aktive read from netpbm file/iter butterfly-medium.ppm'}
+    only {sink = 'null'}
+
+    range threads
+    nodump
+}
+
+chart aktive-netpbm {
+    side-by-side        \
+	aktive-file     \
+	netpbm-file
+}
+
+return
