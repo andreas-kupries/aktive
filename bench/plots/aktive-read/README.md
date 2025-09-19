@@ -1,5 +1,11 @@
 # Benchmark results for the AKTIVE reader
 
+## Navigation
+
+[Parent](../README.md)
+
+## Summary
+
   - Replacing the 3-nested blitter reading each value separately with
     a 2-nested loop reading entire (partial) rows boosts the
     performance of both file and string readers.
@@ -15,7 +21,7 @@
     reader. Whereas the old file reader was about 21x slower than the
     old string reader.
 
-# Takeaways
+## Takeaways
 
   - There is no need to look into caching for the file reader at this
     time.
@@ -26,3 +32,13 @@
 
   - See if the same kind of thing can be applied to the NETPBM binary
     formats.
+
+## Plots
+
+### File vs old file
+
+![](aktive-read-1.svg)
+
+### File vs string
+
+![](aktive-read-2.svg)

@@ -1,4 +1,10 @@
-# Benchmark results for the netpbm reader
+# Benchmark results for the NETPBM reader
+
+## Navigation
+
+[Parent](../README.md)
+
+## Summary
 
   - For iterated, i.e. cache fill time not relevant, unordered is
     faster than sequential, regardless of format.
@@ -14,7 +20,7 @@
     up to 8 seconds. Still around 6 seconds for thread count >= actual
     core count.
 
-# Takeaways
+## Takeaways
 
   - Look into ideas for a faster cache implementation than the current
     (row) vector cache, especially faster fill.
@@ -36,3 +42,69 @@
 
       - VIPS seems to support mapping of a file directly into process
       	memory ?!
+
+## Plots
+
+### Iterated binary, unordered / sequential
+
+![](netpbm-read-1.svg)
+
+### Iterated text, unordered / sequential
+
+![](netpbm-read-2.svg)
+
+### Iterated unordered, text / binary
+
+![](netpbm-read-3.svg)
+
+### Iterated sequential, text / binary
+
+![](netpbm-read-4.svg)
+
+### Iterated all
+
+![](netpbm-read-5.svg)
+
+### Oneshot binary, unordered / sequential
+
+![](netpbm-read-6.svg)
+
+### Oneshot text, unordered / sequential
+
+![](netpbm-read-7.svg)
+
+### Oneshot unordered, text / binary
+
+![](netpbm-read-9.svg)
+
+### Oneshot sequential, text / binary
+
+![](netpbm-read-8.svg)
+
+### Shot all
+
+![](netpbm-read-10.svg)
+
+### Text unordered, shot / iterated
+
+![](netpbm-read-11a.svg)
+
+![](netpbm-read-11b.svg)
+
+### Text sequential, shot / iterated
+
+![](netpbm-read-12a.svg)
+
+![](netpbm-read-12b.svg)
+
+### Binary unordered, shot / iterated
+
+![](netpbm-read-13a.svg)
+
+![](netpbm-read-13b.svg)
+
+### Binary sequential, shot / iterated
+
+![](netpbm-read-14a.svg)
+
+![](netpbm-read-14b.svg)

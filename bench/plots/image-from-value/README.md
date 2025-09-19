@@ -1,4 +1,10 @@
-# Benchmark results comparing the two coordinators
+# Benchmark results comparing the two batch processor coordinators
+
+## Navigation
+
+[Parent](../README.md)
+
+## Summary
 
   - In the log plot both modes look very nearly identical, with the
     17 different thread configurations easy separable
@@ -30,3 +36,31 @@
   - For square images the plot looks roughly similar to the wide
     shallow case, likely again because of the larger contiguous blocks
     of values in memory.
+
+## Plots
+
+### Sequential / unordered
+
+![](image-from-value-1.svg)
+
+![](image-from-value-2.svg)
+
+### Tall images, varying height (x powers of 10)
+
+![](image-from-value-3.svg)
+
+### Wide images, varying width (x powers of 10)
+
+![](image-from-value-4.svg)
+
+### Tall and wide together
+
+![](image-from-value-5.svg)
+
+### Square images, varying width/height (x powers of 10)
+
+![](image-from-value-6.svg)
+
+### Tall, wide, and square together
+
+![](image-from-value-7.svg)

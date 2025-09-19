@@ -3,13 +3,12 @@
 
 set datafile   separator ','
 set key        autotitle columnhead				# use the first line as title
-set terminal   postscript enhanced color landscape 'Arial' 12
+set terminal   svg enhanced dynamic font 'Arial,12'
+# BEWARE. Each plot requires a separate outputfile.
 
 set size ratio 0.71 # for the A4 ratio
 set boxwidth   0.9
 set style      fill solid
-
-set output   "image-from-value.ps"
 
 # _ _ __ ___ _____ ________ _____________ _____________________
 ##
@@ -38,6 +37,7 @@ datasource = "unordered-vs-sequential.csv"
 # get a visualization, due to the large spread of values from near
 # zero to the million range
 
+set output   "image-from-value-1.svg"
 set logscale y
 plot datasource using 1:2 with lines, \
      datasource using 1:3 with lines
@@ -46,6 +46,7 @@ plot datasource using 1:2 with lines, \
 # sequential timings relative to that. sequential < 1 is faster than
 # unordered, and > 1 slower by that factor.
 
+set output   "image-from-value-2.svg"
 unset logscale
 plot datasource using 1:(1)	with lines title "unordered", \
      datasource using 1:($3/$2) with lines
@@ -59,6 +60,7 @@ plot datasource using 1:(1)	with lines title "unordered", \
 
 datasource = "unordered-single-column-threads.csv"
 
+set output   "image-from-value-3.svg"
 set logscale y
 plot datasource using  1:2 with lines, \
      datasource using  1:3 with lines, \
@@ -93,6 +95,7 @@ plot datasource using  1:2 with lines, \
 
 datasource2 = "unordered-single-row-threads.csv"
 
+set output   "image-from-value-4.svg"
 set logscale y
 plot datasource2 using  1:2 with lines, \
      datasource2 using  1:3 with lines, \
@@ -114,6 +117,7 @@ plot datasource2 using  1:2 with lines, \
 
 # Both tall and wide together
 
+set output   "image-from-value-5.svg"
 plot datasource using  1:2 with lines, \
      datasource using  1:3 with lines, \
      datasource using  1:4 with lines, \
@@ -158,6 +162,7 @@ plot datasource using  1:2 with lines, \
 
 datasource3 = "unordered-square-threads.csv"
 
+set output   "image-from-value-6.svg"
 set logscale y
 plot datasource3 using  1:2 with lines, \
      datasource3 using  1:3 with lines, \
@@ -178,6 +183,7 @@ plot datasource3 using  1:2 with lines, \
      datasource3 using 1:18 with lines
 
 # all together
+set output   "image-from-value-7.svg"
 plot datasource using  1:2 with lines, \
      datasource using  1:3 with lines, \
      datasource using  1:4 with lines, \
