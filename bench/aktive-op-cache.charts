@@ -1,0 +1,59 @@
+# -*- tcl -*-
+# # ## ### ##### ######## ############# #####################
+## general structure is
+## - create several simple series
+## - merge the series into a side by side comparison
+
+chart aktive-file {
+    only {name = 'aktive read from aktive file path butterfly.aktive'}
+    only {sink = 'null'}
+
+    range threads
+    nodump
+}
+
+chart netpbm-file {
+    only {name = 'aktive read from netpbm file/iter butterfly-medium.ppm'}
+    only {sink = 'null'}
+
+    range threads
+    nodump
+}
+
+chart aktive-cached {
+    only {name = 'aktive op cache /aktive'}
+    only {sink = 'null'}
+
+    range threads
+    nodump
+}
+
+chart netpbm-cached {
+    only {name = 'aktive op cache /netpbm'}
+    only {sink = 'null'}
+
+    range threads
+    nodump
+}
+
+# cached query should be same regardless of backend
+chart aktive-netpbm-cached {
+    side-by-side        \
+	aktive-cached   \
+	netpbm-cached
+}
+
+# cached should be faster than backed reader
+chart aktive-file-cached {
+    side-by-side        \
+	aktive-cached   \
+	aktive-file
+}
+
+chart netpbm-file-cached {
+    side-by-side        \
+	netpbm-cached   \
+	netpbm-file
+}
+
+return

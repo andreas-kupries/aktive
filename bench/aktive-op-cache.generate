@@ -1,0 +1,83 @@
+# -*- tcl -*- tcl.tk//DSL tclbench-generate//EN// Tcl Benchmark Generator File
+#
+# This file contains a number of benchmark __generators__ for AKTIVE commands.
+#
+# (c) 2025 Andreas Kupries <andreas_kupries@users.sourceforge.net>
+#
+# reading an image from a full in-memory cache.
+# With AKTIVE and NETPBM readers as backends.
+##
+# ### ### ### ######### ######### ######### ##########################
+## Utilities
+
+source ../support/bench-gen-utilities.tcl
+
+package require math::numtheory
+package require aktive
+
+# # ## ### ##### ######## ############# #####################
+
+set cmd   {aktive op cache}
+#
+set base  [file root [info script]]
+set ipath ../tests/assets/butterfly.aktive
+
+# ### ### ### ######### ######### ######### ###########################
+## Benchmark Generators.
+
+set image  [aktive read from aktive file path $ipath]
+lassign    [aktive query domain $image] x y w h d
+unset image ;# ===================================
+set size     [expr {$w * $h}]
+set gcd      [::math::numtheory::gcd $w $h]
+set aspect   [expr {$w/$gcd}]:[expr {$h/$gcd}]
+
+foreach {format ipath} {
+    aktive  ../tests/assets/butterfly.aktive
+    netpbm  ../tests/assets/butterfly-medium.ppm
+} {
+    set labelcmd [list {*}$cmd /$format]
+
+    foreach cores {
+	-1 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16
+    } {
+	set label [list $labelcmd null $cores $size $aspect $w $h]
+
+	set     map {}
+	lappend map \
+	    %cores%      $cores  \
+	    %w%          $w      \
+	    %h%          $h      \
+	    %d%          $d      \
+	    %size%       $size   \
+	    %aspect%     $aspect \
+	    %ipath%      [file normalize $ipath]  \
+	    "\n\t\t    " "\n    " \
+	    "\n\t\t"     "\n"
+	
+	generate generated/$base/cache_${format}_cpu${cores}_w${w}_h${h}.bench \
+	    [map {
+		aktive processor %cores%
+
+		set ipath %ipath%
+
+		bench_puts "WIDTH  = %w%"
+		bench_puts "HEIGHT = %h%"
+		bench_puts "DEPTH  = %d%"
+		bench_puts "SIZE   = %size%"
+		bench_puts "ASPECT = %aspect%"
+
+		bench -iter 100 -desc {%label%} -pre {
+		    set image [aktive op cache [aktive read from %format% file path $ipath]]
+		    # fill cache before the iterated reading
+		    aktive format as null 2string $image
+		} -body {
+		    aktive format as null 2string $image
+		} -post {
+		    unset image
+		}
+	    } {*}$map %format% $format %label% $label]
+    }
+}
+
+return
