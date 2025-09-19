@@ -2,37 +2,35 @@
 
 package require sqlite3
 
-lassign $argv infile outfile
+proc main {} {
+    global argv
+    set infiles [lassign $argv outfile]
+    sqlite3 DB $outfile
+    setup
+    foreach in $infiles { ingest $in }
+    DB close
+    return
+}
 
-set chan [open $infile r]
-sqlite3 DB $outfile
-
-# input file is CSV formatted
-#
-# fields       :: shell shell-version benchmark-file round label microseconds
-#    all fields are wrapped into double-apostrophs
-#    label is tcl list
-#
-# label fields :: command sink cores image-size image-aspect image-width image-height
-
-DB eval {
-    DROP TABLE IF EXISTS micros
-    ;
-    CREATE TABLE micros (
-	  --
-	  -- - - -- --- ----- -------- ------------- ---------------------
-	  -- benchmark database, table of benchmark results
-	  --
-	  -- of the twelve fields found in a benchmark .result CSV file ten
-	  -- are stored here. not stored are the path to the tcl shell, nor
-	  -- the round number. the strong separation of the information about
-	  -- number of threads, image size, aspect, ..., sink used, etc.
-	  -- enables slicing and aggregation of the data in many directions.
-	  -- (in the CSV file this is all coded into the label)
-	  -- - - -- --- ----- -------- ------------- ---------------------
-	  --
-	  id      INTEGER PRIMARY KEY NOT NULL
-	  --
+proc setup {} {
+    DB eval {
+	DROP TABLE IF EXISTS micros
+	;
+	CREATE TABLE micros (
+	--
+	-- - - -- --- ----- -------- ------------- ---------------------
+	-- benchmark database, table of benchmark results
+	--
+	-- of the twelve fields found in a benchmark .result CSV file ten
+	-- are stored here. not stored are the path to the tcl shell, nor
+	-- the round number. the strong separation of the information about
+	-- number of threads, image size, aspect, ..., sink used, etc.
+	-- enables slicing and aggregation of the data in many directions.
+	-- (in the CSV file this is all coded into the label)
+	-- - - -- --- ----- -------- ------------- ---------------------
+	--
+	id      INTEGER PRIMARY KEY NOT NULL
+	--
 	, version TEXT                         -- tcl version
 	, suite   TEXT                         -- path of benchmark file
 	, name    TEXT                         -- image command
@@ -43,38 +41,53 @@ DB eval {
 	, iwidth  INTEGER                      -- image width
 	, iheight INTEGER                      -- image height
 	, micros  FLOAT                        -- benchmark time in microseconds
-	  --
+	--
 	, UNIQUE (version, suite, name, sink, threads, isize,  iaspect)
 	, UNIQUE (version, suite, name, sink, threads, iwidth, iheight)
-    )
+	)
+    }
+    return
 }
 
-DB transaction {
-    while {![eof $chan]} {
-	puts -nonewline \r\033\[K[incr num] ; flush stdout
-	
-	if {[gets $chan line] < 0} continue
-	if {[string match *tcl-version* $line]} continue
-	
-	set line [split $line ,]
-	set line [lmap field $line { string trim $field \" }]
+proc ingest {infile} {
+    set chan [open $infile r]
 
-	lassign $line shell version suite round label micros
+    # input file is CSV formatted
+    #
+    # fields       :: shell shell-version benchmark-file round label microseconds
+    #    all fields are wrapped into double-apostrophs
+    #    label is tcl list
+    #
+    # label fields :: command sink cores image-size image-aspect image-width image-height
 
-	set suite [file join {*}[lrange [file split $suite] end-1 end]]
+    DB transaction {
+	while {![eof $chan]} {
+	    puts -nonewline \r\033\[K[incr num] ; flush stdout
+	    
+	    if {[gets $chan line] < 0} continue
+	    if {[string match *tcl-version* $line]} continue
+	    
+	    set line [split $line ,]
+	    set line [lmap field $line { string trim $field \" }]
 
-	lassign $label name sink thread size aspect w h __
+	    lassign $line shell version suite round label micros
 
-	DB eval {
-	    INSERT
-	    OR     REPLACE
-	    INTO   MICROS
-	    VALUES (NULL, :version, :suite, :name, :sink, :thread, :size, :aspect, :w, :h, :micros)
+	    set suite [file join {*}[lrange [file split $suite] end-1 end]]
+
+	    lassign $label name sink thread size aspect w h __
+
+	    DB eval {
+		INSERT
+		OR     REPLACE
+		INTO   MICROS
+		VALUES (NULL, :version, :suite, :name, :sink, :thread, :size, :aspect, :w, :h, :micros)
+	    }
 	}
     }
+    puts ""
+    close $chan
+    return
 }
 
-puts ""
-DB close
-close $chan
+main
 exit

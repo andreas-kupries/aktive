@@ -30,15 +30,15 @@ headers="$(dirname $(dirname $(type tclsh | projection 3))/include)"
 # II. generate a number of extracts and charts
 
 bench-to-sqlite \
-    "${LOG}"/${PREFIX}.results \
-    "${LOG}"/${PREFIX}.sqlite 
+    "${LOG}"/${PREFIX}.sqlite  \
+    "${LOG}"/${PREFIX}.results
 
 ########################################
 exit
 
 bench-charts \
     "${LOG}"/${PREFIX}.sqlite \
-    bench/image-from-value.charts
+    bench/*.charts
 
 gnuplot bench/image-from-value.gnuplot
 
