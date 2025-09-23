@@ -6,13 +6,13 @@
 
 ## Summary
 
- - The interpolation methods falls into three groups.
+  - The interpolation methods falls into three groups.
 
-     - `near-neighbour` and `bilinear` as single fast group, followed by
+      - `near-neighbour` and `bilinear` as single fast group, followed by
 
-     - `bicubic` as much slower, and
+      - `bicubic` as much slower, and
 
-     - `lanczos` a few orders slower than that.
+      - `lanczos` a few orders slower than that.
 
   - Correlates very well with the size of the neighbourhood used to
     compute each interpolated value from.
@@ -32,11 +32,11 @@
 
       - It is unclear at this point if the threshold is better as
 
-      	  - a percentage of the input we wish to stay below of, or as
+          - a percentage of the input we wish to stay below of, or as
 
           - a ratio between result and fetched area, or as
 
-	  - a ratio between the area of the union of the separate
+          - a ratio between the area of the union of the separate
             regions vs the area of the single region fetched
 
 ## Plots
