@@ -1,0 +1,39 @@
+# -*- tcl -*-
+# # ## ### ##### ######## ############# #####################
+## general structure is
+## - create several simple series
+## - merge the series into a side by side comparison
+
+chart aktive-cached {
+    only {name = 'aktive op cache /aktive'}
+    only {sink = 'null'}
+
+    range threads
+    nodump
+}
+
+foreach i {
+    near-neighbour
+    bilinear
+    bicubic
+    lanczos
+} {
+    chart warp-rotate-$i [string map [list %% $i] {
+	only {name = 'aktive op transform by /%%'}
+	only {sink = 'null'}
+
+	range threads
+	nodump
+    }]
+}
+
+chart warp-rotate {
+    side-by-side        \
+	aktive-cached   \
+	warp-rotate-near-neighbour \
+	warp-rotate-bilinear \
+	warp-rotate-bicubic \
+	warp-rotate-lanczos
+}
+
+return

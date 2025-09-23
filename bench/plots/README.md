@@ -6,6 +6,7 @@
 
   - [aktive image from value](image-from-value/README.md)
   - [aktive op cache](aktive-op-cache/README.md)
+  - [aktive op transform by](warp-rotate/README.md)
   - [aktive read from aktive](aktive-read/README.md)
   - [aktive read from netpbm](netpbm-read/README.md)
   - [AKTIVE vs NETPBM](aktive-netpbm/README.md)

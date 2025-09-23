@@ -1,0 +1,96 @@
+# -*- tcl -*- tcl.tk//DSL tclbench-generate//EN// Tcl Benchmark Generator File
+#
+# This file contains a number of benchmark __generators__ for AKTIVE commands.
+#
+# (c) 2025 Andreas Kupries <andreas_kupries@users.sourceforge.net>
+#
+# Warping. Rotation. Measure our Warp Speed.
+##
+# ### ### ### ######### ######### ######### ##########################
+## Utilities
+
+source ../support/bench-gen-utilities.tcl
+
+package require math::numtheory
+package require aktive
+
+# # ## ### ##### ######## ############# #####################
+
+set cmd   {aktive read from aktive}
+#
+set base  [file root [info script]]
+set ipath ../tests/assets/butterfly.aktive
+# idata irrelevant to generator
+
+set  catfile [file normalize ../tests/support/files.tcl]
+
+# ### ### ### ######### ######### ######### ###########################
+## Benchmark Generators.
+
+set image  [aktive read from aktive file path $ipath]
+lassign    [aktive query domain $image] x y w h d
+unset image ;# ===================================
+set size     [expr {$w * $h}]
+set gcd      [::math::numtheory::gcd $w $h]
+set aspect   [expr {$w/$gcd}]:[expr {$h/$gcd}]
+
+# ### ### ### ######### ######### ######### ###########################
+
+foreach interpolation {
+    near-neighbour
+    bilinear
+    bicubic
+    lanczos
+} {
+    foreach cores {
+	-1 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16
+    } {
+	set label [list "aktive op transform by /$interpolation" null $cores $size $aspect $w $h]
+
+	set     map {}
+	lappend map \
+	    %interpolation% $interpolation \
+	    %label%         $label  \
+	    %cores%         $cores  \
+	    %w%             $w      \
+	    %h%             $h      \
+	    %d%             $d      \
+	    %size%          $size   \
+	    %aspect%        $aspect \
+	    %ipath%         [file normalize $ipath]  \
+	    "\n\t    "      "\n"                     \
+	    "\n\t\t"        "\n    "
+	
+	generate generated/$base/transform_rotate_${interpolation}_cpu${cores}_w${w}_h${h}.bench \
+	    [map {
+		aktive processor %cores%
+
+		bench_puts "WIDTH  = %w%"
+		bench_puts "HEIGHT = %h%"
+		bench_puts "DEPTH  = %d%"
+		bench_puts "SIZE   = %size%"
+		bench_puts "ASPECT = %aspect%"
+
+		bench -iter 100 -desc {%label%} -pre {
+		    # base image
+		    set image [aktive read from aktive file path %ipath%]
+		    # cached to make reading fast
+		    set image [aktive op cache $image]
+		    # preload cache
+		    aktive format as null 2string $image
+		    # measuring a rotation transform
+		    set transform [aktive transform rotate by 30 around {10 50}]
+		    # warper to measure
+		    set image [aktive op transform by $transform $image interpolate %interpolation%]
+		    # limit result to the input image geometry, measure independent of chosen transform's domain
+		    set image [aktive op view $image port {0 0 %w% %h%}]
+		} -body {
+		    aktive format as null 2string $image
+		} -post {
+		    unset image
+		}
+	    } {*}$map]
+    }
+}
+
+return
