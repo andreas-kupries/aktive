@@ -114,20 +114,23 @@ operator {coordinate dimension} {
 	src/pop \
 	returns src
 
-    # base blitter setup
-    set blitspec {
-	{DH {y 0 1 up} {y 0 1 up}}
-	{DW {x 0 1 up} {x 0 1 up}}
-	{DD {z 0 1 up} {z 0 1 up}}
-    }
-    # ... stretch specific source axis
-    switch -exact -- $coordinate {
-	y { lset blitspec 0 2 2 n }
-	x { lset blitspec 1 2 2 n }
-	z { lset blitspec 2 2 2 n }
-    }
-    # ... generate code
-    blit subsampler $blitspec copy
+    blit subsampler [dict get {
+	y {
+	    {DH {y 0 1 up} {y 0 n up}}
+	    {DW {x 0 1 up} {x 0 1 up}}
+	    {DD {z 0 1 up} {z 0 1 up}}
+	}
+	x {
+	    {DH {y 0 1 up} {y 0 1 up}}
+	    {DW {x 0 1 up} {x 0 n up}}
+	    {DD {z 0 1 up} {z 0 1 up}}
+	}
+	z {
+	    {DH {y 0 1 up} {y 0 1 up}}
+	    {DW {x 0 1 up} {x 0 1 up}}
+	    {DD {z 0 1 up} {z 0 n up}}
+	}
+    } $coordinate] copy
 
     def expansion-rewrite-core {
 	// Rewrite request along the @@coordinate@@-axis to get enough data from the source

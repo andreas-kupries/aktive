@@ -32,9 +32,9 @@ operator {coorda coordb coordc dima dimb dimc} {
     # A swap is a mirror along a diagonal. This exchanges two axes.  The location is left
     # unchanged. This makes the implementation more consistent when the swap involves the
     # z-axis. Changing the location with z involved are degenerative cases.
-
-    # - `xz` :: A requested column-block becomes a band-block in the source.
-    # - `yz` :: A requested row-block becomes a band-block in the source.
+    #
+    # - `xz` :: A requested column-block is a band-block in the source.
+    # - `yz` :: A requested row-block    is a band-block in the source.
     #
     #           As we cannot ask for band-blocks the source is asked for all bands.  The
     #           blitter is then responsible for pulling out only the desired bands to
@@ -42,25 +42,23 @@ operator {coorda coordb coordc dima dimb dimc} {
     #
     #           See block `swap-rewrite` below.
 
-    # base blitter setup
-    set blitspec {
-	{DH {y 0 1 up} {y 0 1 up}}
-	{DW {x 0 1 up} {x 0 1 up}}
-	{DD {z 0 1 up} {z 0 1 up}}
-    }
-    #    0  1          2
-    #        0 1 2 3    0 1 2 3
-    #             axis -^ ^- first
-
-    # ... swap two axes
-    switch -exact -- $coorda$coordb {
-	xy { lset blitspec 0 2 0 x ; lset blitspec 1 2 0 y }
-	xz { lset blitspec 1 2 0 z ; lset blitspec 2 2 0 x ; lset blitspec 1 2 1 first }
-	yz { lset blitspec 0 2 0 z ; lset blitspec 2 2 0 y ; lset blitspec 0 2 1 first }
-    }
-    #                                ^- axis ----------^     ^- first ---------^
-    # ... generate code
-    blit swapper $blitspec copy
+    blit swapper [dict get {
+	xy {
+	    {DH {y 0 1 up} {x 0 1 up}}
+	    {DW {x 0 1 up} {y 0 1 up}}
+	    {DD {z 0 1 up} {z 0 1 up}}
+	}
+	xz {
+	    {DH {y 0 1 up} {y 0     1 up}}
+	    {DW {x 0 1 up} {z first 1 up}}
+	    {DD {z 0 1 up} {x 0     1 up}}
+	}
+	yz {
+	    {DH {y 0 1 up} {z first 1 up}}
+	    {DW {x 0 1 up} {x 0     1 up}}
+	    {DD {z 0 1 up} {y 0     1 up}}
+	}
+    } $coorda$coordb] copy
 
     def swap-rewrite [dict get {
 	xy {

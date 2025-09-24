@@ -124,20 +124,23 @@ operator {coordinate dimension} {
 	}
     }
 
-    # base blitter setup
-    set blitspec {
-	{DH {y 0 1 up} {y 0 1 up}}
-	{DW {x 0 1 up} {x 0 1 up}}
-	{DD {z 0 1 up} {z 0 1 up}}
-    }
-    # ... stuff specific destination axis using source dimension, lock start to grid
-    switch -exact -- $coordinate {
-	y { lset blitspec 0 0 SH ; lset blitspec 0 1 2 n ; lset blitspec 0 1 1 grid }
-	x { lset blitspec 1 0 SW ; lset blitspec 1 1 2 n ; lset blitspec 1 1 1 grid }
-	z { lset blitspec 2 0 SD ; lset blitspec 2 1 2 n }
-    }
-    # ... generate code
-    blit filler $blitspec copy
+    blit filler [dict get {
+	y {
+	    {SH {y grid n up} {y 0 1 up}}
+	    {DW {x 0    1 up} {x 0 1 up}}
+	    {DD {z 0    1 up} {z 0 1 up}}
+	}
+	x {
+	    {DH {y 0    1 up} {y 0 1 up}}
+	    {SW {x grid n up} {x 0 1 up}}
+	    {DD {z 0    1 up} {z 0 1 up}}
+	}
+	z {
+	    {DH {y 0 1 up} {y 0 1 up}}
+	    {DW {x 0 1 up} {x 0 1 up}}
+	    {SD {z 0 n up} {z 0 1 up}}
+	}
+    } $coordinate] copy
 
     def shrinkcore {
 	// Note: C-semantics for `%`. Tcl semantics yield `(-i)%n`.

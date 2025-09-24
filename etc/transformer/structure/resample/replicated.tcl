@@ -92,20 +92,23 @@ operator {coordinate dimension} {
     # Phase:   2           (7%5)
     # NOTE: Input range is +1 wider than a plain /N results in.
 
-    # base blitter setup
-    set blitspec {
-	{DH {y 0 1 up} {y 0 1 up}}
-	{DW {x 0 1 up} {x 0 1 up}}
-	{DD {z 0 1 up} {z 0 1 up}}
-    }
-    # ... fractionalize source of specific axis
-    switch -exact -- $coordinate {
-	y { lset blitspec 0 2 2 1/n }
-	x { lset blitspec 1 2 2 1/n }
-	z { lset blitspec 2 2 2 1/n }
-    }
-    # ... generate code
-    blit replicator $blitspec copy
+    blit replicator [dict get {
+	y {
+	    {DH {y 0 1 up} {y 0 1/n up}}
+	    {DW {x 0 1 up} {x 0 1   up}}
+	    {DD {z 0 1 up} {z 0 1   up}}
+	}
+	x {
+	    {DH {y 0 1 up} {y 0 1   up}}
+	    {DW {x 0 1 up} {x 0 1/n up}}
+	    {DD {z 0 1 up} {z 0 1   up}}
+	}
+	z {
+	    {DH {y 0 1 up} {y 0 1   up}}
+	    {DW {x 0 1 up} {x 0 1   up}}
+	    {DD {z 0 1 up} {z 0 1/n up}}
+	}
+    } $coordinate] copy
 
     def phasor-core {
 	// Rewrite request along the @coordinate@@-axis to get enough from the source.
