@@ -6,6 +6,15 @@
 # TODO :: function inline - this is more in the usage
 # TODO ::
 
+#
+# blit      :: list (scan...)
+# scan      :: list (range block...)
+# block     :: list (axis start stride direction)
+# start     :: int
+# stride    :: int
+# direction :: up / down
+#
+
 package require textutil::adjust
 
 namespace eval dsl::blit {
@@ -27,7 +36,7 @@ proc dsl::blit::into {destination scans function} {
     return
 }
 
-proc dsl::blit::gen {name scans function} {
+proc dsl::blit::gen {name blit function} {
     # TODO :: Optimizations - memset, memcpy
     ##
     # - ...    ...    full-z zero    -> zero-all-bands   -- memset pixel
@@ -41,16 +50,16 @@ proc dsl::blit::gen {name scans function} {
     # TODO :: Assertions ...
 
     Init
-    set axes [Collect $scans]
+    set axes [CollectAxes $blit]
 
     EmitAxisSupport $axes
 
     set id 0
-    foreach scan $scans { EmitLoopRange $scan $id ; incr id }
+    foreach scan $blit { EmitLoopRange $scan $id ; incr id }
 
     EmitCellIntro $axes
 
-    foreach scan $scans { EmitLoopSetup $scan ; >>> }
+    foreach scan $blit { EmitLoopSetup $scan ; >>> }
 
     set f [lindex $function 0]
     set virtual [expr {$f in {pos point point/2d}}]
@@ -60,8 +69,7 @@ proc dsl::blit::gen {name scans function} {
     EmitFunction   $function
     + "TRACE_CLOSER;"	;# starting in EmitCellAccess
 
-    set rscans [lreverse $scans]
-    foreach scan $rscans { EmitLoopCompletion $scan }
+    foreach scan [lreverse $blit] { EmitLoopCompletion $scan }
 
     EmitCompletion
 
@@ -69,7 +77,7 @@ proc dsl::blit::gen {name scans function} {
     # during general code emission
 
     set code [Get]
-    EmitIntro $name $scans $function
+    EmitIntro $name $blit $function
     + $code
     Done
 }
@@ -342,7 +350,7 @@ proc dsl::blit::EmitLoopRange {scan id} {
 
     # Range counter, separate from the position trackers
     + "aktive_uint [F range${id}n] = ${range};"
-    + "aktive_uint range${id};"
+    ###+ "aktive_uint range${id};"
 
     set axis [lindex $blocks 0 0]
     + "TRACE (\"blit $axis range: %u\", range${id}n);"
@@ -369,7 +377,8 @@ proc dsl::blit::EmitLoopSetup {scan} {
     # Begin loop
     + {}
     ## + "TRACE (\"(re)start [L]\", 0);"
-    + "for (range[L] = 0; range[L] < range[L]n ; range[L] ++) \{"
+    ##+ "for (range[L] = 0; range[L] < range[L]n ; range[L] ++) \{"
+    + "BLIT_SCAN ([L], range[L]n) \{"
     return
 }
 
@@ -462,7 +471,7 @@ proc dsl::blit::BlockIncrement {var block} {
 
 # # ## ### ##### ######## #############
 
-proc dsl::blit::EmitIntro {name scans function} {
+proc dsl::blit::EmitIntro {name blit function} {
     global tcl_platform
 
     Comment "Blitter `$name`"
@@ -470,7 +479,7 @@ proc dsl::blit::EmitIntro {name scans function} {
     Comment "Generated [clock format [clock seconds]] -- $tcl_platform(user)@[info hostname]"
 
     Comment "Specification:"
-    foreach scan $scans { Comment "- scan $scan" }
+    foreach scan $blit { Comment "- scan $scan" }
     lappend map "\n" " "
     Comment "= [join [lmap w $function { string map $map [string trim $w] }] { }]"
     + {}
@@ -504,9 +513,9 @@ proc dsl::blit::P {kind} { string map {dst DST src SRC} $kind }
 proc dsl::blit::F {x}    { format %-10s $x }
 proc dsl::blit::T {x}    { format %-4s $x }
 
-proc dsl::blit::Collect {scans} {
+proc dsl::blit::CollectAxes {blit} {
     set axes {}
-    foreach scan $scans {
+    foreach scan $blit {
 	set n 0
 	set kind dst
 	foreach block [lassign $scan __] {
