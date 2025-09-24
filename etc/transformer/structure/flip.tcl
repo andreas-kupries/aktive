@@ -26,20 +26,23 @@ operator {coordinate dimension} {
     # flips are self-complementary
     simplify for   src/type @self   returns src/child
 
-    # base blitter setup
-    set blitspec {
-	{DH {y 0 1 up} {y 0 1 up}}
-	{DW {x 0 1 up} {x 0 1 up}}
-	{DD {z 0 1 up} {z 0 1 up}}
-    }
-    # ... invert specific axis
-    switch -exact -- $coordinate {
-	y { lset blitspec 0 2 3 down }
-	x { lset blitspec 1 2 3 down }
-	z { lset blitspec 2 2 3 down }
-    }
-    # ... generate code
-    blit flipper $blitspec copy
+    blit flipper [dict get {
+	y {
+	    {DH {y 0 1 down} {y 0 1 up}}
+	    {DW {x 0 1 up  } {x 0 1 up}}
+	    {DD {z 0 1 up  } {z 0 1 up}}
+	}
+	x {
+	    {DH {y 0 1 up  } {y 0 1 up}}
+	    {DW {x 0 1 down} {x 0 1 up}}
+	    {DD {z 0 1 up  } {z 0 1 up}}
+	}
+	z {
+	    {DH {y 0 1 up  } {y 0 1 up}}
+	    {DW {x 0 1 up  } {x 0 1 up}}
+	    {DD {z 0 1 down} {z 0 1 up}}
+	}
+    } $coordinate] copy
 
     #            min                                                           v-max
     # domain:    |------------------------------.------------------------------|
