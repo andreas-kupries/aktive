@@ -21,139 +21,88 @@ Batch processors are currently used to
 
 The batch processor is the core of AKTIVE's horizontal threading.
 
-The [main entry point](/file?ci=trunk&name=runtime/batch.h&ln=96) is invoked
-with a configuration flag, batch specific state information, and three function
-vectors, the
+The [main entry point](/file?ci=trunk&name=runtime/batch.h&ln=96) is invoked with a configuration flag, batch specific state information, and three function vectors, the
 
   - `maker` to generate `tasks`,
   - `worker` to receive `tasks` and generate `results`, and
   - `completer` to receive `results` for final processing.
 
-The state is not touched by the processor, just passed through to the
-functions. The flag determines the exact [mode](#emodes) of operation.
+The state is not touched by the processor, just passed through to the functions. The flag determines the exact [mode](#emodes) of operation.
 
-Note that to the batch processor the aforementioned `tasks` and `results` are
-all `void*`, and it does not care about their internal structure.  `NULL` is the
-only value it cares about, treating it as a stop signal.  The functions
-themselves have to agree on their structures however, of course.
+Note that to the batch processor the aforementioned `tasks` and `results` are all `void*`, and it does not care about their internal structure. `NULL` is the only value it cares about, treating it as a stop signal. The functions themselves have to agree on their structures however, of course.
 
-The functions all run in their own threads, communicating by queues.  Note that
-while `maker` and `completer` exist only once the `worker` is instantiated
-roughly [CPU count](../ref/miscellaneous.md#processors) times.
+The functions all run in their own threads, communicating by queues. Note that while `maker` and `completer` exist only once the `worker` is instantiated roughly [CPU count](../ref/miscellaneous.md#processors) times.
 
-The `completer` thread is actually virtual. The main thread performs this action
-after it spawned and initialized the maker and worker threads, until all results
-were received and the processor is done.
+The `completer` thread is actually virtual. The main thread performs this action after it spawned and initialized the maker and worker threads, until all results were received and the processor is done.
 
 ## Functions
 
 ### Maker
 
-On each call a `maker` function has to return a new `task` for the workers to
-perform, or `NULL`.
+On each call a `maker` function has to return a new `task` for the workers to perform, or `NULL`.
 
 The latter indicates to the batch processor that the pool of tasks is exhausted.
 
-As the maker is executed in its own thread the maker can block and wait for some
-condition before it returns. The calculation of [Connected Components](cc.md)
-uses this to delay returning a stop-signal (`NULL`) until it is given the
-go-ahead by the associated completer.
+As the maker is executed in its own thread the maker can block and wait for some condition before it returns. The calculation of [Connected Components](cc.md) uses this to delay returning a stop-signal (`NULL`) until it is given the go-ahead by the associated completer.
 
 ### Worker
 
-On each call the `worker` is given either a `task` to perform, or the
-stop-signal (`NULL`).
+On each call the `worker` is given either a `task` to perform, or the stop-signal (`NULL`).
 
-The latter indicates that there are no more tasks to follow, and that the worker
-has to properly shutdown itself now. This is especially includes cleanup of any
-per-worker state it used. The system expects the worker to pass the stop-signal
-forward as its result before it terminates.
+The latter indicates that there are no more tasks to follow, and that the worker has to properly shutdown itself now. This is especially includes cleanup of any per-worker state it used. The system expects the worker to pass the stop-signal forward as its result before it terminates.
 
-For an invokation with an actual task the worker has to perform the specified
-task and then return a result for it.
+For an invokation with an actual task the worker has to perform the specified task and then return a result for it.
 
-On the first call (`wstate == NULL`) it may initialize its per-worker state,
-should such a thing be needed by the overall operation. When doing so the state
-has to be cleaned up again on the last call, see above.
+On the first call (`wstate == NULL`) it may initialize its per-worker state, should such a thing be needed by the overall operation. When doing so the state has to be cleaned up again on the last call, see above.
 
-An example of such a state could be a scratch buffer for transient data.
-Allocating and releasing such per call would induce lots of memory churn
-which is better avoided.
+An example of such a state could be a scratch buffer for transient data. Allocating and releasing such per call would induce lots of memory churn which is better avoided.
 
 ### Completer
 
-On each call the `completer` is given either a `result`, or the stop-signal
-(`NULL`).
+On each call the `completer` is given either a `result`, or the stop-signal (`NULL`).
 
-The latter indicates that there are no more results to follow, and that the
-completer has to properly shutdown itself now.
+The latter indicates that there are no more results to follow, and that the completer has to properly shutdown itself now.
 
-For an invokation with an actual result the completer has to perform whatever
-is necessary for the overall operation.
+For an invokation with an actual result the completer has to perform whatever is necessary for the overall operation.
 
-As examples, for the file sinks this is writing the data to the file, whereas
-for the reductions this is the incremental consolidation of the partial results
-into the final complete result, the statistic to return.
+As examples, for the file sinks this is writing the data to the file, whereas for the reductions this is the incremental consolidation of the partial results into the final complete result, the statistic to return.
 
-__In contrast__ to `maker` and `worker` the `completer` has access to the batch
-processor itself. This enables it to inject additional tasks into the system,
-outside of the tasks generated by the maker.
+__In contrast__ to `maker` and `worker` the `completer` has access to the batch processor itself. This enables it to inject additional tasks into the system, outside of the tasks generated by the maker.
 
 This is used, for example, in the calculation of [Connected Components](cc.md).
 
 ## <a name='emodes'></a> Execution modi
 
-Batch processors can be run in one of two execution modi, `sequential`, and
-`unordered`.
+Batch processors can be run in one of two execution modi, `sequential`, and `unordered`.
 
-The first mode should only be used if the order in which results arrive at the
-`completer` matters to the operation. Most often it does not matter. So far
-`sequential` mode was only required for the file sinks where the file format
-prevents random access to arbitrary pixel locations. In other words, the text
-forms of the [Netpbm](http://en.wikipedia.org/wiki/Netpbm_format) file formats.
+The first mode should only be used if the order in which results arrive at the `completer` matters to the operation. Most often it does not matter. So far `sequential` mode was only required for the file sinks where the file format prevents random access to arbitrary pixel locations. In other words, the text forms of the [Netpbm](http://en.wikipedia.org/wiki/Netpbm_format) file formats.
 
-Everything else uses the `unordered` mode, where results may arrive at the
-`completer` in arbitrary order.
+Everything else uses the `unordered` mode, where results may arrive at the `completer` in arbitrary order.
 
-Management of the thread interactions in these modes is delegated to a separator
-structure, the coordinator, of which we have two implementations, one per mode.
+Management of the thread interactions in these modes is delegated to a separator structure, the coordinator, of which we have two implementations, one per mode.
 
 More details in the following two sections.
 
 ### Unordered
 
-![Unordered](../assets/unordered.svg)
+[<img alt='Unordered' src='../assets/unordered.svg' style='width:50%;'>](../assets/unordered.svg)
 
-All threads communicate through two fifo queues. One queue for the passing of
-tasks from the maker to the workers, and one for the passing of results from
-workers to complete.
+All threads communicate through two fifo queues. One queue for the passing of tasks from the maker to the workers, and one for the passing of results from workers to complete.
 
-Both queues are implemented as limited-capacity ring buffers.
-Their capacities are set to the number of worker threads.
-This automatically regulates thread activity, by the speed the completer is able
-to process results.
+Both queues are implemented as limited-capacity ring buffers. Their capacities are set to the number of worker threads. This automatically regulates thread activity, by the speed the completer is able to process results.
 
 ### Sequential
 
-![Sequential](../assets/sequential.svg)
+[<img alt='Sequential' src='../assets/sequential.svg' style='width:50%;'>](../assets/sequential.svg)
 
-This is a more complex system with many more queues. We keep using
-limited-capacity ring buffers however, as before.
+This is a more complex system with many more queues. We keep using limited-capacity ring buffers however, as before.
 
-Each `worker` thread has associated task- (capacity 3), and result queue
-(capacity: count of workers). Ordering is maintained by the `maker` sending the
-worker ids over to the `completer` through a `pickup` queue, in the same order
-as the workers are given their tasks. `Workers` without tasks report back to the
-`maker` through the `idle` queue.
+Each `worker` thread has associated task- (capacity 3), and result queue (capacity: count of workers). Ordering is maintained by the `maker` sending the worker ids over to the `completer` through a `pickup` queue, in the same order as the workers are given their tasks. `Workers` without tasks report back to the `maker` through the `idle` queue.
 
 Regarding queue capacities:
 
   - Idle and pickup are naturally limited to the number of `workers`.
 
-  - It is expected that each `worker` in general has only one inbound task,
-    possibly two at the end (the stop-signal). Going to three should ensure that
-    these queues are never full.
+  - It is expected that each `worker` in general has only one inbound task, possibly two at the end (the stop-signal). Going to three should ensure that these queues are never full.
 
-  - I am unable to prove that a very fast `worker` is not able to lap all the
-    others to the point that it is the sole `worker` listed for pickup. Thus
-    making the result queues as large as the number of workers, to keep these.
+  - I am unable to prove that a very fast `worker` is not able to lap all the others to the point that it is the sole `worker` listed for pickup. Thus making the result queues as large as the number of workers, to keep these.

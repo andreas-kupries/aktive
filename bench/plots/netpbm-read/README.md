@@ -1,8 +1,10 @@
+<img src='../../../doc/assets/aktive-logo-128.png' style='float:right;'>
+
 # Benchmark results for the NETPBM reader
 
-## Navigation
-
-[Parent](../README.md)
+||
+|---|
+|[Parent ↗](../README.md)|
 
 ## Summary
 
@@ -45,66 +47,35 @@
 
 ## Plots
 
-### Iterated binary, unordered / sequential
+### Iterated binary/text, unordered/sequential
 
-![](netpbm-read-1.svg)
+[<img src='netpbm-read-1.svg' style='width:23%;'>](netpbm-read-1.svg)
+[<img src='netpbm-read-2.svg' style='width:23%;'>](netpbm-read-2.svg)
+[<img src='netpbm-read-3.svg' style='width:23%;'>](netpbm-read-3.svg)
+[<img src='netpbm-read-4.svg' style='width:23%;'>](netpbm-read-4.svg)
 
-### Iterated text, unordered / sequential
+### Oneshot binary/text, unordered/sequential
 
-![](netpbm-read-2.svg)
+[<img src='netpbm-read-6.svg' style='width:23%;'>](netpbm-read-6.svg)
+[<img src='netpbm-read-7.svg' style='width:23%;'>](netpbm-read-7.svg)
+[<img src='netpbm-read-9.svg' style='width:23%;'>](netpbm-read-9.svg)
+[<img src='netpbm-read-8.svg' style='width:23%;'>](netpbm-read-8.svg)
 
-### Iterated unordered, text / binary
+### Iterated/Oneshot all
 
-![](netpbm-read-3.svg)
+[<img src='netpbm-read-5.svg' style='width:46%;'>](netpbm-read-5.svg)
+[<img src='netpbm-read-10.svg' style='width:46%;'>](netpbm-read-10.svg)
 
-### Iterated sequential, text / binary
+### Text unordered/sequential, shot/iterated
 
-![](netpbm-read-4.svg)
+[<img src='netpbm-read-11a.svg' style='width:23%;'>](netpbm-read-11a.svg)
+[<img src='netpbm-read-11b.svg' style='width:23%;'>](netpbm-read-11b.svg)
+[<img src='netpbm-read-12a.svg' style='width:23%;'>](netpbm-read-12a.svg)
+[<img src='netpbm-read-12b.svg' style='width:23%;'>](netpbm-read-12b.svg)
 
-### Iterated all
+### Binary unordered/sequential, shot/iterated
 
-![](netpbm-read-5.svg)
-
-### Oneshot binary, unordered / sequential
-
-![](netpbm-read-6.svg)
-
-### Oneshot text, unordered / sequential
-
-![](netpbm-read-7.svg)
-
-### Oneshot unordered, text / binary
-
-![](netpbm-read-9.svg)
-
-### Oneshot sequential, text / binary
-
-![](netpbm-read-8.svg)
-
-### Shot all
-
-![](netpbm-read-10.svg)
-
-### Text unordered, shot / iterated
-
-![](netpbm-read-11a.svg)
-
-![](netpbm-read-11b.svg)
-
-### Text sequential, shot / iterated
-
-![](netpbm-read-12a.svg)
-
-![](netpbm-read-12b.svg)
-
-### Binary unordered, shot / iterated
-
-![](netpbm-read-13a.svg)
-
-![](netpbm-read-13b.svg)
-
-### Binary sequential, shot / iterated
-
-![](netpbm-read-14a.svg)
-
-![](netpbm-read-14b.svg)
+[<img src='netpbm-read-13a.svg' style='width:23%;'>](netpbm-read-13a.svg)
+[<img src='netpbm-read-13b.svg' style='width:23%;'>](netpbm-read-13b.svg)
+[<img src='netpbm-read-14a.svg' style='width:23%;'>](netpbm-read-14a.svg)
+[<img src='netpbm-read-14b.svg' style='width:23%;'>](netpbm-read-14b.svg)

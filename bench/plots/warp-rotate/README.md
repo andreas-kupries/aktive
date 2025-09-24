@@ -1,8 +1,10 @@
+<img src='../../../doc/assets/aktive-logo-128.png' style='float:right;'>
+
 # Benchmark results for a simple rotation transform, various interpolations
 
-## Navigation
-
-[Parent](../README.md)
+||
+|---|
+|[Parent ↗](../README.md)|
 
 ## Summary
 
@@ -41,20 +43,10 @@
 
 ## Plots
 
-### Raw times
+[<img src='warp-rotate-1.svg' style='width:46%;'>](warp-rotate-1.svg)
+[<img src='warp-rotate-2.svg' style='width:46%;'>](warp-rotate-2.svg)
 
-![](warp-rotate-1.svg)
-
-### Times with cache access subtracted out
-
-![](warp-rotate-2.svg)
-
-### Raw vs subtracted, per interpolation method
-
-![](warp-rotate-3-near.svg)
-
-![](warp-rotate-3-bilinear.svg)
-
-![](warp-rotate-3-bicubic.svg)
-
-![](warp-rotate-3-lanczos.svg)
+[<img src='warp-rotate-3-near.svg'     style='width:23%;'>](warp-rotate-3-near.svg    )
+[<img src='warp-rotate-3-bilinear.svg' style='width:23%;'>](warp-rotate-3-bilinear.svg)
+[<img src='warp-rotate-3-bicubic.svg'  style='width:23%;'>](warp-rotate-3-bicubic.svg )
+[<img src='warp-rotate-3-lanczos.svg'  style='width:23%;'>](warp-rotate-3-lanczos.svg )

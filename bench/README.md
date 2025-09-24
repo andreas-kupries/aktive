@@ -1,4 +1,10 @@
+<img src='../doc/assets/aktive-logo-128.png' style='float:right;'>
+
 # Benchmarking corpus
+
+|||
+|---|---|
+|[Developer Documentation ↗](../doc/dev/index.md)|[Results ↘](plots/README.md)|
 
 Benchmarks for a number of operations provided by `AKTIVE`.
 
@@ -28,5 +34,3 @@ The repository is set up such that everything underneath the
 changes.
 
 Various results are collected in the `plots` subdirectory.
-
-See [Results](plots/README.md)

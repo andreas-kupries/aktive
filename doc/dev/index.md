@@ -15,6 +15,7 @@ specification DSL and templating system.
   - [Data Structures for Image Pipelines](pipeline-structures.md)
   - [Batch Processor](batch.md) - AKTIVE's foundation for horizontal threading.
   - [Connected Components](cc.md)
+  - [Benchmarks](../../bench/plots/README.md)
 
 The internals are somewhat inspired by [VIPS](https://www.libvips.org/).
 

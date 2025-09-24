@@ -1,8 +1,10 @@
+<img src='../../../doc/assets/aktive-logo-128.png' style='float:right;'>
+
 # Benchmark results for the AKTIVE reader
 
-## Navigation
-
-[Parent](../README.md)
+||
+|---|
+|[Parent ↗](../README.md)|
 
 ## Summary
 
@@ -35,10 +37,5 @@
 
 ## Plots
 
-### File vs old file
-
-![](aktive-read-1.svg)
-
-### File vs string
-
-![](aktive-read-2.svg)
+[<img src='aktive-read-1.svg' style='width:46%;'>](aktive-read-1.svg)
+[<img src='aktive-read-2.svg' style='width:46%;'>](aktive-read-2.svg)

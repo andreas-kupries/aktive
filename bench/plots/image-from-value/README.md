@@ -1,8 +1,10 @@
+<img src='../../../doc/assets/aktive-logo-128.png' style='float:right;'>
+
 # Benchmark results comparing the two batch processor coordinators
 
-## Navigation
-
-[Parent](../README.md)
+||
+|---|
+|[Parent ↗](../README.md)|
 
 ## Summary
 
@@ -41,26 +43,17 @@
 
 ### Sequential / unordered
 
-![](image-from-value-1.svg)
+[<img src='image-from-value-1.svg' style='width:46%;'>](image-from-value-1.svg)
+[<img src='image-from-value-2.svg' style='width:46%;'>](image-from-value-2.svg)
 
-![](image-from-value-2.svg)
 
-### Tall images, varying height (x powers of 10)
+### Tall / Wide / Square images, varying sizes (x powers of 10)
 
-![](image-from-value-3.svg)
+[<img src='image-from-value-3.svg' style='width:32%;'>](image-from-value-3.svg)
+[<img src='image-from-value-4.svg' style='width:32%;'>](image-from-value-4.svg)
+[<img src='image-from-value-6.svg' style='width:32%;'>](image-from-value-6.svg)
 
-### Wide images, varying width (x powers of 10)
+### Combos
 
-![](image-from-value-4.svg)
-
-### Tall and wide together
-
-![](image-from-value-5.svg)
-
-### Square images, varying width/height (x powers of 10)
-
-![](image-from-value-6.svg)
-
-### Tall, wide, and square together
-
-![](image-from-value-7.svg)
+[<img src='image-from-value-5.svg' style='width:46%;'>](image-from-value-5.svg)
+[<img src='image-from-value-7.svg' style='width:46%;'>](image-from-value-7.svg)

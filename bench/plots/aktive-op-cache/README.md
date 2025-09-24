@@ -1,8 +1,10 @@
+<img src='../../../doc/assets/aktive-logo-128.png' style='float:right;'>
+
 # Benchmark results for reading from in-memory cache
 
-## Navigation
-
-[Parent](../README.md)
+||
+|---|
+|[Parent ↗](../README.md)|
 
 ## Summary
 
@@ -21,18 +23,15 @@
 
 ### AKTIVE vs NETPBM
 
-![aktive/netpbm](aktive-op-cache-1.svg)
-
-![aktive/netpbm/relative](aktive-op-cache-2.svg)
+[<img src='aktive-op-cache-1.svg' style='width:46%;'>](aktive-op-cache-1.svg)
+[<img src='aktive-op-cache-2.svg' style='width:46%;'>](aktive-op-cache-2.svg)
 
 ### Cache vs file, AKTIVE
 
-![aktive/cache/file](aktive-op-cache-3.svg)
-
-![aktive/cache/file/relative](aktive-op-cache-4.svg)
+[<img src='aktive-op-cache-3.svg' style='width:46%;'>](aktive-op-cache-3.svg)
+[<img src='aktive-op-cache-4.svg' style='width:46%;'>](aktive-op-cache-4.svg)
 
 ### Cache vs file, NETPBM
 
-![netpbm/cache/file](aktive-op-cache-5.svg)
-
-![netpbm/cache/file/relative](aktive-op-cache-6.svg)
+[<img src='aktive-op-cache-5.svg' style='width:46%;'>](aktive-op-cache-5.svg)
+[<img src='aktive-op-cache-6.svg' style='width:46%;'>](aktive-op-cache-6.svg)

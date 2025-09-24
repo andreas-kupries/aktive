@@ -1,6 +1,10 @@
+<img src='../../doc/assets/aktive-logo-128.png' style='float:right;'>
+
 # Benchmarks results, for various commands
 
-[Parent](../README.md)
+||
+|---|
+|[Parent ↗](../README.md)|
 
 ## Experiments
 

@@ -1,8 +1,10 @@
+<img src='../../../doc/assets/aktive-logo-128.png' style='float:right;'>
+
 # Benchmark results comparing the AKTIVE and NETPBM readers
 
-## Navigation
-
-[Parent](../README.md)
+||
+|---|
+|[Parent ↗](../README.md)|
 
 ## Summary
 
@@ -32,6 +34,5 @@
 
 ## Plots
 
-![aktive/netpbm](aktive-netpbm-1.svg)
-
-![aktive/netpbm/relative](aktive-netpbm-2.svg)
+[<img src='aktive-netpbm-1.svg' style='width:46%;'>](aktive-netpbm-1.svg)
+[<img src='aktive-netpbm-2.svg' style='width:46%;'>](aktive-netpbm-2.svg)
