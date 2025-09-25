@@ -20,12 +20,15 @@ datasource1 = "aktive-netpbm.csv"
 # 2 file
 # 3 string
 
+set title    "aktive, netpbm"
 set output   "aktive-netpbm-1.svg"
 set logscale y
 plot datasource1 using 1:2 with lines, \
      datasource1 using 1:3 with lines
 
+set title    "aktive relative to netpbm"
 set output   "aktive-netpbm-2.svg"
+set ylabel   "Factor"
 unset logscale
-plot datasource1 using 1:(1)	 with lines, \
-     datasource1 using 1:($2/$3) with lines title "aktive/netpbm"
+plot datasource1 using 1:(1)	 with lines title "netpbm", \
+     datasource1 using 1:($2/$3) with lines title "aktive / netpbm"

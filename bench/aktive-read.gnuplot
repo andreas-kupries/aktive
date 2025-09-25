@@ -21,11 +21,13 @@ datasource1 = "aktive-file-vs-string.csv"
 # 3 string
 
 set output   "aktive-read-1.svg"
+set title "file reader new, old"
 set logscale y
 plot datasource1 using 1:2 with lines, \
      datasource1 using 1:3 with lines
 
+set title "file reader, old relative to new"
 set output   "aktive-read-2.svg"
 unset logscale
-plot datasource1 using 1:(1)	with lines, \
-     datasource1 using 1:($2/$3) with lines title "file/string"
+plot datasource1 using 1:(1)	 with lines title "new", \
+     datasource1 using 1:($3/$2) with lines title "old / new"

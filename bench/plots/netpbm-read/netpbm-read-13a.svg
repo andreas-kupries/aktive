@@ -38,7 +38,7 @@
 	  <feComposite in='SourceGraphic' in2='grey' operator='atop'/>
 	</filter>
 </defs>
-<g fill="none" color="white" stroke="black" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+<g fill="none" color="white" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
 </g>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
 	<path stroke='black'  d='M89.31,410.56 L98.31,410.56 M574.82,410.56 L565.82,410.56  '/>	<g transform="translate(80.92,414.46)" stroke="none" fill="black" font-family="Arial" font-size="12.00"  text-anchor="end">
@@ -188,7 +188,7 @@
 	<path stroke='black'  d='M89.31,65.85 L89.31,410.56 L574.82,410.56 L574.82,65.85 L89.31,65.85 Z  '/></g>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
 	<g transform="translate(332.06,42.75)" stroke="none" fill="black" font-family="Arial" font-size="12.00"  text-anchor="middle">
-		<text><tspan font-family="Arial" >binary unordered</tspan></text>
+		<text><tspan font-family="Arial" >unordered binary, iterated vs oneshot</tspan></text>
 	</g>
 </g>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">

@@ -30,6 +30,7 @@ datasource8 = "ppm-iter-shot-binary-sequential.csv"
 ## /iter binary, unordered and sequential
 ## unordered beats sequential
 
+set title  "binary iterated, unordered vs sequential"
 set output "netpbm-read-1.svg"
 plot datasource1 using 1:2 with lines, \
      datasource1 using 1:3 with lines
@@ -38,6 +39,7 @@ plot datasource1 using 1:2 with lines, \
 ## /iter text, unordered and sequential
 ## unordered beats sequential
 
+set title  "text iterated, unordered vs sequential"
 set output "netpbm-read-2.svg"
 plot datasource2 using 1:2 with lines, \
      datasource2 using 1:3 with lines
@@ -46,6 +48,7 @@ plot datasource2 using 1:2 with lines, \
 ## /iter unordered, text vs binary
 ## text beats binary
 
+set title  "unordered iterated, text vs binary"
 set output "netpbm-read-3.svg"
 plot datasource1 using 1:2 with lines, \
      datasource2 using 1:2 with lines
@@ -54,6 +57,7 @@ plot datasource1 using 1:2 with lines, \
 ## /iter sequential, text vs binary
 ## text beats binary
 
+set title  "sequential iterated, text vs binary"
 set output "netpbm-read-4.svg"
 plot datasource1 using 1:3 with lines, \
      datasource2 using 1:3 with lines
@@ -61,6 +65,7 @@ plot datasource1 using 1:3 with lines, \
 # _ _ __ ___ _____ ________ _____________ _____________________
 ## /iter binary and text, unordered and sequential
 
+set title  "iterated, text vs binary, unordered vs sequential"
 set output "netpbm-read-5.svg"
 plot datasource1 using 1:2 with lines, \
      datasource1 using 1:3 with lines, \
@@ -70,6 +75,7 @@ plot datasource1 using 1:2 with lines, \
 # _ _ __ ___ _____ ________ _____________ _____________________
 ## /shot binary, unordered and sequential
 
+set title  "binary oneshot, unordered vs sequential"
 set output "netpbm-read-6.svg"
 plot datasource3 using 1:2 with lines, \
      datasource3 using 1:3 with lines
@@ -77,6 +83,7 @@ plot datasource3 using 1:2 with lines, \
 # _ _ __ ___ _____ ________ _____________ _____________________
 ## /shot text, unordered and sequential
 
+set title  "text oneshot, unordered vs sequential"
 set output "netpbm-read-7.svg"
 plot datasource4 using 1:2 with lines, \
      datasource4 using 1:3 with lines
@@ -84,6 +91,7 @@ plot datasource4 using 1:2 with lines, \
 # _ _ __ ___ _____ ________ _____________ _____________________
 ## /shot sequential, text vs binary
 
+set title  "sequential one shot, text vs binary"
 set output "netpbm-read-8.svg"
 plot datasource3 using 1:2 with lines, \
      datasource4 using 1:2 with lines
@@ -91,6 +99,7 @@ plot datasource3 using 1:2 with lines, \
 # _ _ __ ___ _____ ________ _____________ _____________________
 ## /shot unordered, text vs binary
 
+set title  "unordered one shot, text vs binary"
 set output "netpbm-read-9.svg"
 plot datasource3 using 1:3 with lines, \
      datasource4 using 1:3 with lines
@@ -98,6 +107,7 @@ plot datasource3 using 1:3 with lines, \
 # _ _ __ ___ _____ ________ _____________ _____________________
 ## /shot binary and text, unordered and sequential
 
+set title  "oneshot, text vs binary, unordered vs sequential"
 set output "netpbm-read-10.svg"
 plot datasource3 using 1:2 with lines, \
      datasource3 using 1:3 with lines, \
@@ -107,20 +117,24 @@ plot datasource3 using 1:2 with lines, \
 # _ _ __ ___ _____ ________ _____________ _____________________
 ## /iter /shot text unordered, absolute, delta
 
+set title  "unordered text, iterated vs oneshot"
 set output "netpbm-read-11a.svg"
 plot datasource5 using 1:2 with lines, \
      datasource5 using 1:3 with lines
 
+set title  "unordered text, oneshot raw"
 set output "netpbm-read-11b.svg"
 plot datasource5 using 1:($3 - $2) with lines title "shot - iter"
 
 # _ _ __ ___ _____ ________ _____________ _____________________
 ## /iter /shot text sequential, absolute, delta
 
+set title  "sequential text, iterated vs oneshot"
 set output "netpbm-read-12a.svg"
 plot datasource6 using 1:2 with lines, \
      datasource6 using 1:3 with lines
 
+set title  "sequential text, oneshot raw"
 set output "netpbm-read-12b.svg"
 plot datasource6 using 1:($3 - $2) with lines title "shot - iter"
 
@@ -128,13 +142,12 @@ plot datasource6 using 1:($3 - $2) with lines title "shot - iter"
 ## /iter /shot binary unordered, absolute, delta
 ## near to no difference
 
-set title "binary unordered"
-
+set title "unordered binary, iterated vs oneshot"
 set output   "netpbm-read-13a.svg"
 plot datasource7 using 1:2 with lines, \
      datasource7 using 1:3 with lines
 
-set title  "binary unordered / shot - iter"
+set title  "unordered binary, oneshot raw"
 set output "netpbm-read-13b.svg"
 plot datasource7 using 1:($3 - $2) with lines title "shot - iter"
 
@@ -142,12 +155,11 @@ plot datasource7 using 1:($3 - $2) with lines title "shot - iter"
 ## /iter /shot binary sequential, absolute, delta
 ## near to no difference
 
-set title "binary sequential"
-
+set title "sequential binary, iterated vs oneshot"
 set output   "netpbm-read-14a.svg"
 plot datasource8 using 1:2 with lines, \
      datasource8 using 1:3 with lines
 
-set title  "binary sequential / shot - iter"
+set title  "sequential binary, oneshot raw"
 set output "netpbm-read-14b.svg"
 plot datasource8 using 1:($3 - $2) with lines title "shot - iter"
