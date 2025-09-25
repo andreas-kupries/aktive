@@ -465,11 +465,107 @@ Examples
 
 [Up ↑](#image)
 
-|Syntax			|
-|:---			|
-|`blit NAME SCANS FUNC`	|
+|Syntax				|
+|:---				|
+|`blit NAME BLIT FUNC...`	|
 
-__TODO FILL__
+Arguments:
+
+|Name		|Description							|
+|:---		|---								|
+|`NAME`		|Name of the [def](opspec.md#cmd-def)inition for the loop nest	|
+|`BLIT`		|Specification of the loop nest itself 				|
+|`FUNC...`	|Action to perform at each location the nest iterates over	|
+
+The command specifies the loop nest for a blitter in shorthand, with an action
+to perform, generates the C code implementing that loop nest and action, and
+saves the result to the named definition. The last provides operators with
+access to the blit code, via standard templating.
+
+#### Actions
+
+Thirteen actions are currently supported:
+
+|Syntax				|Action at each location iterated over			|
+|---				|---							|
+|     	    			|Set destination to ...					|
+|`copy`	    			| ... the value of the source				|
+|`zero`				| ... zero, i.e. `(double) 0`				|
+|`const v`			| ... the constant `v`	   				|
+|`point C-expression`		| ... the result of evaluating the expression (1)	|
+|`point/2d C-expression`	| ... the result of evaluating the expression (2)	|
+|`pos C-expression`		| ... the result of evaluating the expression (3)	|
+|`apply1 op arg...`		| ... the result of `op (source, arg, ...)`   		|
+|`apply1z op arg ...`		| ... the result of `op (source, arg, ..., z)` (4)	|
+|`apply2 op`			| ... the result of `op (source0, source1)`    		|
+|`complex-apply-reduce cop`	| ... the double result of `cop (source)`		|
+|`complex-apply-unary cop`	| ... the complex result of `cop (source)`		|
+|`complex-apply-binary cop`	| ... the complex result of `cop (source0, source1)`	|
+|`raw label C-code`		|Execute the `C-code` fragment (5)			|
+
+  1. The expression has access to the current source cell's coordinates through
+     `x`, `y`, and `z`, i.e. the 3D point currently looked at.
+
+  1. The expression has access to the current source cell's coordinates through
+     `x`, and `y`, i.e. the 2D point currently looked at.
+
+  1. The expression has access to the linear source cell coordinate through `@`.
+
+  1. `z` is the current source cell's band coordinate.
+
+  1. The raw code has deeper access to the variables of the loop nest. All
+     variables pertaining to the destination are prefixed with `dst`. All
+     variables pertaining to a single source are prefixed with `src`. In case of
+     more than one source the prefixes are `src0`, `src1`, etc.
+
+       - `x`, `y`, `z` are the cell coordinates along the respective axes,
+         i.e. for columns, rows, and bands.
+
+       - `pos` is the linear position of the cell, derived from the previous
+         using
+
+       - `stride`, `pitch`, i.e. number of bands and number of cells per row
+         (`width` times `stride`).
+
+       - `value` is a pointer to the cell value, for either reading from or
+         writing to.
+
+#### Scan specification
+
+In shorthand
+```
+blitter := list (scan...)
+scan    := list (range block...)
+block   := list (axis min delta direction)
+```
+
+A `blitter`, i.e. loop nest, is specified as a list of `scans`, in order from
+outermost to innermost loop. Each `scan` specifies a `range`, i.e. how many
+values to iterate over, and a number of `blocks` to iterate in parallel at that
+level. Each `block` specifies the `axis` it is for (1), the `min`imal value of
+the iteration, the `delta` (2) between values, and the `direction` of iteration (3).
+
+  1. One of `x`, `y`, or `z`.
+
+  1. While the `delta` most often will be some regular variable name the system
+     also accepts the special form of `1/v`. When used the block is stepped
+     fractionally, taking only 1 step per `v` steps of a non-fractional block at
+     the same level.  The `v` can be the name of any variable from the calling
+     context of the loop nest.
+
+  1. One of `up`, or `down`.
+
+Note that each `block` separately specifies an `axis`. This is required to be
+able to specify loop nests which can exchange axes from source to
+destination. The only common value to the blocks of a scan is the number of
+values to process.
+
+The first `block` in a `scan` always specifies the iteration over the
+destination. Each block after it specifies one more source to iterate. It is
+possible to have no sources at all.
+
+Note that depending on the `direction` the `min`imal value can be assumed at the
+end of the iteration (`down`), instead of the start (`up`).
 
 ### <a name='cmd-pixels'></a> Pixel fetching
 

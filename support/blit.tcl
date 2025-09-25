@@ -7,12 +7,63 @@
 # TODO ::
 
 #
-# blit      :: list (scan...)
-# scan      :: list (range block...)
-# block     :: list (axis start stride direction)
-# start     :: int
-# stride    :: int
-# direction :: up / down
+# loop nest specification
+#
+# blit      :: list (scan...)				| ordered from outermost to innermost loop
+# scan      :: list (range block...)			| blocks iterating together
+# block     :: list (axis min stride direction)
+#
+# NOTE: The first block in a scan always iterates the destination.
+#       All following blocks iterate the zero or more sources.
+#
+# range     :: C value					| number of loops to perform
+# axis      :: "x" | "y" | "z"				| coordinate the loop is over
+# min       :: C value					| min loop value
+# stride    :: C value | "1/x"				| delta between loop values
+# direction :: "up" | "down"				| iteration direction, sign of the delta
+#
+# range, min, stride, and direction determine start & end values for the loop.
+# we only have to know the start value. the internal loop variable always counts up (0..range-1).
+#
+# The stride "1/x" is special. It indicates fractional stepping with phase contant `x`.
+# The block steps `x` times slower than the other blocks of this loop
+#
+# direction
+# - "up":    start = min,                end = min+stride*(range-1)
+# - "down":  start = min+range*stride-1, end = min
+#
+# actions .........................................................................
+#
+# raw      label code		| Code to run per position
+# copy				| Copy source to destination
+#
+#				| Set destination to ...
+# zero				| Set destination to 0
+# const    v			| ... value `v`
+#
+# point    C-expression		| ... value computed from `f (x,y,z)` for C expression `f`
+# point/2d C-expression		| ... value computed from `f (x,y)` for C expression `f`
+# pos      C-expression		| ... value computed from `f (@)` for C expression `f` and linear pos `@`
+#
+# apply1   op args		| ... value computed from `op (source, {*}args)`
+# apply1z  op args		| ... value computed from `op (source, {*}args, z)`
+# apply2   op			| ... value computed from `op (source1, source2)`
+# complex-apply-reduce op	| ... value computed from `complex-op (source1)`
+# complex-apply-unary  op	| ... complex value from `complex-op (source1)`
+# complex-apply-binary op      	| ... complex value from `complex-op (source1, source2)`
+#
+# for the `point*` nd `pos` actions the source iterated over is virtual, there is no
+# actual input. only the iteration coordinates are of importance.
+#
+# for `raw` the code has access to
+#
+# - dstx, dsty, dstz, dstpos, dstvalue - destination coordinates, linear position, and buffer pointer
+# - srcx, srcy, srcz, srcpos, srcvalue - ditto for a single source
+# - src0x, ...                         - for first source of several, i.e. 0, 1, ...
+#
+# - dstpitch, dststride   - destination #row values, #column values
+# - srcpitch, srcstride   - ditto for a single source
+# - src0pitch, src0stride - ditto for first source of several
 #
 
 package require textutil::adjust
