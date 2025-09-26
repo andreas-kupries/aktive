@@ -102,13 +102,15 @@ proc dsl::blit::gen {name blit function} {
 
     Init
     set axes [CollectAxes $blit]
-
+    # axes :: dict (prefix -> axis -> ".")
+    #         prefix in (dst, src|srcX)
     EmitAxisSupport $axes
 
-    set id 0
-    foreach scan $blit { EmitLoopRange $scan $id ; incr id }
+    Comment "range information"
+    set id 0 ; foreach scan $blit { EmitLoopRange  $scan $id ; incr id }
+    set id 0 ; foreach scan $blit { EmitRangeTrace $scan $id ; incr id }
 
-    EmitCellIntro $axes
+    EmitCellIntro $axes ;# blit table header, tracing
 
     foreach scan $blit { EmitLoopSetup $scan ; >>> }
 
@@ -125,7 +127,7 @@ proc dsl::blit::gen {name blit function} {
     EmitCompletion
 
     # Prepend introduction. Not done at the beginning as it contains information collected
-    # during general code emission
+    # during general code emission. Namely the set of arguments used by the loop nest.
 
     set code [Get]
     EmitIntro $name $blit $function
@@ -261,35 +263,46 @@ proc dsl::blit::F/complex-apply-binary {op} {
 # # ## ### ##### ######## #############
 
 proc dsl::blit::EmitAxisSupport {axes} {
+    set prefixes [lsort -dict [dict keys $axes]]
+
+    # fixed pitch/stride data
     set sep 0
-    foreach k [lsort -dict [dict keys $axes]] {
-	set ax [dict get $axes $k]
-	EmitAxes $k $ax
+    foreach prefix $prefixes {
+	EmitAxes $prefix [dict get $axes $prefix]
     }
 
     if {!$sep} return
     + {}
 
+    # tracing geometries
+    Comment "trace geometry information"
     + "TRACE (\"blit [T geo] | W... | H... | D... | Pit | Str |\", 0);"
-    foreach k [lsort -dict [dict keys $axes]] {
-	set ax [dict get $axes $k]
-	EmitAxeTrace $k $ax
+    foreach prefix $prefixes {
+	EmitAxeTrace $prefix [dict get $axes $prefix]
     }
 
     + {}
 }
 
-proc dsl::blit::EmitAxes {k axes} {
+proc dsl::blit::EmitAxes {prefix axes} {
     upvar 1 sep sep
-    if {[dict exists $axes y]} { + "aktive_uint [F ${k}pitch] = [Pitch $k];"  ; incr sep }
-    if {[dict exists $axes x]} { + "aktive_uint [F ${k}stride] = [Stride $k];" ; incr sep }
+    if {[dict exists $axes y]} {
+	if {!$sep} { Comment "destination/source pitch/stride" }
+	+ "aktive_uint [F ${prefix}pitch] = [Pitch $prefix];"
+	incr sep
+    }
+    if {[dict exists $axes x]} {
+	if {!$sep} { Comment "destination/source pitch/stride" }
+	+ "aktive_uint [F ${prefix}stride] = [Stride $prefix];"
+	incr sep
+    }
 }
 
-proc dsl::blit::EmitAxeTrace {k axes} {
-    set fmt    "blit [T $k]"
+proc dsl::blit::EmitAxeTrace {prefix axes} {
+    set fmt    "blit [T $prefix]"
     set values {}
 
-    set p [string map {dst D src S} $k]
+    set p [string map {dst D src S} $prefix]
 
     append fmt " | %4d | %4d | %4d"
     lappend values ${p}W ${p}H ${p}D
@@ -300,18 +313,19 @@ proc dsl::blit::EmitAxeTrace {k axes} {
     if {[dict exists $axes y]} { append fmt " | %4d" }
     if {[dict exists $axes x]} { append fmt " | %4d" }
     append fmt " |"
-    if {[dict exists $axes y]} { lappend values ${k}pitch  }
-    if {[dict exists $axes x]} { lappend values ${k}stride }
+    if {[dict exists $axes y]} { lappend values ${prefix}pitch  }
+    if {[dict exists $axes x]} { lappend values ${prefix}stride }
 
     + "TRACE (\"$fmt\", [join $values {, }]);"
 }
 
 proc dsl::blit::EmitCellIntro {axes} {
+    + {}
     Comment {blit table header ...}
     + "TRACE_HEADER (1); TRACE_ADD(\"blit @\", 0);"
-    foreach k [lsort -dict [dict keys $axes]] {
-	set ax [dict get $axes $k]
-	+ "TRACE_ADD (\" | [T $k]\", 0);"
+    foreach prefix [lsort -dict [dict keys $axes]] {
+	set ax [dict get $axes $prefix]
+	+ "TRACE_ADD (\" | [T $prefix]\", 0);"
 	foreach a {y x z} {
 	    if {![dict exists $ax $a]} continue
 	    + "TRACE_ADD (\" | ${a}..\", 0);"
@@ -319,135 +333,186 @@ proc dsl::blit::EmitCellIntro {axes} {
 	+ "TRACE_ADD (\" | pos/cap\", 0);"
     }
     + "TRACE_CLOSER;"
-    + {}
 }
 
 proc dsl::blit::EmitCellAccess {axes virtual nopos} {
+    set prefixes [lsort -dict [dict keys $axes]]
+    + {}
     # Compute linearized positions
-    foreach k [lsort -dict [dict keys $axes]] {
-	if {[string match src* $k] && $nopos} continue
-	set ax [dict get $axes $k]
-	+ "aktive_uint [F ${k}pos]   = [EmitCellPosition $k $ax];"
+    foreach prefix $prefixes {
+	if {[string match src* $prefix] && $nopos} continue
+	+ "aktive_uint [F ${prefix}pos]   = [EmitCellPosition $prefix [dict get $axes $prefix]];"
     }
     + {}
 
     # Trace, including protection against out of bounds
     Comment {blit table rows ...}
     + "TRACE_HEADER (1); TRACE_ADD(\"blit @\", 0);"
-    foreach k [lsort -dict [dict keys $axes]] {
-	set ax [dict get $axes $k]
-	EmitCellTrace $k $ax $virtual $nopos
+    foreach prefix $prefixes {
+	EmitCellTrace $prefix [dict get $axes $prefix] $virtual $nopos
     }
     + {}
 
     # Pointers to dst and source values, if any
-    foreach k [lsort -dict [dict keys $axes]] {
-	if {[string match src* $k] && ($nopos||$virtual)} continue
-	+ "double*      [F ${k}value] = [P $k] + ${k}pos;"
-	ArgMark [P $k]
+    foreach prefix $prefixes {
+	if {[string match src* $prefix] && ($nopos||$virtual)} continue
+	+ "double*      [F ${prefix}value] = [P $prefix] + ${prefix}pos;"
+	ArgMark [P $prefix]
     }
 
     + {}
     return
 }
 
-proc dsl::blit::EmitCellTrace {k axes virtual nopos} {
-    + "TRACE_ADD (\" | [T $k]\", 0);"
+proc dsl::blit::EmitCellTrace {prefix axes virtual nopos} {
+    + "TRACE_ADD (\" | [T $prefix]\", 0);"
     foreach a {y x z} {
 	if {![dict exists $axes $a]} continue
-	+ "TRACE_ADD (\" | %4d\", $k$a);"
+	+ "TRACE_ADD (\" | %4d\", $prefix$a);"
     }
 
-    if {![string match src* $k]} {
+    if {![string match src* $prefix]} {
 	# dst
-	ArgMark [P $k]CAP
-	+ "TRACE_ADD (\" | %4d/%4d\", ${k}pos, [P $k]CAP);"
+	ArgMark [P $prefix]CAP
+	+ "TRACE_ADD (\" | %4d/%4d\", ${prefix}pos, [P $prefix]CAP);"
     } elseif {!$nopos} {
 	# src, pos requested
 	if {$virtual} {
 	    # src, virtual, pos, no cap
-	    + "TRACE_ADD (\" | %4d\", ${k}pos);"
+	    + "TRACE_ADD (\" | %4d\", ${prefix}pos);"
 	} else {
 	    # src, physical, pos and cap
-	    ArgMark [P $k]CAP
-	    + "TRACE_ADD (\" | %4d/%4d\", ${k}pos, [P $k]CAP);"
+	    ArgMark [P $prefix]CAP
+	    + "TRACE_ADD (\" | %4d/%4d\", ${prefix}pos, [P $prefix]CAP);"
 	}
     } ;# src, no pos virtual, nothing
 
     # Protection against out of bounds access. Close tracing and abort.
 
-    if {[string match src* $k] && ($nopos||$virtual)} return;
-    + "if (${k}pos >= [P $k]CAP) { TRACE_CLOSER; TRACE(\"ASSERT\", 0); ASSERT_VA (0, \"$k out of bounds\", \"%d / %d\", ${k}pos, [P $k]CAP); }"
+    if {[string match src* $prefix] && ($nopos||$virtual)} return;
+    + "BLIT_BOUNDS ($prefix, ${prefix}pos, [P $prefix]CAP);"
     return
 }
 
-proc dsl::blit::EmitCellPosition {k axes} {
+proc dsl::blit::EmitCellPosition {prefix axes} {
     set pos ""
     set sep {}
 
-    if {[dict exists $axes y]} { append pos $sep${k}y*${k}pitch  ; set sep " + " }
-    if {[dict exists $axes x]} { append pos $sep${k}x*${k}stride ; set sep " + " }
-    if {[dict exists $axes z]} { append pos $sep${k}z }
+    if {[dict exists $axes y]} { append pos $sep${prefix}y*${prefix}pitch  ; set sep " + " }
+    if {[dict exists $axes x]} { append pos $sep${prefix}x*${prefix}stride ; set sep " + " }
+    if {[dict exists $axes z]} { append pos $sep${prefix}z }
     return $pos
 }
 
 # # ## ### ##### ######## #############
 
 proc dsl::blit::EmitLoopRange {scan id} {
-
-    set blocks [lassign $scan range]
-
+    lassign $scan range
     if {[IsArg $range]} { ArgMark $range }
 
     # Range counter, separate from the position trackers
     + "aktive_uint [F range${id}n] = ${range};"
-    ###+ "aktive_uint range${id};"
+}
 
-    set axis [lindex $blocks 0 0]
+proc dsl::blit::EmitRangeTrace {scan id} {
+    set axis [lindex [lassign $scan __] 0 0]
+    if {!$id} { + {} }
     + "TRACE (\"blit $axis range: %u\", range${id}n);"
-    + {}
 }
 
 proc dsl::blit::EmitLoopSetup {scan} {
     # scan  :: list (range block...)
     # block :: axis minvalue delta direction
+    + {}
     Comment $scan
 
-    set blocks [lassign $scan range]
-    set kinds  [Kinds $blocks]
+    set blocks   [lassign $scan range]
+    set prefixes [Prefixes $blocks]
+    set nb       [llength $blocks]
 
-    # Position trackers, one per block in the scan, definition and initialization
-    foreach block $blocks kind $kinds {
+    # DS loop, S is fractional -> able to use new canned loop start
+    if {($nb == 2)
+	&& ![FractionalBlock [lindex $blocks 0]]
+	&&  [FractionalBlock [lindex $blocks 1]]} {
+	EmitLoopSetupCanned BLIT_SCAN_DSF $range $blocks $prefixes
+	return
+    }
+
+    # too many blocks or general fractional stepping -> emit old style loop
+    if {($nb > 3) || [Fractional $scan]} {
+	EmitLoopSetupGeneric $range $blocks $prefixes
+	return
+    }
+
+    EmitLoopSetupCanned [dict get {
+	1 BLIT_SCAN_D
+	2 BLIT_SCAN_DS
+	3 BLIT_SCAN_DSS
+    } $nb] $range $blocks $prefixes
+   return
+}
+proc dsl::blit::EmitLoopSetupGeneric {range blocks prefixes} {
+    # Define the variables for the parallel position trackers of the block
+    foreach block $blocks prefix $prefixes {
 	lassign $block axis min delta direction
-	set var ${kind}${axis}
+	set var ${prefix}${axis}
 
 	+ "aktive_uint [F $var] = [BlockStart $block $range];"
 	BlockPhase $block
     }
-
     # Begin loop
-    + {}
-    ## + "TRACE (\"(re)start [L]\", 0);"
-    ##+ "for (range[L] = 0; range[L] < range[L]n ; range[L] ++) \{"
     + "BLIT_SCAN ([L], range[L]n) \{"
     return
 }
 
-proc dsl::blit::EmitLoopCompletion {scan} {
-    set blocks [lassign $scan range]
-    set kinds  [Kinds $blocks]
-
-    + {}
-    Comment {Step to next position}
-
-    # Position trackers, one per block in the scan, incrementing
-    foreach block $blocks kind $kinds {
+proc dsl::blit::EmitLoopSetupCanned {cmd range blocks prefixes} {
+    # Define the position trackers per block of the scan.
+    set variables [lmap block $blocks prefix $prefixes {
 	lassign $block axis min delta direction
-	set var ${kind}${axis}
+	set var ${prefix}${axis}
+    }]
+    + "aktive_uint [join $variables {, }];"
+    foreach block $blocks { BlockPhase $block }
 
-	+ "[BlockIncrement $var $block]; // $direction"
+    append cmd " \([L], range[L]n"
+    foreach block $blocks var $variables {
+	lassign $block axis min delta direction
+	set step [dict get {up 1 down -1} $direction]
+	append cmd ", $var"
+	append cmd ", [BlockStart $block $range]"
+	append cmd ", [BlockStep  $var $block]"
     }
-    ## + "TRACE (\"next [L]\", 0);"
+    append cmd ") \{"
+    + $cmd
+    return
+}
+
+proc dsl::blit::EmitLoopCompletion {scan} {
+    set blocks    [lassign $scan range]
+    set prefixes  [Prefixes $blocks]
+    set nb        [llength $blocks]
+
+    if {($nb == 2)
+	&& ![FractionalBlock [lindex $blocks 0]]
+	&&  [FractionalBlock [lindex $blocks 1]]} {
+	# DSF loop setup - no fractional stepping at the end
+	<<<
+	+ "\}"
+	return
+    }
+
+    if {($nb > 3) || [Fractional $scan]} {
+	# too many parallel blocks, or fractional - old style loop end
+	+ {}
+	Comment {Step to next position}
+	# Position trackers, one per block in the scan, incrementing
+	foreach block $blocks prefix $prefixes {
+	    lassign $block axis min delta direction
+	    set var ${prefix}${axis}
+	    + "[BlockIncrement $var $block]; // $direction"
+	}
+	## + "TRACE (\"next [L]\", 0);"
+    }
 
     <<<
     + "\}"
@@ -505,8 +570,7 @@ proc dsl::blit::BlockIncrement {var block} {
     if {[string match 1/* $delta]} {
 	set delta [string range $delta 2 end]
 	<<< ;# ensure proper level for phase variable
-	append increment "phase[L]++ ; phase[L] %= ${delta} ; "
-	append increment "if (!phase[L]) { TRACE (\".... phase[L] done\", 0); ${var} $modifier ; }"
+	set increment "BLIT_STEP_FRACTION ([L], $delta, $var $modifier)"
 	>>>
 	return $increment
     }
@@ -518,6 +582,20 @@ proc dsl::blit::BlockIncrement {var block} {
     } $direction]
     append increment $delta
     return $increment
+}
+
+proc dsl::blit::BlockStep {var block} {
+    lassign $block axis min delta direction
+    set modifier [dict get {
+	up   {}
+	down -
+    } $direction]
+    set fstep ""
+    if {[string match 1/* $delta]} {
+	set fstep ", [string range $delta 2 end]"
+	set delta 1
+    }
+    return "$modifier$delta$fstep"
 }
 
 # # ## ### ##### ######## #############
@@ -535,44 +613,59 @@ proc dsl::blit::EmitIntro {name blit function} {
     Comment "= [join [lmap w $function { string map $map [string trim $w] }] { }]"
     + {}
 
-    set has 0
-    foreach p [ArgUsed] {
-	+ "#ifndef $p"
-	set default [ADefine $p]
-	if {$default eq {}} {
-	    + "#error \"[ADesc $p] $p expected, not defined\""
-	} else {
-	    + "#define $p ($default)"
+    set arguments [ArgUsed]
+    if {[llength $arguments]} {
+	Comment "arguments: [join $arguments {, }]"
+	foreach p [ArgUsed] {
+	    + "#ifndef $p"
+	    set default [ADefine $p]
+	    if {$default eq {}} {
+		+ "#error \"[ADesc $p] $p expected, not defined\""
+	    } else {
+		+ "#define $p ($default)"
+	    }
+	    + "#endif"
 	}
-	+ "#endif"
-	incr has
+	+ {}
     }
-    if {!$has} return
-    + {}
     return
 }
 
 proc dsl::blit::EmitCompletion {} {
     + {}
+    Comment "remove argument defines"
     foreach p [ArgUsed] { + "#undef $p" }
     return
 }
 
 # # ## ### ##### ######## #############
 
-proc dsl::blit::P {kind} { string map {dst DST src SRC} $kind }
+proc dsl::blit::P {prefix} { string map {dst DST src SRC} $prefix }
 proc dsl::blit::F {x}    { format %-10s $x }
 proc dsl::blit::T {x}    { format %-4s $x }
+
+proc dsl::blit::FractionalBlock {block} {
+    lassign $block axis min delta dir
+    return [string match 1/* $delta]
+}
+
+proc dsl::blit::Fractional {scan} {
+    foreach block [lassign $scan __] {
+	if {[FractionalBlock $block]} { return 1 }
+    }
+    return 0
+}
 
 proc dsl::blit::CollectAxes {blit} {
     set axes {}
     foreach scan $blit {
+	# Prefixes inlined with axis collection per prefix
 	set n 0
-	set kind dst
+	set prefix dst
 	foreach block [lassign $scan __] {
 	    lassign $block axis min delta direction
-	    dict set axes $kind $axis .
-	    set kind src$n
+	    dict set axes $prefix $axis .
+	    set prefix src$n
 	    incr n
 	}
     }
@@ -582,30 +675,41 @@ proc dsl::blit::CollectAxes {blit} {
 	dict unset axes src0
     }
 
+    # axes :: dict (prefix -> axis -> ".")
+    #         prefix in (dst, src|srcX)
     return $axes
 }
 
-proc dsl::blit::Kinds {blocks} {
-    if {[llength $blocks] > 2} {
-	# Multiple sources
-	set p dst
-	set counter 0
-	return [lmap __ $blocks { set r $p ; set p src$counter ; incr counter ; set r }]
-    } else {
-	set p dst
-	return [lmap __ $blocks { set r $p ; set p src ; set r }]
+# Prefixes - determine dst, src, src0, src1 ... for the blocks of a scan
+proc dsl::blit::Prefixes {blocks} {
+    switch -exact -- [llength $blocks] {
+	1 {
+	    # no sources
+	    return dst
+	}
+	2 {
+	    # single source
+	    return {dst src}
+	}
+	default {
+	    # multiple sources
+	    set p dst
+	    set counter 0
+	    return [lmap __ $blocks { set r $p ; set p src$counter ; incr counter ; set r }]
+	    # dst, src0, src1, ...
+	}
     }
 }
 
-proc dsl::blit::Pitch {kind} {
-    set prefix [string map {dst D src S} $kind]
+proc dsl::blit::Pitch {prefix} {
+    set prefix [string map {dst D src S} $prefix]
     ArgMark ${prefix}W
     ArgMark ${prefix}D
     return "${prefix}W*${prefix}D"
 }
 
-proc dsl::blit::Stride {kind} {
-    set prefix [string map {dst D src S} $kind]
+proc dsl::blit::Stride {prefix} {
+    set prefix [string map {dst D src S} $prefix]
     ArgMark ${prefix}D
     return "${prefix}D"
 }

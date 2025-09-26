@@ -8,6 +8,68 @@
 
 /*
  * - - -- --- ----- -------- -------------
+ * Shorthands for blit nests, generated, or manually written
+ */
+
+// base scan, dst and source handled outside
+#define BLIT_SCAN(label, count)		\
+    aktive_uint iter_ ## label ;	\
+    for (iter_ ## label = 0       ;	\
+         iter_ ## label < (count) ;	\
+	 iter_ ## label ++		\
+	 )
+
+// scan destination only
+#define BLIT_SCAN_D(label, count, dstv, start, stride)	\
+    aktive_uint iter_ ## label ;			\
+    for (iter_ ## label = 0       , dstv = (start) ;	\
+         iter_ ## label < (count) ;			\
+	 iter_ ## label ++	  , dstv += (stride)	\
+	 )
+
+// scan destination and single source
+#define BLIT_SCAN_DS(label, count, dstv, dstart, dstride, srcv, sstart, sstride) \
+    aktive_uint iter_ ## label ;					\
+    for (iter_ ## label = 0       , dstv = (dstart),   srcv = (sstart) ; \
+         iter_ ## label < (count) ;					\
+	 iter_ ## label ++	  , dstv += (dstride), srcv += (sstride) \
+	 )
+
+// scan destination and two sources - this is the max at the moment
+#define BLIT_SCAN_DSS(label, count, dstv, dstart, dstride, srca, astart, astride, srcb, bstart, bstride) \
+    aktive_uint iter_ ## label ;					\
+    for (iter_ ## label = 0       , dstv = (dstart),   srca = (astart),   srcb = (bstart) ; \
+         iter_ ## label < (count) ;					\
+	 iter_ ## label ++	  , dstv += (dstride), srca += (astride), srcb += (bstride) \
+	 )
+
+// scan destination and source, source is fractional
+#define BLIT_SCAN_DSF(label, count, dstv, dstart, dstride, srcv, sstart, sstride, fstep) \
+    aktive_uint iter_ ## label ;					\
+    for (iter_ ## label = 0       , dstv = (dstart),   srcv = (sstart) ; \
+         iter_ ## label < (count) ;					\
+	 iter_ ## label ++	  , dstv += (dstride), phase ## label ++, phase ## label %= (fstep), srcv = srcv + ((phase ## label) ? 0: (sstride)) \
+	 )
+
+// fraction stepping support, unintegrated scanner
+#define BLIT_STEP_FRACTION(label, step, varop)	\
+    phase ## label ++ ;				\
+    phase ## label %= (step) ;			\
+    if (!phase ## label ) {			\
+	TRACE (".... phase" #label " done", 0);	\
+	varop ;					\
+    }
+
+// bounds checks a position against capacity
+#define BLIT_BOUNDS(prefix, pos, cap)				\
+    if ((pos) >= (cap)) {						\
+	TRACE_CLOSER;							\
+	TRACE("ASSERT", 0);						\
+	ASSERT_VA (0, #prefix " out of bounds", "%d / %d", (pos), (cap)); \
+    }
+
+/*
+ * - - -- --- ----- -------- -------------
  */
 
 #include <complex.h>
