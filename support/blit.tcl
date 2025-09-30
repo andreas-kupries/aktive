@@ -106,17 +106,17 @@ proc dsl::blit::gen {name blit function} {
     #         prefix in (dst, src|srcX)
     EmitAxisSupport $axes
 
+    set f       [lindex $function 0]
+    set virtual [expr {$f in {pos point point/2d}}]
+    set nopos   [expr {$f in     {point point/2d}}]
+
     Comment "range information"
     set id 0 ; foreach scan $blit { EmitLoopRange  $scan $id ; incr id }
     set id 0 ; foreach scan $blit { EmitRangeTrace $scan $id ; incr id }
 
     EmitCellIntro $axes ;# blit table header, tracing
 
-    foreach scan $blit { EmitLoopSetup $scan ; >>> }
-
-    set f [lindex $function 0]
-    set virtual [expr {$f in {pos point point/2d}}]
-    set nopos   [expr {$f in     {point point/2d}}]
+    foreach scan $blit { EmitLoopSetup $scan $virtual $nopos ; >>> }
 
     EmitCellAccess $axes $virtual $nopos
     EmitFunction   $function
@@ -365,9 +365,16 @@ proc dsl::blit::EmitCellAccess {axes virtual nopos} {
 }
 
 proc dsl::blit::EmitCellTrace {prefix axes virtual nopos} {
+    set pitched [expr {!([string match src* $prefix] && $nopos)}]
     + "TRACE_ADD (\" | [T $prefix]\", 0);"
     foreach a {y x z} {
 	if {![dict exists $axes $a]} continue
+	if {$pitched} {
+	    switch -exact -- $a {
+		y { append a /${prefix}pitch  }
+		x { append a /${prefix}stride }
+	    }
+	}
 	+ "TRACE_ADD (\" | %4d\", $prefix$a);"
     }
 
@@ -387,9 +394,8 @@ proc dsl::blit::EmitCellTrace {prefix axes virtual nopos} {
 	}
     } ;# src, no pos virtual, nothing
 
-    # Protection against out of bounds access. Close tracing and abort.
-
-    if {[string match src* $prefix] && ($nopos||$virtual)} return;
+    # If needed, protection against out of bounds access. Closes tracing and aborts.
+    if {[string match src* $prefix] && ($nopos||$virtual)} return
     + "BLIT_BOUNDS ($prefix, ${prefix}pos, [P $prefix]CAP);"
     return
 }
@@ -397,9 +403,9 @@ proc dsl::blit::EmitCellTrace {prefix axes virtual nopos} {
 proc dsl::blit::EmitCellPosition {prefix axes} {
     set pos ""
     set sep {}
-
-    if {[dict exists $axes y]} { append pos $sep${prefix}y*${prefix}pitch  ; set sep " + " }
-    if {[dict exists $axes x]} { append pos $sep${prefix}x*${prefix}stride ; set sep " + " }
+    # y - pitch, x - stride
+    if {[dict exists $axes y]} { append pos $sep${prefix}y ; set sep " + " }
+    if {[dict exists $axes x]} { append pos $sep${prefix}x ; set sep " + " }
     if {[dict exists $axes z]} { append pos $sep${prefix}z }
     return $pos
 }
@@ -420,7 +426,7 @@ proc dsl::blit::EmitRangeTrace {scan id} {
     + "TRACE (\"blit $axis range: %u\", range${id}n);"
 }
 
-proc dsl::blit::EmitLoopSetup {scan} {
+proc dsl::blit::EmitLoopSetup {scan virtual nopos} {
     # scan  :: list (range block...)
     # block :: axis minvalue delta direction
     + {}
@@ -434,12 +440,13 @@ proc dsl::blit::EmitLoopSetup {scan} {
     if {($nb == 2)
 	&& ![FractionalBlock [lindex $blocks 0]]
 	&&  [FractionalBlock [lindex $blocks 1]]} {
-	EmitLoopSetupCanned BLIT_SCAN_DSF $range $blocks $prefixes
+	EmitLoopSetupCanned BLIT_SCAN_DSF $range $blocks $prefixes $virtual $nopos
 	return
     }
 
     # too many blocks or general fractional stepping -> emit old style loop
     if {($nb > 3) || [Fractional $scan]} {
+	error "old-style loop -- bad pitch/stride handling"
 	EmitLoopSetupGeneric $range $blocks $prefixes
 	return
     }
@@ -448,16 +455,17 @@ proc dsl::blit::EmitLoopSetup {scan} {
 	1 BLIT_SCAN_D
 	2 BLIT_SCAN_DS
 	3 BLIT_SCAN_DSS
-    } $nb] $range $blocks $prefixes
-   return
+    } $nb] $range $blocks $prefixes $virtual $nopos
+    return
 }
+
 proc dsl::blit::EmitLoopSetupGeneric {range blocks prefixes} {
     # Define the variables for the parallel position trackers of the block
     foreach block $blocks prefix $prefixes {
 	lassign $block axis min delta direction
 	set var ${prefix}${axis}
 
-	+ "aktive_uint [F $var] = [BlockStart $block $range];"
+	+ "aktive_uint [F $var] = [BlockStart $prefix $block 0 0 $range];"
 	BlockPhase $block
     }
     # Begin loop
@@ -465,7 +473,7 @@ proc dsl::blit::EmitLoopSetupGeneric {range blocks prefixes} {
     return
 }
 
-proc dsl::blit::EmitLoopSetupCanned {cmd range blocks prefixes} {
+proc dsl::blit::EmitLoopSetupCanned {cmd range blocks prefixes virtual nopos} {
     # Define the position trackers per block of the scan.
     set variables [lmap block $blocks prefix $prefixes {
 	lassign $block axis min delta direction
@@ -475,12 +483,12 @@ proc dsl::blit::EmitLoopSetupCanned {cmd range blocks prefixes} {
     foreach block $blocks { BlockPhase $block }
 
     append cmd " \([L], range[L]n"
-    foreach block $blocks var $variables {
+    foreach block $blocks var $variables prefix $prefixes {
 	lassign $block axis min delta direction
 	set step [dict get {up 1 down -1} $direction]
 	append cmd ", $var"
-	append cmd ", [BlockStart $block $range]"
-	append cmd ", [BlockStep  $var $block]"
+	append cmd ", [BlockStart $prefix $block $virtual $nopos $range]"
+	append cmd ", [BlockStep  $prefix $block $virtual $nopos]"
     }
     append cmd ") \{"
     + $cmd
@@ -518,13 +526,15 @@ proc dsl::blit::EmitLoopCompletion {scan} {
     + "\}"
 }
 
-proc dsl::blit::BlockStart {block range} {
+proc dsl::blit::BlockStart {prefix block virtual nopos range} {
     lassign $block axis min delta direction
 
     if {[IsArg $min]} { ArgMark $min }
 
     switch -exact -- $direction {
-	up { return $min }
+	up {
+	  set start $min
+	}
 	down {
 	    set start $min
 	    if {$min eq "0"} {
@@ -540,9 +550,19 @@ proc dsl::blit::BlockStart {block range} {
 		    append start +${range}*${delta}-1
 		}
 	    }
-	    return $start
 	}
     }
+
+    if {$start == 0} { return $start }
+
+    if {!([string match src* $prefix] && $nopos)} {
+	switch -exact -- $axis {
+	    y { set start "($start)*${prefix}pitch" }
+	    x { set start "($start)*${prefix}stride" }
+	}
+    }
+
+    return $start
 }
 
 proc dsl::blit::BlockPhase {block} {
@@ -584,17 +604,35 @@ proc dsl::blit::BlockIncrement {var block} {
     return $increment
 }
 
-proc dsl::blit::BlockStep {var block} {
+proc dsl::blit::BlockStep {prefix block virtual nopos} {
     lassign $block axis min delta direction
-    set modifier [dict get {
-	up   {}
-	down -
-    } $direction]
     set fstep ""
     if {[string match 1/* $delta]} {
 	set fstep ", [string range $delta 2 end]"
 	set delta 1
     }
+    if {!([string match src* $prefix] && $nopos)} {
+	if {$delta == 1} {
+	    switch -exact -- $axis {
+		y { set delta ${prefix}pitch  }
+		x { set delta ${prefix}stride }
+	    }
+	} elseif {$delta == -1} {
+	    switch -exact -- $axis {
+		y { set delta -${prefix}pitch  }
+		x { set delta -${prefix}stride }
+	    }
+	} else {
+	    switch -exact -- $axis {
+		y { append delta *${prefix}pitch  }
+		x { append delta *${prefix}stride }
+	    }
+	}
+    }
+    set modifier [dict get {
+	up   {}
+	down -
+    } $direction]
     return "$modifier$delta$fstep"
 }
 
