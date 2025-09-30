@@ -1,0 +1,11 @@
+#!/usr/bin/bash
+# syntax: path/to/old path/to/new
+
+old=$1
+new=$2
+
+od -c $old > $old.txt
+od -c $new > $new.txt
+
+tkdiff $old.txt $new.txt
+rm -f  $old.txt $new.txt

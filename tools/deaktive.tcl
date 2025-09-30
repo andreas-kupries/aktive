@@ -12,7 +12,7 @@ proc cmdline {} {
     return $argv
 }
 
-proc usage {m} {
+proc usage {{m {}}} {
     global argv0
     puts stderr "Usage: $argv0 infile outfile"
     if {$m ne {}} { puts stderr "       $m" }
