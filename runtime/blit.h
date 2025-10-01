@@ -108,9 +108,18 @@ typedef double complex (*aktive_cbinary_transform) (double complex x, double com
 
 /*
  * - - -- --- ----- -------- -------------
+ * memcopy, memset for []double
  */
 
-extern void aktive_blit_raw_copy (double* dst, aktive_uint num, aktive_uint stride, double* src);
+extern void aktive_blit_dcopy (double* dst, aktive_uint num, aktive_uint stride, double* src);
+#define     aktive_blit_dcopy1(dst,num,src) memcpy ((dst), (src), (num)*sizeof (double))
+
+extern void aktive_blit_dset  (double* dst, aktive_uint num, aktive_uint stride, double value);
+extern void aktive_blit_dset1 (double* dst, aktive_uint num, double value);
+
+extern void aktive_blit_dclear (double* dst, aktive_uint num);
+#define     aktive_blit_dclear1(dst,num) memset (dst, 0, (num)*sizeof (double))
+// Note: The value 0b'00000000 represents (double) 0.0.
 
 /*
  * - - -- --- ----- -------- -------------

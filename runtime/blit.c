@@ -19,23 +19,75 @@ TRACE_OFF;
  */
 
 extern void
-aktive_blit_raw_copy (double* dst, aktive_uint num, aktive_uint stride, double* src)
+aktive_blit_dclear (double* dst, aktive_uint num)
 {
-    TRACE_FUNC("((dst) %p, (num) %u, (stride) %u, (src) %p)", dst, num, stride, src);
+    TRACE_FUNC("((dst) %p, (num) %u)", dst, num);
+    TRACE_RUN (double* dhead = dst);
 
-    double* dhead = dst;
-    double* shead = src;
-
-    // Essentially destination-strided memcopy
-    for (; num > 0; num--) {
-	TRACE("d[%u] = s[%u] = %f", dst-dhead, src-shead, *src);
-	*dst = *src;
-	dst += stride;
-	src ++;
+    // Essentially destination-strided memset of doubles - vectorize-able ??
+    for (; num > 0; num--, dst ++) {
+	TRACE("d[%u] = 0", dst-dhead);
+	*dst = 0;
     }
 
     TRACE_RETURN_VOID;
 }
+
+// dclear1 - memset 0
+
+extern void
+aktive_blit_dset (double* dst, aktive_uint num, aktive_uint stride, double value)
+{
+    TRACE_FUNC("((dst) %p, (num) %u, (stride) %u, (value) %f)", dst, num, stride, value);
+    TRACE_RUN (double* dhead = dst);
+
+    // Essentially destination-strided memcopy of doubles - vectorize-able ??
+    for (; num > 0; num--, dst += stride) {
+	TRACE("d[%u] = %f", dst-dhead, value);
+	*dst = value;
+    }
+
+    TRACE_RETURN_VOID;
+}
+
+extern void
+aktive_blit_dset1 (double* dst, aktive_uint num, double value)
+{
+    TRACE_FUNC("((dst) %p, (num) %u, (value) %f)", dst, num, value);
+    TRACE_RUN (double* dhead = dst);
+
+    // 1-strided memcopy of doubles - vectorize-able ??
+    for (; num > 0; num--, dst ++) {
+	TRACE("d[%u] = %f", dst-dhead, value);
+	*dst = value;
+    }
+
+    TRACE_RETURN_VOID;
+}
+
+extern void
+aktive_blit_dcopy (double* dst, aktive_uint num, aktive_uint stride, double* src)
+{
+    TRACE_FUNC("((dst) %p, (num) %u, (stride) %u, (src) %p)", dst, num, stride, src);
+
+    if (stride == 1) {
+	memcpy (dst, src, num*sizeof (double));
+	TRACE_RETURN_VOID;
+    }
+
+    TRACE_RUN (double* dhead = dst);
+    TRACE_RUN (double* shead = src);
+
+    // Essentially destination-strided memcopy of doubles - vectorize-able ??
+    for (; num > 0; num--, src++, dst += stride) {
+	TRACE("d[%u] = s[%u] = %f", dst-dhead, src-shead, *src);
+	*dst = *src;
+    }
+
+    TRACE_RETURN_VOID;
+}
+
+// dcopy1 - memcpy
 
 /*
  * - - -- --- ----- -------- -------------
@@ -110,17 +162,8 @@ extern void
 aktive_blit_clear_all (aktive_block* dst) {
     TRACE_FUNC("((block*) %p (%d of %d @ %p)", dst, dst->used, dst->capacity, dst->pixel);
 
-#if 1 // TODO :: switch when optimized properly
-#define DD     (dst->domain.depth)
-#define DH     (dst->domain.height)
-#define DST    (dst->pixel)
-#define DSTCAP (dst->used)
-#define DW     (dst->domain.width)
-#include <generated/blit/clearall.c>
-#else
-    memset (dst->pixel, 0, dst->used * sizeof (double));
-    // Note: The value 0b'00000000 represents (double) 0.0.
-#endif
+    aktive_blit_dclear1 (dst->pixel, dst->used);
+
     TRACE_RETURN_VOID;
 }
 
