@@ -1,0 +1,92 @@
+# -*- tcl -*- tcl.tk//DSL tclbench-generate//EN// Tcl Benchmark Generator File
+#
+# This file contains a number of benchmark __generators__ for AKTIVE commands.
+#
+# (c) 2025 Andreas Kupries <andreas_kupries@users.sourceforge.net>
+##
+# ### ### ### ######### ######### ######### ###########################
+## Utilities
+
+source ../support/bench-gen-utilities.tcl
+
+package require math::numtheory
+
+set base [file root [file tail [info script]]]
+
+# ### ### ### ######### ######### ######### ###########################
+## Benchmark Generators.
+
+#set w  600
+#set h  600
+#set w 1600
+#set h 1200
+set w 4608
+set h 3456  
+
+set d      3
+set size   [expr {$w * $h}]
+set gcd    [::math::numtheory::gcd $w $h]
+set aspect [expr {$w/$gcd}]:[expr {$h/$gcd}]
+set iter   100
+
+foreach cores {
+    -1 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16
+} {
+    set     map {}
+    lappend map \
+	%cores%         $cores   \
+	%iter%          $iter    \
+	%w%             $w       \
+	%h%             $h       \
+	%d%             $d       \
+	%size%          $size    \
+	%aspect%        $aspect  \
+	"\n\t    "      "\n"     \
+	"\n\t\t"        "\n    "
+    
+    set label [list "blit /fill" null $cores $size $aspect $w $h]
+
+    generate generated/$base/blit_fill_cpu${cores}_w${w}_h${h}.bench \
+	[map {
+	    aktive processor %cores%
+
+	    bench_puts "WIDTH  = %w%"
+	    bench_puts "HEIGHT = %h%"
+	    bench_puts "DEPTH  = %d%"
+	    bench_puts "SIZE   = %size%"
+	    bench_puts "ASPECT = %aspect%"
+
+	    bench -iter %iter% -desc {%label%} -pre {
+		set image [aktive image from value width %w% height %h% depth %d% value 0.5]
+	    } -body {
+		aktive format as null 2string $image
+	    } -post {
+		unset image
+	    }
+	} {*}$map %label% $label]
+
+    set label [list "blit /old/fill" null $cores $size $aspect $w $h]
+
+    generate generated/$base/blit_fill_old_cpu${cores}_w${w}_h${h}.bench \
+	[map {
+	    aktive processor %cores%
+
+	    bench_puts "WIDTH  = %w%"
+	    bench_puts "HEIGHT = %h%"
+	    bench_puts "DEPTH  = %d%"
+	    bench_puts "SIZE   = %size%"
+	    bench_puts "ASPECT = %aspect%"
+
+	    bench -iter %iter% -desc {%label%} -pre {
+		set image [aktive image from value--old width %w% height %h% depth %d% value 0.5]
+	    } -body {
+		aktive format as null 2string $image
+	    } -post {
+		unset image
+	    }
+	} {*}$map %label% $label]
+}
+
+# ### ### ### ######### ######### ######### ###########################
+## Complete
+return

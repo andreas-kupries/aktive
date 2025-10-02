@@ -1,0 +1,32 @@
+# -*- tcl -*-
+# # ## ### ##### ######## ############# #####################
+## general structure is
+## - create several simple series
+## - merge the series into a side by side comparison
+
+# # ## ### ##### ######## ############# #####################
+
+chart blit-fill-new {
+    only {name = 'blit /fill'}
+    only {sink = 'null'}
+
+    range threads
+    nodump
+}
+
+chart blit-fill-old {
+    only {name = 'blit /old/fill'}
+    only {sink = 'null'}
+
+    range threads
+    nodump
+}
+
+chart blit-fill-new-old {
+    side-by-side \
+	blit-fill-new \
+	blit-fill-old
+}
+
+# # ## ### ##### ######## ############# #####################
+return
