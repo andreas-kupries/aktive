@@ -13,6 +13,7 @@ namespace eval ::dsl::blit::spec {
     variable allowsrc {} ;# bool /action may have source iterators
     variable fracs    {} ;# bool /isfractional, across all blocks
     variable axes     {} ;# dict (prefix -> list(axis...)) /custom order: y x z!
+    variable hasxz    {} ;# bool /xz special axis is present (ensured to be innermost)
     #
     # API
     #
@@ -35,7 +36,9 @@ proc ::dsl::blit::spec::setup {blit function} {
     variable allowsrc 1  ;# ok
     variable fracs    0  ;# ok
     variable axes     {} ;# ok
+    variable hasxz    0  ;# ok
 
+    set function [action optimize $function]
     lassign [action flags $function] virtual nopos allowsrc
     set depth [llength $blit]
     if {!$depth} { E "empty" }
@@ -50,7 +53,8 @@ proc ::dsl::blit::spec::setup {blit function} {
     if {!$allowsrc && ($span > 1)} { E "action / iterator mismatch, sources not allowed" }
 
     set prefixes [Prefixes [lrange [lindex $blit 0] 1 end]]
-    set level 0
+    set level  0
+    set hasxz 0 ;# flag that xz was used
     foreach scan $blit {
 	set iterators [lassign $scan range]
 	foreach iter $iterators prefix $prefixes {
@@ -65,21 +69,45 @@ proc ::dsl::blit::spec::setup {blit function} {
     }
     # axes :: dict (prefix -> axis -> ".")
     dict for {prefix spec} $axes {
-	# ensure custom order y/x/z, i.e. row/column/band, for the actually used axes
-	dict set axes $prefix [lmap a {y x z} {
+	# ensure custom order y/x/z/xz, i.e. row/column/band/col+band, for the actually used axes
+	dict set axes $prefix [lmap a {y x z xz} {
 	    if {![dict exists $spec $a]} continue
 	    set a
 	}]
     }
     # axes :: dict (prefix -> list(axis...))
+
+    # ensure that `xz` is only used in the innermost scan, and there not mixed with other axes.
+    # also ensure that the other scans only use `y`.
+    # actually, it has to be exactly two scans because of the above.
+    if {$hasxz} {
+	if {$depth != 2} { E "blit using `xz` axis has to consist of two scans" }
+	lassign $blit outer inner
+	if {![HasXZ $inner]} { E "`xz` axis is not on innermost scan" }
+	if {![HasY  $outer]} { E "`y` axis is not on outer scan for nest using `xz` axis" }
+    }
     return
 }
 
 # # ## ### ##### ######## #############
 ## internal helpers
 
+proc ::dsl::blit::spec::HasXZ {scan} {
+    set axes [lsort -uniq [lmap iterator [lassign $scan _] { lindex $iterator 0 }]]
+    set has [expr {"xz" in $axes}]
+    if {$has && ([llength $axes] > 1)} { E "bad scan, mixing `[join $axes {`, `}]` axes" }
+    return $has
+}
+
+proc ::dsl::blit::spec::HasY {scan} {
+    set axes [lsort -uniq [lmap iterator [lassign $scan _] { lindex $iterator 0 }]]
+    set has [expr {"y" in $axes}]
+    if {$has && ([llength $axes] > 1)} { E "bad scan, mixing `[join $axes {`, `}]` axes in nest using `xz`" }
+    return $has
+}
+
 proc ::dsl::blit::spec::CheckAxis {a} {
-    # TODO: axis xz
+    if {$a eq "xz"} { upvar 1 hasxz hasxz ; set hasxz 1 }
     if {$a in {x y z xz}} return
     E "bad axis `$a`, expected 'x', 'y', 'z', or 'xz'"
 }

@@ -181,9 +181,10 @@ proc dsl::blit::EmitBlitTraceHeader {} {
     foreach prefix $prefixes {
 	set iaxes [dict get $axes $prefix]
 	+ "TRACE_ADD (\" | [T $prefix]\", 0);"
-	if {"y" in $iaxes} { + "TRACE_ADD (\" | y..\", 0);" }
-	if {"x" in $iaxes} { + "TRACE_ADD (\" | x..\", 0);" }
-	if {"z" in $iaxes} { + "TRACE_ADD (\" | z..\", 0);" }
+	if {"y"  in $iaxes} { + "TRACE_ADD (\" | y..\", 0);" }
+	if {"x"  in $iaxes} { + "TRACE_ADD (\" | x..\", 0);" }
+	if {"z"  in $iaxes} { + "TRACE_ADD (\" | z..\", 0);" }
+	if {"xz" in $iaxes} { + "TRACE_ADD (\" | xz..\", 0);" }
 	+ "TRACE_ADD (\" | pos/cap\", 0);"
     }
     + "TRACE_CLOSER;"

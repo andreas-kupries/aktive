@@ -46,7 +46,7 @@
 	+ $code
     }}
     comment {
-	// "raw [lindex $words 0]"
+	// "[lrange $words 0 1]"
     }
 }
 
@@ -71,6 +71,11 @@
 	+ "TRACE_ADD (\" :: set %f\", $v);"
 	+ "*dstvalue = $v;"
     }}
+    optimize {
+	lassign $words cmd v
+	if {$v == 0} { return zero }
+	return $words
+    }
 }
 
 ::dsl blit action new point {
