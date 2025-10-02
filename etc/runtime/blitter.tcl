@@ -4,9 +4,8 @@
 
 # aktive_blit_copy -- Use when properly optimized
 dsl blit into generated/blit/copy.c {
-    {AH {y AY 1 up} {y SY 1 up}}
-    {AW {x AX 1 up} {x SX 1 up}}
-    {DD {z 0  1 up} {z 0  1 up}}
+    {AH    {y  AY 1 up} {y  SY 1 up}}
+    {AW*DD {xz AX 1 up} {xz SX 1 up}}
 } copy
 
 # aktive_blit_copy0 -- Use when properly optimized
@@ -15,13 +14,6 @@ dsl blit into generated/blit/copy0.c {
     {AW {x AX 1 up} {x 0 1 up}}
     {DD {z 0  1 up} {z 0 1 up}}
 } copy
-
-# aktive_blit_clear_all -- Use when properly optimized
-dsl blit into generated/blit/clearall.c {
-    {DH {y 0 1 up}}
-    {DW {x 0 1 up}}
-    {DD {z 0 1 up}}
-} zero
 
 # aktive_blit_clear -- Use when properly optimized
 dsl blit into generated/blit/clear.c {
@@ -39,30 +31,26 @@ dsl blit into generated/blit/clear_bands_from.c {
 
 # aktive_blit_fill
 dsl blit into generated/blit/fill.c {
-    {AH {y AY 1 up}}
-    {AW {x AX 1 up}}
-    {DD {z 0  1 up}}
+    {AH    {y  AY 1 up}}
+    {AW*DD {xz AX 1 up}}
 } {const v}
 
 # aktive_blit_unary0
 dsl blit into generated/blit/unary0.c {
-    {AH {y AY 1 up} {y 0 1 up}}
-    {AW {x AX 1 up} {x 0 1 up}}
-    {DD {z 0  1 up} {z 0 1 up}}
+    {AH    {y  AY 1 up} {y  0 1 up}}
+    {AW*DD {xz AX 1 up} {xz 0 1 up}}
 } {apply1 op}
 
 # aktive_blit_unary1
 dsl blit into generated/blit/unary1.c {
-    {AH {y AY 1 up} {y 0 1 up}}
-    {AW {x AX 1 up} {x 0 1 up}}
-    {DD {z 0  1 up} {z 0 1 up}}
+    {AH    {y  AY 1 up} {y  0 1 up}}
+    {AW*DD {xz AX 1 up} {xz 0 1 up}}
 } {apply1 op a}
 
 # aktive_blit_unary2
 dsl blit into generated/blit/unary2.c {
-    {AH {y AY 1 up} {y 0 1 up}}
-    {AW {x AX 1 up} {x 0 1 up}}
-    {DD {z 0  1 up} {z 0 1 up}}
+    {AH    {y  AY 1 up} {y  0 1 up}}
+    {AW*DD {xz AX 1 up} {xz 0 1 up}}
 } {apply1 op a b}
 
 # aktive_blit_unarygz
@@ -74,9 +62,8 @@ dsl blit into generated/blit/unarygz.c {
 
 # aktive_blit_binary
 dsl blit into generated/blit/binary.c {
-    {AH {y AY 1 up} {y 0 1 up} {y 0 1 up}}
-    {AW {x AX 1 up} {x 0 1 up} {x 0 1 up}}
-    {DD {z 0  1 up} {z 0 1 up} {z 0 1 up}}
+    {AH    {y  AY 1 up} {y  0 1 up} {y  0 1 up}}
+    {AW*DD {xz AX 1 up} {xz 0 1 up} {xz 0 1 up}}
 } {apply2 op}
 
 # aktive_blit_cunary
