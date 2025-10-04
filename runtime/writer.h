@@ -51,18 +51,32 @@ extern void aktive_write_goto /* (@,E) */ (aktive_writer* writer, Tcl_WideInt po
 extern void aktive_write_done /* (D)   */ (aktive_writer* writer);
 
 extern void aktive_write_here_uint8       (aktive_writer* writer, aktive_uint v);
+
 extern void aktive_write_here_uint16be    (aktive_writer* writer, aktive_uint v);
 extern void aktive_write_here_uint32be    (aktive_writer* writer, aktive_uint v);
 extern void aktive_write_here_uint64be    (aktive_writer* writer, Tcl_WideInt v);
+
+extern void aktive_write_here_uint16le    (aktive_writer* writer, aktive_uint v);
+extern void aktive_write_here_uint32le    (aktive_writer* writer, aktive_uint v);
+extern void aktive_write_here_uint64le    (aktive_writer* writer, Tcl_WideInt v);
+
 extern int  aktive_write_here_uint_text   (aktive_writer* writer, aktive_uint v);
 
 extern void aktive_write_here_int8       (aktive_writer* writer, int         v);
+
 extern void aktive_write_here_int16be    (aktive_writer* writer, int         v);
 extern void aktive_write_here_int32be    (aktive_writer* writer, int         v);
 extern void aktive_write_here_int64be    (aktive_writer* writer, Tcl_WideInt v);
+
+extern void aktive_write_here_int16le    (aktive_writer* writer, int         v);
+extern void aktive_write_here_int32le    (aktive_writer* writer, int         v);
+extern void aktive_write_here_int64le    (aktive_writer* writer, Tcl_WideInt v);
+
 extern int  aktive_write_here_int_text   (aktive_writer* writer, int         v);
 
 extern void aktive_write_here_float64be   (aktive_writer* writer, double v);
+
+extern void aktive_write_here_float64le   (aktive_writer* writer, double v);
 
 #define AKTIVE_WRITE_DONE ((Tcl_Size) -2)
 #define AKTIVE_WRITE_END  ((Tcl_Size) -1)

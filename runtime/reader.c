@@ -57,11 +57,11 @@ aktive_read_string (Tcl_Channel src, char* buf, aktive_uint n)
     }
 
     TRACE_HEADER(1);TRACE_ADD ("read = {", 0);
-    for (int k=0;k<n;k++) { TRACE_ADD(" %u", ((aktive_uint) buf[k]) & 0xFF); }
+    if (0 TRACE_RUN(|| 1)) { for (int k=0;k<n;k++) { TRACE_ADD(" %u", ((aktive_uint) buf[k]) & 0xFF); } }
     TRACE_ADD (" }", 0);TRACE_CLOSER;
 
     TRACE_HEADER(1);TRACE_ADD ("read = {", 0);
-    for (int k=0;k<n;k++) { TRACE_ADD(" '%c'", (char) buf[k]); }
+    if (0 TRACE_RUN(|| 1)) { for (int k=0;k<n;k++) { TRACE_ADD(" '%c'", (char) buf[k]); } }
     TRACE_ADD (" }", 0);TRACE_CLOSER;
 
     TRACE_RETURN ("(OK) %d", 1);
@@ -333,7 +333,7 @@ aktive_read_uint16be (Tcl_Channel src, aktive_uint* v)
     uint16_t vin;
     int      ok = aktive_read_string (src, (char*) &vin, sizeof(vin));
     if (ok) {
-	SWAP16 (vin);
+	SWAP16_BE (vin);
 	*v = vin;
 	TRACE ("got %u", *v);
     }
@@ -349,7 +349,7 @@ aktive_read_uint32be (Tcl_Channel src, aktive_uint* v)
     uint32_t vin;
     int      ok = aktive_read_string (src, (char*) &vin, sizeof(vin));
     if (ok) {
-	SWAP32 (vin);
+	SWAP32_BE (vin);
 	*v = vin;
 	TRACE ("got %u", *v);
     }
@@ -365,7 +365,55 @@ aktive_read_uint64be (Tcl_Channel src, Tcl_WideInt* v)
     uint64_t vin;
     int      ok = aktive_read_string (src, (char*) &vin, sizeof(vin));
     if (ok) {
-	SWAP64 (vin);
+	SWAP64_BE (vin);
+	*v = vin;
+	TRACE ("got %llu", *v);
+    }
+
+    TRACE_RETURN ("(OK) %d", ok);
+}
+
+extern int
+aktive_read_uint16le (Tcl_Channel src, aktive_uint* v)
+{
+    TRACE_FUNC ("((Tcl_Channel) %p, *value %p)", src, v);
+
+    uint16_t vin;
+    int      ok = aktive_read_string (src, (char*) &vin, sizeof(vin));
+    if (ok) {
+	SWAP16_LE (vin);
+	*v = vin;
+	TRACE ("got %u", *v);
+    }
+
+    TRACE_RETURN ("(OK) %d", ok);
+}
+
+extern int
+aktive_read_uint32le (Tcl_Channel src, aktive_uint* v)
+{
+    TRACE_FUNC ("((Tcl_Channel) %p, *value %p)", src, v);
+
+    uint32_t vin;
+    int      ok = aktive_read_string (src, (char*) &vin, sizeof(vin));
+    if (ok) {
+	SWAP32_LE (vin);
+	*v = vin;
+	TRACE ("got %u", *v);
+    }
+
+    TRACE_RETURN ("(OK) %d", ok);
+}
+
+extern int
+aktive_read_uint64le (Tcl_Channel src, Tcl_WideInt* v)
+{
+    TRACE_FUNC ("((Tcl_Channel) %p, *value %p)", src, v);
+
+    uint64_t vin;
+    int      ok = aktive_read_string (src, (char*) &vin, sizeof(vin));
+    if (ok) {
+	SWAP64_LE (vin);
 	*v = vin;
 	TRACE ("got %llu", *v);
     }
@@ -400,7 +448,7 @@ aktive_read_int16be (Tcl_Channel src, int* v)
     int16_t vin;
     int     ok = aktive_read_string (src, (char*) &vin, sizeof(vin));
     if (ok) {
-	SWAP16 (vin);
+	SWAP16_BE (vin);
 	*v = vin;
 	TRACE ("got %d", *v);
     }
@@ -416,7 +464,7 @@ aktive_read_int32be (Tcl_Channel src, int* v)
     int32_t vin;
     int     ok = aktive_read_string (src, (char*) &vin, sizeof(vin));
     if (ok) {
-	SWAP32 (vin);
+	SWAP32_BE (vin);
 	*v = vin;
 	TRACE ("got %d", *v);
     }
@@ -432,7 +480,55 @@ aktive_read_int64be (Tcl_Channel src, Tcl_WideInt* v)
     int64_t vin;
     int     ok = aktive_read_string (src, (char*) &vin, sizeof(vin));
     if (ok) {
-	SWAP64 (vin);
+	SWAP64_BE (vin);
+	*v = vin;
+	TRACE ("got %lld", *v);
+    }
+
+    TRACE_RETURN ("(OK) %d", ok);
+}
+
+extern int
+aktive_read_int16le (Tcl_Channel src, int* v)
+{
+    TRACE_FUNC ("((Tcl_Channel) %p, *value %p)", src, v);
+
+    int16_t vin;
+    int     ok = aktive_read_string (src, (char*) &vin, sizeof(vin));
+    if (ok) {
+	SWAP16_LE (vin);
+	*v = vin;
+	TRACE ("got %d", *v);
+    }
+
+    TRACE_RETURN ("(OK) %d", ok);
+}
+
+extern int
+aktive_read_int32le (Tcl_Channel src, int* v)
+{
+    TRACE_FUNC ("((Tcl_Channel) %p, *value %p)", src, v);
+
+    int32_t vin;
+    int     ok = aktive_read_string (src, (char*) &vin, sizeof(vin));
+    if (ok) {
+	SWAP32_LE (vin);
+	*v = vin;
+	TRACE ("got %d", *v);
+    }
+
+    TRACE_RETURN ("(OK) %d", ok);
+}
+
+extern int
+aktive_read_int64le (Tcl_Channel src, Tcl_WideInt* v)
+{
+    TRACE_FUNC ("((Tcl_Channel) %p, (int64_t*) %p)", src, v);
+
+    int64_t vin;
+    int     ok = aktive_read_string (src, (char*) &vin, sizeof(vin));
+    if (ok) {
+	SWAP64_LE (vin);
 	*v = vin;
 	TRACE ("got %lld", *v);
     }
@@ -452,7 +548,7 @@ aktive_read_float64be (Tcl_Channel src, double* v)
     int ok = aktive_read_string (src, (char*) v, sizeof(*v));
     if (ok) {
 	uint64_t* vin = (uint64_t*) v;
-	SWAP64 (*vin);
+	SWAP64_BE (*vin);
 	TRACE ("got %f", *v);
     }
 
@@ -471,7 +567,41 @@ aktive_read_float64be_n (Tcl_Channel src, aktive_uint n, double* v)
 #ifdef BE_SWAP
     if (ok) {
 	uint64_t* vi = (uint64_t*) v;
-	aktive_uint i; for (i = 0; i < n; i++, vi++) { SWAP64 (*vi); }
+	aktive_uint i; for (i = 0; i < n; i++, vi++) { SWAP64_BE (*vi); }
+    }
+#endif
+
+    TRACE_RETURN ("(OK) %d", ok);
+}
+
+extern int
+aktive_read_float64le (Tcl_Channel src, double* v)
+{
+    TRACE_FUNC ("((Tcl_Channel) %p, (double*) %p)", src, v);
+
+    int ok = aktive_read_string (src, (char*) v, sizeof(*v));
+    if (ok) {
+	uint64_t* vin = (uint64_t*) v;
+	SWAP64_LE (*vin);
+	TRACE ("got %f", *v);
+    }
+
+    TRACE_RETURN ("(OK) %d", ok);
+}
+
+extern int
+aktive_read_float64le_n (Tcl_Channel src, aktive_uint n, double* v)
+{
+    TRACE_FUNC ("((Tcl_Channel) %p, (double*) %p [%d])", src, v, n);
+
+    // read directly into the buffer
+    int ok = aktive_read_string (src, (char*) v, n * sizeof(*v));
+
+    // if needed perform endian conversion - vectorize-able ?!
+#ifdef LE_SWAP
+    if (ok) {
+	uint64_t* vi = (uint64_t*) v;
+	aktive_uint i; for (i = 0; i < n; i++, vi++) { SWAP64_LE (*vi); }
     }
 #endif
 
@@ -775,7 +905,7 @@ aktive_get_uint16be (char* inbytes, Tcl_Size inmax, Tcl_Size* pos, aktive_uint* 
     int      ok = aktive_get_string (inbytes, inmax, pos,
 				     (char*) &vin, sizeof(vin));
     if (ok) {
-	SWAP16 (vin);
+	SWAP16_BE (vin);
 	*v = vin;
 	TRACE ("got %u", *v);
     }
@@ -792,7 +922,7 @@ aktive_get_uint32be (char* inbytes, Tcl_Size inmax, Tcl_Size* pos, aktive_uint* 
     int      ok = aktive_get_string (inbytes, inmax, pos,
 				     (char*) &vin, sizeof(vin));
     if (ok) {
-	SWAP32 (vin);
+	SWAP32_BE (vin);
 	*v = vin;
 	TRACE ("got %u", *v);
     }
@@ -809,7 +939,58 @@ aktive_get_uint64be (char* inbytes, Tcl_Size inmax, Tcl_Size* pos, Tcl_WideInt* 
     int      ok = aktive_get_string (inbytes, inmax, pos,
 				     (char*) &vin, sizeof(vin));
     if (ok) {
-	SWAP64 (vin);
+	SWAP64_BE (vin);
+	*v = vin;
+	TRACE ("got %llu", *v);
+    }
+
+    TRACE_RETURN ("(OK) %d", ok);
+}
+
+extern int
+aktive_get_uint16le (char* inbytes, Tcl_Size inmax, Tcl_Size* pos, aktive_uint* v)
+{
+    TRACE_FUNC ("((char*) %p [%d] @ %d, *value %p)", inbytes, inmax, *pos, v);
+
+    uint16_t vin;
+    int      ok = aktive_get_string (inbytes, inmax, pos,
+				     (char*) &vin, sizeof(vin));
+    if (ok) {
+	SWAP16_LE (vin);
+	*v = vin;
+	TRACE ("got %u", *v);
+    }
+
+    TRACE_RETURN ("(OK) %d", ok);
+}
+
+extern int
+aktive_get_uint32le (char* inbytes, Tcl_Size inmax, Tcl_Size* pos, aktive_uint* v)
+{
+    TRACE_FUNC ("((char*) %p [%d] @ %d, *value %p)", inbytes, inmax, *pos, v);
+
+    uint32_t vin;
+    int      ok = aktive_get_string (inbytes, inmax, pos,
+				     (char*) &vin, sizeof(vin));
+    if (ok) {
+	SWAP32_LE (vin);
+	*v = vin;
+	TRACE ("got %u", *v);
+    }
+
+    TRACE_RETURN ("(OK) %d", ok);
+}
+
+extern int
+aktive_get_uint64le (char* inbytes, Tcl_Size inmax, Tcl_Size* pos, Tcl_WideInt* v)
+{
+    TRACE_FUNC ("((char*) %p [%d] @ %d, *value %p)", inbytes, inmax, *pos, v);
+
+    uint64_t vin;
+    int      ok = aktive_get_string (inbytes, inmax, pos,
+				     (char*) &vin, sizeof(vin));
+    if (ok) {
+	SWAP64_LE (vin);
 	*v = vin;
 	TRACE ("got %llu", *v);
     }
@@ -845,7 +1026,7 @@ aktive_get_int16be (char* inbytes, Tcl_Size inmax, Tcl_Size* pos, int* v)
     int     ok = aktive_get_string (inbytes, inmax, pos,
 				    (char*) &vin, sizeof(vin));
     if (ok) {
-	SWAP16 (vin);
+	SWAP16_BE (vin);
 	*v = vin;
 	TRACE ("got %d", *v);
     }
@@ -862,7 +1043,7 @@ aktive_get_int32be (char* inbytes, Tcl_Size inmax, Tcl_Size* pos, int* v)
     int     ok = aktive_get_string (inbytes, inmax, pos,
 				    (char*) &vin, sizeof(vin));
     if (ok) {
-	SWAP32 (vin);
+	SWAP32_BE (vin);
 	*v = vin;
 	TRACE ("got %d", *v);
     }
@@ -879,7 +1060,58 @@ aktive_get_int64be (char* inbytes, Tcl_Size inmax, Tcl_Size* pos, Tcl_WideInt* v
     int     ok = aktive_get_string (inbytes, inmax, pos,
 				    (char*) &vin, sizeof(vin));
     if (ok) {
-	SWAP64 (vin);
+	SWAP64_BE (vin);
+	*v = vin;
+	TRACE ("got %lld", *v);
+    }
+
+    TRACE_RETURN ("(OK) %d", ok);
+}
+
+extern int
+aktive_get_int16le (char* inbytes, Tcl_Size inmax, Tcl_Size* pos, int* v)
+{
+    TRACE_FUNC ("((char*) %p [%d] @ %d, *value %p)", inbytes, inmax, *pos, v);
+
+    int16_t vin;
+    int     ok = aktive_get_string (inbytes, inmax, pos,
+				    (char*) &vin, sizeof(vin));
+    if (ok) {
+	SWAP16_LE (vin);
+	*v = vin;
+	TRACE ("got %d", *v);
+    }
+
+    TRACE_RETURN ("(OK) %d", ok);
+}
+
+extern int
+aktive_get_int32le (char* inbytes, Tcl_Size inmax, Tcl_Size* pos, int* v)
+{
+    TRACE_FUNC ("((char*) %p [%d] @ %d, *value %p)", inbytes, inmax, *pos, v);
+
+    int32_t vin;
+    int     ok = aktive_get_string (inbytes, inmax, pos,
+				    (char*) &vin, sizeof(vin));
+    if (ok) {
+	SWAP32_LE (vin);
+	*v = vin;
+	TRACE ("got %d", *v);
+    }
+
+    TRACE_RETURN ("(OK) %d", ok);
+}
+
+extern int
+aktive_get_int64le (char* inbytes, Tcl_Size inmax, Tcl_Size* pos, Tcl_WideInt* v)
+{
+    TRACE_FUNC ("((char*) %p [%d] @ %d, *value %p)", inbytes, inmax, *pos, v);
+
+    int64_t vin;
+    int     ok = aktive_get_string (inbytes, inmax, pos,
+				    (char*) &vin, sizeof(vin));
+    if (ok) {
+	SWAP64_LE (vin);
 	*v = vin;
 	TRACE ("got %lld", *v);
     }
@@ -899,7 +1131,7 @@ aktive_get_float64be (char* inbytes, Tcl_Size inmax, Tcl_Size* pos, double* v)
     int ok = aktive_get_string (inbytes, inmax, pos, (char*) v, sizeof(*v));
     if (ok) {
 	uint64_t* vin = (uint64_t*) v;
-	SWAP64 (*vin);
+	SWAP64_BE (*vin);
 	TRACE ("got %f", *v);
     }
 
@@ -918,7 +1150,41 @@ aktive_get_float64be_n (char* inbytes, Tcl_Size inmax, Tcl_Size* pos, aktive_uin
 #ifdef BE_SWAP
     if (ok) {
 	uint64_t* vi = (uint64_t*) v;
-	aktive_uint i; for (i = 0; i < n; i++, vi++) { SWAP64 (*vi); }
+	aktive_uint i; for (i = 0; i < n; i++, vi++) { SWAP64_BE (*vi); }
+    }
+#endif
+
+    TRACE_RETURN ("(OK) %d", ok);
+}
+
+extern int
+aktive_get_float64le (char* inbytes, Tcl_Size inmax, Tcl_Size* pos, double* v)
+{
+    TRACE_FUNC ("((char*) %p [%d] @ %d, *value %p)", inbytes, inmax, *pos, v);
+
+    int ok = aktive_get_string (inbytes, inmax, pos, (char*) v, sizeof(*v));
+    if (ok) {
+	uint64_t* vin = (uint64_t*) v;
+	SWAP64_LE (*vin);
+	TRACE ("got %f", *v);
+    }
+
+    TRACE_RETURN ("(OK) %d", ok);
+}
+
+extern int
+aktive_get_float64le_n (char* inbytes, Tcl_Size inmax, Tcl_Size* pos, aktive_uint n, double* v)
+{
+    TRACE_FUNC ("((char*) %p [%d] @ %d, (double*) %p [%d])", inbytes, inmax, *pos, v, n);
+
+    // read directly into the buffer
+    int ok = aktive_get_string (inbytes, inmax, pos, (char*) v, n * sizeof(*v));
+
+    // if needed perform endian conversion - vectorize-able ?!
+#ifdef LE_SWAP
+    if (ok) {
+	uint64_t* vi = (uint64_t*) v;
+	aktive_uint i; for (i = 0; i < n; i++, vi++) { SWAP64_LE (*vi); }
     }
 #endif
 

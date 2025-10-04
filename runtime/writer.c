@@ -168,7 +168,7 @@ aktive_write_here_uint16be (aktive_writer* writer, aktive_uint v)
     TRACE_FUNC ("((writer*) %p, value %d)", writer, v);
 
     uint16_t vin = v;
-    SWAP16 (vin);
+    SWAP16_BE (vin);
     aktive_write_here (writer, (char*) &vin, sizeof(vin));
 
     TRACE_RETURN_VOID;
@@ -180,7 +180,7 @@ aktive_write_here_uint32be (aktive_writer* writer, aktive_uint v)
     TRACE_FUNC ("((writer*) %p, value %d)", writer, v);
 
     uint32_t vin = v;
-    SWAP32 (vin);
+    SWAP32_BE (vin);
     aktive_write_here (writer, (char*) &vin, sizeof(vin));
 
     TRACE_RETURN_VOID;
@@ -192,7 +192,43 @@ aktive_write_here_uint64be (aktive_writer* writer, Tcl_WideInt v)
     TRACE_FUNC ("((writer*) %p, value %ld)", writer, v);
 
     uint64_t vin = v;
-    SWAP64 (vin);
+    SWAP64_BE (vin);
+    aktive_write_here (writer, (char*) &vin, sizeof(vin));
+
+    TRACE_RETURN_VOID;
+}
+
+extern void
+aktive_write_here_uint16le (aktive_writer* writer, aktive_uint v)
+{
+    TRACE_FUNC ("((writer*) %p, value %d)", writer, v);
+
+    uint16_t vin = v;
+    SWAP16_LE (vin);
+    aktive_write_here (writer, (char*) &vin, sizeof(vin));
+
+    TRACE_RETURN_VOID;
+}
+
+extern void
+aktive_write_here_uint32le (aktive_writer* writer, aktive_uint v)
+{
+    TRACE_FUNC ("((writer*) %p, value %d)", writer, v);
+
+    uint32_t vin = v;
+    SWAP32_LE (vin);
+    aktive_write_here (writer, (char*) &vin, sizeof(vin));
+
+    TRACE_RETURN_VOID;
+}
+
+extern void
+aktive_write_here_uint64le (aktive_writer* writer, Tcl_WideInt v)
+{
+    TRACE_FUNC ("((writer*) %p, value %ld)", writer, v);
+
+    uint64_t vin = v;
+    SWAP64_LE (vin);
     aktive_write_here (writer, (char*) &vin, sizeof(vin));
 
     TRACE_RETURN_VOID;
@@ -234,7 +270,7 @@ aktive_write_here_int16be (aktive_writer* writer, int v)
     TRACE_FUNC ("((writer*) %p, value %d)", writer, v);
 
     int16_t vin = v;
-    SWAP16 (vin);
+    SWAP16_BE (vin);
     aktive_write_here (writer, (char*) &vin, sizeof(vin));
 
     TRACE_RETURN_VOID;
@@ -246,7 +282,7 @@ aktive_write_here_int32be (aktive_writer* writer, int v)
     TRACE_FUNC ("((writer*) %p, value %d)", writer, v);
 
     int32_t vin = v;
-    SWAP32 (vin);
+    SWAP32_BE (vin);
     aktive_write_here (writer, (char*) &vin, sizeof(vin));
 
     TRACE_RETURN_VOID;
@@ -258,7 +294,43 @@ aktive_write_here_int64be (aktive_writer* writer, Tcl_WideInt v)
     TRACE_FUNC ("((writer*) %p, value %ld)", writer, v);
 
     int64_t vin = v;
-    SWAP64 (vin);
+    SWAP64_BE (vin);
+    aktive_write_here (writer, (char*) &vin, sizeof(vin));
+
+    TRACE_RETURN_VOID;
+}
+
+extern void
+aktive_write_here_int16le (aktive_writer* writer, int v)
+{
+    TRACE_FUNC ("((writer*) %p, value %d)", writer, v);
+
+    int16_t vin = v;
+    SWAP16_LE (vin);
+    aktive_write_here (writer, (char*) &vin, sizeof(vin));
+
+    TRACE_RETURN_VOID;
+}
+
+extern void
+aktive_write_here_int32le (aktive_writer* writer, int v)
+{
+    TRACE_FUNC ("((writer*) %p, value %d)", writer, v);
+
+    int32_t vin = v;
+    SWAP32_LE (vin);
+    aktive_write_here (writer, (char*) &vin, sizeof(vin));
+
+    TRACE_RETURN_VOID;
+}
+
+extern void
+aktive_write_here_int64le (aktive_writer* writer, Tcl_WideInt v)
+{
+    TRACE_FUNC ("((writer*) %p, value %ld)", writer, v);
+
+    int64_t vin = v;
+    SWAP64_LE (vin);
     aktive_write_here (writer, (char*) &vin, sizeof(vin));
 
     TRACE_RETURN_VOID;
@@ -288,7 +360,19 @@ aktive_write_here_float64be (aktive_writer* writer, double v)
     TRACE_FUNC ("((writer*) %p, value %f)", writer, v);
 
     uint64_t* vin = (uint64_t*) &v;
-    SWAP64 (*vin);
+    SWAP64_BE (*vin);
+    aktive_write_here (writer, (char*) &v, sizeof(v));
+
+    TRACE_RETURN_VOID;
+}
+
+extern void
+aktive_write_here_float64le (aktive_writer* writer, double v)
+{
+    TRACE_FUNC ("((writer*) %p, value %f)", writer, v);
+
+    uint64_t* vin = (uint64_t*) &v;
+    SWAP64_LE (*vin);
     aktive_write_here (writer, (char*) &v, sizeof(v));
 
     TRACE_RETURN_VOID;

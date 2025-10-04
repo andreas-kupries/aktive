@@ -472,7 +472,7 @@ D (pgm_short)	// single band, binary, short
 {
 #define BANDS      1
 #define BANDCODE   2
-#define PROCESS(x) SWAP16 (x)
+#define PROCESS(x) SWAP16_BE (x)
 #include <netpbm_binary_read.h>
 }
 
@@ -508,7 +508,7 @@ D (ppm_short)	// 3 band, binary, short
 {
 #define BANDS      3
 #define BANDCODE   2
-#define PROCESS(x) SWAP16 (x)
+#define PROCESS(x) SWAP16_BE (x)
 #include <netpbm_binary_read.h>
 }
 
@@ -654,7 +654,7 @@ D (pgm_short)	// single band, binary, short
 {
 #define BANDS      1
 #define BANDCODE   2
-#define PROCESS(x) SWAP16 (x)
+#define PROCESS(x) SWAP16_BE (x)
 #include <netpbm_binary_get.h>
 }
 
@@ -690,7 +690,7 @@ D (ppm_short)	// 3 band, binary, short
 {
 #define BANDS      3
 #define BANDCODE   2
-#define PROCESS(x) SWAP16 (x)
+#define PROCESS(x) SWAP16_BE (x)
 #include <netpbm_binary_get.h>
 }
 
