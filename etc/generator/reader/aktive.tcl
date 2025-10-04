@@ -5,19 +5,20 @@
 # # ## ### ##### ######## ############# #####################
 ## AKTIVE format
 
-operator read::from::aktive::string {
-
+operator {endian dendian} {
+    read::from::aktive::string    le /LE
+    read::from::aktive-be::string be /BE
+} {
     section generator reader
 
-    note Construct image from a Tcl byte array value in the native AKTIVE format.
+    note Construct image from a Tcl byte array value in the native AKTIVE$dendian format.
 
     object value \
-	Tcl value holding the AKTIVE image data to read
+	Tcl value holding the AKTIVE${dendian} image data to read
 
     state -fields {
 	aktive_aktive_header info;	// image header
 	char*                bytes;	// memory buffer holding the image
-    } -cleanup {
     } -setup {
 	// Determine "file" size
 	Tcl_Size fsize;
@@ -25,7 +26,7 @@ operator read::from::aktive::string {
 	state->bytes = bytes;
 
 	// Read header
-	int ok = aktive_aktive_header_get (bytes, fsize, &state->info);
+	int ok = aktive_aktive_@@endian@@_header_get (bytes, fsize, &state->info);
 	if (!ok) { __afdone; }
 
 	*meta = Tcl_NewStringObj (state->info.meta, state->info.metac);
@@ -66,22 +67,25 @@ operator read::from::aktive::string {
 	#define ITER for (dsty = dst->y, row = 0; row < request->height; dsty ++, row ++, ry ++)
 	ITER {
 	    aktive_uint dstpos = dbase + dsty * pitch;
-	    (void) aktive_aktive_slice_get (bytes, header, rx, ry, n, block->pixel + dstpos);
+	    (void) aktive_aktive_@@endian@@_slice_get (bytes, header, rx, ry, n, block->pixel + dstpos);
 	}
 	#undef ITER
     }
 }
 
-operator read::from::aktive::file {
-    example {path tests/assets/results/format-colorbox.aktive | times 8}
-    example {path tests/assets/results/format-graybox.aktive  | times 8}
+operator {endian dendian suffix} {
+    read::from::aktive::file    le /LE {}
+    read::from::aktive-be::file be /BE -be
+} {
+    example "path tests/assets/results/format-colorbox.aktive$suffix | times 8"
+    example "path tests/assets/results/format-graybox.aktive$suffix  | times 8"
 
     section generator reader
 
-    note Construct image from file content in the native AKTIVE format.
+    note Construct image from file content in the native AKTIVE$dendian format.
 
     object path \
-	Path to file holding the AKTIVE image data to read
+	Path to file holding the AKTIVE$dendian image data to read
 
     state -fields {
 	aktive_aktive_header info;	// image header
@@ -101,7 +105,7 @@ operator read::from::aktive::file {
 	// Read header
 	aktive_read_setup_binary (src);
 
-	int ok = aktive_aktive_header_read (src, fsize, &state->info);
+	int ok = aktive_aktive_@@endian@@_header_read (src, fsize, &state->info);
 	Tcl_Close (NULL, src);
 	if (!ok) { __afdone; }
 
@@ -161,7 +165,7 @@ operator read::from::aktive::file {
 	#define ITER for (dsty = dst->y, row = 0; row < request->height; dsty ++, row ++, ry ++)
 	ITER {
 	    aktive_uint dstpos = dbase + dsty * pitch;
-	    (void) aktive_aktive_slice_read (src, header, rx, ry, n, block->pixel + dstpos);
+	    (void) aktive_aktive_@@endian@@_slice_read (src, header, rx, ry, n, block->pixel + dstpos);
 	}
 	#undef ITER
     }

@@ -20,6 +20,11 @@ syntax {
     2string   src
 } {aktive format as aktive}
 
+syntax {
+    2chan    {src args}
+    2string   src
+} {aktive format as aktive-be}
+
 # # ## ### ##### ######## ############# #####################
 ##
 
@@ -27,22 +32,21 @@ foreach {k cons} {
     0 graybox
     1 colorbox
 } {
-    test aktive-format-as-aktive-2chan-2.$k "aktive format as aktive 2chan, $cons" -body {
-	save-to test.$cons.aktive \
-	    [aktive meta set [$cons] label $cons] \
-	    aktive format as aktive
-    } -cleanup {
-	removeFile test.$cons.aktive
-    } -match content -result [R format-$cons.aktive]
-}
+    foreach kind {
+	{} -be
+    } {
+	test aktive-format-as-aktive$kind-2chan-2.$k "aktive format as aktive$kind 2chan, $cons" -body {
+	    save-to test.$cons.aktive \
+		[aktive meta set [$cons] label $cons] \
+		aktive format as aktive$kind
+	} -cleanup {
+	    removeFile test.$cons.aktive
+	} -match content -result [R format-$cons.aktive$kind]
 
-foreach {k cons} {
-    0 graybox
-    1 colorbox
-} {
-    test aktive-format-as-aktive-2string-2.$k "aktive format as aktive 2string" -body {
-	check aktive format as aktive 2string [aktive meta set [$cons] label $cons]
-    } -match content/string -result [R format-$cons.aktive]
+    	test aktive-format-as-aktive$kind-2string-2.$k "aktive format as aktive$kind 2string" -body {
+	    check aktive format as aktive$kind 2string [aktive meta set [$cons] label $cons]
+	} -match content/string -result [R format-$cons.aktive$kind]
+    }
 }
 
 # # ## ### ##### ######## ############# #####################

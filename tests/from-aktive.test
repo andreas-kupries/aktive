@@ -20,6 +20,11 @@ syntax {
     string args
 } {aktive read from aktive}
 
+syntax {
+    file   args
+    string args
+} {aktive read from aktive-be}
+
 # # ## ### ##### ######## ############# #####################
 ##
 
@@ -53,24 +58,28 @@ foreach {k d cons expected} {
 	=  0.9524 0.4921 0.0476 = 0.9683 0.3651 0.0317 = 0.9841 0.2381 0.0159 = 1      0.1111 0
     }
 } {
-    set rpath   [R format-$cons.aktive]
+    foreach kind {
+	{} -be
+    } {
+	set rpath   [R format-$cons.aktive$kind]
 
-    set pconfig [dict create path $rpath]
-    set pmeta   [dict create path $rpath label $cons]
+	set pconfig [dict create path $rpath]
+	set pmeta   [dict create path $rpath label $cons]
 
-    set data    [cat $rpath]
-    set dconfig [dict create value $data]
-    set dmeta   [dict create label $cons]
+	set data    [cat $rpath]
+	set dconfig [dict create value $data]
+	set dmeta   [dict create label $cons]
 
-    test aktive-read-from-aktive-2.$k "aktive read from aktive file, $cons" -body {
-	astcl aktive read from aktive file path $rpath
-    } -match image -result [makei read::from::aktive::file 0 0 8 8 $d $pconfig $expected $pmeta]
+	test aktive-read-from-aktive$kind-2.$k "aktive read from aktive$kind file, $cons" -body {
+	    astcl aktive read from aktive$kind file path $rpath
+	} -match image -result [makei read::from::aktive${kind}::file 0 0 8 8 $d $pconfig $expected $pmeta]
 
-    test aktive-read-from-aktive-3.$k "aktive read from aktive string, $cons" -body {
-	astcl aktive read from aktive string value $data
-    } -match image -result [makei read::from::aktive::string 0 0 8 8 $d $dconfig $expected $dmeta]
+	test aktive-read-from-aktive$kind-3.$k "aktive read from aktive$kind string, $cons" -body {
+	    astcl aktive read from aktive$kind string value $data
+	} -match image -result [makei read::from::aktive${kind}::string 0 0 8 8 $d $dconfig $expected $dmeta]
 
-    unset rpath pconfig pmeta data dconfig dmeta
+	unset rpath pconfig pmeta data dconfig dmeta
+    }
 }
 
 # # ## ### ##### ######## ############# #####################

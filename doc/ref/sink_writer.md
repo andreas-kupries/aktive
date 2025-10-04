@@ -17,6 +17,9 @@
 
 ### Operators
 
+ - [aktive format as aktive-be 2chan](#format_as_aktive_be_2chan)
+ - [aktive format as aktive-be 2file](#format_as_aktive_be_2file)
+ - [aktive format as aktive-be 2string](#format_as_aktive_be_2string)
  - [aktive format as aktive 2chan](#format_as_aktive_2chan)
  - [aktive format as aktive 2file](#format_as_aktive_2file)
  - [aktive format as aktive 2string](#format_as_aktive_2string)
@@ -51,11 +54,58 @@
 ## Operators
 
 ---
+### [↑](#top) <a name='format_as_aktive_be_2chan'></a> aktive format as aktive-be 2chan
+
+Syntax: __aktive format as aktive-be 2chan__ src (param value)... [[→ definition](/file?ci=trunk&ln=30&name=etc/sink/aktive.tcl)]
+
+Writes image to the DST channel, serialized with the [AKTIVE/BE](ff-aktive.md) format.
+
+This operator is __strict__ in its single input. The computed pixels are not materialized. They are immediately saved to the destination channel.
+
+|Input|Description|
+|:---|:---|
+|src|Source image|
+
+|Parameter|Type|Default|Description|
+|:---|:---|:---|:---|
+|into|channel||Destination channel the image data is written to|
+
+---
+### [↑](#top) <a name='format_as_aktive_be_2file'></a> aktive format as aktive-be 2file
+
+Syntax: __aktive format as aktive-be 2file__ src (param value)... [[→ definition](/file?ci=trunk&ln=7&name=etc/sink/aktive.tcl)]
+
+Writes image to the destination file, serialized with the [AKTIVE/BE](ff-aktive.md) format.
+
+This operator is __strict__ in its single input. The computed pixels are not materialized. They are immediately saved to the destination file.
+
+|Input|Description|
+|:---|:---|
+|src|Source image|
+
+|Parameter|Type|Default|Description|
+|:---|:---|:---|:---|
+|into|str||Destination file the image data is written to.|
+
+---
+### [↑](#top) <a name='format_as_aktive_be_2string'></a> aktive format as aktive-be 2string
+
+Syntax: __aktive format as aktive-be 2string__ src [[→ definition](/file?ci=trunk&ln=60&name=etc/sink/aktive.tcl)]
+
+Returns byte array containing the image, serialized with the [AKTIVE/BE](ff-aktive.md) format.
+
+This operator is __strict__ in its single input. The computed pixels __are__ materialized into the returned string.
+
+|Input|Description|
+|:---|:---|
+|src|Source image|
+
+---
 ### [↑](#top) <a name='format_as_aktive_2chan'></a> aktive format as aktive 2chan
 
-Syntax: __aktive format as aktive 2chan__ src (param value)... [[→ definition](/file?ci=trunk&ln=29&name=etc/sink/aktive.tcl)]
+Syntax: __aktive format as aktive 2chan__ src (param value)... [[→ definition](/file?ci=trunk&ln=30&name=etc/sink/aktive.tcl)]
 
-Writes image to the DST channel, serialized with the [AKTIVE](ff-aktive.md) format.
+Writes image to the DST channel, serialized with the [AKTIVE/LE](ff-aktive.md) format.
 
 This operator is __strict__ in its single input. The computed pixels are not materialized. They are immediately saved to the destination channel.
 
@@ -72,7 +122,7 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 
 Syntax: __aktive format as aktive 2file__ src (param value)... [[→ definition](/file?ci=trunk&ln=7&name=etc/sink/aktive.tcl)]
 
-Writes image to the destination file, serialized with the [AKTIVE](ff-aktive.md) format.
+Writes image to the destination file, serialized with the [AKTIVE/LE](ff-aktive.md) format.
 
 This operator is __strict__ in its single input. The computed pixels are not materialized. They are immediately saved to the destination file.
 
@@ -87,9 +137,9 @@ This operator is __strict__ in its single input. The computed pixels are not mat
 ---
 ### [↑](#top) <a name='format_as_aktive_2string'></a> aktive format as aktive 2string
 
-Syntax: __aktive format as aktive 2string__ src [[→ definition](/file?ci=trunk&ln=58&name=etc/sink/aktive.tcl)]
+Syntax: __aktive format as aktive 2string__ src [[→ definition](/file?ci=trunk&ln=60&name=etc/sink/aktive.tcl)]
 
-Returns byte array containing the image, serialized with the [AKTIVE](ff-aktive.md) format.
+Returns byte array containing the image, serialized with the [AKTIVE/LE](ff-aktive.md) format.
 
 This operator is __strict__ in its single input. The computed pixels __are__ materialized into the returned string.
 

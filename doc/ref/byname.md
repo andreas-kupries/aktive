@@ -37,6 +37,9 @@
 
 ## <a name='_f'></a> f
 
+ - [aktive format as aktive-be 2chan](sink_writer.md#format_as_aktive_be_2chan)
+ - [aktive format as aktive-be 2file](sink_writer.md#format_as_aktive_be_2file)
+ - [aktive format as aktive-be 2string](sink_writer.md#format_as_aktive_be_2string)
  - [aktive format as aktive 2chan](sink_writer.md#format_as_aktive_2chan)
  - [aktive format as aktive 2file](sink_writer.md#format_as_aktive_2file)
  - [aktive format as aktive 2string](sink_writer.md#format_as_aktive_2string)
@@ -647,6 +650,8 @@
 
 ## <a name='_r'></a> r
 
+ - [aktive read from aktive-be file](generator_reader.md#read_from_aktive_be_file)
+ - [aktive read from aktive-be string](generator_reader.md#read_from_aktive_be_string)
  - [aktive read from aktive file](generator_reader.md#read_from_aktive_file)
  - [aktive read from aktive string](generator_reader.md#read_from_aktive_string)
  - [aktive read from netpbm file](generator_reader.md#read_from_netpbm_file)

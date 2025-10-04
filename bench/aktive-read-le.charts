@@ -1,0 +1,47 @@
+# -*- tcl -*-
+# # ## ### ##### ######## ############# #####################
+## general structure is
+## - create several simple series
+## - merge the series into a side by side comparison
+
+chart aktive-read-file {
+    only {name = 'aktive read from aktive file path butterfly.aktive'}
+    only {sink = 'null'}
+
+    range threads
+    nodump
+}
+
+chart aktive-read-string {
+    only {name = 'aktive read from aktive string value butterfly.aktive'}
+    only {sink = 'null'}
+
+    range threads
+    nodump
+}
+
+chart aktive-read-file-be {
+    only {name = 'aktive read from aktive-be file path butterfly.aktive'}
+    only {sink = 'null'}
+
+    range threads
+    nodump
+}
+
+chart aktive-read-string-be {
+    only {name = 'aktive read from aktive-be string value butterfly.aktive'}
+    only {sink = 'null'}
+
+    range threads
+    nodump
+}
+
+chart aktive-read-le-be {
+    side-by-side        \
+	aktive-read-file     \
+	aktive-read-file-be  \
+	aktive-read-string   \
+	aktive-read-string-be
+}
+
+return

@@ -27,6 +27,9 @@ It all depends on the details of the operator in question.
 
 ## <a name='_f'></a> f
 
+ - [aktive format as aktive-be 2chan](sink_writer.md#format_as_aktive_be_2chan)
+ - [aktive format as aktive-be 2file](sink_writer.md#format_as_aktive_be_2file)
+ - [aktive format as aktive-be 2string](sink_writer.md#format_as_aktive_be_2string)
  - [aktive format as aktive 2chan](sink_writer.md#format_as_aktive_2chan)
  - [aktive format as aktive 2file](sink_writer.md#format_as_aktive_2file)
  - [aktive format as aktive 2string](sink_writer.md#format_as_aktive_2string)

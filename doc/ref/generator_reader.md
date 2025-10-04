@@ -17,6 +17,8 @@
 
 ### Operators
 
+ - [aktive read from aktive-be file](#read_from_aktive_be_file)
+ - [aktive read from aktive-be string](#read_from_aktive_be_string)
  - [aktive read from aktive file](#read_from_aktive_file)
  - [aktive read from aktive string](#read_from_aktive_string)
  - [aktive read from netpbm file](#read_from_netpbm_file)
@@ -25,29 +27,68 @@
 ## Operators
 
 ---
-### [↑](#top) <a name='read_from_aktive_file'></a> aktive read from aktive file
+### [↑](#top) <a name='read_from_aktive_be_file'></a> aktive read from aktive-be file
 
-Syntax: __aktive read from aktive file__  (param value)... [[→ definition](/file?ci=trunk&ln=75&name=etc/generator/reader/aktive.tcl)]
+Syntax: __aktive read from aktive-be file__  (param value)... [[→ definition](/file?ci=trunk&ln=76&name=etc/generator/reader/aktive.tcl)]
 
-Construct image from file content in the native AKTIVE format.
+Construct image from file content in the native AKTIVE/BE format.
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
-|path|object||Path to file holding the AKTIVE image data to read|
+|path|object||Path to file holding the AKTIVE/BE image data to read|
+
+#### <a name='read_from_aktive_be_file__examples'></a> Examples
+
+<a name='read_from_aktive_be_file__examples__e1'></a><table>
+<tr><th>aktive read from aktive-be file path tests/assets/results/format-colorbox.aktive-be
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00739.gif' alt='aktive read from aktive-be file path tests/assets/results/format-colorbox.aktive-be' style='border:4px solid gold'>
+    <br>geometry(0 0 64 64 3)</td></tr></table></td></tr>
+</table>
+
+<a name='read_from_aktive_be_file__examples__e2'></a><table>
+<tr><th>aktive read from aktive-be file path tests/assets/results/format-graybox.aktive-be
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00740.gif' alt='aktive read from aktive-be file path tests/assets/results/format-graybox.aktive-be' style='border:4px solid gold'>
+    <br>geometry(0 0 64 64 1)</td></tr></table></td></tr>
+</table>
+
+
+---
+### [↑](#top) <a name='read_from_aktive_be_string'></a> aktive read from aktive-be string
+
+Syntax: __aktive read from aktive-be string__  (param value)... [[→ definition](/file?ci=trunk&ln=8&name=etc/generator/reader/aktive.tcl)]
+
+Construct image from a Tcl byte array value in the native AKTIVE/BE format.
+
+|Parameter|Type|Default|Description|
+|:---|:---|:---|:---|
+|value|object||Tcl value holding the AKTIVE/BE image data to read|
+
+---
+### [↑](#top) <a name='read_from_aktive_file'></a> aktive read from aktive file
+
+Syntax: __aktive read from aktive file__  (param value)... [[→ definition](/file?ci=trunk&ln=76&name=etc/generator/reader/aktive.tcl)]
+
+Construct image from file content in the native AKTIVE/LE format.
+
+|Parameter|Type|Default|Description|
+|:---|:---|:---|:---|
+|path|object||Path to file holding the AKTIVE/LE image data to read|
 
 #### <a name='read_from_aktive_file__examples'></a> Examples
 
 <a name='read_from_aktive_file__examples__e1'></a><table>
 <tr><th>aktive read from aktive file path tests/assets/results/format-colorbox.aktive
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00739.gif' alt='aktive read from aktive file path tests/assets/results/format-colorbox.aktive' style='border:4px solid gold'>
+<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00741.gif' alt='aktive read from aktive file path tests/assets/results/format-colorbox.aktive' style='border:4px solid gold'>
     <br>geometry(0 0 64 64 3)</td></tr></table></td></tr>
 </table>
 
 <a name='read_from_aktive_file__examples__e2'></a><table>
 <tr><th>aktive read from aktive file path tests/assets/results/format-graybox.aktive
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00740.gif' alt='aktive read from aktive file path tests/assets/results/format-graybox.aktive' style='border:4px solid gold'>
+<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00742.gif' alt='aktive read from aktive file path tests/assets/results/format-graybox.aktive' style='border:4px solid gold'>
     <br>geometry(0 0 64 64 1)</td></tr></table></td></tr>
 </table>
 
@@ -57,11 +98,11 @@ Construct image from file content in the native AKTIVE format.
 
 Syntax: __aktive read from aktive string__  (param value)... [[→ definition](/file?ci=trunk&ln=8&name=etc/generator/reader/aktive.tcl)]
 
-Construct image from a Tcl byte array value in the native AKTIVE format.
+Construct image from a Tcl byte array value in the native AKTIVE/LE format.
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
-|value|object||Tcl value holding the AKTIVE image data to read|
+|value|object||Tcl value holding the AKTIVE/LE image data to read|
 
 ---
 ### [↑](#top) <a name='read_from_netpbm_file'></a> aktive read from netpbm file
@@ -83,14 +124,14 @@ The PBM format is not supported.
 <a name='read_from_netpbm_file__examples__e1'></a><table>
 <tr><th>aktive read from netpbm file path tests/assets/sines.ppm
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00741.gif' alt='aktive read from netpbm file path tests/assets/sines.ppm' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00743.gif' alt='aktive read from netpbm file path tests/assets/sines.ppm' style='border:4px solid gold'>
     <br>geometry(0 0 256 256 3)</td></tr>
 </table>
 
 <a name='read_from_netpbm_file__examples__e2'></a><table>
 <tr><th>aktive read from netpbm file path tests/assets/crop.pgm
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00742.gif' alt='aktive read from netpbm file path tests/assets/crop.pgm' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00744.gif' alt='aktive read from netpbm file path tests/assets/crop.pgm' style='border:4px solid gold'>
     <br>geometry(0 0 300 200 1)</td></tr>
 </table>
 

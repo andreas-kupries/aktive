@@ -18,6 +18,8 @@
 
 The operators listed here are implemented in C. We ignore supporting Tcl code.
 
+ - [aktive format as aktive-be 2chan](sink_writer.md#format_as_aktive_be_2chan)
+ - [aktive format as aktive-be 2string](sink_writer.md#format_as_aktive_be_2string)
  - [aktive format as aktive 2chan](sink_writer.md#format_as_aktive_2chan)
  - [aktive format as aktive 2string](sink_writer.md#format_as_aktive_2string)
  - [aktive format as null-s 2string](sink_writer.md#format_as_null_s_2string)
@@ -336,6 +338,8 @@ The operators listed here are implemented in C. We ignore supporting Tcl code.
  - [aktive query xmax](accessor_geometry.md#query_xmax)
  - [aktive query y](accessor_geometry.md#query_y)
  - [aktive query ymax](accessor_geometry.md#query_ymax)
+ - [aktive read from aktive-be file](generator_reader.md#read_from_aktive_be_file)
+ - [aktive read from aktive-be string](generator_reader.md#read_from_aktive_be_string)
  - [aktive read from aktive file](generator_reader.md#read_from_aktive_file)
  - [aktive read from aktive string](generator_reader.md#read_from_aktive_string)
  - [aktive read from netpbm file](generator_reader.md#read_from_netpbm_file)
@@ -369,6 +373,7 @@ The operators listed here are implemented wholly in Tcl.
  - [aktive effect sketch](transform_effect.md#effect_sketch)
  - [aktive effect swirl](transform_effect.md#effect_swirl)
  - [aktive effect wobble](transform_effect.md#effect_wobble)
+ - [aktive format as aktive-be 2file](sink_writer.md#format_as_aktive_be_2file)
  - [aktive format as aktive 2file](sink_writer.md#format_as_aktive_2file)
  - [aktive format as d2](accessor.md#format_as_d2)
  - [aktive format as markdown](accessor.md#format_as_markdown)

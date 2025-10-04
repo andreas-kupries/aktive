@@ -1,0 +1,104 @@
+# -*- tcl -*- tcl.tk//DSL tclbench-generate//EN// Tcl Benchmark Generator File
+#
+# This file contains a number of benchmark __generators__ for AKTIVE commands.
+#
+# (c) 2025 Andreas Kupries <andreas_kupries@users.sourceforge.net>
+#
+# reading an AKTIVE image, unordered mode, file and string, be (old), and le (new)
+##
+# ### ### ### ######### ######### ######### ##########################
+## Utilities
+
+source ../support/bench-gen-utilities.tcl
+
+package require math::numtheory
+package require aktive
+
+# # ## ### ##### ######## ############# #####################
+
+set cmd   {aktive read from aktive}
+#
+set base  [file root [info script]]
+set ipath ../tests/assets/butterfly.aktive
+# idata irrelevant to generator
+
+set  catfile [file normalize ../tests/support/files.tcl]
+
+# ### ### ### ######### ######### ######### ###########################
+## Benchmark Generators.
+
+set image  [{*}$cmd file path $ipath]
+lassign    [aktive query domain $image] x y w h d
+unset image ;# ===================================
+set size     [expr {$w * $h}]
+set gcd      [::math::numtheory::gcd $w $h]
+set aspect   [expr {$w/$gcd}]:[expr {$h/$gcd}]
+
+foreach {mark suffix cmd} {
+    le {}  {aktive read from aktive}
+    be -be {aktive read from aktive-be}
+} {
+    foreach {origin param sourcevar} {
+	file      path  ipath
+	string    value idata
+    } {
+	set labelcmd [list {*}$cmd $origin $param [file tail $ipath]]
+
+	foreach cores {
+	    -1 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16
+	} {
+	    set label [list $labelcmd null $cores $size $aspect $w $h]
+
+	    set     map {}
+	    lappend map \
+		%cores%      $cores  \
+		%w%          $w      \
+		%h%          $h      \
+		%d%          $d      \
+		%size%       $size   \
+		%aspect%     $aspect \
+		%ipath%      [file normalize $ipath]$suffix  \
+		"\n\t\t    " "\n    " \
+		"\n\t\t"     "\n"
+
+	    set cat  ""
+	    set data ""
+	    if {$origin in {
+		string stringold
+	    }} {
+		set cat  "kb::source $catfile"
+		set data "set idata \[cat \$ipath]"
+	    }
+	    
+	    generate generated/$base/${origin}_${mark}_cpu${cores}_w${w}_h${h}.bench \
+		[map {
+		    %cat%
+		    aktive processor %cores%
+
+		    set ipath %ipath%
+		    %data%
+
+		    bench_puts "WIDTH  = %w%"
+		    bench_puts "HEIGHT = %h%"
+		    bench_puts "DEPTH  = %d%"
+		    bench_puts "SIZE   = %size%"
+		    bench_puts "ASPECT = %aspect%"
+
+		    bench -iter 1000 -desc {%label%} -pre {
+			set image [%cmd%]
+		    } -body {
+			aktive format as null 2string $image
+		    } -post {
+			unset image
+		    }
+		} {*}$map \
+		     %label% $label \
+		     %cat%   $cat   \
+		     %data%  $data  \
+		     %cmd%   "$cmd $origin $param \$$sourcevar" \
+		    ]
+	}
+    }
+}
+
+return
