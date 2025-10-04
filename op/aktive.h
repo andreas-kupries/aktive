@@ -13,8 +13,8 @@
  * Provision of an AKTIVE sink
  */
 
-extern aktive_sink*
-aktive_aktive_sink (aktive_writer* writer);
+extern aktive_sink* aktive_aktive_be_sink (aktive_writer* writer);
+extern aktive_sink* aktive_aktive_le_sink (aktive_writer* writer);
 
 /*
  * - - -- --- ----- -------- ------------- ---------------------
@@ -31,11 +31,17 @@ typedef struct aktive_aktive_header {
     //                      // this is also the max offset
 } aktive_aktive_header;
 
-extern int aktive_aktive_header_read (Tcl_Channel src, Tcl_Size inmax, aktive_aktive_header* info);
-extern int aktive_aktive_header_get  (char* inbytes,   Tcl_Size inmax, aktive_aktive_header* info);
+extern int aktive_aktive_be_header_read (Tcl_Channel src, Tcl_Size inmax, aktive_aktive_header* info);
+extern int aktive_aktive_be_header_get  (char* inbytes,   Tcl_Size inmax, aktive_aktive_header* info);
 
-extern int aktive_aktive_slice_read (Tcl_Channel src, aktive_aktive_header* info, aktive_uint x, aktive_uint y, aktive_uint n, double* rowbuf);
-extern int aktive_aktive_slice_get  (char* inbytes,   aktive_aktive_header* info, aktive_uint x, aktive_uint y, aktive_uint n, double* rowbuf);
+extern int aktive_aktive_be_slice_read (Tcl_Channel src, aktive_aktive_header* info, aktive_uint x, aktive_uint y, aktive_uint n, double* rowbuf);
+extern int aktive_aktive_be_slice_get  (char* inbytes,   aktive_aktive_header* info, aktive_uint x, aktive_uint y, aktive_uint n, double* rowbuf);
+
+extern int aktive_aktive_le_header_read (Tcl_Channel src, Tcl_Size inmax, aktive_aktive_header* info);
+extern int aktive_aktive_le_header_get  (char* inbytes,   Tcl_Size inmax, aktive_aktive_header* info);
+
+extern int aktive_aktive_le_slice_read (Tcl_Channel src, aktive_aktive_header* info, aktive_uint x, aktive_uint y, aktive_uint n, double* rowbuf);
+extern int aktive_aktive_le_slice_get  (char* inbytes,   aktive_aktive_header* info, aktive_uint x, aktive_uint y, aktive_uint n, double* rowbuf);
 
 /*
  * = = == === ===== ======== ============= =====================

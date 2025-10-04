@@ -28,8 +28,7 @@ proc do {infile outfile} {
     if {![file exists $infile]} { usage "Input not found: $infile" }
     if {![file isfile $infile]} { usage "Input not a file: $infile" }
 
-    set image [aktive read from aktive-be file path $infile]
-    set image [aktive meta unset $image path]
+    set image [aktive read from netpbm file path $infile]
     aktive format as aktive 2file $image into $outfile
     return
 }

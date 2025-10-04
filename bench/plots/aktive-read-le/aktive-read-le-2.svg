@@ -136,12 +136,12 @@
 	<path stroke='black'  d='M72.53,59.89 L72.53,416.52 L574.82,416.52 L574.82,59.89 L72.53,59.89 Z  '/></g>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
 	<g transform="translate(19.18,238.21) rotate(270)" stroke="none" fill="black" font-family="Arial" font-size="12.00"  text-anchor="middle">
-		<text><tspan font-family="Arial" >Microseconds</tspan></text>
+		<text><tspan font-family="Arial" >Factor</tspan></text>
 	</g>
 </g>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
 	<g transform="translate(323.67,465.42)" stroke="none" fill="black" font-family="Arial" font-size="12.00"  text-anchor="middle">
-		<text><tspan font-family="Arial" >Id</tspan></text>
+		<text><tspan font-family="Arial" >num(Threads)</tspan></text>
 	</g>
 </g>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
@@ -178,7 +178,7 @@
 	<path stroke='black'  d='M72.53,59.89 L72.53,416.52 L574.82,416.52 L574.82,59.89 L72.53,59.89 Z  '/></g>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
 	<g transform="translate(323.67,36.79)" stroke="none" fill="black" font-family="Arial" font-size="12.00"  text-anchor="middle">
-		<text><tspan font-family="Arial" >file reader, le relative to be</tspan></text>
+		<text><tspan font-family="Arial" >file reader, be relative to le</tspan></text>
 	</g>
 </g>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">

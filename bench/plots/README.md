@@ -14,4 +14,5 @@
   - [aktive read from aktive](aktive-read/README.md)
   - [aktive read from netpbm](netpbm-read/README.md)
   - [AKTIVE vs NETPBM](aktive-netpbm/README.md)
+  - [AKTIVE LE vs BE](aktive-read-le/README.md)
   - [Blit Fill y/x/z vs y/xz](blit-fill/README.md)
