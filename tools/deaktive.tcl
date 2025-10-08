@@ -52,26 +52,38 @@ proc decode {in out fsize} {
     # - X Q
 
     set header [read $in 32]
-    set sn [string length $header]
+    set sn     [string length $header]
     if {$sn < 32} { usage "Short header: $sn, expected 32" }
 
-    binary scan $header A6A2IIIuIuIuIu magic version x y w h d msize
+    set int   I
+    set float Q
+    set comp  0
+    binary scan $header A6A2 magic version
+    set header [string range $header 8 end] ; incr sn -8
+    if {$magic eq "AKTIVE" && $version eq "LE"} {
+	binary scan $header A2 version
+	set header    [string range $header 2 end] ; incr sn -2
+	append header [read $in 2]                 ; incr sn  2
 
-    if {$magic   ne "AKTIVE"} { usage "Bad magic '$magic', expected 'AKTIVE'" }
-    if {$version ne "00"}     { usage "Bad version '$version', expected '00'" }
+	set int   i
+	set float q
+	set comp  2
+    }
+    if {$version ne "00"} { usage "Bad version '$version', expected '00'" }
+    binary scan $header ${int}${int}${int}u${int}u${int}u${int}u x y w h d msize
 
     #puts stderr "$x $y $w $h $d $msize"
-
     #exit
-    set meta [read $in $msize]
 
+    set meta   [read $in $msize]
     set magicb [read $in 8]
-    set mn [string length $header]
+    set mn     [string length $magicb]
     if {$mn < 8} { usage "Short header: meta and/or magicb too short" }
     binary scan $magicb A8 magicb
     if {$magicb ne "AKTIVE_D"} { usage "Bad 2nd magic '$magicb', expected 'AKTIVE_D'" }
 
     set  esize 40                  ;# base header, plus closer
+    incr esize $comp               ;# compensation for LE format
     incr esize $msize              ;# meta data
     incr esize [expr {$w*$h*$d*8}] ;# pixels
 
@@ -100,7 +112,7 @@ proc decode {in out fsize} {
 	    set values [read $in $n]
 	    set vn [string length $values]
 	    if {$vn < $n} { err "Short pixel read for cell r$row/c$col, got $vn" }
-	    binary scan $values Q$d bands
+	    binary scan $values ${float}$d bands
 	    puts $out "CELL $row $col = $bands"
 	    incr c -1
 	    incr col
@@ -121,7 +133,7 @@ proc decode {in out fsize} {
 	set values [read $in $n]
 	set vn [string length $values]
 	if {$vn < $n} { err "Short pixel read for row $row, got $vn" }
-	binary scan $values Q$f rvalues
+	binary scan $values ${float}$f rvalues
 	puts $out "ROW $row = $rvalues"
 	incr c -1
 	incr row

@@ -1,6 +1,6 @@
 #!/usr/bin/env tclsh
 # ------------------------------------------------------------------------------
-## Convert any recognized file format to AKTIVE's native format
+## Convert any image in recognized file format to some other supported format.
 
 package require aktive
 
@@ -27,10 +27,23 @@ proc err  {m} { puts stderr $m ; flush stderr ; exit 1 }
 proc do {infile outfile} {
     if {![file exists $infile]} { usage "Input not found: $infile" }
     if {![file isfile $infile]} { usage "Input not a file: $infile" }
-
-    set image [aktive read from aktive-be file path $infile]
-    set image [aktive meta unset $image path]
-    aktive format as aktive 2file $image into $outfile
+    if {$infile eq $outfile}    { usage "output is input, forbidden" }
+    
+    # choose destination format, based on the outfile extension
+    switch -exact -- [file extension $outfile] {
+	.aktive    { set outformat aktive     }
+	.aktive-be { set outformat aktive-be  }
+	.ppm       { set outformat {ppm byte} }
+	.pgm       { set outformat {pgm byte} }
+	default    { usage "unable to determine destination file format" }
+    }
+    # TODO: annotations for specific sub-formats
+    
+    # read image, auto-detected format, then write image to new file,
+    # in the chosen format
+    aktive format as {*}$outformat 2file \
+	[aktive read from file path $infile] \
+	into $outfile
     return
 }
 
