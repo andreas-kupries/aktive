@@ -71,11 +71,13 @@ proc chart {label script} {
 	set titles [list id {*}$merge]
 	foreach s $merge {
 	    set id 0
+	    puts \t$s\t\[[llength [dict get $series $s]]\]
 	    foreach {_ y} [dict get $series $s] {
 		dict lappend m $id $y
 		incr id
 	    }
 	}
+	
 	set points {}
 	foreach id [lsort -dict [dict keys $m]] {
 	    lappend points $id {*}[dict get $m $id]
