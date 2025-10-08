@@ -5,6 +5,9 @@
 # # ## ### ##### ######## ############# #####################
 ## AKTIVE format
 
+lappend supported aktive
+lappend supported aktive-be
+
 operator {endian dendian} {
     read::from::aktive::string    le /LE
     read::from::aktive-be::string be /BE

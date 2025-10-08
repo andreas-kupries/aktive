@@ -40,8 +40,12 @@ import other/point.tcl
 import other/rectangle.tcl
 import other/color.tcl
 
+set supported {}
 import generator/reader/aktive.tcl
 import generator/reader/netpbm.tcl
+import generator/reader/reader.tcl	;# always last - required for proper auto-detection supported formats
+#                                       ;# collected by the preceding files.
+unset supported
 
 import generator/virtual/constant.tcl
 import generator/virtual/gradient.tcl
@@ -89,27 +93,8 @@ import transformer/filter/morphology.tcl
 import transformer/filter/recombine.tcl
 import transformer/filter/wiener.tcl
 
-# Helper for color transform chain reductions
-proc cc-reduce {from to} {
-    simplify \
-	for src/type op::color::${to}::to::${from} \
-	returns src/child
-
-    cc-meta $from $to
-}
-
-# See also aktive::op::color::CC (op/color.tcl) for Tcl-level equivalent
-proc cc-meta {from to} {
-    def check-input-colorspace {
-	if (!aktive_colorspace (srcs->v[0], "%%%")) aktive_fail ("rejecting input not in colorspace %%%");
-    } %%% $from
-
-    def set-result-colorspace {
-	aktive_meta_inherit    (meta, srcs->v[0]);
-	aktive_meta_set_string (meta, "colorspace", "%%%");
-    } %%% $to
-}
-
+import transformer/color/dsl-helpers.tcl
+#
 import transformer/color/hsl-srgb.tcl
 import transformer/color/hsv-srgb.tcl
 import transformer/color/lab-lch.tcl
@@ -121,7 +106,7 @@ import transformer/color/xyz-yxy.tcl
 #
 import transformer/color/non-core.tcl
 import transformer/color/recast.tcl
-
+#
 rename cc-reduce {}
 rename cc-meta   {}
 
@@ -197,7 +182,8 @@ import accessor/colorspace.tcl
 import accessor/thresholds.tcl
 
 # # ## ### ##### ######## ############# #####################
-## Descriptions of commands implemented outside of the DSL
+## Descriptions of commands implemented outside of the DSL, yet integrated into the
+## operator hierarchy and associated things (documentation).
 
 operator error {
     section miscellaneous
@@ -231,6 +217,7 @@ operator processors {
 }
 
 # # ## ### ##### ######## ############# #####################
+## Hook for experimental code, generally not present.
 
 import? experimental.tcl
 

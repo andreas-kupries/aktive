@@ -5,6 +5,8 @@
 # # ## ### ##### ######## ############# #####################
 ## PPM, PGM format
 
+lappend supported netpbm
+
 operator read::from::netpbm::string {
 
     section generator reader
