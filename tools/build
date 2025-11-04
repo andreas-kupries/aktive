@@ -8,8 +8,8 @@ find . -name "*~" -exec rm "{}" \;
 find . -follow -name "core*" -exec rm "{}" \;
 rm -f *.trace
 
-#operation=install
-operation=debug
+operation=install
+#operation=debug
 
 # setup of inlined/integrated doc
 rm -rf        doc
