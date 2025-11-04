@@ -1,0 +1,68 @@
+# -*- tcl -*- tcl.tk//DSL tclbench//EN// Tcl Benchmark File
+#
+# This file contains a number of low-level vector op benchmarks.
+# It is already prepared for the presence of highway ops.
+#
+# (c) 2025 Andreas Kupries <andreas_kupries@users.sourceforge.net>
+#
+##
+# ### ### ### ######### ######### ######### ##########################
+## Utilities
+
+kb::check   Tcl 8.6
+kb::require support   debug
+kb::local   benchmark aktive
+
+source ../data/mathfunc/spec.tcl
+
+# ### ### ### ######### ######### ######### ###########################
+## Benchmarks
+
+aktive::bench::vecops::init
+
+foreach n {
+    1 10 100 1000 10000 100000
+} {
+    foreach {
+	name spec
+    } [list {*}$unary0 {*}$unary1 {*}$unary2] {
+	set cmd   aktive::bench::vecops::unary::$name
+	set label [list $cmd  n/a  n/a   $n   $n:1   $n 1]
+	#               label sink cores size aspect w  h
+	bench -desc $label -body {
+	    $cmd $n
+	}
+
+	if {![dict exists $spec highway]} continue
+
+	set cmd   aktive::bench::highway::unary::$name
+	set label [list $cmd  n/a  n/a   $n   $n:1   $n 1]
+	#               label sink cores size aspect w  h
+	bench -desc $label -body {
+	    $cmd $n
+	}
+    }
+
+    foreach {
+	name spec
+    } $binary {
+	set cmd   aktive::bench::vecops::binary::$name
+	set label [list $cmd  n/a  n/a   $n   $n:1   $n 1]
+	#               label sink cores size aspect w  h
+	bench -desc $label -body {
+	    $cmd $n
+	}
+
+	if {![dict exists $spec highway]} continue
+
+	set cmd   aktive::bench::highway::binary::$name
+	set label [list $cmd  n/a  n/a   $n   $n:1   $n 1]
+	#               label sink cores size aspect w  h
+	bench -desc $label -body {
+	    $cmd $n
+	}
+    }
+}
+
+# ### ### ### ######### ######### ######### ###########################
+return

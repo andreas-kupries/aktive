@@ -1,0 +1,220 @@
+# -*- tcl -*-
+# # ## ### ##### ######## ############# #####################
+## general structure is
+## - create several simple series
+## - merge the series into a side by side comparison
+#
+## Generates the gnuplot spec as well, due to the variable set of functions.
+
+source data/mathfunc/spec.tcl
+
+set vcharts {}
+set hcharts {}
+set mcharts {}
+
+foreach {
+    name spec
+} [list {*}$unary0 {*}$unary1 {*}$unary2] {
+    lappend map @@ $name
+    chart vecops-unary-$name [string map $map {
+	only {name = 'aktive::bench::vecops::unary::@@'}
+	only {sink = 'n/a'}
+	range isize
+	nodump
+    }]
+    lappend vcharts vecops-unary-$name
+    if {[dict exists $spec highway]} {
+	chart highway-unary-$name [string map $map {
+	    only {name = 'aktive::bench::highway::unary::@@'}
+	    only {sink = 'n/a'}
+	    range isize
+	    nodump
+	}]
+	lappend hcharts highway-unary-$name
+	lappend mcharts $name/1 vecops-unary-$name highway-unary-$name
+    }
+    unset map
+}
+
+foreach {
+    name spec
+} $binary {
+    lappend map @@ $name
+    chart vecops-binary-$name [string map $map {
+	only {name = 'aktive::bench::vecops::binary::@@'}
+	only {sink = 'n/a'}
+	range isize
+	nodump
+    }]
+    lappend vcharts vecops-binary-$name
+    if {[dict exists $spec highway]} {
+	chart highway-binary-$name [string map $map {
+	    only {name = 'aktive::bench::highway::binary::@@'}
+	    only {sink = 'n/a'}
+	    range isize
+	    nodump
+	}]
+	lappend hcharts highway-binary-$name
+	lappend mcharts $name/2 vecops-binary-$name highway-binary-$name
+    }
+    unset map
+}
+
+chart vecops [string map [list @@ $vcharts] {
+    side-by-side @@
+}]
+
+if {[llength $hcharts]} {
+    chart highway [string map [list @@ $hcharts] {
+	side-by-side @@
+    }]
+
+    chart vecops-highway [string map [list @@ $mcharts] {
+	side-by-side @@
+    }]
+}
+
+# # ## ### ##### ######## ############# #####################
+# # ## ### ##### ######## ############# #####################
+# # ## ### ##### ######## ############# #####################
+
+proc + {{s {}}} { lappend ::lines $s }
+proc // {{s {}}} { if {$s ne {}} { set s " $s" } ; + "#$s" }
+proc g {}  { join $::lines \n }
+proc w {p s} {
+    puts "writing gnuplot spec: $p"
+    set chan [open $p w] ; puts -nonewline $chan $s ; close $chan }
+
+# # ## ### ##### ######## ############# #####################
+
+// "_ _ __ ___ _____ ________ _____________ _____________________"
+// "generation for vector benchmarking"
++
++ "set datafile   separator ','"
++ "set key        autotitle columnhead				# use the first line as title"
++ "set terminal   svg enhanced dynamic font 'Arial,12'"
+// "BEWARE. Each plot requires a separate outputfile."
++
++ "set size ratio 0.71 # for the A4 ratio"
++ "set boxwidth   0.9"
++ "set style      fill solid"
++
++ "set xlabel \"log10(size)\""
+#+ "set xlabel \"size\""
++ "set ylabel  \"Microseconds\""
+#+ "set format x \"10^{%L}\""
+#+ "set format x \"%T\""
+#+ "set logscale x"
++
++ "datasource1 = \"vecops.csv\""
+# 0 - size id (log10(size)), 1... - vecops
+if {[llength $hcharts]} {
+    + "datasource2 = \"highway.csv\""
+    # 0 - size id (log10(size)), 1... - highway (ops)
+    + "datasource3 = \"vecops-highway.csv\""
+    # 0 - size id (log10(size)), 1, 2, ... - vec/highway (ops)
+}
++
++ "set logscale y"
+
+# 1,2,3:    plots milliseconds      (time)  against size
+# 1a,2a,3a: plots milliseconds/size (speed) against size - expected to be constant
+
+# (1) all vecops in a single plot, inter-op comparison
+set plot "plot" ; set k 2 ; set prefix ""
+foreach op $vcharts {
+    append plot "$prefix datasource1 using 1:$k with lines"
+    set prefix ", \\\n    "
+    incr k
+}
++ "set title \"vector op times\""
++ "set output \"vec-vector.svg\""
++ $plot
++
+
+if {[llength $hcharts]} {
+    # (2) all highway ops in a single plot, interop-comparison
+    set plot "plot" ; set k 2 ; set prefix ""
+    foreach op $hcharts {
+	append plot "$prefix datasource2 using 1:$k with lines"
+	set prefix ", \\\n    "
+	incr k
+    }
+    + "set title \"highway op times\""
+    + "set output \"vec-highway.svg\""
+    + $plot
+    +
+
+    # (3) plot per vec/highway pair, vector/highway comparison
+    set k 2
+    foreach {name vec hwy} $mcharts {
+	set j [expr {$k + 1}]
+	+ "set title \"vector/highway $name times\""
+	+ "set output \"vec-highway-$name.svg\""
+	+ "plot datasource3 using 1:$k with lines, \\"
+	+ "     datasource3 using 1:$j with lines"
+	+
+	incr k 2
+    }
+}
+
+if 0 {
+# (3) plot per vec/highway pair, vector/highway comparison, relative
+set k 2
+foreach {name vec hwy} $mcharts {
+    set j [expr {$k + 1}]
+    + "set title \"vector/highway $name\""
+    + "set output \"vec-highway-$name.svg\""
+    + "plot datasource3 using 1:$k with lines, \\"
+    + "     datasource3 using 1:$j with lines"
+    +
+    incr k 2
+}}
+
+# speed plots
+
++ "set ylabel  \"Microseconds/Value\""
++ "unset logscale y"
+
+# (1a) all vecops in a single plot, inter-op comparison - speed
+set plot "plot" ; set k 2 ; set prefix ""
+foreach op $vcharts {
+    append plot "$prefix datasource1 using 1:(\$$k/(10**\$1)) with lines"
+    set prefix ", \\\n    "
+    incr k
+}
++ "set title \"vector op speed\""
++ "set output \"vec-vector-speed.svg\""
++ $plot
++
+
+if {[llength $hcharts]} {
+    # (2a) all highway ops in a single plot, interop-comparison - speed
+    set plot "plot" ; set k 2 ; set prefix ""
+    foreach op $hcharts {
+	append plot "$prefix datasource2 using 1:(\$$k/(10**\$1)) with lines"
+	set prefix ", \\\n    "
+	incr k
+    }
+    + "set title \"highway op speed\""
+    + "set output \"vec-highway-speed.svg\""
+    + $plot
+    +
+
+    # (3a) plot per vec/highway pair, vector/highway comparison - speed
+    set k 2
+    foreach {name vec hwy} $mcharts {
+	set j [expr {$k + 1}]
+	+ "set title \"vector/highway $name speed\""
+	+ "set output \"vec-highway-${name}-speed.svg\""
+	+ "plot datasource3 using 1:(\$$k/(10**\$1)) with lines, \\"
+	+ "     datasource3 using 1:(\$$j/(10**\$1)) with lines"
+	+
+	incr k 2
+    }
+}
+
+// "_ _ __ ___ _____ ________ _____________ _____________________"
+
+w generated/vector.gnuplot [g]
+return
