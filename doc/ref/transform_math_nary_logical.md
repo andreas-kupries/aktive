@@ -26,7 +26,7 @@
 ---
 ### [↑](#top) <a name='op_math_and'></a> aktive op math and
 
-Syntax: __aktive op math and__ srcs... [[→ definition](/file?ci=trunk&ln=106&name=etc/transformer/math/binary.tcl)]
+Syntax: __aktive op math and__ srcs... [[→ definition](/file?ci=trunk&ln=145&name=etc/transformer/math/binary.tcl)]
 
 As a logical operation the inputs are trivially thresholded at 0.5. Values <= 0.5 are seen as `false`, else as `true`.
 
@@ -41,7 +41,7 @@ Expects 2 or more input images. Throws an error if there are less.
 ---
 ### [↑](#top) <a name='op_math_or'></a> aktive op math or
 
-Syntax: __aktive op math or__ srcs... [[→ definition](/file?ci=trunk&ln=106&name=etc/transformer/math/binary.tcl)]
+Syntax: __aktive op math or__ srcs... [[→ definition](/file?ci=trunk&ln=145&name=etc/transformer/math/binary.tcl)]
 
 As a logical operation the inputs are trivially thresholded at 0.5. Values <= 0.5 are seen as `false`, else as `true`.
 
@@ -56,7 +56,7 @@ Expects 2 or more input images. Throws an error if there are less.
 ---
 ### [↑](#top) <a name='op_math_xor'></a> aktive op math xor
 
-Syntax: __aktive op math xor__ srcs... [[→ definition](/file?ci=trunk&ln=106&name=etc/transformer/math/binary.tcl)]
+Syntax: __aktive op math xor__ srcs... [[→ definition](/file?ci=trunk&ln=145&name=etc/transformer/math/binary.tcl)]
 
 As a logical operation the inputs are trivially thresholded at 0.5. Values <= 0.5 are seen as `false`, else as `true`.
 
