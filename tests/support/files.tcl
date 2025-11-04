@@ -47,7 +47,7 @@ proc touch+ {path content} {
 }
 
 # Setting files writable and readonly, dependent on platform
-if {$tcl_platform(platform) eq "unix"} {
+if {$::tcl_platform(platform) eq "unix"} {
     # unix
     proc writable {path} {
 	file attributes $path -permissions ugo+w
