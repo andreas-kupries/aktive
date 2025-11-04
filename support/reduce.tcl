@@ -63,7 +63,7 @@ proc dsl::reduce::Emit {function region merge finalize} {
             }
 
             TRACE_RECTANGLE (task);
-            aktive_block* p = aktive_region_fetch_area (*wstate, task);
+            aktive_block* p = aktive_region_fetch_area_head (*wstate, task);
 
             reduce_result* result = ALLOC (reduce_result);
 

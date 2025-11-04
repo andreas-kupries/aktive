@@ -86,7 +86,7 @@ operator {coordinate dimension} {
 	aktive_rectangle_def_as (subrequest, request);
 	@@rewrite@@
 	TRACE_RECTANGLE_M("querych", &subrequest);
-	aktive_block* src = aktive_region_fetch_area (srcs->v[0], &subrequest);
+	aktive_block* src = aktive_region_fetch_area (0, &subrequest);
 
 	// The @@coordinate@@ axis is scanned in reverse order.
 	@@flipper@@

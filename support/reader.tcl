@@ -150,6 +150,8 @@ proc dsl::reader::CacheCode {map} {
 	    .request = &subrequest,
 	    .src     = srcs->v[0],
 	    .client  = %%%cdata%%%,
+	    .caller  = block->owner,
+	    .slot    = &slots->v[0],
 	};
 
 	%%%loops%%%

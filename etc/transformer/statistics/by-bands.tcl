@@ -50,7 +50,7 @@ operator {dexpr attr} {
 
     pixels {
 	TRACE_RECTANGLE_M("@@fun@@", request);
-	aktive_block* src = aktive_region_fetch_area (srcs->v[0], request);
+	aktive_block* src = aktive_region_fetch_area (0, request);
 	#define REDUCE aktive_reduce_@@fun@@
 	@@reducer@@
 	#undef REDUCE
@@ -112,11 +112,11 @@ operator {attr} {
 
     pixels {
 	TRACE_RECTANGLE_M("arg@@fun@@ data", request);
-	aktive_block* srcb = aktive_region_fetch_area (srcs->v[1], request);
+	aktive_block* srcb = aktive_region_fetch_area (1, request);
 	TRACE_GEOMETRY_M("srcb geometry (d)", &srcb->domain);
 
 	TRACE_RECTANGLE_M("arg@@fun@@ thresholds", request);
-	aktive_block* srca = aktive_region_fetch_area (srcs->v[0], request);
+	aktive_block* srca = aktive_region_fetch_area (0, request);
 	TRACE_GEOMETRY_M("srca geometry (t)", &srca->domain);
 
 	/**/

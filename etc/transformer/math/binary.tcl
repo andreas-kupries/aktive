@@ -95,8 +95,8 @@ operator {cfunction dexpr} {
 	// we trivially know that the request is good for both inputs.
 
 	aktive_blit_binary (block, dst, @@cfunction@@,
-			    aktive_region_fetch_area (srcs->v[0], request),
-			    aktive_region_fetch_area (srcs->v[1], request));
+			    aktive_region_fetch_area (0, request),
+			    aktive_region_fetch_area (1, request));
     }
 }
 
@@ -156,11 +156,11 @@ operator {cfunction dexpr} {
 
 	aktive_uint i;
 
-	aktive_blit_copy0 (block, dst, aktive_region_fetch_area (srcs->v[0], request));
+	aktive_blit_copy0 (block, dst, aktive_region_fetch_area (0, request));
 
 	for (i = 1; i < srcs->c; i++) {
 	    aktive_blit_binary_acc (block, dst, @@cfunction@@,
-				    aktive_region_fetch_area (srcs->v[i], request));
+				    aktive_region_fetch_area (i, request));
 	}
     }
 }

@@ -193,7 +193,7 @@ operator {
 	lrect.width     = lg->width;
 	lrect.height    = lg->height;
 
-	aktive_block* l = aktive_region_fetch_area (state->lut, &lrect);
+	aktive_block* l = aktive_region_fetch_area_head (state->lut, &lrect);
 	state->lpixel   = l->pixel;
 	state->lcap     = l->used;
     }
@@ -209,7 +209,7 @@ operator {
 
 	aktive_rectangle_def_as (subrequest, request);
 	TRACE_RECTANGLE_M("lookup", &subrequest);
-	aktive_block* src = aktive_region_fetch_area (srcs->v[1], &subrequest);
+	aktive_block* src = aktive_region_fetch_area (1, &subrequest);
 
 	// do the calculation
 

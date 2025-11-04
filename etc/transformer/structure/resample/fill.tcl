@@ -183,7 +183,7 @@ operator {coordinate dimension} {
 	aktive_uint n = param->by;
 	aktive_rectangle_def_as (subrequest, request);
 	@@shrink@@
-	aktive_block* src = aktive_region_fetch_area (srcs->v[0], &subrequest);
+	aktive_block* src = aktive_region_fetch_area (0, &subrequest);
 
 	// The destination @@coordinate@@ axis is scanned N times faster than the source.
 	// The destination location is snapped forward to the grid.

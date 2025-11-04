@@ -78,7 +78,7 @@ operator warp::matrix {
 	prect.width         = pg->width;
 	prect.height        = pg->height;
 	state->pr           = aktive_region_new (pm, 0);
-	aktive_block* block = aktive_region_fetch_area (state->pr, &prect);
+	aktive_block* block = aktive_region_fetch_area_head (state->pr, &prect);
 	state->projective   = block->pixel;
     }
 

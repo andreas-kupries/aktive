@@ -47,7 +47,7 @@ operator {description spec refs} {
 	{AH {y AY 1 up} {y 0 1 up}}
 	{AW {x AX 1 up} {x 0 1 up}}
     } {raw interpolated-fetch {
-	aktive_region_fetch_interpolated (srcs->v[1],
+	aktive_region_fetch_interpolated (1,
 					  spec,
 					  idomain->depth,
 					  srcvalue,
@@ -70,7 +70,7 @@ operator {description spec refs} {
 	TRACE_RECTANGLE_M("fetch", &subrequest);
 
 	// fetch from the map
-	aktive_block* src = aktive_region_fetch_area (srcs->v[0], &subrequest);
+	aktive_block* src = aktive_region_fetch_area (0, &subrequest);
 
 	// fetch from the input is done through the interpolator,
 	// for the declared origin points.

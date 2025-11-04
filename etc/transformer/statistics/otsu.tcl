@@ -52,7 +52,7 @@ operator op::row::otsu {
 	aktive_rectangle_def_as (subrequest, request);
 	subrequest.width = istate->width;
 	TRACE_RECTANGLE_M("otsu", &subrequest);
-	aktive_block* src = aktive_region_fetch_area (srcs->v[0], &subrequest);
+	aktive_block* src = aktive_region_fetch_area (0, &subrequest);
 	@@reducer@@
     }
 }
@@ -97,7 +97,7 @@ operator op::column::otsu {
 	aktive_rectangle_def_as (subrequest, request);
 	subrequest.height = istate->height;
 	TRACE_RECTANGLE_M("otsu", &subrequest);
-	aktive_block* src = aktive_region_fetch_area (srcs->v[0], &subrequest);
+	aktive_block* src = aktive_region_fetch_area (0, &subrequest);
 	@@reducer@@
     }
 }
@@ -132,7 +132,7 @@ operator op::band::otsu {
     pixels {
 	aktive_rectangle_def_as (subrequest, request);
 	TRACE_RECTANGLE_M("otsu", &subrequest);
-	aktive_block* src = aktive_region_fetch_area (srcs->v[0], &subrequest);
+	aktive_block* src = aktive_region_fetch_area (0, &subrequest);
 	@@reducer@@
     }
 }

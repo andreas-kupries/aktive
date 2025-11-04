@@ -45,17 +45,21 @@ A_STRUCTURE (aktive_image) {
  * - - -- --- ----- -------- -------------
  */
 
+typedef struct aktive_region* aktive_region;
+
 A_STRUCTURE (aktive_region) {
     // Private management information
 
-    A_FIELD (aktive_context,        c)      ; // Operating context
-    A_FIELD (aktive_image,          origin) ; // Image the region belongs to
-    A_FIELD (aktive_image_type*,    opspec) ; // Operator descriptor
-    A_FIELD (aktive_block,          pixels) ; // Pixel data
+    A_FIELD (aktive_context,     context); // Operating context
+    A_FIELD (aktive_image,       origin) ; // Image the region belongs to
+    A_FIELD (aktive_image_type*, opspec) ; // Operator descriptor
+    A_FIELD (aktive_block*,      result) ; // Result pixel data, possibly multiple
+    A_FIELD (aktive_uint,        rcap)   ; // Result capacity
+    A_FIELD (aktive_uint,        ruse)   ; // Result slots used
 
     // Public information as seen by region callbacks
 
-    A_FIELD (aktive_region_info,    public) ;
+    A_FIELD (aktive_region_info, public) ;
 
 } A_END_PTR (aktive_region);
 

@@ -86,7 +86,7 @@ operator op::geometry::bands::fold {
 	subrequest.x      = (subrequest.x - idomain->x) * param->by + idomain->x;
 	subrequest.width *= param->by;
 
-	aktive_block* src = aktive_region_fetch_area (srcs->v[0], &subrequest);
+	aktive_block* src = aktive_region_fetch_area (0, &subrequest);
 
 	// rewrite result geometry to match this image, for proper blit.
 	// done in a local copy because `src` belongs to the input.
@@ -161,7 +161,7 @@ operator op::geometry::bands::unfold {
 	int xm = aktive_rectangle_get_xmax (&subrequest) - idomain->x;
 	if (xm > istate->width) { subrequest.width -= xm - istate->width; }
 
-	aktive_block* src = aktive_region_fetch_area (srcs->v[0], &subrequest);
+	aktive_block* src = aktive_region_fetch_area (0, &subrequest);
 
 	// rewrite result geometry to match this image, for proper blit
 	// done in a local copy because `src` belongs to the input.

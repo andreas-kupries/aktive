@@ -108,7 +108,7 @@ operator {
 	mrect.width     = mwidth;
 	mrect.height    = mheight;
 
-	aktive_block* m = aktive_region_fetch_area (state->matrix, &mrect);
+	aktive_block* m = aktive_region_fetch_area_head (state->matrix, &mrect);
 	state->mpixel   = m->pixel;
 	state->mcap     = m->used;
 
@@ -150,7 +150,7 @@ operator {
 	subrequest.height += istate->mheight-1;
 
 	TRACE_RECTANGLE_M("convolve", &subrequest);
-	aktive_block* src = aktive_region_fetch_area (srcs->v[1], &subrequest);
+	aktive_block* src = aktive_region_fetch_area (1, &subrequest);
 
 	// do the calculation
 

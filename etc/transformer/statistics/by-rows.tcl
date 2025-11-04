@@ -83,7 +83,7 @@ operator {dexpr attr} {
 	aktive_rectangle_def_as (subrequest, request);
 	subrequest.width = istate->width;
 	TRACE_RECTANGLE_M("@@fun@@", &subrequest);
-	aktive_block* src = aktive_region_fetch_area (srcs->v[0], &subrequest);
+	aktive_block* src = aktive_region_fetch_area (0, &subrequest);
 	#define REDUCE aktive_reduce_@@fun@@
 	@@reducer@@
 	#undef REDUCE

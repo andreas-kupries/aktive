@@ -542,7 +542,7 @@ cc_worker (const aktive_cc_batch* controller, aktive_cc_task* task, void** wstat
     }
     aktive_rectangle_def (rq, 0, row, controller->w, 1);
 
-    aktive_block*    p = aktive_region_fetch_area (*wstate, &rq);
+    aktive_block*    p = aktive_region_fetch_area_head (*wstate, &rq);
     aktive_cc_block* a = cc_new_block (row);
 
     cc_scan (p, a);

@@ -81,6 +81,8 @@ typedef struct aktive_ivcache_context {
     aktive_rectangle*   request; // full request for input
     aktive_region       src;     // input region to pull from
     void*               client;  // function-specific context data
+    aktive_region       caller;  // caller region making the request, to pass to fetch
+    aktive_uint*        slot;    // and the relevant result slot
 } aktive_ivcache_context;
 // !xref-mark /end
 

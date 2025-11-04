@@ -243,7 +243,7 @@ operator {dim unchanged} {
 	aktive_rectangle_def_as (subrequest, request);
 	@@subrequest@@
 	TRACE_RECTANGLE_M("rank", &subrequest);
-	aktive_block* src = aktive_region_fetch_area (srcs->v[0], &subrequest);
+	aktive_block* src = aktive_region_fetch_area (0, &subrequest);
 
 	#define REDUCE @@rfunction@@
 	@@reducer@@

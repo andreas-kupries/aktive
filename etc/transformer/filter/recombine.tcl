@@ -60,8 +60,8 @@ operator op::bands::recombine {
 	state->matrix  = aktive_region_new (matrix, 0);
 	state->mwidth  = mg->width;
 	state->mheight = mg->height;
-	state->mpixel  = aktive_region_fetch_area (state->matrix,
-			   aktive_geometry_as_rectangle (mg))->pixel;
+	state->mpixel  = aktive_region_fetch_area_head (state->matrix,
+				aktive_geometry_as_rectangle (mg))->pixel;
     }
 
     blit recombiner {
@@ -78,7 +78,7 @@ operator op::bands::recombine {
     pixels {
 	// src[0] = matrix is handled specially, see state (setup)
 	// request passes through as is
-	aktive_block* src = aktive_region_fetch_area (srcs->v[1], request);
+	aktive_block* src = aktive_region_fetch_area (1, request);
 	@@recombiner@@
     }
 }

@@ -53,7 +53,7 @@ operator op::view {
 	// assert: result.used == block.used
 	// assert: result.geo  == block.geo
 
-	aktive_blit_copy0 (block, dst, aktive_region_fetch_area (srcs->v[0], request));
+	aktive_blit_copy0 (block, dst, aktive_region_fetch_area (0, request));
     }
 }
 

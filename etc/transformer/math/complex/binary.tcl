@@ -44,8 +44,8 @@ operator {cfunction dexpr} {
 	// we trivially know that the request is good for both inputs.
 
 	aktive_blit_cbinary (block, dst, @@cfunction@@,
-			     aktive_region_fetch_area (srcs->v[0], request),
-			     aktive_region_fetch_area (srcs->v[1], request));
+			     aktive_region_fetch_area (0, request),
+			     aktive_region_fetch_area (1, request));
     }
 }
 

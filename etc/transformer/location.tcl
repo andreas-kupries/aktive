@@ -56,7 +56,7 @@ operator op::location::move::to {
 	aktive_rectangle_def_as (subrequest, request);
 	aktive_rectangle_add    (&subrequest, &istate->delta);
 
-	aktive_block* src = aktive_region_fetch_area (srcs->v[0], &subrequest);
+	aktive_block* src = aktive_region_fetch_area (0, &subrequest);
 	aktive_blit_copy0 (block, dst, src);
     }
 }
@@ -108,7 +108,7 @@ operator op::location::move::by {
 	aktive_rectangle_def_as (subrequest, request);
 	aktive_rectangle_add    (&subrequest, &istate->delta);
 
-	aktive_block* src = aktive_region_fetch_area (srcs->v[0], &subrequest);
+	aktive_block* src = aktive_region_fetch_area (0, &subrequest);
 	aktive_blit_copy0 (block, dst, src);
     }
 }

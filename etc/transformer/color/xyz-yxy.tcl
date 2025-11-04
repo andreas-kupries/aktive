@@ -41,7 +41,7 @@ operator op::color::Yxy::to::XYZ {
 
     pixels {
 	// request passes through as is
-	aktive_block* src = aktive_region_fetch_area (srcs->v[0], request);
+	aktive_block* src = aktive_region_fetch_area (0, request);
 
 	#define YS srcvalue [0]
 	#define xS srcvalue [1]
@@ -97,7 +97,7 @@ operator op::color::XYZ::to::Yxy {
 
     pixels {
 	// request passes through as is
-	aktive_block* src = aktive_region_fetch_area (srcs->v[0], request);
+	aktive_block* src = aktive_region_fetch_area (0, request);
 
 	#define XS srcvalue [0]
 	#define YS srcvalue [1]
@@ -159,7 +159,7 @@ operator op::color::Yxy::to::Grey {
 
     pixels {
 	// request passes through as is
-	aktive_block* src = aktive_region_fetch_area (srcs->v[0], request);
+	aktive_block* src = aktive_region_fetch_area (0, request);
 
 	#define YS srcvalue [0]
 	#define xS srcvalue [1]

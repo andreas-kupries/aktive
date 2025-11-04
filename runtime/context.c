@@ -18,7 +18,7 @@ TRACE_OFF;
  */
 
 A_STRUCTURE (aktive_context) {
-    A_FIELD (Tcl_HashTable, val) ; // key-value context map
+    A_FIELD (Tcl_HashTable, val);      // key-value context map
 } A_END_PTR (aktive_context);
 
 /*

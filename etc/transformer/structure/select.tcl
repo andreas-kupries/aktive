@@ -93,7 +93,7 @@ operator {thing coordinate dimension} {
 	    }
 	    pixels {
 		// @@thing@@ selection and blitting: Plain pass through, always
-		aktive_blit_copy0 (block, dst, aktive_region_fetch_area (srcs->v[0], request));
+		aktive_blit_copy0 (block, dst, aktive_region_fetch_area (0, request));
 	    }
 	}
 	band {
@@ -107,7 +107,7 @@ operator {thing coordinate dimension} {
 	    }
 	    pixels {
 		// @@thing@@ selection and blitting
-		aktive_block* src = aktive_region_fetch_area (srcs->v[0], request);
+		aktive_block* src = aktive_region_fetch_area (0, request);
 		if (istate->passthrough) {
 		    // operator is identity, just blit everything through
 		    aktive_blit_copy0 (block, dst, src);

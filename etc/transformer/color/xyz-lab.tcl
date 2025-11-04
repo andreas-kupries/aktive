@@ -47,7 +47,7 @@ operator op::color::Lab::to::XYZ {
 
     pixels {
 	// request passes through as is
-	aktive_block* src = aktive_region_fetch_area (srcs->v[0], request);
+	aktive_block* src = aktive_region_fetch_area (0, request);
 
 	#define L srcvalue [0]
 	#define A srcvalue [1]
@@ -105,7 +105,7 @@ operator op::color::XYZ::to::Lab {
 
     pixels {
 	// request passes through as is
-	aktive_block* src = aktive_region_fetch_area (srcs->v[0], request);
+	aktive_block* src = aktive_region_fetch_area (0, request);
 
 	#define L dstvalue [0]
 	#define A dstvalue [1]
@@ -172,7 +172,7 @@ operator op::color::Lab::to::Grey {
 
     pixels {
 	// request passes through as is
-	aktive_block* src = aktive_region_fetch_area (srcs->v[0], request);
+	aktive_block* src = aktive_region_fetch_area (0, request);
 
 	#define L srcvalue [0]
 	#define A srcvalue [1]

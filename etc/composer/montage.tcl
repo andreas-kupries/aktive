@@ -189,7 +189,7 @@ operator {coordinate dimension layout dima dimb} {
 
 		TRACE_RECTANGLE_M ("dst[0] ............", &dstm);
 
-		aktive_block* src = aktive_region_fetch_area (srcs->v[0], &section);
+		aktive_block* src = aktive_region_fetch_area (0, &section);
 
 		aktive_blit_copy0 (block, &dstm, src);
 
@@ -227,7 +227,7 @@ operator {coordinate dimension layout dima dimb} {
 		TRACE_POINT(&istate->delta);
 		TRACE_RECTANGLE_M ("geo[1] section'delt", &section);
 
-		aktive_block* src = aktive_region_fetch_area (srcs->v[1], &section);
+		aktive_block* src = aktive_region_fetch_area (1, &section);
 
 		aktive_blit_copy0 (block, &dstm, src);
 
@@ -250,14 +250,14 @@ operator {coordinate dimension layout dima dimb} {
 	    aktive_rectangle_copy (&rectb, request);
 
 	    aktive_blit_copy0_bands_to (block, dst,
-					aktive_region_fetch_area (srcs->v[0], request),
+					aktive_region_fetch_area (0, request),
 					0);
 
 	    TRACE_POINT(&istate->delta);
 
 	    aktive_rectangle_sub (&rectb, &istate->delta);
 	    aktive_blit_copy0_bands_to (block, dst,
-					aktive_region_fetch_area (srcs->v[1], &rectb),
+					aktive_region_fetch_area (1, &rectb),
 					istate->d0);
 	}
     }

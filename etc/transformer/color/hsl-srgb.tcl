@@ -71,7 +71,7 @@ operator op::color::sRGB::to::HSL {
 
     pixels {
 	// request passes through as is
-	aktive_block* src = aktive_region_fetch_area (srcs->v[0], request);
+	aktive_block* src = aktive_region_fetch_area (0, request);
 
 	#define R srcvalue [0]
 	#define G srcvalue [1]
@@ -143,7 +143,7 @@ operator op::color::HSL::to::sRGB {
 
     pixels {
 	// request passes through as is
-	aktive_block* src = aktive_region_fetch_area (srcs->v[0], request);
+	aktive_block* src = aktive_region_fetch_area (0, request);
 
 	#define H srcvalue [0]
 	#define S srcvalue [1]

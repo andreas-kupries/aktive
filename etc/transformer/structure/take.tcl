@@ -136,8 +136,8 @@ operator {kind coordinate dimension other1 other2} {
 	TRACE_RECTANGLE_M("take @@coordinate@@ index rq", request);
 	TRACE_RECTANGLE_M("take @@coordinate@@ data  rq", &dataquest);
 
-	aktive_block* srca = aktive_region_fetch_area (srcs->v[0], request);
-	aktive_block* srcb = aktive_region_fetch_area (srcs->v[1], &dataquest);
+	aktive_block* srca = aktive_region_fetch_area (0, request);
+	aktive_block* srcb = aktive_region_fetch_area (1, &dataquest);
 	@@selector@@
     }
 }

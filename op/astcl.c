@@ -105,7 +105,7 @@ aktive_op_pixels (Tcl_Interp* ip, aktive_image src) {
 	TRACE ("row %d", k);
 	TRACE_RECTANGLE(&scan);
 
-	aktive_block* pixels = aktive_region_fetch_area (rg, &scan);
+	aktive_block* pixels = aktive_region_fetch_area_head (rg, &scan);
 
 	for (j = 0; j < pixels->used; j++, i++) {
 	    ASSERT_VA (i < sz, "too many pixel values", "%d >= %d", i, sz);

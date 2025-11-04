@@ -43,7 +43,7 @@ operator op::color::scRGB::to::XYZ {
 
     pixels {
 	// request passes through as is
-	aktive_block* src = aktive_region_fetch_area (srcs->v[0], request);
+	aktive_block* src = aktive_region_fetch_area (0, request);
 
 	#define SCALE AKTIVE_WP_D65_Y
 
@@ -104,7 +104,7 @@ operator op::color::XYZ::to::scRGB {
 
     pixels {
 	// request passes through as is
-	aktive_block* src = aktive_region_fetch_area (srcs->v[0], request);
+	aktive_block* src = aktive_region_fetch_area (0, request);
 
 	#define SCALE AKTIVE_WP_D65_Y
 
@@ -187,7 +187,7 @@ operator op::color::scRGB::to::Grey {
 
     pixels {
 	// request passes through as is
-	aktive_block* src = aktive_region_fetch_area (srcs->v[0], request);
+	aktive_block* src = aktive_region_fetch_area (0, request);
 
 	#define SCALE AKTIVE_WP_D65_Y
 

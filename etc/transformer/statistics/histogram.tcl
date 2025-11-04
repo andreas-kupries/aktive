@@ -196,7 +196,7 @@ operator {dim unchanged} {
 	@@subrequest@@
 
 	TRACE_RECTANGLE_M("@@kind@@ hist", &subrequest);
-	aktive_block* src = aktive_region_fetch_area (srcs->v[0], &subrequest);
+	aktive_block* src = aktive_region_fetch_area (0, &subrequest);
 
 	@@histogrammer@@
 

@@ -1352,7 +1352,7 @@ proc dsl::writer::OperatorFunctionForOp {op} {
 
 	# Enhance fragment with code providing the info data in properly typed form.
 	set types {}
-	if {$hasimages}                       {           lappend types aktive_region_vector* }
+	if {$hasimages}                       { lappend types aktive_region_vector* aktive_uint_vector* }
 	set pt 0 ; if {$paramtype  ne "void"} { incr pt ; lappend types *$paramtype  }
 	set rt 0 ; if {$regiontype ne "void"} { incr rt ; lappend types *$regiontype }
 	set st 0 ; if {$statetype  ne "void"} { incr st ; lappend types *$statetype  }
@@ -1360,7 +1360,10 @@ proc dsl::writer::OperatorFunctionForOp {op} {
 
 	if {$pt}        { + "  [PadR $tl ${paramtype}*] param  = [PadR $tlx (${paramtype}*)] info->param;" }
 	if {$st}        { + "  [PadR $tl ${statetype}*] istate = [PadR $tlx (${statetype}*)] info->istate;" }
-	if {$hasimages} { + "  [PadR $tl aktive_region_vector*] srcs   = [PadR $tlx ""] &info->srcs;" }
+	if {$hasimages} {
+	    + "  [PadR $tl aktive_region_vector*] srcs   = [PadR $tlx ""] &info->srcs;"
+	    + "  [PadR $tl aktive_uint_vector*] slots  = [PadR $tlx ""] &info->slots;"
+	}
 	if {$rt}        {
 	    # region state type is known. allocate it.
 	    + "  [PadR $tl ${regiontype}*] state  = [PadR $tlx (${regiontype}*)] ALLOC ($regiontype);"
@@ -1401,13 +1404,13 @@ proc dsl::writer::OperatorFunctionForOp {op} {
 
 	# Enhance fragment with code providing the info data in properly typed form.
 	set types [list aktive_geometry*]
-	if {$hasimages}                       {           lappend types aktive_image_vector* }
+	if {$hasimages}                       { lappend types aktive_image_vector* }
 	set pt 0 ; if {$paramtype  ne "void"} { incr pt ; lappend types *$paramtype  }
 	set st 0 ; if {$statetype  ne "void"} { incr st ; lappend types *$statetype  }
 	set tl [Maxlength $types] ; set tlx $tl ; incr tlx 2
 
 	if {$pt}        { + "  [PadR $tl ${paramtype}*] param  = [PadR $tlx (${paramtype}*)] info->param;" }
-	if {$hasimages} { + "  [PadR $tl aktive_image_vector*] srcs   = [PadR $tlx ""] &info->srcs;" }
+	if {$hasimages} { + "  [PadR $tl aktive_image_vector*] srcs   = [PadR $tlx ""] &info->srcs;"	}
 	+ "  [PadR $tl aktive_geometry*] domain = [PadR $tlx ""] &info->domain;"
 	if {$st}        {
 	    # state type is known. allocate it.
@@ -1494,7 +1497,7 @@ proc dsl::writer::OperatorFunctionForOp {op} {
 	if {${region/fetch} ne {}} {
 	    # Enhance fragment with code providing the info data in properly typed form.
 	    set types aktive_geometry*
-	    if {$hasimages}                       {           lappend types *aktive_region_vector }
+	    if {$hasimages}                       { lappend types *aktive_region_vector *aktive_uint_vector }
 	    set pt 0 ; if {$paramtype  ne "void"} { incr pt ; lappend types *$paramtype  }
 	    set rt 0 ; if {$regiontype ne "void"} { incr rt ; lappend types *$regiontype }
 	    set st 0 ; if {$statetype  ne "void"} { incr st ; lappend types *$statetype  }
@@ -1504,6 +1507,7 @@ proc dsl::writer::OperatorFunctionForOp {op} {
 	    if {$rt}        { + "  [PadR $tl ${regiontype}*] state   = [PadR $tlx (${regiontype}*)] info->state;" }
 	    if {$st}        { + "  [PadR $tl ${statetype}*] istate  = [PadR $tlx (${statetype}*)] info->istate;" }
 	    if {$hasimages} { + "  [PadR $tl aktive_region_vector*] srcs    = [PadR $tlx ""] &info->srcs;" }
+	    +                   "  [PadR $tl aktive_uint_vector*] slots   = [PadR $tlx ""] &info->slots;"
 	    +                   "  [PadR $tl aktive_geometry*] idomain = [PadR $tlx ""] info->domain;"
 	    +                   "  TRACE_GEOMETRY_M  (\"idomain\", idomain);"
 	    + "  TRACE(\"block (init %d cap %d used %d)\", block->initialized, block->capacity, block->used);"

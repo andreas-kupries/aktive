@@ -626,6 +626,8 @@ The operators listed here are implemented wholly in Tcl.
  - [aktive op wiener](transform_wiener.md#op_wiener)
  - [aktive query value around](accessor_values.md#query_value_around)
  - [aktive query value at](accessor_values.md#query_value_at)
+ - [aktive read from file](generator_reader.md#read_from_file)
+ - [aktive read from string](generator_reader.md#read_from_string)
  - [aktive transform affine](generator_virtual_warp.md#transform_affine)
  - [aktive transform compose](generator_virtual_warp.md#transform_compose)
  - [aktive transform compose-core](generator_virtual_warp.md#transform_compose_core)

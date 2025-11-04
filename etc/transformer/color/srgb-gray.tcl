@@ -42,7 +42,7 @@ operator op::color::sRGB::to::gray {
 
     pixels {
 	// request passes through as is
-	aktive_block* src = aktive_region_fetch_area (srcs->v[0], request);
+	aktive_block* src = aktive_region_fetch_area (0, request);
 
 	#define R srcvalue [0]
 	#define G srcvalue [1]

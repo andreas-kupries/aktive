@@ -82,7 +82,7 @@ operator {                     cfunction             mathfunc     dexpr classes}
     }
     pixels {
 	aktive_blit_unary0 (block, dst, @@cfunction@@,
-			    aktive_region_fetch_area (srcs->v[0], request));
+			    aktive_region_fetch_area (0, request));
     }
 }
 
@@ -168,7 +168,7 @@ operator {                    function      mathfunc flip dexpr      pname     p
 	aktive_geometry_copy (domain, aktive_image_get_geometry (srcs->v[0]));
     }
     pixels {
-	aktive_blit_unary1 (block, dst, @@function@@, param->@@pname@@, aktive_region_fetch_area (srcs->v[0], request));
+	aktive_blit_unary1 (block, dst, @@function@@, param->@@pname@@, aktive_region_fetch_area (0, request));
     }
 }
 
@@ -211,7 +211,7 @@ operator {function lowkind highkind mode} {
     }
     pixels {
 	aktive_blit_unary2 (block, dst, @@function@@, param->low, param->high,
-			    aktive_region_fetch_area (srcs->v[0], request));
+			    aktive_region_fetch_area (0, request));
     }
 }
 

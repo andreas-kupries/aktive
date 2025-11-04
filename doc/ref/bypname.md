@@ -487,6 +487,7 @@
 
 ## <a name='_f'></a> f
 
+  - [file &mdash; read from](generator_reader.md#read_from_file)
   - [file &mdash; read from aktive](generator_reader.md#read_from_aktive_file)
   - [file &mdash; read from aktive-be](generator_reader.md#read_from_aktive_be_file)
   - [file &mdash; read from netpbm](generator_reader.md#read_from_netpbm_file)
@@ -548,6 +549,7 @@
   - [from &mdash; band image](generator_virtual.md#image_from_band)
   - [from &mdash; color image](generator_virtual.md#image_from_color)
   - [from &mdash; column image](generator_virtual.md#image_from_column)
+  - [from &mdash; file read](generator_reader.md#read_from_file)
   - [from &mdash; matrix image](generator_virtual.md#image_from_matrix)
   - [from &mdash; netpbm file read](generator_reader.md#read_from_netpbm_file)
   - [from &mdash; netpbm string read](generator_reader.md#read_from_netpbm_string)
@@ -556,6 +558,7 @@
   - [from &mdash; sparse deltas image](generator_virtual.md#image_from_sparse_deltas)
   - [from &mdash; sparse points image](generator_virtual.md#image_from_sparse_points)
   - [from &mdash; sparse ranges image](generator_virtual.md#image_from_sparse_ranges)
+  - [from &mdash; string read](generator_reader.md#read_from_string)
   - [from &mdash; threshold image mask](transform_threshold_mask_generate.md#image_mask_from_threshold)
   - [from &mdash; value image](generator_virtual.md#image_from_value)
 
@@ -1728,8 +1731,10 @@
   - [read &mdash; from aktive string](generator_reader.md#read_from_aktive_string)
   - [read &mdash; from aktive-be file](generator_reader.md#read_from_aktive_be_file)
   - [read &mdash; from aktive-be string](generator_reader.md#read_from_aktive_be_string)
+  - [read &mdash; from file](generator_reader.md#read_from_file)
   - [read &mdash; from netpbm file](generator_reader.md#read_from_netpbm_file)
   - [read &mdash; from netpbm string](generator_reader.md#read_from_netpbm_string)
+  - [read &mdash; from string](generator_reader.md#read_from_string)
   - [real &mdash; op cmath](transform_math_complex_reduce.md#op_cmath_real)
   - [reciproc &mdash; op cmath](transform_math_complex_unary.md#op_cmath_reciproc)
   - [reciproc &mdash; op math1](transform_math_unary.md#op_math1_reciproc)
@@ -1931,6 +1936,7 @@
   - [stddev &mdash; op row](transform_statistics.md#op_row_stddev)
   - [stddev &mdash; op tile](transform_statistics.md#op_tile_stddev)
   - [stretch &mdash; op math1 fit](transform_math_unary.md#op_math1_fit_stretch)
+  - [string &mdash; read from](generator_reader.md#read_from_string)
   - [string &mdash; read from aktive](generator_reader.md#read_from_aktive_string)
   - [string &mdash; read from aktive-be](generator_reader.md#read_from_aktive_be_string)
   - [string &mdash; read from netpbm](generator_reader.md#read_from_netpbm_string)

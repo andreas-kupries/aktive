@@ -26,16 +26,6 @@
 extern void aktive_profile (double* dst, aktive_uint n, double* src, aktive_uint stride);
 
 /*
- * - - -- --- ----- -------- -------------
- * Operator support.
- * - Fill function for iveccache
- */
-
-extern void aktive_profile_fill (aktive_ivcache_context* context, aktive_uint index, double* dst);
-
-#define AKTIVE_PROFILE_FILL ((aktive_iveccache_fill) aktive_profile_fill)
-
-/*
  * = = == === ===== ======== ============= =====================
  * Local Variables:
  * mode: c

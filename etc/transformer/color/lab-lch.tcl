@@ -40,7 +40,7 @@ operator op::color::Lab::to::LCh {
 
     pixels {
 	// request passes through as is
-	aktive_block* src = aktive_region_fetch_area (srcs->v[0], request);
+	aktive_block* src = aktive_region_fetch_area (0, request);
 
 	#define LS srcvalue [0]
 	#define A  srcvalue [1]
@@ -97,7 +97,7 @@ operator op::color::LCh::to::Lab {
 
     pixels {
 	// request passes through as is
-	aktive_block* src = aktive_region_fetch_area (srcs->v[0], request);
+	aktive_block* src = aktive_region_fetch_area (0, request);
 
 	#define LS srcvalue [0]
 	#define C  srcvalue [1]

@@ -21,15 +21,17 @@
  - [aktive read from aktive-be string](#read_from_aktive_be_string)
  - [aktive read from aktive file](#read_from_aktive_file)
  - [aktive read from aktive string](#read_from_aktive_string)
+ - [aktive read from file](#read_from_file)
  - [aktive read from netpbm file](#read_from_netpbm_file)
  - [aktive read from netpbm string](#read_from_netpbm_string)
+ - [aktive read from string](#read_from_string)
 
 ## Operators
 
 ---
 ### [↑](#top) <a name='read_from_aktive_be_file'></a> aktive read from aktive-be file
 
-Syntax: __aktive read from aktive-be file__  (param value)... [[→ definition](/file?ci=trunk&ln=76&name=etc/generator/reader/aktive.tcl)]
+Syntax: __aktive read from aktive-be file__  (param value)... [[→ definition](/file?ci=trunk&ln=79&name=etc/generator/reader/aktive.tcl)]
 
 Construct image from file content in the native AKTIVE/BE format.
 
@@ -57,7 +59,7 @@ Construct image from file content in the native AKTIVE/BE format.
 ---
 ### [↑](#top) <a name='read_from_aktive_be_string'></a> aktive read from aktive-be string
 
-Syntax: __aktive read from aktive-be string__  (param value)... [[→ definition](/file?ci=trunk&ln=8&name=etc/generator/reader/aktive.tcl)]
+Syntax: __aktive read from aktive-be string__  (param value)... [[→ definition](/file?ci=trunk&ln=11&name=etc/generator/reader/aktive.tcl)]
 
 Construct image from a Tcl byte array value in the native AKTIVE/BE format.
 
@@ -68,7 +70,7 @@ Construct image from a Tcl byte array value in the native AKTIVE/BE format.
 ---
 ### [↑](#top) <a name='read_from_aktive_file'></a> aktive read from aktive file
 
-Syntax: __aktive read from aktive file__  (param value)... [[→ definition](/file?ci=trunk&ln=76&name=etc/generator/reader/aktive.tcl)]
+Syntax: __aktive read from aktive file__  (param value)... [[→ definition](/file?ci=trunk&ln=79&name=etc/generator/reader/aktive.tcl)]
 
 Construct image from file content in the native AKTIVE/LE format.
 
@@ -96,7 +98,7 @@ Construct image from file content in the native AKTIVE/LE format.
 ---
 ### [↑](#top) <a name='read_from_aktive_string'></a> aktive read from aktive string
 
-Syntax: __aktive read from aktive string__  (param value)... [[→ definition](/file?ci=trunk&ln=8&name=etc/generator/reader/aktive.tcl)]
+Syntax: __aktive read from aktive string__  (param value)... [[→ definition](/file?ci=trunk&ln=11&name=etc/generator/reader/aktive.tcl)]
 
 Construct image from a Tcl byte array value in the native AKTIVE/LE format.
 
@@ -105,9 +107,20 @@ Construct image from a Tcl byte array value in the native AKTIVE/LE format.
 |value|object||Tcl value holding the AKTIVE/LE image data to read|
 
 ---
+### [↑](#top) <a name='read_from_file'></a> aktive read from file
+
+Syntax: __aktive read from file__  (param value)... [[→ definition](/file?ci=trunk&ln=40&name=etc/generator/reader/reader.tcl)]
+
+Construct image from file content in one of the supported formats. The format is auto-detected.
+
+|Parameter|Type|Default|Description|
+|:---|:---|:---|:---|
+|path|object||Path to file holding the image data to read|
+
+---
 ### [↑](#top) <a name='read_from_netpbm_file'></a> aktive read from netpbm file
 
-Syntax: __aktive read from netpbm file__  (param value)... [[→ definition](/file?ci=trunk&ln=110&name=etc/generator/reader/netpbm.tcl)]
+Syntax: __aktive read from netpbm file__  (param value)... [[→ definition](/file?ci=trunk&ln=112&name=etc/generator/reader/netpbm.tcl)]
 
 Construct image from file content in one of the NetPBM formats.
 
@@ -139,7 +152,7 @@ The PBM format is not supported.
 ---
 ### [↑](#top) <a name='read_from_netpbm_string'></a> aktive read from netpbm string
 
-Syntax: __aktive read from netpbm string__  (param value)... [[→ definition](/file?ci=trunk&ln=8&name=etc/generator/reader/netpbm.tcl)]
+Syntax: __aktive read from netpbm string__  (param value)... [[→ definition](/file?ci=trunk&ln=10&name=etc/generator/reader/netpbm.tcl)]
 
 Construct image from Tcl byte array value in one of the supported NetPBM formats.
 
@@ -150,4 +163,15 @@ The PBM format is not supported.
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |value|object||Tcl value holding the NetPBM image data to read|
+
+---
+### [↑](#top) <a name='read_from_string'></a> aktive read from string
+
+Syntax: __aktive read from string__  (param value)... [[→ definition](/file?ci=trunk&ln=16&name=etc/generator/reader/reader.tcl)]
+
+Construct image from a Tcl byte array value in one of the supported formats. The format is auto-detected.
+
+|Parameter|Type|Default|Description|
+|:---|:---|:---|:---|
+|value|object||Tcl value holding the image data to read|
 

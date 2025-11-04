@@ -783,7 +783,8 @@ aktive_histogram_fill (aktive_ivcache_context* context, aktive_uint index, doubl
     TRACE_FUNC("([%d] %u,%u[%u] (dst) %p [%u])", index, context->request->y,
 	       context->z, context->stride, dst, context->size);
 
-    aktive_block*     src = aktive_region_fetch_area (context->src, context->request);
+    aktive_block*     src = aktive_region_fetch_area_core (context->src, context->request,
+							   context->caller, context->slot);
     aktive_histogram* h   = (aktive_histogram*) context->client;
 
     // offset into requested band, stride

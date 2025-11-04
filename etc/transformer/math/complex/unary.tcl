@@ -107,7 +107,7 @@ operator {cfunction dexpr} {
 
     pixels {
 	aktive_blit_cunary (block, dst, @@cfunction@@,
-			    aktive_region_fetch_area (srcs->v[0], request));
+			    aktive_region_fetch_area (0, request));
     }
 }
 

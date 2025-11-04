@@ -87,7 +87,7 @@ operator {dexpr attr prefered_embedding} {
 	subrequest.height += 2*param->radius;
 
 	TRACE_RECTANGLE_M("@@fun@@", &subrequest);
-	aktive_block* src = aktive_region_fetch_area (srcs->v[0], &subrequest);
+	aktive_block* src = aktive_region_fetch_area (0, &subrequest);
 	aktive_uint radius = param->radius;
 
 	// TRACE_DO (__aktive_block_dump ("tile max in", src));

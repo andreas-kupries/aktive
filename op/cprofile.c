@@ -238,7 +238,7 @@ cprofile_worker (const aktive_cprofile_batch* controller, aktive_cprofile_task* 
 
     TRACE ("scan task (%s)", (controller->mark < 0) ? "bottom" : "top");
 
-    aktive_block*    p = aktive_region_fetch_area (*wstate, &rq);
+    aktive_block*    p = aktive_region_fetch_area_head (*wstate, &rq);
     aktive_cprofile* a = cprofile_new (row, controller->wd);
 
     cprofile_scan (p, a, controller->mark);

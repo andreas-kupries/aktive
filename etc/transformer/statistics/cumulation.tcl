@@ -75,7 +75,7 @@ operator op::band::cumulative {
 
 	aktive_rectangle_def_as (subrequest, request);
 	TRACE_RECTANGLE_M("band csum", &subrequest);
-	aktive_block* src = aktive_region_fetch_area (srcs->v[0], &subrequest);
+	aktive_block* src = aktive_region_fetch_area (0, &subrequest);
 
 	#define AH (dst->height)
 	#define AW (dst->width)

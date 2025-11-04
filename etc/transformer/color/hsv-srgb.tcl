@@ -68,7 +68,7 @@ operator op::color::sRGB::to::HSV {
 
     pixels {
 	// request passes through as is
-	aktive_block* src = aktive_region_fetch_area (srcs->v[0], request);
+	aktive_block* src = aktive_region_fetch_area (0, request);
 
 	#define H dstvalue [0]
 	#define S dstvalue [1]
@@ -133,7 +133,7 @@ operator op::color::HSV::to::sRGB {
 
     pixels {
 	// request passes through as is
-	aktive_block* src = aktive_region_fetch_area (srcs->v[0], request);
+	aktive_block* src = aktive_region_fetch_area (0, request);
 
 	#define R dstvalue [0]
 	#define G dstvalue [1]

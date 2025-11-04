@@ -101,7 +101,7 @@ operator {coorda coordb coordc dima dimb dimc} {
 
 	TRACE_RECTANGLE_M ("rewritten", &subrequest);
 
-	aktive_block* src = aktive_region_fetch_area (srcs->v[0], &subrequest);
+	aktive_block* src = aktive_region_fetch_area (0, &subrequest);
 
 	// The        dst @@coorda@@-axis is fed from the src @@coordb@@-axis
 	// Vice versa dst @@coordb@@-axis is fed from the src @@coorda@@-axis

@@ -8,8 +8,8 @@ find . -name "*~" -exec rm "{}" \;
 find . -follow -name "core*" -exec rm "{}" \;
 rm -f *.trace
 
-operation=install
-#operation=debug
+#operation=install
+operation=debug
 
 # main build, including examples, and doc/example integration
 mkdir -p ../Logs

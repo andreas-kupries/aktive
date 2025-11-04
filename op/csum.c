@@ -54,7 +54,8 @@ aktive_csum_fill (aktive_ivcache_context* context, aktive_uint index, double* ds
 
     TRACE_RECTANGLE_M("csum request", context->request);
 
-    aktive_block* src = aktive_region_fetch_area (context->src, context->request);
+    aktive_block* src = aktive_region_fetch_area_core (context->src, context->request,
+						       context->caller, context->slot);
 
     // compute the cumulative sum directly into the destination
     // properly offset into the requested band, with stride

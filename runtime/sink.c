@@ -76,6 +76,8 @@ aktive_sink_run (aktive_sink* sink,
     aktive_context c = aktive_context_new ();
     aktive_region rg = aktive_region_new (src, c);
 
+    TRACE_RUN (aktive_region_dump (rg, "BEFORE")); // fully shared dag
+
     if (!rg) {
 	aktive_image_unref (src);
 	TRACE_RETURN_VOID;
@@ -98,6 +100,8 @@ aktive_sink_run (aktive_sink* sink,
     // sink_all (rg, state, sink, src);
 
     sink_sequential (rg, state, sink, src);
+
+    TRACE_RUN (aktive_region_dump (rg, "AFTER_")); // de-optimized, if any
 
     aktive_region_destroy (rg); // Note that this invalidates `pixels` too.
     aktive_context_destroy (c);
@@ -155,7 +159,7 @@ sink_sequential (aktive_region rg,
 	TRACE ("fetching row %d", row);
 	TRACE_RECTANGLE(&scan);
 
-	aktive_block* pixels = aktive_region_fetch_area (rg, &scan);
+	aktive_block* pixels = aktive_region_fetch_area_head (rg, &scan);
 
 	TRACE ("processing row %d pixels", row);
 	sink->process (state, pixels);
@@ -173,7 +177,7 @@ sink_all (aktive_region rg,
     aktive_rectangle_def_as (scan, aktive_image_get_domain (src));
     TRACE ("fetching all pixels", 0);
 
-    aktive_block* pixels = aktive_region_fetch_area (rg, &scan);
+    aktive_block* pixels = aktive_region_fetch_area_head (rg, &scan);
 
     TRACE ("processing all pixels", 0);
     sink->process (state, pixels);
@@ -228,11 +232,11 @@ sink_worker (const sink_batch_state* state, aktive_rectangle* task, aktive_regio
     }
 
     TRACE_RECTANGLE (task);
-    (void) aktive_region_fetch_area (*wstate, task);
+    (void) aktive_region_fetch_area_head (*wstate, task);
 
     aktive_block* p = ALLOC (aktive_block);
 
-    aktive_region_export (*wstate, p);
+    aktive_region_export (*wstate, p, 0);
 
     ckfree (task);
     TRACE_RETURN ("(active_block*) %p", p);

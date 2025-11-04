@@ -87,8 +87,10 @@
 
 A_STRUCTURE (aktive_block) {
     A_FIELD (aktive_uint,     initialized) ; // Fully initialized (pixel, capacity, etc)
-    A_FIELD (aktive_region,   region)      ; // Region owning and managing the block.
+    A_FIELD (aktive_region,   owner)       ; // Region owning and managing the block.
     //                                          NULL indicates an independent block.
+    A_FIELD (aktive_region,   reader)      ; // Primary reader region for the block. Conflict detection.
+    //                                          NULL indicates that nobody has read the block yet
     A_FIELD (aktive_point,    location)    ; // Logical location in the originating image.
     A_FIELD (aktive_geometry, domain)      ; // Physical area and bands covered by the `pixel` data.
     A_FIELD (double*,         pixel)       ; // Pixel data in row-major order (row, column, band)

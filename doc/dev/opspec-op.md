@@ -428,7 +428,7 @@ Arguments:
      or be cast-able to it.
 
      The `context` argument is assumed to be a
-     [aktive_ivcache_context*](/file?ci=trunk&name=runtime/iveccache.h&ln=77-84),
+     [aktive_ivcache_context*](/file?ci=trunk&name=runtime/iveccache.h&ln=77-86),
      instead of the `void*` in the base signature.
 
      The argument type may be changed should no operators appear which
