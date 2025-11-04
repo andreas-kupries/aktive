@@ -5,50 +5,58 @@
 # # ## ### ##### ######## ############# #####################
 ## Unary without parameters
 
-## cfunction	C function to use in the operator
+## cfunction	C function to use in the operator.
+##
+##              Refers to       `aktive_vectory_unary_(cfunction)`,
+##              via blit action `vec/unary/(cfunction)`
+##
 ## mathfunc	Equivalent Tcl mathfunc to use when short-circuiting at construction
+##
 ##		The value `<<` signals identity with `function`.
 ##              The value `-` signals that it does not exist. Prevents short-circuiting
+##
 ## dexpr	Documentation expression. If undefined use operator name tail.
+##
 ##              `I` refers to source image. If not present extend to function notation, i.e. `(I)`.
+##
 ## class	General class of behaviour, with attached simplification rules
 
-operator {                     cfunction             mathfunc     dexpr classes} {
-    op::math1::abs             fabs                  abs          {}    idempotent
-    op::math1::acos            acos                  <<           {}    {}
-    op::math1::acosh           acosh                 <<           {}    {}
-    op::math1::asin            asin                  <<           {}    fixpoint0
-    op::math1::asinh           asinh                 <<           {}    {}
-    op::math1::atan            atan                  <<           {}    fixpoint0
-    op::math1::atanh           atanh                 <<           {}    {}
-    op::math1::cbrt            cbrt                  <<           {}    fixpoint0
-    op::math1::ceil            ceil                  <<           {}    idempotent
-    op::math1::round           round                 <<           {}    idempotent
-    op::math1::clamp           aktive_clamp          <<           {}    idempotent
-    op::math1::cos             cos                   <<           {}    {}
-    op::math1::cosh            cosh                  <<           {}    {}
-    op::math1::exp             exp                   <<           {}    {}
-    op::math1::exp10           aktive_exp10          exp10        {}    {}
-    op::math1::exp2            exp2                  <<           {}    {}
-    op::math1::floor           floor                 <<           {}    idempotent
-    op::math1::gamma::compress aktive_gamma_compress -            {}    {}
-    op::math1::gamma::expand   aktive_gamma_expand   -            {}    {}
-    op::math1::invert          aktive_invert         <<           "1-I" inverting
-    op::math1::log             log                   <<           {}    {}
-    op::math1::log10           log10                 <<           {}    {}
-    op::math1::log2            log2                  <<           {}    {}
-    op::math1::neg             aktive_neg            <<           "-I"  {inverting  fixpoint0}
-    op::math1::reciproc        aktive_reciprocal     <<           "1/I" {inverting  fixpoint1}
-    op::math1::sign            aktive_sign           sign         {}    {idempotent fixpoint0}
-    op::math1::sign*           aktive_signb          signb        {}    idempotent
-    op::math1::sin             sin                   <<           {}    fixpoint0
-    op::math1::sinh            sinh                  <<           {}    fixpoint0
-    op::math1::square          aktive_square         <<           "I**2" {}
-    op::math1::sqrt            sqrt                  <<           {}    fixpoint0
-    op::math1::tan             tan                   <<           {}    fixpoint0
-    op::math1::tanh            tanh                  <<           {}    fixpoint0
-    op::math1::wrap            aktive_wrap           <<           {}    idempotent
-    op::math1::not             aktive_not            <<           "!I"  {}
+operator {                     cfunction       mathfunc          dexpr classes} {
+    op::math1::abs             fabs            abs               {}     idempotent
+    op::math1::acos            acos            <<                {}    {}
+    op::math1::acosh           acosh           <<                {}    {}
+    op::math1::asin            asin            <<                {}     fixpoint0
+    op::math1::asinh           asinh           <<                {}    {}
+    op::math1::atan            atan            <<                {}     fixpoint0
+    op::math1::atanh           atanh           <<                {}    {}
+    op::math1::cbrt            cbrt            <<                {}     fixpoint0
+    op::math1::ceil            ceil            <<                {}     idempotent
+    op::math1::round           round           <<                {}     idempotent
+    op::math1::clamp           clamp           aktive_clamp      {}     idempotent
+    op::math1::cos             cos             <<                {}    {}
+    op::math1::cosh            cosh            <<                {}    {}
+    op::math1::exp             exp             <<                {}    {}
+    op::math1::exp10           exp10           <<                {}    {}
+    op::math1::exp2            exp2            <<                {}    {}
+    op::math1::floor           floor           <<                {}     idempotent
+    op::math1::gamma::compress gamma_compress  -                 {}    {}
+    op::math1::gamma::expand   gamma_expand    -                 {}    {}
+    op::math1::invert          invert          aktive_invert     "1-I"  inverting
+    op::math1::log             log             <<                {}    {}
+    op::math1::log10           log10           <<                {}    {}
+    op::math1::log2            log2            <<                {}    {}
+    op::math1::neg             neg             aktive_neg        "-I"  {inverting  fixpoint0}
+    op::math1::reciproc        reciprocal      aktive_reciprocal "1/I" {inverting  fixpoint1}
+    op::math1::sign            sign            <<                {}    {idempotent fixpoint0}
+    op::math1::sign*           signb           <<                {}     idempotent
+    op::math1::sin             sin             <<                {}     fixpoint0
+    op::math1::sinh            sinh            <<                {}     fixpoint0
+    op::math1::square          square          <<                "I**2" {}
+    op::math1::sqrt            sqrt            <<                {}     fixpoint0
+    op::math1::tan             tan             <<                {}     fixpoint0
+    op::math1::tanh            tanh            <<                {}     fixpoint0
+    op::math1::wrap            wrap            aktive_wrap       {}     idempotent
+    op::math1::not             not             aktive_not        "!I"   {}
 } {
     if {$dexpr eq {}} { set dexpr [namespace tail $__op] }
     if {![string match *I* $dexpr]} { append dexpr (I) }
@@ -77,12 +85,31 @@ operator {                     cfunction             mathfunc     dexpr classes}
     if {$mathfunc eq "<<"} { set mathfunc $cfunction}
     if {$mathfunc ne "-"}  { simplify for   constant $mathfunc }
 
+    blit unary0 {
+	{AH    {y  AY 1 up} {y  0 1 up}}
+	{AW*DD {xz AX 1 up} {xz 0 1 up}}
+    } vec/unary/$cfunction
+
     state -setup {
 	aktive_geometry_copy (domain, aktive_image_get_geometry (srcs->v[0]));
     }
     pixels {
-	aktive_blit_unary0 (block, dst, @@cfunction@@,
-			    aktive_region_fetch_area (0, request));
+	aktive_block* src = aktive_region_fetch_area (0, request);
+	#define AH     (dst->height)
+	#define AW     (dst->width)
+	#define AX     (dst->x)
+	#define AY     (dst->y)
+	#define DD     (block->domain.depth)
+	#define DH     (block->domain.height)
+	#define DST    (block->pixel)
+	#define DSTCAP (block->used)
+	#define DW     (block->domain.width)
+	#define SD     (src->domain.depth)
+	#define SH     (src->domain.height)
+	#define SRC    (src->pixel)
+	#define SRCCAP (src->used)
+	#define SW     (src->domain.width)
+	@@unary0@@
     }
 }
 
@@ -91,35 +118,44 @@ operator {                     cfunction             mathfunc     dexpr classes}
 ## Unary with one parameter
 
 ## function	C function to use in the operator
+##
+##              Refers to       `aktive_vectory_unary_(cfunction)`,
+##              via blit action `vec/unary/(cfunction)`
+##
 ## mathfunc	Equivalent Tcl mathfunc to use when short-circuiting at construction
+##
 ##		The value `<<` signals identity with `function`.
 ##              The value `-` signals that it does not exist. Prevents short-circuiting
+##
 ## dexpr	Display expression. If not set operator tail name is used
+##
 ## flip         Non-commutative function, alternate order
+##
 ## pname        Name of the function/operator parameter
+##
 ## pdescription Parameter description
 
-operator {                    function      mathfunc flip dexpr      pname     pdescription} {
-    op::math1::shift          aktive_shift  <<       0    "I+@"      offset    {Add scalar offset}
-    op::math1::neg-shift      aktive_nshift <<        1   "@-I"      offset    {Subtract from scalar offset}
-    op::math1::scale          aktive_scale  <<       0    "I*@"      factor    {Multiply by scalar factor}
-    op::math1::reciproc-scale aktive_rscale <<        1   "@/I"      factor    {Divide from scalar factor}
-    op::math1::mod            fmod          <<       0    "I % @"    modulus   {Remainder by scalar modulus}
-    op::math1::modb           aktive_fmod   <<        1   "@ % I"    numerator {Remainder by scalar numerator}
-    op::math1::pow            pow           <<       0    {}         exponent  {Power by scalar exponent}
-    op::math1::expx           aktive_pow    <<        1   pow(@,I)   base      {Power by scalar base}
-    op::math1::hypot          hypot         <<       0    {}         y         {Hypot to scalar y}
-    op::math1::max            fmax          max      0    {}         min       {Limit to greater or equal a scalar min}
-    op::math1::min            fmin          min      0    {}         max       {Limit to less    or equal a scalar max}
-    op::math1::atan2          atan2         <<       0    atan2      x         {Atan by scalar x}
-    op::math1::atan2b         aktive_atan   <<        1   atan2(@,I) y         {Atan by scalar y}
-    op::math1::eq             aktive_eq     <<       0    "I == @"   threshold {Indicate pixels equal to the scalar threshold}
-    op::math1::ge             aktive_ge     <<       0    "I >= @"   threshold {Indicate pixels greater or equal to the scalar threshold}
-    op::math1::gt             aktive_gt     <<       0    "I > @"    threshold {Indicate pixels greater than the scalar threshold}
-    op::math1::le             aktive_le     <<       0    "I <= @"   threshold {Indicate pixels less or equal to the scalar threshold}
-    op::math1::lt             aktive_lt     <<       0    "I < @"    threshold {Indicate pixels less than the scalar threshold}
-    op::math1::ne             aktive_ne     <<       0    "I != @"   threshold {Indicate pixels different from the scalar threshold}
-    op::math1::solarize       aktive_sol    <<       0    solarize   threshold {Solarize pixels per the threshold}
+operator {                    function  mathfunc      flip dexpr      pname     pdescription} {
+    op::math1::shift          shift     aktive_shift  0    "I+@"      offset    {Add scalar offset}
+    op::math1::neg-shift      nshift    aktive_nshift  1   "@-I"      offset    {Subtract from scalar offset}
+    op::math1::scale          scale     aktive_scale  0    "I*@"      factor    {Multiply by scalar factor}
+    op::math1::reciproc-scale rscale    aktive_rscale  1   "@/I"      factor    {Divide from scalar factor}
+    op::math1::mod            fmod      <<            0    "I % @"    modulus   {Remainder by scalar modulus}
+    op::math1::modb           rfmod     aktive_fmod    1   "@ % I"    numerator {Remainder by scalar numerator}
+    op::math1::pow            pow       <<            0    {}         exponent  {Power by scalar exponent}
+    op::math1::expx           expx      aktive_pow     1   pow(@,I)   base      {Power by scalar base}
+    op::math1::hypot          hypot     <<            0    {}         y         {Hypot to scalar y}
+    op::math1::max            fmax      max           0    {}         min       {Limit to greater or equal a scalar min}
+    op::math1::min            fmin      min           0    {}         max       {Limit to less    or equal a scalar max}
+    op::math1::atan2          atan2     <<            0    atan2      x         {Atan by scalar x}
+    op::math1::atan2b         ratan2    aktive_atan    1   atan2(@,I) y         {Atan by scalar y}
+    op::math1::eq             eq        aktive_eq     0    "I == @"   threshold {Indicate pixels equal to the scalar threshold}
+    op::math1::ge             ge        aktive_ge     0    "I >= @"   threshold {Indicate pixels greater or equal to the scalar threshold}
+    op::math1::gt             gt        aktive_gt     0    "I > @"    threshold {Indicate pixels greater than the scalar threshold}
+    op::math1::le             le        aktive_le     0    "I <= @"   threshold {Indicate pixels less or equal to the scalar threshold}
+    op::math1::lt             lt        aktive_lt     0    "I < @"    threshold {Indicate pixels less than the scalar threshold}
+    op::math1::ne             ne        aktive_ne     0    "I != @"   threshold {Indicate pixels different from the scalar threshold}
+    op::math1::solarize       sol       aktive_sol    0    solarize   threshold {Solarize pixels per the threshold}
 } {
     section transform math unary
 
@@ -161,14 +197,35 @@ operator {                    function      mathfunc flip dexpr      pname     p
 
     if {$mathfunc eq "<<"} { set mathfunc $function }
 
-    import?  ../simpler/${mathfunc}.rules
+    import?  ../simpler/${function}.rules
     simplify for   constant $mathfunc $pname
+
+    blit unary1 {
+	{AH    {y  AY 1 up} {y  0 1 up}}
+	{AW*DD {xz AX 1 up} {xz 0 1 up}}
+    } vec/unary/$function
 
     state -setup {
 	aktive_geometry_copy (domain, aktive_image_get_geometry (srcs->v[0]));
     }
     pixels {
-	aktive_blit_unary1 (block, dst, @@function@@, param->@@pname@@, aktive_region_fetch_area (0, request));
+	aktive_block* src = aktive_region_fetch_area (0, request);
+	#define AH     (dst->height)
+	#define AW     (dst->width)
+	#define AX     (dst->x)
+	#define AY     (dst->y)
+	#define DD     (block->domain.depth)
+	#define DH     (block->domain.height)
+	#define DST    (block->pixel)
+	#define DSTCAP (block->used)
+	#define DW     (block->domain.width)
+	#define SD     (src->domain.depth)
+	#define SH     (src->domain.height)
+	#define SRC    (src->pixel)
+	#define SRCCAP (src->used)
+	#define SW     (src->domain.width)
+	double parama = param->@@pname@@;
+	@@unary1@@
     }
 }
 
@@ -176,16 +233,16 @@ operator {                    function      mathfunc flip dexpr      pname     p
 # # ## ### ##### ######## ############# #####################
 ## Unary with two parameters
 
-operator {function lowkind highkind mode} {
-    op::math1::inside-oo   aktive_inside_oo  open   open   inside
-    op::math1::inside-oc   aktive_inside_oc  open   closed inside
-    op::math1::inside-co   aktive_inside_co  closed open   inside
-    op::math1::inside-cc   aktive_inside_cc  closed closed inside
+operator {                 function    lowkind  highkind  mode} {
+    op::math1::inside-oo   inside_oo   open     open      inside
+    op::math1::inside-oc   inside_oc   open     closed    inside
+    op::math1::inside-co   inside_co   closed   open      inside
+    op::math1::inside-cc   inside_cc   closed   closed    inside
 
-    op::math1::outside-oo  aktive_outside_oo open   open   outside
-    op::math1::outside-oc  aktive_outside_oc open   closed outside
-    op::math1::outside-co  aktive_outside_co closed open   outside
-    op::math1::outside-cc  aktive_outside_cc closed closed outside
+    op::math1::outside-oo  outside_oo  open     open      outside
+    op::math1::outside-oc  outside_oc  open     closed    outside
+    op::math1::outside-co  outside_co  closed   open      outside
+    op::math1::outside-cc  outside_cc  closed   closed    outside
 } {
     section transform math unary
 
@@ -201,17 +258,38 @@ operator {function lowkind highkind mode} {
     double low   Lower $lowkind boundary
     double high  Upper $highkind boundary
 
-    simplify for   constant $function low high
+    simplify for   constant aktive_$function low high
 
     # TODO *side-* Chain reduction is possible -- new operator takes in the information
     # TODO from the input, and stacks on the input/child, ignoring the input.
+
+    blit unary2 {
+	{AH    {y  AY 1 up} {y  0 1 up}}
+	{AW*DD {xz AX 1 up} {xz 0 1 up}}
+    } vec/unary/$function
 
     state -setup {
 	aktive_geometry_copy (domain, aktive_image_get_geometry (srcs->v[0]));
     }
     pixels {
-	aktive_blit_unary2 (block, dst, @@function@@, param->low, param->high,
-			    aktive_region_fetch_area (0, request));
+	aktive_block* src = aktive_region_fetch_area (0, request);
+	#define AH     (dst->height)
+	#define AW     (dst->width)
+	#define AX     (dst->x)
+	#define AY     (dst->y)
+	#define DD     (block->domain.depth)
+	#define DH     (block->domain.height)
+	#define DST    (block->pixel)
+	#define DSTCAP (block->used)
+	#define DW     (block->domain.width)
+	#define SD     (src->domain.depth)
+	#define SH     (src->domain.height)
+	#define SRC    (src->pixel)
+	#define SRCCAP (src->used)
+	#define SW     (src->domain.width)
+	double parama = param->low;
+	double paramb = param->high;
+	@@unary2@@
     }
 }
 

@@ -43,22 +43,21 @@ proc logical {} { ::return {
     op::math::xor
 }}
 
-operator {cfunction dexpr} {
-    op::math::nand      aktive_nand  {!(A && B)}
-    op::math::nor       aktive_nor   {!(A || B)}
-
-    op::math::atan2     atan2        {atan2(A, B)}
-    op::math::div       aktive_div   {A / B}
-    op::math::eq        aktive_eq    {A == B}
-    op::math::ge        aktive_ge    {A >= B}
-    op::math::gt        aktive_gt    {A > B}
-    op::math::hypot     hypot        {hypot (A, B)}
-    op::math::le        aktive_le    {A <= B}
-    op::math::lt        aktive_lt    {A < B}
-    op::math::mod       fmod         {A % B}
-    op::math::ne        aktive_ne    {A != B}
-    op::math::pow       pow          {pow (A, B)}
-    op::math::sub       aktive_sub   {A - B}
+operator {              cfunction    vfunction  dexpr} {
+     op::math::nand      aktive_nand  nand       {!(A && B)}
+   op::math::nor       aktive_nor   nor        {!(A || B)}
+     op::math::atan2     atan2        atan2      {atan2(A, B)}
+     op::math::div       aktive_div   div        {A / B}
+     op::math::eq        aktive_eq    eq         {A == B}
+     op::math::ge        aktive_ge    ge         {A >= B}
+   op::math::gt        aktive_gt    gt         {A > B}
+     op::math::hypot     hypot        hypot      {hypot (A, B)}
+   op::math::le        aktive_le    le         {A <= B}
+     op::math::lt        aktive_lt    lt         {A < B}
+     op::math::mod       fmod         fmod       {A % B}
+     op::math::ne        aktive_ne    ne         {A != B}
+     op::math::pow       pow          pow        {pow (A, B)}
+     op::math::sub       aktive_sub   sub        {A - B}
 } {
     op -> _ _ fun
 
@@ -79,6 +78,11 @@ operator {cfunction dexpr} {
     input a	Image A
     input b	Image B
 
+    blit binary {
+	{AH    {y  AY 1 up} {y  0 1 up} {y  0 1 up}}
+	{AW*DD {xz AX 1 up} {xz 0 1 up} {xz 0 1 up}}
+    } vec/binary/$vfunction
+
     state -setup {
 	aktive_geometry* a = aktive_image_get_geometry (srcs->v[0]);
 	aktive_geometry* b = aktive_image_get_geometry (srcs->v[1]);
@@ -94,9 +98,36 @@ operator {cfunction dexpr} {
 	// As the result geometry is the intersection of the inputs
 	// we trivially know that the request is good for both inputs.
 
-	aktive_blit_binary (block, dst, @@cfunction@@,
-			    aktive_region_fetch_area (0, request),
-			    aktive_region_fetch_area (1, request));
+	aktive_block* src0 = aktive_region_fetch_area (0, request);
+	aktive_block* src1 = aktive_region_fetch_area (1, request);
+
+	if ((block->domain.depth != src0->domain.depth) ||
+	    (block->domain.depth != src1->domain.depth)) {
+	    // mismatching depths -> xz-folding not possible - fall back to base form
+	    aktive_blit_binary (block, dst, @@cfunction@@, src0, src1);
+	} else {
+	    // all depths matching -> fold x/z, and vector functions
+	    #define AH      (dst->height)
+	    #define AW      (dst->width)
+	    #define AX      (dst->x)
+	    #define AY      (dst->y)
+	    #define DD      (block->domain.depth)
+	    #define DH      (block->domain.height)
+	    #define DST     (block->pixel)
+	    #define DSTCAP  (block->used)
+	    #define DW      (block->domain.width)
+	    #define S0D     (src0->domain.depth)
+	    #define S0H     (src0->domain.height)
+	    #define SRC0    (src0->pixel)
+	    #define SRC0CAP (src0->used)
+	    #define S0W     (src0->domain.width)
+	    #define S1D     (src1->domain.depth)
+	    #define S1H     (src1->domain.height)
+	    #define SRC1    (src1->pixel)
+	    #define SRC1CAP (src1->used)
+	    #define S1W     (src1->domain.width)
+	    @@binary@@
+	}
     }
 }
 

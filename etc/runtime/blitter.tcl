@@ -60,10 +60,11 @@ dsl blit into generated/blit/unarygz.c {
     {DD {z 0  1 up} {z 0 1 up}}
 } {apply1z op param}
 
-# aktive_blit_binary
+# aktive_blit_binary - no xz folding - sources may have different depths
 dsl blit into generated/blit/binary.c {
-    {AH    {y  AY 1 up} {y  0 1 up} {y  0 1 up}}
-    {AW*DD {xz AX 1 up} {xz 0 1 up} {xz 0 1 up}}
+    {AH    {y AY 1 up} {y 0 1 up} {y  0 1 up}}
+    {AW    {x AX 1 up} {x 0 1 up} {x 0 1 up}}
+    {DD    {z  0 1 up} {z 0 1 up} {z 0 1 up}}
 } {apply2 op}
 
 # aktive_blit_cunary
