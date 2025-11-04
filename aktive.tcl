@@ -44,6 +44,8 @@ critcl::subject {image transformation} {data structures} {image io}
 critcl::subject {image reading} {image writing} {image composition}
 critcl::subject {vector operations} {matrix operations}
 
+critcl::userconfig define benchmarks {} bool 0
+
 # # ## ### ##### ######## ############# #####################
 ## Implementation.
 
@@ -98,44 +100,12 @@ dsl structs render doc/dev/figures
 # # ## ### ##### ######## ############# #####################
 ## color database
 
-apply {{} {
-    # read color table
-    set chan [open data/cssNamedColors.csv r]
-    set colors [lrange [split [string trim [read $chan]] \n] 1 end]
-    close $chan
+source data/css-named-colors.tcl	;# emits (x) `generated/color.tcl`
 
-    # create database (dict)
-    foreach color $colors {
-	lassign [split $color ,] _ name hex
+# # ## ### ##### ######## ############# #####################
+## definitions for math vector functions
 
-	set code [expr 0x[string range $hex 1 end]] ;#note: not braced
-
-	set red   [expr {double(($code >> 16) & 0xFF)/255}]
-	set green [expr {double(($code >>  8) & 0xFF)/255}]
-	set blue  [expr {double(($code >>  0) & 0xFF)/255}]
-	set rgb   [list $red $green $blue]
-
-	lappend map "\t    $name\t[list $rgb]"
-    }
-    set map [join $map \n]
-
-    # save database together with its access command
-
-    set   chan [open generated/color.tcl w]
-    puts $chan [string map [list "\n\t" "\n" "\n    " "\n" @@@@ $map] {
-	proc aktive::color::css {name} {
-	    try {
-		return [dict get {
-	@@@@
-		} $name]
-	    } on error {e} {
-		return -code error "Unknown color '$name', expected a valid CSS color name"
-	    }
-	}
-    }]
-    close $chan
-    return
-}}
+source data/math-gen.tcl	;# emits (xx) `generated/vector_direct.[ch]`
 
 # # ## ### ##### ######## ############# #####################
 
@@ -157,6 +127,7 @@ critcl::csources runtime/*.c
 critcl::include  runtime/rt.h
 critcl::cheaders op/*.h
 critcl::csources op/*.c
+critcl::csources generated/vector_direct.c	;# Vector support
 
 # Types ## ##### ######## ############# #####################
 
@@ -170,6 +141,7 @@ critcl::include generated/vector-funcs.h        ;# Variadic support
 critcl::include generated/param-funcs.h         ;# Parameter block variadic init/finish
 critcl::include generated/type-funcs.h          ;# Type conversions
 critcl::include generated/op-funcs.h            ;# Operators
+critcl::include generated/vector_direct.h       ;# Vector support
 
 # Variables #### ######## ############# #####################
 
@@ -208,6 +180,17 @@ critcl::source   op/meta.tcl	;# meta data core set
 critcl::tsources meta.tcl	;# meta data dict wrapper
 
 # # ## ### ##### ######## ############# #####################
+## Benchmarking support code & commands.
+## Used if only if the package is built for benchmarking.
+
+if {[critcl::userconfig query benchmarks]} {
+    critcl::msg vector-bench-support\tACTIVE
+    critcl::source bench.tcl
+} else {
+    critcl::msg vector-bench-support\tinactive
+}
+
+# # ## ### ##### ######## ############# #####################
 ## Versioning information and exposure, processor count set/get
 
 critcl::cconst aktive::version char* {"0.0"}
@@ -226,7 +209,7 @@ critcl::source   generated/glue.tcl             ;# Tcl-level operator constructi
 #
 critcl::tsources generated/overlay.tcl		;# Peep-hole optimizer overlays
 critcl::tsources generated/ensemble.tcl         ;# Command hierarchy for preceding
-critcl::tsources generated/color.tcl            ;# Color database commands
+critcl::tsources generated/color.tcl            ;# Color database commands - (x) `data/css-named-colors.tcl`
 #                                               ;# Pure Tcl commands
 critcl::tsources generated/ops.tcl              ;# - Operators built in Tcl
 critcl::tsources simplifier.tcl			;# - Simplifier runtime used by overlay.tcl
