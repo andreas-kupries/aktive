@@ -25,7 +25,7 @@ proc ::dsl::blit::action::optimize {action} {
 	if {![dict exists $db $name]} { E "$name not defined" }
 	set spec [dict get $db $name]
 	dict with spec {}
-	# -> code, comment, optimize, virtual, nopos, allowsrc
+	# -> code, comment, optimize, virtual, nopos, allowsrc, vector
 	set new [{*}$optimize $action]
 	if {$new eq $action} { return $action } ;# passed unchanged - stop
 	set action $new
@@ -38,8 +38,8 @@ proc ::dsl::blit::action::flags {action} {
    if {![dict exists $db $name]} { E "$name not defined" }
     set spec [dict get $db $name]
     dict with spec {}
-    # -> code, comment, optimize, virtual, nopos, allowsrc
-    list $virtual $nopos $allowsrc
+    # -> code, comment, optimize, virtual, nopos, allowsrc, vector
+    list $virtual $nopos $allowsrc $vector
 }
 
 proc ::dsl::blit::action::emit {action} {
@@ -48,7 +48,7 @@ proc ::dsl::blit::action::emit {action} {
    if {![dict exists $db $name]} { E "$name not defined" }
     set spec [dict get $db $name]
     dict with spec {}
-    # -> code, comment, optimize, virtual, nopos, allowsrc
+    # -> code, comment, optimize, virtual, nopos, allowsrc, vector
     {*}$comment $action
     {*}$code {*}$args
     return
@@ -64,6 +64,7 @@ proc ::dsl::blit::action::new {name specification} {
     #               'virtual'  -> bool   /optional /default false
     #               'nopos'    -> bool   /optional /default false
     #               'allowsrc' -> bool   /optional /default true
+    #               'vector'   -> bool   /optional /default false /xz vector action
 
     set spec [dict merge {
 	code     {}
@@ -72,9 +73,10 @@ proc ::dsl::blit::action::new {name specification} {
 	virtual  no
 	nopos    no
 	allowsrc yes
+	vector   no
     } $specification]
     dict with spec {}
-    # -> code, comment, optimize, virtual, nopos, allowsrc
+    # -> code, comment, optimize, virtual, nopos, allowsrc, vector
 
     if {$code eq {}} { E "$name has no code" }
 

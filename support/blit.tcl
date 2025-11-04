@@ -75,9 +75,9 @@ proc dsl::blit::gen {name blit function} {
     EmitAxisSupport
     EmitRangeSupport $blit
     EmitBlitTraceHeader
-    set depth 0 ; foreach scan $blit { EmitIteratorOpen $scan $depth ; incr depth }
+    set depth 0 ; foreach scan $blit { EmitIteratorOpen  $scan $depth ; incr depth }
     EmitBlitBody $function
-    foreach scan [lreverse $blit]    { EmitIteratorClose }
+    foreach scan [lreverse $blit]    { EmitIteratorClose $scan }
     EmitTrailer $name
 
     # Prepend the introduction to the code generated so far. This is done out of order
@@ -221,6 +221,7 @@ proc dsl::blit::EmitIteratorOpen {scan depth} {
 
 proc dsl::blit::EmitIteratorOpenCore {cmd scan} {
     variable spec::prefixes
+    variable spec::vector
 
     lf
     // $scan
@@ -235,6 +236,22 @@ proc dsl::blit::EmitIteratorOpenCore {cmd scan} {
 
     # special variables for fractional stepper
     foreach iterator $iterators { IteratorPhase $iterator }
+
+    # vectorized xz ? emit no loop. only pseudo-loop start (start, range) for vector op
+    if {([lindex $iterators 0 0] eq "xz") && $vector} {
+	# note: assumes that we do not do fractional stepping
+	# note: assumes that direction is up, step 1
+	# TODO :: ensure in setup that this cannot happen
+
+	# vector setup - start variables of the non-loop
+	// "setup vectorized xz"
+	+ "aktive_uint vecrange = range[level]n;"
+	foreach iterator $iterators var $variables prefix $prefixes {
+	    lassign $iterator axis min delta direction
+	    + "$var = [IteratorStart $prefix $iterator $range];"
+	}
+	return
+    }
 
     # iterator setup command
     append cmd " \([level], range[level]n"
@@ -251,7 +268,12 @@ proc dsl::blit::EmitIteratorOpenCore {cmd scan} {
     return
 }
 
-proc dsl::blit::EmitIteratorClose {} {
+proc dsl::blit::EmitIteratorClose {scan} {
+    # vectorized xz has no loop, nothing to close
+    variable spec::vector
+    set iterators [lassign $scan range]
+    if {([lindex $iterators 0 0] eq "xz") && $vector} return
+
     <<<
     + "\}"
 }

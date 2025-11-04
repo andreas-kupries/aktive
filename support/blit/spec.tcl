@@ -11,6 +11,7 @@ namespace eval ::dsl::blit::spec {
     variable virtual  {} ;# bool /action is virtual
     variable nopos    {} ;# bool /action does not require linear pos
     variable allowsrc {} ;# bool /action may have source iterators
+    variable vector   {} ;# bool /action is vector op for xz
     variable fracs    {} ;# bool /isfractional, across all blocks
     variable axes     {} ;# dict (prefix -> list(axis...)) /custom order: y x z!
     variable hasxz    {} ;# bool /xz special axis is present (ensured to be innermost)
@@ -34,12 +35,13 @@ proc ::dsl::blit::spec::setup {blit function} {
     variable virtual  0  ;# ok
     variable nopos    0  ;# ok
     variable allowsrc 1  ;# ok
+    variable vector   0  ;# ok
     variable fracs    0  ;# ok
     variable axes     {} ;# ok
     variable hasxz    0  ;# ok
 
     set function [action optimize $function]
-    lassign [action flags $function] virtual nopos allowsrc
+    lassign [action flags $function] virtual nopos allowsrc vector
     set depth [llength $blit]
     if {!$depth} { E "empty" }
 
@@ -86,6 +88,8 @@ proc ::dsl::blit::spec::setup {blit function} {
 	if {![HasXZ $inner]} { E "`xz` axis is not on innermost scan" }
 	if {![HasY  $outer]} { E "`y` axis is not on outer scan for nest using `xz` axis" }
     }
+
+    if {$vector && !$hasxz} { E "vector action requires use of `xz` axis" }
     return
 }
 
