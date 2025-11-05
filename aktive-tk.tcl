@@ -62,11 +62,11 @@ namespace eval ::aktive::tk {
 ##       reading PNG.
 
 proc ::aktive::tk::image {photo} {
-    return [aktive read from netpbm string value [$photo data -format ppm]
+    return [aktive read from netpbm string value [$photo data -format ppm]]
 }
 
 proc ::aktive::tk::photo {image} {
-    return [::image create photo -data [String $image]
+    return [::image create photo -data [String $image]]
 }
 
 proc ::aktive::tk::photo= {photo image} {
