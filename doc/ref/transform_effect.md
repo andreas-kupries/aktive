@@ -52,7 +52,7 @@ The underlying operation is [aktive warp 2cartesian](generator_virtual_warp.md#w
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
-|interpolate|str|bilinear|Interpolation method to use.|
+|interpolate|str|bilinear|[Interpolation method](interpolation.md) to use.|
 
 #### <a name='effect_2cartesian__examples'></a> Examples
 
@@ -102,7 +102,7 @@ The underlying operation is [aktive warp 2polar](generator_virtual_warp.md#warp_
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
-|interpolate|str|bilinear|Interpolation method to use.|
+|interpolate|str|bilinear|[Interpolation method](interpolation.md) to use.|
 
 #### <a name='effect_2polar__examples'></a> Examples
 
@@ -253,7 +253,7 @@ The underlying operation is [aktive warp noise gauss](generator_virtual_warp.md#
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
-|interpolate|str|bilinear|Interpolation method to use|
+|interpolate|str|bilinear|[Interpolation method](interpolation.md) to use.|
 |seed|uint|[expr {int(4294967296*rand())}]|Randomizer seed. Needed only to force fixed results.|
 |mean|double|0|Mean of the desired gauss distribution.|
 |sigma|double|1|Sigma of the desired gauss distribution.|
@@ -309,7 +309,7 @@ The underlying operation is [aktive warp noise uniform](generator_virtual_warp.m
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
-|interpolate|str|bilinear|Interpolation method to use|
+|interpolate|str|bilinear|[Interpolation method](interpolation.md) to use.|
 |seed|uint|[expr {int(4294967296*rand())}]|Randomizer seed. Needed only to force fixed results.|
 |min|double|0|Minimal noise value|
 |max|double|1|Maximal noise value|
@@ -494,7 +494,7 @@ The underlying operation is [aktive warp swirl](generator_virtual_warp.md#warp_s
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
-|interpolate|str|bilinear|Interpolation method to use.|
+|interpolate|str|bilinear|[Interpolation method](interpolation.md) to use.|
 |center|point|{}|Center of the swirl, default center of the image.|
 |phi|double|0|In degrees, fixed rotation to apply. Default none.|
 |from|double|45|In degrees, swirl rotation at distance 0 from center.|
@@ -564,7 +564,7 @@ The underlying operation is [aktive warp wobble](generator_virtual_warp.md#warp_
 |frequency|double|2|Base wave frequency.|
 |chirp|double|0.5|Chirp (power) factor modulating the frequency.|
 |attenuation|double|0.6|Power factor tweaking the base 1/x attenuation.|
-|interpolate|str|bilinear|Interpolation method to use.|
+|interpolate|str|bilinear|[Interpolation method](interpolation.md) to use.|
 
 #### <a name='effect_wobble__examples'></a> Examples
 

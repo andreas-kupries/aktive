@@ -199,7 +199,7 @@ For an image without parameters the result is the empty dictionary.
     <br>(zone width 32 height 32)</th>
     <th>aktive query params @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00691.gif' alt='@1 (zone width 32 height 32)' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00703.gif' alt='@1 (zone width 32 height 32)' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;width 32 height 32</td></tr>
 </table>
@@ -209,7 +209,7 @@ For an image without parameters the result is the empty dictionary.
     <br>(gradient width 32 height 32 depth 1 first 0 last 1)</th>
     <th>aktive query params @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00693.gif' alt='@1 (gradient width 32 height 32 depth 1 first 0 last 1)' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00705.gif' alt='@1 (gradient width 32 height 32 depth 1 first 0 last 1)' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;width 32 height 32 depth 1 first 0.0 last 1.0</td></tr>
 </table>
@@ -235,7 +235,7 @@ This includes type, geometry, and parameters, if any. The inputs however are exc
     <br>(zone width 32 height 32)</th>
     <th>aktive query setup @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00703.gif' alt='@1 (zone width 32 height 32)' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00715.gif' alt='@1 (zone width 32 height 32)' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;type image::zone domain {x 0 y 0 width 32 height 32 depth 1} config {width 32 height 32}</td></tr>
 </table>
@@ -245,7 +245,7 @@ This includes type, geometry, and parameters, if any. The inputs however are exc
     <br>&nbsp;</th>
     <th>aktive query setup @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00705.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00717.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;type image::gradient domain {x 0 y 0 width 32 height 32 depth 1} config {width 32 height 32 depth 1 first 0.0 last 1.0}</td></tr>
 </table>
@@ -269,7 +269,7 @@ Returns the input's type.
     <br>&nbsp;</th>
     <th>aktive query type @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00711.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00723.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;image::zone</td></tr>
 </table>
@@ -279,7 +279,7 @@ Returns the input's type.
     <br>&nbsp;</th>
     <th>aktive query type @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00713.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00725.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;image::gradient</td></tr>
 </table>

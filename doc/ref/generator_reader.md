@@ -44,14 +44,14 @@ Construct image from file content in the native AKTIVE/BE format.
 <a name='read_from_aktive_be_file__examples__e1'></a><table>
 <tr><th>aktive read from aktive-be file path tests/assets/results/format-colorbox.aktive-be
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00739.gif' alt='aktive read from aktive-be file path tests/assets/results/format-colorbox.aktive-be' style='border:4px solid gold'>
+<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00751.gif' alt='aktive read from aktive-be file path tests/assets/results/format-colorbox.aktive-be' style='border:4px solid gold'>
     <br>geometry(0 0 64 64 3)</td></tr></table></td></tr>
 </table>
 
 <a name='read_from_aktive_be_file__examples__e2'></a><table>
 <tr><th>aktive read from aktive-be file path tests/assets/results/format-graybox.aktive-be
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00740.gif' alt='aktive read from aktive-be file path tests/assets/results/format-graybox.aktive-be' style='border:4px solid gold'>
+<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00752.gif' alt='aktive read from aktive-be file path tests/assets/results/format-graybox.aktive-be' style='border:4px solid gold'>
     <br>geometry(0 0 64 64 1)</td></tr></table></td></tr>
 </table>
 
@@ -83,14 +83,14 @@ Construct image from file content in the native AKTIVE/LE format.
 <a name='read_from_aktive_file__examples__e1'></a><table>
 <tr><th>aktive read from aktive file path tests/assets/results/format-colorbox.aktive
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00741.gif' alt='aktive read from aktive file path tests/assets/results/format-colorbox.aktive' style='border:4px solid gold'>
+<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00753.gif' alt='aktive read from aktive file path tests/assets/results/format-colorbox.aktive' style='border:4px solid gold'>
     <br>geometry(0 0 64 64 3)</td></tr></table></td></tr>
 </table>
 
 <a name='read_from_aktive_file__examples__e2'></a><table>
 <tr><th>aktive read from aktive file path tests/assets/results/format-graybox.aktive
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00742.gif' alt='aktive read from aktive file path tests/assets/results/format-graybox.aktive' style='border:4px solid gold'>
+<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00754.gif' alt='aktive read from aktive file path tests/assets/results/format-graybox.aktive' style='border:4px solid gold'>
     <br>geometry(0 0 64 64 1)</td></tr></table></td></tr>
 </table>
 
@@ -137,14 +137,14 @@ The PBM format is not supported.
 <a name='read_from_netpbm_file__examples__e1'></a><table>
 <tr><th>aktive read from netpbm file path tests/assets/sines.ppm
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00743.gif' alt='aktive read from netpbm file path tests/assets/sines.ppm' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00755.gif' alt='aktive read from netpbm file path tests/assets/sines.ppm' style='border:4px solid gold'>
     <br>geometry(0 0 256 256 3)</td></tr>
 </table>
 
 <a name='read_from_netpbm_file__examples__e2'></a><table>
 <tr><th>aktive read from netpbm file path tests/assets/crop.pgm
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00744.gif' alt='aktive read from netpbm file path tests/assets/crop.pgm' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00756.gif' alt='aktive read from netpbm file path tests/assets/crop.pgm' style='border:4px solid gold'>
     <br>geometry(0 0 300 200 1)</td></tr>
 </table>
 

@@ -35,6 +35,7 @@
     - [drawing](transform_drawing.md)
     - [effect](transform_effect.md)
     - [geometry](transform_geometry.md)
+    - [gradient](transform_gradient.md)
     - [identity](transform_identity.md)
     - [kuwahara](transform_kuwahara.md)
     - [location](transform_location.md)

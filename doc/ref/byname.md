@@ -589,6 +589,8 @@
  - [aktive op split x](transform_structure.md#op_split_x)
  - [aktive op split y](transform_structure.md#op_split_y)
  - [aktive op split z](transform_structure.md#op_split_z)
+ - [aktive op structure lines](transform_gradient.md#op_structure_lines)
+ - [aktive op structure tensor](transform_gradient.md#op_structure_tensor)
  - [aktive op swap xy](transform_structure.md#op_swap_xy)
  - [aktive op swap xz](transform_structure.md#op_swap_xz)
  - [aktive op swap yz](transform_structure.md#op_swap_yz)

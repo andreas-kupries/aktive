@@ -69,6 +69,7 @@
   - [geometry &mdash; transform](transform_geometry.md)
   - [global &mdash; histogram equalization transform](transform_global_histogram_equalization.md)
   - [global &mdash; histogram transform](transform_global_histogram.md)
+  - [gradient &mdash; transform](transform_gradient.md)
 
 ## <a name='_h'></a> h
 
@@ -154,6 +155,7 @@
   - [transform &mdash; geometry](transform_geometry.md)
   - [transform &mdash; global histogram](transform_global_histogram.md)
   - [transform &mdash; global histogram equalization](transform_global_histogram_equalization.md)
+  - [transform &mdash; gradient](transform_gradient.md)
   - [transform &mdash; identity](transform_identity.md)
   - [transform &mdash; kuwahara](transform_kuwahara.md)
   - [transform &mdash; location](transform_location.md)

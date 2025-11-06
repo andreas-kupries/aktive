@@ -619,6 +619,8 @@ The operators listed here are implemented wholly in Tcl.
  - [aktive op split x](transform_structure.md#op_split_x)
  - [aktive op split y](transform_structure.md#op_split_y)
  - [aktive op split z](transform_structure.md#op_split_z)
+ - [aktive op structure lines](transform_gradient.md#op_structure_lines)
+ - [aktive op structure tensor](transform_gradient.md#op_structure_tensor)
  - [aktive op tile median](transform_statistics.md#op_tile_median)
  - [aktive op transform by](transform_structure_warp.md#op_transform_by)
  - [aktive op transpose](transform_structure.md#op_transpose)

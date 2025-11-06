@@ -642,7 +642,7 @@ This is a convenience operator implemented on top of [aktive op transform by](tr
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
-|interpolate|str|bilinear|Interpolation method to use|
+|interpolate|str|bilinear|[Interpolation method](interpolation.md) to use.|
 |width|uint||Desired width of the result|
 |height|uint||Desired height of the result|
 
@@ -677,7 +677,7 @@ This is a convenience operator implemented on top of [aktive op transform by](tr
 |:---|:---|:---|:---|
 |by|double||In degrees, angle to rotate|
 |around|point|{}|Rotation center. Default is the origin|
-|interpolate|str|bilinear|Interpolation method to use|
+|interpolate|str|bilinear|[Interpolation method](interpolation.md) to use.|
 
 #### <a name='op_rotate_any__examples'></a> Examples
 
@@ -1494,9 +1494,9 @@ The location of the image is not changed.
     <br>&nbsp;</th>
     <th>aktive op swap xy @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00631.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00643.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00632.gif' alt='aktive op swap xy @1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00644.gif' alt='aktive op swap xy @1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
@@ -1607,9 +1607,9 @@ This is an alias of `swap xy`.
     <br>&nbsp;</th>
     <th>aktive op transpose @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00655.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00667.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00656.gif' alt='aktive op transpose @1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00668.gif' alt='aktive op transpose @1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
@@ -1632,9 +1632,9 @@ Returns image with the input mirrored along the secondary diagonal.
     <br>&nbsp;</th>
     <th>aktive op transverse @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00657.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00669.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00658.gif' alt='aktive op transverse @1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00670.gif' alt='aktive op transverse @1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
