@@ -72,7 +72,7 @@ operator op::transform::by {
 	The projective matrix is materialized for the calculation of \
 	the backward transform.
 
-    str? bilinear interpolate   Interpolation method to use
+    str? bilinear interpolate   \[Interpolation method](interpolation.md) to use.
 
     input transform	Affine forward transformation.
     input src		The image to transform.

@@ -19,7 +19,7 @@ operator op::resize   {
 
     note This is a convenience operator implemented on top of "<!xref: aktive op transform by>."
 
-    str? bilinear interpolate   Interpolation method to use
+    str? bilinear interpolate   \[Interpolation method](interpolation.md) to use.
 
     uint          width         Desired width of the result
     uint          height        Desired height of the result

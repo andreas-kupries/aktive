@@ -74,7 +74,7 @@ operator op::rotate::any   {
     double      by     In degrees, angle to rotate
     point? {{}} around Rotation center. Default is the origin
 
-    str? bilinear interpolate   Interpolation method to use
+    str? bilinear interpolate   \[Interpolation method](interpolation.md) to use.
 
     input
 

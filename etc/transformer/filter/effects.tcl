@@ -27,7 +27,7 @@ operator effect::2polar {
 
     note The underlying operation is "<!xref: aktive warp 2polar>."
 
-    str? bilinear interpolate   Interpolation method to use.
+    str? bilinear interpolate   \[Interpolation method](interpolation.md) to use.
 
     input
 
@@ -60,7 +60,7 @@ operator effect::2cartesian {
 
     note The underlying operation is "<!xref: aktive warp 2cartesian>."
 
-    str? bilinear interpolate   Interpolation method to use.
+    str? bilinear interpolate   \[Interpolation method](interpolation.md) to use.
 
     input
 
@@ -99,7 +99,7 @@ operator effect::wobble {
 
     note The underlying operation is "<!xref: aktive warp wobble>."
 
-    str? bilinear interpolate   Interpolation method to use.
+    str? bilinear interpolate   \[Interpolation method](interpolation.md) to use.
 
     input
 
@@ -142,7 +142,7 @@ operator effect::swirl {
 
     note The underlying operation is "<!xref: aktive warp swirl>."
 
-    str? bilinear interpolate   Interpolation method to use.
+    str? bilinear interpolate   \[Interpolation method](interpolation.md) to use.
 
     # swirl configuration
     point?  {{}} center  Center of the swirl, default center of the image.
@@ -190,7 +190,7 @@ operator effect::jitter::uniform {
 
     note The underlying operation is "<!xref: aktive warp noise uniform>."
 
-    str? bilinear interpolate   Interpolation method to use
+    str? bilinear interpolate   \[Interpolation method](interpolation.md) to use.
 
     # jitter configuration
     uint? {[expr {int(4294967296*rand())}]} seed \
@@ -232,7 +232,7 @@ operator effect::jitter::gauss {
 
     note The underlying operation is "<!xref: aktive warp noise gauss>."
 
-    str? bilinear interpolate   Interpolation method to use
+    str? bilinear interpolate   \[Interpolation method](interpolation.md) to use.
 
     # jitter configuration
     uint? {[expr {int(4294967296*rand())}]} seed \
