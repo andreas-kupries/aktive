@@ -82,6 +82,7 @@ import transformer/cc.tcl
 import transformer/identity.tcl
 import transformer/location.tcl
 import transformer/meta.tcl
+import transformer/structure-tensor.tcl
 import transformer/viewport.tcl
 
 import transformer/filter/convolve.tcl

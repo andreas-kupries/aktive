@@ -550,9 +550,10 @@ proc dsl::reader::example {{spec {}}} { ;#puts [info level 0]
 	# extend the last generation part with the command to demonstrate, except if
 	# overridden by spec
 	incr n -1
-	if {($n == 0) && ![string match {aktive *} $gen]} {
+	if {($n == 0) && ![string match {aktive *} $gen] && ![string match {!!*} $gen]} {
 	    set gen "aktive [string map {:: { }} [Get opname]] $gen"
 	}
+	set gen [string trim $gen !]
 	# scan modifiers for result formatting, extract, remove
 	set show {}
 	set format image
