@@ -16,3 +16,4 @@
   - [AKTIVE vs NETPBM](aktive-netpbm/README.md)
   - [AKTIVE LE vs BE](aktive-read-le/README.md)
   - [Blit Fill y/x/z vs y/xz](blit-fill/README.md)
+  - [Vector Math](vecops/README.md)

@@ -15,11 +15,11 @@ lappend ops unary  [list {*}$unary0 {*}$unary1 {*}$unary2]
 lappend ops binary $binary
 
 foreach {
-    section ops
+    section operations
 } $ops {
     foreach {
 	name spec
-    } $ops {
+    } $operations {
 	set chart {}
 	lappend map @@ $name
 	foreach unroll {1 2 4} {
@@ -72,7 +72,7 @@ puts "generating gnuplot spec ..."
 
 proc + {{s {}}} { lappend ::lines $s }
 proc // {{s {}}} { if {$s ne {}} { set s " $s" } ; + "#$s" }
-proc g {}  { join $::lines \n }
+proc g {}  { set result [join $::lines \n] ; set ::lines {} ; return $result }
 proc w {p s} {
     puts "writing gnuplot spec: $p"
     set chan [open $p w] ; puts -nonewline $chan $s ; close $chan }
@@ -134,7 +134,7 @@ foreach {
 	set prefix ", \\\n    "
 	incr col
     }
-    + "set title \"vector execution times: $op\""
+    + "set title \"vector execution speed: $op\""
     + "set output \"ispeed-$id.svg\""
     + $plotcmd
     +
@@ -144,9 +144,79 @@ foreach {
 
 w generated/vector.gnuplot [g]
 
+# # ## ### ##### ######## ############# #####################
+## gnuplot rendering
+
 puts "rendering gnuplot spec ..."
 
 exec 2>@ stderr >@ stdout gnuplot generated/vector.gnuplot
 
 puts "... done"
+
+# # ## ### ##### ######## ############# #####################
+## stash charts (.csv) and renders (.svg) into the bench area
+
+file delete -force bench/plots/vecops/csv ; file mkdir bench/plots/vecops/csv
+file delete -force bench/plots/vecops/svg ; file mkdir bench/plots/vecops/svg
+
+file rename -force {*}[glob -type f *.csv] bench/plots/vecops/csv
+file rename -force {*}[glob -type f *.svg] bench/plots/vecops/svg
+
+# # ## ### ##### ######## ############# #####################
+## Create README
+
+puts "generating README ..."
+
++ {<img src='../../../doc/assets/aktive-logo-128.png' style='float:right;'>}
++
++ "Benchmark results for basic vector support using scalar loop at various levels of unrolling"
++
++ {||}
++ {|---|}
++ {|[Parent ↗](../README.md)|}
++
++ "## Summary"
++ [string map [list "    " ""] {
+    All math functions with vector support were implemented via scalar
+    loops, at three levels of unrolling (1, i.e. none, 2, and 4).
+
+      - Not unrolled was generally worst.
+      - 4-unrolled was generally best, and where not, it was not worse than without unrolling.
+      - 2-unrolled was generally between the two above.
+
+    It is noted that unrolling generally did not help for the more
+    complicated functions, like `sin`, `cos,` etc. Simple math on the
+    other hand showed clear differences with the advantage to the
+    4-unrolled loops.
+
+    It is suspected that the more complicated functions could/were not
+    inlined into the loop, causing the unrolled loops to not take
+    proper advantage of super-scalar execution, only of reduced loop
+    overhead. Which was not strong enough to show up in the numbers.
+
+    Chosen to keep the 4-unrolled loops across the board, in the hope
+    of future compiler changes allowing for inlining and optimization.    
+}]
++ "## Plots"
+
+foreach {
+    section operations
+} $ops {
+    foreach {
+	name spec
+    } $operations {
+	set speed "svg/ispeed-vecops-${section}-$name.svg"
+	set times "svg/times-vecops-${section}-$name.svg"
+	
+	+
+	+ "\[<img src='$times' style='width:46%;'>]($times.svg)"
+	+ "\[<img src='$speed' style='width:46%;'>]($speed.svg)"
+    }
+}
+
+w bench/plots/vecops/README.md [g]
+
+puts "... done"
+
+# # ## ### ##### ######## ############# #####################
 return
