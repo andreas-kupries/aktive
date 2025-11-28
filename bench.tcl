@@ -8,6 +8,8 @@
 # Commands for use in benchmarks. Do not create when in a non-benchmark environment
 ##
 
+critcl::msg "\t[dsl::reader::cyan "Benchmarking Vector Support"]"
+
 critcl::ccode {
     // Max size vector to operate
     // log10 = 8 (100 Million) ~ 382 Megabyte (sizeof(double) = 4)

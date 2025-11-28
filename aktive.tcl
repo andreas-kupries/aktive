@@ -49,6 +49,8 @@ critcl::userconfig define benchmarks {} bool 0
 # # ## ### ##### ######## ############# #####################
 ## Implementation.
 
+set benchmarking [critcl::userconfig query benchmarks]
+
 ## critcl::tcl 8.6 ##
 
 #::critcl::debug symbols
@@ -79,6 +81,11 @@ critcl::ccode {
 ##   inspected
 
 critcl::source support/dsl.tcl
+
+critcl::msg "[dsl::reader::blue Benchmarking]: [dsl::reader::magenta [dict get {
+  0 No
+  1 YES
+} $benchmarking]]"
 
 # scan for markers the documentation can then reference.
 dsl xref scan \
@@ -127,7 +134,7 @@ critcl::csources runtime/*.c
 critcl::include  runtime/rt.h
 critcl::cheaders op/*.h
 critcl::csources op/*.c
-critcl::csources generated/vector_direct.c	;# Vector support
+critcl::csources generated/vector_direct.c	;# Vector support: Scalar loops
 
 # Types ## ##### ######## ############# #####################
 
@@ -183,12 +190,7 @@ critcl::tsources meta.tcl	;# meta data dict wrapper
 ## Benchmarking support code & commands.
 ## Used if only if the package is built for benchmarking.
 
-if {[critcl::userconfig query benchmarks]} {
-    critcl::msg vector-bench-support\tACTIVE
-    critcl::source bench.tcl
-} else {
-    critcl::msg vector-bench-support\tinactive
-}
+if {$benchmarking} { critcl::source bench.tcl }
 
 # # ## ### ##### ######## ############# #####################
 ## Versioning information and exposure, processor count set/get
