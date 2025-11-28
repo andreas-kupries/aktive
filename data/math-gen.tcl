@@ -1,6 +1,54 @@
 # -*- mode: tcl; fill-column: 90 -*-
 # # ## ### ##### ######## #############
 
+proc direct {section name spec} {
+    upvar 1 vdecl vdecl
+
+    # generate the requested variant for loop unrolling, or all.
+    # use a define to make the requested or highest available
+    # for use by image operations.
+
+    set dsection [string trim $section 012]
+
+    if {[dict exists $spec direct]} {
+	# make all possibilities available
+	direct-gen $section $name direct 1 $spec
+	direct-gen $section $name direct 2 $spec
+	direct-gen $section $name direct 4 $spec
+
+	# make the 4-unrolled available for execution
+	lappend vdecl "#define aktive_vector_${dsection}_$name aktive_vector4_${dsection}_$name"
+    } elseif {[dict exists $spec direct1]} {
+	direct-gen $section $name direct1 1 $spec
+
+	# make the 1-unrolled available for execution
+	lappend vdecl "#define aktive_vector_${dsection}_$name aktive_vector1_${dsection}_$name"
+    } elseif {[dict exists $spec direct2]} {
+	direct-gen $section $name direct2 2 $spec
+
+	# make the 2-unrolled available for execution
+	lappend vdecl "#define aktive_vector_${dsection}_$name aktive_vector2_${dsection}_$name"
+    } elseif {[dict exists $spec direct4]} {
+	direct-gen $section $name direct4 4 $spec
+
+	# make the 4-unrolled available for execution
+	lappend vdecl "#define aktive_vector_${dsection}_$name aktive_vector4_${dsection}_$name"
+    }
+}
+
+proc direct-gen {section name key n spec} {
+    upvar 2 vdecl vdecl vdefs vdefs nlmap nlmap
+
+    set opcode [string trim [dict get $spec $key]]
+    set xmap   [linsert $nlmap end @name@ $name @opcode@ $opcode]
+
+    upvar 2 u${n}_${section}_vdecl declaration
+    upvar 2 u${n}_${section}_vdef  definition
+
+    lappend vdecl [string map $xmap $declaration]
+    lappend vdefs [string map $xmap [string trim $definition]]\n
+}
+
 apply {{} {
     source tests/support/files.tcl	;# catx, touch+
     source data/mathfunc/spec.tcl
@@ -14,14 +62,12 @@ apply {{} {
     set hdefs {}	;# ... definitions, ...
     set hexps {}	;# ... and exported dispatchers
 
+    # common substitutions for the code fragments
     lappend nlmap "\n    " "\n"
     lappend nlmap "\n\t"   "\n    "
 
     foreach {name spec} $unary0 {
-	set opcode [string trim [dict get $spec direct]]
-	set xmap   [linsert $nlmap end @name@ $name @opcode@ $opcode]
-	lappend vdecl [string map $xmap $unary0_vdecl]
-	lappend vdefs [string map $xmap [string trim $unary0_vdef]]\n
+	direct unary0 $name $spec
 
 	if {![dict exists $spec highway]} continue
 
@@ -33,10 +79,7 @@ apply {{} {
     }
 
     foreach {name spec} $unary1 {
-	set opcode [string trim [dict get $spec direct]]
-	set xmap   [linsert $nlmap end @name@ $name @opcode@ $opcode]
-	lappend vdecl [string map $xmap $unary1_vdecl]
-	lappend vdefs [string map $xmap [string trim $unary1_vdef]]\n
+	direct unary1 $name $spec
 
     	if {![dict exists $spec highway]} continue
 
@@ -48,10 +91,7 @@ apply {{} {
     }
 
     foreach {name spec} $unary2 {
-	set opcode [string trim [dict get $spec direct]]
-	set xmap   [linsert $nlmap end @name@ $name @opcode@ $opcode]
-	lappend vdecl [string map $xmap $unary2_vdecl]
-	lappend vdefs [string map $xmap [string trim $unary2_vdef]]\n
+	direct unary2 $name $spec
 
     	if {![dict exists $spec highway]} continue
 
@@ -63,10 +103,7 @@ apply {{} {
     }
 
     foreach {name spec} $binary {
-	set opcode [string trim [dict get $spec direct]]
-	set xmap   [linsert $nlmap end @name@ $name @opcode@ $opcode]
-	lappend vdecl [string map $xmap $binary_vdecl]
-	lappend vdefs [string map $xmap [string trim $binary_vdef]]\n
+	direct binary $name $spec
 
     	if {![dict exists $spec highway]} continue
 
@@ -89,6 +126,10 @@ apply {{} {
     touch generated/vector_highway.c [string map $zmap [catx data/mathfunc/template-highway.c]]
     return
 }}
+
+# # ## ### ##### ######## #############
+rename direct     {}
+rename direct-gen {}
 
 # # ## ### ##### ######## #############
 return
