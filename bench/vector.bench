@@ -16,21 +16,54 @@ kb::local   benchmark aktive
 source ../data/mathfunc/spec.tcl
 
 # ### ### ### ######### ######### ######### ###########################
-## Benchmarks
+## Benchmarks Setup
 
-aktive::bench::vecops::init
+bench_puts "filling the random inputs..."
+set us [time aktive::bench::vecops::init 1]
+bench_puts "... done in $us"
+
+# ### ### ### ######### ######### ######### ###########################
+## Benchmarks Execution
 
 foreach n {
-    1 10 100 1000 10000 100000
+    1
+    10
+    100
+    1000
+    10000
+    100000
+    1000000
+    10000000
+    100000000
 } {
+    # log10(n) = (0...8) _ 1 to 100 million
+
+    # reduce iterations at the larger levels keep the overall
+    # execution time in check
+    set iter [dict get {
+	1       1000
+	10      1000
+	100     1000
+	1000    1000
+	10000   1000
+	100000  1000
+	1000000 1000
+	10000000 100
+	100000000 10
+    } $n]
+    
     foreach {
 	name spec
     } [list {*}$unary0 {*}$unary1 {*}$unary2] {
-	set cmd   aktive::bench::vecops::unary::$name
-	set label [list $cmd  n/a  n/a   $n   $n:1   $n 1]
-	#               label sink cores size aspect w  h
-	bench -desc $label -body {
-	    $cmd $n
+	
+	foreach unroll {1 2 4} {
+	    set cmd aktive::bench::vecops${unroll}::unary::$name
+	    if {![llength [info commands ::$cmd]]} continue
+	    set label [list $cmd  n/a  n/a   $n   $n:1   $n 1]
+	    #               label sink cores size aspect w  h
+	    bench -iter $iter -desc $label -body {
+		$cmd $n
+	    }
 	}
 
 	if {![dict exists $spec highway]} continue
@@ -38,7 +71,7 @@ foreach n {
 	set cmd   aktive::bench::highway::unary::$name
 	set label [list $cmd  n/a  n/a   $n   $n:1   $n 1]
 	#               label sink cores size aspect w  h
-	bench -desc $label -body {
+	bench -iter $iter -desc $label -body {
 	    $cmd $n
 	}
     }
@@ -46,11 +79,14 @@ foreach n {
     foreach {
 	name spec
     } $binary {
-	set cmd   aktive::bench::vecops::binary::$name
-	set label [list $cmd  n/a  n/a   $n   $n:1   $n 1]
-	#               label sink cores size aspect w  h
-	bench -desc $label -body {
-	    $cmd $n
+	foreach unroll {1 2 4} {
+	    set cmd   aktive::bench::vecops${unroll}::binary::$name
+	    if {![llength [info commands ::$cmd]]} continue
+	    set label [list $cmd  n/a  n/a   $n   $n:1   $n 1]
+	    #               label sink cores size aspect w  h
+	    bench -iter $iter -desc $label -body {
+		$cmd $n
+	    }
 	}
 
 	if {![dict exists $spec highway]} continue
@@ -58,7 +94,7 @@ foreach n {
 	set cmd   aktive::bench::highway::binary::$name
 	set label [list $cmd  n/a  n/a   $n   $n:1   $n 1]
 	#               label sink cores size aspect w  h
-	bench -desc $label -body {
+	bench -iter $iter -desc $label -body {
 	    $cmd $n
 	}
     }

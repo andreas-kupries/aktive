@@ -10,93 +10,78 @@
 
 critcl::ccode {
     // Max size vector to operate
-    #define N 100000
+    // log10 = 8 (100 Million) ~ 382 Megabyte (sizeof(double) = 4)
+    #define N 100000000
 
-    // Vectors to operate on
-    static double srca[N];
-    static double srcb[N];
-    static double dst[N];
+    // Vectors to operate on ~ 1.1GB
+    static double* srca;
+    static double* srcb;
+    static double* dst;
 
     // Parameters to use
     static double a;
     static double b;
 }
 
-# create a benchmark command for each of the math functions
-# we assume that everything has a direct mode function.
+# create a benchmark command for each of the math functions.
+# for direct mode handle the various loop unrolling levels.
 # highway is optional
+
+proc direct {section name spec arguments} {
+    if {![dict exists $spec direct]} return
+    direct-gen $section $name 1 $arguments
+    direct-gen $section $name 2 $arguments
+    direct-gen $section $name 4 $arguments
+}
+
+proc direct-gen {section name unroll arguments} {
+    lappend map @@        $name
+    lappend map @unroll@  $unroll
+    lappend map @args@    $arguments
+    lappend map @section@ $section
+    #critcl::msg \t::aktive::bench::vecops${unroll}::${section}::$name
+
+    critcl::cproc ::aktive::bench::vecops${unroll}::${section}::$name {int n} void [string map $map {
+	if (n > N) n = N;
+	aktive_vector@unroll@_@section@_@@ (@args@);
+    }]
+}
+
+proc highway {section name spec arguments} {
+    if {![dict exists $spec highway]} return
+
+    lappend map @@        $name
+    lappend map @args@    $arguments
+    lappend map @section@ $section
+    #critcl::msg \t::aktive::bench::highway::${section}::$name
+
+    critcl::cproc ::aktive::bench::highway::${section}::$name {int n} void [string map $map {
+	if (n > N) n = N;
+	aktive_highway_@section@_@@ (@args@);
+    }]
+}
+
 apply {{} {
     source data/mathfunc/spec.tcl
 
     foreach {name spec} $unary0 {
-	lappend map @@ $name
-	#critcl::msg \t::aktive::bench::vecops::unary::$name
-
-	critcl::cproc ::aktive::bench::vecops::unary::$name {int n} void [string map $map {
-	    if (n > N) n = N;
-	    aktive_vector_unary_@@ (dst, srca, n);
-	}]
-
-	if {[dict exists $spec highway]} {
-	    critcl::cproc ::aktive::bench::highway::unary::$name {int n} void [string map $map {
-		if (n > N) n = N;
-		aktive_highway_unary_@@ (dst, srca, n);
-	    }]
-	}
-	unset map
+	direct  unary $name $spec {dst, srca, n}
+	highway unary $name $spec {dst, srca, n}
     }
 
     foreach {name spec} $unary1 {
-	lappend map @@ $name
-	#critcl::msg \t::aktive::bench::vecops::unary::$name
-
-	critcl::cproc ::aktive::bench::vecops::unary::$name {int n} void [string map $map {
-	    if (n > N) n = N;
-	    aktive_vector_unary_@@ (dst, srca, n, a);
-	}]
-
-	if {[dict exists $spec highway]} {
-	    critcl::cproc ::aktive::bench::highway::unary::$name {int n} void [string map $map {
-		if (n > N) n = N;
-		aktive_highway_unary_@@ (dst, srca, n, a);
-	    }]
-	}
-	unset map
+	direct  unary $name $spec {dst, srca, n, a}
+	highway unary $name $spec {dst, srca, n, a}
     }
 
     foreach {name spec} $unary2 {
-	lappend map @@ $name
-	#critcl::msg \t::aktive::bench::vecops::unary::$name
-
-	critcl::cproc ::aktive::bench::vecops::unary::$name {int n} void [string map $map {
-	    if (n > N) n = N;
-	    aktive_vector_unary_@@ (dst, srca, n, a, b);
-	}]
-	if {[dict exists $spec highway]} {
-	    critcl::cproc ::aktive::bench::highway::unary::$name {int n} void [string map $map {
-		if (n > N) n = N;
-		aktive_highway_unary_@@ (dst, srca, n, a, b);
-	    }]
-	}
-	unset map
+	direct  unary $name $spec {dst, srca, n, a, b}
+	highway unary $name $spec {dst, srca, n, a, b}
     }
 
     foreach {name spec} $binary {
-	lappend map @@ $name
-	#critcl::msg \t::aktive::bench::vecops::binary::$name
-
-	critcl::cproc ::aktive::bench::vecops::binary::$name {int n} void [string map $map {
-	    if (n > N) n = N;
-	    aktive_vector_binary_@@ (dst, srca, srcb, n);
-	}]
-
-	if {[dict exists $spec highway]} {
-	    critcl::cproc ::aktive::bench::highway::binary::$name {int n} void [string map $map {
-		if (n > N) n = N;
-		aktive_highway_binary_@@ (dst, srca, srcb, n);
-	    }]
-	}
-	unset map
+	direct  binary $name $spec {dst, srca, srcb, n}
+	highway binary $name $spec {dst, srca, srcb, n}
     }
 }}
 
@@ -105,9 +90,21 @@ apply {{} {
 #critcl::msg \t::aktive::bench::vecops::init
 critcl::cproc ::aktive::bench::vecops::init {} void {
     aktive_uint i;
+
+    // heap allocate - lost on exit - ok for benchmarks
+    dst  = NALLOC (double, N);
+    srca = NALLOC (double, N);
+    srcb = NALLOC (double, N);
+
     for (i = 0; i < N; i++) { srca [i] = rand() ; srcb [i] = rand() ; }
     a = rand();
     b = rand();
 }
 
+# # ## ### ##### ######## #############
+rename direct {}
+rename direct-gen {}
+rename highway {}
+
+# # ## ### ##### ######## #############
 return
