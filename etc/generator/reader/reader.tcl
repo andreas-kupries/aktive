@@ -8,7 +8,7 @@
 # # ## ### ##### ######## ############# #####################
 ## Format auto-detection
 
-critcl::msg supported=($supported)
+critcl::msg "\t[dsl::reader::cyan Formats]: [dsl::reader::blue [join $supported {, }]]"
 
 def supported_formats $supported
 def expected_formats  [linsert [join $supported {, }] end-1 or]
