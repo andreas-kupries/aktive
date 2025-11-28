@@ -54,7 +54,7 @@ proc emit {words} {
 ## chart DSL commands
 
 proc chart {label script} {
-    puts "\t$label ..."
+    puts -nonewline "\t$label ..." ; flush stdout
     
     set chart {plot micros only {} nodump 0 merge {} over {}}
     eval $script
@@ -69,6 +69,7 @@ proc chart {label script} {
 	# 2 column (x, y)
 
 	set titles [list id {*}$merge]
+	puts ""
 	foreach s $merge {
 	    set id 0
 	    puts \t$s\t\[[llength [dict get $series $s]]\]
@@ -83,6 +84,7 @@ proc chart {label script} {
 	    lappend points $id {*}[dict get $m $id]
 	}
 	dump $label $points $titles
+	puts " merged OK"
 	return
     }
 
@@ -106,8 +108,13 @@ proc chart {label script} {
 	  "\n\t    " "\n"     \
 	]]
 
+	if {![llength $points]} {
+	    puts " FAIL, no points"
+	    error "No points"
+	}
+	
 	dict set series $label $points
-	if {$nodump} return
+	if {$nodump} { puts " saved OK" ; return }
 	dump $label $points $titles
     } else {
 	# over z -> many series
@@ -129,12 +136,16 @@ proc chart {label script} {
 	     "\n\t\t"  "\n"     \
 	    ]]
 
+	    if {![llength $points]} {
+		error "No points"
+	    }
+
 	    dict set series $label.$over$z $points
-	    if {$nodump} continue
+	    if {$nodump} { puts " saved OK" ; continue }
 	    dump ${label}.$over$z $points $titles
 	}
     }
-
+    puts " dumped OK"
     return
 }
 
