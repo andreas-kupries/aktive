@@ -2,12 +2,9 @@
  * - - -- --- ----- -------- -------------
  *
  * -- Runtime API -- Vector Operations. Highway implementation (SIMD)
+ *
+ * -- TODO :: compile time conditional to prevent compilation
  */
-
-#undef  HWY_TARGET_INCLUDE
-#define HWY_TARGET_INCLUDE "generated/vector_highway.c"
-#include <hwy/foreach_target.h>
-#include <hwy/highway.h>
 
 #include <generated/vector_highway.h>
 #include <math.h>
@@ -16,17 +13,22 @@
 
 TRACE_OFF;
 
+#undef  HWY_TARGET_INCLUDE
+#define HWY_TARGET_INCLUDE "generated/vector_highway.cc"
+#include <hwy/foreach_target.h>
+#include <hwy/highway.h>
+
 /*
  * - - -- --- ----- -------- -------------
  */
 
-HWY_BEFORE_NAMESPACE();
 namespace HWY_NAMESPACE {
     using namespace hwy::HWY_NAMESPACE;
-    using     F64 = ScalableTag<float64_t>;
+    using     F64 = ScalableTag<hwy::float64_t>;
     constexpr F64 f64;
 
-    void aktive_highway_unary_const (double* dst, aktive_uint num, double value)
+    HWY_ATTR void
+    aktive_highway_unary_const (double* dst, aktive_uint num, double value)
     {
 	TRACE_FUNC("((dst) %p, (num) %u, (value) %f)", dst, num, value);
 	TRACE_RUN (double* dhead = dst);
@@ -50,13 +52,12 @@ namespace HWY_NAMESPACE {
 
     /*
      * - - -- --- ----- -------- -------------
-     * highway function definitions
+     * generated function definitions
      */
 
 @hdefs@
 
 } /*namespace HWY_NAMESPACE*/
-HWY_AFTER_NAMESPACE();
 
 /*
  * - - -- --- ----- -------- -------------
@@ -65,7 +66,7 @@ HWY_AFTER_NAMESPACE();
 #if HWY_ONCE
 HWY_EXPORT(aktive_highway_unary_const);
 
-extern void
+void
 aktive_highway_unary_const (double* d, aktive_uint n, double v) {
     TRACE_FUNC("((dst) %p[%u], (v) %f)", d, n, v);
     /* clang-format off */

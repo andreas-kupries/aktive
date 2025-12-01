@@ -20,7 +20,7 @@ foreach {
     foreach {
 	name spec
     } $operations {
-	set chart {}
+	set charts {}
 	lappend map @@ $name
 	foreach unroll {1 2 4} {
 	    catch {

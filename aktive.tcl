@@ -11,6 +11,9 @@
 package require critcl 3.1 ;# 3.1   : critcl::source
 #                          ;# 3.0.8 : critcl::at::*
 package require critcl::enum
+package require critcl::cutil 0.5 ;# TRACE_THREAD_EXIT
+
+# TODO :: check for presence of libhwy.so / hyw/highway.h - compile time conditional
 
 # # ## ### ##### ######## ############# #####################
 ## Bail early if the environment is not suitable.
@@ -57,8 +60,6 @@ set benchmarking [critcl::userconfig query benchmarks]
 #::critcl::debug symbols memory
 #::critcl::config trace on
 #::critcl::config lines off
-
-package require critcl::cutil 0.5 ;# TRACE_THREAD_EXIT
 
 # critcl::config keepsrc 1
 
@@ -127,6 +128,8 @@ critcl::cheaders runtime
 critcl::cheaders runtime/*.h
 critcl::csources runtime/*.c
 
+critcl::clibraries -lhwy
+
 ##
 # # ## ### ##### ######## ############# #####################
 # Base operator set - Generated
@@ -135,6 +138,7 @@ critcl::include  runtime/rt.h
 critcl::cheaders op/*.h
 critcl::csources op/*.c
 critcl::csources generated/vector_direct.c	;# Vector support: Scalar loops
+critcl::csources generated/vector_highway.cc	;# Vector support: Highway SIMD loops
 
 # Types ## ##### ######## ############# #####################
 
@@ -148,7 +152,12 @@ critcl::include generated/vector-funcs.h        ;# Variadic support
 critcl::include generated/param-funcs.h         ;# Parameter block variadic init/finish
 critcl::include generated/type-funcs.h          ;# Type conversions
 critcl::include generated/op-funcs.h            ;# Operators
-critcl::include generated/vector_direct.h       ;# Vector support
+
+critcl::include generated/vector_highway.h      ;# Vector support: SIMD loops
+critcl::include generated/vector_direct.h       ;# Vector support: Scalar loops
+
+# Attention: Each vector header here sets a macro refering the internal API vector
+#            function to the chosen implementation.
 
 # Variables #### ######## ############# #####################
 

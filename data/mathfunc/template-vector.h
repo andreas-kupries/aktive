@@ -26,6 +26,13 @@ extern void aktive_vector_unary_const (double* dst, aktive_uint num, double valu
 @vdecl@
 
 /*
+ * - - -- --- ----- -------- -------------
+ * vector function integration
+ */
+
+@vlink@
+
+/*
  * = = == === ===== ======== ============= =====================
  * Local Variables:
  * mode: c
