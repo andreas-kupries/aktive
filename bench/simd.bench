@@ -1,0 +1,106 @@
+# -*- tcl -*- tcl.tk//DSL tclbench//EN// Tcl Benchmark File
+#
+# Compare the simd and (super)scalar loops.
+# Commands which do not have both forms are skipped.
+#
+# (c) 2025 Andreas Kupries <andreas_kupries@users.sourceforge.net>
+#
+##
+# ### ### ### ######### ######### ######### ##########################
+## Utilities
+
+kb::check   Tcl 8.6
+kb::require support   debug
+kb::local   benchmark aktive
+
+source ../data/mathfunc/spec.tcl
+
+# ### ### ### ######### ######### ######### ###########################
+## Benchmarks Setup
+
+bench_puts "filling the random inputs..."
+set us [time aktive::bench::vecops::init 1]
+bench_puts "... done in $us"
+
+# ### ### ### ######### ######### ######### ###########################
+## Benchmarks Execution
+
+foreach n {
+    1
+    10
+    100
+    1000
+    10000
+    100000
+    1000000
+    10000000
+    100000000
+} {
+    # log10(n) = (0...8) _ 1 to 100 million
+
+    # reduce iterations at the larger levels keep the overall
+    # execution time in check
+    set iter [dict get {
+	1       1000
+	10      1000
+	100     1000
+	1000    1000
+	10000   1000
+	100000  1000
+	1000000 1000
+	10000000 100
+	100000000 10
+    } $n]
+    
+    foreach {
+	name spec
+    } [list {*}$unary0 {*}$unary1 {*}$unary2] {
+	
+	set cmdA aktive::bench::vecops4::unary::$name
+	set cmdB aktive::bench::highway::unary::$name
+
+	if {![llength [info commands ::$cmdA]]} continue
+	if {![llength [info commands ::$cmdB]]} continue
+
+	# We have both super-scalar and simd loops to compare
+	    
+	set label [list $cmdA  n/a  n/a   $n   $n:1   $n 1]
+	#               label sink cores size aspect w  h
+	bench -iter $iter -desc $label -body {
+	    $cmdA $n
+	}
+
+	set label [list $cmdB  n/a  n/a   $n   $n:1   $n 1]
+	#               label sink cores size aspect w  h
+	bench -iter $iter -desc $label -body {
+	    $cmdB $n
+	}
+    }
+
+    foreach {
+	name spec
+    } $binary {
+	set cmdA aktive::bench::vecops4::binary::$name
+	set cmdB aktive::bench::highway::binary::$name
+	
+	if {![llength [info commands ::$cmdA]]} continue
+	if {![llength [info commands ::$cmdB]]} continue
+	
+	# We have both super-scalar and simd loops to compare
+
+	set label [list $cmdA  n/a  n/a   $n   $n:1   $n 1]
+	#               label sink cores size aspect w  h
+	bench -iter $iter -desc $label -body {
+	    $cmdA $n
+	}
+
+	set label [list $cmdB  n/a  n/a   $n   $n:1   $n 1]
+	#               label sink cores size aspect w  h
+	bench -iter $iter -desc $label -body {
+	    $cmdB $n
+	}
+    }
+}
+
+# ### ### ### ######### ######### ######### ###########################
+return

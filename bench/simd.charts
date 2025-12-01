@@ -1,0 +1,218 @@
+# -*- tcl -*-
+# # ## ### ##### ######## ############# #####################
+## general structure is
+## - create several simple series
+## - merge the series into a side by side comparison
+#
+## This chart file generates the necessary gnuplot spec as well, due to the
+## large and variable set of functions.
+
+source data/mathfunc/spec.tcl
+
+set plots {} ;# :: list (op0 name0 count0 op1 name1 count1 ...)
+
+lappend ops unary  [list {*}$unary0 {*}$unary1 {*}$unary2]
+lappend ops binary $binary
+
+foreach {
+    section operations
+} $ops {
+    foreach {
+	name spec
+    } $operations {
+	set charts {}
+	lappend map @@ $name
+	set unroll 4
+	catch {
+	    set     xmap $map
+	    lappend xmap @unroll@  $unroll
+	    lappend xmap @section@ $section
+	    chart scalar-${section}-u${unroll}-$name [string map $xmap {
+		only {name = 'aktive::bench::vecops@unroll@::@section@::@@'}
+		only {sink = 'n/a'}
+		range isize
+		nodump
+	    }]
+	    lappend charts scalar-${section}-u${unroll}-$name
+	}
+	catch {
+	    set     xmap $map
+	    lappend xmap @section@ $section
+	    chart highway-${section}-$name [string map $xmap {
+		only {name = 'aktive::bench::highway::@section@::@@'}
+		only {sink = 'n/a'}
+		range isize
+		nodump
+	    }]
+	    lappend charts highway-${section}-$name
+	}
+	unset map
+	if {![llength $charts]} continue
+
+	#puts \t(($charts))
+	
+	chart simd-${section}-$name [string map [list @@ $charts] {
+	    side-by-side @@
+	}]
+
+	lappend plots $name simd-${section}-$name [llength $charts]
+	unset charts
+    }
+}
+
+# # ## ### ##### ######## ############# #####################
+# # ## ### ##### ######## ############# #####################
+##
+## gnuplot generation
+##
+# # ## ### ##### ######## ############# #####################
+
+puts "generating gnuplot spec ..."
+
+proc + {{s {}}} { lappend ::lines $s }
+proc // {{s {}}} { if {$s ne {}} { set s " $s" } ; + "#$s" }
+proc g {}  { set result [join $::lines \n] ; set ::lines {} ; return $result }
+proc w {p s} {
+    puts "writing gnuplot spec: $p"
+    set chan [open $p w] ; puts -nonewline $chan $s ; close $chan }
+
+# # ## ### ##### ######## ############# #####################
+
+// "_ _ __ ___ _____ ________ _____________ _____________________"
+// "generation for vector benchmarking"
++
++ "set datafile   separator ','"
++ "set key        autotitle columnhead				# use the first line as title"
++ "set terminal   svg enhanced dynamic font 'Arial,12'"
+// "BEWARE. Each plot requires a separate outputfile."
++
++ "set size ratio 0.71 # for the A4 ratio"
++ "set boxwidth   0.9"
++ "set style      fill solid"
++
+
+# vector execution times per operation and vector size, for various levels of unrolling and simd, as available
+
+// "_ _ __ ___ _____ ________ _____________ _____________________"
++
++ "set xlabel \"log10(size)\""
++ "set ylabel  \"Microseconds\""
++ "set logscale y"
++
+foreach {
+    op id count
+} $plots {
+    + "datasource1 = \"$id.csv\""
+    set plotcmd "plot"
+    for {set k 0; set col 2; set prefix ""} {$k < $count} {incr k} {
+	append plotcmd "$prefix datasource1 using 1:$col with lines"
+	set prefix ", \\\n    "
+	incr col
+    }
+    + "set title \"vector execution times: $op\""
+    + "set output \"times-$id.svg\""
+    + $plotcmd
+    +
+}
+
+# vector execution speed per operation and vector size
+# (inverted actually, as time per value, lower is better)
+
+// "_ _ __ ___ _____ ________ _____________ _____________________"
++
++ "set ylabel  \"Nanoseconds/value\""
++ "set logscale y"
++
+foreach {
+    op id count
+} $plots {
+    + "datasource1 = \"$id.csv\""
+    set plotcmd "plot"
+    for {set k 0; set col 2; set prefix ""} {$k < $count} {incr k} {
+	append plotcmd "$prefix datasource1 using 1:(1000*\$$col/(10**\$1)) with lines"
+	set prefix ", \\\n    "
+	incr col
+    }
+    + "set title \"vector execution speed: $op\""
+    + "set output \"ispeed-$id.svg\""
+    + $plotcmd
+    +
+}
+
+// "_ _ __ ___ _____ ________ _____________ _____________________"
+
+w generated/simd.gnuplot [g]
+
+# # ## ### ##### ######## ############# #####################
+## gnuplot rendering
+
+puts "rendering gnuplot spec ..."
+
+exec 2>@ stderr >@ stdout gnuplot generated/simd.gnuplot
+
+puts "... done"
+
+# # ## ### ##### ######## ############# #####################
+## stash charts (.csv) and renders (.svg) into the bench area
+
+file mkdir         bench/plots/simd
+file delete -force bench/plots/simd/csv ; file mkdir bench/plots/simd/csv
+file delete -force bench/plots/simd/svg ; file mkdir bench/plots/simd/svg
+
+file rename -force {*}[glob -type f *.csv] bench/plots/simd/csv
+file rename -force {*}[glob -type f *.svg] bench/plots/simd/svg
+
+# # ## ### ##### ######## ############# #####################
+## Create README
+
+puts "generating README ..."
+
++ {<img src='../../../doc/assets/aktive-logo-128.png' style='float:right;'>}
++
++ "Benchmark results comparing the 4-unrolled super-scalar loops against highway-based simd loops"
++
++ {||}
++ {|---|}
++ {|[Parent ↗](../README.md)|}
++
++ "## Summary"
++ [string map [list "    " ""] {
+
+    First, the highway-based loops generate correct results.
+
+    They are also in general performing worse than the 4-unrolled
+    super-scalar loop.
+
+    It is suspected that due to our use of double as base-type for
+    pixel values we simply do not have enough vector lanes (two, IIRC)
+    to reach the speed of the super-scalar ops. I.e. the simd loop may
+    be the equivalent of a 2-unrolled super-scalar loop, at best.
+
+    A 2-unrolled simd loop on the other hand might be equivalent to
+    4-unrolled super-scalar, and a 4-unrolled simd loop might be
+    faster. These are the next experiments to run.
+    
+}]
++ "## Plots"
+
+foreach {
+    section operations
+} $ops {
+    foreach {
+	name spec
+    } $operations {
+	set speed "svg/ispeed-simd-${section}-$name.svg"
+	set times "svg/times-simd-${section}-$name.svg"
+	
+	+
+	+ "\[<img src='$times' style='width:46%;'>]($times.svg)"
+	+ "\[<img src='$speed' style='width:46%;'>]($speed.svg)"
+    }
+}
+
+w bench/plots/simd/README.md [g]
+
+puts "... done"
+
+# # ## ### ##### ######## ############# #####################
+return
