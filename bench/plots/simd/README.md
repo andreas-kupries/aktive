@@ -59,12 +59,6 @@ faster. These are the next experiments to run.
 [<img src='svg/times-simd-unary-signb.svg' style='width:46%;'>](svg/times-simd-unary-signb.svg.svg)
 [<img src='svg/ispeed-simd-unary-signb.svg' style='width:46%;'>](svg/ispeed-simd-unary-signb.svg.svg)
 
-[<img src='svg/times-simd-unary-sin.svg' style='width:46%;'>](svg/times-simd-unary-sin.svg.svg)
-[<img src='svg/ispeed-simd-unary-sin.svg' style='width:46%;'>](svg/ispeed-simd-unary-sin.svg.svg)
-
-[<img src='svg/times-simd-unary-sinh.svg' style='width:46%;'>](svg/times-simd-unary-sinh.svg.svg)
-[<img src='svg/ispeed-simd-unary-sinh.svg' style='width:46%;'>](svg/ispeed-simd-unary-sinh.svg.svg)
-
 [<img src='svg/times-simd-unary-sqrt.svg' style='width:46%;'>](svg/times-simd-unary-sqrt.svg.svg)
 [<img src='svg/ispeed-simd-unary-sqrt.svg' style='width:46%;'>](svg/ispeed-simd-unary-sqrt.svg.svg)
 
