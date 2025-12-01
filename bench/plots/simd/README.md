@@ -26,47 +26,11 @@ faster. These are the next experiments to run.
 
 ## Plots
 
-[<img src='svg/times-simd-unary-acos.svg' style='width:46%;'>](svg/times-simd-unary-acos.svg.svg)
-[<img src='svg/ispeed-simd-unary-acos.svg' style='width:46%;'>](svg/ispeed-simd-unary-acos.svg.svg)
-
-[<img src='svg/times-simd-unary-acosh.svg' style='width:46%;'>](svg/times-simd-unary-acosh.svg.svg)
-[<img src='svg/ispeed-simd-unary-acosh.svg' style='width:46%;'>](svg/ispeed-simd-unary-acosh.svg.svg)
-
-[<img src='svg/times-simd-unary-asin.svg' style='width:46%;'>](svg/times-simd-unary-asin.svg.svg)
-[<img src='svg/ispeed-simd-unary-asin.svg' style='width:46%;'>](svg/ispeed-simd-unary-asin.svg.svg)
-
-[<img src='svg/times-simd-unary-asinh.svg' style='width:46%;'>](svg/times-simd-unary-asinh.svg.svg)
-[<img src='svg/ispeed-simd-unary-asinh.svg' style='width:46%;'>](svg/ispeed-simd-unary-asinh.svg.svg)
-
-[<img src='svg/times-simd-unary-atan.svg' style='width:46%;'>](svg/times-simd-unary-atan.svg.svg)
-[<img src='svg/ispeed-simd-unary-atan.svg' style='width:46%;'>](svg/ispeed-simd-unary-atan.svg.svg)
-
-[<img src='svg/times-simd-unary-atanh.svg' style='width:46%;'>](svg/times-simd-unary-atanh.svg.svg)
-[<img src='svg/ispeed-simd-unary-atanh.svg' style='width:46%;'>](svg/ispeed-simd-unary-atanh.svg.svg)
-
-[<img src='svg/times-simd-unary-cbrt.svg' style='width:46%;'>](svg/times-simd-unary-cbrt.svg.svg)
-[<img src='svg/ispeed-simd-unary-cbrt.svg' style='width:46%;'>](svg/ispeed-simd-unary-cbrt.svg.svg)
-
 [<img src='svg/times-simd-unary-ceil.svg' style='width:46%;'>](svg/times-simd-unary-ceil.svg.svg)
 [<img src='svg/ispeed-simd-unary-ceil.svg' style='width:46%;'>](svg/ispeed-simd-unary-ceil.svg.svg)
 
 [<img src='svg/times-simd-unary-clamp.svg' style='width:46%;'>](svg/times-simd-unary-clamp.svg.svg)
 [<img src='svg/ispeed-simd-unary-clamp.svg' style='width:46%;'>](svg/ispeed-simd-unary-clamp.svg.svg)
-
-[<img src='svg/times-simd-unary-cos.svg' style='width:46%;'>](svg/times-simd-unary-cos.svg.svg)
-[<img src='svg/ispeed-simd-unary-cos.svg' style='width:46%;'>](svg/ispeed-simd-unary-cos.svg.svg)
-
-[<img src='svg/times-simd-unary-cosh.svg' style='width:46%;'>](svg/times-simd-unary-cosh.svg.svg)
-[<img src='svg/ispeed-simd-unary-cosh.svg' style='width:46%;'>](svg/ispeed-simd-unary-cosh.svg.svg)
-
-[<img src='svg/times-simd-unary-exp.svg' style='width:46%;'>](svg/times-simd-unary-exp.svg.svg)
-[<img src='svg/ispeed-simd-unary-exp.svg' style='width:46%;'>](svg/ispeed-simd-unary-exp.svg.svg)
-
-[<img src='svg/times-simd-unary-exp10.svg' style='width:46%;'>](svg/times-simd-unary-exp10.svg.svg)
-[<img src='svg/ispeed-simd-unary-exp10.svg' style='width:46%;'>](svg/ispeed-simd-unary-exp10.svg.svg)
-
-[<img src='svg/times-simd-unary-exp2.svg' style='width:46%;'>](svg/times-simd-unary-exp2.svg.svg)
-[<img src='svg/ispeed-simd-unary-exp2.svg' style='width:46%;'>](svg/ispeed-simd-unary-exp2.svg.svg)
 
 [<img src='svg/times-simd-unary-fabs.svg' style='width:46%;'>](svg/times-simd-unary-fabs.svg.svg)
 [<img src='svg/ispeed-simd-unary-fabs.svg' style='width:46%;'>](svg/ispeed-simd-unary-fabs.svg.svg)
@@ -74,23 +38,8 @@ faster. These are the next experiments to run.
 [<img src='svg/times-simd-unary-floor.svg' style='width:46%;'>](svg/times-simd-unary-floor.svg.svg)
 [<img src='svg/ispeed-simd-unary-floor.svg' style='width:46%;'>](svg/ispeed-simd-unary-floor.svg.svg)
 
-[<img src='svg/times-simd-unary-gamma_compress.svg' style='width:46%;'>](svg/times-simd-unary-gamma_compress.svg.svg)
-[<img src='svg/ispeed-simd-unary-gamma_compress.svg' style='width:46%;'>](svg/ispeed-simd-unary-gamma_compress.svg.svg)
-
-[<img src='svg/times-simd-unary-gamma_expand.svg' style='width:46%;'>](svg/times-simd-unary-gamma_expand.svg.svg)
-[<img src='svg/ispeed-simd-unary-gamma_expand.svg' style='width:46%;'>](svg/ispeed-simd-unary-gamma_expand.svg.svg)
-
 [<img src='svg/times-simd-unary-invert.svg' style='width:46%;'>](svg/times-simd-unary-invert.svg.svg)
 [<img src='svg/ispeed-simd-unary-invert.svg' style='width:46%;'>](svg/ispeed-simd-unary-invert.svg.svg)
-
-[<img src='svg/times-simd-unary-log.svg' style='width:46%;'>](svg/times-simd-unary-log.svg.svg)
-[<img src='svg/ispeed-simd-unary-log.svg' style='width:46%;'>](svg/ispeed-simd-unary-log.svg.svg)
-
-[<img src='svg/times-simd-unary-log10.svg' style='width:46%;'>](svg/times-simd-unary-log10.svg.svg)
-[<img src='svg/ispeed-simd-unary-log10.svg' style='width:46%;'>](svg/ispeed-simd-unary-log10.svg.svg)
-
-[<img src='svg/times-simd-unary-log2.svg' style='width:46%;'>](svg/times-simd-unary-log2.svg.svg)
-[<img src='svg/ispeed-simd-unary-log2.svg' style='width:46%;'>](svg/ispeed-simd-unary-log2.svg.svg)
 
 [<img src='svg/times-simd-unary-neg.svg' style='width:46%;'>](svg/times-simd-unary-neg.svg.svg)
 [<img src='svg/ispeed-simd-unary-neg.svg' style='width:46%;'>](svg/ispeed-simd-unary-neg.svg.svg)
@@ -122,23 +71,8 @@ faster. These are the next experiments to run.
 [<img src='svg/times-simd-unary-square.svg' style='width:46%;'>](svg/times-simd-unary-square.svg.svg)
 [<img src='svg/ispeed-simd-unary-square.svg' style='width:46%;'>](svg/ispeed-simd-unary-square.svg.svg)
 
-[<img src='svg/times-simd-unary-tan.svg' style='width:46%;'>](svg/times-simd-unary-tan.svg.svg)
-[<img src='svg/ispeed-simd-unary-tan.svg' style='width:46%;'>](svg/ispeed-simd-unary-tan.svg.svg)
-
-[<img src='svg/times-simd-unary-tanh.svg' style='width:46%;'>](svg/times-simd-unary-tanh.svg.svg)
-[<img src='svg/ispeed-simd-unary-tanh.svg' style='width:46%;'>](svg/ispeed-simd-unary-tanh.svg.svg)
-
-[<img src='svg/times-simd-unary-wrap.svg' style='width:46%;'>](svg/times-simd-unary-wrap.svg.svg)
-[<img src='svg/ispeed-simd-unary-wrap.svg' style='width:46%;'>](svg/ispeed-simd-unary-wrap.svg.svg)
-
-[<img src='svg/times-simd-unary-atan2.svg' style='width:46%;'>](svg/times-simd-unary-atan2.svg.svg)
-[<img src='svg/ispeed-simd-unary-atan2.svg' style='width:46%;'>](svg/ispeed-simd-unary-atan2.svg.svg)
-
 [<img src='svg/times-simd-unary-eq.svg' style='width:46%;'>](svg/times-simd-unary-eq.svg.svg)
 [<img src='svg/ispeed-simd-unary-eq.svg' style='width:46%;'>](svg/ispeed-simd-unary-eq.svg.svg)
-
-[<img src='svg/times-simd-unary-expx.svg' style='width:46%;'>](svg/times-simd-unary-expx.svg.svg)
-[<img src='svg/ispeed-simd-unary-expx.svg' style='width:46%;'>](svg/ispeed-simd-unary-expx.svg.svg)
 
 [<img src='svg/times-simd-unary-fmax.svg' style='width:46%;'>](svg/times-simd-unary-fmax.svg.svg)
 [<img src='svg/ispeed-simd-unary-fmax.svg' style='width:46%;'>](svg/ispeed-simd-unary-fmax.svg.svg)
@@ -146,17 +80,11 @@ faster. These are the next experiments to run.
 [<img src='svg/times-simd-unary-fmin.svg' style='width:46%;'>](svg/times-simd-unary-fmin.svg.svg)
 [<img src='svg/ispeed-simd-unary-fmin.svg' style='width:46%;'>](svg/ispeed-simd-unary-fmin.svg.svg)
 
-[<img src='svg/times-simd-unary-fmod.svg' style='width:46%;'>](svg/times-simd-unary-fmod.svg.svg)
-[<img src='svg/ispeed-simd-unary-fmod.svg' style='width:46%;'>](svg/ispeed-simd-unary-fmod.svg.svg)
-
 [<img src='svg/times-simd-unary-ge.svg' style='width:46%;'>](svg/times-simd-unary-ge.svg.svg)
 [<img src='svg/ispeed-simd-unary-ge.svg' style='width:46%;'>](svg/ispeed-simd-unary-ge.svg.svg)
 
 [<img src='svg/times-simd-unary-gt.svg' style='width:46%;'>](svg/times-simd-unary-gt.svg.svg)
 [<img src='svg/ispeed-simd-unary-gt.svg' style='width:46%;'>](svg/ispeed-simd-unary-gt.svg.svg)
-
-[<img src='svg/times-simd-unary-hypot.svg' style='width:46%;'>](svg/times-simd-unary-hypot.svg.svg)
-[<img src='svg/ispeed-simd-unary-hypot.svg' style='width:46%;'>](svg/ispeed-simd-unary-hypot.svg.svg)
 
 [<img src='svg/times-simd-unary-le.svg' style='width:46%;'>](svg/times-simd-unary-le.svg.svg)
 [<img src='svg/ispeed-simd-unary-le.svg' style='width:46%;'>](svg/ispeed-simd-unary-le.svg.svg)
@@ -169,15 +97,6 @@ faster. These are the next experiments to run.
 
 [<img src='svg/times-simd-unary-nshift.svg' style='width:46%;'>](svg/times-simd-unary-nshift.svg.svg)
 [<img src='svg/ispeed-simd-unary-nshift.svg' style='width:46%;'>](svg/ispeed-simd-unary-nshift.svg.svg)
-
-[<img src='svg/times-simd-unary-pow.svg' style='width:46%;'>](svg/times-simd-unary-pow.svg.svg)
-[<img src='svg/ispeed-simd-unary-pow.svg' style='width:46%;'>](svg/ispeed-simd-unary-pow.svg.svg)
-
-[<img src='svg/times-simd-unary-ratan2.svg' style='width:46%;'>](svg/times-simd-unary-ratan2.svg.svg)
-[<img src='svg/ispeed-simd-unary-ratan2.svg' style='width:46%;'>](svg/ispeed-simd-unary-ratan2.svg.svg)
-
-[<img src='svg/times-simd-unary-rfmod.svg' style='width:46%;'>](svg/times-simd-unary-rfmod.svg.svg)
-[<img src='svg/ispeed-simd-unary-rfmod.svg' style='width:46%;'>](svg/ispeed-simd-unary-rfmod.svg.svg)
 
 [<img src='svg/times-simd-unary-rscale.svg' style='width:46%;'>](svg/times-simd-unary-rscale.svg.svg)
 [<img src='svg/ispeed-simd-unary-rscale.svg' style='width:46%;'>](svg/ispeed-simd-unary-rscale.svg.svg)
@@ -241,18 +160,6 @@ faster. These are the next experiments to run.
 
 [<img src='svg/times-simd-binary-div.svg' style='width:46%;'>](svg/times-simd-binary-div.svg.svg)
 [<img src='svg/ispeed-simd-binary-div.svg' style='width:46%;'>](svg/ispeed-simd-binary-div.svg.svg)
-
-[<img src='svg/times-simd-binary-fmod.svg' style='width:46%;'>](svg/times-simd-binary-fmod.svg.svg)
-[<img src='svg/ispeed-simd-binary-fmod.svg' style='width:46%;'>](svg/ispeed-simd-binary-fmod.svg.svg)
-
-[<img src='svg/times-simd-binary-pow.svg' style='width:46%;'>](svg/times-simd-binary-pow.svg.svg)
-[<img src='svg/ispeed-simd-binary-pow.svg' style='width:46%;'>](svg/ispeed-simd-binary-pow.svg.svg)
-
-[<img src='svg/times-simd-binary-atan2.svg' style='width:46%;'>](svg/times-simd-binary-atan2.svg.svg)
-[<img src='svg/ispeed-simd-binary-atan2.svg' style='width:46%;'>](svg/ispeed-simd-binary-atan2.svg.svg)
-
-[<img src='svg/times-simd-binary-hypot.svg' style='width:46%;'>](svg/times-simd-binary-hypot.svg.svg)
-[<img src='svg/ispeed-simd-binary-hypot.svg' style='width:46%;'>](svg/ispeed-simd-binary-hypot.svg.svg)
 
 [<img src='svg/times-simd-binary-fmax.svg' style='width:46%;'>](svg/times-simd-binary-fmax.svg.svg)
 [<img src='svg/ispeed-simd-binary-fmax.svg' style='width:46%;'>](svg/ispeed-simd-binary-fmax.svg.svg)

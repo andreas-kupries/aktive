@@ -203,6 +203,9 @@ foreach {
     } $operations {
 	set speed "svg/ispeed-simd-${section}-$name.svg"
 	set times "svg/times-simd-${section}-$name.svg"
+
+	if {![file exists $speed]} continue
+	if {![file exists $times]} continue
 	
 	+
 	+ "\[<img src='$times' style='width:46%;'>]($times.svg)"
