@@ -50,6 +50,30 @@ them the inner loop, thus keeping scalar and simd commands
 separate instead of interleaved.
 
 
+### Addendum II (Dec 2, 2025)
+
+
+Separating the scalar and simd-based loops from each other did not
+result in any material changes in the results.
+
+While it was found during watching that is was mostly the scalar
+loops which drove temperature, not the simd-based ones, this did
+not matter for relative performance and the shapes of the graphs.
+
+
+### Final comments
+
+
+Due to the early decision in the life of `AKTIVE` to use `double`
+as the one and only type for pixel values it looks that using SIMD
+instructions is not a feasible way of boosting processing
+performance with the CPU I have.
+
+While this may change with future CPUs and larger vector units
+right now the best way of boosting performance looks to be to look
+for and unroll the critical core loops.
+
+
 ## Plots
 
 [<img src='svg/times-simd-unary-ceil.svg' style='width:46%;'>](svg/times-simd-unary-ceil.svg)

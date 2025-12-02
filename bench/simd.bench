@@ -1,4 +1,5 @@
 # -*- tcl -*- tcl.tk//DSL tclbench//EN// Tcl Benchmark File
+return
 #
 # Compare the simd and (super)scalar loops.
 # Commands which do not have both forms are skipped.

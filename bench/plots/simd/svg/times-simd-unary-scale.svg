@@ -185,8 +185,8 @@
 	</g>
 </g>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
-	<path stroke='rgb(148,   0, 211)'  d='M515.48,86.83 L558.04,86.83 M97.70,386.42 L157.34,384.59 L216.98,377.80 L276.62,354.00 L336.26,316.54 L395.90,267.30
-		L455.54,227.90 L515.18,185.26 L574.82,143.03  '/></g>
+	<path stroke='rgb(148,   0, 211)'  d='M515.48,86.83 L558.04,86.83 M97.70,385.74 L157.34,385.08 L216.98,379.00 L276.62,351.98 L336.26,311.32 L395.90,274.16
+		L455.54,227.29 L515.18,184.80 L574.82,142.97  '/></g>
 	</g>
 	<g id="gnuplot_plot_2" ><title>highway-unary-u1-scale</title>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
@@ -195,8 +195,8 @@
 	</g>
 </g>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
-	<path stroke='rgb(  0, 158, 115)'  d='M515.48,104.83 L558.04,104.83 M97.70,377.44 L157.34,380.50 L216.98,367.69 L276.62,335.23 L336.26,295.11 L395.90,252.50
-		L455.54,209.72 L515.18,167.32 L574.82,125.00  '/></g>
+	<path stroke='rgb(  0, 158, 115)'  d='M515.48,104.83 L558.04,104.83 M97.70,358.61 L157.34,363.27 L216.98,350.73 L276.62,330.35 L336.26,295.70 L395.90,253.17
+		L455.54,210.22 L515.18,168.04 L574.82,125.41  '/></g>
 	</g>
 	<g id="gnuplot_plot_3" ><title>highway-unary-u2-scale</title>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
@@ -205,8 +205,8 @@
 	</g>
 </g>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
-	<path stroke='rgb( 86, 180, 233)'  d='M515.48,122.83 L558.04,122.83 M97.70,378.58 L157.34,379.04 L216.98,359.47 L276.62,324.33 L336.26,283.13 L395.90,239.92
-		L455.54,197.79 L515.18,155.46 L574.82,113.11  '/></g>
+	<path stroke='rgb( 86, 180, 233)'  d='M515.48,122.83 L558.04,122.83 M97.70,357.78 L157.34,362.10 L216.98,342.50 L276.62,321.35 L336.26,283.80 L395.90,241.00
+		L455.54,198.33 L515.18,155.84 L574.82,113.43  '/></g>
 	</g>
 	<g id="gnuplot_plot_4" ><title>highway-unary-u4-scale</title>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
@@ -215,8 +215,8 @@
 	</g>
 </g>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
-	<path stroke='rgb(230, 159,   0)'  d='M515.48,140.83 L558.04,140.83 M97.70,378.24 L157.34,378.73 L216.98,354.18 L276.62,316.02 L336.26,276.00 L395.90,232.56
-		L455.54,190.69 L515.18,148.32 L574.82,105.99  '/></g>
+	<path stroke='rgb(230, 159,   0)'  d='M515.48,140.83 L558.04,140.83 M97.70,357.57 L157.34,361.75 L216.98,338.88 L276.62,314.37 L336.26,276.66 L395.90,233.74
+		L455.54,190.99 L515.18,148.64 L574.82,106.22  '/></g>
 	</g>
 <g fill="none" color="white" stroke="rgb(230, 159,   0)" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
 </g>

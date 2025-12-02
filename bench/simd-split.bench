@@ -1,0 +1,113 @@
+# -*- tcl -*- tcl.tk//DSL tclbench//EN// Tcl Benchmark File
+#
+# Compare the simd and (super)scalar loops.
+# Commands which do not have both forms are skipped.
+#
+# Reordered loops compared to simd.bewnch, vector length used as inner loop
+#
+# (c) 2025 Andreas Kupries <andreas_kupries@users.sourceforge.net>
+#
+##
+# ### ### ### ######### ######### ######### ##########################
+## Utilities
+
+kb::check   Tcl 8.6
+kb::require support   debug
+kb::local   benchmark aktive
+
+source ../data/mathfunc/spec.tcl
+
+# ### ### ### ######### ######### ######### ###########################
+## Benchmarks Setup
+
+bench_puts "filling the random inputs..."
+set us [time aktive::bench::vecops::init 1]
+bench_puts "... done in $us"
+
+# ### ### ### ######### ######### ######### ###########################
+## Benchmarks Execution
+
+lappend ops unary [list {*}$unary0 {*}$unary1 {*}$unary2]
+lappend ops binary $binary
+
+set vlength {
+    1
+    10
+    100
+    1000
+    10000
+    100000
+    1000000
+    10000000
+    100000000
+}
+set iters {
+    1       1000
+    10      1000
+    100     1000
+    1000    1000
+    10000   1000
+    100000  1000
+    1000000 1000
+    10000000 100
+    100000000 10
+}
+
+# log10(n) = (0...8) _ 1 to 100 million
+# reduce iterations at the larger levels keep the overall
+# execution time in check
+
+# all scalar loops first, for all commands
+
+foreach {section operations} $ops { continue
+    foreach {
+	name spec
+    } $operations {
+	set cmd aktive::bench::highway1::${section}::$name
+	if {![llength [info commands ::$cmd]]} continue
+	set cmd aktive::bench::vecops4::${section}::$name
+	if {![llength [info commands ::$cmd]]} continue
+
+	foreach n $vlength {
+	    set iter  [dict get $iters $n]
+	    set label [list $cmd  n/a  n/a   $n   $n:1   $n 1]
+	    #               label sink cores size aspect w  h
+	    bench -iter $iter -desc $label -body {
+		$cmd $n
+	    }
+	} ;# vlength
+    }
+}
+
+# separate the unrolling levels, and allow for 30 seconds of cooling between runs
+
+foreach unroll {1 2 4} {
+    if {$unroll < 4} continue
+    foreach {section operations} $ops {
+	if {$section ne "binary"} continue
+	foreach {
+	    name spec
+	} $operations {
+	    if {$name in {and nand nor or xor add}} continue
+	    
+	    set cmd aktive::bench::highway${unroll}::${section}::$name
+	    if {![llength [info commands ::$cmd]]} continue
+
+	    foreach n $vlength {
+		set iter  [dict get $iters $n]
+		set label [list $cmd  n/a  n/a   $n   $n:1   $n 1]
+		#               label sink cores size aspect w  h
+		bench -iter $iter -desc $label -body {
+		    $cmd $n
+		}
+	    } ;# vlength
+
+	    after 30000 ;# delay for cooling between ops
+	}
+    }
+
+    after 30000 ;# delay for cooling between unrolling levels
+}
+
+# ### ### ### ######### ######### ######### ###########################
+return

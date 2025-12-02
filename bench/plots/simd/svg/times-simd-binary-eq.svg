@@ -185,8 +185,8 @@
 	</g>
 </g>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
-	<path stroke='rgb(148,   0, 211)'  d='M515.48,86.83 L558.04,86.83 M97.70,384.28 L157.34,383.32 L216.98,376.00 L276.62,348.13 L336.26,307.99 L395.90,264.15
-		L455.54,220.14 L515.18,178.12 L574.82,135.76  '/></g>
+	<path stroke='rgb(148,   0, 211)'  d='M515.48,86.83 L558.04,86.83 M97.70,383.57 L157.34,382.60 L216.98,373.39 L276.62,346.86 L336.26,307.47 L395.90,265.41
+		L455.54,220.68 L515.18,178.09 L574.82,135.70  '/></g>
 	</g>
 	<g id="gnuplot_plot_2" ><title>highway-binary-u1-eq</title>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
@@ -195,8 +195,8 @@
 	</g>
 </g>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
-	<path stroke='rgb(  0, 158, 115)'  d='M515.48,104.83 L558.04,104.83 M97.70,374.36 L157.34,377.80 L216.98,363.82 L276.62,328.12 L336.26,286.57 L395.90,242.30
-		L455.54,199.66 L515.18,156.79 L574.82,114.67  '/></g>
+	<path stroke='rgb(  0, 158, 115)'  d='M515.48,104.83 L558.04,104.83 M97.70,353.93 L157.34,350.91 L216.98,341.26 L276.62,328.01 L336.26,287.29 L395.90,243.39
+		L455.54,198.15 L515.18,157.78 L574.82,115.55  '/></g>
 	</g>
 	<g id="gnuplot_plot_3" ><title>highway-binary-u2-eq</title>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
@@ -205,8 +205,8 @@
 	</g>
 </g>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
-	<path stroke='rgb( 86, 180, 233)'  d='M515.48,122.83 L558.04,122.83 M97.70,374.33 L157.34,375.38 L216.98,355.12 L276.62,316.72 L336.26,274.86 L395.90,231.89
-		L455.54,189.23 L515.18,147.10 L574.82,104.75  '/></g>
+	<path stroke='rgb( 86, 180, 233)'  d='M515.48,122.83 L558.04,122.83 M97.70,356.81 L157.34,359.33 L216.98,335.85 L276.62,313.74 L336.26,275.56 L395.90,231.69
+		L455.54,187.98 L515.18,147.33 L574.82,105.10  '/></g>
 	</g>
 	<g id="gnuplot_plot_4" ><title>highway-binary-u4-eq</title>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
@@ -215,8 +215,8 @@
 	</g>
 </g>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
-	<path stroke='rgb(230, 159,   0)'  d='M515.48,140.83 L558.04,140.83 M97.70,373.94 L157.34,375.10 L216.98,349.31 L276.62,309.74 L336.26,267.64 L395.90,224.82
-		L455.54,181.84 L515.18,139.66 L574.82,97.02  '/></g>
+	<path stroke='rgb(230, 159,   0)'  d='M515.48,140.83 L558.04,140.83 M97.70,357.12 L157.34,358.65 L216.98,329.92 L276.62,308.84 L336.26,268.25 L395.90,225.04
+		L455.54,182.16 L515.18,139.66 L574.82,97.15  '/></g>
 	</g>
 <g fill="none" color="white" stroke="rgb(230, 159,   0)" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
 </g>

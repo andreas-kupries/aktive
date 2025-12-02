@@ -1,5 +1,5 @@
-return
 # -*- tcl -*- tcl.tk//DSL tclbench//EN// Tcl Benchmark File
+return
 #
 # This file contains a number of low-level vector op benchmarks.
 # It is already prepared for the presence of highway ops.
