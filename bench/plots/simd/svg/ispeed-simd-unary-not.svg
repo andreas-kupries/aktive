@@ -140,20 +140,40 @@
 	</g>
 </g>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
-	<path stroke='rgb(148,   0, 211)'  d='M515.48,80.87 L558.04,80.87 M80.92,121.03 L142.66,231.06 L204.40,327.93 L266.13,387.39 L327.87,397.81 L389.61,398.41
-		L451.35,388.71 L513.08,388.06 L574.82,384.07  '/></g>
+	<path stroke='rgb(148,   0, 211)'  d='M515.48,80.87 L558.04,80.87 M80.92,120.87 L142.66,233.20 L204.40,328.12 L266.13,387.17 L327.87,393.72 L389.61,390.06
+		L451.35,377.12 L513.08,376.28 L574.82,376.55  '/></g>
 	</g>
-	<g id="gnuplot_plot_2" ><title>highway-unary-not</title>
+	<g id="gnuplot_plot_2" ><title>highway-unary-u1-not</title>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
 	<g transform="translate(507.09,102.77)" stroke="none" fill="black" font-family="Arial" font-size="12.00"  text-anchor="end">
-		<text><tspan font-family="Arial" >highway-unary-not</tspan></text>
+		<text><tspan font-family="Arial" >highway-unary-u1-not</tspan></text>
 	</g>
 </g>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
-	<path stroke='rgb(  0, 158, 115)'  d='M515.48,98.87 L558.04,98.87 M80.92,96.46 L142.66,212.18 L204.40,276.24 L266.13,302.57 L327.87,306.29 L389.61,309.73
-		L451.35,308.36 L513.08,309.39 L574.82,309.94  '/></g>
+	<path stroke='rgb(  0, 158, 115)'  d='M515.48,98.87 L558.04,98.87 M80.92,96.85 L142.66,219.51 L204.40,290.63 L266.13,308.99 L327.87,311.40 L389.61,306.38
+		L451.35,304.49 L513.08,304.78 L574.82,304.60  '/></g>
 	</g>
-<g fill="none" color="white" stroke="rgb(  0, 158, 115)" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g id="gnuplot_plot_3" ><title>highway-unary-u2-not</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(507.09,120.77)" stroke="none" fill="black" font-family="Arial" font-size="12.00"  text-anchor="end">
+		<text><tspan font-family="Arial" >highway-unary-u2-not</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 86, 180, 233)'  d='M515.48,116.87 L558.04,116.87 M80.92,97.85 L142.66,214.14 L204.40,257.65 L266.13,278.12 L327.87,279.31 L389.61,278.74
+		L451.35,274.41 L513.08,274.68 L574.82,273.77  '/></g>
+	</g>
+	<g id="gnuplot_plot_4" ><title>highway-unary-u4-not</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(507.09,138.77)" stroke="none" fill="black" font-family="Arial" font-size="12.00"  text-anchor="end">
+		<text><tspan font-family="Arial" >highway-unary-u4-not</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(230, 159,   0)'  d='M515.48,134.87 L558.04,134.87 M80.92,96.46 L142.66,214.04 L204.40,238.74 L266.13,259.01 L327.87,257.09 L389.61,255.40
+		L451.35,253.77 L513.08,254.41 L574.82,254.76  '/></g>
+	</g>
+<g fill="none" color="white" stroke="rgb(230, 159,   0)" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
 </g>
 <g fill="none" color="black" stroke="currentColor" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
 </g>

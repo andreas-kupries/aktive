@@ -35,16 +35,19 @@ foreach {
 	    }]
 	    lappend charts scalar-${section}-u${unroll}-$name
 	}
-	catch {
-	    set     xmap $map
-	    lappend xmap @section@ $section
-	    chart highway-${section}-$name [string map $xmap {
-		only {name = 'aktive::bench::highway::@section@::@@'}
-		only {sink = 'n/a'}
-		range isize
-		nodump
-	    }]
-	    lappend charts highway-${section}-$name
+	foreach unroll {1 2 4} {
+	    catch {
+		set     xmap $map
+		lappend xmap @unroll@  $unroll
+		lappend xmap @section@ $section
+		chart highway-${section}-u${unroll}-$name [string map $xmap {
+		    only {name = 'aktive::bench::highway@unroll@::@section@::@@'}
+		    only {sink = 'n/a'}
+		    range isize
+		    nodump
+		}]
+		lappend charts highway-${section}-u${unroll}-$name
+	    }
 	}
 	unset map
 	if {![llength $charts]} continue
@@ -175,7 +178,7 @@ puts "generating README ..."
 + {|---|}
 + {|[Parent ↗](../README.md)|}
 +
-+ "## Summary"
++ "## Summary (Dec 1, 2025)"
 + [string map [list "    " ""] {
 
     First, the highway-based loops generate correct results.
@@ -191,8 +194,36 @@ puts "generating README ..."
     A 2-unrolled simd loop on the other hand might be equivalent to
     4-unrolled super-scalar, and a 4-unrolled simd loop might be
     faster. These are the next experiments to run.
-    
+
+    __Note__: A suspicious behaviour is that for a number of
+    operations the speed curve becomes totally flat starting with 1000
+    values and higher.    
 }]
+
++
++ "### Addendum (Dec 2, 2025)"
++ [string map [list "    " ""] {
+
+    The experiment with unrolling the simd-based loops has __not__ born out.
+    Higher levels of unrolling make the simd-based loops __slower__.
+
+    Having watched the CPU temps during the run (up to 88 Celcius) I
+    strongly suspect that the normal simd loop already encounters
+    thermal throttling, and that unrolling simply drives the CPU
+    deeper into it, undoing any performance boost we may have gained
+    otherwise.
+
+    This throttling may also be the cause of why a number of scalar
+    loops loose speed for larger vectors, i.e. the CPU is still
+    throttled despite not using the vector units at the moment.
+
+    Checking this requires changing the order of benchmarks,
+    i.e. instead of having the vector length as the outer loop make
+    them the inner loop, thus keeping scalar and simd commands
+    separate instead of interleaved.
+}]
+
++
 + "## Plots"
 
 foreach {
@@ -203,13 +234,13 @@ foreach {
     } $operations {
 	set speed "svg/ispeed-simd-${section}-$name.svg"
 	set times "svg/times-simd-${section}-$name.svg"
-
-	if {![file exists $speed]} continue
-	if {![file exists $times]} continue
+	
+	if {![file exists bench/plots/simd/$speed]} continue
+	if {![file exists bench/plots/simd/$times]} continue
 	
 	+
-	+ "\[<img src='$times' style='width:46%;'>]($times.svg)"
-	+ "\[<img src='$speed' style='width:46%;'>]($speed.svg)"
+	+ "\[<img src='$times' style='width:46%;'>]($times)"
+	+ "\[<img src='$speed' style='width:46%;'>]($speed)"
     }
 }
 

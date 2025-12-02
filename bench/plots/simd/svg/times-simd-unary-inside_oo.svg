@@ -185,20 +185,40 @@
 	</g>
 </g>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
-	<path stroke='rgb(148,   0, 211)'  d='M515.48,86.83 L558.04,86.83 M97.70,384.65 L157.34,383.77 L216.98,377.16 L276.62,347.84 L336.26,301.78 L395.90,258.60
-		L455.54,214.34 L515.18,171.02 L574.82,129.63  '/></g>
+	<path stroke='rgb(148,   0, 211)'  d='M515.48,86.83 L558.04,86.83 M97.70,386.60 L157.34,385.24 L216.98,379.68 L276.62,346.77 L336.26,301.81 L395.90,256.19
+		L455.54,214.79 L515.18,172.25 L574.82,129.89  '/></g>
 	</g>
-	<g id="gnuplot_plot_2" ><title>highway-unary-insideoo</title>
+	<g id="gnuplot_plot_2" ><title>highway-unary-u1-insideoo</title>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
 	<g transform="translate(507.09,108.73)" stroke="none" fill="black" font-family="Arial" font-size="12.00"  text-anchor="end">
-		<text><tspan font-family="Arial" >highway-unary-inside</tspan><tspan font-family="Arial"  font-size="9.6" dy="3.60px">o</tspan><tspan font-family="Arial"  font-size="12.0" dy="-3.60px">o</tspan></text>
+		<text><tspan font-family="Arial" >highway-unary-u1-inside</tspan><tspan font-family="Arial"  font-size="9.6" dy="3.60px">o</tspan><tspan font-family="Arial"  font-size="12.0" dy="-3.60px">o</tspan></text>
 	</g>
 </g>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
-	<path stroke='rgb(  0, 158, 115)'  d='M515.48,104.83 L558.04,104.83 M97.70,373.07 L157.34,372.33 L216.98,347.89 L276.62,314.90 L336.26,271.92 L395.90,230.62
-		L455.54,187.71 L515.18,145.19 L574.82,103.10  '/></g>
+	<path stroke='rgb(  0, 158, 115)'  d='M515.48,104.83 L558.04,104.83 M97.70,376.00 L157.34,375.35 L216.98,349.08 L276.62,315.09 L336.26,273.20 L395.90,230.35
+		L455.54,187.29 L515.18,144.84 L574.82,102.52  '/></g>
 	</g>
-<g fill="none" color="white" stroke="rgb(  0, 158, 115)" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g id="gnuplot_plot_3" ><title>highway-unary-u2-insideoo</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(507.09,126.73)" stroke="none" fill="black" font-family="Arial" font-size="12.00"  text-anchor="end">
+		<text><tspan font-family="Arial" >highway-unary-u2-inside</tspan><tspan font-family="Arial"  font-size="9.6" dy="3.60px">o</tspan><tspan font-family="Arial"  font-size="12.0" dy="-3.60px">o</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 86, 180, 233)'  d='M515.48,122.83 L558.04,122.83 M97.70,376.30 L157.34,371.53 L216.98,338.23 L276.62,302.91 L336.26,260.80 L395.90,218.01
+		L455.54,174.74 L515.18,132.41 L574.82,90.13  '/></g>
+	</g>
+	<g id="gnuplot_plot_4" ><title>highway-unary-u4-insideoo</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(507.09,144.73)" stroke="none" fill="black" font-family="Arial" font-size="12.00"  text-anchor="end">
+		<text><tspan font-family="Arial" >highway-unary-u4-inside</tspan><tspan font-family="Arial"  font-size="9.6" dy="3.60px">o</tspan><tspan font-family="Arial"  font-size="12.0" dy="-3.60px">o</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(230, 159,   0)'  d='M515.48,140.83 L558.04,140.83 M97.70,376.13 L157.34,371.51 L216.98,334.02 L276.62,295.55 L336.26,253.42 L395.90,210.65
+		L455.54,167.69 L515.18,125.16 L574.82,82.99  '/></g>
+	</g>
+<g fill="none" color="white" stroke="rgb(230, 159,   0)" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
 </g>
 <g fill="none" color="black" stroke="currentColor" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
 </g>

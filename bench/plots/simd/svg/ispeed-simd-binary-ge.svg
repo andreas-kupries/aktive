@@ -140,20 +140,40 @@
 	</g>
 </g>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
-	<path stroke='rgb(148,   0, 211)'  d='M515.48,80.87 L558.04,80.87 M80.92,116.31 L142.66,231.06 L204.40,327.18 L266.13,372.85 L327.87,350.03 L389.61,324.62
-		L451.35,311.66 L513.08,311.11 L574.82,312.06  '/></g>
+	<path stroke='rgb(148,   0, 211)'  d='M515.48,80.87 L558.04,80.87 M80.92,118.24 L142.66,231.20 L204.40,331.53 L266.13,370.69 L327.87,345.66 L389.61,322.42
+		L451.35,316.42 L513.08,316.39 L574.82,316.33  '/></g>
 	</g>
-	<g id="gnuplot_plot_2" ><title>highway-binary-ge</title>
+	<g id="gnuplot_plot_2" ><title>highway-binary-u1-ge</title>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
 	<g transform="translate(507.09,102.77)" stroke="none" fill="black" font-family="Arial" font-size="12.00"  text-anchor="end">
-		<text><tspan font-family="Arial" >highway-binary-ge</tspan></text>
+		<text><tspan font-family="Arial" >highway-binary-u1-ge</tspan></text>
 	</g>
 </g>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
-	<path stroke='rgb(  0, 158, 115)'  d='M515.48,98.87 L558.04,98.87 M80.92,87.22 L142.66,213.94 L204.40,278.32 L266.13,307.00 L327.87,313.68 L389.61,310.39
-		L451.35,311.49 L513.08,312.30 L574.82,305.05  '/></g>
+	<path stroke='rgb(  0, 158, 115)'  d='M515.48,98.87 L558.04,98.87 M80.92,87.88 L142.66,214.95 L204.40,292.93 L266.13,310.90 L327.87,313.44 L389.61,306.50
+		L451.35,311.97 L513.08,312.04 L574.82,311.13  '/></g>
 	</g>
-<g fill="none" color="white" stroke="rgb(  0, 158, 115)" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g id="gnuplot_plot_3" ><title>highway-binary-u2-ge</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(507.09,120.77)" stroke="none" fill="black" font-family="Arial" font-size="12.00"  text-anchor="end">
+		<text><tspan font-family="Arial" >highway-binary-u2-ge</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 86, 180, 233)'  d='M515.48,116.87 L558.04,116.87 M80.92,87.14 L142.66,207.50 L204.40,269.03 L266.13,279.69 L327.87,280.92 L389.61,279.45
+		L451.35,277.74 L513.08,277.44 L574.82,276.23  '/></g>
+	</g>
+	<g id="gnuplot_plot_4" ><title>highway-binary-u4-ge</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(507.09,138.77)" stroke="none" fill="black" font-family="Arial" font-size="12.00"  text-anchor="end">
+		<text><tspan font-family="Arial" >highway-binary-u4-ge</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(230, 159,   0)'  d='M515.48,134.87 L558.04,134.87 M80.92,87.80 L142.66,207.33 L204.40,253.23 L266.13,260.50 L327.87,261.09 L389.61,259.74
+		L451.35,259.16 L513.08,259.26 L574.82,258.84  '/></g>
+	</g>
+<g fill="none" color="white" stroke="rgb(230, 159,   0)" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
 </g>
 <g fill="none" color="black" stroke="currentColor" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
 </g>

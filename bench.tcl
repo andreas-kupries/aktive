@@ -51,15 +51,21 @@ proc direct-gen {section name unroll arguments} {
 
 proc highway {section name spec arguments} {
     if {![dict exists $spec highway]} return
+    highway-gen $section $name 1 $arguments
+    highway-gen $section $name 2 $arguments
+    highway-gen $section $name 4 $arguments
+}
 
+proc highway-gen {section name unroll arguments} {
     lappend map @@        $name
+    lappend map @unroll@  $unroll
     lappend map @args@    $arguments
     lappend map @section@ $section
-    #critcl::msg \t::aktive::bench::highway::${section}::$name
+    #critcl::msg \t::aktive::bench::highway${unroll}::${section}::$name
 
-    critcl::cproc ::aktive::bench::highway::${section}::$name {int n} void [string map $map {
+    critcl::cproc ::aktive::bench::highway${unroll}::${section}::$name {int n} void [string map $map {
 	if (n > N) n = N;
-	aktive_highway_@section@_@@ (@args@);
+	aktive_highway@unroll@_@section@_@@ (@args@);
     }]
 }
 

@@ -22,9 +22,9 @@ proc direct {section name spec} {
 
     if {$benchmarking} {
 	# make all possibilities available
-	direct-gen $section $name direct 1 $spec
-	direct-gen $section $name direct 2 $spec
-	direct-gen $section $name direct 4 $spec
+	direct-gen $section $name 1 $spec
+	direct-gen $section $name 2 $spec
+	direct-gen $section $name 4 $spec
 	set stash "#define aktive_vector_${dsection}_$name aktive_vector4_${dsection}_$name"
 	lappend vlink $stash
 	return
@@ -32,18 +32,18 @@ proc direct {section name spec} {
 
     if {$stash ne {}} return
 
-    direct-gen $section $name direct 4 $spec
+    direct-gen $section $name 4 $spec
     set stash "#define aktive_vector_${dsection}_$name aktive_vector4_${dsection}_$name"
     lappend vlink $stash
     return
 }
 
-proc direct-gen {section name key n spec} {
+proc direct-gen {section name n spec} {
     upvar 2 vdecl vdecl vdefs vdefs nlmap nlmap
 
     critcl::msg "\tscalar (unroll $n) [dsl::reader::cyan $section] [dsl::reader::blue $name]"
 
-    set opcode [string trim [dict get $spec $key]]
+    set opcode [string trim [dict get $spec direct]]
     set xmap   [linsert $nlmap end @name@ $name @opcode@ $opcode]
 
     upvar 2 u${n}_${section}_vdecl declaration
@@ -67,25 +67,44 @@ proc highway {section name spec} { ;# return -- TODO: compile time conditional
     upvar 1 stash stash
     if {!$benchmarking && ($stash ne {})} return
 
+    upvar 1 hlink hlink
+
     set dsection [string trim $section 012]
 
-    upvar 1 hdecl hdecl hdefs hdefs hexps hexps hlink hlink nlmap nlmap
+    if {$benchmarking} {
+	# make all possibilities available
+	highway-gen $section $name 1 $spec
+	highway-gen $section $name 2 $spec
+	highway-gen $section $name 4 $spec
+	set stash "#define aktive_vector_${dsection}_$name aktive_highway4_${dsection}_$name"
+	lappend hlink $stash
+	return
+    }
 
-    upvar 1 ${section}_hdecl   declaration
-    upvar 1 ${section}_hdef    definition
-    upvar 1 ${section}_hexport export
+    if {$stash ne {}} return
 
-    critcl::msg "\thighway _________ [dsl::reader::cyan $section] [dsl::reader::blue $name]"
+    highway-gen $section $name 4 $spec
+    set stash "#define aktive_vector_${dsection}_$name aktive_highway4_${dsection}_$name"
+    lappend hlink $stash
+    return
+
+}
+
+proc highway-gen {section name n spec} {
+    upvar 2 hdecl hdecl hdefs hdefs hexps hexps nlmap nlmap
+
+    critcl::msg "\thighway (unroll $n) [dsl::reader::cyan $section] [dsl::reader::blue $name]"
 
     lassign [highway-decode $spec] opcode decls
     set xmap      [linsert $nlmap end @name@ $name @opcode@ $opcode @decls@ $decls]
 
+    upvar 2 u${n}_${section}_hdecl   declaration
+    upvar 2 u${n}_${section}_hdef    definition
+    upvar 2 u${n}_${section}_hexport export
+
     lappend hdecl "    [string map $xmap $declaration]"
     lappend hdefs [string map $xmap [string trim $definition]]\n
     lappend hexps [string trim [string map $xmap $export]]\n
-
-    set stash "#define aktive_vector_${dsection}_$name aktive_highway_${dsection}_$name"
-    lappend hlink $stash
     return
 }
 

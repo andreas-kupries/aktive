@@ -2,10 +2,10 @@
 # # ## ### ##### ######## #############
 ## Templates for highway implementations.
 
-set unary0_hdecl {void aktive_highway_unary_@name@ (double* d, double* s, aktive_uint n);}
-set unary0_hdef  {
+set u1_unary0_hdecl {void aktive_highway1_unary_@name@ (double* d, double* s, aktive_uint n);}
+set u1_unary0_hdef  {
     HWY_ATTR void
-    aktive_highway_unary_@name@ (double* d, double* s, aktive_uint n) {
+    aktive_highway1_unary_@name@ (double* d, double* s, aktive_uint n) {
 	TRACE_FUNC("((dst) %p[%u], (src) %p[%u])", d, n, s, n);
 
 	const int32_t N = Lanes(f64);
@@ -34,23 +34,23 @@ set unary0_hdef  {
 	TRACE_RETURN_VOID;
     }
 }
-set unary0_hexport {
-    HWY_EXPORT(aktive_highway_unary_@name@);
+set u1_unary0_hexport {
+    HWY_EXPORT(aktive_highway1_unary_@name@);
 
     void
-    aktive_highway_unary_@name@ (double* d, double* s, aktive_uint n) {
+    aktive_highway1_unary_@name@ (double* d, double* s, aktive_uint n) {
 	TRACE_FUNC("((dst) %p[%u], (src) %p[%u])", d, n, s, n);
 	/* clang-format off */
-	HWY_DYNAMIC_DISPATCH(aktive_highway_unary_@name@)(d, s, n);
+	HWY_DYNAMIC_DISPATCH(aktive_highway1_unary_@name@)(d, s, n);
 	/* clang-format on */
 	TRACE_RETURN_VOID;
     }
 }
 
-set unary1_hdecl {void aktive_highway_unary_@name@ (double* d, double* s, aktive_uint n, double a);}
-set unary1_hdef  {
+set u1_unary1_hdecl {void aktive_highway1_unary_@name@ (double* d, double* s, aktive_uint n, double a);}
+set u1_unary1_hdef  {
     HWY_ATTR void
-    aktive_highway_unary_@name@ (double* d, double* s, aktive_uint n, double as) {
+    aktive_highway1_unary_@name@ (double* d, double* s, aktive_uint n, double as) {
 	TRACE_FUNC("((dst) %p[%u], (src) %p[%u], (a) %f)", d, n, s, n, a);
 
 	const int32_t N = Lanes(f64);
@@ -80,23 +80,23 @@ set unary1_hdef  {
 	TRACE_RETURN_VOID;
     }
 }
-set unary1_hexport {
-    HWY_EXPORT(aktive_highway_unary_@name@);
+set u1_unary1_hexport {
+    HWY_EXPORT(aktive_highway1_unary_@name@);
 
     void
-    aktive_highway_unary_@name@ (double* d, double* s, aktive_uint n, double a) {
+    aktive_highway1_unary_@name@ (double* d, double* s, aktive_uint n, double a) {
 	TRACE_FUNC("((dst) %p[%u], (src) %p[%u], (a) %f)", d, n, s, n, a);
 	/* clang-format off */
-	HWY_DYNAMIC_DISPATCH(aktive_highway_unary_@name@)(d, s, n, a);
+	HWY_DYNAMIC_DISPATCH(aktive_highway1_unary_@name@)(d, s, n, a);
 	/* clang-format on */
 	TRACE_RETURN_VOID;
     }
 }
 
-set unary2_hdecl {void aktive_highway_unary_@name@ (double* d, double* s, aktive_uint n, double a, double b);}
-set unary2_hdef  {
+set u1_unary2_hdecl {void aktive_highway1_unary_@name@ (double* d, double* s, aktive_uint n, double a, double b);}
+set u1_unary2_hdef  {
     HWY_ATTR void
-    aktive_highway_unary_@name@ (double* d, double* s, aktive_uint n, double as, double bs) {
+    aktive_highway1_unary_@name@ (double* d, double* s, aktive_uint n, double as, double bs) {
 	TRACE_FUNC("((dst) %p[%u], (src) %p[%u], (a) %f, (b) %f)", d, n, s, n, a, b);
 
 	const int32_t N = Lanes(f64);
@@ -127,23 +127,23 @@ set unary2_hdef  {
 	TRACE_RETURN_VOID;
     }
 }
-set unary2_hexport {
-    HWY_EXPORT(aktive_highway_unary_@name@);
+set u1_unary2_hexport {
+    HWY_EXPORT(aktive_highway1_unary_@name@);
 
     void
-    aktive_highway_unary_@name@ (double* d, double* s, aktive_uint n, double a, double b) {
+    aktive_highway1_unary_@name@ (double* d, double* s, aktive_uint n, double a, double b) {
 	TRACE_FUNC("((dst) %p[%u], (src) %p[%u], (a) %f, (b) %f)", d, n, s, n, a, b);
 	/* clang-format off */
-	HWY_DYNAMIC_DISPATCH(aktive_highway_unary_@name@)(d, s, n, a, b);
+	HWY_DYNAMIC_DISPATCH(aktive_highway1_unary_@name@)(d, s, n, a, b);
 	/* clang-format on */
 	TRACE_RETURN_VOID;
     }
 }
 
-set binary_hdecl {void aktive_highway_binary_@name@ (double* d, double* sa, double* sb, aktive_uint n);}
-set binary_hdef  {
+set u1_binary_hdecl {void aktive_highway1_binary_@name@ (double* d, double* sa, double* sb, aktive_uint n);}
+set u1_binary_hdef  {
     HWY_ATTR void
-    aktive_highway_binary_@name@ (double* d, double* sa, double* sb, aktive_uint n) {
+    aktive_highway1_binary_@name@ (double* d, double* sa, double* sb, aktive_uint n) {
 	TRACE_FUNC("((dst) %p[%u], (srca) %p[%u], (srcb) %p[%u])", d, n, sa, n, sb, n);
 
 	const int32_t N = Lanes(f64);
@@ -174,14 +174,14 @@ set binary_hdef  {
 	TRACE_RETURN_VOID;
     }
 }
-set binary_hexport {
-    HWY_EXPORT(aktive_highway_binary_@name@);
+set u1_binary_hexport {
+    HWY_EXPORT(aktive_highway1_binary_@name@);
 
     extern void
-    aktive_highway_binary_@name@ (double* d, double* sa, double* sb, aktive_uint n) {
+    aktive_highway1_binary_@name@ (double* d, double* sa, double* sb, aktive_uint n) {
 	TRACE_FUNC("((dst) %p[%u], (srca) %p[%u], (srcb) %p[%u])", d, n, sa, n, sb, n);
 	/* clang-format off */
-	HWY_DYNAMIC_DISPATCH(aktive_highway_binary_@name@)(d, sa, sb, n);
+	HWY_DYNAMIC_DISPATCH(aktive_highway1_binary_@name@)(d, sa, sb, n);
 	/* clang-format on */
 	TRACE_RETURN_VOID;
     }

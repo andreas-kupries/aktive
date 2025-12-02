@@ -209,8 +209,8 @@ foreach {
 	set times "svg/times-vecops-${section}-$name.svg"
 	
 	+
-	+ "\[<img src='$times' style='width:46%;'>]($times.svg)"
-	+ "\[<img src='$speed' style='width:46%;'>]($speed.svg)"
+	+ "\[<img src='$times' style='width:46%;'>]($times)"
+	+ "\[<img src='$speed' style='width:46%;'>]($speed)"
     }
 }
 

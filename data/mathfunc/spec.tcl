@@ -457,7 +457,9 @@ source $here/direct4.tcl
 # # ## ### ##### ######## #############
 ## vector highway, no unrolling
 
-source $here/highway.tcl
+source $here/highway1.tcl
+source $here/highway2.tcl
+source $here/highway4.tcl
 
 # # ## ### ##### ######## #############
 

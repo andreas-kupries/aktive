@@ -55,49 +55,58 @@ foreach n {
     foreach {
 	name spec
     } [list {*}$unary0 {*}$unary1 {*}$unary2] {
-	
-	set cmdA aktive::bench::vecops4::unary::$name
-	set cmdB aktive::bench::highway::unary::$name
+	set simd 0
+	foreach unroll {1 2 4} {
+	    set cmd aktive::bench::highway${unroll}::unary::$name
+	    if {![llength [info commands ::$cmd]]} continue
 
-	if {![llength [info commands ::$cmdA]]} continue
-	if {![llength [info commands ::$cmdB]]} continue
+	    set label [list $cmd  n/a  n/a   $n   $n:1   $n 1]
+	    #               label sink cores size aspect w  h
+	    bench -iter $iter -desc $label -body {
+		$cmd $n
+	    }
 
-	# We have both super-scalar and simd loops to compare
-	    
-	set label [list $cmdA  n/a  n/a   $n   $n:1   $n 1]
-	#               label sink cores size aspect w  h
-	bench -iter $iter -desc $label -body {
-	    $cmdA $n
+	    incr simd
 	}
 
-	set label [list $cmdB  n/a  n/a   $n   $n:1   $n 1]
+	if {!$simd} continue
+	
+	set cmd aktive::bench::vecops4::unary::$name
+	if {![llength [info commands ::$cmd]]} continue
+
+	set label [list $cmd  n/a  n/a   $n   $n:1   $n 1]
 	#               label sink cores size aspect w  h
 	bench -iter $iter -desc $label -body {
-	    $cmdB $n
+	    $cmd $n
 	}
     }
 
     foreach {
 	name spec
     } $binary {
-	set cmdA aktive::bench::vecops4::binary::$name
-	set cmdB aktive::bench::highway::binary::$name
-	
-	if {![llength [info commands ::$cmdA]]} continue
-	if {![llength [info commands ::$cmdB]]} continue
-	
-	# We have both super-scalar and simd loops to compare
+	set simd 0
+	foreach unroll {1 2 4} {
+	    set cmd aktive::bench::highway${unroll}::binary::$name
+	    if {![llength [info commands ::$cmd]]} continue
 
-	set label [list $cmdA  n/a  n/a   $n   $n:1   $n 1]
-	#               label sink cores size aspect w  h
-	bench -iter $iter -desc $label -body {
-	    $cmdA $n
+	    set label [list $cmd  n/a  n/a   $n   $n:1   $n 1]
+	    #               label sink cores size aspect w  h
+	    bench -iter $iter -desc $label -body {
+		$cmd $n
+	    }
+
+	    incr simd
 	}
 
-	set label [list $cmdB  n/a  n/a   $n   $n:1   $n 1]
+	if {!$simd} continue
+	
+	set cmd aktive::bench::vecops4::binary::$name
+	if {![llength [info commands ::$cmd]]} continue
+
+	set label [list $cmd  n/a  n/a   $n   $n:1   $n 1]
 	#               label sink cores size aspect w  h
 	bench -iter $iter -desc $label -body {
-	    $cmdB $n
+	    $cmd $n
 	}
     }
 }
