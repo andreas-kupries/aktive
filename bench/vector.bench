@@ -13,7 +13,7 @@ kb::check   Tcl 8.6
 kb::require support   debug
 kb::local   benchmark aktive
 
-source ../data/mathfunc/spec.tcl
+source ../data/math/spec.tcl
 
 # ### ### ### ######### ######### ######### ###########################
 ## Benchmarks Setup

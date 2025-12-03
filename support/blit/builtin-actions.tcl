@@ -210,7 +210,7 @@
 ## blit vector actions
 
 apply {{} {
-    source data/mathfunc/spec.tcl
+    source data/math/spec.tcl
 
     foreach {name spec} $unary0 {
 	lappend map @@ $name

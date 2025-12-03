@@ -99,7 +99,7 @@ proc scalar-opcode {unroll opcode} {
 
 apply {{} {
     source tests/support/files.tcl	;# catx, touch+
-    source data/mathfunc/spec.tcl
+    source data/math/spec.tcl
 
     # generate scalar loops for vector operations (header, implementation)
 
@@ -120,8 +120,8 @@ apply {{} {
     lappend zmap @vdefn@ [join $vdefn \n]
     lappend zmap @vlink@ [join $vlink \n]
 
-    touch generated/vector_scalar.h [string map $zmap [catx data/mathfunc/template-scalar.h]]
-    touch generated/vector_scalar.c [string map $zmap [catx data/mathfunc/template-scalar.c]]
+    touch generated/math.h [string map $zmap [catx data/math/template.h]]
+    touch generated/math.c [string map $zmap [catx data/math/template.c]]
     return
 }}
 

@@ -7,7 +7,7 @@
 ## This chart file generates the necessary gnuplot spec as well, due to the
 ## large and variable set of functions.
 
-source data/mathfunc/spec.tcl
+source data/math/spec.tcl
 
 set plots {} ;# :: list (op0 name0 count0 op1 name1 count1 ...)
 

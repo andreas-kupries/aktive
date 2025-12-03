@@ -104,20 +104,16 @@ dsl structs scan \
 # render the main figures, these include the generated definitions as needed
 dsl structs render doc/dev/figures
 
-# # ## ### ##### ######## ############# #####################
-## color database
-
-source data/css-named-colors.tcl	;# emits (x) `generated/color.tcl`
 
 # # ## ### ##### ######## ############# #####################
-## math vector functions, unary and binary
+## code generation
+## - color database
+## - math vector functions, unary and binary
+## - reducer functions
 
-source data/math-gen.tcl	;# emits (xx) `generated/vector_scalar.[ch]`
-
-# # ## ### ##### ######## ############# #####################
-## math reducer functions
-
-source data/reduce-gen.tcl	;# emits (xxx) `generated/reduce.[ch]`
+source data/colors/generator.tcl	;# emits (x)   `generated/color.tcl`
+source data/math/generator.tcl		;# emits (xx)  `generated/math.[ch]`
+source data/reduce/generator.tcl	;# emits (xxx) `generated/reduce.[ch]`
 
 # # ## ### ##### ######## ############# #####################
 
@@ -139,8 +135,8 @@ critcl::csources runtime/*.c
 critcl::include  runtime/rt.h
 critcl::cheaders op/*.h
 critcl::csources op/*.c
-critcl::csources generated/vector_scalar.c	;# Vector support: Scalar loops
-critcl::csources generated/xreduce.c		;# Reducer support
+critcl::csources generated/math.c       ;# Math support: Super scalar loops (xx)
+critcl::csources generated/xreduce.c    ;# Reducer support                  (xxx)
 
 # Types ## ##### ######## ############# #####################
 
@@ -154,8 +150,8 @@ critcl::include generated/vector-funcs.h        ;# Variadic support
 critcl::include generated/param-funcs.h         ;# Parameter block variadic init/finish
 critcl::include generated/type-funcs.h          ;# Type conversions
 critcl::include generated/op-funcs.h            ;# Operators
-critcl::include generated/vector_scalar.h       ;# Vector support: Scalar loops
-critcl::include generated/xreduce.h             ;# Reducer support
+critcl::include generated/math.h                ;# Math support: Super scalar loops (xx)
+critcl::include generated/xreduce.h             ;# Reducer support                  (xxx)
 
 # Variables #### ######## ############# #####################
 
@@ -221,7 +217,7 @@ critcl::source   generated/glue.tcl             ;# Tcl-level operator constructi
 #
 critcl::tsources generated/overlay.tcl		;# Peep-hole optimizer overlays
 critcl::tsources generated/ensemble.tcl         ;# Command hierarchy for preceding
-critcl::tsources generated/color.tcl            ;# Color database commands - (x) `data/css-named-colors.tcl`
+critcl::tsources generated/color.tcl            ;# Color database commands - (x) `data/colors/generator.tcl`
 #                                               ;# Pure Tcl commands
 critcl::tsources generated/ops.tcl              ;# - Operators built in Tcl
 critcl::tsources simplifier.tcl			;# - Simplifier runtime used by overlay.tcl

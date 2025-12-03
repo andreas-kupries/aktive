@@ -49,7 +49,7 @@ proc reduce-band-base {name once setup reduce merge finalize} {
 
 apply {{} {
     source tests/support/files.tcl	;# catx, touch+
-    source data/reducefunc/spec.tcl
+    source data/reduce/spec.tcl
 
     # generate reduction loops, simple and super-scalar (header, implementation)
 
@@ -72,8 +72,8 @@ apply {{} {
     lappend zmap @defn@ [join $defn \n]
     lappend zmap @link@ [join $link \n]
 
-    touch generated/xreduce.h [string map $zmap [catx data/reducefunc/reduce.h]]
-    touch generated/xreduce.c [string map $zmap [catx data/reducefunc/reduce.c]]
+    touch generated/xreduce.h [string map $zmap [catx data/reduce/template.h]]
+    touch generated/xreduce.c [string map $zmap [catx data/reduce/template.c]]
     return
 }}
 

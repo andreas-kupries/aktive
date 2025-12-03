@@ -12,7 +12,7 @@ kb::check   Tcl 8.6
 kb::require support   debug
 kb::local   benchmark aktive
 
-source ../data/reducefunc/spec.tcl
+source ../data/reduce/spec.tcl
 
 # ### ### ### ######### ######### ######### ###########################
 ## Benchmarks Setup

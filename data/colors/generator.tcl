@@ -2,7 +2,7 @@
 
 apply {{} {
     # read color table
-    set chan [open data/cssNamedColors.csv r]
+    set chan [open data/colors/spec.csv r]
     set colors [lrange [split [string trim [read $chan]] \n] 1 end]
     close $chan
 
