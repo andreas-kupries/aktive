@@ -36,17 +36,6 @@ foreach {
 		lappend charts vecops-${section}-u${unroll}-$name
 	    }
 	}
-	catch {
-	    set     xmap $map
-	    lappend xmap @section@ $section
-	    chart highway-${section}-$name [string map $xmap {
-		only {name = 'aktive::bench::highway::@section@::@@'}
-		only {sink = 'n/a'}
-		range isize
-		nodump
-	    }]
-	    lappend charts highway-${section}-$name
-	}
 	unset map
 	if {![llength $charts]} continue
 

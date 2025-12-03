@@ -1,7 +1,6 @@
 # -*- tcl -*- tcl.tk//DSL tclbench//EN// Tcl Benchmark File
 #
 # This file contains a number of low-level vector op benchmarks.
-# It is already prepared for the presence of highway ops.
 #
 # (c) 2025 Andreas Kupries <andreas_kupries@users.sourceforge.net>
 #
@@ -22,10 +21,10 @@ bench_puts "filling the random inputs..."
 set us [time aktive::bench::vecops::init 1]
 bench_puts "... done in $us"
 
-# ### ### ### ######### ######### ######### ###########################
-## Benchmarks Execution
+lappend ops unary [list {*}$unary0 {*}$unary1 {*}$unary2]
+lappend ops binary $binary
 
-foreach n {
+set vlength {
     1
     10
     100
@@ -35,70 +34,46 @@ foreach n {
     1000000
     10000000
     100000000
-} {
-    # log10(n) = (0...8) _ 1 to 100 million
-
-    # reduce iterations at the larger levels keep the overall
-    # execution time in check
-    set iter [dict get {
-	1       1000
-	10      1000
-	100     1000
-	1000    1000
-	10000   1000
-	100000  1000
-	1000000 1000
-	10000000 100
-	100000000 10
-    } $n]
-    
-    foreach {
-	name spec
-    } [list {*}$unary0 {*}$unary1 {*}$unary2] {
-	
-	foreach unroll {1 2 4} {
-	    set cmd aktive::bench::vecops${unroll}::unary::$name
-	    if {![llength [info commands ::$cmd]]} continue
-	    set label [list $cmd  n/a  n/a   $n   $n:1   $n 1]
-	    #               label sink cores size aspect w  h
-	    bench -iter $iter -desc $label -body {
-		$cmd $n
-	    }
-	}
-
-	if {![dict exists $spec highway]} continue
-
-	set cmd   aktive::bench::highway::unary::$name
-	set label [list $cmd  n/a  n/a   $n   $n:1   $n 1]
-	#               label sink cores size aspect w  h
-	bench -iter $iter -desc $label -body {
-	    $cmd $n
-	}
-    }
-
-    foreach {
-	name spec
-    } $binary {
-	foreach unroll {1 2 4} {
-	    set cmd   aktive::bench::vecops${unroll}::binary::$name
-	    if {![llength [info commands ::$cmd]]} continue
-	    set label [list $cmd  n/a  n/a   $n   $n:1   $n 1]
-	    #               label sink cores size aspect w  h
-	    bench -iter $iter -desc $label -body {
-		$cmd $n
-	    }
-	}
-
-	if {![dict exists $spec highway]} continue
-
-	set cmd   aktive::bench::highway::binary::$name
-	set label [list $cmd  n/a  n/a   $n   $n:1   $n 1]
-	#               label sink cores size aspect w  h
-	bench -iter $iter -desc $label -body {
-	    $cmd $n
-	}
-    }
 }
+
+# log10(n) = (0...8) _ 1 to 100 million
+# reduce iterations at the larger levels keep the overall execution
+# time in check
+
+set iters {
+    1       1000
+    10      1000
+    100     1000
+    1000    1000
+    10000   1000
+    100000  1000
+    1000000 1000
+    10000000 100
+    100000000 10
+}
+
+# ### ### ### ######### ######### ######### ###########################
+## Benchmarks Execution
+
+foreach unroll {1 2 4} {
+    foreach {section operations} $ops {
+	foreach {
+	    name spec
+	} $operations {
+	    set cmd aktive::bench::vecops${unroll}::${section}::$name
+	    if {![llength [info commands ::$cmd]]} continue
+
+	    foreach n $vlength {
+		set iter  [dict get $iters $n]
+		set label [list $cmd  n/a  n/a   $n   $n:1   $n 1]
+		#               label sink cores size aspect w  h
+		bench -iter $iter -desc $label -body {
+		    $cmd $n
+		}
+	    } ;# vlength
+	} ;# operations
+    } ;# ops
+} ;# unroll
 
 # ### ### ### ######### ######### ######### ###########################
 return

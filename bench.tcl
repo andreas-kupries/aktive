@@ -8,7 +8,7 @@
 # Commands for use in benchmarks. Do not create when in a non-benchmark environment
 ##
 
-critcl::msg "\t[dsl::reader::cyan "Benchmarking Vector Support"]"
+critcl::msg "\t[dsl::reader::cyan "Benchmarking Support, Scalar loops"]"
 
 critcl::ccode {
     // Max size vector to operate
@@ -26,65 +26,33 @@ critcl::ccode {
 }
 
 # create a benchmark command for each of the math functions.
-# for direct mode handle the various loop unrolling levels.
-# highway is optional
 
-proc direct {section name spec arguments} {
-    if {![dict exists $spec direct]} return
-    direct-gen $section $name 1 $arguments
-    direct-gen $section $name 2 $arguments
-    direct-gen $section $name 4 $arguments
+proc scalar {section name spec arguments} {
+    scalar-gen $section $name 1 $arguments
+    scalar-gen $section $name 2 $arguments
+    scalar-gen $section $name 4 $arguments
 }
 
-proc direct-gen {section name unroll arguments} {
+proc scalar-gen {section name unroll arguments} {
     lappend map @@        $name
     lappend map @unroll@  $unroll
     lappend map @args@    $arguments
     lappend map @section@ $section
     #critcl::msg \t::aktive::bench::vecops${unroll}::${section}::$name
 
-    critcl::cproc ::aktive::bench::vecops${unroll}::${section}::$name {int n} void [string map $map {
-	if (n > N) n = N;
-	aktive_vector@unroll@_@section@_@@ (@args@);
-    }]
-}
-
-proc highway {section name spec arguments} {
-    if {![dict exists $spec highway]} return
-
-    lappend map @@        $name
-    lappend map @args@    $arguments
-    lappend map @section@ $section
-    #critcl::msg \t::aktive::bench::highway::${section}::$name
-
-    critcl::cproc ::aktive::bench::highway::${section}::$name {int n} void [string map $map {
-	if (n > N) n = N;
-	aktive_highway_@section@_@@ (@args@);
-    }]
+    critcl::cproc ::aktive::bench::vecops${unroll}::${section}::$name {int n} void \
+	[string map $map {
+	    if (n > N) n = N;
+	    aktive_vector@unroll@_@section@_@@ (@args@);
+	}]
 }
 
 apply {{} {
     source data/mathfunc/spec.tcl
-
-    foreach {name spec} $unary0 {
-	direct  unary $name $spec {dst, srca, n}
-	highway unary $name $spec {dst, srca, n}
-    }
-
-    foreach {name spec} $unary1 {
-	direct  unary $name $spec {dst, srca, n, a}
-	highway unary $name $spec {dst, srca, n, a}
-    }
-
-    foreach {name spec} $unary2 {
-	direct  unary $name $spec {dst, srca, n, a, b}
-	highway unary $name $spec {dst, srca, n, a, b}
-    }
-
-    foreach {name spec} $binary {
-	direct  binary $name $spec {dst, srca, srcb, n}
-	highway binary $name $spec {dst, srca, srcb, n}
-    }
+    foreach {name spec} $unary0 { scalar unary  $name $spec {dst, srca, n}       }
+    foreach {name spec} $unary1 { scalar unary  $name $spec {dst, srca, n, a}    }
+    foreach {name spec} $unary2 { scalar unary  $name $spec {dst, srca, n, a, b} }
+    foreach {name spec} $binary { scalar binary $name $spec {dst, srca, srcb, n} }
 }}
 
 # initializator - invoke before the benchmark commands.
@@ -104,9 +72,8 @@ critcl::cproc ::aktive::bench::vecops::init {} void {
 }
 
 # # ## ### ##### ######## #############
-rename direct {}
-rename direct-gen {}
-rename highway {}
+rename scalar {}
+rename scalar-gen {}
 
 # # ## ### ##### ######## #############
 return

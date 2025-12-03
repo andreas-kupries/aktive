@@ -8,166 +8,129 @@ critcl::msg "[dsl::reader::blue {Math Vector Support}]: [dsl::reader::magenta [d
 
 # # ## ### ##### ######## #############
 
-proc direct {section name spec} {
-    upvar 1 vdecl vdecl stash stash
+proc scalar {section name spec} {
+    upvar 1 vlink vlink
 
-    #      generate max-unrolled scalar loop if scalar is available and nothing was made before
-    # else generate all possible scalar loop if scalar is available and benchmarking activated
-
-    if {![dict exists $spec direct]} return
+    # normally generate max-unrolled scalar loops
+    # else     generate all possible scalar loops if benchmarking is active
+    #
+    # always make the runtime use the max-unrolled loop, regardless of mode.
+    # benchmarking will create its own Tcl API to the other functions.
 
     set dsection [string trim $section 012]
 
-    global benchmarking
+    lappend vlink "#define aktive_vector_${dsection}_$name aktive_vector4_${dsection}_$name"
 
+    global benchmarking
     if {$benchmarking} {
 	# make all possibilities available
-	direct-gen $section $name direct 1 $spec
-	direct-gen $section $name direct 2 $spec
-	direct-gen $section $name direct 4 $spec
-	set stash "#define aktive_vector_${dsection}_$name aktive_vector4_${dsection}_$name"
-	lappend vdecl $stash
+	scalar-gen $section $name scalar 1 $spec
+	scalar-gen $section $name scalar 2 $spec
+	scalar-gen $section $name scalar 4 $spec
 	return
     }
 
-    if {$stash ne {}} return
-
-    direct-gen $section $name direct 4 $spec
-    set stash "#define aktive_vector_${dsection}_$name aktive_vector4_${dsection}_$name"
-    lappend vdecl $stash
+    # make only max-rolled available
+    scalar-gen $section $name scalar 4 $spec
     return
 }
 
-proc direct-gen {section name key n spec} {
-    upvar 2 vdecl vdecl vdefs vdefs nlmap nlmap
+proc scalar-gen {section name key unroll spec} {
+    upvar 2 vdecl vdecl vdefn vdefn ;#nlmap nlmap
 
-    critcl::msg "\tscalar (unroll $n) [dsl::reader::cyan $section] [dsl::reader::blue $name]"
+    critcl::msg "\tscalar (unroll $unroll) [dsl::reader::cyan $section] [dsl::reader::blue $name]"
 
-    set opcode [string trim [dict get $spec $key]]
-    set xmap   [linsert $nlmap end @name@ $name @opcode@ $opcode]
+    set dsection [string trim $section 012]
+    set opcode   [string trim [dict get $spec $key]]
+    #set     xmap $nlmap
 
-    upvar 2 u${n}_${section}_vdecl declaration
-    upvar 2 u${n}_${section}_vdef  definition
+    upvar 2 scalar(${section},decl) declaration
+    upvar 2 scalar(${section},impl) definition
 
-    lappend vdecl [string map $xmap $declaration]
-    lappend vdefs [string map $xmap [string trim $definition]]\n
+    lappend xmap @func@ aktive_vector${unroll}_${dsection}_${name}
+    lappend xmap @body@ [scalar-body $dsection $unroll $opcode]
+
+    lappend vdecl [string map $xmap [string trim $declaration]]
+    lappend vdefn [string map $xmap [string trim $definition]]\n
     return
 }
 
-proc highway {section name spec} {
-    #      generate highway if  highway is available
-    #                       and (nothing was made before or benchmarking activated)
+proc scalar-body {section unroll opcode} {
+    switch -exact -- $unroll {
+	1 {
+	    string trimleft [scalar-loop 1 $section $opcode]
+	}
+	2 {
+	    join \
+		[list [string trimleft [scalar-loop 2 $section $opcode]] \
+		                       [scalar-loop 1 $section $opcode]] \n
+	}
+	4 {
+	    join \
+		[list [string trimleft [scalar-loop 4 $section $opcode]] \
+		                       [scalar-loop 2 $section $opcode]  \
+		                       [scalar-loop 1 $section $opcode]] \n
+	}
+    }
+}
 
-    if {![dict exists $spec highway]} return
+proc scalar-loop {unroll section opcode} {
+    upvar 4 scalar($section,$unroll) loop
+    string map [list @opcode${unroll}@ [scalar-opcode $unroll $opcode]] [string trim $loop \n]
+}
 
-    global benchmarking
-    upvar 1 stash stash
-    if {!$benchmarking && ($stash ne {})} return
-
-    upvar 1 hdecl hdecl hdefs hdefs hexps hexps nlmap nlmap
-
-    upvar 1 ${section}_hdecl   declaration
-    upvar 1 ${section}_hdef    definition
-    upvar 1 ${section}_hexport export
-
-    critcl::msg "\thighway _________ [dsl::reader::cyan $section] [dsl::reader::blue $name]"
-
-    set opcode [string trim [dict get $spec highway]]
-    set xmap   [linsert $nlmap end @name@ $name @opcode@ $opcode]
-
-    lappend hdecl [string map $xmap $declaration]
-    lappend hdefs [string map $xmap [string trim $definition]]\n
-    lappend hexps [string map $xmap $export]\n
-
-    set stash "#define aktive_vector_${dsection}_$name aktive_highway_unary_$name"
-    lappend hdecl $stash
-    return
+proc scalar-opcode {unroll opcode} {
+    switch -exact -- $unroll {
+	1 {              string map {@V v @A a @B b} $opcode }
+	2 {
+	    lappend r   [string map {@V v0 @A a0 @B b0} $opcode]
+	    lappend r \t[string map {@V v1 @A a1 @B b1} $opcode]
+	    join $r \n
+	}
+	4 {
+	    lappend r   [string map {@V v0 @A a0 @B b0} $opcode]
+	    lappend r \t[string map {@V v1 @A a1 @B b1} $opcode]
+	    lappend r \t[string map {@V v2 @A a2 @B b2} $opcode]
+	    lappend r \t[string map {@V v3 @A a3 @B b3} $opcode]
+	    join $r \n
+	}
+    }
 }
 
 apply {{} {
     source tests/support/files.tcl	;# catx, touch+
     source data/mathfunc/spec.tcl
 
-    # generate vector operations (header, implementation), direct and highway
+    # generate scalar loops for vector operations (header, implementation)
 
-    set vdecl {}	;# direct vector ops, declarations ...
-    set vdefs {}	;# ... and definitions
-
-    set hdecl {}	;# highway vectors ops, declarations,
-    set hdefs {}	;# ... definitions, ...
-    set hexps {}	;# ... and exported dispatchers
+    set vdecl {}	;# declarations ...
+    set vdefn {}	;# ... and definitions
+    set vlink {}	;# system integration
 
     # common substitutions for the code fragments
-    lappend nlmap "\n    " "\n"
-    lappend nlmap "\n\t"   "\n    "
+    #lappend nlmap "\n    " "\n"
+    #lappend nlmap "\n\t"   "\n    "
 
-    foreach {name spec} $unary0 {
-	set stash {}
-	if {[dict exists $spec highway]} {
-	}
-	highway unary0 $name $spec
-	direct  unary0 $name $spec
-    }
+    foreach {name spec} $unary0 { scalar unary0 $name $spec }
+    foreach {name spec} $unary1 { scalar unary1 $name $spec }
+    foreach {name spec} $unary2 { scalar unary2 $name $spec }
+    foreach {name spec} $binary { scalar binary $name $spec }
 
-    foreach {name spec} $unary1 {
-	set stash {}
-    	if {[dict exists $spec highway]} {
-	    set opcode [string trim [dict get $spec highway]]
-	    set xmap   [linsert $nlmap end @name@ $name @opcode@ $opcode]
-	    lappend hdecl [string map $xmap $unary1_hdecl]
-	    lappend hdefs [string map $xmap [string trim $unary1_hdef]]\n
-	    lappend hexps [string map $xmap $unary1_hexport]\n
-	    set stash "#define aktive_vector_unary_$name aktive_highway_unary_$name"
-	    lappend hdecl $stash
-	}
-	direct unary1 $name $spec
-    }
+    lappend zmap @vdecl@ [join $vdecl \n]
+    lappend zmap @vdefn@ [join $vdefn \n]
+    lappend zmap @vlink@ [join $vlink \n]
 
-    foreach {name spec} $unary2 {
-	set stash {}
-    	if {[dict exists $spec highway]} {
-	    set opcode [string trim [dict get $spec highway]]
-	    set xmap   [linsert $nlmap end @name@ $name @opcode@ $opcode]
-	    lappend hdecl [string map $xmap $unary2_hdecl]
-	    lappend hdefs [string map $xmap [string trim $unary2_hdef]]\n
-	    lappend hexps [string map $xmap $unary2_hexport]\n
-	    set stash "#define aktive_vector_unary_$name aktive_highway_unary_$name"
-	    lappend hdecl $stash
-	}
-	direct unary2 $name $spec
-    }
-
-    foreach {name spec} $binary {
-	set stash {}
-    	if {[dict exists $spec highway]} {
-	    set opcode [string trim [dict get $spec highway]]
-	    set xmap   [linsert $nlmap end @name@ $name @opcode@ $opcode]
-	    lappend hdecl [string map $xmap $binary_hdecl]
-	    lappend hdefs [string map $xmap [string trim $binary_hdef]]\n
-	    lappend hexps [string map $xmap $binary_hexport]\n
-	    set stash "#define aktive_vector_binary_$name aktive_highway_binary_$name"
-	    lappend hdecl $stash
-	}
-	direct binary $name $spec
-    }
-
-    lappend zmap @vdecl@    [join $vdecl \n]
-    lappend zmap @hdecl@    [join $hdecl \n]
-    lappend zmap @vdefs@    [join $vdefs \n]
-    lappend zmap @hdefs@    [join $hdefs \n]
-    lappend zmap @hexports@ [join $hexps \n]
-
-    touch generated/vector_direct.h  [string map $zmap [catx data/mathfunc/template-vector.h]]
-    touch generated/vector_direct.c  [string map $zmap [catx data/mathfunc/template-vector.c]]
-    touch generated/vector_highway.h [string map $zmap [catx data/mathfunc/template-highway.h]]
-    touch generated/vector_highway.c [string map $zmap [catx data/mathfunc/template-highway.c]]
+    touch generated/vector_scalar.h [string map $zmap [catx data/mathfunc/template-scalar.h]]
+    touch generated/vector_scalar.c [string map $zmap [catx data/mathfunc/template-scalar.c]]
     return
 }}
 
 # # ## ### ##### ######## #############
-rename direct     {}
-rename direct-gen {}
-rename highway    {}
+rename scalar        {}
+rename scalar-gen    {}
+rename scalar-body   {}
+rename scalar-loop   {}
+rename scalar-opcode {}
 
 # # ## ### ##### ######## #############
 return

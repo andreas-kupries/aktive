@@ -134,7 +134,7 @@ critcl::csources runtime/*.c
 critcl::include  runtime/rt.h
 critcl::cheaders op/*.h
 critcl::csources op/*.c
-critcl::csources generated/vector_direct.c	;# Vector support: Scalar loops
+critcl::csources generated/vector_scalar.c	;# Vector support: Scalar loops
 
 # Types ## ##### ######## ############# #####################
 
@@ -148,7 +148,7 @@ critcl::include generated/vector-funcs.h        ;# Variadic support
 critcl::include generated/param-funcs.h         ;# Parameter block variadic init/finish
 critcl::include generated/type-funcs.h          ;# Type conversions
 critcl::include generated/op-funcs.h            ;# Operators
-critcl::include generated/vector_direct.h       ;# Vector support
+critcl::include generated/vector_scalar.h       ;# Vector support: Scalar loops
 
 # Variables #### ######## ############# #####################
 

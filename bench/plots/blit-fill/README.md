@@ -22,6 +22,14 @@ variant using the new `xz` folding of the blitter.
    loops have a good chance of being simd/vectorizable. See google's
    [highway](https://github.com/google/highway) for a possibility.
 
+     - Addendum (Dec 3, 2025). The code of the highway/simd experiment
+       can be found in branch `highway-simd-experiment`. Also the
+       [Results](/doc/highway-simd-experiment/bench/plots/simd/README.md)
+
+       Summary: A 4-unrolled (super)scalar loop beats the SIMD-based
+       loop, which has only 2 lanes in the vector unit for doubles.
+       And unrolling the SIMD-based loop is counterproductive.
+
  - Details of the underlying differences
 
      - With the new `xz` axis of the blitter the image bands are
