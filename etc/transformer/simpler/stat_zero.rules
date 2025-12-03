@@ -1,0 +1,18 @@
+## -*- mode: tcl ; fill-column: 90 -*-
+# # ## ### ##### ######## ############# #####################
+## The (band|row|column) operation is not idempotent.
+#
+## However a stack can be elided. Because the operation over a single
+## element per band|row|column is simply constant 0.
+
+simplify for   \
+    src/type @self   \
+    returns const 0
+
+simplify for   src/attr [dict get {
+    band   depth
+    row    width
+    column height
+} $kind] __size \
+    if {$__size == 1} \
+    returns const 0

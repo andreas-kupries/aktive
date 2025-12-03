@@ -1,5 +1,5 @@
 ## -*- mode: tcl ; fill-column: 90 -*-
 # # ## ### ##### ######## ############# #####################
-## (band|row|column) variance is zero elidable
+## (band|row|column) arg::min is zero elidable
 
 import stat_zero.rules

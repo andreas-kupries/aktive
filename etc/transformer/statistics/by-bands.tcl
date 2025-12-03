@@ -22,9 +22,16 @@ operator {dexpr attr} {
     section transform statistics
 
     ## simplifications (also apply for input depth == 1)
-    ## - min, max, mean, sum :: elide (idempotent)
-    ## - sumsquared          :: op math1 pow 2 (power chaining)
-    ## - variance, stddev    :: const 0
+    #
+    ## - arg::max   :: const 0 (single value is max, at index 0)
+    ## - arg::min   :: const 0 (single value is min, at index 0)
+    ## - max        :: elide (idempotent / identity)
+    ## - mean       :: elide (idempotent / identity)
+    ## - min        :: elide (idempotent / identity)
+    ## - stddev     :: const 0
+    ## - sum        :: elide (idempotent / identity)
+    ## - sumsquared :: op math1 pow 2 (power chaining)
+    ## - variance   :: const 0
 
     import? ../simpler/stat_$fun.rules	;# queries kind !!
 
@@ -47,6 +54,16 @@ operator {dexpr attr} {
 	// srcvalue = row/col start - 1-strided band vector
 	*dstvalue = REDUCE (srcvalue, SD, 1, 0 /* client data, ignored */);
     }}
+    ## __UNROLL__ note: single band is simplified, see above, not relevant here.
+    ##
+    ## __UNROLL__ option: specialized code handling 2,3,many bands, for the pixel
+    ## __UNROLL__ issue:  still 1 function call per pixel
+    ##
+    ## __UNROLL__ option: specialized code handling 2,3,many bands, for the entire row
+    ## __UNROLL__         single call for the entire row, per row
+    ## __UNROLL__         hide specializations in a single function
+    ##
+    ## __UNROLL__ note: look into code generation for the reducers
 
     pixels {
 	TRACE_RECTANGLE_M("@@fun@@", request);
@@ -74,6 +91,20 @@ operator {attr} {
 	the first index where the band value is $attr than the threshold. \
 	The result is a single-band image with the same width and height as the \
 	inputs.
+
+    # TODO simplification: for a single-band image the operation is a ternary
+    # specifically:   (src REL threshold) ? 0 : DEPTH
+    # or:             (src anti-REL threshold) ? DEPTH : 0
+    # <=>             (src anti-REL threshold) * DEPTH
+    #                 aktive op math1 scale (aktive op math <anti-REL> SRC T) factor DEPTH
+    #
+    # relation anti-relation
+    # -------- -------------
+    # ge       lt
+    # gt       le
+    # le       gt
+    # lt       ge
+    # -------- -------------
 
     note The result is suitable for use by "<!xref: aktive op take z>."
 

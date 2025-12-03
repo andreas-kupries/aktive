@@ -211,21 +211,21 @@ foreach {op config expected} {
     }
 
     if {$op in {
-	variance stddev
+	variance stddev {arg min} {arg max}
     }} {
 	# confirm const results, and simplifications
 
         test aktive-op-band-${op}-2.2 "aktive op band $op, chain const" -body {
-	    pixels aktive op band $op \
+	    pixels aktive op band {*}$op \
 		[aktive op pass \
-		     [aktive op band $op [grad] \
+		     [aktive op band {*}$op [grad] \
 			  {*}$params]] \
 		{*}$params
 	} -match pixels -result [pixels aktive image from value width 3 height 4 depth 1 value 0]
 
 	test aktive-op-band-${op}-2.3 "aktive op band $op, chain const, reduced dag" -body {
-	    dag aktive op band $op \
-		[aktive op band $op [grad] \
+	    dag aktive op band {*}$op \
+		[aktive op band {*}$op [grad] \
 		     {*}$params] \
 		{*}$params
 	} -match glob -result "image::from::value * {x 0 y 0 width 3 height 4 depth 1 value 0.0}"
