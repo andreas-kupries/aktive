@@ -33,7 +33,7 @@ set unary0 {
     log10          { scalar { @V = log10 (@V);          } }
     log2           { scalar { @V = log2  (@V);          } }
     neg            { scalar { @V = - @V;                } }
-    not            { scalar { @V = (@V <= 0.5) ? 1 : 0; } }
+    not            { scalar { @V = (@V <= 0.5);         } }
     reciprocal     { scalar { @V = 1.0 / @V;            } }
     round          { scalar { @V = round (@V);          } }
     sign           { scalar { @V = (@V < 0) ? -1 : (@V > 0) ? 1 : 0; } }
@@ -56,17 +56,17 @@ set unary0 {
 
 set unary1 {
     atan2  { scalar { @V = atan2 (@V, a);         } }
-    eq     { scalar { @V = (@V == a) ? 1 : 0;     } }
+    eq     { scalar { @V = (@V == a);             } }
     expx   { scalar { @V = pow (a, @V);           } }
     fmax   { scalar { @V = fmax (@V, a);          } }
     fmin   { scalar { @V = fmin (@V, a);          } }
     fmod   { scalar { @V = fmod(@V, a);           } }
-    ge     { scalar { @V = (@V >= a) ? 1 : 0;     } }
-    gt     { scalar { @V = (@V > a) ? 1 : 0;      } }
+    ge     { scalar { @V = (@V >= a);             } }
+    gt     { scalar { @V = (@V > a);              } }
     hypot  { scalar { @V = hypot (@V, a);         } }
-    le     { scalar { @V = (@V <= a) ? 1 : 0;     } }
-    lt     { scalar { @V = (@V <  a) ? 1 : 0;     } }
-    ne     { scalar { @V = (@V != a) ? 1 : 0;     } }
+    le     { scalar { @V = (@V <= a);             } }
+    lt     { scalar { @V = (@V <  a);             } }
+    ne     { scalar { @V = (@V != a);             } }
     nshift { scalar { @V = a - @V;                } }
     pow    { scalar { @V = pow (@V, a);           } }
     ratan2 { scalar { @V = atan2 (a, @V);         } }
@@ -86,14 +86,14 @@ set unary1 {
 ## - `b` = parameter 2
 
 set unary2 {
-    inside_cc  { scalar { @V = (a <= @V) && (@V <= b) ? 1 : 0; } }
-    inside_co  { scalar { @V = (a <= @V) && (@V <  b) ? 1 : 0; } }
-    inside_oc  { scalar { @V = (a <  @V) && (@V <= b) ? 1 : 0; } }
-    inside_oo  { scalar { @V = (a <  @V) && (@V <  b) ? 1 : 0; } }
-    outside_cc { scalar { @V = (a <= @V) && (@V <= b) ? 0 : 1; } }
-    outside_co { scalar { @V = (a <= @V) && (@V <  b) ? 0 : 1; } }
-    outside_oc { scalar { @V = (a <  @V) && (@V <= b) ? 0 : 1; } }
-    outside_oo { scalar { @V = (a <  @V) && (@V <  b) ? 0 : 1; } }
+    inside_cc  { scalar { @V =   (a <= @V) && (@V <= b);  } }
+    inside_co  { scalar { @V =   (a <= @V) && (@V <  b);  } }
+    inside_oc  { scalar { @V =   (a <  @V) && (@V <= b);  } }
+    inside_oo  { scalar { @V =   (a <  @V) && (@V <  b);  } }
+    outside_cc { scalar { @V = !((a <= @V) && (@V <= b)); } }
+    outside_co { scalar { @V = !((a <= @V) && (@V <  b)); } }
+    outside_oc { scalar { @V = !((a <  @V) && (@V <= b)); } }
+    outside_oo { scalar { @V = !((a <  @V) && (@V <  b)); } }
 }
 
 # # ## ### ##### ######## #############
@@ -105,11 +105,11 @@ set unary2 {
 ## - `@V` = output
 
 set binary {
-    and   { scalar { @V = ( @A > 0.5) && (@B >  0.5) ? 1 : 0; } }
-    nand  { scalar { @V = ( @A > 0.5) && (@B >  0.5) ? 0 : 1; } }
-    nor   { scalar { @V = ( @A > 0.5) || (@B >  0.5) ? 0 : 1; } }
-    or    { scalar { @V = ( @A > 0.5) || (@B >  0.5) ? 1 : 0; } }
-    xor   { scalar { @V = ((@A > 0.5) && (@B <= 0.5)) || ((@A <= 0.5) && (@B >  0.5)) ? 1 : 0; } }
+    and   { scalar { @V =   ( @A > 0.5) && (@B >  0.5);  } }
+    nand  { scalar { @V = !(( @A > 0.5) && (@B >  0.5)); } }
+    nor   { scalar { @V = !(( @A > 0.5) || (@B >  0.5)); } }
+    or    { scalar { @V =   ( @A > 0.5) || (@B >  0.5);  } }
+    xor   { scalar { @V = ((@A > 0.5) && (@B <= 0.5)) || ((@A <= 0.5) && (@B >  0.5)); } }
 
     add   { scalar { @V = @A + @B; } }
     sub   { scalar { @V = @A - @B; } }
@@ -123,12 +123,12 @@ set binary {
     fmax  { scalar { @V = fmax  (@A, @B); } }
     fmin  { scalar { @V = fmin  (@A, @B); } }
 
-    eq    { scalar { @V = (@A == @B) ? 1 : 0; } }
-    ge    { scalar { @V = (@A >= @B) ? 1 : 0; } }
-    gt    { scalar { @V = (@A >  @B) ? 1 : 0; } }
-    le    { scalar { @V = (@A <= @B) ? 1 : 0; } }
-    lt    { scalar { @V = (@A <  @B) ? 1 : 0; } }
-    ne    { scalar { @V = (@A != @B) ? 1 : 0; } }
+    eq    { scalar { @V = (@A == @B); } }
+    ge    { scalar { @V = (@A >= @B); } }
+    gt    { scalar { @V = (@A >  @B); } }
+    le    { scalar { @V = (@A <= @B); } }
+    lt    { scalar { @V = (@A <  @B); } }
+    ne    { scalar { @V = (@A != @B); } }
 }
 
 # # ## ### ##### ######## #############
