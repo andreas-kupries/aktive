@@ -46,29 +46,17 @@ operator {dexpr attr} {
 	domain->depth = 1;
     }
 
+    # iterate over rows in the region and call the band-reducer
     blit reducer {
 	{DH {y 0 1 up} {y 0 1 up}}
-	{DW {x 0 1 up} {x 0 1 up}}
     } {raw reduce-band {
-	// dstvalue = row/col start -
-	// srcvalue = row/col start - 1-strided band vector
-	*dstvalue = REDUCE (srcvalue, SD, 1, 0 /* client data, ignored */);
+	REDUCE (dstvalue, srcvalue, SW, SD); // dstvalue, srcvalue :: row start
     }}
-    ## __UNROLL__ note: single band is simplified, see above, not relevant here.
-    ##
-    ## __UNROLL__ option: specialized code handling 2,3,many bands, for the pixel
-    ## __UNROLL__ issue:  still 1 function call per pixel
-    ##
-    ## __UNROLL__ option: specialized code handling 2,3,many bands, for the entire row
-    ## __UNROLL__         single call for the entire row, per row
-    ## __UNROLL__         hide specializations in a single function
-    ##
-    ## __UNROLL__ note: look into code generation for the reducers
 
     pixels {
 	TRACE_RECTANGLE_M("@@fun@@", request);
 	aktive_block* src = aktive_region_fetch_area (0, request);
-	#define REDUCE aktive_reduce_@@fun@@
+	#define REDUCE aktive_reduce_row_bands_@@fun@@
 	@@reducer@@
 	#undef REDUCE
     }

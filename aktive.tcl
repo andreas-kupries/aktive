@@ -110,9 +110,14 @@ dsl structs render doc/dev/figures
 source data/css-named-colors.tcl	;# emits (x) `generated/color.tcl`
 
 # # ## ### ##### ######## ############# #####################
-## definitions for math vector functions
+## math vector functions, unary and binary
 
-source data/math-gen.tcl	;# emits (xx) `generated/vector_direct.[ch]`
+source data/math-gen.tcl	;# emits (xx) `generated/vector_scalar.[ch]`
+
+# # ## ### ##### ######## ############# #####################
+## math reducer functions
+
+source data/reduce-gen.tcl	;# emits (xxx) `generated/reduce.[ch]`
 
 # # ## ### ##### ######## ############# #####################
 
@@ -135,6 +140,7 @@ critcl::include  runtime/rt.h
 critcl::cheaders op/*.h
 critcl::csources op/*.c
 critcl::csources generated/vector_scalar.c	;# Vector support: Scalar loops
+critcl::csources generated/xreduce.c		;# Reducer support
 
 # Types ## ##### ######## ############# #####################
 
@@ -149,6 +155,7 @@ critcl::include generated/param-funcs.h         ;# Parameter block variadic init
 critcl::include generated/type-funcs.h          ;# Type conversions
 critcl::include generated/op-funcs.h            ;# Operators
 critcl::include generated/vector_scalar.h       ;# Vector support: Scalar loops
+critcl::include generated/xreduce.h             ;# Reducer support
 
 # Variables #### ######## ############# #####################
 
@@ -190,7 +197,10 @@ critcl::tsources meta.tcl	;# meta data dict wrapper
 ## Benchmarking support code & commands.
 ## Used if only if the package is built for benchmarking.
 
-if {$benchmarking} { critcl::source bench.tcl }
+if {$benchmarking} {
+    critcl::source bench/support/math.tcl
+    critcl::source bench/support/reducers.tcl
+}
 
 # # ## ### ##### ######## ############# #####################
 ## Versioning information and exposure, processor count set/get

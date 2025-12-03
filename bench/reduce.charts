@@ -1,0 +1,179 @@
+# -*- tcl -*-
+# # ## ### ##### ######## ############# #####################
+## general structure is
+## - create several simple series
+## - merge the series into a side by side comparison
+#
+## This chart file generates the necessary gnuplot spec as well, due to the
+## large and variable set of functions.
+
+source data/reducefunc/spec.tcl
+
+set plots {} ;# :: list (op0 name0 op1 name1 ...)
+
+# base charts
+foreach name $reducers {
+    foreach depth {1 2 3 4 5 6 7 8} {
+	lappend map @name@ $name
+	lappend map @depth@ $depth
+	chart reduce-base-${depth}-$name [string map $map {
+	    only {name = 'aktive::bench::reduce::base::@name@/@depth@'}
+	    only {sink = 'n/a'}
+	    range iwidth
+	    nodump
+	}]
+	unset map
+    } ;# depth
+} ;# reducers
+
+# aggregations
+# 1. charts of single operator, across range of depths
+foreach name $reducers {
+    chart reduce-base-$name [list side-by-side {*}[lmap depth {1 2 3 4 5 6 7 8} {
+	set _ reduce-base-${depth}-$name
+    }]]
+    lappend plots $name reduce-base-$name
+} ;# reducers
+
+# # ## ### ##### ######## ############# #####################
+# # ## ### ##### ######## ############# #####################
+##
+## gnuplot generation
+##
+# # ## ### ##### ######## ############# #####################
+
+puts "generating gnuplot spec ..."
+
+proc + {{s {}}} { lappend ::lines $s }
+proc // {{s {}}} { if {$s ne {}} { set s " $s" } ; + "#$s" }
+proc g {}  { set result [join $::lines \n] ; set ::lines {} ; return $result }
+proc w {p s} {
+    puts "writing gnuplot spec: $p"
+    set chan [open $p w] ; puts -nonewline $chan $s ; close $chan }
+
+# # ## ### ##### ######## ############# #####################
+
+// "_ _ __ ___ _____ ________ _____________ _____________________"
+// "generation for reducer benchmarking"
++
++ "set datafile   separator ','"
++ "set key        autotitle columnhead				# use the first line as title"
++ "set terminal   svg enhanced dynamic font 'Arial,12'"
+// "BEWARE. Each plot requires a separate outputfile."
++
++ "set size ratio 0.71 # for the A4 ratio"
++ "set boxwidth   0.9"
++ "set style      fill solid"
++
+
+# execution times per operation, vector length and depth
+
+// "_ _ __ ___ _____ ________ _____________ _____________________"
++
++ "set xlabel \"log10(size)\""
++ "set ylabel  \"Microseconds\""
++ "set logscale y"
++
+foreach {
+    op id
+} $plots {
+    + "datasource1 = \"$id.csv\""
+    set plotcmd "plot"
+    set count 8 ;# depths    
+    for {set k 0; set col 2; set prefix ""} {$k < $count} {incr k} {
+	append plotcmd "$prefix datasource1 using 1:$col with lines"
+	set prefix ", \\\n    "
+	incr col
+    }
+    + "set title \"reduce times per \#bands: $op\""
+    + "set output \"times-$id.svg\""
+    + $plotcmd
+    +
+} ;# plots
+
+# execution speed per operation, vector length, and depth
+# (inverted actually, as time per value, lower is better)
+
+// "_ _ __ ___ _____ ________ _____________ _____________________"
++
++ "set ylabel  \"Nanoseconds/value\""
++ "set logscale y"
++
+foreach {
+    op id
+} $plots {
+    + "datasource1 = \"$id.csv\""
+    set plotcmd "plot"
+    set count 8
+    for {set k 0; set col 2; set prefix ""} {$k < $count} {incr k} {
+	append plotcmd "$prefix datasource1 using 1:(1000*\$$col/(10**\$1)) with lines"
+	set prefix ", \\\n    "
+	incr col
+    }
+    + "set title \"reduce 1/speed: $op\""
+    + "set output \"ispeed-$id.svg\""
+    + $plotcmd
+    +
+} ;# plots
+
+// "_ _ __ ___ _____ ________ _____________ _____________________"
+
+w generated/reducer.gnuplot [g]
+
+# # ## ### ##### ######## ############# #####################
+## gnuplot rendering
+
+puts "rendering gnuplot spec ..."
+
+exec 2>@ stderr >@ stdout gnuplot generated/reducer.gnuplot
+
+puts "... done"
+
+# # ## ### ##### ######## ############# #####################
+## stash charts (.csv) and renders (.svg) into the bench area
+
+file mkdir  bench/plots/reduce
+
+file delete -force bench/plots/reduce/csv ; file mkdir bench/plots/reduce/csv
+file delete -force bench/plots/reduce/svg ; file mkdir bench/plots/reduce/svg
+
+file rename -force {*}[glob -type f *.csv] bench/plots/reduce/csv
+file rename -force {*}[glob -type f *.svg] bench/plots/reduce/svg
+
+# # ## ### ##### ######## ############# #####################
+## Create README
+
+puts "generating README ..."
+
++ {<img src='../../../doc/assets/aktive-logo-128.png' style='float:right;'>}
++
++ "Benchmark results for baseline reducer"
++
++ {||}
++ {|---|}
++ {|[Parent ↗](../README.md)|}
++
++ "## Summary"
++ [string map [list "    " ""] {
+    The base line implementation of the by-band reductions nicely
+    shows how the time per value increases with the number of bands to
+    process.
+}]
++ "## Plots"
+
+foreach {
+    op id
+} $plots {
+    set speed "svg/ispeed-$id.svg"
+    set times "svg/times-$id.svg"
+    +
+    + "\[<img src='$times' style='width:46%;'>]($times)"
+    + "\[<img src='$speed' style='width:46%;'>]($speed)"
+} ;# plots
+
+w bench/plots/reduce/README.md [g]
+
+puts "... done"
+
+# # ## ### ##### ######## ############# #####################
+return

@@ -1,0 +1,84 @@
+# -*- tcl -*- tcl.tk//DSL tclbench//EN// Tcl Benchmark File
+#
+# This file contains a number of low-level reduce op benchmarks.
+#
+# (c) 2025 Andreas Kupries <andreas_kupries@users.sourceforge.net>
+#
+##
+# ### ### ### ######### ######### ######### ##########################
+## Utilities
+
+kb::check   Tcl 8.6
+kb::require support   debug
+kb::local   benchmark aktive
+
+source ../data/reducefunc/spec.tcl
+
+# ### ### ### ######### ######### ######### ###########################
+## Benchmarks Setup
+
+bench_puts "filling the random inputs..."
+set us [time aktive::bench::reduce::init 1]
+bench_puts "... done in $us"
+
+set vlength {
+    1
+    10
+    100
+    1000
+    10000
+    100000
+    1000000
+}
+
+# log10(n) = (0...7) _ 1 to 100 million
+# reduce iterations at the larger levels keep the overall execution
+# time in check
+
+# reduced to max 10**5 / 100,000
+
+set iters {
+    1      1000
+    10     1000
+    100    1000
+    1000   1000
+    10000  1000
+    100000 1000
+    1000000 100
+}
+
+#    10000000
+
+#    10000000 10
+
+# ### ### ### ######### ######### ######### ###########################
+## Benchmarks Execution
+##
+## Iteration is not only over vector length, but also over image
+## depth, i.e. number of bands. While this should not matter much for
+## the base line, for the unrolled functions this is important due to
+## the per-depth specializations they will contain.
+##
+## To allow for this the largest vector size is not used for vector
+## length, but as band space (up to 10 bands).
+##
+
+foreach name $reducers {
+    set cmd aktive::bench::reduce::base::$name
+    if {![llength [info commands ::$cmd]]} continue
+
+    foreach depth {1 2 3 4 5 6 7 8} {
+	foreach n $vlength {
+	    set iter  [dict get $iters $n]
+	    set sz    [expr {$n * $depth}]
+	    set label [list $cmd/$depth n/a  n/a   $sz  $n:1   $n 1]
+	    #               label       sink cores size aspect w  h
+	    bench -iter $iter -desc $label -body {
+		$cmd $n $depth
+	    }
+	} ;# vlength
+    } ;# depth
+} ;# reducers
+
+# ### ### ### ######### ######### ######### ###########################
+return

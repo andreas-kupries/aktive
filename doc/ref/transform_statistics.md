@@ -84,7 +84,7 @@
 ---
 ### [↑](#top) <a name='op_band_arg_ge'></a> aktive op band arg ge
 
-Syntax: __aktive op band arg ge__ thresholds src [[→ definition](/file?ci=trunk&ln=80&name=etc/transformer/statistics/by-bands.tcl)]
+Syntax: __aktive op band arg ge__ thresholds src [[→ definition](/file?ci=trunk&ln=68&name=etc/transformer/statistics/by-bands.tcl)]
 
 Returns the source image with its bands compressed to a single value, the first index where the band value is greater than or equal than the threshold. The result is a single-band image with the same width and height as the inputs.
 
@@ -104,7 +104,7 @@ The threshold image has to be single-band.
 ---
 ### [↑](#top) <a name='op_band_arg_gt'></a> aktive op band arg gt
 
-Syntax: __aktive op band arg gt__ thresholds src [[→ definition](/file?ci=trunk&ln=80&name=etc/transformer/statistics/by-bands.tcl)]
+Syntax: __aktive op band arg gt__ thresholds src [[→ definition](/file?ci=trunk&ln=68&name=etc/transformer/statistics/by-bands.tcl)]
 
 Returns the source image with its bands compressed to a single value, the first index where the band value is greater than than the threshold. The result is a single-band image with the same width and height as the inputs.
 
@@ -124,7 +124,7 @@ The threshold image has to be single-band.
 ---
 ### [↑](#top) <a name='op_band_arg_le'></a> aktive op band arg le
 
-Syntax: __aktive op band arg le__ thresholds src [[→ definition](/file?ci=trunk&ln=80&name=etc/transformer/statistics/by-bands.tcl)]
+Syntax: __aktive op band arg le__ thresholds src [[→ definition](/file?ci=trunk&ln=68&name=etc/transformer/statistics/by-bands.tcl)]
 
 Returns the source image with its bands compressed to a single value, the first index where the band value is lesser than or equal than the threshold. The result is a single-band image with the same width and height as the inputs.
 
@@ -144,7 +144,7 @@ The threshold image has to be single-band.
 ---
 ### [↑](#top) <a name='op_band_arg_lt'></a> aktive op band arg lt
 
-Syntax: __aktive op band arg lt__ thresholds src [[→ definition](/file?ci=trunk&ln=80&name=etc/transformer/statistics/by-bands.tcl)]
+Syntax: __aktive op band arg lt__ thresholds src [[→ definition](/file?ci=trunk&ln=68&name=etc/transformer/statistics/by-bands.tcl)]
 
 Returns the source image with its bands compressed to a single value, the first index where the band value is lesser than than the threshold. The result is a single-band image with the same width and height as the inputs.
 
