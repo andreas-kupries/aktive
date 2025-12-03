@@ -2,6 +2,7 @@
 ## (c) 2023,2024 Andreas Kupries
 # # ## ### ##### ######## ############# #####################
 ## AKTIVE. Row statistics (min, max, mean, sum, sum squared, variance, std deviation)
+##   NOTE: For profile, rprofile see `stats-profile.test`.
 
 kt check Tcl     8.6 9
 kt check tcltest 2
@@ -208,21 +209,21 @@ foreach {op config expected} {
     }
 
     if {$op in {
-	variance stddev
+	variance stddev {arg max} {arg min}
     }} {
 	# confirm const results, and simplifications
 
         test aktive-op-row-${op}-3.0 "aktive op row $op, chain const" -body {
-	    pixels aktive op row $op \
+	    pixels aktive op row {*}$op \
 		[aktive op pass \
-		     [aktive op row $op [grad] \
+		     [aktive op row {*}$op [grad] \
 			  {*}$params]] \
 		{*}$params
 	} -match pixels -result [pixels aktive image from value width 1 height 4 depth 2 value 0]
 
 	test aktive-op-row-${op}-3.1 "aktive op row $op, chain const, reduced dag" -body {
-	    dag aktive op row $op \
-		[aktive op row $op [grad] \
+	    dag aktive op row {*}$op \
+		[aktive op row {*}$op [grad] \
 		     {*}$params] \
 		{*}$params
 	} -match glob -result "image::from::value * {x 0 y 0 width 1 height 4 depth 2 value 0.0}"

@@ -30,11 +30,19 @@ operator {dexpr attr} {
 
     section transform statistics
 
-    ## simplifications
-    ## - min, max, mean, sum :: elide (idempotent), and for input width == 1
-    ## - sumsquared          :: op math1 pow 2 (power chaining)
-    ## - variance, stddev    :: const 0
-    ## - profile, rprofile   :: NONE
+    ## simplifications (also apply for input width == 1)
+    #
+    ## - arg::max   :: const 0 (single value is max, at index 0)
+    ## - arg::min   :: const 0 (single value is min, at index 0)
+    ## - max        :: elide (idempotent / identity)
+    ## - mean       :: elide (idempotent / identity)
+    ## - min        :: elide (idempotent / identity)
+    ## - stddev     :: const 0
+    ## - sum        :: elide (idempotent / identity)
+    ## - sumsquared :: op math1 pow 2 (power chaining)
+    ## - variance   :: const 0
+    ## - profile    :: NONE
+    ## - rprofile   :: NONE
 
     import? ../simpler/stat_$fun.rules	;# queries kind !!
 
@@ -78,6 +86,8 @@ operator {dexpr attr} {
 	// srcvalue = row/band start - SD-strided row vector
 	*dstvalue = REDUCE (srcvalue, SW, SD, 0 /* client data, ignored */);
     }}
+    ## __UNROLL__ option1: compute all bands together (1/2/3/many specialization)
+    ## __UNROLL__ note: differs from by-band in the scope of the aggregation
 
     pixels {
 	aktive_rectangle_def_as (subrequest, request);

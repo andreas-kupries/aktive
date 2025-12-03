@@ -2,6 +2,7 @@
 ## (c) 2023,2024 Andreas Kupries
 # # ## ### ##### ######## ############# #####################
 ## AKTIVE. Column statistics (min, max, mean, sum, sum squared, variance, std deviation)
+##   NOTE: For profile, rprofile see `stats-profile.test`.
 
 kt check Tcl     8.6 9
 kt check tcltest 2
@@ -150,21 +151,21 @@ foreach {op config expected} {
     }
 
     if {$op in {
-	variance stddev
+	variance stddev {arg max} {arg min}
     }} {
 	# confirm const results, and simplifications
 
         test aktive-op-column-${op}-3.0 "aktive op column $op, chain const" -body {
-	    pixels aktive op column $op \
+	    pixels aktive op column {*}$op \
 		[aktive op pass \
-		     [aktive op column $op [grad] \
+		     [aktive op column {*}$op [grad] \
 			  {*}$params]] \
 		{*}$params
 	} -match pixels -result [pixels aktive image from value width 3 height 1 depth 2 value 0]
 
 	test aktive-op-column-${op}-3.1 "aktive op column $op, chain const, reduced dag" -body {
-	    dag aktive op column $op \
-		[aktive op column $op [grad] \
+	    dag aktive op column {*}$op \
+		[aktive op column {*}$op [grad] \
 		     {*}$params] \
 		{*}$params
 	} -match glob -result "image::from::value * {x 0 y 0 width 3 height 1 depth 2 value 0.0}"

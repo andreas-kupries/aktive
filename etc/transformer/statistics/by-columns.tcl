@@ -28,10 +28,17 @@ operator {dexpr attr} {
 
     section transform statistics
 
-    ## simplifications
-    ## - min, max, mean, sum :: elide (idempotent), and for input height == 1
-    ## - sumsquared          :: op math1 pow 2 (power chaining)
-    ## - variance, stddev    :: const 0
+    ## simplifications (also apply for input width == 1)
+    #
+    ## - arg::max   :: const 0 (single value is max, at index 0)
+    ## - arg::min   :: const 0 (single value is min, at index 0)
+    ## - max        :: elide (idempotent / identity)
+    ## - mean       :: elide (idempotent / identity)
+    ## - min        :: elide (idempotent / identity)
+    ## - stddev     :: const 0
+    ## - sum        :: elide (idempotent / identity)
+    ## - sumsquared :: op math1 pow 2 (power chaining)
+    ## - variance   :: const 0
 
     import? ../simpler/stat_$fun.rules	;# queries kind !!
 
@@ -62,6 +69,11 @@ operator {dexpr attr} {
 	// srcvalue = row/band start - srcpitch-strided column vector
 	*dstvalue = REDUCE (srcvalue, SH, SW*SD, 0 /* client data, ignored */);
     }}
+    # __UNROLL__ option 1: compute all the bands of the column together, 1/2/3/many
+    # __UNROLL__ option 2: compute multiple columns together
+    # __UNROLL__           (restrict to single band images ?)
+    # __UNROLL__ NOTE: each band can be seen as its own column
+    # __UNROLL__       no true difference between 1 and 2.
 
     pixels {
 	aktive_rectangle_def_as (subrequest, request);

@@ -575,7 +575,7 @@ The result has a single row.
 ---
 ### [↑](#top) <a name='op_column_profile'></a> aktive op column profile
 
-Syntax: __aktive op column profile__ src [[→ definition](/file?ci=trunk&ln=77&name=etc/transformer/statistics/by-columns.tcl)]
+Syntax: __aktive op column profile__ src [[→ definition](/file?ci=trunk&ln=89&name=etc/transformer/statistics/by-columns.tcl)]
 
 Returns image with input columns compressed to a single value, the top profile of the column values. The result is a single-row image with width and depth of the input. The bands of the image are handled independently.
 
@@ -620,7 +620,7 @@ Beware. While it is possible to use the rank filter for max/min extractions it i
 ---
 ### [↑](#top) <a name='op_column_rprofile'></a> aktive op column rprofile
 
-Syntax: __aktive op column rprofile__ src [[→ definition](/file?ci=trunk&ln=77&name=etc/transformer/statistics/by-columns.tcl)]
+Syntax: __aktive op column rprofile__ src [[→ definition](/file?ci=trunk&ln=89&name=etc/transformer/statistics/by-columns.tcl)]
 
 Returns image with input columns compressed to a single value, the bottom profile of the column values. The result is a single-row image with width and depth of the input. The bands of the image are handled independently.
 
