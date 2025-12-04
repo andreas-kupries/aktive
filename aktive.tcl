@@ -44,12 +44,19 @@ critcl::subject {image transformation} {data structures} {image io}
 critcl::subject {image reading} {image writing} {image composition}
 critcl::subject {vector operations} {matrix operations}
 
+# # ## ### ##### ######## ############# #####################
+## Build mode
+
 critcl::userconfig define benchmarks {} bool 0
+critcl::userconfig define testing    {} bool 0
+
+set benchmarking [critcl::userconfig query benchmarks]
+set testing      [critcl::userconfig query testing]
+
+# reporting is done later (**), when we can do colored output
 
 # # ## ### ##### ######## ############# #####################
 ## Implementation.
-
-set benchmarking [critcl::userconfig query benchmarks]
 
 ## critcl::tcl 8.6 ##
 
@@ -82,10 +89,16 @@ critcl::ccode {
 
 critcl::source support/dsl.tcl
 
-critcl::msg "[dsl::reader::blue Benchmarking]: [dsl::reader::magenta [dict get {
-  0 No
-  1 YES
-} $benchmarking]]"
+# (**) report build mode now that colored output is possible
+set bm [dsl::reader::blue Buildmode]
+switch -exact -- $benchmarking$testing {
+    00 { critcl::msg "${bm}: [dsl::reader::magenta Production]"   }
+    01 { critcl::msg "${bm}: [dsl::reader::magenta Testing]"      }
+    10 { critcl::msg "${bm}: [dsl::reader::magenta Benchmarking]" }
+    11 { critcl::msg "${bm}: [dsl::reader::red     "Conflict: Testing/Benchmarking"]"
+	exit 1
+    }
+}
 
 # scan for markers the documentation can then reference.
 dsl xref scan \
@@ -196,6 +209,14 @@ critcl::tsources meta.tcl	;# meta data dict wrapper
 if {$benchmarking} {
     critcl::source bench/support/math.tcl
     critcl::source bench/support/reducers.tcl
+}
+
+# # ## ### ##### ######## ############# #####################
+## Testing support code & commands.
+## Used if only if the package is built for testing.
+
+if {$testing} {
+    critcl::source tests/support/kahan.tcl
 }
 
 # # ## ### ##### ######## ############# #####################

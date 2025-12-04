@@ -79,6 +79,9 @@ proc asppm/ {i}    { aktive format as ppm byte 2string $i }
 proc save-pgm  {path args} { save-pgm/ $path [check {*}$args] }
 proc save-pgm/ {path i}    { save-to $path $i aktive format as pgm byte }
 
+proc save-ppm  {path args} { save-ppm/ $path [check {*}$args] }
+proc save-ppm/ {path i}    { save-to $path $i aktive format as ppm byte }
+
 proc save-aktive  {path args} { save-aktive/ $path [check {*}$args] }
 proc save-aktive/ {path i}    { save-to $path $i aktive format as aktive }
 

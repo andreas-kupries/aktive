@@ -63,7 +63,7 @@ aktive_kahan_add  (kahan* k, double v)
     if (fabs (k->sum) > fabs (v)) {
 	k->correction += (k->sum - t) + v;	// low order digits of v were lost
     } else {
-	k->correction + (v - t) + k->sum;	// low order digits of sum were lost
+	k->correction += (v - t) + k->sum;	// low order digits of sum were lost
     }
     k->sum = t;
 

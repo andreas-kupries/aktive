@@ -1,0 +1,53 @@
+# -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
+## (c) 2023,2024 Andreas Kupries
+# # ## ### ##### ######## ############# #####################
+## AKTIVE. Kahan compensated summation
+
+kt check Tcl     8.6 9
+kt check tcltest 2
+
+# # ## ### ##### ######## ############# #####################
+
+kt local testing aktive
+
+kt source support/util.tcl
+
+# # ## ### ##### ######## ############# #####################
+## Syntax - Not relevant for test-only commands
+
+# # ## ### ##### ######## ############# #####################
+## validation vectors, with expected results for plain/uncompensated
+## summation and kahan/compensated summation.
+
+set high 10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.
+set low -10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.
+
+#               +- uncompensated result
+#               |                  +- compensated result
+#       id ---\ |                  |           /-- input
+lappend table 1 10005.859869999998 10005.85987 [list 10000. 3.14159 2.71828]
+# uncompensated fail to zero
+lappend table 2 0.0                2.0         [list 1. $high 1. $low]
+lappend table 3 0.0                2.0         [list 1. 1. $high $low]
+lappend table 4 0.0                2.0         [list 1. $low 1. $high]
+lappend table 5 0.0                2.0         [list 1. 1. $low $high]
+# uncompensated fail to one
+lappend table 6 1.0                2.0         [list 1. $high $low 1.]
+lappend table 7 1.0                2.0         [list 1. $low $high 1.]
+# uncompensated lucky ok
+lappend table 8 2.0                2.0         [list $high $low 1. 1.]
+lappend table 9 2.0                2.0         [list $low $high 1. 1.]
+
+foreach {id encs ecs values} $table {
+    test aktive-version-1.$id "aktive kahan, compensated sum" -body {
+	aktive::kahan {*}$values
+    } -result $ecs
+
+    test aktive-version-2.$id "aktive kahan, plain sum" -body {
+	aktive::nonkahan {*}$values
+    } -result $encs
+}
+
+# # ## ### ##### ######## ############# #####################
+cleanupTests
+return
