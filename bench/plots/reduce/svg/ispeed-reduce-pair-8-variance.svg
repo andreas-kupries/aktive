@@ -42,14 +42,23 @@
 </g>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
 	<path stroke='black'  d='M80.92,413.54 L89.92,413.54 M574.82,413.54 L565.82,413.54  '/>	<g transform="translate(72.53,417.44)" stroke="none" fill="black" font-family="Arial" font-size="12.00"  text-anchor="end">
+		<text><tspan font-family="Arial" > 10</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M80.92,360.76 L85.42,360.76 M574.82,360.76 L570.32,360.76 M80.92,329.88 L85.42,329.88 M574.82,329.88 L570.32,329.88
+		M80.92,307.98 L85.42,307.98 M574.82,307.98 L570.32,307.98 M80.92,290.99 L85.42,290.99 M574.82,290.99 L570.32,290.99
+		M80.92,277.10 L85.42,277.10 M574.82,277.10 L570.32,277.10 M80.92,265.36 L85.42,265.36 M574.82,265.36 L570.32,265.36
+		M80.92,255.20 L85.42,255.20 M574.82,255.20 L570.32,255.20 M80.92,246.23 L85.42,246.23 M574.82,246.23 L570.32,246.23
+		M80.92,238.20 L89.92,238.20 M574.82,238.20 L565.82,238.20  '/>	<g transform="translate(72.53,242.10)" stroke="none" fill="black" font-family="Arial" font-size="12.00"  text-anchor="end">
 		<text><tspan font-family="Arial" > 100</tspan></text>
 	</g>
 </g>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
-	<path stroke='black'  d='M80.92,307.98 L85.42,307.98 M574.82,307.98 L570.32,307.98 M80.92,246.23 L85.42,246.23 M574.82,246.23 L570.32,246.23
-		M80.92,202.42 L85.42,202.42 M574.82,202.42 L570.32,202.42 M80.92,168.43 L85.42,168.43 M574.82,168.43 L570.32,168.43
-		M80.92,140.67 L85.42,140.67 M574.82,140.67 L570.32,140.67 M80.92,117.19 L85.42,117.19 M574.82,117.19 L570.32,117.19
-		M80.92,96.85 L85.42,96.85 M574.82,96.85 L570.32,96.85 M80.92,78.92 L85.42,78.92 M574.82,78.92 L570.32,78.92
+	<path stroke='black'  d='M80.92,185.42 L85.42,185.42 M574.82,185.42 L570.32,185.42 M80.92,154.55 L85.42,154.55 M574.82,154.55 L570.32,154.55
+		M80.92,132.64 L85.42,132.64 M574.82,132.64 L570.32,132.64 M80.92,115.65 L85.42,115.65 M574.82,115.65 L570.32,115.65
+		M80.92,101.77 L85.42,101.77 M574.82,101.77 L570.32,101.77 M80.92,90.03 L85.42,90.03 M574.82,90.03 L570.32,90.03
+		M80.92,79.86 L85.42,79.86 M574.82,79.86 L570.32,79.86 M80.92,70.89 L85.42,70.89 M574.82,70.89 L570.32,70.89
 		M80.92,62.87 L89.92,62.87 M574.82,62.87 L565.82,62.87  '/>	<g transform="translate(72.53,66.77)" stroke="none" fill="black" font-family="Arial" font-size="12.00"  text-anchor="end">
 		<text><tspan font-family="Arial" > 1000</tspan></text>
 	</g>
@@ -112,8 +121,8 @@
 	</g>
 </g>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
-	<path stroke='rgb(148,   0, 211)'  d='M515.48,80.87 L558.04,80.87 M80.92,163.64 L163.24,357.58 L245.55,391.90 L327.87,395.86 L410.19,396.82 L492.50,396.77
-		L574.82,396.85  '/></g>
+	<path stroke='rgb(148,   0, 211)'  d='M515.48,80.87 L558.04,80.87 M80.92,119.88 L163.24,225.09 L245.55,237.79 L327.87,252.84 L410.19,253.53 L492.50,253.41
+		L574.82,253.55  '/></g>
 	</g>
 	<g id="gnuplot_plot_2" ><title>reduce-special-8-variance</title>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
@@ -122,8 +131,8 @@
 	</g>
 </g>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
-	<path stroke='rgb(  0, 158, 115)'  d='M515.48,98.87 L558.04,98.87 M80.92,163.05 L163.24,360.24 L245.55,398.50 L327.87,403.54 L410.19,404.61 L492.50,404.55
-		L574.82,404.61  '/></g>
+	<path stroke='rgb(  0, 158, 115)'  d='M515.48,98.87 L558.04,98.87 M80.92,117.35 L163.24,226.58 L245.55,254.80 L327.87,257.74 L410.19,257.76 L492.50,257.74
+		L574.82,257.76  '/></g>
 	</g>
 <g fill="none" color="white" stroke="rgb(  0, 158, 115)" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
 </g>

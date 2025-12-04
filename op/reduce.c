@@ -223,7 +223,7 @@ aktive_reduce_sum (double* v, aktive_uint n, aktive_uint stride, void* __client_
 {
     kahan sum;
     sum_1 (&sum, v, n, stride);
-    return aktive_kahan_final (&sum);
+    return aktive_kahan_final (sum);
 }
 
 extern double
@@ -231,7 +231,7 @@ aktive_reduce_sumsquared (double* v, aktive_uint n, aktive_uint stride, void* __
 {
     kahan sum;
     sum_squared (&sum, v, n, stride);
-    return aktive_kahan_final (&sum);
+    return aktive_kahan_final (sum);
 }
 
 extern double
@@ -244,8 +244,8 @@ aktive_reduce_variance (double* v, aktive_uint n, aktive_uint stride, void* __cl
 
     sum_and_squared (&sum, &squared, v, n, stride);
 
-    double mean = aktive_kahan_final (&sum)     / (double) n;
-    double sq   = aktive_kahan_final (&squared) / (double) n;
+    double mean = aktive_kahan_final (sum)     / (double) n;
+    double sq   = aktive_kahan_final (squared) / (double) n;
 
     return sq - mean*mean;
 }
@@ -421,7 +421,7 @@ aktive_tile_reduce_sum (double* v, aktive_uint radius, aktive_uint base,
     TRACE_FUNC("((double*) %p, [%u:%u], (radius) %u, (pitch) %u, (stride) %u)",
 	       v, base, cap, radius, pitch, stride);
 
-    kahan sum; aktive_kahan_init (&sum);
+    kahan sum; aktive_kahan_init (sum);
 
     int r = radius;
     for (int y = -r ; y <= r; y++) {
@@ -439,11 +439,11 @@ aktive_tile_reduce_sum (double* v, aktive_uint radius, aktive_uint base,
 
 	    TRACE_ADD ("=> %f", val); TRACE_CLOSER;
 
-	    aktive_kahan_add (&sum, val);
+	    aktive_kahan_add (sum, val);
 	}
     }
 
-    double res = aktive_kahan_final (&sum);
+    double res = aktive_kahan_final (sum);
     TRACE_RETURN ("(sum) %f", res);
 }
 
@@ -455,7 +455,7 @@ aktive_tile_reduce_sumsquared (double* v, aktive_uint radius, aktive_uint base,
     TRACE_FUNC("((double*) %p, [%u:%u], (radius) %u, (pitch) %u, (stride) %u)",
 	       v, base, cap, radius, pitch, stride);
 
-    kahan sum; aktive_kahan_init (&sum);
+    kahan sum; aktive_kahan_init (sum);
 
     int r = radius;
     for (int y = -r ; y <= r; y++) {
@@ -473,11 +473,11 @@ aktive_tile_reduce_sumsquared (double* v, aktive_uint radius, aktive_uint base,
 
 	    TRACE_ADD ("=> %f", val); TRACE_CLOSER;
 
-	    aktive_kahan_add (&sum, val*val);
+	    aktive_kahan_add (sum, val*val);
 	}
     }
 
-    double res = aktive_kahan_final (&sum);
+    double res = aktive_kahan_final (sum);
     TRACE_RETURN ("(sum-squared) %f", res);
 }
 
@@ -491,8 +491,8 @@ aktive_tile_reduce_variance (double* v, aktive_uint radius, aktive_uint base,
 
     aktive_uint n = 2*radius+1; n *= n;
 
-    kahan sum;     aktive_kahan_init (&sum);
-    kahan squared; aktive_kahan_init (&squared);
+    kahan sum;     aktive_kahan_init (sum);
+    kahan squared; aktive_kahan_init (squared);
 
     int r = radius;
     for (int y = -r ; y <= r; y++) {
@@ -510,13 +510,13 @@ aktive_tile_reduce_variance (double* v, aktive_uint radius, aktive_uint base,
 
 	    TRACE_ADD ("=> %f", val); TRACE_CLOSER;
 
-	    aktive_kahan_add (&sum, val);
-	    aktive_kahan_add (&squared, val*val);
+	    aktive_kahan_add (sum, val);
+	    aktive_kahan_add (squared, val*val);
 	}
     }
 
-    double mean = aktive_kahan_final (&sum)     / (double) n;
-    double sq   = aktive_kahan_final (&squared) / (double) n;
+    double mean = aktive_kahan_final (sum)     / (double) n;
+    double sq   = aktive_kahan_final (squared) / (double) n;
     double res  = sq - mean*mean;
 
     TRACE_RETURN ("(variance) %f", res);
@@ -619,9 +619,9 @@ aktive_tile_reduce_histogram (double* v, aktive_uint radius, aktive_uint base,
 static void
 sum_1 (kahan* rsum, double* v, aktive_uint n, aktive_uint stride)
 {
-    kahan sum; aktive_kahan_init (&sum);
+    kahan sum; aktive_kahan_init (sum);
 
-    for (aktive_uint k = 0; k < n; k++, v += stride) { aktive_kahan_add (&sum, *v); }
+    for (aktive_uint k = 0; k < n; k++, v += stride) { aktive_kahan_add (sum, *v); }
 
     *rsum = sum;
 }
@@ -629,11 +629,11 @@ sum_1 (kahan* rsum, double* v, aktive_uint n, aktive_uint stride)
 static void
 sum_squared (kahan* rsum, double* v, aktive_uint n, aktive_uint stride)
 {
-    kahan sum; aktive_kahan_init (&sum);
+    kahan sum; aktive_kahan_init (sum);
 
     for (aktive_uint k = 0; k < n; k++, v += stride) {
-	double x = *v;
-	aktive_kahan_add (&sum, x*x);
+	double x = *v; double xx = x*x;
+	aktive_kahan_add (sum, xx);
     }
 
     *rsum = sum;
@@ -642,13 +642,13 @@ sum_squared (kahan* rsum, double* v, aktive_uint n, aktive_uint stride)
 static void
 sum_and_squared (kahan* rsum, kahan* rsquared, double* v, aktive_uint n, aktive_uint stride)
 {
-    kahan sum;     aktive_kahan_init (&sum);
-    kahan squared; aktive_kahan_init (&squared);
+    kahan sum;     aktive_kahan_init (sum);
+    kahan squared; aktive_kahan_init (squared);
 
     for (aktive_uint k = 0; k < n; k++, v += stride) {
-	double val = *v;
-	aktive_kahan_add (&sum, val);
-	aktive_kahan_add (&squared, val*val);
+	double val = *v; double vv = val*val;
+	aktive_kahan_add (sum,     val);
+	aktive_kahan_add (squared, vv);
     }
 
     *rsum     = sum;
@@ -742,8 +742,8 @@ image_reduce (const char*           name,
     batch.image       = src;
     //
     batch.size        = aktive_image_get_size (src);
-    aktive_kahan_init (&batch.acc.main);
-    aktive_kahan_init (&batch.acc.aux);
+    aktive_kahan_init (batch.acc.main);
+    aktive_kahan_init (batch.acc.aux);
     batch.initialized = 0;
     batch.result      = &result; // completer target on finalization
 

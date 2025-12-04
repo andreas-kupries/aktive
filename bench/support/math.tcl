@@ -8,7 +8,7 @@
 # Commands for use in benchmarks. Do not create when in a non-benchmark environment
 ##
 
-critcl::msg "\t[dsl::reader::cyan "Benchmarking Support, Scalar loops"]"
+critcl::msg "\t[dsl::reader::cyan "Benchmarking Support; Expose math core"]"
 
 critcl::ccode {
     // Max size vector to operate

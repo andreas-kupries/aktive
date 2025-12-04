@@ -40,27 +40,27 @@ dsl reduce gen generated/reduce.c {
     fun sum {
 	sum_1 (&PARTIAL, p->pixel, p->used, 1);
     } {
-	aktive_kahan_add_kahan (&ACC, &PARTIAL);
+	aktive_kahan_add_kahan (ACC, PARTIAL);
     } {
-	FINAL = aktive_kahan_final (&ACC);
+	FINAL = aktive_kahan_final (ACC);
     }
 
     # sum of sum-squared
     fun sumsquared {
 	sum_squared (&PARTIAL, p->pixel, p->used, 1);
     } {
-	aktive_kahan_add_kahan (&ACC, &PARTIAL);
+	aktive_kahan_add_kahan (ACC, PARTIAL);
     } {
-	FINAL = aktive_kahan_final (&ACC);
+	FINAL = aktive_kahan_final (ACC);
     }
 
     # sum of sums, scaled
     fun mean {
 	sum_1 (&PARTIAL, p->pixel, p->used, 1);
     } {
-	aktive_kahan_add_kahan (&ACC, &PARTIAL);
+	aktive_kahan_add_kahan (ACC, PARTIAL);
     } {
-	FINAL = aktive_kahan_final (&ACC) / (double) state->size;
+	FINAL = aktive_kahan_final (ACC) / (double) state->size;
     }
 
     # sum of sums, sum-squared, scaled, mixed
@@ -68,12 +68,12 @@ dsl reduce gen generated/reduce.c {
 	// main = sum, aux = sum-squared
 	sum_and_squared (&PARTIAL, &P_AUX, p->pixel, p->used, 1);
     } {
-	aktive_kahan_add_kahan (&ACC, &PARTIAL);
-	aktive_kahan_add_kahan (&AUX, &P_AUX);
+	aktive_kahan_add_kahan (ACC, PARTIAL);
+	aktive_kahan_add_kahan (AUX, P_AUX);
     } {
 	double n    = state->size;
-	double mean = aktive_kahan_final (&ACC) / n;
-	double sq   = aktive_kahan_final (&AUX) / n;
+	double mean = aktive_kahan_final (ACC) / n;
+	double sq   = aktive_kahan_final (AUX) / n;
 
 	FINAL = sq - mean*mean;
     }
@@ -83,12 +83,12 @@ dsl reduce gen generated/reduce.c {
 	// main = sum, aux = sum-squared
 	sum_and_squared (&PARTIAL, &P_AUX, p->pixel, p->used, 1);
     } {
-	aktive_kahan_add_kahan (&ACC, &PARTIAL);
-	aktive_kahan_add_kahan (&AUX, &P_AUX);
+	aktive_kahan_add_kahan (ACC, PARTIAL);
+	aktive_kahan_add_kahan (AUX, P_AUX);
     } {
 	double n    = state->size;
-	double mean = aktive_kahan_final (&ACC) / n;
-	double sq   = aktive_kahan_final (&AUX) / n;
+	double mean = aktive_kahan_final (ACC) / n;
+	double sq   = aktive_kahan_final (AUX) / n;
 
 	FINAL = sqrt (sq - mean*mean);
     }

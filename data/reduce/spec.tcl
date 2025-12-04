@@ -59,28 +59,21 @@ set reduce {
     setup {
 	max        { double @A = -INFINITY; }
 	min        { double @A =  INFINITY; }
-	sum        { kahan  @A; aktive_kahan_init (&@A); }
+	sum        { kahan  @A; aktive_kahan_init (@A); }
 	sumsquared @sum
 	mean       @sum
-	variance {
-	    sas @A;
-	    aktive_kahan_init (&@A.sum);
-	    aktive_kahan_init (&@A.squared);
-	}
-	stddev @variance
-	argmax { args @A; @A.extremum = -INFINITY; @A.eindex = 0; }
-	argmin { args @A; @A.extremum =  INFINITY; @A.eindex = 0; }
+	variance   { sas @A; aktive_kahan_init (@A.sum); aktive_kahan_init (@A.squared); }
+	stddev     @variance
+	argmax     { args @A; @A.extremum = -INFINITY; @A.eindex = 0; }
+	argmin     { args @A; @A.extremum =  INFINITY; @A.eindex = 0; }
     }
     reduce {
 	max        { @A = fmax (@A, @V); }
 	min        { @A = fmin (@A, @V); }
-	sum        { aktive_kahan_add (&@A, @V); }
-	sumsquared { aktive_kahan_add (&@A, @V * @V); }
+	sum        { aktive_kahan_add (@A, @V); }
+	sumsquared { aktive_kahan_add (@A, @V*@V); }
 	mean       @sum
-	variance {
-	    aktive_kahan_add (&@A.sum, @V);
-	    aktive_kahan_add (&@A.squared, @V*@V);
-	}
+	variance   { aktive_kahan_add (@A.sum, @V); aktive_kahan_add (@A.squared, @V*@V); }
 	stddev @variance
 	argmax {
 	    @A.eindex   = @V > @A.extremum ? @I : @A.eindex;
@@ -92,21 +85,18 @@ set reduce {
 	}
     }
     merge {
-	max             { @AD = fmax (@AD, @AS); }
-	min             { @AD = fmin (@AD, @AS); }
-	sum             { aktive_kahan_add_kahan (&@AD, &@AS); }
-	sumsquared      @sum
-	mean            @sum
-	variance {
-	    aktive_kahan_add_kahan (&@AD.sum,     &@AS.sum);
-	    aktive_kahan_add_kahan (&@AD.squared, &@AS.squared);
-	}
-	stddev @variance
-	argmax {
+	max        { @AD = fmax (@AD, @AS); }
+	min        { @AD = fmin (@AD, @AS); }
+	sum        { aktive_kahan_add_kahan (@AD, @AS); }
+	sumsquared @sum
+	mean       @sum
+	variance   { aktive_kahan_add_kahan (@AD.sum, @AS.sum); aktive_kahan_add_kahan (@AD.squared, @AS.squared); }
+	stddev     @variance
+	argmax     {
 	    @AD.eindex   = @AS.extremum > @AD.extremum ? @AS.eindex   : @AD.eindex;
 	    @AD.extremum = @AS.extremum > @AD.extremum ? @AS.extremum : @AD.extremum;
 	}
-	argmin {
+	argmin     {
 	    @AD.eindex   = @AS.extremum < @AD.extremum ? @AS.eindex   : @AD.eindex;
 	    @AD.extremum = @AS.extremum < @AD.extremum ? @AS.extremum : @AD.extremum;
 	}
@@ -114,17 +104,17 @@ set reduce {
     finalize {
 	max        { @R = @A; }
 	min        @max
-	sum        { @R = aktive_kahan_final (&@A); }
+	sum        { @R = aktive_kahan_final (@A); }
 	sumsquared @sum
-	mean       { @R = aktive_kahan_final (&@A) / (double) @N; }
+	mean       { @R = aktive_kahan_final (@A) / (double) @N; }
 	variance {
-	    double mean = aktive_kahan_final (&@A.sum)     / (double) @N;
-	    double sq   = aktive_kahan_final (&@A.squared) / (double) @N;
+	    double mean = aktive_kahan_final (@A.sum)     / (double) @N;
+	    double sq   = aktive_kahan_final (@A.squared) / (double) @N;
 	    @R = sq - mean*mean;
 	}
 	stddev {
-	    double mean = aktive_kahan_final (&@A.sum)     / (double) @N;
-	    double sq   = aktive_kahan_final (&@A.squared) / (double) @N;
+	    double mean = aktive_kahan_final (@A.sum)     / (double) @N;
+	    double sq   = aktive_kahan_final (@A.squared) / (double) @N;
 	    @R = sqrt (sq - mean*mean);
 	}
 	argmax { @R = @A.eindex; }

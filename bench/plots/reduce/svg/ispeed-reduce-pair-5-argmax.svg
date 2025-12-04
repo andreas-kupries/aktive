@@ -121,8 +121,8 @@
 	</g>
 </g>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
-	<path stroke='rgb(148,   0, 211)'  d='M515.48,80.87 L558.04,80.87 M80.92,129.84 L163.24,282.36 L245.55,323.25 L327.87,324.16 L410.19,325.20 L492.50,324.13
-		L574.82,324.00  '/></g>
+	<path stroke='rgb(148,   0, 211)'  d='M515.48,80.87 L558.04,80.87 M80.92,130.39 L163.24,290.08 L245.55,348.09 L327.87,332.09 L410.19,328.01 L492.50,324.80
+		L574.82,323.86  '/></g>
 	</g>
 	<g id="gnuplot_plot_2" ><title>reduce-special-5-argmax</title>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
@@ -131,8 +131,8 @@
 	</g>
 </g>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
-	<path stroke='rgb(  0, 158, 115)'  d='M515.48,98.87 L558.04,98.87 M80.92,125.91 L163.24,281.41 L245.55,334.54 L327.87,332.28 L410.19,332.00 L492.50,331.42
-		L574.82,331.61  '/></g>
+	<path stroke='rgb(  0, 158, 115)'  d='M515.48,98.87 L558.04,98.87 M80.92,129.66 L163.24,280.21 L245.55,347.35 L327.87,357.60 L410.19,358.97 L492.50,358.99
+		L574.82,358.92  '/></g>
 	</g>
 <g fill="none" color="white" stroke="rgb(  0, 158, 115)" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
 </g>

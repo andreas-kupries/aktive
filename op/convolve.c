@@ -49,7 +49,7 @@ aktive_tile_convolve (double*     v,
 {
     TRACE_FUNC("((%u %u %u %u), (%u %u %u %u %u))", base, cap, pitch, stride, mcap, mwidth, mheight, wradius, hradius);
 
-    kahan sum; aktive_kahan_init (&sum);
+    kahan sum; aktive_kahan_init (sum);
 
     int wr = wradius;
     int hr = hradius;
@@ -86,11 +86,11 @@ aktive_tile_convolve (double*     v,
 
 	    TRACE_ADD ("=> %f = %f * %f", val * weight, val, weight);
 	    TRACE_CLOSER;
-	    aktive_kahan_add (&sum, val * weight);
+	    aktive_kahan_add (sum, val * weight);
 	}
     }
 
-    double res = aktive_kahan_final (&sum);
+    double res = aktive_kahan_final (sum);
     TRACE_RETURN ("(convolve) %f", res);
 }
 

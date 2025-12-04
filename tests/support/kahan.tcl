@@ -16,9 +16,9 @@ critcl::include kahan.h
 critcl::cproc ::aktive::kahan {double args} double {
     aktive_uint k;
     kahan acc;
-    aktive_kahan_init (&acc);
-    for (k=0; k < args.c; k++) { aktive_kahan_add (&acc, args.v[k]); }
-    return aktive_kahan_final (&acc);
+    aktive_kahan_init (acc);
+    for (k=0; k < args.c; k++) { aktive_kahan_add (acc, args.v[k]); }
+    return aktive_kahan_final (acc);
 }
 
 # expose a plain uncompensated summation for contrast

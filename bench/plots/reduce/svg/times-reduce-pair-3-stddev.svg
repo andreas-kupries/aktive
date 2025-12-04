@@ -157,8 +157,8 @@
 	</g>
 </g>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
-	<path stroke='rgb(148,   0, 211)'  d='M515.48,86.83 L558.04,86.83 M97.70,369.84 L177.22,350.11 L256.74,302.68 L336.26,247.62 L415.78,191.56 L495.30,134.95
-		L574.82,78.64  '/></g>
+	<path stroke='rgb(148,   0, 211)'  d='M515.48,86.83 L558.04,86.83 M97.70,371.87 L177.22,353.33 L256.74,308.96 L336.26,253.38 L415.78,197.33 L495.30,140.34
+		L574.82,84.19  '/></g>
 	</g>
 	<g id="gnuplot_plot_2" ><title>reduce-special-3-stddev</title>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
@@ -167,8 +167,8 @@
 	</g>
 </g>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
-	<path stroke='rgb(  0, 158, 115)'  d='M515.48,104.83 L558.04,104.83 M97.70,370.27 L177.22,354.37 L256.74,313.43 L336.26,258.36 L415.78,202.35 L495.30,145.74
-		L574.82,89.38  '/></g>
+	<path stroke='rgb(  0, 158, 115)'  d='M515.48,104.83 L558.04,104.83 M97.70,372.10 L177.22,360.51 L256.74,319.52 L336.26,264.07 L415.78,207.94 L495.30,150.57
+		L574.82,94.66  '/></g>
 	</g>
 <g fill="none" color="white" stroke="rgb(  0, 158, 115)" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
 </g>

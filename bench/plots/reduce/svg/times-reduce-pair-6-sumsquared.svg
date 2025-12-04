@@ -157,8 +157,8 @@
 	</g>
 </g>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
-	<path stroke='rgb(148,   0, 211)'  d='M515.48,86.83 L558.04,86.83 M97.70,370.86 L177.22,351.94 L256.74,305.70 L336.26,250.62 L415.78,194.17 L495.30,137.69
-		L574.82,81.17  '/></g>
+	<path stroke='rgb(148,   0, 211)'  d='M515.48,86.83 L558.04,86.83 M97.70,371.87 L177.22,356.35 L256.74,308.72 L336.26,253.12 L415.78,196.36 L495.30,139.94
+		L574.82,83.39  '/></g>
 	</g>
 	<g id="gnuplot_plot_2" ><title>reduce-special-6-sumsquared</title>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
@@ -167,8 +167,8 @@
 	</g>
 </g>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
-	<path stroke='rgb(  0, 158, 115)'  d='M515.48,104.83 L558.04,104.83 M97.70,370.92 L177.22,354.91 L256.74,308.61 L336.26,253.50 L415.78,196.70 L495.30,140.32
-		L574.82,83.87  '/></g>
+	<path stroke='rgb(  0, 158, 115)'  d='M515.48,104.83 L558.04,104.83 M97.70,372.33 L177.22,357.31 L256.74,315.35 L336.26,260.25 L415.78,203.86 L495.30,147.47
+		L574.82,91.07  '/></g>
 	</g>
 <g fill="none" color="white" stroke="rgb(  0, 158, 115)" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
 </g>

@@ -2,7 +2,10 @@
  * = = == === ===== ======== ============= =====================
  * Structures and methods to encapsulate Kahan (aka compensated) summation.
  *
- * Ref: https://en.wikipedia.org/wiki/Kahan_summation_algorithm
+ * Ref:
+ *  - https://en.wikipedia.org/wiki/Kahan_summation_algorithm#Further_enhancements
+ *  - https://www.mat.univie.ac.at/~neum/scan/01.pdf
+ *    (local copy: doc-internal/references/neumaier.pdf)
  */
 
 #include <kahan.h>
@@ -17,8 +20,9 @@ TRACE_OFF;
  * API
  */
 
+#ifdef KAHAN_FUNC
 void
-aktive_kahan_init (kahan* k)
+aktive_kahan_init_c (kahan* k)
 {
     TRACE_FUNC ("((kahan*) %p k)", k);
 
@@ -31,7 +35,7 @@ aktive_kahan_init (kahan* k)
 }
 
 void
-aktive_kahan_add_kahan  (kahan* k, kahan* v) {
+aktive_kahan_add_kahan_c (kahan* k, kahan* v) {
     // note: with the neumaier variant I wonder if I can add sum and
     // correction separately, i.e. like a 2d vector
     aktive_kahan_add  (k, v->correction);
@@ -39,7 +43,7 @@ aktive_kahan_add_kahan  (kahan* k, kahan* v) {
 }
 
 void
-aktive_kahan_add  (kahan* k, double v)
+aktive_kahan_add_c (kahan* k, double v)
 {
 #if KAHAN_TEST
     /* When KAHAN_TEST is active, run an uncorrected sum beside the corrected
@@ -74,6 +78,7 @@ aktive_kahan_add  (kahan* k, double v)
     TRACE_RETURN_VOID;
 }
 
+#endif // KAHAN_FUNC
 /*
  * = = == === ===== ======== ============= =====================
  * Local Variables:

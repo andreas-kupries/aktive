@@ -8,7 +8,7 @@
 # BENCHMARK support commands. Not created for production / testing.
 ##
 
-critcl::msg "\t[dsl::reader::cyan "Benchmarking Support, Reducers"]"
+critcl::msg "\t[dsl::reader::cyan "Benchmarking Support; Expose reducer core"]"
 
 critcl::ccode {
     // Max size vector to operate

@@ -121,8 +121,8 @@
 	</g>
 </g>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
-	<path stroke='rgb(148,   0, 211)'  d='M515.48,80.87 L558.04,80.87 M80.92,122.67 L163.24,237.83 L245.55,272.45 L327.87,277.05 L410.19,278.24 L492.50,278.09
-		L574.82,278.24  '/></g>
+	<path stroke='rgb(148,   0, 211)'  d='M515.48,80.87 L558.04,80.87 M80.92,127.67 L163.24,247.94 L245.55,285.45 L327.87,289.92 L410.19,290.71 L492.50,290.34
+		L574.82,290.72  '/></g>
 	</g>
 	<g id="gnuplot_plot_2" ><title>reduce-special-7-mean</title>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
@@ -131,8 +131,8 @@
 	</g>
 </g>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
-	<path stroke='rgb(  0, 158, 115)'  d='M515.48,98.87 L558.04,98.87 M80.92,124.87 L163.24,246.91 L245.55,287.10 L327.87,290.35 L410.19,291.44 L492.50,291.44
-		L574.82,291.53  '/></g>
+	<path stroke='rgb(  0, 158, 115)'  d='M515.48,98.87 L558.04,98.87 M80.92,129.29 L163.24,259.40 L245.55,307.16 L327.87,312.20 L410.19,312.60 L492.50,312.65
+		L574.82,312.75  '/></g>
 	</g>
 <g fill="none" color="white" stroke="rgb(  0, 158, 115)" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
 </g>

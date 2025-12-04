@@ -1,11 +1,8 @@
 # -*- tcl -*-
 # # ## ### ##### ######## ############# #####################
-## general structure is
-## - create several simple series
-## - merge the series into a side by side comparison
-#
-## This chart file generates the necessary gnuplot spec as well, due to the
-## large and variable set of functions.
+
+## compare performance before/after kahan summation inlining.
+## `reduce-outline` are the pre-inline results.
 
 source data/reduce/spec.tcl
 
@@ -16,14 +13,26 @@ foreach name $reducers {
     foreach depth {1 2 3 4 5 6 7 8} {
 	lappend map @name@ $name
 	lappend map @depth@ $depth
-	chart reduce-base-${depth}-$name [string map $map {
+	chart reduce-inline-base-${depth}-$name [string map $map {
 	    only {name = 'aktive::bench::reduce::base::@name@/@depth@'}
 	    only {sink = 'n/a'}
 	    range iwidth
 	    nodump
 	}]
-	chart reduce-special-${depth}-$name [string map $map {
+	chart reduce-inline-special-${depth}-$name [string map $map {
 	    only {name = 'aktive::bench::reduce::special::@name@/@depth@'}
+	    only {sink = 'n/a'}
+	    range iwidth
+	    nodump
+	}]
+	chart reduce-outline-base-${depth}-$name [string map $map {
+	    only {name = 'aktive::bench::reduce-outline::base::@name@/@depth@'}
+	    only {sink = 'n/a'}
+	    range iwidth
+	    nodump
+	}]
+	chart reduce-outline-special-${depth}-$name [string map $map {
+	    only {name = 'aktive::bench::reduce-outline::special::@name@/@depth@'}
 	    only {sink = 'n/a'}
 	    range iwidth
 	    nodump
@@ -35,13 +44,20 @@ foreach name $reducers {
 # aggregations
 # 1. charts of single operator, across range of depths
 foreach name $reducers {
-    if 0 {
-	# just base
-	chart reduce-base-$name [list side-by-side {*}[lmap depth {1 2 3 4 5 6 7 8} {
-	    set _ reduce-base-${depth}-$name
-	}]]
-	lappend plots $name reduce-base-$name 8
+    # inline
+    chart reduce-inline-base-$name [list side-by-side {*}[lmap depth {1 2 3 4 5 6 7 8} {
+	set _ reduce-inline-base-${depth}-$name
+    }]]
+    lappend plots $name reduce-inline-base-$name 8
 
+    # outline
+    chart reduce-outline-base-$name [list side-by-side {*}[lmap depth {1 2 3 4 5 6 7 8} {
+	set _ reduce-outline-base-${depth}-$name
+    }]]
+    lappend plots $name reduce-outline-base-$name 8
+
+    if 0 {
+	continue
 	# just special
 	chart reduce-special-$name [list side-by-side {*}[lmap depth {1 2 3 4 5 6 7 8} {
 	    set _ reduce-special-${depth}-$name
@@ -65,6 +81,21 @@ foreach name $reducers {
 	lappend plots $name reduce-sbgeneric-$name 8
     }
 
+    # pairwise inline/outline comparison at each (operator, depth) combination
+    foreach depth {1 2 3 4 5 6 7 8} {
+	chart reduce-pair-base-${depth}-${name} \
+	    [list side-by-side reduce-inline-base-${depth}-$name reduce-outline-base-${depth}-$name]
+	lappend plots $name reduce-pair-base-${depth}-${name} 2
+    }
+
+    # pairwise inline/outline comparison at each (operator, depth) combination
+    foreach depth {1 2 3 4 5 6 7 8} {
+	chart reduce-pair-special-${depth}-${name} \
+	    [list side-by-side reduce-inline-special-${depth}-$name reduce-outline-special-${depth}-$name]
+	lappend plots $name reduce-pair-special-${depth}-${name} 2
+    }
+
+    continue
     # pairwise base/special comparison at each (operator, depth) combination
     foreach depth {1 2 3 4 5 6 7 8} {
 	chart reduce-pair-${depth}-${name} \
@@ -209,8 +240,6 @@ puts "generating README ..."
     (sums (*)) the boost is not as strong, for some ops there is no
     boost at all.
 
-    This change is accepted.
-    
     (*) Additions are actually non-trivial because of my use of
     [kahan summation](https://en.wikipedia.org/wiki/Kahan_summation_algorithm).
 
@@ -218,22 +247,6 @@ puts "generating README ..."
 
       - Inline the code of the kahan summation.    
       - Unroll the pixel loop as well to handle more than one pixel per iteration.
-
-    ### Addendum 2 (Dev 4, 2025)
-
-    After fixing an issue in the kahan summation benchmarking inlining
-    of this functionality (via macros) provides a measurable boost to
-    all the reductions using it, i.e. `sum`, `sumsquared`, `mean`,
-    `stddev`, and `variance`, for both baseline and special variants.
-
-    The special variants look to get a slightly larger boost however,
-    as the inlining allows optimization over the entire loop body,
-    instead of just inside of the pixel-function used by the baseline.
-    Remember, these loop bodies have the band loop unrolled.
-
-    This change is accepted.
-
-    Now look at unrolling the pixel loop itself too.
 }]
 + "## Plots"
 

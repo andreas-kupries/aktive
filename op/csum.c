@@ -26,13 +26,14 @@ aktive_cumulative_sum (double* dst, aktive_uint n, double* src, aktive_uint stri
     TRACE_ADD(" }", 0); TRACE_CLOSER;
 
     kahan running_sum;
-    aktive_kahan_init (&running_sum);
+    aktive_kahan_init (running_sum);
 
+    // TODO UNROLL parallel prefix sum
     aktive_uint i;
     for (i = 0; i < n; i++) {
 	double v = src [i*stride];
-	aktive_kahan_add (&running_sum, v);
-	dst[i] = aktive_kahan_final (&running_sum);
+	aktive_kahan_add (running_sum, v);
+	dst[i] = aktive_kahan_final (running_sum);
     }
 
     TRACE_HEADER(1); TRACE_ADD ("csum = {", 0);
