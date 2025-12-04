@@ -737,10 +737,11 @@ __aktive_block_dump (const char* prefix, aktive_block* src) {
 	   src->domain.y, src->domain.y + src->domain.height - 1,
 	   src->domain.width, src->domain.height, src->domain.depth);
     TRACE ("  location = { %d x %d } ", src->location.x, src->location.y);
-    TRACE ("  region   = %p", src->region);
+    TRACE ("  owner    = %p", src->owner);
+    TRACE ("  reader   = %p", src->reader);
     TRACE ("  use/cap  = %d/%d", src->used, src->capacity);
 
-    TRACE_HEADER(1) ; TRACE_ADD ("  pixels  = {", 0);
+    TRACE_HEADER(1) ; TRACE_ADD ("  pixels %p = {", src->pixel);
     if (src->used) {
 	TRACE_CLOSER; TRACE_HEADER (1); TRACE_ADD ("    ", 0);
 	for (aktive_uint i = 0 ; i < src->used; i++) {

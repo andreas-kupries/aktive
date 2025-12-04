@@ -1511,7 +1511,9 @@ proc dsl::writer::OperatorFunctionForOp {op} {
 	    +                   "  [PadR $tl aktive_geometry*] idomain = [PadR $tlx ""] info->domain;"
 	    +                   "  TRACE_GEOMETRY_M  (\"idomain\", idomain);"
 	    + "  TRACE(\"block (init %d cap %d used %d)\", block->initialized, block->capacity, block->used);"
-	    + "  TRACE(\"block region   %p\", block->region);"
+	    + "  TRACE(\"block pixels   %p\", block->pixel);"
+	    + "  TRACE(\"block owner    %p\", block->owner);"
+	    + "  TRACE(\"block reader   %p\", block->reader);"
 	    + "  TRACE_POINT_M(\"block location\", &block->location);"
 	    + "  TRACE_GEOMETRY_M(\"block geometry\", &block->domain);"
 
