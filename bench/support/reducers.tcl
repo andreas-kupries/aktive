@@ -31,10 +31,16 @@ proc gen {name} {
 	    if (w > N-1) w = N-1;
 	    aktive_reduce_row_bands_base_@@ (dst, src, w, d);
 	}]
+
+    critcl::cproc ::aktive::bench::reduce::special::${name} {int w int d} void \
+	[string map $map {
+	    if (w > N-1) w = N-1;
+	    aktive_reduce_row_bands_special_@@ (dst, src, w, d);
+	}]
 }
 
 apply {{} {
-    source data/reducefunc/spec.tcl
+    source data/reduce/spec.tcl
     foreach name $reducers { gen $name }
 }}
 

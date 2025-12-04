@@ -48,7 +48,6 @@ set iters {
 }
 
 #    10000000
-
 #    10000000 10
 
 # ### ### ### ######### ######### ######### ###########################
@@ -63,11 +62,36 @@ set iters {
 ## length, but as band space (up to 10 bands).
 ##
 
+# ### ### ### ######### ######### ######### ###########################
+# baseline
+
 foreach name $reducers {
     set cmd aktive::bench::reduce::base::$name
     if {![llength [info commands ::$cmd]]} continue
 
     foreach depth {1 2 3 4 5 6 7 8} {
+	foreach n $vlength {
+	    set iter  [dict get $iters $n]
+	    set sz    [expr {$n * $depth}]
+	    set label [list $cmd/$depth n/a  n/a   $sz  $n:1   $n 1]
+	    #               label       sink cores size aspect w  h
+	    bench -iter $iter -desc $label -body {
+		$cmd $n $depth
+	    }
+	} ;# vlength
+    } ;# depth
+} ;# reducers
+
+# ### ### ### ######### ######### ######### ###########################
+# special
+
+foreach name $reducers {
+    set cmd aktive::bench::reduce::special::$name
+    if {![llength [info commands ::$cmd]]} continue
+
+    foreach depth {1 2 3 4 5 6 7 8} {
+	# note:    |-----| |-----|
+	#          custom  generic
 	foreach n $vlength {
 	    set iter  [dict get $iters $n]
 	    set sz    [expr {$n * $depth}]

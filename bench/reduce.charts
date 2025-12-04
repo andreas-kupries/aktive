@@ -22,6 +22,12 @@ foreach name $reducers {
 	    range iwidth
 	    nodump
 	}]
+	chart reduce-special-${depth}-$name [string map $map {
+	    only {name = 'aktive::bench::reduce::special::@name@/@depth@'}
+	    only {sink = 'n/a'}
+	    range iwidth
+	    nodump
+	}]
 	unset map
     } ;# depth
 } ;# reducers
@@ -29,10 +35,43 @@ foreach name $reducers {
 # aggregations
 # 1. charts of single operator, across range of depths
 foreach name $reducers {
-    chart reduce-base-$name [list side-by-side {*}[lmap depth {1 2 3 4 5 6 7 8} {
-	set _ reduce-base-${depth}-$name
-    }]]
-    lappend plots $name reduce-base-$name
+    if 0 {
+	# just base
+	chart reduce-base-$name [list side-by-side {*}[lmap depth {1 2 3 4 5 6 7 8} {
+	    set _ reduce-base-${depth}-$name
+	}]]
+	lappend plots $name reduce-base-$name 8
+
+	# just special
+	chart reduce-special-$name [list side-by-side {*}[lmap depth {1 2 3 4 5 6 7 8} {
+	    set _ reduce-special-${depth}-$name
+	}]]
+	lappend plots $name reduce-special-$name 8
+
+	# base vs special - unrolled inner loop
+	chart reduce-sbunroll-$name [list side-by-side {*}[lmap depth {1 2 3 4} {
+	    set _ reduce-base-${depth}-$name
+	}] {*}[lmap depth {1 2 3 4} {
+	    set _ reduce-special-${depth}-$name
+	}]]
+	lappend plots $name reduce-sbunroll-$name 8
+
+	# base vs special - generic range
+	chart reduce-sbgeneric-$name [list side-by-side {*}[lmap depth {5 6 7 8} {
+	    set _ reduce-base-${depth}-$name
+	}] {*}[lmap depth {5 6 7 8} {
+	    set _ reduce-special-${depth}-$name
+	}]]
+	lappend plots $name reduce-sbgeneric-$name 8
+    }
+
+    # pairwise base/special comparison at each (operator, depth) combination
+    foreach depth {1 2 3 4 5 6 7 8} {
+	chart reduce-pair-${depth}-${name} \
+	    [list side-by-side reduce-base-${depth}-$name reduce-special-${depth}-$name]
+	lappend plots $name reduce-pair-${depth}-${name} 2
+    }
+    
 } ;# reducers
 
 # # ## ### ##### ######## ############# #####################
@@ -75,11 +114,10 @@ proc w {p s} {
 + "set logscale y"
 +
 foreach {
-    op id
+    op id count
 } $plots {
     + "datasource1 = \"$id.csv\""
     set plotcmd "plot"
-    set count 8 ;# depths    
     for {set k 0; set col 2; set prefix ""} {$k < $count} {incr k} {
 	append plotcmd "$prefix datasource1 using 1:$col with lines"
 	set prefix ", \\\n    "
@@ -100,11 +138,10 @@ foreach {
 + "set logscale y"
 +
 foreach {
-    op id
+    op id count
 } $plots {
     + "datasource1 = \"$id.csv\""
     set plotcmd "plot"
-    set count 8
     for {set k 0; set col 2; set prefix ""} {$k < $count} {incr k} {
 	append plotcmd "$prefix datasource1 using 1:(1000*\$$col/(10**\$1)) with lines"
 	set prefix ", \\\n    "
@@ -158,6 +195,27 @@ puts "generating README ..."
     The base line implementation of the by-band reductions nicely
     shows how the time per value increases with the number of bands to
     process.
+
+    ### Addendum (Dev 4, 2025)
+
+    The first attempt at speeding things up worked. This attempt
+
+      1. fully unrolls the inner loop for the common depths of 1 to 4, and
+      2. for bands > 4 uses a generic loop effectively inlining the function calls of the baseline.
+
+    For the fully unrolled forms the new code is pretty much always faster.
+    
+    For the generic loop the overhead for the more complex operations
+    (sums (*)) the boost is not as strong, for some ops there is no
+    boost at all.
+
+    (*) Additions are actually non-trivial because of my use of
+    [kahan summation](https://en.wikipedia.org/wiki/Kahan_summation_algorithm).
+
+    Ideas to look at for more boosts:
+
+      - Inline the code of the kahan summation.    
+      - Unroll the pixel loop as well to handle more than one pixel per iteration.
 }]
 + "## Plots"
 

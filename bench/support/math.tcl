@@ -48,7 +48,7 @@ proc scalar-gen {section name unroll arguments} {
 }
 
 apply {{} {
-    source data/mathfunc/spec.tcl
+    source data/math/spec.tcl
     foreach {name spec} $unary0 { scalar unary  $name $spec {dst, srca, n}       }
     foreach {name spec} $unary1 { scalar unary  $name $spec {dst, srca, n, a}    }
     foreach {name spec} $unary2 { scalar unary  $name $spec {dst, srca, n, a, b} }
