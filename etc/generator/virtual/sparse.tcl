@@ -9,23 +9,28 @@ operator image::from::sparse::points {
 	coords {0 0} {4 3} {5 5} {6 2} | ; times 8
     }
 
-    note Returns a single-band image where pixels are set to white at exactly the \
-	specified coordinates.
+    example {
+	geometry {0 0 10 10} coords {1 1} {4 3} {5 5} {6 2} | ; times 8
+    }
+
+    note Returns a single-band image where pixels are set to white (`1.0`) at exactly \
+	the specified coordinates.
+
+    rect? {{0 0 0 0}} geometry	Image geometry. Defaults to the bounding box of the points.
 
     point... coords  Coordinates of the pixels to set in the image
 
-    note Generally, the bounding box specifies the geometry, especially also the image origin
-    note Width is implied by the bounding box of the points
-    note Height is implied by the bounding box of the points
-    note Depth is fixed at 1
-    note Pixel value is fixed at 1.0
-
     state -setup {
-	// Compute the bounding box from the points and use that for the geometry.
-	aktive_rectangle bb;
-	aktive_point_union (&bb, param->coords.c, param->coords.v);
-
-	aktive_geometry_set_rectangle (domain, &bb);
+	// Either use the provided geometry, or compute the bounding box from the ranges
+	// and use the result as the image geometry.
+	if (aktive_rectangle_is_empty (&param->geometry)) {
+	    // Compute the bounding box from the points and use that for the geometry.
+	    aktive_rectangle bb;
+	    aktive_point_union (&bb, param->coords.c, param->coords.v);
+	    aktive_geometry_set_rectangle (domain, &bb);
+	} else {
+	    aktive_geometry_set_rectangle (domain, &param->geometry);
+	}
 	domain->depth = 1;
     }
     pixels {
@@ -130,6 +135,10 @@ operator image::from::sparse::ranges {
 	ranges {1 24 30 1} {2 23 31 1} {3 22 32 1} {4 22 24 0.75} {4 30 32 0.75} {5 22 23 0.75} {5 31 32 0.75} {6 23 24 0.5} {6 30 31 0.5} {7 24 25 0.5} {7 29 30 0.5} | ; times 8
     }
 
+    example {
+	geometry {0 0 34 11} ranges {1 24 30 1} {2 23 31 1} {3 22 32 1} {4 22 24 0.75} {4 30 32 0.75} {5 22 23 0.75} {5 31 32 0.75} {6 23 24 0.5} {6 30 31 0.5} {7 24 25 0.5} {7 29 30 0.5} | ; times 8
+    }
+
     note Returns a single-band image where the pixels are set to the specified values as per the provided row ranges.
 
     note A single row range is specified by 4 numbers.
@@ -160,7 +169,7 @@ operator image::from::sparse::ranges {
 	}
 	domain->depth = 1;
 
-	// pre-sort the ranges for better iteration
+	// pre-sort the ranges for better iteration during pixel fetch
 	aktive_range_sort (param->ranges.c, param->ranges.v);
 
 	// similarly, compute an index of row starts.

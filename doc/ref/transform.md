@@ -72,9 +72,9 @@ The location of the matrix image is ignored.
     <th>aktive op bands recombine @1 @2
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><table><tr><td>0.3588</td><td>0.7044</td><td>0.1368</td></tr><tr><td>0.2990</td><td>0.5870</td><td>0.1140</td></tr><tr><td>0.2392</td><td>0.4696</td><td>0.0912</td></tr></table></td>
-    <td valign='top'><img src='example-00320.gif' alt='@2' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00324.gif' alt='@2' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
-    <td valign='top'><img src='example-00321.gif' alt='aktive op bands recombine @1 @2' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00325.gif' alt='aktive op bands recombine @1 @2' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td></tr>
 </table>
 
@@ -105,9 +105,9 @@ This is useful to add after an application of [aktive op transform by](transform
     <br>&nbsp;</th>
     <th>aktive op view @1 port {190 125 380 250}
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00671.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00675.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
-    <td valign='top'><img src='example-00672.gif' alt='aktive op view @1 port {190 125 380 250}' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00676.gif' alt='aktive op view @1 port {190 125 380 250}' style='border:4px solid gold'>
     <br>geometry(190 125 380 250 3)</td></tr>
 </table>
 
@@ -116,9 +116,9 @@ This is useful to add after an application of [aktive op transform by](transform
     <br>&nbsp;</th>
     <th>aktive op view @1 port {-190 -125 380 250}
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00673.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00677.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
-    <td valign='top'><img src='example-00674.gif' alt='aktive op view @1 port {-190 -125 380 250}' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00678.gif' alt='aktive op view @1 port {-190 -125 380 250}' style='border:4px solid gold'>
     <br>geometry(-190 -125 380 250 3)</td></tr>
 </table>
 
@@ -127,9 +127,9 @@ This is useful to add after an application of [aktive op transform by](transform
     <br>&nbsp;</th>
     <th>aktive op view @1 port {80 80 80 80}
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00675.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00679.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
-    <td valign='top'><img src='example-00676.gif' alt='aktive op view @1 port {80 80 80 80}' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00680.gif' alt='aktive op view @1 port {80 80 80 80}' style='border:4px solid gold'>
     <br>geometry(80 80 80 80 3)</td></tr>
 </table>
 

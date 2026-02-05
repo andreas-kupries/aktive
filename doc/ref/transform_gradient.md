@@ -42,11 +42,11 @@ Computes and returns the line energy of the input image, based on the [aktive op
     <br>({linear light})</th>
     <th>aktive op structure lines @2
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00631.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00635.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
-    <td valign='top'><img src='example-00632.gif' alt='@2 ({linear light})' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00636.gif' alt='@2 ({linear light})' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
-    <td valign='top'><img src='example-00633.gif' alt='aktive op structure lines @2' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00637.gif' alt='aktive op structure lines @2' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 1)</td></tr>
 </table>
 
@@ -78,11 +78,11 @@ The tensor elements are returned in the order top-left, bottom-right (the diagon
     <br>({linear light})</th>
     <th>lindex [aktive op structure tensor @2] 0
     <br>(XX)</th></tr>
-<tr><td valign='top'><img src='example-00634.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00638.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
-    <td valign='top'><img src='example-00635.gif' alt='@2 ({linear light})' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00639.gif' alt='@2 ({linear light})' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
-    <td valign='top'><img src='example-00636.gif' alt='lindex [aktive op structure tensor @2] 0 (XX)' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00640.gif' alt='lindex [aktive op structure tensor @2] 0 (XX)' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 1)</td></tr>
 </table>
 
@@ -93,11 +93,11 @@ The tensor elements are returned in the order top-left, bottom-right (the diagon
     <br>({linear light})</th>
     <th>lindex [aktive op structure tensor @2] 1
     <br>(YY)</th></tr>
-<tr><td valign='top'><img src='example-00637.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00641.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
-    <td valign='top'><img src='example-00638.gif' alt='@2 ({linear light})' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00642.gif' alt='@2 ({linear light})' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
-    <td valign='top'><img src='example-00639.gif' alt='lindex [aktive op structure tensor @2] 1 (YY)' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00643.gif' alt='lindex [aktive op structure tensor @2] 1 (YY)' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 1)</td></tr>
 </table>
 
@@ -108,11 +108,11 @@ The tensor elements are returned in the order top-left, bottom-right (the diagon
     <br>({linear light})</th>
     <th>lindex [aktive op structure tensor @2] 2
     <br>(XY)</th></tr>
-<tr><td valign='top'><img src='example-00640.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00644.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
-    <td valign='top'><img src='example-00641.gif' alt='@2 ({linear light})' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00645.gif' alt='@2 ({linear light})' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
-    <td valign='top'><img src='example-00642.gif' alt='lindex [aktive op structure tensor @2] 2 (XY)' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00646.gif' alt='lindex [aktive op structure tensor @2] 2 (XY)' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 1)</td></tr>
 </table>
 
