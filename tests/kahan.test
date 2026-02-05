@@ -39,11 +39,11 @@ lappend table 8 2.0                2.0         [list $high $low 1. 1.]
 lappend table 9 2.0                2.0         [list $low $high 1. 1.]
 
 foreach {id encs ecs values} $table {
-    test aktive-version-1.$id "aktive kahan, compensated sum" -body {
+    test aktive-kahan-1.$id "aktive kahan, compensated sum" -body {
 	aktive::kahan {*}$values
     } -result $ecs
 
-    test aktive-version-2.$id "aktive kahan, plain sum" -body {
+    test aktive-kahan-2.$id "aktive kahan, plain sum" -body {
 	aktive::nonkahan {*}$values
     } -result $encs
 }
