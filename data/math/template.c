@@ -11,7 +11,7 @@
  * - data/mathfunc/template-scalar.c
  */
 
-#include <generated/vector_scalar.h>
+#include <generated/math.h>
 #include <math.h>
 #include <complex.h>
 #include <critcl_trace.h>
