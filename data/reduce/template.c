@@ -15,6 +15,7 @@
 #include <math.h>
 #include <complex.h>
 #include <critcl_trace.h>
+#include <critcl_alloc.h>
 #include <reduce.h>		// manually written functions, for baseline
 
 TRACE_OFF;

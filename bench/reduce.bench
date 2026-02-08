@@ -2,7 +2,7 @@
 #
 # This file contains a number of low-level reduce op benchmarks.
 #
-# (c) 2025 Andreas Kupries <andreas_kupries@users.sourceforge.net>
+# (c) 2025-2026 Andreas Kupries <andreas_kupries@users.sourceforge.net>
 #
 ##
 # ### ### ### ######### ######### ######### ##########################
@@ -17,9 +17,9 @@ source ../data/reduce/spec.tcl
 # ### ### ### ######### ######### ######### ###########################
 ## Benchmarks Setup
 
-bench_puts "filling the random inputs..."
-set us [time aktive::bench::reduce::init 1]
-bench_puts "... done in $us"
+#bench_puts "filling the random inputs..."
+#set us [time aktive::bench::reduce::init 1]
+#bench_puts "... done in $us"
 
 set vlength {
     1
@@ -38,7 +38,7 @@ set vlength {
 # reduced to max 10**5 / 100,000
 
 set iters {
-    1      1000
+    1      10000
     10     1000
     100    1000
     1000   1000
@@ -75,7 +75,9 @@ foreach name $reducers {
 	    set sz    [expr {$n * $depth}]
 	    set label [list $cmd/$depth n/a  n/a   $sz  $n:1   $n 1]
 	    #               label       sink cores size aspect w  h
-	    bench -iter $iter -desc $label -body {
+	    bench -iter $iter -desc $label -ipre {
+		aktive::bench::reduce::init $sz
+	    } -body {
 		$cmd $n $depth
 	    }
 	} ;# vlength
@@ -90,6 +92,30 @@ foreach name $reducers {
     if {![llength [info commands ::$cmd]]} continue
 
     foreach depth {1 2 3 4 5 6 7 8} {
+        # note:    |-----| |-----|
+        #          custom  generic
+        foreach n $vlength {
+            set iter  [dict get $iters $n]
+            set sz    [expr {$n * $depth}]
+            set label [list $cmd/$depth n/a  n/a   $sz  $n:1   $n 1]
+            #               label       sink cores size aspect w  h
+            bench -iter $iter -desc $label -ipre {
+		aktive::bench::reduce::init $sz
+	    } -body {
+                $cmd $n $depth
+            }
+        } ;# vlength
+    } ;# depth
+} ;# reducers
+
+# ### ### ### ######### ######### ######### ###########################
+# unroll4
+
+foreach name $reducers {
+    set cmd aktive::bench::reduce::unroll4::$name
+    if {![llength [info commands ::$cmd]]} continue
+
+    foreach depth {1 2 3 4 5 6 7 8} {
 	# note:    |-----| |-----|
 	#          custom  generic
 	foreach n $vlength {
@@ -97,7 +123,9 @@ foreach name $reducers {
 	    set sz    [expr {$n * $depth}]
 	    set label [list $cmd/$depth n/a  n/a   $sz  $n:1   $n 1]
 	    #               label       sink cores size aspect w  h
-	    bench -iter $iter -desc $label -body {
+	    bench -iter $iter -desc $label -ipre {
+		aktive::bench::reduce::init $sz
+	    } -body {
 		$cmd $n $depth
 	    }
 	} ;# vlength

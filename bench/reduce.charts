@@ -28,6 +28,13 @@ foreach name $reducers {
 	    range iwidth
 	    nodump
 	}]
+	chart reduce-unroll4-${depth}-$name [string map $map {
+	    only {name = 'aktive::bench::reduce::unroll4::@name@/@depth@'}
+	    only {sink = 'n/a'}
+	    range iwidth
+	    nodump
+	}]
+
 	unset map
     } ;# depth
 } ;# reducers
@@ -48,28 +55,43 @@ foreach name $reducers {
 	}]]
 	lappend plots $name reduce-special-$name 8
 
-	# base vs special - unrolled inner loop
+	# just unroll4
+	chart reduce-unroll4-$name [list side-by-side {*}[lmap depth {1 2 3 4 5 6 7 8} {
+	    set _ reduce-unroll4-${depth}-$name
+	}]]
+	lappend plots $name reduce-special-$name 8
+
+	# base vs special vs unroll4 - unrolled inner loop
 	chart reduce-sbunroll-$name [list side-by-side {*}[lmap depth {1 2 3 4} {
 	    set _ reduce-base-${depth}-$name
 	}] {*}[lmap depth {1 2 3 4} {
 	    set _ reduce-special-${depth}-$name
+	}] {*}[lmap depth {1 2 3 4} {
+	    set _ reduce-unroll4-${depth}-$name
 	}]]
 	lappend plots $name reduce-sbunroll-$name 8
 
-	# base vs special - generic range
+	# base vs special vs unroll 4 - generic range
 	chart reduce-sbgeneric-$name [list side-by-side {*}[lmap depth {5 6 7 8} {
 	    set _ reduce-base-${depth}-$name
 	}] {*}[lmap depth {5 6 7 8} {
 	    set _ reduce-special-${depth}-$name
+	}] {*}[lmap depth {5 6 7 8} {
+	    set _ reduce-unroll4-${depth}-$name
 	}]]
 	lappend plots $name reduce-sbgeneric-$name 8
     }
 
-    # pairwise base/special comparison at each (operator, depth) combination
+    # panel base/special/unroll4 comparison at each (operator, depth) combination
     foreach depth {1 2 3 4 5 6 7 8} {
-	chart reduce-pair-${depth}-${name} \
-	    [list side-by-side reduce-base-${depth}-$name reduce-special-${depth}-$name]
-	lappend plots $name reduce-pair-${depth}-${name} 2
+	lappend parts reduce-base-${depth}-$name
+	lappend parts reduce-special-${depth}-$name
+	lappend parts reduce-unroll4-${depth}-$name
+	set n     [llength $parts]
+	set parts [list side-by-side {*}$parts]
+	chart reduce-panel-${depth}-${name} $parts
+	lappend plots $name reduce-panel-${depth}-${name} $n
+	unset parts
     }
     
 } ;# reducers
@@ -196,7 +218,7 @@ puts "generating README ..."
     shows how the time per value increases with the number of bands to
     process.
 
-    ### Addendum (Dev 4, 2025)
+    ### Addendum (Dec 4, 2025)
 
     The first attempt at speeding things up worked. This attempt
 
@@ -219,7 +241,7 @@ puts "generating README ..."
       - Inline the code of the kahan summation.    
       - Unroll the pixel loop as well to handle more than one pixel per iteration.
 
-    ### Addendum 2 (Dev 4, 2025)
+    ### Addendum 2 (Dec 4, 2025)
 
     After fixing an issue in the kahan summation benchmarking inlining
     of this functionality (via macros) provides a measurable boost to
@@ -234,11 +256,69 @@ puts "generating README ..."
     This change is accepted.
 
     Now look at unrolling the pixel loop itself too.
+
+    ### Addendum 3 (Feb 7 2026)
+
+    The pixel loop unrolled 4 times looks to be best for most of the
+    operations and depths. The simpler operations look to have it better.
+    
+    That said, for the high-complexity ops (`stddev` and `variance`) the
+    unrolled form is mostly worse, except for depth 1. For higher depths the
+    `special` is better.
+
+    The `sumsquared` is in a bit of a transition area, where `special` is better
+    for depths 2 and 3, else unrolled, i.e. depths 1 and 4+. With 4+ having more
+    variation based on vector length.
+
+    ### Addendum 4 (Feb 7 2026)
+
+    The curves had quite a bit of differences, even if the general
+    shape looked somewhat the same.
+
+    Reworked the benchmarks for a hopeful better estimation of general
+    performance. The previous code initialized the work arrays once,
+    with random data, and then ran all combinations of methods, depths
+    and vector length over that fixed set. As such each full run of
+    the benchmarks sampled only a single point in the input space.
+
+    The new code has each iteration for a combination re-initialize
+    the work array. This causes the set of iterations for a
+    combination to take many more samples of the input space,
+    averaging them at the end.
+
+    The implementation of the selector, reusing the existing special
+    and unrol function, and switching between them is not really
+    working out very well. In quite a bit of where special is called
+    the selector is slower. That said, in the new set of result these
+    are all also closer than before.
+
+    And there is that for the operations in question the 4-unrolled
+    loops look to be only better for `depth == 1`. Which is something
+    which will not occur in production, only in benchmarking. Because
+    for that depth all the reducers reduce to constant results, and
+    are handled by the simplification rules at construction time.
+    
+    Scrapping the selector as-is. Simply use `special` for the complex
+    operations.
+    
+    |Op         |1    |     |2        |3        |     |4        |5+       |
+    |---        |---: |---: |---:     |---:     |---: |---:     |---:     |
+    |argmax     |u4   |     |u4       |u4       |     |u4       |u4       |
+    |argmin     |u4   |     |u4       |u4       |     |u4       |u4       |
+    |max        |u4   |     |u4       |u4       |     |u4       |u4       |
+    |min        |u4   |     |u4       |u4       |     |u4       |u4       |
+    |mean       |u4   |     |u4       |u4       |     |u4       |u4       |
+    |sum        |u4   |     |u4       |u4       |     |u4       |u4       |
+    |           |     |     |         |         |     |         |         |
+    |sumsquared |u4   |     |__spec__ |__spec__ |     |__spec__ |__spec__ | 
+    |stddev     |u4   |     |__spec__ |__spec__ |     |__spec__ |__spec__ |
+    |variance   |u4   |     |__spec__ |__spec__ |     |__spec__ |__spec__ |
 }]
 + "## Plots"
 
+if 0 {
 foreach {
-    op id
+    op id count
 } $plots {
     set speed "svg/ispeed-$id.svg"
     set times "svg/times-$id.svg"
@@ -246,6 +326,26 @@ foreach {
     + "\[<img src='$times' style='width:46%;'>]($times)"
     + "\[<img src='$speed' style='width:46%;'>]($speed)"
 } ;# plots
+}
+
+# sort by ops and depth
+foreach {
+    op id count
+} $plots {
+    lassign [split $id -] _ _ depth _
+    dict set __ $op $depth $id
+    #puts "|$op $depth $id|"
+}
+# emit lines for all depths of the ops
+foreach {op spec} $__ {
+    +
+    + "### $op"
+    +
+    foreach {depth id} $spec {
+	set speed "svg/ispeed-$id.svg"
+	+ "\[<img src='$speed' style='width:12%;'>]($speed)"
+    }
+}
 
 w bench/plots/reduce/README.md [g]
 

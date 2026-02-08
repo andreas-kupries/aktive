@@ -2,7 +2,7 @@
 ##
 # AKTIVE -- Andreas Kupries's Tcl Image/Vector Extension
 #
-# (c) 2025 Andreas Kupries http://wiki.tcl.tk/andreas%20kupries
+# (c) 2025-2026 Andreas Kupries http://wiki.tcl.tk/andreas%20kupries
 #
 ##
 # BENCHMARK support commands. Not created for production / testing.
@@ -28,14 +28,20 @@ proc gen {name} {
 
     critcl::cproc ::aktive::bench::reduce::base::${name} {int w int d} void \
 	[string map $map {
-	    if (w > N-1) w = N-1;
+	    if (w > (N/d)-1) w = (N/d)-1;
 	    aktive_reduce_row_bands_base_@@ (dst, src, w, d);
 	}]
 
     critcl::cproc ::aktive::bench::reduce::special::${name} {int w int d} void \
 	[string map $map {
-	    if (w > N-1) w = N-1;
+	    if (w > (N/d)-1) w = (N/d)-1;
 	    aktive_reduce_row_bands_special_@@ (dst, src, w, d);
+	}]
+
+    critcl::cproc ::aktive::bench::reduce::unroll4::${name} {int w int d} void \
+	[string map $map {
+	    if (w > (N/d)-1) w = (N/d)-1;
+	    aktive_reduce_row_bands_unroll4_@@ (dst, src, w, d);
 	}]
 }
 
@@ -47,13 +53,17 @@ apply {{} {
 # initializator - invoke before the benchmark commands.
 # fill source arrays and parameters with random values.
 #critcl::msg \t::aktive::bench::reduce::init
-critcl::cproc ::aktive::bench::reduce::init {} void {
+critcl::cproc ::aktive::bench::reduce::init {int {n N}} void {
     aktive_uint i;
     // heap allocate - lost on exit - this is ok for benchmarks
-    dst = NALLOC (double, N);
-    src = NALLOC (double, N);
-    for (i = 0; i < N; i++) { src [i] = rand() ; }
+    if (!dst) dst = NALLOC (double, N);
+    if (!src) src = NALLOC (double, N);
+    if (n > N) n = N;
+    for (i = 0; i < n; i++) { src [i] = rand() ; }
 }
+
+# expose vector size
+critcl::cconst ::aktive::bench::reduce::size int N
 
 # # ## ### ##### ######## #############
 rename gen {}

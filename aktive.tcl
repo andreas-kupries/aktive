@@ -2,7 +2,7 @@
 ##
 # AKTIVE -- Andreas Kupries's Tcl Image/Vector Extension
 #
-# (c) 2022-2024 Andreas Kupries http://wiki.tcl.tk/andreas%20kupries
+# (c) 2022-2026 Andreas Kupries http://wiki.tcl.tk/andreas%20kupries
 #
 
 # # ## ### ##### ######## ############# #####################
@@ -217,6 +217,7 @@ if {$benchmarking} {
 
 if {$testing} {
     critcl::source tests/support/kahan.tcl
+    critcl::source tests/support/reducers.tcl
 }
 
 # # ## ### ##### ######## ############# #####################
