@@ -16,20 +16,20 @@ foreach name $reducers {
     foreach depth {1 2 3 4 5 6 7 8} {
 	lappend map @name@ $name
 	lappend map @depth@ $depth
-	chart reduce-base-${depth}-$name [string map $map {
-	    only {name = 'aktive::bench::reduce::base::@name@/@depth@'}
+	chart reduce-bands-base-${depth}-$name [string map $map {
+	    only {name = 'aktive::bench::reduce-bands::base::@name@/@depth@'}
 	    only {sink = 'n/a'}
 	    range iwidth
 	    nodump
 	}]
-	chart reduce-special-${depth}-$name [string map $map {
-	    only {name = 'aktive::bench::reduce::special::@name@/@depth@'}
+	chart reduce-bands-special-${depth}-$name [string map $map {
+	    only {name = 'aktive::bench::reduce-bands::special::@name@/@depth@'}
 	    only {sink = 'n/a'}
 	    range iwidth
 	    nodump
 	}]
-	chart reduce-unroll4-${depth}-$name [string map $map {
-	    only {name = 'aktive::bench::reduce::unroll4::@name@/@depth@'}
+	chart reduce-bands-unroll4-${depth}-$name [string map $map {
+	    only {name = 'aktive::bench::reduce-bands::unroll4::@name@/@depth@'}
 	    only {sink = 'n/a'}
 	    range iwidth
 	    nodump
@@ -44,53 +44,53 @@ foreach name $reducers {
 foreach name $reducers {
     if 0 {
 	# just base
-	chart reduce-base-$name [list side-by-side {*}[lmap depth {1 2 3 4 5 6 7 8} {
-	    set _ reduce-base-${depth}-$name
+	chart reduce-bands-base-$name [list side-by-side {*}[lmap depth {1 2 3 4 5 6 7 8} {
+	    set _ reduce-bands-base-${depth}-$name
 	}]]
-	lappend plots $name reduce-base-$name 8
+	lappend plots $name reduce-bands-base-$name 8
 
 	# just special
-	chart reduce-special-$name [list side-by-side {*}[lmap depth {1 2 3 4 5 6 7 8} {
-	    set _ reduce-special-${depth}-$name
+	chart reduce-bands-special-$name [list side-by-side {*}[lmap depth {1 2 3 4 5 6 7 8} {
+	    set _ reduce-bands-special-${depth}-$name
 	}]]
-	lappend plots $name reduce-special-$name 8
+	lappend plots $name reduce-bands-special-$name 8
 
 	# just unroll4
-	chart reduce-unroll4-$name [list side-by-side {*}[lmap depth {1 2 3 4 5 6 7 8} {
-	    set _ reduce-unroll4-${depth}-$name
+	chart reduce-bands-unroll4-$name [list side-by-side {*}[lmap depth {1 2 3 4 5 6 7 8} {
+	    set _ reduce-bands-unroll4-${depth}-$name
 	}]]
-	lappend plots $name reduce-special-$name 8
+	lappend plots $name reduce-bands-special-$name 8
 
 	# base vs special vs unroll4 - unrolled inner loop
-	chart reduce-sbunroll-$name [list side-by-side {*}[lmap depth {1 2 3 4} {
-	    set _ reduce-base-${depth}-$name
+	chart reduce-bands-sbunroll-$name [list side-by-side {*}[lmap depth {1 2 3 4} {
+	    set _ reduce-bands-base-${depth}-$name
 	}] {*}[lmap depth {1 2 3 4} {
-	    set _ reduce-special-${depth}-$name
+	    set _ reduce-bands-special-${depth}-$name
 	}] {*}[lmap depth {1 2 3 4} {
-	    set _ reduce-unroll4-${depth}-$name
+	    set _ reduce-bands-unroll4-${depth}-$name
 	}]]
-	lappend plots $name reduce-sbunroll-$name 8
+	lappend plots $name reduce-bands-sbunroll-$name 8
 
 	# base vs special vs unroll 4 - generic range
-	chart reduce-sbgeneric-$name [list side-by-side {*}[lmap depth {5 6 7 8} {
-	    set _ reduce-base-${depth}-$name
+	chart reduce-bands-sbgeneric-$name [list side-by-side {*}[lmap depth {5 6 7 8} {
+	    set _ reduce-bands-base-${depth}-$name
 	}] {*}[lmap depth {5 6 7 8} {
-	    set _ reduce-special-${depth}-$name
+	    set _ reduce-bands-special-${depth}-$name
 	}] {*}[lmap depth {5 6 7 8} {
-	    set _ reduce-unroll4-${depth}-$name
+	    set _ reduce-bands-unroll4-${depth}-$name
 	}]]
-	lappend plots $name reduce-sbgeneric-$name 8
+	lappend plots $name reduce-bands-sbgeneric-$name 8
     }
 
     # panel base/special/unroll4 comparison at each (operator, depth) combination
     foreach depth {1 2 3 4 5 6 7 8} {
-	lappend parts reduce-base-${depth}-$name
-	lappend parts reduce-special-${depth}-$name
-	lappend parts reduce-unroll4-${depth}-$name
+	lappend parts reduce-bands-base-${depth}-$name
+	lappend parts reduce-bands-special-${depth}-$name
+	lappend parts reduce-bands-unroll4-${depth}-$name
 	set n     [llength $parts]
 	set parts [list side-by-side {*}$parts]
-	chart reduce-panel-${depth}-${name} $parts
-	lappend plots $name reduce-panel-${depth}-${name} $n
+	chart reduce-bands-panel-${depth}-${name} $parts
+	lappend plots $name reduce-bands-panel-${depth}-${name} $n
 	unset parts
     }
     

@@ -1,7 +1,7 @@
 # -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
 ## (c) 2026 Andreas Kupries
 # # ## ### ##### ######## ############# #####################
-## AKTIVE. Reducers. Cross check the variants against each other
+## AKTIVE. Band reducers. Cross check the variants against each other
 
 kt check Tcl     8.6 9
 kt check tcltest 2
@@ -17,8 +17,8 @@ kt source ../data/reduce/spec.tcl	;# reducer list
 ## Syntax - Not relevant for test-only commands
 
 # # ## ### ##### ######## ############# #####################
-::aktive::test::reduce::init
-set N [::aktive::test::reduce::size]
+::aktive::test::reduce-bands::init
+set N [::aktive::test::reduce-bands::size]
 
 # # ## ### ##### ######## ############# #####################
 
@@ -31,22 +31,22 @@ foreach d {
 	foreach name $reducers {
 	    # Each test samples the input space (beyond the sampling done over depths and vector lengths)
 
-	    test aktive-reducer-special-${name}-$w.$d "aktive reducer $name (special), w$w d$d" -body {
+	    test aktive-reducer-band-special-${name}-$w.$d "aktive reducer $name (special), w$w d$d" -body {
 		for {set k 0} {$k < 100} {incr k} {
-		    ::aktive::test::reduce::init [expr {$w * $d}]
-		    set expected [::aktive::test::reduce::base::$name    $w $d]
-		    set actual   [::aktive::test::reduce::special::$name $w $d]
+		    ::aktive::test::reduce-bands::init [expr {$w * $d}]
+		    set expected [::aktive::test::reduce-bands::base::$name    $w $d]
+		    set actual   [::aktive::test::reduce-bands::special::$name $w $d]
 		    set ok       [expr {$expected == $actual}]
 		    if {!$ok} break
 		}
 		set ok
 	    } -result 1
 
-	    test aktive-reducer-unroll4-${name}-$w.$d "aktive reducer $name (unroll4), w$w d$d" -body {
+	    test aktive-reducer-band-unroll4-${name}-$w.$d "aktive reducer $name (unroll4), w$w d$d" -body {
 		for {set k 0} {$k < 100} {incr k} {
-		    ::aktive::test::reduce::init [expr {$w * $d}]
-		    set expected [::aktive::test::reduce::base::$name    $w $d]
-		    set actual   [::aktive::test::reduce::unroll4::$name $w $d]
+		    ::aktive::test::reduce-bands::init [expr {$w * $d}]
+		    set expected [::aktive::test::reduce-bands::base::$name    $w $d]
+		    set actual   [::aktive::test::reduce-bands::unroll4::$name $w $d]
 		    set ok       [expr {$expected == $actual}]
 		    if {!$ok} break
 		}

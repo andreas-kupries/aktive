@@ -17,10 +17,6 @@ source ../data/reduce/spec.tcl
 # ### ### ### ######### ######### ######### ###########################
 ## Benchmarks Setup
 
-#bench_puts "filling the random inputs..."
-#set us [time aktive::bench::reduce::init 1]
-#bench_puts "... done in $us"
-
 set vlength {
     1
     10
@@ -66,7 +62,7 @@ set iters {
 # baseline
 
 foreach name $reducers {
-    set cmd aktive::bench::reduce::base::$name
+    set cmd aktive::bench::reduce-bands::base::$name
     if {![llength [info commands ::$cmd]]} continue
 
     foreach depth {1 2 3 4 5 6 7 8} {
@@ -76,7 +72,7 @@ foreach name $reducers {
 	    set label [list $cmd/$depth n/a  n/a   $sz  $n:1   $n 1]
 	    #               label       sink cores size aspect w  h
 	    bench -iter $iter -desc $label -ipre {
-		aktive::bench::reduce::init $sz
+		aktive::bench::reduce-bands::init $sz
 	    } -body {
 		$cmd $n $depth
 	    }
@@ -88,7 +84,7 @@ foreach name $reducers {
 # special
 
 foreach name $reducers {
-    set cmd aktive::bench::reduce::special::$name
+    set cmd aktive::bench::reduce-bands::special::$name
     if {![llength [info commands ::$cmd]]} continue
 
     foreach depth {1 2 3 4 5 6 7 8} {
@@ -100,7 +96,7 @@ foreach name $reducers {
             set label [list $cmd/$depth n/a  n/a   $sz  $n:1   $n 1]
             #               label       sink cores size aspect w  h
             bench -iter $iter -desc $label -ipre {
-		aktive::bench::reduce::init $sz
+		aktive::bench::reduce-bands::init $sz
 	    } -body {
                 $cmd $n $depth
             }
@@ -112,7 +108,7 @@ foreach name $reducers {
 # unroll4
 
 foreach name $reducers {
-    set cmd aktive::bench::reduce::unroll4::$name
+    set cmd aktive::bench::reduce-bands::unroll4::$name
     if {![llength [info commands ::$cmd]]} continue
 
     foreach depth {1 2 3 4 5 6 7 8} {
@@ -124,7 +120,7 @@ foreach name $reducers {
 	    set label [list $cmd/$depth n/a  n/a   $sz  $n:1   $n 1]
 	    #               label       sink cores size aspect w  h
 	    bench -iter $iter -desc $label -ipre {
-		aktive::bench::reduce::init $sz
+		aktive::bench::reduce-bands::init $sz
 	    } -body {
 		$cmd $n $depth
 	    }

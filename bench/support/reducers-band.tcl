@@ -8,7 +8,7 @@
 # BENCHMARK support commands. Not created for production / testing.
 ##
 
-critcl::msg "\t[dsl::reader::cyan "Benchmarking Support; Expose reducer core"]"
+critcl::msg "\t[dsl::reader::cyan "Benchmarking Support; Expose band reducer core"]"
 
 critcl::ccode {
     // Max size vector to operate
@@ -24,21 +24,21 @@ critcl::ccode {
 
 proc gen {name} {
     lappend map @@        $name
-    #critcl::msg \t::aktive::bench::reduce::base::$name
+    #critcl::msg \t::aktive::bench::reduce-bands::base::$name
 
-    critcl::cproc ::aktive::bench::reduce::base::${name} {int w int d} void \
+    critcl::cproc ::aktive::bench::reduce-bands::base::${name} {int w int d} void \
 	[string map $map {
 	    if (w > (N/d)-1) w = (N/d)-1;
 	    aktive_reduce_row_bands_base_@@ (dst, src, w, d);
 	}]
 
-    critcl::cproc ::aktive::bench::reduce::special::${name} {int w int d} void \
+    critcl::cproc ::aktive::bench::reduce-bands::special::${name} {int w int d} void \
 	[string map $map {
 	    if (w > (N/d)-1) w = (N/d)-1;
 	    aktive_reduce_row_bands_special_@@ (dst, src, w, d);
 	}]
 
-    critcl::cproc ::aktive::bench::reduce::unroll4::${name} {int w int d} void \
+    critcl::cproc ::aktive::bench::reduce-bands::unroll4::${name} {int w int d} void \
 	[string map $map {
 	    if (w > (N/d)-1) w = (N/d)-1;
 	    aktive_reduce_row_bands_unroll4_@@ (dst, src, w, d);
@@ -52,8 +52,8 @@ apply {{} {
 
 # initializator - invoke before the benchmark commands.
 # fill source arrays and parameters with random values.
-#critcl::msg \t::aktive::bench::reduce::init
-critcl::cproc ::aktive::bench::reduce::init {int {n N}} void {
+#critcl::msg \t::aktive::bench::reduce-bands::init
+critcl::cproc ::aktive::bench::reduce-bands::init {int {n N}} void {
     aktive_uint i;
     // heap allocate - lost on exit - this is ok for benchmarks
     if (!dst) dst = NALLOC (double, N);
@@ -63,7 +63,7 @@ critcl::cproc ::aktive::bench::reduce::init {int {n N}} void {
 }
 
 # expose vector size
-critcl::cconst ::aktive::bench::reduce::size int N
+critcl::cconst ::aktive::bench::reduce-bands::size int N
 
 # # ## ### ##### ######## #############
 rename gen {}

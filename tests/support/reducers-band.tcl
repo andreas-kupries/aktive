@@ -8,7 +8,7 @@
 # TESTING support commands. Not created for production / benchmarking
 ##
 
-critcl::msg "\t[dsl::reader::cyan "Testing Support; Expose reducer core variants"]"
+critcl::msg "\t[dsl::reader::cyan "Testing Support; Expose band reducer core"]"
 
 critcl::ccode {
     // Max size vector to operate
@@ -24,21 +24,21 @@ critcl::ccode {
 
 proc gen {name} {
     lappend map @@ $name
-    #critcl::msg \t::aktive::test::reduce::____::$name
+    #critcl::msg \t::aktive::test::reduce-bands::____::$name
 
-    critcl::cproc ::aktive::test::reduce::base::${name} {int w int d} void \
+    critcl::cproc ::aktive::test::reduce-bands::base::${name} {int w int d} void \
 	[string map $map {
 	    if (w > (N/d)-1) w = (N/d)-1;
 	    aktive_reduce_row_bands_base_@@ (dst, src, w, d);
 	}]
 
-    critcl::cproc ::aktive::test::reduce::special::${name} {int w int d} void \
+    critcl::cproc ::aktive::test::reduce-bands::special::${name} {int w int d} void \
 	[string map $map {
 	    if (w > (N/d)-1) w = (N/d)-1;
 	    aktive_reduce_row_bands_special_@@ (dst, src, w, d);
 	}]
 
-    critcl::cproc ::aktive::test::reduce::unroll4::${name} {int w int d} void \
+    critcl::cproc ::aktive::test::reduce-bands::unroll4::${name} {int w int d} void \
 	[string map $map {
 	    if (w > (N/d)-1) w = (N/d)-1;
 	    aktive_reduce_row_bands_unroll4_@@ (dst, src, w, d);
@@ -52,8 +52,8 @@ apply {{} {
 
 # initializator - invoke before the testing commands.
 # fill source arrays and parameters with random values.
-#critcl::msg \t::aktive::test::reduce::init
-critcl::cproc ::aktive::test::reduce::init {int {n N}} void {
+#critcl::msg \t::aktive::test::reduce-bands::init
+critcl::cproc ::aktive::test::reduce-bands::init {int {n N}} void {
     aktive_uint i;
     // heap allocate - lost on exit - this is ok for testing
     if (!dst) dst = NALLOC (double, N);
@@ -63,7 +63,7 @@ critcl::cproc ::aktive::test::reduce::init {int {n N}} void {
 }
 
 # expose vector size
-critcl::cconst ::aktive::test::reduce::size int N
+critcl::cconst ::aktive::test::reduce-bands::size int N
 
 # # ## ### ##### ######## #############
 rename gen {}

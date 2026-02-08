@@ -17,6 +17,10 @@ proc reducer-def {name decl impl} {
     upvar 1 ${name}impl __impl ; set __impl [dedent      $impl]
 }
 
+proc reducer-clear {} {
+    global rimplementations ; set rimplementations {}
+}
+
 # # ## ### ##### ######## #############
 ## baseline - emulate the inner loop of the existing blitter setup
 
