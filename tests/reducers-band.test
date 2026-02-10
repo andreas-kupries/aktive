@@ -29,29 +29,21 @@ foreach d {
     for {set w 1} {($w < 10000) && ($w < $maxw)} {set w [expr {10*$w}]} {
 	# w in {1, 10, 100, 1000}
 	foreach name $reducers {
-	    # Each test samples the input space (beyond the sampling done over depths and vector lengths)
-
-	    test aktive-reducer-band-special-${name}-$w.$d "aktive reducer $name (special), w$w d$d" -body {
-		for {set k 0} {$k < 100} {incr k} {
-		    ::aktive::test::reduce-bands::init [expr {$w * $d}]
-		    set expected [::aktive::test::reduce-bands::base::$name    $w $d]
-		    set actual   [::aktive::test::reduce-bands::special::$name $w $d]
-		    set ok       [expr {$expected == $actual}]
-		    if {!$ok} break
-		}
-		set ok
-	    } -result 1
-
-	    test aktive-reducer-band-unroll4-${name}-$w.$d "aktive reducer $name (unroll4), w$w d$d" -body {
-		for {set k 0} {$k < 100} {incr k} {
-		    ::aktive::test::reduce-bands::init [expr {$w * $d}]
-		    set expected [::aktive::test::reduce-bands::base::$name    $w $d]
-		    set actual   [::aktive::test::reduce-bands::unroll4::$name $w $d]
-		    set ok       [expr {$expected == $actual}]
-		    if {!$ok} break
-		}
-		set ok
-	    } -result 1
+	    foreach impl {
+		perdepth unroll4
+	    } {
+		test aktive-reducer-band-${impl}-${name}-$w.$d "aktive reducer $name ($impl), w$w d$d" -body {
+		    # The test samples the input space (beyond the sampling done over depths and vector lengths)
+		    for {set k 0} {$k < 100} {incr k} {
+			::aktive::test::reduce-bands::init [expr {$w * $d}]
+			set expected [::aktive::test::reduce-bands::baseline::$name $w $d]
+			set actual   [::aktive::test::reduce-bands::${impl}::$name  $w $d]
+			set ok       [expr {$expected == $actual}]
+			if {!$ok} break
+		    }
+		    set ok
+		} -result 1
+	    }
 	}
     }
 }

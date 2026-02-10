@@ -14,28 +14,20 @@ set plots {} ;# :: list (op0 name0 op1 name1 ...)
 # base charts
 foreach name $reducers {
     foreach depth {1 2 3 4 5 6 7 8} {
-	lappend map @name@ $name
-	lappend map @depth@ $depth
-	chart reduce-bands-base-${depth}-$name [string map $map {
-	    only {name = 'aktive::bench::reduce-bands::base::@name@/@depth@'}
-	    only {sink = 'n/a'}
-	    range iwidth
-	    nodump
-	}]
-	chart reduce-bands-special-${depth}-$name [string map $map {
-	    only {name = 'aktive::bench::reduce-bands::special::@name@/@depth@'}
-	    only {sink = 'n/a'}
-	    range iwidth
-	    nodump
-	}]
-	chart reduce-bands-unroll4-${depth}-$name [string map $map {
-	    only {name = 'aktive::bench::reduce-bands::unroll4::@name@/@depth@'}
-	    only {sink = 'n/a'}
-	    range iwidth
-	    nodump
-	}]
-
-	unset map
+	foreach impl {
+	    baseline perdepth unroll4
+	} {
+	    set     map {}
+	    lappend map @name@  $name
+	    lappend map @depth@ $depth
+	    lappend map @impl@  $impl
+	    chart reduce-bands-${impl}-${depth}-$name [string map $map {
+		only {name = 'aktive::bench::reduce-bands::@impl@::@name@/@depth@'}
+		only {sink = 'n/a'}
+		range iwidth
+		nodump
+	    }]
+	}
     } ;# depth
 } ;# reducers
 
@@ -43,29 +35,21 @@ foreach name $reducers {
 # 1. charts of single operator, across range of depths
 foreach name $reducers {
     if 0 {
-	# just base
-	chart reduce-bands-base-$name [list side-by-side {*}[lmap depth {1 2 3 4 5 6 7 8} {
-	    set _ reduce-bands-base-${depth}-$name
-	}]]
-	lappend plots $name reduce-bands-base-$name 8
-
-	# just special
-	chart reduce-bands-special-$name [list side-by-side {*}[lmap depth {1 2 3 4 5 6 7 8} {
-	    set _ reduce-bands-special-${depth}-$name
-	}]]
-	lappend plots $name reduce-bands-special-$name 8
-
-	# just unroll4
-	chart reduce-bands-unroll4-$name [list side-by-side {*}[lmap depth {1 2 3 4 5 6 7 8} {
-	    set _ reduce-bands-unroll4-${depth}-$name
-	}]]
-	lappend plots $name reduce-bands-special-$name 8
+	foreach impl {
+	    baseline perdepth unroll4
+	} {
+	    # just impl
+	    chart reduce-bands-${impl}-$name [list side-by-side {*}[lmap depth {1 2 3 4 5 6 7 8} {
+		set _ reduce-bands-${impl}-${depth}-$name
+	    }]]
+	    lappend plots $name reduce-bands-${impl}-$name 8
+	}
 
 	# base vs special vs unroll4 - unrolled inner loop
 	chart reduce-bands-sbunroll-$name [list side-by-side {*}[lmap depth {1 2 3 4} {
-	    set _ reduce-bands-base-${depth}-$name
+	    set _ reduce-bands-baseline-${depth}-$name
 	}] {*}[lmap depth {1 2 3 4} {
-	    set _ reduce-bands-special-${depth}-$name
+	    set _ reduce-bands-perdepth-${depth}-$name
 	}] {*}[lmap depth {1 2 3 4} {
 	    set _ reduce-bands-unroll4-${depth}-$name
 	}]]
@@ -73,9 +57,9 @@ foreach name $reducers {
 
 	# base vs special vs unroll 4 - generic range
 	chart reduce-bands-sbgeneric-$name [list side-by-side {*}[lmap depth {5 6 7 8} {
-	    set _ reduce-bands-base-${depth}-$name
+	    set _ reduce-bands-baseline-${depth}-$name
 	}] {*}[lmap depth {5 6 7 8} {
-	    set _ reduce-bands-special-${depth}-$name
+	    set _ reduce-bands-perdepth-${depth}-$name
 	}] {*}[lmap depth {5 6 7 8} {
 	    set _ reduce-bands-unroll4-${depth}-$name
 	}]]
@@ -84,16 +68,15 @@ foreach name $reducers {
 
     # panel base/special/unroll4 comparison at each (operator, depth) combination
     foreach depth {1 2 3 4 5 6 7 8} {
-	lappend parts reduce-bands-base-${depth}-$name
-	lappend parts reduce-bands-special-${depth}-$name
-	lappend parts reduce-bands-unroll4-${depth}-$name
+	foreach impl {
+	    baseline perdepth unroll4
+	} { lappend parts reduce-bands-${impl}-${depth}-$name }
 	set n     [llength $parts]
 	set parts [list side-by-side {*}$parts]
 	chart reduce-bands-panel-${depth}-${name} $parts
 	lappend plots $name reduce-bands-panel-${depth}-${name} $n
 	unset parts
     }
-    
 } ;# reducers
 
 # # ## ### ##### ######## ############# #####################
@@ -206,7 +189,7 @@ puts "generating README ..."
 
 + {<img src='../../../doc/assets/aktive-logo-128.png' style='float:right;'>}
 +
-+ "Benchmark results for baseline reducer"
++ "Benchmark results for band reducers"
 +
 + {||}
 + {|---|}
@@ -214,7 +197,7 @@ puts "generating README ..."
 +
 + "## Summary"
 + [string map [list "    " ""] {
-    The base line implementation of the by-band reductions nicely
+    The `baseline` implementation of the by-band reductions nicely
     shows how the time per value increases with the number of bands to
     process.
 
@@ -243,12 +226,12 @@ puts "generating README ..."
 
     ### Addendum 2 (Dec 4, 2025)
 
-    After fixing an issue in the kahan summation benchmarking inlining
+    After fixing an issue in the kahan summation benchmarking the inlining
     of this functionality (via macros) provides a measurable boost to
     all the reductions using it, i.e. `sum`, `sumsquared`, `mean`,
-    `stddev`, and `variance`, for both baseline and special variants.
+    `stddev`, and `variance`, for both `baseline` and `perdepth` variants.
 
-    The special variants look to get a slightly larger boost however,
+    The `perdepth` variants look to get a slightly larger boost however,
     as the inlining allows optimization over the entire loop body,
     instead of just inside of the pixel-function used by the baseline.
     Remember, these loop bodies have the band loop unrolled.
@@ -264,16 +247,16 @@ puts "generating README ..."
     
     That said, for the high-complexity ops (`stddev` and `variance`) the
     unrolled form is mostly worse, except for depth 1. For higher depths the
-    `special` is better.
+    `perdepth` is better.
 
-    The `sumsquared` is in a bit of a transition area, where `special` is better
+    The `sumsquared` is in a bit of a transition area, where `perdepth` is better
     for depths 2 and 3, else unrolled, i.e. depths 1 and 4+. With 4+ having more
     variation based on vector length.
 
     ### Addendum 4 (Feb 7 2026)
 
-    The curves had quite a bit of differences, even if the general
-    shape looked somewhat the same.
+    The results of a second run had quite a bit of differences, even if the
+    general shape looked somewhat the same.
 
     Reworked the benchmarks for a hopeful better estimation of general
     performance. The previous code initialized the work arrays once,
@@ -286,33 +269,33 @@ puts "generating README ..."
     combination to take many more samples of the input space,
     averaging them at the end.
 
-    The implementation of the selector, reusing the existing special
-    and unrol function, and switching between them is not really
-    working out very well. In quite a bit of where special is called
-    the selector is slower. That said, in the new set of result these
-    are all also closer than before.
+    The implementation of the selector, reusing the existing `perdepth` and
+    `unroll4` functions, and switching between them is not really working out
+    very well. In quite a bit of places where `perdepth` is called the
+    `selector` is slower. That said, in the new set of results these are all
+    also closer than before.
 
-    And there is that for the operations in question the 4-unrolled
-    loops look to be only better for `depth == 1`. Which is something
-    which will not occur in production, only in benchmarking. Because
-    for that depth all the reducers reduce to constant results, and
-    are handled by the simplification rules at construction time.
+    And there is also that for the operations in question the 4-unrolled loops
+    look to be only better for `depth == 1`. Which is something which will not
+    occur in production, only in benchmarking. Because for that depth all the
+    reducers reduce to constant results, and are handled by the simplification
+    rules at construction time.
     
-    Scrapping the selector as-is. Simply use `special` for the complex
+    Scrapping the selector as-is. Simply use `perdepth` for the complex
     operations.
     
-    |Op         |1    |     |2        |3        |     |4        |5+       |
-    |---        |---: |---: |---:     |---:     |---: |---:     |---:     |
-    |argmax     |u4   |     |u4       |u4       |     |u4       |u4       |
-    |argmin     |u4   |     |u4       |u4       |     |u4       |u4       |
-    |max        |u4   |     |u4       |u4       |     |u4       |u4       |
-    |min        |u4   |     |u4       |u4       |     |u4       |u4       |
-    |mean       |u4   |     |u4       |u4       |     |u4       |u4       |
-    |sum        |u4   |     |u4       |u4       |     |u4       |u4       |
-    |           |     |     |         |         |     |         |         |
-    |sumsquared |u4   |     |__spec__ |__spec__ |     |__spec__ |__spec__ | 
-    |stddev     |u4   |     |__spec__ |__spec__ |     |__spec__ |__spec__ |
-    |variance   |u4   |     |__spec__ |__spec__ |     |__spec__ |__spec__ |
+    |Op         |1    |     |2            |3            |     |4            |5+           |
+    |---        |---: |---: |---:         |---:         |---: |---:         |---:         |
+    |argmax     |u4   |/    |u4           |u4           |/    |u4           |u4           |
+    |argmin     |u4   |/    |u4           |u4           |/    |u4           |u4           |
+    |max        |u4   |/    |u4           |u4           |/    |u4           |u4           |
+    |min        |u4   |/    |u4           |u4           |/    |u4           |u4           |
+    |mean       |u4   |/    |u4           |u4           |/    |u4           |u4           |
+    |sum        |u4   |/    |u4           |u4           |/    |u4           |u4           |
+    |////////// |/    |/    |////////     |////////     |/    |////////     |////////     |
+    |sumsquared |u4   |/    |__perdepth__ |__perdepth__ |/    |__perdepth__ |__perdepth__ | 
+    |stddev     |u4   |/    |__perdepth__ |__perdepth__ |/    |__perdepth__ |__perdepth__ |
+    |variance   |u4   |/    |__perdepth__ |__perdepth__ |/    |__perdepth__ |__perdepth__ |
 }]
 + "## Plots"
 

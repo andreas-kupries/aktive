@@ -20,36 +20,6 @@ critcl::ccode {
     static double* dst;
 }
 
-# create a testing command for each of the reducer functions.
-
-proc gen {name} {
-    lappend map @@ $name
-    #critcl::msg \t::aktive::test::reduce-bands::____::$name
-
-    critcl::cproc ::aktive::test::reduce-bands::base::${name} {int w int d} void \
-	[string map $map {
-	    if (w > (N/d)-1) w = (N/d)-1;
-	    aktive_reduce_row_bands_base_@@ (dst, src, w, d);
-	}]
-
-    critcl::cproc ::aktive::test::reduce-bands::special::${name} {int w int d} void \
-	[string map $map {
-	    if (w > (N/d)-1) w = (N/d)-1;
-	    aktive_reduce_row_bands_special_@@ (dst, src, w, d);
-	}]
-
-    critcl::cproc ::aktive::test::reduce-bands::unroll4::${name} {int w int d} void \
-	[string map $map {
-	    if (w > (N/d)-1) w = (N/d)-1;
-	    aktive_reduce_row_bands_unroll4_@@ (dst, src, w, d);
-	}]
-}
-
-apply {{} {
-    source data/reduce/spec.tcl
-    foreach name $reducers { gen $name }
-}}
-
 # initializator - invoke before the testing commands.
 # fill source arrays and parameters with random values.
 #critcl::msg \t::aktive::test::reduce-bands::init
@@ -66,7 +36,36 @@ critcl::cproc ::aktive::test::reduce-bands::init {int {n N}} void {
 critcl::cconst ::aktive::test::reduce-bands::size int N
 
 # # ## ### ##### ######## #############
-rename gen {}
+
+# create testing commands for all implementation variants of a reducer operation
+proc gen {name} {
+    gen-band $name
+}
+
+# create testing commands for all implementation variants of a band reducer operation
+proc gen-band {name} {
+    lappend map @@ $name
+    foreach impl {
+	baseline perdepth unroll4
+    } {
+	critcl::cproc ::aktive::test::reduce-bands::${impl}::${name} {int w int d} void \
+	    [string map [list @@ $name @impl@ $impl] {
+		if (w > (N/d)-1) w = (N/d)-1;
+		aktive_reduce_bands_@impl@_@@ (dst, src, w, d);
+	    }]
+    }
+}
+
+# create benchmark commands for all reducer operations
+apply {{} {
+    source data/reduce/spec.tcl
+    foreach name $reducers { gen $name }
+}}
+
+# # ## ### ##### ######## #############
+
+rename gen      {}
+rename gen-band {}
 
 # # ## ### ##### ######## #############
 return
