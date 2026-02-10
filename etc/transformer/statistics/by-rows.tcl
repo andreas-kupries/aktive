@@ -50,6 +50,8 @@ operator {dexpr attr} {
 	the $dexpr of the {*}$attr row values. The result is a single-column \
 	image with height and depth of the input.
 
+    note The bands of a multi-band image are processed separately.
+
     switch -exact -- $fun {
 	profile {
 	    note The __left__ profile of each row is the index of the \
@@ -63,9 +65,6 @@ operator {dexpr attr} {
 	}
     }
 
-    note The part about the `depth of the input` means that the bands \
-	in each row are handled separately.
-
     input
 
     state -fields {
@@ -76,25 +75,26 @@ operator {dexpr attr} {
 	domain->width = 1;
     }
 
-    # AW == 1. We care about AX here. TODO :: blitter - avoid loop, unroll
+    # AW == 1. We care about AX here. (Single iteration "loop")
     blit reducer {
 	{AH {y AY 1 up} {y 0 1 up}}
-	{DD {z  0 1 up} {z 0 1 up}}
 	{ 1 {x AX 1 up} {x 0 1 up}}
     } {raw reduce-row {
 	// dstvalue = row/band start -
 	// srcvalue = row/band start - SD-strided row vector
-	*dstvalue = REDUCE (srcvalue, SW, SD, 0 /* client data, ignored */);
+	REDUCE (dstvalue, srcvalue, SW, SD); // dstvalue, srcvalue :: row start
     }}
     ## __UNROLL__ option1: compute all bands together (1/2/3/many specialization)
     ## __UNROLL__ note: differs from by-band in the scope of the aggregation
 
     pixels {
 	aktive_rectangle_def_as (subrequest, request);
+        // always fetch the entire row of the source ...
 	subrequest.width = istate->width;
 	TRACE_RECTANGLE_M("@@fun@@", &subrequest);
 	aktive_block* src = aktive_region_fetch_area (0, &subrequest);
-	#define REDUCE aktive_reduce_@@fun@@
+        // ... and reduce
+	#define REDUCE aktive_reduce_rows_@@fun@@
 	@@reducer@@
 	#undef REDUCE
     }

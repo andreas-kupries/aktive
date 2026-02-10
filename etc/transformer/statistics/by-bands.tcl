@@ -56,7 +56,7 @@ operator {dexpr attr} {
     pixels {
 	TRACE_RECTANGLE_M("@@fun@@", request);
 	aktive_block* src = aktive_region_fetch_area (0, request);
-	#define REDUCE aktive_reduce_row_bands_@@fun@@
+	#define REDUCE aktive_reduce_bands_@@fun@@
 	@@reducer@@
 	#undef REDUCE
     }

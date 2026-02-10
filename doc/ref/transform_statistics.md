@@ -782,7 +782,7 @@ Syntax: __aktive op row arg max__ src [[→ definition](/file?ci=trunk&ln=8&name
 
 Returns image with input rows compressed to a single value, the first index of the maximal row values. The result is a single-column image with height and depth of the input.
 
-The part about the `depth of the input` means that the bands in each row are handled separately.
+The bands of a multi-band image are processed separately.
 
 |Input|Description|
 |:---|:---|
@@ -808,7 +808,7 @@ Syntax: __aktive op row arg min__ src [[→ definition](/file?ci=trunk&ln=8&name
 
 Returns image with input rows compressed to a single value, the first index of the minimal row values. The result is a single-column image with height and depth of the input.
 
-The part about the `depth of the input` means that the bands in each row are handled separately.
+The bands of a multi-band image are processed separately.
 
 |Input|Description|
 |:---|:---|
@@ -892,7 +892,7 @@ Syntax: __aktive op row max__ src [[→ definition](/file?ci=trunk&ln=8&name=etc
 
 Returns image with input rows compressed to a single value, the maximum of the row values. The result is a single-column image with height and depth of the input.
 
-The part about the `depth of the input` means that the bands in each row are handled separately.
+The bands of a multi-band image are processed separately.
 
 |Input|Description|
 |:---|:---|
@@ -918,7 +918,7 @@ Syntax: __aktive op row mean__ src [[→ definition](/file?ci=trunk&ln=8&name=et
 
 Returns image with input rows compressed to a single value, the arithmetic mean of the row values. The result is a single-column image with height and depth of the input.
 
-The part about the `depth of the input` means that the bands in each row are handled separately.
+The bands of a multi-band image are processed separately.
 
 |Input|Description|
 |:---|:---|
@@ -957,7 +957,7 @@ Syntax: __aktive op row min__ src [[→ definition](/file?ci=trunk&ln=8&name=etc
 
 Returns image with input rows compressed to a single value, the minimum of the row values. The result is a single-column image with height and depth of the input.
 
-The part about the `depth of the input` means that the bands in each row are handled separately.
+The bands of a multi-band image are processed separately.
 
 |Input|Description|
 |:---|:---|
@@ -1013,9 +1013,9 @@ Syntax: __aktive op row profile__ src [[→ definition](/file?ci=trunk&ln=8&name
 
 Returns image with input rows compressed to a single value, the left profile of the row values. The result is a single-column image with height and depth of the input.
 
-The __left__ profile of each row is the index of the __first__ column with a __non-zero__ value. Or the width of the image, if there are no such in the row.
+The bands of a multi-band image are processed separately.
 
-The part about the `depth of the input` means that the bands in each row are handled separately.
+The __left__ profile of each row is the index of the __first__ column with a __non-zero__ value. Or the width of the image, if there are no such in the row.
 
 |Input|Description|
 |:---|:---|
@@ -1060,9 +1060,9 @@ Syntax: __aktive op row rprofile__ src [[→ definition](/file?ci=trunk&ln=8&nam
 
 Returns image with input rows compressed to a single value, the right profile of the row values. The result is a single-column image with height and depth of the input.
 
-The __right__ profile of each row is the index of the __last__ column with a __non-zero__ value. Or `-1`, if there are no such in the row.
+The bands of a multi-band image are processed separately.
 
-The part about the `depth of the input` means that the bands in each row are handled separately.
+The __right__ profile of each row is the index of the __last__ column with a __non-zero__ value. Or `-1`, if there are no such in the row.
 
 |Input|Description|
 |:---|:---|
@@ -1088,7 +1088,7 @@ Syntax: __aktive op row stddev__ src [[→ definition](/file?ci=trunk&ln=8&name=
 
 Returns image with input rows compressed to a single value, the standard deviation of the row values. The result is a single-column image with height and depth of the input.
 
-The part about the `depth of the input` means that the bands in each row are handled separately.
+The bands of a multi-band image are processed separately.
 
 |Input|Description|
 |:---|:---|
@@ -1114,7 +1114,7 @@ Syntax: __aktive op row sum__ src [[→ definition](/file?ci=trunk&ln=8&name=etc
 
 Returns image with input rows compressed to a single value, the sum of the row values. The result is a single-column image with height and depth of the input.
 
-The part about the `depth of the input` means that the bands in each row are handled separately.
+The bands of a multi-band image are processed separately.
 
 |Input|Description|
 |:---|:---|
@@ -1140,7 +1140,7 @@ Syntax: __aktive op row sumsquared__ src [[→ definition](/file?ci=trunk&ln=8&n
 
 Returns image with input rows compressed to a single value, the sum of the squared row values. The result is a single-column image with height and depth of the input.
 
-The part about the `depth of the input` means that the bands in each row are handled separately.
+The bands of a multi-band image are processed separately.
 
 |Input|Description|
 |:---|:---|
@@ -1166,7 +1166,7 @@ Syntax: __aktive op row variance__ src [[→ definition](/file?ci=trunk&ln=8&nam
 
 Returns image with input rows compressed to a single value, the variance of the row values. The result is a single-column image with height and depth of the input.
 
-The part about the `depth of the input` means that the bands in each row are handled separately.
+The bands of a multi-band image are processed separately.
 
 |Input|Description|
 |:---|:---|

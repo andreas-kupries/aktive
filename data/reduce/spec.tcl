@@ -36,7 +36,13 @@
 #      - `@R` :: final result derived from the accumulator.
 #
 #  - `single` result of the reduction when only a single value is available.
-#             legal values: `pass`, `twice`, and `zero`.
+#             legal values: `pass`, `square`, `zero`, `forn`, and `lorn`.
+#
+#      - `pass`   :: pass single input to output
+#      - `zero`   :: set output to 0.
+#      - `square` :: set output to square of input
+#      - `forn`   :: short for `first or nothing`, set 0 if input != 0, else width
+#      - `lorn`   :: short for `last or nothing`,  set 0 if input != 0, else -1.
 #
 set reduce {
     once {
@@ -49,12 +55,14 @@ set reduce {
 	max        pass
 	min        pass
 	sum        pass
-	sumsquared twice
+	sumsquared square
 	mean       pass
 	variance   zero
 	stddev     zero
 	argmax     zero
 	argmin     zero
+	profile    forn
+	rprofile   lorn
     }
     setup {
 	max        { double @A = -INFINITY; }
@@ -66,6 +74,8 @@ set reduce {
 	stddev     @variance
 	argmax     { args @A; @A.extremum = -INFINITY; @A.eindex = 0; }
 	argmin     { args @A; @A.extremum =  INFINITY; @A.eindex = 0; }
+	profile    { int @A = @N; }
+	rprofile   { int @A = -1; }
     }
     reduce {
 	max         { @A = fmax (@A, @V); }
@@ -77,6 +87,8 @@ set reduce {
 	stddev      @variance
 	argmax     {{ aktive_uint gt = @V > @A.extremum; @A.eindex = gt ? @I : @A.eindex; @A.extremum = gt ? @V : @A.extremum; }}
 	argmin     {{ aktive_uint lt = @V < @A.extremum; @A.eindex = lt ? @I : @A.eindex; @A.extremum = lt ? @V : @A.extremum; }}
+	profile     { @A = (@I < @A) && (@V != 0) ? @I : @A; }
+	rprofile    { @A = (@I > @A) && (@V != 0) ? @I : @A; }
     }
     merge {
 	max        { @AD = fmax (@AD, @AS); }
@@ -88,6 +100,8 @@ set reduce {
 	stddev     @variance
 	argmax    {{ aktive_uint gt = @AS.extremum > @AD.extremum; @AD.eindex = gt ? @AS.eindex : @AD.eindex; @AD.extremum = gt ? @AS.extremum : @AD.extremum; }}
 	argmin    {{ aktive_uint lt = @AS.extremum < @AD.extremum; @AD.eindex = lt ? @AS.eindex : @AD.eindex; @AD.extremum = lt ? @AS.extremum : @AD.extremum; }}
+	profile    { @AD = (@AD < @AS) ? @AD : @AS }
+	rprofile   { @AD = (@AD > @AS) ? @AD : @AS }
     }
     finalize {
 	max        { @R = @A; }
@@ -99,6 +113,8 @@ set reduce {
 	stddev    {{ double mean = aktive_kahan_final (@A.sum) / (double) @N; double sq = aktive_kahan_final (@A.squared) / (double) @N; @R = sqrt (sq - mean*mean); }}
 	argmax     { @R = @A.eindex; }
 	argmin     @argmax
+	profile    { @R = (double) @A; }
+	rprofile   @profile
     }
 }
 
