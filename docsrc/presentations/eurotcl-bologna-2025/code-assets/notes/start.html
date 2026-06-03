@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>AKTIVE</title>
+    <link rel="stylesheet" href="dist/reset.css">
+    <link rel="stylesheet" href="dist/reveal.css">
+    <link rel="stylesheet" href="dist/theme/black.css">
+    <!-- Theme used for syntax highlighted code -->
+    <link rel="stylesheet" href="plugin/highlight/monokai.css">
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+  <section data-background='white'>
+    <h3>OpenACS and Tcl/Tk Conference 2025, July 10-11</h3>
+    <img src='https://core.tcl-lang.org/akupries/aktive/doc/trunk/doc/assets/aktive-logo-128.png' style='float:right;'>
+    <ul>
+      <li><a href='https://core.tcl-lang.org/akupries'>Andreas Kupries</a></li>
+      <li><a href='https://core.tcl-lang.org/akupries/aktive'>AKTIVE</a></li>
+      <ul>
+	<li>AK Tcl Image Vector Extension</li>
+	<li>MIT/BSD Licensed</li>
+	<li>Inspired by <a href='https://www.libvips.org'>VIPS</a></li>
+	<li>Mixes C and Tcl via <a href='https://andreas-kupries.github.io/critcl'>Critcl</a></li>
+      </ul>
+    </ul>
+  </section>
+
+  <section data-background='white'>
+    <h3>AK Tcl Image Vector Extension</h3>
+    <img src='https://core.tcl-lang.org/akupries/aktive/doc/trunk/doc/assets/aktive-logo-128.png' style='float:right;'>
+    <ul>
+      <li>Inspired by VIPS</li>
+      <ul>
+	<li>Library for the processing of large images</li>
+      </ul>
+      <li>Similarities</li>
+      <ul>
+	<li>Demand-driven: Lazy construction</li>
+	<li>Horizontally Threaded Execution</li>
+      </ul>
+      <li>Differences</li>
+      <ul>
+	<li><b>double</b> is the only pixel value type</li>
+	<li>Wedded to Tcl, not GNOME (GObject)</li>
+	<li>Code Generation, also docs, examples</li>
+      </ul>
+    </ul>
+  </section>
+
+  <section data-background='white'>
+    <h3>AK Tcl Image Vector Extension</h3>
+    <img src='https://core.tcl-lang.org/akupries/aktive/doc/trunk/doc/assets/aktive-logo-128.png' style='float:right;'>
+    <ul>
+      <li>Historical notes</li>
+      <ul>
+	<li>Begun as experiment with code gen</li>
+	<li>Operator specs first translated to</li>
+	<ul>
+	  <li>implementations (C, Tcl)</li>
+	</ul>
+	<li>Then also documentation, examples</li>
+      </ul>
+      <li>C, Tcl, Critcl - Each used for their strengths</li>
+      <ul>
+	<li>C is fast</li>
+	<li>Tcl is high-level</li>
+	<li>Critcl mixes them easily</li>
+      </ul>
+    </ul>
+  </section>
+
+  <section data-background='white'>
+    <h3>AK Tcl Image Vector Extension</h3>
+    <img src='https://core.tcl-lang.org/akupries/aktive/doc/trunk/doc/assets/aktive-logo-128.png' style='float:right;'>
+    <ul>
+      <li>I/O</li>
+      <ul>
+	<li>Read/write Channels, Files, Tcl Values</li>
+	<li>Currently supported image formats:</li>
+	<ul>
+	  <li>PPM, PGM</li>
+	  <li>AKTIVE (package's own format)</li>
+	</ul>
+	<li>PPM/PGM values are the connection to Tk</li>
+      </ul>
+    </ul>
+  </section>
+
+  <section data-background='white'>
+    <h3>AK Tcl Image Vector Extension</h3>
+    <section>
+      <pre>
+operator op::math1::abs {
+    section transform math unary
+
+    note Applies the unary function `abs(I)`.
+
+    input
+
+    simplify for   src/type @self   returns src
+    simplify for   constant abs
+
+    state -setup {
+    #define IN_GEOM aktive_image_get_geometry (srcs->v[0])
+	aktive_geometry_copy (domain, IN_GEOM);
+    }
+
+    pixels {
+    #define FETCH aktive_region_fetch_area (srcs->v[0], request)
+	aktive_blit_unary0 (block, dst, fabs, FETCH);
+    }
+}
+      </pre>
+    </section>
+
+    <section>
+      <pre>
+proc aktive::op::math1::abs {src} {
+    ::aktive simplify do \
+        src/type op::math1::abs \
+        /src
+    ::aktive simplify do \
+        src/type image::from::value \
+        /fold/constant/0 abs 
+    Iabs $src
+}
+      </pre>
+    </section>
+
+    <section data-background='white'>
+      <pre>
+critcl::cproc aktive::op::math1::Iabs {
+  Tcl_Interp*  ip 
+  aktive_image src
+} aktive_image {
+  /* src :: keep */
+  /* no parameters */
+  aktive_image _r = aktive_image_check (ip,
+        aktive_op_math1_abs_new (ip, src));
+  return _r;
+}
+      </pre>
+    </section>
+
+    <section>
+      <pre>
+extern aktive_image
+aktive_op_math1_abs_new (Tcl_Interp* ip, aktive_image src) {
+  TRACE_FUNC("", 0);
+
+  static aktive_image_type aktive_op_math1_abs_opspec = {
+    .name         = "op::math1::abs"
+  , .sz_param     = 0
+  , .setup        = (aktive_image_setup)  aktive_op_math1_abs_setup
+  , .region_fetch = (aktive_region_fetch) aktive_op_math1_abs_region_fetch
+  };
+
+  aktive_image_vector srcs = {
+      .c = 1, .v = &src
+  };
+
+  aktive_image r = aktive_image_new (&aktive_op_math1_abs_opspec,
+                                     NULL, &srcs);
+  TRACE_RETURN ("(aktive_image) %p", r);
+}
+      </pre>
+    </section>
+
+    <section>
+      <pre>
+static int
+aktive_op_math1_abs_setup (
+  aktive_image_info* info
+, Tcl_Obj**          meta
+) {
+  TRACE_FUNC("((aktive_image_info*) %p)", info);
+  aktive_image_vector* srcs   = &info->srcs;
+  aktive_geometry*     domain = &info->domain;
+#define                state  (info->state)
+  // - - -- --- ----- -------- ------------- ----------------
+
+  #define IN_GEOM aktive_image_get_geometry (srcs->v[0])
+  aktive_geometry_copy (domain, IN_GEOM);
+
+  // - - -- --- ----- -------- ------------- ----------------
+  TRACE_GEOMETRY (domain);
+#undef state
+  TRACE_RETURN ("(ok) %d", 1);
+}
+      </pre>
+    </section>
+
+    <section>
+      <pre>
+static void
+aktive_op_math1_abs_region_fetch (
+  aktive_region_info* info    // Params, inputs, (image) state
+, aktive_rectangle*   request // Area to fetch
+, aktive_rectangle*   dst     // Destination in `block`
+, aktive_block*       block   // Pixel storage
+) {
+  [...]
+  aktive_region_vector* srcs    = &info->srcs;
+  aktive_geometry*      idomain = info->domain;
+  [...]
+  // - - -- --- ----- -------- ------------- ----------------
+
+  #define FETCH aktive_region_fetch_area (srcs->v[0], request)
+  aktive_blit_unary0 (block, dst, fabs, FETCH);
+
+  // - - -- --- ----- -------- ------------- ----------------
+  TRACE_RETURN_VOID;
+}
+      </pre>
+    </section>
+  </section>
+
+  <section data-background='white'>
+    <h3>AK Tcl Image Vector Extension</h3>
+    <img src='https://core.tcl-lang.org/akupries/aktive/doc/trunk/doc/assets/aktive-logo-128.png' style='float:right;'>
+    <table>
+      <thead>
+	<tr class="header">
+	  <th style="text-align: left;">Section</th>
+	  <th style="text-align: right;">Lines</th>
+	  <th style="text-align: right;">Percent</th>
+	</tr>
+      </thead>
+      <tbody>
+	<tr class="odd">
+	  <td style="text-align: left;">Runtime</td>
+	  <td style="text-align: right;"><strong>9617</strong></td>
+	  <td style="text-align: right;"><strong>9.42</strong></td>
+	</tr>
+	<tr class="even">
+	  <td style="text-align: left;">DSL</td>
+	  <td style="text-align: right;"><strong>5100</strong></td>
+	  <td style="text-align: right;"><strong>5.00</strong></td>
+	</tr>
+	<tr class="odd">
+	  <td style="text-align: left;">Operators</td>
+	  <td style="text-align: right;"><strong>15414</strong></td>
+	  <td style="text-align: right;"><strong>15.10</strong></td>
+	</tr>
+	<tr class="even">
+	  <td style="text-align: left;">Generated</td>
+	  <td style="text-align: right;"><strong>69504</strong></td>
+	  <td style="text-align: right;"><strong>68.08</strong></td>
+	</tr>
+	<tr class="odd">
+	  <td style="text-align: left;">Doc Source</td>
+	  <td style="text-align: right;"><strong>2455</strong></td>
+	  <td style="text-align: right;"><strong>2.40</strong></td>
+	</tr>
+	<tr class="even">
+	  <td style="text-align: left;">Total</td>
+	  <td style="text-align: right;">102090</td>
+	  <td style="text-align: right;">100.00</td>
+	</tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section data-background='white'>
+    <h3>AK Tcl Image Vector Extension</h3>
+    <img src='https://core.tcl-lang.org/akupries/aktive/doc/trunk/doc/assets/aktive-logo-128.png'
+	 style='float:right;'>
+
+    <p align='left'>Demo</p>
+    <p align='left'>The images and graphs seen in the coming slides were all created by AKTIVE</p>
+    <p align='left'>Our task: Given an image containing a document or
+    book page, extract the area of the document or page, and rectify it</p>
+    <p align='left'>A complication: For book pages the image may not
+    only contain the page of interest, but also part of the opposite page</p>
+  </section>
