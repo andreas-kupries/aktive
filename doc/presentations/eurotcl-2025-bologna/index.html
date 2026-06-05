@@ -1,0 +1,1057 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>AKTIVE</title>
+    <link rel="stylesheet" href="dist/reset.css">
+    <link rel="stylesheet" href="dist/reveal.css">
+    <link rel="stylesheet" href="dist/theme/black.css">
+    <!-- Theme used for syntax highlighted code -->
+    <link rel="stylesheet" href="plugin/highlight/monokai.css">
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+  <section data-background='white'>
+    <h3>OpenACS and Tcl/Tk Conference 2025, July 10-11</h3>
+    <img src='https://core.tcl-lang.org/akupries/aktive/doc/trunk/doc/assets/aktive-logo-128.png' style='float:right;'>
+    <ul>
+      <li><a href='https://core.tcl-lang.org/akupries'>Andreas Kupries</a></li>
+      <li><a href='https://core.tcl-lang.org/akupries/aktive'>AKTIVE</a></li>
+      <ul>
+	<li>AK Tcl Image Vector Extension</li>
+	<li>MIT/BSD Licensed</li>
+	<li>Inspired by <a href='https://www.libvips.org'>VIPS</a></li>
+	<li>Mixes C and Tcl via <a href='https://andreas-kupries.github.io/critcl'>Critcl</a></li>
+      </ul>
+    </ul>
+  </section>
+
+  <section data-background='white'>
+    <h3>AK Tcl Image Vector Extension</h3>
+    <img src='https://core.tcl-lang.org/akupries/aktive/doc/trunk/doc/assets/aktive-logo-128.png' style='float:right;'>
+    <ul>
+      <li>Inspired by VIPS</li>
+      <ul>
+	<li>Library for the processing of large images</li>
+      </ul>
+      <li>Similarities</li>
+      <ul>
+	<li>Demand-driven: Lazy construction</li>
+	<li>Horizontally Threaded Execution</li>
+      </ul>
+      <li>Differences</li>
+      <ul>
+	<li><b>double</b> is the only pixel value type</li>
+	<li>Wedded to Tcl, not GNOME (GObject)</li>
+	<li>Code Generation, also docs, examples</li>
+      </ul>
+    </ul>
+  </section>
+
+  <section data-background='white'>
+    <h3>AK Tcl Image Vector Extension</h3>
+    <img src='https://core.tcl-lang.org/akupries/aktive/doc/trunk/doc/assets/aktive-logo-128.png' style='float:right;'>
+    <ul>
+      <li>Historical notes</li>
+      <ul>
+	<li>Begun as experiment with code gen</li>
+	<li>Operator specs first translated to</li>
+	<ul>
+	  <li>implementations (C, Tcl)</li>
+	</ul>
+	<li>Then also documentation, examples</li>
+      </ul>
+      <li>C, Tcl, Critcl - Each used for their strengths</li>
+      <ul>
+	<li>C is fast</li>
+	<li>Tcl is high-level</li>
+	<li>Critcl mixes them easily</li>
+      </ul>
+    </ul>
+  </section>
+
+  <section data-background='white'>
+    <h3>AK Tcl Image Vector Extension</h3>
+    <img src='https://core.tcl-lang.org/akupries/aktive/doc/trunk/doc/assets/aktive-logo-128.png' style='float:right;'>
+    <ul>
+      <li>I/O</li>
+      <ul>
+	<li>Read/write Channels, Files, Tcl Values</li>
+	<li>Currently supported image formats:</li>
+	<ul>
+	  <li>PPM, PGM</li>
+	  <li>AKTIVE (package's own format)</li>
+	</ul>
+	<li>PPM/PGM values are the connection to Tk</li>
+      </ul>
+    </ul>
+  </section>
+
+  <section data-background='white'>
+    <h3>AK Tcl Image Vector Extension</h3>
+    <section>
+      <pre>
+operator op::math1::abs {
+    section transform math unary
+
+    note Applies the unary function `abs(I)`.
+
+    input
+
+    simplify for   src/type @self   returns src
+    simplify for   constant abs
+
+    state -setup {
+    #define IN_GEOM aktive_image_get_geometry (srcs->v[0])
+	aktive_geometry_copy (domain, IN_GEOM);
+    }
+
+    pixels {
+    #define FETCH aktive_region_fetch_area (srcs->v[0], request)
+	aktive_blit_unary0 (block, dst, fabs, FETCH);
+    }
+}
+      </pre>
+    </section>
+
+    <section>
+      <pre>
+proc aktive::op::math1::abs {src} {
+    ::aktive simplify do \
+        src/type op::math1::abs \
+        /src
+    ::aktive simplify do \
+        src/type image::from::value \
+        /fold/constant/0 abs 
+    Iabs $src
+}
+      </pre>
+    </section>
+
+    <section data-background='white'>
+      <pre>
+critcl::cproc aktive::op::math1::Iabs {
+  Tcl_Interp*  ip 
+  aktive_image src
+} aktive_image {
+  /* src :: keep */
+  /* no parameters */
+  aktive_image _r = aktive_image_check (ip,
+        aktive_op_math1_abs_new (ip, src));
+  return _r;
+}
+      </pre>
+    </section>
+
+    <section>
+      <pre>
+extern aktive_image
+aktive_op_math1_abs_new (Tcl_Interp* ip, aktive_image src) {
+  TRACE_FUNC("", 0);
+
+  static aktive_image_type aktive_op_math1_abs_opspec = {
+    .name         = "op::math1::abs"
+  , .sz_param     = 0
+  , .setup        = (aktive_image_setup)  aktive_op_math1_abs_setup
+  , .region_fetch = (aktive_region_fetch) aktive_op_math1_abs_region_fetch
+  };
+
+  aktive_image_vector srcs = {
+      .c = 1, .v = &src
+  };
+
+  aktive_image r = aktive_image_new (&aktive_op_math1_abs_opspec,
+                                     NULL, &srcs);
+  TRACE_RETURN ("(aktive_image) %p", r);
+}
+      </pre>
+    </section>
+
+    <section>
+      <pre>
+static int
+aktive_op_math1_abs_setup (
+  aktive_image_info* info
+, Tcl_Obj**          meta
+) {
+  TRACE_FUNC("((aktive_image_info*) %p)", info);
+  aktive_image_vector* srcs   = &info->srcs;
+  aktive_geometry*     domain = &info->domain;
+#define                state  (info->state)
+  // - - -- --- ----- -------- ------------- ----------------
+
+  #define IN_GEOM aktive_image_get_geometry (srcs->v[0])
+  aktive_geometry_copy (domain, IN_GEOM);
+
+  // - - -- --- ----- -------- ------------- ----------------
+  TRACE_GEOMETRY (domain);
+#undef state
+  TRACE_RETURN ("(ok) %d", 1);
+}
+      </pre>
+    </section>
+
+    <section>
+      <pre>
+static void
+aktive_op_math1_abs_region_fetch (
+  aktive_region_info* info    // Params, inputs, (image) state
+, aktive_rectangle*   request // Area to fetch
+, aktive_rectangle*   dst     // Destination in `block`
+, aktive_block*       block   // Pixel storage
+) {
+  [...]
+  aktive_region_vector* srcs    = &info->srcs;
+  aktive_geometry*      idomain = info->domain;
+  [...]
+  // - - -- --- ----- -------- ------------- ----------------
+
+  #define FETCH aktive_region_fetch_area (srcs->v[0], request)
+  aktive_blit_unary0 (block, dst, fabs, FETCH);
+
+  // - - -- --- ----- -------- ------------- ----------------
+  TRACE_RETURN_VOID;
+}
+      </pre>
+    </section>
+  </section>
+
+  <section data-background='white'>
+    <h3>AK Tcl Image Vector Extension</h3>
+    <img src='https://core.tcl-lang.org/akupries/aktive/doc/trunk/doc/assets/aktive-logo-128.png' style='float:right;'>
+    <table>
+      <thead>
+	<tr class="header">
+	  <th style="text-align: left;">Section</th>
+	  <th style="text-align: right;">Lines</th>
+	  <th style="text-align: right;">Percent</th>
+	</tr>
+      </thead>
+      <tbody>
+	<tr class="odd">
+	  <td style="text-align: left;">Runtime</td>
+	  <td style="text-align: right;"><strong>9617</strong></td>
+	  <td style="text-align: right;"><strong>9.42</strong></td>
+	</tr>
+	<tr class="even">
+	  <td style="text-align: left;">DSL</td>
+	  <td style="text-align: right;"><strong>5100</strong></td>
+	  <td style="text-align: right;"><strong>5.00</strong></td>
+	</tr>
+	<tr class="odd">
+	  <td style="text-align: left;">Operators</td>
+	  <td style="text-align: right;"><strong>15414</strong></td>
+	  <td style="text-align: right;"><strong>15.10</strong></td>
+	</tr>
+	<tr class="even">
+	  <td style="text-align: left;">Generated</td>
+	  <td style="text-align: right;"><strong>69504</strong></td>
+	  <td style="text-align: right;"><strong>68.08</strong></td>
+	</tr>
+	<tr class="odd">
+	  <td style="text-align: left;">Doc Source</td>
+	  <td style="text-align: right;"><strong>2455</strong></td>
+	  <td style="text-align: right;"><strong>2.40</strong></td>
+	</tr>
+	<tr class="even">
+	  <td style="text-align: left;">Total</td>
+	  <td style="text-align: right;">102090</td>
+	  <td style="text-align: right;">100.00</td>
+	</tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section data-background='white'>
+    <h3>AK Tcl Image Vector Extension</h3>
+    <img src='https://core.tcl-lang.org/akupries/aktive/doc/trunk/doc/assets/aktive-logo-128.png'
+	 style='float:right;'>
+
+    <p align='left'>Demo</p>
+    <p align='left'>The images and graphs seen in the coming slides were all created by AKTIVE</p>
+    <p align='left'>Our task: Given an image containing a document or
+    book page, extract the area of the document or page, and rectify it</p>
+    <p align='left'>A complication: For book pages the image may not
+    only contain the page of interest, but also part of the opposite page</p>
+  </section>
+
+<section id='raw' data-background='white'>
+<h3>AK Tcl Image Vector Extension</h3>
+<p>Book data; origin of the page image</p>
+<pre>
+General
+Prop	title		Geometry 2
+Prop	author		Lambacher Schweizer
+Prop	pubdate		1970
+Prop	publisher	Ernst Klett Verlag Stuttgart
+
+Prop	language	de
+Prop	binding		hardcover
+Prop	mmwidth		162
+Prop	mmheight	232
+
+Prop	editshotorder	odd/even
+Prop	editsize	800
+Prop	exportmode	space
+Prop	exportsize	dpi best
+</pre>
+</section>
+<section id='raw' data-background='white'>
+<h3>AK Tcl Image Vector Extension</h3>
+<h4 align='left'>Input 3456 x 4608</h4>
+<img src='assets/raw.jpg' height=500 style='border:4px solid gold'>
+</section>
+
+<section id='scaled' data-background='white'>
+<h3>AK Tcl Image Vector Extension</h3>
+<section><h4 align='left'>do-scale-down</h4><p><pre>param pnm src
+
+lassign [<b>aktive query domain</b> $src] _ _ w h
+set w   [expr {$w / [factor]}]
+set h   [expr {$h / [factor]}]
+
+result wtxt geo [list $w $h]
+result ppm  dst [<b>aktive op resize</b> $src width $w height $h]
+</pre></p></section>
+<section><h4 align='left'>aktive op resize</h4><p><pre>::<b>aktive</b> parameter validate         interpolate 0 width 0 height 0
+::<b>aktive</b> parameter collect required width height
+set interpolate bilinear
+::<b>aktive</b> parameter collect optional interpolate
+
+lassign [<b>aktive query domain</b> $src] _ _ w h
+
+set xscale  [expr {double($width)  / $w}]
+set yscale  [expr {double($height) / $h}]
+set trafo   [<b>aktive transform scale</b> x $xscale y $yscale]
+set resized [<b>aktive op transform by</b> $trafo $src interpolate $interpolate]
+
+lassign [<b>aktive query geometry</b> $resized] x y rw rh
+if {($rw != $width) || ($h != $height)} {
+    set resized [<b>aktive op view</b> $resized port [list $x $y $width $height]]
+}
+
+return $resized
+</pre></p></section>
+
+</section>
+<section id='scaled' data-background='white'>
+<h3>AK Tcl Image Vector Extension</h3>
+<h4 align='left'>Scaled 864 x 1152</h4>
+<img src='assets/scaled.jpg' height=500 style='border:4px solid gold'>
+</section>
+
+<section id='grey' data-background='white'>
+<h3>AK Tcl Image Vector Extension</h3>
+<section><h4 align='left'>do-convert-to-grey</h4><p><pre>param  pnm src
+
+result pgm dst [<b>aktive op color sRGB to gray</b> $src]
+</pre></p></section>
+<section>
+  <p><svg xmlns='http://www.w3.org/2000/svg' class="pikchr" viewBox="0 0 1012.32 508.32">
+<path d="M2,74L110,74L110,2L2,2Z"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<text x="56" y="38" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">HSL</text>
+<path d="M2,218L110,218L110,146L2,146Z"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<text x="56" y="182" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">HSV</text>
+<polygon points="110,182 121,177 121,186" style="fill:rgb(0,0,0)"/>
+<polygon points="182,182 170,186 170,177" style="fill:rgb(0,0,0)"/>
+<path d="M115,182L176,182"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<path d="M182,218L290,218L290,146L182,146Z"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<text x="236" y="182" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">sRGB</text>
+<polygon points="236,218 240,229 231,229" style="fill:rgb(0,0,0)"/>
+<polygon points="236,290 231,278 240,278" style="fill:rgb(0,0,0)"/>
+<path d="M236,223L236,284"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<path d="M182,362L290,362L290,290L182,290Z"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<text x="236" y="326" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">gray</text>
+<polygon points="290,182 301,177 301,186" style="fill:rgb(0,0,0)"/>
+<polygon points="362,182 350,186 350,177" style="fill:rgb(0,0,0)"/>
+<path d="M295,182L356,182"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<path d="M362,218L470,218L470,146L362,146Z"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<text x="416" y="182" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">scRGB</text>
+<polygon points="470,182 481,177 481,186" style="fill:rgb(0,0,0)"/>
+<polygon points="542,182 530,186 530,177" style="fill:rgb(0,0,0)"/>
+<path d="M475,182L536,182"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<path d="M542,218L650,218L650,146L542,146Z"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<text x="596" y="182" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">XYZ</text>
+<polygon points="596,218 600,229 591,229" style="fill:rgb(0,0,0)"/>
+<polygon points="596,290 591,278 600,278" style="fill:rgb(0,0,0)"/>
+<path d="M596,223L596,284"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<path d="M542,362L650,362L650,290L542,290Z"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<text x="596" y="326" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">Yxy</text>
+<polygon points="596,434 591,422 600,422" style="fill:rgb(0,0,0)"/>
+<path d="M596,362L596,428"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<path d="M542,506L650,506L650,434L542,434Z"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<text x="596" y="470" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">Grey</text>
+<polygon points="650,182 661,177 661,186" style="fill:rgb(0,0,0)"/>
+<polygon points="722,182 710,186 710,177" style="fill:rgb(0,0,0)"/>
+<path d="M655,182L716,182"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<path d="M722,218L830,218L830,146L722,146Z"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<text x="776" y="182" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">Lab</text>
+<polygon points="830,182 841,177 841,186" style="fill:rgb(0,0,0)"/>
+<polygon points="902,182 890,186 890,177" style="fill:rgb(0,0,0)"/>
+<path d="M835,182L896,182"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<path d="M902,218L1010,218L1010,146L902,146Z"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<text x="956" y="182" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">LCh</text>
+<polygon points="650,470 661,465 661,474" style="fill:rgb(0,0,0)"/>
+<path d="M776,218L776,470L655,470"  style="fill:none;stroke-width:2.16;stroke-linejoin:round;stroke:rgb(0,0,0);" />
+<polygon points="542,470 530,474 530,465" style="fill:rgb(0,0,0)"/>
+<path d="M416,218L416,470L536,470"  style="fill:none;stroke-width:2.16;stroke-linejoin:round;stroke:rgb(0,0,0);" />
+<polygon points="236,146 231,134 240,134" style="fill:rgb(0,0,0)"/>
+<polygon points="110,38 121,33 121,42" style="fill:rgb(0,0,0)"/>
+<path d="M236,140L236,38L115,38"  style="fill:none;stroke-width:2.16;stroke-linejoin:round;stroke:rgb(0,0,0);" />
+</svg></p>
+</section>
+</section>
+<section id='grey' data-background='white'>
+<h3>AK Tcl Image Vector Extension</h3>
+<h4 align='left'>Grey</h4>
+<img src='assets/grey.jpg' height=500 style='border:4px solid gold'>
+</section>
+
+<section id='binarized' data-background='white'>
+<h3>AK Tcl Image Vector Extension</h3>
+<section><h4 align='left'>do-binarize</h4><p><pre>param  pnm src
+
+set bw [<b>aktive image mask per phansalkar</b> $src radius 7]
+
+result pgm dst [<b>aktive op math1 invert</b> $bw]
+</pre></p></section>
+<section><h4 align='left'>aktive image threshold phansalkar</h4><p><pre>::<b>aktive</b> parameter validate         k 0 R 0 p 0 q 0 radius 0
+::<b>aktive</b> parameter collect required radius
+set k 0.25
+set R 0.5
+set p 3
+set q 10
+::<b>aktive</b> parameter collect optional k R p q
+
+set e    [<b>aktive op embed mirror</b> $src left $radius right $radius top $radius bottom $radius]
+set mean [<b>aktive op tile mean</b>   $e radius $radius]
+set std  [<b>aktive op tile stddev</b> $e radius $radius]
+
+
+return [<b>aktive op math mul</b>  $mean  [<b>aktive op math add</b>  [<b>aktive op math1 scale</b>  [<b>aktive op math1 exp</b>  [<b>aktive op math1 scale</b> $mean  factor [expr {- $q}]]]  factor $p]  [<b>aktive op math1 linear</b>  [<b>aktive op math1 linear</b> $std  scale [expr {1.0/$R}] gain -1]  scale $k gain 1]]]
+</pre></p></section>
+<section>
+<p>Phansalkar is an extension of Sauvola.<p>
+<p>Which is a modification of Niblack.</p>
+<p> See
+  the <a href='https://craftofcoding.wordpress.com/2021/09/28/thresholding-algorithms-phansalkar-local'>
+    Craft Of Coding Blog Post </a></p>
+</section>
+</section>
+<section id='binarized' data-background='white'>
+<h3>AK Tcl Image Vector Extension</h3>
+<h4 align='left'>Binarized</h4>
+<img src='assets/binarized.jpg' height=500 style='border:4px solid gold'>
+</section>
+
+<section id='borders' data-background='white'>
+<h3>AK Tcl Image Vector Extension</h3>
+<section><h4 align='left'>do-get-borders</h4><p><pre>param  pnm src
+
+result pgm dst [<b>aktive op morph gradient internal</b> $src]
+</pre></p></section>
+<section><h4 align='left'>aktive op morph gradient internal</h4><p><pre>::<b>aktive</b> parameter validate         radius 0 embed 0
+set radius 1
+set embed black
+::<b>aktive</b> parameter collect optional radius embed
+
+set e   [<b>aktive op morph erode</b> $src radius $radius embed $embed]
+set src [<b>aktive op math sub</b> $src $e]
+</pre></p></section>
+<section>
+  <ul> 
+    <li> Issues? </li>
+    <ul>
+      <li> Edge loss in going to grey &amp; binarization? </li>
+      <li> Example: Coffee table books                    </li>
+      <ul>
+	<li> Color content up to the page border </li>
+      </ul>
+      <li> Color edge algorithms ? </li>
+    </ul>
+  </ul>
+</section>
+</section>
+<section id='borders' data-background='white'>
+<h3>AK Tcl Image Vector Extension</h3>
+<h4 align='left'>Borders</h4>
+<img src='assets/borders.jpg' height=500 style='border:4px solid gold'>
+</section>
+
+<section id='primary' data-background='white'>
+<h3>AK Tcl Image Vector Extension</h3>
+<section><h4 align='left'>do-select</h4><p><pre>param pnm src
+
+set ccs     [<b>aktive op connected-components get</b> $src]
+set ccs     [region-bbox-max $ccs]
+set ranges  [lsort -dict [lmap part [dict get $ccs 1 parts] {
+    linsert $part end 1
+}]]
+set domain  [<b>aktive query domain</b> $src]
+result pgm dst [<b>aktive image from sparse ranges</b> geometry $domain ranges {*}$ranges]
+</pre></p></section>
+
+</section>
+<section id='primary' data-background='white'>
+<h3>AK Tcl Image Vector Extension</h3>
+<h4 align='left'>Primary</h4>
+<img src='assets/primary.jpg' height=500 style='border:4px solid gold'>
+</section>
+
+<section id='interludea' data-background='white'>
+<h3>AK Tcl Image Vector Extension</h3>
+<section><h4 align='left'>do-show-border</h4><p><pre>param pnm src
+param pnm border
+
+result ppm dst [overlay $src += $border yellow]
+</pre></p></section>
+<section><h4 align='left'>overlay</h4><p><pre>lassign [<b>aktive query domain</b> $bg] _ _ w h
+
+set mask [<b>aktive op morph dilate</b> $mask radius 2]
+
+return [<b>aktive op if-then-else</b> $mask [{*}$color $w $h] $bg]
+</pre></p></section>
+<section><h4 align='left'>yellow</h4><p><pre>color $w $h yellow </pre></p></section>
+<section><h4 align='left'>color</h4><p><pre><b>aktive image from color</b> width $w height $h color $name </pre></p></section>
+<section><h4 align='left'>aktive image from color</h4><p><pre>::<b>aktive</b> parameter validate         x 0 y 0 width 0 height 0 color 0
+::<b>aktive</b> parameter collect required width height color
+set x 0
+set y 0
+::<b>aktive</b> parameter collect optional x y
+
+set values [<b>aktive color css</b> $color]
+<b>band</b> x $x y $y width $width height $height values {*}$values
+</pre></p></section>
+
+</section>
+<section id='interludea' data-background='white'>
+<h3>AK Tcl Image Vector Extension</h3>
+<h4 align='left'>Scaled + Primary</h4>
+<img src='assets/interludea.jpg' height=500 style='border:4px solid gold'>
+</section>
+
+<section id='ltprofile' data-background='white'>
+<h3>AK Tcl Image Vector Extension</h3>
+<section><h4 align='left'>do-left-profile</h4><p><pre>param pnm  src
+param rtxt geo
+
+set profile [<b>aktive op row profile</b> $src]
+set profile [<b>aktive query values</b> $profile]
+set poly    [v-path-of $profile]
+
+result        wtxt dstdata $poly
+placeholder        dstshow
+debugs {result pgm dstshow [draw-poly {*}$geo $poly]}
+</pre></p></section>
+<section><h4 align='left'>draw-poly</h4><p><pre>fat [<b>aktive image sdf polyline</b> width $w height $h points {*}$poly] </pre></p></section>
+<section>
+  <p>See Inigo Quilez's page
+      about <a href='https://iquilezles.org/articles/distfunctions2d/'>
+      2D distance functions </a></p>
+</section>
+</section>
+<section id='ltprofile' data-background='white'>
+<h3>AK Tcl Image Vector Extension</h3>
+<h4 align='left'>Left Profile</h4>
+<img src='assets/ltprofile.jpg' height=500 style='border:4px solid gold'>
+</section>
+
+<section id='threshold' data-background='white'>
+<h3>AK Tcl Image Vector Extension</h3>
+<section><h4 align='left'>do-find-threshold</h4><p><pre>param rtxt profile
+param rtxt geo
+
+set threshold [expr {[lindex $geo 0]/2}]
+
+if 0 {
+    set xs        [as-image [xs $profile]]
+    set xs        [<b>aktive op math1 fit min-max</b> $xs]
+    set stretch   [<b>aktive meta get</b> $xs stretch]
+    set scale     [dict get $stretch scale]
+    set gain      [dict get $stretch gain]
+    set threshold [<b>aktive image threshold global otsu</b> $xs]
+    set threshold [expr {($threshold - $gain)/double($scale)}]
+}
+
+result        wtxt dstdata $threshold
+placeholder        dstshow
+debugs {result pgm dstshow [draw-vertical {*}$geo $threshold]}
+</pre></p></section>
+
+</section>
+<section id='threshold' data-background='white'>
+<h3>AK Tcl Image Vector Extension</h3>
+<h4 align='left'>Fixed Threshold</h4>
+<img src='assets/threshold.jpg' height=500 style='border:4px solid gold'>
+</section>
+
+<section id='inlier' data-background='white'>
+<h3>AK Tcl Image Vector Extension</h3>
+<section><h4 align='left'>do-apply-threshold</h4><p><pre>param rtxt profile
+param rtxt geo
+param rtxt threshold
+
+set poly [{*}$selector $threshold $profile]
+
+result        wtxt dstdata $poly
+placeholder        dstshow
+debugs {result pgm dstshow [draw-poly {*}$geo $poly]}
+</pre></p></section>
+
+</section>
+<section id='inlier' data-background='white'>
+<h3>AK Tcl Image Vector Extension</h3>
+<h4 align='left'>Profile Inlier</h4>
+<img src='assets/inlier.jpg' height=500 style='border:4px solid gold'>
+</section>
+
+<section id='limit' data-background='white'>
+<h3>AK Tcl Image Vector Extension</h3>
+<section><h4 align='left'>do-fit-vertical-line</h4><p><pre>param rtxt profile
+param rtxt geo
+
+lassign $geo w h
+lassign [linreg-v $profile] slope intercept
+
+
+set a   [lerp-pv $slope $intercept 0]
+set b   [lerp-pv $slope $intercept [expr {$h-1}]]
+set hug [hugs-image-border $edge $w $a $b]
+
+result        wtxt dstdata [list $slope $intercept $hug]
+placeholder        dstshow
+debugs {result pgm dstshow [draw-line $w $h $a $b]}
+</pre></p></section>
+
+</section>
+<section id='limit' data-background='white'>
+<h3>AK Tcl Image Vector Extension</h3>
+<h4 align='left'>Left Border</h4>
+<img src='assets/limit.jpg' height=500 style='border:4px solid gold'>
+</section>
+<section id='interludeb' data-background='white'>
+<h3>AK Tcl Image Vector Extension</h3>
+<h4 align='left'>Scaled + Primary + Left Border</h4>
+<img src='assets/interludeb.jpg' height=500 style='border:4px solid gold'>
+</section>
+
+<section id='tpprofile' data-background='white'>
+<h3>AK Tcl Image Vector Extension</h3>
+<section><h4 align='left'>do-top-profile</h4><p><pre>param pnm  src
+param rtxt geo
+
+set profile [<b>aktive op column profile</b> $src]
+set profile [<b>aktive query values</b> $profile]
+set poly    [h-path-of $profile]
+
+result        wtxt dstdata $poly
+placeholder        dstshow
+debugs {result pgm dstshow [draw-poly {*}$geo $poly]}
+</pre></p></section>
+
+</section>
+<section id='tpprofile' data-background='white'>
+<h3>AK Tcl Image Vector Extension</h3>
+<h4 align='left'>Top Profile</h4>
+<img src='assets/tpprofile.jpg' height=500 style='border:4px solid gold'>
+</section>
+
+<section id='tpcut' data-background='white'>
+<h3>AK Tcl Image Vector Extension</h3>
+<section><h4 align='left'>do-cut-horiz</h4><p><pre>param rtxt geo
+param rtxt top
+param rtxt left
+param rtxt right
+
+lassign $left  lslope lintercept lhug
+lassign $right rslope rintercept rhug
+lassign [$cliffs $lhug $rhug $lslope $rslope] lcliff rcliff
+
+set top  [limit-left  $lcliff $lslope $lintercept $top]
+set top  [limit-right $rcliff $rslope $rintercept $top]
+
+result        wtxt dstdata $top
+placeholder        dstshow
+debugs {result pgm dstshow [draw-poly {*}$geo $top]}
+</pre></p></section>
+<section><h4 align='left'>top-cliff</h4><p><pre>set lcliff [expr {!$lhug && ($lslope < 0)}]
+set rcliff [expr {!$rhug && ($rslope > 0)}]
+list $lcliff $rcliff
+</pre></p></section>
+
+</section>
+<section id='tpcut' data-background='white'>
+<h3>AK Tcl Image Vector Extension</h3>
+<h4 align='left'>Top Profile L/R Limited</h4>
+<img src='assets/tpcut.jpg' height=500 style='border:4px solid gold'>
+</section>
+<section id='tpbase' data-background='white'>
+<h3>AK Tcl Image Vector Extension</h3>
+<h4 align='left'>Top Profile + Base Line</h4>
+<img src='assets/tpbase.jpg' height=500 style='border:4px solid gold'>
+</section>
+<section id='tpshear' data-background='white'>
+<h3>AK Tcl Image Vector Extension</h3>
+<h4 align='left'>Top Profile + Base + Sheared</h4>
+<img src='assets/tpshear.jpg' height=500 style='border:4px solid gold'>
+</section>
+
+<section id='tprefined' data-background='white'>
+<h3>AK Tcl Image Vector Extension</h3>
+<section><h4 align='left'>do-refine-horiz</h4><p><pre>param rtxt geo
+param rtxt profile
+param rtxt left
+param rtxt right
+
+lassign $left  lslope lintercept lhug
+lassign $right rslope rintercept rhug
+
+if {[llength $profile] > 10} {
+    set profile [<b>dehug</b> $lhug $rhug $isbetter $profile]
+}
+
+result        wtxt dstdata $profile
+placeholder        dstshow
+debugs {result pgm dstshow [draw-poly {*}$geo $profile]}
+</pre></p></section>
+
+</section>
+<section id='tprefined' data-background='white'>
+<h3>AK Tcl Image Vector Extension</h3>
+<h4 align='left'>Top Profile Refined</h4>
+<img src='assets/tprefined.jpg' height=500 style='border:4px solid gold'>
+</section>
+<section id='interludec' data-background='white'>
+<h3>AK Tcl Image Vector Extension</h3>
+<h4 align='left'>Refined Left/Right Borders</h4>
+<img src='assets/interludec.jpg' height=500 style='border:4px solid gold'>
+</section>
+<section id='interluded' data-background='white'>
+<h3>AK Tcl Image Vector Extension</h3>
+<h4 align='left'>Left/Right/Top/Bottom Borders</h4>
+<img src='assets/interluded.jpg' height=500 style='border:4px solid gold'>
+</section>
+
+<section id='tangents' data-background='white'>
+<h3>AK Tcl Image Vector Extension</h3>
+<section><h4 align='left'>do-collect-tangents</h4><p><pre>param rtxt geo
+param rtxt profile
+
+if {[llength $profile] > 100 } {
+    set hullspec [join [list 2 [llength $profile] {*}$profile] \n]
+    set result   [exec qconvex Fx << $hullspec]
+    set indices  [lassign [split [string trim $result] \n] n]
+    set profile  [lmap i [lreverse $indices] { lindex $profile $i }]
+}
+
+set pairs    [pairs $profile]
+set tangents [filter $pairs $where $profile]
+set tangents [unique-tangents $tangents]
+
+result    wtxt dstdata $tangents
+placeholder    dstshow
+debugs {
+    lassign $geo w h
+    result pgm dstshow [draw-lines $w $h [t-lines $w $tangents]]
+}
+</pre></p></section>
+
+</section>
+<section id='tangents' data-background='white'>
+<h3>AK Tcl Image Vector Extension</h3>
+<h4 align='left'>Top Profile Tangents</h4>
+<img src='assets/tangents.jpg' height=500 style='border:4px solid gold'>
+</section>
+
+<section id='chosen' data-background='white'>
+<h3>AK Tcl Image Vector Extension</h3>
+<section><h4 align='left'>do-choose-tangent</h4><p><pre>param rtxt geo
+param rtxt profile
+param rtxt tangents
+
+if {![llength $tangents]} return
+
+set tareas [map $tangents line-area-delta $profile]
+set best   [fold {{} {} {} {} Inf} $tareas min-area]
+lassign $geo w h
+lassign [h-expand $w $best] a b
+
+result        wtxt dstdata [list $a $b]
+placeholder        dstshow
+debugs {result pgm dstshow [draw-line $w $h $a $b]}
+</pre></p></section>
+
+</section>
+<section id='chosen' data-background='white'>
+<h3>AK Tcl Image Vector Extension</h3>
+<h4 align='left'>Border + Tangents + Best</h4>
+<img src='assets/chosen.jpg' height=500 style='border:4px solid gold'>
+</section>
+<section id='qlines' data-background='white'>
+<h3>AK Tcl Image Vector Extension</h3>
+<h4 align='left'>Left/Right Top/Bottom Box</h4>
+<img src='assets/qlines.jpg' height=500 style='border:4px solid gold'>
+</section>
+
+<section id='quad' data-background='white'>
+<h3>AK Tcl Image Vector Extension</h3>
+<section><h4 align='left'>do-fit-quadrilateral</h4><p><pre>param rtxt geo
+param rtxt left
+param rtxt right
+param rtxt top
+param rtxt bottom
+
+if {[catch {
+    set i [intersect $a $d $e $f]
+    set j [intersect $b $c $e $f]
+    set k [intersect $b $c $g $h]
+    set l [intersect $a $d $g $h]
+
+set poly      [list $i $j $k $l]
+set polyclose $poly ; lappend polyclose $i
+
+result        wtxt dstdata $poly
+placeholder        dstshow
+debugs {result pgm dstshow [draw-poly {*}$geo $polyclose]}
+</pre></p></section>
+
+</section>
+<section id='quad' data-background='white'>
+<h3>AK Tcl Image Vector Extension</h3>
+<h4 align='left'>Enclosing Quadrilateral</h4>
+<img src='assets/quad.jpg' height=500 style='border:4px solid gold'>
+</section>
+<section id='interludee' data-background='white'>
+<h3>AK Tcl Image Vector Extension</h3>
+<h4 align='left'>Border + Box</h4>
+<img src='assets/interludee.jpg' height=500 style='border:4px solid gold'>
+</section>
+
+<section id='rectified' data-background='white'>
+<h3>AK Tcl Image Vector Extension</h3>
+<section><h4 align='left'>do-rectify</h4><p><pre>param pnm  src
+param rtxt quad
+param rtxt top	; set top    [sup $top]
+param rtxt bottom	; set bottom [sup $bottom]
+
+lassign [<b>aktive query domain</b> $src] _ _ w h
+lassign $quad i j k l
+
+set quad      [<b>aktive transform quad unit2</b> a $i b $j c $k d $l]
+set iquad     [<b>aktive transform invert</b> $quad]
+set scale     [<b>aktive transform scale</b> x $w y $h]
+set transform [<b>aktive transform compose</b> $scale $iquad]
+set rect      [<b>aktive op transform by</b>  $transform $src]
+set top       [<b>aktive transform points</b> $transform series {*}$top]
+set bottom    [<b>aktive transform points</b> $transform series {*}$bottom]
+
+result         ppm  dst      [<b>aktive op view</b> $rect port [list 0 0 $w $h]]
+result         wtxt tresidue $top
+result         wtxt bresidue $bottom
+debugs {result pgm  tshow [draw-poly $w $h $top]}
+debugs {result pgm  bshow [draw-poly $w $h $bottom]}
+</pre></p></section>
+<section>
+<p>
+  <a href='https://core.tcl-lang.org/akupries/aktive/doc/trunk/doc/ref/transform_structure_warp.md#op_transform_by__examples__e7'>AKTIVE
+  documentation; quadrilateral warping
+    </a>
+</p>
+</section>
+</section>
+<section id='rectified' data-background='white'>
+<h3>AK Tcl Image Vector Extension</h3>
+<h4 align='left'>Rectified Page 3456 x 4608</h4>
+<img src='assets/rectified.jpg' height=500 style='border:4px solid gold'>
+</section>
+<section id='residue' data-background='white'>
+<h3>AK Tcl Image Vector Extension</h3>
+<h4 align='left'>Rectified + Residuals</h4>
+<img src='assets/residue.jpg' height=500 style='border:4px solid gold'>
+</section>
+<section data-background='white'>
+  <h3>AK Tcl Image Vector Extension</h3>
+  <img src='https://core.tcl-lang.org/akupries/aktive/doc/trunk/doc/assets/aktive-logo-128.png' style='float:right;'>
+
+  <section>
+    <img src='assets/bp-origin.jpg' height=500 style='border:4px solid red'>
+  </section>
+  <section>
+    <img src='assets/bp-region.jpg' height=500 style='border:4px solid red'>
+  </section>
+  <section>
+    <img src='assets/bp-region-bw.jpg' height=500 style='border:4px solid red'>
+  </section>
+  <section>
+    <img src='assets/bp-catalog.jpg' height=500 style='border:4px solid red'>
+  </section>
+
+</section>
+
+<section data-background='white'>
+  <h3>AK Tcl Image Vector Extension</h3>
+  <img src='https://core.tcl-lang.org/akupries/aktive/doc/trunk/doc/assets/aktive-logo-128.png' style='float:right;'>
+
+  <section>
+    <ul>
+      <li>Future Work&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+  </section>
+
+  <section>
+    <ul>
+      <li>Future Work&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+      <ul>
+	<li>Generally</li>
+      </ul>
+  </section>
+
+  <section>
+    <ul>
+      <li>Future Work&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+      <ul>
+	<li>Generally</li>
+	<ul>
+	  <li>Benchmarking</li>
+	  <li>FFT</li>
+	  <li>Hough Transform</li>
+	  <li>Hit/Miss Transform</li>
+	  <li>More file formats</li>
+	  <li>Matrix ops</li>
+	  <li><a href='https://www.cse.cuhk.edu.hk/~leojia/projects/L0smoothing/'>Image Smoothing via L<sub>0</sub> Gradient Minimization</a></li>
+	  <li>...</li>
+	</ul>
+      </ul>
+  </section>
+
+  <section>
+    <ul>
+      <li>Future Work&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+      <ul>
+	<li>Generally</li>
+	<li>Demo Task</li>
+      </ul>
+  </section>
+
+  <section>
+    <ul>
+      <li>Future Work&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+      <ul>
+	<li>Generally</li>
+	<li>Demo Task</li>
+	<ul>
+	  <li>Color edges for better borders?</li>
+	  <li>Remove residual curvature</li>
+	  <li>Blank page detection</li>
+	  <li>Text/Image Segmentation</li>
+	  <li>OCR</li>
+	</ul>
+      </ul>
+  </section>
+
+  <section>
+    <ul>
+      <li>Future Work&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+      <ul>
+	<li>Generally</li>
+	<li>Demo Task</li>
+	<ul>
+	  <li>Color edges for better borders?</li>
+	  <li>Remove residual curvature</li>
+	  <ul>
+	    <li>Forward transform profiles</li>
+	    <li>Profile approximations (spline, cubic, ...)</li>
+	    <li>Unwarp along the approximation</li>
+	  </ul>
+	  <li>Blank page detection</li>
+	  <li>Text/Image Segmentation</li>
+	  <li>OCR</li>
+	</ul>
+      </ul>
+  </section>
+</section>
+
+<section data-background='white'>
+  <h3>AK Tcl Image Vector Extension</h3>
+  <img src='https://core.tcl-lang.org/akupries/aktive/doc/trunk/doc/assets/aktive-logo-128.png' style='float:right;'>
+  <ul>
+    <li> Questions ? ...</li>
+  </ul>
+</section>
+
+<section data-background='gold'>
+  <h3>AK Tcl Image Vector Extension</h3>
+  <img src='https://core.tcl-lang.org/akupries/aktive/doc/trunk/doc/assets/aktive-logo-128.png' style='float:right;'>
+
+  <section>
+    <table>
+      <tr><th> Warp Core		</th></tr>
+      <tr><td> op warp bicubic		</td></tr>
+      <tr><td> op warp bilinear		</td></tr>
+      <tr><td> op warp lanczos		</td></tr>
+      <tr><td> op warp near-neighbour	</td></tr>
+    </table>
+  </section>
+
+  <section>
+    <table>
+      <tr><th> Warp Origins		</th></tr>
+      <tr><td> warp matrix		</td></tr>
+      <tr><td> warp 2cartesian		</td></tr>
+      <tr><td> warp 2polar		</td></tr>
+      <tr><td> warp noise gauss		</td></tr>
+      <tr><td> warp noise uniform	</td></tr>
+      <tr><td> warp swirl		</td></tr>
+      <tr><td> warp wobble		</td></tr>
+    </table>
+  </section>
+
+  <section>
+    <table>
+      <tr><th> Warp Origins		</th><th> Warpers		</th></tr>
+      <tr><td> <b>warp matrix</b>	</td><td><a href='https://core.tcl-lang.org/akupries/aktive/doc/trunk/doc/ref/transform_structure_warp.md#op_transform_by__examples'> op transform by	</a></td></tr>
+      <tr><td> warp 2cartesian	</td><td><a href='https://core.tcl-lang.org/akupries/aktive/doc/trunk/doc/ref/transform_effect.md#effect_2cartesian__examples'> effect 2cartesian	</a></td></tr>
+      <tr><td> warp 2polar		</td><td><a href='https://core.tcl-lang.org/akupries/aktive/doc/trunk/doc/ref/transform_effect.md#effect_2polar__examples'> effect 2polar		</a></td></tr>
+      <tr><td> warp noise gauss	</td><td><a href='https://core.tcl-lang.org/akupries/aktive/doc/trunk/doc/ref/transform_effect.md#effect_jitter_gauss__examples'> effect jitter gauss	</a></td></tr>
+      <tr><td> warp noise uniform	</td><td><a href='https://core.tcl-lang.org/akupries/aktive/doc/trunk/doc/ref/transform_effect.md#effect_jitter_uniform__examples'> effect jitter uniform</a></td></tr>
+      <tr><td> warp swirl		</td><td><a href='https://core.tcl-lang.org/akupries/aktive/doc/trunk/doc/ref/transform_effect.md#effect_swirl__examples'> effect swirl		</a></td></tr>
+      <tr><td> warp wobble		</td><td><a href='https://core.tcl-lang.org/akupries/aktive/doc/trunk/doc/ref/transform_effect.md#effect_wobble__examples'> effect wobble	</a></td></tr>
+    </table>
+  </section>
+
+  <section>
+    <table>
+      <tr><th> transform ...	</th></tr>
+      <tr><td> ... projective	</td><td> ... identity	</td><td> ... reflect x		</td></tr>
+      <tr><td> ... affine	</td><td> ... translate	</td><td> ... reflect y		</td></tr>
+      <tr><td> 			</td><td> ... scale	</td><td> ... reflect line	</td></tr>
+      <tr><td> ... compose	</td><td> ... rotate	</td><td> ... quad 2quad	</td></tr>
+      <tr><td> ... invert	</td><td> ... shear	</td><td> ... quad unit2	</td></tr>
+      <tr><td> ... point 	</td><td> ... points	</td><td> ... domain		</td></tr>
+    </table>
+  </section>
+</section>
+
+</div>
+</div>
+<script src="dist/reveal.js"></script>
+<script src="plugin/notes/notes.js"></script>
+<script src="plugin/markdown/markdown.js"></script>
+<script src="plugin/highlight/highlight.js"></script>
+<script>
+  // More info about initialization & config:
+  // - https://revealjs.com/initialization/
+  // - https://revealjs.com/config/
+  Reveal.initialize({
+      hash: true,
+      slideNumber: true,
+      transition: 'none',
+      center: false,
+      // Learn about plugins: https://revealjs.com/plugins/
+      plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+  });
+</script>
+</body>
+</html>

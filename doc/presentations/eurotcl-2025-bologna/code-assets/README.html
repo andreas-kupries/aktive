@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>README</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+</head>
+<body>
+<h1 id="page-extractor-script.">Page Extractor Script.</h1>
+<p>Syntax: <code>border.tcl ?-debug|-quad? /path/to/book-directory</code></p>
+<p>The jpeg pictures to process are expected in <code>/path/to/book-directory/raw/</code>.</p>
+<p>The results, i.e. the extracted pages, will appear in <code>/path/to/book-directory/_show_rect/</code>.</p>
+<p>Except if <code>-quad</code> is specified. Then calculation runs only until the quadrilaterals are computed into <code>/path/to/book-directory/_quad</code>.</p>
+<p>The script’s activity is reported to stdout.</p>
+<p>The <code>STATS</code> lines at the end show how much time was spent on each phase, in milliseconds, and as percentage of the total time. This is sorted from longest phase down to shortest.</p>
+<h1 id="presentation">Presentation</h1>
+<p>Calling the script in <code>-debug</code> mode causes it to generate many more intermediate results and a presentation for each processed image using them.</p>
+<p>This is much slower than just performing the core page extraction.</p>
+<p>The generated presentations will appear in <code>/path/to/book-directory/_presentation/</code>.</p>
+<p>In this mode the script will look in the directory <code>/path/to/book-directory/_notes</code> for additional html files to integrate into the presentation.</p>
+<p>The note files used to make the presentation you are looking at right now are found in the sub-directory <code>notes</code> of this directory.</p>
+</body>
+</html>

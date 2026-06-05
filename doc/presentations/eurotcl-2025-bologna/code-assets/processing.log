@@ -1,0 +1,149 @@
+debug/presentation mode
+
+Sat Jun 28 16:49:16 CEST 2025	[1/1]	do-ingest raw/20240921-130428-5558.jpg _ingest/20240921-130428-5558.txt _ingest/20240921-130428-5558.ppm
+Sat Jun 28 16:49:16 CEST 2025	TIME	do-ingest	1x	402.0ms	=	402ms
+
+Sat Jun 28 16:49:16 CEST 2025	[1/1]	do-scale-down _ingest/20240921-130428-5558.ppm _scaled/20240921-130428-5558.txt _scaled/20240921-130428-5558.ppm
+Sat Jun 28 16:49:17 CEST 2025	TIME	do-scale-down	1x	1091.0ms	=	1091ms
+
+Sat Jun 28 16:49:17 CEST 2025	[1/1]	do-convert-to-grey _scaled/20240921-130428-5558.ppm _grey/20240921-130428-5558.pgm
+Sat Jun 28 16:49:17 CEST 2025	TIME	do-convert-to-grey	1x	144.0ms	=	144ms
+
+Sat Jun 28 16:49:17 CEST 2025	[1/1]	do-binarize _grey/20240921-130428-5558.pgm _binarized/20240921-130428-5558.pgm
+Sat Jun 28 16:49:18 CEST 2025	TIME	do-binarize	1x	884.0ms	=	884ms
+
+Sat Jun 28 16:49:18 CEST 2025	[1/1]	do-get-borders _binarized/20240921-130428-5558.pgm _borders/20240921-130428-5558.pgm
+Sat Jun 28 16:49:18 CEST 2025	TIME	do-get-borders	1x	149.0ms	=	149ms
+
+Sat Jun 28 16:49:18 CEST 2025	[1/1]	do-select _borders/20240921-130428-5558.pgm _primary/20240921-130428-5558.pgm
+Sat Jun 28 16:49:18 CEST 2025	TIME	do-select	1x	159.0ms	=	159ms
+
+Sat Jun 28 16:49:18 CEST 2025	[1/1]	do-show-border _scaled/20240921-130428-5558.ppm _primary/20240921-130428-5558.pgm _show_border/20240921-130428-5558.ppm
+Sat Jun 28 16:49:19 CEST 2025	TIME	do-show-border	1x	253.0ms	=	253ms
+
+Sat Jun 28 16:49:19 CEST 2025	[1/1]	do-left-profile _primary/20240921-130428-5558.pgm _scaled/20240921-130428-5558.txt _lt_profile/20240921-130428-5558.txt _lt_profile/20240921-130428-5558.pgm
+Sat Jun 28 16:49:23 CEST 2025	TIME	do-left-profile	1x	4542.0ms	=	4542ms
+
+Sat Jun 28 16:49:23 CEST 2025	[1/1]	do-right-profile _primary/20240921-130428-5558.pgm _scaled/20240921-130428-5558.txt _rt_profile/20240921-130428-5558.txt _rt_profile/20240921-130428-5558.pgm
+Sat Jun 28 16:49:29 CEST 2025	TIME	do-right-profile	1x	5890.0ms	=	5890ms
+
+Sat Jun 28 16:49:29 CEST 2025	[1/1]	do-top-profile _primary/20240921-130428-5558.pgm _scaled/20240921-130428-5558.txt _tp_profile/20240921-130428-5558.txt _tp_profile/20240921-130428-5558.pgm
+Sat Jun 28 16:49:33 CEST 2025	TIME	do-top-profile	1x	3984.0ms	=	3984ms
+
+Sat Jun 28 16:49:33 CEST 2025	[1/1]	do-bottom-profile _primary/20240921-130428-5558.pgm _scaled/20240921-130428-5558.txt _bt_profile/20240921-130428-5558.txt _bt_profile/20240921-130428-5558.pgm
+Sat Jun 28 16:49:37 CEST 2025	TIME	do-bottom-profile	1x	3977.0ms	=	3977ms
+
+Sat Jun 28 16:49:37 CEST 2025	[1/1]	do-find-threshold _lt_profile/20240921-130428-5558.txt _scaled/20240921-130428-5558.txt _lt_threshold/20240921-130428-5558.txt _lt_threshold/20240921-130428-5558.pgm
+Sat Jun 28 16:49:37 CEST 2025	TIME	do-find-threshold	1x	122.0ms	=	122ms
+
+Sat Jun 28 16:49:37 CEST 2025	[1/1]	do-find-threshold _rt_profile/20240921-130428-5558.txt _scaled/20240921-130428-5558.txt _rt_threshold/20240921-130428-5558.txt _rt_threshold/20240921-130428-5558.pgm
+Sat Jun 28 16:49:37 CEST 2025	TIME	do-find-threshold	1x	150.0ms	=	150ms
+
+Sat Jun 28 16:49:37 CEST 2025	[1/1]	do-apply-threshold keep-under _lt_profile/20240921-130428-5558.txt _scaled/20240921-130428-5558.txt _lt_threshold/20240921-130428-5558.txt _lt_inlier/20240921-130428-5558.txt _lt_inlier/20240921-130428-5558.pgm
+Sat Jun 28 16:49:42 CEST 2025	TIME	do-apply-threshold	1x	4882.0ms	=	4882ms
+
+Sat Jun 28 16:49:42 CEST 2025	[1/1]	do-apply-threshold keep-over _rt_profile/20240921-130428-5558.txt _scaled/20240921-130428-5558.txt _rt_threshold/20240921-130428-5558.txt _rt_inlier/20240921-130428-5558.txt _rt_inlier/20240921-130428-5558.pgm
+Sat Jun 28 16:49:48 CEST 2025	TIME	do-apply-threshold	1x	5427.0ms	=	5427ms
+
+Sat Jun 28 16:49:48 CEST 2025	[1/1]	do-fit-vertical-line left _lt_inlier/20240921-130428-5558.txt _scaled/20240921-130428-5558.txt _lt_limit/20240921-130428-5558.txt _lt_limit/20240921-130428-5558.pgm
+Sat Jun 28 16:49:49 CEST 2025	TIME	do-fit-vertical-line	1x	814.0ms	=	814ms
+
+Sat Jun 28 16:49:49 CEST 2025	[1/1]	do-fit-vertical-line right _rt_inlier/20240921-130428-5558.txt _scaled/20240921-130428-5558.txt _rt_limit/20240921-130428-5558.txt _rt_limit/20240921-130428-5558.pgm
+Sat Jun 28 16:49:49 CEST 2025	TIME	do-fit-vertical-line	1x	937.0ms	=	937ms
+
+Sat Jun 28 16:49:49 CEST 2025	[1/1]	do-chart red _lt_profile/20240921-130428-5558.pgm _lt_threshold/20240921-130428-5558.pgm _lt_pt/20240921-130428-5558.ppm
+Sat Jun 28 16:49:50 CEST 2025	TIME	do-chart	1x	318.0ms	=	318ms
+
+Sat Jun 28 16:49:50 CEST 2025	[1/1]	do-chart red _rt_profile/20240921-130428-5558.pgm _rt_threshold/20240921-130428-5558.pgm _rt_pt/20240921-130428-5558.ppm
+Sat Jun 28 16:49:50 CEST 2025	TIME	do-chart	1x	314.0ms	=	314ms
+
+Sat Jun 28 16:49:50 CEST 2025	[1/1]	do-show-lr _show_border/20240921-130428-5558.ppm _lt_limit/20240921-130428-5558.pgm _rt_limit/20240921-130428-5558.pgm _show_lr/20240921-130428-5558.ppm
+Sat Jun 28 16:49:50 CEST 2025	TIME	do-show-lr	1x	387.0ms	=	387ms
+
+Sat Jun 28 16:49:50 CEST 2025	[1/1]	do-cut-horiz top-cliff _scaled/20240921-130428-5558.txt _tp_profile/20240921-130428-5558.txt _lt_limit/20240921-130428-5558.txt _rt_limit/20240921-130428-5558.txt _tp_cut/20240921-130428-5558.txt _tp_cut/20240921-130428-5558.pgm
+Sat Jun 28 16:49:54 CEST 2025	TIME	do-cut-horiz	1x	3743.0ms	=	3743ms
+
+Sat Jun 28 16:49:54 CEST 2025	[1/1]	do-cut-horiz bottom-cliff _scaled/20240921-130428-5558.txt _bt_profile/20240921-130428-5558.txt _lt_limit/20240921-130428-5558.txt _rt_limit/20240921-130428-5558.txt _bt_cut/20240921-130428-5558.txt _bt_cut/20240921-130428-5558.pgm
+Sat Jun 28 16:49:58 CEST 2025	TIME	do-cut-horiz	1x	3687.0ms	=	3687ms
+
+Sat Jun 28 16:49:58 CEST 2025	[1/1]	do-profile-base max-better _tp_cut/20240921-130428-5558.txt _tp_cut/20240921-130428-5558.pgm _lt_limit/20240921-130428-5558.txt _rt_limit/20240921-130428-5558.txt _tp_base/20240921-130428-5558.pgm
+Sat Jun 28 16:49:58 CEST 2025	TIME	do-profile-base	1x	283.0ms	=	283ms
+
+Sat Jun 28 16:49:58 CEST 2025	[1/1]	do-profile-base min-better _bt_cut/20240921-130428-5558.txt _bt_cut/20240921-130428-5558.pgm _lt_limit/20240921-130428-5558.txt _rt_limit/20240921-130428-5558.txt _bt_base/20240921-130428-5558.pgm
+Sat Jun 28 16:49:58 CEST 2025	TIME	do-profile-base	1x	175.0ms	=	175ms
+
+Sat Jun 28 16:49:58 CEST 2025	[1/1]	do-profile-shear max-better _tp_cut/20240921-130428-5558.txt _tp_cut/20240921-130428-5558.pgm _lt_limit/20240921-130428-5558.txt _rt_limit/20240921-130428-5558.txt _tp_shear/20240921-130428-5558.pgm
+Sat Jun 28 16:50:02 CEST 2025	TIME	do-profile-shear	1x	4026.0ms	=	4026ms
+
+Sat Jun 28 16:50:02 CEST 2025	[1/1]	do-profile-shear min-better _bt_cut/20240921-130428-5558.txt _bt_cut/20240921-130428-5558.pgm _lt_limit/20240921-130428-5558.txt _rt_limit/20240921-130428-5558.txt _bt_shear/20240921-130428-5558.pgm
+Sat Jun 28 16:50:06 CEST 2025	TIME	do-profile-shear	1x	3809.0ms	=	3809ms
+
+Sat Jun 28 16:50:06 CEST 2025	[1/1]	do-refine-horiz max-better _scaled/20240921-130428-5558.txt _tp_cut/20240921-130428-5558.txt _lt_limit/20240921-130428-5558.txt _rt_limit/20240921-130428-5558.txt _tp_refined/20240921-130428-5558.txt _tp_refined/20240921-130428-5558.pgm
+Sat Jun 28 16:50:09 CEST 2025	TIME	do-refine-horiz	1x	3108.0ms	=	3108ms
+
+Sat Jun 28 16:50:09 CEST 2025	[1/1]	do-refine-horiz min-better _scaled/20240921-130428-5558.txt _bt_cut/20240921-130428-5558.txt _lt_limit/20240921-130428-5558.txt _rt_limit/20240921-130428-5558.txt _bt_refined/20240921-130428-5558.txt _bt_refined/20240921-130428-5558.pgm
+Sat Jun 28 16:50:12 CEST 2025	TIME	do-refine-horiz	1x	3122.0ms	=	3122ms
+
+Sat Jun 28 16:50:12 CEST 2025	[1/1]	do-finalize-vertical left _scaled/20240921-130428-5558.txt _tp_refined/20240921-130428-5558.txt _bt_refined/20240921-130428-5558.txt _lt_final/20240921-130428-5558.txt _lt_final/20240921-130428-5558.pgm
+Sat Jun 28 16:50:13 CEST 2025	TIME	do-finalize-vertical	1x	130.0ms	=	130ms
+
+Sat Jun 28 16:50:13 CEST 2025	[1/1]	do-finalize-vertical right _scaled/20240921-130428-5558.txt _tp_refined/20240921-130428-5558.txt _bt_refined/20240921-130428-5558.txt _rt_final/20240921-130428-5558.txt _rt_final/20240921-130428-5558.pgm
+Sat Jun 28 16:50:13 CEST 2025	TIME	do-finalize-vertical	1x	152.0ms	=	152ms
+
+Sat Jun 28 16:50:13 CEST 2025	[1/1]	do-chart blue _tp_cut/20240921-130428-5558.pgm _tp_base/20240921-130428-5558.pgm _tp_cutbase/20240921-130428-5558.ppm
+Sat Jun 28 16:50:13 CEST 2025	TIME	do-chart	1x	345.0ms	=	345ms
+
+Sat Jun 28 16:50:13 CEST 2025	[1/1]	do-chart blue _bt_cut/20240921-130428-5558.pgm _bt_base/20240921-130428-5558.pgm _bt_cutbase/20240921-130428-5558.ppm
+Sat Jun 28 16:50:13 CEST 2025	TIME	do-chart	1x	398.0ms	=	398ms
+
+Sat Jun 28 16:50:13 CEST 2025	[1/1]	do-cchart red _tp_cutbase/20240921-130428-5558.ppm _tp_shear/20240921-130428-5558.pgm _tp_cutshear/20240921-130428-5558.ppm
+Sat Jun 28 16:50:14 CEST 2025	TIME	do-cchart	1x	356.0ms	=	356ms
+
+Sat Jun 28 16:50:14 CEST 2025	[1/1]	do-cchart red _bt_cutbase/20240921-130428-5558.ppm _bt_shear/20240921-130428-5558.pgm _bt_cutshear/20240921-130428-5558.ppm
+Sat Jun 28 16:50:14 CEST 2025	TIME	do-cchart	1x	339.0ms	=	339ms
+
+Sat Jun 28 16:50:14 CEST 2025	[1/1]	do-collect-tangents under-profile _scaled/20240921-130428-5558.txt _tp_refined/20240921-130428-5558.txt _tp_tangents/20240921-130428-5558.txt _tp_tangents/20240921-130428-5558.pgm
+Sat Jun 28 16:50:15 CEST 2025	TIME	do-collect-tangents	1x	393.0ms	=	393ms
+
+Sat Jun 28 16:50:15 CEST 2025	[1/1]	do-collect-tangents over-profile _scaled/20240921-130428-5558.txt _bt_refined/20240921-130428-5558.txt _bt_tangents/20240921-130428-5558.txt _bt_tangents/20240921-130428-5558.pgm
+Sat Jun 28 16:50:15 CEST 2025	TIME	do-collect-tangents	1x	290.0ms	=	290ms
+
+Sat Jun 28 16:50:15 CEST 2025	[1/1]	do-choose-tangent _scaled/20240921-130428-5558.txt _tp_refined/20240921-130428-5558.txt _tp_tangents/20240921-130428-5558.txt _tp_final/20240921-130428-5558.txt _tp_final/20240921-130428-5558.pgm
+Sat Jun 28 16:50:15 CEST 2025	TIME	do-choose-tangent	1x	164.0ms	=	164ms
+
+Sat Jun 28 16:50:15 CEST 2025	[1/1]	do-choose-tangent _scaled/20240921-130428-5558.txt _bt_refined/20240921-130428-5558.txt _bt_tangents/20240921-130428-5558.txt _bt_final/20240921-130428-5558.txt _bt_final/20240921-130428-5558.pgm
+Sat Jun 28 16:50:15 CEST 2025	TIME	do-choose-tangent	1x	151.0ms	=	151ms
+
+Sat Jun 28 16:50:15 CEST 2025	[1/1]	do-fit-quadrilateral _scaled/20240921-130428-5558.txt _lt_final/20240921-130428-5558.txt _rt_final/20240921-130428-5558.txt _tp_final/20240921-130428-5558.txt _bt_final/20240921-130428-5558.txt _quad/20240921-130428-5558.txt _quad/20240921-130428-5558.pgm
+Sat Jun 28 16:50:15 CEST 2025	TIME	do-fit-quadrilateral	1x	192.0ms	=	192ms
+
+Sat Jun 28 16:50:15 CEST 2025	[1/1]	do-scale-up _quad/20240921-130428-5558.txt _ingest/20240921-130428-5558.txt _quadup/20240921-130428-5558.txt _quadup/20240921-130428-5558.pgm
+Sat Jun 28 16:50:17 CEST 2025	TIME	do-scale-up	1x	2142.0ms	=	2142ms
+
+Sat Jun 28 16:50:17 CEST 2025	[1/1]	do-show-tb _show_lr/20240921-130428-5558.ppm _tp_refined/20240921-130428-5558.pgm _bt_refined/20240921-130428-5558.pgm _show_tb/20240921-130428-5558.ppm
+Sat Jun 28 16:50:18 CEST 2025	TIME	do-show-tb	1x	418.0ms	=	418ms
+
+Sat Jun 28 16:50:18 CEST 2025	[1/1]	do-show-lr _show_border/20240921-130428-5558.ppm _lt_final/20240921-130428-5558.pgm _rt_final/20240921-130428-5558.pgm _show_lr_final/20240921-130428-5558.ppm
+Sat Jun 28 16:50:18 CEST 2025	TIME	do-show-lr	1x	417.0ms	=	417ms
+
+Sat Jun 28 16:50:18 CEST 2025	[1/1]	do-show-tb _show_lr_final/20240921-130428-5558.ppm _tp_refined/20240921-130428-5558.pgm _bt_refined/20240921-130428-5558.pgm _show_tb_final/20240921-130428-5558.ppm
+Sat Jun 28 16:50:19 CEST 2025	TIME	do-show-tb	1x	437.0ms	=	437ms
+
+Sat Jun 28 16:50:19 CEST 2025	[1/1]	do-show-tangents _show_border/20240921-130428-5558.ppm _tp_tangents/20240921-130428-5558.pgm _tp_final/20240921-130428-5558.pgm _bt_tangents/20240921-130428-5558.pgm _bt_final/20240921-130428-5558.pgm _show_tangents/20240921-130428-5558.ppm
+Sat Jun 28 16:50:19 CEST 2025	TIME	do-show-tangents	1x	491.0ms	=	491ms
+
+Sat Jun 28 16:50:19 CEST 2025	[1/1]	do-show-tb _show_lr_final/20240921-130428-5558.ppm _tp_final/20240921-130428-5558.pgm _bt_final/20240921-130428-5558.pgm _show_final/20240921-130428-5558.ppm
+Sat Jun 28 16:50:20 CEST 2025	TIME	do-show-tb	1x	440.0ms	=	440ms
+
+Sat Jun 28 16:50:20 CEST 2025	[1/1]	do-cchart red _show_border/20240921-130428-5558.ppm _quad/20240921-130428-5558.pgm _show_page/20240921-130428-5558.ppm
+Sat Jun 28 16:50:20 CEST 2025	TIME	do-cchart	1x	341.0ms	=	341ms
+
+Sat Jun 28 16:50:20 CEST 2025	[1/1]	do-rectify _ingest/20240921-130428-5558.ppm _quadup/20240921-130428-5558.txt _tp_refined/20240921-130428-5558.txt _bt_refined/20240921-130428-5558.txt _show_rect/20240921-130428-5558.ppm _tp_residue/20240921-130428-5558.txt _tp_residue/20240921-130428-5558.pgm _bt_residue/20240921-130428-5558.txt _bt_residue/20240921-130428-5558.pgm
+Sat Jun 28 16:52:19 CEST 2025	TIME	do-rectify	1x	118772.0ms	=	118772ms
+
+Sat Jun 28 16:52:19 CEST 2025	[1/1]	do-show-tb _show_rect/20240921-130428-5558.ppm _tp_residue/20240921-130428-5558.pgm _bt_residue/20240921-130428-5558.pgm _show_residue/20240921-130428-5558.ppm
+Sat Jun 28 16:52:23 CEST 2025	TIME	do-show-tb	1x	4300.0ms	=	4300ms
+
+Sat Jun 28 16:52:23 CEST 2025	[1/1]	do-html ../a.books/geometry-2-onepage/_notes raw/20240921-130428-5558.jpg _scaled/20240921-130428-5558.jpg _grey/20240921-130428-5558.jpg _binarized/20240921-130428-5558.jpg _borders/20240921-130428-5558.jpg _primary/20240921-130428-5558.jpg _show_border/20240921-130428-5558.jpg _lt_profile/20240921-130428-5558.jpg _lt_pt/20240921-130428-5558.jpg _lt_inlier/20240921-130428-5558.jpg _lt_limit/20240921-130428-5558.jpg _show_lr/20240921-130428-5558.jpg _tp_profile/20240921-130428-5558.jpg _tp_cut/20240921-130428-5558.jpg _tp_cutbase/20240921-130428-5558.jpg _tp_cutshear/20240921-130428-5558.jpg _tp_refined/20240921-130428-5558.jpg _show_lr_final/20240921-130428-5558.jpg _show_tb_final/20240921-130428-5558.jpg _tp_tangents/20240921-130428-5558.jpg _show_tangents/20240921-130428-5558.jpg _show_final/20240921-130428-5558.jpg _quad/20240921-130428-5558.jpg _show_page/20240921-130428-5558.jpg _show_rect/20240921-130428-5558.jpg _show_residue/20240921-130428-5558.jpg _presentation/20240921-130428-5558.html
+Sat Jun 28 16:52:23 CEST 2025	TIME	do-html	1x	45.0ms	=	45ms
+Sat Jun 28 16:52:23 CEST 2025	TIME	total	187s
