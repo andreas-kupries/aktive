@@ -23,4 +23,4 @@ understand the package's internals, whether just for curiosity, or to extend or 
 
 ## Presentations
 
-  * [EuroTcl 2025, Bologna](presentations/eurotcl-2025-bologna/index.html)
+  * EuroTcl 2025, Bologna [[pdf](presentations/eurotcl-2025-bologna.pdf)] [[zip](presentations/eurotcl-2025-bologna.zip)]

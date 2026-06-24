@@ -1,52 +1,43 @@
 right
 
 M: circle "maker"
+
+arrow from M.e right 200%
+TQ: box invisible "..."
 arrow
-T: [ down
-T1: box "tasks" "#3" fit
-box invisible "..."
-T2: box "tasks" "#3" fit
-right
-]
-line invisible
-W: [ down
-W1: circle "worker"
-box invisible "..."
-W2: circle "worker"
-right
-]
-line invisible
-R: [ down
-R1: box "results" "#workers" fit
-box invisible "..."
-R2: box "results" "#workers" fit
-right
-]
+WS: box invisible "..."
+arrow
+RQ: box invisible "..."
 arrow
 C: circle "completer"
 
-arrow from M.c to T.T1.w chop
-arrow from M.c to T.T2.w chop
+arrow from M.ne up right then right until even with TQ.w
+T1: box "tasks" "#3" fit
+arrow right until even with WS.w
+W1: circle "worker"
+arrow right until even with RQ.w
+R1: box "results" "#workers" fit
 
-arrow from T.T1.e to W.W1.c chop
-arrow from T.T2.e to W.W2.c chop
+arrow from M.se down right then right until even with TQ.w
+T2: box "tasks" "#3" fit
+arrow right until even with WS.w
+W2: circle "worker"
+arrow right until even with RQ.w
+R2: box "results" "#workers" fit
 
-arrow from W.W1.c to R.R1.w chop
-arrow from W.W2.c to R.R2.w chop
+arrow <- from C.nw up   left then to R1.e
+arrow <- from C.sw down left then to R2.e
 
-arrow from R.R1.e to C.c chop
-arrow from R.R2.e to C.c chop
-
-line invisible from W.W2.s down
+move from W2.s down 20%
 O: box "pickup" "#workers" fit
 
-arrow from M.s to (M.s, O.w) then to O.w radius 10
-arrow from O.e to (C.s, O.e) then to C.s radius 10
+arrow from M.s to (M.s, O.w) then to O.w
+arrow from O.e to (C.s, O.e) then to C.s
 
-line invisible from T.T1.n up
+move from T1.n up 20%
 I: box "idle" "#workers" fit
 
-arrow from W.W1.nw to I.se chop
-arrow from W.W2.nw to I.se chop
+arrow from W1.n up until even with I.e then to I.e
+arrow from W2.nw to I.e chop
 
-arrow from I.sw to M.ne
+arrow from I.w left until even with M.n then to M.n

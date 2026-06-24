@@ -1,25 +1,25 @@
-
 right
 
-circle "maker"
-arrow
+M: circle "maker"
+
+arrow from M.e
 T: box "tasks" "#workers" fit
-arrow
-
-W: [ down
-W1: circle "worker"
-box invisible "..."
-W2: circle "worker"
-right
-]
-
+arrow right 150%
+WS: box invisible "..."
 arrow
 R: box "results" "#workers" fit
 arrow
-circle "completer"
+C: circle "completer"
 
-arrow from T.c to W.W1.c chop
-arrow from T.c to W.W2.c chop
+arrow from T.ne up right then right until even with WS.w
+W1: circle "worker"
 
-arrow from W.W1.c to R.c chop
-arrow from W.W2.c to R.c chop
+arrow from T.se down right then right until even with WS.w
+W2: circle "worker"
+
+arrow <- from R.nw up   left then to W1.e
+arrow <- from R.sw down left then to W2.e
+
+arrow from C.s down 150% \
+      then left until even with T.s \
+      then to T.s dashed
