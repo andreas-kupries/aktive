@@ -267,7 +267,7 @@ shown as image.
 
 The set of currently supported commands, both to generate data and to
 format result for display are available in
-[support/esupport.tcl](/file?ci=trunk&name=support/esupport.tcl).
+[support/ops/esupport.tcl](/file?ci=trunk&name=support/ops/esupport.tcl).
 
 Some examples:
 

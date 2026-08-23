@@ -117,16 +117,16 @@ dsl structs scan \
 # render the main figures, these include the generated definitions as needed
 dsl structs render doc/dev/figures
 
-
 # # ## ### ##### ######## ############# #####################
 ## code generation
-## - color database
-## - math vector functions, unary and binary
+## - database of named colors
+## - unrolled unary/binary math vector functions
 ## - reducer functions
 
-source data/colors/generator.tcl	;# emits (x)   `generated/color.tcl`
-source data/math/generator.tcl		;# emits (xx)  `generated/math.[ch]`
-source data/reduce/generator.tcl	;# emits (xxx) `generated/reduce.[ch]`
+source support/colors/generator.tcl ;# emits (x)   `generated/color.tcl`
+source support/math/generator.tcl   ;# emits (xx)  `generated/math.[ch]`
+# TODO vvvv
+source data/reduce/generator.tcl    ;# emits (xxx) `generated/reduce.[ch]`
 
 # # ## ### ##### ######## ############# #####################
 

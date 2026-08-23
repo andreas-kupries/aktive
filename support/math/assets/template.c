@@ -5,10 +5,8 @@
  *
  * Generated code. See
  *
- * - data/math-gen.tcl
- * - data/mathfunc/spec.tcl
- * - data/mathfunc/fragments.tcl
- * - data/mathfunc/template-scalar.c
+ * - support/math/assets/template.c	Template
+ * - support/math/generator.tcl		Generator
  */
 
 #include <generated/math.h>
@@ -37,7 +35,7 @@ void aktive_vector_unary_const (double* dst, aktive_uint num, double value)
 
 /*
  * - - -- --- ----- -------- -------------
- * definition support - gamma_compress/expand
+ * definition support - gamma_compress/expand operators
  */
 
 #define GAMMA  (2.4)
@@ -52,7 +50,7 @@ void aktive_vector_unary_const (double* dst, aktive_uint num, double value)
  * vector function definitions
  */
 
-@vdefn@
+@definitions@
 
 /*
  * = = == === ===== ======== ============= =====================

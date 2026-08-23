@@ -210,52 +210,41 @@
 ## blit vector actions
 
 apply {{} {
-    source data/math/spec.tcl
+    source support/math/db.tcl			;# generator data base
+    source support/math/assets/ops.tcl		;# operator specs
 
-    foreach {name spec} $unary0 {
-	lappend map @@ $name
-	::dsl blit action new vec/unary/$name [string map $map {
-	    vector 1
-	    code {{} {
-		+ "TRACE_ADD (\":: vec/unary/@@\[%d] (%d <-- %d)\", vecrange, dstpos, srcpos);"
-		+ "aktive_vector_unary_@@ (dstvalue, srcvalue, vecrange);"
-	    }}}]
+    #source support/math/spec.tcl
+
+    foreach spec [ops scalar] {
+	lassign $spec kind name arguments statements
+
+	set params ""
+	foreach _ $arguments { incr count ; append params ", param[dict get {1 a 2 b} $count]" }
+	unset -nocomplain count
+	lappend map @@       $name
+	lappend map @params@ $params
+	lappend map @kind@   $kind
+
+	switch -exact -- $kind {
+	    unary {
+		::dsl blit action new vec/$kind/$name [string map $map {
+		    vector 1
+		    code {{} {
+			+ "TRACE_ADD (\":: vec/@kind@/@@\[%d] (%d <-- %d)\", vecrange, dstpos, srcpos);"
+			+ "aktive_vector_@kind@_@@ (dstvalue, srcvalue, vecrange@params@);"
+		    }}}]
+	    }
+	    binary {
+		::dsl blit action new vec/$kind/$name [string map $map {
+		    vector 1
+		    code {{} {
+			+ "TRACE_ADD (\":: vec/@kind@/@@\[%d] (%d <-- (%d, %d))\", vecrange, dstpos, src0pos, src1pos);"
+			+ "aktive_vector_@kind@_@@ (dstvalue, src0value, src1value, vecrange@params@);"
+		    }}}]
+	    }
+	}
 	unset map
-    }
-
-    foreach {name spec} $unary1 {
-	lappend map @@ $name
-	::dsl blit action new vec/unary/$name [string map $map {
-	    vector 1
-	    code {{} {
-		+ "TRACE_ADD (\":: vec/unary/@@\[%d] (%d <-- %d)\", vecrange, dstpos, srcpos);"
-		+ "aktive_vector_unary_@@ (dstvalue, srcvalue, vecrange, parama);"
-	    }}}]
-	unset map
-    }
-
-    foreach {name spec} $unary2 {
-	lappend map @@ $name
-	::dsl blit action new vec/unary/$name [string map $map {
-	    vector 1
-	    code {{} {
-		+ "TRACE_ADD (\":: vec/unary/@@\[%d] (%d <-- %d)\", vecrange, dstpos, srcpos);"
-		+ "aktive_vector_unary_@@ (dstvalue, srcvalue, vecrange, parama, paramb);"
-	    }}}]
-	unset map
-    }
-
-    foreach {name spec} $binary {
-	lappend map @@ $name
-	::dsl blit action new vec/binary/$name [string map $map {
-	    vector 1
-	    code {{} {
-		+ "TRACE_ADD (\":: vec/binary/@@\[%d] (%d <-- (%d, %d))\", vecrange, dstpos, src0pos, src1pos);"
-		+ "aktive_vector_binary_@@ (dstvalue, src0value, src1value, vecrange);"
-	    }}}]
-	unset map
-    }
-
+   }
 }}
 
 # # ## ### ##### ######## #############

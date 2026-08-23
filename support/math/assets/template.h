@@ -5,10 +5,8 @@
  *
  * Generated code. See
  *
- * - data/math-gen.tcl
- * - data/mathfunc/spec.tcl
- * - data/mathfunc/fragments.tcl
- * - data/mathfunc/template-scalar.h
+ * - support/math/assets/template.h	Template
+ * - support/math/generator.tcl		Generator
  */
 #ifndef AKTIVE_VECTOR_SCALAR_H
 #define AKTIVE_VECTOR_SCALAR_H
@@ -30,14 +28,14 @@ extern void aktive_vector_unary_const (double* dst, aktive_uint num, double valu
  * vector function declarations
  */
 
-@vdecl@
+@declarations@
 
 /*
  * - - -- --- ----- -------- -------------
- * vector function integration
+ * system integration
  */
 
-@vlink@
+@linkage@
 
 /*
  * = = == === ===== ======== ============= =====================

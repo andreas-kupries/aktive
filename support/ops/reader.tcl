@@ -7,7 +7,7 @@ namespace eval dsl::reader {
 
     variable state {}
     variable counter 0	;# counter for operator groups
-    variable topdir [file dirname [file dirname [file normalize [info script]]]]
+    variable topdir [file dirname [file dirname [file dirname [file normalize [info script]]]]]
 }
 
 # # ## ### ##### ######## #############

@@ -29,7 +29,7 @@ Files:
   - [Main](/file?ci=trunk&name=support/dsl.tcl)
   - [Reader Frontend](/file?ci=trunk&name=support/reader.tcl)
   - [Writer Backend](/file?ci=trunk&name=support/writer.tcl)
-  - [Example Support](/file?ci=trunk&name=support/esupport.tcl)
+  - [Example Support](/file?ci=trunk&name=support/ops/esupport.tcl)
   - [Blitter Generator](/file?ci=trunk&name=support/blit.tcl)
   - [Reductor Generator](/file?ci=trunk&name=support/reduce.tcl)
   - [Struct Parsing](/file?ci=trunk&name=support/structs.tcl)
