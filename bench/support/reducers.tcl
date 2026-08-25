@@ -20,7 +20,7 @@ critcl::ccode {
     static double* dst;
 }
 
-# initializator - invoke before the benchmark commands.
+# initializer - invoke before the benchmark commands.
 # fill source arrays and parameters with random values.
 critcl::cproc ::aktive::bench::reduce::init {int {n N}} void {
     aktive_uint i;
@@ -35,35 +35,36 @@ critcl::cproc ::aktive::bench::reduce::init {int {n N}} void {
 critcl::cconst ::aktive::bench::reduce::size int N
 
 # # ## ### ##### ######## #############
+source support/reduce/db.tcl
 
 # create benchmark commands for all implementation variants of a reducer operation
-proc gen {name} {
-    gen-band $name
+proc reduce::gen-test-command {name} {
+    gen-test-command-band $name
 }
 
-# create benchmark commands for all implementation variants of a band reducer operation
-proc gen-band {name} {
-    foreach impl {
-	baseline perdepth unroll4
-    } {
-	critcl::cproc ::aktive::bench::reduce-bands::${impl}::${name} {int w int d} void \
-	    [string map [list @@ $name @impl@ $impl] {
+# create benchmark commands for all implementation variants of a band reducer operation, except cross-check
+proc reduce::gen-test-command-band {name} {
+    foreach variant [without-sys [for-axis band]] {
+	critcl::cproc ::aktive::bench::reduce-bands::${variant}::${name} {int w int d} void \
+	    [string map [list @@ $name @variant@ $variant] {
 	    if (w > (N/d)-1) w = (N/d)-1;
-	    aktive_reduce_bands_@impl@_@@ (dst, src, w, d);
+	    aktive_reduce_bands_@variant@_@@ (dst, src, w, d);
 	}]
     }
 }
 
 # create benchmark commands for all reducer operations
 apply {{} {
-    source data/reduce/spec.tcl
-    foreach name $reducers { gen $name }
-}}
+    source support/reduce/assets/ops.tcl
+    foreach entry [lsort -dict [glob support/reduce/assets/*/*/func.tcl]] {
+	source $entry } ;# funcs & placeholders
+
+    foreach name [names] { gen-test-command $name }
+} reduce}
 
 # # ## ### ##### ######## #############
 
-rename gen      {}
-rename gen-band {}
+namespace delete reduce
 
 # # ## ### ##### ######## #############
 return

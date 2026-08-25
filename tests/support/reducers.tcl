@@ -20,7 +20,7 @@ critcl::ccode {
     static double* dst;
 }
 
-# initializator - invoke before the testing commands.
+# initializer - invoke before the testing commands.
 # fill source arrays and parameters with random values.
 #critcl::msg \t::aktive::test::reduce-bands::init
 critcl::cproc ::aktive::test::reduce-bands::init {int {n N}} void {
@@ -36,36 +36,39 @@ critcl::cproc ::aktive::test::reduce-bands::init {int {n N}} void {
 critcl::cconst ::aktive::test::reduce-bands::size int N
 
 # # ## ### ##### ######## #############
+source support/reduce/db.tcl
 
 # create testing commands for all implementation variants of a reducer operation
-proc gen {name} {
-    gen-band $name
+proc reduce::gen-test-command {name} {
+    gen-test-command-band $name
+    #gen-test-command-row $name
 }
 
 # create testing commands for all implementation variants of a band reducer operation
-proc gen-band {name} {
-    lappend map @@ $name
-    foreach impl {
-	baseline perdepth unroll4
-    } {
-	critcl::cproc ::aktive::test::reduce-bands::${impl}::${name} {int w int d} void \
-	    [string map [list @@ $name @impl@ $impl] {
+proc reduce::gen-test-command-band {name} {
+    foreach variant [without-xcheck [for-axis band]] {
+	critcl::cproc ::aktive::test::reduce-bands::${variant}::${name} {int w int d} void \
+	    [string map [list @@ $name @variant@ $variant] {
 		if (w > (N/d)-1) w = (N/d)-1;
-		aktive_reduce_bands_@impl@_@@ (dst, src, w, d);
+		aktive_reduce_bands_@variant@_@@ (dst, src, w, d);
 	    }]
     }
 }
 
+# # ## ### ##### ######## #############
+
 # create benchmark commands for all reducer operations
 apply {{} {
-    source data/reduce/spec.tcl
-    foreach name $reducers { gen $name }
-}}
+    source support/reduce/assets/ops.tcl
+    foreach entry [lsort -dict [glob support/reduce/assets/*/*/func.tcl]] {
+	source $entry } ;# funcs & placeholders
+
+    foreach name [names] { gen-test-command $name }
+} reduce}
 
 # # ## ### ##### ######## #############
 
-rename gen      {}
-rename gen-band {}
+namespace delete reduce
 
 # # ## ### ##### ######## #############
 return

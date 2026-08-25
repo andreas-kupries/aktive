@@ -125,8 +125,7 @@ dsl structs render doc/dev/figures
 
 source support/colors/generator.tcl ;# emits (x)   `generated/color.tcl`
 source support/math/generator.tcl   ;# emits (xx)  `generated/math.[ch]`
-# TODO vvvv
-source data/reduce/generator.tcl    ;# emits (xxx) `generated/reduce.[ch]`
+source support/reduce/generator.tcl ;# emits (xxx) `generated/reduce.[ch]`
 
 # # ## ### ##### ######## ############# #####################
 
@@ -239,7 +238,7 @@ critcl::source   generated/glue.tcl             ;# Tcl-level operator constructi
 #
 critcl::tsources generated/overlay.tcl		;# Peep-hole optimizer overlays
 critcl::tsources generated/ensemble.tcl         ;# Command hierarchy for preceding
-critcl::tsources generated/color.tcl            ;# Color database commands - (x) `data/colors/generator.tcl`
+critcl::tsources generated/color.tcl            ;# Color database commands - (x) `support/colors/generator.tcl`
 #                                               ;# Pure Tcl commands
 critcl::tsources generated/ops.tcl              ;# - Operators built in Tcl
 critcl::tsources simplifier.tcl			;# - Simplifier runtime used by overlay.tcl

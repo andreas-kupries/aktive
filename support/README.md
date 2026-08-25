@@ -7,16 +7,17 @@
 1. Example utilities / support
 1. Image math
 
-| File				| Notes					|
-|---				|---					|
-|`dsl.tcl`			| Operator DSL				|
-|`ops/`	    			| Operator DSL support			|
-|	    			|					|
-|`blit.tcl` 			| Blitter DSL				|
-|`blit/`    			| Blitter DSL support			|
-|	    			|					|
-|`colors/`  			| Color database			|
-|				| 					|
-|`bench-gen-utilities.tcl`	| Benchmark generation utilities	|
-|				| 					|
-|`math/`			| Image math operation support		|
+| File				| Notes							|
+|---				|---							|
+|`dsl.tcl`			| Operator DSL						|
+|`ops/`	    			| Operator DSL support					|
+|	    			|							|
+|`blit.tcl` 			| Blitter DSL						|
+|`blit/`    			| Blitter DSL support					|
+|	    			|							|
+|`colors/`  			| Code-gen for database of named colors			|
+|				| 							|
+|`bench-gen-utilities.tcl`	| Benchmark generation utilities			|
+|				| 							|
+|`math/`			| Image math operation support (loop unrolling)		|
+|`reduce/`			| Image reducer operation support (loop unrolling)	|

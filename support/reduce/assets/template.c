@@ -5,29 +5,25 @@
  *
  * Generated code. See
  *
- * - data/reduce-gen.tcl
- * - data/reducefunc/spec.tcl
- * - data/reducefunc/fragments.tcl
- * - data/reducefunc/reduce.h
+ * - support/reduce/generator.tcl
+ * - support/reduce/assets/reduce.c
  */
-#ifndef AKTIVE_REDUCE_GEN_H
-#define AKTIVE_REDUCE_GEN_H
 
-#include <base.h>
+#include <generated/xreduce.h>
+#include <math.h>
+#include <complex.h>
+#include <critcl_trace.h>
+#include <critcl_alloc.h>
+#include <reduce.h>		// manually written functions, for baseline
+
+TRACE_OFF;
 
 /*
  * - - -- --- ----- -------- -------------
- * declarations
+ * definitions
  */
 
-@decl@
-
-/*
- * - - -- --- ----- -------- -------------
- * integration
- */
-
-@link@
+@definitions@
 
 /*
  * = = == === ===== ======== ============= =====================
@@ -37,4 +33,3 @@
  * fill-column: 78
  * End:
  */
-#endif /* AKTIVE_REDUCE_GEN_H */

@@ -11,7 +11,13 @@ kt check tcltest 2
 kt local testing aktive
 
 kt source support/util.tcl
-kt source ../data/reduce/spec.tcl	;# reducer list
+kt source ../support/reduce/db.tcl
+apply {{} {
+    kt source ../support/reduce/assets/ops.tcl	;# reducer operations
+    foreach entry [lsort -dict [glob ../support/reduce/assets/*/*/func.tcl]] {
+	kt source $entry
+    } ;# funcs & placeholders
+} reduce}
 
 # # ## ### ##### ######## ############# #####################
 ## Syntax - Not relevant for test-only commands
@@ -22,22 +28,20 @@ set N [::aktive::test::reduce-bands::size]
 
 # # ## ### ##### ######## ############# #####################
 
-foreach d {
+foreach depth {
     1 2 3 4 5 6 7 8
 } {
-    set maxw [expr {$N/$d}]
-    for {set w 1} {($w < 10000) && ($w < $maxw)} {set w [expr {10*$w}]} {
-	# w in {1, 10, 100, 1000}
-	foreach name $reducers {
-	    foreach impl {
-		perdepth unroll4
-	    } {
-		test aktive-reducer-band-${impl}-${name}-$w.$d "aktive reducer $name ($impl), w$w d$d" -body {
+    set maxwidth [expr {$N/$depth}]
+    for {set width 1} {($width < 10000) && ($width < $maxwidth)} {set width [expr {10*$width}]} {
+	# width in {1, 10, 100, 1000}
+	foreach name [reduce::names] {
+	    foreach variant [reduce::without-sys [reduce::for-axis band]] {
+		test aktive-reducer-band-${variant}-${name}-$width.$depth "aktive reducer $name ($variant), w$width d$depth" -body {
 		    # The test samples the input space (beyond the sampling done over depths and vector lengths)
 		    for {set k 0} {$k < 100} {incr k} {
-			::aktive::test::reduce-bands::init [expr {$w * $d}]
-			set expected [::aktive::test::reduce-bands::baseline::$name $w $d]
-			set actual   [::aktive::test::reduce-bands::${impl}::$name  $w $d]
+			::aktive::test::reduce-bands::init [expr {$width * $depth}]
+			set expected [::aktive::test::reduce-bands::baseline::$name $width $depth]
+			set actual   [::aktive::test::reduce-bands::${variant}::$name  $width $depth]
 			set ok       [expr {$expected == $actual}]
 			if {!$ok} break
 		    }
@@ -49,5 +53,6 @@ foreach d {
 }
 
 # # ## ### ##### ######## ############# #####################
+namespace delete reduce
 cleanupTests
 return

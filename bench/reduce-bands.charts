@@ -7,22 +7,21 @@
 ## This chart file generates the necessary gnuplot spec as well, due to the
 ## large and variable set of functions.
 
-source data/reduce/spec.tcl
+source support/reduce/db.tcl
+source support/reduce/assets/ops.tcl
 
 set plots {} ;# :: list (op0 name0 op1 name1 ...)
 
 # base charts
-foreach name $reducers {
+foreach name [reducers] {
     foreach depth {1 2 3 4 5 6 7 8} {
-	foreach impl {
-	    baseline perdepth unroll4
-	} {
+	foreach variant [without-xcheck [for-axis band]] {
 	    set     map {}
 	    lappend map @name@  $name
 	    lappend map @depth@ $depth
-	    lappend map @impl@  $impl
-	    chart reduce-bands-${impl}-${depth}-$name [string map $map {
-		only {name = 'aktive::bench::reduce-bands::@impl@::@name@/@depth@'}
+	    lappend map @variant@  $variant
+	    chart reduce-bands-${variant}-${depth}-$name [string map $map {
+		only {name = 'aktive::bench::reduce-bands::@variant@::@name@/@depth@'}
 		only {sink = 'n/a'}
 		range iwidth
 		nodump
@@ -35,14 +34,12 @@ foreach name $reducers {
 # 1. charts of single operator, across range of depths
 foreach name $reducers {
     if 0 {
-	foreach impl {
-	    baseline perdepth unroll4
-	} {
+	foreach variant [without-xcheck [for-axis band]] {
 	    # just impl
-	    chart reduce-bands-${impl}-$name [list side-by-side {*}[lmap depth {1 2 3 4 5 6 7 8} {
-		set _ reduce-bands-${impl}-${depth}-$name
+	    chart reduce-bands-${variant}-$name [list side-by-side {*}[lmap depth {1 2 3 4 5 6 7 8} {
+		set _ reduce-bands-${variant}-${depth}-$name
 	    }]]
-	    lappend plots $name reduce-bands-${impl}-$name 8
+	    lappend plots $name reduce-bands-${variant}-$name 8
 	}
 
 	# base vs special vs unroll4 - unrolled inner loop
@@ -68,9 +65,9 @@ foreach name $reducers {
 
     # panel base/special/unroll4 comparison at each (operator, depth) combination
     foreach depth {1 2 3 4 5 6 7 8} {
-	foreach impl {
-	    baseline perdepth unroll4
-	} { lappend parts reduce-bands-${impl}-${depth}-$name }
+	foreach variant [without-xcheck [for-axis band]] {
+	    lappend parts reduce-bands-${variant}-${depth}-$name
+	}
 	set n     [llength $parts]
 	set parts [list side-by-side {*}$parts]
 	chart reduce-bands-panel-${depth}-${name} $parts

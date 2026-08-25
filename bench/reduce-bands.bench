@@ -12,7 +12,13 @@ kb::check   Tcl 8.6
 kb::require support   debug
 kb::local   benchmark aktive
 
-source ../data/reduce/spec.tcl
+source ../tests/support/files.tcl
+source ../support/reduce/db.tcl
+apply {{} {
+    source ../support/reduce/assets/ops.tcl
+    foreach entry [lsort -dict [glob ../support/reduce/assets/*/*/func.tcl]] {
+	source $entry } ;# funcs & placeholders
+} reduce}
 
 # ### ### ### ######### ######### ######### ###########################
 ## Benchmarks Setup
@@ -27,7 +33,7 @@ set vlength {
     1000000
 }
 
-# log10(n) = (0...7) _ 1 to 100 million
+# log10(n) = (0...6) _ (1) to (1 million)
 # reduce iterations at the larger levels keep the overall execution
 # time in check
 
@@ -60,11 +66,9 @@ set iters {
 
 # ### ### ### ######### ######### ######### ###########################
 
-foreach impl {
-    baseline perdepth unroll4
-} {
-    foreach name $reducers {
-	set cmd aktive::bench::reduce-bands::${impl}::$name
+foreach variant [reduce::without-xcheck [reduce::for-axis band]] {
+    foreach name [reduce::names] {
+	set cmd aktive::bench::reduce-bands::${variant}::$name
 	if {![llength [info commands ::$cmd]]} continue
 	foreach depth {
 	    1 2 3 4 5 6 7 8
@@ -77,14 +81,15 @@ foreach impl {
 		set label [list $cmd/$depth n/a  n/a   $sz  $n:1   $n 1]
 		#               label       sink cores size aspect w  h
 		bench -iter $iter -desc $label -ipre {
-		    aktive::bench::reduce-bands::init $sz
+		    aktive::bench::reduce::init $sz
 		} -body {
 		    $cmd $n $depth
 		}
 	    } ;# width (vector length)
 	} ;# depth
     } ;# reducer op
-} ;# implementations
+} ;# implementations without cross check
 
 # ### ### ### ######### ######### ######### ###########################
+namespace delete reduce
 return
