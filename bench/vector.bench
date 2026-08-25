@@ -1,5 +1,4 @@
 # -*- tcl -*- tcl.tk//DSL tclbench//EN// Tcl Benchmark File
-return
 #
 # This file contains a number of low-level vector op benchmarks.
 #
@@ -13,7 +12,11 @@ kb::check   Tcl 8.6
 kb::require support   debug
 kb::local   benchmark aktive
 
-source ../data/math/spec.tcl
+source ../support/math/db.tcl
+apply {{} {
+    source ../support/math/assets/ops.tcl
+    source ../support/math/assets/functions.tcl	;# function specs
+} vectormath}
 
 # ### ### ### ######### ######### ######### ###########################
 ## Benchmarks Setup
@@ -21,9 +24,6 @@ source ../data/math/spec.tcl
 bench_puts "filling the random inputs..."
 set us [time aktive::bench::vecops::init 1]
 bench_puts "... done in $us"
-
-lappend ops unary [list {*}$unary0 {*}$unary1 {*}$unary2]
-lappend ops binary $binary
 
 set vlength {
     1
@@ -56,25 +56,25 @@ set iters {
 # ### ### ### ######### ######### ######### ###########################
 ## Benchmarks Execution
 
-foreach unroll {1 2 4} {
-    foreach {section operations} $ops {
-	foreach {
-	    name spec
-	} $operations {
-	    set cmd aktive::bench::vecops${unroll}::${section}::$name
-	    if {![llength [info commands ::$cmd]]} continue
+set ops [vectormath::ops scalar]
 
-	    foreach n $vlength {
-		set iter  [dict get $iters $n]
-		set label [list $cmd  n/a  n/a   $n   $n:1   $n 1]
-		#               label sink cores size aspect w  h
-		bench -iter $iter -desc $label -body {
-		    $cmd $n
-		}
-	    } ;# vlength
-	} ;# operations
+foreach unroll {1 2 4} {
+    foreach spec $ops {
+    	lassign $spec kind name _ _
+	set cmd aktive::bench::vecops${unroll}::${kind}::$name
+	if {![llength [info commands ::$cmd]]} continue
+
+	foreach n $vlength {
+	    set iter  [dict get $iters $n]
+	    set label [list $cmd  n/a  n/a   $n   $n:1   $n 1]
+	    #               label sink cores size aspect w  h
+	    bench -iter $iter -desc $label -body {
+		$cmd $n
+	    }
+	} ;# vlength
     } ;# ops
 } ;# unroll
 
 # ### ### ### ######### ######### ######### ###########################
+namespace delete vectormath
 return

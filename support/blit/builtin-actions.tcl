@@ -210,12 +210,12 @@
 ## blit vector actions
 
 apply {{} {
-    source support/math/db.tcl			;# generator data base
-    source support/math/assets/ops.tcl		;# operator specs
+    source support/math/db.tcl			;# vector math database
+    apply {{} {
+	source support/math/assets/ops.tcl	;# vector function specs
+    } vectormath}
 
-    #source support/math/spec.tcl
-
-    foreach spec [ops scalar] {
+    foreach spec [vectormath::ops scalar] {
 	lassign $spec kind name arguments statements
 
 	set params ""
@@ -244,7 +244,9 @@ apply {{} {
 	    }
 	}
 	unset map
-   }
+    }
+
+    namespace delete vectormath
 }}
 
 # # ## ### ##### ######## #############
