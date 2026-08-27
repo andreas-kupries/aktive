@@ -1,0 +1,58 @@
+# -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
+## (c) 2026 Andreas Kupries
+# # ## ### ##### ######## ############# #####################
+## AKTIVE. Row reducers. Cross check the variants against each other
+
+kt check Tcl     8.6 9
+kt check tcltest 2
+
+# # ## ### ##### ######## ############# #####################
+
+kt local testing aktive
+
+kt source support/util.tcl
+kt source ../support/reduce/db.tcl
+apply {{} {
+    kt source ../support/reduce/assets/ops.tcl	;# reducer operations
+    foreach entry [lsort -dict [glob ../support/reduce/assets/*/*/func.tcl]] {
+	kt source $entry
+    } ;# funcs & placeholders
+} reduce}
+
+# # ## ### ##### ######## ############# #####################
+## Syntax - Not relevant for test-only commands
+
+# # ## ### ##### ######## ############# #####################
+::aktive::test::reduce::init
+set N [::aktive::test::reduce::size]
+
+# # ## ### ##### ######## ############# #####################
+
+foreach depth {
+    1 2 3 4 5 6 7 8
+} {
+    set maxwidth [expr {$N/$depth}]
+    for {set width 1} {($width < 10000) && ($width < $maxwidth)} {set width [expr {10*$width}]} {
+	# width in {1, 10, 100, 1000}
+	foreach name [reduce::names] {
+	    foreach variant [reduce::without-sys [reduce::for-axis row]] {
+		test aktive-reducer-row-${variant}-${name}-$width.$depth "aktive reducer $name ($variant), w$width d$depth" -body {
+		    # The test samples the input space (beyond the sampling done over depths and vector lengths)
+		    for {set k 0} {$k < 100} {incr k} {
+			::aktive::test::reduce::init [expr {$width * $depth}]
+			set expected [::aktive::test::reduce-rows::baseline::$name $width $depth]
+			set actual   [::aktive::test::reduce-rows::${variant}::$name  $width $depth]
+			set ok       [expr {$expected == $actual}]
+			if {!$ok} break
+		    }
+		    set ok
+		} -result 1
+	    }
+	}
+    }
+}
+
+# # ## ### ##### ######## ############# #####################
+namespace delete reduce
+cleanupTests
+return

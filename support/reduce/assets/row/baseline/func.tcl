@@ -5,10 +5,10 @@
 # against.
 
 def-func row baseline {
-    lappend map @name@ $name
+    placeholder @name@ $name
 } {
-    aktive_uint k;
-    for (k = 0; k < stride; k++, dst ++, src ++) {
-	*dst = aktive_reduce_@name@ (src, count, stride, 0 /* client data, ignored */);
+    aktive_uint k, depth = stride, pixels = count;
+    for (k = 0; k < depth; k++, dst ++, src ++) {
+	*dst = aktive_reduce_@name@ (src, count, depth, 0 /* client data, ignored */);
     }
 }

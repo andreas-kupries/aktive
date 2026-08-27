@@ -1,0 +1,8 @@
+id,reduce-rows-baseline-4-sumsquared,reduce-rows-perdepth0-4-sumsquared,reduce-rows-perdepth1-4-sumsquared
+0,0.655,0.601,0.522
+1,1.689,1.56,1.677
+2,4.736,3.401,2.749
+3,25.657,19.262,14.691
+4,204.108,128.362,130.633
+5,2009.959,1245.948,1269.209
+6,20448.21,12415.34,12634.58

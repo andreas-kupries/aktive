@@ -1,0 +1,8 @@
+id,reduce-rows-baseline-1-variance,reduce-rows-perdepth0-1-variance,reduce-rows-perdepth1-1-variance
+0,0.591,0.53,0.57
+1,1.317,1.196,1.38
+2,2.203,2.417,2.514
+3,11.942,8.783,7.769
+4,76.786,71.876,61.014
+5,728.134,680.386,542.337
+6,7233.64,6749.4,5416.59

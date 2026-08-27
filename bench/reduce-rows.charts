@@ -1,0 +1,339 @@
+# -*- tcl -*-
+# # ## ### ##### ######## ############# #####################
+## general structure is
+## - create several simple series
+## - merge the series into a side by side comparison
+#
+## This chart file generates the necessary gnuplot spec as well, due to the
+## large and variable set of functions.
+
+source tests/support/files.tcl
+source support/reduce/db.tcl
+apply {{} {
+    source support/reduce/assets/ops.tcl
+    foreach entry [lsort -dict [glob support/reduce/assets/*/*/func.tcl]] {
+	source $entry } ;# funcs & placeholders
+} reduce}
+
+set plots {} ;# :: list (op0 name0 op1 name1 ...)
+
+# base charts - one per (variant, operation, depth)
+
+foreach name [reduce::names] {
+    foreach depth {1 2 3 4 5 6 7 8} {
+	foreach variant [reduce::without-xcheck [reduce::for-axis row]] {
+	    set     map {}
+	    lappend map @name@     $name
+	    lappend map @depth@    $depth
+	    lappend map @variant@  $variant
+	    chart reduce-rows-${variant}-${depth}-$name [string map $map {
+		only {name = 'aktive::bench::reduce-rows::@variant@::@name@/@depth@'}
+		only {sink = 'n/a'}
+		range iwidth
+		nodump
+	    }]
+	}
+    } ;# depth
+} ;# reducers
+
+# aggregations
+# - charts of single operator, all variants, one per benchmarked depth
+
+foreach name [reduce::names] {
+    # panel base/special/unroll4 comparison at each (operator, depth) combination
+    foreach depth {1 2 3 4 5 6 7 8} {
+	foreach variant [reduce::without-xcheck [reduce::for-axis row]] {
+	    lappend parts reduce-rows-${variant}-${depth}-$name
+	}
+	set n     [llength $parts]
+	set parts [list side-by-side {*}$parts]
+	chart reduce-rows-panel-${depth}-${name} $parts
+	lappend plots $name reduce-rows-panel-${depth}-${name} $n
+	unset parts
+    }
+} ;# reducers
+
+# # ## ### ##### ######## ############# #####################
+# # ## ### ##### ######## ############# #####################
+##
+## gnuplot generation
+##
+# # ## ### ##### ######## ############# #####################
+
+puts "generating gnuplot spec ..."
+
+proc + {{s {}}} { lappend ::lines $s }
+proc // {{s {}}} { if {$s ne {}} { set s " $s" } ; + "#$s" }
+proc g {}  { set result [join $::lines \n] ; set ::lines {} ; return $result }
+proc w {p s} {
+    puts "writing $p"
+    set chan [open $p w] ; puts -nonewline $chan $s ; close $chan }
+
+proc header {title} {
+    upvar 1 lines lines   
+    + {<img src='../../../doc/assets/aktive-logo-128.png' style='float:right;'>}
+    +
+    + "Benchmark results for row reducers - $title"
+    +
+    + {||}
+    + {|---|}
+    + {|[Parent ↗](README.md)|}
+    +
+    + "## Summary"
+}
+
+# # ## ### ##### ######## ############# #####################
+
+// "_ _ __ ___ _____ ________ _____________ _____________________"
+// "generation for reducer benchmarking"
++
++ "set datafile   separator ','"
++ "set key        autotitle columnhead				# use the first line as title"
++ "set terminal   svg enhanced dynamic font 'Arial,12'"
+// "BEWARE. Each plot requires a separate outputfile."
++
++ "set size ratio 0.71 # for the A4 ratio"
++ "set boxwidth   0.9"
++ "set style      fill solid"
++
+
+# execution times per operation, vector length and depth
+
+// "_ _ __ ___ _____ ________ _____________ _____________________"
++
++ "set xlabel \"log10(size)\""
++ "set ylabel  \"Microseconds\""
++ "set logscale y"
++
+foreach {
+    op id count
+} $plots {
+    + "datasource1 = \"$id.csv\""
+    set plotcmd "plot"
+    for {set k 0; set col 2; set prefix ""} {$k < $count} {incr k} {
+	append plotcmd "$prefix datasource1 using 1:$col with lines"
+	set prefix ", \\\n    "
+	incr col
+    }
+    + "set title \"reduce times per \#rows: $op\""
+    + "set output \"times-$id.svg\""
+    + $plotcmd
+    +
+} ;# plots
+
+# execution speed per operation, vector length, and depth
+# (inverted actually, as time per value, lower is better)
+
+// "_ _ __ ___ _____ ________ _____________ _____________________"
++
++ "set ylabel  \"Nanoseconds/value\""
++ "set logscale y"
++
+foreach {
+    op id count
+} $plots {
+    + "datasource1 = \"$id.csv\""
+    set plotcmd "plot"
+    for {set k 0; set col 2; set prefix ""} {$k < $count} {incr k} {
+	append plotcmd "$prefix datasource1 using 1:(1000*\$$col/(10**\$1)) with lines"
+	set prefix ", \\\n    "
+	incr col
+    }
+    + "set title \"reduce 1/speed: $op\""
+    + "set output \"ispeed-$id.svg\""
+    + $plotcmd
+    +
+} ;# plots
+
+// "_ _ __ ___ _____ ________ _____________ _____________________"
+
+w generated/reduce-rows.gnuplot [g]
+
+# # ## ### ##### ######## ############# #####################
+## gnuplot rendering
+
+puts "rendering gnuplot spec ..."
+
+exec 2>@ stderr >@ stdout gnuplot generated/reduce-rows.gnuplot
+
+puts "... done"
+
+# # ## ### ##### ######## ############# #####################
+## stash charts (.csv) and renders (.svg) into the bench area
+
+file mkdir         bench/plots/reduce-rows
+
+file delete -force bench/plots/reduce-rows/csv ; file mkdir bench/plots/reduce-rows/csv
+file delete -force bench/plots/reduce-rows/svg ; file mkdir bench/plots/reduce-rows/svg
+file delete -force {*}[glob -type f bench/plots/reduce-rows/*.md]
+
+file rename -force {*}[glob -type f *.csv] bench/plots/reduce-rows/csv
+file rename -force {*}[glob -type f *.svg] bench/plots/reduce-rows/svg
+
+# # ## ### ##### ######## ############# #####################
+## Create README
+
+puts "generating README ..."
+
++ {<img src='../../../doc/assets/aktive-logo-128.png' style='float:right;'>}
++
++ "Benchmark results for row reducers"
++
++ {||}
++ {|---|}
++ {|[Parent ↗](../README.md)|}
++
++ "## Summary"
++ [string map [list "    " ""] {
+
+    ### Aug 27, 2026
+
+    The big outliers are the two profile operations, where the
+    unrolling makes them very much worse than the baseline. The
+    reasons for that are actually quite simple. The baseline
+    implementation checks only until it finds the desired border and
+    then stops. Whereas the framework always scans the entire
+    vector. In other words, while both baseline and framework are
+    `O(n)` theoretically, for baseline this is worst-case behaviour,
+    leaving us with a much smaller constant compared to the framework.
+
+    Beyond that, for most cases there is no speed difference for
+    vector sizes up to a hundred pixels, regardless of depth. Thus,
+    while the code complexity of the unrolling does not give us
+    anything there, the overhead does not hurt us either. Mostly. The
+    exceptions are `stddev` and `variance`, for `depths > 4`. In the
+    balance I see no reason to introduce different methodologies based
+    on vector size.
+
+    In the following table we show the best variant per operator and
+    depth, for `baseline` (b), `perdepth0` (p0), and `perdepth1` (p1).
+    
+    |Op         |1    |     |2    |3    |     |4    |5+   |
+    |---        |---: |---: |---: |---: |---: |---: |---: |
+    |argmax     |p1   |     |p1   |p1   |     |p1   |p1   |
+    |argmin     |p1   |     |p1   |p1   |     |p1   |p1   |
+    |max        |p1   |     |p1   |p1   |     |p1   |p1   |
+    |mean       |p1   |     |p1   |p1   |     |p1   |p1   |
+    |min        |p1   |     |p1   |p1   |     |p1   |p1   |
+    |profile    |b    |     |b    |b    |     |b    |b    |
+    |rprofile   |b    |     |b    |b    |     |b    |b    |
+    |stddev     |p1   |     |p1   |p1   |     |p1   |p1   |
+    |sum        |p1   |     |p1   |p1   |     |p1   |p1   |
+    |sumsquared |p1   |     |p1   |p1   |     |p1   |p1   |
+    |variance   |p1   |     |p1   |p1   |     |p1   |p1   |
+
+    Overall I am giving the win to `perdepth1`.
+
+    To get the profiles up to speed we need two things the framework currently does not have:
+
+    1. The ability to specify a stop condition enabling the loops to abort early, and
+
+    1. The ability to scan the vector from the end.
+
+    The first is required for both profile operations. The second applies only to `rprofile`.
+
+    Defer this to later.
+}]
+
++ "## Plots"
++
++ "  - \[All\](plots-all.md)"
++
++ "### Speed per operator, across depths"
++
+foreach op [lsort -uniq [lsort -dict [lmap {
+    op id count
+} $plots {
+    set op
+}]]] {
+    + "  - \[$op\](plots-operator-${op}.md)"
+}
++
++ "### Speed per depth, across operators"
++
+foreach depth [lsort -uniq [lsort -dict [lmap {
+    op id count
+} $plots {
+    lassign [split $id -] _ _ _ depth _
+    set depth
+}]]] {
+    + "  - \[$depth\](plots-depth-${depth}.md)"
+}
++
+
+w bench/plots/reduce-rows/README.md [g]
+
+
+# # ## ### ##### ######## ############# #####################
+## Create `all plots`
+
+header {All plots}
+foreach {
+    op id count
+} $plots {
+    set speed "svg/ispeed-$id.svg"
+    set times "svg/times-$id.svg"
+    +
+    + "\[<img src='$times' style='width:46%;'>]($times)"
+    + "\[<img src='$speed' style='width:46%;'>]($speed)"
+} ;# plots
++
+
+w bench/plots/reduce-rows/plots-all.md [g]
+
+# # ## ### ##### ######## ############# #####################
+## Create per operator, depths
+
+foreach {
+    op id count
+} $plots {
+    lassign [split $id -] _ _ _ depth _
+    dict set __ /$op $depth $id
+    dict set __ d$depth $op $id
+    #puts "|$op d=($depth) $id|"
+}
+
+foreach op [lsort -uniq [lsort -dict [lmap {
+    op id count
+} $plots {
+    set op
+}]]] {
+    header "$op, across depths"
+    +
+    + "Showing 1/speed, nanoseconds per value, smaller is faster"
+    +
+    foreach {depth id} [dict get $__ /$op] {
+	set speed "svg/ispeed-$id.svg"
+	+ "\[<img src='$speed' style='width:24%;'>]($speed)"
+    }
+    +
+    
+    w bench/plots/reduce-rows/plots-operator-${op}.md [g]
+}
+
+# # ## ### ##### ######## ############# #####################
+## Create per depth, operators
+
+foreach depth [lsort -uniq [lsort -dict [lmap {
+    op id count
+} $plots {
+    lassign [split $id -] _ _ _ depth _
+    set depth
+}]]] {
+    header "Depth $depth, across operators"
+    +
+    + "Showing 1/speed, nanoseconds per value, smaller is faster"
+    +
+    foreach {op id} [dict get $__ d$depth] {
+	set speed "svg/ispeed-$id.svg"
+	+ "\[<img src='$speed' style='width:24%;'>]($speed)"
+    }
+    +
+
+    w bench/plots/reduce-rows/plots-depth-${depth}.md [g]
+}
+
+puts "... done"
+
+# # ## ### ##### ######## ############# #####################
+return

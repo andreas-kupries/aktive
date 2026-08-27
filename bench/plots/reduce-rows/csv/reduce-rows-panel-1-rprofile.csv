@@ -1,0 +1,8 @@
+id,reduce-rows-baseline-1-rprofile,reduce-rows-perdepth0-1-rprofile,reduce-rows-perdepth1-1-rprofile
+0,0.5,0.497,0.939
+1,0.942,1.017,0.895
+2,1.011,1.239,1.234
+3,0.531,2.98,2.146
+4,0.739,23.662,11.307
+5,0.84,220.976,107.298
+6,5.26,2200.98,1129.78

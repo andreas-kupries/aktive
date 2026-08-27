@@ -5,16 +5,21 @@
 # implementation.
 
 def-func row crosscheck {
-    lappend map @name@ $name
+    placeholder @name@ $name
 } [apply {{} {
     lappend lines {
-	aktive_uint band, column, n = pixels * depth;
+	aktive_uint band, column, depth = stride, pixels = count, n = pixels * depth;
 	double* rchecked;
 	char*   rname;
     }
+    # lappend lines { fprintf(stderr, "xcheck/@name@ (pix=%d, dep=%d) ______________________________________________\n", pixels, depth); }
     # execute all preceding implementations
     foreach variant [for-axis row] {
-	lappend lines "double *r$variant = NALLOC (double, count); aktive_reduce_rows_${variant}_@name@ (r$variant, src, pixels, depth);"
+	set alloc "double *r$variant = NALLOC (double, count);"
+	#set debug " fprintf(stderr, \"${variant}/@name@ (pix=%d, dep=%d)\\n\", pixels, depth);"
+	set debug ""
+	set run   " aktive_reduce_rows_${variant}_@name@ (r$variant, src, pixels, depth);"
+	lappend lines "$alloc$debug$run"
     }
     # cross check each implementation against the first, except the first. the
     # first is considered to be the good reference the others have to match.
@@ -25,7 +30,7 @@ def-func row crosscheck {
 	    for (band = 0; band < depth; band++) {
 		if (r%%variant%%[band] == rbaseline[band]) continue; // OK
 		// difference found, failed, print source, results, then stop
-		rname    = "%%varian%%/@name@";
+		rname    = "%%variant%%/@name@";
 		rchecked = r%%variant%%;
 		goto dump;
 	    }
@@ -40,7 +45,9 @@ def-func row crosscheck {
 	    fprintf (stderr, "FAIL %s\n",       rname);
 	    fprintf (stderr, "  width  = %d\n", pixels);
 	    fprintf (stderr, "  depth  = %d\n", depth);
-	    fprintf (stderr, "MISMATCH on band %d - (%f != %f)\n", band, rbaseline[band], rchecked[band]);
+	    fprintf (stderr, "  band   = %d\n", band);
+	    fprintf (stderr, "MISMATCH (expected %f != got %f)\n",
+		     rbaseline[band], rchecked[band]);
 	    fprintf (stderr, "src[%d] = {", band);
 	    for (column = 0; column < pixels; column++) {
 		fprintf (stderr, " %f", src[column*depth+band]);
@@ -50,7 +57,7 @@ def-func row crosscheck {
 	}
     }
     # use the result from the last implementation as the actual result
-    lappend lines "memcpy (dst, [lindex [for-axis row] end], depth*sizeof(double));"
+    lappend lines "memcpy (dst, r[lindex [for-axis row] end], depth*sizeof(double));"
     # release the internal temp memory
     foreach name [for-axis row] {
 	lappend lines "FREE (r$name);"

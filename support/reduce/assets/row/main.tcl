@@ -18,26 +18,29 @@ proc gen-row {name} {
     global benchmarking testing
     if {$benchmarking} {
 	# benchmarking uses all known implementations, except for cross-checking
-	build-func row baseline $name
+	build-func row baseline  $name
+	build-func row perdepth0 $name
+	build-func row perdepth1 $name
 	return
     } elseif {$testing} {
 	# testing needs all known implementations
 	build-func row baseline $name
+	build-func row perdepth0 $name
+	build-func row perdepth1 $name
 	# so that the cross-checker is able to ensure result validity.
-	#build-func band crosscheck $name
+	build-func row crosscheck $name
 	return
     }
 
     # in production mode choose the best implementation for each reductor
 
-    if 0 {if {$name in {sumsquared stddev variance}} {
-	# production complex - keep to special, unrolling is worse
-	build-func row perdepth $name
-    } else {
-	# production general - unroll
-	build-func row unroll4 $name
-    }}
+    if {$name in {
+	profile rprofile
+    }} {
+	build-func row baseline $name
+	return
+    }
 
-    build-func row baseline $name
+    build-func row perdepth1 $name
     return
 }
