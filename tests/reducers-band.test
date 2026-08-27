@@ -23,8 +23,8 @@ apply {{} {
 ## Syntax - Not relevant for test-only commands
 
 # # ## ### ##### ######## ############# #####################
-::aktive::test::reduce-bands::init
-set N [::aktive::test::reduce-bands::size]
+::aktive::test::reduce::init
+set N [::aktive::test::reduce::size]
 
 # # ## ### ##### ######## ############# #####################
 
@@ -39,7 +39,7 @@ foreach depth {
 		test aktive-reducer-band-${variant}-${name}-$width.$depth "aktive reducer $name ($variant), w$width d$depth" -body {
 		    # The test samples the input space (beyond the sampling done over depths and vector lengths)
 		    for {set k 0} {$k < 100} {incr k} {
-			::aktive::test::reduce-bands::init [expr {$width * $depth}]
+			::aktive::test::reduce::init [expr {$width * $depth}]
 			set expected [::aktive::test::reduce-bands::baseline::$name $width $depth]
 			set actual   [::aktive::test::reduce-bands::${variant}::$name  $width $depth]
 			set ok       [expr {$expected == $actual}]

@@ -3,55 +3,55 @@
 # the outer (pixel) loop.
 
 def-func band unroll4 {
-    lappend map @name@    $name
-    lappend map @once@    $once
+    placeholder @name@    $name
+    placeholder @once@    $once
     #
-    lappend map @single@       [single $single stride]
-    lappend map @single0@ [map [single $single stride] *src {src[0]}]
-    lappend map @single1@ [map [single $single stride] *src {src[1]}]
-    lappend map @single2@ [map [single $single stride] *src {src[2]}]
-    lappend map @single3@ [map [single $single stride] *src {src[3]}]
+    placeholder @single@       [single $single stride]
+    placeholder @single0@ [map [single $single stride] *src {src[0]}]
+    placeholder @single1@ [map [single $single stride] *src {src[1]}]
+    placeholder @single2@ [map [single $single stride] *src {src[2]}]
+    placeholder @single3@ [map [single $single stride] *src {src[3]}]
     #
-    lappend map @setup@   [map $setup         @N stride @A acc]           ;# loop setup
-    lappend map @final@   [map $finalize      @N stride @A acc @R *dst]     ;# post-processing
-    lappend map @reduce@  [map $reduce   @I j @N stride @A acc @V {src[j]}] ;# generic loop
-    lappend map @reduce0@ [map $reduce   @I 0 @N stride @A acc @V {src[0]}] ;# unrolled inner
-    lappend map @reduce1@ [map $reduce   @I 1 @N stride @A acc @V {src[1]}] ;# s.a
-    lappend map @reduce2@ [map $reduce   @I 2 @N stride @A acc @V {src[2]}] ;# s.a
-    lappend map @reduce3@ [map $reduce   @I 3 @N stride @A acc @V {src[3]}] ;# s.a
+    placeholder @setup@   [map $setup         @N stride @A acc]           ;# loop setup
+    placeholder @final@   [map $finalize      @N stride @A acc @R *dst]     ;# post-processing
+    placeholder @reduce@  [map $reduce   @I j @N stride @A acc @V {src[j]}] ;# generic loop
+    placeholder @reduce0@ [map $reduce   @I 0 @N stride @A acc @V {src[0]}] ;# unrolled inner
+    placeholder @reduce1@ [map $reduce   @I 1 @N stride @A acc @V {src[1]}] ;# s.a
+    placeholder @reduce2@ [map $reduce   @I 2 @N stride @A acc @V {src[2]}] ;# s.a
+    placeholder @reduce3@ [map $reduce   @I 3 @N stride @A acc @V {src[3]}] ;# s.a
     #
     #
-    lappend map @setup0@     [map $setup             @N stride @A acc0]              ;# loop setup, lane 0
-    lappend map @final0@     [map $finalize          @N stride @A acc0 @R {dst[0]}]    ;# post-processing
-    lappend map @reduce0*@   [map $reduce   @I (0+j) @N stride @A acc0 @V {src[0+j]}]  ;# unrolled inner
-    lappend map @reduce0/0@  [map $reduce   @I 0     @N stride @A acc0 @V {src[d0+0]}] ;# unrolled inner
-    lappend map @reduce0/1@  [map $reduce   @I 1     @N stride @A acc0 @V {src[d0+1]}] ;# unrolled inner
-    lappend map @reduce0/2@  [map $reduce   @I 2     @N stride @A acc0 @V {src[d0+2]}] ;# unrolled inner
-    lappend map @reduce0/3@  [map $reduce   @I 3     @N stride @A acc0 @V {src[d0+3]}] ;# unrolled inner
+    placeholder @setup0@     [map $setup             @N stride @A acc0]              ;# loop setup, lane 0
+    placeholder @final0@     [map $finalize          @N stride @A acc0 @R {dst[0]}]    ;# post-processing
+    placeholder @reduce0*@   [map $reduce   @I (0+j) @N stride @A acc0 @V {src[0+j]}]  ;# unrolled inner
+    placeholder @reduce0/0@  [map $reduce   @I 0     @N stride @A acc0 @V {src[d0+0]}] ;# unrolled inner
+    placeholder @reduce0/1@  [map $reduce   @I 1     @N stride @A acc0 @V {src[d0+1]}] ;# unrolled inner
+    placeholder @reduce0/2@  [map $reduce   @I 2     @N stride @A acc0 @V {src[d0+2]}] ;# unrolled inner
+    placeholder @reduce0/3@  [map $reduce   @I 3     @N stride @A acc0 @V {src[d0+3]}] ;# unrolled inner
     #
-    lappend map @setup1@     [map $setup             @N stride @A acc1]              ;# loop setup, lane 1
-    lappend map @final1@     [map $finalize          @N stride @A acc1 @R {dst[1]}]    ;# post-processing
-    lappend map @reduce1*@   [map $reduce   @I (1+j) @N stride @A acc1 @V {src[1+j]}]  ;# s.a
-    lappend map @reduce1/0@  [map $reduce   @I 0     @N stride @A acc1 @V {src[d1+0]}] ;# unrolled inner
-    lappend map @reduce1/1@  [map $reduce   @I 1     @N stride @A acc1 @V {src[d1+1]}] ;# unrolled inner
-    lappend map @reduce1/2@  [map $reduce   @I 2     @N stride @A acc1 @V {src[d1+2]}] ;# unrolled inner
-    lappend map @reduce1/3@  [map $reduce   @I 3     @N stride @A acc1 @V {src[d1+3]}] ;# unrolled inner
+    placeholder @setup1@     [map $setup             @N stride @A acc1]              ;# loop setup, lane 1
+    placeholder @final1@     [map $finalize          @N stride @A acc1 @R {dst[1]}]    ;# post-processing
+    placeholder @reduce1*@   [map $reduce   @I (1+j) @N stride @A acc1 @V {src[1+j]}]  ;# s.a
+    placeholder @reduce1/0@  [map $reduce   @I 0     @N stride @A acc1 @V {src[d1+0]}] ;# unrolled inner
+    placeholder @reduce1/1@  [map $reduce   @I 1     @N stride @A acc1 @V {src[d1+1]}] ;# unrolled inner
+    placeholder @reduce1/2@  [map $reduce   @I 2     @N stride @A acc1 @V {src[d1+2]}] ;# unrolled inner
+    placeholder @reduce1/3@  [map $reduce   @I 3     @N stride @A acc1 @V {src[d1+3]}] ;# unrolled inner
     #
-    lappend map @setup2@     [map $setup             @N stride @A acc2]              ;# loop setup, lane 2
-    lappend map @final2@     [map $finalize          @N stride @A acc2 @R {dst[2]}]    ;# post-processing
-    lappend map @reduce2*@   [map $reduce   @I (2+j) @N stride @A acc2 @V {src[2+j]}]  ;# s.a
-    lappend map @reduce2/0@  [map $reduce   @I 0     @N stride @A acc2 @V {src[d2+0]}] ;# unrolled inner
-    lappend map @reduce2/1@  [map $reduce   @I 1     @N stride @A acc2 @V {src[d2+1]}] ;# unrolled inner
-    lappend map @reduce2/2@  [map $reduce   @I 2     @N stride @A acc2 @V {src[d2+2]}] ;# unrolled inner
-    lappend map @reduce2/3@  [map $reduce   @I 3     @N stride @A acc2 @V {src[d2+3]}] ;# unrolled inner
+    placeholder @setup2@     [map $setup             @N stride @A acc2]              ;# loop setup, lane 2
+    placeholder @final2@     [map $finalize          @N stride @A acc2 @R {dst[2]}]    ;# post-processing
+    placeholder @reduce2*@   [map $reduce   @I (2+j) @N stride @A acc2 @V {src[2+j]}]  ;# s.a
+    placeholder @reduce2/0@  [map $reduce   @I 0     @N stride @A acc2 @V {src[d2+0]}] ;# unrolled inner
+    placeholder @reduce2/1@  [map $reduce   @I 1     @N stride @A acc2 @V {src[d2+1]}] ;# unrolled inner
+    placeholder @reduce2/2@  [map $reduce   @I 2     @N stride @A acc2 @V {src[d2+2]}] ;# unrolled inner
+    placeholder @reduce2/3@  [map $reduce   @I 3     @N stride @A acc2 @V {src[d2+3]}] ;# unrolled inner
     #
-    lappend map @setup3@     [map $setup             @N stride @A acc3]              ;# loop setup, lane 3
-    lappend map @final3@     [map $finalize          @N stride @A acc3 @R {dst[3]}]    ;# post-processing
-    lappend map @reduce3*@   [map $reduce   @I (3+j) @N stride @A acc3 @V {src[3+j]}]  ;# s.a
-    lappend map @reduce3/0@  [map $reduce   @I 0     @N stride @A acc3 @V {src[d3+0]}] ;# unrolled inner
-    lappend map @reduce3/1@  [map $reduce   @I 1     @N stride @A acc3 @V {src[d3+1]}] ;# unrolled inner
-    lappend map @reduce3/2@  [map $reduce   @I 2     @N stride @A acc3 @V {src[d3+2]}] ;# unrolled inner
-    lappend map @reduce3/3@  [map $reduce   @I 3     @N stride @A acc3 @V {src[d3+3]}] ;# unrolled inner
+    placeholder @setup3@     [map $setup             @N stride @A acc3]              ;# loop setup, lane 3
+    placeholder @final3@     [map $finalize          @N stride @A acc3 @R {dst[3]}]    ;# post-processing
+    placeholder @reduce3*@   [map $reduce   @I (3+j) @N stride @A acc3 @V {src[3+j]}]  ;# s.a
+    placeholder @reduce3/0@  [map $reduce   @I 0     @N stride @A acc3 @V {src[d3+0]}] ;# unrolled inner
+    placeholder @reduce3/1@  [map $reduce   @I 1     @N stride @A acc3 @V {src[d3+1]}] ;# unrolled inner
+    placeholder @reduce3/2@  [map $reduce   @I 2     @N stride @A acc3 @V {src[d3+2]}] ;# unrolled inner
+    placeholder @reduce3/3@  [map $reduce   @I 3     @N stride @A acc3 @V {src[d3+3]}] ;# unrolled inner
 } {
     @once@
     #define PIXELS4(step) for (k = count; k > 4; k-= 4, dst += 4, src += 4*(step))

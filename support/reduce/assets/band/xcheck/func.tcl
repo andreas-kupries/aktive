@@ -5,7 +5,7 @@
 # implementation.
 
 def-func band crosscheck {
-    lappend map @name@ $name
+    placeholder @name@ $name
 } [apply {{} {
     lappend lines "aktive_uint k, n = count * stride;"
     # execute all preceding implementations
@@ -22,12 +22,10 @@ def-func band crosscheck {
 	lappend lines "    fprintf (stderr, \"$name\\n\");"
 	lappend lines "    fprintf (stderr, \"width    = %d\\n\", count);"
 	lappend lines "    fprintf (stderr, \"depth    = %d\\n\", stride);"
-	lappend lines "    fprintf (stderr, \"mismatch ! %d %f != %f\\n\", k, ${first}\[k], ${name}\[k]);"
+	lappend lines "    fprintf (stderr, \"MISMATCH ! %d expected %f != got %f\\n\", k, ${first}\[k], ${name}\[k]);"
 	lappend lines "    aktive_uint j;"
 	lappend lines "    fprintf (stderr, \"src\[%d] = \{\", k);"
-	lappend lines "    for (j = 0; j < stride; j++) \{"
-	lappend lines "        fprintf (stderr, \" %f\", src\[k*stride+j]);"
-	lappend lines "    \}"
+	lappend lines "    for (j = 0; j < stride; j++) \{ fprintf (stderr, \" %f\", src\[k*stride+j]); \}"
 	lappend lines "    fprintf (stderr, \" \}\\n\");"
 	lappend lines "    ASSERT (0, \"MISMATCH\");"
 	lappend lines "\}"

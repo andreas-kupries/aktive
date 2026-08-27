@@ -7,15 +7,20 @@
 ## This chart file generates the necessary gnuplot spec as well, due to the
 ## large and variable set of functions.
 
+source ../tests/support/files.tcl
 source support/reduce/db.tcl
-source support/reduce/assets/ops.tcl
+apply {{} {
+    source support/reduce/assets/ops.tcl
+    foreach entry [lsort -dict [glob ../support/reduce/assets/*/*/func.tcl]] {
+	source $entry } ;# funcs & placeholders
+} reduce}
 
 set plots {} ;# :: list (op0 name0 op1 name1 ...)
 
 # base charts
-foreach name [reducers] {
+foreach name [reduce::names] {
     foreach depth {1 2 3 4 5 6 7 8} {
-	foreach variant [without-xcheck [for-axis band]] {
+	foreach variant [reduce::without-xcheck [reduce::for-axis band]] {
 	    set     map {}
 	    lappend map @name@  $name
 	    lappend map @depth@ $depth
@@ -32,40 +37,10 @@ foreach name [reducers] {
 
 # aggregations
 # 1. charts of single operator, across range of depths
-foreach name $reducers {
-    if 0 {
-	foreach variant [without-xcheck [for-axis band]] {
-	    # just impl
-	    chart reduce-bands-${variant}-$name [list side-by-side {*}[lmap depth {1 2 3 4 5 6 7 8} {
-		set _ reduce-bands-${variant}-${depth}-$name
-	    }]]
-	    lappend plots $name reduce-bands-${variant}-$name 8
-	}
-
-	# base vs special vs unroll4 - unrolled inner loop
-	chart reduce-bands-sbunroll-$name [list side-by-side {*}[lmap depth {1 2 3 4} {
-	    set _ reduce-bands-baseline-${depth}-$name
-	}] {*}[lmap depth {1 2 3 4} {
-	    set _ reduce-bands-perdepth-${depth}-$name
-	}] {*}[lmap depth {1 2 3 4} {
-	    set _ reduce-bands-unroll4-${depth}-$name
-	}]]
-	lappend plots $name reduce-bands-sbunroll-$name 8
-
-	# base vs special vs unroll 4 - generic range
-	chart reduce-bands-sbgeneric-$name [list side-by-side {*}[lmap depth {5 6 7 8} {
-	    set _ reduce-bands-baseline-${depth}-$name
-	}] {*}[lmap depth {5 6 7 8} {
-	    set _ reduce-bands-perdepth-${depth}-$name
-	}] {*}[lmap depth {5 6 7 8} {
-	    set _ reduce-bands-unroll4-${depth}-$name
-	}]]
-	lappend plots $name reduce-bands-sbgeneric-$name 8
-    }
-
+foreach name [reduce::names] {
     # panel base/special/unroll4 comparison at each (operator, depth) combination
     foreach depth {1 2 3 4 5 6 7 8} {
-	foreach variant [without-xcheck [for-axis band]] {
+	foreach variant [reduce::without-xcheck [reduce::for-axis band]] {
 	    lappend parts reduce-bands-${variant}-${depth}-$name
 	}
 	set n     [llength $parts]
@@ -157,27 +132,27 @@ foreach {
 
 // "_ _ __ ___ _____ ________ _____________ _____________________"
 
-w generated/reducer.gnuplot [g]
+w generated/reduce-bands.gnuplot [g]
 
 # # ## ### ##### ######## ############# #####################
 ## gnuplot rendering
 
 puts "rendering gnuplot spec ..."
 
-exec 2>@ stderr >@ stdout gnuplot generated/reducer.gnuplot
+exec 2>@ stderr >@ stdout gnuplot generated/reduce-bands.gnuplot
 
 puts "... done"
 
 # # ## ### ##### ######## ############# #####################
 ## stash charts (.csv) and renders (.svg) into the bench area
 
-file mkdir  bench/plots/reduce
+file mkdir         bench/plots/reduce-bands
 
-file delete -force bench/plots/reduce/csv ; file mkdir bench/plots/reduce/csv
-file delete -force bench/plots/reduce/svg ; file mkdir bench/plots/reduce/svg
+file delete -force bench/plots/reduce-bands/csv ; file mkdir bench/plots/reduce-bands/csv
+file delete -force bench/plots/reduce-bands/svg ; file mkdir bench/plots/reduce-bands/svg
 
-file rename -force {*}[glob -type f *.csv] bench/plots/reduce/csv
-file rename -force {*}[glob -type f *.svg] bench/plots/reduce/svg
+file rename -force {*}[glob -type f *.csv] bench/plots/reduce-bands/csv
+file rename -force {*}[glob -type f *.svg] bench/plots/reduce-bands/svg
 
 # # ## ### ##### ######## ############# #####################
 ## Create README
@@ -327,7 +302,7 @@ foreach {op spec} $__ {
     }
 }
 
-w bench/plots/reduce/README.md [g]
+w bench/plots/reduce-bands/README.md [g]
 
 puts "... done"
 

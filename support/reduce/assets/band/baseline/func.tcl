@@ -4,7 +4,7 @@
 # performance-wise, all other implementations will be measured against.
 
 def-func band baseline {
-    lappend map @name@ $name
+    placeholder @name@ $name
 } {
 
     aktive_uint k;

@@ -6,19 +6,19 @@
 # the pixels themselves are handled sequentially.
 
 def-func band perdepth {
-    lappend map @name@    $name
-    lappend map @once@    $once
+    placeholder @name@    $name
+    placeholder @once@    $once
     #
-    lappend map @single@  [single $single stride]
+    placeholder @single@  [single $single stride]
     #
-    lappend map @setup@         [map $setup    @N stride @A acc]			;# loop setup
-    lappend map @final@   [trim [map $finalize @N stride @A acc @R *dst]]		;# post-processing
-    lappend map @reduce@        [map $reduce   @N stride @A acc @I j @V {src[j]}]	;# generic loop
+    placeholder @setup@         [map $setup    @N stride @A acc]			;# loop setup
+    placeholder @final@   [trim [map $finalize @N stride @A acc @R *dst]]		;# post-processing
+    placeholder @reduce@        [map $reduce   @N stride @A acc @I j @V {src[j]}]	;# generic loop
     #
-    lappend map @reduce0@ [map $reduce   @I 0 @N stride @A acc @V {src[0]}] ;# unrolled inner
-    lappend map @reduce1@ [map $reduce   @I 1 @N stride @A acc @V {src[1]}] ;# s.a
-    lappend map @reduce2@ [map $reduce   @I 2 @N stride @A acc @V {src[2]}] ;# s.a
-    lappend map @reduce3@ [map $reduce   @I 3 @N stride @A acc @V {src[3]}] ;# s.a
+    placeholder @reduce0@ [map $reduce   @I 0 @N stride @A acc @V {src[0]}] ;# unrolled inner
+    placeholder @reduce1@ [map $reduce   @I 1 @N stride @A acc @V {src[1]}] ;# s.a
+    placeholder @reduce2@ [map $reduce   @I 2 @N stride @A acc @V {src[2]}] ;# s.a
+    placeholder @reduce3@ [map $reduce   @I 3 @N stride @A acc @V {src[3]}] ;# s.a
 } {
     @once@
     #define PIXELS(step) aktive_uint k; for (k = 0; k < count; k++, dst++, src += (step))

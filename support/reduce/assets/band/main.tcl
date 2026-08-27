@@ -44,8 +44,9 @@ proc gen-band {name} {
 	# for the complex reductors band unrolling alone is best, with pixel
 	# unrolling on top making things worse
 	build-func band perdepth $name
-    } else {
-	# for most reductors unrolling both bands and pixels is best
-	build-func band unroll4 $name
+	return
     }
+
+    # for most reductors unrolling both bands and pixels is best
+    build-func band unroll4 $name
 }
