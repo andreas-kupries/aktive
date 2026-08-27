@@ -40,15 +40,29 @@ source support/reduce/db.tcl
 # create benchmark commands for all implementation variants of a reducer operation
 proc reduce::gen-test-command {name} {
     gen-test-command-band $name
+    gen-test-command-row  $name
 }
 
-# create benchmark commands for all implementation variants of a band reducer operation, except cross-check
+# create benchmark commands for all implementation variants of a band reducer operation,
+# except the cross-check. that one is for testing alone, not for production, nor
+# benchmarking.
 proc reduce::gen-test-command-band {name} {
-    foreach variant [without-sys [for-axis band]] {
+    foreach variant [without-xcheck [for-axis band]] {
 	critcl::cproc ::aktive::bench::reduce-bands::${variant}::${name} {int w int d} void \
 	    [string map [list @@ $name @variant@ $variant] {
 	    if (w > (N/d)-1) w = (N/d)-1;
 	    aktive_reduce_bands_@variant@_@@ (dst, src, w, d);
+	}]
+    }
+}
+
+# create benchmark commands for all implementation variants of a row reducer operation, except cross-check
+proc reduce::gen-test-command-row {name} {
+    foreach variant [without-xcheck [for-axis row]] {
+	critcl::cproc ::aktive::bench::reduce-rows::${variant}::${name} {int w int d} void \
+	    [string map [list @@ $name @variant@ $variant] {
+	    if (w > (N/d)-1) w = (N/d)-1;
+	    aktive_reduce_rows_@variant@_@@ (dst, src, w, d);
 	}]
     }
 }

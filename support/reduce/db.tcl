@@ -109,8 +109,8 @@ proc reduce::def-func {axis name placeholders body} {
     ## match the configured placeholders against the placeholders actually found in the body
     set configured [lsort -dict -uniq [lmap line [split $placeholders \n] {
 	#puts CHECK($line)
-	if {![string match {*lappend map *} $line]} continue ;# { puts \tSKIP ; continue }
-	lindex [split [string trim $line] { }] 2 ;# key name
+	if {![string match {*placeholder *} $line]} continue ;# { puts \tSKIP ; continue }
+	lindex [split [string trim $line] { }] 1 ;# key name
     }]]
     set expected [lsort -dict -uniq [regexp -all -inline {@[^@]*@} $body]]
 
@@ -138,10 +138,14 @@ proc reduce::def-func {axis name placeholders body} {
     set tracing     "\n    TRACE_FUNC(\"(dst %p\[%d], src %p\[%dx%d])\", dst, count, src, count, stride)"
     set body        "void $funcname $signature \{${tracing};${header}${body}    TRACE_RETURN_VOID;\n\}\n"
 
-    ## and the lambda to generate the mapping from a reductor spec
-    set placeholders "dict with spec {}\n#--> once setup reduce merge finalize\n$placeholders\nreturn \$map"
+    ## and the lambda to map a reductor spec into the placeholders used by the code
+    set    phcode "dict with spec {}\n"
+    append phcode "# --> once setup reduce merge finalize\n"
+    append phcode "lassign {{} {}} map keys\n"
+    append phcode "$placeholders\n"
+    append phcode "set map"
 
-    dict set func $axis $name [list [string trim $declaration] $body $placeholders]
+    dict set func $axis $name [list [string trim $declaration] $body $phcode]
     return
 }
 
@@ -169,7 +173,6 @@ proc reduce::without-sys {names} {
     }
 }
 
-
 proc reduce::build-func {axis funcname opname} {
     variable func
     lassign [dict get $func $axis $funcname] funcdecl funcdef placeholders
@@ -183,11 +186,22 @@ proc reduce::build-func {axis funcname opname} {
     return
 }
 
+proc reduce::placeholder {key value} {
+    upvar 1 map map keys keys
+    if {$key in $keys} { upvar 1 name name ; return -code error "$name: duplicate mapping for `$key`" }
+    lappend keys $key
+    lappend map  $key $value
+    return
+}
+
 # # ## ### ##### ######## #############
 
 proc reduce::map    {s args} { string map $args $s }
 proc reduce::trim   {s}      { string trim $s }
-proc reduce::asline {s}      { trim [map $s "\n" ""] }
+proc reduce::asline {s}      { trim [map $s \
+					 "\n\t\t" " " \
+					 "\n\t"   " " \
+					 "\n"     ""] }
 proc reduce::dedent {s} { map $s \
 		      "\t\t    " "\t\t"   \
 		      "\t\t"     "\t    " \
