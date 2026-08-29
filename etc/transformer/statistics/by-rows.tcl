@@ -84,8 +84,6 @@ operator {dexpr attr} {
 	// srcvalue = row/band start - SD-strided row vector
 	REDUCE (dstvalue, srcvalue, SW, SD); // dstvalue, srcvalue :: row start
     }}
-    ## __UNROLL__ option1: compute all bands together (1/2/3/many specialization)
-    ## __UNROLL__ note: differs from by-band in the scope of the aggregation
 
     pixels {
 	aktive_rectangle_def_as (subrequest, request);
