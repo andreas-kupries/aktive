@@ -6,73 +6,65 @@
 # the pixels themselves are handled sequentially.
 
 def-func band perdepth {
-    placeholder @name@    $name
-    placeholder @once@    $once
-    #
-    placeholder @single@  [single $single stride]
-    #
-    placeholder @setup@         [map $setup    @N stride @A acc]			;# loop setup
-    placeholder @final@   [trim [map $finalize @N stride @A acc @R *dst]]		;# post-processing
-    placeholder @reduce@        [map $reduce   @N stride @A acc @I j @V {src[j]}]	;# generic loop
-    #
-    placeholder @reduce0@ [map $reduce   @I 0 @N stride @A acc @V {src[0]}] ;# unrolled inner
-    placeholder @reduce1@ [map $reduce   @I 1 @N stride @A acc @V {src[1]}] ;# s.a
-    placeholder @reduce2@ [map $reduce   @I 2 @N stride @A acc @V {src[2]}] ;# s.a
-    placeholder @reduce3@ [map $reduce   @I 3 @N stride @A acc @V {src[3]}] ;# s.a
-} {
-    @once@
-    #define PIXELS(step) aktive_uint k; for (k = 0; k < count; k++, dst++, src += (step))
-    #define BANDS        aktive_uint j; for (j = 0; j < stride; j++)
+    aktive_uint pixels = count, depth = stride;
+    <<<once>>>
+    #define ITER_PIXELS(step) aktive_uint col;  for (col  = 0; col  < pixels; col ++, dst ++, src += (step))
+    #define ITER_BANDS        aktive_uint band; for (band = 0; band < depth; band++)
 
-    switch (stride) {
+    switch (depth) {
 	case 1: {
-	    // note - due to highlevel simplifications this case should not be reached
-	    // except in benchmarking
-	    TRACE ("depth %d unrolled/none", stride);
-	    PIXELS(1) { *dst = @single@; }
+	    // note - due to highlevel simplifications this case should not be reached,
+	    // except during benchmarking
+	    TRACE ("depth %d unrolled/none", depth);
+
+	    ITER_PIXELS(1) { *dst = <<<single depth>>>; }
 	} ; break;
 	case 2: {
-	    TRACE ("depth %d unrolled/2x", stride);
-	    PIXELS(2) {
-		@setup@
-		@reduce0@
-		@reduce1@
-		@final@
+	    TRACE ("depth %d unrolled/2x", depth);
+
+	    ITER_PIXELS(2) {
+		<<<setup         @N depth @A acc>>>
+		<<<reduce   @I 0 @N depth @A acc @V {src[0]}>>>
+		<<<reduce   @I 1 @N depth @A acc @V {src[1]}>>>
+		<<<finalize      @N depth @A acc @R *dst>>>
 	    }
 	} ; break;
 	case 3: {
-	    TRACE ("depth %d unrolled/3x", stride);
-	    PIXELS(3) {
-		@setup@
-		@reduce0@
-		@reduce1@
-		@reduce2@
-		@final@
+	    TRACE ("depth %d unrolled/3x", depth);
+
+	    ITER_PIXELS(3) {
+		<<<setup         @N depth @A acc>>>
+		<<<reduce   @I 0 @N depth @A acc @V {src[0]}>>>
+		<<<reduce   @I 1 @N depth @A acc @V {src[1]}>>>
+		<<<reduce   @I 2 @N depth @A acc @V {src[2]}>>>
+		<<<finalize      @N depth @A acc @R *dst>>>
 	    }
 	} ; break;
 	case 4: {
-	    TRACE ("depth %d unrolled/4x", stride);
-	    PIXELS(4) {
-		@setup@
-		@reduce0@
-		@reduce1@
-		@reduce2@
-		@reduce3@
-		@final@
+	    TRACE ("depth %d unrolled/4x", depth);
+
+	    ITER_PIXELS(4) {
+		<<<setup         @N depth @A acc>>>
+		<<<reduce   @I 0 @N depth @A acc @V {src[0]}>>>
+		<<<reduce   @I 1 @N depth @A acc @V {src[1]}>>>
+		<<<reduce   @I 2 @N depth @A acc @V {src[2]}>>>
+		<<<reduce   @I 3 @N depth @A acc @V {src[3]}>>>
+		<<<finalize      @N depth @A acc @R *dst>>>
 	    }
 	} ; break;
 	default: {
-	    TRACE ("depth %d unrolled/none, generic", stride);
-	    PIXELS(1) {
-		@setup@
-		BANDS {
-		    @reduce@
+	    TRACE ("depth %d unrolled/none, generic", depth);
+
+	    ITER_PIXELS(1) {
+		<<<setup              @N depth @A acc>>>
+		ITER_BANDS {
+		    <<<reduce @I band @N depth @A acc @V {src[band]}>>>
 		}
-		@final@
+		<<<finalize           @N depth @A acc @R *dst>>>
 	    }
 	} ; break;
     }
 
-    #undef BANDS
-    #undef PIXELS
+    #undef ITER_BANDS
+    #undef ITER_PIXELS
 }

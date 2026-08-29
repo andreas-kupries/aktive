@@ -9,47 +9,8 @@
 # than baseline, because it does not perform any unrolling at all.
 
 def-func row perdepth0 {
-    placeholder @name@    $name
-    placeholder @once@    $once
-    #
-    #
-    # bands == 1
-    #
-    placeholder @single@          [single $single pixels]
-    placeholder @setup@           [map $setup    @N pixels @A acc]                         ;# loop setup
-    placeholder @reduce@          [map $reduce   @N pixels @A acc @V *src @I column]       ;# generic loop
-    placeholder @final@     [trim [map $finalize @N pixels @A acc @R *dst]]                ;# post-processing
-    #
-    # bands in (2,3,4)
-    #
-    placeholder @single/lane0@       [map [single $single pixels] *src {src[0]}]
-    placeholder @setup/lane0@        [map $setup    @N pixels @A acc0]                        ;# loop setup
-    placeholder @reduce/lane0@       [map $reduce   @N pixels @A acc0 @V {src[0]} @I column]  ;# unrolled pixels
-    placeholder @final/lane0@  [trim [map $finalize @N pixels @A acc0 @R {dst[0]}]]           ;# post-processing
-
-    placeholder @single/lane1@       [map [single $single pixels] *src {src[1]}]
-    placeholder @setup/lane1@        [map $setup    @N pixels @A acc1]                        ;# s.a
-    placeholder @reduce/lane1@       [map $reduce   @N pixels @A acc1 @V {src[1]} @I column]  ;# s.a
-    placeholder @final/lane1@  [trim [map $finalize @N pixels @A acc1 @R {dst[1]}]]           ;# s.a
-
-    placeholder @single/lane2@       [map [single $single pixels] *src {src[2]}]
-    placeholder @setup/lane2@        [map $setup    @N pixels @A acc2]                        ;# s.a
-    placeholder @reduce/lane2@       [map $reduce   @N pixels @A acc2 @V {src[2]} @I column]  ;# s.a
-    placeholder @final/lane2@  [trim [map $finalize @N pixels @A acc2 @R {dst[2]}]]           ;# s.a
-
-    placeholder @single/lane3@       [map [single $single pixels] *src {src[3]}]
-    placeholder @setup/lane3@        [map $setup    @N pixels @A acc3]                        ;# s.a
-    placeholder @reduce/lane3@       [map $reduce   @N pixels @A acc3 @V {src[3]} @I column]  ;# s.a
-    placeholder @final/lane3@  [trim [map $finalize @N pixels @A acc3 @R {dst[3]}]]           ;# s.a
-    #
-    # bands > 4
-    #
-    placeholder @setup/lane@         [map $setup    @N pixels @A acc]                         ;# loop setup
-    placeholder @reduce/lane@        [map $reduce   @N pixels @A acc @I column @V *src]       ;# generic loop
-    placeholder @final/lane@   [trim [map $finalize @N pixels @A acc @R *dst]]                ;# post-processing
-} {
     aktive_uint depth = stride, pixels = count;
-    @once@
+    <<<once>>>
     // pixels ...   0            1        ... N-1
     // bands ...    0 1 .. D-1 0 1 .. D-1 ... 0 1 .. D-1
     // src[] =    { x x .. x   x x .. x   ... x x .. x   }
@@ -68,13 +29,13 @@ def-func row perdepth0 {
 	    // src[] = [ s0, s1, s2 ... ]
 	    //           *   *   *  ... --> d/0
 
-	    if (pixels == 1) { *dst = @single@; return; }
+	    if (pixels == 1) { *dst = <<<single pixels>>>; return; }
 
-	    @setup@
+	    <<<setup      @N pixels @A acc>>>
 	    ITER_PIXELS(1) {
-		@reduce@
+		<<<reduce @N pixels @A acc @V *src @I column>>>
 	    }
-	    @final@
+	    <<<finalize   @N pixels @A acc @R *dst>>>
 	} ; break;
 	case 2: {
 	    // reducing both bands concurrently
@@ -85,19 +46,19 @@ def-func row perdepth0 {
 	    //               *           *           *     ...  d/1
 
 	    if (pixels == 1) {
-		dst[0] = @single/lane0@;
-		dst[1] = @single/lane1@;
+		dst[0] = <<<single pixels *src {src[0]}>>>;
+		dst[1] = <<<single pixels *src {src[1]}>>>;
 		return;
 	    }
 
-	    @setup/lane0@
-	    @setup/lane1@
+	    <<<setup      @N pixels @A acc0>>>
+	    <<<setup      @N pixels @A acc1>>>
 	    ITER_PIXELS(2) {
-		@reduce/lane0@
-		@reduce/lane1@
+		<<<reduce @N pixels @A acc0 @V {src[0]} @I column>>>
+		<<<reduce @N pixels @A acc1 @V {src[1]} @I column>>>
 	    }
-	    @final/lane0@
-	    @final/lane1@
+	    <<<finalize   @N pixels @A acc0 @R {dst[0]}>>>
+	    <<<finalize   @N pixels @A acc1 @R {dst[1]}>>>
 	} ; break;
 	case 3: {
 	    // reducing all three bands concurrently
@@ -109,23 +70,23 @@ def-func row perdepth0 {
 	    //       |             *   |             *   |             ...  d/2
 
 	    if (pixels == 1) {
-		dst[0] = @single/lane0@;
-		dst[1] = @single/lane1@;
-		dst[2] = @single/lane2@;
+		dst[0] = <<<single pixels *src {src[0]}>>>;
+		dst[1] = <<<single pixels *src {src[1]}>>>;
+		dst[2] = <<<single pixels *src {src[2]}>>>;
 		return;
 	    }
 
-	    @setup/lane0@
-	    @setup/lane1@
-	    @setup/lane2@
+	    <<<setup      @N pixels @A acc0>>>
+	    <<<setup      @N pixels @A acc1>>>
+	    <<<setup      @N pixels @A acc2>>>
 	    ITER_PIXELS(3) {
-		@reduce/lane0@
-		@reduce/lane1@
-		@reduce/lane2@
+		<<<reduce @N pixels @A acc0 @V {src[0]} @I column>>>
+		<<<reduce @N pixels @A acc1 @V {src[1]} @I column>>>
+		<<<reduce @N pixels @A acc2 @V {src[2]} @I column>>>
 	    }
-	    @final/lane0@
-	    @final/lane1@
-	    @final/lane2@
+	    <<<finalize   @N pixels @A acc0 @R {dst[0]}>>>
+	    <<<finalize   @N pixels @A acc1 @R {dst[1]}>>>
+	    <<<finalize   @N pixels @A acc2 @R {dst[2]}>>>
 	} ; break;
 	case 4: {
 	    // reducing all four bands concurrently
@@ -138,27 +99,27 @@ def-func row perdepth0 {
 	    //       |                   *   |                   *   |             ...  d/4
 
 	    if (pixels == 1) {
-		dst[0] = @single/lane0@;
-		dst[1] = @single/lane1@;
-		dst[2] = @single/lane2@;
-		dst[3] = @single/lane3@;
+		dst[0] = <<<single pixels *src {src[0]}>>>;
+		dst[1] = <<<single pixels *src {src[1]}>>>;
+		dst[2] = <<<single pixels *src {src[2]}>>>;
+		dst[3] = <<<single pixels *src {src[3]}>>>;
 		return;
 	    }
 
-	    @setup/lane0@
-	    @setup/lane1@
-	    @setup/lane2@
-	    @setup/lane3@
+	    <<<setup      @N pixels @A acc0>>>
+	    <<<setup      @N pixels @A acc1>>>
+	    <<<setup      @N pixels @A acc2>>>
+	    <<<setup      @N pixels @A acc3>>>
 	    ITER_PIXELS(4) {
-		@reduce/lane0@
-		@reduce/lane1@
-		@reduce/lane2@
-		@reduce/lane3@
+		<<<reduce @N pixels @A acc0 @V {src[0]} @I column>>>
+		<<<reduce @N pixels @A acc1 @V {src[1]} @I column>>>
+		<<<reduce @N pixels @A acc2 @V {src[2]} @I column>>>
+		<<<reduce @N pixels @A acc3 @V {src[3]} @I column>>>
 	    }
-	    @final/lane0@
-	    @final/lane1@
-	    @final/lane2@
-	    @final/lane3@
+	    <<<finalize   @N pixels @A acc0 @R {dst[0]}>>>
+	    <<<finalize   @N pixels @A acc1 @R {dst[1]}>>>
+	    <<<finalize   @N pixels @A acc2 @R {dst[2]}>>>
+	    <<<finalize   @N pixels @A acc3 @R {dst[3]}>>>
 	} ; break;
 	default: {
 	    // generic reduction of more than 4 bands. no concurrency. each band
@@ -173,17 +134,17 @@ def-func row perdepth0 {
 	    //       |                  *       |             ...   d/depth
 
 	    if (pixels == 1) {
-		ITER_BANDS { src = sbase; *dst = @single@; }
+		ITER_BANDS { src = sbase; *dst = <<<single pixels>>>; }
 		return;
 	    }
 
 	    ITER_BANDS {
 		src = sbase;
-		@setup/lane@
+		<<<setup      @N pixels @A acc>>>
 		ITER_PIXELS (depth) {
-		    @reduce/lane@
+		    <<<reduce @N pixels @A acc @I column @V *src>>>
 		}
-		@final/lane@
+		<<<finalize   @N pixels @A acc @R *dst>>>
 	    }
 	} ; break;
     }

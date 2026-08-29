@@ -5,10 +5,8 @@
 # against.
 
 def-func row baseline {
-    placeholder @name@ $name
-} {
     aktive_uint k, depth = stride, pixels = count;
     for (k = 0; k < depth; k++, dst ++, src ++) {
-	*dst = aktive_reduce_@name@ (src, count, depth, 0 /* client data, ignored */);
+	*dst = aktive_reduce_<<<opname>>> (src, count, depth, 0 /* client data, ignored */);
     }
 }

@@ -36,6 +36,7 @@ critcl::cconst ::aktive::bench::reduce::size int N
 
 # # ## ### ##### ######## #############
 source support/reduce/db.tcl
+source support/template.tcl
 
 # create benchmark commands for all implementation variants of a reducer operation
 proc reduce::gen-test-command {name} {

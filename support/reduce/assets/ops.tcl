@@ -77,7 +77,7 @@ def-reduce sum {
 def-reduce sumsquared {
     single   square
     setup    @sum
-    reduce   {{ double vv = @V*@V; aktive_kahan_add (@A, vv); }}
+    reduce   {{ double v = @V, vv = v*v; aktive_kahan_add (@A, vv); }}
     merge    @sum
     finalize @sum
 }
@@ -94,7 +94,7 @@ def-reduce variance {
     once     { typedef struct { kahan sum; kahan squared; } sas; }
     single   zero
     setup    { sas @A; aktive_kahan_init (@A.sum); aktive_kahan_init (@A.squared); }
-    reduce   {{ double vv = @V*@V;
+    reduce   {{ double v = @V, vv = v*v;
 		aktive_kahan_add (@A.sum, @V);
 		aktive_kahan_add (@A.squared, vv); }}
     merge    {  aktive_kahan_add_kahan (@AD.sum, @AS.sum);
@@ -128,17 +128,40 @@ def-reduce argmax {
     finalize { @R = @A.eindex; }
 }
 
-def-reduce argmin {
-    once     @argmax
-    single   zero
-    setup    { args @A; @A.extremum =  INFINITY; @A.eindex = 0; }
-    reduce   {{ aktive_uint lt = @V < @A.extremum;
-		@A.eindex   = lt ? @I : @A.eindex;
-		@A.extremum = lt ? @V : @A.extremum; }}
-    merge    {{ aktive_uint lt = @AS.extremum < @AD.extremum;
-		@AD.eindex   = lt ? @AS.eindex	 : @AD.eindex;
-		@AD.extremum = lt ? @AS.extremum : @AD.extremum; }}
-    finalize @argmax
+if 1 { ;# plain
+    def-reduce argmin {
+	once     @argmax
+	single   zero
+	setup    { args @A; @A.extremum =  INFINITY; @A.eindex = 0; }
+	reduce   {{ aktive_uint lt = @V < @A.extremum;
+	    @A.eindex   = lt ? @I : @A.eindex;
+	    @A.extremum = lt ? @V : @A.extremum; }}
+	merge    {{ aktive_uint lt = @AS.extremum < @AD.extremum;
+	    @AD.eindex   = lt ? @AS.eindex	 : @AD.eindex;
+	    @AD.extremum = lt ? @AS.extremum : @AD.extremum; }}
+	finalize @argmax
+    }
+} else { ;# debug
+    def-reduce argmin {
+	once     @argmax
+	single   zero
+	setup    { args @A; @A.extremum =  INFINITY; @A.eindex = 0;
+	    fprintf(stderr,"init @A = (%f @ %d)\n", @A.extremum, @A.eindex);
+	}
+	reduce   {{ aktive_uint lt = @V < @A.extremum;
+	    @A.eindex   = lt ? @I : @A.eindex;
+	    @A.extremum = lt ? @V : @A.extremum;
+	    fprintf (stderr, "redu @A (%f @ %d) <- (hit%d, @%d, V%f)\n", @A.extremum, @A.eindex, lt, @I, @V);
+	}}
+	merge    {{ aktive_uint lt = @AS.extremum < @AD.extremum;
+	    @AD.eindex   = lt ? @AS.eindex	 : @AD.eindex;
+	    @AD.extremum = lt ? @AS.extremum : @AD.extremum;
+	    fprintf (stderr, "merg @AD (%f @ %d) <- @AS (%f @ %d)\n", @AD.extremum, @AD.eindex, @AS.extremum, @AS.eindex);
+	}}
+	finalize { @R = @A.eindex;
+	    fprintf(stderr, "fini @R (%d) <- @A (%f @ %d)\n", @R, @A.extremum, @A.eindex);
+	}
+    }
 }
 
 # Beware: Do not directly compare uint against int. Ensure int/int comparison via cast.

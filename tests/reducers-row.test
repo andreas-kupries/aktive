@@ -12,6 +12,7 @@ kt local testing aktive
 
 kt source support/util.tcl
 kt source ../support/reduce/db.tcl
+kt source ../support/template.tcl
 apply {{} {
     kt source ../support/reduce/assets/ops.tcl	;# reducer operations
     foreach entry [lsort -dict [glob ../support/reduce/assets/*/*/func.tcl]] {

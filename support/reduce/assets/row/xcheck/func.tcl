@@ -4,37 +4,40 @@
 # implementation. IOW it ensures that we do not use a fast yet wrong
 # implementation.
 
-def-func row crosscheck {
-    placeholder @name@ $name
-} [apply {{} {
+def-func row crosscheck [apply {{} {
+    # signature = func (double* dst, double* src, uint count, uint stride)
     lappend lines {
-	aktive_uint band, column, depth = stride, pixels = count, n = pixels * depth;
+	aktive_uint band, column, pixels = count, depth = stride, n = pixels * depth;
 	double* rchecked;
 	char*   rname;
     }
-    # lappend lines { fprintf(stderr, "xcheck/@name@ (pix=%d, dep=%d) ______________________________________________\n", pixels, depth); }
+    #lappend lines { fprintf(stderr, "xcheck/<<<opname>>> (pix=%d, dep=%d) ______________________________________________\n", pixels, depth); }
     # execute all preceding implementations
     foreach variant [for-axis row] {
-	set alloc "double *r$variant = NALLOC (double, count);"
-	#set debug " fprintf(stderr, \"${variant}/@name@ (pix=%d, dep=%d)\\n\", pixels, depth);"
-	set debug ""
-	set run   " aktive_reduce_rows_${variant}_@name@ (r$variant, src, pixels, depth);"
-	lappend lines "$alloc$debug$run"
+	set alloc "    double *r$variant = NALLOC (double, depth);"
+	#set debuga " fprintf(stderr, \"${variant}/<<<opname>>> (pix=%d, dep=%d) ___ START\\n\", pixels, depth);"
+	set debuga ""
+	set run   " aktive_reduce_rows_${variant}_<<<opname>>> (r$variant, src, pixels, depth);"
+	#set debugb " fprintf(stderr, \"${variant}/<<<opname>>> _________________________ DONE\\n\");"
+	set debugb ""
+	lappend lines "$alloc$debuga$run$debugb"
     }
     # cross check each implementation against the first, except the first. the
     # first is considered to be the good reference the others have to match.
     foreach variant [lassign [for-axis row] first] {
+	#lappend lines "    fprintf(stderr, \"xcheck/<<<opname>>>: $variant versus baseline\\n\");"
 	lappend lines [map {
 	    // / / // /// ///// //////// ///////////// /////////////////////
 	    // check %%variant%% against baseline
-	    for (band = 0; band < depth; band++) {
+	    for (band = 0; band < depth; band ++) {
 		if (r%%variant%%[band] == rbaseline[band]) continue; // OK
 		// difference found, failed, print source, results, then stop
-		rname    = "%%variant%%/@name@";
+		rname    = "%%variant%%/<<<opname>>>";
 		rchecked = r%%variant%%;
 		goto dump;
 	    }
 	} %%variant%% $variant]
+	#lappend lines "    fprintf(stderr, \"xcheck/${variant}/<<<opname>>> OK\\n\");"
     }
     lappend lines {
 	if (0) {
@@ -42,13 +45,15 @@ def-func row crosscheck {
 	    // rchecked = pointer to result buffer of checked variant
 	    // rname    = name of checked variant
 	dump:
-	    fprintf (stderr, "FAIL %s\n",       rname);
-	    fprintf (stderr, "  width  = %d\n", pixels);
-	    fprintf (stderr, "  depth  = %d\n", depth);
-	    fprintf (stderr, "  band   = %d\n", band);
-	    fprintf (stderr, "MISMATCH (expected %f != got %f)\n",
+	    fprintf (stderr, "xcheck/%s/<<<opname>>> FAIL\n", rname);
+	    fprintf (stderr, "    width  = %d\n", pixels);
+	    fprintf (stderr, "    depth  = %d\n", depth);
+	    fprintf (stderr, "for band   = %d\n", band);
+	    fprintf (stderr, "MISMATCH (expected %f <> got %f)\n",
 		     rbaseline[band], rchecked[band]);
-	    fprintf (stderr, "src[%d] = {", band);
+	    // / / // /// ///// //////// ///////////// /////////////////////
+	    // show input where baseline and variant disagreed
+	    fprintf (stderr, "    src[%d] = {", band);
 	    for (column = 0; column < pixels; column++) {
 		fprintf (stderr, " %f", src[column*depth+band]);
 	    }
@@ -56,12 +61,16 @@ def-func row crosscheck {
 	    ASSERT (0, "MISMATCH");
 	}
     }
-    # use the result from the last implementation as the actual result
-    lappend lines "memcpy (dst, r[lindex [for-axis row] end], depth*sizeof(double));"
+    # use the result from the last implementation as the actual result, good or bad
+    set chosen [lindex [for-axis row] end]
+    #lappend lines "    fprintf(stderr, \"xcheck/${chosen}/<<<opname>>> SAVE AS RESULT\\n\");"
+    lappend lines "    memcpy (dst, r$chosen, depth*sizeof(double));"
     # release the internal temp memory
-    foreach name [for-axis row] {
-	lappend lines "FREE (r$name);"
+    foreach variant [for-axis row] {
+	#lappend lines "    fprintf(stderr, \"xcheck/${variant}/<<<opname>>> RELEASE\\n\");"
+	lappend lines "    FREE (r$variant);"
     }
     # deliver generated code
+    #lappend lines {    fprintf(stderr, "xcheck/<<<opname>>> RETURN\n"); }
     return [join $lines "\n\t"]
 } reduce}]

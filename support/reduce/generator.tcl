@@ -12,6 +12,7 @@ critcl::msg "[dsl::reader::blue {Reduction Support}]: [dsl::reader::magenta [dic
 
 source tests/support/files.tcl		;# import catx, touch+
 source support/reduce/db.tcl		;# generator data base
+source support/template.tcl		;# template support
 
 # # ## ### ##### ######## #############
 

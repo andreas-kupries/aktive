@@ -64,7 +64,7 @@ proc reduce::def-reduce {name spec} {
 	setup     asline
 	reduce    asline
 	merge     asline
-	finalize  trim
+	finalize  asline
 	single    asline
     } {
 	if {![dict exists $spec $key]} {
@@ -83,7 +83,8 @@ proc reduce::def-reduce {name spec} {
 	    set value [dict get $reduce $ref $key]
 	    #puts	($name)=<$key>=($value)
 	}
-	dict set spec $key [$process $value]
+	foreach p $process { set value [$p $value] }
+	dict set spec $key $value
     }
 
     #puts /$name\t>>$spec<<----------
@@ -100,52 +101,65 @@ proc reduce::get   {name} { variable reduce ; dict get $reduce $name }
 
 # # ## ### ##### ######## #############
 
-proc reduce::def-func {axis name placeholders body} {
+proc reduce::processor {name spec text} {
+    # called with <<<...>>> sequences from the template::process.
+    # note, the <<< >>> delimiters are already stripped of the sequence.
+    # split into command and arguments - assumes Tcl list syntax
+    set args [lassign $text command]
+    switch -exact -- $command {
+	opname {
+	    if {[llength $args]} {
+		return -code error "wrong args for `name`"
+	    }
+	    return $name
+	}
+	once {
+	    if {[llength $args]} {
+		return -code error "wrong args for `once`"
+	    }
+	    return [string trim [dict get $spec $command]]
+	}
+	single {
+	    if {![llength $args]} {
+		return -code error "missing args for `$command`"
+	    }
+	    # arg [0] = max, arg [1...] = mapping
+	    set args [lassign $args max]
+	    set single [single [dict get $spec $command] $max]
+	    if {[llength $args]} { set single [map $single {*}$args] }
+	    return $single
+	}
+	setup - reduce - merge - finalize {
+	    if {![llength $args]} {
+		return -code error "missing args for `$command`"
+	    }
+	    # map the arguments into the requested spec element
+	    return [map [dict get $spec $command] {*}$args]
+	    # final - trim?!
+	}
+	default {
+	    return -code error "unknown command `$command`"
+	}
+    }
+    return $text
+}
+
+proc reduce::def-func {axis name body} {
     variable func
     if {[dict exists $func $axis $name]} { return -code error "duplicate ${axis} function: $name" }
     variable functions
     dict lappend functions $axis $name
 
-    ## match the configured placeholders against the placeholders actually found in the body
-    set configured [lsort -dict -uniq [lmap line [split $placeholders \n] {
-	#puts CHECK($line)
-	if {![string match {*placeholder *} $line]} continue ;# { puts \tSKIP ; continue }
-	lindex [split [string trim $line] { }] 1 ;# key name
-    }]]
-    set expected [lsort -dict -uniq [regexp -all -inline {@[^@]*@} $body]]
-
-    # debug - placeholders in placeholders and body
-    #puts //$axis\t$name\t______________________________________________________________
-    #puts \t>>$placeholders<<
-    #puts \tconfigured:\n\t([join $configured ")\n\t("])
-    #puts \t>>$body<<
-    #puts \texpected:\n\t([join $expected ")\n\t("])
-
-    if 0 {foreach c $configured { if {$c in $expected} continue
-	puts "$axis/$name - configured `$c` is not used in body"
-    }}
-    set missing [lmap e $expected { if {$e in $configured} continue ; set e }]
-    if {[llength $missing]} {
-	return -code error "$axis/$name - placeholders\n\t- [join $missing "\n\t- "]) in body are not configured"
-    }
-
     ## construct the C function to template
     variable gendir
     set header      [catx $gendir/assets/$axis/func.h]
-    set funcname    "aktive_reduce_${axis}s_${name}_@name@"
+    set funcname    "aktive_reduce_${axis}s_${name}_<<<opname>>>"
     set signature   "(double *dst, double* src, aktive_uint count, aktive_uint stride)"
     set declaration "extern void $funcname ${signature};"
     set tracing     "\n    TRACE_FUNC(\"(dst %p\[%d], src %p\[%dx%d])\", dst, count, src, count, stride)"
     set body        "void $funcname $signature \{${tracing};${header}${body}    TRACE_RETURN_VOID;\n\}\n"
 
-    ## and the lambda to map a reductor spec into the placeholders used by the code
-    set    phcode "dict with spec {}\n"
-    append phcode "# --> once setup reduce merge finalize\n"
-    append phcode "lassign {{} {}} map keys\n"
-    append phcode "$placeholders\n"
-    append phcode "set map"
-
-    dict set func $axis $name [list [string trim $declaration] $body $phcode]
+    dict set func $axis $name [list [string trim $declaration] $body]
     return
 }
 
@@ -175,13 +189,13 @@ proc reduce::without-sys {names} {
 
 proc reduce::build-func {axis funcname opname} {
     variable func
-    lassign [dict get $func $axis $funcname] funcdecl funcdef placeholders
+    lassign [dict get $func $axis $funcname] funcdecl funcdef
 
-    set placeholders [apply [list {name spec} $placeholders reduce] $opname [get $opname]]
+    # process new-style embedded templating
+    set funcdecl [template::process $funcdecl	reduce::processor $opname [get $opname]]
+    set funcdef  [template::process $funcdef	reduce::processor $opname [get $opname]]
 
-    code-extend \
-	[string map $placeholders $funcdecl] \
-	[string map $placeholders $funcdef] \
+    code-extend $funcdecl $funcdef \
 	"#define aktive_reduce_${axis}s_$opname aktive_reduce_${axis}s_${funcname}_$opname"
     return
 }
@@ -198,10 +212,12 @@ proc reduce::placeholder {key value} {
 
 proc reduce::map    {s args} { string map $args $s }
 proc reduce::trim   {s}      { string trim $s }
-proc reduce::asline {s}      { trim [map $s \
-					 "\n\t\t" " " \
-					 "\n\t"   " " \
-					 "\n"     ""] }
+proc reduce::asline {s}      { regsub -all {[ \t][ \t]+} \
+				   [trim \
+					[map $s \
+					     "\n\t\t" " " \
+					     "\n\t"   " " \
+					     "\n"     ""]] { } }
 proc reduce::dedent {s} { map $s \
 		      "\t\t    " "\t\t"   \
 		      "\t\t"     "\t    " \

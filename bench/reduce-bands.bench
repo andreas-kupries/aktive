@@ -14,6 +14,7 @@ kb::local   benchmark aktive
 
 source ../tests/support/files.tcl
 source ../support/reduce/db.tcl
+source ../support/template.tcl
 apply {{} {
     source ../support/reduce/assets/ops.tcl
     foreach entry [lsort -dict [glob ../support/reduce/assets/*/*/func.tcl]] {
