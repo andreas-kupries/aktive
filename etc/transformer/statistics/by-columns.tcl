@@ -59,28 +59,29 @@ operator {dexpr attr} {
 	domain->height = 1;
     }
 
-    # AH == 1. We care about AY here. TODO :: blitter - avoid loop, unroll
+    # AH == 1. We care about AY here.
     blit reducer {
-	{AW {x AX 1 up} {x 0 1 up}}
-	{DD {z  0 1 up} {z 0 1 up}}
+	{ 1 {x AX 1 up} {x 0 1 up}}
 	{ 1 {y AY 1 up} {y 0 1 up}}
     } {raw reduce-column {
 	// dstvalue = row/band start -
 	// srcvalue = row/band start - srcpitch-strided column vector
-	*dstvalue = REDUCE (srcvalue, SH, SW*SD, 0 /* client data, ignored */);
+	REDUCE (dstvalue, srcvalue, SH, SW*SD);
     }}
-    # __UNROLL__ option 1: compute all the bands of the column together, 1/2/3/many
-    # __UNROLL__ option 2: compute multiple columns together
-    # __UNROLL__           (restrict to single band images ?)
-    # __UNROLL__ NOTE: each band can be seen as its own column
-    # __UNROLL__       no true difference between 1 and 2.
 
     pixels {
 	aktive_rectangle_def_as (subrequest, request);
 	subrequest.height = istate->height;
 	TRACE_RECTANGLE_M("@@fun@@", &subrequest);
 	aktive_block* src = aktive_region_fetch_area (0, &subrequest);
-	#define REDUCE aktive_reduce_@@fun@@
+
+	// __ATTENTION__ The region fetch from the input image leaves us with a pixel
+	// block containing the W columns with all their bands, in the same format as a
+	// row of pixels with D*W bands per pixel. Because of this we can reuse the row
+	// reducer functions for the column reductions as well. The gather/transpose is
+	// already done for us by the fetch.
+
+	#define REDUCE aktive_reduce_rows_@@fun@@
 	@@reducer@@
 	#undef REDUCE
     }

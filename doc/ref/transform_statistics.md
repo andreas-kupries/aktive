@@ -363,7 +363,7 @@ The part about the `depth of the input` means that the bands in each column are 
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><img src='example-00344.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
-    <td valign='top'><table><tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>10</td><td>8</td><td>7</td><td>7</td><td>6</td><td>7</td><td>7</td><td>7</td><td>7</td><td>8</td><td>8</td><td>8</td><td>9</td><td>9</td><td>9</td><td>9</td><td>10</td><td>10</td><td>10</td><td>11</td><td>11</td><td>11</td><td>11</td><td>12</td><td>12</td><td>12</td></tr></table></td></tr>
+    <td valign='top'><table><tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>10</td><td>8</td><td>8</td><td>8</td><td>8</td><td>8</td><td>8</td><td>8</td><td>8</td><td>8</td><td>8</td><td>8</td><td>12</td><td>12</td><td>12</td><td>12</td><td>12</td><td>12</td><td>12</td><td>12</td><td>12</td><td>12</td><td>12</td><td>12</td><td>12</td><td>12</td></tr></table></td></tr>
 </table>
 
 
@@ -575,7 +575,7 @@ The result has a single row.
 ---
 ### [↑](#top) <a name='op_column_profile'></a> aktive op column profile
 
-Syntax: __aktive op column profile__ src [[→ definition](/file?ci=trunk&ln=89&name=etc/transformer/statistics/by-columns.tcl)]
+Syntax: __aktive op column profile__ src [[→ definition](/file?ci=trunk&ln=90&name=etc/transformer/statistics/by-columns.tcl)]
 
 Returns image with input columns compressed to a single value, the top profile of the column values. The result is a single-row image with width and depth of the input. The bands of the image are handled independently.
 
@@ -620,7 +620,7 @@ Beware. While it is possible to use the rank filter for max/min extractions it i
 ---
 ### [↑](#top) <a name='op_column_rprofile'></a> aktive op column rprofile
 
-Syntax: __aktive op column rprofile__ src [[→ definition](/file?ci=trunk&ln=89&name=etc/transformer/statistics/by-columns.tcl)]
+Syntax: __aktive op column rprofile__ src [[→ definition](/file?ci=trunk&ln=90&name=etc/transformer/statistics/by-columns.tcl)]
 
 Returns image with input columns compressed to a single value, the bottom profile of the column values. The result is a single-row image with width and depth of the input. The bands of the image are handled independently.
 
@@ -797,7 +797,7 @@ The bands of a multi-band image are processed separately.
     <br>&nbsp;</th></tr>
 <tr><td valign='top'><img src='example-00515.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
-    <td valign='top'><table><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>10</td></tr><tr><td>8</td></tr><tr><td>7</td></tr><tr><td>7</td></tr><tr><td>6</td></tr><tr><td>7</td></tr><tr><td>7</td></tr><tr><td>8</td></tr><tr><td>8</td></tr><tr><td>9</td></tr><tr><td>9</td></tr><tr><td>10</td></tr><tr><td>10</td></tr><tr><td>11</td></tr><tr><td>12</td></tr><tr><td>12</td></tr><tr><td>13</td></tr><tr><td>13</td></tr><tr><td>14</td></tr><tr><td>14</td></tr><tr><td>15</td></tr><tr><td>16</td></tr><tr><td>16</td></tr><tr><td>17</td></tr><tr><td>17</td></tr><tr><td>18</td></tr></table></td></tr>
+    <td valign='top'><table><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>0</td></tr><tr><td>10</td></tr><tr><td>8</td></tr><tr><td>8</td></tr><tr><td>8</td></tr><tr><td>8</td></tr><tr><td>8</td></tr><tr><td>8</td></tr><tr><td>8</td></tr><tr><td>8</td></tr><tr><td>12</td></tr><tr><td>12</td></tr><tr><td>12</td></tr><tr><td>12</td></tr><tr><td>12</td></tr><tr><td>12</td></tr><tr><td>12</td></tr><tr><td>16</td></tr><tr><td>16</td></tr><tr><td>16</td></tr><tr><td>16</td></tr><tr><td>16</td></tr><tr><td>16</td></tr><tr><td>16</td></tr><tr><td>20</td></tr><tr><td>20</td></tr><tr><td>20</td></tr></table></td></tr>
 </table>
 
 
