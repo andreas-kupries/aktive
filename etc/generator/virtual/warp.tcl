@@ -387,8 +387,9 @@ operator transform::rotate {
     	aktive transform compose @1 @2 | -matrix
     }
 
-    note Returns a single-band 3x3 image specifying a rotation around the coordinate \
-	origin, by the given angle (in degrees).
+    note Returns a single-band 3x3 image specifying a rotation around \
+    	the coordinate origin, or the specified center, by the given \
+    	angle (in degrees).
 
     note The result is suitable for use with "<!xref: aktive warp matrix>"
 
@@ -409,7 +410,7 @@ operator transform::rotate {
 			$s $c     0 \
 			0  0      1]
 	}
-	# around a non-origin center a composition is required
+	# a composition is required to rotate around a non-origin center
 	lassign $around x y
 	compose \
 	    [translate x $x y $y] \
@@ -627,8 +628,8 @@ operator transform::reflect::x {
 
     note The result is suitable for use with "<!xref: aktive warp matrix>"
 
-    note When not used as part of a chain of transformations then this is \
-	better done using "<!xref: aktive op flip x>"
+    note It is recommended to use "<!xref: aktive op flip x>" if no \
+        chain of transformations is involved
 
     body {
 	BOXany \
@@ -652,8 +653,8 @@ operator transform::reflect::y {
 
     note The result is suitable for use with "<!xref: aktive warp matrix>"
 
-    note When not used as part of a chain of transformations then this is \
-	better done using "<!xref: aktive op flip y>"
+    note It is recommended to use "<!xref: aktive op flip y>" if no \
+        chain of transformations is involved
 
     body {
 	BOXany \
@@ -706,11 +707,13 @@ operator transform::reflect::line {
 			[rotate by [- $angle]]]
 	}
 
-	# a line through two points A and B is handled by ta chain of three
+	# a line through two points A and B is handled by a chain of three
 	# transformations
 	# (1) translating A to the origin 0.
 	# (2) reflection through the line 0--(B-A)	[recursion]
 	# (3) translating 0 back to A
+	#
+	# In total 5 transforms are used (Step 2 contains 3 transforms itself)
 
 	lassign $a ax ay
 	lassign $b bx by
