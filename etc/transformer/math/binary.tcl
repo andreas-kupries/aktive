@@ -44,20 +44,20 @@ proc logical {} { ::return {
 }}
 
 operator {              cfunction    vfunction  dexpr} {
-     op::math::nand      aktive_nand  nand       {!(A && B)}
-   op::math::nor       aktive_nor   nor        {!(A || B)}
-     op::math::atan2     atan2        atan2      {atan2(A, B)}
-     op::math::div       aktive_div   div        {A / B}
-     op::math::eq        aktive_eq    eq         {A == B}
-     op::math::ge        aktive_ge    ge         {A >= B}
-   op::math::gt        aktive_gt    gt         {A > B}
-     op::math::hypot     hypot        hypot      {hypot (A, B)}
-   op::math::le        aktive_le    le         {A <= B}
-     op::math::lt        aktive_lt    lt         {A < B}
-     op::math::mod       fmod         fmod       {A % B}
-     op::math::ne        aktive_ne    ne         {A != B}
-     op::math::pow       pow          pow        {pow (A, B)}
-     op::math::sub       aktive_sub   sub        {A - B}
+    op::math::nand      aktive_nand  nand       {!(A && B)}
+    op::math::nor       aktive_nor   nor        {!(A || B)}
+    op::math::atan2     atan2        atan2      {atan2(A, B)}
+    op::math::div       aktive_div   div        {A / B}
+    op::math::eq        aktive_eq    eq         {A == B}
+    op::math::ge        aktive_ge    ge         {A >= B}
+    op::math::gt        aktive_gt    gt         {A > B}
+    op::math::hypot     hypot        hypot      {hypot (A, B)}
+    op::math::le        aktive_le    le         {A <= B}
+    op::math::lt        aktive_lt    lt         {A < B}
+    op::math::mod       fmod         fmod       {A % B}
+    op::math::ne        aktive_ne    ne         {A != B}
+    op::math::pow       pow          pow        {pow (A, B)}
+    op::math::sub       aktive_sub   sub        {A - B}
 } {
     op -> _ _ fun
 
@@ -174,9 +174,10 @@ operator {cfunction dexpr} {
 
 	for (i = 1; i < srcs->c; i++) {
 	    g = aktive_image_get_geometry (srcs->v[i]);
-	    aktive_rectangle_intersect (aktive_geometry_as_rectangle (domain),
-					aktive_geometry_as_rectangle (domain),
-					aktive_geometry_as_rectangle (g));
+	    /* Z = A = intersect(A, B) */
+	    aktive_rectangle_intersect (/* Z */ aktive_geometry_as_rectangle (domain),
+					/* A */ aktive_geometry_as_rectangle (domain),
+					/* B */ aktive_geometry_as_rectangle (g));
 	    domain->depth = MIN (domain->depth, g->depth);
 	}
     }
