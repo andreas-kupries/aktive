@@ -44,6 +44,33 @@ test aktive-image-from-matrix-2.2 "aktive image from matrix, dag" -body {
     dag aktive image from matrix width 4 height 2 values 1 2 3 4  5 6 7 8
 } -match glob -result {image::from::matrix * {x 0 y 0 width 4 height 2 factor 1.0 values {1.0 2.0 3.0 4.0 5.0 6.0 7.0 8.0}}}
 
+test aktive-image-from-matrix-2.3 "aktive image from matrix, non-origin location" -body {
+    astcl aktive image from matrix x 4 y 3 width 4 height 2 values 1 2 3 4  5 6 7 8
+} -match image -result [makei image::from::matrix 4 3 4 2 1 {
+    x 4 y 3 width 4 height 2 factor 1.0 values {1.0 2.0 3.0 4.0 5.0 6.0 7.0 8.0}
+} {
+    1 2 3 4
+    5 6 7 8
+}]
+
+test aktive-image-from-matrix-2.4 "aktive image from matrix, missing values are zero" -body {
+    astcl aktive image from matrix x 4 y 3 width 4 height 2 values 1 2 3 4
+} -match image -result [makei image::from::matrix 4 3 4 2 1 {
+    x 4 y 3 width 4 height 2 factor 1.0 values {1.0 2.0 3.0 4.0}
+} {
+    1 2 3 4
+    0 0 0 0
+}]
+
+test aktive-image-from-matrix-2.5 "aktive image from matrix, excess values are ignored" -body {
+    astcl aktive image from matrix width 4 height 2 values 1 2 3 4  5 6 7 8   9 10 11 12
+} -match image -result [makei image::from::matrix 0 0 4 2 1 {
+    x 0 y 0 width 4 height 2 factor 1.0 values {1.0 2.0 3.0 4.0 5.0 6.0 7.0 8.0 9.0 10.0 11.0 12.0}
+} {
+    1 2 3 4
+    5 6 7 8
+}]
+
 # # ## ### ##### ######## ############# #####################
 cleanupTests
 return

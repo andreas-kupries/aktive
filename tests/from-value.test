@@ -83,6 +83,34 @@ if 0 {
     }
 }
 
+
+test aktive-image-from-value-2.3 "aktive image from value, non-origin" -body {
+    astcl aktive image from value x 4 y 5 width 3 height 4 depth 2 value 5
+} -match image -result {
+    type   image::from::value
+    config {
+	x 4
+	y 5
+	width 3
+	height 4
+	depth 2
+	value 5.0
+    }
+    domain {
+	x 4
+	y 5
+	width 3
+	height 4
+	depth 2
+    }
+    pixels {
+	= 5 5 = 5 5 = 5 5 =
+	= 5 5 = 5 5 = 5 5 =
+	= 5 5 = 5 5 = 5 5 =
+	= 5 5 = 5 5 = 5 5 =
+    }
+}
+
 # # ## ### ##### ######## ############# #####################
 cleanupTests
 return

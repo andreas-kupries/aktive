@@ -46,7 +46,7 @@ test aktive-image-from-sparse-ranges-2.0 "aktive image from sparse ranges, bound
 	_ _ * * _ _ _ * * _ _
     }]]
 
-test aktive-image-from-sparse-ranges-2.0 "aktive image from sparse ranges, set geometry" -body {
+test aktive-image-from-sparse-ranges-2.1 "aktive image from sparse ranges, set geometry" -body {
     astclx 33 aktive image from sparse ranges geometry {0 0 33 11} ranges {*}$ranges
 } -match image -result [makei image::from::sparse::ranges \
     0 0 33 11 1 [list geometry {0 0 33 11} ranges $ranges] \

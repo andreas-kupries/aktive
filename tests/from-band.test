@@ -50,6 +50,30 @@ test aktive-image-from-band-2.1 "aktive image from band, dag" -body {
     dag aktive image from band width 4 height 2 values 1 2 3
 } -match glob -result {image::from::band * {x 0 y 0 width 4 height 2 values {1.0 2.0 3.0}}}
 
+test aktive-image-from-band-2.2 "aktive image from band, non-origin" -body {
+    astcl aktive image from band x 4 y 5 width 4 height 2 values 1 2 3
+} -match image -result {
+    type   image::from::band
+    config {
+	x 4
+	y 5
+	width 4
+	height 2
+	values {1.0 2.0 3.0}
+    }
+    domain {
+	x 4
+	y 5
+	width 4
+	height 2
+	depth 3
+    }
+    pixels {
+	= 1 2 3 = 1 2 3 = 1 2 3 = 1 2 3 =
+	= 1 2 3 = 1 2 3 = 1 2 3 = 1 2 3 =
+    }
+}
+
 # # ## ### ##### ######## ############# #####################
 cleanupTests
 return

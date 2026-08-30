@@ -50,6 +50,30 @@ test aktive-image-from-row-2.1 "aktive image from row, dag" -body {
     dag aktive image from row height 4 values 1 2 3
 } -match glob -result {image::from::row * {x 0 y 0 height 4 values {1.0 2.0 3.0}}}
 
+test aktive-image-from-row-2.2 "aktive image from row, non-origin" -body {
+    astcl aktive image from row x 4 y 5 height 3 values 1 2 3 4 5 6
+} -match image -result {
+    type   image::from::row
+    config {
+	x 4
+	y 5
+	height 3
+	values {1.0 2.0 3.0 4.0 5.0 6.0}
+    }
+    domain {
+	x 4
+	y 5
+	width 6
+	height 3
+	depth 1
+    }
+    pixels {
+	= 1 2 3 4 5 6 =
+	= 1 2 3 4 5 6 =
+	= 1 2 3 4 5 6 =
+    }
+}
+
 # # ## ### ##### ######## ############# #####################
 cleanupTests
 return

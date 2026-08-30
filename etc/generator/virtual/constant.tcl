@@ -9,6 +9,7 @@ operator image::from::value {
 
     example {width 64 height 64 depth 1 value 0.5}
     example {width 64 height 64 depth 3 value 0.5}
+    example {x 4 y 5 width 64 height 64 depth 3 value 0.75}
 
     int? 0 x       Image location, X coordinate
     int? 0 y       Image location, Y coordinate
@@ -87,6 +88,10 @@ operator image::from::row {
 	height 64 values 0 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 0.45 0.5 0.55 0.6 0.6 0.7 0.75 0.8 0.85 0.9 0.95 1
     }
 
+    example {
+	x 4 y 5 height 64 values 0 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 0.45 0.5 0.55 0.6 0.6 0.7 0.75 0.8 0.85 0.9 0.95 1
+    }
+
     int?    0 x       Image location, X coordinate
     int?    0 y       Image location, Y coordinate
     uint      height  Height of the returned image
@@ -99,6 +104,7 @@ operator image::from::row {
     pixels {
 	// assert: param.values.c == block.geo.width
 	// assert: block.used % block.width == 0
+	request->x -= param->x;
 	aktive_blit_fill_rows (block, dst, request->x, &param->values);
     }
 }
@@ -113,6 +119,10 @@ operator image::from::column {
 	width 64 values 0 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 0.45 0.5 0.55 0.6 0.6 0.7 0.75 0.8 0.85 0.9 0.95 1
     }
 
+    example {
+	x 4 y 5 width 64 values 0 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 0.45 0.5 0.55 0.6 0.6 0.7 0.75 0.8 0.85 0.9 0.95 1
+    }
+
     int?    0 x       Image location, X coordinate
     int?    0 y       Image location, Y coordinate
     uint      width   Width of the returned image
@@ -125,6 +135,7 @@ operator image::from::column {
     pixels {
 	// assert: param.values.c == block.geo.width
 	// assert: block.used % block.width == 0
+	request->y -= param->y;
 	aktive_blit_fill_columns (block, dst, request->y, &param->values);
     }
 }
@@ -139,6 +150,8 @@ operator image::from::matrix {
     note Depth is fixed at 1.
 
     example {width 16 height 16 values 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 | times 8}
+
+    example {x 5 y 3 width 16 height 16 values 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 | times 8}
 
     int?    0 x       Image location, X coordinate
     int?    0 y       Image location, Y coordinate
@@ -155,26 +168,40 @@ operator image::from::matrix {
 	memset (state, 0, sizeof (*state));
 
 	// Create a local copy of the pixel data found in the parameters.
-	// This enables application of scale factor and adding missing values without
-	// affecting the user-visible configuration.
+	// This enables application of the scale factor and of adding missing
+	// values without affecting the user-visible configuration.
 
 	// Note from the description that the `param.values` is allowed to not contain
 	// enough values for all the pixels. In that case the data is extended with zeroes.
 
+	// Note from the description that the `param.values` is allowed to contain more
+	// values than we have pixels. In that case the data is truncated to the image size.
+
 	aktive_geometry_set  (domain, param->x, param->y, param->width, param->height, 1);
 	aktive_geometry_copy (&state->src.domain, domain);
 	aktive_blit_setup    (&state->src, aktive_geometry_as_rectangle (domain));
+
+	TRACE_DO (__aktive_block_dump ("local copy", &state->src));
+
+	aktive_uint writing = MIN (state->src.used, param->values.c);
+
+	TRACE ("SPACE   %d", state->src.used);
+	TRACE ("VALUES  %d", param->values.c);
+	TRACE ("WRITING %d", writing);
+
 	memset (state->src.pixel, 0,               state->src.used * sizeof (double));
-	memcpy (state->src.pixel, param->values.v, param->values.c * sizeof (double));
+	memcpy (state->src.pixel, param->values.v, writing         * sizeof (double));
 
 	// Apply the scaling factor, if not identity.
 	if (param->factor != 1) {
 	    aktive_uint i;
-	    for (i = 0; i < param->values.c; i++) { state->src.pixel[i] *= param->factor; }
+	    for (i = 0; i < writing; i++) { state->src.pixel[i] *= param->factor; }
 	}
     }
     pixels {
-	// Just blit from the source to the destination
+	// Just blit from the source to the destination, after correcting for image location.
+	request->x -= param->x;
+	request->y -= param->y;
 	aktive_blit_copy (block, dst, &istate->src, aktive_rectangle_as_point (request));
     }
 }

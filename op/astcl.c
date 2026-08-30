@@ -99,13 +99,16 @@ aktive_op_pixels (Tcl_Interp* ip, aktive_image src) {
     aktive_uint height = scan.height;
     scan.height = 1;
 
+    TRACE_RECTANGLE_M("domain", domain);
+
     aktive_uint k, i, j;
-
-    for (k = 0, i=0; k < height; k ++) {
+    for (k = 0, i = 0; k < height; k ++) {
 	TRACE ("row %d", k);
-	TRACE_RECTANGLE(&scan);
 
-	aktive_block* pixels = aktive_region_fetch_area_head (rg, &scan);
+	TRACE_RECTANGLE_M("fetch", &scan);
+	// separate fetch request from scan variable, as fetch writes over it
+	aktive_rectangle_def_as (req, &scan);
+	aktive_block* pixels = aktive_region_fetch_area_head (rg, &req);
 
 	for (j = 0; j < pixels->used; j++, i++) {
 	    ASSERT_VA (i < sz, "too many pixel values", "%d >= %d", i, sz);

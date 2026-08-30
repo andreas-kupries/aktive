@@ -13,6 +13,10 @@ operator image::from::sparse::points {
 	geometry {0 0 10 10} coords {1 1} {4 3} {5 5} {6 2} | ; times 8
     }
 
+    example {
+	geometry {-1 -2 10 10} coords {1 1} {4 3} {5 5} {6 2} | ; times 8
+    }
+
     note Returns a single-band image where pixels are set to white (`1.0`) at exactly \
 	the specified coordinates.
 
@@ -139,6 +143,10 @@ operator image::from::sparse::ranges {
 	geometry {0 0 34 11} ranges {1 24 30 1} {2 23 31 1} {3 22 32 1} {4 22 24 0.75} {4 30 32 0.75} {5 22 23 0.75} {5 31 32 0.75} {6 23 24 0.5} {6 30 31 0.5} {7 24 25 0.5} {7 29 30 0.5} | ; times 8
     }
 
+    example {
+	geometry {4 5 34 11} ranges {1 24 30 1} {2 23 31 1} {3 22 32 1} {4 22 24 0.75} {4 30 32 0.75} {5 22 23 0.75} {5 31 32 0.75} {6 23 24 0.5} {6 30 31 0.5} {7 24 25 0.5} {7 29 30 0.5} | ; times 8
+    }
+
     note Returns a single-band image where the pixels are set to the specified values as per the provided row ranges.
 
     note A single row range is specified by 4 numbers.
@@ -204,16 +212,22 @@ operator image::from::sparse::ranges {
 	int ymax = aktive_rectangle_get_ymax (request);
 
 	aktive_point* base = aktive_rectangle_as_point (request);
+	TRACE_POINT_M("base", base);
 
 	// locate start of first row in the request within the param ranges, via the index
 	aktive_uint i, k = 0;
-	for (i=0; i < istate->isize; i++) {
+	for (i = 0; i < istate->isize; i++) {
 	    k = istate->rowstart[i];
 	    if (param->ranges.v[k].y >= ymin) break;
 	}
 
+	TRACE ("row %d/%d, @%d ? %d >= %d", i, istate->isize, k, param->ranges.v[k].y, ymin);
+
 	// no rows overlapping the request
-	if (i >= istate->isize) TRACE_RETURN_VOID;
+	if (i >= istate->isize) {
+	    TRACE ("no ranges", 0);
+	    TRACE_RETURN_VOID;
+	}
 
 	// iterate over the ranges until we fall out of the request, row-wise, or run out of ranges
 	for ( ; (param->ranges.v[k].y <= ymax) &&
@@ -224,13 +238,19 @@ operator image::from::sparse::ranges {
 	    int rxmin = param->ranges.v[k].xmin;
 	    int rxmax = param->ranges.v[k].xmax;
 
+	    TRACE ("range[%d] = (%d...%d)@%d", k, rxmin, rxmax, ry);
+
 	    if ((rxmax < xmin) || (xmax < rxmin)) continue;
 	    // range at least overlaps request
+
+	    TRACE ("overlap", 0);
 
 	    // contract to intersection of range and request
 	    rxmin  = MAX (rxmin, xmin);
 	    rxmax  = MIN (rxmax, xmax);
 	    int rw = rxmax - rxmin + 1;
+
+	    TRACE ("isect[%d] = (%d...%d)@%d, w=%d", k, rxmin, rxmax, ry, rw);
 
 	    // compute blit destination in the request/dst/block domain
 	    aktive_rectangle_def (rdst, rxmin, ry, rw, 1);
@@ -238,8 +258,12 @@ operator image::from::sparse::ranges {
 
 	    // and fill
 	    double rvalue = param->ranges.v[k].value;
+	    TRACE ("fill %f", rvalue);
+	    TRACE_RECTANGLE_M("rdst", &rdst);
 	    aktive_blit_fill (block, &rdst, rvalue);
 	}
+
+	TRACE_DO (__aktive_block_dump ("dst", block));
     }
 }
 
