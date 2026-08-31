@@ -1561,7 +1561,17 @@ proc dsl::writer::ParamTracing {params} {
 	# and sourced.
 	set t      [dict get $p type]
 	set isargs [dict get $p args]
-	expr {$isargs ? "%\[\]$t/[dict exists $tmap $t]" : [dict exists $tmap $t] ? [dict get $tmap $t] : "%binary"}
+	if {$isargs} {
+	    if {[dict exists $tmap $t]} {
+		string cat "%\[\]$t/[dict get $tmap $t]"
+	    } else {
+		string cat %%array/$t
+	    }
+	} elseif {[dict exists $tmap $t]} {
+	    dict get $tmap $t
+	} else {
+	    string cat %%binary
+	}
     }]
 
     foreach p $pnames t $ptypes {
