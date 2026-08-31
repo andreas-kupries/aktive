@@ -1471,7 +1471,7 @@ proc dsl::writer::OperatorFunctionForOp {op} {
 	} else {
 	    # We have a C code fragment implementing the getter.
 	    # Hide fail/vfail difference from user.
-	    + [FormatCodeWithReturn $rcode]
+	    + [FormatCodeWithReturn $result $rcode]
 	}
 
 	+ {}
@@ -1551,19 +1551,36 @@ proc dsl::writer::ParamTracing {params} {
     set pnl    [Maxlength $pnames]
     # Match to type specs in aktive.tcl, runtime.tcl ==> get from reader
     set tmap  {
-	uint    u	channel      p
-	double  f	take-channel p
-	int     d
-	bool    d
-	object0 p
+	channel      p	int     d	double  f
+	take-channel p	bool    d
+	object0      o 	uint    u
+	object       o
     }
     set ptypes [lmap p $params {
-	# The types here have to include all the parameter types used in etc/aktive.tcl and sourced.
-	set t [dict get $p type]
-	expr {[dict exists $tmap $t] ? [dict get $tmap $t] : "%binary"}
+	# The types here have to include all the parameter types used in etc/aktive.tcl
+	# and sourced.
+	set t      [dict get $p type]
+	set isargs [dict get $p args]
+	expr {$isargs ? "%\[\]$t/[dict exists $tmap $t]" : [dict exists $tmap $t] ? [dict get $tmap $t] : "%binary"}
     }]
 
     foreach p $pnames t $ptypes {
+	if {$t eq "o"} {
+	    # tcl object - dump string representation
+	    + "  TRACE(\"param \[[PadR $pnl $p]] = `%s`\", Tcl_GetString (param->$p));"
+	    continue
+	} elseif {[string match {%\[\]*} $t]} {
+	    # array/slice - dump base type
+	    lassign [split [string range $t 3 end] /] base fmt
+	    + "  TRACE_HEADER (1); TRACE_ADD(\"param \[[PadR $pnl $p]] = %\[%d\]$base = \{\", param->$p.c);"
+	    if {$base eq "o"} {
+		+ "  \{ aktive_uint k; for (k=0;k<param->$p.c;k++) \{ TRACE_ADD(\" `%s`\", Tcl_GetString (param->$p.v\[k\])); \} \}"
+	    } else {
+		+ "  \{ aktive_uint k; for (k=0;k<param->$p.c;k++) \{ TRACE_ADD(\" %$fmt\", param->$p.v\[k\]); \} \}"
+	    }
+	    + "  TRACE_ADD(\" \}\", 0); TRACE_CLOSER;"
+	    continue
+	}
 	+ "  TRACE(\"param \[[PadR $pnl $p]] = %$t\", param->$p);"
     }
 }
@@ -1579,7 +1596,7 @@ proc dsl::writer::FormatCode {code {indent {  }}} {
     return [textutil::adjust::indent $code $indent]
 }
 
-proc dsl::writer::FormatCodeWithReturn {code {indent {  }}} {
+proc dsl::writer::FormatCodeWithReturn {type code {indent {  }}} {
     # Note: Engineering a `return` into the last line / C statement of the block.
     set code  [textutil::adjust::undent $code]
     set code  [string trim $code]
@@ -1587,18 +1604,40 @@ proc dsl::writer::FormatCodeWithReturn {code {indent {  }}} {
     set lines [lreverse [lassign [lreverse $lines] last]]
 
     if {[regexp TRACE_RETURN $last]} {
-	# do nothing
+	# do nothing - custom user statement
     } elseif {![regexp return $last]} {
-	set last "TRACE_RETURN (\"\", [string trimright $last ";"]);"
+	# no return at all. generate a tracing) return, use the last line as value to return
+	set last "TRACE_RETURN (\"[TraceReturnType $type]\", [string trimright $last ";"]);"
     } else {
+	# rewrite the return into a TRACE
 	regexp {return (.*);} $last -> expr
-	set last "TRACE_RETURN (\"\", $expr);"
+	set last "TRACE_RETURN (\"[TraceReturnType $type]\", $expr);"
     }
 
     lappend lines $last
     set code [join $lines \n]
 
     return [textutil::adjust::indent $code $indent]
+}
+
+proc dsl::writer::TraceReturnType {type} {
+    set format {} ;# default
+    switch -exact -- $type {
+	double                { set format %f }
+	aktive_uint           -
+	uint                  { set format %u }
+	int                   { set format %d }
+	Tcl_WideInt           -
+	wide                  { set format %lld }
+	Tcl_Obj*              -
+	aktive_image_type_ptr -
+	_____________________ { set format "(${type}) %p" }
+    }
+    #	aktive_point          - / not pointers, actually
+    #	aktive_rectangle      - /
+    #	aktive_geometry       - /
+    #puts [info level 0]\t=>\t($format)
+    return $format
 }
 
 proc dsl::writer::Placeholder {key {prefix {  }}} {

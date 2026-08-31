@@ -281,8 +281,8 @@ operator query::values {
 
     return object0 {
 	Tcl_Obj* r = aktive_op_pixels (ip, src);
-	if (r) { return r; }
-	if (aktive_error_raised()) { return 0; }
+	if (r)                     { TRACE_RETURN ("(object0*) %p", r); }
+	if (aktive_error_raised()) { TRACE_RETURN ("(object0*) NIL", 0); }
 	return Tcl_NewListObj (0, 0);
     }
 }

@@ -442,7 +442,7 @@ proc dsl::reader::OpStart {op key} {
     Set opspec overlays   {}	;# Policy overlays - checks and simplifications
     Set opspec strict     0	;# Strictness flag, default not.
 
-    Set opspec result   image	;# Return value
+    Set opspec result   image	;# Type of return value
     Set opspec rcode    {}	;# C code fragment for non-image return (getter, doer)
 
     Set opspec state/setup   {}	;# State constructor - Geometry initialization at least
