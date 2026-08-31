@@ -989,6 +989,7 @@
   - [math &mdash; le op](transform_math_binary.md#op_math_le)
   - [math &mdash; linear op](transform_math.md#op_math_linear)
   - [math &mdash; lt op](transform_math_binary.md#op_math_lt)
+  - [math &mdash; matrix multiply op](transform_math_matrix.md#op_math_matrix_multiply)
   - [math &mdash; max op](transform_math_nary.md#op_math_max)
   - [math &mdash; min op](transform_math_nary.md#op_math_min)
   - [math &mdash; mod op](transform_math_binary.md#op_math_mod)
@@ -1069,6 +1070,7 @@
   - [math1 &mdash; tanh op](transform_math_unary.md#op_math1_tanh)
   - [math1 &mdash; wrap op](transform_math_unary.md#op_math1_wrap)
   - [matrix &mdash; image from](generator_virtual.md#image_from_matrix)
+  - [matrix &mdash; multiply op math](transform_math_matrix.md#op_math_matrix_multiply)
   - [matrix &mdash; warp](generator_virtual_warp.md#warp_matrix)
   - [max &mdash; op band](transform_statistics.md#op_band_max)
   - [max &mdash; op band arg](transform_statistics.md#op_band_arg_max)
@@ -1164,6 +1166,7 @@
   - [mse &mdash; op compare](sink_statistics.md#op_compare_mse)
   - [mul &mdash; op cmath](transform_math_complex_binary.md#op_cmath_mul)
   - [mul &mdash; op math](transform_math_nary.md#op_math_mul)
+  - [multiply &mdash; op math matrix](transform_math_matrix.md#op_math_matrix_multiply)
 
 ## <a name='_n'></a> n
 
@@ -1415,6 +1418,7 @@
   - [op &mdash; math le](transform_math_binary.md#op_math_le)
   - [op &mdash; math linear](transform_math.md#op_math_linear)
   - [op &mdash; math lt](transform_math_binary.md#op_math_lt)
+  - [op &mdash; math matrix multiply](transform_math_matrix.md#op_math_matrix_multiply)
   - [op &mdash; math max](transform_math_nary.md#op_math_max)
   - [op &mdash; math min](transform_math_nary.md#op_math_min)
   - [op &mdash; math mod](transform_math_binary.md#op_math_mod)

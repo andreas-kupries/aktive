@@ -91,11 +91,12 @@ operator {edge which out} {
     op::column::profile  top    first {the height of the image}
     op::column::rprofile bottom last  {`-1`}
 } {
-
-    example {
-	aktive op sdf 2image smooth [aktive op sdf ring [aktive image sdf triangle width 32 height 32 a {10 10} b {50 80} c {80 30}] thickness 4]
+    op -> _ kind fun
+    example [string map [list <fun> $fun] {
+	triangel | times 8
+	aktive image from sparse points geometry {0 0 32 32} coords {*}[hpath [iv [aktive op column <fun> @1]]] | times 8
 	@1 | -matrix -int
-    }
+    }]
 
     section transform statistics
 
@@ -106,7 +107,16 @@ operator {edge which out} {
 
     note The __${edge}__ profile of each column is the index of the \
 	__${which}__ row with a __non-zero__ value. Or ${out}, \
-	if there are no such in the column.
+	if the column contains only zeroes.
+
+    note See also [string trim [dict get {
+	profile {
+	    <!xref: aktive op column rprofile>, <!xref: aktive op row profile>, and <!xref: aktive op row rprofile>
+	}
+	rprofile {
+	    <!xref: aktive op column profile>, <!xref: aktive op row profile>, and <!xref: aktive op row rprofile>
+	}
+    } $fun]]
 
     input
 

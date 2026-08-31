@@ -42,6 +42,7 @@
     - [math](transform_math.md)
       - [binary](transform_math_binary.md)
         - [logical](transform_math_binary_logical.md)
+      - [matrix](transform_math_matrix.md)
       - [n-ary](transform_math_nary.md)
         - [logical](transform_math_nary_logical.md)
       - [unary](transform_math_unary.md)

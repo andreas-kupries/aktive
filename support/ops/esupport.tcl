@@ -78,9 +78,20 @@ proc cc.pretty {ccs} {
     return [join $norm "<br/>"]
 }
 proc s {{n 1}} { string repeat "&nbsp;" $n }
+
+proc vpath {xlist} { set y -1 ; lmap x $xlist { list $x [incr y] } }
+proc hpath {ylist} { set x -1 ; lmap y $ylist { list [incr x] $y } }
+proc iv    {i}     { lmap v [aktive query values $i] { expr {int($v)} } }
+
 #
 # show commands
 #
+proc triangel {} {
+    aktive op sdf 2image smooth \
+	[aktive op sdf ring \
+	     [aktive image sdf triangle width 32 height 32 a {10 10} b {50 80} c {80 30}] \
+	     thickness 4]
+}
 proc domain        {x}   { aktive query domain $x }
 proc meta-of       {x}   { aktive query meta $x }
 proc sdf-fit       {x}   { aktive op sdf 2image fit       $x }

@@ -21,12 +21,27 @@ operator {dexpr attr} {
     op -> _ kind fun extra
     if {$fun eq "arg"} { def fun $fun$extra }
 
-    set int [expr {$fun in {mean stddev variance} ? "" : "-int"}]
-    example [string map [list INT $int] {
-	aktive op sdf 2image smooth [aktive op sdf ring [aktive image sdf triangle width 32 height 32 a {10 10} b {50 80} c {80 30}] thickness 4]
-	@1 | -matrix INT
-    }]
-    unset int
+    switch -exact -- $fun {
+	mean - stddev - variance {
+	    example {
+		triangel
+		@1 | -matrix
+	    }
+	}
+	profile - rprofile {
+	    example [string map [list <fun> $fun] {
+		triangel | times 8
+		aktive image from sparse points geometry {0 0 32 32} coords {*}[vpath [iv [aktive op row <fun> @1]]] | times 8
+		@1 | -matrix -int
+	    }]
+	}
+	default {
+	    example {
+		triangel
+		@1 | -matrix -int
+	    }
+	}
+    }
 
     section transform statistics
 
@@ -56,12 +71,20 @@ operator {dexpr attr} {
 	profile {
 	    note The __left__ profile of each row is the index of the \
 		__first__ column with a __non-zero__ value. Or the \
-		width of the image, if there are no such in the row.
+		width of the image, if the row contains only zeroes.
+
+	    note See also "<!xref: aktive op row rprofile>," \
+		"<!xref: aktive op column profile>," and \
+		"<!xref: aktive op column rprofile>"
 	}
 	rprofile {
 	    note The __right__ profile of each row is the index of the \
 		__last__ column with a __non-zero__ value. Or `-1`, if \
-		there are no such in the row.
+		the row contains only zeros.
+
+	    note See also "<!xref: aktive op row profile>," \
+		"<!xref: aktive op column profile>," and \
+		"<!xref: aktive op column rprofile>"
 	}
     }
 

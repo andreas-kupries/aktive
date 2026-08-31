@@ -252,6 +252,7 @@ The operators listed here are implemented in C. We ignore supporting Tcl code.
  - [aktive op math hypot](transform_math_binary.md#op_math_hypot)
  - [aktive op math le](transform_math_binary.md#op_math_le)
  - [aktive op math lt](transform_math_binary.md#op_math_lt)
+ - [aktive op math matrix multiply](transform_math_matrix.md#op_math_matrix_multiply)
  - [aktive op math max](transform_math_nary.md#op_math_max)
  - [aktive op math min](transform_math_nary.md#op_math_min)
  - [aktive op math mod](transform_math_binary.md#op_math_mod)

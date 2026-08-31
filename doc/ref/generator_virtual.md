@@ -347,7 +347,7 @@ Returns image containing a test pattern with increasing spatial frequency from l
 ---
 ### [↑](#top) <a name='image_from_band'></a> aktive image from band
 
-Syntax: __aktive image from band__  ?(param value)...? [[→ definition](/file?ci=trunk&ln=52&name=etc/generator/virtual/constant.tcl)]
+Syntax: __aktive image from band__  ?(param value)...? [[→ definition](/file?ci=trunk&ln=53&name=etc/generator/virtual/constant.tcl)]
 
 Returns image where all pixels have the same band values.
 
@@ -381,7 +381,7 @@ Depth is len(value)
 ---
 ### [↑](#top) <a name='image_from_color'></a> aktive image from color
 
-Syntax: __aktive image from color__  ?(param value)...? [[→ definition](/file?ci=trunk&ln=29&name=etc/generator/virtual/constant.tcl)]
+Syntax: __aktive image from color__  ?(param value)...? [[→ definition](/file?ci=trunk&ln=30&name=etc/generator/virtual/constant.tcl)]
 
 Returns image where all pixels have the same color
 
@@ -422,7 +422,7 @@ Depth is 3. Because colors are RGB.
 ---
 ### [↑](#top) <a name='image_from_column'></a> aktive image from column
 
-Syntax: __aktive image from column__  ?(param value)...? [[→ definition](/file?ci=trunk&ln=106&name=etc/generator/virtual/constant.tcl)]
+Syntax: __aktive image from column__  ?(param value)...? [[→ definition](/file?ci=trunk&ln=112&name=etc/generator/virtual/constant.tcl)]
 
 Returns image of the specified width where all columns have the same set of values.
 
@@ -444,11 +444,18 @@ The image's height is the number of values.
     <br>geometry(0 0 64 21 1)</td></tr>
 </table>
 
+<a name='image_from_column__examples__e2'></a><table>
+<tr><th>aktive image from column x 4 y 5 width 64 values 0 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 0.45 0.5 0.55 0.6 0.6 0.7 0.75 0.8 0.85 0.9 0.95 1
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00109.gif' alt='aktive image from column x 4 y 5 width 64 values 0 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 0.45 0.5 0.55 0.6 0.6 0.7 0.75 0.8 0.85 0.9 0.95 1' style='border:4px solid gold'>
+    <br>geometry(4 5 64 21 1)</td></tr>
+</table>
+
 
 ---
 ### [↑](#top) <a name='image_from_matrix'></a> aktive image from matrix
 
-Syntax: __aktive image from matrix__  ?(param value)...? [[→ definition](/file?ci=trunk&ln=132&name=etc/generator/virtual/constant.tcl)]
+Syntax: __aktive image from matrix__  ?(param value)...? [[→ definition](/file?ci=trunk&ln=143&name=etc/generator/virtual/constant.tcl)]
 
 Returns single-band image with the pixel VALUEs.
 
@@ -472,15 +479,22 @@ Depth is fixed at 1.
 <a name='image_from_matrix__examples__e1'></a><table>
 <tr><th>aktive image from matrix width 16 height 16 values 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00109.gif' alt='aktive image from matrix width 16 height 16 values 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0' style='border:4px solid gold'>
+<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00110.gif' alt='aktive image from matrix width 16 height 16 values 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr></table></td></tr>
+</table>
+
+<a name='image_from_matrix__examples__e2'></a><table>
+<tr><th>aktive image from matrix x 5 y 3 width 16 height 16 values 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><table><tr><td valign='top'>times 8</td><td valign='top'><img src='example-00111.gif' alt='aktive image from matrix x 5 y 3 width 16 height 16 values 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0' style='border:4px solid gold'>
+    <br>geometry(5 3 128 128 1)</td></tr></table></td></tr>
 </table>
 
 
 ---
 ### [↑](#top) <a name='image_from_row'></a> aktive image from row
 
-Syntax: __aktive image from row__  ?(param value)...? [[→ definition](/file?ci=trunk&ln=80&name=etc/generator/virtual/constant.tcl)]
+Syntax: __aktive image from row__  ?(param value)...? [[→ definition](/file?ci=trunk&ln=81&name=etc/generator/virtual/constant.tcl)]
 
 Returns image of the specified height where all rows have the same set of values.
 
@@ -498,15 +512,22 @@ The image's width is the number of values.
 <a name='image_from_row__examples__e1'></a><table>
 <tr><th>aktive image from row height 64 values 0 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 0.45 0.5 0.55 0.6 0.6 0.7 0.75 0.8 0.85 0.9 0.95 1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00110.gif' alt='aktive image from row height 64 values 0 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 0.45 0.5 0.55 0.6 0.6 0.7 0.75 0.8 0.85 0.9 0.95 1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00112.gif' alt='aktive image from row height 64 values 0 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 0.45 0.5 0.55 0.6 0.6 0.7 0.75 0.8 0.85 0.9 0.95 1' style='border:4px solid gold'>
     <br>geometry(0 0 21 64 1)</td></tr>
+</table>
+
+<a name='image_from_row__examples__e2'></a><table>
+<tr><th>aktive image from row x 4 y 5 height 64 values 0 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 0.45 0.5 0.55 0.6 0.6 0.7 0.75 0.8 0.85 0.9 0.95 1
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00113.gif' alt='aktive image from row x 4 y 5 height 64 values 0 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 0.45 0.5 0.55 0.6 0.6 0.7 0.75 0.8 0.85 0.9 0.95 1' style='border:4px solid gold'>
+    <br>geometry(4 5 21 64 1)</td></tr>
 </table>
 
 
 ---
 ### [↑](#top) <a name='image_from_sparse_deltas'></a> aktive image from sparse deltas
 
-Syntax: __aktive image from sparse deltas__  (param value)... [[→ definition](/file?ci=trunk&ln=60&name=etc/generator/virtual/sparse.tcl)]
+Syntax: __aktive image from sparse deltas__  (param value)... [[→ definition](/file?ci=trunk&ln=64&name=etc/generator/virtual/sparse.tcl)]
 
 Returns a single-band image where pixels are set to white at exactly the specified points. In contrast to `sparse points` the points are specified as linear distances from the origin.
 
@@ -530,8 +551,8 @@ Pixel value is fixed at 1.0
 <a name='image_from_sparse_deltas__examples__e1'></a><table>
 <tr><th>aktive image from sparse deltas width 7 deltas 0 20 5 15
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><table><tr><td valign='top'><img src='example-00111.gif' alt='aktive image from sparse deltas width 7 deltas 0 20 5 15' style='border:4px solid gold'>
-    <br>geometry(0 0 7 6 1)</td><td valign='top'>times 8</td><td valign='top'><img src='example-00112.gif' alt='aktive image from sparse deltas width 7 deltas 0 20 5 15' style='border:4px solid gold'>
+<tr><td valign='top'><table><tr><td valign='top'><img src='example-00114.gif' alt='aktive image from sparse deltas width 7 deltas 0 20 5 15' style='border:4px solid gold'>
+    <br>geometry(0 0 7 6 1)</td><td valign='top'>times 8</td><td valign='top'><img src='example-00115.gif' alt='aktive image from sparse deltas width 7 deltas 0 20 5 15' style='border:4px solid gold'>
     <br>geometry(0 0 56 48 1)</td></tr></table></td></tr>
 </table>
 
@@ -553,24 +574,32 @@ Returns a single-band image where pixels are set to white (`1.0`) at exactly the
 <a name='image_from_sparse_points__examples__e1'></a><table>
 <tr><th>aktive image from sparse points coords {0 0} {4 3} {5 5} {6 2}
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><table><tr><td valign='top'><img src='example-00113.gif' alt='aktive image from sparse points coords {0 0} {4 3} {5 5} {6 2}' style='border:4px solid gold'>
-    <br>geometry(0 0 7 6 1)</td><td valign='top'>times 8</td><td valign='top'><img src='example-00114.gif' alt='aktive image from sparse points coords {0 0} {4 3} {5 5} {6 2}' style='border:4px solid gold'>
+<tr><td valign='top'><table><tr><td valign='top'><img src='example-00116.gif' alt='aktive image from sparse points coords {0 0} {4 3} {5 5} {6 2}' style='border:4px solid gold'>
+    <br>geometry(0 0 7 6 1)</td><td valign='top'>times 8</td><td valign='top'><img src='example-00117.gif' alt='aktive image from sparse points coords {0 0} {4 3} {5 5} {6 2}' style='border:4px solid gold'>
     <br>geometry(0 0 56 48 1)</td></tr></table></td></tr>
 </table>
 
 <a name='image_from_sparse_points__examples__e2'></a><table>
 <tr><th>aktive image from sparse points geometry {0 0 10 10} coords {1 1} {4 3} {5 5} {6 2}
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><table><tr><td valign='top'><img src='example-00115.gif' alt='aktive image from sparse points geometry {0 0 10 10} coords {1 1} {4 3} {5 5} {6 2}' style='border:4px solid gold'>
-    <br>geometry(0 0 10 10 1)</td><td valign='top'>times 8</td><td valign='top'><img src='example-00116.gif' alt='aktive image from sparse points geometry {0 0 10 10} coords {1 1} {4 3} {5 5} {6 2}' style='border:4px solid gold'>
+<tr><td valign='top'><table><tr><td valign='top'><img src='example-00118.gif' alt='aktive image from sparse points geometry {0 0 10 10} coords {1 1} {4 3} {5 5} {6 2}' style='border:4px solid gold'>
+    <br>geometry(0 0 10 10 1)</td><td valign='top'>times 8</td><td valign='top'><img src='example-00119.gif' alt='aktive image from sparse points geometry {0 0 10 10} coords {1 1} {4 3} {5 5} {6 2}' style='border:4px solid gold'>
     <br>geometry(0 0 80 80 1)</td></tr></table></td></tr>
+</table>
+
+<a name='image_from_sparse_points__examples__e3'></a><table>
+<tr><th>aktive image from sparse points geometry {-1 -2 10 10} coords {1 1} {4 3} {5 5} {6 2}
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><table><tr><td valign='top'><img src='example-00120.gif' alt='aktive image from sparse points geometry {-1 -2 10 10} coords {1 1} {4 3} {5 5} {6 2}' style='border:4px solid gold'>
+    <br>geometry(-1 -2 10 10 1)</td><td valign='top'>times 8</td><td valign='top'><img src='example-00121.gif' alt='aktive image from sparse points geometry {-1 -2 10 10} coords {1 1} {4 3} {5 5} {6 2}' style='border:4px solid gold'>
+    <br>geometry(-1 -2 80 80 1)</td></tr></table></td></tr>
 </table>
 
 
 ---
 ### [↑](#top) <a name='image_from_sparse_ranges'></a> aktive image from sparse ranges
 
-Syntax: __aktive image from sparse ranges__  ?(param value)...? [[→ definition](/file?ci=trunk&ln=131&name=etc/generator/virtual/sparse.tcl)]
+Syntax: __aktive image from sparse ranges__  ?(param value)...? [[→ definition](/file?ci=trunk&ln=135&name=etc/generator/virtual/sparse.tcl)]
 
 Returns a single-band image where the pixels are set to the specified values as per the provided row ranges.
 
@@ -594,17 +623,25 @@ The image depth is fixed at 1, i.e. the result is single-band.
 <a name='image_from_sparse_ranges__examples__e1'></a><table>
 <tr><th>aktive image from sparse ranges ranges {1 24 30 1} {2 23 31 1} {3 22 32 1} {4 22 24 0.75} {4 30 32 0.75} {5 22 23 0.75} {5 31 32 0.75} {6 23 24 0.5} {6 30 31 0.5} {7 24 25 0.5} {7 29 30 0.5}
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><table><tr><td valign='top'><img src='example-00117.gif' alt='aktive image from sparse ranges ranges {1 24 30 1} {2 23 31 1} {3 22 32 1} {4 22 24 0.75} {4 30 32 0.75} {5 22 23 0.75} {5 31 32 0.75} {6 23 24 0.5} {6 30 31 0.5} {7 24 25 0.5} {7 29 30 0.5}' style='border:4px solid gold'>
-    <br>geometry(22 1 11 7 1)</td><td valign='top'>times 8</td><td valign='top'><img src='example-00118.gif' alt='aktive image from sparse ranges ranges {1 24 30 1} {2 23 31 1} {3 22 32 1} {4 22 24 0.75} {4 30 32 0.75} {5 22 23 0.75} {5 31 32 0.75} {6 23 24 0.5} {6 30 31 0.5} {7 24 25 0.5} {7 29 30 0.5}' style='border:4px solid gold'>
+<tr><td valign='top'><table><tr><td valign='top'><img src='example-00122.gif' alt='aktive image from sparse ranges ranges {1 24 30 1} {2 23 31 1} {3 22 32 1} {4 22 24 0.75} {4 30 32 0.75} {5 22 23 0.75} {5 31 32 0.75} {6 23 24 0.5} {6 30 31 0.5} {7 24 25 0.5} {7 29 30 0.5}' style='border:4px solid gold'>
+    <br>geometry(22 1 11 7 1)</td><td valign='top'>times 8</td><td valign='top'><img src='example-00123.gif' alt='aktive image from sparse ranges ranges {1 24 30 1} {2 23 31 1} {3 22 32 1} {4 22 24 0.75} {4 30 32 0.75} {5 22 23 0.75} {5 31 32 0.75} {6 23 24 0.5} {6 30 31 0.5} {7 24 25 0.5} {7 29 30 0.5}' style='border:4px solid gold'>
     <br>geometry(22 1 88 56 1)</td></tr></table></td></tr>
 </table>
 
 <a name='image_from_sparse_ranges__examples__e2'></a><table>
 <tr><th>aktive image from sparse ranges geometry {0 0 34 11} ranges {1 24 30 1} {2 23 31 1} {3 22 32 1} {4 22 24 0.75} {4 30 32 0.75} {5 22 23 0.75} {5 31 32 0.75} {6 23 24 0.5} {6 30 31 0.5} {7 24 25 0.5} {7 29 30 0.5}
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><table><tr><td valign='top'><img src='example-00119.gif' alt='aktive image from sparse ranges geometry {0 0 34 11} ranges {1 24 30 1} {2 23 31 1} {3 22 32 1} {4 22 24 0.75} {4 30 32 0.75} {5 22 23 0.75} {5 31 32 0.75} {6 23 24 0.5} {6 30 31 0.5} {7 24 25 0.5} {7 29 30 0.5}' style='border:4px solid gold'>
-    <br>geometry(0 0 34 11 1)</td><td valign='top'>times 8</td><td valign='top'><img src='example-00120.gif' alt='aktive image from sparse ranges geometry {0 0 34 11} ranges {1 24 30 1} {2 23 31 1} {3 22 32 1} {4 22 24 0.75} {4 30 32 0.75} {5 22 23 0.75} {5 31 32 0.75} {6 23 24 0.5} {6 30 31 0.5} {7 24 25 0.5} {7 29 30 0.5}' style='border:4px solid gold'>
+<tr><td valign='top'><table><tr><td valign='top'><img src='example-00124.gif' alt='aktive image from sparse ranges geometry {0 0 34 11} ranges {1 24 30 1} {2 23 31 1} {3 22 32 1} {4 22 24 0.75} {4 30 32 0.75} {5 22 23 0.75} {5 31 32 0.75} {6 23 24 0.5} {6 30 31 0.5} {7 24 25 0.5} {7 29 30 0.5}' style='border:4px solid gold'>
+    <br>geometry(0 0 34 11 1)</td><td valign='top'>times 8</td><td valign='top'><img src='example-00125.gif' alt='aktive image from sparse ranges geometry {0 0 34 11} ranges {1 24 30 1} {2 23 31 1} {3 22 32 1} {4 22 24 0.75} {4 30 32 0.75} {5 22 23 0.75} {5 31 32 0.75} {6 23 24 0.5} {6 30 31 0.5} {7 24 25 0.5} {7 29 30 0.5}' style='border:4px solid gold'>
     <br>geometry(0 0 272 88 1)</td></tr></table></td></tr>
+</table>
+
+<a name='image_from_sparse_ranges__examples__e3'></a><table>
+<tr><th>aktive image from sparse ranges geometry {4 5 34 11} ranges {1 24 30 1} {2 23 31 1} {3 22 32 1} {4 22 24 0.75} {4 30 32 0.75} {5 22 23 0.75} {5 31 32 0.75} {6 23 24 0.5} {6 30 31 0.5} {7 24 25 0.5} {7 29 30 0.5}
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><table><tr><td valign='top'><img src='example-00126.gif' alt='aktive image from sparse ranges geometry {4 5 34 11} ranges {1 24 30 1} {2 23 31 1} {3 22 32 1} {4 22 24 0.75} {4 30 32 0.75} {5 22 23 0.75} {5 31 32 0.75} {6 23 24 0.5} {6 30 31 0.5} {7 24 25 0.5} {7 29 30 0.5}' style='border:4px solid gold'>
+    <br>geometry(4 5 34 11 1)</td><td valign='top'>times 8</td><td valign='top'><img src='example-00127.gif' alt='aktive image from sparse ranges geometry {4 5 34 11} ranges {1 24 30 1} {2 23 31 1} {3 22 32 1} {4 22 24 0.75} {4 30 32 0.75} {5 22 23 0.75} {5 31 32 0.75} {6 23 24 0.5} {6 30 31 0.5} {7 24 25 0.5} {7 29 30 0.5}' style='border:4px solid gold'>
+    <br>geometry(4 5 272 88 1)</td></tr></table></td></tr>
 </table>
 
 
@@ -629,15 +666,22 @@ Returns image which has the same VALUE everywhere.
 <a name='image_from_value__examples__e1'></a><table>
 <tr><th>aktive image from value width 64 height 64 depth 1 value 0.5
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00121.gif' alt='aktive image from value width 64 height 64 depth 1 value 0.5' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00128.gif' alt='aktive image from value width 64 height 64 depth 1 value 0.5' style='border:4px solid gold'>
     <br>geometry(0 0 64 64 1)</td></tr>
 </table>
 
 <a name='image_from_value__examples__e2'></a><table>
 <tr><th>aktive image from value width 64 height 64 depth 3 value 0.5
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00122.gif' alt='aktive image from value width 64 height 64 depth 3 value 0.5' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00129.gif' alt='aktive image from value width 64 height 64 depth 3 value 0.5' style='border:4px solid gold'>
     <br>geometry(0 0 64 64 3)</td></tr>
+</table>
+
+<a name='image_from_value__examples__e3'></a><table>
+<tr><th>aktive image from value x 4 y 5 width 64 height 64 depth 3 value 0.75
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00130.gif' alt='aktive image from value x 4 y 5 width 64 height 64 depth 3 value 0.75' style='border:4px solid gold'>
+    <br>geometry(4 5 64 64 3)</td></tr>
 </table>
 
 
@@ -661,14 +705,14 @@ Returns image containing a linear gradient through all cells.
 <a name='image_gradient__examples__e1'></a><table>
 <tr><th>aktive image gradient width 256 height   1 depth 1 first 0 last 1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><table><tr><td valign='top'>height-times 32</td><td valign='top'><img src='example-00123.gif' alt='aktive image gradient width 256 height   1 depth 1 first 0 last 1' style='border:4px solid gold'>
+<tr><td valign='top'><table><tr><td valign='top'>height-times 32</td><td valign='top'><img src='example-00131.gif' alt='aktive image gradient width 256 height   1 depth 1 first 0 last 1' style='border:4px solid gold'>
     <br>geometry(0 0 256 32 1)</td></tr></table></td></tr>
 </table>
 
 <a name='image_gradient__examples__e2'></a><table>
 <tr><th>aktive image gradient width 128 height 128 depth 1 first 0 last 1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00124.gif' alt='aktive image gradient width 128 height 128 depth 1 first 0 last 1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00132.gif' alt='aktive image gradient width 128 height 128 depth 1 first 0 last 1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
@@ -690,7 +734,7 @@ Returns image containing a left to right black to white gradient.
 <a name='image_grey__examples__e1'></a><table>
 <tr><th>aktive image grey width 256 height 32
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00125.gif' alt='aktive image grey width 256 height 32' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00133.gif' alt='aktive image grey width 256 height 32' style='border:4px solid gold'>
     <br>geometry(0 0 256 32 1)</td></tr>
 </table>
 
@@ -715,21 +759,21 @@ Returns image containing an axis-aligned black/white grid with configurable stri
 <a name='image_grid__examples__e1'></a><table>
 <tr><th>aktive image grid width 128 height 128
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00126.gif' alt='aktive image grid width 128 height 128' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00134.gif' alt='aktive image grid width 128 height 128' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
 <a name='image_grid__examples__e2'></a><table>
 <tr><th>aktive image grid width 128 height 128 black 16 white 32
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00127.gif' alt='aktive image grid width 128 height 128 black 16 white 32' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00135.gif' alt='aktive image grid width 128 height 128 black 16 white 32' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
 <a name='image_grid__examples__e3'></a><table>
 <tr><th>aktive image grid width 128 height 128 black 16 white 32 offset 8
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00128.gif' alt='aktive image grid width 128 height 128 black 16 white 32 offset 8' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00136.gif' alt='aktive image grid width 128 height 128 black 16 white 32 offset 8' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
@@ -751,7 +795,7 @@ Returns square single-band image containing a horizontal bar. The image has size
 <a name='image_hbar__examples__e1'></a><table>
 <tr><th>aktive image hbar radius 32 width 8
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00129.gif' alt='aktive image hbar radius 32 width 8' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00137.gif' alt='aktive image hbar radius 32 width 8' style='border:4px solid gold'>
     <br>geometry(0 0 65 65 1)</td></tr>
 </table>
 
@@ -1576,14 +1620,14 @@ Returns image where pixels are set to random values drawn from a gaussian distri
 <a name='image_noise_gauss__examples__e1'></a><table>
 <tr><th>aktive image noise gauss width 256 height 256 depth 1 seed 703011174
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00218.gif' alt='aktive image noise gauss width 256 height 256 depth 1 seed 703011174' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00226.gif' alt='aktive image noise gauss width 256 height 256 depth 1 seed 703011174' style='border:4px solid gold'>
     <br>geometry(0 0 256 256 1)</td></tr>
 </table>
 
 <a name='image_noise_gauss__examples__e2'></a><table>
 <tr><th>aktive image noise gauss width 256 height 256 depth 3 seed 703011174
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00219.gif' alt='aktive image noise gauss width 256 height 256 depth 3 seed 703011174' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00227.gif' alt='aktive image noise gauss width 256 height 256 depth 3 seed 703011174' style='border:4px solid gold'>
     <br>geometry(0 0 256 256 3)</td></tr>
 </table>
 
@@ -1614,14 +1658,14 @@ The value of set pixels is fixed at 1.0
 <a name='image_noise_salt__examples__e1'></a><table>
 <tr><th>aktive image noise salt width 256 height 256 depth 1 seed 703011174 threshold 0.02
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00220.gif' alt='aktive image noise salt width 256 height 256 depth 1 seed 703011174 threshold 0.02' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00228.gif' alt='aktive image noise salt width 256 height 256 depth 1 seed 703011174 threshold 0.02' style='border:4px solid gold'>
     <br>geometry(0 0 256 256 1)</td></tr>
 </table>
 
 <a name='image_noise_salt__examples__e2'></a><table>
 <tr><th>aktive image noise salt width 256 height 256 depth 3 seed 703011174 threshold 0.02
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00221.gif' alt='aktive image noise salt width 256 height 256 depth 3 seed 703011174 threshold 0.02' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00229.gif' alt='aktive image noise salt width 256 height 256 depth 3 seed 703011174 threshold 0.02' style='border:4px solid gold'>
     <br>geometry(0 0 256 256 3)</td></tr>
 </table>
 
@@ -1645,14 +1689,14 @@ Returns image where pixels are set to random values drawn from a uniform distrib
 <a name='image_noise_uniform__examples__e1'></a><table>
 <tr><th>aktive image noise uniform width 256 height 256 depth 1 seed 703011174
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00222.gif' alt='aktive image noise uniform width 256 height 256 depth 1 seed 703011174' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00230.gif' alt='aktive image noise uniform width 256 height 256 depth 1 seed 703011174' style='border:4px solid gold'>
     <br>geometry(0 0 256 256 1)</td></tr>
 </table>
 
 <a name='image_noise_uniform__examples__e2'></a><table>
 <tr><th>aktive image noise uniform width 256 height 256 depth 3 seed 703011174
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00223.gif' alt='aktive image noise uniform width 256 height 256 depth 3 seed 703011174' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00231.gif' alt='aktive image noise uniform width 256 height 256 depth 3 seed 703011174' style='border:4px solid gold'>
     <br>geometry(0 0 256 256 3)</td></tr>
 </table>
 
@@ -1669,7 +1713,7 @@ Returns a 128x128 image containing a color palette.
 <a name='image_palette_color__examples__e1'></a><table>
 <tr><th>aktive image palette color 
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00224.gif' alt='aktive image palette color ' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00232.gif' alt='aktive image palette color ' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 3)</td></tr>
 </table>
 
@@ -1686,7 +1730,7 @@ Returns a 128x128 image containing a gray palette.
 <a name='image_palette_grey__examples__e1'></a><table>
 <tr><th>aktive image palette grey 
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00225.gif' alt='aktive image palette grey ' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00233.gif' alt='aktive image palette grey ' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
@@ -1712,7 +1756,7 @@ The ratio between horizontal and vertical frequencies determines the angle of th
 <a name='image_sines__examples__e1'></a><table>
 <tr><th>aktive image sines width 256 height 256 hf 0.5 vf 0.6
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00259.gif' alt='aktive image sines width 256 height 256 hf 0.5 vf 0.6' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00267.gif' alt='aktive image sines width 256 height 256 hf 0.5 vf 0.6' style='border:4px solid gold'>
     <br>geometry(0 0 256 256 1)</td></tr>
 </table>
 
@@ -1733,7 +1777,7 @@ Returns single-band white square with radius. Default radius 1.
 <a name='image_square__examples__e1'></a><table>
 <tr><th>aktive image square radius 32
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00260.gif' alt='aktive image square radius 32' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00268.gif' alt='aktive image square radius 32' style='border:4px solid gold'>
     <br>geometry(0 0 65 65 1)</td></tr>
 </table>
 
@@ -1758,21 +1802,21 @@ Returns image containing a series of vertical black/white stripes.
 <a name='image_stripes__examples__e1'></a><table>
 <tr><th>aktive image stripes width 128 height 128
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00261.gif' alt='aktive image stripes width 128 height 128' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00269.gif' alt='aktive image stripes width 128 height 128' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
 <a name='image_stripes__examples__e2'></a><table>
 <tr><th>aktive image stripes width 128 height 128 black 16 white 32
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00262.gif' alt='aktive image stripes width 128 height 128 black 16 white 32' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00270.gif' alt='aktive image stripes width 128 height 128 black 16 white 32' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
 <a name='image_stripes__examples__e3'></a><table>
 <tr><th>aktive image stripes width 128 height 128 black 16 white 32 offset 8
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00263.gif' alt='aktive image stripes width 128 height 128 black 16 white 32 offset 8' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00271.gif' alt='aktive image stripes width 128 height 128 black 16 white 32 offset 8' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
@@ -1794,7 +1838,7 @@ Returns square single-band image containing a vertical bar. The image has size `
 <a name='image_vbar__examples__e1'></a><table>
 <tr><th>aktive image vbar radius 32 width 8
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00312.gif' alt='aktive image vbar radius 32 width 8' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00320.gif' alt='aktive image vbar radius 32 width 8' style='border:4px solid gold'>
     <br>geometry(0 0 65 65 1)</td></tr>
 </table>
 
@@ -1816,7 +1860,7 @@ Returns square single-band image containing a diagonal cross. The image has size
 <a name='image_xcross__examples__e1'></a><table>
 <tr><th>aktive image xcross radius 32 width 8
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00313.gif' alt='aktive image xcross radius 32 width 8' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00321.gif' alt='aktive image xcross radius 32 width 8' style='border:4px solid gold'>
     <br>geometry(0 0 65 65 1)</td></tr>
 </table>
 
@@ -1838,7 +1882,7 @@ Returns image containing a zone plate test pattern.
 <a name='image_zone__examples__e1'></a><table>
 <tr><th>aktive image zone width 256 height 256
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00314.gif' alt='aktive image zone width 256 height 256' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00322.gif' alt='aktive image zone width 256 height 256' style='border:4px solid gold'>
     <br>geometry(0 0 256 256 1)</td></tr>
 </table>
 

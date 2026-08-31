@@ -19,6 +19,7 @@
 
 
  - [transform math binary](transform_math_binary.md) ↘
+ - [transform math matrix](transform_math_matrix.md) ↘
  - [transform math n-ary](transform_math_nary.md) ↘
  - [transform math unary](transform_math_unary.md) ↘
 
