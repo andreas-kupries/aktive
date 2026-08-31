@@ -331,8 +331,7 @@ aktive_region_fetch_area_core (aktive_region region, aktive_rectangle* request, 
      * the translation is -(request.location).
      */
 
-    aktive_rectangle domain;
-    aktive_rectangle_from_geometry (&domain, &region->origin->content->public.domain);
+    aktive_rectangle_def_as (domain, &region->origin->content->public.domain);
 
     if (aktive_rectangle_is_subset (request, &domain)) {
 	// Special case (a). The entire request has to be served by the fetcher.
@@ -367,13 +366,16 @@ aktive_region_fetch_area_core (aktive_region region, aktive_rectangle* request, 
     }
 
     // Clear the outside zones, if any
-    for (aktive_uint i = 1; i < zc; i++) { aktive_blit_clear (result, &zv [i]); }
+    for (aktive_uint i = 1; i < zc; i++) {
+	TRACE ("clear outside zone [%d]", i);
+	TRACE_RECTANGLE_M("zone rect", &zv[i]);
+	aktive_blit_clear (result, &zv [i]); }
 
     // The overlap is the only remaining part to handle, and this is done by
     // the fetcher.
 
     aktive_rectangle dst = zv[0];
-    aktive_rectangle_move (&dst, -request->x, -request->y);
+    aktive_rectangle_sub (&dst, request);
 
 #define RD zv[0]
     TRACE ( "section (%3d .. %3d  %3d .. %3d | %3d %3d     |     )",
