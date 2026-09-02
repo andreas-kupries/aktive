@@ -96,7 +96,7 @@ aktive_pixels (aktive_memory_control* info, aktive_block* src)
     TRACE_POINT_M   ("blk src loc", &src->location);	// block logical location in origin image
     TRACE_GEOMETRY_M("blk src dom", &src->domain);	// (w, h, d) of src->pixel
 
-    // destination area has soource dimensions.
+    // destination area has source dimensions.
     aktive_rectangle_def_as (dst, &src->domain);
 
     // destination area location is 0-based, translate from logical to physical

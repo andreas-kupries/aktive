@@ -65,7 +65,7 @@ aktive_gicache_fill (aktive_gicache* cache, aktive_gicache_filler filler, void* 
   TRACE("attempt to claim for filling", 0);
   Tcl_MutexLock (&cache->fillinprogress);
 
-  TRACE("claimed, rechecking isfilled = %d", cache->cachefilled);
+  TRACE("claimed, rechecking isfilled = %d", cache->isfilled);
   if (cache->isfilled) goto unlock;
 
   TRACE("invoke filler", 0);

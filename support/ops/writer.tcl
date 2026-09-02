@@ -1586,7 +1586,7 @@ proc dsl::writer::ParamTracing {params} {
 	    if {$base eq "o"} {
 		+ "  \{ aktive_uint k; for (k=0;k<param->$p.c;k++) \{ TRACE_ADD(\" `%s`\", Tcl_GetString (param->$p.v\[k\])); \} \}"
 	    } else {
-		+ "  \{ aktive_uint k; for (k=0;k<param->$p.c;k++) \{ TRACE_ADD(\" %$fmt\", param->$p.v\[k\]); \} \}"
+		+ "  \{ aktive_uint k; for (k=0;k<param->$p.c;k++) \{ TRACE_ADD(\" $fmt\", param->$p.v\[k\]); \} \}"
 	    }
 	    + "  TRACE_ADD(\" \}\", 0); TRACE_CLOSER;"
 	    continue

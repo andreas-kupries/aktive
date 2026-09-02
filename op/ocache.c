@@ -3,8 +3,17 @@
  * -- Direct operator support - op::cache filler and context
  */
 
+#include <tclpre9compat.h>
+#include <critcl_trace.h>
+
 #include <ocache.h>
 #include <op/memory.h>
+
+TRACE_OFF;
+
+/*
+ * - - -- --- ----- -------- -------------
+ */
 
 extern void
 aktive_op_ocache (aktive_block* out, aktive_ocache* context)
