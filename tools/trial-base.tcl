@@ -608,8 +608,8 @@ proc showbasic {label i} {
 }
 
 proc showgeo {label i} {
-    lassign [aktive query domain $i] x y w h d
-    puts "$label = [aktive query id $i] $w x $h x $d @$x,$y"
+    lassign [aktive query geometry $i] x y w h d
+    puts "$label = [aktive query id $i] ($w x $h x $d) @$x,$y"
     flush stdout
 }
 
