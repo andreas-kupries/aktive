@@ -27,3 +27,5 @@ Basic set of functions in one, two, or three arguments, with scalar and image ar
   - Linear blending
 
 __Note__ that not all operators are listed here.
+
+Beyond the above a basic set of [matrix operations](matrix/README.md)

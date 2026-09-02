@@ -112,8 +112,10 @@ rename cc-reduce {}
 rename cc-meta   {}
 
 import transformer/math/binary.tcl
-import transformer/math/unary.tcl
+import transformer/math/matrix/multiply.tcl
+#import transformer/math/matrix/invert.tcl
 import transformer/math/other.tcl
+import transformer/math/unary.tcl
 
 import transformer/math/complex/binary.tcl
 import transformer/math/complex/reduce.tcl

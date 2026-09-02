@@ -179,6 +179,7 @@ critcl::include op/color.h
 critcl::include op/convolve.h
 critcl::include op/cprofile.h
 critcl::include op/csum.h
+critcl::include op/dotproduct.h
 critcl::include op/lut.h
 critcl::include op/memory.h
 critcl::include op/netpbm.h

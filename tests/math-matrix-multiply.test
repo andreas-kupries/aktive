@@ -1,0 +1,321 @@
+# -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
+## (c) 2026 Andreas Kupries
+# # ## ### ##### ######## ############# #####################
+## AKTIVE. Matrix multiplication
+
+kt check Tcl     8.6 9
+kt check tcltest 2
+
+# # ## ### ##### ######## ############# #####################
+
+kt local testing aktive
+
+kt source support/util.tcl
+
+# # ## ### ##### ######## ############# #####################
+## Syntax
+
+syntax {
+    multiply {a b}
+} {aktive op math matrix}
+
+# # ## ### ##### ######## ############# #####################
+## base example matrices, A
+
+set A1 [aktive image from matrix x 3 y 4 width 10 height 5 values {*}{
+    0 1 2 3 4 5 6 7 8 9
+    9 8 7 6 5 4 3 2 1 0
+    8 9 0 1 2 3 4 5 6 7
+    6 7 8 9 0 1 2 3 4 5
+    4 5 6 7 8 9 0 1 2 3
+}]
+set A2 [aktive image from matrix x 3 y 4 width 10 height 5 values {*}{
+    0 9 0 9 0 9 0 9 0 9
+    1 8 1 8 1 8 1 8 1 8
+    2 7 2 7 2 7 2 7 2 7
+    3 6 3 6 3 6 3 6 3 6
+    4 5 4 5 4 5 4 5 4 5
+}]
+set A3 [aktive image from matrix x 3 y 4 width 10 height 5 values {*}{
+    0 5 4 3 2 1 0 9 8 7
+    1 6 3 2 1 0 9 8 7 6
+    2 7 4 5 6 7 8 9 6 5
+    3 8 9 0 1 2 3 4 5 4
+    4 5 6 7 8 9 0 1 2 3
+}]
+set A4 [aktive image from matrix x 3 y 4 width 10 height 5 values {*}{
+    0 1 2 3 4 5 6 7 8 9
+    5 6 7 8 9 0 1 2 3 0
+    4 3 4 5 6 7 8 9 4 1
+    3 2 1 0 9 8 7 6 5 2
+    2 1 0 9 8 7 6 5 4 3
+}]
+set A5 [aktive image from matrix x 3 y 4 width 10 height 5 values {*}{
+    0 5 4 9 0 5 4 9 0 1
+    1 6 3 8 1 6 3 8 2 3
+    2 7 2 7 2 7 2 7 4 5
+    3 8 1 6 3 8 1 6 6 7
+    4 9 0 5 4 9 0 5 8 9
+}]
+set A6 [aktive image from matrix x 3 y 4 width 10 height 5 values {*}{
+    0 7 5 7 3 9 0 3 8 9
+    6 1 6 4 0 9 8 7 2 9
+    6 5 2 1 3 8 6 7 0 1
+    4 7 2 3 4 5 9 1 6 1
+    4 3 8 5 4 8 2 0 2 5
+}]
+
+# # ## ### ##### ######## ############# #####################
+## base example matrices, B
+
+set B1 [aktive image from matrix x 7 y 8 width 6 height 10 values {*}{
+    0 1 2 3 4 5
+    6 7 8 9 0 1
+    2 3 4 5 6 7
+    8 9 0 1 2 3
+    4 5 6 7 8 9
+    4 5 6 7 8 9
+    8 9 0 1 2 3
+    2 3 4 5 6 7
+    6 7 8 9 0 1
+    0 1 2 3 4 5
+}]
+
+set B2 [aktive image from matrix x 7 y 8 width 6 height 10 values {*}{
+    0 1 2 3 4 5
+    7 8 9 0 1 6
+    6 7 8 9 2 7
+    5 6 9 0 3 8
+    4 5 8 1 4 9
+    3 4 7 2 5 0
+    2 3 6 3 6 1
+    1 2 5 4 7 2
+    0 1 0 9 8 3
+    9 8 7 6 5 4
+}]
+
+set B3 [aktive image from matrix x 7 y 8 width 6 height 10 values {*}{
+    0 7 6 5 4 3
+    1 8 7 6 5 2
+    2 9 8 9 4 1
+    3 0 9 8 3 0
+    4 1 0 7 2 9
+    5 2 1 6 1 8
+    6 3 2 5 0 7
+    7 4 3 4 9 6
+    8 5 6 7 8 5
+    9 0 1 2 3 4
+}]
+
+set B4 [aktive image from matrix x 7 y 8 width 6 height 10 values {*}{
+    0 1 2 3 4 5
+    1 0 9 8 7 6
+    2 3 4 5 6 7
+    3 2 1 0 9 8
+    4 5 6 7 8 9
+    5 4 3 2 1 0
+    6 7 8 9 0 1
+    7 6 5 4 3 2
+    8 9 0 1 2 3
+    9 8 7 6 5 4
+}]
+
+set B5 [aktive image from matrix x 7 y 8 width 6 height 10 values {*}{
+    0 9 7 3 7 9
+    0 1 8 6 2 6
+    8 1 2 7 5 1
+    4 9 2 3 6 4
+    8 5 0 3 4 5
+    8 5 0 3 4 5
+    4 9 2 3 6 4
+    8 1 2 7 5 1
+    0 1 8 6 2 6
+    0 9 7 3 7 9
+}]
+
+set B6 [aktive image from matrix x 7 y 8 width 6 height 10 values {*}{
+    1 2 5 6 9 0
+    0 3 4 7 8 1
+    9 0 3 4 3 2
+    8 1 2 5 4 5
+    9 0 7 6 7 6
+    8 1 8 9 8 9
+    3 2 1 0 1 0
+    4 5 2 3 2 3
+    7 6 5 4 5 4
+    8 9 6 7 6 7
+}]
+
+# # ## ### ##### ######## ############# #####################
+## base result matrices, Z
+
+set Z1 [aktive image from matrix x 3 y 4 width 6 height 5 values {*}{
+    180 225 180 225 180 225
+    180 225 180 225 180 225
+    160 205 200 245 140 185
+    180 225 160 205 140 185
+    180 225 200 245 220 265
+}]
+
+set Z2 [aktive image from matrix x 3 y 4 width 6 height 5 values {*}{
+    225 252 333 108 189 180
+    212 241 320 121 192 185
+    199 230 307 134 195 190
+    186 219 294 147 198 195
+    173 208 281 160 201 200
+}]
+
+set Z3 [aktive image from matrix x 3 y 4 width 6 height 5 values {*}{
+    225 156 177 216 221 162
+    242 177 180 229 200 197
+    293 216 229 340 237 294
+    162 221 200 237 180 145
+    165 162 197 294 145 200
+}]
+
+set Z4 [aktive image from matrix x 3 y 4 width 6 height 5 values {*}{
+    285 280 205 200 165 160
+    124 133 172 181 260 269
+    237 238 229 230 201 202
+    222 229 206 213 150 157
+    225 220 185 180 205 200
+}]
+
+set Z5 [aktive image from matrix x 3 y 4 width 6 height 5 values {*}{
+    196 169  99 178 180 129
+    188 189 136 191 193 174
+    180 209 173 204 206 219
+    172 229 210 217 219 264
+    164 249 247 230 232 309
+}]
+
+set Z6 [aktive image from matrix x 3 y 4 width 6 height 5 values {*}{
+    340 181 250 307 292 255
+    302 172 218 260 254 206
+    177  92 169 202 215 132
+    203 105 175 199 225 129
+    276  91 200 241 238 183
+}]
+
+# # ## ### ##### ######## ############# #####################
+## matrix combinations (depth variations)
+
+set A12     [aktive op montage z $A1 $A2]
+set A23     [aktive op montage z $A2 $A3]
+set A34     [aktive op montage z $A3 $A4]
+set A45     [aktive op montage z $A4 $A5]
+set A56     [aktive op montage z $A5 $A6]
+
+set A123    [aktive op montage z $A1 $A2 $A3]
+set A234    [aktive op montage z $A2 $A3 $A4]
+set A345    [aktive op montage z $A3 $A4 $A5]
+set A456    [aktive op montage z $A4 $A5 $A6]
+
+set A1234   [aktive op montage z $A1 $A2 $A3 $A4]
+set A2345   [aktive op montage z $A2 $A3 $A4 $A5]
+set A3456   [aktive op montage z $A3 $A4 $A5 $A6]
+
+set A12345  [aktive op montage z $A1 $A2 $A3 $A4 $A5]
+set A23456  [aktive op montage z $A2 $A3 $A4 $A5 $A6]
+
+set A123456 [aktive op montage z $A1 $A2 $A3 $A4 $A5 $A6]
+
+set B12     [aktive op montage z $B1 $B2]
+set B23     [aktive op montage z $B2 $B3]
+set B34     [aktive op montage z $B3 $B4]
+set B45     [aktive op montage z $B4 $B5]
+set B56     [aktive op montage z $B5 $B6]
+
+set B123    [aktive op montage z $B1 $B2 $B3]
+set B234    [aktive op montage z $B2 $B3 $B4]
+set B345    [aktive op montage z $B3 $B4 $B5]
+set B456    [aktive op montage z $B4 $B5 $B6]
+
+set B1234   [aktive op montage z $B1 $B2 $B3 $B4]
+set B2345   [aktive op montage z $B2 $B3 $B4 $B5]
+set B3456   [aktive op montage z $B3 $B4 $B5 $B6]
+
+set B12345  [aktive op montage z $B1 $B2 $B3 $B4 $B5]
+set B23456  [aktive op montage z $B2 $B3 $B4 $B5 $B6]
+
+set B123456 [aktive op montage z $B1 $B2 $B3 $B4 $B5 $B6]
+
+set Z12     [aktive op montage z $Z1 $Z2]
+set Z23     [aktive op montage z $Z2 $Z3]
+set Z34     [aktive op montage z $Z3 $Z4]
+set Z45     [aktive op montage z $Z4 $Z5]
+set Z56     [aktive op montage z $Z5 $Z6]
+
+set Z123    [aktive op montage z $Z1 $Z2 $Z3]
+set Z234    [aktive op montage z $Z2 $Z3 $Z4]
+set Z345    [aktive op montage z $Z3 $Z4 $Z5]
+set Z456    [aktive op montage z $Z4 $Z5 $Z6]
+
+set Z1234   [aktive op montage z $Z1 $Z2 $Z3 $Z4]
+set Z2345   [aktive op montage z $Z2 $Z3 $Z4 $Z5]
+set Z3456   [aktive op montage z $Z3 $Z4 $Z5 $Z6]
+
+set Z12345  [aktive op montage z $Z1 $Z2 $Z3 $Z4 $Z5]
+set Z23456  [aktive op montage z $Z2 $Z3 $Z4 $Z5 $Z6]
+
+set Z123456 [aktive op montage z $Z1 $Z2 $Z3 $Z4 $Z5 $Z6]
+
+# # ## ### ##### ######## ############# #####################
+##
+
+foreach k {
+    1 2 3 4 5 6
+} {
+    test aktive-op-math-matrix-multiply-2.$k "aktive op math matrix multiply, id $k" -body {
+	pixels aktive op math matrix multiply [set A$k] [set B$k]
+    } -match pixels -result [pixels/ [set Z$k]]
+}
+
+foreach k {
+    12 23 34 45 56
+} {
+    test aktive-op-math-matrix-multiply-2.$k "aktive op math matrix multiply, example $k" -body {
+	pixels aktive op math matrix multiply [set A$k] [set B$k]
+    } -match pixels -result [pixels/ [set Z$k]]
+}
+
+foreach k {
+    123 234 345 456
+} {
+    test aktive-op-math-matrix-multiply-2.$k "aktive op math matrix multiply, example $k" -body {
+	pixels aktive op math matrix multiply [set A$k] [set B$k]
+    } -match pixels -result [pixels/ [set Z$k]]
+
+}
+
+foreach k {
+    1234 2345 3456
+} {
+    test aktive-op-math-matrix-multiply-2.$k "aktive op math matrix multiply, example $k" -body {
+	pixels aktive op math matrix multiply [set A$k] [set B$k]
+    } -match pixels -result [pixels/ [set Z$k]]
+
+}
+
+foreach k {
+    12345 23456
+} {
+    test aktive-op-math-matrix-multiply-2.$k "aktive op math matrix multiply, example $k" -body {
+	pixels aktive op math matrix multiply [set A$k] [set B$k]
+    } -match pixels -result [pixels/ [set Z$k]]
+
+}
+
+foreach k {
+    123456
+} {
+    test aktive-op-math-matrix-multiply-2.$k "aktive op math matrix multiply, example $k" -body {
+	pixels aktive op math matrix multiply [set A$k] [set B$k]
+    } -match pixels -result [pixels/ [set Z$k]]
+
+}
+
+##
+# # ## ### ##### ######## ############# #####################
+cleanupTests
+return
