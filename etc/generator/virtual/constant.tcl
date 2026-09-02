@@ -181,8 +181,6 @@ operator image::from::matrix {
 	aktive_geometry_copy (&state->src.domain, domain);
 	aktive_blit_setup    (&state->src, aktive_geometry_as_rectangle (domain));
 
-	TRACE_DO (__aktive_block_dump ("local copy", &state->src));
-
 	aktive_uint writing = MIN (state->src.used, param->values.c);
 
 	TRACE ("SPACE   %d", state->src.used);
@@ -197,6 +195,8 @@ operator image::from::matrix {
 	    aktive_uint i;
 	    for (i = 0; i < writing; i++) { state->src.pixel[i] *= param->factor; }
 	}
+
+    	TRACE_DO (__aktive_block_dump ("local copy", &state->src));
     }
     pixels {
 	// Just blit from the source to the destination, after correcting for image location.
