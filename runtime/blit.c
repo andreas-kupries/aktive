@@ -729,6 +729,14 @@ aktive_blit_set (aktive_block* dst, aktive_point* location, double v)
  */
 
 extern void
+__aktive_vector_dump (const char* prefix, double* src, aktive_uint n, aktive_uint stride)
+{
+    TRACE_HEADER (1); TRACE_ADD ("[%d]double/%d %s = {", n, stride, prefix);
+    for (; n > 0; n --, src += stride) { TRACE_ADD (" %f", *src); };
+    TRACE_ADD (" }", 0); TRACE_CLOSER;
+}
+
+extern void
 __aktive_block_dump (const char* prefix, aktive_block* src) {
 
     TRACE ("%s %p = block {", prefix, src);
