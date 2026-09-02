@@ -147,8 +147,8 @@ critcl::csources runtime/*.c
 critcl::include  runtime/rt.h
 critcl::cheaders op/*.h
 critcl::csources op/*.c
-critcl::csources generated/math.c       ;# Math support: Super scalar loops (xx)
-critcl::csources generated/xreduce.c    ;# Reducer support                  (xxx)
+critcl::csources generated/math.c       ;# Math support: Unrolled loops     (xx)
+critcl::csources generated/xreduce.c    ;# Reducer support: Unrolled loops (xxx)
 
 # Types ## ##### ######## ############# #####################
 
@@ -183,6 +183,7 @@ critcl::include op/lut.h
 critcl::include op/memory.h
 critcl::include op/netpbm.h
 critcl::include op/null.h
+critcl::include op/ocache.h
 critcl::include op/otsu.h
 critcl::include op/profile.h
 critcl::include op/reduce.h
