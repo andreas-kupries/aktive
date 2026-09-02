@@ -995,14 +995,16 @@ proc dsl::reader::Next {} {
 ##  - result     :: string
 ##  - section    :: list (string)
 ##  - strict     :: bool
-##  - support    :: list (string)
-##  - state/setup
-##  - state/cleanup
-##  - state/fields
-##  - region/setup
-##  - region/cleanup
-##  - region/fields
-##  - region/fetch
+##  - support    :: list (string)	[helper C code]
+#
+##  - state/setup    :: string [C code, state setup]
+##  - state/cleanup  :: string [C code, state cleanup]
+##  - state/fields   :: string [C code, declares custom state fields]
+#
+##  - region/setup   :: string [C code, (pixel) region setup]
+##  - region/cleanup :: string [C code, (pixel) region cleanup]
+##  - region/fields  :: string [C code, declares custom (pixel) region fields]
+##  - region/fetch   :: string [C code of pixel fetcher]
 ##
 ## argspec keys
 ##  - args    :: bool

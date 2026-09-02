@@ -40,7 +40,7 @@ proc matchDict {expected actual} {
     return 1
 }
 
-# Both values have to the in image Tcl representation
+# Both values have to be in image Tcl representation
 proc matchImage {expected actual} {
     set ekeys [lsort -dict [dict keys $expected]]
     set akeys [lsort -dict [dict keys $actual]]
