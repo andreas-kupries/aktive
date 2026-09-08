@@ -1,9 +1,6 @@
 ## -*- mode: tcl ; fill-column: 90 -*-
 # # ## ### ##### ######## ############# #####################
-## Image transformer - More math (pixel wise)
-
-# # ## ### ##### ######## ############# #####################
-## Highlevel operations implemented on top of the C core
+## Image transformer - Matrix math, multiplication
 
 operator op::math::matrix::multiply {
     section transform math matrix
@@ -31,11 +28,38 @@ operator op::math::matrix::multiply {
     #  7 8 9 |112 88 154 130
     #  0 1 2 |  7  4  21  18
 
+    example [string map [list A [string map {\n { }} {
+	1 2 3
+	4 5 6
+	7 8 8
+    }] B [string map {\n { }} {
+	-2.6666667  2.6666667 -1
+	3.3333333  -4.3333333  2
+	-1          2         -1
+    }]] {
+	aktive image from matrix width 3 height 3 values AA | -matrix
+	aktive image from matrix width 3 height 3 values BB | -matrix
+	@1 @2                                               | -matrix
+    }] ;# B is the inverse of A. A*B should be I = identity
+
+    example [string map [list A [string map {\n { }} {
+	1 2
+	4 5
+    }] B [string map {\n { }} {
+	-1.6666667  0.6666667
+	1.3333333  -0.3333333
+    }]] {
+	aktive image from matrix width 2 height 2 values AA | -matrix
+	aktive image from matrix width 2 height 2 values BB | -matrix
+	@1 @2                                               | -matrix
+    }] ;# B is the inverse of A. A*B should be I = identity
+
+
     note Treats the images A and B as matrices and performs a \
 	matrix multiplication.
 
     note An error is thrown if the necessary condition \
-	`width(A) == `height(B)` does not hold. Likewise \
+	`width(A) == height(B)` does not hold. Likewise \
 	if the two matrices do not have the same depth.
 
     note The result geometry (WxHxD) is \
