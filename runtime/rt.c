@@ -44,6 +44,7 @@ aktive_error_raised (void) {
 
     ThreadSpecificData *tsdPtr = TCL_TSD_INIT(&rtDataKey);
 
+    TRACE ("thread %p error %p", tsdPtr, tsdPtr->error);
     TRACE_RETURN ("raised (%d)", !!tsdPtr->error);
 }
 
@@ -52,10 +53,11 @@ aktive_error_set (Tcl_Interp* interp) {
     TRACE_FUNC("((Tcl_Interp*) %p)", interp);
 
     ThreadSpecificData *tsdPtr = TCL_TSD_INIT(&rtDataKey);
+    TRACE ("thread %p error %p", tsdPtr, tsdPtr->error);
 
-    if (!tsdPtr->error) TRACE_RETURN_VOID;
+    if (!tsdPtr->error) { TRACE ("nothing to report", 0); TRACE_RETURN_VOID; }
 
-    TRACE ("report '%s'", Tcl_GetString (tsdPtr->error));
+    TRACE ("report %p '%s'", tsdPtr->error, Tcl_GetString (tsdPtr->error));
 
     Tcl_SetErrorCode (interp, "AKTIVE", "ERROR", NULL);
     Tcl_SetObjResult (interp, tsdPtr->error);
@@ -71,14 +73,18 @@ aktive_error_add (const char* message) {
 
     ThreadSpecificData *tsdPtr = TCL_TSD_INIT(&rtDataKey);
 
-    // %% Consider the collection of multiple errors, instead of keeping just
-    // %% the last
+    // Consider the collection of multiple errors, instead of keeping just the
+    // last
 
-    if (tsdPtr->error) { Tcl_DecrRefCount (tsdPtr->error); }
+    if (tsdPtr->error) {
+	TRACE ("thread %p error %p clearing `%s`", tsdPtr, tsdPtr->error, Tcl_GetString (tsdPtr->error));
+	Tcl_DecrRefCount (tsdPtr->error);
+    }
 
     tsdPtr->error = Tcl_NewStringObj (message, TCL_AUTO_LENGTH); /* OK tcl9 */
     Tcl_IncrRefCount (tsdPtr->error);
 
+    TRACE ("thread %p error %p set `%s`", tsdPtr, tsdPtr->error, Tcl_GetString (tsdPtr->error));
     TRACE_RETURN_VOID;
 }
 
