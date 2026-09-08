@@ -162,8 +162,8 @@ proc emit-matrix {dst int src} {
     set values [aktive query values $src]
     switch -exact -- $int {
 	0 {
-	    # limited decimals
-	    set values [lmap v $values { format %.4f $v }]
+	    # limited decimals, no trailing zeros
+	    set values [lmap v $values { strip-trailing-zeros [format %.4f $v] }]
 	}
 	1 {
 	    # no decimals
@@ -197,4 +197,10 @@ proc emit-matrix {dst int src} {
     close $chan
     # debug
     puts |[join [split [fileutil::cat $dst] \n] "|\n|"]|
+}
+proc strip-trailing-zeros {x} {
+    set xn [string trimright $x 0.]
+    if {$xn == ""} { return 0 }
+    if {$xn == "-"} { return -0 }
+    return $xn
 }
