@@ -37,7 +37,7 @@ operator op::cache {
     } -setup {
 	state->src   = aktive_region_owner (srcs->v[0]);
 	state->gic   = &istate->gic;
-	state->pixel = istate->gic.cache.pixel;
+	state->pixel = &istate->gic.cache;
     } {
 	aktive_ocache context = {
 	    .domain = idomain,
