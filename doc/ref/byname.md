@@ -494,6 +494,8 @@
  - [aktive op math le](transform_math_binary.md#op_math_le)
  - [aktive op math linear](transform_math.md#op_math_linear)
  - [aktive op math lt](transform_math_binary.md#op_math_lt)
+ - [aktive op math matrix invert](transform_math_matrix.md#op_math_matrix_invert)
+ - [aktive op math matrix invert-core](transform_math_matrix.md#op_math_matrix_invert_core)
  - [aktive op math matrix multiply](transform_math_matrix.md#op_math_matrix_multiply)
  - [aktive op math max](transform_math_nary.md#op_math_max)
  - [aktive op math min](transform_math_nary.md#op_math_min)

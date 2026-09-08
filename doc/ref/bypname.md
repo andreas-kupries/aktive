@@ -825,8 +825,10 @@
   - [interpolate &mdash; xy op sample](transform_structure.md#op_sample_interpolate_xy)
   - [interpolate &mdash; y op sample](transform_structure.md#op_sample_interpolate_y)
   - [intersect &mdash; rectangle](miscellaneous_geometry.md#rectangle_intersect)
+  - [invert &mdash; op math matrix](transform_math_matrix.md#op_math_matrix_invert)
   - [invert &mdash; op math1](transform_math_unary.md#op_math1_invert)
   - [invert &mdash; transform](generator_virtual_warp.md#transform_invert)
+  - [invert-core &mdash; op math matrix](transform_math_matrix.md#op_math_matrix_invert_core)
 
 ## <a name='_j'></a> j
 
@@ -989,6 +991,8 @@
   - [math &mdash; le op](transform_math_binary.md#op_math_le)
   - [math &mdash; linear op](transform_math.md#op_math_linear)
   - [math &mdash; lt op](transform_math_binary.md#op_math_lt)
+  - [math &mdash; matrix invert op](transform_math_matrix.md#op_math_matrix_invert)
+  - [math &mdash; matrix invert-core op](transform_math_matrix.md#op_math_matrix_invert_core)
   - [math &mdash; matrix multiply op](transform_math_matrix.md#op_math_matrix_multiply)
   - [math &mdash; max op](transform_math_nary.md#op_math_max)
   - [math &mdash; min op](transform_math_nary.md#op_math_min)
@@ -1070,6 +1074,8 @@
   - [math1 &mdash; tanh op](transform_math_unary.md#op_math1_tanh)
   - [math1 &mdash; wrap op](transform_math_unary.md#op_math1_wrap)
   - [matrix &mdash; image from](generator_virtual.md#image_from_matrix)
+  - [matrix &mdash; invert op math](transform_math_matrix.md#op_math_matrix_invert)
+  - [matrix &mdash; invert-core op math](transform_math_matrix.md#op_math_matrix_invert_core)
   - [matrix &mdash; multiply op math](transform_math_matrix.md#op_math_matrix_multiply)
   - [matrix &mdash; warp](generator_virtual_warp.md#warp_matrix)
   - [max &mdash; op band](transform_statistics.md#op_band_max)
@@ -1418,6 +1424,8 @@
   - [op &mdash; math le](transform_math_binary.md#op_math_le)
   - [op &mdash; math linear](transform_math.md#op_math_linear)
   - [op &mdash; math lt](transform_math_binary.md#op_math_lt)
+  - [op &mdash; math matrix invert](transform_math_matrix.md#op_math_matrix_invert)
+  - [op &mdash; math matrix invert-core](transform_math_matrix.md#op_math_matrix_invert_core)
   - [op &mdash; math matrix multiply](transform_math_matrix.md#op_math_matrix_multiply)
   - [op &mdash; math max](transform_math_nary.md#op_math_max)
   - [op &mdash; math min](transform_math_nary.md#op_math_min)

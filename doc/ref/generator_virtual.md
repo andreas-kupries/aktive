@@ -863,7 +863,7 @@ Returns convolution kernel for gauss3ian blur effect
 <a name='image_kernel_gauss3_x__examples__e1'></a><table>
 <tr><th>aktive image kernel gauss3 x 
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><table><tr><td>0.2500</td><td>0.5000</td><td>0.2500</td></tr></table></td></tr>
+<tr><td valign='top'><table><tr><td>0.25</td><td>0.5</td><td>0.25</td></tr></table></td></tr>
 </table>
 
 
@@ -883,7 +883,7 @@ Returns convolution kernel for gauss3ian blur effect
 <a name='image_kernel_gauss3_xy__examples__e1'></a><table>
 <tr><th>aktive image kernel gauss3 xy 
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><table><tr><td>0.0625</td><td>0.1250</td><td>0.0625</td></tr><tr><td>0.1250</td><td>0.2500</td><td>0.1250</td></tr><tr><td>0.0625</td><td>0.1250</td><td>0.0625</td></tr></table></td></tr>
+<tr><td valign='top'><table><tr><td>0.0625</td><td>0.125</td><td>0.0625</td></tr><tr><td>0.125</td><td>0.25</td><td>0.125</td></tr><tr><td>0.0625</td><td>0.125</td><td>0.0625</td></tr></table></td></tr>
 </table>
 
 
@@ -903,7 +903,7 @@ Returns convolution kernel for gauss3ian blur effect
 <a name='image_kernel_gauss3_y__examples__e1'></a><table>
 <tr><th>aktive image kernel gauss3 y 
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><table><tr><td>0.2500</td></tr><tr><td>0.5000</td></tr><tr><td>0.2500</td></tr></table></td></tr>
+<tr><td valign='top'><table><tr><td>0.25</td></tr><tr><td>0.5</td></tr><tr><td>0.25</td></tr></table></td></tr>
 </table>
 
 
@@ -923,7 +923,7 @@ Returns convolution kernel for gauss5ian blur effect
 <a name='image_kernel_gauss5_x__examples__e1'></a><table>
 <tr><th>aktive image kernel gauss5 x 
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><table><tr><td>0.0625</td><td>0.2500</td><td>0.3750</td><td>0.2500</td><td>0.0625</td></tr></table></td></tr>
+<tr><td valign='top'><table><tr><td>0.0625</td><td>0.25</td><td>0.375</td><td>0.25</td><td>0.0625</td></tr></table></td></tr>
 </table>
 
 
@@ -943,7 +943,7 @@ Returns convolution kernel for gauss5ian blur effect
 <a name='image_kernel_gauss5_y__examples__e1'></a><table>
 <tr><th>aktive image kernel gauss5 y 
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><table><tr><td>0.0625</td></tr><tr><td>0.2500</td></tr><tr><td>0.3750</td></tr><tr><td>0.2500</td></tr><tr><td>0.0625</td></tr></table></td></tr>
+<tr><td valign='top'><table><tr><td>0.0625</td></tr><tr><td>0.25</td></tr><tr><td>0.375</td></tr><tr><td>0.25</td></tr><tr><td>0.0625</td></tr></table></td></tr>
 </table>
 
 
@@ -1054,13 +1054,13 @@ Returns the 1D discrete gaussian convolution kernel, for the specified sigma and
 <a name='image_kernel_gauss_discrete__examples__e2'></a><table>
 <tr><th>aktive image kernel gauss discrete sigma 2
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><table><tr><td>0.0028</td><td>0.0093</td><td>0.0260</td><td>0.0612</td><td>0.1179</td><td>0.1791</td><td>0.2074</td><td>0.1791</td><td>0.1179</td><td>0.0612</td><td>0.0260</td><td>0.0093</td><td>0.0028</td></tr></table></td></tr>
+<tr><td valign='top'><table><tr><td>0.0028</td><td>0.0093</td><td>0.026</td><td>0.0612</td><td>0.1179</td><td>0.1791</td><td>0.2074</td><td>0.1791</td><td>0.1179</td><td>0.0612</td><td>0.026</td><td>0.0093</td><td>0.0028</td></tr></table></td></tr>
 </table>
 
 <a name='image_kernel_gauss_discrete__examples__e3'></a><table>
 <tr><th>aktive image kernel gauss discrete sigma 1 radius 6
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><table><tr><td>0.0000</td><td>0.0001</td><td>0.0010</td><td>0.0082</td><td>0.0499</td><td>0.2079</td><td>0.4658</td><td>0.2079</td><td>0.0499</td><td>0.0082</td><td>0.0010</td><td>0.0001</td><td>0.0000</td></tr></table></td></tr>
+<tr><td valign='top'><table><tr><td>0</td><td>0.0001</td><td>0.001</td><td>0.0082</td><td>0.0499</td><td>0.2079</td><td>0.4658</td><td>0.2079</td><td>0.0499</td><td>0.0082</td><td>0.001</td><td>0.0001</td><td>0</td></tr></table></td></tr>
 </table>
 
 
@@ -1165,19 +1165,19 @@ Returns lanczos convolution kernel of the specified order. The default order is 
 <a name='image_kernel_lanczos__examples__e1'></a><table>
 <tr><th>aktive image kernel lanczos 
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><table><tr><td>-0.0000</td><td>0.0000</td><td>1.0000</td><td>0.0000</td><td>-0.0000</td></tr></table></td></tr>
+<tr><td valign='top'><table><tr><td>-0</td><td>0</td><td>1</td><td>0</td><td>-0</td></tr></table></td></tr>
 </table>
 
 <a name='image_kernel_lanczos__examples__e2'></a><table>
 <tr><th>aktive image kernel lanczos order 2
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><table><tr><td>0.0000</td><td>1.0000</td><td>0.0000</td></tr></table></td></tr>
+<tr><td valign='top'><table><tr><td>0</td><td>1</td><td>0</td></tr></table></td></tr>
 </table>
 
 <a name='image_kernel_lanczos__examples__e3'></a><table>
 <tr><th>aktive image kernel lanczos order 2 step 0.25
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><table><tr><td>-0.0179</td><td>-0.0637</td><td>-0.0847</td><td>0.0000</td><td>0.2353</td><td>0.5732</td><td>0.8774</td><td>1.0000</td><td>0.8774</td><td>0.5732</td><td>0.2353</td><td>0.0000</td><td>-0.0847</td><td>-0.0637</td><td>-0.0179</td></tr></table></td></tr>
+<tr><td valign='top'><table><tr><td>-0.0179</td><td>-0.0637</td><td>-0.0847</td><td>0</td><td>0.2353</td><td>0.5732</td><td>0.8774</td><td>1</td><td>0.8774</td><td>0.5732</td><td>0.2353</td><td>0</td><td>-0.0847</td><td>-0.0637</td><td>-0.0179</td></tr></table></td></tr>
 </table>
 
 

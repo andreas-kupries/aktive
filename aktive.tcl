@@ -100,7 +100,7 @@ switch -exact -- $benchmarking$testing {
     }
 }
 
-# scan for markers the documentation can then reference.
+# scan code for markers to be used as references in the documentation
 dsl xref scan \
     /into doc/ref/xmark.tcl \
     /from etc runtime
@@ -109,7 +109,7 @@ dsl xref scan \
 dsl generate runtime etc/runtime.tcl rtgen
 dsl generate aktive  etc/aktive.tcl  generated doc/ref
 
-# scan structure definitions for developer documentation and extract them
+# scan and extract structure definitions for use by the developer documentation
 dsl structs scan \
     /into doc/dev/figures/generated \
     /from runtime op rtgen generated
@@ -139,6 +139,11 @@ critcl::source   runtime/critcl-types.tcl
 critcl::cheaders runtime
 critcl::cheaders runtime/*.h
 critcl::csources runtime/*.c
+
+# LAPACK integration - matrix inversion and other ops
+critcl::include lapacke.h
+#critcl::ldflags -L/usr/lib64/openblas-default -lopenblas
+critcl::ldflags -llapacke -llapack
 
 ##
 # # ## ### ##### ######## ############# #####################
@@ -181,6 +186,7 @@ critcl::include op/cprofile.h
 critcl::include op/csum.h
 critcl::include op/dotproduct.h
 critcl::include op/lut.h
+critcl::include op/matrix.h
 critcl::include op/memory.h
 critcl::include op/netpbm.h
 critcl::include op/null.h

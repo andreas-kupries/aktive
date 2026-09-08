@@ -653,9 +653,9 @@ This is a convenience operator implemented on top of [aktive op transform by](tr
     <br>&nbsp;</th>
     <th>aktive op resize @1 width 21 height 29
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00518.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00538.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 256 256 3)</td>
-    <td valign='top'><img src='example-00519.gif' alt='aktive op resize @1 width 21 height 29' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00539.gif' alt='aktive op resize @1 width 21 height 29' style='border:4px solid gold'>
     <br>geometry(0 0 21 29 3)</td></tr>
 </table>
 
@@ -686,9 +686,9 @@ This is a convenience operator implemented on top of [aktive op transform by](tr
     <br>&nbsp;</th>
     <th>aktive op rotate any @1 by 33 around {32 32}
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00520.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00540.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 256 256 3)</td>
-    <td valign='top'><table><tr><td valign='top'>sframe</td><td valign='top'><img src='example-00521.gif' alt='aktive op rotate any @1 by 33 around {32 32}' style='border:4px solid gold'>
+    <td valign='top'><table><tr><td valign='top'>sframe</td><td valign='top'><img src='example-00541.gif' alt='aktive op rotate any @1 by 33 around {32 32}' style='border:4px solid gold'>
     <br>geometry(-116 -12 354 354 3)</td></tr></table></td></tr>
 </table>
 
@@ -711,9 +711,9 @@ Returns image rotating the input 90 degrees counter clockwise
     <br>&nbsp;</th>
     <th>aktive op rotate ccw @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00522.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00542.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00523.gif' alt='aktive op rotate ccw @1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00543.gif' alt='aktive op rotate ccw @1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
@@ -736,9 +736,9 @@ Returns image rotating the input 90 degrees clockwise.
     <br>&nbsp;</th>
     <th>aktive op rotate cw @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00524.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00544.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00525.gif' alt='aktive op rotate cw @1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00545.gif' alt='aktive op rotate cw @1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
@@ -761,9 +761,9 @@ Returns image rotating the input 180 degrees (counter) clockwise.
     <br>&nbsp;</th>
     <th>aktive op rotate half @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00526.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00546.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00527.gif' alt='aktive op rotate half @1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00547.gif' alt='aktive op rotate half @1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
@@ -793,9 +793,9 @@ This is accomplished by sub sampling the result of a lowpass filter applied to t
     <br>&nbsp;</th>
     <th>aktive op sample decimate x @1 by 4
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00558.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00578.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00559.gif' alt='aktive op sample decimate x @1 by 4' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00579.gif' alt='aktive op sample decimate x @1 by 4' style='border:4px solid gold'>
     <br>geometry(0 0 32 128 1)</td></tr>
 </table>
 
@@ -823,9 +823,9 @@ Returns image with the input decimated along both x and y axes according to the 
     <br>&nbsp;</th>
     <th>aktive op sample decimate xy @1 by 4
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00560.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00580.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00561.gif' alt='aktive op sample decimate xy @1 by 4' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00581.gif' alt='aktive op sample decimate xy @1 by 4' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td></tr>
 </table>
 
@@ -855,9 +855,9 @@ This is accomplished by sub sampling the result of a lowpass filter applied to t
     <br>&nbsp;</th>
     <th>aktive op sample decimate y @1 by 4
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00562.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00582.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00563.gif' alt='aktive op sample decimate y @1 by 4' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00583.gif' alt='aktive op sample decimate y @1 by 4' style='border:4px solid gold'>
     <br>geometry(0 0 128 32 1)</td></tr>
 </table>
 
@@ -885,9 +885,9 @@ Returns image where the input is "zero-stuffed" along the x-axis according to th
     <br>&nbsp;</th>
     <th>aktive op sample fill x @1 by 4 fill 0.5
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00564.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00584.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00565.gif' alt='aktive op sample fill x @1 by 4 fill 0.5' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00585.gif' alt='aktive op sample fill x @1 by 4 fill 0.5' style='border:4px solid gold'>
     <br>geometry(0 0 512 128 1)</td></tr>
 </table>
 
@@ -915,9 +915,9 @@ Returns image where the input is "zero-stuffed" along both x and y axes accordin
     <br>&nbsp;</th>
     <th>aktive op sample fill xy @1 by 4 fill 0.5
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00566.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00586.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00567.gif' alt='aktive op sample fill xy @1 by 4 fill 0.5' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00587.gif' alt='aktive op sample fill xy @1 by 4 fill 0.5' style='border:4px solid gold'>
     <br>geometry(0 0 512 512 1)</td></tr>
 </table>
 
@@ -945,9 +945,9 @@ Returns image where the input is "zero-stuffed" along the y-axis according to th
     <br>&nbsp;</th>
     <th>aktive op sample fill y @1 by 4 fill 0.5
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00568.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00588.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00569.gif' alt='aktive op sample fill y @1 by 4 fill 0.5' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00589.gif' alt='aktive op sample fill y @1 by 4 fill 0.5' style='border:4px solid gold'>
     <br>geometry(0 0 128 512 1)</td></tr>
 </table>
 
@@ -993,9 +993,9 @@ This is accomplished by low-pass filtering applied to the result of zero-stuffin
     <br>&nbsp;</th>
     <th>aktive op sample interpolate x @1 by 4
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00570.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00590.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00571.gif' alt='aktive op sample interpolate x @1 by 4' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00591.gif' alt='aktive op sample interpolate x @1 by 4' style='border:4px solid gold'>
     <br>geometry(0 0 512 128 1)</td></tr>
 </table>
 
@@ -1025,9 +1025,9 @@ This is accomplished by low-pass filtering applied to the result of zero-stuffin
     <br>&nbsp;</th>
     <th>aktive op sample interpolate xy @1 by 4
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00572.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00592.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00573.gif' alt='aktive op sample interpolate xy @1 by 4' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00593.gif' alt='aktive op sample interpolate xy @1 by 4' style='border:4px solid gold'>
     <br>geometry(0 0 512 512 1)</td></tr>
 </table>
 
@@ -1057,9 +1057,9 @@ This is accomplished by low-pass filtering applied to the result of zero-stuffin
     <br>&nbsp;</th>
     <th>aktive op sample interpolate y @1 by 4
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00574.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00594.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00575.gif' alt='aktive op sample interpolate y @1 by 4' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00595.gif' alt='aktive op sample interpolate y @1 by 4' style='border:4px solid gold'>
     <br>geometry(0 0 128 512 1)</td></tr>
 </table>
 
@@ -1086,9 +1086,9 @@ Returns image where the input is stretched along the x-axis according to the str
     <br>&nbsp;</th>
     <th>aktive op sample replicate x @1 by 4
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00576.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00596.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00577.gif' alt='aktive op sample replicate x @1 by 4' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00597.gif' alt='aktive op sample replicate x @1 by 4' style='border:4px solid gold'>
     <br>geometry(0 0 512 128 1)</td></tr>
 </table>
 
@@ -1115,9 +1115,9 @@ Returns image where the input is stretched along both x and y axes according to 
     <br>&nbsp;</th>
     <th>aktive op sample replicate xy @1 by 4
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00578.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00598.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00579.gif' alt='aktive op sample replicate xy @1 by 4' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00599.gif' alt='aktive op sample replicate xy @1 by 4' style='border:4px solid gold'>
     <br>geometry(0 0 512 512 1)</td></tr>
 </table>
 
@@ -1144,9 +1144,9 @@ Returns image where the input is stretched along the y-axis according to the str
     <br>&nbsp;</th>
     <th>aktive op sample replicate y @1 by 4
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00580.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00600.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00581.gif' alt='aktive op sample replicate y @1 by 4' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00601.gif' alt='aktive op sample replicate y @1 by 4' style='border:4px solid gold'>
     <br>geometry(0 0 128 512 1)</td></tr>
 </table>
 
@@ -1188,9 +1188,9 @@ Returns image with the input sampled down along the x-axis according to the samp
     <br>&nbsp;</th>
     <th>aktive op sample sub x @1 by 4
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00582.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00602.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00583.gif' alt='aktive op sample sub x @1 by 4' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00603.gif' alt='aktive op sample sub x @1 by 4' style='border:4px solid gold'>
     <br>geometry(0 0 32 128 1)</td></tr>
 </table>
 
@@ -1217,9 +1217,9 @@ Returns image with the input sampled down along both x and y axes according to t
     <br>&nbsp;</th>
     <th>aktive op sample sub xy @1 by 4
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00584.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00604.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00585.gif' alt='aktive op sample sub xy @1 by 4' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00605.gif' alt='aktive op sample sub xy @1 by 4' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td></tr>
 </table>
 
@@ -1246,9 +1246,9 @@ Returns image with the input sampled down along the y-axis according to the samp
     <br>&nbsp;</th>
     <th>aktive op sample sub y @1 by 4
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00586.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00606.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00587.gif' alt='aktive op sample sub y @1 by 4' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00607.gif' alt='aktive op sample sub y @1 by 4' style='border:4px solid gold'>
     <br>geometry(0 0 128 32 1)</td></tr>
 </table>
 
@@ -1290,9 +1290,9 @@ Returns image with the pixels of the input shifted along the x axis so that the 
     <br>&nbsp;</th>
     <th>aktive op scroll x @1 offset 32
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00588.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00608.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00589.gif' alt='aktive op scroll x @1 offset 32' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00609.gif' alt='aktive op scroll x @1 offset 32' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
@@ -1319,9 +1319,9 @@ Returns image with the pixels of the input shifted along the y axis so that the 
     <br>&nbsp;</th>
     <th>aktive op scroll y @1 offset 32
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00590.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00610.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00591.gif' alt='aktive op scroll y @1 offset 32' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00611.gif' alt='aktive op scroll y @1 offset 32' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
@@ -1372,9 +1372,9 @@ result is the location of the result.
     <br>&nbsp;</th>
     <th>aktive op select x @1 from 20 to 50
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00646.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00666.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00647.gif' alt='aktive op select x @1 from 20 to 50' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00667.gif' alt='aktive op select x @1 from 20 to 50' style='border:4px solid gold'>
     <br>geometry(20 0 31 128 1)</td></tr>
 </table>
 
@@ -1410,9 +1410,9 @@ result is the location of the result.
     <br>&nbsp;</th>
     <th>aktive op select y @1 from 20 to 50
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00648.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00668.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00649.gif' alt='aktive op select y @1 from 20 to 50' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00669.gif' alt='aktive op select y @1 from 20 to 50' style='border:4px solid gold'>
     <br>geometry(0 20 128 31 1)</td></tr>
 </table>
 
@@ -1494,9 +1494,9 @@ The location of the image is not changed.
     <br>&nbsp;</th>
     <th>aktive op swap xy @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00662.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00682.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00663.gif' alt='aktive op swap xy @1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00683.gif' alt='aktive op swap xy @1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
@@ -1607,9 +1607,9 @@ This is an alias of `swap xy`.
     <br>&nbsp;</th>
     <th>aktive op transpose @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00686.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00706.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00687.gif' alt='aktive op transpose @1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00707.gif' alt='aktive op transpose @1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
@@ -1632,9 +1632,9 @@ Returns image with the input mirrored along the secondary diagonal.
     <br>&nbsp;</th>
     <th>aktive op transverse @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00688.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00708.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00689.gif' alt='aktive op transverse @1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00709.gif' alt='aktive op transverse @1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr>
 </table>
 
