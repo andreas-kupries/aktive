@@ -39,9 +39,10 @@ typedef void (*aktive_gicache_filler)(aktive_block* out, void* context);
  * API
  */
 
-extern void aktive_gicache_init (aktive_gicache* cache);
-extern void aktive_gicache_drop (aktive_gicache* cache);
-extern void aktive_gicache_fill (aktive_gicache* cache, aktive_gicache_filler filler, void* context);
+extern void aktive_gicache_init        (aktive_gicache* gic);
+extern void aktive_gicache_drop        (aktive_gicache* gic);
+extern void aktive_gicache_fill        (aktive_gicache* gic, aktive_gicache_filler filler, void* context);
+extern void aktive_gicache_mark_filled (aktive_gicache* gic);
 
 /*
  * = = == === ===== ======== ============= =====================
