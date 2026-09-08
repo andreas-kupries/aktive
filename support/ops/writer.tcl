@@ -1582,11 +1582,11 @@ proc dsl::writer::ParamTracing {params} {
 	} elseif {[string match {%\[\]*} $t]} {
 	    # array/slice - dump base type
 	    lassign [split [string range $t 3 end] /] base fmt
-	    + "  TRACE_HEADER (1); TRACE_ADD(\"param \[[PadR $pnl $p]] = %\[%d\]$base = \{\", param->$p.c);"
+	    + "  TRACE_HEADER (1); TRACE_ADD(\"param \[[PadR $pnl $p]] = \[%d\]$base = \{\", param->$p.c);"
 	    if {$base eq "o"} {
 		+ "  \{ aktive_uint k; for (k=0;k<param->$p.c;k++) \{ TRACE_ADD(\" `%s`\", Tcl_GetString (param->$p.v\[k\])); \} \}"
 	    } else {
-		+ "  \{ aktive_uint k; for (k=0;k<param->$p.c;k++) \{ TRACE_ADD(\" $fmt\", param->$p.v\[k\]); \} \}"
+		+ "  \{ aktive_uint k; for (k=0;k<param->$p.c;k++) \{ TRACE_ADD(\" %$fmt\", param->$p.v\[k\]); \} \}"
 	    }
 	    + "  TRACE_ADD(\" \}\", 0); TRACE_CLOSER;"
 	    continue
