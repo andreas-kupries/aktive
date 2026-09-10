@@ -124,6 +124,19 @@ proc match3 {expected actual} {
   matchNdigits 3 $expected $actual
 }
 
+
+proc matchDoubles {expected actual} {
+    if {[llength $expected] != [llength $actual]} {
+	# puts MISMATCH\t/[llength $expected]/ne/[llength $actual]/
+	# puts MISMATCH\t(($expected))\tne\t(($actual))
+	return 0
+    }
+
+    set ok [matchNdigits 4 $expected $actual]
+    # if {!$ok} { puts MISMATCH\t/digits }
+    return $ok
+}
+
 ##
 # # ## ### ##### ######## ############# #####################
 return

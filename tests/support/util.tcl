@@ -12,14 +12,15 @@ kt source support/match.tcl
 # # ## ### ##### ######## ############# #####################
 ## match command registration
 
-customMatch double4        match4
-customMatch double3        match3
-customMatch image          matchImage
-customMatch listpix        matchPixelLists
-customMatch pixels         matchPixels
 customMatch content        matchFileContent
 customMatch content/string matchFileContentString
 customMatch dict           matchDict
+customMatch double3        match3
+customMatch double4        match4
+customMatch doubles        matchDoubles
+customMatch image          matchImage
+customMatch listpix        matchPixelLists
+customMatch pixels         matchPixels
 
 # # ## ### ##### ######## ############# #####################
 
