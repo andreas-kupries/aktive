@@ -98,6 +98,7 @@
 
   - [mask &mdash; generate transform threshold](transform_threshold_mask_generate.md)
   - [mask &mdash; transform threshold](transform_threshold_mask.md)
+  - [math](math.md)
   - [math &mdash; binary logical transform](transform_math_binary_logical.md)
   - [math &mdash; binary transform](transform_math_binary.md)
   - [math &mdash; complex binary transform](transform_math_complex_binary.md)

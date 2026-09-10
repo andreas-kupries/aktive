@@ -1,0 +1,33 @@
+# -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
+## (c) 2026 Andreas Kupries
+# # ## ### ##### ######## ############# #####################
+## AKTIVE. Polynomial evaluation
+
+kt check Tcl     8.6 9
+kt check tcltest 2
+
+# # ## ### ##### ######## ############# #####################
+
+kt local testing aktive
+
+kt source support/util.tcl
+
+# # ## ### ##### ######## ############# #####################
+
+if 0 {syntax {
+    eval {x args}
+} {aktive math polynomial}} ;# -- issue with args handling
+
+# # ## ### ##### ######## ############# #####################
+
+test aktive-math-polynomial-eval-2.0 "aktive math polynomial eval" -body {
+    aktive math polynomial eval 5  1 3
+} -match double4 -result 16
+
+test aktive-math-polynomial-eval-2.1 "aktive math polynomial eval" -body {
+    aktive math polynomial eval 5  1 3 -2
+} -match double4 -result -34
+
+# # ## ### ##### ######## ############# #####################
+cleanupTests
+return

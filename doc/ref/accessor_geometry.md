@@ -51,7 +51,7 @@ Returns the input's depth.
     <br>&nbsp;</th>
     <th>aktive query depth @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00720.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00729.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;1</td></tr>
 </table>
@@ -61,7 +61,7 @@ Returns the input's depth.
     <br>&nbsp;</th>
     <th>aktive query depth @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00722.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00731.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;1</td></tr>
 </table>
@@ -85,7 +85,7 @@ Returns the input's domain, a 2D rectangle. I.e. location, width, and height.
     <br>&nbsp;</th>
     <th>aktive query domain @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00724.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00733.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;0 0 32 32</td></tr>
 </table>
@@ -95,7 +95,7 @@ Returns the input's domain, a 2D rectangle. I.e. location, width, and height.
     <br>&nbsp;</th>
     <th>aktive query domain @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00726.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00735.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;0 0 32 32</td></tr>
 </table>
@@ -119,7 +119,7 @@ Returns the input's full geometry, i.e. domain and depth.
     <br>&nbsp;</th>
     <th>aktive query geometry @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00728.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00737.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;0 0 32 32 1</td></tr>
 </table>
@@ -129,7 +129,7 @@ Returns the input's full geometry, i.e. domain and depth.
     <br>&nbsp;</th>
     <th>aktive query geometry @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00730.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00739.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;0 0 32 32 1</td></tr>
 </table>
@@ -153,7 +153,7 @@ Returns the input's height.
     <br>&nbsp;</th>
     <th>aktive query height @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00732.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00741.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;32</td></tr>
 </table>
@@ -163,7 +163,7 @@ Returns the input's height.
     <br>&nbsp;</th>
     <th>aktive query height @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00734.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00743.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;32</td></tr>
 </table>
@@ -187,7 +187,7 @@ Returns the input's location, a 2D point.
     <br>&nbsp;</th>
     <th>aktive query location @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00736.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00745.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;0 0</td></tr>
 </table>
@@ -197,7 +197,7 @@ Returns the input's location, a 2D point.
     <br>&nbsp;</th>
     <th>aktive query location @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00738.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00747.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;0 0</td></tr>
 </table>
@@ -221,7 +221,7 @@ Returns the input's pitch, the number of values in a row, i.e. width times depth
     <br>&nbsp;</th>
     <th>aktive query pitch @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00746.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00755.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;32</td></tr>
 </table>
@@ -231,7 +231,7 @@ Returns the input's pitch, the number of values in a row, i.e. width times depth
     <br>&nbsp;</th>
     <th>aktive query pitch @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00748.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00757.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;32</td></tr>
 </table>
@@ -255,7 +255,7 @@ Returns the input's number of pixels.
     <br>&nbsp;</th>
     <th>aktive query pixels @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00750.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00759.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;1024</td></tr>
 </table>
@@ -265,7 +265,7 @@ Returns the input's number of pixels.
     <br>&nbsp;</th>
     <th>aktive query pixels @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00752.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00761.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;1024</td></tr>
 </table>
@@ -289,7 +289,7 @@ Returns the input's size, i.e. the number of pixels times depth.
     <br>&nbsp;</th>
     <th>aktive query size @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00758.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00767.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;1024</td></tr>
 </table>
@@ -299,7 +299,7 @@ Returns the input's size, i.e. the number of pixels times depth.
     <br>&nbsp;</th>
     <th>aktive query size @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00760.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00769.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;1024</td></tr>
 </table>
@@ -323,7 +323,7 @@ Returns the input's width.
     <br>&nbsp;</th>
     <th>aktive query width @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00770.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00779.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;32</td></tr>
 </table>
@@ -333,7 +333,7 @@ Returns the input's width.
     <br>&nbsp;</th>
     <th>aktive query width @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00772.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00781.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;32</td></tr>
 </table>
@@ -357,7 +357,7 @@ Returns the input's x location.
     <br>&nbsp;</th>
     <th>aktive query x @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00774.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00783.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;0</td></tr>
 </table>
@@ -367,7 +367,7 @@ Returns the input's x location.
     <br>&nbsp;</th>
     <th>aktive query x @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00776.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00785.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;0</td></tr>
 </table>
@@ -391,7 +391,7 @@ Returns the input's maximum x location.
     <br>&nbsp;</th>
     <th>aktive query xmax @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00778.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00787.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;31</td></tr>
 </table>
@@ -401,7 +401,7 @@ Returns the input's maximum x location.
     <br>&nbsp;</th>
     <th>aktive query xmax @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00780.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00789.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;31</td></tr>
 </table>
@@ -425,7 +425,7 @@ Returns the input's y location.
     <br>&nbsp;</th>
     <th>aktive query y @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00782.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00791.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;0</td></tr>
 </table>
@@ -435,7 +435,7 @@ Returns the input's y location.
     <br>&nbsp;</th>
     <th>aktive query y @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00784.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00793.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;0</td></tr>
 </table>
@@ -459,7 +459,7 @@ Returns the input's maximum y location.
     <br>&nbsp;</th>
     <th>aktive query ymax @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00786.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00795.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;31</td></tr>
 </table>
@@ -469,7 +469,7 @@ Returns the input's maximum y location.
     <br>&nbsp;</th>
     <th>aktive query ymax @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00788.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00797.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
     <td valign='top'>&nbsp;31</td></tr>
 </table>

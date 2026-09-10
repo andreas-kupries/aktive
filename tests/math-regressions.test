@@ -1,0 +1,80 @@
+# -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
+## (c) 2026 Andreas Kupries
+# # ## ### ##### ######## ############# #####################
+## AKTIVE. Least squares regressions
+
+kt check Tcl     8.6 9
+kt check tcltest 2
+
+# # ## ### ##### ######## ############# #####################
+
+kt local testing aktive
+
+kt source support/util.tcl
+
+# # ## ### ##### ######## ############# #####################
+
+syntax {
+    points args
+    series args
+} {aktive math regression}
+
+# # ## ### ##### ######## ############# #####################
+## note: points is implemented through series.
+
+set xseries {0 1 2 3 4 5 6 7 8 9}
+set yseries {3 4 5 6 4 2 0 5 10 15}
+set points  [lmap x $xseries y $yseries { list $x $y }]
+
+# # ## ### ##### ######## ############# #####################
+
+foreach {k order} {
+    0 -1
+    1 foo
+    2 5.5
+    3 {}
+} {
+    test aktive-math-regression-series-2.$k "aktive math regression series, bad order $order" -body {
+	aktive math regression series order $order xs $xseries ys $yseries
+    } -returnCodes error -result "bad regression order `$order`, expected int > 0, or one of linear, quadratic, or cubic"
+
+    test aktive-math-regression-points-3.$k "aktive math regression points, bad order $order" -body {
+	aktive math regression points order $order points $points
+    } -returnCodes error -result "bad regression order `$order`, expected int > 0, or one of linear, quadratic, or cubic"
+}
+
+test aktive-math-regression-series-2.4 "aktive math regression series, not enough points" -body {
+    aktive math regression series order linear xs [lrange $xseries 0 0] ys [lrange $yseries 0 0]
+} -returnCodes error -result {unable to invert (near-)singular matrix}
+
+test aktive-math-regression-points-3.4 "aktive math regression points, not enough points" -body {
+    aktive math regression points order linear points [lrange $points 0 0]
+} -returnCodes error -result {unable to invert (near-)singular matrix}
+
+# # ## ### ##### ######## ############# #####################
+# https://www.emathhelp.net/calculators/probability-statistics/linear-regression-calculator/
+# https://www.emathhelp.net/calculators/probability-statistics/quadratic-regression-calculator/
+# https://www.emathhelp.net/calculators/probability-statistics/cubic-regression-calculator/
+##
+#    0 linear    { 1.854545454545455  0.787878787878788 }
+#    1 quadratic { 5.672727272727273 -2.075757575757576  0.318181818181818 }
+#    2 cubic     { 2.588811188811189  3.565850815850816 -1.333916083916084 0.122377622377622 }
+
+foreach {k order result} {
+    0 linear    {1.8545  0.7879}
+    1 quadratic {5.6727 -2.0758 0.3182}
+    2 cubic     {2.5888  3.5658 -1.3339 0.1224}
+} {
+    test aktive-math-regression-series-4.$k "aktive math regression series, $order" -body {
+	aktive math regression series order $order xs $xseries ys $yseries
+    } -match doubles -result $result
+
+    test aktive-math-regression-series-5.$k "aktive math regression points, $order" -body {
+	aktive math regression points order $order points $points
+    } -match doubles -result $result
+}
+
+# # ## ### ##### ######## ############# #####################
+unset xseries yseries points
+cleanupTests
+return

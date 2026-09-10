@@ -40,6 +40,9 @@ import other/point.tcl
 import other/rectangle.tcl
 import other/color.tcl
 
+import math/polynomials.tcl
+import math/regression.tcl
+
 set supported {}
 import generator/reader/aktive.tcl
 import generator/reader/netpbm.tcl

@@ -52,11 +52,11 @@ Compresses the input SDF into the range 0..1 and returns the resulting grayscale
     <br>&nbsp;</th>
     <th>aktive op sdf and @1 @2
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00612.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00621.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00613.gif' alt='@2' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00622.gif' alt='@2' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00614.gif' alt='aktive op sdf and @1 @2' style='border:4px solid gold'>
+    <td valign='top'><table><tr><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00623.gif' alt='aktive op sdf and @1 @2' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr></table></td></tr>
 </table>
 
@@ -85,11 +85,11 @@ Converts the SDF into a black/white image with pixelated element borders.
     <br>&nbsp;</th>
     <th>aktive op sdf and @1 @2
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00615.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00624.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00616.gif' alt='@2' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00625.gif' alt='@2' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><table><tr><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00617.gif' alt='aktive op sdf and @1 @2' style='border:4px solid gold'>
+    <td valign='top'><table><tr><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00626.gif' alt='aktive op sdf and @1 @2' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr></table></td></tr>
 </table>
 
@@ -118,11 +118,11 @@ Converts the SDF into a grey-scale image with anti-aliased element borders.
     <br>&nbsp;</th>
     <th>aktive op sdf and @1 @2
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00618.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00627.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00619.gif' alt='@2' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00628.gif' alt='@2' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><table><tr><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00620.gif' alt='aktive op sdf and @1 @2' style='border:4px solid gold'>
+    <td valign='top'><table><tr><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00629.gif' alt='aktive op sdf and @1 @2' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr></table></td></tr>
 </table>
 
@@ -149,12 +149,12 @@ Returns the inverted input SDF, where inside and outside changed places. This is
     <br>&nbsp;</th>
     <th>aktive op sdf not @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00626.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00635.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><table><tr><td valign='top'><img src='example-00627.gif' alt='aktive op sdf not @1' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00628.gif' alt='aktive op sdf not @1' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00629.gif' alt='aktive op sdf not @1' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00630.gif' alt='aktive op sdf not @1' style='border:4px solid gold'>
+    <td valign='top'><table><tr><td valign='top'><img src='example-00636.gif' alt='aktive op sdf not @1' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00637.gif' alt='aktive op sdf not @1' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00638.gif' alt='aktive op sdf not @1' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00639.gif' alt='aktive op sdf not @1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr></table></td></tr>
 </table>
 
@@ -183,12 +183,12 @@ This is implemented by taking the absolute of the input.
     <br>&nbsp;</th>
     <th>aktive op sdf outline @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00636.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00645.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><table><tr><td valign='top'><img src='example-00637.gif' alt='aktive op sdf outline @1' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00638.gif' alt='aktive op sdf outline @1' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00639.gif' alt='aktive op sdf outline @1' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00640.gif' alt='aktive op sdf outline @1' style='border:4px solid gold'>
+    <td valign='top'><table><tr><td valign='top'><img src='example-00646.gif' alt='aktive op sdf outline @1' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00647.gif' alt='aktive op sdf outline @1' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00648.gif' alt='aktive op sdf outline @1' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00649.gif' alt='aktive op sdf outline @1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr></table></td></tr>
 </table>
 
@@ -223,12 +223,12 @@ Note that a thickness of zero devolves this operation to a plain outline.
     <br>&nbsp;</th>
     <th>aktive op sdf ring @1 thickness 4
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00641.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00650.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><table><tr><td valign='top'><img src='example-00642.gif' alt='aktive op sdf ring @1 thickness 4' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00643.gif' alt='aktive op sdf ring @1 thickness 4' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00644.gif' alt='aktive op sdf ring @1 thickness 4' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00645.gif' alt='aktive op sdf ring @1 thickness 4' style='border:4px solid gold'>
+    <td valign='top'><table><tr><td valign='top'><img src='example-00651.gif' alt='aktive op sdf ring @1 thickness 4' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00652.gif' alt='aktive op sdf ring @1 thickness 4' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00653.gif' alt='aktive op sdf ring @1 thickness 4' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00654.gif' alt='aktive op sdf ring @1 thickness 4' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr></table></td></tr>
 </table>
 
@@ -267,12 +267,12 @@ A radius of zero is ignored.
     <br>&nbsp;</th>
     <th>aktive op sdf round @1 radius 20
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00646.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00655.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><table><tr><td valign='top'><img src='example-00647.gif' alt='aktive op sdf round @1 radius 20' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00648.gif' alt='aktive op sdf round @1 radius 20' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00649.gif' alt='aktive op sdf round @1 radius 20' style='border:4px solid gold'>
-    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00650.gif' alt='aktive op sdf round @1 radius 20' style='border:4px solid gold'>
+    <td valign='top'><table><tr><td valign='top'><img src='example-00656.gif' alt='aktive op sdf round @1 radius 20' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-fit</td><td valign='top'><img src='example-00657.gif' alt='aktive op sdf round @1 radius 20' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-smooth</td><td valign='top'><img src='example-00658.gif' alt='aktive op sdf round @1 radius 20' style='border:4px solid gold'>
+    <br>geometry(0 0 128 128 1)</td><td valign='top'>sdf-pixelated</td><td valign='top'><img src='example-00659.gif' alt='aktive op sdf round @1 radius 20' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td></tr></table></td></tr>
 </table>
 

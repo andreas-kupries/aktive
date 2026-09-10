@@ -24,6 +24,7 @@
       - [drawing](generator_virtual_drawing.md)
       - [sdf](generator_virtual_sdf.md)
       - [warp](generator_virtual_warp.md)
+  - [math](math.md)
   - [miscellaneous](miscellaneous.md)
     - [geometry](miscellaneous_geometry.md)
   - [sink](sink.md)
