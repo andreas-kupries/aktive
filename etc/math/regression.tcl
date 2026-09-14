@@ -3,12 +3,21 @@
 ## Least squares regressions of various orders
 ## -- Fitting completely non-image functionality into the framework
 
+## TODO: accept 2-band image as the set of x- and y-coordinates.
+##       band 0 -- x-coordinates
+##       band 1 -- y-coordinates
+
 operator math::regression::points {
     section math
 
-    example { order 1 points {{0 3} {1 4} {2 5} {3 6} {4 4} {5 2} {6 0} {7 5} {8 10} {9 15}} | -text }
-    example { order 2 points {{0 3} {1 4} {2 5} {3 6} {4 4} {5 2} {6 0} {7 5} {8 10} {9 15}} | -text }
-    example { order 3 points {{0 3} {1 4} {2 5} {3 6} {4 4} {5 2} {6 0} {7 5} {8 10} {9 15}} | -text }
+    esupport {
+	set points {{0 3} {1 4} {2 5} {3 6} {4 4} {5 2} {6 0} {7 5} {8 10} {9 15}}
+    }
+    example { order 1 points $points | -text }
+    example { order 2 points $points | -text }
+    example { order 3 points $points | -text }
+
+    # TODO - plot points, with approximation laid over it
 
     note Perform a least squares regression of the given order \
 	on the specified 2d-points
@@ -17,7 +26,7 @@ operator math::regression::points {
 	of the given order, or less.
 
     note The cofficients are listed from lowest to highest order. \
-	In other words, the first coefficient is the contant, \
+	In other words, the first coefficient is the constant, \
 	followed by the values for `x`, `x^2`, etc. The coefficients \
 	will not contain trailing zeroes.
 
@@ -25,7 +34,7 @@ operator math::regression::points {
 	integers > 0, and a few keywords for specific orders. \
 	These are `linear`, `quadratic`, and `cubic`.
 
-    str points		Series of 2d-points
+    double() points		Series of 2d-points
 
     body {
 	# split points into series, then feed into the core method
@@ -39,18 +48,25 @@ operator math::regression::points {
 operator math::regression::series {
     section math
 
-    example { order 1 xs {0 1 2 3 4 5 6 7 8 9} ys {3 4 5 6 4 2 0 5 10 15} | -text }
-    example { order 2 xs {0 1 2 3 4 5 6 7 8 9} ys {3 4 5 6 4 2 0 5 10 15} | -text }
-    example { order 3 xs {0 1 2 3 4 5 6 7 8 9} ys {3 4 5 6 4 2 0 5 10 15} | -text }
+    esupport {
+	set xs {0 1 2 3 4 5 6 7  8  9}
+	set ys {3 4 5 6 4 2 0 5 10 15}
+    }
+    example { order 1 xs $xs ys $ys | -text }
+    example { order 2 xs $xs ys $ys | -text }
+    example { order 3 xs $xs ys $ys | -text }
+
+    # TODO - plot series, with approximation laid over it
 
     note Perform a least squares regression of the given order \
-	on the specified x- and y-series.
+	on the specified x- and y-series. The two series have \
+	to have the same length.
 
     note Returns the coefficients of the best-fitting polynomial \
 	of the given order, or less.
 
     note The cofficients are listed from lowest to highest order. \
-	In other words, the first coefficient is the contant, \
+	In other words, the first coefficient is the constant, \
 	followed by the values for `x`, `x^2`, etc. The coefficients \
 	will not contain trailing zeroes.
 
@@ -58,8 +74,8 @@ operator math::regression::series {
 	integers > 0, and a few keywords for specific orders. \
 	These are `linear`, `quadratic`, and `cubic`.
 
-    str xs		Series of x-coordinates
-    str ys		Series of y-coordinates
+    double() xs		Series of x-coordinates
+    double() ys		Series of y-coordinates
 
     body {
 	set omap { linear 1 quadratic 2 cubic 3 }
