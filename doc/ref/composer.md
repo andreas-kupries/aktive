@@ -53,13 +53,13 @@ A single input is passed through unchanged.
     <br>&nbsp;</th>
     <th>aktive op montage x @1 @2 @3
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00475.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00479.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
-    <td valign='top'><img src='example-00476.gif' alt='@2' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00480.gif' alt='@2' style='border:4px solid gold'>
     <br>geometry(0 0 64 64 1)</td>
-    <td valign='top'><img src='example-00477.gif' alt='@3' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00481.gif' alt='@3' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00478.gif' alt='aktive op montage x @1 @2 @3' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00482.gif' alt='aktive op montage x @1 @2 @3' style='border:4px solid gold'>
     <br>geometry(0 0 224 128 1)</td></tr>
 </table>
 
@@ -72,13 +72,13 @@ A single input is passed through unchanged.
     <br>&nbsp;</th>
     <th>aktive op montage x @1 @2 @3
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00479.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00483.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 64 64 1)</td>
-    <td valign='top'><img src='example-00480.gif' alt='@2' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00484.gif' alt='@2' style='border:4px solid gold'>
     <br>geometry(0 0 64 64 1)</td>
-    <td valign='top'><img src='example-00481.gif' alt='@3' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00485.gif' alt='@3' style='border:4px solid gold'>
     <br>geometry(0 0 64 64 1)</td>
-    <td valign='top'><img src='example-00482.gif' alt='aktive op montage x @1 @2 @3' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00486.gif' alt='aktive op montage x @1 @2 @3' style='border:4px solid gold'>
     <br>geometry(0 0 192 64 1)</td></tr>
 </table>
 
@@ -127,9 +127,9 @@ Returns image with input joined left to right with itself N times along the x-ax
     <br>&nbsp;</th>
     <th>aktive op montage x-rep @1 by 3
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00483.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00487.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
-    <td valign='top'><img src='example-00484.gif' alt='aktive op montage x-rep @1 by 3' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00488.gif' alt='aktive op montage x-rep @1 by 3' style='border:4px solid gold'>
     <br>geometry(0 0 96 32 1)</td></tr>
 </table>
 
@@ -158,13 +158,13 @@ A single input is passed through unchanged.
     <br>&nbsp;</th>
     <th>aktive op montage y @1 @2 @3
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00485.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00489.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
-    <td valign='top'><img src='example-00486.gif' alt='@2' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00490.gif' alt='@2' style='border:4px solid gold'>
     <br>geometry(0 0 64 64 1)</td>
-    <td valign='top'><img src='example-00487.gif' alt='@3' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00491.gif' alt='@3' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00488.gif' alt='aktive op montage y @1 @2 @3' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00492.gif' alt='aktive op montage y @1 @2 @3' style='border:4px solid gold'>
     <br>geometry(0 0 128 224 1)</td></tr>
 </table>
 
@@ -177,13 +177,13 @@ A single input is passed through unchanged.
     <br>&nbsp;</th>
     <th>aktive op montage y @1 @2 @3
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00489.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00493.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 64 64 1)</td>
-    <td valign='top'><img src='example-00490.gif' alt='@2' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00494.gif' alt='@2' style='border:4px solid gold'>
     <br>geometry(0 0 64 64 1)</td>
-    <td valign='top'><img src='example-00491.gif' alt='@3' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00495.gif' alt='@3' style='border:4px solid gold'>
     <br>geometry(0 0 64 64 1)</td>
-    <td valign='top'><img src='example-00492.gif' alt='aktive op montage y @1 @2 @3' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00496.gif' alt='aktive op montage y @1 @2 @3' style='border:4px solid gold'>
     <br>geometry(0 0 64 192 1)</td></tr>
 </table>
 
@@ -232,9 +232,9 @@ Returns image with input joined top to bottom with itself N times along the y-ax
     <br>&nbsp;</th>
     <th>aktive op montage y-rep @1 by 3
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00493.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00497.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
-    <td valign='top'><img src='example-00494.gif' alt='aktive op montage y-rep @1 by 3' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00498.gif' alt='aktive op montage y-rep @1 by 3' style='border:4px solid gold'>
     <br>geometry(0 0 32 96 1)</td></tr>
 </table>
 
@@ -263,13 +263,13 @@ A single input is passed through unchanged.
     <br>&nbsp;</th>
     <th>aktive op montage z @1 @2 @3
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00495.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00499.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
-    <td valign='top'><img src='example-00496.gif' alt='@2' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00500.gif' alt='@2' style='border:4px solid gold'>
     <br>geometry(0 0 64 64 1)</td>
-    <td valign='top'><img src='example-00497.gif' alt='@3' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00501.gif' alt='@3' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 1)</td>
-    <td valign='top'><img src='example-00498.gif' alt='aktive op montage z @1 @2 @3' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00502.gif' alt='aktive op montage z @1 @2 @3' style='border:4px solid gold'>
     <br>geometry(0 0 128 128 3)</td></tr>
 </table>
 
@@ -282,13 +282,13 @@ A single input is passed through unchanged.
     <br>&nbsp;</th>
     <th>aktive op montage z @1 @2 @3
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00499.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00503.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 64 64 1)</td>
-    <td valign='top'><img src='example-00500.gif' alt='@2' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00504.gif' alt='@2' style='border:4px solid gold'>
     <br>geometry(0 0 64 64 1)</td>
-    <td valign='top'><img src='example-00501.gif' alt='@3' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00505.gif' alt='@3' style='border:4px solid gold'>
     <br>geometry(0 0 64 64 1)</td>
-    <td valign='top'><img src='example-00502.gif' alt='aktive op montage z @1 @2 @3' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00506.gif' alt='aktive op montage z @1 @2 @3' style='border:4px solid gold'>
     <br>geometry(0 0 64 64 3)</td></tr>
 </table>
 
@@ -337,9 +337,9 @@ Returns image with input joined front to back with itself N times along the z-ax
     <br>&nbsp;</th>
     <th>aktive op montage z-rep @1 by 3
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00503.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00507.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 1)</td>
-    <td valign='top'><img src='example-00504.gif' alt='aktive op montage z-rep @1 by 3' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00508.gif' alt='aktive op montage z-rep @1 by 3' style='border:4px solid gold'>
     <br>geometry(0 0 32 32 3)</td></tr>
 </table>
 

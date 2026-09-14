@@ -18,6 +18,8 @@
 ### Operators
 
  - [aktive math polynomial at](#math_polynomial_at)
+ - [aktive math polynomial map](#math_polynomial_map)
+ - [aktive math polynomial map*](#math_polynomial_map*)
  - [aktive math regression points](#math_regression_points)
  - [aktive math regression series](#math_regression_series)
 
@@ -26,18 +28,18 @@
 ---
 ### [↑](#top) <a name='math_polynomial_at'></a> aktive math polynomial at
 
-Syntax: __aktive math polynomial at__ coefficients[] x [[→ definition](/file?ci=trunk&ln=9&name=etc/math/polynomials.tcl)]
+Syntax: __aktive math polynomial at__ coefficients[] x [[→ definition](/file?ci=trunk&ln=62&name=etc/math/polynomials.tcl)]
 
 Evaluate the polynomial given by the coefficients at the specified point
 
-The cofficients are listed from lowest to highest order. In other words, the first coefficient (index 0) is the constant, followed by the values for `x`, `x^2`, etc.
+The coefficients are listed from lowest to highest order. In other words, the first coefficient (index 0) is the constant, followed by the values for `x`, `x^2`, etc.
 
 Trailing zeroes are ignored.
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
-|coefficients|double[]||The cofficients of the polynomial. Ordered lowest (x^0) to highest.|
-|x|double||The point to evaluate the polynomial at.|
+|coefficients|double[]||The coefficients of the polynomial. Ordered lowest (x^0) to highest.|
+|x|double||The x-value to evaluate the polynomial at.|
 
 #### <a name='math_polynomial_at__examples'></a> Examples
 
@@ -57,6 +59,68 @@ Trailing zeroes are ignored.
 <tr><th>aktive math polynomial at {1 3 -2 0 0 0 0 0} 2
     <br>&nbsp;</th></tr>
 <tr><td valign='top'>&nbsp;-1.0</td></tr>
+</table>
+
+
+---
+### [↑](#top) <a name='math_polynomial_map'></a> aktive math polynomial map
+
+Syntax: __aktive math polynomial map__ coefficients[] xs[] [[→ definition](/file?ci=trunk&ln=8&name=etc/math/polynomials.tcl)]
+
+Evaluate the polynomial given by the coefficients at the series of specified x-values
+
+The cofficients are listed from lowest to highest order. In other words, the first coefficient (index 0) is the constant, followed by the values for `x`, `x^2`, etc.
+
+Trailing zeroes are ignored.
+
+|Parameter|Type|Default|Description|
+|:---|:---|:---|:---|
+|coefficients|double[]||The coefficients of the polynomial. Ordered lowest (x^0) to highest.|
+|xs|double[]||The series of x-values to evaluate the polynomial at.|
+
+#### <a name='math_polynomial_map__examples'></a> Examples
+
+<a name='math_polynomial_map__examples__e1'></a><table>
+<tr><th>aktive math polynomial map {1 3} {5 6 7}
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'>&nbsp;16.0 19.0 22.0</td></tr>
+</table>
+
+<a name='math_polynomial_map__examples__e2'></a><table>
+<tr><th>aktive math polynomial map {1 3 -2} {2 3 4}
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'>&nbsp;-1.0 -8.0 -19.0</td></tr>
+</table>
+
+
+---
+### [↑](#top) <a name='math_polynomial_map*'></a> aktive math polynomial map*
+
+Syntax: __aktive math polynomial map*__ coefficients[] xs... [[→ definition](/file?ci=trunk&ln=35&name=etc/math/polynomials.tcl)]
+
+Evaluate the polynomial given by the coefficients at the series of specified x-values
+
+The coefficients are listed from lowest to highest order. In other words, the first coefficient (index 0) is the constant, followed by the values for `x`, `x^2`, etc.
+
+Trailing zeroes are ignored.
+
+|Parameter|Type|Default|Description|
+|:---|:---|:---|:---|
+|coefficients|double[]||The coefficients of the polynomial. Ordered lowest (x^0) to highest.|
+|xs|double...||The series of x-values to evaluate the polynomial at.|
+
+#### <a name='math_polynomial_map*__examples'></a> Examples
+
+<a name='math_polynomial_map*__examples__e1'></a><table>
+<tr><th>aktive math polynomial map* {1 3} 5 6 7
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'>&nbsp;16.0 19.0 22.0</td></tr>
+</table>
+
+<a name='math_polynomial_map*__examples__e2'></a><table>
+<tr><th>aktive math polynomial map* {1 3 -2} 2 3 4
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'>&nbsp;-1.0 -8.0 -19.0</td></tr>
 </table>
 
 

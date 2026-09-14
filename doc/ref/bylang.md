@@ -666,6 +666,8 @@ The commands listed here are implemented outside of the operator framework.
 
  - [aktive color css](color.md#color_css)
  - [aktive error](miscellaneous.md#error)
+ - [aktive math polynomial map](math.md#math_polynomial_map)
+ - [aktive math polynomial map*](math.md#math_polynomial_map*)
  - [aktive meta append](transform_metadata.md#meta_append)
  - [aktive meta create](transform_metadata.md#meta_create)
  - [aktive meta exists](accessor_metadata.md#meta_exists)

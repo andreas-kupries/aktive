@@ -252,6 +252,7 @@ critcl::tsources generated/ops.tcl              ;# - Operators built in Tcl
 critcl::tsources simplifier.tcl			;# - Simplifier runtime used by overlay.tcl
 critcl::tsources parameters.tcl			;# - Parameter runtime used by overlay.tcl
 critcl::tsources error.tcl			;# - Error helper
+critcl::tsources etc/math/polymap.tcl		;# - Polynomial helper
 critcl::tsources op/2string.tcl			;# Support for "write to string|file".
 critcl::tsources op/aggregate.tcl		;# Support for aggregation by binary reduction
 critcl::tsources op/asother.tcl			;# DAG conversion support (walker, emitters)
