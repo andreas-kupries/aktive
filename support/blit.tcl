@@ -25,7 +25,7 @@
 # range, min, stride, and direction determine start & end values for the loop.
 # we only have to know the start value. the internal loop variable always counts up (0..range-1).
 #
-# The stride "1/x" is special. It indicates fractional stepping with phase contant `x`.
+# The stride "1/x" is special. It indicates fractional stepping with phase constant `x`.
 # The iterator steps `x` times slower than the other iterators of this loop
 #
 # direction

@@ -114,6 +114,8 @@ operator rectangle::empty {
 operator rectangle::union {
     section miscellaneous geometry
 
+    example {{11 23 30 20} {10 20 40 25} | -text}
+
     note Compute the minimum axis-aligned 2D rectangle encompassing all input rectangles
 
     rect... rects   Rectangles to union
@@ -138,6 +140,9 @@ operator rectangle::union {
 
 operator rectangle::intersect {
     section miscellaneous geometry
+
+    example {{11 23 30 20} {10 20 40 25} | -text}
+    # TODO: empty section, some section
 
     note Compute the maximum axis-aligned 2D rectangle shared by all input rectangles
 

@@ -204,13 +204,14 @@ operator error {
 operator version {
     section miscellaneous
     external!
-
+    example { | -text }
     note Return package version number.
 }
 
 operator processors {
     section miscellaneous
     external!
+    example { | -text }
 
     int? 0 n Set number of processor available for concurrent operation.
 

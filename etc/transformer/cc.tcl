@@ -8,36 +8,37 @@
 operator op::connected-components::labeled {
     section transform morphology
 
-    set values [string map [list \n { } \t {}] {
-	0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-	0 0 0 0 0 1 0 0 1 1 0 0 1 1 1 0 1 1 1 1 1 0 0 0 1 1 1 1 1 1 1 0 0
-	1 1 1 1 1 1 0 0 1 1 0 0 1 0 1 0 1 0 0 0 1 0 0 1 1 1 1 1 1 1 1 1 0
-	0 0 0 0 0 0 0 1 1 0 0 0 1 1 1 0 1 0 0 0 1 0 1 1 1 1 1 1 1 1 1 1 1
-	0 1 1 1 1 1 1 1 0 1 0 0 0 0 0 0 1 0 0 0 1 0 1 1 1 0 0 0 0 0 1 1 1
-	0 1 0 0 0 0 0 0 0 1 0 0 0 0 0 0 1 0 0 0 1 0 1 1 0 0 0 1 0 0 0 1 1
-	0 1 0 1 1 1 1 1 1 1 0 0 0 0 0 0 1 1 1 1 1 0 0 1 1 0 0 1 0 0 1 1 0
-	0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 1 0 1 1 0 0
-	0 1 1 0 0 1 1 1 1 1 1 0 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 1 0 0 0 0 0
-	0 1 1 0 0 1 0 0 0 0 0 0 1 1 1 1 1 1 1 1 0 0 1 1 1 1 1 1 1 1 1 1 1
-	0 0 0 0 0 1 0 0 0 0 0 0 1 1 0 0 0 0 1 1 0 0 0 0 0 0 1 1 1 0 0 0 0
-    }]
+    esupport {
+	set map [list \n { } \t {} {    } {} _ {0 } * {1 }]
+	set values [string map $map {
+	    _____*___________________________
+	    _____*__**__***_*****___*******__
+	    ******__**__*_*_*___*__*********_
+	    _______**___***_*___*_***********
+	    _*******_*______*___*_***_____***
+	    _*_______*______*___*_**___*___**
+	    _*_*******______*****__**__*__**_
+	    __**____________________**_*_**__
+	    _**__******_********_______*_____
+	    _**__*______********__***********
+	    _____*______**____**______***____
+	}]
+    }
 
-    example [string map [list VALUES $values] {
-	aktive image from matrix width 33 height 11 values VALUES | times 8
-	@1                                                        | -matrix -int
-    }]
+    example {
+	aktive image from matrix width 33 height 11 values {*}$values | times 8
+	@1                                                            | -matrix -int
+    }
 
-    example [string map [list VALUES $values] {
-	aktive image from matrix width 33 height 11 values VALUES | times 8
-	@1 transform cc.max                                       | times 8
-    }]
+    example {
+	aktive image from matrix width 33 height 11 values {*}$values | times 8
+	@1 transform cc.max                                           | times 8
+    }
 
-    example [string map [list VALUES $values] {
-	aktive image from matrix width 33 height 11 values VALUES | times 8
-	@1 transform cc.max bbox 1                                | times 8
-    }]
-
-    unset values
+    example {
+	aktive image from matrix width 33 height 11 values {*}$values | times 8
+	@1 transform cc.max bbox 1                                    | times 8
+    }
 
     note Returns the input with labeled connected components.
 

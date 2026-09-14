@@ -48,31 +48,35 @@ operator op::math::matrix::invert-core {
     # 4 5 |  1+1/3 -1/3
     # --- | -----------
 
-    example [string map [list AA [string map {\n { }} {
-	1 2 3
-	4 5 6
-	7 8 8
-    }]] {
-	aktive image from matrix width 3 height 3 values AA | -matrix -int
-	aktive op math matrix invert @1                     | -matrix
-	!!aktive op math matrix multiply @1 @2              | -matrix
-    }]
+    example {
+	set a {
+	    1 2 3
+	    4 5 6
+	    7 8 8
+	}
+    } {
+	aktive image from matrix width 3 height 3 values {*}$a | -matrix -int
+	aktive op math matrix invert @1                        | -matrix
+	!!aktive op math matrix multiply @1 @2                 | -matrix
+    }
     # ----- | ----------------
     # 1 2 3 | -2-2/3  2+2/3 -1
     # 4 5 6 |  3+1/3 -4-1/3  2
     # 7 8 9 | -1      2     -1
     # ----- | ----------------
 
-    example [string map [list AA [string map {\n { }} {
-	1 2 3 4
-	5 6 7 8
-	9 0 1 2
-	3 4 5 7
-    }]] {
-	aktive image from matrix width 4 height 4 values AA | -matrix -int
-	aktive op math matrix invert @1                     | -matrix
-	!!aktive op math matrix multiply @1 @2              | -matrix
-    }]
+    example {
+	set a {
+	    1 2 3 4
+	    5 6 7 8
+	    9 0 1 2
+	    3 4 5 7
+	}
+    } {
+	aktive image from matrix width 4 height 4 values {*}$a | -matrix -int
+	aktive op math matrix invert @1                        | -matrix
+	!!aktive op math matrix multiply @1 @2                 | -matrix
+    }
     # ------- | --------------------
     # 1 2 3 4 | -0.15  0.05  0.10  0
     # 5 6 7 8 |	-1.95  0.15 -0.20  1
@@ -80,17 +84,19 @@ operator op::math::matrix::invert-core {
     # 3 4 5 7 |	-0.50 -0.50  0     1
     # ------- | --------------------
 
-    example [string map [list AA [string map {\n { }} {
-    1 2 3 4 2
-    5 6 7 8 3
-    9 0 1 2 5
-    3 4 5 7 7
-    7 5 3 2 0
-    }]] {
-	aktive image from matrix width 5 height 5 values AA | -matrix -int
-	aktive op math matrix invert @1                     | -matrix
-	!!aktive op math matrix multiply @1 @2              | -matrix
-    }]
+    example {
+	set a {
+	    1 2 3 4 2
+	    5 6 7 8 3
+	    9 0 1 2 5
+	    3 4 5 7 7
+	    7 5 3 2 0
+	}
+    } {
+	aktive image from matrix width 5 height 5 values {*}$a | -matrix -int
+	aktive op math matrix invert @1                        | -matrix
+	!!aktive op math matrix multiply @1 @2                 | -matrix
+    }
     # --------- | --------------------------------------------
     # 1 2 3 4 2 |   0.4545  -0.1727   0.1000  -0.1273   0.1273
     # 5 6 7 8 3 |   2.4545  -1.4727  -0.2000   0.0727   0.9273
