@@ -154,6 +154,7 @@ proc emit-image {dst int src} {
     # save geometry as well
     fileutil::writeFile ${dst}.txt "geometry([string trim [aktive query geometry $src]])"
     file delete  $tmp
+    puts "|image $dst|"
     return
 }
 proc emit-matrix {dst int src} {
@@ -204,3 +205,8 @@ proc strip-trailing-zeros {x} {
     if {$xn == "-"} { return -0 }
     return $xn
 }
+
+puts "_____________"
+puts "___ Examples ___ ___ ___ ___ ___ ___ ___ ___ ___"
+puts "_____________"
+puts ""

@@ -458,6 +458,7 @@ proc dsl::reader::OpStart {op key} {
     Set opspec blocks   {}	;# Shared text blocks
     Set opspec support  {}	;# Supporting C code blocks
     Set opspec examples {}	;# Collected examples for docs
+    Set opspec esupport {}	;# Collected shared example support for docs
 }
 
 proc dsl::reader::OpFinish {} {
@@ -532,8 +533,23 @@ proc dsl::reader::ref {link} { ;#puts [info level 0]
     LappendX opspec references $link
 }
 
-proc dsl::reader::example {{spec {}}} { ;#puts [info level 0]
+proc dsl::reader::esupport {script} { ;#puts [info level 0]
     OkModes {} C Tcl External
+    LappendX opspec esupport $script
+}
+
+proc dsl::reader::example {args} { ;#puts [info level 0]
+    OkModes {} C Tcl External
+
+    lassign {{} {}} support spec
+    switch -exact -- [llength $args] {
+	0 {}
+	1 { lassign $args spec }
+	2 { lassign $args support spec }
+	default {
+	    ::return -code error "wrong#args, expected ?support? ?spec?"
+	}
+    }
 
     set runs [split [string trim $spec] \n]
     set n    [llength $runs]
@@ -541,19 +557,25 @@ proc dsl::reader::example {{spec {}}} { ;#puts [info level 0]
     # default run
     if {$n == 0} { incr n ; lappend runs {} }
 
-    Example [lmap run $runs {
+    Example $support [lmap run $runs {
 	# per run extract the generation command and its modifiers (formatting, display processing)
 	lassign [split $run |] gen modifiers
 	set gen       [string trim $gen]
 	set modifiers [string trim $modifiers]
 
-	# extend the last generation part with the command to demonstrate, except if
-	# overridden by spec
+	# command to demonstrate
+	set demo "aktive [string map {:: { }} [Get opname]]"
+
+	# extend the last run with the command to demo, except if overridden by spec via prefix `!!`
 	incr n -1
 	if {($n == 0) && ![string match {aktive *} $gen] && ![string match {!!*} $gen]} {
-	    set gen "aktive [string map {:: { }} [Get opname]] $gen"
+	    set gen "<<>> $gen"
 	}
 	set gen [string trim $gen !]
+
+	# insert demo command at arbitrary location, if such is asked for
+	set gen [string map [list <<>> $demo] $gen]
+
 	# scan modifiers for result formatting, extract, remove
 	set show {}
 	set format image
@@ -585,8 +607,8 @@ proc dsl::reader::example {{spec {}}} { ;#puts [info level 0]
     }]
 }
 
-proc dsl::reader::Example {spec} { ;#puts [info level 0]
-    LappendX opspec examples $spec
+proc dsl::reader::Example {support spec} { ;#puts [info level 0]
+    LappendX opspec examples [list $support $spec]
 }
 
 proc dsl::reader::strict {ids args} { ;#puts [info level 0]
@@ -767,8 +789,14 @@ proc dsl::reader::pass {args} { ;#puts [info level 0]
 proc dsl::reader::Param {type mode dvalue name args} { ;#puts [info level 0]
     OkModes {} C Tcl External
     # args :: help text
-
-    if {$mode ni {required args optional vector}} { Abort "Internal: Bad mode $mode" }
+    # mode in << required  - scalar, must have, no default
+    #            optional  - scalar, can be missing, default
+    #            vector    - list argument, must have
+    #            args      - list from all trailing arguments, variadic, must be last
+    #         >>
+    if {$mode ni {
+	required args optional vector
+    }} { Abort "Internal: Bad mode $mode" }
 
     if {$name eq {}}              { Abort "Bad parameter name, empty" }
     if {[Has opspec param $name]} { Abort "Duplicate parameter `$name`" }
@@ -985,6 +1013,7 @@ proc dsl::reader::Next {} {
 ##  - blocks     :: dict (name -> text-fragment)
 ##  - body       :: string	[presence indicates tcl operator]
 ##  - examples   :: list (example-spec)
+##  - esupport   :: list (script)
 ##  - images     :: list (imspec)
 ##  - lang       :: string	[auto set] C|Tcl
 ##  - notes      :: list (string)

@@ -953,8 +953,8 @@ proc dsl::writer::OpSectionKey {section} {
 
 proc dsl::writer::OpDoc {stem op spec} {
     dict with spec {}
-    # c:   examples notes references section params images ...
-    # tcl: examples notes references section args body
+    # c:   examples esupport notes references section params images ...
+    # tcl: examples esupport notes references section args body
 
     set sig [DocSignature $op $spec]
 
@@ -1015,23 +1015,43 @@ proc dsl::writer::OpDoc {stem op spec} {
 	+ "#### <a name='[OpKey $op]__examples'></a> Examples"
 	+ {}
 
-	# examples :: list (example...)
+	# esupport :: list (script...) -- See ExampleScript below
+	# examples :: list (list(support example)...)
 	foreach example $examples {
+	    lassign $example support example
 	    # example :: list (run...)
 	    incr k
 	    set n [llength $example]
 	    set id 0
 	    set varmap {}
 	    set ref "<a name='[OpKey $op]__examples__e${k}'></a>"
+
+	    # begin script handling the example -- NOTE that we run each example in its
+	    # own scope (anon function) to prevent state bleed between examples. Each
+	    # example receives all shared support, plus the examples own support, if any.
+	    set script {}
+	    lappend script "puts \"\\n___ $op ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___\""
+	    lappend script "apply \{\{\} \{"
+	    # scoping ...
+	    foreach es [list {*}$esupport $support] {
+		if {[string trim $es] eq {}} continue
+		lappend script $es
+	    }
+
 	    + ${ref}[ExampleRender $op [lmap run $example {
 		# run :: list (gencmd showcmds format int desc)
 		incr n -1 ; set islast [expr {$n == 0}]
 		incr id
-		set label   [expr {$islast ? "[lindex $run 0]" : "@$id"}]
+		set label [expr {$islast ? "[lindex $run 0]" : "@$id"}]
 		lappend varmap @$id "\$x$id"
 		list $label {*}[ExampleScript $op $stem $id $varmap {*}$run]
 	    }]]
 	    + {}
+
+	    lappend script "\}\}"
+	    lappend script "puts \"\""
+	    # Save script for execution after compilation and installation
+	    Stash [join $script \n]
 	}
     }
 
@@ -1100,15 +1120,18 @@ proc dsl::writer::RR1 {single label result} {
 proc dsl::writer::TR1 {row}  { return "<table><tr>$row</tr></table>" }
 proc dsl::writer::TD  {cell} { return "<td valign='top'>$cell</td>" }
 
+## this procedure compiles one run of the containing example
 proc dsl::writer::ExampleScript {op stem id varmap gencmd showcmds format int desc} {
+    upvar 1 script script
+
     # intro
-    if {$id == 1} { lappend script "puts \"\"" }
-    lappend script "puts \{# Example: ($id) $gencmd ($desc)\}"
+    if {$id == 1} { lappend script "    puts \"\"" }
+    lappend script "    puts \{# Run $id :: $gencmd ($desc)\}"
 
     # generation command
     set gencmd [string map $varmap $gencmd]
-    lappend script "# generate _____________________"
-    lappend script "set x$id \[$gencmd\]"
+    lappend script "    # generate _____________________"
+    lappend script "    set x$id \[$gencmd\]"
 
     # show commands, plus final formatting
     set results [list $desc [lmap show $showcmds {
@@ -1118,16 +1141,14 @@ proc dsl::writer::ExampleScript {op stem id varmap gencmd showcmds format int de
 	    text   .txt
 	} $format]]
 	if {$show ne {}} {
-	    lappend script "set x${id}t \[$show \$x$id\]"
-	    lappend script "emit-$format ${stem}$dst $int \$x${id}t"
+	    lappend script "    set xt \[$show \$x$id\]"
+	    lappend script "    emit-$format ${stem}$dst $int \$xt"
 	} else {
-	    lappend script "emit-$format ${stem}$dst $int \$x$id"
+	    lappend script "    emit-$format ${stem}$dst $int \$x$id"
 	}
 	list $show $format $dst
     }]]
 
-    # Save script for execution after compilation and installation
-    Stash [join $script \n]
     return $results
     # results :: list (list (show format dst desc)...)
 }
@@ -1744,8 +1765,11 @@ proc dsl::writer::CprocArguments {spec} {
 	set t  [dict get $argspec type]
 	set ct [TypeCritcl $t]
 	set t  [TypeCType  $t]
-	set v  [dict get $argspec args]
-	if {$v} { set n args }
+	set va [dict get $argspec args]		;# implicit vector indicated by name
+	set ve [dict get $argspec vector]	;# explicit vector needs proper type
+
+	if {$va} { set n args }
+	if {$ve} { set ct \[\]${ct} }
 
 	lappend names    $n
 	lappend ctypes   $ct
@@ -1833,9 +1857,8 @@ proc dsl::writer::CprocParameterSetup {op spec} {
 
     set prefix "  "
     foreach p $params n $fields {
-	set v     [dict get $p args]
 	set field $n
-	if {$v} {
+	if {[dict get $p args]} {
 	    # Explicit assignment of fields to semi-cast
 	    # from critcl_variadic_X
 	    # to   aktive_X_vector
@@ -1843,7 +1866,16 @@ proc dsl::writer::CprocParameterSetup {op spec} {
 	    + "        .c = args.c"
 	    + "      , .v = args.v"
 	    + "      \}"
+	} elseif {[dict get $p vector]} {
+	    # Explicit assignment of fields to semi-cast
+	    # from critcl_list_X
+	    # to   aktive_X_vector
+	    + "    ${prefix}.[PadR $fl $field] = \{"
+	    + "        .c = $field.c"
+	    + "      , .v = $field.v"
+	    + "      \}"
 	} else {
+	    # Scalar field
 	    + "    ${prefix}.[PadR $fl $field] = $n"
 	}
 	set prefix ", "
@@ -2547,7 +2579,9 @@ proc dsl::writer::ParameterCType      {argspec} {
     dict with typespec {}
     # imported critcl ctype conversion init finish
 
-    if {[dict get $argspec args]} {
+    # special case: vector arguments
+    if {[dict get $argspec args] ||
+	[dict get $argspec vector]} {
 	if {![string match aktive_* $critcl]} { set critcl aktive_$critcl }
 	set ctype ${critcl}_vector
     }
