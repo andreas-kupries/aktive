@@ -7,6 +7,7 @@
 
 #include <math.h>
 #include <complex.h>
+#include <runtime/base.h>
 
 /*
  * - - -- --- ----- -------- -------------
@@ -30,6 +31,8 @@
 /*
  * - - -- --- ----- -------- -------------
  */
+
+extern double aktive_poly_eval_horner (double x, aktive_uint n, double* cv);
 
 // extern double aktive_linear   (double a, double b, double t);
 // extern double aktive_bilinear (double a, double b, double c, double d, double t0, double t1);

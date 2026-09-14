@@ -19,6 +19,34 @@ TRACE_OFF;
  * - - -- --- ----- -------- -------------
  */
 
+extern double
+aktive_poly_eval_horner (double x, aktive_uint n, double* cv)
+{
+    int cn = n;
+
+    // skip over trailing zeroes
+    cn --; while ((n >= 0) && (cv[cn] == 0)) {
+	// fprintf (stderr, "skip %d\n", cn);
+	cn --; }
+    // fprintf (stderr, "order %d\n", cn+1);
+
+    // a zero polynomial evaluates to zero everywhere
+    if (cn < 0) { return 0; }
+
+    // horner evaluation
+    double result = cv[cn]; cn --;
+    while (cn >= 0) {
+	// fprintf (stderr, "r(%f) * x(%f) + cv[%d](%f)\n", result, x, cn, cv[cn]);
+	result = x * result + cv[cn]; cn --; }
+
+    // done
+    return result;
+}
+
+/*
+ * - - -- --- ----- -------- -------------
+ */
+
 // extern double aktive_clamp      (double x) { return (x < 0) ? 0 : (x > 1) ? 1 : x; }
 extern double aktive_clamp      (double x) { return fmax (0, fmin (1, x)); }
 extern double aktive_invert     (double x) { return 1 - x; }

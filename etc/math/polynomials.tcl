@@ -6,51 +6,37 @@
 ## - Evaluation
 
 
-operator math::polynomial::eval {
+operator math::polynomial::at {
     section math
 
     # linear 3*x + 1 @ 5 = 15 + 1 = 16
-    example { 5  1 3 | -text }
+    example { {1 3} 5 | -text }
+    #example { {1 3} 5 | plot 0 10 }
 
-    # parabolic -2*x*x + 3*x + 1 @ 5 = -8 + 6 + 1 = -1
-    example { 2  1 3 -2 | -text }
+    # quadratic -2*x*x + 3*x + 1 @ 5 = -8 + 6 + 1 = -1
+    example { {1 3 -2} 2 | -text }
+    #example { {1 3 -2} | plot 0 10 }
 
     # trailing zeros do not matter
-    example { 2  1 3 -2 0 0 0 0 0 | -text }
+    example { {1 3 -2 0 0 0 0 0} 2 | -text }
 
     note Evaluate the polynomial given by the coefficients at the specified point
 
     note The cofficients are listed from lowest to highest order. \
-	In other words, the first coefficient is the contant, \
+	In other words, the first coefficient (index 0) is the constant, \
 	followed by the values for `x`, `x^2`, etc.
 
     note Trailing zeroes are ignored.
 
-    double    x		   The point to evaluate the polynomial at
-    double... coefficients The cofficients of the polynomial, from lowest to highest order
+    double()  coefficients  The cofficients of the polynomial. Ordered lowest (x^0) to highest.
+    double    x             The point to evaluate the polynomial at.
 
     return double {
 	int     cn = param->coefficients.c;
 	double* cv = param->coefficients.v;
 	double  x  = param->x;
 
-	// skip over trailing zeroes
-	cn --; while ((cn >= 0) && (cv[cn] == 0)) {
-	    // fprintf (stderr, "skip %d\n", cn);
-	    cn --; }
-	// fprintf (stderr, "order %d\n", cn+1);
-
-	// a zero polynomial evaluates to zero everywhere
-	if (cn < 0) { return 0; }
-
-	// horner evaluation
-	double result = cv[cn]; cn --;
-	while (cn >= 0) {
-	    // fprintf (stderr, "r(%f) * x(%f) + cv[%d](%f)\n", result, x, cn, cv[cn]);
-	    result = x * result + cv[cn]; cn --; }
-
-	// done
-	return result;
+	return aktive_poly_eval_horner (x, cn, cv);
     }
 }
 
