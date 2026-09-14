@@ -53,10 +53,28 @@ Setting the default, `0`, causes the system to query the OS for the number of av
 |:---|:---|:---|:---|
 |n|int|0|Set number of processor available for concurrent operation.|
 
+#### <a name='processors__examples'></a> Examples
+
+<a name='processors__examples__e1'></a><table>
+<tr><th>aktive processors 
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'>&nbsp;8</td></tr>
+</table>
+
+
 ---
 ### [↑](#top) <a name='version'></a> aktive version
 
 Syntax: __aktive version__  [[→ definition](/file?ci=trunk&ln=204&name=etc/aktive.tcl)]
 
 Return package version number.
+
+#### <a name='version__examples'></a> Examples
+
+<a name='version__examples__e1'></a><table>
+<tr><th>aktive version 
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'>&nbsp;0.0</td></tr>
+</table>
+
 

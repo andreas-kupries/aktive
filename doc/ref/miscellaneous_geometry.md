@@ -197,13 +197,22 @@ Modify 2D rectangle by moving its 4 borders by a specific amount
 ---
 ### [↑](#top) <a name='rectangle_intersect'></a> aktive rectangle intersect
 
-Syntax: __aktive rectangle intersect__ rects... [[→ definition](/file?ci=trunk&ln=139&name=etc/other/rectangle.tcl)]
+Syntax: __aktive rectangle intersect__ rects... [[→ definition](/file?ci=trunk&ln=141&name=etc/other/rectangle.tcl)]
 
 Compute the maximum axis-aligned 2D rectangle shared by all input rectangles
 
 |Parameter|Type|Default|Description|
 |:---|:---|:---|:---|
 |rects|rect...||Rectangles to intersect|
+
+#### <a name='rectangle_intersect__examples'></a> Examples
+
+<a name='rectangle_intersect__examples__e1'></a><table>
+<tr><th>aktive rectangle intersect {11 23 30 20} {10 20 40 25}
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'>&nbsp;11 23 30 20</td></tr>
+</table>
+
 
 ---
 ### [↑](#top) <a name='rectangle_make'></a> aktive rectangle make
@@ -294,10 +303,19 @@ Compute the minimum axis-aligned 2D rectangle encompassing all input rectangles
 |:---|:---|:---|:---|
 |rects|rect...||Rectangles to union|
 
+#### <a name='rectangle_union__examples'></a> Examples
+
+<a name='rectangle_union__examples__e1'></a><table>
+<tr><th>aktive rectangle union {11 23 30 20} {10 20 40 25}
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'>&nbsp;10 20 40 25</td></tr>
+</table>
+
+
 ---
 ### [↑](#top) <a name='rectangle_zones'></a> aktive rectangle zones
 
-Syntax: __aktive rectangle zones__ domain request [[→ definition](/file?ci=trunk&ln=166&name=etc/other/rectangle.tcl)]
+Syntax: __aktive rectangle zones__ domain request [[→ definition](/file?ci=trunk&ln=171&name=etc/other/rectangle.tcl)]
 
 Compute a set of 2D rectangles describing the relation of the request to the domain.
 

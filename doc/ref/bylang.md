@@ -78,7 +78,7 @@ The operators listed here are implemented in C. We ignore supporting Tcl code.
  - [aktive image vbar](generator_virtual.md#image_vbar)
  - [aktive image xcross](generator_virtual.md#image_xcross)
  - [aktive image zone](generator_virtual.md#image_zone)
- - [aktive math polynomial eval](math.md#math_polynomial_eval)
+ - [aktive math polynomial at](math.md#math_polynomial_at)
  - [aktive op band arg ge](transform_statistics.md#op_band_arg_ge)
  - [aktive op band arg gt](transform_statistics.md#op_band_arg_gt)
  - [aktive op band arg le](transform_statistics.md#op_band_arg_le)
