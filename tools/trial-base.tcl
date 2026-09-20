@@ -537,11 +537,13 @@ proc window/done {w} {
     return
 }
 
-on-exit apply {{} {
+proc window/await/none {} {
     global __wincount
     while {$__wincount} { puts windows=$__wincount ; vwait ::__wincount }
     return
-}}
+}
+
+on-exit window/await/none
 
 # ------------------------------------------------------------------------------
 
