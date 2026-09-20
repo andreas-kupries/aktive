@@ -42,7 +42,7 @@ snit::widget aktive::plot {
     #typevariable ouroptions {-color -title -xscale -yscale}
     typevariable ouroptions {-color -title}
 
-    variable mycolors {red green blue orange}
+    variable mycolors {red green blue orange yellow magenta cyan}
     variable mycindex 2 ;# start with blue
 
     method NextColor {} {
