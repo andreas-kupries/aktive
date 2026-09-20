@@ -194,11 +194,11 @@
 
 ## <a name='_m'></a> m
 
+ - [aktive math least-squares-regression points](math.md#math_least_squares_regression_points)
+ - [aktive math least-squares-regression series](math.md#math_least_squares_regression_series)
  - [aktive math polynomial at](math.md#math_polynomial_at)
  - [aktive math polynomial map](math.md#math_polynomial_map)
  - [aktive math polynomial map*](math.md#math_polynomial_map*)
- - [aktive math regression points](math.md#math_regression_points)
- - [aktive math regression series](math.md#math_regression_series)
  - [aktive meta append](transform_metadata.md#meta_append)
  - [aktive meta create](transform_metadata.md#meta_create)
  - [aktive meta exists](accessor_metadata.md#meta_exists)

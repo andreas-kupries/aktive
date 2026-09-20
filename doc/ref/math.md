@@ -17,13 +17,88 @@
 
 ### Operators
 
+ - [aktive math least-squares-regression points](#math_least_squares_regression_points)
+ - [aktive math least-squares-regression series](#math_least_squares_regression_series)
  - [aktive math polynomial at](#math_polynomial_at)
  - [aktive math polynomial map](#math_polynomial_map)
  - [aktive math polynomial map*](#math_polynomial_map*)
- - [aktive math regression points](#math_regression_points)
- - [aktive math regression series](#math_regression_series)
 
 ## Operators
+
+---
+### [↑](#top) <a name='math_least_squares_regression_points'></a> aktive math least-squares-regression points
+
+Syntax: __aktive math least-squares-regression points__  (param value)... [[→ definition](/file?ci=trunk&ln=10&name=etc/math/regression.tcl)]
+
+Perform a least squares regression of the given order on the specified 2d-points
+
+Returns the coefficients of the best-fitting polynomial of the given order, or less.
+
+The cofficients are listed from lowest to highest order. In other words, the first coefficient is the constant, followed by the values for `x`, `x^2`, etc. The coefficients will not contain trailing zeroes.
+
+|Parameter|Type|Default|Description|
+|:---|:---|:---|:---|
+|order|str||Regression order. Does accept positive integers > 0, and a few keywords for specific orders. These are `linear`, `quadratic`, and `cubic`.|
+|points|double[]||Series of 2d-points|
+
+#### <a name='math_least_squares_regression_points__examples'></a> Examples
+
+<a name='math_least_squares_regression_points__examples__e1'></a><table>
+<tr><th>aktive math least-squares-regression points order 1 points $points
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'>&nbsp;1.8545454545454554 0.7878787878787881</td></tr>
+</table>
+
+<a name='math_least_squares_regression_points__examples__e2'></a><table>
+<tr><th>aktive math least-squares-regression points order 2 points $points
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'>&nbsp;5.672727272727279 -2.075757575757576 0.31818181818181723</td></tr>
+</table>
+
+<a name='math_least_squares_regression_points__examples__e3'></a><table>
+<tr><th>aktive math least-squares-regression points order 3 points $points
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'>&nbsp;2.5888111888111993 3.5658508158508724 -1.333916083916078 0.12237762237762284</td></tr>
+</table>
+
+
+---
+### [↑](#top) <a name='math_least_squares_regression_series'></a> aktive math least-squares-regression series
+
+Syntax: __aktive math least-squares-regression series__  (param value)... [[→ definition](/file?ci=trunk&ln=48&name=etc/math/regression.tcl)]
+
+Perform a least squares regression of the given order on the specified x- and y-series. The two series have to have the same length.
+
+Returns the coefficients of the best-fitting polynomial of the given order, or less.
+
+The cofficients are listed from lowest to highest order. In other words, the first coefficient is the constant, followed by the values for `x`, `x^2`, etc. The coefficients will not contain trailing zeroes.
+
+|Parameter|Type|Default|Description|
+|:---|:---|:---|:---|
+|order|str||Regression order. Does accept positive integers > 0, and a few keywords for specific orders. These are `linear`, `quadratic`, and `cubic`.|
+|xs|double[]||Series of x-coordinates|
+|ys|double[]||Series of y-coordinates|
+
+#### <a name='math_least_squares_regression_series__examples'></a> Examples
+
+<a name='math_least_squares_regression_series__examples__e1'></a><table>
+<tr><th>aktive math least-squares-regression series order 1 xs $xs ys $ys
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'>&nbsp;1.8545454545454554 0.7878787878787881</td></tr>
+</table>
+
+<a name='math_least_squares_regression_series__examples__e2'></a><table>
+<tr><th>aktive math least-squares-regression series order 2 xs $xs ys $ys
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'>&nbsp;5.672727272727279 -2.075757575757576 0.31818181818181723</td></tr>
+</table>
+
+<a name='math_least_squares_regression_series__examples__e3'></a><table>
+<tr><th>aktive math least-squares-regression series order 3 xs $xs ys $ys
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'>&nbsp;2.5888111888111993 3.5658508158508724 -1.333916083916078 0.12237762237762284</td></tr>
+</table>
+
 
 ---
 ### [↑](#top) <a name='math_polynomial_at'></a> aktive math polynomial at
@@ -121,81 +196,6 @@ Trailing zeroes are ignored.
 <tr><th>aktive math polynomial map* {1 3 -2} 2 3 4
     <br>&nbsp;</th></tr>
 <tr><td valign='top'>&nbsp;-1.0 -8.0 -19.0</td></tr>
-</table>
-
-
----
-### [↑](#top) <a name='math_regression_points'></a> aktive math regression points
-
-Syntax: __aktive math regression points__  (param value)... [[→ definition](/file?ci=trunk&ln=10&name=etc/math/regression.tcl)]
-
-Perform a least squares regression of the given order on the specified 2d-points
-
-Returns the coefficients of the best-fitting polynomial of the given order, or less.
-
-The cofficients are listed from lowest to highest order. In other words, the first coefficient is the constant, followed by the values for `x`, `x^2`, etc. The coefficients will not contain trailing zeroes.
-
-|Parameter|Type|Default|Description|
-|:---|:---|:---|:---|
-|order|str||Regression order. Does accept positive integers > 0, and a few keywords for specific orders. These are `linear`, `quadratic`, and `cubic`.|
-|points|double[]||Series of 2d-points|
-
-#### <a name='math_regression_points__examples'></a> Examples
-
-<a name='math_regression_points__examples__e1'></a><table>
-<tr><th>aktive math regression points order 1 points $points
-    <br>&nbsp;</th></tr>
-<tr><td valign='top'>&nbsp;1.8545454545454554 0.7878787878787881</td></tr>
-</table>
-
-<a name='math_regression_points__examples__e2'></a><table>
-<tr><th>aktive math regression points order 2 points $points
-    <br>&nbsp;</th></tr>
-<tr><td valign='top'>&nbsp;5.672727272727279 -2.075757575757576 0.31818181818181723</td></tr>
-</table>
-
-<a name='math_regression_points__examples__e3'></a><table>
-<tr><th>aktive math regression points order 3 points $points
-    <br>&nbsp;</th></tr>
-<tr><td valign='top'>&nbsp;2.5888111888111993 3.5658508158508724 -1.333916083916078 0.12237762237762284</td></tr>
-</table>
-
-
----
-### [↑](#top) <a name='math_regression_series'></a> aktive math regression series
-
-Syntax: __aktive math regression series__  (param value)... [[→ definition](/file?ci=trunk&ln=48&name=etc/math/regression.tcl)]
-
-Perform a least squares regression of the given order on the specified x- and y-series. The two series have to have the same length.
-
-Returns the coefficients of the best-fitting polynomial of the given order, or less.
-
-The cofficients are listed from lowest to highest order. In other words, the first coefficient is the constant, followed by the values for `x`, `x^2`, etc. The coefficients will not contain trailing zeroes.
-
-|Parameter|Type|Default|Description|
-|:---|:---|:---|:---|
-|order|str||Regression order. Does accept positive integers > 0, and a few keywords for specific orders. These are `linear`, `quadratic`, and `cubic`.|
-|xs|double[]||Series of x-coordinates|
-|ys|double[]||Series of y-coordinates|
-
-#### <a name='math_regression_series__examples'></a> Examples
-
-<a name='math_regression_series__examples__e1'></a><table>
-<tr><th>aktive math regression series order 1 xs $xs ys $ys
-    <br>&nbsp;</th></tr>
-<tr><td valign='top'>&nbsp;1.8545454545454554 0.7878787878787881</td></tr>
-</table>
-
-<a name='math_regression_series__examples__e2'></a><table>
-<tr><th>aktive math regression series order 2 xs $xs ys $ys
-    <br>&nbsp;</th></tr>
-<tr><td valign='top'>&nbsp;5.672727272727279 -2.075757575757576 0.31818181818181723</td></tr>
-</table>
-
-<a name='math_regression_series__examples__e3'></a><table>
-<tr><th>aktive math regression series order 3 xs $xs ys $ys
-    <br>&nbsp;</th></tr>
-<tr><td valign='top'>&nbsp;2.5888111888111993 3.5658508158508724 -1.333916083916078 0.12237762237762284</td></tr>
 </table>
 
 

@@ -7,7 +7,7 @@
 ##       band 0 -- x-coordinates
 ##       band 1 -- y-coordinates
 
-operator math::regression::points {
+operator math::least-squares-regression::points {
     section math
 
     esupport {
@@ -45,7 +45,7 @@ operator math::regression::points {
     }
 }
 
-operator math::regression::series {
+operator math::least-squares-regression::series {
     section math
 
     esupport {

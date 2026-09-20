@@ -17,7 +17,7 @@ kt source support/util.tcl
 syntax {
     points args
     series args
-} {aktive math regression}
+} {aktive math least-squares-regression}
 
 # # ## ### ##### ######## ############# #####################
 ## note: points is implemented through series.
@@ -34,21 +34,21 @@ foreach {k order} {
     2 5.5
     3 {}
 } {
-    test aktive-math-regression-series-2.$k "aktive math regression series, bad order $order" -body {
-	aktive math regression series order $order xs $xseries ys $yseries
+    test aktive-math-least-squares-regression-series-2.$k "aktive math least-squares-regression series, bad order $order" -body {
+	aktive math least-squares-regression series order $order xs $xseries ys $yseries
     } -returnCodes error -result "bad regression order `$order`, expected int > 0, or one of linear, quadratic, or cubic"
 
-    test aktive-math-regression-points-3.$k "aktive math regression points, bad order $order" -body {
-	aktive math regression points order $order points $points
+    test aktive-math-least-squares-regression-points-3.$k "aktive math least-squares-regression points, bad order $order" -body {
+	aktive math least-squares-regression points order $order points $points
     } -returnCodes error -result "bad regression order `$order`, expected int > 0, or one of linear, quadratic, or cubic"
 }
 
-test aktive-math-regression-series-2.4 "aktive math regression series, not enough points" -body {
-    aktive math regression series order linear xs [lrange $xseries 0 0] ys [lrange $yseries 0 0]
+test aktive-math-least-squares-regression-series-2.4 "aktive math least-squares-regression series, not enough points" -body {
+    aktive math least-squares-regression series order linear xs [lrange $xseries 0 0] ys [lrange $yseries 0 0]
 } -returnCodes error -result {unable to invert (near-)singular matrix}
 
-test aktive-math-regression-points-3.4 "aktive math regression points, not enough points" -body {
-    aktive math regression points order linear points [lrange $points 0 0]
+test aktive-math-least-squares-regression-points-3.4 "aktive math least-squares-regression points, not enough points" -body {
+    aktive math least-squares-regression points order linear points [lrange $points 0 0]
 } -returnCodes error -result {unable to invert (near-)singular matrix}
 
 # # ## ### ##### ######## ############# #####################
@@ -65,12 +65,12 @@ foreach {k order result} {
     1 quadratic {5.6727 -2.0758 0.3182}
     2 cubic     {2.5888  3.5658 -1.3339 0.1224}
 } {
-    test aktive-math-regression-series-4.$k "aktive math regression series, $order" -body {
-	aktive math regression series order $order xs $xseries ys $yseries
+    test aktive-math-least-squares-regression-series-4.$k "aktive math least-squares-regression series, $order" -body {
+	aktive math least-squares-regression series order $order xs $xseries ys $yseries
     } -match doubles -result $result
 
-    test aktive-math-regression-series-5.$k "aktive math regression points, $order" -body {
-	aktive math regression points order $order points $points
+    test aktive-math-least-squares-regression-series-5.$k "aktive math least-squares-regression points, $order" -body {
+	aktive math least-squares-regression points order $order points $points
     } -match doubles -result $result
 }
 
