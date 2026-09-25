@@ -1,0 +1,31 @@
+# -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
+## (c) 2026 Andreas Kupries
+# # ## ### ##### ######## ############# #####################
+## AKTIVE. Image from matrix of bands.
+
+kt check Tcl     8.6 9
+kt check tcltest 2
+
+# # ## ### ##### ######## ############# #####################
+
+kt local testing aktive
+
+kt source support/util.tcl
+
+# # ## ### ##### ######## ############# #####################
+## Syntax
+
+syntax {
+    band-matrix args
+} {aktive image from}
+
+# # ## ### ##### ######## ############# #####################
+##
+
+test aktive-image-from-band-matrix-2.0 "aktive image from band-matrix" -body {
+    pixels aktive image from band-matrix width 2 height 1 values {0 0 1} {1 1}
+} -match pixels -result {0 0 1 1 1 0}
+
+# # ## ### ##### ######## ############# #####################
+cleanupTests
+return

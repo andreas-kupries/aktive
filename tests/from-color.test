@@ -1,0 +1,35 @@
+# -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
+## (c) 2026 Andreas Kupries
+# # ## ### ##### ######## ############# #####################
+## AKTIVE. Fully constant image (from color name)
+
+kt check Tcl     8.6 9
+kt check tcltest 2
+
+# # ## ### ##### ######## ############# #####################
+
+kt local testing aktive
+
+kt source support/util.tcl
+
+# # ## ### ##### ######## ############# #####################
+## Syntax
+
+syntax {
+    color args
+} {aktive image from}
+
+# # ## ### ##### ######## ############# #####################
+##
+
+test aktive-image-from-color-2.0 "aktive image from color, dag" -body {
+    dag aktive image from color width 1 height 1 color khaki
+} -match glob -result {image::from::band * {x 0 y 0 width 1 height 1 values {0.9411764705882353 0.9019607843137255 0.5490196078431373}}}
+
+test aktive-image-from-color-2.1 "aktive image from color" -body {
+    pixels aktive image from color width 1 height 1 color khaki
+} -match pixels -result {0.9412 0.9020 0.5490}
+
+# # ## ### ##### ######## ############# #####################
+cleanupTests
+return

@@ -2,6 +2,106 @@
 # # ## ### ##### ######## ############# #####################
 ## Generators -- Various virtual images
 
+# # ## ### ##### ######## ############# #####################
+## Tcl based on top of the C
+
+operator image::from::band-matrix {
+    section generator virtual
+
+    note Returns a multi-band image with the given geometry and pixel data (bands). \
+	The depth is implied by the pixel data. Each pixel is specified by a list of \
+	band values. The length of the longest list is the depth of the image. \
+	Shorter lists are extended with zeroes to the full depth.
+
+    note Analogous to "<!xref: aktive image from matrix>" less than width by height \
+	values are extended with full-zero (black) pixels, and excess values are ignored.
+
+    example {
+	width 4 height 2 values {0 0 0} {0 0 1} {0 1 0} {0 1 1} {1 0 0} {1 0 1} {1 1 0} {1 1 1} | times 32
+    }
+
+    example {
+	set shades {
+	    {0   0 0} {0   0 0.5} {0   0 1} {0   0.5 0} {0   0.5 0.5} {0   0.5 1} {0   1 0} {0   1 0.5} {0   1 1}
+	    {0.5 0 0} {0.5 0 0.5} {0.5 0 1} {0.5 0.5 0} {0.5 0.5 0.5} {0.5 0.5 1} {0.5 1 0} {0.5 1 0.5} {0.5 1 1}
+	    {1   0 0} {1   0 0.5} {1   0 1} {1   0.5 0} {1   0.5 0.5} {1   0.5 1} {1   1 0} {1   1 0.5} {1   1 1}
+	}
+    } { width 9 height 3 values {*}$shades | times 21 }
+
+    pass int?    0 x       Image location, X coordinate
+    pass int?    0 y       Image location, Y coordinate
+    pass uint      width   Width of the returned image
+    pass uint      height  Height of the returned image
+    pass double? 1 factor  Scaling factor
+
+    str... values  Pixel data, band lists
+
+    body {
+	# determine depth, max band size
+	set max [lindex [lsort -int -decreasing [lmap v $values { llength $v }]] 0]
+	if {$max == 0} { aktive error "Not enough bands, requires at least one" }
+	# extend under-sized pixels
+	set values [lmap v $values { while {[llength $v] < $max} { lappend v 0 } ; set v }]
+	# transpose - each band becomes its own plane of values
+	for {set i 0} {$i < $max} {incr i} { lappend planes [lmap v $values { lindex $v $i }] }
+	# planes to images, and assembled in z for result
+	aktive op montage z {*}[lmap p $planes { matrix @@passthrough@@ values {*}$p }]
+    }
+}
+
+operator image::from::color {
+    section generator virtual
+
+    note Returns an image where all pixels have the same color, specified by CSS name.
+
+    example {width 64 height 64 color lime}
+    example {width 64 height 64 color khaki}
+    example {width 64 height 64 color plum}
+
+    note Depth is 3. Because colors are RGB.
+
+    pass int?    0 x       Image location, X coordinate
+    pass int?    0 y       Image location, Y coordinate
+    pass uint      width   Width of the returned image
+    pass uint      height  Height of the returned image
+    str            color   CSS name of pixel color
+
+    body {
+	set values [aktive color css $color]
+	band @@passthrough@@ values {*}$values
+    }
+}
+
+operator image::from::color-matrix {
+    section generator virtual
+
+    note Returns a 3-band RGB image with the given geometry and pixel data (CSS color names).
+
+    note Analogous to "<!xref: aktive image from matrix>" less than width by height \
+	values are extended with full-zero (black) pixels, and excess values are ignored.
+
+    example {
+	width 4 height 2 values black blue green yellow red magenta cyan white | times 32
+    }
+
+    pass int?    0 x       Image location, X coordinate
+    pass int?    0 y       Image location, Y coordinate
+    pass uint      width   Width of the returned image
+    pass uint      height  Height of the returned image
+    pass double? 1 factor  Scaling factor
+
+    str... values  Pixel values, CSS color names
+
+    body {
+	# color names to rgb data
+	set values [lmap v $values { aktive color css $v }]
+	band-matrix @@passthrough@@ values {*}$values
+    }
+}
+
+# # ## ### ##### ######## ############# #####################
+## C based
+
 operator image::from::value {
     section generator virtual
 
@@ -24,29 +124,6 @@ operator image::from::value {
     }
     pixels {
 	aktive_blit_fill (block, dst, param->value);
-    }
-}
-
-operator image::from::color {
-    section generator virtual
-
-    note Returns image where all pixels have the same color
-
-    example {width 64 height 64 color lime}
-    example {width 64 height 64 color khaki}
-    example {width 64 height 64 color plum}
-
-    note Depth is 3. Because colors are RGB.
-
-    pass int?    0 x       Image location, X coordinate
-    pass int?    0 y       Image location, Y coordinate
-    pass uint      width   Width of the returned image
-    pass uint      height  Height of the returned image
-    str            color   Name of pixel color
-
-    body {
-	set values [aktive color css $color]
-	band @@passthrough@@ values {*}$values
     }
 }
 
