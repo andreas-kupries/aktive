@@ -32,3 +32,19 @@ Returns the RGB values for the named color. The command knows the CSS colors up 
 |:---|:---|:---|:---|
 |name|str||Color name to look up.|
 
+#### <a name='color_css__examples'></a> Examples
+
+<a name='color_css__examples__e1'></a><table>
+<tr><th>aktive color css lavenderblush
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'>&nbsp;1.0 0.9411764705882353 0.9607843137254902</td></tr>
+</table>
+
+<a name='color_css__examples__e2'></a><table>
+<tr><th>aktive image from color-matrix width 30 height 5 values {&#42}$shades
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><table><tr><td valign='top'>times 16</td><td valign='top'><img src='example-00002.gif' alt='aktive image from color-matrix width 30 height 5 values {&#42}$shades' style='border:4px solid gold'>
+    <br>geometry(0 0 480 80 3)</td></tr></table></td></tr>
+</table>
+
+

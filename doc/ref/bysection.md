@@ -40,6 +40,8 @@
     - [identity](transform_identity.md)
     - [kuwahara](transform_kuwahara.md)
     - [location](transform_location.md)
+    - [lookup](transform_lookup.md)
+      - [indexed](transform_lookup_indexed.md)
     - [math](transform_math.md)
       - [binary](transform_math_binary.md)
         - [logical](transform_math_binary_logical.md)

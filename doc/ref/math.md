@@ -187,13 +187,13 @@ Trailing zeroes are ignored.
 #### <a name='math_polynomial_map*__examples'></a> Examples
 
 <a name='math_polynomial_map*__examples__e1'></a><table>
-<tr><th>aktive math polynomial map* {1 3} 5 6 7
+<tr><th>aktive math polynomial map&#42 {1 3} 5 6 7
     <br>&nbsp;</th></tr>
 <tr><td valign='top'>&nbsp;16.0 19.0 22.0</td></tr>
 </table>
 
 <a name='math_polynomial_map*__examples__e2'></a><table>
-<tr><th>aktive math polynomial map* {1 3 -2} 2 3 4
+<tr><th>aktive math polynomial map&#42 {1 3 -2} 2 3 4
     <br>&nbsp;</th></tr>
 <tr><td valign='top'>&nbsp;-1.0 -8.0 -19.0</td></tr>
 </table>

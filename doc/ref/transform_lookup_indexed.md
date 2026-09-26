@@ -27,7 +27,7 @@
 ---
 ### [↑](#top) <a name='op_lut_compose'></a> aktive op lut compose
 
-Syntax: __aktive op lut compose__ a b [[→ definition](/file?ci=trunk&ln=62&name=etc/transformer/filter/lookup.tcl)]
+Syntax: __aktive op lut compose__ a b [[→ definition](/file?ci=trunk&ln=82&name=etc/transformer/filter/lookup.tcl)]
 
 Returns the composition `A*B` of the two indexed LUTs A and B. This composition is defined as `(A*B) (src) == A (B (src))`.
 
@@ -41,7 +41,7 @@ Internally this is computed as applying LUT A to input B, i.e. `A (B)`.
 ---
 ### [↑](#top) <a name='op_lut_from'></a> aktive op lut from
 
-Syntax: __aktive op lut from__  (param value)... [[→ definition](/file?ci=trunk&ln=48&name=etc/transformer/filter/lookup.tcl)]
+Syntax: __aktive op lut from__  (param value)... [[→ definition](/file?ci=trunk&ln=64&name=etc/transformer/filter/lookup.tcl)]
 
 Create a single-band, single-row indexed LUT from values
 
@@ -49,10 +49,19 @@ Create a single-band, single-row indexed LUT from values
 |:---|:---|:---|:---|
 |values|double...||LUT values|
 
+#### <a name='op_lut_from__examples'></a> Examples
+
+<a name='op_lut_from__examples__e1'></a><table>
+<tr><th>aktive op lut from values 1 2 4 8 7 3 1 0
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><table><tr><td>1</td><td>2</td><td>4</td><td>8</td><td>7</td><td>3</td><td>1</td><td>0</td></tr></table></td></tr>
+</table>
+
+
 ---
 ### [↑](#top) <a name='op_lut_indexed'></a> aktive op lut indexed
 
-Syntax: __aktive op lut indexed__ lut src ?(param value)...? [[→ definition](/file?ci=trunk&ln=85&name=etc/transformer/filter/lookup.tcl)]
+Syntax: __aktive op lut indexed__ lut src ?(param value)...? [[→ definition](/file?ci=trunk&ln=105&name=etc/transformer/filter/lookup.tcl)]
 
 Returns the result of mapping the input through the LUT.
 
@@ -82,7 +91,7 @@ The difference between this operator and [aktive op lut indexed-core](transform_
 ---
 ### [↑](#top) <a name='op_lut_indexed_core'></a> aktive op lut indexed-core
 
-Syntax: __aktive op lut indexed-core__ lut src ?(param value)...? [[→ definition](/file?ci=trunk&ln=132&name=etc/transformer/filter/lookup.tcl)]
+Syntax: __aktive op lut indexed-core__ lut src ?(param value)...? [[→ definition](/file?ci=trunk&ln=152&name=etc/transformer/filter/lookup.tcl)]
 
 Returns the result of mapping the input through the LUT.
 
