@@ -1079,7 +1079,7 @@ proc dsl::writer::ExampleRender {op example} {
 	lassign $run label desc
 	if {$desc eq {}} { set desc "&nbsp;" } else { set desc ($desc) }
 	append label "\n    <br>" $desc
-	set label
+	string map {* &#42} $label ;# avoid interpretation of character by markdown
     }]
     set data [lmap run $example { RR {*}$run }]
 
@@ -1092,6 +1092,7 @@ proc dsl::writer::ExampleRender {op example} {
 
 proc dsl::writer::RR {label desc results} {
     if {$desc ne {}} { append label "<br>(" $desc ")" }
+    set label [string map {* &#42} $label]
     if {[llength $results] == 1} {
 	return [RR1 1 $label [lindex $results 0]]
     }

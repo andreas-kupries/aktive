@@ -569,12 +569,12 @@ proc dsl::reader::example {args} { ;#puts [info level 0]
 	# extend the last run with the command to demo, except if overridden by spec via prefix `!!`
 	incr n -1
 	if {($n == 0) && ![string match {aktive *} $gen] && ![string match {!!*} $gen]} {
-	    set gen "<<>> $gen"
+	    set gen "@cmd $gen"
 	}
 	set gen [string trim $gen !]
 
 	# insert demo command at arbitrary location, if such is asked for
-	set gen [string map [list <<>> $demo] $gen]
+	set gen [string map [list @cmd $demo] $gen]
 
 	# scan modifiers for result formatting, extract, remove
 	set show {}

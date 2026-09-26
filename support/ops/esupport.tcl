@@ -100,6 +100,29 @@ proc sdf-pixelated {x}   { aktive op sdf 2image pixelated $x }
 proc height-times  {n x} { aktive op sample replicate y  $x by $n }
 proc width-times   {n x} { aktive op sample replicate x  $x by $n }
 proc times         {n x} { aktive op sample replicate xy $x by $n }
+
+proc palette8  {x} { aktive op lut palette [p8] $x }
+proc palette10 {x} { aktive op lut palette [p10] $x }
+proc palette27 {x} { aktive op lut palette [p27] $x }
+
+proc p8 {} {
+    aktive image from color-matrix width 8 height 1 values \
+	black blue    green  cyan \
+	red   magenta yellow white
+}
+proc p10 {} {
+    aktive image from color-matrix width 10 height 1 values \
+	black   blue   green  cyan red \
+	magenta yellow white  orchid aquamarine
+
+}
+proc p27 {} {
+    aktive image from band-matrix width 27 height 1 values \
+	{0   0 0} {0   0 0.5} {0   0 1} {0   0.5 0} {0   0.5 0.5} {0   0.5 1} {0   1 0} {0   1 0.5} {0   1 1} \
+	{0.5 0 0} {0.5 0 0.5} {0.5 0 1} {0.5 0.5 0} {0.5 0.5 0.5} {0.5 0.5 1} {0.5 1 0} {0.5 1 0.5} {0.5 1 1} \
+	{1   0 0} {1   0 0.5} {1   0 1} {1   0.5 0} {1   0.5 0.5} {1   0.5 1} {1   1 0} {1   1 0.5} {1   1 1}
+}
+
 #
 # asset access
 #
