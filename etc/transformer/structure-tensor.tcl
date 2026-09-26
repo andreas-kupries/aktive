@@ -93,18 +93,18 @@ operator op::structure::tensor {
 
     example {
 	butterfly
-	aktive op color sRGB to scRGB @1           | -label {linear light}
-	!!lindex [aktive op structure tensor @2] 0 | -label XX
+	aktive op color sRGB to scRGB @1  | -label {linear light}
+	!!lindex [@cmd @2] 0              | -label XX
     }
     example {
 	butterfly
-	aktive op color sRGB to scRGB @1           | -label {linear light}
-	!!lindex [aktive op structure tensor @2] 1 | -label YY
+	aktive op color sRGB to scRGB @1  | -label {linear light}
+	!!lindex [@cmd @2] 1              | -label YY
     }
     example {
 	butterfly
-	aktive op color sRGB to scRGB @1           | -label {linear light}
-	!!lindex [aktive op structure tensor @2] 2 | -label XY
+	aktive op color sRGB to scRGB @1  | -label {linear light}
+	!!lindex [@cmd @2] 2              | -label XY
     }
 
     note Returns the structure tensor of the input. \

@@ -40,7 +40,7 @@ operator op::math::matrix::invert-core {
 
     example {
 	aktive image from matrix width 2 height 2 values 1 2 4 5 | -matrix -int
-	aktive op math matrix invert @1                          | -matrix
+	@cmd @1                                                  | -matrix
 	!!aktive op math matrix multiply @1 @2                   | -matrix
     }
     # --- | -----------
@@ -56,7 +56,7 @@ operator op::math::matrix::invert-core {
 	}
     } {
 	aktive image from matrix width 3 height 3 values {*}$a | -matrix -int
-	aktive op math matrix invert @1                        | -matrix
+	@cmd @1                                                | -matrix
 	!!aktive op math matrix multiply @1 @2                 | -matrix
     }
     # ----- | ----------------
@@ -74,7 +74,7 @@ operator op::math::matrix::invert-core {
 	}
     } {
 	aktive image from matrix width 4 height 4 values {*}$a | -matrix -int
-	aktive op math matrix invert @1                        | -matrix
+	@cmd @1                                                | -matrix
 	!!aktive op math matrix multiply @1 @2                 | -matrix
     }
     # ------- | --------------------
@@ -94,7 +94,7 @@ operator op::math::matrix::invert-core {
 	}
     } {
 	aktive image from matrix width 5 height 5 values {*}$a | -matrix -int
-	aktive op math matrix invert @1                        | -matrix
+	@cmd @1                                                | -matrix
 	!!aktive op math matrix multiply @1 @2                 | -matrix
     }
     # --------- | --------------------------------------------
