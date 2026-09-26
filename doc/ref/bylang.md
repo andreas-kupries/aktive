@@ -668,6 +668,7 @@ The operators listed here are implemented wholly in Tcl.
 The commands listed here are implemented outside of the operator framework.
 
  - [aktive color css](color.md#color_css)
+ - [aktive color css-names](color.md#color_css_names)
  - [aktive error](miscellaneous.md#error)
  - [aktive math polynomial map](math.md#math_polynomial_map)
  - [aktive math polynomial map*](math.md#math_polynomial_map*)

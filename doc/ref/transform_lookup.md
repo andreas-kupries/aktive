@@ -53,10 +53,10 @@ Each input pixel is treated as integer and used to index into the palette to loc
     <br>&nbsp;</th>
     <th>aktive op lut palette @1 @2
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><table><tr><td valign='top'>times 16</td><td valign='top'><img src='example-00471.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><table><tr><td valign='top'>times 16</td><td valign='top'><img src='example-00472.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 128 16 3)</td></tr></table></td>
     <td valign='top'><table><tr><td>3</td><td>1</td><td>5</td><td>0</td></tr><tr><td>7</td><td>2</td><td>6</td><td>4</td></tr></table></td>
-    <td valign='top'><table><tr><td valign='top'>times 16</td><td valign='top'><img src='example-00473.gif' alt='aktive op lut palette @1 @2' style='border:4px solid gold'>
+    <td valign='top'><table><tr><td valign='top'>times 16</td><td valign='top'><img src='example-00474.gif' alt='aktive op lut palette @1 @2' style='border:4px solid gold'>
     <br>geometry(0 0 64 32 3)</td></tr></table></td></tr>
 </table>
 

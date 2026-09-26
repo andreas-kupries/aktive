@@ -18,13 +18,20 @@ apply {{} {
 	set rgb   [list $red $green $blue]
 
 	lappend map "\t    $name\t[list $rgb]"
-    }
-    set map [join [lsort -dict $map] \n]
+	lappend shades $name
 
-    # save database together with its access command
+    }
+    set map    [join [lsort -dict $map] \n]
+    set shades [lsort -dict $shades]
+
+    # embed database into its accessor commands, and save
+    lappend xmap "\n\t" "\n"
+    lappend xmap "\n    " "\n"
+    lappend xmap @@@@   $map
+    lappend xmap @names $shades
 
     set   chan [open generated/color.tcl w]
-    puts $chan [string map [list "\n\t" "\n" "\n    " "\n" @@@@ $map] {
+    puts $chan [string map $xmap {
 	proc aktive::color::css {name} {
 	    try {
 		return [dict get {
@@ -33,6 +40,9 @@ apply {{} {
 	    } on error {e} {
 		return -code error "Unknown color '$name', expected a valid CSS color name"
 	    }
+	}
+	proc aktive::color::css-names {} {
+	    return {@names}
 	}
     }]
     close $chan

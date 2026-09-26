@@ -62,10 +62,10 @@ This operator is __strict__ in the 1st input. The projective matrix is materiali
     <br>(rotate by 30 around {10 50})</th>
     <th>aktive op transform by @2 @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00715.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00716.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
     <td valign='top'><table><tr><td>0.866</td><td>-0.5</td><td>26.3397</td></tr><tr><td>0.5</td><td>0.866</td><td>1.6987</td></tr><tr><td>0</td><td>0</td><td>1</td></tr></table></td>
-    <td valign='top'><table><tr><td valign='top'>bframe</td><td valign='top'><img src='example-00717.gif' alt='aktive op transform by @2 @1' style='border:4px solid gold'>
+    <td valign='top'><table><tr><td valign='top'>bframe</td><td valign='top'><img src='example-00718.gif' alt='aktive op transform by @2 @1' style='border:4px solid gold'>
     <br>geometry(-98 1 454 407 3)</td></tr></table></td></tr>
 </table>
 
@@ -76,10 +76,10 @@ This operator is __strict__ in the 1st input. The projective matrix is materiali
     <br>(scale x 0.5 y 1.5)</th>
     <th>aktive op transform by @2 @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00718.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00719.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
     <td valign='top'><table><tr><td>0.5</td><td>0</td><td>0</td></tr><tr><td>0</td><td>1.5</td><td>0</td></tr><tr><td>0</td><td>0</td><td>1</td></tr></table></td>
-    <td valign='top'><img src='example-00720.gif' alt='aktive op transform by @2 @1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00721.gif' alt='aktive op transform by @2 @1' style='border:4px solid gold'>
     <br>geometry(0 0 191 375 3)</td></tr>
 </table>
 
@@ -90,10 +90,10 @@ This operator is __strict__ in the 1st input. The projective matrix is materiali
     <br>(shear x 20 y 10)</th>
     <th>aktive op transform by @2 @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00721.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00722.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
     <td valign='top'><table><tr><td>1</td><td>0.364</td><td>0</td></tr><tr><td>0.1763</td><td>1.0642</td><td>0</td></tr><tr><td>0</td><td>0</td><td>1</td></tr></table></td>
-    <td valign='top'><img src='example-00723.gif' alt='aktive op transform by @2 @1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00724.gif' alt='aktive op transform by @2 @1' style='border:4px solid gold'>
     <br>geometry(0 0 471 333 3)</td></tr>
 </table>
 
@@ -104,10 +104,10 @@ This operator is __strict__ in the 1st input. The projective matrix is materiali
     <br>(reflect x)</th>
     <th>aktive op transform by @2 @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00724.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00725.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
     <td valign='top'><table><tr><td>-1</td><td>0</td><td>0</td></tr><tr><td>0</td><td>1</td><td>0</td></tr><tr><td>0</td><td>0</td><td>1</td></tr></table></td>
-    <td valign='top'><img src='example-00726.gif' alt='aktive op transform by @2 @1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00727.gif' alt='aktive op transform by @2 @1' style='border:4px solid gold'>
     <br>geometry(-379 0 380 250 3)</td></tr>
 </table>
 
@@ -118,10 +118,10 @@ This operator is __strict__ in the 1st input. The projective matrix is materiali
     <br>(reflect y)</th>
     <th>aktive op transform by @2 @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00727.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00728.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
     <td valign='top'><table><tr><td>1</td><td>0</td><td>0</td></tr><tr><td>0</td><td>-1</td><td>0</td></tr><tr><td>0</td><td>0</td><td>1</td></tr></table></td>
-    <td valign='top'><img src='example-00729.gif' alt='aktive op transform by @2 @1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00730.gif' alt='aktive op transform by @2 @1' style='border:4px solid gold'>
     <br>geometry(0 -249 380 250 3)</td></tr>
 </table>
 
@@ -132,10 +132,10 @@ This operator is __strict__ in the 1st input. The projective matrix is materiali
     <br>(reflect line {50 260} b {150 -10})</th>
     <th>aktive op transform by @2 @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00730.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00731.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
     <td valign='top'><table><tr><td>-0.7587</td><td>-0.6514</td><td>257.2979</td></tr><tr><td>-0.6514</td><td>0.7587</td><td>95.2955</td></tr><tr><td>0</td><td>0</td><td>1</td></tr></table></td>
-    <td valign='top'><table><tr><td valign='top'>bframe</td><td valign='top'><img src='example-00732.gif' alt='aktive op transform by @2 @1' style='border:4px solid gold'>
+    <td valign='top'><table><tr><td valign='top'>bframe</td><td valign='top'><img src='example-00733.gif' alt='aktive op transform by @2 @1' style='border:4px solid gold'>
     <br>geometry(-192 -151 451 437 3)</td></tr></table></td></tr>
 </table>
 
@@ -148,12 +148,12 @@ This operator is __strict__ in the 1st input. The projective matrix is materiali
     <br>&nbsp;</th>
     <th>aktive op view @3 port {0 0 100 100}
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00733.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00734.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
     <td valign='top'><table><tr><td>0.4944</td><td>-0.4159</td><td>2.5504</td></tr><tr><td>0.344</td><td>0.946</td><td>-74.8181</td></tr><tr><td>-0.0014</td><td>-0.0023</td><td>1.211</td></tr></table></td>
-    <td valign='top'><img src='example-00735.gif' alt='@3' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00736.gif' alt='@3' style='border:4px solid gold'>
     <br>geometry(-161 -61 1036 3006 3)</td>
-    <td valign='top'><img src='example-00736.gif' alt='aktive op view @3 port {0 0 100 100}' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00737.gif' alt='aktive op view @3 port {0 0 100 100}' style='border:4px solid gold'>
     <br>geometry(0 0 100 100 3)</td></tr>
 </table>
 
