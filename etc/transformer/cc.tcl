@@ -27,7 +27,14 @@ operator op::connected-components::labeled {
 
     example {
 	aktive image from matrix width 33 height 11 values {*}$values | times 8
-	@1                                                            | -matrix -int
+	@cmd @1                                                       | -matrix -int
+	!!palette10 @2                                                | times 8
+    }
+
+    example {
+	aktive image from matrix width 33 height 11 values {*}$values | times 8
+	@cmd @1 neighbour8 yes                                        | -matrix -int
+	!!palette10 @2                                                | times 8
     }
 
     example {
@@ -60,9 +67,13 @@ operator op::connected-components::labeled {
 	Else the result's geometry is the bounding box containing all CCs \
 	(After transformation, if any).
 
+    bool? 0 neighbour8	\
+	Flag controlling the neighbourhood used to detect linked pixels. \
+	When false (default) a 4-neighbourhood is used, else an 8-neighbourhood.
+
     body {
 	set geo [expr {$bbox ? "" : "geometry {[aktive query domain $src]}"}]
-	set ccs [aktive op connected-components get $src]
+	set ccs [aktive op connected-components get $src neighbour8 ${neighbour8}]
 
 	# rewrite CC data, if desired
 	if {$transform ne {}} {

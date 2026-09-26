@@ -92,7 +92,7 @@ A_STRUCTURE(aktive_cc_block) {
  * - - -- --- ----- -------- -------------
  */
 
-extern aktive_cc_block* aktive_cc_find          (aktive_image src);
+extern aktive_cc_block* aktive_cc_find          (aktive_image src, aktive_uint nh_eight);
 extern Tcl_Obj*         aktive_cc_as_tcl_dict   (Tcl_Interp* ip, aktive_cc_block* block);
 extern void             aktive_cc_release_block (aktive_cc_block* block);
 

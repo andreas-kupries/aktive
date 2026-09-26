@@ -20,6 +20,8 @@ TRACE_OFF;
  * of that image.
  */
 
+typedef int (*neighbour) (aktive_cc_range* a, aktive_cc_range* b);
+
 A_STRUCTURE(aktive_cc_task) {
     // a == 0 --> row task
     // else   --> fuse task
@@ -39,8 +41,9 @@ A_STRUCTURE(aktive_cc_batch) {
     A_FIELD (Tcl_Condition,     eof);   // gen/complete signaling
 
     // worker
-    A_FIELD (aktive_image, src) ; // image to process
-    A_FIELD (aktive_uint,  w)   ; // image width = row size
+    A_FIELD (aktive_image, src);         // image to process
+    A_FIELD (aktive_uint,  w);           // image width = row size
+    A_FIELD (neighbour,    isneighbour); // check neighbourhood
 
     // completer
     A_FIELD (aktive_cc_block**, row);    // Adjacency array, #rows elements
@@ -257,7 +260,7 @@ static void cc_merge (aktive_cc* a, aktive_cc* b)
 }
 
 /* Check if the two ranges A and B overlap enough in X to make their owning
- * CCs neighbours and thus the same.  Assumes that the ranges are in adjacent
+ * CCs 4-neighbours and thus the same.  Assumes that the ranges are in adjacent
  * rows. No check of this done.
  */
 static int cc_neighbour_4 (aktive_cc_range* a, aktive_cc_range* b)
@@ -309,12 +312,31 @@ static int cc_neighbour_4 (aktive_cc_range* a, aktive_cc_range* b)
     TRACE_RETURN ("neighbour %d", 1);                            // N4[c-k]
 }
 
+/* Check if the two ranges A and B overlap enough in X to make their owning
+ * CCs 8-neighbours and thus the same.  Assumes that the ranges are in adjacent
+ * rows. No check of this done.
+ */
+static int cc_neighbour_8 (aktive_cc_range* a, aktive_cc_range* b)
+{
+    TRACE_FUNC("(aktive_cc_range*) %p, %p", a, b);
+
+    /* For 8-neighbourhood diagonally touching ranges is OK. Which in turn
+     * means that the ranges have to have at least one pixel between them to
+     * not be neighbours. Only a small change compared to 4-neighbours is
+     * needed.
+     */
+
+    if ((a->xmax+1) < b->xmin) { TRACE_RETURN ("neighbour %d", 0); } // N4a
+    if (a->xmin > (b->xmax+1)) { TRACE_RETURN ("neighbour %d", 0); } // N4b
+    TRACE_RETURN ("neighbour %d", 1);                            // N4[c-k]
+}
+
 /* Phase 2 task: Fuse two blocks by iterating over the ranges in the adjacent
  * rows and merging all neighbouring CCs. The merged CCs of B are
  * discarded. All unmerged CCs of B are added to A. All row and ranges of B
  * are added to A.
  */
-static void cc_fuse_blocks (aktive_cc_block* a, aktive_cc_block* b)
+static void cc_fuse_blocks (neighbour linked, aktive_cc_block* a, aktive_cc_block* b)
 {
     TRACE_FUNC("(aktive_cc_block*) %p, %p, %% @%u..%u @%u..%u",
 	       a, b, a->ymin, a->ymax, b->ymin, b->ymax);
@@ -324,7 +346,7 @@ static void cc_fuse_blocks (aktive_cc_block* a, aktive_cc_block* b)
     aktive_cc_range* br = b->row_first->first;
 
     while (ar && br) {
-	if (cc_neighbour_4 (ar, br) && (ar->owner != br->owner)) {
+	if (linked (ar, br) && (ar->owner != br->owner)) {
 	    cc_unlink (br->owner);
 	    cc_merge  (ar->owner, br->owner);
 	}
@@ -525,7 +547,7 @@ cc_worker (const aktive_cc_batch* controller, aktive_cc_task* task, void** wstat
 	aktive_cc_block* b = task->b;
 	FREE (task);
 
-	cc_fuse_blocks (a, b);
+	cc_fuse_blocks (controller->isneighbour, a, b);
 	TRACE_RETURN ("(aktive_cc_block*) %p", a);
     }
 
@@ -664,13 +686,14 @@ cc_completer (aktive_batch processor, aktive_cc_batch* controller, aktive_cc_blo
  */
 
 extern aktive_cc_block*
-aktive_cc_find (aktive_image src)
+aktive_cc_find (aktive_image src, aktive_uint nh_eight)
 {
     TRACE_FUNC("(aktive_image) %p", src);
 
     aktive_cc_batch* controller = ALLOC (aktive_cc_batch);
     memset (controller, 0, sizeof(aktive_cc_batch));
 
+    controller->isneighbour = nh_eight ? cc_neighbour_8 : cc_neighbour_4;
     controller->count  = aktive_image_get_height (src);
     controller->stop   = 0;
     controller->src    = src;

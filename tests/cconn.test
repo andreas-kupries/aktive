@@ -1,5 +1,5 @@
 # -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
-## (c) 2024 Andreas Kupries
+## (c) 2024, 2026 Andreas Kupries
 # # ## ### ##### ######## ############# #####################
 ## AKTIVE. Connected components, retrieval and region image
 
@@ -16,7 +16,7 @@ kt source support/util.tcl
 ## Syntax
 
 syntax {
-    get      src
+    get     {src args}
     labeled {src args}
 } {aktive op connected-components}
 
@@ -105,6 +105,89 @@ test aktive-op-connected-components-get-2.0 "aktive op connected-components get"
     }
 }
 9 {
+    area 20
+    box {12 8 19 10}
+    centroid {15.5000 8.8000}
+    parts {
+        {8 12 19} {9 12 19} {10 12 13} {10 18 19}
+    }
+}}
+
+test aktive-op-connected-components-get-2.1 "aktive op connected-components get, neighbour8" -body {
+    cc.pretty [aktive op connected-components get \
+	[aktive image from matrix width 33 height 11 values {*}[bw {
+	    _ _ _ _ _ * _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+	    _ _ _ _ _ * _ _ * * _ _ * * * _ * * * * * _ _ _ * * * * * * * _ _
+	    * * * * * * _ _ * * _ _ * _ * _ * _ _ _ * _ _ * * * * * * * * * _
+	    _ _ _ _ _ _ _ * * _ _ _ * * * _ * _ _ _ * _ * * * * * * * * * * *
+	    _ * * * * * * * _ * _ _ _ _ _ _ * _ _ _ * _ * * * _ _ _ _ _ * * *
+	    _ * _ _ _ _ _ _ _ * _ _ _ _ _ _ * _ _ _ * _ * * _ _ _ * _ _ _ * *
+	    _ * _ * * * * * * * _ _ _ _ _ _ * * * * * _ _ * * _ _ * _ _ * * _
+	    _ _ * * _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ * * _ * _ * * _ _
+	    _ * * _ _ * * * * * * _ * * * * * * * * _ _ _ _ _ _ _ * _ _ _ _ _
+	    _ * * _ _ * _ _ _ _ _ _ * * * * * * * * _ _ * * * * * * * * * * *
+	    _ _ _ _ _ * _ _ _ _ _ _ * * _ _ _ _ * * _ _ _ _ _ _ * * * _ _ _ _
+	}]] neighbour8 yes]
+} -result {1 {
+    area 8
+    box {0 0 5 2}
+    centroid {3.1250 1.6250}
+    parts {
+        {0 5 5} {1 5 5} {2 0 5}
+    }
+}
+2 {
+    area 30
+    box {1 1 9 9}
+    centroid {5.0000 5.0000}
+    parts {
+        {1 8 9} {2 8 9} {3 7 8} {4 1 7} {4 9 9} {5 1 1} {5 9 9} {6 1 1}
+        {6 3 9} {7 2 3} {8 1 2} {9 1 2}
+    }
+}
+3 {
+    area 8
+    box {12 1 14 3}
+    centroid {13.0000 2.0000}
+    parts {
+        {1 12 14} {2 12 12} {2 14 14} {3 12 14}
+    }
+}
+4 {
+    area 18
+    box {16 1 20 6}
+    centroid {18.0000 3.5000}
+    parts {
+        {1 16 20} {2 16 16} {2 20 20} {3 16 16} {3 20 20} {4 16 16}
+        {4 20 20} {5 16 16} {5 20 20} {6 16 20}
+    }
+}
+5 {
+    area 45
+    box {22 1 32 7}
+    centroid {27.0000 3.4222}
+    parts {
+        {1 24 30} {2 23 31} {3 22 32} {4 22 24} {4 30 32} {5 22 23}
+        {5 31 32} {6 23 24} {6 30 31} {7 24 25} {7 29 30}
+    }
+}
+6 {
+    area 18
+    box {22 5 32 10}
+    centroid {27.0000 8.6111}
+    parts {
+        {5 27 27} {6 27 27} {7 27 27} {8 27 27} {9 22 32} {10 26 28}
+    }
+}
+7 {
+    area 8
+    box {5 8 10 10}
+    centroid {6.8750 8.3750}
+    parts {
+        {8 5 10} {9 5 5} {10 5 5}
+    }
+}
+8 {
     area 20
     box {12 8 19 10}
     centroid {15.5000 8.8000}
