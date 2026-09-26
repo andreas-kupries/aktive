@@ -6,6 +6,7 @@
 
 #include <lut.h>
 #include <amath.h>
+#include <string.h> // memcpy
 
 #include <critcl_assert.h>
 #include <critcl_trace.h>
@@ -69,6 +70,22 @@ aktive_lut_index_linear (double x, aktive_lut_config* lut, aktive_uint z)
     }
 
     TRACE_RETURN("(double) %f", r);
+}
+
+extern void
+aktive_lut_palette (double* dst, aktive_uint depth, double* palette, aktive_uint size, double v)
+{
+    TRACE_FUNC("(dst %[%d] = (palette %p[%d])@ %f)", dst, depth, palette, size, v);
+
+    aktive_uint index = (v <= 0)
+	? 0
+	: (v >= size)
+	? (size-1)
+	: (int) v;
+    double* bands = palette + depth * index;
+
+    memcpy (dst, bands, depth * sizeof (double));
+    TRACE_RETURN_VOID;
 }
 
 /*
