@@ -3,7 +3,8 @@
 set -e
 
 ## inlined clean (backup files, crash dumps, debug traces)
-find . -name "*~" -print
+echo cleaning...
+find . -name "*~" -print                      | sed -e 's/^/	/'
 find . -name "*~" -exec rm "{}" \;
 find . -follow -name "core*" -exec rm "{}" \;
 rm -f *.trace
@@ -12,6 +13,7 @@ operation=install
 #operation=debug
 
 # setup of inlined/integrated doc
+echo doc cleaning and setup...
 rm -rf        doc
 cp -rf docsrc doc
 mkdir -p      doc/ref
@@ -23,6 +25,7 @@ rm doc/assets/aktive-logo-128-pipeline.png
 rm doc/assets/*.inc
 
 # pikchr conversion for docs
+echo pikchr processing...
 for i in doc/assets/*.pikchr
 do
     pikchr --svg-only "$i" > "doc/assets/$(basename "$i" .pikchr).svg"
@@ -30,10 +33,11 @@ do
 done
 
 # main build, including examples, and doc/example integration
+echo building...
 mkdir -p ../Logs
 ( ./build.tcl uninstall $operation "$@" && \
       \
-      tclsh examples.tcl && \
+      sleep 5 && clear && time tclsh examples.tcl && \
       \
       tclsh tools/md-include \
 	    -x doc/ref/xref.tcl \
