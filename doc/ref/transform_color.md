@@ -18,6 +18,7 @@
 ### Operators
 
  - [aktive op color correct greyworld global](#op_color_correct_greyworld_global)
+ - [aktive op color correct greyworld global-mean](#op_color_correct_greyworld_global_mean)
  - [aktive op color correct greyworld local](#op_color_correct_greyworld_local)
  - [aktive op color HSL to Grey](#op_color_HSL_to_Grey)
  - [aktive op color HSL to HSV](#op_color_HSL_to_HSV)
@@ -91,7 +92,7 @@
 ---
 ### [↑](#top) <a name='op_color_correct_greyworld_global'></a> aktive op color correct greyworld global
 
-Syntax: __aktive op color correct greyworld global__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=9&name=etc/transformer/color/recast.tcl)]
+Syntax: __aktive op color correct greyworld global__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=54&name=etc/transformer/color/recast.tcl)]
 
 Corrects a color cast in the input using a global grey world assumption and returns the result.
 
@@ -133,9 +134,47 @@ The actual correction is always done in the `scRGB` space, i.e. with linear colo
 
 
 ---
+### [↑](#top) <a name='op_color_correct_greyworld_global_mean'></a> aktive op color correct greyworld global-mean
+
+Syntax: __aktive op color correct greyworld global-mean__ src [[→ definition](/file?ci=trunk&ln=9&name=etc/transformer/color/recast.tcl)]
+
+Computes the global mean necessary to correct a color cast in the input via the global grey world assumption and returns the result.
+
+Accepts inputs in the `sRGB` and `scRGB` color spaces.
+
+This operator, together with the parameter `mean` of [aktive op color correct greyworld global](transform_color.md#op_color_correct_greyworld_global) enables the calculation of the mean for a large image from a size-reduced derivation.
+
+|Input|Description|
+|:---|:---|
+|src|Source image|
+
+#### <a name='op_color_correct_greyworld_global_mean__examples'></a> Examples
+
+<a name='op_color_correct_greyworld_global_mean__examples__e1'></a><table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive op color correct greyworld global-mean @1
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00363.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 294 92 3)</td>
+    <td valign='top'>&nbsp;0.290419223329153</td></tr>
+</table>
+
+<a name='op_color_correct_greyworld_global_mean__examples__e2'></a><table>
+<tr><th>@1
+    <br>&nbsp;</th>
+    <th>aktive op color correct greyworld global-mean @1
+    <br>&nbsp;</th></tr>
+<tr><td valign='top'><img src='example-00365.gif' alt='@1' style='border:4px solid gold'>
+    <br>geometry(0 0 380 250 3)</td>
+    <td valign='top'>&nbsp;0.19901710802644593</td></tr>
+</table>
+
+
+---
 ### [↑](#top) <a name='op_color_correct_greyworld_local'></a> aktive op color correct greyworld local
 
-Syntax: __aktive op color correct greyworld local__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=75&name=etc/transformer/color/recast.tcl)]
+Syntax: __aktive op color correct greyworld local__ src ?(param value)...? [[→ definition](/file?ci=trunk&ln=120&name=etc/transformer/color/recast.tcl)]
 
 Corrects a color cast in the input using a local grey world assumption and returns the result.
 
@@ -642,9 +681,9 @@ This conversion uses the NTSC conversion formula.
     <br>&nbsp;</th>
     <th>aktive op color sRGB to gray @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00363.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00367.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
-    <td valign='top'><img src='example-00364.gif' alt='aktive op color sRGB to gray @1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00368.gif' alt='aktive op color sRGB to gray @1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 1)</td></tr>
 </table>
 
@@ -678,9 +717,9 @@ Returns image in HSL colorspace, from input in sRGB colorspace.
     <br>&nbsp;</th>
     <th>aktive op color sRGB to HSL @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00365.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00369.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
-    <td valign='top'><img src='example-00366.gif' alt='aktive op color sRGB to HSL @1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00370.gif' alt='aktive op color sRGB to HSL @1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td></tr>
 </table>
 
@@ -703,9 +742,9 @@ Returns image in HSV colorspace, from input in sRGB colorspace.
     <br>&nbsp;</th>
     <th>aktive op color sRGB to HSV @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00367.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00371.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
-    <td valign='top'><img src='example-00368.gif' alt='aktive op color sRGB to HSV @1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00372.gif' alt='aktive op color sRGB to HSV @1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td></tr>
 </table>
 
@@ -750,9 +789,9 @@ Returns image in scRGB colorspace, from input in sRGB colorspace. (gamma) compre
     <br>&nbsp;</th>
     <th>aktive op color sRGB to scRGB @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00369.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00373.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
-    <td valign='top'><img src='example-00370.gif' alt='aktive op color sRGB to scRGB @1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00374.gif' alt='aktive op color sRGB to scRGB @1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td></tr>
 </table>
 

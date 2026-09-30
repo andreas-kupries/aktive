@@ -6,6 +6,51 @@
 
 # # ## ### ##### ######## ############# #####################
 
+operator op::color::correct::greyworld::global-mean {
+    section transform color
+
+    example {
+	aktive read from netpbm file path tests/assets/watergarden.ppm
+	@1 | -text
+    }
+
+    example {
+	butterfly
+	@1 | -text
+    }
+
+    note Computes the global mean necessary to correct a color cast in the \
+	input via the global grey world assumption and returns the result.
+    note Accepts inputs in the `sRGB` and `scRGB` color spaces.
+
+    note This operator, together with the parameter `mean` of \
+	<!xref: aktive op color correct greyworld global> enables \
+	the calculation of the mean for a large image from a \
+	size-reduced derivation.
+
+    input
+
+    body {
+	set cs [aktive op query colorspace $src]
+	if {$cs ni {sRGB scRGB}} { aktive error "Unable to handle non-RGB colorspace `$cs`" }
+
+	set linear [string equal $cs scRGB]
+	if {!$linear} { set src [aktive op color sRGB to scRGB $src] }
+	# Ensured linear color
+
+	# Split into bands ...
+	lassign [aktive op split z $src] r g b
+
+	# ... per band means ..
+	set mr [aktive op image mean $r]	;# --- semi-materializes input
+	set mg [aktive op image mean $g]	;# --/
+	set mb [aktive op image mean $b]	;# -/
+
+	# ... global mean
+	return [expr {($mr + $mg + $mb)/3.}]
+    }
+}
+
 operator op::color::correct::greyworld::global {
     section transform color
 
@@ -33,7 +78,7 @@ operator op::color::correct::greyworld::global {
 	if {$cs ni {sRGB scRGB}} { aktive error "Unable to handle non-RGB colorspace `$cs`" }
 
 	set linear [string equal $cs scRGB]
-	    if {!$linear} { set src [aktive op color sRGB to scRGB $src] }
+	if {!$linear} { set src [aktive op color sRGB to scRGB $src] }
 	# Ensured linear color
 
 	# Split into bands ...

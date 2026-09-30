@@ -16,7 +16,8 @@ kt source support/util.tcl
 ## Syntax
 
 syntax {
-    global {src args}
+    global     {src args}
+    global-mean src
 } {aktive op color correct greyworld}
 
 syntax {
@@ -39,14 +40,34 @@ foreach mp {
     } {
 	set in [aktive read from netpbm file path [A $im.ppm]]
 
-	test aktive-op-color-correct-greyworld-${m}-2.$k "aktive op color correct greyworld $mp $im" -body {
+	test aktive-op-color-correct-greyworld-${m}-2.$k \
+	    "aktive op color correct greyworld $m $im $p" -body {
 	    save-to test.gw-${m}.ppm \
 		[aktive op color correct greyworld $m $in {*}$p] \
 		aktive format as ppm byte
 	} -cleanup {
 	    removeFile test.gw-${m}.ppm
 	} -match content -result [R greyworld-${m}-${im}.ppm]
+
+	incr k
     }
+}
+
+# # ## ### ##### ######## ############# #####################
+
+foreach im {
+    butterfly
+    watergarden
+} {
+    test aktive-op-color-correct-greyworld-global-mean-2.$k \
+	"aktive op color correct greyworld global-mean $im" -body {
+	aktive op color correct greyworld global-mean \
+	    [aktive read from netpbm file path \
+		 [A $im.ppm]]
+    } -result [dict get {
+	butterfly   0.19901710802644593
+	watergarden 0.290419223329153
+    } $im]
 
     incr k
 }

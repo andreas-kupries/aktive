@@ -291,6 +291,7 @@
  - [aktive op cmath tocartesian](transform_math_complex_unary.md#op_cmath_tocartesian)
  - [aktive op cmath topolar](transform_math_complex_unary.md#op_cmath_topolar)
  - [aktive op color correct greyworld global](transform_color.md#op_color_correct_greyworld_global)
+ - [aktive op color correct greyworld global-mean](transform_color.md#op_color_correct_greyworld_global_mean)
  - [aktive op color correct greyworld local](transform_color.md#op_color_correct_greyworld_local)
  - [aktive op color HSL to Grey](transform_color.md#op_color_HSL_to_Grey)
  - [aktive op color HSL to HSV](transform_color.md#op_color_HSL_to_HSV)

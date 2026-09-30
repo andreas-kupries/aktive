@@ -487,6 +487,7 @@ The operators listed here are implemented wholly in Tcl.
  - [aktive op cmath imaginary](transform_math_complex_reduce.md#op_cmath_imaginary)
  - [aktive op cmath real](transform_math_complex_reduce.md#op_cmath_real)
  - [aktive op color correct greyworld global](transform_color.md#op_color_correct_greyworld_global)
+ - [aktive op color correct greyworld global-mean](transform_color.md#op_color_correct_greyworld_global_mean)
  - [aktive op color correct greyworld local](transform_color.md#op_color_correct_greyworld_local)
  - [aktive op color HSL to Grey](transform_color.md#op_color_HSL_to_Grey)
  - [aktive op color HSL to HSV](transform_color.md#op_color_HSL_to_HSV)

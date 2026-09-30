@@ -106,9 +106,9 @@ This is useful to add after an application of [aktive op transform by](transform
     <br>&nbsp;</th>
     <th>aktive op view @1 port {190 125 380 250}
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00742.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00746.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
-    <td valign='top'><img src='example-00743.gif' alt='aktive op view @1 port {190 125 380 250}' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00747.gif' alt='aktive op view @1 port {190 125 380 250}' style='border:4px solid gold'>
     <br>geometry(190 125 380 250 3)</td></tr>
 </table>
 
@@ -117,9 +117,9 @@ This is useful to add after an application of [aktive op transform by](transform
     <br>&nbsp;</th>
     <th>aktive op view @1 port {-190 -125 380 250}
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00744.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00748.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
-    <td valign='top'><img src='example-00745.gif' alt='aktive op view @1 port {-190 -125 380 250}' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00749.gif' alt='aktive op view @1 port {-190 -125 380 250}' style='border:4px solid gold'>
     <br>geometry(-190 -125 380 250 3)</td></tr>
 </table>
 
@@ -128,9 +128,9 @@ This is useful to add after an application of [aktive op transform by](transform
     <br>&nbsp;</th>
     <th>aktive op view @1 port {80 80 80 80}
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00746.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00750.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
-    <td valign='top'><img src='example-00747.gif' alt='aktive op view @1 port {80 80 80 80}' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00751.gif' alt='aktive op view @1 port {80 80 80 80}' style='border:4px solid gold'>
     <br>geometry(80 80 80 80 3)</td></tr>
 </table>
 
