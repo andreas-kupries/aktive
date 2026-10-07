@@ -216,6 +216,7 @@ critcl::tsources meta.tcl	;# meta data dict wrapper
 if {$benchmarking} {
     critcl::source bench/support/math.tcl
     critcl::source bench/support/reducers.tcl
+    critcl::source bench/support/kdtree.tcl
 }
 
 # # ## ### ##### ######## ############# #####################
@@ -225,6 +226,7 @@ if {$benchmarking} {
 if {$testing} {
     critcl::source tests/support/kahan.tcl
     critcl::source tests/support/reducers.tcl
+    critcl::source tests/support/kdtree.tcl
 }
 
 # # ## ### ##### ######## ############# #####################

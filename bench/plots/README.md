@@ -18,3 +18,4 @@
   - [Blit Fill y/x/z vs y/xz](blit-fill/README.md)
   - [Vector Math](vecops/README.md)
   - [Reductions (Bands)](reduce-bands/README.md)
+  - [KD Tree / Spatial Index](kdtree/README.md)

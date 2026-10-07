@@ -1,0 +1,202 @@
+# -*- tcl -*-
+# # ## ### ##### ######## ############# #####################
+## general structure is
+## - create several simple series
+## - merge the series into a side by side comparison
+#
+## This chart file generates the necessary gnuplot spec as well, due to the
+## large and variable set of functions.
+
+set vlength {
+    1
+    10
+    100
+    1000
+    10000
+    100000
+    1000000
+}
+
+# base and aggregation charts
+
+chart kdtree-linear {
+    only {name = 'kdtree/linear'}
+    only {sink = 'n/a'}
+    range iwidth
+    nodump
+}
+
+chart kdtree-tree {
+    only {name = 'kdtree/tree'}
+    only {sink = 'n/a'}
+    range iwidth
+    nodump
+}
+
+chart kdtree-setup {
+    only {name = 'kdtree/setup'}
+    only {sink = 'n/a'}
+    range iwidth
+}
+
+chart kdtree {
+    side-by-side kdtree-linear kdtree-tree
+}
+
+# # ## ### ##### ######## ############# #####################
+# # ## ### ##### ######## ############# #####################
+##
+## gnuplot generation
+##
+# # ## ### ##### ######## ############# #####################
+
+puts "generating gnuplot spec ..."
+
+proc + {{s {}}} { lappend ::lines $s }
+proc // {{s {}}} { if {$s ne {}} { set s " $s" } ; + "#$s" }
+proc g {}  { set result [join $::lines \n] ; set ::lines {} ; return $result }
+proc w {p s} {
+    puts "writing $p"
+    set chan [open $p w] ; puts -nonewline $chan $s ; close $chan }
+
+proc header {title} {
+    upvar 1 lines lines   
+    + {<img src='../../../doc/assets/aktive-logo-128.png' style='float:right;'>}
+    +
+    + "Benchmark results for kdtree operation - $title"
+    +
+    + {||}
+    + {|---|}
+    + {|[Parent ↗](README.md)|}
+    +
+    + "## Summary"
+}
+
+# # ## ### ##### ######## ############# #####################
+
+// "_ _ __ ___ _____ ________ _____________ _____________________"
+// "generation for kdtree benchmarking"
++
++ "set datafile   separator ','"
++ "set key        autotitle columnhead				# use the first line as title"
++ "set terminal   svg enhanced dynamic font 'Arial,12'"
+// "BEWARE. Each plot requires a separate outputfile."
++
++ "set size ratio 0.71 # for the A4 ratio"
++ "set boxwidth   0.9"
++ "set style      fill solid"
++
+
+# execution times per vector length
+// "_ _ __ ___ _____ ________ _____________ _____________________"
++
++ "set xlabel \"log10(size)\""
++ "set ylabel  \"Microseconds\""
++ "set logscale y"
++
++ "datasource1 = \"kdtree.csv\""
++ "set title \"times per \#vector length\""
++ "set output \"times-kdtree.svg\""
++ ""
++ "plot datasource1 using 1:2 with lines, \\"
++ "     datasource1 using 1:3 with lines"
+
+# execution speed per vector length
+# (inverted actually, as time per value, lower is better)
+// "_ _ __ ___ _____ ________ _____________ _____________________"
++
++ "set ylabel  \"Nanoseconds/value\""
++ "set logscale y"
++
++ "datasource1 = \"kdtree.csv\""
++ "set title \"1/speed per \#vector length\""
++ "set output \"ispeed-kdtree.svg\""
++ ""
++ "plot datasource1 using 1:(1000*\$2/(10**\$1)) with lines, \\"
++ "     datasource1 using 1:(1000*\$3/(10**\$1)) with lines"
+
+// "_ _ __ ___ _____ ________ _____________ _____________________"
++
++ "set xlabel \"size\""
++ "set ylabel  \"Microseconds\""
+#+ "unset logscale"
++ "set logscale y"
++ "set logscale x"
++
++ "datasource1 = \"kdtree-setup.csv\""
++ "set title \"times per \#vector length\""
++ "set output \"times-kdtree-setup.svg\""
++ ""
++ "plot datasource1 using 1:2 with lines"
+
+// "_ _ __ ___ _____ ________ _____________ _____________________"
+
+w generated/kdtree.gnuplot [g]
+
+# # ## ### ##### ######## ############# #####################
+## gnuplot rendering
+
+puts "rendering gnuplot spec ..."
+
+exec 2>@ stderr >@ stdout gnuplot generated/kdtree.gnuplot
+
+puts "... done"
+
+# # ## ### ##### ######## ############# #####################
+## stash charts (.csv) and renders (.svg) into the bench area
+
+file mkdir         bench/plots/kdtree
+
+file delete -force bench/plots/kdtree/csv ; file mkdir bench/plots/kdtree/csv
+file delete -force bench/plots/kdtree/svg ; file mkdir bench/plots/kdtree/svg
+file delete -force {*}[glob -nocomplain -type f bench/plots/kdtree/*.md]
+
+file rename -force {*}[glob -type f *.csv] bench/plots/kdtree/csv
+file rename -force {*}[glob -type f *.svg] bench/plots/kdtree/svg
+
+# # ## ### ##### ######## ############# #####################
+## Create README
+
+puts "generating README ..."
+
++ {<img src='../../../doc/assets/aktive-logo-128.png' style='float:right;'>}
++
++ "Benchmark results for KD Tree"
++
++ {||}
++ {|---|}
++ {|[Parent ↗](../README.md)|}
++
++ "## Summary"
++ [string map [list "    " ""] {
+
+    ### Oct 5, 2026
+
+    This came out very neatly as expected, i.e. linear tree setup
+    times, linear scan is linear, and the KD tree is indeed much
+    faster than that.
+
+    Unexpected was that looks to be on par even for a small number of
+    points, i.e. less than ten.
+
+    Using this structure for SDF poly circle images should be
+    beneficial indeed.
+}]
+
+set speed "svg/ispeed-kdtree.svg"
+set times "svg/times-kdtree.svg"
+set setup "svg/times-kdtree-setup.svg"
+
++ "## Plots"
++
++ "\[<img src='$times' style='width:46%;'>]($times)"
++ "\[<img src='$speed' style='width:46%;'>]($speed)"
++
++ "\[<img src='$setup' style='width:92%;'>]($times)"
+
+w bench/plots/kdtree/README.md [g]
+
+puts "... done"
+
+# # ## ### ##### ######## ############# #####################
+return

@@ -1,0 +1,51 @@
+# -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
+## (c) 2026 Andreas Kupries
+# # ## ### ##### ######## ############# #####################
+## AKTIVE. KD Tree. Checked against basic linear search.
+
+kt check Tcl     8.6 9
+kt check tcltest 2
+
+# # ## ### ##### ######## ############# #####################
+
+kt local testing aktive
+
+# # ## ### ##### ######## ############# #####################
+## Syntax - Not relevant for test-only commands
+
+# # ## ### ##### ######## ############# #####################
+set N [::aktive::test::kdtree::size]
+
+# # ## ### ##### ######## ############# #####################
+## testing is done by random sampling of trees (various sizes), and target points.
+
+# 1000000000
+foreach n {
+    1 10 100 1000 10000 100000 1000000 10000000 100000000
+} {
+    # BEWARE: n == N above is very slow to setup - not hung
+    if {$n > $N} continue
+    ::aktive::test::kdtree::init $n
+
+    for {set k 100} {$k > 0} {incr k -1} {
+	set x [expr {rand() * 10000}]
+	set y [expr {rand() * 10000}]
+	set p [list $x $y]
+
+	::aktive::test::kdtree::scan $x $y
+	set min  [::aktive::test::kdtree::min]
+	set best [::aktive::test::kdtree::best]
+	set need [list $p $min $best]
+
+	test aktive-kdtree-$n.$k "aktive kdtree $n sample $k" -body {
+	    ::aktive::test::kdtree::recurse $x $y
+	    set min  [::aktive::test::kdtree::min]
+	    set best [::aktive::test::kdtree::best]
+	    set have [list $p $min $best]
+	} -result $need
+    }
+}
+
+# # ## ### ##### ######## ############# #####################
+cleanupTests
+return

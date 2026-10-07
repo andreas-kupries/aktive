@@ -1,0 +1,127 @@
+# -*- tcl -*- tcl.tk//DSL tclbench//EN// Tcl Benchmark File
+#
+# This file contains a number of low-level kdtree benchmarks.
+#
+# (c) 2026 Andreas Kupries <andreas_kupries@users.sourceforge.net>
+#
+##
+# ### ### ### ######### ######### ######### ##########################
+## Utilities
+
+kb::check   Tcl 8.6
+kb::require support   debug
+kb::local   benchmark aktive
+
+# ### ### ### ######### ######### ######### ###########################
+## Benchmarks Setup
+
+set vlength {
+    1
+    10
+    100
+    1000
+    10000
+    100000
+    1000000
+    10000000
+    100000000
+}
+
+# log10(n) = (0...6) _ (1) to (1 million)
+# reduce iterations at the larger levels keep the overall execution
+# time in check
+
+# reduced to max 10**5 / 100,000
+
+set iters {
+    1      10000
+    10     10000
+    100    10000
+    1000   10000
+    10000  10000
+    100000 10000
+    1000000 1000
+    10000000 100
+    100000000 10
+}
+
+#    10000000
+#    10000000 10
+
+# ### ### ### ######### ######### ######### ###########################
+## Benchmark Execution
+#
+# 1. Setup time
+# 2.a. Linear search (scan)
+#   b. Tree search   (recurse)
+#
+# Would be nice to pull visited counts into the results ...
+
+# ### ### ### ######### ######### ######### ###########################
+
+set k 0
+foreach n $vlength {
+    set iter  [dict get $iters $n]
+    # - - -- --- ----- -------- ----------- -------------------
+    set label [list kdtree/setup n/a  n/a   [incr k] $n:1   $n 1]
+    #               label        sink cores size     aspect w  h
+
+    # the benchmark creates `iter` different vectors and measures the
+    # time spent on creating the associated kd tree
+    
+    bench -iter $iter -desc $label -ipre {
+	aktive::bench::kdtree::init $n
+    } -body {
+	aktive::bench::kdtree::setup
+    } -ipost {
+	aktive::bench::kdtree::clear
+    }
+}
+
+# ### ### ### ######### ######### ######### ###########################
+
+foreach n $vlength {
+    # - - -- --- ----- -------- ----------- -------------------
+    set label [list kdtree/linear n/a  n/a   $n   $n:1   $n 1]
+    #               label         sink cores size aspect w  h
+
+    # the benchmark creates one vector and measures the speed of iter
+    # linear scans to find a minimum distance point for a random
+    # target
+
+    bench -iter $iter -desc $label -pre {
+	aktive::bench::kdtree::init $n
+    } -ipre {
+	set x [expr {rand() * 10000}]
+	set y [expr {rand() * 10000}]
+    } -body {
+	aktive::bench::kdtree::scan $x $y
+    }
+}
+
+# ### ### ### ######### ######### ######### ###########################
+
+foreach n $vlength {
+    # - - -- --- ----- -------- ----------- -------------------
+    set label [list kdtree/tree n/a  n/a   $n   $n:1   $n 1]
+    #               label       sink cores size aspect w  h
+
+    # the benchmark creates one vector and a kd tree from it, and the
+    # measures the speed of iter searches to find a minimum distance
+    # point for a random target.
+
+    bench -iter $iter -desc $label -pre {
+	aktive::bench::kdtree::init $n	
+	aktive::bench::kdtree::setup
+    } -ipre {
+	set x [expr {rand() * 10000}]
+	set y [expr {rand() * 10000}]
+    } -body {
+	aktive::bench::kdtree::recurse $x $y
+    } -post {
+	aktive::bench::kdtree::clear
+    }  
+}
+
+# ### ### ### ######### ######### ######### ###########################
+return
