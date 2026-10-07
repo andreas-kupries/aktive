@@ -96,13 +96,29 @@ double aktive_sdf_circle (double x, double y, double radius)
 double aktive_sdf_polycircle (double x, double y, double radius, aktive_fpoint_vector* centers)
 {
     double mindist = INFINITY;
+    aktive_fpoint best;
     aktive_uint k;
+    // inlined aktive_sdf_circle / aktive_sdf_translate
     for (k = 0; k < centers->c; k++) {
-    	double d = aktive_sdf_circle (aktive_sdf_translate (x, y, centers->v[k].x, centers->v[k].y),
-				      radius);
+	double d = VLENGTH (x - centers->v[k].x, y - centers->v[k].y);
+	if (d < mindist) { best = centers->v[k]; }
 	mindist = MIN (mindist, d);
     }
-    return mindist;
+    // moved radius subtraction after the loop
+    return mindist - radius;
+}
+
+double aktive_sdf_polycircle_kd (double x, double y, double radius, aktive_kdtree centers)
+{
+    // inlined aktive_sdf_circle / aktive_sdf_translate - replaced min-search
+    aktive_fpoint p; p.x = x; p.y = y;
+    aktive_fpoint best;
+    double        mindist;
+    aktive_kdtree_find_nearest (centers, &p, &best, &mindist);
+    // BEWARE: mindist is the squared euclidean distance. easier to handle in
+    // the search without loss of precision, the location of the min, and best
+    // point are the same.
+    return sqrt (mindist) - radius;
 }
 
 double aktive_sdf_parallelogram (double x, double y, double w, double h, double skew)

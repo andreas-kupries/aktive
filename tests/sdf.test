@@ -189,7 +189,8 @@ test aktive-image-sdf-triangle-2.0 "aktive image sdf triangle" -body {
 
 test aktive-image-sdf-circles-2.0 "aktive image sdf circles" -body {
     astclx 11 aktive image sdf circles {*}$base radius 1 centers {2 2} {7 3} {5 7}
-} -match image -result [makei image::sdf::circles 0 0 11 11 1 {width 11 height 11 x 0 y 0 radius 1.0 centers {{2.0 2.0} {7.0 3.0} {5.0 7.0}}} {
+    # note: centers are reordered in the params - due quick-select median in the kd-tree construction
+} -match image -result [makei image::sdf::circles 0 0 11 11 1 {width 11 height 11 x 0 y 0 radius 1.0 centers {{2.0 2.0} {5.0 7.0} {7.0 3.0}}} {
     1.8284 1.2361  1      1.2361 1.8284  2.6056 2.1623  2      2.1623 2.6056 3.2426
     1.2361 0.4142  0      0.4142 1.2361  1.8284 1.2361  1      1.2361 1.8284 2.6056
     1      0      -1      0      1       1.2361 0.4142  0      0.4142 1.2361 2.1623

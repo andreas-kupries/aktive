@@ -9,6 +9,7 @@
 
 #include <math.h>
 #include <rt.h>
+#include <kdtree.h>
 
 /*
  * - - -- --- ----- -------- ------------ ----------------------
@@ -72,6 +73,7 @@ double aktive_sdf_box                  (double x, double y, double w, double h);
 double aktive_sdf_box_rounded          (double x, double y, double w, double h, double r[4]);
 double aktive_sdf_circle               (double x, double y, double radius);
 double aktive_sdf_polycircle           (double x, double y, double radius, aktive_fpoint_vector* centers);
+double aktive_sdf_polycircle_kd        (double x, double y, double radius, aktive_kdtree centers);
 double aktive_sdf_parallelogram        (double x, double y, double w, double h, double skew);
 double aktive_sdf_rhombus              (double x, double y, double w, double h);
 double aktive_sdf_segment              (double x, double y, APD from, APD to);

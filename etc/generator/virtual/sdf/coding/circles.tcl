@@ -9,10 +9,13 @@ if 0 {
     }
 }
 
-state -setup {
+state -fields {
+    aktive_kdtree kd; // spatial index of the centers
+} -setup {
     if (param->radius <= 0) aktive_fail("expected radius > 0");
     if (param->centers.c < 1) aktive_fail ("not enough circles, at least 1 is required");
     aktive_geometry_set (domain, param->x, param->y, param->width, param->height, 1);
+    state->kd = aktive_kdtree_setup (param->centers.c, param->centers.v);
 }
 
 blit circle-sdf {
@@ -23,7 +26,7 @@ blit circle-sdf {
 }}
 
 pixels {
-    #define CIRCLE(x,y) aktive_sdf_polycircle (x, y, param->radius, &param->centers)
+    #define CIRCLE(x,y) aktive_sdf_polycircle_kd (x, y, param->radius, istate->kd)
     #define SD         (idomain->depth)
     #define SH         (idomain->height)
     #define SW         (idomain->width)
