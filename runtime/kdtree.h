@@ -34,6 +34,12 @@ extern void          aktive_kdtree_release     (aktive_kdtree kd);
 
 /*
  * API operations
+ *
+ * - Note: `best_distance` below actually contains the __squared__ minimal
+ *   distance, because tracking that is best internally for have high
+ *   precision and performance. IOW there is no loss of precision/perf due to
+ *   calling sqrt() (or hypot()) for a lot. If the actual distance is required
+ *   just perform a single sqrt() on the result.
  */
 
 extern void aktive_kdtree_find_nearest (aktive_kdtree  kd,
