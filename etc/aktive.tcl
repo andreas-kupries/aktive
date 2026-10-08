@@ -36,9 +36,11 @@ vector int
 
 # # ## ### ##### ######## ############# #####################
 
+import other/color.tcl
+import other/fpoint.tcl
+import other/frectangle.tcl
 import other/point.tcl
 import other/rectangle.tcl
-import other/color.tcl
 
 import math/polynomials.tcl
 import math/regression.tcl

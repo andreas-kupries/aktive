@@ -115,9 +115,9 @@ The actual correction is always done in the `scRGB` space, i.e. with linear colo
     <br>&nbsp;</th>
     <th>aktive op color correct greyworld global @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00359.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00375.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 294 92 3)</td>
-    <td valign='top'><img src='example-00360.gif' alt='aktive op color correct greyworld global @1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00376.gif' alt='aktive op color correct greyworld global @1' style='border:4px solid gold'>
     <br>geometry(0 0 294 92 3)</td></tr>
 </table>
 
@@ -126,9 +126,9 @@ The actual correction is always done in the `scRGB` space, i.e. with linear colo
     <br>&nbsp;</th>
     <th>aktive op color correct greyworld global @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00361.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00377.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
-    <td valign='top'><img src='example-00362.gif' alt='aktive op color correct greyworld global @1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00378.gif' alt='aktive op color correct greyworld global @1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td></tr>
 </table>
 
@@ -155,7 +155,7 @@ This operator, together with the parameter `mean` of [aktive op color correct gr
     <br>&nbsp;</th>
     <th>aktive op color correct greyworld global-mean @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00363.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00379.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 294 92 3)</td>
     <td valign='top'>&nbsp;0.290419223329153</td></tr>
 </table>
@@ -165,7 +165,7 @@ This operator, together with the parameter `mean` of [aktive op color correct gr
     <br>&nbsp;</th>
     <th>aktive op color correct greyworld global-mean @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00365.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00381.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
     <td valign='top'>&nbsp;0.19901710802644593</td></tr>
 </table>
@@ -681,9 +681,9 @@ This conversion uses the NTSC conversion formula.
     <br>&nbsp;</th>
     <th>aktive op color sRGB to gray @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00367.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00383.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
-    <td valign='top'><img src='example-00368.gif' alt='aktive op color sRGB to gray @1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00384.gif' alt='aktive op color sRGB to gray @1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 1)</td></tr>
 </table>
 
@@ -717,9 +717,9 @@ Returns image in HSL colorspace, from input in sRGB colorspace.
     <br>&nbsp;</th>
     <th>aktive op color sRGB to HSL @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00369.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00385.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
-    <td valign='top'><img src='example-00370.gif' alt='aktive op color sRGB to HSL @1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00386.gif' alt='aktive op color sRGB to HSL @1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td></tr>
 </table>
 
@@ -742,9 +742,9 @@ Returns image in HSV colorspace, from input in sRGB colorspace.
     <br>&nbsp;</th>
     <th>aktive op color sRGB to HSV @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00371.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00387.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
-    <td valign='top'><img src='example-00372.gif' alt='aktive op color sRGB to HSV @1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00388.gif' alt='aktive op color sRGB to HSV @1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td></tr>
 </table>
 
@@ -789,9 +789,9 @@ Returns image in scRGB colorspace, from input in sRGB colorspace. (gamma) compre
     <br>&nbsp;</th>
     <th>aktive op color sRGB to scRGB @1
     <br>&nbsp;</th></tr>
-<tr><td valign='top'><img src='example-00373.gif' alt='@1' style='border:4px solid gold'>
+<tr><td valign='top'><img src='example-00389.gif' alt='@1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td>
-    <td valign='top'><img src='example-00374.gif' alt='aktive op color sRGB to scRGB @1' style='border:4px solid gold'>
+    <td valign='top'><img src='example-00390.gif' alt='aktive op color sRGB to scRGB @1' style='border:4px solid gold'>
     <br>geometry(0 0 380 250 3)</td></tr>
 </table>
 

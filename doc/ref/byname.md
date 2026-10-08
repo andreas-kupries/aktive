@@ -74,6 +74,18 @@
  - [aktive format as ppm text 2string](sink_writer.md#format_as_ppm_text_2string)
  - [aktive format as tcl](sink_writer.md#format_as_tcl)
  - [aktive format as tclscript](accessor.md#format_as_tclscript)
+ - [aktive fpoint add](miscellaneous_geometry.md#fpoint_add)
+ - [aktive fpoint box](miscellaneous_geometry.md#fpoint_box)
+ - [aktive fpoint make](miscellaneous_geometry.md#fpoint_make)
+ - [aktive fpoint move](miscellaneous_geometry.md#fpoint_move)
+ - [aktive frectangle empty](miscellaneous_geometry.md#frectangle_empty)
+ - [aktive frectangle equal](miscellaneous_geometry.md#frectangle_equal)
+ - [aktive frectangle grow](miscellaneous_geometry.md#frectangle_grow)
+ - [aktive frectangle intersect](miscellaneous_geometry.md#frectangle_intersect)
+ - [aktive frectangle make](miscellaneous_geometry.md#frectangle_make)
+ - [aktive frectangle move](miscellaneous_geometry.md#frectangle_move)
+ - [aktive frectangle subset](miscellaneous_geometry.md#frectangle_subset)
+ - [aktive frectangle union](miscellaneous_geometry.md#frectangle_union)
 
 ## <a name='_i'></a> i
 

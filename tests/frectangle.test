@@ -1,0 +1,120 @@
+# -*- tcl -*- tcl.tk//DSL tcltest//EN//2.0 tcl.tk//DSL tcltest//EN//2.0
+## (c) 2023,2024 Andreas Kupries
+# # ## ### ##### ######## ############# #####################
+## AKTIVE. Rectangle operations, fractional
+
+kt check Tcl     8.6 9
+kt check tcltest 2
+
+# # ## ### ##### ######## ############# #####################
+
+kt local testing aktive
+
+kt source support/util.tcl
+
+# # ## ### ##### ######## ############# #####################
+## Syntax
+
+syntax {
+    empty     rect
+    equal    {a b}
+    grow     {rect left right top bottom}
+    intersect args
+    make     {xlo ylo xhi yhi}
+    move     {rect dx dy}
+    subset   {a b}
+    union     args
+} {aktive frectangle}
+
+# # ## ### ##### ######## ############# #####################
+##
+
+test aktive-rectangle-empty-2.0 "aktive frectangle empty, no" -body {
+    check aktive frectangle empty {1 2 3 4}
+} -result 0
+
+test aktive-rectangle-empty-2.1 "aktive frectangle empty, yes" -body {
+    check aktive frectangle empty {1 2 -1 4}
+} -result 1
+
+test aktive-rectangle-empty-2.2 "aktive frectangle empty, yes" -body {
+    check aktive frectangle empty {1 2 3 1}
+} -result 1
+
+# = == === ===== ======== ============= =====================
+
+test aktive-rectangle-equal-2.0 "aktive frectangle equal, no" -body {
+    check aktive frectangle equal {1 2 3 4} {2 3 4 5}
+} -result 0
+
+test aktive-rectangle-equal-2.1 "aktive frectangle equal, yes" -body {
+    check aktive frectangle equal {1 2 3 4} {1 2 3 4}
+} -result 1
+
+# = == === ===== ======== ============= =====================
+
+test aktive-rectangle-grow-2.0 "aktive frectangle grow" -body {
+    check aktive frectangle grow {1 2 3 4} 2 3 4 5
+} -match doubles -result {-1 -2 6 9}
+
+# = == === ===== ======== ============= =====================
+
+test aktive-rectangle-intersect-2.0 "aktive frectangle intersect" -body {
+    check aktive frectangle intersect {1 2 4 6} {2 3 6 8}
+} -match doubles -result {2 3 4 6}
+
+test aktive-rectangle-intersect-2.1 "aktive frectangle intersect, same" -body {
+    check aktive frectangle intersect {1 2 4 6} {1 2 4 6}
+} -match doubles -result {1 2 4 6}
+
+test aktive-rectangle-intersect-2.2 "aktive frectangle intersect subset" -body {
+    check aktive frectangle intersect {1 2 4 6} {0 1 5 7}
+    # 1..3/2..5 < 0..4/1..6
+} -match doubles -result {1 2 4 6}
+
+test aktive-rectangle-intersect-2.3 "aktive frectangle intersect subset" -body {
+    check aktive frectangle intersect {-2 2 8 4} {0 0 4 6}
+} -match doubles -result {0 2 4 4}
+
+# = == === ===== ======== ============= =====================
+
+test aktive-rectangle-make-2.0 "aktive frectangle make" -body {
+    check aktive frectangle make 1 2 4 6
+} -match doubles -result {1 2 4 6}
+
+# = == === ===== ======== ============= =====================
+
+test aktive-rectangle-move-2.0 "aktive frectangle move" -body {
+    check aktive frectangle move {1 2 4 6} 2 3
+} -match doubles -result {3 5 6 9}
+
+# = == === ===== ======== ============= =====================
+
+test aktive-rectangle-subset-2.0 "aktive frectangle subset, no" -body {
+    check aktive frectangle subset {1 2 4 6} {2 3 6 8}
+} -result 0
+
+test aktive-rectangle-subset-2.1 "aktive frectangle subset, yes, same" -body {
+    check aktive frectangle subset {1 2 4 6} {1 2 4 6}
+} -result 1
+
+test aktive-rectangle-subset-2.2 "aktive frectangle subset, yes, entire" -body {
+    check aktive frectangle subset {1 2 4 6} {0 1 5 8}
+} -result 1
+
+# subset checks: matched borders left, right, top, bottom
+
+# = == === ===== ======== ============= =====================
+
+test aktive-rectangle-union-2.0 "aktive frectangle union" -body {
+    check aktive frectangle union {1 2 4 6} {2 3 6 8}
+    # 1..3/2..5 union 2..5/3..7 = 1..5/2..7
+} -match doubles -result {1 2 6 8}
+
+test aktive-rectangle-union-2.1 "aktive frectangle union, same" -body {
+    check aktive frectangle union {1 2 4 6} {1 2 4 6}
+} -match doubles -result {1 2 4 6}
+
+# # ## ### ##### ######## ############# #####################
+cleanupTests
+return

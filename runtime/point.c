@@ -95,6 +95,49 @@ aktive_new_fpoint_obj(aktive_fpoint* p) {
  * - - -- --- ----- -------- -------------
  */
 
+extern int
+aktive_fpoint_is_equal (aktive_fpoint* a, aktive_fpoint* b)
+{
+    TRACE_FUNC("((fpoint*) %p == (fpoint*) %p)", a, b);
+
+    int is_equal =
+	(a->x == b->x) &&
+	(a->y == b->y)
+	;
+
+    TRACE_RETURN("(bool) %d", is_equal);
+}
+
+extern void
+aktive_fpoint_union (aktive_frectangle* dst, aktive_uint c, aktive_fpoint* v)
+{
+    if (c == 0) {
+	aktive_frectangle_set (dst, 0, 0, -1, -1);
+	return;
+    } else if (c == 1) {
+	aktive_frectangle_set (dst, v[0].x, v[0].y, v[0].x, v[0].y);
+	return;
+    }
+
+    double x, xmax, y, ymax;
+
+    x = xmax = v[0].x;
+    y = ymax = v[0].y;
+
+    for (aktive_uint i = 1; i < c; i++) {
+	x    = MIN (x,    v[i].x);
+	xmax = MAX (xmax, v[i].x);
+	y    = MIN (y,    v[i].y);
+	ymax = MAX (ymax, v[i].y);
+    }
+
+    aktive_frectangle_set (dst, x, y, xmax, ymax);
+}
+
+/*
+ * - - -- --- ----- -------- -------------
+ */
+
 /*
  * = = == === ===== ======== ============= =====================
  * Local Variables:

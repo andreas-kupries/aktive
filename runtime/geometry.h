@@ -245,7 +245,7 @@ extern Tcl_Obj* aktive_new_geometry_obj (aktive_geometry* r);
  * Variants of points and rectangles supporting (f)ractional locations.
  *
  * -- Points	 :: 2D location
- * -- Rectangles :: 2D area   (location + dimensions)
+ * -- Rectangles :: 2D area   (location + dimensions - actually as the lo/hi corner points)
  *
  * NOTE
  *
@@ -258,10 +258,10 @@ A_STRUCTURE (aktive_fpoint) {
 } A_END (aktive_fpoint);
 
 A_STRUCTURE (aktive_frectangle) {
-    A_FIELD (double, x)      ; // X coordinate, increasing to the right
-    A_FIELD (double, y)      ; // Y coordinate, increasing downward
-    A_FIELD (double, width)  ; // Number of columns
-    A_FIELD (double, height) ; // Number of rows
+    A_FIELD (double, xlo)      ; // low  X coordinate, increasing to the right
+    A_FIELD (double, ylo)      ; // low  Y coordinate, increasing downward
+    A_FIELD (double, xhi)      ; // high X coordinate, increasing to the right
+    A_FIELD (double, yhi)      ; // high Y coordinate, increasing downward
 } A_END (aktive_frectangle);
 
 /*
@@ -286,17 +286,75 @@ extern Tcl_Obj* aktive_new_fpoint_obj (aktive_fpoint* p);
 #define aktive_fpoint_neg(dst)               { (dst)->x = - (dst)->x ; (dst)->y = - (dst)->y ; }
 #define aktive_fpoint_conj(dst)              { (dst)->y = - (dst)->y ; }
 
+extern void aktive_fpoint_union    (aktive_frectangle* dst, aktive_uint c, aktive_fpoint* v);
+extern int  aktive_fpoint_is_equal (aktive_fpoint* a, aktive_fpoint* b);
+
 /*
  * - - -- --- ----- -------- -------------
  */
 
 extern Tcl_Obj* aktive_new_frectangle_obj (aktive_frectangle* r);
 
-#define aktive_frectangle_def(varname,xv,yv,wv,hv) \
-    aktive_frectangle varname = { .x = (xv), .y = (yv), .width = (wv), .height = (hv) }
+#define aktive_frectangle_def(varname,xl,yl,xh,yh) \
+    aktive_frectangle varname = { .xlo = (xl), .ylo = (yl), .xhi = (xh), .yhi = (yh) }
 
 #define aktive_frectangle_def_as(varname,src) \
-    aktive_frectangle_def(varname, (src)->x, (src)->y, (src)->width, (src)->height)
+    aktive_frectangle_def(varname, (src)->xlo, (src)->ylo, (src)->xhi, (src)->hi)
+
+/*
+ * - - -- --- ----- -------- -------------
+ * extern void aktive_frectangle_set           (aktive_frectangle* dst, int x, int y, aktive_uint w, aktive_uint h);
+ * extern void aktive_frectangle_copy          (aktive_frectangle* dst, aktive_frectangle* src);
+ * extern void aktive_frectangle_set_point     (aktive_frectangle* dst, aktive_point*     src);
+ * extern void aktive_frectangle_from_geometry (aktive_frectangle* dst, aktive_geometry*  src);
+ * extern int  aktive_frectangle_get_x         (aktive_frectangle* src);
+ * extern int  aktive_frectangle_get_xmax      (aktive_frectangle* src);
+ * extern int  aktive_frectangle_get_y         (aktive_frectangle* src);
+ * extern int  aktive_frectangle_get_ymax      (aktive_frectangle* src);
+ */
+
+#define aktive_frectangle_sub(dst,delta) aktive_frectangle_move(dst, - (delta)->x, - (delta)->y)
+
+extern void aktive_frectangle_move (aktive_frectangle* dst, double dx, double dy);
+extern void aktive_frectangle_add  (aktive_frectangle* dst, aktive_fpoint* delta);
+extern void aktive_frectangle_grow (aktive_frectangle* dst, double left, double right, double top, double bottom);
+
+#define aktive_frectangle_set(dst,xl,yl,xh,yh) { (dst)->xlo = (xl); (dst)->ylo = (yl); (dst)->xhi = (xh); (dst)->yhi = (yh); }
+#define aktive_frectangle_copy(dst,src)        aktive_frectangle_set (dst, (src)->xlo, (src)->ylo, (src)->xhi, (src)->yhi)
+
+//#define aktive_frectangle_set_point(dst, src)      aktive_point_copy     (dst, src)
+//#define aktive_frectangle_from_geometry(dst, src)  aktive_frectangle_copy (dst, src)
+
+#define aktive_frectangle_get_x(src)    ((src)->xlo)
+#define aktive_frectangle_get_xmax(src) ((src)->xhi)
+#define aktive_frectangle_get_y(src)    ((src)->ylo)
+#define aktive_frectangle_get_ymax(src) ((src)->yhi)
+
+#define aktive_frectangle_as_fpoint(src)  ((aktive_fpoint*) (src))
+
+extern int aktive_frectangle_is_equal  (aktive_frectangle* a, aktive_frectangle* b);
+extern int aktive_frectangle_is_dim_eq (aktive_frectangle* a, aktive_frectangle* b);
+extern int aktive_frectangle_is_subset (aktive_frectangle* a, aktive_frectangle* b);
+extern int aktive_frectangle_is_empty  (aktive_frectangle* r);
+extern int aktive_frectangle_contains  (aktive_frectangle* r, aktive_fpoint* p);
+
+/* Both `union` and `intersection operations allow one of the input frectangles
+ * to be used as `dst` without issue, due to modifying the destination only
+ * after the result is fully calculated and no data from the input is required
+ * anymore.
+ */
+extern void aktive_frectangle_union     (aktive_frectangle* dst, aktive_frectangle* a, aktive_frectangle* b);
+extern void aktive_frectangle_intersect (aktive_frectangle* dst, aktive_frectangle* a, aktive_frectangle* b);
+
+/*
+ * - - -- --- ----- -------- -------------
+ *
+ * debug support -- -------- -------------
+ *
+ * - - -- --- ----- -------- -------------
+ */
+
+extern void __aktive_frectangle_dump (char* prefix, aktive_frectangle* r);
 
 /*
  * = = == === ===== ======== ============= =====================

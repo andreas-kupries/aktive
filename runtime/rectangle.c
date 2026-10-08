@@ -13,6 +13,8 @@
 
 TRACE_OFF;
 
+#define CHAN stderr
+
 /*
  * - - -- --- ----- -------- -------------
  */
@@ -325,12 +327,10 @@ aktive_rectangle_outzones (aktive_rectangle* domain, aktive_rectangle* request,
  *
  * - - -- --- ----- -------- -------------
  */
-#define CHAN stderr
 
 extern void
 __aktive_rectangle_dump (char* prefix, aktive_rectangle* r) {
     fprintf (CHAN, "%s %p = rectangle {", prefix, r);
-
     fprintf (CHAN, " @ %d", r->x);
     fprintf (CHAN, ", %d",  r->y);
     fprintf (CHAN, ": %u",  r->width);
@@ -341,15 +341,16 @@ __aktive_rectangle_dump (char* prefix, aktive_rectangle* r) {
 
 /*
  * - - -- --- ----- -------- -------------
+ * Fractional rectangles
  */
 
 extern Tcl_Obj* aktive_new_frectangle_obj(aktive_frectangle* r) {
     Tcl_Obj* el[4];
 
-    el[0] = Tcl_NewDoubleObj (r->x);
-    el[1] = Tcl_NewDoubleObj (r->y);
-    el[2] = Tcl_NewDoubleObj (r->width);
-    el[3] = Tcl_NewDoubleObj (r->height);
+    el[0] = Tcl_NewDoubleObj (r->xlo);
+    el[1] = Tcl_NewDoubleObj (r->ylo);
+    el[2] = Tcl_NewDoubleObj (r->xhi);
+    el[3] = Tcl_NewDoubleObj (r->yhi);
 
     return Tcl_NewListObj (4, el); /* OK tcl9 */
 }
@@ -357,6 +358,203 @@ extern Tcl_Obj* aktive_new_frectangle_obj(aktive_frectangle* r) {
 /*
  * - - -- --- ----- -------- -------------
  */
+
+extern int
+aktive_frectangle_is_equal (aktive_frectangle* a, aktive_frectangle* b)
+{
+    TRACE_FUNC("((frect*) %p == (frect*) %p)", a, b);
+
+    int is_equal =
+	(a->xlo  == b->xlo) &&
+	(a->ylo  == b->ylo) &&
+	(a->xhi  == b->xhi) &&
+	(a->yhi  == b->yhi)
+	;
+
+    TRACE_RETURN("(bool) %d", is_equal);
+}
+
+extern int
+aktive_frectangle_is_dim_eq (aktive_frectangle* a, aktive_frectangle* b)
+{
+    TRACE_FUNC("((frect*) %p == (frect*) %p)", a, b);
+
+    int is_equal =
+	((a->xhi - a->xlo) == (b->xhi - b->xlo)) &&
+	((a->yhi - a->ylo) == (b->yhi - b->ylo))
+	;
+
+    TRACE_RETURN("(bool) %d", is_equal);
+}
+
+extern int
+aktive_frectangle_is_subset (aktive_frectangle* a, aktive_frectangle* b)
+{
+    TRACE_FUNC("((frect*) %p <= (frect*) %p)", a, b);
+
+    int is_subset =
+	(a->xlo >= b->xlo) &&
+	(a->ylo >= b->ylo) &&
+	(a->xhi <= b->xhi) &&
+	(a->yhi <= b->yhi)
+	;
+
+    TRACE_RETURN("(bool) %d", is_subset);
+}
+
+extern int
+aktive_frectangle_is_empty  (aktive_frectangle* r)
+{
+    TRACE_FUNC("((frect*) %p empty?", r);
+
+    int is_empty = (r->xlo > r->xhi) || (r->ylo > r->yhi);
+
+    TRACE_RETURN("(bool) %d", is_empty);
+}
+
+extern int
+aktive_frectangle_contains (aktive_frectangle* r, aktive_fpoint* p)
+{
+    TRACE_FUNC("((frect*) %p (%f..%f, %f..%f) contain? "
+	       "((fpoint*)) %p (%f, %f)",
+	       r, r->xlo, r->xhi, r->ylo, r->yhi,
+	       p, p->x, p->y);
+
+    // TRACE("px < rx     = %f", (p->x < r->x)               );
+    // TRACE("py < ry     = %f", (p->y < r->y)               );
+    // TRACE("px >= rx+rw = %f", (p->x >= (r->x + (int) r->width)) );
+    // TRACE("py >= ry+rh = %f", (p->y >= (r->y + (int) r->height)));
+
+    int outside =
+	(p->x < r->xlo) ||
+	(p->y < r->ylo) ||
+	(p->x > r->xhi) ||
+	(p->y > r->yhi)
+	;
+
+    TRACE_RETURN("(bool) %d", !outside);
+}
+
+/*
+ * - - -- --- ----- -------- -------------
+ */
+
+extern void
+aktive_frectangle_move (aktive_frectangle* dst, double dx, double dy)
+{
+    dst->xlo += dx;
+    dst->ylo += dy;
+    dst->xhi += dx;
+    dst->yhi += dy;
+}
+
+extern void
+aktive_frectangle_add (aktive_frectangle* dst, aktive_fpoint* delta)
+{
+    dst->xlo += delta->x;
+    dst->ylo += delta->y;
+    dst->xhi += delta->x;
+    dst->yhi += delta->y;
+}
+
+extern void
+aktive_frectangle_grow (aktive_frectangle* dst, double left, double right, double top, double bottom)
+{
+    TRACE_FUNC("((dst*) %p <-%d %d-> ^%d v%d)",
+	       dst, left, right, top, bottom);
+
+    dst->xlo -= left;
+    dst->ylo -= top;
+    dst->xhi += right;
+    dst->yhi += bottom;
+
+    TRACE_RETURN_VOID;
+}
+
+/*
+ * - - -- --- ----- -------- -------------
+ */
+
+extern void
+aktive_frectangle_union (aktive_frectangle* dst, aktive_frectangle* a, aktive_frectangle* b)
+{
+    TRACE_FUNC("((dst*) %p = (frect*) %p + (frect*) %p)", dst, a, b);
+
+    /*
+     * Compute the bounding box first, as min and max of the individual
+     * boundaries. This is dual to the intersection calculation.
+     */
+
+    double nx    = MIN (b->xlo, a->xlo);
+    double ny    = MIN (b->ylo, a->ylo);
+    double nxmax = MAX (b->xhi, a->xhi);
+    double nymax = MAX (b->yhi, a->yhi);
+
+    dst->xlo = nx;
+    dst->ylo = ny;
+    dst->xhi = nxmax;
+    dst->yhi = nymax;
+
+    TRACE_RETURN_VOID;
+}
+
+extern void
+aktive_frectangle_intersect (aktive_frectangle* dst, aktive_frectangle* a, aktive_frectangle* b)
+{
+    TRACE_FUNC("((dst*) %p = (frect*) %p * (frect*) %p)", dst, a, b);
+
+    /*
+     * No intersections in X, nor Y => empty.
+     */
+    if ((a->xhi < b->xlo) || /* A left of B */
+	(b->xhi < a->xlo) || /* B left of A */
+	(a->yhi < b->ylo) || /* A above B   */
+	(b->yhi < a->ylo)) { /* B above A   */
+
+	dst->xlo =  0; // lo > hi
+	dst->ylo =  0; //
+	dst->xhi = -1;
+	dst->yhi = -1;
+
+	TRACE_RETURN_VOID;
+    }
+
+    /*
+     * Compute boundaries of the intersection as the max and min of the
+     * individual boundaries. This is dual to the union calculation.
+     */
+
+    double nx    = MAX (b->xlo, a->xlo);
+    double ny    = MAX (b->ylo, a->ylo);
+    double nxmax = MIN (b->xhi, a->xhi);
+    double nymax = MIN (b->yhi, a->yhi);
+
+    dst->xlo = nx;
+    dst->ylo = ny;
+    dst->xhi = nxmax;
+    dst->yhi = nymax;
+
+    TRACE_RETURN_VOID;
+}
+
+/*
+ * - - -- --- ----- -------- -------------
+ *
+ * debug support -- -------- -------------
+ *
+ * - - -- --- ----- -------- -------------
+ */
+
+extern void
+__aktive_frectangle_dump (char* prefix, aktive_frectangle* r) {
+    fprintf (CHAN, "%s %p = frectangle {", prefix, r);
+    fprintf (CHAN, " @ %f",   r->xlo);
+    fprintf (CHAN, ", %f",    r->ylo);
+    fprintf (CHAN, "-- @ %f", r->xhi);
+    fprintf (CHAN, ", %f",    r->yhi);
+    fprintf (CHAN, " }\n");
+    fflush  (CHAN);
+}
 
 /*
  * = = == === ===== ======== ============= =====================
