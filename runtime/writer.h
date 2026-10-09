@@ -45,8 +45,8 @@ typedef struct aktive_writer {
 extern void aktive_write_channel   (aktive_writer* writer, Tcl_Channel chan, int binary);
 extern void aktive_write_bytearray (aktive_writer* writer, Tcl_Obj* ba);
 
-extern void aktive_write_here /* (C)   */ (aktive_writer* writer, char* buf, Tcl_Size n);
-extern void aktive_write_at   /* (W)   */ (aktive_writer* writer, char* buf, Tcl_Size n, Tcl_WideInt pos);
+extern void aktive_write_here /* (C)   */ (aktive_writer* writer, const char* buf, Tcl_Size n);
+extern void aktive_write_at   /* (W)   */ (aktive_writer* writer, const char* buf, Tcl_Size n, Tcl_WideInt pos);
 extern void aktive_write_goto /* (@,E) */ (aktive_writer* writer, Tcl_WideInt pos);
 extern void aktive_write_done /* (D)   */ (aktive_writer* writer);
 

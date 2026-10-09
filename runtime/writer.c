@@ -33,8 +33,8 @@ typedef struct __ba_writer {
 // replicated from op.h -- move to runtime
 static double aktive_clamp (double x) { return (x < 0) ? 0 : (x > 1) ? 1 : x; }
 
-static void aktive_writer_to_channel   (Tcl_Channel  chan, char* buf, Tcl_Size n, Tcl_WideInt pos);
-static void aktive_writer_to_bytearray (__ba_writer* ba,   char* buf, Tcl_Size n, Tcl_WideInt pos);
+static void aktive_writer_to_channel   (Tcl_Channel  chan, const char* buf, Tcl_Size n, Tcl_WideInt pos);
+static void aktive_writer_to_bytearray (__ba_writer* ba,   const char* buf, Tcl_Size n, Tcl_WideInt pos);
 
 /*
  * - - -- --- ----- -------- -------------
@@ -90,7 +90,7 @@ aktive_write_bytearray (aktive_writer* writer, Tcl_Obj* ba)
  */
 
 extern void
-aktive_write_here (aktive_writer* writer, char* buf, Tcl_Size n)
+aktive_write_here (aktive_writer* writer, const char* buf, Tcl_Size n)
 {
     TRACE_FUNC ("((writer*) %p, write " TCL_SIZE_FMT " at end)", writer, n);
 
@@ -111,7 +111,7 @@ aktive_write_here (aktive_writer* writer, char* buf, Tcl_Size n)
 }
 
 extern void
-aktive_write_at (aktive_writer* writer, char* buf, Tcl_Size n, Tcl_WideInt pos)
+aktive_write_at (aktive_writer* writer, const char* buf, Tcl_Size n, Tcl_WideInt pos)
 {
     TRACE_FUNC ("((writer*) %p, write " TCL_SIZE_FMT " at %lld)", writer, n, pos);
 
@@ -383,7 +383,7 @@ aktive_write_here_float64le (aktive_writer* writer, double v)
  */
 
 static void
-aktive_writer_to_channel (Tcl_Channel chan, char* buf, Tcl_Size n, Tcl_WideInt pos)
+aktive_writer_to_channel (Tcl_Channel chan, const char* buf, Tcl_Size n, Tcl_WideInt pos)
 {
     TRACE_FUNC ("((chan*) %p, values %p[" TCL_SIZE_FMT "] @ %lld)", chan, buf, n, pos);
 
@@ -434,7 +434,7 @@ aktive_writer_to_channel (Tcl_Channel chan, char* buf, Tcl_Size n, Tcl_WideInt p
 }
 
 static void
-aktive_writer_to_bytearray (__ba_writer* baw, char* buf, Tcl_Size n, Tcl_WideInt pos)
+aktive_writer_to_bytearray (__ba_writer* baw, const char* buf, Tcl_Size n, Tcl_WideInt pos)
 {
     TRACE_FUNC ("((baw*) %p, values %p[" TCL_SIZE_FMT "] @ %lld)", baw, buf, n, pos);
 
