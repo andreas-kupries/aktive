@@ -126,6 +126,8 @@ dsl structs render doc/dev/figures
 source support/colors/generator.tcl ;# emits (x)   `generated/color.tcl`
 source support/math/generator.tcl   ;# emits (xx)  `generated/math.[ch]`
 source support/reduce/generator.tcl ;# emits (xxx) `generated/reduce.[ch]`
+##
+source support/table/generator.tcl  ;# emits `generated/c{8,16}table.tcl`
 
 # # ## ### ##### ######## ############# #####################
 

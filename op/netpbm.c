@@ -290,8 +290,14 @@ netpbm_text (aktive_netpbm_control* info, aktive_block* src)
     TRACE_FUNC ("((aktive_netpbm_control*) %p '%s', written %d, at col %d, getting (%p): %d)",
 		info, info->sink->name, info->written, info->col, src, src->used);
 
+#include <generated/c8table.c>
+
     ITER {
-	aktive_uint n = aktive_write_here_uint_text (info->writer, aktive_quantize_uint8 (VAL));
+	// aktive_uint n = aktive_write_here_uint_text (info->writer, aktive_quantize_uint8 (VAL));
+	aktive_uint v = aktive_quantize_uint8 (VAL);
+	aktive_uint n = len [v];
+	aktive_write_here (info->writer, cvt + at [v], n);
+
 	info->col += n;
 	int term = 32;
 	if (info->col >= MAXCOL) { TRACE ("break %d", info->col); info->col = 0; term = 10; } else { info->col ++; }
@@ -308,8 +314,14 @@ netpbm_etext (aktive_netpbm_control* info, aktive_block* src)
     TRACE_FUNC ("((aktive_netpbm_control*) %p '%s', written %d, at col %d, getting (%p): %d)",
 		info, info->sink->name, info->written, info->col, src, src->used);
 
+#include <generated/c16table.c>
+
     ITER {
-	aktive_uint n = aktive_write_here_uint_text (info->writer, aktive_quantize_uint16 (VAL));
+	// aktive_uint n = aktive_write_here_uint_text (info->writer, aktive_quantize_uint16 (VAL));
+	aktive_uint v = aktive_quantize_uint16 (VAL);
+	aktive_uint n = len [v];
+	aktive_write_here (info->writer, cvt + at [v], n);
+
 	info->col += n;
 	int term = 32;
 	if (info->col >= MAXCOL) { TRACE ("break %d", info->col); info->col = 0; term = 10; } else { info->col ++; }
